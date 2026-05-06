@@ -1,0 +1,30 @@
+# Local editor / agent state
+.claude/
+.obsidian/
+
+# Child repositories managed separately
+OHS/
+koshaontology/
+legalize-kr/
+
+# Large source corpus managed outside this meta repository
+kosha-guides/
+
+# Python / build caches
+__pycache__/
+*.pyc
+*.pyo
+*.tmp
+*.bak
+*.old
+*.orig
+
+# Synthetic observation generator scratch files
+pictures-json/_*
+
+# Keep synthetic testsets, but only keep latest lightweight aggregate reports
+pictures-json/reports/*
+!pictures-json/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.md
+!pictures-json/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.json
+!pictures-json/reports/synthetic_observations_v1_v10_v10fix6_fp_cases.csv
+!pictures-json/reports/synthetic_observations_v1_v10_v10fix6_fn_cases.csv
