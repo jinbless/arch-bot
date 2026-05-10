@@ -4,6 +4,228 @@
 
 아래 항목들은 `risk:` 중심 위험 지식 계층, `PenaltyRule` 중심 벌칙 모델, `SeverityLevel` 제거, `SHE` 패턴 브릿지화, `Guide/WorkProcess` 중심 조치 구조를 반영한 뒤 남은 후속 작업이다.
 
+## 현재 구현 메모 (2026-05-07)
+
+아래 구조 정리는 `OHS` product 코드에 1차 반영되었다.
+
+```text
+사진/텍스트 입력
+→ 관찰 사실/시각 단서 추출
+→ risk:RiskFeature 정규화
+→ she:SituationalHazardPattern 매칭
+→ SR / WorkProcess / Guide / CI / PenaltyPath 조회
+→ 사업주용 결과 화면
+```
+
+반영된 주요 파일:
+
+```text
+OHS/backend/app/services/analysis_pipeline.py
+OHS/backend/app/services/risk_rule_service.py
+OHS/backend/app/services/sr_lookup_service.py
+OHS/backend/app/services/guide_recommendation_service.py
+OHS/backend/app/services/penalty_path_service.py
+OHS/backend/app/services/she_match_models.py
+OHS/frontend/src/components/results/*
+OHS/frontend/src/hooks/useRunAnalysis.ts
+```
+
+검증 상태:
+
+```text
+Python compile: OK
+frontend npm run build: OK
+v10 product_refactor1 smoke:
+  SHE recall 100.0%
+  FN 0 / FP 0
+  normal suppression 100.0%
+```
+
+이제 이 문서의 항목은 신규 고도화 후보로 본다.
+
+## 현재 구현 메모 (2026-05-09)
+
+온톨로지 설계사상에 맞춘 Guide 데이터 보강, OHS 추천 재구성, Guide domain guard 1차 일반화를 반영했다.
+
+```text
+risk:RiskFeature
+→ she:SituationalHazardPattern
+→ SR
+→ Guide / WorkProcess / ChecklistItem
+```
+
+반영된 주요 변경:
+
+```text
+koshaontology/pipe-B/db/schema_pb.sql
+  guide_entity_feature_candidates
+  guide_sr_link_candidates
+  guide_visual_trigger_candidates
+
+koshaontology/pipe-B/scripts/step8_ontology_enrichment.py
+  OHS risk_feature_catalog / aliases 기반 후보 생성
+  LLM strict JSON schema 경로 구현
+  고신뢰 후보만 기존 mapping table에 asserted 반영
+
+koshaontology/pipe-C/scripts/step6_ontology_enrichment_audit.py
+  1,038 Guide 기준 coverage/audit 리포트 생성
+
+OHS/backend/app/services/guide_recommendation_service.py
+  SR-only 추천에서 risk feature / SHE / visual cue / industry context 기반 추천으로 확장
+  standard_procedures를 WorkProcess steps 중심으로 구성
+
+OHS/backend/app/services/guide_domain_profile.py
+  Guide 고유 업종/작업장 문맥과 사진 문맥 불일치를 평가
+  exclusive mismatch는 제외, domain_specific mismatch는 감점
+```
+
+실행 결과:
+
+```text
+Guide 1,038 / SR 626 보존
+feature candidates 66,105
+SR link candidates 382,510
+visual trigger candidates 12,071
+신규 asserted physical insert 14
+CI feature coverage 43,465 → 44,950
+WP feature coverage 4,606 → 5,173
+CI-SR distinct SR 130 → 131
+WP-SR distinct SR 126 → 129
+```
+
+검증 상태:
+
+```text
+Pipe-B V16~V34: PASS
+candidate evidence missing: 0
+asserted threshold violation: 0
+OHS backend Python compile: OK
+OHS frontend npm run build: OK
+v10 domain_guard2 smoke:
+  SHE recall 100.0%
+  FN 0 / FP 0
+  normal suppression 100.0%
+actual response 240 replay:
+  status changed 0
+  negative_false_positive 10
+  positive_missed 2
+  top action changed 195
+  top procedure changed 196
+  A-G-18 top procedure 51 -> 3
+  G-116 top procedure 5 -> 0
+  A-G-10 top procedure 14 -> 3
+  A-G-18 residual 3건은 모두 항만 하역업 샘플
+```
+
+복원한 재실행 스크립트:
+
+```text
+OHS/backend/scripts/evaluate_actual_response_samples.py
+```
+
+신규 리포트:
+
+```text
+pictures-json/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.json
+pictures-json/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.md
+pictures-json/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.csv
+pictures-json/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.json
+pictures-json/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.md
+pictures-json/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.csv
+pictures-json/reports/synthetic_observations_v10_ag18_guard2_report.json
+pictures-json/reports/synthetic_observations_v10_ag18_guard2_report.md
+pictures-json/reports/synthetic_observations_v10_ag18_guard2_cases.csv
+pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.json
+pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.md
+pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.csv
+pictures-json/reports/synthetic_observations_v10_domain_guard2_report.json
+pictures-json/reports/synthetic_observations_v10_domain_guard2_report.md
+pictures-json/reports/synthetic_observations_v10_domain_guard2_cases.csv
+```
+
+비판적 관찰:
+
+```text
+피뢰설비/세안설비/변전실/결정형 유리규산 과노출은 줄었다.
+A-G-18 항만하역작업 top procedure 과노출은 ontology_enrichment1에서 33건 -> 51건으로 증가했으나,
+`A-G-18-2026` port-context guard 적용 후 3건으로 감소했고, domain guard 일반화 후에도 3건을 유지했다.
+남은 3건은 모두 `항만 하역업` 샘플이므로 일반 물류/운반 상황 오노출은 1차 해소됐다.
+`G-116-2014`는 5건에서 0건, `A-G-10-2025`는 14건에서 3건으로 줄었다.
+다음 추천 개선은 LLM 후보와 240 replay 표본을 근거로 Guide domain profile rule을 더 정교화하고, WorkProcess evidence 품질 기준을 확장하는 것이다.
+```
+
+남은 작업:
+
+```text
+1. WORKPLAN_LLM_DOMAIN_GUARD.md의 30 Guide LLM 파일럿은 외부 API 전송 명시 승인 후 실행
+2. 중신뢰 candidate 수동 검토 및 asserted 승격 운영
+3. domain guard 1차 일반화 결과를 LLM 후보와 240 replay 표본으로 추가 조정
+4. GuideInterLink를 1,038개 기준으로 재감사
+5. WorkProcess step 품질 점수와 industry alignment 점수 세분화
+```
+
+## 현재 구현 메모 (2026-05-10)
+
+synthetic v1~v10을 Guide 추천 품질의 주평가 데이터로 사용해 Guide usage profile 2차 보강을 완료했다. 이번 보강의 핵심은 keyword 추가가 아니라 “사진/텍스트 문맥에 Guide 고유 사용경계가 있는가”를 더 엄격히 보는 것이다.
+
+반영된 주요 변경:
+
+```text
+OHS/backend/app/services/guide_domain_profile.py
+  exclusive Guide는 Guide-specific term/context hit 없이 domain_match 불가
+  industry alignment는 보조 신호로만 사용
+  domain_specific Guide도 industry-only match를 통과시키지 않음
+
+OHS/backend/app/services/guide_recommendation_service.py
+  exclusive profile 점수도 term/context hit를 요구
+
+OHS/backend/scripts/evaluate_synthetic_guide_recommendations.py
+  management_program/reference 성격 Guide 판정 보강
+
+OHS/backend/scripts/analyze_synthetic_no_top_queue.py
+  NO_TOP/missing_usage_profile 큐를 fixture gap과 taxonomy/profile gap으로 분리
+
+koshaontology/pipe-B/scripts/apply_usage_profile_attention_corrections_v3.py
+  A-G-12, A-G-9, C-70, H-100, A-R-2, H-187, A-G-14,
+  E-G-22, H-116, M-62, D-C-7 사용경계 보강
+```
+
+검증 상태:
+
+```text
+synthetic Guide v1~v10 total 2,360
+legacy obvious top Guide mismatch 1,151
+current obvious top Guide mismatch 220
+reduction 80.89%
+NO_TOP 404 중 synthetic_fixture_gap 72 분리
+v10 SHE recall 100.0%, FN 0, FP 0
+actual response 240 status changed 0
+negative_false_positive 10
+positive_missed 2
+ambiguous_over_promoted 5
+backend compileall OK
+frontend npm run build OK
+```
+
+신규 리포트:
+
+```text
+pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.*
+pictures-json/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.*
+pictures-json/reports/synthetic_observations_v10_usage_profile5_report.*
+pictures-json/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.*
+```
+
+다음 남은 작업:
+
+```text
+1. NO_TOP 404 중 synthetic_fixture_gap 72를 평가 fixture 수정/제외 대상으로 분리
+2. taxonomy/profile/workprocess gap 332건을 구조 보강 큐로 처리
+3. B-M-11, A-G-9, A-G-14, A-G-18, D-C-7 잔여 top count를 positive 보호 기준으로 샘플 검토
+4. manual candidate DB import preview 이후 candidate table import, asserted mapping update 0 유지
+5. 브라우저 smoke와 WorkProcess step 품질 점수 고도화
+```
+
 ## 1. `risk:RiskFeature` 계열 분류 품질 고도화
 
 ### 배경
@@ -837,3 +1059,197 @@ sr:hasBindingForce
 ### 우선순위
 
 높음. 다만 현재 진행 중인 전체 Guide JSON 추출이 끝난 뒤 적용한다. 그 전에는 추출 phase/step을 변경하지 않는다.
+
+## 8. Broad SR / Manual 후보 import 이후 남은 코드 작업 (2026-05-09)
+
+현재 manual 후보는 OHS serving artifact까지 연결됐지만 PostgreSQL candidate table에는 아직 import하지 않았다. asserted mapping 업데이트는 계속 0으로 유지한다.
+
+다음 코드 작업:
+
+1. 실제 DB import를 실행할 경우 `guide_sr_link_candidates`의 same-method duplicate unique key를 evidence merge/pre-aggregate한다. 현재 preview상 `A-67-2018`, `A-68-2018`의 `SR-FIRE_EXPLOSION-015`가 중복이다.
+2. import 방식은 `method=codex_manual_pilot` replace-per-method로 한다. `GREATEST(confidence)` upsert는 confidence demotion과 `needs_review` 교정을 되살리지 못하므로 쓰지 않는다.
+3. OHS 추천 품질은 status/penalty 경계를 유지했지만 top action/procedure 변경이 많다. 새 과노출 후보인 `B-M-11`, `B-M-32`, `H-221`, `A-G-10`을 WorkProcess/visual trigger/industry alignment 기준으로 추가 조정한다.
+4. `manual-enrichment-domain-guard-review-queues.json`의 operational no-SR 17건은 `SR 보강`, `domain_guard_only`, `taxonomy_gap`, `document_only` 큐별로 처리한다.
+5. frontend/API public shape은 바꾸지 말고 내부 scoring과 artifact만 조정한다.
+
+검증 기준:
+
+```text
+v10 synthetic: SHE recall 100%, FN 0, FP 0 유지
+actual response 240: status changed 0 유지
+negative_false_positive <= 10
+positive_missed <= 2
+ambiguous_over_promoted <= 5
+A-G-18 top procedure <= 3, 잔여는 항만 하역업만 허용
+```
+## 현재 구현 메모 (2026-05-09, usage_profile1)
+
+Synthetic v1~v10 2,360건을 Guide 추천 주평가 데이터로 승격했다. 새 평가 스크립트는 다음 파일이다.
+
+```text
+OHS/backend/scripts/evaluate_synthetic_guide_recommendations.py
+```
+
+Guide 사용경계 보강 산출물:
+
+```text
+koshaontology/pipe-B/scripts/build_manual_guide_usage_profiles.py
+koshaontology/pipe-B/data/manual-guide-usage-profiles.json
+koshaontology/pipe-B/data/manual-guide-usage-profiles.md
+OHS/backend/app/data/guide_domain_profiles.json
+```
+
+OHS 추천 로직은 이제 다음을 적용한다.
+
+```text
+manual 1,038 Guide profile 우선
+broad SR secondary-only
+broad/generic feature 단독 top procedure 금지
+industry alignment 단독 Guide-specific signal 금지
+domain_mismatch 표준절차 후보 제외
+measurement/test/health/risk-method/document Guide는 명시적 방법론 문맥 필요
+WorkProcess step은 profile/SR/context 기준 정렬
+```
+
+검증 결과:
+
+```text
+synthetic Guide v1~v10 total 2,360
+legacy obvious top Guide mismatch 1,149
+current obvious top Guide mismatch 533
+reduction 53.61%
+v10 SHE recall 100.0%, FN 0, FP 0
+actual response 240 status changed 0
+negative_false_positive 10
+positive_missed 2
+ambiguous_over_promoted 5
+backend compileall OK
+frontend npm run build OK
+```
+
+남은 구조 큐:
+
+```text
+industry_boundary_gap 476
+missing_usage_profile 342
+workprocess_mismatch 56
+broad_sr_overreach 1
+```
+
+우선 보강 대상은 `C-18`, `C-C-92`, `A-G-15`, `G-32`, `C-C-16`, `B-E-3`, `A-G-1`, `B-M-32`처럼 현장 사진 문맥 없이 top procedure로 올라오는 Guide다. 단순 keyword 추가가 아니라 `procedure_role`, `negative_boundaries`, `observable_required_cues`, `primary_work_process_ids`를 보강해야 한다.
+
+## 현재 구현 메모 (2026-05-09, usage_profile2)
+
+usage_profile1 attention queue에서 상위 과노출 Guide 8개를 원본 manual batch와 OHS 런타임 양쪽에서 조정했다.
+
+```text
+추가 스크립트:
+koshaontology/pipe-B/scripts/apply_usage_profile_attention_corrections.py
+
+주요 runtime 변경:
+manual profile 우선, hardcoded watch rule은 fallback
+exclusive Guide feature-only match 금지
+ELECTRICAL_WORK broad/generic 처리
+management_program은 명시 문맥 없으면 reference role처럼 제한
+```
+
+검증 결과:
+
+```text
+synthetic Guide v1~v10 total 2,360
+legacy obvious top Guide mismatch 1,150
+usage_profile2 current obvious mismatch 361
+reduction 68.61%
+v10 SHE recall 100.0%, FN 0, FP 0
+actual response 240 status changed 0
+negative_false_positive 10
+positive_missed 2
+ambiguous_over_promoted 5
+backend compileall OK
+frontend npm run build OK
+```
+
+새 리포트:
+
+```text
+pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile2_20260509_233015.md
+pictures-json/reports/synthetic_observations_v10_usage_profile2_report.md
+pictures-json/reports/actual_response_samples_v1_v10_usage_profile2_vs_pipeb1038.md
+```
+
+다음 코드 작업:
+
+```text
+1. `NO_TOP` 367건을 taxonomy/profile gap과 정상 no-procedure로 분리한다.
+2. `A-G-12`, `A-G-9`, `C-70`, `H-100`, `A-R-2`, `H-187`, `A-G-14`, `E-M-4`의 usage boundary를 추가 보강한다.
+3. `D-C-7`, `E-G-22`, `H-116`, `M-62`의 WorkProcess step 선택 오류를 고친다.
+4. negative safe case는 observable violation cue가 없으면 표준절차를 만들지 않는 gate를 추가한다.
+5. DB import 전 duplicate SR unique key 2쌍은 evidence merge/pre-aggregate하고, asserted mapping update는 0 유지한다.
+```
+
+## 현재 구현 메모 (2026-05-10, usage_profile11)
+
+usage_profile5 이후 남은 과추천 원인은 risk 정규화 부족이 아니라, non-actionable/context-only SHE가 Guide 추천 근거로 흘러가는 런타임 경계 문제였다.
+
+수정:
+
+```text
+OHS/backend/app/services/analysis_pipeline.py
+```
+
+핵심 변경:
+
+```text
+standard_procedures / immediate_actions 추천에는 actionable_matches만 직접 전달
+observable_violation_signal이 없으면 risk_features도 추천 후보 생성에 쓰지 않음
+finding_status, penalty_path, SHE reasoning 경계는 유지
+```
+
+평가 하네스 정정:
+
+```text
+OHS/backend/scripts/evaluate_synthetic_guide_recommendations.py
+OHS/backend/scripts/analyze_synthetic_no_top_queue.py
+```
+
+정정 내용:
+
+```text
+scene_description fallback 지원
+expected_corrective_direction은 runtime full_description에서 제외
+평가/scoring text에는 corrective direction 유지
+```
+
+검증 결과:
+
+```text
+synthetic Guide v1~v10 total 2,360
+legacy obvious top Guide mismatch 1,145
+current obvious top Guide mismatch 165
+reduction 85.59%
+NO_TOP 395
+v10 SHE recall 100.0%, FN 0, FP 0
+actual response 240 status changed 0
+negative_false_positive 10
+positive_missed 2
+ambiguous_over_promoted 5
+backend compileall OK
+frontend build OK
+```
+
+신규 리포트:
+
+```text
+pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.*
+pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.*
+pictures-json/reports/synthetic_observations_v10_usage_profile11_report.*
+pictures-json/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.*
+```
+
+주의:
+
+```text
+usage_profile8~10에서 hazard_normalizer/hazard_rule_engine alias/추론 확장으로 NO_TOP 일부를 줄이는 실험을 했지만,
+actual response 240 status changed 15 및 v10 FN 1이 발생해 폐기했다.
+앞으로 Guide coverage는 risk alias 확장이 아니라 Guide usage_profile, visual_trigger, WorkProcess relevance 보강으로 해결해야 한다.
+```
