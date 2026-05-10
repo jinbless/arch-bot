@@ -1,0 +1,366 @@
+{
+  "metadata": {
+    "guideCode": "M-191-2017",
+    "shortCode": "M191",
+    "domain": "B",
+    "extractedAt": "2026-04-24T12:47:43Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-B-021"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-M191-001",
+      "text": "각 채널의 MTTFd 값은 3개의 수준(<표 1> 참조)으로 주어지고, 단일채널, 다중 시스템의 각 채널마다 개별적으로 고려되어야 한다.",
+      "guideContext": "안전제어시스템 MTTFd 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "MTTFd 수준 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-002",
+      "text": "MTTFd는 100년을 최대값으로 고려한다.",
+      "guideContext": "안전제어시스템 MTTFd 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "MTTFd 수준 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-003",
+      "text": "고위험성에 대한 SRP/CS는 단일요소만의 신뢰성에 의존하지 않는 것이 좋으므로 각 채널의 100년 이상의 MTTFd 값은 허용되지 않는다.",
+      "guideContext": "안전제어시스템 MTTFd 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "MTTFd 수준 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-004",
+      "text": "체계상의 고장과 우발적인 고장에 대하여 SRP/CS를 강화하기 위해 중복성과 시험과 같은 추가 수단이 요구되는 것이 좋으나 실용적인 목적을 위해 범위는 3개로 제한되어 있다.",
+      "guideContext": "안전제어시스템 MTTFd 계산",
+      "additionalDetail": null,
+      "workProcessPhase": "MTTFd 수준 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-005",
+      "text": "구성품의 MTTFd의 예측을 위해 데이터를 찾기 위한 계층적 절차는 다음 순서와 같아야 한다. ① 제조사의 데이터 사용 ② 단일구성요소의 MTTFd 값 계산 또는 결정/결과 평가 ③ 각각의 채널에 대한 MTTFd 추정의 간단한 방법 ④ 10년을 선택",
+      "guideContext": "안전제어시스템 MTTFd 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "MTTFd 데이터 수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-006",
+      "text": "SRP/CS 제조자는 유압부품의 구현 및 운영을 위해 ISO 13849-2:2012(<표 2> 과 <표 3>)에 의한 기본적이고 충분히 시험된 안전성의 원칙 적용의 책임에 관계된 정보를 제공해야 한다.",
+      "guideContext": "유압부품 MTTFd 추정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "단일구성요소 MTTFd 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-007",
+      "text": "본 항의 (1)와 (2) 중 하나가 충족되지 않았을 경우 단일유압부품의 MTTFd 값은 제조자가 제공해야 한다.",
+      "guideContext": "유압부품 MTTFd 추정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "단일구성요소 MTTFd 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-008",
+      "text": "SRP/CS 제조자는 부품의 구현 및 운영을 위해 KS B ISO 13849-2:2012에 의한 기본적이고 충분히 시험된 안전성의 원칙을 적용하는 책임에 관계된 정보를 제공해야 한다. 범주 1, 2, 3 또는 4 의 경우 사용자는 부품의 구현 및 작동을 위해 ISO 13849-2:2012(표 B.2나 표 D.2)에 의한 충분히 검토된 안전원칙을 충족하기 위한 사용자의 책임에 대해 통보받아야 한다.",
+      "guideContext": "공압·기계·기전 부품 MTTFd (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "단일구성요소 MTTFd 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-009",
+      "text": "부품의 10 %가 위험한 고장(B10d)을 발생할 때까지의 평균동작 횟수는 반드시 부품의 제조자에 의해 시험방법(예를 들면 IEC 60957-5-1, ISO 19973, IEC 61810)에 대한 관련 제품표준에 따라 결정되는 것이 좋다.",
+      "guideContext": "B10d를 이용한 MTTFd 계산",
+      "additionalDetail": null,
+      "workProcessPhase": "단일구성요소 MTTFd 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-010",
+      "text": "시험 중에 모든 부품이 위험한 고장을 나타낸 것이 아니라면 (예를 들면, 시험된 7개의 부품 중 오직 5개만 위험한 고장 발생), 위험하지 않게 고장난 부품들을 고려한 분석이 수행되는 것이 좋다.",
+      "guideContext": "B10d를 이용한 MTTFd 계산",
+      "additionalDetail": null,
+      "workProcessPhase": "단일구성요소 MTTFd 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-011",
+      "text": "SRP/CS 설계자가 사용된 부품에 대한 다른 신뢰할 수 있고, 구체적인 데이터를 가지고 있다면 그 데이터를 대신 활용하는 것이 좋다.",
+      "guideContext": "전기부품 MTTFd 데이터 활용",
+      "additionalDetail": null,
+      "workProcessPhase": "단일구성요소 MTTFd 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M191-012",
+      "text": "채널의 MTTFd 값이 다를 경우 두 가지 가능성이 존재하는데 첫째는 최악의 상황을 가정 했을 때, 낮은 값을 고려하는 것이 좋고, 둘째는 식(6.2)를 활용하여 각 채널의 MTTFd 값으로 치환될 수 있는 추정값으로 사용될 수 있다.",
+      "guideContext": "이중화채널 MTTFd 계산",
+      "additionalDetail": null,
+      "workProcessPhase": "채널 MTTFd 추정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-M191-001",
+      "term": "제어시스템의 안전관련부품(SRP/CS)",
+      "definition": "안전관련 입력신호에 응답하고 안전관련 출력신호를 발생시키는 제어시스템의 부품류를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-002",
+      "term": "범주(Category)",
+      "definition": "결함에 대한 내성 및, 부품의 구조적 배치, 결함의 감지 및/또는 감지 신뢰성에 의해 달성되는 결함 상태에서의 후속조치 관점에서의 제어시스템 안전관련 부품들의 분류를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-003",
+      "term": "결함(Fault)",
+      "definition": "예방정비작업 중이나 기타 계획된 활동 또는 외적 자원의 부족에 기인한 경우를 제외하고, 주어진 기능을 수행할 능력이 상실된 품목의 상태를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-004",
+      "term": "고장(Failure)",
+      "definition": "요구되는 기능을 수행할 수 있는 능력이 중단된 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-005",
+      "term": "위험한 고장(Dangerous Failure)",
+      "definition": "SRP/CS를 위험한 상태나 기능장애 상태로 만들 수 있는 가능성이 있는 고장을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-006",
+      "term": "공통원인고장(Common Cause Failure)",
+      "definition": "단일사건으로부터 유발된 다른 품목들의 고장으로 이 고장은 품목간 상호작용의 결과가 아니다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-007",
+      "term": "계통적 고장(Systematic Failure)",
+      "definition": "특정한 원인에 대해 확정적으로 관계된 고장으로, 설계나 제조공정, 작업절차, 문서화 또는 다른 관련 요소의 수정에 의해서만 제거 가능한 고장을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-008",
+      "term": "위험한 상황(Hazardous Situation)",
+      "definition": "사람이 한 가지 이상의 위험요인에 노출되어 즉시 또는 장기간에 걸친 상해를 야기할 수 있는 가능성이 있는 상황을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-009",
+      "term": "구성요소의 10% 위험한 고장(B10d)",
+      "definition": "구성하고 있는 전체부품 중에서 단지 10 %의 부품이 위험한 고장을 발생할 때까지의 평균작동횟수를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-010",
+      "term": "고장형태영향분석(FMEA)",
+      "definition": "기계부품의 고장이 기계전체에 미치는 영향을 예측하는 해석방법으로, 기계부품 등의 기계요소가 고장을 일으킨 경우에 기계전체가 받는 영향을 규명해 나가는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-011",
+      "term": "프로그램 가능한 전자시스템(PES)",
+      "definition": "하나 이상의 프로그램 가능한 전자 장치를 사용하는 제어, 보호 또는 감시를 위한 시스템. 전원공급 장치, 센서, 그 외의 입력장치, 전원보호장치 및 그 외의 출력장치가 포함된 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-012",
+      "term": "성능수준(PL)",
+      "definition": "예측 가능한 상태에서 안전기능을 수행할 수 있는 제어시스템의 안전관련 부품의 능력을 규정하는 불연속적인 수준을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-013",
+      "term": "성능요구수준(PLr)",
+      "definition": "각 안전기능에 대한 위험성감소를 달성하기 위해 요구되는 성능수준(PL)을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-014",
+      "term": "평균위험고장시간(MTTFd)",
+      "definition": "위험한 평균 고장시간의 기대값을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-015",
+      "term": "진단범위(DC)",
+      "definition": "감지된 위험한 고장의 고장률과 모든 위험한 고장의 고장률의 비율로 결정되는 진단 유효성의 척도를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M191-016",
+      "term": "기계제어시스템(Machine Control System)",
+      "definition": "기계요소, 작업자, 외부제어장치 또는 이들의 조합으로부터의 입력신호에 반응하고 의도한 방식으로 기계가 동작하도록 출력신호를 생성하는 시스템을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-M191-01",
+      "processOrder": 1,
+      "processName": "MTTFd 데이터 수집",
+      "safetyMeasures": "구성품의 MTTFd 예측을 위해 계층적 절차를 따른다: ① 제조사의 데이터 사용 ② 단일구성요소의 MTTFd 값 계산 또는 결정/결과 평가 ③ 각각의 채널에 대한 MTTFd 추정의 간단한 방법 ④ 10년을 선택",
+      "requiredPPE": [],
+      "sourceSection": "4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M191-02",
+      "processOrder": 2,
+      "processName": "단일구성요소 MTTFd 계산",
+      "safetyMeasures": "구성요소가 ISO 13849-2에 따른 기본적이고 충분한 시험을 거친 안전원칙에 따라 제조되었는지 확인하고, 부품 유형별(유압, 공압, 기계, 기전, 전기) 해당 방법에 따라 MTTFd 또는 B10d 값을 산출한다. B10d를 이용한 MTTFd 계산 시 MTTFd = B10d / (0.1 × nop) 공식을 적용한다.",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M191-03",
+      "processOrder": 3,
+      "processName": "채널 MTTFd 추정",
+      "safetyMeasures": "부품수 계산방법으로 채널의 모든 단일 부품의 MTTFd 값을 합산하여 1/MTTFd = Σ(1/MTTFdi) 공식으로 전체 채널 MTTFd를 산출한다. 이중화채널의 경우 MTTFd = (2/3)[MTTFdC1 + MTTFdC2 - 1/(1/MTTFdC1 + 1/MTTFdC2)] 공식을 적용한다.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-M191-001",
+      "equipmentName": "기계부품 (SRP/CS용)",
+      "specifications": {
+        "mttfd": "150년",
+        "safetyPrinciple": "KS B ISO 13849-2:2012 표 A.1 및 표 A.2"
+      },
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M191-002",
+      "equipmentName": "유압부품 (밸브 등 단일유압부품)",
+      "specifications": {
+        "mttfd": "150년",
+        "safetyPrinciple": "KS B ISO 13849-2:2012 표 C.1 및 표 C.2",
+        "relatedStandard": "EN 982"
+      },
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M191-003",
+      "equipmentName": "공압장비",
+      "specifications": {
+        "b10d": "20,000,000 cycles",
+        "safetyPrinciple": "KS B ISO 13849-2:2012 표 B.1 및 표 B.2",
+        "relatedStandard": "EN 983"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M191-004",
+      "equipmentName": "릴레이 (작은 부하, 기계적 부하)",
+      "specifications": {
+        "b10d": "20,000,000 cycles",
+        "safetyPrinciple": "KS B ISO 13849-2:2012 표 D.1 및 표 D.2",
+        "relatedStandard": "EN 50205, IEC 61810, IEC 60947"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M191-005",
+      "equipmentName": "릴레이 (최대부하)",
+      "specifications": {
+        "b10d": "400,000 cycles",
+        "safetyPrinciple": "KS B ISO 13849-2:2012 표 D.1 및 표 D.2",
+        "relatedStandard": "EN 50205, IEC 61810, IEC 60947"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M191-006",
+      "equipmentName": "비상정지장치 (부하에 관계없는)",
+      "specifications": {
+        "b10d": "100,000 cycles",
+        "safetyPrinciple": "KS B ISO 13849-2:2012 표 D.1 및 표 D.2",
+        "relatedStandard": "IEC 60947, KS B ISO 13850"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M191-007",
+      "equipmentName": "비상정지장치 (최대작동요구)",
+      "specifications": {
+        "b10d": "6,050 cycles",
+        "safetyPrinciple": "KS B ISO 13849-2:2012 표 D.1 및 표 D.2",
+        "relatedStandard": "IEC 60947, KS B ISO 13850"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": []
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KOSHA 가이드 인벤토리",
+  "description": "1,041개 KOSHA 가이드 PDF의 전수 목록",
+  "type": "object",
+  "required": ["metadata", "guides"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["generatedAt", "totalGuides", "domainCounts", "processingOrder"],
+      "additionalProperties": false,
+      "properties": {
+        "generatedAt": {
+          "type": "string",
+          "description": "생성 시각 (ISO 8601)"
+        },
+        "totalGuides": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "domainCounts": {
+          "type": "object",
+          "required": ["A", "B", "C", "D", "E"],
+          "additionalProperties": false,
+          "properties": {
+            "A": { "type": "integer", "minimum": 0 },
+            "B": { "type": "integer", "minimum": 0 },
+            "C": { "type": "integer", "minimum": 0 },
+            "D": { "type": "integer", "minimum": 0 },
+            "E": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "processingOrder": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["A", "B", "C", "D", "E"] },
+          "minItems": 5,
+          "maxItems": 5,
+          "description": "분야별 처리 순서 (D→A→B→C→E)"
+        },
+        "duplicateShortCodes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "중복 shortCode 목록 (0건이어야 정상)"
+        }
+      }
+    },
+    "guides": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/guideEntry" }
+    }
+  },
+  "$defs": {
+    "guideEntry": {
+      "type": "object",
+      "required": ["guideCode", "shortCode", "title", "domain", "year", "pdfPath"],
+      "additionalProperties": false,
+      "properties": {
+        "guideCode": {
+          "type": "string",
+          "minLength": 6,
+          "description": "PDF 파일명에서 추출한 가이드코드 (예: A-G-4-2025)"
+        },
+        "shortCode": {
+          "type": "string",
+          "pattern": "^[A-Z0-9][A-Z0-9]+$",
+          "minLength": 2,
+          "description": "하이픈·연도 제거된 축약코드 (예: AG4)"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "가이드 제목"
+        },
+        "domain": {
+          "type": "string",
+          "enum": ["A", "B", "C", "D", "E"]
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 2000,
+          "maximum": 2030
+        },
+        "pdfPath": {
+          "type": "string",
+          "minLength": 1,
+          "description": "PDF 파일 상대경로 (kosha-guides/ 기준)"
+        }
+      }
+    }
+  }
+}

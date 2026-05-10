@@ -1,0 +1,869 @@
+{
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "external_api_used": false,
+  "db_imported": false,
+  "asserted_mapping_updates": 0,
+  "source": "pipe-B/data/manual-enrichment-domain-guard-batch-001..035.json",
+  "totals": {
+    "batch_files": 35,
+    "guides": 1038,
+    "unique_guides": 1038,
+    "feature_candidates": 2084,
+    "sr_link_candidates": 4323,
+    "visual_trigger_candidates": 2077,
+    "guides_with_no_sr_candidate": 76,
+    "needs_review": {
+      "feature_candidates": 268,
+      "sr_link_candidates": 1556,
+      "visual_trigger_candidates": 10
+    }
+  },
+  "validations": {
+    "json_parse": "pass",
+    "guide_code_uniqueness": "pass",
+    "risk_feature_catalog_ids": "pass",
+    "sr_registry_ids": "pass",
+    "asserted_insert_count": 0
+  },
+  "profile_level_distribution": {
+    "domain_specific": 311,
+    "exclusive": 704,
+    "general": 23
+  },
+  "top_domain_families": {
+    "work_environment_measurement_analysis": 13,
+    "acid_gas_and_corrosive_agent_measurement_analysis": 8,
+    "cyanide_compound_measurement_analysis": 3,
+    "metal_fume_dust_measurement_analysis": 3,
+    "particulate_agent_elemental_carbon_measurement_analysis": 2,
+    "port_cargo": 1,
+    "shipbuilding_dock": 1,
+    "shipbuilding_general": 1,
+    "forklift_operation": 1,
+    "steel_product_storage": 1,
+    "food_service_facility": 1,
+    "hazardous_area_electrical": 1,
+    "acute_toxic_gas_loading": 1,
+    "chemical_eyewash_shower_corrosive_exposure": 1,
+    "substation_pressurization_positive_pressure": 1,
+    "lightning_protection": 1,
+    "crystalline_silica_exposure": 1,
+    "logistics_center_air_quality": 1,
+    "hot_work_welding_fire_prevention": 1,
+    "construction_equipment_lift_plan": 1,
+    "mobile_crane_stability": 1,
+    "fall_protection_net_installation": 1,
+    "electrostatic_painting": 1,
+    "scaffold_structure_and_work_platform": 1,
+    "cnc_lathe_flying_workpiece": 1,
+    "hydrocarbon_tank_abrasive_blasting": 1,
+    "conveyor_safety": 1,
+    "bloodborne_pathogen_lab_healthcare": 1,
+    "bridge_superstructure_construction": 1,
+    "welding_material_selection": 1
+  },
+  "top_feature_codes": {
+    "CHEMICAL_EXPOSURE": 333,
+    "CHEMICAL_WORK": 246,
+    "GENERAL_WORKPLACE": 165,
+    "FIRE": 118,
+    "EXPLOSION": 109,
+    "CHEMICAL": 100,
+    "MACHINE": 78,
+    "ELECTRICAL_WORK": 74,
+    "PRESSURE_VESSEL": 56,
+    "FALL": 51,
+    "ERGONOMIC": 47,
+    "TOXIC": 44,
+    "ELECTRIC_SHOCK": 43,
+    "BIOLOGICAL": 38,
+    "STATIC_ELECTRICITY": 34,
+    "ELECTRICITY": 33,
+    "CUT": 30,
+    "CRUSH": 28,
+    "CRANE": 27,
+    "CONFINED_SPACE": 25,
+    "MATERIAL_HANDLING": 24,
+    "EXCAVATION": 23,
+    "VEHICLE": 23,
+    "VENTILATION_POOR": 22,
+    "FALLING_OBJECT": 20,
+    "WELDING": 19,
+    "COLLAPSE": 17,
+    "DUST": 17,
+    "NOISE": 16,
+    "FIRE_EVACUATION": 16
+  },
+  "top_sr_ids": {
+    "SR-PPE-002": 275,
+    "SR-CHEMICAL-024": 268,
+    "SR-CHEMICAL-025": 199,
+    "SR-CHEMICAL-026": 185,
+    "SR-FIRE_EXPLOSION-015": 126,
+    "SR-MGMT-004": 106,
+    "SR-ELECTRIC-024": 87,
+    "SR-FIRE_EXPLOSION-019": 83,
+    "SR-ELECTRIC-011": 80,
+    "SR-FIRE_EXPLOSION-008": 67,
+    "SR-FIRE_EXPLOSION-001": 57,
+    "SR-FIRE_EXPLOSION-037": 52,
+    "SR-CHEMICAL-014": 47,
+    "SR-MACHINE-003": 44,
+    "SR-MACHINE-002": 42,
+    "SR-FALL-001": 41,
+    "SR-CHEMICAL-010": 41,
+    "SR-FIRE_EXPLOSION-049": 41,
+    "SR-MGMT-001": 41,
+    "SR-MACHINE-007": 39,
+    "SR-FALL-003": 37,
+    "SR-WELFARE-001": 37,
+    "SR-FIRE_EXPLOSION-006": 35,
+    "SR-CHEMICAL-018": 35,
+    "SR-FIRE_EXPLOSION-032": 33,
+    "SR-CONFINED-001": 33,
+    "SR-CHEMICAL-002": 33,
+    "SR-DUST-001": 31,
+    "SR-WORKPLACE-018": 31,
+    "SR-FIRE_EXPLOSION-051": 30
+  },
+  "trigger_type_distribution": {
+    "analysis_diagram": 14,
+    "body_posture": 1,
+    "chemical_container": 1,
+    "chemical_label": 4,
+    "context_term": 14,
+    "control": 6,
+    "control_or_document": 1,
+    "control_or_equipment": 5,
+    "control_or_ppe": 1,
+    "control_or_source": 1,
+    "document": 404,
+    "document_or_activity": 4,
+    "document_or_context": 1,
+    "document_or_form": 85,
+    "document_or_label": 2,
+    "document_or_marking": 6,
+    "document_or_material": 1,
+    "document_or_measurement": 1,
+    "document_or_meeting": 1,
+    "document_or_method": 21,
+    "document_or_sign": 1,
+    "domain_term": 30,
+    "emergency_control": 2,
+    "equipment": 672,
+    "equipment_component": 36,
+    "equipment_detail": 13,
+    "equipment_label": 1,
+    "equipment_or_activity": 2,
+    "equipment_or_container": 1,
+    "equipment_or_control": 1,
+    "equipment_or_device": 83,
+    "equipment_or_document": 1,
+    "equipment_or_hazard": 1,
+    "equipment_or_marking": 1,
+    "equipment_or_material": 2,
+    "equipment_or_measurement": 5,
+    "equipment_or_training": 1,
+    "equipment_or_waste": 1,
+    "facility": 4,
+    "fall_hazard": 1,
+    "hazard_indicator": 17,
+    "hazard_sign": 2,
+    "human_activity": 1,
+    "laboratory_analysis": 3,
+    "maintenance_activity": 4,
+    "marking": 1,
+    "material": 2,
+    "material_or_activity": 2,
+    "material_or_agent": 1,
+    "material_or_hazard": 1,
+    "measurement_device": 7,
+    "observed_hazard": 6,
+    "ppe": 22,
+    "ppe_or_clothing": 1,
+    "ppe_or_control": 19,
+    "ppe_or_equipment": 9,
+    "ppe_or_marking": 1,
+    "role_or_competency": 1,
+    "safety_device": 177,
+    "sampling_equipment": 2,
+    "signage": 8,
+    "tool": 1,
+    "tool_or_activity": 2,
+    "vehicle": 1,
+    "vehicle_equipment": 3,
+    "vehicle_or_material": 1,
+    "vehicle_or_worker": 1,
+    "visible_condition": 7,
+    "visual_cue": 97,
+    "work_activity": 51,
+    "work_activity_control": 1,
+    "work_area": 29,
+    "workplace_context": 37,
+    "workplace_or_activity": 125,
+    "workplace_or_document": 1
+  },
+  "batches": [
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-001.json",
+      "batch_id": "domain_guard_manual_batch_001",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 65,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 10,
+        "sr_link_candidates": 3,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "B-5-2011",
+        "A-G-10-2025",
+        "O-1-2011"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-002.json",
+      "batch_id": "domain_guard_manual_batch_002",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 66,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 15,
+        "sr_link_candidates": 20,
+        "visual_trigger_candidates": 10
+      },
+      "guides_with_no_sr_candidate": [
+        "A-G-5-2025",
+        "A-G-7-2025",
+        "A-G-8-2025",
+        "A-R-1-2026",
+        "A-R-2-2026",
+        "A-R-3-2026"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-003.json",
+      "batch_id": "domain_guard_manual_batch_003",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 48,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 4,
+        "sr_link_candidates": 2,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "G-120-2015",
+        "G-135-2021",
+        "G-23-2011",
+        "G-37-2012",
+        "G-5-2017"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-004.json",
+      "batch_id": "domain_guard_manual_batch_004",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 48,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 2,
+        "sr_link_candidates": 10,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "G-65-2011",
+        "G-66-2011",
+        "G-71-2011",
+        "G-93-2012"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-005.json",
+      "batch_id": "domain_guard_manual_batch_005",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 27,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 12,
+        "sr_link_candidates": 2,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "X-34-2014",
+        "X-35-2014",
+        "X-43-2011",
+        "X-45-2014",
+        "X-47-2011",
+        "X-58-2012",
+        "X-6-2012",
+        "X-69-2016",
+        "X-70-2016",
+        "X-71-2016",
+        "X-72-2017",
+        "X-73-2017",
+        "X-74-2017",
+        "X-76-2018",
+        "X-77-2018",
+        "X-8-2012"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-006.json",
+      "batch_id": "domain_guard_manual_batch_006",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 67,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 3,
+        "sr_link_candidates": 6,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-007.json",
+      "batch_id": "domain_guard_manual_batch_007",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 86,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 2,
+        "sr_link_candidates": 16,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-008.json",
+      "batch_id": "domain_guard_manual_batch_008",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 90,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 0,
+        "sr_link_candidates": 23,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-009.json",
+      "batch_id": "domain_guard_manual_batch_009",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 102,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 0,
+        "sr_link_candidates": 26,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-010.json",
+      "batch_id": "domain_guard_manual_batch_010",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 87,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 1,
+        "sr_link_candidates": 41,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-011.json",
+      "batch_id": "domain_guard_manual_batch_011",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 178,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 1,
+        "sr_link_candidates": 51,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-012.json",
+      "batch_id": "domain_guard_manual_batch_012",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 158,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 1,
+        "sr_link_candidates": 84,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-013.json",
+      "batch_id": "domain_guard_manual_batch_013",
+      "guide_count": 30,
+      "feature_candidates": 61,
+      "sr_link_candidates": 148,
+      "visual_trigger_candidates": 61,
+      "needs_review": {
+        "feature_candidates": 0,
+        "sr_link_candidates": 82,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-014.json",
+      "batch_id": "domain_guard_manual_batch_014",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 138,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 7,
+        "sr_link_candidates": 68,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-015.json",
+      "batch_id": "domain_guard_manual_batch_015",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 139,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 4,
+        "sr_link_candidates": 85,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-016.json",
+      "batch_id": "domain_guard_manual_batch_016",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 148,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 4,
+        "sr_link_candidates": 66,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-017.json",
+      "batch_id": "domain_guard_manual_batch_017",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 175,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 6,
+        "sr_link_candidates": 79,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-018.json",
+      "batch_id": "domain_guard_manual_batch_018",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 189,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 2,
+        "sr_link_candidates": 13,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-019.json",
+      "batch_id": "domain_guard_manual_batch_019",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 244,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 2,
+        "sr_link_candidates": 5,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-020.json",
+      "batch_id": "domain_guard_manual_batch_020",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 226,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 2,
+        "sr_link_candidates": 2,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-021.json",
+      "batch_id": "domain_guard_manual_batch_021",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 195,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 2,
+        "sr_link_candidates": 25,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-022.json",
+      "batch_id": "domain_guard_manual_batch_022",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 213,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 2,
+        "sr_link_candidates": 24,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-023.json",
+      "batch_id": "domain_guard_manual_batch_023",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 153,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 0,
+        "sr_link_candidates": 75,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-024.json",
+      "batch_id": "domain_guard_manual_batch_024",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 118,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 0,
+        "sr_link_candidates": 118,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-025.json",
+      "batch_id": "domain_guard_manual_batch_025",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 120,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 1,
+        "sr_link_candidates": 120,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-026.json",
+      "batch_id": "domain_guard_manual_batch_026",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 130,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 0,
+        "sr_link_candidates": 130,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-027.json",
+      "batch_id": "domain_guard_manual_batch_027",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 150,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 0,
+        "sr_link_candidates": 150,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-028.json",
+      "batch_id": "domain_guard_manual_batch_028",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 145,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 4,
+        "sr_link_candidates": 41,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-029.json",
+      "batch_id": "domain_guard_manual_batch_029",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 110,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 2,
+        "sr_link_candidates": 45,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-030.json",
+      "batch_id": "domain_guard_manual_batch_030",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 148,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 4,
+        "sr_link_candidates": 30,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": []
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-031.json",
+      "batch_id": "domain_guard_manual_batch_031",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 148,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 19,
+        "sr_link_candidates": 31,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "H-162-2023",
+        "H-163-2021"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-032.json",
+      "batch_id": "domain_guard_manual_batch_032",
+      "guide_count": 30,
+      "feature_candidates": 60,
+      "sr_link_candidates": 104,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 38,
+        "sr_link_candidates": 39,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "H-201-2018",
+        "H-203-2018",
+        "H-204-2018",
+        "H-211-2020",
+        "H-37-2021"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-033.json",
+      "batch_id": "033",
+      "guide_count": 30,
+      "feature_candidates": 62,
+      "sr_link_candidates": 85,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 40,
+        "sr_link_candidates": 16,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "H-4-2021",
+        "H-43-2021",
+        "H-47-2021",
+        "H-50-2021",
+        "H-72-2015",
+        "H-74-2015",
+        "H-75-2015",
+        "H-81-2021",
+        "H-83-2021"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-034.json",
+      "batch_id": "034",
+      "guide_count": 30,
+      "feature_candidates": 63,
+      "sr_link_candidates": 33,
+      "visual_trigger_candidates": 60,
+      "needs_review": {
+        "feature_candidates": 55,
+        "sr_link_candidates": 13,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "H-91-2021",
+        "H-97-2021",
+        "H-99-2023",
+        "T-16-2021",
+        "T-17-2021",
+        "T-19-2020",
+        "T-20-2020",
+        "T-21-2017",
+        "T-22-2021",
+        "T-23-2021",
+        "T-26-2023",
+        "T-28-2018",
+        "T-3-2015",
+        "T-32-2021",
+        "T-33-2023",
+        "T-4-2022",
+        "T-5-2017",
+        "T-6-2017",
+        "T-7-2020",
+        "T-9-2016",
+        "W-10-2023"
+      ]
+    },
+    {
+      "file": "data/manual-enrichment-domain-guard-batch-035.json",
+      "batch_id": "035",
+      "guide_count": 18,
+      "feature_candidates": 38,
+      "sr_link_candidates": 42,
+      "visual_trigger_candidates": 36,
+      "needs_review": {
+        "feature_candidates": 23,
+        "sr_link_candidates": 15,
+        "visual_trigger_candidates": 0
+      },
+      "guides_with_no_sr_candidate": [
+        "W-22-2016",
+        "W-4-2021",
+        "W-5-2021",
+        "W-8-2021",
+        "W-9-2021"
+      ]
+    }
+  ],
+  "guides_with_no_sr_candidate": [
+    "A-G-10-2025",
+    "A-G-5-2025",
+    "A-G-7-2025",
+    "A-G-8-2025",
+    "A-R-1-2026",
+    "A-R-2-2026",
+    "A-R-3-2026",
+    "B-5-2011",
+    "G-120-2015",
+    "G-135-2021",
+    "G-23-2011",
+    "G-37-2012",
+    "G-5-2017",
+    "G-65-2011",
+    "G-66-2011",
+    "G-71-2011",
+    "G-93-2012",
+    "H-162-2023",
+    "H-163-2021",
+    "H-201-2018",
+    "H-203-2018",
+    "H-204-2018",
+    "H-211-2020",
+    "H-37-2021",
+    "H-4-2021",
+    "H-43-2021",
+    "H-47-2021",
+    "H-50-2021",
+    "H-72-2015",
+    "H-74-2015",
+    "H-75-2015",
+    "H-81-2021",
+    "H-83-2021",
+    "H-91-2021",
+    "H-97-2021",
+    "H-99-2023",
+    "O-1-2011",
+    "T-16-2021",
+    "T-17-2021",
+    "T-19-2020",
+    "T-20-2020",
+    "T-21-2017",
+    "T-22-2021",
+    "T-23-2021",
+    "T-26-2023",
+    "T-28-2018",
+    "T-3-2015",
+    "T-32-2021",
+    "T-33-2023",
+    "T-4-2022",
+    "T-5-2017",
+    "T-6-2017",
+    "T-7-2020",
+    "T-9-2016",
+    "W-10-2023",
+    "W-22-2016",
+    "W-4-2021",
+    "W-5-2021",
+    "W-8-2021",
+    "W-9-2021",
+    "X-34-2014",
+    "X-35-2014",
+    "X-43-2011",
+    "X-45-2014",
+    "X-47-2011",
+    "X-58-2012",
+    "X-6-2012",
+    "X-69-2016",
+    "X-70-2016",
+    "X-71-2016",
+    "X-72-2017",
+    "X-73-2017",
+    "X-74-2017",
+    "X-76-2018",
+    "X-77-2018",
+    "X-8-2012"
+  ],
+  "import_guidance": [
+    "Do not import individual batches separately.",
+    "Run global normalization before flattening rows into candidate tables.",
+    "Keep asserted mapping updates at zero for this manual batch set.",
+    "Use these candidates for domain/profile guard tuning and review queues first."
+  ]
+}

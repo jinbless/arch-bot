@@ -1,0 +1,163 @@
+{
+  "metadata": {
+    "guideCode": "P-65-2012",
+    "shortCode": "P65",
+    "domain": "C",
+    "extractedAt": "2026-04-24T19:26:22Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-030"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-P65-001",
+      "text": "반응기내에서 일정한 온도를 유지하기 위해서는(즉 폭주반응을 조절하기 위해서는) 발열반응으로 생성되는 모든 열과 함께 거품 형상의 반응물을 방출장치에서 제거하여야 한다.",
+      "guideContext": "폭주반응 대비 파열판 크기 산출",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-P65-002",
+      "text": "압력방출장치의 방출면적의 크기(이하 \"파열판 크기\"라 한다)는 거품형상(액상-기상)으로 토출되는 양을 만족하여야 한다.",
+      "guideContext": "폭주반응 대비 파열판 크기 산출",
+      "additionalDetail": "액상-기상 흐름과 열을 제거하기 위한 파열판 크기는 가스 단일상의 파열판 크기의 2배에서 10배의 크기가 요구된다.",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-P65-003",
+      "text": "배관을 통한 2상 흐름에서는 전체 무차원 방출보정계수 Ψ를 적용한다. 배관에서의 값을 구하기 위해서는 식(2)에 0.9을 반드시 곱해서 산출한다.",
+      "guideContext": "폭주반응 대비 파열판 크기 산출 (법령 근거 미확인)",
+      "additionalDetail": "Ψ값은 배관 길이가 0인 경우 1이고, 배관 길이가 길어질수록 감소한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-P65-001",
+      "term": "파열판",
+      "definition": "입구측의 압력이 설정압력에 도달하면 판이 파열하면서 용기내 유체가 분출하도록 용기 등에 설치된 얇은 판으로 된 안전장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P65-002",
+      "term": "폭주반응",
+      "definition": "발열반응이 일어나는 반응기에서 진행중에 냉각 실패 등으로 인하여 반응속도 증가로 반응기 내부 온도 및 압력이 급격히 상승하는 이상반응을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "DT-P65-003",
+      "term": "자기과열반응",
+      "definition": "발열반응이 일어나는 반응기에서 반응열이 예상값보다 훨씬 높게 생성되는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P65-004",
+      "term": "지연반응",
+      "definition": "발열반응이 일어나는 반응기에서 반응물을 투입하였으나, 일정시간 반응이 일어나지 않다가 뒤 늦게 급격히 반응이 일어나는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P65-005",
+      "term": "얼량계",
+      "definition": "단열압축(Adiabatic)상태하에서 반응열량 및 압력변화를 측정할 수 있는 실험장치로써, 화학반응 시 잠재적인 위험성을 확인하여 압력방출장치의 방출면적 산출에 활용할 수 있다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-P65-01",
+      "processOrder": 1,
+      "processName": "얼량계 자료 확보",
+      "safetyMeasures": "가속도도열량계(ARC), 방출구면적산출실험장치(VSP), 반응장치측정 도구(RSST) 등 얼량계를 사용하여 최대 자기가열비율, 최대 압력비율, 반응설정온도, 시간변수에 따른 온도와 압력의 변화 자료를 확보한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "WP-P65-02",
+      "processOrder": 2,
+      "processName": "질량흐름 산출",
+      "safetyMeasures": "2상 흐름의 초크 흐름에 관한 식을 이용하여 방출장치를 통한 질량흐름(GT)을 산출한다. 배관을 통한 2상 흐름에서는 전체 무차원 방출보정계수 Ψ를 적용하고 식(2)에 0.9을 반드시 곱하여 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P65-03",
+      "processOrder": 3,
+      "processName": "파열판 방출면적 산출",
+      "safetyMeasures": "발열반응에 의한 열유입량 q를 VSP 등으로 구한 후, 동적 에너지수지 해석 식(6)을 이용하여 파열판 방출면적을 산출한다. 산출된 면적은 거품형상(액상-기상) 토출량을 만족하여야 한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3",
+      "relatedSR": [
+        "SR-CHEMICAL-011"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-P65-001",
+      "equipmentName": "가속도도열량계(ARC)",
+      "specifications": {
+        "fullName": "Accelerating Rate Calorimeter",
+        "purpose": "단열압축 상태에서 반응열량 및 압력변화 측정",
+        "measurableData": "최대 자기가열비율, 최대 압력비율, 반응설정온도, 시간변수에 따른 온도와 압력의 변화"
+      },
+      "sourceSection": "5.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "ES-P65-002",
+      "equipmentName": "방출구면적산출실험장치(VSP)",
+      "specifications": {
+        "fullName": "Vent Sizing Package",
+        "purpose": "폭주반응 특성 파악 및 방출면적 산출 자료 확보",
+        "sampleSize": "30~80 mg",
+        "measurableData": "온도상승속도(dT/dt), 과압에 상응하는 온도상승(△T), 반응열"
+      },
+      "sourceSection": "5.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "ES-P65-003",
+      "equipmentName": "반응장치측정 도구(RSST)",
+      "specifications": {
+        "fullName": "Reactive System Screening Tool",
+        "purpose": "폭주반응 특성 파악을 위한 스크리닝 실험"
+      },
+      "sourceSection": "5.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    }
+  ],
+  "documentRequirements": []
+}

@@ -1,0 +1,381 @@
+{
+  "metadata": {
+    "guideCode": "P-179-2022",
+    "shortCode": "P179",
+    "title": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정에 관한 기술지침",
+    "totalPages": 26,
+    "pdfPath": "kosha-guides/C/P-179-2022_ 혼합가스의 폭발성 여부 판정 및 폭발하한계 산정에 관한 기술지침.pdf",
+    "parsedBy": "step2-text-extraction v2.0",
+    "parsedAt": "2026-05-07T09:52:50.600489+00:00",
+    "tocSections": [
+      {
+        "sectionNumber": "1",
+        "title": "목적",
+        "startPage": 3
+      },
+      {
+        "sectionNumber": "2",
+        "title": "적용범위",
+        "startPage": 3
+      },
+      {
+        "sectionNumber": "3",
+        "title": "용어의 정의",
+        "startPage": 3
+      },
+      {
+        "sectionNumber": "4",
+        "title": "혼합가스의 폭발성 여부 판단",
+        "startPage": 4
+      },
+      {
+        "sectionNumber": "5",
+        "title": "혼합가스의 폭발하한계 산정",
+        "startPage": 6
+      },
+      {
+        "sectionNumber": "5.1",
+        "title": "일반사항",
+        "startPage": 6
+      },
+      {
+        "sectionNumber": "5.2",
+        "title": "산화제가 포함되지 않은 혼합가스의 폭발하한계 산정",
+        "startPage": 6
+      },
+      {
+        "sectionNumber": "5.2.1",
+        "title": "르사틀리에 공식 적용방법",
+        "startPage": 6
+      },
+      {
+        "sectionNumber": "5.2.2",
+        "title": "ISO 10156 계산식 적용방법",
+        "startPage": 7
+      },
+      {
+        "sectionNumber": "5.3",
+        "title": "산화제가 포함된 혼합가스의 폭발하한계 산정",
+        "startPage": 9
+      },
+      {
+        "sectionNumber": "5.3.1",
+        "title": "일반사항",
+        "startPage": 9
+      },
+      {
+        "sectionNumber": "5.3.2",
+        "title": "폭발하한계 산정과정",
+        "startPage": 10
+      }
+    ]
+  },
+  "sections": [
+    {
+      "sectionNumber": "개요",
+      "sectionTitle": "안전보건기술지침의 개요",
+      "pages": [
+        1,
+        2
+      ],
+      "text": "안전보건기술지침의 개요\n\nO 개정자\n  - 알파안전(주) 조필래\n\nO 제 · 개정 경과\n  - 2022년 9월 화학안전분야 기준제정위원회 심의\n\nO 관련 규격 및 자료\n  - ISO 10156, Gases and gas mixtures - Determination of fire potential and oxidizing ability for the selection of cylinder valves outlets, International Organization for Standardization, 2010\n  - EIGA, Document 169/19, Classification and labelling guide in accordance with EC Regulation 1272/2008 (CLP Regulation), European Industrial Gases Association (EIGA), 2019\n  - KOSHA GUIDE D-22 - 2012, 가연성 가스 및 증기 혼합물의 폭발한계 산정에 관한 기술지침\n\nO 기술지침의 적용 및 문의\n\n  이 기술지침에 대한 의견 또는 문의는 한국산업안전보건공단 홈페이지 안전보건기술지침 소관 분야별 문의처 안내를 참고하시기 바랍니다.\n\n공표일자: 2022년 12월 31일\n제 정 자: 한국산업안전보건공단 이사장",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "1",
+      "sectionTitle": "목적",
+      "pages": [
+        3,
+        3
+      ],
+      "text": "이 지침은 인화성 가스 또는 증기가 포함된 혼합가스에 불활성 가스 또는 불활성 가스와 산화제가 함유된 경우 혼합가스의 폭발성 여부를 판정하고 혼합가스의 폭발하한계를 산정하는 방법을 제시하는데 그 목적이 있다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "2",
+      "sectionTitle": "적용범위",
+      "pages": [
+        3,
+        3
+      ],
+      "text": "이 지침은 다음과 같은 혼합가스에 적용한다.\n\n(1) 인화성 가스 또는 증기의 혼합가스\n\n(2) 인화성 가스 또는 증기에 질소 또는 다른 불활성 가스가 포함된 경우\n\n(3) 인화성 가스 또는 증기에 산화제, 불활성 가스가 포함된 경우",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "3",
+      "sectionTitle": "용어의 정의",
+      "pages": [
+        3,
+        3
+      ],
+      "text": "(1) 이 지침에서 사용되는 용어의 정의는 다음과 같다.\n\n(가) \"폭발하한계 (Lower explosive limit, LEL)\"라 함은 가스 등이 공기 중에서 점화원에 의하여 착화되어 화염이 전파되는 가스 등의 최소농도를 말한다.\n\n(나) \"질소등가계수 (Coefficients of equivalency relative to nitrogen)\"란 질소를 1로 고려했을 때 질소 이외의 불활성 가스를 질소와 비교한 계수를 말한다.\n\n(다) \"산소등가계수 (Coefficients of equivalency relative to oxygen)\"란 산소를 1로 고려했을 때 산소 이외의 다른 산화성 가스를 산소와 비교한 계수를 말한다.\n\n(2) 기타 이 지침에서 사용하는 용어의 정의는 특별한 규정이 있는 주요 물질의 경우를 제외하고는 「산업안전보건법」, 같은 법 시행령, 같은 법 시행규칙 및 「산업안전보건기준에 관한 규칙」에서 정의하는 바에 의한다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "4",
+      "sectionTitle": "혼합가스의 폭발성 여부 판단",
+      "pages": [
+        4,
+        5
+      ],
+      "text": "(1) 혼합가스가 인화성 가스 또는 증기만으로 구성되어 있는 경우에는 폭발성 여부를 판정할 필요가 없다.\n\n(2) 혼합가스의 폭발성 여부는 식 (4-1)을 사용하여 결정한다.\n\n∑(i=1 to n) A'_i/T_αi ≤ 1 (비인화성 가스),   ∑(i=1 to n) A'_i/T_αi > 1 (인화성 가스)   (4-1)\n\nA'_i = A_i / [∑(i=1 to n) A_i + ∑(i=1 to p) K_i B_i]   (4-2)\n\n여기서,\n\nA'_i : 혼합가스 중 i번째 인화성 가스의 당량 함유량(mole%)이고, 식 (4-2)를 사용하여 계산된다.\n\nT_αi : 질소와 혼합될 때 공기 중에서 인화성이 아닌 상태가 되는 인화성 가스 i의 최대 함유량 (mole%)이며 <부록 2>에 제시되어 있다. T_αi값이 없을 경우에는 폭발하한계(LEL)를 사용할 수 있고, LEL을 모를 경우에는 보수적으로 인화성 가스는 1%, 인화성 액체는 0.5%, 자연발화성 가스 및 액체는 0.1%를 사용할 수 있다.\n\nA_i : 혼합가스 중의 i번째 인화성 가스의 몰분율(mole%)\n\nB_i : 혼합가스 중의 i번째 불활성 가스의 몰분율(mole%)\n\nK_i : 질소와 비교한 불활성 가스의 질소등가계수. 화학식 중에 원자가 3개 이상인 물질의 경우에는 1.5를 적용하고 그 외의 경우에는 <부록 1>의 불활성 가스의 질소등가계수를 사용한다.\n\nn : 혼합가스 중에 있는 인화성 가스의 총 개수\n\np : 혼합가스 중에 있는 불활성 가스의 총 개수\n\n(3) 어떤 물질의 T_αi는 <그림 1>과 같은 가연성 가스-질소-공기의 3성분의 폭발삼각도(flammability diagrams of the 3-component system)를 통해 구해진다. <그림 1>은 수소에 대한 예이며, 흑색으로 표시된 부분은 혼합가스의 폭발범위(flammability range)를 나타낸다. 여기서 적색점선은 공기와 혼합될 때 폭발범위에 들지 않는 수소-질소 혼합가스를 나타낸다. 즉, 이 점선 아래의 혼합가스는 공기와 혼합될 때에 폭발범위를 형성하지 않는다.\n\n(4) ISO 10156에서는 이 적색 점선을 연장하여 질소농도 축과 만나는 지점을 T_αi로 정의하고 있다.\n\n(5) <그림 1>에서 T_αi를 나타내는 지점은 질소 94.5 mol%와 수소 5.5 mol%가 혼합된 상태이므로, 가연성 가스인 수소 5.5 mol%가 T_αi의 값이 된다. 즉, 수소 5.5 mol% 및 질소 94.5 mol%인 혼합가스를 ISO 10156 시험방법에 따라 시험하면, 어떠한 불꽃도 관찰되지 않으므로 이 혼합가스는 폭발성 가스가 아닌 것으로 판정한다.",
+      "tables": [],
+      "images": [
+        {
+          "imageNumber": "그림 1",
+          "caption": "수소의 T_ci 결정 (예)",
+          "description": "가연성 가스(수소)-질소-공기의 3성분 폭발삼각도(flammability diagram). 수평축은 Air(mol%), 수직 좌측축은 Hydrogen(mol%), 수직 우측축은 Nitrogen(mol%)을 나타낸다. 흑색으로 표시된 Flammability range 영역이 혼합가스의 폭발범위를 나타내며, 적색점선은 공기와 혼합될 때 폭발범위에 들지 않는 수소-질소 혼합가스를 표시한다. 적색점선을 연장하여 질소농도 축과 만나는 지점(질소 94.5 mol%, 수소 5.5 mol%)이 T_ci value로 표시된다.",
+          "page": 5
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "5",
+      "sectionTitle": "혼합가스의 폭발하한계 산정",
+      "pages": [
+        6,
+        10
+      ],
+      "text": "",
+      "tables": [],
+      "images": [
+        {
+          "imageNumber": "그림 2",
+          "caption": "인화성 가스 및 산화성 가스를 포함하는 혼합물의 분류",
+          "description": "x축: 인화성 가스농도(%), y축: 산소농도(%). 혼합물 분류 4개 영역 표시: a - 잠재적으로 폭발성(Potentially explosive), b - 산화성(Oxidizing), c - 비 인화성 및 비 산화성(Non flammable and non oxidizing), d - 인화성(Flammable). x축 주요 포인트: LELi, Tci,F, Tci, 100%. y축 주요 포인트: OP, LOC, 21%, 23.5%, O2(산소농도). 각 영역은 빗금으로 구분 표시.",
+          "page": 10
+        }
+      ],
+      "subsections": [
+        {
+          "sectionNumber": "5.1",
+          "sectionTitle": "일반사항",
+          "pages": [
+            6,
+            6
+          ],
+          "text": "(1) 실험을 통해 혼합가스의 폭발하한계를 파악하는 방법이 가장 적절하다.\n\n(2) 계산식을 통해 폭발하한계를 산정하는 방법은 르사틀리에(Le Chatelier) 공식을 사용하는 방법과 ISO 10156의 계산식을 사용하는 방법이 있다.\n\n(3) ISO 10156의 계산식을 사용하여 구한 폭발하한계는 일반적으로 불활성 가스의 함유량이 높을수록 실험을 통해 구하는 값보다 작게 산정되기 때문에 보수적인 결과가 제시된다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "5.2",
+          "sectionTitle": "산화제가 포함되지 않은 혼합가스의 폭발하한계 산정",
+          "pages": [
+            6,
+            8
+          ],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "5.2.1",
+              "sectionTitle": "르사틀리에 공식 적용방법",
+              "pages": [
+                6,
+                6
+              ],
+              "text": "(1) 혼합가스의 폭발하한계(LEL)를 구하기 위해 르사틀리에 공식을 적용할 때 고려할 사항은 아래와 같다.\n\n(가) 인화성이 있는 혼합가스에는 적용할 수 있지만, 잠재적으로 폭발성인 혼합가스에는 적용할 수 없다.\n\n(나) 부분적인 할로겐화 탄화수소 (Partially halogenated hydrocarbon) 또는 공기 이외의 산화제(Oxidizer)에 대해서는 적용할 수 없다.\n\n(다) 인화성 가스, 질소 및 공기의 혼합가스에 적용되고 질소 외의 불활성 가스를 포함하는 경우에는 적용할 수 없다.\n\n(2) 혼합가스의 폭발하한계를 구하는 르사틀리에 식은 식 (5-1)과 같다.\n\nLEL_mix = 100 / ∑(i=1 to n) A_i/LEL_i   (5-1)\n\n여기서,\n\nLEL_mix : 혼합물질의 폭발하한계\n\nA_i : 혼합물 중의 성분별 몰분율(mole%)\n\nLEL_i : 성분별 폭발하한계",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "5.2.2",
+              "sectionTitle": "ISO 10156 계산식 적용방법",
+              "pages": [
+                7,
+                8
+              ],
+              "text": "(1) 질소와 공기 이외의 불활성 가스를 포함하는 혼합가스에 적용된다.\n\n(2) 혼합가스의 폭발하한계를 계산하는 방법은 아래와 같이 7단계로 진행된다.\n\n(가) 1단계에서는 혼합가스의 물성치를 정리하는 단계이며, 정리해야 하는 물성치의 종류는 아래와 같다.\n\n① 인화성 가스: 폭발하한계, 몰분율, T_αi(질소와 혼합될 때 공기 중에서 인화성이 아닌 상태가 되는 인화성 가스의 최대 함유량) (mole%)(<부록 2> 참조)\n\n② 불활성 가스: 몰분율, 질소등가계수(K_i)(<부록 1> 참조)\n\n(나) 2단계에서는 혼합물질의 폭발성 여부를 확인하기 위해 식 (4-2)를 사용하여 인화성 가스의 당량 함유량(A'_i)를 구한다.\n\n(다) 3단계에서는 식 (4-1)을 사용하여 혼합가스의 폭발성 여부를 판단한다. 혼합가스의 인화성 가스(또는 증기)에 대해 2단계에서 구한 값과 주어진 T_αi값을 사용하여 구한다.\n\n(라) 4단계에서는 식 (5-1)을 사용하여 인화성 성분만의 혼합물질의 폭발하한계(L'_M)를 계산한다. 즉, 식 (5-1)을 고쳐 쓰면 식 (5-2)와 같다.\n\nL'_M = LEL_mix = 100 / ∑(i=1 to n) A_i/LEL_i   (5-2)\n\n여기서,\n\nLEL_mix : 혼합물질의 폭발하한계\n\nA_i : 혼합물 중의 성분별 몰분율(mole%)\n\nLEL_i : 성분별 폭발하한계\n\n(마) 5단계에서는 식 (5-3)을 통해 불활성 가스의 질소등가계수(K_i)의 평균값을 구한다.\n\nK = ∑K_i B_i / ∑B_i   (5-3)\n\n여기서,\n\nK : 몰분율에 따른 무게 기준의 불활성 가스의 질소등가계수(K_i)의 평균값이고 혼합물질에서 공기 또는 산소는 불활성 가스로 고려되고 K의 값은 1로 간주된다.\n\nK_i : 질소와 비교한 불활성가스의 질소등가계수. 화학식 중에 원자가 3개 이상인 물질의 경우에는 1.5를 적용하고 그 외의 경우에는 <부록 1>의 불활성 가스의 질소등가계수를 사용한다.\n\nB_i : 혼합물질에서중불활성 가스의 분율(%)\n\n(바) 6단계에서는 식 (5-4) 또는 식 (5-5)를 사용하여 인화성 성분의 수정된 폭발하한계(LFL'_i)을 구한다.\n\nLFL'_i = [100 - L'_M - (1-K) × ∑(i=1 to p) B_i / ∑(i=1 to n) A_i × L'_M] / (100 - L'_M) × LFL_i   (5-4)\n\nLFL'_i = C_L × LFL_i   (5-5)\n\nC_L = [100 - L'_M - (1-K) × ∑(i=1 to p) B_i / ∑(i=1 to n) A_i × L'_M] / (100 - L'_M)   (5-6)\n\n여기서,\n\nLEL'_i : 수정된 혼합물 중의 인화성 성분의 폭발하한계\n\nC_L : 폭발하한계의 수정계수이고 식 (5-6)과 같다.\n\nL'_M : 인화성 성분만 포함된 혼합물질의 폭발하한계(vol%)이고, 4단계에서 구한 값으로 식 (5-2)를 적용하여 구한다.\n\nK : 불활성 가스의 질소등가계수(K_i)의 평균값이고, 5단계에서 구한 값\n\nA_i : 인화성 가스의 몰분율(mole%)\n\nB_i : 혼합물질에서 불활성가스의 분율(%)\n\n(사) 7단계에서는 최종적으로 6단계에서 구한 성분별 수정된 폭발하한계를 사용하여 식 (5-1)을 통해 성분별 폭발하한계를 구한다.\n\n(3) 산화제가 포함되지 않고 불활성 가스만 포함된 혼합가스에 대해 ISO 10156 방법으로 폭발하한계를 산정한 예는 <부록 5>에 제시되어 있다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "5.3",
+          "sectionTitle": "산화제가 포함된 혼합가스의 폭발하한계 산정",
+          "pages": [
+            9,
+            10
+          ],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "5.3.1",
+              "sectionTitle": "일반사항",
+              "pages": [
+                9,
+                9
+              ],
+              "text": "(1) 혼합물질 중에 인화성 가스와 산소(또는 산화제)가 포함되어 있을 때에는 먼저 인화성 여부를 검토하고 또한 산소가 산화제로 작용될 수 있으므로 폭발성 여부를 검토한 후에 폭발하한계를 계산할 필요가 있다.\n\n(2) 혼합물질에 인화성 가스와 산화제가 함께 포함되어 있을 때 BS EN ISO 10156에서는 혼합물질을 다음과 같은 4개의 범주로 구분하고 있으며, <그림 2>에서 해당 영역이 각각 a, b, c, d로 표시된다.\n\n(가) a영역(잠재적인 폭발성 물질)은 산소농도가 한계산소농도 (Limiting oxygen concentration, LOC)보다 크고, 인화성 가스의 농도가 LEL_i(공기 중의 폭발하한계) 이상인 물질을 나타낸다.\n\n(나) b영역(산화성 물질)은 산소농도가 23.5 vol% 이상이고 인화성 가스의 농도가 LEL_i 미만인 물질을 나타낸다.\n\n(다) c영역(비 인화성 및 비 산화성 물질)은 산소농도가 23.5 vol% 이하이고, 인화성 가스의 농도가 T_ci,F 또는 LEL_i 미만인 물질을 나타낸다.\n\n(라) d영역(인화성 물질)은 인화성 가스의 농도가 T_ci,F 이상이고, LEL_i 이상인 물질을 나타낸다.\n\n(3) <그림 2>에 표시된 사항은 아래와 같다.\n\n(가) LEL_i은 공기 중의 폭발하한계이고, LOC는 한계산소농도이고 대기조건에서 인화성 물질, 공기 또는 불활성 가스의 혼합물질에서 폭발이 일어나지 않을 최대산소농도이다.\n\n(나) T_αi는 질소와 혼합될 때 공기 중에서 인화성이 아닌 상태가 되는 인화성 가스 i의 최대 함유량이다.\n\n(다) T_αi,F는 혼합물 중에 함유된 산소농도를 고려하여 계산한 인화성이 아닌 상태가 되는 인화성 가스의 최대 함유량이다.\n\n(라) OP (Oxidizing power)는 산화제 능력이며 계산을 통해 구해진다.",
+              "tables": [],
+              "images": [
+                {
+                  "imageNumber": "그림 2",
+                  "caption": "인화성 가스 및 산화성 가스를 포함하는 혼합물의 분류",
+                  "description": "인화성 가스 농도(%)를 가로축, 산소농도(%)를 세로축으로 하는 2차원 분류도. 4개 영역으로 구분된다: a영역(잠재적으로 폭발성, Potentially explosive) - 산소농도가 LOC 초과이고 인화성 가스 농도 LEL_i 이상인 영역, b영역(산화성, Oxidizing) - 산소농도 23.5% 이상이고 인화성 가스 LEL_i 미만, c영역(비 인화성 및 비 산화성, Non flammable and non oxidizing) - 산소농도 23.5% 이하이고 인화성 가스 T_ci,F 또는 LEL_i 미만, d영역(인화성, Flammable) - 인화성 가스 T_ci,F 이상이고 LEL_i 이상. 가로축 하단에 LEL_i, T_ci,F, T_ci, 100% 지점이 표시되고, 세로축에 O2, 23.5%, 21%, LOC, OP 수준이 표시된다.",
+                  "page": 10
+                }
+              ],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "5.3.2",
+              "sectionTitle": "폭발하한계 산정과정",
+              "pages": [
+                10,
+                10
+              ],
+              "text": "인화성 가스 및 산소가 함유된 혼합물질의 폭발하한계를 산정하는 과정은 다음과 같은 15단계를 통해 진행된다. 계산과정의 예는 <부록 6>에 있다.\n\n(1) 1단계에서는 제공된 자료(성분별 함유량 등)와 <부록 1>, <부록 2>, <부록 3>, <부록 4>를 사용하여 다음의 자료를 정리한다.\n\n① 인화성 가스 : 몰분율, LEL, T_αi(부록 1), LOC (한계산소농도, <부록 4>)\n\n② 불활성 가스 : 몰분율, 질소등가계수(K_i, <부록 2>)\n\n③ 산화제 : 산소농도, 산화성 가스의 몰분율, 산소등가계수(C_i, <부록 3>)\n\n(2) 2단계에서는 질소가 아닌 다른 불활성 가스에 대해 일반화계수 (Normalization factor) F를 계산한다. 일반화계수 F는 식 (5-7)을 사용하여 산정한다.\n\nF = 1/[1 + ∑(K_i - 1)B_i]   (5-7)",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "5.3.2",
+          "sectionTitle": "폭발하한계 산정과정",
+          "pages": [
+            10,
+            13
+          ],
+          "text": "인화성 가스 및 산소가 함유된 혼합물질의 폭발하한계를 산정하는 과정은 다음과 같은 15단계를 통해 진행된다. 계산과정의 예는 <부록 6>에 있다.\n\n(1) 1단계에서는 제공된 자료(성분별 함유량 등)와 <부록 1>, <부록 2>, <부록 3>, <부록 4>를 사용하여 다음의 자료를 정리한다.\n① 인화성 가스 : 몰분율, LEL, Tα(부록 1), LOC (한계산소농도, <부록 4>)\n② 불활성 가스 : 몰분율, 질소등가계수(Ki, <부록 2>)\n③ 산화제 : 산소농도, 산화성 가스의 몰분율, 산소등가계수(Ci, <부록 3>)\n\n(2) 2단계에서는 질소가 아닌 다른 불활성 가스에 대해 일반화계수 (Normalization factor) F를 계산한다. 일반화계수 F는 식 (5-7)을 사용하여 산정한다.\nF=1/[1+∑(Ki-1)Bi] (5-7)\n여기서,\nBi 혼합물질에서 불활성 가스의 분율(%)\nKi 불활성 가스의 질소등가계수. <부록 1> 사용\n\n(3) 3단계에서는 인화성 성분에 2단계에서 구한 일반화계수(F)를 곱하여 일반화된 인화성 성분의 합계(Anf)를 식 (5-8)을 사용하여 산정한다.\nAnf = ΣAi×F (5-8)\n여기서,\nAi 혼합물질에서 인화성 가스의 분율(%)\n\n(4) 4단계에서는 인화성 가스의 성분만으로 구성된 혼합물질의 폭발하한계(LFL'M)를 식 (5-2)를 사용하여 산정한다.\n\n(5) 5단계에서는 인화성 가스의 혼합물이 공기 중에서 인화성을 갖지 않는 최대함유량(Tc(mix), mol%)를 식 (5-9)를 사용하여 산정한다.\nTc(mix) = ΣAi/Σ Ai/Tαi (5-9)\n여기서,\nAi : 혼합물질에서 인화성 가스의 분율(%)\nTαi : 질소와 혼합될 때 공기 중에서 인화성이 아닌 상태가 되는 인화성 가스 i의 최대 함유량 (mole%)이며 <부록 2>에 제시되어 있다. Tαi값이 없을 경우에는 폭발하한계(LEL)를 사용할 수 있고, LEL을 모를 경우에는 보수적으로 인화성 가스는 1%, 인화성 액체는 0.5%, 자연발화성 가스 및 액체는 0.1%를 사용할 수 있다.\n\n(6) 6단계에서는 산소농도에 2단계에서 구한 일반화계수(F)를 곱하여 식 (5-10)과 같이 산소당량농도(xO2)를 산정한다.\nxO2 = CO2×F (5-10)\n여기서,\nCO2 : 산소농도\n\n(7) 7단계에서는 혼합물 중에 함유된 산소농도를 고려하여 인화성이 아닌 상태가 되는 인화성 가스의 최대 농도(Tci,F)를 식 (5-11)을 사용하여 산정한다.\nTci,F = Tci×(1-xO2/21%) (5-11)\n\n(8) 8단계에서는 혼합물질의 인화성 여부를 판단한다. 인화성 여부의 판단기준은 3단계에서 구한 Anf(일반화된 인화성 성분의 합계)가 LELmix보다 크고 Anf가 Tci,F보다 다 크면, 인화성 가스로 판정된다. 즉, Anf > LELmix이고, Anf > Tci(flamax)이면, 인화성 가스이다.\n\n(9) 9단계에서는 산화제 능력 (Oxidizing power, OP)을 계산한다. 산화제 능력은 식 (5-12)를 사용하여 산정한다. OP 값이 0.235(23.5%) 보다 클 경우에는 산화성 가스 (Oxidizing gas)로 간주한다.\nOP= ΣxiCi / (Σ(i=1,n)xi + Σ(i=1,p)KiBi) (5-12)\n여기서,\nxi : 혼합물 중 산화성 가스(oxidizing gas)의 몰분율(mol%)\nCi : 산화성 가스의 산소등가계수이고 <부록 3>에 있다.\nKi : 질소와 비교되는 불활성 가스의 질소등가계수\nBi : 혼합물 중 불활성 가스의 몰분율(mol%)\nn : 산화성 가스(oxidizing gas)의 개수\np : 혼합물 중 불활성 가스의 개수\n\n(10) 10단계에서는 혼합물질의 한계산소농도(LOCmix) 또는 최소산소농도 (Minimum oxygen concentration, MOC)를 식 (5-13)을 사용하여 산정한다.\nLOCmix = ΣAi/Σ(Ai/LOCi) (5-13)\n여기서,\nAi: 인화성 성분의 농도 (mol%)\nLOCi: 인화성 성분의 한계산소농도. 만약 질소 이외의 다른 불활성 가스를 사용할 경우에는 일반화계수(F)를 사용하여 한계산소농도를 수정하고, <부록 4>를 참조한다.\n\n(11) 11단계에서는 혼합물질의 폭발성 여부를 판단한다. 판단기준은 혼합물질의 한계산소농도(LOCmix)가 산소당량농도(xO2)보다 작으면 폭발성 물질로 판단된다.\n\n(12) 12단계에서는 불활성 가스의 질소등가계수(Ki)의 평균값(K)을 구한다. 평균값은 식 (5-14)와 같이 계산되며, 산소의 당량계수는 1로 적용된다.\nK= ΣKiBi/ΣBi (5-14)\n여기서,\nKi: 질소와 비교되는 불활성 가스의 질소등가계수\nBi: 혼합물 중 불활성 가스의 몰분율(mol%)\n\n(13) 13단계에서는 LEL 계수(CL)를 구한다. CL는 식 (5-6)을 사용하여 산정한다.\n\n(14) 14단계에서는 인화성 가스의 성분별 수정된 폭발하한계(LFL')를 산정한다. 성분별 수정된 폭발하한계는 성분별 폭발하한계에 13단계에서 구한 LEL 계수(CL)를 곱하여 얻는다.\n\n(15) 15단계에서는 마지막으로 수정된 혼합물질의 폭발하한계(LFLmix)를 구한다. 14단계에서 구한 물질별 수정된 폭발하한계를 적용하여 식 (5-2)를 사용하여 산정한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "sectionNumber": "부록 1",
+      "sectionTitle": "불활성가스의 질소등가계수(Ki)",
+      "pages": [
+        14,
+        15
+      ],
+      "text": "",
+      "tables": [
+        {
+          "tableNumber": "부록 1",
+          "caption": "불활성가스의 질소등가계수(Ki) (Coefficients of equivalency for inert gases relative to nitrogen)",
+          "content": "| No | EIGA SDS No | 화학물질명 | 분자량 | Ki |\n|---|---|---|---|---|\n| 1 | 003A | Argon | 40 | 0.55 |\n| 2 | 003B | Argon (refrigerated) | 40 | 0.55 |\n| 3 | 006 | Boron trichloride | 117 | 1.5 |\n| 4 | 007 | Boron trifluoride | 68 | 1.5 |\n| 5 | 018A | Carbon dioxide | 44 | 1.5 |\n| 6 | 018B | Carbon dioxide (refrigerated) | 44 | 1.5 |\n| 7 | 018C | Carbon dioxide (solid) | 44 | 1.5 |\n| 8 | 020 | Carbonyl fluoride | 66 | 1.5 |\n| 9 | 138 | Germanium tetrafluoride | 148.6 | 1.5 |\n| 10 | 061A | Helium | 4 | 0.9 |\n| 11 | 061B | Helium (refrigerated) | 4 | 0.9 |\n| 12 | 062 | 2H-Heptafluoropropane (R227ea, HFC-227ea) (*) | 170 | 1.5 |\n| 13 | 064 | Hexafluoroethane (R116, PFC-116) | 138 | 1.5 |\n| 14 | 066 | Hexafluoropropene (R1216) | 150 | 1.5 |\n| 15 | 068 | Hydrogen bromide | 81 | 1.5 |\n| 16 | 069 | Hydrogen chloride | 36.5 | 1.5 |\n| 17 | 070 | Hydrogen fluoride | 20 | 1.5 |\n| 18 | 071 | Hydrogen iodide | 128 | 1.5 |\n| 19 | 077A | Krypton | 84 | 0.5 |\n| 20 | 077B | Krypton (refrigerated) | 84 | 0.5 |\n| 21 | 086A | Neon | 20 | 0.7 |\n| 22 | 086B | Neon (refrigerated) | 20 | 0.7 |\n| 23 | 089A | Nitrogen | 28 | 1 |\n| 24 | 089B | Nitrogen (refrigerated) | 28 | 1 |\n| 25 | 094 | Octafluorobutene (R1318) | 200 | 1.5 |\n| 26 | 095 | Octafluorocyclobutane (RC318, PFC-C-318) | 200 | 1.5 |\n| 27 | 096 | Octafluoropropane (R218, PFC-218) | 188 | 1.5 |\n| 28 | 132 | Octafluorotetrahydrofuran | 216 | 1.5 |\n| 29 | 137 | Pentafluoroethane (R125) | 120 | 3.5 |\n| 30 | 099 | Phosgene | 99 | 1.5 |\n| 31 | 102 | Phosphorus trifluoride | 88 | 1.5 |\n| 32 | 106 | Selenium hexafluoride | 193 | 1.5 |\n| 33 | 108 | Silicon tetrafluoride | 104 | 1.5 |\n| 34 | 113 | Sulphur dioxide | 64 | 1.5 |\n| 35 | 110 | Sulphur hexafluoride | 146 | 4 |\n| 36 | 111 | Sulphur tetrafluoride | 108 | 1.5 |\n| 37 | 133 | Tetrafluoroethane (R134a, HFC-134a) (*) | 102 | 1.5 |\n| 38 | 116 | Tetrafluoromethane (R14, PFC-14) | 88 | 2 |\n| 39 | 119 | Trifluoromethane (R23, HFC-23) (*) | 70 | 1.5 |\n| 40 | 123 | Tungsten hexafluoride | 298 | 1.5 |\n| 41 | 127 | Xenon | 131 | 0.5 |\n| 42 | 141 | (1E)-1,3,3,3-tetrafluoroprop-1-ene (R1234ze, HFC-1234ze) | 114 | 1.5 |\nNote:\n(*) 부분적인 할로겐화 탄화수소(Partially halogenated hydrocarbon)\nEIGA SDS No : 유럽산업가스협회의 물질안전보건자료 번호",
+          "page": 14
+        }
+      ],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "부록 2",
+      "sectionTitle": "인화성 가스 및 증기의 Tαi 및 LELi 값",
+      "pages": [
+        16,
+        18
+      ],
+      "text": "",
+      "tables": [
+        {
+          "tableNumber": "부록 2",
+          "caption": "인화성 가스 및 증기의 Tαi 및 LELi 값",
+          "content": "| 번호 | 화학물질명 | 상태 | CAS No. | UN No. | Tci(%) | LELi(%) |\n|---|---|---|---|---|---|---|\n| 1 | Acetylene | 가스 | 74-86-2 | 3374 | 3 | 2.3 |\n| 2 | Ammonia | 가스 | 7664-41-7 | 1005 | 40.1 | 15.4 |\n| 3 | Arsine | 가스 | 7784-42-1 | 2188 | 3.9 | 3.9 |\n| 4 | Bromomethane | 가스 | 74-83-9 | 1062 | 13.9 | 8.6 |\n| 5 | 1,2-Butadiene | 가스 | 590-19-2 | 1010 | 2 | 1.4 |\n| 6 | 1,3-Butadiene | 가스 | 106-99-0 | 1010 | 2 | 1.4 |\n| 7 | n-Butane | 가스 | 106-97-8 | 1011 | 3.6 | 1.4 |\n| 8 | 1-Butene | 가스 | 106-98-9 | 1012 | 3.3 | 1.5 |\n| 9 | cis-Butene | 가스 | 590-18-1 | 1012 | 3.3 | 1.5 |\n| 10 | trans-Butenes | 가스 | 624-64-6 | 1012 | 3.3 | 1.5 |\n| 11 | Carbon monoxide | 가스 | 630-08-0 | 1016 | 15.2 | 10.9 |\n| 12 | Carbonyl sulfide | 가스 | 463-58-1 | 2204 | 6.5 | 6.5 |\n| 13 | Chlorodifluoroethane (R142b) | 가스 | 75-68-3 | 2517 | 26.4 | 6.3 |\n| 14 | Chloroethane | 가스 | 75-00-3 | 1037 | 5.8 | 3.6 |\n| 15 | Chlorotrifluoroethylene (R1113) | 가스 | 79-38-9 | 1082 | 7.4 | 4.6 |\n| 16 | Cyanogen | 가스 | 460-19-5 | 1026 | 3.9 | 3.9 |\n| 17 | Cyclobutane | 가스 | 287-23-0 | 2601 | 2.9 | 1.8 |\n| 18 | Cyclopropane | 가스 | 75-19-4 | 1027 | 3.4 | 2.4 |\n| 19 | Deuterium | 가스 | 7782-39-0 | 1957 | 6.7 | 6.7 |\n| 20 | Diborane | 가스 | 19287-45-7 | 1911 | 0.9 | 0.9 |\n| 21 | Dichlorosilane | 가스 | 4109-96-0 | 2189 | 2.5 | 2.5 |\n| 22 | Difluoroethane (R152a) | 가스 | 75-37-6 | 1030 | 8.7 | 4 |\n| 23 | Difluoroethylene (R1132a) | 가스 | 75-38-7 | 1959 | 6.6 | 4.7 |\n| 24 | Dimethyl ether | 가스 | 115-10-6 | 1033 | 3.8 | 2.7 |\n| 25 | Dimethylamine | 가스 | 124-40-3 | 1154 | 2.8 | 2.8 |\n| 26 | Dimethylpropane (neopentane) | 가스 | 463-82-1 | 2044 | 2.1 | 1.3 |\n| 27 | Ethane | 가스 | 74-84-0 | 1035 | 4.5 | 2.4 |\n| 28 | Ethyl methyl ether | 가스 | 540-67-0 | 1039 | 2.8 | 2 |\n| 29 | Ethylacetylene | 가스 | 107-00-6 | 2452 | 1.8 | 1.3 |\n| 30 | Ethylene | 가스 | 74-85-1 | 1962 | 4.1 | 2.4 |\n| 31 | Ethylene oxide | 가스 | 75-21-8 | 1040 | 4.8 | 2.6 |\n| 32 | Fluoroethane | 가스 | 353-36-6 | 2453 | 6.1 | 3.8 |\n| 33 | Fluoromethane | 가스 | 593-53-3 | 2454 | 9 | 5.6 |\n| 34 | Germane | 가스 | 7782-65-2 | 2192 | 1 | 1.0 (estimated) |\n| 35 | Hydrogen | 가스 | 1333-74-0 | 1049 | 5.5 | 4 |\n| 36 | Hydrogen selenide | 가스 | 7783-07-5 | 2202 | 4 | 4 |\n| 37 | Hydrogen sulfide | 가스 | 7783-06-4 | 1053 | 8.9 | 3.9 |\n| 38 | Isobutane | 가스 | 75-28-5 | 1969 | 3.4 | 1.5 |\n| 39 | Isobutene | 가스 | 115-11-7 | 1055 | 4 | 1.6 |\n| 40 | Methane | 가스 | 74-82-8 | 1971 | 8.7 | 4.4 |\n| 41 | Methyl chloride | 가스 | 74-87-3 | 1063 | 12.3 | 7.6 |\n| 42 | Methyl mercaptan | 가스 | 74-93-1 | 1064 | 5.7 | 4.1 |\n| 43 | Methyl nitrite | 가스 | 624-91-9 | 2455 | 5.3 | 5.3 |\n| 44 | Methyl silane | 가스 | 992-94-9 | 3161 | 1.3 | 1.3 |\n| 45 | Methylacetylene (propyne) | 가스 | 74-99-7 | 3161 | 2.5 | 1.8 |\n| 46 | Methylamine | 가스 | 74-89-5 | 1061 | 6.9 | 4.9 |\n| 47 | Methylbutene (3-methylbut-1-ene) | 가스 | 563-45-1 | 2561 | 2.4 | 1.5 |\n| 48 | Monoethylamine | 가스 | 75-04-7 | 1036 | 5.7 | 3.5 |\n| 49 | Phosphine | 가스 | 7803-51-2 | 2199 | 1.7 | 1.6 |\n| 50 | Propadiene | 가스 | 463-49-0 | 2200 | 2.7 | 1.9 |\n| 51 | Propane | 가스 | 74-98-6 | 1978 | 3.7 | 1.7 |\n| 52 | Propene | 가스 | 115-07-1 | 1077 | 4.2 | 1.8 |\n| 53 | Silane | 가스 | 7803-62-5 | 2203 | 1 | 1.0 (estimated) |\n| 54 | Tetrafluoroethylene (R1114) | 가스 | 116-14-3 | 1081 | 10.5 | 10.5 |\n| 55 | Trifluoroethane (R143a) | 가스 | 420-46-2 | 2035 | 11.3 | 7 |\n| 56 | Trifluoroethylene (R1123) | 가스 | 359-11-5 | 1954 | 13.1 | 10.5 |\n| 57 | Trimethylamine | 가스 | 75-50-3 | 1083 | 3.2 | 2 |\n| 58 | Trimethylsilane | 가스 | 993-07-7 | 3161 | 1.3 | 1.3 |\n| 59 | Vinyl bromide | 가스 | 593-60-2 | 1085 | 9 | 5.6 |\n| 60 | Vinyl chloride | 가스 | 75-01-4 | 1086 | 6.1 | 3.8 |\n| 61 | Vinyl fluoride | 가스 | 75-02-5 | 1860 | 4.7 | 2.9 |\n| 62 | Vinyl methyl ether | 가스 | 107-25-5 | 1087 | 3.6 | 2.2 |\n| 63 | Acetaldehyde | 증기 | 75-07-0 | 1088 | 6.5 | 4 |\n| 64 | Acetone | 증기 | 67-64-1 | 1090 | 4 | 2.5 |\n| 65 | Benzene | 증기 | 71-43-2 | 1114 | 2.3 | 1.2 |\n| 66 | Carbon disulphide | 증기 | 75-15-0 | 1131 | 1.3 | 0.6 |\n| 67 | Cyclohexane | 증기 | 110-82-7 | 1145 | 1.8 | 1 |\n| 68 | n-Decane | 증기 | 124-18-5 | 2247 | 1.1 | 0.7 |\n| 69 | Diethyl ether | 증기 | 60-29-7 | 1155 | 2.4 | 1.7 |\n| 70 | Dimethyl acetylene (2-butyne, crotonylene) | 증기 | 503-17-3 | 1144 | 2 | 1.4 |\n| 71 | 2,2-Dimethylbutane (neohexane) | 증기 | 75-83-2 | 1208 | 1.9 | 1.2 |\n| 72 | n-Dodecane | 증기 | 112-40-3 | - | 1 | 0.6 |\n| 73 | Ethanol | 증기 | 64-17-5 | 1170 | 5.6 | 3.1 |\n| 74 | Ethyl acetate | 증기 | 141-78-6 | 1173 | 4.6 | 2 |\n| 75 | Ethyl chloride (Chloroethane) | 증기 | 75-00-3 | 1037 | 5.8 | 3.6 |\n| 76 | Ethyl formate | 증기 | 109-94-4 | 1089 | 3.8 | 2.7 |\n| 77 | n-Heptane | 증기 | 142-82-5 | 1206 | 1.3 | 0.8 |\n| 78 | n-Hexane | 증기 | 110-54-3 | 1208 | 2.3 | 1 |\n| 79 | Hydrogen cyanide | 증기 | 74-90-8 | 1051 | 5.4 | 5.4 |\n| 80 | Isooctane (2,2,4-trimethylpentane) | 증기 | 540-84-1 | 1262 | 1.6 | 1 |\n| 81 | Isopentan (2-methylbutane) | 증기 | 78-78-4 | 1265 | 2.1 | 1.3 |\n| 82 | Lead tetraethyl (tetraethyllead) | 증기 | 78-00-2 | 1649 | 1.8 | 1.8 |\n| 83 | Methanol | 증기 | 67-56-1 | 1230 | 12.5 | 6 |\n| 84 | Methyl acetate | 증기 | 79-20-9 | 1231 | 5 | 3.1 |\n| 85 | Methyl ethyl ketone (butanone) | 증기 | 78-93-3 | 1193 | 2.4 | 1.5 |\n| 86 | Methyl formate | 증기 | 107-31-3 | 1243 | 8.1 | 5 |\n| 87 | Methylene chloride (Dichloromethane) | 증기 | 75-09-2 | 1592 | 21 | 13 |\n| 88 | Monochlorosilane | 증기 | 13465-78-6 | 2986 | 1 | 1.0 (estimated) |\n| 89 | Nickel carbonyl (tetracarbonylnickel) | 증기 | 13463-39-3 | 1259 | 0.9 | 0.9 |\n| 90 | n-Nonane | 증기 | 111-84-2 | 1920 | 1.1 | 0.7 |\n| 91 | n-Octane | 증기 | 111-65-9 | 1262 | 1.3 | 0.8 |\n| 92 | n-Pentane | 증기 | 109-66-0 | 1265 | 1.8 | 1.1 |\n| 93 | Propyl formate | 증기 | 110-74-7 | 1281 | 4.6 | 2.1 |\n| 94 | Propylene oxide | 증기 | 75-56-9 | 1280 | 3.7 | 1.9 |\n| 95 | Toluene | 증기 | 108-88-3 | 1294 | 2.3 | 1 |",
+          "page": 16
+        }
+      ],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "부록 3",
+      "sectionTitle": "산화성 가스의 산소등가계수(Ci)",
+      "pages": [
+        19,
+        19
+      ],
+      "text": "[참고사항]\n[1] 시험되지 않은 산화성 가스는 보수적인 값(40)을 적용하였다.\n[2] 이 값은 산화질소(Nitricoxide) 및 삼불화질소(Nitrogentrifluoride)로 산정하였다.",
+      "tables": [
+        {
+          "tableNumber": "부록 3",
+          "caption": "산화성 가스의 산소등가계수(Ci) (Coefficient of oxygen equivalency for oxidizing gases)",
+          "content": "| 번호 | 화학물질명 | 산소등가계수 Ci | 비고 |\n|---|---|---|---|\n| 1 | Bis-trifluoromethylperoxide | 40 | [1] |\n| 2 | Bromine pentafluoride | 40 | [1] |\n| 3 | Bromine trifluoride | 40 | [1] |\n| 4 | Chlorine | 0.7 |  |\n| 5 | Chlorine pentafluoride | 40 | [1] |\n| 6 | Chlorine trifluoride | 40 | [1] |\n| 7 | Fluorine | 40 | [1] |\n| 8 | Iodine pentafluoride | 40 | [1] |\n| 9 | Nitric oxide | 0.3 |  |\n| 10 | Nitrogen dioxide | 1 | [2] |\n| 11 | Nitrogen trifluoride | 1.6 |  |\n| 12 | Nitrogen trioxide | 40 | [1] |\n| 13 | Nitrous oxide | 0.6 |  |\n| 14 | Oxygen | 1 |  |\n| 15 | Oxygen (refrigerated) | 1 |  |\n| 16 | Oxygen difluoride | 40 | [1] |\n| 17 | Ozone | 40 | [1] |\n| 18 | Tetrafluorohydrazine | 40 | [1] |",
+          "page": 19
+        }
+      ],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "부록 4",
+      "sectionTitle": "한계산소농도(Limiting oxygen concentration, LOC)",
+      "pages": [
+        20,
+        21
+      ],
+      "text": "",
+      "tables": [
+        {
+          "tableNumber": null,
+          "caption": "한계산소농도(Limiting oxygen concentration, LOC)",
+          "content": "| 번호 | EIGA SDS No | 화학물질명 | 분자량 | LOC (%) |\n|---|---|---|---|---|\n| 1 | 001 | Acetylene (dissolved) | 26 | 2 |\n| 2 | 002 | Ammonia, anhydrous | 17 | 12.2 |\n| 3 | 005 | Arsine | 78 | 2 |\n| 4 | 012 | Butadiene 1,2- | 54 | 2 |\n| 5 | 013 | 1,3-Butadiene | 54 | 2 |\n| 6 | 014 | Butane | 58 | 9.6 |\n| 7 | 017 | but-1-ene | 56 | 9.7 |\n| 8 | 015 | (Z)-but-2-ene | 56 | 9.7 |\n| 9 | 016 | (E)-but-2-ene | 56 | 9.7 |\n| 10 | 019 | Carbon monoxide | 28 | 4.7 |\n| 11 | 021 | Carbonyl sulphide | 60 | 4.6 |\n| 12 | 028 | Chloroethane | 64.5 | 2 |\n| 13 | 029 | Chloromethane (R40) | 50.5 | 2 |\n| 14 | 033 | Chlorotrifluoroethylene (R1113) | 116.5 | 2 |\n| 15 | 037 | Cyclobutane | 56 | 2 |\n| 16 | 038 | Cyclopropane | 42 | 2 |\n| 17 | 039 | Deuterium | 4 | 2 |\n| 18 | 040 | Diborane | 27.7 | 2 |\n| 19 | 043 | Dichlorosilane | 101 | 2 |\n| 20 | 045 | Difluoroethane (R152a, HFC-152a) | 67 | 2 |\n| 21 | 046 | Difluoroethylene 1,1- (R1132a) | 64 | 2 |\n| 22 | 130 | Difluoromethane (R32, HFC-32) | 52 | 2 |\n| 23 | 047 | Di-methylamine | 45 | 2 |\n| 24 | 048 | Dimethyl ether | 46 | 8.5 |\n| 25 | 049 | Dimethylsilane | 60 | 2 |\n| 26 | 050 | Disilane | 62 | 2 |\n| 27 | 051A | Ethane | 30 | 8.8 |\n| 28 | 051B | Ethane (refrigerated) | 30 | 8.8 |\n| 29 | 052 | Ethyl acetylene | 54 | 2 |\n| 30 | 054 | Ethylamine | 45 | 2 |\n| 31 | 053 | Ethyl methyl ether | 60 | 2 |\n| 32 | 055A | Ethylene | 28 | 7.6 |\n| 33 | 055B | Ethylene (refrigerated) | 28 | 7.6 |\n| 34 | 056 | Ethylene oxide | 44 | 2 |\n| 35 | 058 | Fluoroethane (R161, HFC-161) | 48 | 2 |\n| 36 | 059 | Fluoromethane | 34 | 2 |\n| 37 | 060 | Germane | 76.6 | 2 |\n| 38 | 131 | Hexafluoro-1,3-Butadiene | 162 | 2 |\n| 39 | 067A | Hydrogen | 2 | 4.3 |\n| 40 | 067B | Hydrogen (refrigerated) | 2 | 4.3 |\n| 41 | 072 | Hydrogen selenide | 81 | 2 |\n| 42 | 073 | Hydrogen sulphide | 34 | 9.1 |\n| 43 | 074 | Hydrogen telluride | 130 | 2 |\n| 44 | 075 | Isobutane (R600a) | 58 | 10.3 |\n| 45 | 076 | 2-methylpropene | 56 | 10.6 |\n| 46 | 078A | Methane | 16 | 11.0 |\n| 47 | 078B | Methane (refrigerated) | 16 | 11.0 |\n| 48 | 079 | Methyl 3-butene 1 | 70 | 2 |\n| 49 | 081 | Methyl acetylene | 40 | 2 |\n| 50 | 082 | Mono-methylamine | 31 | 2 |\n| 51 | 083 | Methanethiol | 48 | 2 |\n| 52 | 084 | Methyl silane | 46 | 2 |\n| 53 | 080 | Methyl vinyl ether | 58 | 2 |\n| 54 | 087 | Neopentane | 72 | 2 |\n| 55 | 100 | Phosphine | 34 | 2 |\n| 56 | 103 | Propadiene 1,2- | 40 | 2 |\n| 57 | 104 | Propane (R290) | 44 | 9.8 |\n| 58 | 105 | Propylene (R1270) | 42 | 9.3 |\n| 59 | 107 | Silane | 32 | 2 |\n| 60 | 114 | Tetrafluoroethylene (R1114) | 100 | 2 |\n| 61 | 118 | Trifluoroethane (R143a, HFC-143a) | 84 | 2 |\n| 62 | 122 | Tri-methylamine | 59 | 2 |\n| 63 | 121 | Trimethylsilane | 74.2 | 2 |\n| 64 | 124 | Bromoethylene | 107 | 2 |\n| 65 | 125 | Vinyl chloride | 62.5 | 2 |\n| 66 | 126 | Vinyl fluoride | 46 | 2 |\n| 67 | 139 | Trimethylborane | 56 | 2 |",
+          "page": 20
+        }
+      ],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "부록 5",
+      "sectionTitle": "산화성 가스가 포함되지 않은 혼합가스의 폭발하한계(LEL) 산정 예",
+      "pages": [
+        22,
+        23
+      ],
+      "text": "1. 혼합가스의 구성성분\n\nH₂(4%), CH₄(6%), Ar(27%), He(65%)\n\n2. ISO 10156 기준을 정용한 혼합가스의 폭발하한계 산정과정\n\n(1) 1단계에서는 주어진 자료와 <부록 1> 및 <부록 2>의 자료를 찾아 아래의 표와 같이 정리한다.\n\n(2) 2단계에서는 혼합물의 인화성 여부를 확인하기 위해 먼저 식 (4-2)를 사용하여 인화성 가스의 당량 함유량(A′i)를 구한다. 계산하면 수소와 메탄의 당량 함유량은 각각 다음과 같다.\n\nA′(H₂) = 2/[(2+6)+(0.55×27+0.9×65)] = 2.46 (mol%)\nA′(CH₄) = 6/[(2+6)+(0.55×27+0.9×65)] = 7.38 (mol%)\n\n(3) 3단계에서는 식 (4-1)을 사용하여 혼합물질의 폭발성 여부를 판단한다. 수소와 메탄에 대해서는 2단계에서 구한 값과 주어진 Tci값을 사용하여 구한다. 계산 결과는 다음과 같이 1보다 크므로 이 혼합물질은 인화성이다.\n\nΣ(i=1 to n) A′i/Tci = (2.46/5.5+7.38/8.7) = 1.5 > 1\n\n(4) 4단계에서는 식 (5-1) 또는 식 (5-2)를 사용하여 인화성 성분만의 혼합물질의 폭발하한계(L′M)를 계산한다. 계산 결과는 다음과 같다.\n\nL′M = 100/(25/4+75/4.4) = 4.29 vol%\n\n(5) 5단계에서는 식 (5-3)을 통해 불활성가스의 질소등가계수(Kk)의 평균값을 구한다. 계산 결과는 다음과 같다.\n\nK = (27×0.55+65×0.9)/(27+65) = 0.797\n\n(6) 6단계에서는 식 (5-4)를 사용하여 인화성 성분의 수정된 폭발하한계(LFL′i)을 구한다. 계산결과는 다음과 같다.\n\nLFL′(H₂) = [100-4.29-(1-0.797)×(27+65)/(2+6)]/(100-4.29)×4 = 3.58\nLFL′(CH₄) = [100-4.29-(1-0.797)×(27+65)/(2+6)]/(100-4.29)×4.4 = 3.94\n\n(7) 7단계에서는 최종적으로 6단계에서 구한 인화성 가스의 성분별 수정된 폭발하한계를 사용하여 식 (5-1)을 통해 구한다. 계산 결과는 다음과 같다. 즉, 혼합물질의 폭발하한계는 48.04 (vol%)이다.\n\nLELmix = 100/(2/3.58+6/3.94) = 48.04 (vol%)",
+      "tables": [
+        {
+          "tableNumber": "표 1",
+          "caption": "혼합가스의 물성치 정리",
+          "content": "| 구분 | 기호 | 단위 | 인화성 가스 H₂ | 인화성 가스 CH₄ | 불활성 가스 Ar | 불활성 가스 He | 비고 |\n|---|---|---|---|---|---|---|---|\n| 폭발하한계 | LEL | vol% | 4 | 4.4 | - | - | |\n| 혼합물질의 물분율 인화성 가스 | Ai | mole% | 2 | 6 | | - | 주어진 값 |\n| 혼합물질의 물분율 불활성 가스 | Bi | mole% | - | - | 27 | 65 | 주어진 값 |\n| 질소등가계수 | Ki | | - | - | 0.55 | 0.9 | <부록 1> |\n| 공기 중에서 인화성이 되지 않는 인화성 가스의 최대 함유량 | Tci | mole% | 5.5 | 8.7 | - | - | <부록 2> |",
+          "page": 22
+        }
+      ],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "부록 6",
+      "sectionTitle": "산화성 가스가 포함된 혼합가스의 폭발하한계(LEL) 산정 예",
+      "pages": [
+        23,
+        26
+      ],
+      "text": "1. 혼합가스의 구성성분\n\nH₂(5%), CH₄(1%), CO(3%), CO₂(10%), O₂(4%), N₂(77%)로 구성되어 있다.\n\n2. ISO 10156 기준을 사용한 혼합가스의 폭발하한계 산정과정\n\n(1) 1단계에서는 파악된 자료를 정리한다. 제공된 자료와 <부록 1>부터 <부록 4>까지의 자료를 참조하여 다음의 표와 같이 자료를 정리한다.\n\n(2) 2단계에서는 일반화계수(F)를 구한다. 불활성 가스인 CO₂와 N₂의 일반화계수(F)를 식 (5-7)을 사용하여 구하면 다음과 같다.\n\nF = 1/[1+Σ(Kk-1)Bk]\n= 100/[100+(1.5-1)×10+(1-1)×77] = 0.952\n\n(3) 3단계에서는 식 (5-8)을 사용하여 일반화계수를 곱한 인화성 성분의 함량의 합을 구한다. 혼합물 중 인화성 성분(H₂, CH₄, CO)에 일반화계수(F)를 곱하여 더한 값을 구하면 다음과 같다.\n\nAnf = (5+1+3)×0.952 = 8.6 mol%\n\n(4) 4단계에서는 인화성 가스(H₂, CH₄, CO)만으로 구성된 혼합물의 폭발하한계(LFL′M)를 식 (4-9)를 사용하여 구하면 다음과 같다.\n\nLFL′M = (5+1+3)/(5/4+1/4.4+3/10.9) = 5.14 vol%\n\n(5) 5단계에서는 혼합물의 최대 인화성 가스 농도(Tci(mix))를 식 (5-9)를 사용하여 구한다. 주어진 데이터를 사용하여 구하면 다음과 같다.\n\nTci(mix) = ΣAi/Σ(Ai/(Tci)i)\n= (5+1+3)/(5/5.5+1/8.7+3/15.2) = 9/(0.91+0.11+0.20) = 9/1.22 = 7.37\n\n(6) 6단계에서는 식 (5-10)을 사용하여 산소당량농도(xO₂)를 구한다. 질소 이외의 다른 불활성 가스가 사용될 경우의 산소당량농도는 산소농도에 일반화계수(F)를 곱하여 구하고, 결과는 다음과 같다.\n\nxO₂ = O₂(mol%)×F = 4%×0.952 = 3.8 mol%\n\n(7) 7단계에서는 식 (5-11)을 사용하여 산소농도를 고려하여 인화성이 아닌 상태가 되는 인화성 가스의 최대 농도(Tα,F)를 산정하고, 그 결과는 다음과 같다.\n\nTα,F = Tci×(1-xO₂/21%) = 7.37(1-3.8/21) = 6.04%\n\n(8) 8단계에서는 혼합물의 인화성 여부를 판단한다. 3단계에서 구한 일반화된 인화성 성분의 합계인 Anf > LFLmix이고, Anf > Tci(flamox)이면, 인화성 가스로 판정된다.\n\n따라서, Anf = 8.6 > LFLmix = 5.14이고, Anf = 8.6 > Tci(flamox) = 6.04이므로 혼합가스는 인화성 가스이다.\n\n(9) 9단계에서는 식 (5-12)를 사용하여 산화제 능력(OP, Oxidizing power)을 계산한다. 본 예에는 산소 외의 다른 산화제가 없으므로 해당사항이 없다.\n\n(10) 10단계에서는 혼합물의 한계산소농도(LOCmix)를 구한다. 식 (5-13)을 사용하여 산정하면 다음과 같다.\n\nLOCmix = ΣAi/ΣAi/LOCi\n= (5+1+3)/(5/4.3+1/11+3/4.7) = 4.76\n\n(11) 11단계에서는 혼합물의 폭발성 여부를 판단한다. 판단기준은 혼합물의 한계산소농도(LOCmix)가 산소당량농도(xO₂)보다 작으면 폭발성 물질로 판단된다. 따라서 LOCmix = 4.76 > xO₂ = 3.8이므로 이 혼합물은 폭발성 물질이 아니다.\n\n(12) 12단계에서는 식 (5-14)를 사용하여 불활성가스의 질소등가계수(Ki)의 평균값(K)을 구한다. 평균값은 다음과 같다.\n\nK = ΣKiBi/ΣBi\n= (10×1.5+4×1+77×1)/(10+4+77) = 1.055\n\n(13) 13단계에서는 식 (5-6)을 사용하여 LEL 계수(CL)를 구한다. 산정 결과는 다음과 같다.\n\nCL = [100-L′M-(1-K)×Σ(i=1 to p)Bi/Σ(i=1 to n)Ai×L′M] / (100-L′M)\nCL = [100-5.14-(1-1.055)×(10+4+77)/(3+5+1)×5.14] / (100-5.14) = 1.0303\n\n(14) 14단계에서는 인화성 가스의 성분별 수정된 폭발하한계(LFL′i)를 구한다. 성분별 수정된 폭발하한계는 성분별 폭발하한계에 13단계에서 구한 LEL 계수(CL)를 곱하여 얻으며, 다음과 같다.\n\nLFL′H₂ = CL×LFLH₂ = 1.0303×10.9 = 11.23 vol%\nLFL′CH₄ = CL×LFLCH₄ = 1.0303×4.4 = 4.53 vol%\nLFL′CO = CL×LFLCO = 1.0303×10.9 = 11.23 vol%\n\n(15) 마지막으로 15단계에서는 식 (5-2)를 사용하여 수정된 혼합물의 폭발하한농도(LFLmix)를 구한다. 산정 결과는 다음과 같다.\n\nLELmix = 100/Σ(i=1 to n)(Ai/LELi)\n= 100(3/11.23+1/4.53+5/4.12) = 58.78 vol%",
+      "tables": [
+        {
+          "tableNumber": "표 2",
+          "caption": "산화성 가스를 포함한 혼합가스의 물성치 정리",
+          "content": "| 구분 | 기호 | 단위 | 인화성 가스 H₂ | 인화성 가스 CH₄ | 인화성 가스 CO | 불활성 및 산화성 가스 CO₂ | 불활성 및 산화성 가스 O₂ | 불활성 및 산화성 가스 N₂ | 비고 |\n|---|---|---|---|---|---|---|---|---|---|\n| 혼합물질의 물분율 인화성 가스 | Ai | mole% | 5 | 1 | 3 | | | | 주어진 값 |\n| 혼합물질의 물분율 불활성 가스 | Bi | mole% | | | | 10 | 4 | 77 | 주어진 값 |\n| 공기 중에서 인화성이 되지 않는 인화성 가스의 최대 함유량 | Tci | mole% | 5.5 | 8.7 | 15.2 | | | | <부록 2> |\n| 폭발하한계 | LEL | vol% | 4 | 4.4 | 10.9 | | | | <부록 2> |\n| 한계산소농도 | LOC | | 4.3 | 11 | 4.7 | | | | <부록 4> |\n| 질소등가계수 | Ki | | - | - | - | 1.5 | | 1 | <부록 1> |\n| 산소등가계수 | Ci | | - | - | - | - | 1 | - | <부록 3> |",
+          "page": 24
+        }
+      ],
+      "images": [],
+      "subsections": []
+    }
+  ]
+}

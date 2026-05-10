@@ -2,63 +2,59 @@
 
 Latest updated: 2026-05-10
 
-This repository coordinates several child repositories without vendoring their contents. Physical monorepo import has not happened yet.
+Root `arch-bot` is the monorepo target. The project-owned child repositories were pushed first, then imported into root by snapshot on branch `codex/monorepo-snapshot-import`.
 
-Project-owned repositories are pushed before root documentation is pushed. External dependencies are recorded but not pushed by this project.
+`legalize-kr` is external and remains outside root git.
 
-## koshaontology
+## Imported Project Sources
 
-- URL: <https://github.com/jinbless/koshaontology>
-- Role: ontology schema, ontology instances, extraction pipeline documents, SHE pattern data, OWL/TTL export and validation scripts
-- Branch: `main`
-- Latest pushed baseline: `60d025ee873e071faf9c90cc0b1a89b05c4812bd`
-- Push status: pushed and verified against `origin/main` on 2026-05-10
-- Current purpose: Pipe-A/B/C source of truth for SR, SHE, Guide/WorkProcess extraction, manual Guide usage profiles, and ontology enrichment artifacts
+| Directory | Original repo | Baseline branch | Imported baseline | Root policy |
+|---|---|---|---|---|
+| `koshaontology/` | <https://github.com/jinbless/koshaontology> | `main` | `60d025ee873e071faf9c90cc0b1a89b05c4812bd` | tracked by root snapshot |
+| `OHS/` | <https://github.com/jinbless/OHS> | `main` | `7eed7280e1ece9fa7bb32beb182017f5cfa96f5a` | tracked by root snapshot |
 
-## OHS
+The original repositories remain the history archive for work before the snapshot import.
 
-- URL: <https://github.com/jinbless/OHS>
-- Role: backend/frontend service, SHE matcher, hazard normalization, penalty path response, synthetic evaluation scripts
-- Branch: `main`
-- Latest pushed baseline: `7eed7280e1ece9fa7bb32beb182017f5cfa96f5a`
-- Push status: pushed and verified against `origin/main` on 2026-05-10
-- Local doc: `OHS/README.md`
-- Current purpose: OHS runtime, frontend, serving artifacts, Guide recommendation evaluator, actual/synthetic replay scripts
+## External Dependency
 
-## legalize-kr
+| Directory | Upstream repo | Baseline observed | Root policy |
+|---|---|---|---|
+| `legalize-kr/` | <https://github.com/legalize-kr/legalize-kr> | `732764e9e8e116bbc40eb5278207e3a08b31297e` | ignored; do not push or import |
 
-- URL: <https://github.com/legalize-kr/legalize-kr>
-- Role: legal source dependency
-- Branch: `main`
-- Upstream baseline observed: `732764e9e8e116bbc40eb5278207e3a08b31297e`
-- Push status: excluded from project push targets because this repository is not project-owned
-- Current purpose: external legal source corpus consumed by `koshaontology/pipe-A`
-- Important: do not push from this workspace unless explicitly acting as an authorized maintainer of `legalize-kr`
-- Local note: this workspace may be ahead of upstream because local source snapshots can exist; treat them as local-only unless separately authorized
+`legalize-kr` is consumed by `koshaontology/pipe-A` through the local sibling path. Do not push it from this project workspace unless separately authorized as an upstream maintainer.
 
-## arch-bot
+## Root Repository
 
 - URL: <https://github.com/jinbless/arch-bot>
-- Role: top-level design docs, current architecture, evaluation summaries, synthetic testsets, coordination notes
-- Branch: `main`
-- Monorepo governance baseline: `9741680d0b255ae3a0241688f77036c0cd3b81f8`
-- Push status: pushed and verified against `origin/main` on 2026-05-10
-- Start document: `NEXT_SESSION_INSTRUCTIONS.md`
-- Current purpose: root main article, monorepo transition plan, data governance, synthetic observations, selected accepted report links
+- Main baseline before import: `1565a9d14e76b7e3ceb6753354621f5d043c92de`
+- Import branch: `codex/monorepo-snapshot-import`
+- Import branch commit: pending until commit/push completes
+- Role: monorepo root, governance docs, imported OHS/koshaontology source, selected Guide corpus, synthetic inputs, lightweight manifests
+
+## Data Directories
+
+| Directory | Root policy |
+|---|---|
+| `kosha-guides/parsed/**` | tracked, 1,038 parsed Guide JSON files |
+| `kosha-guides/manifest/**` | tracked, parsed Guide provenance manifest |
+| `kosha-guides/{A,B,C,D,E}/**` | ignored raw PDF/source corpus |
+| `pictures-json/synthetic_observations_v*.jsonl` | tracked synthetic evaluation inputs |
+| `pictures-json/reports/**` | ignored local/external report bodies |
+| `pictures-json/reports-manifest.json` | tracked report provenance and accepted baseline summary |
 
 ## Local Directory Layout
 
 ```text
 C:\project\arch-bot
-├─ OHS/             project-owned child git repository, ignored by root for now
-├─ koshaontology/   project-owned child git repository, ignored by root for now
-├─ legalize-kr/     external child git repository, ignored by root for now
-├─ kosha-guides/    large source/parsed corpus, selective tracking target for future monorepo phase
-├─ pictures-json/   synthetic observation testsets and selected aggregate reports
-├─ docs/            root architecture/status/workplan indexes
+├─ OHS/             imported service source
+├─ koshaontology/   imported ontology/pipeline source
+├─ legalize-kr/     external source dependency, ignored by root
+├─ kosha-guides/    parsed corpus and manifest tracked; raw PDFs ignored
+├─ pictures-json/   synthetic inputs tracked; report bodies external
+├─ docs/            architecture/status/workplan documents
 └─ *.md             root governance and design documents
 ```
 
-## Future Import Rule
+## Operating Rule
 
-If physical monorepo import is later approved, use snapshot import by default. Preserve historical traceability by recording the imported child commit SHA here instead of rewriting child repository history into root.
+After the snapshot import branch is merged, normal project changes should be committed and pushed through root `arch-bot`. Only use the original child repositories to inspect pre-import history or to recover a pre-import baseline.

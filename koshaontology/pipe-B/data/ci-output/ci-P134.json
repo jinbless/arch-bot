@@ -1,0 +1,688 @@
+{
+  "metadata": {
+    "guideCode": "P-134-2013",
+    "shortCode": "P134",
+    "domain": "C",
+    "extractedAt": "2026-04-24T12:19:16Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-053"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-P134-001",
+      "text": "설비배치를 계획할 때에는 먼저 법규에 명시되어 있는 사항을 준수하여야 한다.",
+      "guideContext": "설비 배치 일반사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 배치 계획",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-002",
+      "text": "그 밖의 법규에 명시되지 않은 사항에 대하여는 보험회사의 권고 사항이나 설계회사의 자문을 받아서 안전거리 등을 결정하여야 한다.",
+      "guideContext": "설비 배치 일반사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 배치 계획",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-003",
+      "text": "안전거리를 줄여야 하는 것이 불가피한 경우에는 안전거리를 줄이는 대신에 이를 보완하기 위한 안전설비나 소화설비들을 강화하여야 한다.",
+      "guideContext": "설비 배치 일반사항",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 배치 계획",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-004",
+      "text": "공장을 신설할 때에는 그 지역의 주풍향을 결정하고, 이를 고려하여야 한다.",
+      "guideContext": "주풍향 고려 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 배치 계획",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-005",
+      "text": "인화성 유체가 누출될 우려가 있는 모든 설비나 기기들은 풍하측에 배치하여 누출이 되는 경우에도 나화(Open flame)나 고온의 표면(Hot surface)에 있는 지역에 인화성 유체가 체류하지 않도록 한다.",
+      "guideContext": "주풍향 고려",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 배치 계획",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-006",
+      "text": "인화성 유체가 누출될 우려가 있는 모든 설비나 기기들은 풍하측에 배치하여 누출이 되는 경우에도 전기실(Power house), 보일러 용수펌프 및 공기 공급설비는 다른 설비들로부터 75 m 이상 떨어지게 배치한다.",
+      "guideContext": "주풍향 고려 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 배치 계획",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-007",
+      "text": "보일러나 가열로의 폭발로 유틸리티가 손상을 받지 않도록 충분한 거리를 유지하여야 한다.",
+      "guideContext": "주풍향 고려",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 배치 계획",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-008",
+      "text": "이웃한 다른 공장의 설비들로부터 받을 수 있는 영향을 고려하여야 한다.",
+      "guideContext": "주풍향 고려 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 배치 계획",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-009",
+      "text": "제어실, 전기실, 압축기 및 가열로 등의 위치는 부지내의 조건들뿐만 아니라 다른 단위공정시설에 접근성, 주 접근 도로 및 풍향 등을 고려하여야 한다.",
+      "guideContext": "공정지역 배치 일반사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-010",
+      "text": "소화설비들의 접근로는 공장내 모든 단위공정시설과 단위공정시설 사이에 있어야 하며, 접근로의 폭은 최소 6 m 이상으로 한다.",
+      "guideContext": "공정지역 배치 일반사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-011",
+      "text": "공장의 정기보수를 위하여 크레인, 화물차 및 지게차등 이동식 장비들의 통제와 화기작업과 같은 위험작업이 잘 통제되는 경우 15 m 이상의 안전거리를 둔다.",
+      "guideContext": "공정지역 배치 일반사항",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-012",
+      "text": "크레인, 화물차 및 지게차등 이동식 장비들의 통제와 화기작업 과 같은 위험작업이 잘 통제되지 않는 경우에는 25 m 이상의 안전거리를 유지 한다.",
+      "guideContext": "공정지역 배치 일반사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-013",
+      "text": "인화성 가스를 취급하는 압축기는 다른 설비들과 일정한 거리를 두어 배치하여야 한다.",
+      "guideContext": "공정설비 - 압축기",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-014",
+      "text": "여러 대의 압축기를 한 곳에 배치하는 경우에는 화재의 영향을 최소화하기 위하여 다른 설비들과 7.5 m 이상의 거리를 확보 한다.",
+      "guideContext": "공정설비 - 압축기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-015",
+      "text": "압축기실은 화재 시에 접근이 용이하도록 최소 2곳의 방향으로 접근이 가능하도록 하여야 한다.",
+      "guideContext": "공정설비 - 압축기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-016",
+      "text": "가스터빈, 디젤 또는 가스엔진은 누출원과 점화원이 될 수 있으므로, 인화성 유체를 취급하는 다른 터빈 등이나 설비들과 10 m 이상의 거리를 두어 배치한다.",
+      "guideContext": "공정설비 - 터빈 등",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-017",
+      "text": "공냉식 냉각기는 인화성 유체를 취급하는 펌프나 압축기의 상부에는 배치하지 아니한다.",
+      "guideContext": "공정설비 - 공냉식 냉각기",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-018",
+      "text": "드럼이나 열교환기의 상부에도 배치하지 않으며, 특히 300 ℃ 이상의 온도에서 운전되는 열교환기 상부에는 배치하여서는 안 된다.",
+      "guideContext": "공정설비 - 공냉식 냉각기",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-019",
+      "text": "주요한 배관들의 상부에 배치하지 아니한다.",
+      "guideContext": "공정설비 - 공냉식 냉각기 (법령 근거 미확인)",
+      "additionalDetail": "공냉식 냉각기의 배치 제한 사항",
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-020",
+      "text": "펌프, 탑, 드럼 및 열교환기와 3 m 이상 거리를 두어 배치한다.",
+      "guideContext": "공정설비 - 공냉식 냉각기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-021",
+      "text": "변전실 등은 폭발위험이 없는 장소에 배치하여야 한다.",
+      "guideContext": "공정설비 - 변전실",
+      "additionalDetail": "다만, 폭발위험지역에 배치하는 경우에는 산업안전보건기준에 관한 규칙 제312조에 따른다.",
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-ELECTRIC-012"
+      ]
+    },
+    {
+      "identifier": "CI-P134-022",
+      "text": "폭발위험지역에 배치하는 경우에는 산업안전보건기준에 관한 규칙 제312조에 따른다.",
+      "guideContext": "공정설비 - 변전실",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-P134-023",
+      "text": "다른 설비들과 15 m 이상의 거리를 두어 배치한다.",
+      "guideContext": "공정설비 - 변전실 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-024",
+      "text": "변전실 등의 바닥은 지면에서 0.6 m 이상 높게 한다.",
+      "guideContext": "공정설비 - 변전실 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-025",
+      "text": "대형의 열교환기나 300 ℃ 이상의 온도에서 운전되는 열교환기들은 탑 등 주요 설비들과 4.5 m 이상의 거리를 두어 배치한다.",
+      "guideContext": "공정설비 - 열교환기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-026",
+      "text": "인화성 유체를 취급하는 용기들은 가열로 외벽으로부터 15 m 이상 거리를 둔다.",
+      "guideContext": "공정설비 - 가열로",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-027",
+      "text": "펌프들은 중요한 인화성 액체의 누출원이기 때문에 모든 점화원에서 가능한 한 멀어지게 배치하여야 한다.",
+      "guideContext": "공정설비 - 펌프",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-028",
+      "text": "탑이나 드럼을 보호하기 위해 탑이나 드럼의 바로 아래에는 펌프를 배치하지 아니한다.",
+      "guideContext": "공정설비 - 펌프 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-029",
+      "text": "펌프의 상부에는 펌프의 정비·보수를 위하여 이동식 크레인이 접근할 수 있도록 배관 등이 지나지 않도록 공간을 두어야 한다.",
+      "guideContext": "공정설비 - 펌프 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-030",
+      "text": "300 ℃ 이상의 온도에서 운전하는 펌프들은 다를 펌프들과 격리하여 배치하여야 한다.",
+      "guideContext": "공정설비 - 펌프 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-031",
+      "text": "제어실의 위치는 폭발이나 화재에 노출되지 않는 장소에 배치한다.",
+      "guideContext": "제어실 배치",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-032",
+      "text": "단위공장의 제어실은 다른 공정기기들과 최소한 15 m 이상의 거리를 두어 배치하여야 하며, 중앙 제어실은 30 m 이상의 거리를 두어 배치한다.",
+      "guideContext": "제어실 배치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-033",
+      "text": "제어실은 공정을 운전하는 기본적인 용도이외에 실험실 등 다른 목적의 부대시설을 가능 한 함께 배치하지 아니하여야 한다.",
+      "guideContext": "제어실 배치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-034",
+      "text": "폭발 시 영향을 받을 수 있는 압력에 견딜 수 있도록 하여야 한다.",
+      "guideContext": "제어실 설계 (법령 근거 미확인)",
+      "additionalDetail": "제어실 설계 기준",
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-035",
+      "text": "제어실은 철근콘크리트로 건축하여야 한다.",
+      "guideContext": "제어실 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-036",
+      "text": "제어실은 지상 1층으로 하여야 한다.",
+      "guideContext": "제어실 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-037",
+      "text": "지붕은 비산물이 떨어져도 견딜 수 있어야 한다.",
+      "guideContext": "제어실 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-038",
+      "text": "창문은 없거나 최소화 하고, 폭발 압력에 견딜 수 있어야 하며, 유리로 된 내부 출입문은 설치하지 아니한다.",
+      "guideContext": "제어실 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-039",
+      "text": "환기나 에어컨을 위한 공기의 흡입구는 지상에서 최소 12 m 이상의 높이에 두어야 한다.",
+      "guideContext": "제어실 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-040",
+      "text": "양방향의 통행을 위해서 도로의 폭은 최소 6 m로 한다.",
+      "guideContext": "도로 및 파이프랙 배치 (법령 근거 미확인)",
+      "additionalDetail": "원활한 회전을 위해 안쪽의 반경은 최소 6 m, 외측 반경은 최소 12 m",
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-041",
+      "text": "파이프랙의 배치는 배관에서 누출이 일어나는 경우 파이프랙 아래에 있는 설비나 사람들이 피해를 입지 않도록 배치하여야 한다.",
+      "guideContext": "도로 및 파이프랙 배치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-042",
+      "text": "인화성이나 독성이 없는 물질을 저장하는 탱크들은 풍상측에 배치하여야 한다.",
+      "guideContext": "저장지역 배치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-043",
+      "text": "인화성이나 독성이 있는 물질을 저장하는 탱크들은 풍하측에 배치하여 누출이 되는 경우에도 인화성 유체 증기가 점화원에 그리고 독성물질의 증기가 사람이 많이 상주하는 곳으로 도달하지 않도록 하여야 한다.",
+      "guideContext": "저장지역 배치",
+      "additionalDetail": null,
+      "workProcessPhase": "저장지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-044",
+      "text": "내용물이 누출되어 공정설비에 피해를 줄 수 있는 물질을 저장하는 탱크들은 풍상측에 배치해서는 아니 되며, 이들 탱크는 다른 설비와 최소 75 m 이상의 거리를 유지하여야 한다.",
+      "guideContext": "저장지역 배치",
+      "additionalDetail": null,
+      "workProcessPhase": "저장지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-045",
+      "text": "탱크는 공정지역으로부터 멀리 이격시켜 공정지역의 화재나 폭발이 발생하더라도 많은 량의 위험물질을 저장하고 있는 탱크를 보호할 수 있어야 한다.",
+      "guideContext": "저장지역 배치",
+      "additionalDetail": null,
+      "workProcessPhase": "저장지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-046",
+      "text": "위험물질을 배로부터 하역하거나 배로 선적하는 지역으로부터 150 m 이상의 거리를 유지하여야 한다.",
+      "guideContext": "저장지역 배치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-047",
+      "text": "탱크를 공정지역보다 높은 곳에 설치하는 것은 가능한 한 피한다.",
+      "guideContext": "저장지역 배치",
+      "additionalDetail": "다만, 부득이한 경우에는 탱크의 화재를 대비한 조치를 강구하여야 한다.",
+      "workProcessPhase": "저장지역 배치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P134-048",
+      "text": "저장탱크는 그룹으로 배치하여 공동 방유제를 설치하여 소화설비는 각 그룹에 따라 사용 가능하도록 하여야 한다.",
+      "guideContext": "저장지역 배치",
+      "additionalDetail": null,
+      "workProcessPhase": "저장지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-049",
+      "text": "지장탱크의 방유제 내에는 NFPA 30에 따라 탱크이외의 기기, 설비 및 전기설비를 두지 아니하며 밸브나 플랜지의 설치를 최소화 하여야 한다.",
+      "guideContext": "저장지역 배치",
+      "additionalDetail": null,
+      "workProcessPhase": "저장지역 배치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-P134-050",
+      "text": "규칙 제271조(안전거리)의 내용은 별표 1의 제1호부터 제5호까지의 위험물을 저장·취급하는 화학설비 및 부속설비를 설치하는 경우에는 폭발이나 화재의 피해를 줄일 수 있도록 별표 8에 따라 설비 및 시설 간에 충분한 거리를 유지하도록 규정하고 있다.",
+      "guideContext": "산업안전보건기준에 관한 규칙 안전거리 기준",
+      "additionalDetail": null,
+      "workProcessPhase": "안전거리 설정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "7.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-P134-001",
+      "term": "인화성 유체",
+      "definition": "산업안전보건기준에 관한 규칙 <별표 1>에서 규정하는 인화성 액체와 인화성 가스를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P134-002",
+      "term": "단위공정시설 (Unit)",
+      "definition": "하나의 공장을 기능별로 구분하여 도로로 구획된 곳에 배치되는 공정설비들을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-P134-01",
+      "processOrder": 1,
+      "processName": "설비 배치 기본 계획 수립",
+      "safetyMeasures": "법규 준수사항 확인, 보험회사 권고사항 및 설계회사 자문 검토, 안전거리 축소 시 보완 안전설비·소화설비 강화 방안 수립",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P134-02",
+      "processOrder": 2,
+      "processName": "주풍향 분석 및 풍향별 설비 배치 결정",
+      "safetyMeasures": "주풍향 결정 후 풍상측에 사무실·전력실·보일러실 등 배치, 풍하측에 인화성 유체 취급 설비 배치, 전기실 등은 다른 설비로부터 75 m 이상 이격",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-P134-03",
+      "processOrder": 3,
+      "processName": "공정지역 설비 배치",
+      "safetyMeasures": "압축기·터빈·냉각기·변전실·열교환기·가열로·펌프 등 공정설비 간 안전거리 확보, 소화설비 접근로 6 m 이상 확보, 제어실 폭발·화재 비노출 장소에 배치",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-ELECTRIC-012"
+      ]
+    },
+    {
+      "identifier": "WP-P134-04",
+      "processOrder": 4,
+      "processName": "저장지역 설비 배치",
+      "safetyMeasures": "인화성·독성 물질 탱크 풍하측 배치, 위험물질 탱크 다른 설비와 75 m 이상 이격, 저장탱크 그룹 배치 및 공동 방유제 설치, 방유제 내 설비 설치 최소화",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-P134-05",
+      "processOrder": 5,
+      "processName": "안전거리 검증 및 적용",
+      "safetyMeasures": "산업안전보건기준에 관한 규칙 제271조(별표 8) 안전거리 기준 준수 확인, 보험회사 권장 안전거리 참조, 공정안전보고서 제출 시 위험성 평가를 통한 안전성 확인",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    }
+  ],
+  "equipmentSpecs": [],
+  "documentRequirements": [
+    {
+      "identifier": "DR-P134-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정안전보고서 (설비 배치 안전거리 위험성 평가)",
+      "requiredSections": [
+        "설비 배치 현황",
+        "안전거리 준수 여부",
+        "피해 최소화 위험성 평가",
+        "안전성 확인 결과"
+      ],
+      "sourceSection": "7.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    }
+  ]
+}

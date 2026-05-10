@@ -1,0 +1,567 @@
+{
+  "metadata": {
+    "guideCode": "C-C-72-2026",
+    "shortCode": "CC72",
+    "title": "화학물질 취급 사업장에서의 보안 취약성 평가에 관한 기술지원규정",
+    "totalPages": 33,
+    "pdfPath": "kosha-guides/C/C-C-72-2026 화학물질 취급 사업장에서의 보안 취약성 평가에 관한 기술지원규정.pdf",
+    "parsedBy": "step2-text-extraction v2.0",
+    "parsedAt": "2026-05-06T11:42:00.460148+00:00",
+    "tocSections": [
+      {
+        "sectionNumber": "1",
+        "title": "목적",
+        "startPage": 1
+      },
+      {
+        "sectionNumber": "2",
+        "title": "적용범위",
+        "startPage": 1
+      },
+      {
+        "sectionNumber": "3",
+        "title": "용어의 정의",
+        "startPage": 1
+      },
+      {
+        "sectionNumber": "4",
+        "title": "일반 사항",
+        "startPage": 2
+      },
+      {
+        "sectionNumber": "4.1",
+        "title": "테러이용 화학물질의 확인",
+        "startPage": 2
+      },
+      {
+        "sectionNumber": "4.2",
+        "title": "보안 우선순위의 검토",
+        "startPage": 2
+      },
+      {
+        "sectionNumber": "4.3",
+        "title": "보안취약에 의해 발생 가능한 사고형태",
+        "startPage": 3
+      },
+      {
+        "sectionNumber": "4.4",
+        "title": "SVA팀 구성",
+        "startPage": 3
+      },
+      {
+        "sectionNumber": "5",
+        "title": "SVA 평가절차",
+        "startPage": 4
+      },
+      {
+        "sectionNumber": "5.1",
+        "title": "일반사항",
+        "startPage": 4
+      },
+      {
+        "sectionNumber": "5.2",
+        "title": "보안등급 1,2,3의 SVA 세부수행 절차",
+        "startPage": 5
+      },
+      {
+        "sectionNumber": "5.3",
+        "title": "보안등급 4의 SVA 세부수행 절차",
+        "startPage": 12
+      },
+      {
+        "sectionNumber": "6",
+        "title": "보안대책",
+        "startPage": 13
+      },
+      {
+        "sectionNumber": "6.1",
+        "title": "관리적 보안대책",
+        "startPage": 13
+      },
+      {
+        "sectionNumber": "6.2",
+        "title": "기술적 보안대책",
+        "startPage": 14
+      }
+    ]
+  },
+  "sections": [
+    {
+      "sectionNumber": "0",
+      "sectionTitle": "기술지원규정의 개요",
+      "pages": null,
+      "text": "기술지원규정의 개요\n\no 개정자 : 한국산업안전보건공단 전문기술실\n\no 제·개정경과\n\n- 2016년 11월 화학안전분야 제정위원회 심의(제정)\n- 2025년 11월 화학안전분야 전문위원회 심의(개정)\n- 2026년 1월 표준제정위원회 본위원회 심의(개정)\n\no 관련규격 및 자료\n\n- CCPS, Guidelines for Analyzing and Managing the Security Vulnerabilities of Fixed Chemical Sites, 2003\n- Brian R. Dunbobbin et al, Security Vulnerability Assessment in the Chemical Industry, Process Safety Progress September 2004, 2004\n- DHS (Department of Homeland Security), 6 CFR Part 27 Chemical Facility Anti-Terrorism Standards (CFATS) Final Rule, 2007\n- American Chemical Council, Alternate Security Program (ASP) Guidance for CFATS Covered Chemical Facilities, 2015\n\no 기술지원규정의 적용 및 문의\n\n- 이 기술지원규정에 대한 의견 또는 문의는 산업안전포털 홈페이지(portal.kosha.or.kr)의 기술지원규정(KOSHA GUIDE) 소관 분야별 문의처 안내를 참고하시기 바랍니다.\n- 동 규정 내에서 인용된 관련규격 및 자료, 법규 등에 관하여 최근 개정본이 있을 경우에는 해당 개정본의 내용을 참고하시기 바랍니다.\n\n공표일자 : 2026년 1월 30일\n제 정 자 : 한국산업안전보건공단 이사장",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "1",
+      "sectionTitle": "목적",
+      "pages": [
+        1,
+        1
+      ],
+      "text": "이 규정은 외부 테러 집단이나 범죄 세력이 대규모 화학설비의 폭발·화재 및 독성가스를 누출시켜 근로자 등의 생명과 안전에 영향을 줄 수 있는 위험을 방지하기 위한 사업장 보안에 대한 기술적 필요한 사항을 정하는 것을 목적으로 한다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "2",
+      "sectionTitle": "적용범위",
+      "pages": [
+        1,
+        1
+      ],
+      "text": "이 규정은 외부 테러 집단이나 범죄 세력 등의 목표가 될 수 있는 테러이용 화학물질 등을 지장, 취급, 제조하는 설비를 보유한 사업장에 대해 적용한다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "3",
+      "sectionTitle": "용어의 정의",
+      "pages": [
+        1,
+        2
+      ],
+      "text": "(1) 이 규정에서 사용되는 용어의 정의는 다음과 같다.\n\n(가) \"보안 취약성평가 (Security vulnerability assessment, 이하 SVA라 한다)\"란 의도적인 공격에 대한 사업장의 취약 가능성과 그 결과로 발생되는 손상이나 피해를 평가하는 것을 말한다.\n\n(나) \"최악의 누출 시나리오\"란 KOSHA GUIDE C-C-58-2026 「최악 및 대안의 누출 시나리오 선정에 관한 기술지원규정」에서 정한 누출·화재 또는 폭발을 일으킨 지점으로부터 끝점의 거리가 가장 먼 가상 사고를 말하며, 보안 취약성평가에서 최대 피해범위 산정 시 적용한다.\n\n(다) \"보안등급 (Tier level)\"이란 <표 1>의 피해정도 등급, <표 2>의 공격가능성 등급, <표 3>의 공격형태 등급을 조합하여 산정한 등급을 말하며, 보안등급은 정도에 따라 보안등급 1, 2, 3, 4 (Tier 1, 2, 3, 4)로 표시한다.\n\n(라) \"테러이용 화학물질 (Terror usable chemicals, TUC)\"이란 잠재적인 대량살상무기(Weapon of Mass Destruction, WMD) 또는 대량살상무기 제조에 이용가능한 선행물질과 사고 시 사업장 외부에 큰 영향을 줄 수 있는 물질을 말하며, 독성가스 실린더와 같이 소량이지만 도난되어 외부에서 살포될 경우 사회에 큰 피해를 줄 수 있는 물질도 포함될 수 있다.\n\n(마) \"도미노 현상 (Domino effect)\" 이란 최초 사상에 의해 2차 사상이 연쇄적으로 발생하는 것으로 피해결과나 영향범위가 증가되는 현상을 말하며, 일반적으로 최초 사고결과보다 피해가 증대되어 나타날 경우에만 고려된다.\n\n(2) 기타 이 규정에서 사용하는 용어의 정의는 특별한 규정이 있는 경우를 제외하고는 산업안전보건법, 같은법 시행령, 같은법 시행규칙 및 산업안전보건기준에 관한 규칙에서 정하는 바에 따른다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "4",
+      "sectionTitle": "일반 사항",
+      "pages": [
+        2,
+        4
+      ],
+      "text": "",
+      "tables": [],
+      "images": [],
+      "subsections": [
+        {
+          "sectionNumber": "4.1",
+          "sectionTitle": "테러이용 화학물질의 확인",
+          "pages": [
+            2,
+            2
+          ],
+          "text": "사업장에서 취급하고 있는 아래와 같은 테러이용 화학물질의 종류와 취급량을 확인한다.\n\n(1) 테러이용 화학물질은 미국 화학협회 (America Chemical Council, 이하 ACC라 한다.), 미국 국토안보부 (Department of Homeland Security, DHS)에서 규정하는 <별표 1>과 같은 관심화학물질 (Chemical of Concern, COC, 또는 Chemical of Interest, COI)을 참조하여 사업장별로 선정할 수 있다.\n\n(2) 독성가스 실린더와 같이 소량이지만 도난 후 외부에서 살포하거나, 마약사용 또는 마약제조에 사용될 경우 일반대중에게 큰 피해를 줄 수 있는 물질은 용량과 관계없이 테러이용 화학물질로 선정할 수 있다.\n\n(3) 안전·환경·보건과 수입·수출 관련법규 등에서 위험성 검토가 요구되는 물질도 테러이용 화학물질로 선정할 수 있다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "4.2",
+          "sectionTitle": "보안 우선순위의 검토",
+          "pages": [
+            2,
+            3
+          ],
+          "text": "사업장 내의 시설 중 보완 우선순위를 검토할 때에는 공정안전측면 및 생산측면과 다음과 같은 사항을 참조하여 검토한다.\n\n(1) 공격형태\n\n(2) 공격 시 사업장 외부의 피해\n\n(3) 화학물질의 위험성\n\n(4) 테러이용 화학물질의 종류와 취급량\n\n(5) 공격받을 가능성",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "4.3",
+          "sectionTitle": "보안취약에 의해 발생 가능한 사고형태",
+          "pages": [
+            3,
+            3
+          ],
+          "text": "(1) 의도적인 설비손상 또는 화학물질 누출\n\n(2) 사업장 또는 사업장 외부에 심각한 피해를 줄 수 있는 화학물질의 도난이나 오용\n\n(3) 작업자 또는 지역사회에 피해가 되는 화학물질의 오염이나 손상\n\n(4) 피해 결과로 자산, 시설, 사업 영역 및 사업장의 가치를 포함한 회사의 브랜드 가치 하락 등",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "4.4",
+          "sectionTitle": "SVA팀 구성",
+          "pages": [
+            3,
+            4
+          ],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "4.4.1",
+              "sectionTitle": "SVA팀 리더의 자격",
+              "pages": [
+                3,
+                3
+              ],
+              "text": "(1) SVA팀 리더는 SVA에 대한 경험과 지식을 보유하고 있어야 한다.\n\n(2) SVA팀 리더는 객관성과 일관성을 가지고 검토된 보완사항의 처리에 대해 공정하여야 한다.\n\n(3) SVA팀 리더는 SVA 관리자나 공정안전전문가 등으로 선정하고, 물리적인 보안설비에만 중점을 두지 않아야 하며, 사업장과 직접적인 관계가 없어야 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "4.4.2",
+              "sectionTitle": "SVA 팀원 구성",
+              "pages": [
+                3,
+                4
+              ],
+              "text": "(1) SVA팀은 3~8명의 인력으로 구성한다.\n\n(2) SVA팀은 SVA 관련 위험성을 적절하게 분석할 수 있는 충분한 지식, 경험을 보유하고 관련정보에 자유롭게 접근할 수 있어야 한다.\n\n(3) SVA팀 필수인력\n\n(가) 최소한 공정안전전문가와 보안관리자는 SVA 절차와 방법을 숙지해야 한다.\n\n(나) 보안관리자는 보안에 대한 절차, 방법, 기준 및 시스템을 숙지해야 한다.\n\n(나) 팀원은 정량적 위험성평가 방법과 평가대상 공정의 아래와 같은 위험성에 대해 알고 있어야 한다.\n\n① 해당공정의 화학물질(원부재료, 제품 등) 위험성과 각 물질의 사업장 내 위치와 관련된 잠재 위험성\n\n② 공정운전 특성과 설비 등의 설계기준\n\n③ 해당공정의 안전장치 및 설비\n\n(라) SVA팀의 운영방법과 개선권고사항을 효과적으로 진행하는 프로젝트 관리방법에 대해서 인지하고 있어야 한다.\n\n(마) 안전, 보건, 환경 문제에 대한 일반적인 지식을 숙지하고 있어야 한다.\n\n(4) 추가적인 인력\n\n사업장의 여건에 따라 추가적으로 아래와 같은 인력을 포함할 수 있다.\n\n(가) 군사학 분야 전문가. 특히 대테러 관련 지식, 무기, 폭동/게릴라전 또는 대량살상무기에 대한 전문적인 지식이 있는 전문가. 이런 전문인력이 없으면 군대나 경찰 등을 통해 이러한 지식을 전달받을 수 있다.\n\n(나) 테러대응 국제조직. 즉, 적성국가나 테러 및 범죄 조직에 대한 특징과 역량에 대한 지식을 가지고 있는 국제 조직",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionNumber": "5",
+      "sectionTitle": "SVA 평가절차",
+      "pages": [
+        4,
+        7
+      ],
+      "text": "",
+      "tables": [],
+      "images": [],
+      "subsections": [
+        {
+          "sectionNumber": "5.1",
+          "sectionTitle": "일반사항",
+          "pages": [
+            4,
+            5
+          ],
+          "text": "(1) 보안등급별 수행방법\n\n(가) 보안등급 1 ~ 3 (Tier 1 ~ 3)은 <그림 1>과 같은 SVA 수행절차에 따라 수행한다.\n\n(나) 보안등급 4 (Tier 4)는 <별표 2>와 같은 점검표를 통해 실시한다.\n\n(2) 일반적인 SVA 진행과정\n\n(가) 사업장 방문 약 2 주전에 SVA팀을 구성하여 해당 사업장과 평가에 필요한 사항에 대해 사전협의를 실시한다.\n\n(나) 사전협의 후 사업장 관계자는 사업장 기본정보, 사업장 배치도 및 설비 배치도, 취급물질의 목록 및 수량 등을 포함한 평가에 필요한 관련서류를 준비한다.\n\n(다) 사전협의를 통해 SVA팀의 사업장 방문일정을 최소화한다.\n\n(라) 사업장 방문 시 SVA팀은 사업장에서 작성한 SVA 관련서류를 검토하고 방문검토 결과를 포함하여 SVA 결과서를 작성한다.\n\n(마) SVA팀과 사업장관계자는 평가에 대한 완료회의를 실시하고, 권고사항에 대한 동의를 확인한다.\n\n(바) 도출된 권고사항은 사업장관계자 (또는 SVA 관리자)가 실행한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "5.2",
+          "sectionTitle": "보안등급 1,2,3의 SVA 세부수행 절차",
+          "pages": [
+            5,
+            7
+          ],
+          "text": "SVA 세부수행 절차는 <그림 1>과 같다.",
+          "tables": [],
+          "images": [
+            {
+              "imageNumber": "그림 1",
+              "caption": "SVA 진행 절차",
+              "description": "SVA 수행 진행단계와 주요사항을 나타내는 흐름도. 진행 단계(좌측): SVA팀 구성 → 사업장관계자 확인 및 사전협의 → 보안관련 정보수집 → 기존 보안 및 공정안전시설 평가 → 정량적 위험성평가 및 피해결과 평가 → 우려지역 표시 → 우려지역별 공격가능성 평가 → 우려지역별 보안등급 산정 → 권고사항 도출 → 문서화. 주요 사항(우측): 4.4항 기준 / 5.1 (2)항 : 정보요청, 방문일정 등 / 화학물질, 시설, 관련법규, 인원현황 등 / 보안시설, 공정안전시설 확인 및 평가 / 테러이용 화학물질의 취급량 파악, 피해정도 등급산정 / 테러이용 화학물질 취급시설, 중요시설 표시 / 공격가능성 등급, 공격형태 등급 산정 / 피해정도, 공격가능성, 공격형태를 조합하여 보안등급 1,2,3,4 산정 / 보안시설 등에 대한 권고사항 도출 / SVA 결과의 문서처리",
+              "page": 6
+            }
+          ],
+          "subsections": [
+            {
+              "sectionNumber": "5.2.1",
+              "sectionTitle": "SVA팀 구성",
+              "pages": [
+                6,
+                6
+              ],
+              "text": "4.4항에 따라 전문적인 지식과 책임을 가진 인원으로 팀을 구성하여야 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "5.2.2",
+              "sectionTitle": "보안관련 정보수집",
+              "pages": [
+                6,
+                7
+              ],
+              "text": "(1) 다음과 같은 정보를 사전에 파악하여야 한다.\n\n(가) 공정 내 제조, 지장, 또는 이송되는 화학물질\n\n(나) 지장탱크의 종류, 크기, 위치, 설계 및 운전조건\n\n(다) 공정, 지장탱크 및 외부 사업장과의 연결배관 시스템\n\n(라) 원부재료 및 제품의 종류 및 취급량\n\n(마) 운전인력의 수 (주간 및 야간)\n\n(바) 유틸리티 (전력, 용수, 도시 가스, 통신 시스템)\n\n(사) 폐수처리장\n\n(아) 사업 정보\n\n(자) 사업 관리 전산시스템\n\n(차) 회사 이미지\n\n(카) 지역사회와의 관계\n\n(타) 고객 관계\n\n(파) 기타 SVA 수행에 필요한 정보\n\n(2) 해당 사업장 또는 공정에 적용된 관련법규를 파악하여야 한다.\n\n(가) 산업안전보건법\n\n(나) 화학물질관리법\n\n(다) 고압가스안전관리법\n\n(라) 액화석유가스안전관리법\n\n(마) 도시가스사업안전관리법\n\n(바) 위험물관리법 등\n\n(3) 사업장의 보안취약점에 적절하게 접근할 수 있도록 SVA팀이 요구한 모든 정보는 SVA 수행 중에 확인되어야 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "5.3",
+          "sectionTitle": "보안등급 4의 SVA 세부수행 절차",
+          "pages": [
+            12,
+            13
+          ],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "5.3.1",
+              "sectionTitle": "개요",
+              "pages": [
+                12,
+                13
+              ],
+              "text": "(1) 보안등급 4 (Tier 4) 시설에 대한 보안취약성 평가는 미국 화학협회(ACC)에서 제시한 <별표 2>와 같은 점검표를 참고하여 사업장별로 개정하여 사용할 수 있다.\n\n(2) 기존 보안시설 및 대응과 점검표를 비교하여 추가적인 방어조치의 필요성을 결정한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "5.3.2",
+              "sectionTitle": "보안등급 4의 SVA 절차",
+              "pages": [
+                13,
+                13
+              ],
+              "text": "(1) 사업장관리자는 점검표를 통해 '예, 아니오, 관련 없음'으로 표시하고, SVA 관리자와 각 기능별 관리자에게 송부한다.\n\n(2) SVA 관리자는 점검표에 '아니오'라고 표시한 사항에 대해 검토하고, 보안관리자는 보안시설 및 대응을 평가하여 필요한 개선사항을 검토한다.\n\n(3) 권고사항은 사업장관리자, 운전부서관리자, SVA 관리자, 공정안전전문가 및 보안관리자가 상세 검토를 통해서 결정하여야 한다.\n\n(4) SVA 관리자는 필요한 권고사항을 문서화한다.\n\n(5) SVA 관리자와 사업장관리자는 권고사항을 실시하도록 조치한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionNumber": "6",
+      "sectionTitle": "보안대책",
+      "pages": [
+        13,
+        16
+      ],
+      "text": "",
+      "tables": [],
+      "images": [],
+      "subsections": [
+        {
+          "sectionNumber": "6.1",
+          "sectionTitle": "관리적 보안대책",
+          "pages": [
+            13,
+            14
+          ],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "6.1.1",
+              "sectionTitle": "교육훈련",
+              "pages": [
+                13,
+                13
+              ],
+              "text": "(1) 사업주는 보안 우려사항에 대한 진행되는 관련정보를 공유하고, 근로자 인식을 향상시키기 위해 교육훈련 프로그램을 개발하여야 한다.\n\n(2) 사업주는 모든 직원에게 기본 보안교육을 실시하고, SVA 실시 이전에 SVA에 대한 교육을 시켜야 한다.\n\n(3) 사업주는 보안에 대한 상세한 교육프로그램을 개발하여 SVA를 추진하는 인력에 의해 추진하도록 하여야 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "6.1.2",
+              "sectionTitle": "문서화 및 표준화",
+              "pages": [
+                14,
+                14
+              ],
+              "text": "(1) SVA 관련 문서는 유사한 공장과 공정에 대한 일관성과 효율성을 유지하기 위해 평가문서를 표준화한다.\n\n(2) SVA에 대한 일반적인 기준을 제정하여 일관성 있게 보안대응이 가능하도록 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "6.2",
+          "sectionTitle": "기술적 보안대책",
+          "pages": [
+            14,
+            16
+          ],
+          "text": "SVA를 통해 도출한 기술적 보안대책은 출입통제, 사전 감지, 침입지연, 공격자 대응 등이 있다. 이러한 보안대책에는 본질안전대책과 물리적 보안시설이 포함된다.",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "6.2.1",
+              "sectionTitle": "본질안전대책",
+              "pages": [
+                14,
+                14
+              ],
+              "text": "(1) 일반적으로 공장이나 공정은 독립적인 제어와 방어 시스템으로 설계하되, 고장안전(Fail safe) 개념을 적용하여 고장 시 안전하게 작동되도록 설계한다.\n\n(2) SVA팀은 정량적 위험성평가와 피해예측 모델링 결과 등을 통해 현재의 방어 시스템이 적정한지 또는 추가적인 방호장치가 필요한지를 평가한다.\n\n(3) SVA팀은 테리이용 화학물질의 지장, 취급, 제조량이 일정수준 이상일 경우 해당 물질의 양을 줄이거나 2 ~ 3개 사업장 또는 공정으로 분리하도록 권고할 수 있다.\n\n(4) 이런 과정을 통해 더 높은 위험성을 가진 화학물질은 보다 적은 용량으로 취급하고 쉽게 관리 및 모니터링이 될 수 있도록 한다.\n\n(5) SVA팀은 테리 발생 시 인접 사업장의 잠재적 도미노 현상을 고려하여 사업장 또는 시설의 배치를 검토하도록 요청할 수 있다.\n\n(6) 이러한 조치를 통해 잠재적 결과와 사업장 공격 가능성을 최소화할 수 있다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "6.2.2",
+              "sectionTitle": "물리적 보안시설",
+              "pages": [
+                14,
+                16
+              ],
+              "text": "물리적 보안시설은 경계시설, 접근(출입)통제 시스템, 사업장 배치, 그리고 조명을 포함하며, 보안등급별로 <표 5>와 같이 설치할 수 있다.\n\n(1) 사업장 설계와 배치\n\n사업장의 설계와 배치는 해당지역의 보안상에 영향을 미치므로 사업장 또는 공정의 신규 설치나 기존 사업장의 보안시설을 개선할 때는 다음과 같은 사항을 고려한다.\n\n(가) 개인 주차지역과 생산 지역은 분리한다.\n\n(나) 탱크로리 출하 또는 하역지점은 주요한 공정설비와 이격된 지점으로 지정하고, 탱크로리의 운행경로 상에 주요한 공정설비가 없도록 운행경로를 검토한다.\n\n(다) 사업장 내 인력 및 차량 출입을 고려하여 보안통제지점을 결정한다.\n\n(라) 주요 독성물질 또는 인화성물질 취급공정과 지장탱크지역 주위에는 추가적인 보안시설의 설치를 고려한다.\n\n(마) 비 허가인력에 의한 공격을 막기 위해 다음과 같은 방어시설이 결합되어야 한다.\n\n① 주요 공정과 테리우려물질 지장 지역의 출입지점을 제한한다.\n\n② 출입 장애물로 사용할 수 있는 시설, 방유제나 둑의 위치를 반영하여 보안시설의 위치를 결정한다.\n\n③ 추가적인 보안시설 설치로 내부 도로를 차단할 수 있는지에 대해서 검토한다.\n\n④ 지장탱크의 내용물을 알 수 있는 각종 표시는 사업장 외부에서 쉽게 식별이 되지 않는 위치에 부착한다. 단, 국내 법규에 충족되는 조건하에 검토한다.\n\n(2) 사업장 부지경계\n\nSVA팀에서 가장 중요하게 강조해야 하는 것은 사업장 부지경계의 설계이며, 다음과 같은 사항이 검토되어야 한다.\n\n(가) 보안등급에 따라 통제되는 장소를 제외한 지역의 인력이나 차량 접근은 사업장에서 별도로 정하여 관리한다.\n\n(나) 화학물질이 허가없이 사업장을 이탈하는 것을 방지할 수 있도록 부지경계를 설치한다.\n\n(다) 통제되는 건물, 장소 및 지역에는 외부 인력이나 차량 접근을 통제한다.\n\n(라) 사업장 부지경계 설계시 비상대피로를 고려하여 대피가 용이할 수 있도록 한다.\n\n(마) 한정된 인력으로 외부의 비 허가인력의 방호책 통과 시도 또는 부지경계를 넘으려 하는 시도를 지지하거나, 사전 감지 및 시도를 지연시킬 수 있도록 부지경계 설치 시 적정한 구조로 설치해야 한다.\n\n(바) SVA팀은 사업장 부지경계에 다음과 같은 기준을 적용하는지 확인해야 한다.",
+              "tables": [
+                {
+                  "tableNumber": "표 5",
+                  "caption": "보안등급별 권고 보안시설",
+                  "content": "| 보안등급별 보안시설 | 보안등급 1 | 보안등급 2 | 보안등급 3 | 보안등급 4 |\n|---|---|---|---|---|\n| 일반적 보안시설 | 1. 사업장 부지 경계시설 2. 카드이용 출입문 3. 외부에서는 출입이 불가한 비상 출입구 4. 불필요한 입·출구 제거 5. 폐쇄회로 감시시스템 (Closed-Circuit Television System, 이하 CCTV라 한다) 설치 (사업장에서 필요 지역 결정) | | | |\n| 조명시설 | 상시 조명 운영 및 설치 (최소한 '우려지역') | | | 공정 운전에 필요한 조명만 설치 |\n| 회전 출입문 | 사업장 규모와 출입인원에 따라 필요할 수 있다. | | | 불필요함 |\n| 차량 출입통제 시스템 (자동 제어문) | 기존 및 신규 공장에 대해서 카드 입/출입 적용 | 기존 및 신규 공장에 대해 카드 출입 적용 및 카드 출입외에 다른 방법을 적용하여 출입구 점검 방법 적용 | | 현장 관리 시스템에 따라 다름 |\n| 보행자 접근통제 시스템 | 상동 | 상동 | 상동 | |\n| 방문자 접근통제 시스템 | 1. 접근통제는 청각적/시각적으로 동시에 확인되어야 한다. 2. 개인 신분확인을 위한 프로세스/절차 | 1.접근통제는 시각적 또는 청각적 확인이 있다. 2.시각적인 개인 서명을 위한 프로세스/절차 | | 현장 관리 시스템에 따라 다름 |",
+                  "page": 15
+                }
+              ],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "6.(2)",
+          "sectionTitle": "사업장 부지경계",
+          "pages": [
+            20,
+            20
+          ],
+          "text": "① 사업장 부지경계로 허용 가능한 구조는 금속 재질의 체인망 형태, 가시나 날카로운 철망, 또는 쉽게 손상되지 않는 벽(콘크리트, 벽돌 등)으로 선정한다.\n② 부지경계의 기능상실 방지와 비 허가인원의 출입을 방지하기 위해 부지경계 주위에는 수목이나 기타 장해물 등에 의해 가려지지 않도록 항상 깨끗하게 유지한다.\n③ 사업장 부지경계를 따라 '사유지' 나 '불법침입 엄금' 등의 표지를 설치한다.\n④ 사업장 부지경계의 손상유무를 상시 확인할 수 있도록 주기적인 점검을 실시하고, 손상이 발생된 경우에는 사업장 관리자나 보안관리자에게 보고하도록 한다.\n⑤ 건축물이 사업장 부지경계의 한 부분으로 해당될 경우 모든 출입문과 창문은 비 허가인원의 출입을 방지할 수 있는 구조여야 하며, 경보 또는 출입통제시스템을 통해 접근을 관리할 수 있도록 설치되어야 한다.\n⑥ 사업장의 출입인원은 관리되어야 한다.\n⑦ 부지경계 출입문이나 건물의 창문으로 바로 접근이 가능한 중요 공정과 테러이용화학물질 지장지역은 잠금장치를 통해 접근을 통제할 수 있어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "6.(3)",
+          "sectionTitle": "사업장 보안조명",
+          "pages": [
+            20,
+            20
+          ],
+          "text": "(가) 보안관리 상 중요한 지역에 보안조명이 설치되어야 한다.\n(나) 보안조명은 보안관리에 필요한 조도를 유지하여야 하며, 동시에 직원들의 작업 및 통행상의 안전을 반영할 수 있도록 유지되어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "6.(4)",
+          "sectionTitle": "사업장 내부경계",
+          "pages": [
+            20,
+            21
+          ],
+          "text": "(가) 고위험, 고반응성 또는 중요한 독성물질 등을 취급하는 위험지역에 대해서는 사업장 내부에서도 비 허가인원의 출입을 통제하여야 한다.\n(나) (가)항의 위험지역에 대해서는 다음과 같은 추가적인 조치를 고려한다.\n① 개방된 부두지역은 펜스와 출입문을 설치한다.\n② 기존설비에는 보안 펜스를 내부에 설치한다.\n③ 지장지역 주위에는 추가로 부지경계를 설치한다.\n④ 출입 가능한 출입문은 운전 효율과 안전을 고려하여 숫자를 제한한다. 단, 다른 법령에 의한 비상구 등은 내부에서 열리는 구조로 설치한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "6.(5)",
+          "sectionTitle": "CCTV 설치",
+          "pages": [
+            21,
+            21
+          ],
+          "text": "(가) CCTV는 중요지역, 테러이용 화학물질 지장지역, 사업장 부지경계, 그리고 출입지역을 상시 모니터링할 수 있도록 설치되어야 한다.\n(나) CCTV는 공정 모니터링과 무인운전공정의 모니터링에도 동시에 사용할 수 있어야 한다.\n(다) CCTV는 일정 기간 촬영결과를 지장할 수 있는 용량이이야 한다.\n(라) CCTV의 촬영결과는 동시에 복수의 지역에서 지장될 수 있어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "6.(6)",
+          "sectionTitle": "침입감지 모니터링 시스템",
+          "pages": [
+            21,
+            21
+          ],
+          "text": "(가) 침입감지 시스템은 실시간 모니터링되어야 하며 문이 강제로 열리거나 개방된 부두나 경계지역에서 움직임이 감지되는 경우에는 이러한 변화를 감지할 수 있어야 한다.\n(나) 조정실이나 보안실, 외부 보안센터나 경찰서 등과 같은 중앙제어실에서는 고위험지역에 대해 항상 모니터링을 할 수 있어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "6.(7)",
+          "sectionTitle": "접근통제 시스템",
+          "pages": [
+            21,
+            22
+          ],
+          "text": "(가) 보안등급과 관계없이 사업장은 접근통제 프로그램을 개발할 필요가 있다.\n(나) 접근통제 프로그램은 표준 잠금장치, 열쇠 시스템 및 카드출입시스템 등이 있으며, 주요 목적은 다음과 같다.\n① 부지경계와 구조물을 통해 적극적으로 인력과 차량의 출입을 통제하고 모니터링해야 한다.\n② 중요 구조물 또는 위험지역의 출입은 상시 제어해야 한다.\n(다) 특별관리지역에 대해서는 접근통제 시스템을 사용하여 비상시 상주인력이 책임을 가지고 보안기능을 더 높일 수 있어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "6.(8)",
+          "sectionTitle": "사업장 출입과 출입구",
+          "pages": [
+            22,
+            22
+          ],
+          "text": "(가) 출입구는 사업장 내 인력이동 및 차량 통행량을 파악하여 안전과 운전 효율에 방해를 받지 않고 출입할 수 있는 지점에 설정한다.\n(나) 차량 출입구는 수동문, 잠금기능의 출입문 또는 출입통제 시스템을 통해 모니터링 될 수 있어야 하며, 자동으로 출입문을 통제할 수 있는 제한적인 출입구도 가능하다.\n(다) 사업장 출입과 출입구는 상시 모니터링 되어야 하고, 비상 시에는 해당 출입구가 비상대피로의 기능을 제한하지 않도록 설치되어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "6.(9)",
+          "sectionTitle": "외부 보안회사 활용",
+          "pages": [
+            22,
+            22
+          ],
+          "text": "(가) 외부 보안회사는 비용과 필요성을 검토한 후 활용한다.\n(나) 일반적으로 카드 출입, CCTV, 그리고 자동 출입문이 외부 보안회사를 통한 관리보다 비용측면에서 효율적이다.\n(다) 대규모 사업장은 빈번한 교통량, 많은 인력의 출입이 있으므로 보안회사에 의한 운영이 직접적으로 필요할 수 있다.\n(라) 외부 보안용역과 보안시설을 같이 운영하면 효과는 더 높아진다.\n(마) 보안관리자는 외부 보안용역의 범위에 대해 명확히 지정하여야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "sectionNumber": "별표 1",
+      "sectionTitle": "관심화학물질 목록 (미국 국토안보부, DHS)",
+      "pages": [
+        23,
+        28
+      ],
+      "text": "이 자료는 미국 국토안보부의 화학설비 대테러기준 (Chemical Facility Anti-Terrorism Standards, CFATS)의 관심화학물질 (Chemicals of Interest) 에 대한 기준량이며, 이 물질의 기준량을 초과하지 않을 경우에는 보안등급 4 (Tier 4)로 규정할 수 있다. 여기서, 누출관리 기준량은 사업장에서 누출 시에 심각한 피해를 입힐 수 있는 기준량이며, 도난관리 기준량은 도난 시 쉽게 테러로 전환가능한 기준량이다.",
+      "tables": [
+        {
+          "tableNumber": "별표 1",
+          "caption": "관심화학물질 목록 (미국 국토안보부, DHS)",
+          "page": 23,
+          "content": "| 번호 | 관심화학물질명 일반명 | 이명 | CAS 번호 | 누출관리 기준량 (lb) | 누출관리 기준량 (kg) | 도난관리 기준량 기준농도 (wt %) | 도난관리 기준량 (lb) | 도난관리 기준량 (kg) |\n|---|---|---|---|---|---|---|---|---|\n| 1 | Acetaldehyde | | 75-07-0 | 10,000 | 5,000 | | | |\n| 2 | Acetylene | [Ethyne] | 74-86-2 | 10,000 | 5,000 | | | |\n| 3 | Acrolein | [2-Propenal] or Acrylaldehyde | 107-02-8 | 5,000 | 2,500 | | | |\n| 4 | Acrylonitrile | [2-Propenenitrile] | 107-13-1 | 10,000 | 5,000 | | | |\n| 5 | Acrylyl chloride | [2-Propenoyl Chloride] | 814-68-6 | 10,000 | 5,000 | | | |\n| 6 | Allyl alcohol | [2-Propen-1-ol] | 107-18-6 | 15,000 | 7,500 | | | |\n| 7 | Allylamine | [2-Propen-1-amine] | 107-11-9 | 10,000 | 5,000 | | | |\n| 8 | Aluminum (powder) | | 7429-90-5 | | | | 100 | 50 |\n| 9 | Ammonia (anhydrous) | | 7664-41-7 | 10,000 | 5,000 | | | |\n| 10 | Ammonia (농도 20 wt % 이상) | | 7664-41-7 | 20,000 | 10,000 | | | |\n| 11 | Ammonium nitrate, [with more than 0.2 percent combustible substances, including any organic substance calculated as carbon, to the exclusion of any other added substance] | | 6484-52-2 | 5,000 | 2,500 | | 400 | 200 |\n| 12 | Ammonium nitrate, solid [nitrogen concentration of 23% nitrogen or greater] | | 6484-52-2 | | | 33.00 | 2000 | 1000 |\n| 13 | Ammonium perchlorate | | 7790-98-9 | 5,000 | 2,500 | | 400 | 200 |\n| 14 | Ammonium picrate | | 131-74-8 | 5,000 | 2,500 | | 400 | 200 |\n| 15 | Arsenic trichloride | [Arsenous trichloride] | 7784-34-1 | 15,000 | 7,500 | 30.00 | 2.2 | 1 |\n| 16 | Arsine | | 7784-42-1 | 1,000 | 500 | 0.67 | 15 | 10 |\n| 17 | Barium azide | | 18810-58-7 | 5,000 | 2,500 | | 400 | 200 |\n| 18 | Boron tribromide | | 10294-33-4 | | | 12.67 | 45 | 25 |\n| 19 | Boron trichloride | [Borane, trichloro] | 10294-34-5 | 5,000 | 2,500 | 84.70 | 45 | 25 |\n| 20 | Boron trifluoride | [Borane, trifluoro] | 7637-07-2 | 5,000 | 2,500 | 26.87 | 45 | 25 |\n| 21 | Boron trifluoride compound with methyl ether (1:1) | [Boron, trifluoro [oxybis(methane)]-,T-4-] | 353-42-4 | 15,000 | 7,500 | | | |\n| 22 | Bromine | | 7726-95-6 | 10,000 | 5,000 | | | |\n| 23 | Bromine chloride | | 13863-41-7 | | | 9.67 | 45 | 25 |\n| 24 | Bromine trifluoride | | 7787-71-5 | | | 6.00 | 45 | 25 |\n| 25 | Bromotrifluoroethylene | [Ethene, bromotrifluoro-] | 598-73-2 | 10,000 | 5,000 | | | |\n| 26 | 1,3-Butadiene | | 106-99-0 | 10,000 | 5,000 | | | |\n| 27 | Butane | | 106-97-8 | 10,000 | 5,000 | | | |\n| 28 | Butene | | 25167-67-3 | 10,000 | 5,000 | | | |\n| 29 | 1-Butene | | 106-98-9 | 10,000 | 5,000 | | | |\n| 30 | 2-Butene | | 107-01-7 | 10,000 | 5,000 | | | |\n| 31 | 2-Butene-cis | | 590-18-1 | 10,000 | 5,000 | | | |\n| 32 | 2-Butene-trans | [2-Butene, (E)] | 624-64-6 | 10,000 | 5,000 | | | |\n| 33 | Carbon disulfide | | 75-15-0 | 20,000 | 10,000 | | | |\n| 34 | Carbon oxysulfide | [Carbon oxide sulfide (COS); carbonyl sulfide] | 463-58-1 | 10,000 | 5,000 | | | |\n| 35 | Carbonyl fluoride | | 353-50-4 | | | 12.00 | 45 | 25 |\n| 36 | Carbonyl sulfide | | 463-58-1 | | | 56.67 | 500 | 250 |\n| 37 | Chlorine | | 7782-50-5 | 2,500 | 1,250 | 9.77 | 500 | 250 |\n| 38 | Chlorine dioxide | [Chlorine oxide, (ClO2)] | 10049-04-4 | 1,000 | 500 | | | |\n| 39 | Chlorine monoxide | [Chlorine oxide] | 7791-21-1 | 10,000 | 5,000 | | | |\n| 40 | Chlorine pentafluoride | | 13637-63-3 | | | 4.07 | 15 | 10 |\n| 41 | Chlorine trifluoride | | 7790-91-2 | | | 9.97 | 45 | 25 |\n| 42 | Chloroform | [Methane, trichloro-] | 67-66-3 | 20,000 | 10,000 | | | |\n| 43 | Chloromethyl ether | [Methane, oxybis(chloro-)] | 542-88-1 | 1,000 | 500 | | | |\n| 44 | Chloromethyl methyl ether | [Methane, chloromethoxy-] | 107-30-2 | 5,000 | 2,500 | | | |\n| 45 | 1-Chloropropylene | [1-Propene, 1-chloro-] | 590-21-6 | 10,000 | 5,000 | | | |\n| 46 | 2-Chloropropylene | [1-Propene, 2-chloro-] | 557-98-2 | 10,000 | 5,000 | | | |\n| 47 | Crotonaldehyde | [2-Butenal] | 4170-30-3 | 10,000 | 5,000 | | | |\n| 48 | Crotonaldehyde, (E)- | [2-Butenal, (E)-] | 123-73-9 | 10,000 | 5,000 | | | |\n| 49 | Cyanogen | [Ethanedinitrile] | 460-19-5 | 10,000 | 5,000 | 11.67 | 45 | 25 |\n| 50 | Cyanogen chloride | | 506-77-4 | 10,000 | 5,000 | 2.67 | 15 | 10 |\n| 51 | Cyclohexylamine | [Cyclohexanamine] | 108-91-8 | 15,000 | 7,500 | | | |\n| 52 | Cyclopropane | | 75-19-4 | 10,000 | 5,000 | | | |\n| 53 | Diazodinitrophenol | | 87-31-0 | 5,000 | 2,500 | | 400 | 200 |\n| 54 | Diborane | | 19287-45-7 | 2,500 | 1,250 | 2.67 | 15 | 10 |\n| 55 | Dichlorosilane | [Silane, dichloro-] | 4109-96-0 | 10,000 | 5,000 | 10.47 | 45 | 25 |\n| 56 | N,N-(2-diethylamino)ethanethiol | | 100-38-9 | | | 30.00 | 2.2 | 1 |\n| 57 | o,o-Diethyl S-[2-(diethylamino)ethyl] phosphorothiolate | | 78-53-5 | | | 30.00 | 2.2 | 1 |\n| 58 | Diethyleneglycol dinitrate | | 693-21-0 | 5,000 | 2,500 | | 400 | 200 |\n| 59 | Diethyl methylphosphonite | | 15715-41-0 | | | 30.00 | 2.2 | 1 |\n| 60 | N,N-Diethyl phosphoramidic dichloride | | 1498-54-0 | | | 30.00 | 2.2 | 1 |\n| 61 | N,N-(2-diisopropylamino)-ethanethiol | N, N-diisopropyl-(beta)-aminoethane thiol | 5842-07-9 | | | 30.00 | 2.2 | 1 |\n| 62 | Difluoroethane | [Ethane, 1-1difluoro-] | 75-37-6 | 10,000 | 5,000 | | | |\n| 63 | N,N-Diisopropyl phosphoramidic dichloride | | 23306-80-1 | | | 30.00 | 2.2 | 1 |\n| 64 | 1,1-Dimethylhydrazine | [Hydrazine, 1, 1-dimethyl] | 57-14-7 | 10,000 | 5,000 | | | |\n| 65 | Dimethylamine | [Methanamine, N-methyl-] | 124-40-3 | 10,000 | 5,000 | | | |\n| 66 | N,N-(2-dimethylamino)ethanethiol | | 108-02-1 | | | 30.00 | 2.2 | 1 |\n| 67 | Dimethyldichlorosilane | [Silane, dichlorodimethyl-] | 75-78-5 | 10,000 | 5,000 | | | |\n| 68 | N,N-Dimethyl phosphoramidic dichloride | [Dimethylphosphoramido-chloridate] | 677-43-0 | | | 30.00 | 2.2 | 1 |\n| 69 | 2,2-Dimethylpropane | [Propane, 2,2-dimethyl-] | 463-82-1 | 10,000 | 5,000 | | | |\n| 70 | Dingu | [Dinitroglycoluril] | 56510-04-8 | 5,000 | 2,500 | | 400 | 200 |\n| 71 | Dinitrogen tetroxide | | 10544-72-6 | | | 3.80 | 15 | 10 |\n| 72 | Dinitrophenol | | 25550-58-7 | 5,000 | 2,500 | | 400 | 200 |\n| 73 | Dinitroresorcinol | | 519-44-8 | 5,000 | 2,500 | | 400 | 200 |\n| 74 | Dipicryl sulfide | | 2217-06-3 | 5,000 | 2,500 | | 400 | 200 |\n| 75 | Dipicrylamine [or] Hexyl | [Hexanitrodiphenylamine] | 131-73-7 | 5,000 | 2,500 | | 400 | 200 |\n| 76 | N,N-(2-dipropylamino)ethanethiol | | 5842-06-8 | | | 30.00 | 2.2 | 1 |\n| 77 | N,N-Dipropyl phosphoramidic dichloride | | 40881-98-9 | | | 30.00 | 2.2 | 1 |\n| 78 | Epichlorohydrin | [Oxirane, (chloromethyl)-] | 106-89-8 | 20,000 | 10,000 | | | |\n| 79 | Ethane | | 74-84-0 | 10,000 | 5,000 | | | |\n| 80 | Ethyl acetylene | [1-Butyne] | 107-00-6 | 10,000 | 5,000 | | | |\n| 81 | Ethyl chloride | [Ethane, chloro-] | 75-00-3 | 10,000 | 5,000 | | | |\n| 82 | Ethyl ether | [Ethane,1,1-oxybis-] | 60-29-7 | 10,000 | 5,000 | | | |\n| 83 | Ethyl mercaptan | [Ethanethiol] | 75-08-1 | 10,000 | 5,000 | | | |\n| 84 | Ethyl nitrite | [Nitrous acid, ethyl ester] | 109-95-5 | 10,000 | 5,000 | | | |\n| 85 | Ethylamine | [Ethanamine] | 75-04-7 | 10,000 | 5,000 | | | |\n| 86 | Ethyldiethanolamine | | 139-87-7 | | | 80.00 | 220 | 100 |\n| 87 | Ethylene | [Ethene] | 74-85-1 | 10,000 | 5,000 | | | |\n| 88 | Ethylene oxide | [Oxirane] | 75-21-8 | 10,000 | 5,000 | | | |\n| 89 | Ethylenediamine | [1,2-Ethanediamine] | 107-15-3 | 20,000 | 10,000 | | | |\n| 90 | Ethyleneimine | [Aziridine] | 151-56-4 | 10,000 | 5,000 | | | |\n| 91 | Ethylphosphonothioic dichloride | | 993-43-1 | | | 30.00 | 2.2 | 1 |\n| 92 | Fluorine | | 7782-41-4 | 1,000 | 500 | 6.17 | 15 | 10 |\n| 93 | Formaldehyde (solution) | | 50-00-0 | 15,000 | 7,500 | | | |\n| 94 | Furan | | 110-00-9 | 10,000 | 5,000 | | | |\n| 95 | Germane | | 7782-65-2 | | | 20.73 | 45 | 25 |\n| 96 | Germanium tetrafluoride | | 7783-58-6 | | | 2.11 | 15 | 10 |\n| 97 | Guanyl nitrosaminoguanylidene hydrazine | | | 5,000 | 2,500 | | 400 | 200 |\n| 98 | Hexaethyl tetraphosphate and compressed gas mixtures | | 757-58-4 | | | 33.37 | 500 | 250 |\n| 99 | Hexafluoroacetone | | 684-16-2 | | | 15.67 | 45 | 25 |\n| 100 | Hexanitrostilbene | | 20062-22-0 | 5,000 | 2,500 | | 400 | 200 |\n| 101 | Hexolite | [Hexotol] | 121-82-4 | 5,000 | 2,500 | | 400 | 200 |\n| 102 | HMX | [Cyclotetramethylene-tetranitramine] | 2691-41-0 | 5,000 | 2,500 | | 400 | 200 |\n| 103 | Hydrazine | | 302-01-2 | 10,000 | 5,000 | | | |\n| 104 | Hydrochloric acid (농도 37 wt % 이상) | | 7647-01-0 | 15,000 | 7,500 | | | |\n| 105 | Hydrocyanic acid | | 74-90-8 | 2,500 | 1,250 | | | |\n| 106 | Hydrofluoric acid (50 wt % 이상) | | 7664-39-3 | 1,000 | 500 | | | |\n| 107 | Hydrogen | | 1333-74-0 | 10,000 | 5,000 | | | |\n| 108 | Hydrogen bromide (anhydrous) | | 10035-10-6 | | | 95.33 | 500 | 250 |\n| 109 | Hydrogen chloride (anhydrous) | | 7647-01-0 | 5,000 | 2,500 | | 500 | 250 |\n| 110 | Hydrogen cyanide | [Hydrocyanic acid] | 74-90-8 | | | 4.67 | 15 | 10 |\n| 111 | Hydrogen fluoride (anhydrous) | | 7664-39-3 | 1,000 | 500 | 42.53 | 45 | 25 |\n| 112 | Hydrogen iodide, anhydrous | | 10034-85-2 | | | 95.33 | 500 | 250 |\n| 113 | Hydrogen peroxide (35 wt % 이상) | | 7722-84-1 | | | 35 | 400 | 200 |\n| 114 | Hydrogen selenide | | 7783-07-5 | 10,000 | 5,000 | 0.07 | 15 | 10 |\n| 115 | Hydrogen sulfide | | 7783-06-4 | 10,000 | 5,000 | 23.73 | 45 | 25 |\n| 116 | Iron, pentacarbonyl- | [Iron carbonyl (Fe (CO)5), (TB5-11)-] | 13463-40-6 | 10,000 | 5,000 | | | |\n| 117 | Isobutane | [Propane, 2-methyl] | 75-28-5 | 10,000 | 5,000 | | | |\n| 118 | Isobutyronitrile | [Propanenitrile, 2-methyl-] | 78-82-0 | 20,000 | 10,000 | | | |\n| 119 | Isopentane | [Butane, 2-methyl-] | 78-78-4 | 10,000 | 5,000 | | | |\n| 120 | Isoprene | [1,3-Butadiene, 2-methyl-] | 78-79-5 | 10,000 | 5,000 | | | |\n| 121 | Isopropyl chloride | [Propane, 2-chloro-] | 75-29-6 | 10,000 | 5,000 | | | |\n| 122 | Isopropyl chloroformate | [Carbonchloric acid, 1-methylethyl ester] | 108-23-6 | 15,000 | 7,500 | | | |\n| 123 | Isopropylamine | [2-Propanamine] | 75-31-0 | 10,000 | 5,000 | | | |\n| 124 | Isopropylphosphonothioic dichloride | | 1498-60-8 | | | 30.00 | 2.2 | 1 |\n| 125 | Lead azide | | 13424-46-9 | 5,000 | 2,500 | | 400 | 200 |\n| 126 | Lead styphnate | [Lead trinitroresorcinate] | 15245-44-0 | 5,000 | 2,500 | | 400 | 200 |\n| 127 | Magnesium (powder) | | 7439-95-4 | | | | 100 | 50 |\n| 128 | MDEA | [Methyldiethanolamine] | 105-59-9 | | | 80.00 | 220 | 100 |\n| 129 | Mercury fulminate | | 628-86-4 | 5,000 | 2,500 | | 400 | 200 |\n| 130 | Methacrylonitrile | [2-Propeneitrile, 2-methyl-] | 126-98-7 | 10,000 | 5,000 | | | |\n| 131 | Methane | | 74-82-8 | 10,000 | 5,000 | | | |\n| 132 | 2-Methyl-1-butene | | 563-46-2 | 10,000 | 5,000 | | | |\n| 133 | 3-Methyl-1-butene | | 563-45-1 | 10,000 | 5,000 | | | |\n| 134 | Methyl chloride | [Methane, chloro-] | 74-87-3 | 10,000 | 5,000 | | | |\n| 135 | Methyl chloroformate | [Carbonchloric acid, methyl ester] | 79-22-1 | 10,000 | 5,000 | | | |\n| 136 | Methyl ether | [Methane, oxybis-] | 115-10-6 | 10,000 | 5,000 | | | |\n| 137 | Methyl formate | [Formic acid Methyl ester] | 107-31-3 | 10,000 | 5,000 | | | |\n| 138 | Methyl hydrazine | [Hydrazine, methyl-] | 60-34-4 | 15,000 | 7,500 | | | |\n| 139 | Methyl isocyanate | [Methane, isocyanato-] | 624-83-9 | 10,000 | 5,000 | | | |\n| 140 | Methyl mercaptan | [Methanethiol] | 74-93-1 | 10,000 | 5,000 | 45.00 | 500 | 250 |\n| 141 | Methyl thiocyanate | [Thiocyanic acid, methyl ester] | 556-64-9 | 20,000 | 10,000 | | | |\n| 142 | Methylamine | [Methanamine] | 74-89-5 | 10,000 | 5,000 | | | |\n| 143 | Methylchlorosilane | | 993-00-0 | | | 20.00 | 45 | 25 |\n| 144 | Methylphosphonothioic dichloride | | 676-98-2 | | | 30.00 | 2.2 | 1 |\n| 145 | 2-Methylpropene | [1-Propene, 2-methyl-] | 115-11-7 | 10,000 | 5,000 | | | |\n| 146 | Methyltrichlorosilane | [Silane, trichloromethyl-] | 75-79-6 | 10,000 | 5,000 | | | |\n| 147 | Nickel Carbonyl | | 13463-39-3 | 10,000 | 5,000 | | | |\n| 148 | Nitric acid (농도 80 wt % 이상) | | 7697-37-2 | 15,000 | 7,500 | 68.00 | 400 | 200 |\n| 149 | Nitric oxide | [Nitrogen oxide(NO)] | 10102-43-9 | 10,000 | 5,000 | 3.83 | 15 | 10 |\n| 150 | Nitrobenzene | | 98-95-3 | | | | 100 | 50 |\n| 151 | 5-Nitrobenzotriazol | | 2338-12-7 | 5,000 | 2,500 | | 400 | 200 |\n| 152 | Nitrocellulose | | 9004-70-0 | 5,000 | 2,500 | | 400 | 200 |\n| 153 | Nitrogen mustard hydrochloride | [Bis(2-chloroethyl)methylamine hydrochloride] | 55-86-7 | | | 30.00 | 2.2 | 1 |\n| 154 | Nitrogen trioxide | | 10544-73-7 | | | 3.83 | 15 | 10 |\n| 155 | Nitroglycerine | | 55-63-0 | 5,000 | 2,500 | | 400 | 200 |\n| 156 | Nitromannite | [Mannitol hexanitrate, wetted] | 15825-70-4 | 5,000 | 2,500 | | 400 | 200 |\n| 157 | Nitromethane | | 75-52-5 | | | | 400 | 200 |\n| 158 | Nitrostarch | | 9056-38-6 | 5,000 | 2,500 | | 400 | 200 |\n| 159 | Nitrosyl chloride | | 2696-92-6 | | | 1.17 | 15 | 10 |\n| 160 | Nitrotriazolone | | 932-64-9 | 5,000 | 2,500 | | 400 | 200 |\n| 161 | Octolite | | 57607-37-1 | 5,000 | 2,500 | | 400 | 200 |\n| 162 | Octonal | | 78413-87-3 | 5,000 | 2,500 | | 400 | 200 |\n| 163 | Oleum (Fuming Sulfuric acid) | [Sulfuric acid, mixture with sulfur trioxide] | 8014-95-7 | 10,000 | 5,000 | | | |\n| 164 | Oxygen difluoride | | 7783-41-7 | | | 0.09 | 15 | 10 |\n| 165 | 1,3-Pentadiene | | 504-60-9 | 10,000 | 5,000 | | | |\n| 166 | Pentane | | 109-66-0 | 10,000 | 5,000 | | | |\n| 167 | 1-Pentene | | 109-67-1 | 10,000 | 5,000 | | | |\n| 168 | 2-Pentene, (E)- | | 646-04-8 | 10,000 | 5,000 | | | |\n| 169 | 2-Pentene, (Z)- | | 627-20-3 | 10,000 | 5,000 | | | |\n| 170 | Pentolite | | 8066-33-9 | 5,000 | 2,500 | | 400 | 200 |\n| 171 | Peracetic acid | [Ethaneperoxic acid] | 79-21-0 | 10,000 | 5,000 | | | |\n| 172 | Perchloromethylmercaptan | [Methanesulfenyl chloride, trichloro-] | 594-42-3 | 10,000 | 5,000 | | | |\n| 173 | Perchloryl fluoride | | 7616-94-6 | | | 25.67 | 45 | 25 |\n| 174 | PETN | [Pentaerythritol tetranitrate] | 78-11-5 | 5,000 | 2,500 | | 400 | 200 |\n| 175 | Phosgene | [Carbonic dichloride] or [carbonyl dichloride] | 75-44-5 | 500 | 250 | 0.17 | 15 | 10 |\n| 176 | Phosphine | | 7803-51-2 | 10,000 | 5,000 | 0.67 | 15 | 10 |\n| 177 | Phosphorus | | 7723-14-0 | | | | 400 | 200 |\n| 178 | Phosphorus oxychloride | [Phosphoryl chloride] | 10025-87-3 | 5,000 | 2,500 | 80.00 | 220 | 100 |\n| 179 | Phosphorus trichloride | | 7719-12-2 | 15,000 | 7,500 | 3.48 | 45 | 25 |\n| 180 | Picrite | [Nitroguanidine] | 556-88-7 | 5,000 | 2,500 | | 400 | 200 |\n| 181 | Piperidine | | 110-89-4 | 10,000 | 5,000 | | | |\n| 182 | Potassium chlorate | | 3811-04-9 | | | | 400 | 200 |\n| 183 | Potassium nitrate | | 7757-79-1 | | | | 400 | 200 |\n| 184 | Potassium perchlorate | | 7778-74-7 | | | | 400 | 200 |\n| 185 | Potassium permanganate | | 7722-64-7 | | | | 400 | 200 |\n| 186 | Propadiene | [1,2-Propadiene] | 463-49-0 | 10,000 | 5,000 | | | |\n| 187 | Propane | | 74-98-6 | 60,000 | 30,000 | | | |\n| 188 | Propionitrile | [Propanenitrile] | 107-12-0 | 10,000 | 5,000 | | | |\n| 189 | Propyl chloroformate | [Carbonchloric acid, propylester] | 109-61-5 | 10,000 | 5,000 | | | |\n| 190 | Propylene | [1-Propene] | 115-07-1 | 10,000 | 5,000 | | | |"
+        }
+      ],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "별표 2",
+      "sectionTitle": "보안등급 4의 보안 취약성평가 점검표",
+      "pages": [
+        31,
+        32
+      ],
+      "text": "",
+      "tables": [
+        {
+          "tableNumber": "별표 2",
+          "caption": "보안등급 4의 보안 취약성평가 점검표",
+          "content": "| 점검내용 | 적정성 | 개선안 |\n|---|---|---|\n| A. 일반보안 | | |\n| 1. 사업장 자산은 모두 확인되었는가? | | |\n| 2. 화학물질 위험성평가를 수행한 실적이 있는가? | | |\n| 3. 외부 위협사항 평가를 수행한 실적이 있는가? | | |\n| 4. 피해예측 모델링을 수행한 실적이 있는가? | | |\n| 5. 설비적 보안평가를 수행한 실적이 있는가? | | |\n| 6. 피해감소 평가를 수행한 실적이 있는가? | | |\n| 7. 보안취약성 평가를 수행한 실적이 있는가? | | |\n| 8. 사업장 출입문 방호경계물에 대해서 개발한 적이 있는가? | | |\n| B. 관리적 보안 | | |\n| 9. 회사 최고경영층이 보안강화에 가시적인 지원을 하는가? | | |\n| 10. 명확한 보안정책이 개발되고 보급되어 있는가? | | |\n| 11. 보안에 대한 해당 지자체, 관련기관들과 연계된 교류가 있는가? | | |\n| 12. 협력적인 보안사고 대응을 위해 다른 관리조직과 연계된 관계 및 절차가 명확한가? | | |\n| 13. 보고된 보안사고에 대한 직원들의 이해가 정확한가? | | |\n| 14. 보안사고를 수집 및 분석하는 시스템이 있는가? | | |\n| 15. 직원과 협력회사 직원을 위한 보안인식 프로그램이 개발되어 있는가? | | |\n| 16. 기업 상담 또는 기업 보안관리정책에 위배되거나 의심스러운 사고를 조회하는 시스템이 개발되어 있는가? | | |\n| 17. 법규관리에서 모든 불법으로 의심되는 행위에 대해서 조회할 수 있는 정책을 개발했는가? | | |\n| 18. 비상대응과 위기관리절차가 개발되어 있는가? | | |\n| 19. 사업장의 보안정도(위협, 취약점, 위험 그리고 관련대응)를 주기적으로 재평가하는가? | | |\n| C. 설비적 보안 | | |\n| 20. 적절한 접근통제 방안(예, 출입통제 표지, 보안 출입문과 창문설치, 출입문 잠금장치, 카드출입 접근통제 시스템, 소포검사, 그리고 정문과 부두접근 시의 통제 등)이 수행되고 있는가? | | |\n| 21. 적정한 사업장 부지경계로 펜스, 보호기둥, 도랑, 회전식 출입문 그리고 보안조명이 설치되어 있는가? | | |\n| 22. 보안관리자가 지정된 고정지점에 순찰할 필요가 있는지? 만일 그렇다면 직접적으로 보안관리자의 순찰 후에 서면으로 확인하는 점검지점이 있는가? | | |\n| 23. 중요 통신장비와 유틸리티를 적절하게 방호하고 있는가? | | |",
+          "page": 31
+        }
+      ],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "개정 이력",
+      "sectionTitle": "기술지원규정 개정 이력",
+      "pages": [
+        33,
+        33
+      ],
+      "text": "□ 개정일 : 2026. 1. 30.\n○ 개정자 : 한국산업안전보건공단 전문기술실\n○ 개정사유 : 확인(체계정비)\n○ 주요 개정내용\n– 국문 명칭(기술지침→기술지원규정) 개정",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    }
+  ]
+}

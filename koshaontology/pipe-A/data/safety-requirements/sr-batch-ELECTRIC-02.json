@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T15:00:00+09:00",
+    "batchId": "sr-batch-ELECTRIC-02",
+    "totalSafetyRequirements": 6
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-ELECTRIC-021",
+      "title": "충전전로 작업 시 감전방지 안전조치",
+      "text": "사업주는 근로자가 충전전로를 취급하거나 그 인근에서 작업하는 경우 정전, 방호·차폐·절연, 절연용 보호구 착용, 절연용 방호구 설치, 활선작업용 기구 사용, 접근 한계거리 준수 등의 조치를 하여야 하며, 절연이 되지 않은 충전부나 그 인근에 근로자의 접근을 제한할 필요가 있는 경우에는 울타리를 설치하고 근로자가 쉽게 알아볼 수 있도록 하여야 한다. 다만 전기와 접촉할 위험이 있는 경우에는 도전성이 있는 금속제 울타리를 사용하거나 접근 한계거리 이내에 설치해서는 아니 되며, 울타리 설치가 곤란한 경우에는 감전위험을 경고하는 감시인을 배치하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제321조"],
+      "mandatedBy": ["NS-RULE321-0", "NS-RULE321-1", "NS-RULE321-2", "NS-RULE321-3"],
+      "addressesHazard": ["ELECTRIC_SHOCK"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-ELECTRIC-022",
+      "title": "충전전로 인근 차량·기계장치 작업 안전조치",
+      "text": "사업주는 충전전로 인근에서 차량, 기계장치 등의 작업이 있는 경우 차량등을 충전전로의 충전부로부터 300센티미터 이상 이격시켜 유지하되, 대지전압이 50킬로볼트를 넘는 경우 이격거리는 10킬로볼트 증가할 때마다 10센티미터씩 증가시켜야 한다. 또한 근로자가 차량등과 접촉하지 않도록 울타리를 설치하거나 감시인을 배치하는 등의 조치를 하여야 하며, 접지된 차량등이 충전전로와 접촉할 우려가 있을 경우에는 지상의 근로자가 접지점에 접촉하지 않도록 조치하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제322조"],
+      "mandatedBy": ["NS-RULE322-0", "NS-RULE322-3", "NS-RULE322-4"],
+      "addressesHazard": ["ELECTRIC_SHOCK"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "충전부 이격거리", "condition": ">=", "value": 300, "unit": "cm", "source": "제322조 제1항"},
+          {"parameter": "대지전압 기준", "condition": ">", "value": 50, "unit": "kV", "source": "제322조 제1항"},
+          {"parameter": "추가 이격거리", "condition": "==", "value": 10, "unit": "cm/10kV", "source": "제322조 제1항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-ELECTRIC-023",
+      "title": "절연용 보호구등의 적합 사용 및 성능 유지",
+      "text": "사업주는 밀폐공간 전기작업, 이동·휴대장비 전기작업, 정전전로 전기작업, 충전전로 전기작업, 충전전로 인근 차량·기계장치 작업에 사용하는 절연용 보호구, 절연용 방호구, 활선작업용 기구, 활선작업용 장치에 대하여 각각의 사용목적에 적합한 종별·재질 및 치수의 것을 사용하여야 하며, 안전한 성능을 유지하고 있는지 정기적으로 확인하여야 한다. 근로자가 사용 전에 흠·균열·파손 등 손상을 발견하여 정비 또는 교환을 요구하는 경우에는 즉시 조치하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제323조"],
+      "mandatedBy": ["NS-RULE323-0", "NS-RULE323-1", "NS-RULE323-2"],
+      "addressesHazard": ["ELECTRIC_SHOCK"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-ELECTRIC-024",
+      "title": "정전기에 의한 화재·폭발·감전 방지 조치",
+      "text": "사업주는 위험물 취급설비 등을 사용할 때 정전기에 의한 화재 또는 폭발 등의 위험이 발생할 우려가 있는 경우 해당 설비에 대하여 확실한 방법으로 접지를 하거나, 도전성 재료를 사용하거나, 가습 및 점화원이 될 우려가 없는 제전장치를 사용하는 등 정전기의 발생을 억제하거나 제거하기 위한 필요한 조치를 하여야 한다. 인체에 대전된 정전기에 의한 화재 또는 폭발 위험이 있는 경우에는 정전기 대전방지용 안전화 착용, 제전복 착용, 정전기 제전용구 사용 등의 조치를 하거나 작업장 바닥 등에 도전성을 갖추도록 하여야 하며, 생산공정상 정전기에 의한 감전 위험이 발생할 우려가 있는 경우에도 동일한 조치를 준용하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제325조"],
+      "mandatedBy": ["NS-RULE325-0", "NS-RULE325-1", "NS-RULE325-2"],
+      "addressesHazard": ["ELECTRIC_SHOCK", "FIRE_EXPLOSION"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-ELECTRIC-025",
+      "title": "위험물 저장·취급 시설의 피뢰설비 설치",
+      "text": "사업주는 화약류 또는 위험물을 저장하거나 취급하는 시설물에 낙뢰에 의한 산업재해를 예방하기 위하여 피뢰설비를 설치하여야 하며, 피뢰설비를 설치하는 경우에는 한국산업표준에 적합한 피뢰설비를 사용하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제326조"],
+      "mandatedBy": ["NS-RULE326-0", "NS-RULE326-1"],
+      "addressesHazard": ["ELECTRIC_SHOCK", "FIRE_EXPLOSION"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-ELECTRIC-026",
+      "title": "전자파에 의한 기계·설비 오작동 방지 조치",
+      "text": "사업주는 전기 기계·기구 사용에 의하여 발생하는 전자파로 인하여 기계·설비의 오작동을 초래함으로써 산업재해가 발생할 우려가 있는 경우에는 전자파 차폐, 접지, 배선 분리, 전자파 방출 억제 등 오작동을 방지하기 위한 필요한 조치를 하여야 한다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제327조"],
+      "mandatedBy": ["NS-RULE327-0"],
+      "addressesHazard": ["ELECTRIC_SHOCK"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}

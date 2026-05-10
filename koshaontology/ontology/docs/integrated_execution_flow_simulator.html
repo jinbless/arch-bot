@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OHS × Ontology 통합 실행 흐름 시뮬레이터 (Faceted 3축)</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #131b31;
+      --panel-2: #192445;
+      --line: #2e3b6d;
+      --text: #e8eefc;
+      --muted: #9fb0da;
+      --blue: #4ea1ff;
+      --green: #38d39f;
+      --amber: #ffbf47;
+      --red: #ff6b6b;
+      --purple: #b48cff;
+      --cyan: #62e9ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Pretendard, system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(78,161,255,.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(180,140,255,.12), transparent 24%),
+        linear-gradient(180deg, #08101f, #0b1020 30%, #0c1224);
+    }
+    .wrap { max-width: 1440px; margin: 0 auto; padding: 24px; }
+    .hero, .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .hero { padding: 24px; margin-bottom: 18px; }
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    h2 { margin: 0 0 14px; font-size: 19px; }
+    h3 { margin: 0 0 10px; font-size: 15px; color: var(--cyan); }
+    .muted { color: var(--muted); line-height: 1.6; }
+    .grid { display: grid; gap: 18px; }
+    .grid.two { grid-template-columns: 400px 1fr; }
+    .controls, .viewer, .panel { padding: 18px; }
+    .controls .row { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    select, button {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+    button {
+      cursor: pointer;
+      background: linear-gradient(180deg, #2761c4, #1b4da3);
+      font-weight: 700;
+    }
+    button.secondary {
+      background: linear-gradient(180deg, #1b294f, #172340);
+      margin-top: 8px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      font-size: 12px;
+      color: #d9e7ff;
+    }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .legend .chip:nth-child(1) { border-color: rgba(78,161,255,.5); }
+    .legend .chip:nth-child(2) { border-color: rgba(255,191,71,.5); }
+    .legend .chip:nth-child(3) { border-color: rgba(56,211,159,.5); }
+    .legend .chip:nth-child(4) { border-color: rgba(255,107,107,.5); }
+    .legend .chip:nth-child(5) { border-color: rgba(180,140,255,.5); }
+    .viewer {
+      min-height: 760px;
+      position: relative;
+      overflow: hidden;
+    }
+    .rail {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(180px, 1fr));
+      gap: 14px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+    .col {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 640px;
+      transition: .25s ease;
+      opacity: .48;
+      transform: translateY(0);
+    }
+    .col.active {
+      opacity: 1;
+      border-color: rgba(98,233,255,.42);
+      box-shadow: inset 0 0 0 1px rgba(98,233,255,.08), 0 0 24px rgba(98,233,255,.08);
+      transform: translateY(-4px);
+    }
+    .step-no {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-weight: 800;
+      background: rgba(78,161,255,.18);
+      color: #beddff;
+      margin-bottom: 10px;
+    }
+    .step-title { font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+    .card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .card pre {
+      white-space: pre-wrap;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #d7e2ff;
+    }
+    .card ul { margin: 8px 0 0 18px; padding: 0; color: #d7e2ff; }
+    .card li { margin-bottom: 6px; }
+    .status {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      margin-bottom: 8px;
+    }
+    .s-obs { background: rgba(78,161,255,.16); color: #9cc6ff; }
+    .s-canon { background: rgba(255,191,71,.16); color: #ffd58a; }
+    .s-onto { background: rgba(56,211,159,.14); color: #85f0c9; }
+    .s-violation { background: rgba(255,107,107,.14); color: #ff9d9d; }
+    .s-result { background: rgba(180,140,255,.16); color: #d0b8ff; }
+    .timeline {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0 0;
+      flex-wrap: wrap;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.12);
+      transition: .25s ease;
+    }
+    .dot.done { background: var(--green); box-shadow: 0 0 12px rgba(56,211,159,.45); }
+    .dot.now { background: var(--cyan); box-shadow: 0 0 14px rgba(98,233,255,.5); }
+    .summaryBox {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .mini {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .kv { display: grid; gap: 10px; }
+    .kv .item {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .k { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .v { font-size: 14px; font-weight: 600; }
+    .footer {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    @media (max-width: 1200px) {
+      .grid.two { grid-template-columns: 1fr; }
+      .rail { grid-template-columns: 1fr; }
+      .col { min-height: auto; }
+      .summaryBox { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>OHS × Ontology 통합 실행 흐름 시뮬레이터 (Faceted 3축)</h1>
+      <div class="muted">
+        Faceted 3축 분류 체계 <b>(AccidentType 8종 × HazardousAgent 11종 × WorkContext 13종)</b>를 중심으로,
+        사용자 입력이 어떻게 <b>관찰</b> → <b>Faceted 축 매핑</b> → <b>온톨로지 추론</b> → <b>결정론적 체크리스트/벌칙 경로</b>로 변환되는지 동적으로 보여줍니다.
+      </div>
+      <div class="legend">
+        <span class="chip">파랑: OHS/GPT 관찰 계층 (Track A)</span>
+        <span class="chip">노랑: Faceted 3축 매핑 (Track B)</span>
+        <span class="chip">초록: 온톨로지/PG+Fuseki 추론</span>
+        <span class="chip">빨강: 위반/벌칙 경로 + Divergence 감지</span>
+        <span class="chip">보라: 최종 사용자 응답</span>
+      </div>
+    </section>
+
+    <div class="grid two">
+      <aside class="panel controls">
+        <h2>시나리오 선택</h2>
+        <div class="row">
+          <label for="scenario">대표 시나리오</label>
+          <select id="scenario"></select>
+        </div>
+        <div class="row">
+          <button id="playBtn">흐름 자동재생</button>
+          <button id="nextBtn" class="secondary">다음 단계</button>
+          <button id="resetBtn" class="secondary">처음부터 보기</button>
+        </div>
+        <div class="row">
+          <h3>현재 계획의 설계 원칙</h3>
+          <div class="chips">
+            <span class="chip">1. GPT는 위험 발견/설명 (Track A 자유 분석)</span>
+            <span class="chip">2. Faceted 3축으로 매핑 (AccidentType × Agent × WorkContext)</span>
+            <span class="chip">3. SR/CI/Penalty는 faceted 축 조합으로 조회</span>
+            <span class="chip">4. 체크리스트는 결정론적으로 생성</span>
+            <span class="chip">5. Track A↔B Divergence 감지 및 판정</span>
+          </div>
+        </div>
+        <div class="row mini">
+          <h3>왜 구조를 바꿔야 하나</h3>
+          <div class="muted">
+            기존엔 OHS의 GPT 분류(flat 24종)와 법령/온톨로지 분류(12종)가 달라서
+            중간 브리지 로직에 의존했습니다. Faceted 3축 체계는 이를 제거하고
+            <b>사고유형 × 유해인자 × 작업맥락</b> 조합으로 정밀 매핑합니다.
+            GPT Track A(자유 분석)와 Track B(faceted 축)를 병행해 divergence를 감지합니다.
+          </div>
+        </div>
+        <div class="row mini">
+          <h3>현재 시나리오 핵심 코드</h3>
+          <div id="scenarioHazards" class="chips"></div>
+        </div>
+      </aside>
+
+      <section class="panel viewer">
+        <div class="rail" id="rail"></div>
+        <div class="summaryBox">
+          <div class="mini">
+            <h3>단계 진행도</h3>
+            <div id="timeline" class="timeline"></div>
+            <div class="footer">
+              각 단계는 단순 설명이 아니라, 실제 구현 시 필요한 데이터 흐름
+              (관찰 facts, canonical hazard code, SR/CI/SPARQL 결과, 위반 판정, 벌칙 경로)를 기준으로 구성되어 있습니다.
+            </div>
+          </div>
+          <div class="mini">
+            <h3>최종 사용자 응답 미리보기</h3>
+            <div id="finalPreview" class="kv"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const scenarios = {
+      scaffold_fall: {
+        title: "건설현장 비계 작업 / 추락 위험",
+        input: {
+          type: "사진 + 짧은 문맥",
+          raw: "고소 작업 중인 작업자가 비계 단부 근처에서 작업하고 있고, 안전난간이 보이지 않으며 안전대 착용도 확인되지 않음."
+        },
+        observation: {
+          facts: [
+            "비계 구조물 관찰",
+            "작업자 고소 위치 관찰",
+            "안전난간 부재 의심",
+            "안전대 미착용 의심"
+          ],
+          gptCodes: ["Track A: 추락 위험 — 비계 단부, 안전난간 부재, 안전대 미착용"]
+        },
+        canonical: {
+          codes: ["AccidentType: FALL", "Agent: GRAVITY", "WorkContext: SCAFFOLDING"],
+          aliases: ["고소작업→FALL", "비계→SCAFFOLDING", "중력/높이→GRAVITY"],
+          note: "Faceted 3축 매핑: 사고유형(추락) × 유해인자(중력/높이) × 작업맥락(비계). Track A 자유 분석과 Track B 축 매핑을 병행하여 divergence 감지"
+        },
+        ontology: {
+          domainTerms: ["작업발판", "안전난간", "비계", "추락방지"],
+          sr: ["SR-FALL-001", "SR-WORKPLACE-011", "SR-WORKPLACE-012"],
+          ci: [
+            "작업발판 단부에 안전난간 설치 여부",
+            "높이 2m 이상 작업 시 추락방지 조치 여부",
+            "낙하물 위험 방지를 위한 보호망/방호선반 여부"
+          ],
+          articles: ["제42조", "제13조", "제14조"]
+        },
+        violation: {
+          statuses: [
+            ["작업발판 단부 안전난간", "VIOLATION_SUSPECTED"],
+            ["안전대 착용 여부", "UNKNOWN"],
+            ["추락방호 조치", "VIOLATION_SUSPECTED"]
+          ],
+          penalty: [
+            "Faceted 축 조합(FALL×GRAVITY×SCAFFOLDING)으로 SR→조문→벌칙 경로 조회",
+            "중대재해 맥락에서는 경영책임자 리스크 설명 가능"
+          ]
+        },
+        result: {
+          hazards: ["추락 위험", "비계 작업 맥락"],
+          checklist: 3,
+          penalty: "추락방지 관련 조문 및 벌칙 경로 표시",
+          explanation: "GPT(Track A)는 왜 위험한지 설명, Faceted(Track B)는 축 조합으로 SR/CI를 결정론적으로 제시"
+        }
+      },
+      confined_welding: {
+        title: "밀폐공간 내부 용접 / 질식 + 폭발 복합위험",
+        input: {
+          type: "사진 + 텍스트",
+          raw: "탱크 내부에서 용접 중이며 환기팬이 보이지 않고 보호구 착용 여부가 불명확함."
+        },
+        observation: {
+          facts: [
+            "탱크 내부 작업 관찰",
+            "용접 화기 작업 관찰",
+            "환기장치 부재 의심",
+            "보호구 확인 불가"
+          ],
+          gptCodes: ["Track A: 밀폐공간 질식 위험, 용접 화재/폭발 위험, 화학물질 노출 위험"]
+        },
+        canonical: {
+          codes: ["AccidentType: ASPHYXIATION, FIRE_EXPLOSION", "Agent: TOXIC_GAS, FLAMMABLE_SUBSTANCE", "WorkContext: CONFINED_SPACE"],
+          aliases: ["탱크 내부→CONFINED_SPACE", "용접→FLAMMABLE_SUBSTANCE", "환기불량→TOXIC_GAS", "질식→ASPHYXIATION"],
+          note: "복합위험: 3축 교차 조합 2세트. (ASPHYXIATION×TOXIC_GAS×CONFINED_SPACE) + (FIRE_EXPLOSION×FLAMMABLE_SUBSTANCE×CONFINED_SPACE). ontology가 축 교차 추론으로 추가 SR 발견"
+        },
+        ontology: {
+          domainTerms: ["밀폐공간", "환기불량", "용접작업", "유해가스", "가연성 분위기"],
+          sr: ["SR-CONFINED-001", "SR-CONFINED-002", "SR-CONFINED-011", "SR-CHEMICAL-002"],
+          ci: [
+            "산소 및 유해가스 농도 측정·기록 여부",
+            "적정공기 유지를 위한 환기 조치 여부",
+            "통풍 불충분 장소 용접 시 적정공기 유지 여부",
+            "국소배기/밀폐설비 설치 여부"
+          ],
+          articles: ["제619조", "제620조", "제629조", "제422조"]
+        },
+        violation: {
+          statuses: [
+            ["가스 농도 측정 기록", "UNKNOWN"],
+            ["환기 조치", "VIOLATION_SUSPECTED"],
+            ["화기작업 적정공기 유지", "VIOLATION_SUSPECTED"]
+          ],
+          penalty: [
+            "Faceted 축 교차(2세트)로 SR→조문→벌칙 경로 동시 조회",
+            "복합위험으로 질식/폭발 리스크를 동시에 설명 + divergence 감지"
+          ]
+        },
+        result: {
+          hazards: ["질식/중독 위험", "폭발/화재 위험"],
+          checklist: 4,
+          penalty: "밀폐공간 및 유해가스 작업 관련 조문/벌칙 경로 표시",
+          explanation: "복합위험은 3축 교차 조합 2세트로 매핑 — Faceted 체계의 핵심 강점"
+        }
+      },
+      forklift_struck: {
+        title: "지게차 이동 동선 / 충돌·협착 위험",
+        input: {
+          type: "사진",
+          raw: "작업자와 지게차가 같은 동선에서 근접해 있고, 분리된 통로가 보이지 않음."
+        },
+        observation: {
+          facts: [
+            "지게차 관찰",
+            "보행자와 장비 동선 혼재",
+            "분리통로 부재 의심"
+          ],
+          gptCodes: ["Track A: 지게차 충돌 위험, 협착 위험, 동선 분리 미흡"]
+        },
+        canonical: {
+          codes: ["AccidentType: STRUCK_BY, CAUGHT_IN", "Agent: VEHICLE_MACHINERY", "WorkContext: LOGISTICS_AREA"],
+          aliases: ["지게차→VEHICLE_MACHINERY", "접촉→STRUCK_BY", "협착→CAUGHT_IN", "물류동선→LOGISTICS_AREA"],
+          note: "Faceted 3축 매핑: 사고유형(충돌+협착) × 유해인자(차량기계) × 작업맥락(물류구역). 기존 coarse 분류 대비 축 조합으로 정밀한 SR 검색 가능"
+        },
+        ontology: {
+          domainTerms: ["차량계 하역운반기계", "접촉위험장소", "출입제한", "지게차"],
+          sr: ["SR-VEHICLE-002", "SR-VEHICLE-010", "SR-WORKPLACE-018"],
+          ci: [
+            "접촉 위험 장소 출입 제한 여부",
+            "지게차 헤드가드/안전장치 적정 여부",
+            "위험 작업장소 관계자 외 출입 금지 조치 여부"
+          ],
+          articles: ["제172조", "제180조", "제20조"]
+        },
+        violation: {
+          statuses: [
+            ["보행자-지게차 동선 분리", "VIOLATION_SUSPECTED"],
+            ["출입제한 조치", "VIOLATION_SUSPECTED"],
+            ["안전장치 상태", "UNKNOWN"]
+          ],
+          penalty: [
+            "Faceted 축 조합(STRUCK_BY×VEHICLE_MACHINERY×LOGISTICS_AREA)으로 벌칙 경로 조회"
+          ]
+        },
+        result: {
+          hazards: ["충돌 위험", "협착 위험", "접촉 사고 위험"],
+          checklist: 3,
+          penalty: "지게차 조치 의무 관련 조문/벌칙 경로 표시",
+          explanation: "STRUCK_BY×CAUGHT_IN 복수 사고유형 + 단일 작업맥락 — Faceted 축 교차의 실효성"
+        }
+      }
+    };
+
+    const columns = [
+      { key: "input", title: "사용자 입력", badge: "s-obs", badgeText: "입력" },
+      { key: "observation", title: "1. OHS Track A 관찰 추출", badge: "s-obs", badgeText: "GPT 자유분석" },
+      { key: "canonical", title: "2. Track B Faceted 3축 매핑", badge: "s-canon", badgeText: "AT×AG×WC" },
+      { key: "ontology", title: "3. 온톨로지/PG+Fuseki 연결", badge: "s-onto", badgeText: "SR/CI/SPARQL" },
+      { key: "violation", title: "4. 위반/벌칙 + Divergence", badge: "s-violation", badgeText: "결정론" },
+      { key: "result", title: "5. 사용자 응답 생성", badge: "s-result", badgeText: "최종 결과" },
+      { key: "meta", title: "6. Faceted 구조 효과", badge: "s-result", badgeText: "구조 개선" }
+    ];
+
+    const scenarioSelect = document.getElementById("scenario");
+    const rail = document.getElementById("rail");
+    const timeline = document.getElementById("timeline");
+    const finalPreview = document.getElementById("finalPreview");
+    const scenarioHazards = document.getElementById("scenarioHazards");
+
+    let currentScenarioKey = "scaffold_fall";
+    let activeStep = 0;
+    let timer = null;
+
+    function fillScenarioOptions() {
+      Object.entries(scenarios).forEach(([key, value]) => {
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = value.title;
+        scenarioSelect.appendChild(option);
+      });
+      scenarioSelect.value = currentScenarioKey;
+    }
+
+    function renderScenarioHazards(data) {
+      scenarioHazards.innerHTML = "";
+      data.canonical.codes.forEach(code => {
+        const el = document.createElement("span");
+        el.className = "chip";
+        el.textContent = code;
+        scenarioHazards.appendChild(el);
+      });
+    }
+
+    function createCard(title, bodyHtml) {
+      return `<div class="card"><div class="k">${title}</div><div class="v">${bodyHtml}</div></div>`;
+    }
+
+    function renderColumn(col, data, index) {
+      let html = "";
+      if (col.key === "input") {
+        html += createCard("입력 타입", data.input.type);
+        html += `<div class="card"><div class="k">원본 입력</div><pre>${data.input.raw}</pre></div>`;
+      }
+      if (col.key === "observation") {
+        html += createCard("관찰 facts", `<ul>${data.observation.facts.map(v => `<li>${v}</li>`).join("")}</ul>`);
+        html += createCard("GPT 위험 코드 후보", data.observation.gptCodes.map(c => `<span class="chip">${c}</span>`).join(" "));
+      }
+      if (col.key === "canonical") {
+        html += createCard("표준 코드", data.canonical.codes.map(c => `<span class="chip">${c}</span>`).join(" "));
+        html += createCard("정규화 단서", data.canonical.aliases.map(c => `<span class="chip">${c}</span>`).join(" "));
+        html += `<div class="card"><div class="k">의미</div><pre>${data.canonical.note}</pre></div>`;
+      }
+      if (col.key === "ontology") {
+        html += createCard("DomainTerm / Context", `<ul>${data.ontology.domainTerms.map(v => `<li>${v}</li>`).join("")}</ul>`);
+        html += createCard("적용 SR", `<ul>${data.ontology.sr.map(v => `<li>${v}</li>`).join("")}</ul>`);
+        html += createCard("결정론 checklist 후보", `<ul>${data.ontology.ci.map(v => `<li>${v}</li>`).join("")}</ul>`);
+        html += createCard("관련 조문", data.ontology.articles.map(c => `<span class="chip">${c}</span>`).join(" "));
+      }
+      if (col.key === "violation") {
+        html += createCard("체크 결과", `<ul>${data.violation.statuses.map(([name, status]) => `<li>${name} → <b>${status}</b></li>`).join("")}</ul>`);
+        html += createCard("벌칙 경로", `<ul>${data.violation.penalty.map(v => `<li>${v}</li>`).join("")}</ul>`);
+      }
+      if (col.key === "result") {
+        html += createCard("사용자에게 설명되는 위험", `<ul>${data.result.hazards.map(v => `<li>${v}</li>`).join("")}</ul>`);
+        html += createCard("체크리스트 수", `${data.result.checklist}개`);
+        html += createCard("벌칙/법적 근거", data.result.penalty);
+        html += createCard("응답 원칙", data.result.explanation);
+      }
+      if (col.key === "meta") {
+        html += createCard("Faceted 3축 구조 효과", `<ul>
+          <li>브리지 로직 완전 제거 — 축 조합이 직접 SR/CI 연결</li>
+          <li>Track A(GPT 자유) ↔ Track B(Faceted 축) Divergence 감지</li>
+          <li>축 교차 SPARQL로 복합위험 정밀 검색</li>
+          <li>결정론적 checklist 재현성 + 감사 추적 강화</li>
+          <li>23개 DB 테이블 (Pipe-A 6 + Pipe-B 13 + Pipe-C 1 + OHS 3)</li>
+        </ul>`);
+        html += createCard("이 단계의 의미", index < 2
+          ? "단순 분류가 아니라 '3축 조합으로 정밀 매핑 가능한 위험 언어'를 확보하는 단계"
+          : "Faceted 축 조합을 기반으로 법령·가이드·벌칙을 결정론적으로 추적하는 단계");
+      }
+
+      return `
+        <div class="col ${index <= activeStep ? "active" : ""}">
+          <div class="step-no">${index + 1}</div>
+          <div class="status ${col.badge}">${col.badgeText}</div>
+          <div class="step-title">${col.title}</div>
+          ${html}
+        </div>
+      `;
+    }
+
+    function renderRail() {
+      const data = scenarios[currentScenarioKey];
+      rail.innerHTML = columns.map((col, idx) => renderColumn(col, data, idx)).join("");
+    }
+
+    function renderTimeline() {
+      timeline.innerHTML = columns.map((_, idx) => {
+        const cls = idx < activeStep ? "dot done" : idx === activeStep ? "dot now" : "dot";
+        return `<span class="${cls}"></span>`;
+      }).join("");
+    }
+
+    function renderFinalPreview() {
+      const data = scenarios[currentScenarioKey];
+      finalPreview.innerHTML = `
+        <div class="item"><div class="k">대표 위험</div><div class="v">${data.result.hazards.join(", ")}</div></div>
+        <div class="item"><div class="k">Canonical Hazard Code</div><div class="v">${data.canonical.codes.join(", ")}</div></div>
+        <div class="item"><div class="k">적용 조문</div><div class="v">${data.ontology.articles.join(", ")}</div></div>
+        <div class="item"><div class="k">결정론 checklist</div><div class="v">${data.ontology.ci.length}개 후보 중 ${data.result.checklist}개 핵심 항목 제시</div></div>
+        <div class="item"><div class="k">판정 방식</div><div class="v">COMPLIANT / VIOLATION_SUSPECTED / UNKNOWN</div></div>
+        <div class="item"><div class="k">핵심 설계 메시지</div><div class="v">${data.result.explanation}</div></div>
+      `;
+    }
+
+    function renderAll() {
+      const data = scenarios[currentScenarioKey];
+      renderScenarioHazards(data);
+      renderRail();
+      renderTimeline();
+      renderFinalPreview();
+    }
+
+    function stopAutoPlay() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function nextStep() {
+      if (activeStep < columns.length - 1) {
+        activeStep += 1;
+      } else {
+        stopAutoPlay();
+      }
+      renderAll();
+    }
+
+    document.getElementById("playBtn").addEventListener("click", () => {
+      stopAutoPlay();
+      activeStep = 0;
+      renderAll();
+      timer = setInterval(() => {
+        if (activeStep >= columns.length - 1) {
+          stopAutoPlay();
+          return;
+        }
+        nextStep();
+      }, 1300);
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      stopAutoPlay();
+      nextStep();
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      stopAutoPlay();
+      activeStep = 0;
+      renderAll();
+    });
+
+    scenarioSelect.addEventListener("change", (e) => {
+      stopAutoPlay();
+      currentScenarioKey = e.target.value;
+      activeStep = 0;
+      renderAll();
+    });
+
+    fillScenarioOptions();
+    renderAll();
+  </script>
+</body>
+</html>

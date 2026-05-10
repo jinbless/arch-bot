@@ -1,0 +1,1046 @@
+{
+  "metadata": {
+    "guideCode": "P-1-2012",
+    "shortCode": "P1",
+    "domain": "C",
+    "extractedAt": "2026-04-25T00:44:47Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-050"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-P1-001",
+      "text": "시스템을 구성하는 모든 부품은 전기전도성이 있어야 하며, 접지 및 접속하여야 한다.",
+      "guideContext": "공기운송시스템 설계단계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계단계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-P1-002",
+      "text": "공기운송시스템 내부 및 주위에 있는 모든 전기설비는 고용부 고시를 참조하여 설계되고 설치되어야 한다.",
+      "guideContext": "공기운송시스템 설계단계",
+      "additionalDetail": "노동부 고시 제1993-19호 (사업장 방폭구조 전기기계·기구·배선 등의 선정·설치 및 보수 등에 관한 기준)",
+      "workProcessPhase": "설계단계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-P1-003",
+      "text": "공기와 원료의 흡입 및 방출을 위해 설계된 개구부를 제외한 모든 시스템은 기밀성이 있는 방진 구조로 설계되어야 한다.",
+      "guideContext": "공기운송시스템 설계단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계단계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-004",
+      "text": "서로 다른 2종 이상의 원료가 하나의 시스템에서 취급되는 경우, 잔류물질과 새로 취급되는 물질의 혼합으로 인한 위험을 사전에 평가하여야 하며, 혼합에 의한 위험이 발생할 우려가 있는 경우에는 새로 취급되는 물질을 운송하기 전에 시스템 내의 잔류물질을 제거하여야 한다.",
+      "guideContext": "공기운송시스템 설계단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계단계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-005",
+      "text": "설비와 저장조(Silo)를 설계할 때에는 폭발 벤팅, 폭발압력에 견딜 수 있는 이송설비, 기타 폭발방지 시스템 등의 폭발방지 조치를 고려하여야 한다.",
+      "guideContext": "공기운송시스템 설계단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계단계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-006",
+      "text": "불활성가스가 사용되는 곳에는 산소농도 측정 및 경보장치를 설치하여야 한다.",
+      "guideContext": "혼합물 이송 설계단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계단계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-007",
+      "text": "혼합물을 이송하는 경우 운송설비에서 이미 사용된 가스는 재사용을 금한다.",
+      "guideContext": "혼합물 이송 설계단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계단계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-008",
+      "text": "덕트 내부에는 화재감지를 위한 불꽃감지장치 및 소화설비를 설치하여야 한다.",
+      "guideContext": "덕트 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-009",
+      "text": "모든 엘보우는 공기 및 분진 등에 대하여 기밀성을 유지하여야 한다.",
+      "guideContext": "덕트 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-010",
+      "text": "접합부는 맞대기 접합으로 하며, 공기 및 분진 등에 대하여 기밀성을 유지하여야 한다.",
+      "guideContext": "덕트 엘보우 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-011",
+      "text": "건물 내에 설치하는 시스템의 모든 부품은 육안으로 관찰이 가능하도록 노출되게 설치하고, 시스템으로부터 원료가 유출되지 않도록 설치하여야 한다.",
+      "guideContext": "덕트 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-012",
+      "text": "모든 덕트, 엘보우 또는 다른 공기설비 사이의 접합부는 기밀성을 유지하도록 설치하여야 한다.",
+      "guideContext": "덕트 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-013",
+      "text": "모든 다기관 및 덕트는 외부의 과도한 압력이나 응력을 피하도록 유지관리 하여야 한다.",
+      "guideContext": "덕트 지지대 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-014",
+      "text": "지지대는 시스템의 무게와 운송될 원료의 무게를 모두 견딜 수 있도록 설계하여야 한다.",
+      "guideContext": "덕트 지지대 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-015",
+      "text": "바닥을 관통하는 부분은 각 바닥 면에 안전하게 고정하여야 한다.",
+      "guideContext": "덕트 지지대 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-016",
+      "text": "내화벽 또는 방화벽을 통과하는 덕트는 두 면 위에 단단하게 고정시켜야 하며, 덕트 주위에 있는 개구부와 벽 사이의 틈은 벽과 동등한 내화성능을 가진 물질로 밀봉해야 한다.",
+      "guideContext": "덕트 지지대 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-017",
+      "text": "감시창을 설치하는 경우에는 쉽게 손상되지 않는 재료를 사용해야 한다. 감시창은 시스템의 어떠한 중량의 영향, 응력이나 수축도 받지 않도록 배관의 감시창 위·아래에서 지탱되어야 한다.",
+      "guideContext": "덕트 감시창 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-018",
+      "text": "시스템의 전기 접속은 감시창 주변에서 끊어지지 않아야 한다. 감시창은 덕트 시스템과 동일한 건고성을 유지하여야 한다.",
+      "guideContext": "덕트 감시창 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-019",
+      "text": "감시창과 덕트 사이의 접합부는 맞대기 접합하여야 하고 공기 및 분진에 대하여 기밀성을 유지하여야 한다.",
+      "guideContext": "덕트 감시창 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-020",
+      "text": "모든 헤더 및 덕트는 설비의 검사 및 청소를 위해 점검구를 설치하여야 한다.",
+      "guideContext": "덕트 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "덕트 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-021",
+      "text": "양압 및 음압형 공기운송설비에 대하여 한 개 이상의 안전밸브를 설치하여야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-022",
+      "text": "안전밸브는 시스템을 보호하도록 설계된 압력에서 개방되도록 하여야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-023",
+      "text": "송풍장치를 보호하기 위해서 시스템의 청정 공기 측에 안전밸브를 설치하여야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-024",
+      "text": "방향밸브는 기밀이 유지되는 밀폐구조이어야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-025",
+      "text": "어느 한 방향으로 제품의 방향 전환은 다른 방향의 공기 및 분진 누출이 기계적이고 자동적으로 차단되도록 하여야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-026",
+      "text": "복합덕트군 음압형 공기운송시스템 내에 설치된 공기유량 조절밸브는 기밀성이 유지되어야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-027",
+      "text": "공기유량 조절밸브는 시스템의 최대 공기량을 통과시킬 수 있을 만큼 충분한 크기의 댐퍼로 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-028",
+      "text": "공기유량 조절밸브는 시스템 내부에서의 공기흐름을 완전히 차단시킬 수 있어야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-029",
+      "text": "공기유량 조절밸브에는 댐퍼의 개방정도를 명시하는 눈금이 있어야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-030",
+      "text": "수동 공기유량 조절밸브는 잠금장치를 설치하여야 한다.",
+      "guideContext": "밸브류 설치단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "밸브류 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-031",
+      "text": "건축물 외부 및 상부에 위치해 있는 공기-원료 분리기에는 관련규정에 따라 피뢰침을 설치해야 한다.",
+      "guideContext": "공기-원료 분리기 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.4",
+      "basedOn": [
+        "SR-ELECTRIC-025"
+      ]
+    },
+    {
+      "identifier": "CI-P1-032",
+      "text": "공기-원료 분리기의 원료 방출구에는 양압 초크장치가 설치되어야 한다.",
+      "guideContext": "공기-원료 분리기 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-033",
+      "text": "공기-원료 분리기로부터의 배기공기는 건물의 외부의 안전한 장소로 방출되어야 한다.",
+      "guideContext": "공기-원료 분리기 설치 (법령 근거 미확인)",
+      "additionalDetail": "운송공기를 공기운송시스템 내로 즉시 재순환 시키도록 규정되어 있는 곳, 건물로 공기를 되돌려 보내는 모든 덕트가 4장(4)항에서 명시된 것처럼 설비되고 보호되는 곳은 예외",
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-034",
+      "text": "재순환 공기덕트에는 1차 또는 2차 공기-원료 분리기 이외에 여과기가 추가 설치되어야 한다.",
+      "guideContext": "공기-원료 분리기 재순환 공기덕트 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-035",
+      "text": "여과기는 지름 1.0 ㎛ 이상의 입자 크기에 대해 99.5 %의 효능을 가지고 있어야 한다.",
+      "guideContext": "공기-원료 분리기 재순환 공기덕트 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-036",
+      "text": "공기-원료 분리기는 불연성 재료를 사용하여야 한다.",
+      "guideContext": "공기-원료 분리기 제작 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-037",
+      "text": "공기-원료 분리기는 분진이 축적되지 않도록 제작하여야 한다.",
+      "guideContext": "공기-원료 분리기 제작 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-038",
+      "text": "호퍼의 바닥면은 경사져야 하며, 방출 운송시스템은 최대 유량을 취급하도록 설계하여야 한다.",
+      "guideContext": "공기-원료 분리기 제작 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-039",
+      "text": "분리기는 청소를 위해 내부로 출입할 수 있도록 설치하여야 한다.",
+      "guideContext": "공기-원료 분리기 제작 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-040",
+      "text": "공기-원료 분리기에는 폭발로부터 설비보호를 위해 압력릴리프장치가 설치되어야 한다.",
+      "guideContext": "공기-원료 분리기 제작 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-041",
+      "text": "공기-원료 분리기는 옥외에 설치해야 한다.",
+      "guideContext": "공기-원료 분리기 설치장소 (법령 근거 미확인)",
+      "additionalDetail": "분리기가 외부 벽과 근접한 곳에 위치해 있고, 직선 덕트를 통해 밖으로 환기되는 경우, 길이가 3.05 m(10 ft)를 초과하지 않게, 건물 내에 설치할 수 있다",
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-042",
+      "text": "공기-원료 분리기가 연소할 수 있는 경우에는 자동스프링클러장치, 이산화탄소 및 할론 등의 소화설비를 설치하여야 한다.",
+      "guideContext": "공기-원료 분리기 방호장치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-043",
+      "text": "공기-원료 분리기는 폭발 억제 시스템으로 방호되어야 한다. 폭발 억제 시스템은 KOSHA GUIDE에 따라 설계되고, 설치되어야 한다.",
+      "guideContext": "공기-원료 분리기 방호장치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-044",
+      "text": "공기-원료 분리기 시스템에 사용되는 운송매체는 불활성 또는 최소산소농도 이하로 공급되도록 설계하여야 한다.",
+      "guideContext": "공기-원료 분리기 방호장치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-045",
+      "text": "공기-원료 분리기는 최대폭발압력에 견딜 수 있도록 설계하여야 한다.",
+      "guideContext": "공기-원료 분리기 방호장치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공기-원료 분리기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-046",
+      "text": "원료가 호퍼와 급송장치를 통해 공기운송시스템 내로 투입되는 호퍼는 압력균일화를 위해 기밀하도록 설계하여야 한다.",
+      "guideContext": "급송방법 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "급송장치 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-047",
+      "text": "공기운송시스템 안으로 철이 함유된 물질이 유입되지 않도록 마그네틱을 이용하는 등의 금속 분리설비를 설치하여야 한다.",
+      "guideContext": "급송방법 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "급송장치 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-048",
+      "text": "비상시를 대비하여 기계적 급송장치는 비상정지나 과적감지장치 및 경보기를 설치하여야 한다.",
+      "guideContext": "급송방법 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "급송장치 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "4.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-049",
+      "text": "급송기, 에어록 및 다른 장치와 관련되어 사용된 모든 구동장치는 접지되어야 한다.",
+      "guideContext": "급송방법",
+      "additionalDetail": "미끄럼이 없고, 정전기 제거 장치가 있어 구동력을 충분히 제어할 수 있도록 설계된 벨트나 다른 간접형 구동장치는 예외",
+      "workProcessPhase": "급송장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.5",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-P1-050",
+      "text": "팬 및 송풍기는 하중과 진동에 견딜 수 있도록 견고하게 설치하여야 한다.",
+      "guideContext": "팬 및 송풍기 설계 및 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-051",
+      "text": "팬은 날개와 케이싱 간의 간격이 충분하여야 하며, 예상되는 분진 및 혼합물의 폭발하한농도 미만에서 작동하도록 설계하여야 한다.",
+      "guideContext": "팬 및 송풍기 설계 및 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-052",
+      "text": "모든 지점에서 분진의 축적을 방지하고, 운전정지 시 떨어지는 분진을 포집하도록 이송설비 전체에 최소 이송속도를 유지하여야 한다.",
+      "guideContext": "팬 및 송풍기 설계 및 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "4.6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-053",
+      "text": "베어링 또는 베어링 하우징은 과열, 기름누출 및 분진침투를 방지하도록 설계하여야 한다.",
+      "guideContext": "팬 및 송풍기 설계 및 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-054",
+      "text": "베어링은 정기적으로 윤활유를 주입해야 하며, 마모 상태를 점검해야 한다.",
+      "guideContext": "팬 및 송풍기 보수 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 보수",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-055",
+      "text": "송풍기 로타(Rotor)와 하우징은 정기적으로 청소해야 한다.",
+      "guideContext": "팬 및 송풍기 보수 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 보수",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-056",
+      "text": "팬 하우징의 내부표면은 녹슬지 않게 유지되어야 한다. 다른 원료에 의해 충격을 받아 흠집이 날 수 있는 내부철강표면 위에 알루미늄 페인트를 사용해서는 안 된다.",
+      "guideContext": "팬 및 송풍기 보수 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 보수",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-057",
+      "text": "팬과 송풍기는 원료가 운송되기 전, 원료가 운송이 중단된 후에도 원료가 시스템 내부에 잔류하지 않도록 최대 속도로 가동시켜 청소를 하여야 한다.",
+      "guideContext": "팬 및 송풍기 청소·점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-058",
+      "text": "팬과 송풍기는 과열 및 과대진동에 대한 점검을 정기적으로 실시해야 한다.",
+      "guideContext": "팬 및 송풍기 청소·점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-059",
+      "text": "인터록은 운송시스템의 작동 중단 시 원료공급이 중단될 수 있도록 연동시켜야 한다.",
+      "guideContext": "팬 및 송풍기 운전 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팬 및 송풍기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-060",
+      "text": "폭발위험장소에서 사용되는 엔진 및 모터 구동설비는 잠재적 화재위험과 전기충격위험을 감소시키도록 설계된 안전장치를 설치해야 한다.",
+      "guideContext": "차량용 운송설비 구동설비",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-P1-061",
+      "text": "모든 디젤엔진기관의 배기통에 화염역화방지기를 설치하여야 한다.",
+      "guideContext": "차량용 운송설비 구동설비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-062",
+      "text": "차량의 연료는 공정지역 외부에서 주입하여야 한다.",
+      "guideContext": "차량용 운송설비 구동설비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-063",
+      "text": "엔진 및 모터로 움직이는 설비의 표면에 쌓인 분진은 작동 중 정기적으로 제거하여야 한다.",
+      "guideContext": "차량용 운송설비 구동설비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-064",
+      "text": "폭발위험지역에서 압축공기로 청소하지 않아야 한다.",
+      "guideContext": "차량용 운송설비 구동설비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-065",
+      "text": "화염역화방지기는 정기적으로 청소 및 교체하여야 한다.",
+      "guideContext": "차량용 운송설비 구동설비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-066",
+      "text": "어떤 장치 위에 있는 트럭, 탱크, 호피, 운송호스, 모터 또는 압축기와 같은 모든 설비는 전기적으로 접속 및 접지하여야 한다.",
+      "guideContext": "차량용 운송설비 접지 및 접속",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-P1-067",
+      "text": "사용되는 호스는 전도성이 있어야 한다. 운송차량부터 수하시스템까지 연결부는 옥외에 설치하여야 한다.",
+      "guideContext": "차량용 운송설비 접지 및 접속",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-P1-068",
+      "text": "운전자는 차량을 접지하고, 컴프레서를 가동시키기 전에 차량과 하역설비에 대한 연결호스를 접속해야 한다. 그 컴프레서는 원료를 운송하기 전에 정상 작동속도를 유지해야 한다.",
+      "guideContext": "차량용 운송설비 접지 및 접속",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-P1-069",
+      "text": "차량용 운송설비 전기접속은 설비가 사용될 때 마다 외관 점검을 해야 한다.",
+      "guideContext": "차량용 운송설비 접지 및 접속 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-070",
+      "text": "호퍼 등은 여과장치가 부착된 배기구가 있어야 한다.",
+      "guideContext": "차량용 운송설비 분진 제어 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "차량용 운송설비 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-071",
+      "text": "모든 작업자에게 관련 설비에 대한 초기훈련과 계속적인 훈련이 실시되어야 한다. 훈련 시에는 적절한 훈련 지침이 제공되고 이는 주기적으로 검토되어야 한다.",
+      "guideContext": "교육훈련 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "교육훈련",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-072",
+      "text": "모든 작업자는 설비나 공정실패와 같은 작업환경 위험에 대한 주기적인 교육을 받도록 한다.",
+      "guideContext": "교육훈련 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "교육훈련",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-073",
+      "text": "설비가 안전하게 작동할 수 있도록 정기검사를 시행하고 그 결과를 관리자에게 보고하여야 한다.",
+      "guideContext": "정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P1-074",
+      "text": "검사자격을 보유한자가 검사를 수행하도록 하고, 검사결과와 권장사항은 기록 보존하도록 한다.",
+      "guideContext": "정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-P1-001",
+      "term": "가연성 분진",
+      "definition": "화재나 폭발위협이 있는 직경 420 ㎛ 이하의 작고 미세한 고체입자를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P1-002",
+      "term": "덕트",
+      "definition": "공기압을 이용하여 물질을 이송하기 위한 배관, 튜브 또는 이와 유사한 기능을 갖는 설비를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P1-003",
+      "term": "혼합물",
+      "definition": "가연성 분진 및 인화성 가스 또는 증기와 공기의 혼합물을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P1-004",
+      "term": "다기관",
+      "definition": "흡입형 공기운송시스템에서 두 개 이상의 공기-원료 분리기를 동시에 공급하는 배관을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P1-005",
+      "term": "복합덕트군",
+      "definition": "하나의 다기관에 연결된 여러 개의 흡입형 공기운송 덕트 다발을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P1-006",
+      "term": "공기운송시스템",
+      "definition": "공기압에 의해 원료를 원활히 운송할 수 있는 밀폐형 덕트시스템을 말한다. 이 시스템은 양압형과 음압형으로 구분된다. 양압형 공기운송시스템은 대기압보다 높은 압력의 공기를 이용하여 원료를 운송하는 시스템으로 원료를 시스템 안으로 유입하기 위한 압축공기 공급장치, 공기-원료 분리기, 여과기 및 공기 송풍기 등으로 구성되어 있다. 음압형 공기운송시스템은 대기압 이하의 압력에서 원료를 운송하는 시스템으로 원료와 공기흡입구, 덕트, 공기-원료 분리기, 팬 또는 송풍기 등으로 구성되어 있다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P1-007",
+      "term": "1차 공기-원료 분리기",
+      "definition": "운송 중인 공기흐름으로부터 제품이나 원료를 제거하는 분리장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P1-008",
+      "term": "2차 공기-원료 분리기",
+      "definition": "1차 공기-원료분리기 후단에 남아 있는 분진 찌꺼기 또는 제품을 제거하는 분리장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-P1-01",
+      "processOrder": 1,
+      "processName": "공기운송시스템 설계",
+      "safetyMeasures": "모든 부품 전기전도성 확보 및 접지·접속, 전기설비 방폭구조 설계, 기밀성 방진 구조 설계, 2종 이상 원료 혼합 위험 평가, 폭발방지 조치(폭발 벤팅, 내압 이송설비) 고려, 혼합물 이송 시 산소농도 측정·경보장치 설치",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": [
+        "SR-ELECTRIC-024",
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "WP-P1-02",
+      "processOrder": 2,
+      "processName": "덕트 설치",
+      "safetyMeasures": "불꽃감지장치 및 소화설비 설치, 엘보우·접합부 기밀성 유지, 맞대기 접합, 건물 내 부품 노출 설치, 지지대는 시스템 및 원료 무게 견딜 수 있도록 설계, 내화벽 관통 부분 내화성능 밀봉, 감시창 손상 방지 재료 사용, 점검구 설치",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P1-03",
+      "processOrder": 3,
+      "processName": "밸브류 설치",
+      "safetyMeasures": "양압·음압형 설비에 안전밸브 설치, 설계 압력에서 개방, 청정 공기 측 안전밸브 설치, 방향밸브 기밀 밀폐구조, 공기유량 조절밸브 기밀성·완전 차단 기능, 댐퍼 개방정도 눈금 표시, 수동 밸브 잠금장치 설치",
+      "requiredPPE": [],
+      "sourceSection": "4.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P1-04",
+      "processOrder": 4,
+      "processName": "공기-원료 분리기 설치",
+      "safetyMeasures": "피뢰침 설치, 양압 초크장치 설치, 배기공기 건물 외부 방출, 여과기 추가 설치(1.0 ㎛ 이상 99.5% 효능), 불연성 재료 사용, 분진 축적 방지 제작, 압력릴리프장치 설치, 옥외 설치, 소화설비 및 폭발 억제 시스템 설치, 최대폭발압력 내구 설계",
+      "requiredPPE": [],
+      "sourceSection": "4.4",
+      "relatedSR": [
+        "SR-ELECTRIC-025"
+      ]
+    },
+    {
+      "identifier": "WP-P1-05",
+      "processOrder": 5,
+      "processName": "급송장치 설치 및 운전",
+      "safetyMeasures": "호퍼 기밀 설계, 금속 분리설비(마그네틱) 설치, 비상정지·과적감지장치·경보기 설치, 모든 구동장치 접지",
+      "requiredPPE": [],
+      "sourceSection": "4.5",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "WP-P1-06",
+      "processOrder": 6,
+      "processName": "팬 및 송풍기 설치·운전·보수",
+      "safetyMeasures": "하중·진동에 견딜 수 있도록 견고 설치, 폭발하한농도 미만 작동 설계, 최소 이송속도 유지, 베어링 과열·기름누출·분진침투 방지 설계, 정기적 윤활유 주입·마모 점검, 로타·하우징 정기 청소, 내부표면 녹 방지(알루미늄 페인트 사용 금지), 운송 전후 최대 속도 가동 청소, 과열·과대진동 정기 점검, 인터록 연동",
+      "requiredPPE": [],
+      "sourceSection": "4.6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P1-07",
+      "processOrder": 7,
+      "processName": "차량용 운송설비 운전",
+      "safetyMeasures": "폭발위험장소 엔진·모터 안전장치 설치, 디젤엔진 배기통 화염역화방지기 설치, 차량 연료 공정지역 외부 주입, 분진 정기적 제거, 폭발위험지역 압축공기 청소 금지, 모든 설비 전기적 접속·접지, 전도성 호스 사용, 차량 접지 후 호스 접속, 전기접속 사용 시마다 외관 점검, 호퍼 여과장치 부착 배기구 확보",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-ELECTRIC-024",
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "WP-P1-08",
+      "processOrder": 8,
+      "processName": "교육훈련 및 정기검사",
+      "safetyMeasures": "모든 작업자 초기훈련·계속 훈련 실시, 작업환경 위험 주기적 교육, 정기검사 시행 및 관리자 보고, 검사자격 보유자가 검사 수행, 검사결과·권장사항 기록 보존",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-P1-001",
+      "equipmentName": "양압형 공기운송시스템 송풍기",
+      "specifications": {
+        "minimumPressure": "103 kPa (15 psig) 초과"
+      },
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P1-002",
+      "equipmentName": "재순환 공기덕트용 여과기",
+      "specifications": {
+        "particleSize": "지름 1.0 ㎛ 이상",
+        "efficiency": "99.5 % 이상"
+      },
+      "sourceSection": "4.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P1-003",
+      "equipmentName": "공기-원료 분리기 건물 내 설치용 직선 덕트",
+      "specifications": {
+        "maximumLength": "3.05 m (10 ft) 이하",
+        "condition": "외부 벽과 근접, 직선 덕트를 통해 밖으로 환기, 폭발 압력에 의한 파열 방지 설계"
+      },
+      "sourceSection": "4.4",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-P1-001",
+      "documentType": "TRAINING_RECORD",
+      "title": "공기운송시스템 작업자 교육훈련 기록",
+      "requiredSections": [
+        "초기훈련 내용",
+        "계속적인 훈련 내용",
+        "작업환경 위험 교육",
+        "훈련 지침 검토 이력"
+      ],
+      "sourceSection": "6.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-P1-002",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "공기운송시스템 정기검사 기록",
+      "requiredSections": [
+        "화재·폭발 및 설비보호 장치",
+        "분진제어설비",
+        "작업장 관리",
+        "잠재적 발화원",
+        "전기 및 기계설비·안전밸브·인터록",
+        "표준 안전운전절차 및 작업실무",
+        "검사결과 및 권장사항"
+      ],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    }
+  ]
+}

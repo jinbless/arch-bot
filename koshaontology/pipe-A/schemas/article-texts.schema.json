@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ArticleTexts",
+  "description": "legalize-kr에서 추출한 조문 텍스트 데이터",
+  "type": "object",
+  "required": ["metadata", "laws"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["generatedAt", "sourceCommit", "totalArticles", "lawSources"],
+      "additionalProperties": false,
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "sourceCommit": { "type": "string", "description": "legalize-kr git commit hash" },
+        "totalArticles": { "type": "integer", "minimum": 0 },
+        "deletedArticles": { "type": "integer", "minimum": 0 },
+        "lawSources": {
+          "type": "object",
+          "patternProperties": {
+            "^[A-Z]+$": {
+              "type": "object",
+              "required": ["name", "path", "articleCount"],
+              "additionalProperties": false,
+              "properties": {
+                "name": { "type": "string" },
+                "path": { "type": "string" },
+                "articleCount": { "type": "integer", "minimum": 0 }
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "laws": {
+      "type": "object",
+      "patternProperties": {
+        "^[A-Z]+$": { "$ref": "#/$defs/lawSection" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "lawSection": {
+      "type": "object",
+      "patternProperties": {
+        "^제\\d+조(의\\d+)?$": { "$ref": "#/$defs/article" }
+      },
+      "additionalProperties": false
+    },
+    "article": {
+      "type": "object",
+      "required": ["title", "fullText", "deleted", "section", "annotations", "paragraphCount"],
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "fullText": { "type": "string" },
+        "deleted": { "type": "boolean" },
+        "section": { "type": ["string", "null"] },
+        "annotations": {
+          "type": "object",
+          "required": ["개정", "신설"],
+          "additionalProperties": false,
+          "properties": {
+            "개정": { "type": "array", "items": { "type": "string" } },
+            "신설": { "type": ["string", "null"] }
+          }
+        },
+        "paragraphCount": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

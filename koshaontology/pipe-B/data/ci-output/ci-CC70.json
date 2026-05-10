@@ -1,0 +1,783 @@
+{
+  "metadata": {
+    "guideCode": "C-C-70-2025",
+    "shortCode": "CC70",
+    "domain": "C",
+    "extractedAt": "2026-04-23T18:46:28Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-009"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC70-001",
+      "text": "실내에 가스취급설비가 존재하지만 공간이 넓을 경우 등과 같이 유해위험공간으로 정확히 판단하기 어려운 경우에는 누출량과 환기량을 계산하여 평가하여야 한다.",
+      "guideContext": "유해위험공간 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "유해위험공간 평가",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.5",
+      "basedOn": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-002",
+      "text": "유해위험공간에 가스가 누출되면 물리적인 잠금장치를 사용하여 인원의 출입이나 상주를 제한하여야 한다.",
+      "guideContext": "유해위험공간 관리적 안전대책",
+      "additionalDetail": null,
+      "workProcessPhase": "출입 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.1",
+      "basedOn": [
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-003",
+      "text": "유해위험공간 내의 작업자나 상주근무자는 유해위험공간의 위험성을 항상 인식하고 있어야 한다.",
+      "guideContext": "유해위험공간 관리적 안전대책",
+      "additionalDetail": null,
+      "workProcessPhase": "출입 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "TRAINING",
+      "sourceSection": "5.1.1",
+      "basedOn": [
+        "SR-CHEMICAL-024"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-004",
+      "text": "유해위험공간에 설치된 환기설비가 중단될 경우에는 밀폐공간 출입허가에 준하는 절차에 따라 출입을 통제하여야 한다.",
+      "guideContext": "유해위험공간 관리적 안전대책",
+      "additionalDetail": null,
+      "workProcessPhase": "출입 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1.1",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-005",
+      "text": "유해위험공간의 가스감지기가 작동된 경우에는 신속히 대피하거나 공기호흡기를 착용하고 상황을 조치하여야 한다.",
+      "guideContext": "유해위험공간 관리적 안전대책",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.1.1",
+      "basedOn": [
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-006",
+      "text": "유해위험공간의 출입문 및 내부에는 잠재적인 질식, 화재, 폭발 위험성을 인식할 수 있도록 \"가스누출 시 위험\"과 같은 경고표지를 설치하여야 한다.",
+      "guideContext": "유해위험공간 관리적 안전대책",
+      "additionalDetail": null,
+      "workProcessPhase": "출입 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-CHEMICAL-017"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-007",
+      "text": "유해위험공간에 설치된 환기설비의 고장과 같은 상황이 발생하여 점검이나 보완을 위해 출입할 경우에는 밀폐공간 출입허가에 준하는 작업허가절차를 적용하여야 한다.",
+      "guideContext": "유해위험공간 관리적 안전대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "작업허가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC70-008",
+      "text": "유해위험공간에서 가스가 누출되면 위험상황이 발생할 수 있으므로, 에너지 또는 공정유체 차단 관련 작업에는 반드시 잠금장치 및 꼬리표 부착 절차를 적용한 후 출입하여야 한다.",
+      "guideContext": "유해위험공간 관리적 안전대책 (법령 근거 미확인)",
+      "additionalDetail": "Lock-out Tag-out, LOTO",
+      "workProcessPhase": "작업허가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC70-009",
+      "text": "유해위험공간에 가스가 누출될 경우에는 밀폐공간 보건작업 프로그램에 따른 비상대응에 필요한 공기호흡기와 같은 개인보호구를 착용하여야 한다.",
+      "guideContext": "유해위험공간 개인보호구",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "5.1.5",
+      "basedOn": [
+        "SR-CHEMICAL-025"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-010",
+      "text": "유해위험공간은 상시 환기를 실시하여 누출 시 누출물질을 배출할 수 있어야 하며, 유해위험공간의 공기는 기본적으로 유해공기가 될 수 있음을 인지하여야 한다.",
+      "guideContext": "유해위험공간 기술적 안전대책",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 운영",
+      "bindingForce": "MANDATORY",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-011",
+      "text": "질소나 산소를 취급하는 경우는 해당가스의 기체비중이 공기와 유사하므로 최소 환기량은 시간당 6회 이상 해당공간을 환기할 수 있어야 한다.",
+      "guideContext": "유해위험공간 환기시스템 용량 기준",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CONFINED-002",
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-012",
+      "text": "헬륨, 이산화탄소, 아르곤과 같이 기체비중이 공기와 다른 경우에는 최소한 시간당 10 회 이상 해당공간을 환기할 수 있어야 한다.",
+      "guideContext": "유해위험공간 환기시스템 용량 기준",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CONFINED-002",
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-013",
+      "text": "초지온 액체가스와 같이 밀도가 높은 경우에는 바닥에서 흡입하는 방법 등의 취급하는 기체성상에 따라 환기설계를 하여야 한다.",
+      "guideContext": "유해위험공간 환기시스템 용량 기준",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-014",
+      "text": "독성가스는 누출 시에 안전한 농도 이하(예, ERPG 2)가 되도록 시간당 환기횟수를 결정하여야 한다.",
+      "guideContext": "유해위험공간 환기시스템 용량 기준",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CONFINED-002",
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-015",
+      "text": "인화성가스는 누출 시에 안전한 농도 이하(예, LEL의 10%)가 되도록 환기횟수를 결정하여야 한다. 다만, 인화성가스이면서 독성가스인 경우에는 독성가스의 기준을 적용한다.",
+      "guideContext": "유해위험공간 환기시스템 용량 기준",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CONFINED-002",
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-016",
+      "text": "환기시스템은 환기시설 가동상태를 지시하는 외부 경고등, 안전하게 내부공기가 배출될 수 있는 배출구 가동, 환기용 공기유입 설비에 설치된 유량측정장비 등의 설비를 통해서 상시 환기가 유지되고 있음을 확인할 수 있어야 한다.",
+      "guideContext": "유해위험공간 환기시스템 모니터링",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 운영",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-017",
+      "text": "배출되는 유해공기는 안전한 장소로 배출해야 하고, 해당 건축물이나 다른 설비로 재유입되지 않도록 배출구를 설치하여야 한다.",
+      "guideContext": "유해위험공간 기술적 안전대책",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-018",
+      "text": "환기설비의 가동중지 시에는 유해위험공간 내의 모든 사람들이 알 수 있도록 경보설비를 설치하여야 한다.",
+      "guideContext": "유해위험공간 기술적 안전대책",
+      "additionalDetail": null,
+      "workProcessPhase": "환기시스템 운영",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-019",
+      "text": "해당지역에 존재할 수 있는 가스 종류에 따라 인화성, 독성, 산소농도 감지기를 설치하여야 한다.",
+      "guideContext": "유해위험공간 가스감지기 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "가스감지기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-020",
+      "text": "모든 가스감지 및 경보장치는 주기적으로 검·교정을 실시하여 상시 적정 성능을 유지하여야 한다.",
+      "guideContext": "유해위험공간 가스감지기 관리",
+      "additionalDetail": null,
+      "workProcessPhase": "가스감지기 유지관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-021",
+      "text": "고정식 가스감지기나 휴대용 가스감지기를 통해 유해위험공간의 가스농도를 측정하고 모니터링할 수 있어야 한다.",
+      "guideContext": "유해위험공간 가스감지기 운영",
+      "additionalDetail": null,
+      "workProcessPhase": "가스감지기 운영",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-022",
+      "text": "유해위험공간의 출입문 주변 및 내부에는 환기설비와 가스감지기가 적정하게 운영되고 있고, 유해공기가 누출되면 바로 알 수 있도록 경광등과 같은 경보설비를 설치하여야 한다.",
+      "guideContext": "유해위험공간 경보설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "경보설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.4",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-023",
+      "text": "경보설비는 환기시스템 및 가스감지기와 연동되도록 설치하고, 상시 유해위험공간을 모니터링할 수 있어야 한다.",
+      "guideContext": "유해위험공간 경보설비 운영",
+      "additionalDetail": null,
+      "workProcessPhase": "경보설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.4",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-024",
+      "text": "해당장소 내부의 산소농도를 알 수 있도록 출입문 부근에 농도지시 및 경보기를 설치하거나, 출입 전에 휴대용 산소농도측정기로 산소농도를 측정하고 출입하여야 한다.",
+      "guideContext": "가스계 소화설비 설치 구역 안전조치",
+      "additionalDetail": null,
+      "workProcessPhase": "출입 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-025",
+      "text": "해당장소에서 작업 중 발생된 가스 등에 의해 가스계 소화설비가 오작동되지 않도록 허가를 받아 가스계 소화시스템은 일시적으로 수동으로 전환하여야 한다. 단, 작업이 완료된 후에는 반드시 자동으로 전환하여야 한다.",
+      "guideContext": "가스계 소화설비 설치 구역 안전조치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "가스계 소화설비 구역 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC70-026",
+      "text": "해당 실내에서 작업할 때는 반드시 작업허가를 받고 감시인이 입회하여야 하며, 감시인은 산소농도측정기를 휴대하면서 산소농도를 측정하여야 한다.",
+      "guideContext": "가스계 소화설비 설치 구역 안전조치",
+      "additionalDetail": null,
+      "workProcessPhase": "가스계 소화설비 구역 작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-027",
+      "text": "해당 실내에서 작업 중 화재가 발생된 경우에는 반드시 내부의 모든 작업자를 긴급하게 대피시키고, 가스계 소화설비를 자동으로 전환시켜야 한다.",
+      "guideContext": "가스계 소화설비 설치 구역 비상대응",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-028",
+      "text": "해당 실내에서 작업할 때에는 실내에 있는 모든 작업자는 가스계 소화설비의 작동시의 위험을 알고 있어야 한다.",
+      "guideContext": "가스계 소화설비 설치 구역 안전조치",
+      "additionalDetail": null,
+      "workProcessPhase": "가스계 소화설비 구역 작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "TRAINING",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-CONFINED-023"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-029",
+      "text": "가스계 소화설비가 작동되기 전에 실내의 모든 작업자가 안전하게 대피할 수 있도록 대피용 경보설비가 먼저 발령되어야 한다.",
+      "guideContext": "가스계 소화설비 설치 구역 비상대응",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-030",
+      "text": "대피용 경보가 발령되면, 모든 작업은 중단되고, 내부의 모든 작업자는 안전하게 해당 장소를 벗어나 대피하여야 한다.",
+      "guideContext": "가스계 소화설비 설치 구역 비상대응",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-031",
+      "text": "유해위험공간에서 가스가 발생되거나 해당공간의 환기설비가 정지된 경우에는 해당지역을 밀폐공간 보건작업 프로그램 적용 대상으로 구분하여야 한다.",
+      "guideContext": "유해위험공간 비상대응 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC70-032",
+      "text": "유해위험공간에서 가스 누출로 질식 등의 사고가 발생한 경우에는 공기호흡기와 같은 비상대응용 개인보호구를 착용하고 출입하여야 한다.",
+      "guideContext": "유해위험공간 비상대응",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-CHEMICAL-025",
+        "SR-CONFINED-006"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-033",
+      "text": "유해위험공간에 대한 구조절차는 밀폐공간 출입허가절차와 동일한 기준으로 대응 및 훈련을 실시하여야 한다.",
+      "guideContext": "유해위험공간 비상대응",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응 훈련",
+      "bindingForce": "MANDATORY",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-CONFINED-023"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-034",
+      "text": "유해위험공간에서 작업을 할 경우에는 반드시 감시자를 배치시켜 비상상황 발생 시에 비상연락을 할 수 있도록 하여야 한다.",
+      "guideContext": "유해위험공간 비상대응 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "출입 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC70-035",
+      "text": "유해위험공간에서 작업을 할 경우에는 공기호흡기와 같은 보호구를 유해위험공간 외부에 비치하는 것이 좋다.",
+      "guideContext": "유해위험공간 비상대응",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC70-036",
+      "text": "이외 화재·폭발 등의 사고에는 각 사고 비상대응절차에 따라 대응하여야 한다.",
+      "guideContext": "유해위험공간 비상대응",
+      "additionalDetail": null,
+      "workProcessPhase": "비상대응",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-CHEMICAL-014"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-037",
+      "text": "잠재적인 유해공기의 영향이나 산소결핍으로 유해위험공간에서 사고가 발생되면 최초 발견자는 직접 구조 시 발생 가능한 위험성을 인지하여야 한다.",
+      "guideContext": "유해위험공간 긴급구조 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "긴급 구조",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC70-038",
+      "text": "긴급구조를 위해 유해위험공간에 출입하기 전에 가스감지기로 실내 농도를 확인하여야 한다.",
+      "guideContext": "유해위험공간 긴급구조",
+      "additionalDetail": null,
+      "workProcessPhase": "긴급 구조",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-039",
+      "text": "최초 발견자가 자급식 공기호흡기 (Self contained breathing apparatus, SCBA, 이하 SCBA라고 말한다.)를 착용하지 않은 경우에는 비상연락을 통해 구조를 요청하고, 유해위험공간 외부에서 대기하면서 구조가 필요한 출입자를 시각적, 청각적으로 살피면서 출입자가 산소 결핍과 같은 상황에서 다른 사람의 도움 없이 탈출할 수 있는지 확인하여야 한다.",
+      "guideContext": "유해위험공간 긴급구조",
+      "additionalDetail": null,
+      "workProcessPhase": "긴급 구조",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-040",
+      "text": "최초 발견자가 자급식 공기호흡기 (SCBA)를 착용하고 있을 경우에는 유해위험공간에 진입하여 상해자를 구조하는 활동을 수행할 수 있어야 한다.",
+      "guideContext": "유해위험공간 긴급구조",
+      "additionalDetail": null,
+      "workProcessPhase": "긴급 구조",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CONFINED-006"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-041",
+      "text": "만일 상해를 입은 출입자가 안전하게 구조되지 않는다면, 별도의 구조팀은 밀폐공간의 구조절차에 따라 자급식 공기호흡기(SCBA)와 추가적인 구조장비를 착용한 후 출입하여 상해자를 구조하여야 한다.",
+      "guideContext": "유해위험공간 긴급구조",
+      "additionalDetail": null,
+      "workProcessPhase": "긴급 구조",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CONFINED-006"
+      ]
+    },
+    {
+      "identifier": "CI-CC70-042",
+      "text": "긴급구조 후에 상해자에게 적정한 의료지원이 이루어질 수 있도록 사전에 수립된 비상대응계획에 따라 대응하여야 한다.",
+      "guideContext": "유해위험공간 긴급구조",
+      "additionalDetail": null,
+      "workProcessPhase": "긴급 구조",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CONFINED-024"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC70-001",
+      "term": "유해위험공간",
+      "definition": "밀폐공간이 아닌 정상적인 상태에서 출입이 가능하나, 가스 등이 누출될 경우 질식, 화재·폭발 등의 유해위험이 존재하는 공간을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC70-002",
+      "term": "밀폐공간",
+      "definition": "산소결핍, 유해가스로 인한 화재·폭발 등의 위험이 있는 장소로써 산업안전보건기준에 관한 규칙 별표 18에서 정한 장소를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "DT-CC70-003",
+      "term": "옥외",
+      "definition": "외부에 완전히 노출되어 있거나 지붕만 설치된 설비 또는 지붕을 제외하고 4면의 벽 면적에서 25% 이상 개방된 지역을 말한다. 옥외가 아닌 지역은 모두 옥내로 간주한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC70-004",
+      "term": "유해공기",
+      "definition": "산소농도 범위가 18% 미만, 23.5% 이상인 공기, 탄산가스 농도가 1.5% 이상인 공기, 황화수소농도가 10 ppm 이상인 공기, 폭발하한농도의 10%를 초과하는 가연성가스·증기 및 미스트를 포함하는 공기, 폭발상·하한계에 근접한 혼합된 가연성 분진을 포함하는 공기의 어느 하나에 해당하는 공기를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-CONFINED-001"
+      ]
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC70-01",
+      "processOrder": 1,
+      "processName": "유해위험공간 판정 및 평가",
+      "safetyMeasures": "누출량과 환기량을 계산하여 유해위험공간 여부를 평가한다. 최종 유해공기 농도, 옥내부피, 환기용량, 공정내부 압력 등을 고려하여 가스농도를 계산하고, KSC IEC 60079-10-1 계산식 또는 누출량 모델링을 적용한다.",
+      "requiredPPE": null,
+      "sourceSection": "4.5",
+      "relatedSR": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC70-02",
+      "processOrder": 2,
+      "processName": "유해위험공간 출입 관리",
+      "safetyMeasures": "경고표지 설치, 가스 누출 시 잠금장치로 출입 제한, 환기설비 중단 시 밀폐공간 출입허가에 준하는 절차 적용, 에너지·공정유체 차단 작업 시 LOTO 절차 적용.",
+      "requiredPPE": null,
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-CONFINED-021",
+        "SR-CHEMICAL-017"
+      ]
+    },
+    {
+      "identifier": "WP-CC70-03",
+      "processOrder": 3,
+      "processName": "환기시스템 설치 및 운영",
+      "safetyMeasures": "가스 종류에 따라 시간당 6회(질소·산소) 또는 10회(헬륨·이산화탄소·아르곤) 이상 환기, 독성가스는 ERPG 2 이하, 인화성가스는 LEL 10% 이하 유지. 배출구는 안전한 장소에 설치하고 재유입 방지. 외부 경고등, 유량측정장비 등으로 가동 상태 확인.",
+      "requiredPPE": null,
+      "sourceSection": "5.2.1",
+      "relatedSR": [
+        "SR-CONFINED-002",
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "WP-CC70-04",
+      "processOrder": 4,
+      "processName": "가스감지 및 경보설비 설치·관리",
+      "safetyMeasures": "인화성·독성·산소농도 감지기 설치, 주기적 검·교정 실시, 고정식 및 휴대용 감지기로 모니터링, 경광등 등 경보설비를 환기시스템·감지기와 연동 설치.",
+      "requiredPPE": null,
+      "sourceSection": "5.2.2",
+      "relatedSR": [
+        "SR-CONFINED-001",
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "WP-CC70-05",
+      "processOrder": 5,
+      "processName": "가스계 소화설비 구역 작업",
+      "safetyMeasures": "출입 전 산소농도 측정, 작업허가 취득 및 감시인 입회, 가스계 소화시스템 수동 전환 후 작업, 작업 완료 후 자동 전환 복원, 화재 시 전원 대피 후 소화설비 자동 전환, 대피용 경보설비 사전 발령.",
+      "requiredPPE": [
+        "산소농도측정기"
+      ],
+      "sourceSection": "5.3",
+      "relatedSR": [
+        "SR-CONFINED-001",
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "WP-CC70-06",
+      "processOrder": 6,
+      "processName": "비상대응 및 긴급 구조활동",
+      "safetyMeasures": "가스 누출 사고 시 공기호흡기 착용 출입, 감시자 배치 및 비상연락 체계 유지, 긴급구조 전 가스감지기로 농도 확인, SCBA 미착용 시 외부 대기·구조 요청, SCBA 착용 시 진입 구조, 구조팀은 밀폐공간 구조절차에 따라 대응.",
+      "requiredPPE": [
+        "자급식 공기호흡기(SCBA)",
+        "구조장비"
+      ],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-CONFINED-006",
+        "SR-CONFINED-021",
+        "SR-CONFINED-024",
+        "SR-CHEMICAL-025"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC70-001",
+      "equipmentName": "환기시스템",
+      "specifications": {
+        "minVentilationRate_N2_O2": "시간당 6회 이상 (질소·산소 등 공기 유사 비중 가스)",
+        "minVentilationRate_He_CO2_Ar": "시간당 10회 이상 (헬륨·이산화탄소·아르곤 등 공기와 다른 비중 가스)",
+        "toxicGasTarget": "ERPG 2 이하",
+        "flammableGasTarget": "LEL의 10% 이하",
+        "cryogenicDesign": "바닥 흡입 방식 등 기체성상에 따른 설계",
+        "monitoringDevices": "외부 경고등, 배출구 가동 확인, 유량측정장비",
+        "exhaustRequirement": "안전한 장소로 배출, 재유입 방지"
+      },
+      "sourceSection": "5.2.1",
+      "relatedSR": [
+        "SR-CONFINED-002",
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "ES-CC70-002",
+      "equipmentName": "가스감지기",
+      "specifications": {
+        "types": "인화성가스 감지기, 독성가스 감지기, 산소농도 감지기",
+        "form": "고정식 및 휴대용",
+        "maintenance": "주기적 검·교정 실시",
+        "function": "가스농도 측정 및 모니터링"
+      },
+      "sourceSection": "5.2.2",
+      "relatedSR": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "ES-CC70-003",
+      "equipmentName": "경보설비",
+      "specifications": {
+        "type": "경광등 등",
+        "location": "출입문 주변 및 내부",
+        "interlock": "환기시스템 및 가스감지기와 연동",
+        "function": "환기 가동중지 경보, 유해공기 누출 경보, 대피용 경보"
+      },
+      "sourceSection": "5.2.4",
+      "relatedSR": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "ES-CC70-004",
+      "equipmentName": "자급식 공기호흡기(SCBA)",
+      "specifications": {
+        "fullName": "Self contained breathing apparatus",
+        "usage": "비상대응 및 긴급구조 시 착용",
+        "storage": "유해위험공간 외부 비치 권장"
+      },
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-CONFINED-006",
+        "SR-CHEMICAL-025"
+      ]
+    },
+    {
+      "identifier": "ES-CC70-005",
+      "equipmentName": "휴대용 산소농도측정기",
+      "specifications": {
+        "usage": "가스계 소화설비 설치 구역 출입 전 산소농도 측정, 감시인 휴대용",
+        "measurementTarget": "산소농도"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": [
+        "SR-CONFINED-001"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC70-001",
+      "documentType": "WORK_PLAN",
+      "title": "유해위험공간 작업허가서",
+      "requiredSections": [
+        "작업내용",
+        "안전조치",
+        "감시인 배치",
+        "비상연락망"
+      ],
+      "sourceSection": "5.1.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC70-002",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "유해위험공간 누출량 및 환기량 평가서",
+      "requiredSections": [
+        "최종 유해공기 농도",
+        "옥내부피",
+        "환기용량",
+        "공정내부 압력",
+        "가스농도 계산결과"
+      ],
+      "sourceSection": "4.5",
+      "relatedSR": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "DR-CC70-003",
+      "documentType": "WORK_PLAN",
+      "title": "비상대응계획",
+      "requiredSections": [
+        "구조절차",
+        "의료지원 계획",
+        "비상연락체계",
+        "대피경로"
+      ],
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-CONFINED-024"
+      ]
+    }
+  ]
+}

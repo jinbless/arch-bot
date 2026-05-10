@@ -1,0 +1,820 @@
+{
+  "metadata": {
+    "guideCode": "C-C-17-2026",
+    "shortCode": "CC17",
+    "domain": "C",
+    "extractedAt": "2026-04-22T03:13:25Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-033"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC17-001",
+      "text": "압력시험은 수압시험으로 실시하는 것을 원칙으로 한다.",
+      "guideContext": "화학설비의 압력시험 일반사항 (법령 근거 미확인)",
+      "additionalDetail": "물 구하기 어려운 경우, 물 제거 불가, 과다한 응력 발생, 라이닝 손상, 재질상 문제 등의 경우 기압시험 가능",
+      "workProcessPhase": "시험 계획",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-002",
+      "text": "수압시험에 사용되는 유체는 수돗물, 정제수, 소방용수, 보일러수 등 독성이 없는 액체를 사용하여야 한다.",
+      "guideContext": "화학설비 압력시험 시험유체 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-003",
+      "text": "오스테나이트계 스테인리스강 재질의 용기 및 배관인 경우 염소이온 농도가 50ppm 미만인 물을 사용하여야 한다.",
+      "guideContext": "화학설비 압력시험 시험유체",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-004",
+      "text": "수압시험 유체로 해수(Sea water)를 사용하여서는 아니 된다.",
+      "guideContext": "화학설비 압력시험 시험유체",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-005",
+      "text": "동파방지를 위해 글리콜수용액을 사용하는 경우 사용 후 처리방안을 마련하여야 한다.",
+      "guideContext": "화학설비 압력시험 시험유체 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-006",
+      "text": "기압시험에는 공기, 질소, 헬륨, 아르곤 등 독성 및 인화성이 없는 불활성 기체를 사용하여야 한다.",
+      "guideContext": "화학설비 압력시험 시험유체 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-007",
+      "text": "강제 또는 비철금속제 압력용기는 최고허용압력(또는 설계압력)에 1.3을 곱한 후 온도 보정을 한 압력으로 수압시험을 실시하여야 한다.",
+      "guideContext": "화학설비 수압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": "Pa = 1.3 × P × σn/σa",
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-008",
+      "text": "최고허용압력(또는 설계압력)이 200 kPa 이상인 주철제 압력용기는 최고허용압력의 2배 압력으로 수압시험을 실시하여야 한다.",
+      "guideContext": "화학설비 수압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-009",
+      "text": "최고허용압력(또는 설계압력)이 200 kPa 미만인 주철제 압력용기는 최고허용압력의 2.5배 압력으로 수압시험을 실시하여야 한다. 단, 시험압력이 400 kPa을 초과하여서는 아니 된다.",
+      "guideContext": "화학설비 수압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-010",
+      "text": "열교환기 등의 복합용기는 공통부재의 설계조건에 따른 방법으로 수압시험을 하여야 한다.",
+      "guideContext": "화학설비 수압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": "공통부재가 각 압력실의 최대허용압력 중 높은 값보다 더 큰 차압으로 설계되는 경우 설계차압에 온도 보정을 한 압력으로 시험. 최대차압으로 설계된 경우 설계차압의 1.3배에 온도 보정을 한 압력으로 시험",
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-011",
+      "text": "완전진공(Full vacuum) 또는 부분 진공의 용도만으로 설계된 압력용기는 최소 설계 내부 절대압력과 표준대기압과의 차에 1.3배 이상의 압력으로 수압시험을 실시하여야 하며, 수압시험이 곤란할 경우에는 기압시험을 실시한다.",
+      "guideContext": "화학설비 수압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-012",
+      "text": "배관의 수압시험 압력은 설계압력의 1.5배 이하로 하여야 한다.",
+      "guideContext": "화학설비 배관 수압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": "설계온도가 시험온도보다 높은 경우 Pa = 1.5 × Pd × σn/σa, 허용인장응력비는 6.5를 초과하여서는 아니 된다",
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-013",
+      "text": "외압을 받는 배관은 내압과 외압의 차에 1.5배의 압력으로 수압시험을 실시하여야 한다. 단, 산정된 시험압력은 105 kPa 이상이어야 한다.",
+      "guideContext": "화학설비 배관 수압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-014",
+      "text": "자켓이 부착된 배관은 내·외부 설계압력 중 큰 압력으로 수압시험을 실시하여야 한다.",
+      "guideContext": "화학설비 배관 수압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-015",
+      "text": "압력용기의 기압시험은 최고허용압력(또는 설계압력)에 1.1을 곱한 후 온도보정을 한 압력을 적용하여야 한다.",
+      "guideContext": "화학설비 기압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": "Pa = 1.1 × P × σn/σa",
+      "workProcessPhase": "기압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-016",
+      "text": "배관의 기압시험은 설계압력의 1.1배 압력을 적용하여야 한다.",
+      "guideContext": "화학설비 기압시험 압력 기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "기압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-017",
+      "text": "시험온도는 취성파괴의 위험을 고려하여야 하며 최소 4℃이상 유지하여야 한다.",
+      "guideContext": "화학설비 압력시험 온도 기준 (법령 근거 미확인)",
+      "additionalDetail": "최소설계금속온도보다 17℃이상 높게 유지하는 것이 바람직하다",
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-018",
+      "text": "용기 또는 배관 내부의 시험유체 온도와 내압시험온도가 동일하게 된 후 내압시험 압력을 가하여야 한다.",
+      "guideContext": "화학설비 압력시험 온도 기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-019",
+      "text": "시험온도는 15℃이상 48℃이하로 유지하여야 한다.",
+      "guideContext": "화학설비 압력시험 온도 기준 (법령 근거 미확인)",
+      "additionalDetail": "시험온도가 48℃를 초과할 경우 내압시험을 한시적으로 지연하는 것이 바람직하다",
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-020",
+      "text": "압력계는 내압시험을 하는 배관 등의 내부압력을 항상 확인할 수 있도록 작업자가 보기 쉬운 장소에 최소한 2개 이상 설치하여야 한다.",
+      "guideContext": "화학설비 압력시험 계측장치",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-021",
+      "text": "압력계는 최대눈금이 시험압력의 1.5배 이상 4배 이하의 것으로 설치하여야 하며, 표준 정하중 시험기, 교정 마스터 게이지 또는 수은주와 비교하여 교정해야 하고, 참조규격 또는 규격서에서 다르게 규정하지 않는 한 게이지는 최소한 1년에 한 번은 재교정해야 한다.",
+      "guideContext": "화학설비 압력시험 계측장치",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-022",
+      "text": "압력용기 및 배관의 모든 연결부위의 보온재를 제거하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": "급성 독성물질을 취급하는 용기를 제외한 압력용기는 내·외부를 도색 및 코팅 또는 라이닝 할 수 있으나, 누출 감지 가능 여부를 고려할 필요가 있다",
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-023",
+      "text": "지하매설 배관은 지상배관보다 먼저 시험을 실시하고 매립한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-024",
+      "text": "균형추식 배관 지지대(Counterweight piping support)는 시험유체의 하중을 지지하기 위해 임시 고정하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-025",
+      "text": "스프링행거(Spring hanger)는 시험유체의 하중을 지지할 수 있도록 멈춤장치를 작동시켜야 하며, 멈춤장치를 사용할 수 없는 경우 임시 지지대를 설치하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-026",
+      "text": "신축이음(Expansion joint)이 설치된 배관은 신축이음 설계압력의 150%까지 압력시험을 실시하여야 하며, 시험압력이 설계압력의 150%를 초과하는 경우 앵커(Anchor), 가이드(Guide), 기타 구속물(Restraint)을 설치하거나 신축이음을 제거한 후 압력시험을 실시하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-027",
+      "text": "억지밸브(Check valve)가 설치된 배관의 경우 밸브 전단에서 시험유체를 투입하고 가압하여야 하며, 이것이 불가능할 경우 밸브를 제거한다.",
+      "guideContext": "화학설비 압력시험 준비",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-028",
+      "text": "계장배관의 차단밸브는 견고히 닫아두어야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-029",
+      "text": "안전밸브 및 파열판은 입·출구측 플랜지에 맹판(Blind flange)을 설치하거나 시험대상 압력용기 또는 배관으로부터 분리하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-030",
+      "text": "제어밸브(Control valve)를 압력시험 대상범위에 포함하여서는 아니 되며, 바이패스 배관이 있을 경우 압력시험은 바이패스 배관으로 실시하여야 한다. 필요시 제어밸브를 대신하여 임시 배관을 설치하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-031",
+      "text": "시험유체 투입 및 배출을 방해하는 오리피스는 모두 제거하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-032",
+      "text": "동절기에 수압시험을 실시하는 경우 배관 또는 시험유체를 예열하는 등 동파방지 조치를 실시하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-033",
+      "text": "모래, 먼지 등 불순물 유입이 우려될 경우 필터 또는 스트레이너를 시험대상 배관계내에 설치하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-034",
+      "text": "펌프, 압축기, 터빈은 연결배관과 분리하거나 맹판 등으로 격리하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-035",
+      "text": "배관을 격리하는 경우에는 연결부위 플랜지에 맹판을 설치하여야 하며, 밸브본체 및 시트가 시험압력을 수용할 수 있으면 차단밸브로 격리할 수 있다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": "맹판 설치기준은 KOSHA GUIDE C-C-8-2026 및 부록 1에 따른다",
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-036",
+      "text": "압력용기와 연결된 배관의 시험압력이 용기의 시험압력 이하인 경우 용기의 시험압력을 적용하여 압력시험을 함께 실시하고, 용기의 시험압력을 초과할 경우 배관을 용기와 분리하거나 격리하여 별도로 압력시험을 실시하여야 한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": "용기로부터 배관을 분리하거나 격리할 수 없는 경우에는 용기의 시험압력을 적용한다",
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-037",
+      "text": "수압시험 시 용기 및 배관의 최상부에는 충수할 때 공기 포켓(Air pocket)을 제거하기 위해 벤트밸브(배출구)를 설치하고 공기를 방출한다.",
+      "guideContext": "화학설비 압력시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-038",
+      "text": "수압시험 중 용기의 온도가 상승하게 되는 경우를 대비하여 시험압력의 1.3배 압력으로 설정된 액체배출용 릴리프밸브를 설치하는 것이 바람직하다.",
+      "guideContext": "화학설비 압력시험 안전장치",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-039",
+      "text": "기압시험 시에는 345 kPa 또는 시험압력의 10% 중 작은 값을 시험압력에 더한 압력으로 설정된 안전밸브를 설치하여야 한다.",
+      "guideContext": "화학설비 기압시험 안전장치",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-040",
+      "text": "용접이음이 있는 압력용기 및 배관에 기압시험을 할 경우에는 시험 전에 용접부 전 길이에 대해 비파괴 검사를 하여야 한다.",
+      "guideContext": "화학설비 기압시험 준비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-041",
+      "text": "수압시험 시 시험대상 설비 내에 물을 채우고 벤트밸브를 통해 물이 완전히 채워진 것을 확인한 후 가압펌프(수압시험기)로 물을 압입시켜 시험압력까지 승압시킨다.",
+      "guideContext": "화학설비 수압시험 실시 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-042",
+      "text": "기압시험 시 압력은 시험압력의 50%까지 서서히 승압시키고 이상이 없는 것을 확인한 이후에는 시험압력의 10%씩 단계적으로 승압시키고, 그때마다 안전한 위치에서 이상 유무를 감시하면서 시험 압력에 도달할 때까지 승압시킨다.",
+      "guideContext": "화학설비 기압시험 실시 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "기압시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-043",
+      "text": "압력유지 시간은 내압시험 압력까지 상승시킨 후 압력이 안정된 후에 최소 10분 이상 유지한 후 누출 및 변형 등의 이상 유무를 확인하여야 한다.",
+      "guideContext": "화학설비 압력시험 실시 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-044",
+      "text": "열교환기 등의 복합용기의 각 압력실은 별개의 압력용기로 고려하여 시험을 실시하며, 한쪽 실에 수압시험을 할 때에는 다른 쪽 실은 대기압상태로 비워둔다.",
+      "guideContext": "화학설비 복합용기 압력시험 (법령 근거 미확인)",
+      "additionalDetail": "각 압력실이 최대차압으로 설계된 공통부재가 있고 압력실 간 차압이 높은 압력 미만일 경우에는 각 압력실들을 동시에 수압시험 하여야 한다",
+      "workProcessPhase": "시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-045",
+      "text": "압력유지 시간 중 모든 연결부위와 접속부위에 대해 육안검사를 실시하여야 하며, 기압시험 중에는 거품용액을 사용하여 육안검사를 실시한다.",
+      "guideContext": "화학설비 압력시험 검사 (법령 근거 미확인)",
+      "additionalDetail": "거품용액에 대한 세부사항은 KOSHA GUIDE M-150-2022을 따른다",
+      "workProcessPhase": "시험 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-046",
+      "text": "압력시험 중에 이상 징후가 확인된 경우는 즉시 감압시키고 이상을 조치한 후에 시험을 재실시하여야 한다.",
+      "guideContext": "화학설비 압력시험 이상조치",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 실시",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-014"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-047",
+      "text": "기압시험 중 승압 및 압력유지 시간에는 시험대상 설비외면으로부터 최소 10 m 이상 이격된 지점에 펜스 및 접근금지 표지를 설치하고 시험 관계자 외의 접근을 금지시키고 최소인원으로만 기압시험을 수행하여야 한다.",
+      "guideContext": "화학설비 기압시험 안전조치",
+      "additionalDetail": null,
+      "workProcessPhase": "기압시험 실시",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-014"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-048",
+      "text": "수압시험 종료 후 배수는 잔류된 시험유체가 없도록 완전히 배수하고 건조된 공기나 질소를 투입하여 시험유체를 제거하여야 한다.",
+      "guideContext": "화학설비 압력시험 종료 (법령 근거 미확인)",
+      "additionalDetail": "억지밸브 후단 배관계 완전 배수 확인, 모든 밸브 개방, 배수 시 부압 방지를 위해 공기배출구 개방",
+      "workProcessPhase": "시험 종료",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-049",
+      "text": "기압시험 종료 후 음압 또는 진공이 발생하지 않도록 서서히 감압하여야 한다. 또한 시험유체를 대기에 방출하는 경우에는 밸브, 배관 등에 과냉각이 발생하지 않도록 감압속도를 제어하여야 한다.",
+      "guideContext": "화학설비 기압시험 종료 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 종료",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-050",
+      "text": "압력시험 후 내압부의 주요부분에 보수용접을 한 경우에는 시험을 재실시하여야 한다.",
+      "guideContext": "화학설비 압력시험 종료 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 종료",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-051",
+      "text": "압력시험 전 분리하였던 밸브, 오리피스, 신축이음은 적절한 개스킷과 함께 원래의 위치에 설치하여야 한다.",
+      "guideContext": "화학설비 압력시험 종료 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 종료",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-052",
+      "text": "배관에 설치된 임시 지지대는 제거하고 스프링행거 멈춤장치는 해지한다.",
+      "guideContext": "화학설비 압력시험 종료 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 종료",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-053",
+      "text": "압력시험 중 용기 또는 배관을 분리하거나 격리하기 위해 설치한 맹판은 모두 제거한다.",
+      "guideContext": "화학설비 압력시험 종료 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 종료",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC17-054",
+      "text": "압력시험을 위해 임시로 설치한 플랜지 접속부위 볼트와 개스킷은 설계 호칭압력 및 온도에 적합한 것으로 교체한다.",
+      "guideContext": "화학설비 압력시험 종료",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 종료",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "CI-CC17-055",
+      "text": "시험기간 중 시험과 관련한 모든 사항을 기록하여 보관하여야 한다.",
+      "guideContext": "화학설비 압력시험 기록관리 (법령 근거 미확인)",
+      "additionalDetail": "시험일시, 시험대상 범위, 시험유체의 종류 및 온도, 시험압력, 최소 대기온도, 시험 책임자 및 입회자를 포함",
+      "workProcessPhase": "기록 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC17-001",
+      "term": "압력시험 (Pressure test)",
+      "definition": "압력용기, 가스실린더, 배관, 보일러 등이 사용 중의 압력에 충분히 견딜 수 있는지 여부를 알기 위한 목적으로 실시하는 시험을 말하며 시험유체에 따라 액체를 사용하는 수압시험 (Hydrostatic test)과 기체를 사용하는 기압시험 (Pneumatic test)로 구분한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-002",
+      "term": "기밀시험 (Leak test)",
+      "definition": "누출의 존재라든가 누출부분 또는 누출량을 검출하기 위한 목적으로 실시하는 시험을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-003",
+      "term": "압력용기 (Pressure vessel)",
+      "definition": "용기의 내면 또는 외면에서 유체의 압력을 받는 밀폐된 용기를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-004",
+      "term": "설계압력 (Design pressure)",
+      "definition": "용기 등의 최소 허용두께 또는 용기의 여러 부분의 물리적인 특성을 결정하기 위하여 설계 시에 사용되는 압력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-005",
+      "term": "설계온도 (Design temperature)",
+      "definition": "설계압력을 결정할 때 설계압력에 부합되는 사용조건으로부터 정해지는 온도를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-006",
+      "term": "최대허용사용압력 (Maximum allowable working pressure, MAWP)",
+      "definition": "용기의 제작에 사용된 재질의 두께(부식여유 제외)를 기준으로 하여 산출된 용기 상부에서의 허용 가능한 최고의 압력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-007",
+      "term": "호칭압력 (Pressure rating)",
+      "definition": "플랜지의 압력등급을 나타내기 위하여 사용하는 수치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-008",
+      "term": "공칭지름",
+      "definition": "플랜지의 크기를 나타내기 위하여 사용하는 수치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-009",
+      "term": "최소설계금속온도 (Minimum design metal temperature, MDMT)",
+      "definition": "압력용기 설계온도의 하나로써 취급유체와 용기 운전온도범위에 따라 사용자 또는 설계자에 의해 결정되며, 일반적으로 저온취성 및 샤르피 충격시험 요구조건에 따라 허용되는 금속 재질상의 최저온도 이상 최저운전온도 이하의 값을 가진다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-010",
+      "term": "복합용기 (Combination unit)",
+      "definition": "운전온도와 압력이 서로 같거나 다른 하나 이상의 독립적인 압력실로 구성된 압력용기를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC17-011",
+      "term": "공통부재 (Common element)",
+      "definition": "복합용기에서 각각의 압력실을 분리하는 부품을 말하며, 예로 열교환기 관판(Tubesheet)이 이에 속한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC17-01",
+      "processOrder": 1,
+      "processName": "시험 준비",
+      "safetyMeasures": "압력계 2개 이상 설치 및 교정 확인, 모든 연결부위 보온재 제거, 안전밸브·파열판 분리 또는 맹판 설치, 제어밸브 시험범위 제외, 펌프·압축기·터빈 분리 격리, 배관 격리 시 맹판 설치, 동절기 동파방지 조치, 기압시험 시 안전밸브 설치, 용접부 비파괴검사 실시",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049",
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "WP-CC17-02",
+      "processOrder": 2,
+      "processName": "수압시험 실시",
+      "safetyMeasures": "시험대상 설비 내 물 충전 후 벤트밸브로 공기 제거 확인, 가압펌프로 시험압력까지 승압, 시험압력 도달 후 최소 10분 이상 압력 유지, 모든 연결부위 육안검사, 이상 징후 시 즉시 감압 및 조치",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC17-03",
+      "processOrder": 3,
+      "processName": "기압시험 실시",
+      "safetyMeasures": "시험압력의 50%까지 서서히 승압 후 10%씩 단계적 승압, 각 단계별 안전한 위치에서 이상 유무 감시, 설비외면으로부터 최소 10m 이격 펜스 및 접근금지 표지 설치, 시험 관계자 외 접근 금지, 최소인원으로 수행, 거품용액으로 누출 검사",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": [
+        "SR-CHEMICAL-014"
+      ]
+    },
+    {
+      "identifier": "WP-CC17-04",
+      "processOrder": 4,
+      "processName": "시험 종료 및 원상복구",
+      "safetyMeasures": "수압시험 후 완전 배수 및 건조 공기/질소 투입하여 시험유체 제거, 기압시험 후 서서히 감압하여 음압·진공 방지, 과냉각 방지를 위한 감압속도 제어, 분리 장비 원위치 복구, 임시 지지대 제거, 맹판 모두 제거, 임시 볼트·개스킷을 설계 호칭압력 및 온도에 적합한 것으로 교체",
+      "requiredPPE": [],
+      "sourceSection": "5.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC17-001",
+      "equipmentName": "압력계 (Pressure gauge)",
+      "specifications": {
+        "minimumQuantity": "2개 이상",
+        "maxScaleRange": "시험압력의 1.5배 이상 4배 이하",
+        "calibrationCycle": "최소 1년에 1회 재교정",
+        "calibrationMethod": "표준 정하중 시험기, 교정 마스터 게이지 또는 수은주와 비교"
+      },
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "ES-CC17-002",
+      "equipmentName": "맹판 (Blind flange)",
+      "specifications": {
+        "applicableClasses": "Class 150, 300, 400, 600, 900, 1500, 2500",
+        "nominalDiameterRange": "½ NPS ~ 24 NPS",
+        "designStandard": "KOSHA GUIDE C-C-8-2026, KS B 1501, KS B 1511",
+        "note": "호칭압력별 외경, 두께, 체결볼트 개수는 부록 1에 따른다"
+      },
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC17-003",
+      "equipmentName": "기압시험용 안전밸브",
+      "specifications": {
+        "settingPressure": "345 kPa 또는 시험압력의 10% 중 작은 값을 시험압력에 더한 압력",
+        "purpose": "기압시험 시 과압 방지"
+      },
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-CHEMICAL-011"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC17-001",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "화학설비 압력시험 기록서",
+      "requiredSections": [
+        "시험일시",
+        "시험대상 범위",
+        "시험유체의 종류 및 온도",
+        "시험압력",
+        "최소 대기온도(Ambient temperature)",
+        "시험 책임자 및 입회자"
+      ],
+      "sourceSection": "6",
+      "relatedSR": null
+    }
+  ]
+}

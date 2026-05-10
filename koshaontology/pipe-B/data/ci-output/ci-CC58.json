@@ -1,0 +1,476 @@
+{
+  "metadata": {
+    "guideCode": "C-C-58-2026",
+    "shortCode": "CC58",
+    "domain": "C",
+    "extractedAt": "2026-04-21T17:05:21Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-040"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC58-001",
+      "text": "잠재위험에 대한 사고예방·피해 최소화 대책 관련 법적 필수사항은 산업안전보건법령에 관한 사항으로써 반드시 준수하여야 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": "산업안전보건법 시행규칙 제50조(공정안전보고서의 세부 내용 등)에 따른 공정위험성평가서 및 사고예방·피해최소화 대책 작성 의무",
+      "workProcessPhase": "법적 필수사항 확인",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC58-002",
+      "text": "사고 시나리오 선정은 화학물질을 취급하는 단위설비를 대상으로 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사고 시나리오 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-003",
+      "text": "사고 시나리오 구간은 해당 단위설비의 인입측 플랜지에서부터 연결 단위설비의 인입측 플랜지까지로 한다. 다만 연결배관에 펌프, 자동차단밸브 등이 있는 경우에는 이를 포함한 부분까지를 시나리오 구간으로 구획할 수 있다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사고 시나리오 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-004",
+      "text": "사업장 밖에서의 사고 시나리오 분석을 하기 위해서는 다음의 기준에 의하여 끝점을 결정하여야 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": "독성물질: 끝점농도 도달 지점, 폭발: 0.07 kgf/㎠ 과압 지점, 화재: 40초간 5 kW/m² 복사열 노출 지점, 누출: 폭발하한농도 100% 지점",
+      "workProcessPhase": "사고피해 결과분석 변수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-005",
+      "text": "폭발인 경우 0.07 kgf/㎠의 과압이 걸리는 지점을 끝점으로 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": "인화성 가스 및 인화성 액체(가연성 물질 포함) 폭발 시나리오 분석 기준",
+      "workProcessPhase": "사고피해 결과분석 변수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-006",
+      "text": "화재인 경우 40초 동안 5 kW/m²의 복사열에 노출되는 지점을 끝점으로 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": "인화성 가스 및 인화성 액체(가연성 물질 포함) 화재 시나리오 분석 기준",
+      "workProcessPhase": "사고피해 결과분석 변수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-007",
+      "text": "최악의 사고 시나리오 분석인 경우에는 지상 10 m 높이에서 초당 1.5 m의 풍속으로 하고 대기안정도는 F등급을 사용한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사고피해 결과분석 변수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-008",
+      "text": "대안의 사고 시나리오 분석인 경우에는 풍속은 과거 1년 이상 그 지역의 평균 기상조건 및 대기안정도를 사용한다. 단, 확인불가 시 풍속은 지상 10 m 높이에서 초당 3 m로 하고, 대기안정도는 D등급으로 사용한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사고피해 결과분석 변수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-009",
+      "text": "최악의 사고 시나리오 분석인 경우에는 대기온도는 40℃, 습도는 50%를 사용한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사고피해 결과분석 변수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-010",
+      "text": "대안의 사고 시나리오 분석인 경우에는 과거 1년 이상의 그 지역의 평균 온도 및 평균 습도를 사용한다. 단, 확인불가 시 25℃, 50%로 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사고피해 결과분석 변수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-011",
+      "text": "최악의 사고 시나리오 분석인 경우에는 지표면에서 누출되는 것으로 가정한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사고피해 결과분석 변수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-012",
+      "text": "사업장은 다음 각 호에 대한 최악의 사고 시나리오 분석을 실시한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": "모든 독성물질의 누출 사고를 대표하는 시나리오 1개 이상, 인화성 가스 및 인화성 액체의 화재·폭발 대표 시나리오 1개 이상",
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC58-013",
+      "text": "모든 독성물질의 누출 사고를 대표하는 사고 시나리오 1개 이상을 분석하여야 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": null,
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC58-014",
+      "text": "인화성 가스 및 인화성 액체(가연성 물질 포함)의 화재·폭발 대표 사고 시나리오 1개 이상을 분석하여야 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": null,
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC58-015",
+      "text": "최악의 누출량은 사고 시 비상조치가 가능한 범위 내에서 단일 용기에 저장되는 최대량 또는 단일 배관계에 보유하고 있는 최대량 중에서 큰 것으로 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-016",
+      "text": "두 개 이상의 저장탱크가 서로 배관으로 연결된 경우 직접 연결된 모든 저장탱크에서 저장할 수 있는 최대 용량을 합산한다. 다만, 펌프 등 이송설비 후단에서 배관으로 연결된 경우 또는 저장시설 사이에 자동으로 차단이 가능한 긴급차단밸브가 설치된 경우에는 각각의 저장시설별로 체류하는 양을 산정한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": null,
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC58-017",
+      "text": "누출량이 기화되어 증기운 폭발을 일으키는 것으로 가정한다. 이때, 폭발효율은 TNO 멀티에너지 모델, TNT 당량 모델 등에서 제시하는 효율로 산정하되, 문헌 등의 출처가 불분명한 경우에는 10%로 가정한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": "인화성 가스, 인화성 액체 및 냉동액체 대상",
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-018",
+      "text": "물반응성 물질을 취급·저장하는 취급시설에서 물반응성 물질이 누출되어 확산되는 영향범위와 반응생성물이 확산되는 영향범위를 비교하여 피해거리가 큰 값을 영향 범위로 선정한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": "물반응성 물질 및 반응생성물은 붙임 5의 목록을 따르며, 반응생성물은 가스에 한정",
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC58-019",
+      "text": "고온 또는 고압의 운전조건하에서 실제 취급량과 누출원의 주위로부터 인접 정도를 고려하여, 끝점의 도달거리가 더 클 경우 큰 결과의 시나리오를 선정한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-020",
+      "text": "사업장은 취급하는 독성물질, 인화성 가스, 인화성 액체 및 필요 시 유해·위험물질에 대하여 각각 하나 이상의 대안의 사고 시나리오 분석을 하여야 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": null,
+      "workProcessPhase": "대안의 사고 시나리오 분석",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC58-021",
+      "text": "사고 시나리오 선정 시에는 최악의 가상사고 시나리오보다 자주 일어날 수 있는 것, 끝점이 사업장 외부에 도달하는 것을 고려한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": "이송호스 사고, 공정배관 사고, 압력용기 및 펌프 사고, 압력용기의 과충전 및 과압, 이송용기의 파손 또는 누출을 주요 대상으로 함",
+      "workProcessPhase": "대안의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-022",
+      "text": "과거 5년간의 사고이력을 시나리오 선정 시에 반영한다. 사고의 범위는 사망, 부상, 재산피해, 대피사례 및 환경 피해를 포함한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": "사고이력은 발생일시, 누출시간, 누출량, 누출원, 누출형태, 사업장 외부영향, 비상 대응기관의 조치 결과 및 사고조사 후 개선사항 등을 포함",
+      "workProcessPhase": "대안의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-023",
+      "text": "위험성평가 시에 발견된 위험요인을 시나리오 선정 시에 반영한다. 공정 및 물질과 연관된 위험성, 사고를 일으킬 수 있는 설비 및 인적오류와 이를 예방할 수 있는 안전장치를 검토한 결과, 누출을 감지할 수 있는 시스템을 포함한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "대안의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-024",
+      "text": "특수화학설비(운전온도가 350℃ 이상이거나 운전압력이 10 kg/㎠ 이상)인 경우에는 배관직경을 누출공의 크기로 산정한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": "가장 큰 연결구의 배관직경이 50 mm 미만인 경우, 기타 탱크로리 체결부위 등 파손확률이 높은 경우에도 동일하게 적용",
+      "workProcessPhase": "대안의 사고 시나리오 분석",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-CC58-025",
+      "text": "다른 기준을 적용할 경우에는 근거를 제시하여야 한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": "대안의 누출사고 시나리오 누출공 선정기준 표 1 이외의 기준 적용 시",
+      "workProcessPhase": "대안의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-026",
+      "text": "누출시간은 현실적으로 발생 가능성이 있는 누출시간을 적용하되, 산정근거를 제시한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": "산정근거 제시가 어려운 경우 API 581에 따른 누출시간 산출방법(붙임 6)을 참고하여 산정 가능",
+      "workProcessPhase": "대안의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-027",
+      "text": "건물 내부에 설치된 설비에서 누출된 경우에 증발속도는 밀폐정도에 따른 완화지수를 적용할 수 있으며, 이 경우는 수동적 완화장치로 한정한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정",
+      "additionalDetail": "일반형(Indoor) 기체 0.55/액체 0.10, 밀폐형(Enclosure) 기체 0.30/액체 0.01, 봉쇄형(Containment) 기체 0.17/액체 0.001",
+      "workProcessPhase": "최악의 사고 시나리오 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC58-028",
+      "text": "끝점거리는 KOSHA GUIDE C-C-56-2026「사고피해예측 기법에 관한 기술지원규정」 및 기타 일반적으로 사용하는 모델 등을 사용하여 계산한다.",
+      "guideContext": "최악 및 대안의 사고 시나리오 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "끝점거리 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC58-001",
+      "term": "끝점",
+      "definition": "본 지침에서 주어진 끝점농도, 과압 또는 복사열 등의 수치에 도달하는 지점을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC58-002",
+      "term": "냉동액체",
+      "definition": "상온·상압 하에서 가스인 물질을 냉각에 의하여 액체 상태로 만든 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC58-003",
+      "term": "최악의 사고 시나리오",
+      "definition": "누출·화재 또는 폭발을 일으킨 지점으로부터 끝점의 거리가 가장 먼 가상 사고를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC58-004",
+      "term": "대안의 사고 시나리오",
+      "definition": "최악의 사고 시나리오 이외에 사업장에서 현실적으로 발생 가능성이 높은 사고 시나리오 중 영향범위가 최대인 시나리오를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC58-005",
+      "term": "최대량",
+      "definition": "개별 단위설비 또는 배관 등에서 저장 혹은 처리될 수 있는 최대 용량을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC58-006",
+      "term": "단위설비",
+      "definition": "탑류, 반응기, 드럼류, 열교환기, 탱크류, 가열로류 등과 이에 연결되어 있는 펌프, 압축기, 배관 등 부속장치 또는 설비 일체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC58-007",
+      "term": "물반응성 물질",
+      "definition": "공기 중의 수분과 반응하여 유해화학물질을 생성시킬 수 있는 화학물질을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-002"
+      ]
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC58-01",
+      "processOrder": 1,
+      "processName": "사고 시나리오 선정 및 구간 설정",
+      "safetyMeasures": "화학물질을 취급하는 단위설비를 대상으로 사고 시나리오를 선정한다. 시나리오 구간은 해당 단위설비의 인입측 플랜지에서부터 연결 단위설비의 인입측 플랜지까지로 하며, 연결배관에 펌프, 자동차단밸브 등이 있는 경우 이를 포함한 부분까지 구획할 수 있다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC58-02",
+      "processOrder": 2,
+      "processName": "사고피해 결과분석 변수 결정",
+      "safetyMeasures": "끝점(독성물질 끝점농도, 폭발 과압 0.07 kgf/㎠, 화재 복사열 5 kW/m², 누출 폭발하한농도 100%), 풍속 및 대기안정도, 대기온도 및 습도, 누출원의 높이, 지표면의 굴곡상태, 누출물질의 온도 등 분석 변수를 결정한다. 최악 시나리오는 풍속 1.5 m/s·F등급·40℃·50% 습도, 대안 시나리오는 해당 지역 평균 기상조건을 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC58-03",
+      "processOrder": 3,
+      "processName": "최악의 사고 시나리오 분석",
+      "safetyMeasures": "독성물질 누출 대표 시나리오 1개 이상, 인화성 가스·액체 화재·폭발 대표 시나리오 1개 이상을 분석한다. 최악의 누출량을 산정하고 독성물질(가스·액체), 인화성 물질, 물반응성 물질 유형별로 누출·확산·폭발 시나리오를 분석한다. 고온·고압 운전조건 및 누출원 인접 정도를 고려하여 끝점 도달거리가 가장 큰 시나리오를 선정한다.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC58-04",
+      "processOrder": 4,
+      "processName": "대안의 사고 시나리오 분석",
+      "safetyMeasures": "독성물질, 인화성 가스, 인화성 액체 및 유해·위험물질에 대하여 각각 하나 이상의 대안 시나리오를 분석한다. 과거 5년간 사고이력, 위험성평가 결과 위험요인을 반영하고, 설비별 누출공 크기를 배관 지름 및 설비 특성에 따라 선정한다. 누출시간은 현실적 발생 가능성에 기반하여 산정근거를 제시한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC58-05",
+      "processOrder": 5,
+      "processName": "끝점거리 계산",
+      "safetyMeasures": "KOSHA GUIDE C-C-56-2026「사고피해예측 기법에 관한 기술지원규정」 및 기타 일반적으로 사용하는 모델을 사용하여 끝점거리를 계산한다. 끝점농도 기준 적용 우선순위(ERPG2, AEGL2, PAC2, IDLH 10% 순)를 준수하고, 증발속도 계산식 및 대기안정도를 반영한다.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC58-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정안전보고서",
+      "requiredSections": [
+        "공정위험성평가서",
+        "잠재위험에 대한 사고예방·피해 최소화 대책"
+      ],
+      "sourceSection": "4",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "DR-CC58-002",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정위험성평가서",
+      "requiredSections": [
+        "체크리스트(Check List)",
+        "상대위험순위 결정(Dow and Mond Indices)",
+        "작업자 실수 분석(HEA)",
+        "사고 예상 질문 분석(What-if)",
+        "위험과 운전 분석(HAZOP)",
+        "이상위험도 분석(FMECA)",
+        "결함 수 분석(FTA)",
+        "사건 수 분석(ETA)",
+        "원인결과 분석(CCA)"
+      ],
+      "sourceSection": "4",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    }
+  ]
+}

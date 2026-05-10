@@ -1,0 +1,923 @@
+{
+  "metadata": {
+    "guideCode": "E-168-2018",
+    "shortCode": "E168",
+    "domain": "B",
+    "extractedAt": "2026-04-22T20:54:16Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-B-043"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-E168-001",
+      "text": "TN-C 시스템은 주 배전반 하단(downstream)의 의료장소와 의료건물에는 허용되지 않는다.",
+      "guideContext": "병원전기설비 접지계통 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "접지계통 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-002",
+      "text": "의료장소에서의 배전시스템은 주 배전망에서 필수부하의 전원 공급용 안전공급으로의 자동절환이 용이하게 설계 및 설치되어야 한다.",
+      "guideContext": "병원전기설비 전원 설계",
+      "additionalDetail": "KS C IEC 60364-5-55, 551 참조",
+      "workProcessPhase": "전원 설계 및 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-003",
+      "text": "그룹 1 및 그룹 2의 의료장소에서 SELV 및/또는 PELV 회로를 사용하는 경우, 전류 사용기기에 인가되는 전원의 공칭전압은 교류 25 V(실효값) 또는 직류 60 V(비맥동)를 넘어서는 안 된다.",
+      "guideContext": "병원전기설비 감전방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "감전방지 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-004",
+      "text": "KS C IEC 60364-4-41의 412.1에 따른 충전부의 절연 및 같은 규격 412.2에 따른 장벽 또는 외함에 의한 방호는 필수이다.",
+      "guideContext": "병원전기설비 감전방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "감전방지 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-005",
+      "text": "그룹 2의 의료장소에서는 기기의 노출 도전부(예를 들면 수술실 조명)를 등전위 본딩 도체에 연결해야 한다.",
+      "guideContext": "병원전기설비 감전방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "등전위 본딩 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-006",
+      "text": "장애물에 의한 보호는 허용되지 않는다.",
+      "guideContext": "병원전기설비 직접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "감전방지 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-007",
+      "text": "접촉 범위 밖 설치에 의한 보호는 허용되지 않는다.",
+      "guideContext": "병원전기설비 직접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "감전방지 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-008",
+      "text": "충전부의 절연에 의한 보호, 장벽 또는 외함에 의한 보호만이 허용된다.",
+      "guideContext": "병원전기설비 직접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "감전방지 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-009",
+      "text": "그룹 1과 그룹 2의 의료장소에서는 IT, TN 및 TT 시스템의 경우, 접촉전압 UL은 25 V를 넘지 않아야 한다(UL≤25 V).",
+      "guideContext": "병원전기설비 간접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "간접 접촉방지 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-010",
+      "text": "정격전류가 32 A 이하인 그룹 1의 TN 시스템 말단 회로에서는 최대 동작전류가 30 mA인 누전차단기(RCD)를 사용하여야 한다(추가보호).",
+      "guideContext": "병원전기설비 간접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-011",
+      "text": "그룹 2의 의료장소에서 정격 동작전류가 30 mA를 넘지 않는 누전차단기에 의한 전원 자동 차단에 의한 보호는 수술대 전원 회로, X-레이 장치 회로, 정격전력이 5 kVA 넘는 대형 기기용 회로, 치명적인 설비가 아닌(non-critical) 전기기기용(생명 유지장치 외) 회로에서만 사용되어야 한다.",
+      "guideContext": "병원전기설비 간접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": "이 요구 사항은 주로 그룹 2 장소에 놓인 이동식 X-레이 장치에 적용",
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-012",
+      "text": "한 회로에 많은 전기기기를 접속 사용하는 경우에는 누전차단기(RCD)가 원치 않는 작동을 일으키지 않도록 주의하여야 한다.",
+      "guideContext": "병원전기설비 간접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-013",
+      "text": "RCD를 설치하여야 하는 그룹 1과 그룹 2의 의료장소에서는 발생 가능한 고장전류를 고려하여 A 또는 B형식만을 선정하여야 한다.",
+      "guideContext": "병원전기설비 간접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-014",
+      "text": "그룹 1과 그룹 2의 의료장소에서는 TN 시스템의 요구 사항을 적용하고 모든 경우에 누전차단기를 사용해야 한다.",
+      "guideContext": "병원전기설비 TT 시스템 간접 접촉방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-015",
+      "text": "그룹 2 의료장소에서의 의료용 IT 시스템은 의료전기기기 공급용 전로, '환자 환경'에 배치된 생명 유지용 시스템, 외과용 및 기타 전기기기에 사용하여야 한다.",
+      "guideContext": "병원전기설비 의료용 IT 시스템 (법령 근거 미확인)",
+      "additionalDetail": "TN시스템에 규정된 기기는 제외",
+      "workProcessPhase": "의료용 IT 시스템 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-016",
+      "text": "같은 기능을 하는 의료실 각 그룹의 경우, 최소한 하나의 분리된 의료용 IT 시스템이 필요하다. 의료용 IT 시스템은 IEC 61557-8에 따라 절연감시장치를 부착하여야 한다.",
+      "guideContext": "병원전기설비 의료용 IT 시스템 (법령 근거 미확인)",
+      "additionalDetail": "교류 내부 임피던스 최소 100 kΩ, 시험 전압 직류 25 V 이하, 고장 상태에서 주입 전류 최대 1 mA 이하, 절연 저항 50 kΩ까지 감소 표시 시험 장치 구비",
+      "workProcessPhase": "의료용 IT 시스템 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-017",
+      "text": "각 의료용 IT 시스템의 경우, 정상 작동을 나타내는 녹색등, 절연저항값의 최소값에 도달했을 경우 황색등, 절연저항값의 최소값에 도달했을 경우 음향 경보를 내장한 음향 및 시각적 경보 시스템을 적절한 위치에 배치하여 의료진이 상시 모니터링할 수 있도록 해야 한다.",
+      "guideContext": "병원전기설비 의료용 IT 시스템 경보 (법령 근거 미확인)",
+      "additionalDetail": "황색 신호는 고장이 제거되거나 통상 조건이 복원되면 꺼져야 한다. 하나의 기기가 하나의 단일 IT 변압기로부터 전원을 공급받을 경우, IT 변압기는 절연 모니터링 장치 없이 설치될 수 있다.",
+      "workProcessPhase": "의료용 IT 시스템 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-018",
+      "text": "의료용 IT 변압기에 대한 과부하 및 고온 모니터링이 요구된다.",
+      "guideContext": "병원전기설비 의료용 IT 시스템 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "의료용 IT 시스템 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-019",
+      "text": "그룹 1과 그룹 2의 각 의료장소에 보조 등전위 본딩도체를 설치하고 \"환자 환경\"에 위치하는 보호 접지도체, 외부 도전부, 전자파장해에 대한 차폐, 도전성 바닥 격자, 절연 변압기의 금속 차폐 간의 전위차를 없애기 위해 등전위 본딩 버스 바에 접속하여야 한다.",
+      "guideContext": "병원전기설비 등전위 본딩 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "등전위 본딩 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-020",
+      "text": "그룹 2의 의료장소에서, 소켓-아웃렛의 보호 도체와 고정 기기 사이 또는 외부 도전부와 등전위 본딩 버스 바 사이의 접속저항을 포함한 도체의 저항은 0.2 옴을 넘지 않아야 한다.",
+      "guideContext": "병원전기설비 등전위 본딩 (법령 근거 미확인)",
+      "additionalDetail": "이 저항값은 적절한 단면적의 도체를 사용함으로써 구할 수 있다",
+      "workProcessPhase": "등전위 본딩 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-021",
+      "text": "등전위 본딩 버스바는 의료장소 내 또는 인근에 위치하여야 한다. 각 배전반 또는 그 근처에서, 추가 등전위 본딩 바는 보조 등전위 본딩도체 및 보호접지 도체와 접속되어야 한다. 접속은 확실히 눈에 보이고 개별적으로 쉽게 차단될 수 있도록 배열되어야 한다.",
+      "guideContext": "병원전기설비 등전위 본딩 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "등전위 본딩 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-022",
+      "text": "변압기는 의료장소의 인근, 내부 또는 외부에 설치하되 캐비닛 또는 외함 속에 배치하여 충전부와의 의도하지 않은 접촉이 발생하지 않도록 한다.",
+      "guideContext": "병원전기설비 변압기 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변압기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-023",
+      "text": "변압기 2차 측의 정격 전압 Un은 교류 250 V를 넘지 않아야 한다.",
+      "guideContext": "병원전기설비 변압기 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변압기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-024",
+      "text": "정격 전압, 정격 주파수의 무부하 상태에서 변압기 2차 권선과 접지 사이 그리고 외함 사이의 누설전류는 0.5 ㎃를 넘어서는 아니 된다.",
+      "guideContext": "병원전기설비 그룹 2 의료용 IT 시스템 변압기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변압기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-025",
+      "text": "단상 변압기는 휴대용 및 고정형 기기용 의료용 IT 시스템을 구성하기 위해 사용해야 하며 정격 출력은 0.5 ~ 10 kVA 이하이어야 한다.",
+      "guideContext": "병원전기설비 그룹 2 의료용 IT 시스템 변압기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변압기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-026",
+      "text": "IT 시스템을 통하여 3상부하에 전기 공급이 필요한 경우에는 별도의 3상 변압기로 250 V를 이하의 선간 전압(2차전압)을 공급해야 한다.",
+      "guideContext": "병원전기설비 그룹 2 의료용 IT 시스템 변압기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변압기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-027",
+      "text": "전자파 간섭을 방지하기 위해 대책을 마련하여야 한다.",
+      "guideContext": "병원전기설비 외부 영향 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기기기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "5.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-028",
+      "text": "전기기기(예, 소켓-아웃렛과 개폐기)는 의료용 소켓-아웃렛으로부터 수평으로 최소 0.2 m 떨어진 곳에 설치하여 인화성 가스가 점화될 위험을 최소화하도록 하여야 한다.",
+      "guideContext": "병원전기설비 폭발위험 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "전기기기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-E168-029",
+      "text": "정전기 축적을 방지할 것을 권고한다.",
+      "guideContext": "병원전기설비 폭발위험 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "전기기기 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-E168-030",
+      "text": "운전, 정비 매뉴얼 이외에도 전기설비의 설치 계획, 기록, 도면, 배선도 등은 사용자들에게 제공하여야 한다.",
+      "guideContext": "병원전기설비 문서 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "문서 작성 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-031",
+      "text": "그룹 2 의료장소 내의 배선 시스템은 그 장소의 기기와 부속품의 사용에만 이용된다.",
+      "guideContext": "병원전기설비 배선 시스템 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-032",
+      "text": "단락 및 과부하 전류에 대한 과전류 보호는 각 최종회로에 필수적이다. 과부하 전류 보호는 의료용 IT 시스템 변압기의 위 및 아래에 있는 급전 회로에서는 허용되지 않는다. 단락 보호를 위해 퓨즈를 사용할 수 있다.",
+      "guideContext": "병원전기설비 개폐장치 및 제어장치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-033",
+      "text": "그룹 1 및 그룹 2의 의료장소의 중요 조명에는 최소 두 개의 서로 다른 전원에 의하여 전기를 공급받아야 하며, 두 개의 회로 중 하나는 비상전원이어야 한다.",
+      "guideContext": "병원전기설비 조명 회로",
+      "additionalDetail": null,
+      "workProcessPhase": "조명 설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.4.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-034",
+      "text": "탈출경로에는 대체 조명이 안전 서비스에 접속되어야 한다.",
+      "guideContext": "병원전기설비 조명 회로",
+      "additionalDetail": null,
+      "workProcessPhase": "조명 설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.4.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-035",
+      "text": "각 환자의 치료 장소에서 소켓-아웃렛에 대해 최소한 두 개의 개별 급전 회로가 설치되거나, 각 소켓-아웃렛은 과전류에 대해 개별적으로 보호되어야 한다.",
+      "guideContext": "병원전기설비 의료용 IT 시스템 소켓-아웃렛 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소켓-아웃렛 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-036",
+      "text": "회로가 동일한 의료장소에서 다른 시스템으로부터(TN-S 또는 TT 시스템) 전원이 공급된다면, 의료용 IT 시스템에 접속된 소켓-아웃렛은 다른 시스템에서의 사용이 불가능한 구조이거나, 분명하고 영구적으로 표시되어야 한다.",
+      "guideContext": "병원전기설비 의료용 IT 시스템 소켓-아웃렛 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소켓-아웃렛 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-037",
+      "text": "의료장소에서 안전공급용전원은 통상전원의 고장 시 정해진 절환 주기 내에 규정된 기기에 전기에너지를 공급하기 위해 상시 충전되어 있어야 한다.",
+      "guideContext": "병원전기설비 안전공급",
+      "additionalDetail": null,
+      "workProcessPhase": "안전공급 설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5.1.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-038",
+      "text": "주배전반의 전압이 공칭전압의 10 % 이상 떨어진다면, 안전공급은 자동적으로 전원이 공급되어야 한다. 전원절환은 인입전원 차단기의 자동재투입시간(차단시간)을 갖기 위하여 지연시간을 갖도록 한다.",
+      "guideContext": "병원전기설비 안전공급",
+      "additionalDetail": null,
+      "workProcessPhase": "안전공급 설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5.1.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-039",
+      "text": "안전공급용 소켓-아웃렛은 쉽게 식별이 가능한 것이어야 한다.",
+      "guideContext": "병원전기설비 안전공급",
+      "additionalDetail": null,
+      "workProcessPhase": "안전공급 설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.5.1.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-040",
+      "text": "분전반에서 하나 이상의 상도체의 전압상실이 발생하는 경우, 특수 안전공급은 수술실 탁자 조작용 조명과 내시경과 같은 기타 필수 조명의 조명을 최소 3시간 동안 유지할 수 있어야 한다.",
+      "guideContext": "병원전기설비 안전공급 0.5초 이하 절환",
+      "additionalDetail": null,
+      "workProcessPhase": "안전공급 설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5.1.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-041",
+      "text": "0.5초를 넘지 않는 절환 주기 내에 전원을 복원하여야 한다.",
+      "guideContext": "병원전기설비 안전공급 0.5초 이하 절환",
+      "additionalDetail": null,
+      "workProcessPhase": "안전공급 설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5.1.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-042",
+      "text": "비상 전원용 주 배전반에서 하나 이상의 선간 전압이 전원 전압 공칭값의 10 % 이상 감소하였을 때, 최소 24시간 동안 기기를 유지할 수 있는 안전 전원에 15초 안에 접속해야 한다.",
+      "guideContext": "병원전기설비 안전공급 15초 이하 절환",
+      "additionalDetail": "관련 의료요구사항을 충족한 상태에서 24시간 이내에 비울 수 있다면, 24시간의 지속시간을 최소 3시간까지 줄일 수 있다",
+      "workProcessPhase": "안전공급 설비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5.1.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-043",
+      "text": "주 전원 고장 시, 필요한 최소 조명이 탈출로, 비상구 표시등, 비상발전기 개폐장치·제어장치 및 통상 전원의 주배전반 그리고 비상전원용 전원 설치 장소, 필수 서비스를 위한 방, 그룹 1 의료장소의 방, 그룹 2 의료장소의 방을 위한 안전공급설비로부터 전원 공급을 받아야 한다. 비상 전원으로의 절환시간은 15초를 넘어서는 안 된다.",
+      "guideContext": "병원전기설비 안전 조명",
+      "additionalDetail": "그룹 1 의료장소 각 방에는 최소 하나의 조명, 그룹 2 의료장소에는 최소 50%의 조명이 비상 전원으로부터 전원을 공급받아야 한다",
+      "workProcessPhase": "안전 조명 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E168-044",
+      "text": "각각의 검사에는 실시 날짜와 결과를 기록하여야 한다.",
+      "guideContext": "병원전기설비 검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "검사 및 기록",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-045",
+      "text": "최초 검사는 시운전 전, 변경 개조 또는 수리 후 재시운전 이전에 실시하되, 의료용 IT 시스템과 음향/시각 경보시스템의 절연모니터링 장치의 기능 시험, 보조 등전위본딩의 검사, 등전위 본딩의 무결성 검사, 비상 전원의 무결성 검사, 무부하 조건에서 출력 회로 및 의료용 IT 변압기 외함의 누설 전류 측정을 실시하여야 한다.",
+      "guideContext": "병원전기설비 최초 검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최초 검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-046",
+      "text": "절환 장치의 기능 시험은 12개월 주기로 실시하여야 한다.",
+      "guideContext": "병원전기설비 정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-047",
+      "text": "절연 모니터링 장치의 기능 시험은 12개월 주기로 실시하여야 한다.",
+      "guideContext": "병원전기설비 정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-048",
+      "text": "외관 검사에 의한 점검, 보호 장치의 설정은 12개월 주기로 실시하여야 한다.",
+      "guideContext": "병원전기설비 정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-049",
+      "text": "보조 등전위 본딩을 검사하는 측정은 36개월 주기로 실시하여야 한다.",
+      "guideContext": "병원전기설비 정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-050",
+      "text": "등전위 본딩에 요구되는 시설의 무결성 검사는 36개월 주기로 실시하여야 한다.",
+      "guideContext": "병원전기설비 정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-051",
+      "text": "배터리가 있는 비상 전원은 월간 기능 시험으로 15분간 실시하고, 내연 기관이 있는 비상 전원은 정격 동작 온도에 도달할 때까지 실시하여야 한다. 모든 경우에 정격 전력의 50~100 %에서 실시되어야 한다.",
+      "guideContext": "병원전기설비 정기검사 (법령 근거 미확인)",
+      "additionalDetail": "12개월 내구성 실행: 배터리 비상 전원 용량 시험, 내연 기관 비상 전원 60분",
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-052",
+      "text": "IT 변압기의 누설 전류 측정은 36개월 주기로 실시하여야 한다.",
+      "guideContext": "병원전기설비 정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E168-053",
+      "text": "IDN에서 RCD의 트리핑 확인은 12개월 이상 주기로 실시하여야 한다.",
+      "guideContext": "병원전기설비 정기검사 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기검사",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-E168-001",
+      "term": "의료장소",
+      "definition": "병원이나 진료소 등에서 환자의 진단, 치료(미용 치료 포함), 감시(monitering) 등의 의료행위를 하는 장소를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-002",
+      "term": "환자",
+      "definition": "의료와 보건진료요원의 보호와 치료를 받는 사람(동물 포함)들을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-003",
+      "term": "의료전기기기",
+      "definition": "둘이상의 특정 전원에 접속되지 않는 전기기기로 의료감시 하에 환자의 진단, 치료 또는 모니터링하기 위하여 환자와의 물리적 또는 전기적 접촉, 및/또는 환자와 전기에너지를 주거나 받음, 및/또는 환자와 주고받는 전기에너지의 검출 기능을 하는 기기를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-004",
+      "term": "적용 부분",
+      "definition": "정상 사용 상태에서의 의료전기기기의 일부분으로, 전기기기가 해당기능을 수행하기 위하여 환자와의 물리적 접촉이 꼭 필요한 경우, 또는 환자와 접촉이 될수 있는 경우, 또는 환자와 접촉할 필요가 있는 경우를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-005",
+      "term": "그룹 0",
+      "definition": "적용부분이 사용되지 않는 의료장소를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-006",
+      "term": "그룹 1",
+      "definition": "적용부분이 외래진료, 그룹 2가 적용되는 경우를 제외하고 모든 신체 부분에 대한 외과적인 수술에 사용되는 의료장소를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-007",
+      "term": "그룹 2",
+      "definition": "전원의 차단(고장)이 생명을 위협할 수 있는 심장내 수술, 수술실, 생명 유지장치 등과 같은 의료행위가 사용되는 적용부분이 있는 의료장소를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-008",
+      "term": "의료전기시스템",
+      "definition": "하나이상의 의료전기기기가 기능적으로 내부 연결되거나 휴대용 다중 접속기구(socket outlet)의 사용에 의하여 상호 접속되는 전기기기의 조합을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-009",
+      "term": "환자 환경",
+      "definition": "환자와 시스템의 일부 또는 환자와 시스템의 일부를 접촉하는 다른 사람 사이에 의도 또는 의도하지 않은 접촉이 발생할 수 있는 모든 공간을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-010",
+      "term": "주 배전반",
+      "definition": "건물 내 지정된 구역의 주배전의 모든 기능을 수행하고 안전 서비스를 위하여 전압강하를 측정하는 건물 내의 반(board)을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-011",
+      "term": "의료용 IT 시스템",
+      "definition": "의료용의 특정요구사항을 충족하는 IT 전기시스템을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-012",
+      "term": "안전공급",
+      "definition": "사고 시 비상설비에 전원을 안전하게 공급하는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "DT-E168-013",
+      "term": "보호초저압시스템",
+      "definition": "초저압을 넘지 않는 전압을 사용하는 전기계통으로써 정상운전 하에 있고 다른 전기회로에서 지락고장을 제외한 단일 고장상태 하에 있는 전기계통을 말한다. 초저압(Extra low voltage)은 교류전압 50 V 이하, 직류전압 120 V이하의 전압을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E168-014",
+      "term": "안전초저압시스템",
+      "definition": "초저압을 넘지 않는 전압을 사용하는 전기계통으로써 정상 운전하에 있고 다른 전기회로에서 지락고장을 포함한 단일 고장상태하에 있는 전기계통을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-E168-01",
+      "processOrder": 1,
+      "processName": "의료장소 구분 및 일반 특성 평가",
+      "safetyMeasures": "의료장소를 그룹 0, 그룹 1, 그룹 2로 구분하고 의도된 용도를 바탕으로 적절히 구분하여야 한다. 특정 의료장소가 더 높은 등급을 필요로 하는 용도로 사용될 가능성은 위험성평가에 의해 이루어지도록 한다.",
+      "requiredPPE": [],
+      "sourceSection": "4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E168-02",
+      "processOrder": 2,
+      "processName": "접지계통 및 전원 설계·설치",
+      "safetyMeasures": "TN-C 시스템은 주 배전반 하단의 의료장소에 허용 불가. 배전시스템은 주 배전망에서 안전공급으로의 자동절환이 용이하게 설계 및 설치되어야 한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "WP-E168-03",
+      "processOrder": 3,
+      "processName": "감전방지 보호 설치",
+      "safetyMeasures": "SELV/PELV 회로 공칭전압 교류 25V 또는 직류 60V 이하 유지. 충전부 절연 및 장벽·외함 방호 필수. 그룹 2 의료장소 노출 도전부 등전위 본딩 도체 연결. 장애물 보호 및 접촉 범위 밖 설치 보호 불허.",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E168-04",
+      "processOrder": 4,
+      "processName": "누전차단기(RCD) 및 의료용 IT 시스템 설치",
+      "safetyMeasures": "그룹 1 TN 시스템 말단 회로 30mA RCD 사용. 그룹 2 의료장소 의료용 IT 시스템 설치 및 절연감시장치 부착. 음향·시각적 경보 시스템 배치. IT 변압기 과부하·고온 모니터링.",
+      "requiredPPE": [],
+      "sourceSection": "4.2.1.3.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E168-05",
+      "processOrder": 5,
+      "processName": "등전위 본딩 설치",
+      "safetyMeasures": "그룹 1·2 의료장소에 보조 등전위 본딩도체 설치. 그룹 2 의료장소 도체 저항 0.2 옴 이하. 등전위 본딩 버스바는 의료장소 내 또는 인근에 위치. 접속은 눈에 보이고 쉽게 차단 가능하도록 배열.",
+      "requiredPPE": [],
+      "sourceSection": "4.2.1.3.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E168-06",
+      "processOrder": 6,
+      "processName": "전기기기 선정 및 설치",
+      "safetyMeasures": "변압기는 캐비닛·외함 속 배치. 2차 측 정격 전압 교류 250V 이하. 그룹 2 변압기 누설전류 0.5mA 이하. 전기기기는 의료용 소켓-아웃렛으로부터 수평 최소 0.2m 이격 설치. 전자파 간섭 방지 대책 마련.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "WP-E168-07",
+      "processOrder": 7,
+      "processName": "안전공급 설비 설치",
+      "safetyMeasures": "안전공급용 전원 상시 충전. 공칭전압 10% 이상 강하 시 자동 전원 공급. 0.5초 이하 절환 전원으로 수술실 조명 최소 3시간 유지. 15초 이하 절환 전원으로 최소 24시간 유지. 안전공급용 소켓-아웃렛 쉽게 식별 가능.",
+      "requiredPPE": [],
+      "sourceSection": "5.5",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "WP-E168-08",
+      "processOrder": 8,
+      "processName": "최초 검사 실시",
+      "safetyMeasures": "시운전 전, 변경·개조·수리 후 재시운전 이전에 실시. 절연모니터링 장치 기능 시험, 보조 등전위본딩 검사, 등전위 본딩 무결성 검사, 비상 전원 무결성 검사, IT 변압기 누설 전류 측정.",
+      "requiredPPE": [],
+      "sourceSection": "6.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E168-09",
+      "processOrder": 9,
+      "processName": "정기검사 실시",
+      "safetyMeasures": "절환 장치·절연 모니터링 장치 기능 시험 12개월, 보조 등전위 본딩 측정 36개월, 비상 전원 월간 기능 시험(배터리 15분, 내연 기관 정격 온도 도달까지), RCD 트리핑 확인 12개월 이상.",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-E168-001",
+      "equipmentName": "의료용 IT 시스템 절연감시장치",
+      "specifications": {
+        "standard": "IEC 61557-8",
+        "acInternalImpedance": "최소 100 kΩ",
+        "testVoltage": "직류 25 V 이하",
+        "maxInjectionCurrent": "1 mA 이하 (고장 상태 포함)",
+        "insulationResistanceDisplay": "50 kΩ까지 감소 표시"
+      },
+      "sourceSection": "4.2.1.3.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E168-002",
+      "equipmentName": "의료용 IT 시스템 단상 변압기 (그룹 2)",
+      "specifications": {
+        "standard": "KS C IEC 61558-2-15",
+        "secondaryRatedVoltage": "교류 250 V 이하",
+        "leakageCurrent": "0.5 mA 이하 (무부하 상태)",
+        "ratedOutput": "0.5 ~ 10 kVA",
+        "type": "단상"
+      },
+      "sourceSection": "5.1.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E168-003",
+      "equipmentName": "누전차단기(RCD)",
+      "specifications": {
+        "maxOperatingCurrent": "30 mA",
+        "applicableType": "A형 또는 B형",
+        "applicationGroup1": "정격전류 32 A 이하 TN 시스템 말단 회로",
+        "applicationGroup2": "수술대 전원 회로, X-레이 장치 회로, 5 kVA 초과 대형 기기, non-critical 전기기기"
+      },
+      "sourceSection": "4.2.1.3.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E168-004",
+      "equipmentName": "등전위 본딩 도체 (그룹 2 의료장소)",
+      "specifications": {
+        "maxConductorResistance": "0.2 Ω 이하",
+        "connectionPoints": "보호 접지도체, 외부 도전부, 전자파장해 차폐, 도전성 바닥 격자, 절연 변압기 금속 차폐"
+      },
+      "sourceSection": "4.2.1.3.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E168-005",
+      "equipmentName": "안전공급 전원 (0.5초 이하 절환)",
+      "specifications": {
+        "switchoverTime": "0.5초 이하",
+        "minimumDuration": "최소 3시간",
+        "application": "수술실 탁자 조작용 조명, 내시경 등 필수 조명",
+        "activationCondition": "분전반 상도체 전압상실 시"
+      },
+      "sourceSection": "5.5.1.2.1",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "ES-E168-006",
+      "equipmentName": "안전공급 전원 (15초 이하 절환)",
+      "specifications": {
+        "switchoverTime": "15초 이하",
+        "minimumDuration": "최소 24시간 (조건부 최소 3시간까지 단축 가능)",
+        "activationCondition": "주 배전반 선간 전압 공칭값 10% 이상 감소 시",
+        "testRequirement": "월간 기능 시험, 정격 전력 50~100%"
+      },
+      "sourceSection": "5.5.1.2.2",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-E168-001",
+      "documentType": "WORK_PLAN",
+      "title": "병원전기설비 설치 계획 및 기록 문서",
+      "requiredSections": [
+        "상용전원 및 안전공급의 배전시스템 단선도 회로도",
+        "개폐장치와 제어장치를 나타내는 주 및 보조 배전반 도면",
+        "제어 장치의 개략도",
+        "비상 전원용 축전지와 전원의 운전·검사·시험 및 정비용 지침",
+        "지침 요구사항을 충족하는 계산 검증",
+        "전동기 구동 부하의 정상전류·기동전류를 나타내는 안전공급 영구 접속 부하 목록",
+        "시운전에 완료되어야 하는 모든 시험 및 검사를 포함하는 일지"
+      ],
+      "sourceSection": "5.1.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-E168-002",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "병원전기설비 정기검사 기록",
+      "requiredSections": [
+        "절환 장치 기능 시험 (12개월)",
+        "절연 모니터링 장치 기능 시험 (12개월)",
+        "외관 검사·보호 장치 설정 (12개월)",
+        "보조 등전위 본딩 측정 (36개월)",
+        "등전위 본딩 무결성 검사 (36개월)",
+        "비상 전원 월간 기능 시험",
+        "IT 변압기 누설 전류 측정 (36개월)",
+        "RCD 트리핑 확인 (12개월 이상)"
+      ],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    }
+  ]
+}

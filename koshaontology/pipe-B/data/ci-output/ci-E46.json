@@ -1,0 +1,904 @@
+{
+  "metadata": {
+    "guideCode": "E-46-2013",
+    "shortCode": "E46",
+    "domain": "B",
+    "extractedAt": "2026-04-23T05:09:41Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-B-046"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-E46-001",
+      "text": "전기기기는 기호로 표기하고, 해당 기기명의 약어와 4.2 사항을 표기한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": "사업장의 필요에 따라 표기사항을 추가할 수 있다.",
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-002",
+      "text": "기기번호가 부여된 경우 해당 번호를 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-003",
+      "text": "배전반, 제어반, 변압기, 충전기반 등의 전기설비가 단위공정, 지역, 용도 등으로 구분이 필요한 경우에는 해당 전기설비를 가는 1점 쇄선으로 구분 표시하고, 좌측 상단에 고유번호를 기입한다. 1점 쇄선으로 구분된 부분과 명확하게 구별이 필요한 경우에는 2점 쇄선을 사용한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기단선도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-004",
+      "text": "인입지점(incoming)에 전압, 상수, 가닥수, 주파수를 기입하고 인입점을 수전방향으로 향하게 화살표로 나타낸다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-005",
+      "text": "모선(bus)은 도면의 상부에서부터 고압, 저압모선의 순으로 배열하되, 상용전원 모선과 비상용전원 모선을 구분하여 작성한다. 모선에는 전압, 상수, 가닥수, 주파수, 정격전류, 정격차단전류를 기입하며 다른 선보다 굵게 표시한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-006",
+      "text": "고압배전반은 수전반, 전동기제어반, 변압기반 등 용도별 배전반 내에 설치할 전기기기를 다음 내용을 참조하여 기호로 표시한다. (가) 단로기(DS) : 극수, 정격전압, 정격전류 (나) 전력퓨즈(PF) : 수량, 정격전압, 정격전류, 정격차단전류 (다) 차단기(CB) : 차단기 종류, 정격전압, 정격전류, 정격차단전류 (라) 계기용변압기(PT) : 수량, 변압비, 정격부담 (마) 변류기(CT) : 수량, 변류비, 정격부담 (바) 영상변류기(ZCT) : 영상 1·2차측 전류 (사) 진공접촉기(VCS) : 정격전압, 정격전류 (아) 피뢰기(LA) : 수량, 정격전압, 공칭방전전류 (자) 서지흡수기(SA) : 수량, 정격전압, 공칭방전전류 (차) 전기계기 : 수량(1개일 경우 생략), 측정범위 (카) 보호계전기 : 수량(1개일 경우 생략)",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-007",
+      "text": "고압전동기는 기기명, 정격출력, 내부 히터(space heater) 유무를 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-008",
+      "text": "변압기는 변압기종류, 상수, 정격 1·2차 전압, 1·2차 결선 및 접지방식, 정격용량, 냉각방식, 퍼센트 임피던스(% impedance), 혼촉 방지관 부착 여부, 보호장치를 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-009",
+      "text": "전력용 콘덴서는 상수, 용량을 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-010",
+      "text": "저압배전반 내에 설치할 배선용차단기, 전자개폐기, 과부하계전기 등의 전기기기를 기호에 따라 표시한다. 동일한 제어방식인 전동기나 다른 설비가 많은 경우에는 각 제어방식별로 설치할 전기기기를 기호로 표시하고 고유번호를 부여한 후, 그 아래에 일람표를 작성 할 수 있다. 일람표에는 기기번호, 기기명, 설비용량, 배선용차단기 용량(AF, AT, kA), 케이블의 굵기 및 길이, 제어방식 등을 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-011",
+      "text": "무정전전원장치 및 충전기반은 수납된 대표적인 기구를 기호로 표시하고 출력전압 및 정격전류를 기입한다. 축전지는 별도로 2점 쇄선으로 구획하여 공칭전압, 정격용량(Ah), 축전지 종류, 셀(cell) 수량, 정전보상시간을 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-012",
+      "text": "연계차단기(tie breaker)는 차단기 종류, 정격전압, 정격전류, 정격차단전류, 평상시 투입여부를 기입한다. 평상시 투입되어 있는 경우 NC(normal close), 개방되어 있는 경우 NO(normal open)로 표기한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-013",
+      "text": "모선덕트(bus duct)는 상수, 가닥수, 정격전압, 정격전류를 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-014",
+      "text": "고압용 케이블, 저압간선용 케이블 및 배전반간의 연결선에 대해서 종류, 정격전압, 심선수, 굵기, 가닥수를 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-015",
+      "text": "발전기는 상수, 가닥수, 정격전압, 주파수, 정격용량, 역률을 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기설비별 표시사항 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-016",
+      "text": "전기단선도의 작성범위는 수전설비의 책임분계점부터 저압 변압기의 2차측(부하설비 1차측)까지이며, 다음 사항이 포함되어야 한다. (1) 버스바 또는 케이블의 종류, 굵기 및 가닥수 등 (2) 변압기의 종류, 정격(상수, 1·2차 전압), 1·2차 결선 및 접지방식, 보호장치 등 (3) 각종 보호장치(차단기, 단로기)의 종류와 차단 및 정격용량, 보호방식 등 (4) 예비 동력원 또는 비상전원 설비의 용량 및 단선도 (5) 각종 보호장치의 단락용량 계산서 및 비상전원 설비용량 산출계산서(해당될 경우에 한정한다)",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "작성범위 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-017",
+      "text": "전기단선도를 이해하기 위해서 필요한 범례도(legend)를 작성한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "범례도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-018",
+      "text": "도면은 범례도에 따라 약어와 기호를 이용하여 간단하고 일목요연하게 작성한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기단선도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-019",
+      "text": "계통이 대규모인 경우 전체계통도, 고압전기단선도, 저압전기단선도, 비상전원전기단선도로 구분하여 작성한다. 전체계통도는 인입지점부터 비상전원까지 사업장내 모든 전기기기의 개략적인 접속 형태를 한 장의 도면으로 나타낸 것으로 4.2 전기설비별 표시사항 중 선택해서 표기하고, 전동기 등 부하는 종류별로 간략화하여 표시한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기단선도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-020",
+      "text": "시공이나 운전상 특별히 필요한 사항은 도면의 우측 상단에 표기한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기단선도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-021",
+      "text": "기호는 한국산업표준을 사용을 권장하며, 각 사업장별 특성에 따라 유사한 다른 기호를 사용할 수도 있다.",
+      "guideContext": "전기단선도 작성",
+      "additionalDetail": null,
+      "workProcessPhase": "전기단선도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-022",
+      "text": "동일 사업장내의 각 공정별 전기단선도는 범례, 기기번호 부여방법, 도면번호 부여방법 등이 통일되어야 한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기단선도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-023",
+      "text": "기존 설비로부터 증설하는 경우에는 기존 시설분은 점선으로 표기하여 개략적으로 그리고, 전기계통, 전압, 주파수, 차단기의 위치 정도를 기입한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기단선도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-024",
+      "text": "아래의 연동회로는 도면에 점선으로 명시한다. (1) 상용전원과 예비전원간의 연동 (2) 단로기, 접지스위치 등 조작 시의 안전성 및 보호를 위해 필요한 회로 (3) 변압기 2대 이상에서 모선분리 또는 선택운전을 위한 연동회로",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기단선도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-025",
+      "text": "기기번호는 공사 사양서(project spec.)의 원칙대로 기입하되 단위공장, 지역, 기기의 종류, 예비기기 등을 쉽게 구분할 수 있도록 정한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "기기번호 및 도면번호 부여",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-026",
+      "text": "도면에는 공정 또는 지역 등을 포함하여 고유의 도면번호를 부여하여야 한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "기기번호 및 도면번호 부여",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-027",
+      "text": "2매 이상의 도면으로 연결되는 경우에는 연결되는 도면번호 및 연결 전기기기 등의 고유번호 등을 표기하여 계통의 연결을 쉽게 알아볼 수 있도록 한다.",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "기기번호 및 도면번호 부여",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-028",
+      "text": "범례도에는 전기단선도에서 사용되는 다음과 같은 제반 약속들이 표시되어야 한다. (1) 전기단선도에 나타나는 모든 전기기기의 기호 (2) 전기단선도에서 사용되는 약어 (3) 1회 이상 사용되는 특별한 사항",
+      "guideContext": "전기단선도 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "범례도 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-029",
+      "text": "원본은 총괄적으로 도면을 관리하는 부서를 지정하여 관리한다.",
+      "guideContext": "전기단선도 도면관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "도면 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-030",
+      "text": "원본을 관리하는 부서의 장은 최소 1년에 1회 이상 현장과 일치 여부를 확인하고 갱신하여야 한다.",
+      "guideContext": "전기단선도 도면관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "도면 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-031",
+      "text": "원본을 수정한 후에는 수정내용, 수정일자 및 수정을 담당한 자를 기록하고 최종 날인을 득하도록 한다.",
+      "guideContext": "전기단선도 도면관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "도면 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-032",
+      "text": "사본을 사용하는 정비부서의 장은 사본을 전기실에 비치하여 필요시 즉시 사용 할 수 있어야 한다.",
+      "guideContext": "전기단선도 도면관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "도면 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-033",
+      "text": "현장에서 변경이 일어난 경우에는 사본에 붉은 색깔로 표시하여 사용하고 원본 관리를 하는 부서에서 원본을 갱신할 수 있도록 변경 즉시 원본을 관리하는 부서에 통보하여야 한다.",
+      "guideContext": "전기단선도 도면관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "도면 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-064",
+      "text": "기호의 크기는 마음대로 바꿀 수 있으나 되도록 닮은꼴이 되어야 한다. 다만, 선의 굵기를 바꿔서 용도를 구분하여도 무방하다.",
+      "guideContext": "전기단선도 전기용 기호 작성 기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-065",
+      "text": "이 지침에 정하여져 있지 않은 것 또는 불충분한 것에 대해서는 새로이 기타 기호와의 조합, 글자 등의 병기에 따라 표시하는 것을 권장한다.",
+      "guideContext": "전기단선도 전기용 기호 작성 기준",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-066",
+      "text": "(a), (b)로 기재된 것은 적요에 특별히 명시되지 않은 경우 (a)의 사용을 권장한다.",
+      "guideContext": "전기단선도 전기용 기호 작성 기준",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-067",
+      "text": "도체의 가다수를 명시하고 싶을 때는 다음과 같이 표시할 수 있다. (a) 2가닥 (b) 3가닥 (c) n가닥",
+      "guideContext": "전기단선도 도선 기호 표기",
+      "additionalDetail": "도선 및 접속 기호 중 도선(2.1) 항목에 해당하며, 전선 및 모선 등에 사용된다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-068",
+      "text": "극성은 긴 선을 양극, 짧은 선을 음극으로 한다.",
+      "guideContext": "전기단선도 전지 및 직류전원 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "전원 및 장치 기호 중 전지 및 직류전원(6.1) 항목에 해당한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-069",
+      "text": "계기용 변압기는 주 변압기와 구별하기 위해 그것보다 가늘게 그릴 수 있다.",
+      "guideContext": "전기단선도 계기용 변압기 기호 표기",
+      "additionalDetail": "계기용 변압기(7.1, 7.2, 7.3) 항목에 공통 적용된다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-070",
+      "text": "교류 차단기의 종류를 나타내는 경우에는 옆에 다음 글자를 부기한다. 기름 차단기 OCB, 진공 차단기 VCB, 공기 차단기 ABB, 가스 차단기 GCB, 자기 차단기 MBB",
+      "guideContext": "전기단선도 교류 차단기 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "개폐기 및 제어장치 기호 중 교류 차단기(10.9) 항목에 해당한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-071",
+      "text": "기중 차단기(일반) 기호 옆에 다음 글자를 부기한다. 기중 차단기 ACB, 배선용차단기 MCCB",
+      "guideContext": "전기단선도 기중 차단기 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "개폐기 및 제어장치 기호 중 기중 차단기(10.8) 항목에 해당하며, 배선용 차단기도 포함한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-072",
+      "text": "고압 교류 부하 개폐기의 종류를 나타내는 경우에는 옆에 다음 글자를 부기한다. 기름 부하 개폐기 OS, 기중 부하 개폐기 AS, 진공 개폐기 VS, 가스 개폐기 GS",
+      "guideContext": "전기단선도 고압 교류 부하 개폐기 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "개폐기 및 제어장치 기호 중 고압 교류 부하 개폐기(10.10) 항목에 해당한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-073",
+      "text": "포장 퓨즈 기호에서 사선은 우상(右上)으로 한다.",
+      "guideContext": "전기단선도 보호 장치 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "보호 장치 기호 중 포장 퓨즈(12.3) 항목에 해당하며, 통형 퓨즈, 전력 퓨즈, 플러그 퓨즈를 포함한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-074",
+      "text": "계전기 기호에서 다른 기기와 혼동될 우려가 없는 경우 □ 대신에 ○을 사용해도 좋다.",
+      "guideContext": "전기단선도 계전기 기호 표기",
+      "additionalDetail": "계전기 및 접점 기호(표 13) 사전 규칙에 해당한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-075",
+      "text": "계전 방식과 계전기를 조합해서 나타낼 필요가 있는 경우, 보기에 따른다. 보기: 단락 방향 계전 방식의 과전류 계전기 DS-OC, 반송 계전 방식의 방향거리 계전기 Cr-DZ, 계통 분리 계전 방식의 부족 주파수 계전기 DI-UF",
+      "guideContext": "전기단선도 계전기 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "계전기 및 접점 기호(표 13) 사전 규칙에 해당하며, O(과), U(부족), OU(과부족), S(단락), G(지락) 접미사 규칙을 포함한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-076",
+      "text": "고속도인 경우 계전기 기호 글자의 선두에 H를 첨가한다.",
+      "guideContext": "전기단선도 계전기 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "계전기 및 접점 기호(표 13) 사전 규칙에 해당한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-077",
+      "text": "전압 억제 붙이인 것은 계전기 기호 글자의 끝에 v를 첨가한다. 다만, S 혹은 G보다 앞에 단다.",
+      "guideContext": "전기단선도 계전기 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "보기: 전압 억제붙이 단락 과전류 계전기 OCvS",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-078",
+      "text": "계기 기호에서 기록형은 기호 글자의 첫머리에 R자를 붙인다.",
+      "guideContext": "전기단선도 계기 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "계기 기호(표 14) 사전 규칙에 해당한다. 종합형은 T자, 최대·최소 표시 가능 계기는 M자를 첫머리에 붙인다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-079",
+      "text": "가공 전선로에서 특히 전압을 구별할 필요가 있는 경우에는 전압에 따라서 선의 굵기를 굵게 하고, kV로 나타낸 전압을 부기한다.",
+      "guideContext": "전기단선도 전선로 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "전선로 기호(표 15) 중 가공 전선로(15.2) 항목에 해당한다. 미완성 전선로 또는 타 소속 전선로는 파선을 사용할 수 있다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-080",
+      "text": "저압 전동기제어반(MCC)의 제어회로용 변압기는 OP TR로 표시한다.",
+      "guideContext": "전기단선도 계기용 변압기 기호 표기 (법령 근거 미확인)",
+      "additionalDetail": "계기용 변압기 및 변류기 기호(표 7) 중 계기용 변압기(7.1) 항목에 해당한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E46-081",
+      "text": "저압배전반 일람표에는 ITM NO., DESCRIPTION, CONNECTED LOAD, HORIZONTAL BUS MIN. INTERRUPTING RATING, BREAKER AF·AT·kA, CABLE SIZE·LENGTH, DIAGRAM TYPE 항목을 포함하여 작성한다.",
+      "guideContext": "전기단선도 저압배전반 일람표 작성 (법령 근거 미확인)",
+      "additionalDetail": "부록 2 저압배전반 일람표 예시에 따른 작성 항목 기준이다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-E46-001",
+      "term": "전기 단선도",
+      "definition": "전기설비에 공급되는 전원에 관련된 모든 사항을 단선으로 작성한 전기계통도로서 계통의 일반적인 접속 상태를 일목요연하게 표시하여 전기설비의 계획, 설계, 공사, 운전 및 유지 보수 등에 활용할 수 있도록 작성된 도면을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E46-002",
+      "term": "수전설비",
+      "definition": "전기사업자로부터 공급받는 저압 또는 고압, 특별고압의 전압을 부하의 특성에 맞는 전압으로 변성 및 공급하기 위한 설비들을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E46-003",
+      "term": "책임분계점",
+      "definition": "전기를 공급하는 전기사업자와 전기를 사용하는 사용자 간에 전기공급시설에 대한 관리 및 재산상의 구분을 하기 위한 경계지점을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E46-004",
+      "term": "배전반",
+      "definition": "일반적으로 제어, 측정, 보호 및 조정 장비에 관련된 스위칭과 차단기 등의 총칭, 발전, 전력의 전송, 배전, 변환에 관련되는 결합체, 보조물, 상자와지지 구조 등에 관련된 위의 장치들의 집합체도 포함된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E46-005",
+      "term": "제어반",
+      "definition": "일반적으로 개폐 장치와 관련되는 제어, 계측, 보호 및 조정 장치의 조합물 외에 연관되는 상호 접속물, 부속품, 밀폐 외함 및 지지 구조물 같은 장치와 설비의 어셈블리를 망라한다. 원칙적으로 전기 에너지 소비장비의 제어를 하고자 한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E46-006",
+      "term": "연계차단기(Tie breaker)",
+      "definition": "2개 이상의 수·배전 모선선로를 서로 연결 또는 분리시키기 위하여 설치한 차단기를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E46-007",
+      "term": "유해·위험 설비",
+      "definition": "산업안전기준에 관한 규칙 별표 7의 화학설비 및 그 부속설비의 종류를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-E46-01",
+      "processOrder": 1,
+      "processName": "작성범위 결정",
+      "safetyMeasures": "수전설비의 책임분계점부터 저압 변압기 2차측까지의 범위를 확정하고, 버스바·케이블·변압기·보호장치·비상전원 설비 등 포함 사항을 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E46-02",
+      "processOrder": 2,
+      "processName": "전기설비별 표시사항 확인 및 정리",
+      "safetyMeasures": "인입지점, 모선, 고압배전반, 고압전동기, 변압기, 전력용 콘덴서, 저압배전반, 무정전전원장치, 연계차단기, 모선덕트, 케이블, 발전기 각각의 표시사항을 확인하고 필요 정보를 수집한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E46-03",
+      "processOrder": 3,
+      "processName": "범례도 작성",
+      "safetyMeasures": "전기단선도에 사용되는 모든 전기기기 기호, 약어, 특별한 사항을 범례도에 표시한다.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E46-04",
+      "processOrder": 4,
+      "processName": "전기단선도 작성",
+      "safetyMeasures": "범례도에 따라 약어와 기호를 이용하여 간단하고 일목요연하게 작성하고, 대규모 계통인 경우 전체계통도·고압·저압·비상전원 단선도로 구분하여 작성한다. 기존 설비 증설 시에는 기존 시설분을 점선으로 표기한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E46-05",
+      "processOrder": 5,
+      "processName": "연동회로 표시",
+      "safetyMeasures": "상용전원과 예비전원간 연동, 단로기·접지스위치 조작 시 안전성 및 보호를 위한 회로, 변압기 2대 이상 모선분리 또는 선택운전을 위한 연동회로를 점선으로 명시한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E46-06",
+      "processOrder": 6,
+      "processName": "기기번호 및 도면번호 부여",
+      "safetyMeasures": "기기번호는 공사 사양서 원칙에 따라 단위공장, 지역, 기기 종류, 예비기기 등을 쉽게 구분할 수 있도록 부여하고, 도면번호는 공정 또는 지역 등을 포함하여 고유번호를 부여한다. 2매 이상 연결 시 연결 도면번호를 표기한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E46-07",
+      "processOrder": 7,
+      "processName": "도면 관리",
+      "safetyMeasures": "원본 관리부서를 지정하고, 최소 1년 1회 이상 현장 일치 여부를 확인·갱신한다. 수정 시 수정내용·수정일자·담당자를 기록하고 최종 날인을 득한다. 사본은 전기실에 비치하고, 현장 변경 시 붉은색으로 표시 후 원본 관리부서에 즉시 통보한다.",
+      "requiredPPE": [],
+      "sourceSection": "7.1",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-E46-033",
+      "equipmentName": "저압배전반 (KOSHA-001 UNIT)",
+      "specifications": {
+        "phase": "3PHASE 3WIRE",
+        "voltage": "460V",
+        "frequency": "60Hz"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "ES-E46-034",
+      "equipmentName": "교반기(Agitator) 전동기 회로 (AG-01)",
+      "specifications": {
+        "connectedLoad": "47kW",
+        "horizontalBusMinInterruptingRatingAF": "225AF",
+        "switchBoardAF": "125AF",
+        "breakerAT": "65AT",
+        "interruptingRating": "65kA",
+        "cableSize": "3C-38",
+        "cableLength": "100m",
+        "diagramType": "V01"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "ES-E46-035",
+      "equipmentName": "압축기(Compressor) 전동기 회로 (C-01)",
+      "specifications": {
+        "connectedLoad": "30kW",
+        "horizontalBusMinInterruptingRatingAF": "100AF",
+        "switchBoardAF": "100AF",
+        "breakerAT": "65AT",
+        "interruptingRating": "65kA",
+        "cableSize": "3C-38",
+        "cableLength": "110m",
+        "diagramType": "41"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "ES-E46-036",
+      "equipmentName": "펌프(Pump) A 전동기 회로 (P-01 A)",
+      "specifications": {
+        "connectedLoad": "5.5kW",
+        "horizontalBusMinInterruptingRatingAF": "100AF",
+        "switchBoardAF": "30AF",
+        "breakerAT": "65AT",
+        "interruptingRating": "65kA",
+        "cableSize": "3C-8",
+        "cableLength": "30m",
+        "diagramType": "A3"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "ES-E46-037",
+      "equipmentName": "펌프(Pump) B 전동기 회로 (P-01 B)",
+      "specifications": {
+        "connectedLoad": "5.5kW",
+        "horizontalBusMinInterruptingRatingAF": "100AF",
+        "switchBoardAF": "30AF",
+        "breakerAT": "65AT",
+        "interruptingRating": "65kA",
+        "cableSize": "3C-8",
+        "cableLength": "65m",
+        "diagramType": "A3"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "ES-E46-038",
+      "equipmentName": "무정전전원장치(UPS) 회로 (UPS-01)",
+      "specifications": {
+        "connectedLoad": "55kW",
+        "horizontalBusMinInterruptingRatingAF": "225AF",
+        "switchBoardAF": "200AF",
+        "breakerAT": "65AT",
+        "interruptingRating": "65kA",
+        "cableSize": "3C-80",
+        "cableLength": "30m",
+        "diagramType": "U1"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "ES-E46-039",
+      "equipmentName": "용접 리셉터클(Welding Receptacle) 회로 (WR-01)",
+      "specifications": {
+        "connectedLoad": "30kW",
+        "horizontalBusMinInterruptingRatingAF": "100AF",
+        "switchBoardAF": "100AF",
+        "breakerAT": "65AT",
+        "interruptingRating": "65kA",
+        "cableSize": "3C-38",
+        "cableLength": "100m",
+        "diagramType": "U1"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "ES-E46-040",
+      "equipmentName": "예비(SPARE) 회로",
+      "specifications": {
+        "connectedLoad": "0kW",
+        "horizontalBusMinInterruptingRatingAF": "100AF",
+        "switchBoardAF": "40AF",
+        "breakerAT": "65AT",
+        "interruptingRating": "65kA",
+        "cableSize": "3C-8",
+        "diagramType": "A3"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-005"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-E46-001",
+      "documentType": "WORK_PLAN",
+      "title": "전기단선도",
+      "requiredSections": [
+        "인입지점",
+        "모선",
+        "고압배전반",
+        "변압기",
+        "저압배전반",
+        "무정전전원장치",
+        "연계차단기",
+        "케이블",
+        "발전기",
+        "연동회로",
+        "범례도"
+      ],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-E46-002",
+      "documentType": "WORK_PLAN",
+      "title": "범례도(legend)",
+      "requiredSections": [
+        "전기기기 기호",
+        "약어",
+        "특별 사항"
+      ],
+      "sourceSection": "6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-E46-003",
+      "documentType": "WORK_PLAN",
+      "title": "저압배전반 일람표",
+      "requiredSections": [
+        "기기번호",
+        "기기명",
+        "설비용량",
+        "배선용차단기 용량(AF, AT, kA)",
+        "케이블 굵기 및 길이",
+        "제어방식"
+      ],
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-E46-004",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "단락용량 계산서",
+      "requiredSections": [
+        "각종 보호장치의 단락용량 계산"
+      ],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-E46-005",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "비상전원 설비용량 산출계산서",
+      "requiredSections": [
+        "비상전원 설비용량 산출"
+      ],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    }
+  ]
+}

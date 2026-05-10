@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KOSHA 온톨로지 리즈너 시뮬레이터</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #0f172a; color: #e2e8f0; font-family: -apple-system, sans-serif; margin: 0; padding: 20px; }
+    .node { position: absolute; padding: 10px 15px; border-radius: 8px; font-size: 14px; font-weight: bold; text-align: center; z-index: 10; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.3); word-break: keep-all; line-height: 1.3;}
+    .node-input { background-color: #3b82f6; border: 2px solid #2563eb; }
+    .node-concept { background-color: #f59e0b; border: 2px solid #d97706; color: #fff; }
+    .node-rule { background-color: #10b981; border: 2px solid #059669; color: #fff; }
+    .node-guide { background-color: #14b8a6; border: 2px solid #0f766e; color: #fff; }
+    .node-penalty { background-color: #ef4444; border: 2px solid #b91c1c; color: #fff; }
+    .node-inactive { background-color: #334155; border: 2px solid #475569; color: #94a3b8; box-shadow: none; }
+    
+    svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+    .edge-asserted { stroke: #3b82f6; stroke-width: 3; fill: none; transition: all 0.3s ease; }
+    .edge-inferred { stroke: #f59e0b; stroke-width: 3; fill: none; stroke-dasharray: 8 4; animation: dash 1s linear infinite; transition: all 0.3s ease; }
+    @keyframes dash { to { stroke-dashoffset: -12; } }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // Node Positions (Fixed Layout)
+    const nodes = {
+      // Inputs (A-Box)
+      loc_scaffold: { id: 'loc_scaffold', label: '이동식 비계', x: 50, y: 50, type: 'input' },
+      loc_tank: { id: 'loc_tank', label: '탱크 내부', x: 50, y: 150, type: 'input' },
+      task_weld: { id: 'task_weld', label: '아크 용접', x: 50, y: 250, type: 'input' },
+      task_paint: { id: 'task_paint', label: '페인트 도장', x: 50, y: 350, type: 'input' },
+      ppe_none: { id: 'ppe_none', label: '안전대/방독면 미착용', x: 50, y: 450, type: 'input' },
+
+      // Concepts (T-Box)
+      c_fall: { id: 'c_fall', label: '추락 위험 (Hazard)', x: 300, y: 50, type: 'concept' },
+      c_fire: { id: 'c_fire', label: '화재 위험 (Hazard)', x: 300, y: 250, type: 'concept' },
+      c_suffocate: { id: 'c_suffocate', label: '질식/중독 위험 (Hazard)', x: 300, y: 350, type: 'concept' },
+      c_explosion: { id: 'c_explosion', label: '폭발 위험 (Inferred!)', x: 300, y: 450, type: 'concept' }, // Complex inference
+
+      // Rules (T-Box)
+      r_42: { id: 'r_42', label: '규칙 제42조\n(추락방지)', x: 550, y: 50, type: 'rule' },
+      r_241: { id: 'r_241', label: '규칙 제241조\n(화재예방)', x: 550, y: 250, type: 'rule' },
+      r_619: { id: 'r_619', label: '규칙 제619조\n(밀폐공간)', x: 550, y: 350, type: 'rule' },
+      r_232: { id: 'r_232', label: '규칙 제232조\n(폭발방지)', x: 550, y: 450, type: 'rule' },
+
+      // Guide / CI / PenaltyPath (service-facing view)
+      g_kosha: { id: 'g_kosha', label: 'KOSHA Guide\n표준 개선 절차', x: 790, y: 80, type: 'guide' },
+      ci_immediate: { id: 'ci_immediate', label: 'ChecklistItem\n즉시 조치', x: 790, y: 230, type: 'guide' },
+      p_general: { id: 'p_general', label: '일반 위반 또는\n일반 산재 발생 시', x: 1030, y: 120, type: 'penalty' },
+      p_death: { id: 'p_death', label: '사망 발생 시\n추가 사실 확인 필요', x: 1030, y: 300, type: 'penalty' },
+      p_serious: { id: 'p_serious', label: '중대재해 요건 충족 시\n추가 사실 확인 필요', x: 1030, y: 470, type: 'penalty' },
+    };
+
+    function App() {
+      const [inputs, setInputs] = useState({ loc: '', task: '', ppe: false });
+      const [activeNodes, setActiveNodes] = useState(new Set());
+      const [edges, setEdges] = useState([]);
+      const [logs, setLogs] = useState([]);
+
+      useEffect(() => {
+        const newActive = new Set();
+        const newEdges = [];
+        const newLogs = [];
+
+        // 1. Asserted Facts (사용자 입력/GPT 인식)
+        if (inputs.loc === 'scaffold') newActive.add('loc_scaffold');
+        if (inputs.loc === 'tank') newActive.add('loc_tank');
+        if (inputs.task === 'weld') newActive.add('task_weld');
+        if (inputs.task === 'paint') newActive.add('task_paint');
+        if (inputs.ppe) newActive.add('ppe_none');
+
+        // 2. Inference Logic (Reasoner 역할)
+        const addBusinessGuidance = (ruleId) => {
+          newActive.add('g_kosha');
+          newActive.add('ci_immediate');
+          newActive.add('p_general');
+          newActive.add('p_death');
+          newActive.add('p_serious');
+          newEdges.push({ from: ruleId, to: 'g_kosha', type: 'inferred' });
+          newEdges.push({ from: ruleId, to: 'ci_immediate', type: 'inferred' });
+          newEdges.push({ from: ruleId, to: 'p_general', type: 'inferred' });
+          newEdges.push({ from: ruleId, to: 'p_death', type: 'inferred' });
+          newEdges.push({ from: ruleId, to: 'p_serious', type: 'inferred' });
+          newLogs.push("[안내] 사업주 화면은 CI 즉시 조치, KOSHA Guide 표준 절차, 벌칙 3경로를 함께 보여줍니다.");
+        };
+        
+        // Scenario 1: 추락
+        if (inputs.loc === 'scaffold') {
+          newActive.add('c_fall');
+          newEdges.push({ from: 'loc_scaffold', to: 'c_fall', type: 'inferred' });
+          newLogs.push("💡 [추론] 비계 위 작업은 '추락 위험' 클래스에 속합니다.");
+          
+          newActive.add('r_42');
+          newEdges.push({ from: 'c_fall', to: 'r_42', type: 'inferred' });
+          addBusinessGuidance('r_42');
+          
+          if (inputs.ppe) {
+            newLogs.push("🚨 [모순/위반 감지] 추락위험 + 안전대 미착용 = 즉시 조치와 벌칙 안내 경로 노출");
+          }
+        }
+
+        // Scenario 2: 화재
+        if (inputs.task === 'weld') {
+          newActive.add('c_fire');
+          newEdges.push({ from: 'task_weld', to: 'c_fire', type: 'inferred' });
+          newLogs.push("💡 [추론] 용접 작업은 '화재 위험' 클래스에 속합니다.");
+          
+          newActive.add('r_241');
+          newEdges.push({ from: 'c_fire', to: 'r_241', type: 'inferred' });
+          addBusinessGuidance('r_241');
+        }
+
+        // Scenario 3: 질식
+        if (inputs.loc === 'tank') {
+          newActive.add('c_suffocate');
+          newEdges.push({ from: 'loc_tank', to: 'c_suffocate', type: 'inferred' });
+          newLogs.push("💡 [추론] 탱크 내부는 '밀폐 공간(질식 위험)' 클래스에 속합니다.");
+          
+          newActive.add('r_619');
+          newEdges.push({ from: 'c_suffocate', to: 'r_619', type: 'inferred' });
+          addBusinessGuidance('r_619');
+          
+          if (inputs.ppe) {
+             newLogs.push("🚨 [모순/위반 감지] 밀폐공간 + 방독면 미착용 = 즉시 조치와 벌칙 안내 경로 노출");
+          }
+        }
+
+        // 🌟 Complex Scenario (교집합 추론: 탱크 + 도장 = 폭발)
+        if (inputs.loc === 'tank' && inputs.task === 'paint') {
+          newActive.add('c_explosion');
+          newEdges.push({ from: 'loc_tank', to: 'c_explosion', type: 'inferred' });
+          newEdges.push({ from: 'task_paint', to: 'c_explosion', type: 'inferred' });
+          newLogs.push("🔥 [복합 추론 발동] 밀폐공간 ∩ 유기용제(페인트) = '폭발 위험' 클래스 자동 생성!");
+          
+          newActive.add('r_232');
+          newEdges.push({ from: 'c_explosion', to: 'r_232', type: 'inferred' });
+          addBusinessGuidance('r_232');
+        }
+
+        setActiveNodes(newActive);
+        setEdges(newEdges);
+        setLogs(newLogs);
+      }, [inputs]);
+
+      const drawEdge = (edge, index) => {
+        const from = nodes[edge.from];
+        const to = nodes[edge.to];
+        // 대략적인 중심점 계산 (박스 크기 감안)
+        const x1 = from.x + 120;
+        const y1 = from.y + 20;
+        const x2 = to.x - 10;
+        const y2 = to.y + 20;
+        
+        // 베지어 곡선
+        const path = `M ${x1} ${y1} C ${x1 + 50} ${y1}, ${x2 - 50} ${y2}, ${x2} ${y2}`;
+        
+        return (
+          <path key={index} d={path} className={edge.type === 'asserted' ? 'edge-asserted' : 'edge-inferred'} />
+        );
+      };
+
+      return (
+        <div className="flex flex-col h-screen w-full">
+          <div className="mb-4">
+            <h1 className="text-2xl font-bold text-white mb-2">🧠 온톨로지 리즈너(Reasoner) 시뮬레이터</h1>
+            <p className="text-slate-400 text-sm">GPT가 추출한 현장 정보(A-Box)가 온톨로지 규칙(T-Box)을 통과하며 <b>비물질 트리플(점선)</b>을 생성하고 법령을 도출하는 과정을 확인하세요.</p>
+          </div>
+
+          <div className="flex flex-1 gap-4">
+            {/* Control Panel */}
+            <div className="w-1/4 bg-slate-800 p-6 rounded-xl border border-slate-700 flex flex-col gap-6">
+              <h2 className="text-lg font-bold text-blue-400 border-b border-slate-700 pb-2">GPT 시각 인식 결과<br/><span className="text-xs text-slate-500">(Asserted Facts)</span></h2>
+              
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-slate-300">📍 작업 위치</label>
+                <select className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white" value={inputs.loc} onChange={e => setInputs({...inputs, loc: e.target.value})}>
+                  <option value="">-- 선택 안함 --</option>
+                  <option value="scaffold">이동식 비계 위</option>
+                  <option value="tank">밀폐된 탱크 내부</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-slate-300">🛠 작업 종류</label>
+                <select className="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white" value={inputs.task} onChange={e => setInputs({...inputs, task: e.target.value})}>
+                  <option value="">-- 선택 안함 --</option>
+                  <option value="weld">아크 용접</option>
+                  <option value="paint">페인트 도장 (유기용제)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-slate-300">⚠️ 불안전 행동/상태</label>
+                <label className="flex items-center gap-2 cursor-pointer bg-slate-900 border border-slate-600 p-2 rounded text-white">
+                  <input type="checkbox" checked={inputs.ppe} onChange={e => setInputs({...inputs, ppe: e.target.checked})} className="w-4 h-4 accent-blue-500" />
+                  필수 보호구 미착용
+                </label>
+              </div>
+
+              <div className="mt-auto">
+                <button onClick={() => setInputs({loc: '', task: '', ppe: false})} className="w-full py-2 bg-slate-700 hover:bg-slate-600 text-white rounded font-semibold transition-colors">초기화</button>
+              </div>
+            </div>
+
+            {/* Graph Visualization */}
+            <div className="w-3/4 bg-slate-900 rounded-xl border border-slate-700 relative overflow-auto">
+              <div className="absolute top-4 right-4 bg-slate-800 p-3 rounded border border-slate-700 z-20 text-xs text-slate-300 shadow-lg">
+                <div className="font-bold mb-2">범례 (Legend)</div>
+                <div className="flex items-center gap-2 mb-1"><div className="w-6 h-1 bg-blue-500"></div> 명시적 입력 (Asserted)</div>
+                <div className="flex items-center gap-2"><div className="w-6 h-1 border-t-2 border-dashed border-amber-500"></div> 추론된 논리 (Inferred)</div>
+              </div>
+
+              <svg>
+                {/* Draw arrows marker */}
+                <defs>
+                  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+                  </marker>
+                </defs>
+                {edges.map((edge, i) => drawEdge(edge, i))}
+              </svg>
+
+              {Object.values(nodes).map(node => {
+                const isActive = activeNodes.has(node.id);
+                let nodeClass = 'node-inactive';
+                if (isActive) {
+                  if (node.type === 'input') nodeClass = 'node-input';
+                  if (node.type === 'concept') nodeClass = 'node-concept';
+                  if (node.type === 'rule') nodeClass = 'node-rule';
+                  if (node.type === 'guide') nodeClass = 'node-guide';
+                  if (node.type === 'penalty') nodeClass = 'node-penalty';
+                }
+
+                return (
+                  <div key={node.id} className={`node ${nodeClass}`} style={{ left: node.x, top: node.y, minWidth: '120px', maxWidth: '200px', whiteSpace: 'pre-wrap' }}>
+                    {node.label}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Reasoning Log Panel */}
+          <div className="mt-4 bg-slate-800 p-4 rounded-xl border border-slate-700 h-48 overflow-y-auto font-mono text-sm">
+            <h3 className="text-slate-400 mb-2 border-b border-slate-700 pb-1">⚡ 추론기 실행 로그 (Inference Engine Logs)</h3>
+            {logs.length === 0 ? (
+              <div className="text-slate-600 italic">왼쪽 패널에서 현장 상황을 입력하면 추론기가 작동합니다...</div>
+            ) : (
+              <div className="space-y-1">
+                {logs.map((log, i) => (
+                  <div key={i} className={log.includes('🚨') ? 'text-red-400' : (log.includes('🔥') ? 'text-amber-400' : 'text-green-400')}>
+                    {log}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

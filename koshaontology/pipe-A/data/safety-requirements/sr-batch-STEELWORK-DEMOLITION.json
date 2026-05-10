@@ -1,0 +1,238 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T15:00:00+09:00",
+    "batchId": "sr-batch-STEELWORK-DEMOLITION",
+    "totalSafetyRequirements": 5
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-DEMOLITION-001",
+      "title": "해체작업 시 안전 확인 및 구조보강계획 수립",
+      "text": "사업주는 구축물 등의 해체작업 시 무너뜨리는 작업을 하기 전에 구축물이 넘어지는 위치와 파편의 비산거리 등을 고려하여 작업 반경 내에 사람이 없는지 미리 확인한 후 작업을 실시하여야 하며, 무너뜨리는 작업 중에는 관계 근로자가 아닌 사람의 출입을 금지하여야 한다. 또한 해체공법 및 해체공사 구조 안전성 검토 결과 해체계획서대로 해체되지 못하고 건축물이 붕괴할 우려가 있는 경우에는 구조보강계획을 작성하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제384조"],
+      "mandatedBy": ["NS-RULE384-0", "NS-RULE384-1"],
+      "addressesHazard": ["COLLAPSE", "STRUCK_BY"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-STEELWORK-001",
+      "title": "철골 조립 시 접합부 견고 확보 전 걸이로프 분리 금지",
+      "text": "사업주는 철골을 조립하는 경우에 철골의 접합부가 충분히 지지되도록 볼트를 체결하거나 이와 같은 수준 이상의 견고한 구조가 되기 전에는 들어 올린 철골을 걸이로프 등으로부터 분리해서는 아니 된다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제380조"],
+      "mandatedBy": ["NS-RULE380-0"],
+      "addressesHazard": ["COLLAPSE", "STRUCK_BY"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-STEELWORK-002",
+      "title": "수직 철골부재 승강로 및 연결부 작업발판 설치",
+      "text": "사업주는 근로자가 수직방향으로 이동하는 철골부재에는 답단 간격이 30cm 이내인 고정된 승강로를 설치하여야 하며, 수평방향 철골과 수직방향 철골이 연결되는 부분에는 연결작업을 위하여 작업발판 등을 설치하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제381조"],
+      "mandatedBy": ["NS-RULE381-0"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "승강로 답단 간격",
+            "condition": "<=",
+            "value": 30,
+            "unit": "cm",
+            "source": "제381조 본문"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-STEELWORK-003",
+      "title": "철골작업 시 근로자 이동통로 가설통로 설치",
+      "text": "사업주는 철골작업을 하는 경우에 근로자의 주요 이동통로에 고정된 가설통로를 설치하여야 한다. 다만, 안전대의 부착설비 등을 갖춘 경우에는 고정된 가설통로를 설치하지 아니할 수 있다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제382조"],
+      "mandatedBy": ["NS-RULE382-0"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-STEELWORK-004",
+      "title": "악천후 시 철골작업 중지",
+      "text": "사업주는 풍속이 초당 10m 이상, 강우량이 시간당 1mm 이상, 강설량이 시간당 1cm 이상인 경우에는 철골작업을 중지하여야 한다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제383조"],
+      "mandatedBy": ["NS-RULE383-0"],
+      "addressesHazard": ["FALL", "STRUCK_BY"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "풍속",
+            "condition": ">=",
+            "value": 10,
+            "unit": "m/s",
+            "source": "제383조 본문"
+          },
+          {
+            "parameter": "강우량",
+            "condition": ">=",
+            "value": 1,
+            "unit": "mm/h",
+            "source": "제383조 본문"
+          },
+          {
+            "parameter": "강설량",
+            "condition": ">=",
+            "value": 1,
+            "unit": "cm/h",
+            "source": "제383조 본문"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}

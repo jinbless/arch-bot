@@ -1,0 +1,788 @@
+{
+  "metadata": {
+    "guideCode": "C-C-28-2026",
+    "shortCode": "CC28",
+    "domain": "C",
+    "extractedAt": "2026-04-23T17:38:20Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-004"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC28-001",
+      "text": "물, 가연물, 유기물 및 산화제와의 접촉을 피하여야 한다.",
+      "guideContext": "산화성 액체 일반 요구사항 (법령 근거 미확인)",
+      "additionalDetail": "산화성 액체 저장·취급 시 혼재 불가능 물질과의 접촉 방지",
+      "workProcessPhase": "산화성 액체 취급",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-002",
+      "text": "지장용기는 내산성 용기를 사용하며, 밀전 및 밀봉하여 누설에 주의하여야 한다.",
+      "guideContext": "산화성 액체 저장용기",
+      "additionalDetail": null,
+      "workProcessPhase": "산화성 액체 저장",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-003",
+      "text": "증기는 유독하므로 보호구를 착용하여야 한다.",
+      "guideContext": "산화성 액체 취급 시 보호구",
+      "additionalDetail": null,
+      "workProcessPhase": "산화성 액체 취급",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "5.1.1",
+      "basedOn": [
+        "SR-CHEMICAL-025"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-004",
+      "text": "대부분 조해성을 가지므로 습기 등에 주의하여야 하고, 밀폐용기에 지장하여야 한다.",
+      "guideContext": "산화성 고체 저장 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "산화성 고체 저장",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-005",
+      "text": "통풍이 잘되는 차가운 곳에 지장하여야 한다.",
+      "guideContext": "산화성 고체 저장 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "산화성 고체 저장",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "5.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-006",
+      "text": "열원이나 산화되기 쉬운 물질이나 화재 위험이 있는 곳에서 멀리 떨어져야 한다.",
+      "guideContext": "산화성 고체 저장",
+      "additionalDetail": null,
+      "workProcessPhase": "산화성 고체 저장",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-013"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-007",
+      "text": "가열, 충격, 마찰 등을 피하고, 분해를 촉진하는 약류와 접촉을 피하여야 한다.",
+      "guideContext": "산화성 고체 취급 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "산화성 고체 취급",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-008",
+      "text": "취급시 용기 등의 파손에 의한 위험물의 누설에 주의하여야 한다.",
+      "guideContext": "산화성 고체 취급 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "산화성 고체 취급",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-009",
+      "text": "산화제가 있는 모든 지장지역은 \"등급 [등급 숫자] 산화제\"와 같이 표시하여야 한다.",
+      "guideContext": "산화제 저장물질 식별",
+      "additionalDetail": null,
+      "workProcessPhase": "물질 식별 및 표시",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-017"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-010",
+      "text": "다른 분류의 산화제와 같이 지장되어 있는 지역은 가장 위험한 등급으로 표시하여야 한다.",
+      "guideContext": "산화제 저장물질 식별",
+      "additionalDetail": null,
+      "workProcessPhase": "물질 식별 및 표시",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-017"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-011",
+      "text": "모든 지장용기는 승인을 받아야 하고, 산화제의 화학명을 표시하여야 한다.",
+      "guideContext": "산화제 저장물질 식별",
+      "additionalDetail": null,
+      "workProcessPhase": "물질 식별 및 표시",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-017"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-012",
+      "text": "산화성 액체 및 고체의 지장용기를 운송용으로 사용하는 경우에는 관련 규정의 요구사항을 충족시켜야 한다.",
+      "guideContext": "산화제 저장용기 운송 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장용기 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-013",
+      "text": "구조물의 재질은 지장되는 산화제에 적합하여야 한다.",
+      "guideContext": "대량 산화제 저장용 탱크·저장고",
+      "additionalDetail": null,
+      "workProcessPhase": "저장용기 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-014",
+      "text": "탱크와 지장고는 관련 규정에 따라 설계 및 제작하여야 한다.",
+      "guideContext": "대량 산화제 저장용 탱크·저장고 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장용기 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-015",
+      "text": "탱크와 지장고는 분해나 화재 노출로 인한 과압을 방지하기 위해 벤트나 기타 안전장치를 설치하여야 한다.",
+      "guideContext": "대량 산화제 저장용 탱크·저장고",
+      "additionalDetail": null,
+      "workProcessPhase": "저장용기 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-016",
+      "text": "지장소 내의 산화제 배치와 양은 산화제의 등급, 용기의 형태, 지장의 형태(격리, 차단 또는 독립)를 고려하여 소화설비를 설치하여야 한다.",
+      "guideContext": "산화제 저장시설 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-017",
+      "text": "산화제는 일반 인화성 물질, 인화성 액체, 윤활유, 그리고 산화제와 반응하거나 산화제의 분해를 촉진 또는 개시시키는 혼재 불가능 물질과의 접촉을 피하여 지장하여야 한다.",
+      "guideContext": "산화제 저장시설 혼재 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-018",
+      "text": "지장된 산화제의 오염방지에 특히 주의하여야 한다.",
+      "guideContext": "산화제 저장시설 오염방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-019",
+      "text": "격리된 창고에 산화제와 인화성 액체를 함께 지장할 경우 산화제 용기와 인화성 액체용기는 적어도 7.5 m 이상 떨어져 있어야 한다. 이때, 인화성 액체가 누출되어 산화제에 닿는 것을 방지하기 위해 배수구, 배수관 또는 경사진 바닥으로 분리하여야 한다.",
+      "guideContext": "산화제 저장시설 이격거리",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-020",
+      "text": "산화성 고체는 혼재 불가능 액체의 바로 아래에 지장해서는 안 된다.",
+      "guideContext": "산화제 저장시설 혼재 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-021",
+      "text": "산화성 액체를 지장하는 경우 차단지역에서 산화성 액체가 유출되어 혼재 불가능 물질이 있는 지역으로 유입되지 않도록 막을 수 있는 수단을 설치하여야 한다.",
+      "guideContext": "산화제 저장시설 유출 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-022",
+      "text": "두 가지 이상의 분류가 다른 산화제를 격리, 차단 또는 독립된 지역에 지장하는 경우 최대 허용량은 각 분류의 산화제 최대허용량에 대한 비율의 합으로 제한하여야 한다. 이때, 비율의 총 합량은 100 %를 초과하지 않아야 한다.",
+      "guideContext": "산화제 저장시설 허용량 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-023",
+      "text": "지장시설의 설계 시 현장이나 그 이외 지역을 산화제와 소화약제 및 그들의 액체 분해물질로부터 환경을 보호하기 위해 봉쇄(Containment)할 수 있도록 설계하여야 한다.",
+      "guideContext": "산화제 저장시설 봉쇄 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-024",
+      "text": "지장시설의 배치는 많은 양의 연기와 유독 가스의 잠재적 발생을 고려하여야 하며, 특히 지장으로 인해 수동 진압작업, 건물의 출구 그리고 인접 주거지와 마을주민의 피난에 영향을 주어서는 안 된다.",
+      "guideContext": "산화제 저장시설 배치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-025",
+      "text": "산화제와 접촉할 수 있는 가연성 구조물의 재료는 호환성이 있는 도료로 도장하여 산화제에 의한 가연성 물질의 침투를 방지하여야 한다.",
+      "guideContext": "산화제 저장시설 구조물 보호",
+      "additionalDetail": null,
+      "workProcessPhase": "저장시설 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-026",
+      "text": "각 시설에 대한 비상계획을 수립하여 재검토를 하여야 하고, 최소한 연례적으로 현장 비상조직들의 협조 하에 훈련을 하여야 한다.",
+      "guideContext": "산화제 시설 비상계획 및 훈련 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "화재예방 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-027",
+      "text": "산화제 지장소에서 작업에 참여하는 사람은 생산자와 처리업자의 권장사항을 비롯하여 물질의 안전취급에 관한 교육을 받아야 한다.",
+      "guideContext": "산화제 취급 교육 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "화재예방 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-028",
+      "text": "오염을 방지하기 위하여 누출된 물질을 처리할 때에는 주의하여야 한다.",
+      "guideContext": "산화제 누출 처리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "화재예방 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-029",
+      "text": "지장물질이 난방설비, 배관 또는 닥트와 직접 접촉되지 않도록 난방시설을 설치하여야 하며, 거리를 두어 산화제가 분해온도에 14 ℃를 더한 온도 또는 49 ℃ 중에서 보다 낮은 온도 이상으로 가열되지 않도록 유의하여야 한다.",
+      "guideContext": "산화제 저장시설 난방 관리",
+      "additionalDetail": null,
+      "workProcessPhase": "화재예방 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-013"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-030",
+      "text": "전기설비는 폭발위험지역에 적합하도록 설치하여야 한다.",
+      "guideContext": "산화제 저장시설 전기설비",
+      "additionalDetail": null,
+      "workProcessPhase": "화재예방 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-031",
+      "text": "산화제를 지장하는 전 지역에서는 흡연을 금지하여야 한다.",
+      "guideContext": "산화제 저장시설 흡연 금지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "화재예방 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-032",
+      "text": "지장지역 내부와 모든 출입구에는 눈에 띄도록 \"금연\"이라는 표지를 부착하여야 한다.",
+      "guideContext": "산화제 저장시설 금연 표지",
+      "additionalDetail": null,
+      "workProcessPhase": "화재예방 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-CHEMICAL-017"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-033",
+      "text": "산화제 지장지역의 정비작업은 사전에 검토하고, 안전관리자에게 승인을 얻어야 한다.",
+      "guideContext": "산화제 저장시설 정비·보수",
+      "additionalDetail": null,
+      "workProcessPhase": "정비 및 보수",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.4",
+      "basedOn": [
+        "SR-MGMT-005"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-034",
+      "text": "절단 및 용접 작업은 관련 규정을 준수하여야 한다.",
+      "guideContext": "산화제 저장시설 정비·보수",
+      "additionalDetail": null,
+      "workProcessPhase": "정비 및 보수",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-009"
+      ]
+    },
+    {
+      "identifier": "CI-CC28-035",
+      "text": "소화전과 급수는 관련 규정에 따라 설치하여야 한다.",
+      "guideContext": "산화제 저장시설 소방설비 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-036",
+      "text": "자동 스프링클러 설비는 물질의 특성, 지장방법, 건물구조를 고려하여 결정하여야 한다.",
+      "guideContext": "산화제 저장시설 스프링클러 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-037",
+      "text": "건식(Dry-pipe) 및 2중 인터록 준비작동식(Double-interlock pre-action) 스프링클러 설비는 산화제가 있는 건물 또는 지역의 보호에는 사용할 수 없다.",
+      "guideContext": "산화제 저장시설 스프링클러 제한 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-038",
+      "text": "소화용수는 호스와 자동 스프링클러에 의해 산화제 지장을 방호하는데 적설하여야 한다. 이때, 급수설비는 호스를 이용하는 경우 적어도 2,840 L/min을, 자동 스프링클러의 물 수요량을 초과한 호스를 사용할 경우 1,890 L/min을 공급할 수 있어야 한다.",
+      "guideContext": "산화제 저장시설 소화용수 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-039",
+      "text": "소화용수의 급수시간은 최소 2시간 이상이어야 한다.",
+      "guideContext": "산화제 저장시설 소화용수 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-040",
+      "text": "수계 소화설비(Water-based fire protection system)는 관련 규정에 따라 점검, 시험 및 유지 관리하여야 한다.",
+      "guideContext": "산화제 저장시설 소화설비 유지관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-041",
+      "text": "소화기나 호스릴 형태의 수동 소화장치는 관련 규정에 따라 설치하여야 한다.",
+      "guideContext": "산화제 저장시설 수동 소화장치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-042",
+      "text": "염소를 발생시킬 수 있는 산화제가 있는 곳에서는 암모늄화합물(등급 A, B, C)이 포함된 분말 소화기의 비치와 사용을 금해야 한다.",
+      "guideContext": "산화제 저장시설 소화기 제한 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-043",
+      "text": "할론 소화기는 산화제 지장지역에 사용할 수 없다.",
+      "guideContext": "산화제 저장시설 소화기 제한 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "소방설비 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-044",
+      "text": "산화제 지장지역에는 인화성 폐기물의 축적을 하지 않아야 한다.",
+      "guideContext": "산화제 폐기물 처리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "폐기물 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-045",
+      "text": "누출된 산화제와 파손된 용기는 즉시 안전한 장소로 옮겨서 처리하여야 한다. 이때, 누출된 물질은 분리된 청결한 용기에 지장하여야 하고, 원래의 용기에는 다시 지장할 수 없으며, 일반 쓰레기와 함께 처리하면 안 된다.",
+      "guideContext": "산화제 누출 처리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "폐기물 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-046",
+      "text": "사용된 빈 인화성 용기는 격리된 지역이나 스프링클러가 설치된 지역에 지장하여야 한다.",
+      "guideContext": "산화제 빈 용기 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "폐기물 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-047",
+      "text": "일시적인 분진의 축적을 막을 수 있도록 관리하여야 한다.",
+      "guideContext": "산화제 저장시설 분진 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "폐기물 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC28-048",
+      "text": "화재시나 화재가 일어나지 않은 상태에서 젖은 수용성 산화제를 지장하기 위해 사용된 흡수성 가연성 포장재료와 산화제 수용액에 노출된 목재 팔렛은 안전한 외부에 옮겨 적절하게 폐기하여야 한다.",
+      "guideContext": "산화제 오염 포장재 폐기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "폐기물 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC28-001",
+      "term": "산화제",
+      "definition": "GHS 분류기준에 의한 산화성 액체 및 산화성 고체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC28-002",
+      "term": "산화성 액체",
+      "definition": "그 자체는 반드시 가연성을 가지지 않으나, 일반적으로 산소를 발생시켜 다른 물질을 연소시키거나 연소에 기여할 우려가 있는 액체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC28-003",
+      "term": "산화성 고체",
+      "definition": "그 자체로 연소하지 않더라도 일반적으로 산소를 발생시켜 다른 물질을 연소시키거나 연소에 기여하는 고체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC28-004",
+      "term": "혼재 불가능 물질",
+      "definition": "산화제와 접촉시 위험한 반응을 일으키거나 산화제의 분해를 촉진시키는 물질을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC28-01",
+      "processOrder": 1,
+      "processName": "산화제 저장 준비 및 물질 식별",
+      "safetyMeasures": "저장지역에 등급 표시, 모든 저장용기에 화학명 표시, 저장용기 승인 확인, 가장 위험한 등급으로 표시",
+      "requiredPPE": [
+        "보호구"
+      ],
+      "sourceSection": "5.2",
+      "relatedSR": [
+        "SR-CHEMICAL-017"
+      ]
+    },
+    {
+      "identifier": "WP-CC28-02",
+      "processOrder": 2,
+      "processName": "산화성 액체 저장 및 취급",
+      "safetyMeasures": "물·가연물·유기물·산화제 접촉 방지, 내산성 용기 사용 및 밀전·밀봉, 유독 증기 대비 보호구 착용",
+      "requiredPPE": [
+        "호흡용 보호구",
+        "보호장갑"
+      ],
+      "sourceSection": "5.1.1",
+      "relatedSR": [
+        "SR-CHEMICAL-025"
+      ]
+    },
+    {
+      "identifier": "WP-CC28-03",
+      "processOrder": 3,
+      "processName": "산화성 고체 저장 및 취급",
+      "safetyMeasures": "습기 주의 및 밀폐용기 저장, 통풍이 잘되는 차가운 곳 저장, 열원·화재위험 장소 이격, 가열·충격·마찰 방지, 용기 파손 누설 주의",
+      "requiredPPE": [
+        "보호장갑",
+        "보안경"
+      ],
+      "sourceSection": "5.1.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-013"
+      ]
+    },
+    {
+      "identifier": "WP-CC28-04",
+      "processOrder": 4,
+      "processName": "저장시설 배치 및 혼재 방지 관리",
+      "safetyMeasures": "인화성 물질·윤활유·혼재 불가능 물질 접촉 방지 저장, 산화제-인화성 액체 7.5m 이상 이격, 산화성 고체는 혼재 불가능 액체 아래 저장 금지, 유출 방지 수단 설치, 봉쇄 설계",
+      "requiredPPE": [
+        "보호장갑"
+      ],
+      "sourceSection": "5.4",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-002"
+      ]
+    },
+    {
+      "identifier": "WP-CC28-05",
+      "processOrder": 5,
+      "processName": "화재·폭발 예방 관리",
+      "safetyMeasures": "난방설비 직접 접촉 방지 및 온도 관리(분해온도+14℃ 또는 49℃ 이하), 방폭 전기설비 설치, 전 지역 흡연 금지, 금연 표지 부착",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-ELECTRIC-011",
+        "SR-FIRE_EXPLOSION-013"
+      ]
+    },
+    {
+      "identifier": "WP-CC28-06",
+      "processOrder": 6,
+      "processName": "정비 및 보수 작업",
+      "safetyMeasures": "정비작업 사전 검토 및 안전관리자 승인, 절단·용접 작업 시 관련 규정 준수",
+      "requiredPPE": [
+        "안전모",
+        "보호장갑",
+        "보안경"
+      ],
+      "sourceSection": "6.4",
+      "relatedSR": [
+        "SR-MGMT-005",
+        "SR-FIRE_EXPLOSION-009"
+      ]
+    },
+    {
+      "identifier": "WP-CC28-07",
+      "processOrder": 7,
+      "processName": "소방설비 설치 및 유지관리",
+      "safetyMeasures": "소화전·급수 설치, 자동 스프링클러 설비 설치(건식·2중 인터록 준비작동식 사용 금지), 소화용수 급수설비 확보(호스 2,840L/min, 스프링클러 초과분 호스 1,890L/min), 급수시간 최소 2시간",
+      "requiredPPE": [],
+      "sourceSection": "6.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC28-08",
+      "processOrder": 8,
+      "processName": "폐기물 처리 및 누출 대응",
+      "safetyMeasures": "인화성 폐기물 축적 금지, 누출 산화제·파손 용기 즉시 안전한 장소로 이동 처리, 분리된 청결 용기에 저장, 원래 용기 재사용 금지, 빈 인화성 용기 격리 저장, 분진 축적 방지",
+      "requiredPPE": [
+        "보호장갑",
+        "호흡용 보호구"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC28-001",
+      "equipmentName": "소화용수 급수설비",
+      "specifications": {
+        "hoseFlowRate": "최소 2,840 L/min",
+        "hoseWithSprinklerFlowRate": "최소 1,890 L/min (자동 스프링클러 물 수요량 초과분)",
+        "supplyDuration": "최소 2시간 이상"
+      },
+      "sourceSection": "6.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC28-002",
+      "equipmentName": "산화성 액체 저장용기",
+      "specifications": {
+        "material": "내산성 용기",
+        "sealing": "밀전 및 밀봉",
+        "requirement": "누설 방지"
+      },
+      "sourceSection": "5.1.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "ES-CC28-003",
+      "equipmentName": "대량 산화제 저장용 탱크 및 저장고",
+      "specifications": {
+        "material": "저장 산화제에 적합한 재질",
+        "safetyDevice": "벤트 또는 기타 안전장치 (과압 방지용)",
+        "design": "관련 규정에 따라 설계 및 제작"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-035",
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "ES-CC28-004",
+      "equipmentName": "자동 스프링클러 설비",
+      "specifications": {
+        "type": "습식(Wet-pipe) 스프링클러만 허용",
+        "restriction": "건식(Dry-pipe) 및 2중 인터록 준비작동식(Double-interlock pre-action) 사용 불가",
+        "consideration": "물질의 특성, 저장방법, 건물구조 고려"
+      },
+      "sourceSection": "6.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC28-005",
+      "equipmentName": "난방시설",
+      "specifications": {
+        "temperatureLimit": "산화제 분해온도 + 14℃ 또는 49℃ 중 낮은 온도 미만 유지",
+        "requirement": "저장물질과 난방설비·배관·덕트 직접 접촉 방지"
+      },
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-013"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC28-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "비상계획서",
+      "requiredSections": [
+        "비상조직 구성",
+        "비상 훈련 계획",
+        "연례 재검토"
+      ],
+      "sourceSection": "6.1",
+      "relatedSR": null
+    }
+  ]
+}

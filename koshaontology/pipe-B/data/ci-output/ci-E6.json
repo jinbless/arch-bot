@@ -1,0 +1,552 @@
+{
+  "metadata": {
+    "guideCode": "E-6-2012",
+    "shortCode": "E6",
+    "domain": "B",
+    "extractedAt": "2026-04-22T05:19:05Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-B-013"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-E6-001",
+      "text": "개폐장치의 사용자는 안전한 운전과 전기위험을 최소화하기 위해서 관리시스템을 운영하여야 하며, 이 시스템에는 다음 사항이 포함되어야 한다. (1) 장치의 설치, 시운전, 작동, 정비, 철거 등의 절차 (2) 적절한 문서관리 시스템 (3) 책임과 교육 요구사항의 정의 (4) 절차의 유효성 감사",
+      "guideContext": "전기개폐장치 안전관리시스템",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-002",
+      "text": "개폐장치의 사용자는 이용할 수 있는 개폐장치에 대한 문서, 즉 전기도면·기기 등록대장·정비기록 등을 갖고 있어야 하며, 이러한 문서들은 긴급 시에 활용할 수 있도록 최신정보를 포함하도록 한다.",
+      "guideContext": "전기개폐장치 문서관리",
+      "additionalDetail": "포함사항: (가) 전기결선도 (나) 고장 정도 (다) 기기등록 대장 세부사항 (라) 운전 제약조건 (마) 정비기록 (바) 고장 제거 조작횟수 (사) 변경 세부사항 (아) 아크 제어장치 여부",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-003",
+      "text": "문서의 정보를 이용하여 개폐장치의 잠재위험성과 문제점을 평가하여야 한다. 여기에는 개폐장치의 과도한 응력, 오조작 방지 손잡이(Anti-reflex handle)의 부재, 적절한 화재방지조치가 미흡한 설비의 수동운전 등을 포함할 수 있다.",
+      "guideContext": "전기개폐장치 위험성 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E6-004",
+      "text": "위 평가에서는 설비와 전선로의 안전한 운전을 보증하기 위하여 필요한 조치를 확인하여야 한다. 이에 필요한 안전조치는 다음과 같다. (가) 통전 시 과도한 응력을 받는 개폐장치의 작동금지 (나) 통전시 개폐장치에 접근 금지 (다) 고장 수준이 감소되도록 회로를 재구성 (라) 전압이 인가된 경우에 수동조작 개폐장치의 조작 금지 (마) 과도하게 응력을 받은 개폐장치의 교체",
+      "guideContext": "전기개폐장치 위험성 평가 후 안전조치",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E6-005",
+      "text": "평가결과 긴급하게 취해야 할 조치들은 다음과 같다. (가) 과도하게 응력을 받은 개폐장치의 교체 (나) 오조작 방지 손잡이의 설치 (다) 화재방지 수단의 보강",
+      "guideContext": "전기개폐장치 위험성 평가 후 긴급조치",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-006",
+      "text": "안전작업절차를 수립하고 개폐장치의 운전, 검사 및 정비 그리고 시험을 위한 조치는 자격자가 실시하여야 한다.",
+      "guideContext": "전기개폐장치 안전작업절차",
+      "additionalDetail": null,
+      "workProcessPhase": "안전작업절차 수립",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-ELECTRIC-019"
+      ]
+    },
+    {
+      "identifier": "CI-E6-007",
+      "text": "개폐장치와 관련한 임무, 권한, 안전조치 등에 대하여 명확하게 정의하고, 이 요건을 만족시키기 위한 교육을 실시하여야 한다.",
+      "guideContext": "전기개폐장치 안전작업절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E6-008",
+      "text": "안전작업절차는 제한구역지침, 안전작업허가서 등의 내용을 포함하여 문서화하여야 한다.",
+      "guideContext": "전기개폐장치 안전작업절차",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-ELECTRIC-019"
+      ]
+    },
+    {
+      "identifier": "CI-E6-009",
+      "text": "개폐장치의 운전, 검사 및 정비, 시험 등을 수행하는 작업자는 안전작업절차를 숙지하여야 한다.",
+      "guideContext": "전기개폐장치 교육 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E6-010",
+      "text": "개폐장치에 대한 작업을 수행하는 자는 안전하게 업무를 수행할 수 있도록 전문교육기관으로부터 필요한 교육을 받아야 한다.",
+      "guideContext": "전기개폐장치 교육 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E6-011",
+      "text": "개폐장치는 정기적으로 검사 및 시험을 실시하여야 한다.",
+      "guideContext": "전기개폐장치 검사",
+      "additionalDetail": null,
+      "workProcessPhase": "검사",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-012",
+      "text": "각종 개폐장치의 절연유 및 SF6에 관한 취급, 청소, 오염방지, 처분 등의 절차는 관련규정의 절차에 맞게 실시하여야 한다.",
+      "guideContext": "전기개폐장치 절연유·SF6 관리",
+      "additionalDetail": null,
+      "workProcessPhase": "검사",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-013",
+      "text": "개폐장치의 검사 후 다음과 같은 정비 우선순위가 결정되어야 한다. (가) 즉시(개폐장치가 위험한 경우) (나) 가능한 한 빨리 (다) 다음의 계획정비기간 중",
+      "guideContext": "전기개폐장치 검사 후 정비 우선순위",
+      "additionalDetail": null,
+      "workProcessPhase": "검사",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-014",
+      "text": "개폐장치의 검사시 다음 항목을 확인하여야 한다. (가) 개폐장치 설치장소의 구획시설(펜스, 담장 등), 습기, 일반근로자의 접근 가능성, 소화설비의 설치상태, 청결상태 등 (나) 개폐장치의 부식, 절연유 액위, 라벨의 부착, 계측 및 보호장치 등의 설치상태 (다) 개폐장치 설치장소에 다음과 같은 비정상적 상태의 흔적: 고온상태, 탄화흔적 또는 오존냄새, 절연유의 누설 등",
+      "guideContext": "전기개폐장치 검사 확인항목",
+      "additionalDetail": null,
+      "workProcessPhase": "검사",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-015",
+      "text": "정비는 정해진 주기에 의해 정기적으로 시행되어야 한다.",
+      "guideContext": "전기개폐장치 정비",
+      "additionalDetail": null,
+      "workProcessPhase": "정비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-016",
+      "text": "개폐장치를 교체하는 경우 다음의 사항을 고려하여야 한다. (가) 보호장치 및 제어장치의 작동상태 (나) 최신의 안전기준에 의한 연동시스템 및 접지시스템 요구사항 (다) 단락용량 (라) 필요시 설치장소의 환기상태 (마) 교체장비의 정격",
+      "guideContext": "전기개폐장치 교체",
+      "additionalDetail": null,
+      "workProcessPhase": "교체",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "CI-E6-017",
+      "text": "설비운용을 위한 예비품의 확보는 부싱, 변류기 등의 전략적 품목과 다음의 일상적 품목을 구비하여야 한다. (가) 소호접점(Arcing contact) (나) 유입가스 또는 절연유 (다) 개스킷 (라) 트립코일 등",
+      "guideContext": "전기개폐장치 예비품 확보",
+      "additionalDetail": null,
+      "workProcessPhase": "교체",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E6-018",
+      "text": "개폐장치의 설치장소에는 화재의 확산을 방지하기 위하여 방화벽으로 구획하여야 한다.",
+      "guideContext": "전기개폐장치 설치장소 화재예방 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E6-019",
+      "text": "개폐장치의 설치장소에는 하론 또는 이산화탄소와 같은 소화 매체를 사용한다. 다만, 하론은 환경적인 고려때문에 이상적인 선택이 아니므로, 화재위험이 특히 심각하고 인접한 설비에 영향을 미칠 수 있는 구역에서는 이산화탄소를 사용한다.",
+      "guideContext": "전기개폐장치 설치장소 소화설비",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "8.2",
+      "basedOn": [
+        "SR-CONFINED-010"
+      ]
+    },
+    {
+      "identifier": "CI-E6-020",
+      "text": "상기 (1)항의 소화설비는 화재 탐지시 자동적으로 작동하여야 한다. 다만, 근로자가 안전한 지역으로 피신하기 전 소화설비가 작동된 경우, 근로자가 수동으로 소화설비를 변환시킬 수 있는 안전장치가 구비되어야 한다.",
+      "guideContext": "전기개폐장치 설치장소 소화설비 작동",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "8.2",
+      "basedOn": [
+        "SR-CONFINED-010"
+      ]
+    },
+    {
+      "identifier": "CI-E6-021",
+      "text": "해당지역에 경고표지와 지시사항을 게시하여야 하며, 이 내용을 안전작업절차서에 포함시켜야 한다.",
+      "guideContext": "전기개폐장치 설치장소 소화설비 경고표지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.2",
+      "basedOn": [
+        "SR-CONFINED-010"
+      ]
+    },
+    {
+      "identifier": "CI-E6-022",
+      "text": "휴대용 소화기의 사용과 공급, 시스템을 확인하기 위한 절차도 검토하여야 한다. 문제가 밝혀진 곳에는 이동형 소화기와 고정식 소화설비를 함께 고려하여 교체, 재충전, 재배치와 같은 수정조치가 이루어져야 한다.",
+      "guideContext": "전기개폐장치 설치장소 소화기 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E6-023",
+      "text": "개폐장치에 의한 화재예방을 위하여 다음의 사항을 고려하여야 한다. (가) 장비의 교체 혹은 유지보수 후에 사고가 일어날 가능성이 더 크므로 작업자의 역량강화 및 안전작업절차의 준수 (나) 절연유 또는 절연특성에 대한 지속적 감시 (다) 점화원의 제어 (라) 청결상태 유지",
+      "guideContext": "전기개폐장치 화재예방 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E6-024",
+      "text": "개폐장치 설치장소에는 화재를 초기에 탐지하여 경보하기 위한 자동화재탐지설비를 설치하여야 하며, 신속한 화재진압을 위하여 소화설비와 연동되어야 한다.",
+      "guideContext": "전기개폐장치 설치장소 자동화재탐지설비",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "8.3",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-E6-001",
+      "term": "개폐장치(Switchgear)",
+      "definition": "전기회로를 개폐, 복구 및 전환하는 접촉부품 또는 이와 같은 기능을 갖춘 장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E6-002",
+      "term": "차단기(Circuit breaker)",
+      "definition": "수동으로 전선로를 개폐하도록 설계되고, 정격상태 하에서 적절히 사용하는 경우 과전류의 손상 없이 자동으로 회로를 개방하도록 설계된 장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "DT-E6-003",
+      "term": "절연유(Insulating oil)",
+      "definition": "전기의 절연을 목적으로 원유로부터 분할 증류해서 얻어진 것을 말하며, 유입변압기, 유입차단기, 유입케이블, 유입커패시터 등에 사용된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E6-004",
+      "term": "SF6(Sulphur hexafluoride)",
+      "definition": "황 원자를 중심으로 플루오린 원자가 정팔면체 구조를 취하고 있는 육플루오린화황(통용: 육불화황, 헥사플루오린화 황, 육플루오르화 황)으로서, 높은 절연성능으로 변압기, 절연개폐장치 등의 절연 매체로 사용되는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E6-005",
+      "term": "진공차단기(Vacuum circuit breaker)",
+      "definition": "차단접점이 밀봉된 진공용기 내에 장착되어 있는 차단기를 말한다. 가동전극은 벨로즈(Bellose)에 의해서 분리되며, 차단시 전극으로부터 증발된 금속증기에 의해 아크가 발생하고, 이 아크는 금속증기 입자가 고체면에서 응축될 때 소멸한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E6-006",
+      "term": "단락용량(Short-circuit capacity)",
+      "definition": "전력시스템에서 삼상 단락사고시 고장점에 전력이 유입되었을 때 계통이 장애를 입지 않는 최대 가상전력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E6-007",
+      "term": "트립장치(Tripping)",
+      "definition": "보호계전기 작동으로 차단기를 차단시키기 위해 설치하는 보조차단기를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-E6-01",
+      "processOrder": 1,
+      "processName": "개폐장치 위험성 평가",
+      "safetyMeasures": "문서 정보를 이용하여 잠재위험성과 문제점 평가. 과도한 응력, 오조작 방지 손잡이 부재, 화재방지조치 미흡 여부 확인. 통전 시 과도 응력 개폐장치 작동금지, 통전시 접근 금지, 회로 재구성, 수동조작 금지, 과도 응력 장치 교체 등 안전조치 실시.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "WP-E6-02",
+      "processOrder": 2,
+      "processName": "개폐장치 검사",
+      "safetyMeasures": "정기적으로 검사 및 시험 실시. 설치장소 구획시설·습기·접근 가능성·소화설비·청결상태 확인. 부식·절연유 액위·라벨·계측장치 확인. 고온상태·탄화흔적·오존냄새·절연유 누설 등 비정상 상태 확인. 절연유 및 SF6 취급 절차 준수. 검사 후 정비 우선순위 결정.",
+      "requiredPPE": [],
+      "sourceSection": "6.1",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "WP-E6-03",
+      "processOrder": 3,
+      "processName": "개폐장치 정비",
+      "safetyMeasures": "정해진 주기에 의해 정기적으로 시행. 개폐장치 종류(유입차단기, SF6 차단기, 진공 차단기 등), 사용연수, 작동횟수를 고려하여 주기 결정. 정비이력 기록 및 분석.",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "WP-E6-04",
+      "processOrder": 4,
+      "processName": "개폐장치 교체",
+      "safetyMeasures": "보호장치·제어장치 작동상태, 연동시스템·접지시스템 요구사항, 단락용량, 환기상태, 교체장비 정격 고려. 부싱·변류기 등 전략적 품목과 소호접점·절연유·개스킷·트립코일 등 일상적 예비품 확보.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "WP-E6-05",
+      "processOrder": 5,
+      "processName": "화재예방 및 소화설비 관리",
+      "safetyMeasures": "방화벽으로 설치장소 구획. 이산화탄소 또는 하론 소화매체 사용. 소화설비 자동작동 확인 및 수동 변환 안전장치 구비. 경고표지 및 지시사항 게시. 자동화재탐지설비 설치 및 소화설비 연동. 절연유·절연특성 지속 감시, 점화원 제어, 청결상태 유지.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": [
+        "SR-CONFINED-010",
+        "SR-CHEMICAL-010"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-E6-001",
+      "equipmentName": "3상 개폐장치",
+      "specifications": {
+        "ratedVoltage": "교류 400 V 이상 33 kV 이하",
+        "phases": "3상",
+        "components": "차단기, 개폐기, 퓨즈, 단로기, 고압접촉자",
+        "breakingMedia": "공기, 기름, 가스, 진공"
+      },
+      "sourceSection": "2",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "ES-E6-002",
+      "equipmentName": "소화설비(이산화탄소/하론)",
+      "specifications": {
+        "extinguishingMedia": "이산화탄소 또는 하론",
+        "activationMethod": "화재 탐지시 자동작동",
+        "safetyFeature": "수동 변환 안전장치 구비",
+        "preferredMedia": "이산화탄소(환경적 고려로 하론 대체)"
+      },
+      "sourceSection": "8.2",
+      "relatedSR": [
+        "SR-CONFINED-010"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-E6-001",
+      "documentType": "WORK_PLAN",
+      "title": "개폐장치 문서관리 체계(전기도면·기기등록대장·정비기록)",
+      "requiredSections": [
+        "전기결선도",
+        "고장 정도",
+        "기기등록 대장(종류, 제조사, 일련번호, 제조년도, 설치일, 정격전압·전류, 단락용량, 작동 메커니즘)",
+        "운전 제약조건",
+        "정비기록",
+        "고장 제거 조작횟수",
+        "변경 세부사항",
+        "아크 제어장치 여부"
+      ],
+      "sourceSection": "4.2",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "DR-E6-002",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "개폐장치 위험성 평가 보고서",
+      "requiredSections": [
+        "잠재위험성 평가",
+        "과도한 응력 확인",
+        "오조작 방지 손잡이 확인",
+        "화재방지조치 확인",
+        "안전조치 결정사항",
+        "긴급조치 사항"
+      ],
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "DR-E6-003",
+      "documentType": "WORK_PLAN",
+      "title": "개폐장치 안전작업절차서",
+      "requiredSections": [
+        "제한구역지침",
+        "안전작업허가서",
+        "임무 및 권한",
+        "안전조치",
+        "교육 요구사항",
+        "경고표지 및 지시사항"
+      ],
+      "sourceSection": "5.2",
+      "relatedSR": [
+        "SR-ELECTRIC-019"
+      ]
+    },
+    {
+      "identifier": "DR-E6-004",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "개폐장치 정기검사 보고서",
+      "requiredSections": [
+        "설치장소 상태(구획시설, 습기, 접근 가능성, 소화설비, 청결)",
+        "장치 상태(부식, 절연유 액위, 라벨, 계측장치)",
+        "비정상 상태 흔적(고온, 탄화, 오존냄새, 절연유 누설)",
+        "정비 우선순위"
+      ],
+      "sourceSection": "6.1",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "DR-E6-005",
+      "documentType": "TRAINING_RECORD",
+      "title": "개폐장치 작업자 교육 기록",
+      "requiredSections": [
+        "안전작업절차 숙지 확인",
+        "전문교육기관 교육 이수"
+      ],
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-E6-006",
+      "documentType": "WORK_PLAN",
+      "title": "개폐장치 정비이력 기록",
+      "requiredSections": [
+        "정비주기",
+        "개폐장치 종류",
+        "사용연수",
+        "작동횟수",
+        "정비이력 분석"
+      ],
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    }
+  ]
+}

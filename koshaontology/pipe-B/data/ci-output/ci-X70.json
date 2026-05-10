@@ -1,0 +1,252 @@
+{
+  "metadata": {
+    "guideCode": "X-70-2016",
+    "shortCode": "X70",
+    "domain": "A",
+    "extractedAt": "2026-04-22T12:01:42Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-A-014"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-X70-001",
+      "text": "시스템의 안전확보를 위하여 분석 대상이 되는 사고 발생과 시스템의 대응 방법을 확인한다.",
+      "guideContext": "운전원 행동분석(OAT) 기본흐름 1단계 (법령 근거 미확인)",
+      "additionalDetail": "시스템에 이상이 발생하였을 때, 시스템을 안전하게 유지하기 위해서는 시스템의 어떤 기능을 어떻게 조작하여 대응하여야 하는가를 파악한다.",
+      "workProcessPhase": "분석 대상 사고 및 시스템 대응 방법 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X70-002",
+      "text": "운전원에게 요구되는 대응 직무를 일련의 시나리오로 표현하여 사상수목(event tree)을 구성한다.",
+      "guideContext": "운전원 행동분석(OAT) 기본흐름 2단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사상수목(Event Tree) 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X70-003",
+      "text": "운전원이 해당 직무를 수행함에 있어서 요구되는 경보 및 정보, 그리고 적절한 조치를 하는 데 쓸 수 있는 가용 시간 등을 나타내는 표시장치를 확인한다.",
+      "guideContext": "운전원 행동분석(OAT) 기본흐름 3단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "경보·정보 표시장치 및 가용시간 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X70-004",
+      "text": "확률론적 안전성 평가를 위하여 사상수목(event tree)이나 결합수목(fault tree)에 휴민에러를 표현한다.",
+      "guideContext": "운전원 행동분석(OAT) 기본흐름 4단계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "사상수목/결합수목에 휴민에러 표현",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X70-005",
+      "text": "휴민에러확률을 추정한다.",
+      "guideContext": "운전원 행동분석(OAT) 기본흐름 5단계 (법령 근거 미확인)",
+      "additionalDetail": "가용시간-에러 확률 그래프를 이용하여 OAT의 휴민에러확률을 결정한다.",
+      "workProcessPhase": "휴민에러확률 추정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X70-006",
+      "text": "일단 활용할 수 있는 시간이 설정되면, 가용시간-에러 확률 그래프를 이용하여 에러 확률을 추정한다.",
+      "guideContext": "휴민에러확률 추정 방법 (법령 근거 미확인)",
+      "additionalDetail": "이 그림은 대수(log)-대수(log) 그래프로서, 에러 확률과 가용시간과의 관계를 입증하기 위하여 공학심리학자와 시스템분석가들에 의하여 개발되었는데, 1년에 1회 미만의 사고에만 적용될 수 있다.",
+      "workProcessPhase": "휴민에러확률 추정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X70-007",
+      "text": "개발자들은 이 기법을 생략 에러(omission error)와 선별 분석(screening analysis)에 한하여 사용할 것을 권하고 있다.",
+      "guideContext": "OAT 기법 적용범위 제한 권고 (법령 근거 미확인)",
+      "additionalDetail": "OAT 기법이 인지에러의 확률을 예측할 수는 있다. 그러나, 어떤 예측값에 대하여 불확실성이 매우 높으며, 경험이나 스트레스가 진단이나 의사결정에 미치는 영향 같은 행동형성요인들의 잠재적 대규모 영향은 설명하지 못한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-X70-001",
+      "term": "인간-기계 시스템(man-machine system)",
+      "definition": "인간과 도구, 기계, 설비 등으로 이루어진 모든 시스템을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-002",
+      "term": "휴민에러(Human error)",
+      "definition": "인간이 수행하는 일련의 행동이나 행동군 중에서 수용 한계를 벗어난 행동, 즉 시스템의 정상적 기능을 위하여 정의된 인간의 행동 한계를 넘은, 감내할 수 없는 행동을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-003",
+      "term": "행동 에러(slip)",
+      "definition": "자신이 의도한 대로 동작이나 행위가 이루어지지 않아 발생한 휴민에러를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-004",
+      "term": "기억검색 에러(lapse)",
+      "definition": "자신의 기억 속에서 특정 정보를 끄집어내지 못하여 발생한 휴민에러를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-005",
+      "term": "의사결정 에러(mistake)",
+      "definition": "상황에 맞는 판단을 하지 못하여 발생한 휴민에러를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-006",
+      "term": "실행에러(commission error)",
+      "definition": "인간이 업무를 수행하는 도중, 업무를 수행하기는 했으나 정해진 바에 따라 올바로 수행하지 못하여 발생한 휴민에러를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-007",
+      "term": "생략에러(omission error)",
+      "definition": "인간이 업무를 수행하는 도중, 정해진 바에 따라 수행하여야 하는 행위를 수행하지 않아 발생한 휴민에러를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-008",
+      "term": "휴민에러확률(Human error probability, HEP)",
+      "definition": "주어진 직무나 행동이 수행되었을 때 휴민에러가 발생할 확률을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-009",
+      "term": "기본휴민에러확률(Basic human error probability, BHEP)",
+      "definition": "독립된 직무를 수행할 때의 휴민에러확률, 즉 선행직무의 영향을 받지 않을 경우의 휴민에러확률을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-010",
+      "term": "인간행동의 성공확률(Human success probability, HSP)",
+      "definition": "휴민에러확률의 보수, 즉 1 - HEP를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-011",
+      "term": "인간신뢰도(Human reliability)",
+      "definition": "신뢰할 수 있거나 사용할 수 있는 시스템에 대하여 인간의 행동이 성공적으로 이루어질 확률을 말한다. 바꾸어 말하자면, 시스템의 신뢰도나 가용도를 훼손할만한 외적인 직무나 행동이 실행되지 않을 뿐만 아니라, 요구되는 시간 내에 시스템이 요구하는 인간행동, 직무, 또는 작업이 성공적으로 완수될 확률을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-012",
+      "term": "인간신뢰도분석(Human reliability analysis, HRA)",
+      "definition": "인간신뢰도가 추정되는 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-013",
+      "term": "직무(Task)",
+      "definition": "시스템의 목적이나 기능을 달성하는 데 기여하는 행동의 단위를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-014",
+      "term": "개시사상(Initiating event)",
+      "definition": "사고연쇄의 발단이 되는 사상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-015",
+      "term": "의존(Dependence)",
+      "definition": "어떤 행동의 실패 (또는 성공) 확률이 다른 행동에서 발생한 실패 (또는 성공) 여부에 따라 달라지는 상황을 말한다. 두 행동은 동일인에 의하여 수행될 수도 있고, 다른 사람에 의하여 수행될 수도 있다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X70-016",
+      "term": "사상수목(Event tree)",
+      "definition": "시스템 운전 중 수행되는 직무들을 나뭇가지 형태로 표현한 것을 말한다. 이 표현 안에서 사상들은 나뭇가지로 표현되고, 사상 연쇄는 시간에 따라 진행되는 것을 나타낸다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-X70-01",
+      "processOrder": 1,
+      "processName": "분석 대상 사고 및 시스템 대응 방법 확인",
+      "safetyMeasures": "시스템에 이상이 발생하였을 때, 시스템을 안전하게 유지하기 위해서는 시스템의 어떤 기능을 어떻게 조작하여 대응하여야 하는가를 파악한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X70-02",
+      "processOrder": 2,
+      "processName": "사상수목(Event Tree) 구성",
+      "safetyMeasures": "운전원에게 요구되는 대응 직무를 일련의 시나리오로 표현하여 사상수목(event tree)을 구성한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X70-03",
+      "processOrder": 3,
+      "processName": "경보·정보 표시장치 및 가용시간 확인",
+      "safetyMeasures": "운전원이 해당 직무를 수행함에 있어서 요구되는 경보 및 정보, 그리고 적절한 조치를 하는 데 쓸 수 있는 가용 시간 등을 나타내는 표시장치를 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X70-04",
+      "processOrder": 4,
+      "processName": "사상수목/결합수목에 휴민에러 표현",
+      "safetyMeasures": "확률론적 안전성 평가를 위하여 사상수목(event tree)이나 결합수목(fault tree)에 휴민에러를 표현한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X70-05",
+      "processOrder": 5,
+      "processName": "휴민에러확률 추정",
+      "safetyMeasures": "가용시간-에러 확률 그래프를 이용하여 OAT의 휴민에러확률을 결정한다. 최종적으로 추정된 휴민에러확률은 이후 추가적인 분석에 활용될 수 있다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [],
+  "documentRequirements": []
+}

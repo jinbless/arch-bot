@@ -4,84 +4,101 @@ Latest updated: 2026-05-10
 
 ## Purpose
 
-This plan defines the first monorepo transition step for `arch-bot`.
+This document records the active snapshot-import transition from the previous multi-repo workspace to root `arch-bot` monorepo operations.
 
-The current step is not a physical repository merge. The goal is to fix the GitHub baseline for the project-owned repositories and document the operating rules before any future snapshot import.
+This is a snapshot import, not a history rewrite. The original child GitHub repositories preserve historical commits, and root `arch-bot` records their imported baseline SHAs.
 
 ## Current Repository Boundary
 
-The local workspace keeps a root coordination repository and child repositories side by side:
+Target root layout:
 
 ```text
 arch-bot/
-├─ OHS/             project-owned service repo
-├─ koshaontology/   project-owned ontology/pipeline repo
-├─ legalize-kr/     external legal source dependency
-├─ kosha-guides/    guide source/parsed corpus
-├─ pictures-json/   synthetic observations and evaluation reports
-└─ *.md             root coordination documents
+├─ OHS/             imported service source
+├─ koshaontology/   imported ontology/pipeline source
+├─ legalize-kr/     external local dependency, ignored by root git
+├─ kosha-guides/    parsed Guide corpus and manifests only
+├─ pictures-json/   synthetic inputs and lightweight report manifests
+├─ docs/            root architecture/status/workplan documents
+└─ *.md             root governance and design documents
 ```
 
-`OHS`, `koshaontology`, and `legalize-kr` still contain their own `.git` directories. Root `arch-bot` does not yet vendor their contents.
+`OHS/.git` and `koshaontology/.git` are backed up outside root during import. `legalize-kr/.git` remains in place because that repository is external and not project-owned.
 
-## Phase 0: GitHub Baseline
+## Baseline Commits
 
-Project-owned repositories are pushed first:
+Project-owned repositories were pushed before import:
 
-- `koshaontology`: pushed to `jinbless/koshaontology`, baseline commit `60d025ee873e071faf9c90cc0b1a89b05c4812bd`.
-- `OHS`: pushed to `jinbless/OHS`, baseline commit `7eed7280e1ece9fa7bb32beb182017f5cfa96f5a`.
-- `arch-bot`: root coordination documents are pushed after this document update.
+| Directory | Source repo | Imported baseline |
+|---|---|---|
+| `koshaontology/` | `jinbless/koshaontology` | `60d025ee873e071faf9c90cc0b1a89b05c4812bd` |
+| `OHS/` | `jinbless/OHS` | `7eed7280e1ece9fa7bb32beb182017f5cfa96f5a` |
+| root `arch-bot/` | `jinbless/arch-bot` | `1565a9d14e76b7e3ceb6753354621f5d043c92de` |
 
-`legalize-kr` is not project-owned and is excluded from push targets. It remains an external source dependency from `legalize-kr/legalize-kr`.
+External dependency:
 
-## Phase 1: Documentation And Governance
+| Directory | Upstream repo | Local policy |
+|---|---|---|
+| `legalize-kr/` | `legalize-kr/legalize-kr` | excluded from import and push |
 
-This phase updates root documentation only:
+## Snapshot Import Rules
 
-- `README.md` acts as the main article for the whole project.
-- `repositories.md` records repository URLs, roles, branches, and pushed baseline commits.
-- `DATA_GOVERNANCE.md` defines tracked, generated, LFS/external, and local-only data classes.
-- `docs/architecture/source-provenance.md` defines the PROV-O/DCAT/SHACL metadata layer.
-- `NEXT_SESSION_INSTRUCTIONS.md` points the next session to the current baseline and monorepo governance docs.
+- Import only files that were tracked by the child repositories at the baseline commit.
+- Do not bulk-add child directories, because untracked parser scratch/log files may exist.
+- Keep raw KOSHA PDFs, old report bodies, caches, `.env`, `.venv`, `node_modules`, and runtime logs out of root history.
+- Track `kosha-guides/parsed/**` and `kosha-guides/manifest/**`.
+- Track `pictures-json/reports-manifest.json` and `docs/status/evaluation-baseline.md`, not historical `pictures-json/reports/**` bodies.
+- Keep `legalize-kr/` ignored and path-compatible as an external sibling dependency.
 
-No nested `.git` directories are removed in Phase 1. No child repository files are moved into root git history in Phase 1.
+## Import Branch
 
-## Phase 2: Optional Snapshot Import
+The import is performed on:
 
-If a true monorepo is needed later, use snapshot import as the default:
+```text
+codex/monorepo-snapshot-import
+```
 
-1. Confirm each project-owned child repo is pushed and clean.
-2. Record the exact source commit in `repositories.md`.
-3. Remove the child `.git` directory only during the import step.
-4. Adjust root `.gitignore` to track the selected child contents.
-5. Commit the imported snapshot in root `arch-bot`.
-
-Historical traceability remains in the original GitHub repositories. The monorepo records the imported commit SHA as provenance.
-
-## What Not To Do In Phase 1
-
-- Do not remove `OHS/.git`, `koshaontology/.git`, or `legalize-kr/.git`.
-- Do not force-push any repository.
-- Do not push `legalize-kr`.
-- Do not add raw KOSHA PDFs directly to root git history.
-- Do not bulk-edit old `pictures-json/reports/**` report bodies.
-- Do not mix source/provenance metadata into the runtime risk/SHE/SR/Guide ontology graph.
+After verification, this branch is pushed to `jinbless/arch-bot`. Main remains untouched until review/merge.
 
 ## Required Verification
 
-For each pushed project-owned repository:
+Git checks:
 
 ```bash
-git rev-parse HEAD
-git ls-remote origin main
+git rev-parse --abbrev-ref HEAD
+git ls-files OHS | wc -l
+git ls-files koshaontology | wc -l
+git ls-files kosha-guides/parsed | wc -l
+git ls-files | rg '\\.env|node_modules|\\.venv|\\.dev-logs|pictures-json/reports/|kosha-guides/.+\\.pdf'
 ```
 
-The two SHA values must match.
+Expected counts:
 
-Root relative paths must remain valid:
+```text
+OHS tracked files: 161
+koshaontology tracked files: 2268
+kosha-guides parsed files: 1038
+```
+
+Path checks:
 
 ```text
 OHS/backend                  -> ../../pictures-json
 koshaontology/pipe-A         -> ../../legalize-kr
-koshaontology/pipe-B         -> ../../kosha-guides
+koshaontology/pipe-B         -> ../../kosha-guides/parsed
 ```
+
+Build/checks:
+
+```text
+OHS backend Python compile: OK
+OHS frontend npm run build: OK
+koshaontology Python compile: OK
+JSON manifests parse: OK
+```
+
+## Rollback
+
+Before a successful commit, restore `OHS/.git` and `koshaontology/.git` from the external backup directory and switch back to root `main`.
+
+After a pushed import branch, rollback is a normal Git branch cleanup in `arch-bot`; child repository histories remain intact on GitHub.

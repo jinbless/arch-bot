@@ -1,0 +1,4544 @@
+{
+  "schema_version": "codex_manual_pilot.v1",
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "asserted_mapping_updates": 0,
+  "review_status": "candidate",
+  "scope": {
+    "batch_id": "034",
+    "guide_count": 30,
+    "source": "source JSON manual review; no external API; candidate-only"
+  },
+  "policies": {
+    "asserted_mapping": "disabled",
+    "sr_candidates": "candidate_only",
+    "min_evidence": "at least one extracted source span per candidate",
+    "runtime_intent": "generalized guide domain guard and scoring boundary",
+    "external_api_used": false,
+    "candidate_table_ready": true,
+    "auto_asserted_promotion": false,
+    "max_confidence_for_manual_sr_link": 0.86,
+    "notes": [
+      "Evidence spans are copied from guide titles, WorkProcess names, DomainTerm terms, or extracted WorkProcess/Checklist text.",
+      "SR candidates are conservative and must be imported as candidates only.",
+      "Rows must not be promoted to asserted mapping tables from this report."
+    ]
+  },
+  "guides": [
+    {
+      "guide_code": "H-91-2021",
+      "short_code": "H91",
+      "title": "피로도 평가 및 관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H91.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "worker_fatigue_assessment_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "피로도 평가",
+          "FSS",
+          "작업관련 피로",
+          "근무편성"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "industry_alignment": [
+          "사업장 보건관리",
+          "교대·장시간 근로"
+        ],
+        "evidence": "FSS 피로도 평가, 집단수준 피로 평가, 작업관련 피로요인 파악, 개인·사업장 피로관리를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.83
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "피로도 평가",
+          "FSS",
+          "작업관련 피로",
+          "근무편성"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "근무편성·휴가·보건관리 영역의 피로 기여요인 평가",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-91-2021",
+          "guide_code": "H-91-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.55,
+          "evidence": "피로와 작업환경 요인 문맥이 있으나 직접 인간공학 조치는 약함",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-91-2021",
+          "guide_code": "H-91-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "피로도 평가척도 FSS 또는 피로 설문지",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "피로도 평가척도 FSS 또는 피로 설문지",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-91-2021",
+          "guide_code": "H-91-2021"
+        },
+        {
+          "trigger_text": "작업관련 피로요인 체크리스트",
+          "cue_type": "document_or_form",
+          "confidence": 0.76,
+          "evidence": "작업관련 피로요인 체크리스트",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-91-2021",
+          "guide_code": "H-91-2021"
+        }
+      ],
+      "notes": "피로 평가 문서/면담 문맥이 없으면 일반 현장 사진으로 추천하지 않는다."
+    },
+    {
+      "guide_code": "H-92-2012",
+      "short_code": "H92",
+      "title": "전기도금 사업장 근로자 보건관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H92.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "electroplating_worker_health_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "전기도금",
+          "도금조",
+          "산세",
+          "시안화합물",
+          "국소배기"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "industry_alignment": [
+          "전기도금",
+          "금속표면처리",
+          "화학물질 취급"
+        ],
+        "evidence": "전기도금 사업장의 탈지·산세·중화·도금 공정에서 유기용제, 산류, 시안화합물, 금속, 국소배기, 보호구, 세척시설을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.91
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "전기도금",
+          "도금조",
+          "산세",
+          "시안화합물",
+          "국소배기"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.9,
+          "evidence": "유기용제, 산류, 시안화합물, 금속 노출",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.88,
+          "evidence": "전처리·산세·도금조 취급 작업",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "VENTILATION_POOR",
+          "confidence": 0.78,
+          "evidence": "푸쉬풀 후드·캐노피 후드·국소배기장치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.86,
+          "evidence": "도금조 유해물질 발산원 국소배기",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-006",
+          "confidence": 0.78,
+          "evidence": "전체환기와 환기량 관리",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.86,
+          "evidence": "유해성 및 취급 주의사항 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.8,
+          "evidence": "유기용제 등 취급 시 호흡용 보호구",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.84,
+          "evidence": "피부·눈 보호구와 세척시설",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-HAZMAT-013",
+          "confidence": 0.78,
+          "evidence": "긴급 세척시설·세안설비",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-HAZMAT-014",
+          "confidence": 0.72,
+          "evidence": "누출·비상시 제거 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-HAZMAT-017",
+          "confidence": 0.74,
+          "evidence": "피부장해 유발 물질 보호복",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.76,
+          "evidence": "공정별 보호구 지급·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "sr_id": "SR-VENTILATION-006",
+          "confidence": 0.76,
+          "evidence": "환기장치 설치 기준",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "도금조·산세조와 국소배기 후드",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "도금조·산세조와 국소배기 후드",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        },
+        {
+          "trigger_text": "전기도금 작업자의 안면보호구·고무장갑·앞치마",
+          "cue_type": "ppe",
+          "confidence": 0.84,
+          "evidence": "전기도금 작업자의 안면보호구·고무장갑·앞치마",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-92-2012",
+          "guide_code": "H-92-2012"
+        }
+      ],
+      "notes": "일반 금속작업이 아니라 전기도금/산세/시안화합물/후드 단서가 필요하다."
+    },
+    {
+      "guide_code": "H-93-2021",
+      "short_code": "H93",
+      "title": "의료기관 근로자의 공기매개 감염병에 대한 관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H93.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "healthcare_airborne_infectious_disease_management",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "의료기관",
+          "공기매개 감염병",
+          "결핵",
+          "격리병동",
+          "예방접종"
+        ],
+        "negative_context_terms": [
+          "일반 사무실",
+          "공사현장",
+          "항만하역",
+          "일반 마스크 착용 사진"
+        ],
+        "industry_alignment": [
+          "의료기관",
+          "병원",
+          "감염병 관리"
+        ],
+        "evidence": "의료기관 근로자의 결핵·수두·홍역·인플루엔자 노출 후 관리, 예방접종, 공기매개/비말매개 경계와 복귀관리를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.9
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "의료기관",
+          "공기매개 감염병",
+          "결핵",
+          "격리병동",
+          "예방접종"
+        ],
+        "exclude_when": [
+          "일반 사무실",
+          "공사현장",
+          "항만하역",
+          "일반 마스크 착용 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.88,
+          "evidence": "공기매개 감염병과 의료기관 근로자 노출 후 관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-93-2021",
+          "guide_code": "H-93-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "의료기관 배치·복귀·출입 관리 절차",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-93-2021",
+          "guide_code": "H-93-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PATHOGEN-001",
+          "confidence": 0.82,
+          "evidence": "근로자 감염병 예방 종합 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-93-2021",
+          "guide_code": "H-93-2021"
+        },
+        {
+          "sr_id": "SR-PATHOGEN-008",
+          "confidence": 0.84,
+          "evidence": "공기매개 감염병 환자 접촉 예방 조치 및 예방접종",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-93-2021",
+          "guide_code": "H-93-2021"
+        },
+        {
+          "sr_id": "SR-PATHOGEN-009",
+          "confidence": 0.84,
+          "evidence": "공기매개 감염병 노출 후 관리",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-93-2021",
+          "guide_code": "H-93-2021"
+        },
+        {
+          "sr_id": "SR-PPE-004",
+          "confidence": 0.7,
+          "evidence": "감염 우려 시 개인 전용 보호구",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-93-2021",
+          "guide_code": "H-93-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "병원 격리병동·호흡기내과·응급실 감염관리",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "병원 격리병동·호흡기내과·응급실 감염관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-93-2021",
+          "guide_code": "H-93-2021"
+        },
+        {
+          "trigger_text": "결핵 노출 후 관리표 또는 예방접종 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.82,
+          "evidence": "결핵 노출 후 관리표 또는 예방접종 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-93-2021",
+          "guide_code": "H-93-2021"
+        }
+      ],
+      "notes": "의료기관 공기매개 감염병 전용이라 일반 감기/마스크 사진과 분리한다."
+    },
+    {
+      "guide_code": "H-94-2021",
+      "short_code": "H94",
+      "title": "구제역 등 방역작업 종사자 자가 건강관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H94.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "livestock_epidemic_disinfection_worker_self_care",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "구제역",
+          "방역작업",
+          "가축전염병",
+          "소독제",
+          "고무장갑"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "industry_alignment": [
+          "축산 방역",
+          "소독제 살포",
+          "가축전염병 대응"
+        ],
+        "evidence": "구제역 등 방역작업 전 점검, 보호구 착용, 소독제 희석·살포, 작업 후 세척, 급성중독 응급처치를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.89
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "구제역",
+          "방역작업",
+          "가축전염병",
+          "소독제",
+          "고무장갑"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.82,
+          "evidence": "가축전염병 방역작업",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.84,
+          "evidence": "소독제 희석·살포와 급성 중독 응급처치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.78,
+          "evidence": "소독제 운반·희석·살포 작업",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PATHOGEN-010",
+          "confidence": 0.76,
+          "evidence": "동물매개 감염병 고위험작업 예방 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "sr_id": "SR-PATHOGEN-011",
+          "confidence": 0.72,
+          "evidence": "감염병 증상 발생 시 진료",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.78,
+          "evidence": "소독제 유해성 및 주의사항 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.7,
+          "evidence": "소독제 살포 시 호흡용 보호구",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.76,
+          "evidence": "피부·눈 보호와 세척시설",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "sr_id": "SR-HAZMAT-014",
+          "confidence": 0.68,
+          "evidence": "소독제 누출·비상시 제거 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.8,
+          "evidence": "방수복·고무장갑·고무장화·보안경 착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "축사 방역 소독제 살포와 방수복",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "축사 방역 소독제 살포와 방수복",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        },
+        {
+          "trigger_text": "구제역 방역 보호구·소독제 희석",
+          "cue_type": "ppe",
+          "confidence": 0.84,
+          "evidence": "구제역 방역 보호구·소독제 희석",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-94-2021",
+          "guide_code": "H-94-2021"
+        }
+      ],
+      "notes": "축산 방역/소독제 단서가 없으면 일반 감염병 또는 화학물질 가이드와 분리한다."
+    },
+    {
+      "guide_code": "H-95-2021",
+      "short_code": "H95",
+      "title": "만성폐쇄성 폐질환 근로자의 건강관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H95.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "copd_worker_health_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "COPD",
+          "폐활량검사",
+          "호흡보호구",
+          "직업적 위험인자"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "industry_alignment": [
+          "사업장 보건관리",
+          "호흡기질환"
+        ],
+        "evidence": "만성폐쇄성 폐질환 근로자의 건강검진, 확진의뢰, 업무적합성, 직업적 위험인자 관리와 호흡보호구를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.85
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "COPD",
+          "폐활량검사",
+          "호흡보호구",
+          "직업적 위험인자"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.64,
+          "evidence": "분진·가스 등 직업적 위험인자와 호흡보호구 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-95-2021",
+          "guide_code": "H-95-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.62,
+          "evidence": "보건관리자 상담·업무적합성 조치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-95-2021",
+          "guide_code": "H-95-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.58,
+          "evidence": "직업적 유해인자 주지와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-95-2021",
+          "guide_code": "H-95-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.6,
+          "evidence": "호흡보호구 지급 문맥과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-95-2021",
+          "guide_code": "H-95-2021"
+        },
+        {
+          "sr_id": "SR-DUST-009",
+          "confidence": 0.6,
+          "evidence": "분진 노출 COPD 관리 시 호흡보호구 후보",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-95-2021",
+          "guide_code": "H-95-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "COPD 폐활량검사 결과 또는 GOLD 분류",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "COPD 폐활량검사 결과 또는 GOLD 분류",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-95-2021",
+          "guide_code": "H-95-2021"
+        },
+        {
+          "trigger_text": "호흡기질환 근로자 업무적합성 상담",
+          "cue_type": "domain_term",
+          "confidence": 0.74,
+          "evidence": "호흡기질환 근로자 업무적합성 상담",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-95-2021",
+          "guide_code": "H-95-2021"
+        }
+      ],
+      "notes": "질환 관리 가이드라 분진/화학 현장 조치로 곧장 승격하지 않는다."
+    },
+    {
+      "guide_code": "H-96-2021",
+      "short_code": "H96",
+      "title": "작업장내의 질병 집단발생에 대한 조사지침",
+      "source_file": "pipe-B/data/ci-output/ci-H96.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "workplace_disease_cluster_investigation",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "질병 집단발생",
+          "환례 정의",
+          "위험집단",
+          "역학조사"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "industry_alignment": [
+          "사업장 보건관리",
+          "역학조사",
+          "감염병/직업병 조사"
+        ],
+        "evidence": "작업장 내 질병 집단발생의 지침증례 관찰, 환례 정의, 추가 환례 탐색, 초과발생 확인, 노출조사와 리스크 커뮤니케이션을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.84
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "질병 집단발생",
+          "환례 정의",
+          "위험집단",
+          "역학조사"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.66,
+          "evidence": "감염성 질환 집단발생 가능성",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-96-2021",
+          "guide_code": "H-96-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "작업장 노출조사와 환례 탐색 절차",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-96-2021",
+          "guide_code": "H-96-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PATHOGEN-001",
+          "confidence": 0.58,
+          "evidence": "감염병 집단발생일 때만 간접 후보",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-96-2021",
+          "guide_code": "H-96-2021"
+        },
+        {
+          "sr_id": "SR-PATHOGEN-009",
+          "confidence": 0.56,
+          "evidence": "노출 후 관리와 일부 겹치나 조사 지침 중심",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-96-2021",
+          "guide_code": "H-96-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "작업장 질병 집단발생 조사표",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "작업장 질병 집단발생 조사표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-96-2021",
+          "guide_code": "H-96-2021"
+        },
+        {
+          "trigger_text": "환례 정의·위험집단·초과발생 분석",
+          "cue_type": "domain_term",
+          "confidence": 0.78,
+          "evidence": "환례 정의·위험집단·초과발생 분석",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-96-2021",
+          "guide_code": "H-96-2021"
+        }
+      ],
+      "notes": "감염병 조치가 아니라 조사방법론이므로 SR은 약한 후보만 둔다."
+    },
+    {
+      "guide_code": "H-97-2021",
+      "short_code": "H97",
+      "title": "조혈기계 검사 이상근로자의 관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H97.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "hematologic_test_abnormality_worker_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "조혈기계 검사",
+          "빈혈",
+          "백혈구",
+          "혈소판",
+          "업무적합성평가"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "industry_alignment": [
+          "사업장 보건관리",
+          "특수건강진단"
+        ],
+        "evidence": "조혈기계 검사 이상 근로자의 추가검사, 치료 연계, 업무적합성 평가, 근무제한·작업전환을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.83
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "조혈기계 검사",
+          "빈혈",
+          "백혈구",
+          "혈소판",
+          "업무적합성평가"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.6,
+          "evidence": "건강진단 사후관리와 작업전환",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-97-2021",
+          "guide_code": "H-97-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "직업적 노출 감별 문맥은 있으나 특정 물질 조치는 약함",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-97-2021",
+          "guide_code": "H-97-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "조혈기계 검사결과 이상 또는 혈액검사표",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "조혈기계 검사결과 이상 또는 혈액검사표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-97-2021",
+          "guide_code": "H-97-2021"
+        },
+        {
+          "trigger_text": "빈혈·백혈구·혈소판 이상 업무적합성 평가",
+          "cue_type": "domain_term",
+          "confidence": 0.76,
+          "evidence": "빈혈·백혈구·혈소판 이상 업무적합성 평가",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-97-2021",
+          "guide_code": "H-97-2021"
+        }
+      ],
+      "notes": "의학적 사후관리 가이드라 직접 법적 현장 조치 후보를 두지 않는다."
+    },
+    {
+      "guide_code": "H-98-2021",
+      "short_code": "H98",
+      "title": "당뇨병을 진단받은 근로자에 대한 건강관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H98.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "diabetes_worker_health_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "당뇨병",
+          "저혈당",
+          "인슐린",
+          "업무적합성평가",
+          "응급식품"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "industry_alignment": [
+          "사업장 보건관리",
+          "만성질환 관리"
+        ],
+        "evidence": "당뇨병 근로자의 업무적합성 평가, 자가 건강관리, 의무실·냉장고·응급식품 환경, 저혈당 및 고혈당성 응급대응을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.84
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "당뇨병",
+          "저혈당",
+          "인슐린",
+          "업무적합성평가",
+          "응급식품"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실",
+          "일반 건설현장"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "사업장 건강관리 환경과 작업일정 조정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-98-2021",
+          "guide_code": "H-98-2021"
+        },
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "HEAT_COLD",
+          "confidence": 0.52,
+          "evidence": "고열작업 제한 문맥은 있으나 당뇨 관리가 중심",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-98-2021",
+          "guide_code": "H-98-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-WELFARE-004",
+          "confidence": 0.58,
+          "evidence": "저혈당 응급대응과 구급용구 문맥이 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-98-2021",
+          "guide_code": "H-98-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "혈당측정계·인슐린 냉장보관·응급식품",
+          "cue_type": "equipment",
+          "confidence": 0.8,
+          "evidence": "혈당측정계·인슐린 냉장보관·응급식품",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-98-2021",
+          "guide_code": "H-98-2021"
+        },
+        {
+          "trigger_text": "당뇨병 근로자 업무적합성 평가",
+          "cue_type": "domain_term",
+          "confidence": 0.76,
+          "evidence": "당뇨병 근로자 업무적합성 평가",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-98-2021",
+          "guide_code": "H-98-2021"
+        }
+      ],
+      "notes": "만성질환 관리 문맥이 없으면 일반 고열/운전 작업에 과추천하지 않는다."
+    },
+    {
+      "guide_code": "H-99-2023",
+      "short_code": "H99",
+      "title": "일산화탄소의 생물학적 노출지표물질 분석에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-H99.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "carbon_monoxide_biological_exposure_indicator_analysis",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "일산화탄소",
+          "생물학적 노출지표",
+          "COHb",
+          "흡광도"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "작업 종료 후 혈액시료 채취, COHb 희석액 조제, 흡광도 측정, 농도 계산과 생물학적 노출평가 판정을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "일산화탄소",
+          "생물학적 노출지표",
+          "COHb",
+          "흡광도"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-99-2023",
+          "guide_code": "H-99-2023"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-99-2023",
+          "guide_code": "H-99-2023"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "COHb 혈액시료와 흡광도 측정",
+          "cue_type": "document_or_form",
+          "confidence": 0.82,
+          "evidence": "COHb 혈액시료와 흡광도 측정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-99-2023",
+          "guide_code": "H-99-2023"
+        },
+        {
+          "trigger_text": "일산화탄소 생물학적 노출지표 분석",
+          "cue_type": "domain_term",
+          "confidence": 0.8,
+          "evidence": "일산화탄소 생물학적 노출지표 분석",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-99-2023",
+          "guide_code": "H-99-2023"
+        }
+      ],
+      "notes": "CO 중독 현장대응이 아니라 생물학적 노출지표 분석법이다."
+    },
+    {
+      "guide_code": "T-12-2022",
+      "short_code": "T12",
+      "title": "실험동물 관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-T12.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "laboratory_animal_facility_management",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "실험동물",
+          "동물실험시설",
+          "검역",
+          "사육환경",
+          "살균·소독"
+        ],
+        "negative_context_terms": [
+          "반려동물 미용",
+          "축산 방역",
+          "일반 창고",
+          "건설현장"
+        ],
+        "industry_alignment": [
+          "동물실험시설",
+          "실험동물 사육실"
+        ],
+        "evidence": "실험동물 반입·검역, 사육환경, 케이지·깔짚, 급이·급수, 살균·소독, 출입관리, 폐기물 처리와 시설점검을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.89
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "실험동물",
+          "동물실험시설",
+          "검역",
+          "사육환경",
+          "살균·소독"
+        ],
+        "exclude_when": [
+          "반려동물 미용",
+          "축산 방역",
+          "일반 창고",
+          "건설현장"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.76,
+          "evidence": "실험동물 감염·검역·미생물 통제",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "T-12-2022",
+          "guide_code": "T-12-2022"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "동물실험시설 출입·환경 관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-12-2022",
+          "guide_code": "T-12-2022"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "VENTILATION_POOR",
+          "confidence": 0.62,
+          "evidence": "사육실 환기횟수와 기류방향",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-12-2022",
+          "guide_code": "T-12-2022"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PATHOGEN-001",
+          "confidence": 0.62,
+          "evidence": "감염 예방 종합 조치와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "T-12-2022",
+          "guide_code": "T-12-2022"
+        },
+        {
+          "sr_id": "SR-PPE-004",
+          "confidence": 0.58,
+          "evidence": "감염 우려 개인 보호구와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "T-12-2022",
+          "guide_code": "T-12-2022"
+        },
+        {
+          "sr_id": "SR-VENTILATION-006",
+          "confidence": 0.56,
+          "evidence": "환기 기준과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "T-12-2022",
+          "guide_code": "T-12-2022"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "실험동물 사육실·케이지·검역실",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.84,
+          "evidence": "실험동물 사육실·케이지·검역실",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-12-2022",
+          "guide_code": "T-12-2022"
+        },
+        {
+          "trigger_text": "동물실험시설 출입관리·살균소독 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "동물실험시설 출입관리·살균소독 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-12-2022",
+          "guide_code": "T-12-2022"
+        }
+      ],
+      "notes": "반려동물·축산 현장과 구별되는 실험동물시설 전용 경계."
+    },
+    {
+      "guide_code": "T-16-2021",
+      "short_code": "T16",
+      "title": "화학물질의 유전독성 평가를 위한 단세포 겔 전기영동시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T16.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "single_cell_gel_electrophoresis_genotoxicity_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "단세포 겔 전기영동",
+          "코멧",
+          "DNA 손상",
+          "형광 염색"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "시험물질 노출, 세포/핵 현탁액, 용해, 전기영동, 형광 염색과 DNA 손상 평가를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "단세포 겔 전기영동",
+          "코멧",
+          "DNA 손상",
+          "형광 염색"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-16-2021",
+          "guide_code": "T-16-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-16-2021",
+          "guide_code": "T-16-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "코멧 시험 전기영동 장치와 형광 염색",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "코멧 시험 전기영동 장치와 형광 염색",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-16-2021",
+          "guide_code": "T-16-2021"
+        },
+        {
+          "trigger_text": "DNA 손상 평가 슬라이드 또는 분석표",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "DNA 손상 평가 슬라이드 또는 분석표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-16-2021",
+          "guide_code": "T-16-2021"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-17-2021",
+      "short_code": "T17",
+      "title": "화학물질의 유전독성 평가를 위한 포유류 골수세포 염색체이상시험 지침",
+      "source_file": "pipe-B/data/ci-output/ci-T17.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "mammalian_bone_marrow_chromosome_aberration_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "골수세포",
+          "염색체이상",
+          "이수성",
+          "유사분열지수"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "동물 종 선택, 용량 준비, 대조군 설정, 골수세포 염색체이상 분석을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "골수세포",
+          "염색체이상",
+          "이수성",
+          "유사분열지수"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-17-2021",
+          "guide_code": "T-17-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-17-2021",
+          "guide_code": "T-17-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "골수세포 염색체이상 현미경 분석",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "골수세포 염색체이상 현미경 분석",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-17-2021",
+          "guide_code": "T-17-2021"
+        },
+        {
+          "trigger_text": "이수성·배수성·유사분열지수 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "이수성·배수성·유사분열지수 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-17-2021",
+          "guide_code": "T-17-2021"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-19-2020",
+      "short_code": "T19",
+      "title": "화학물질의 고정용량법에 의한 급성경구독성시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T19.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "acute_oral_toxicity_fixed_dose_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "급성경구독성",
+          "고정용량법",
+          "GLP",
+          "GHS"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "급성경구독성 시험계획, 동물입수·순화, 시험물질 조제, 예비시험과 관찰 절차를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "급성경구독성",
+          "고정용량법",
+          "GLP",
+          "GHS"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-19-2020",
+          "guide_code": "T-19-2020"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-19-2020",
+          "guide_code": "T-19-2020"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "급성경구독성 시험동물 투여",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "급성경구독성 시험동물 투여",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-19-2020",
+          "guide_code": "T-19-2020"
+        },
+        {
+          "trigger_text": "GLP 급성경구독성 시험계획서",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "GLP 급성경구독성 시험계획서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-19-2020",
+          "guide_code": "T-19-2020"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-20-2020",
+      "short_code": "T20",
+      "title": "화학물질의 급성 눈 부식성 및 자극성 시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T20.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "acute_eye_corrosion_irritation_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "눈 부식",
+          "눈 자극",
+          "국소마취제",
+          "시험물질 세척"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "급성 눈 부식성·자극성 시험의 사전 평가, 실험동물 준비, 진통제/마취제, 시험물질 투여와 세척 절차다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "눈 부식",
+          "눈 자극",
+          "국소마취제",
+          "시험물질 세척"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-20-2020",
+          "guide_code": "T-20-2020"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-20-2020",
+          "guide_code": "T-20-2020"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "눈 부식성·자극성 동물시험",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "눈 부식성·자극성 동물시험",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-20-2020",
+          "guide_code": "T-20-2020"
+        },
+        {
+          "trigger_text": "각막·결막 자극성 평가표",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "각막·결막 자극성 평가표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-20-2020",
+          "guide_code": "T-20-2020"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-21-2017",
+      "short_code": "T21",
+      "title": "화학물질의 생식능 및 차세대 영향시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T21.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "reproductive_next_generation_toxicity_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "생식능",
+          "차산자",
+          "차차산자",
+          "GLP"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "생식능 및 차세대 영향시험의 모동물 교배, F1/F2 관찰, 부검과 결과 평가를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "생식능",
+          "차산자",
+          "차차산자",
+          "GLP"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-21-2017",
+          "guide_code": "T-21-2017"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-21-2017",
+          "guide_code": "T-21-2017"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "생식독성 시험동물 교배·관찰",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "생식독성 시험동물 교배·관찰",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-21-2017",
+          "guide_code": "T-21-2017"
+        },
+        {
+          "trigger_text": "F1/F2 차산자 관찰 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "F1/F2 차산자 관찰 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-21-2017",
+          "guide_code": "T-21-2017"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-22-2021",
+      "short_code": "T22",
+      "title": "화학물질의 유전독성 평가를 위한 설치류 우성치사시험 지침",
+      "source_file": "pipe-B/data/ci-output/ci-T22.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "rodent_dominant_lethal_genotoxicity_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "우성치사돌연변이",
+          "교배간격",
+          "생식율",
+          "UVCB"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "설치류 우성치사시험의 동물 선택, 교배간격, 시험물질 조제와 생식율 평가를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "우성치사돌연변이",
+          "교배간격",
+          "생식율",
+          "UVCB"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-22-2021",
+          "guide_code": "T-22-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-22-2021",
+          "guide_code": "T-22-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "설치류 우성치사시험 교배 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "설치류 우성치사시험 교배 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-22-2021",
+          "guide_code": "T-22-2021"
+        },
+        {
+          "trigger_text": "시험동물 생식율·가임율 평가",
+          "cue_type": "domain_term",
+          "confidence": 0.78,
+          "evidence": "시험동물 생식율·가임율 평가",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-22-2021",
+          "guide_code": "T-22-2021"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-23-2021",
+      "short_code": "T23",
+      "title": "화학물질의 유전독성 평가를 위한 포유류 정원세포 염색체이상시험 지침",
+      "source_file": "pipe-B/data/ci-output/ci-T23.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "mammalian_spermatogonial_chromosome_aberration_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "정원세포",
+          "염색체이상",
+          "중기 세포",
+          "이수체"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "포유류 정원세포 염색체이상시험의 시험물질 노출, 중기정지, 염색체 준비·염색과 분석을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "정원세포",
+          "염색체이상",
+          "중기 세포",
+          "이수체"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-23-2021",
+          "guide_code": "T-23-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-23-2021",
+          "guide_code": "T-23-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "정원세포 염색체이상 현미경 분석",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "정원세포 염색체이상 현미경 분석",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-23-2021",
+          "guide_code": "T-23-2021"
+        },
+        {
+          "trigger_text": "중기세포 염색체이상 분석표",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "중기세포 염색체이상 분석표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-23-2021",
+          "guide_code": "T-23-2021"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-26-2023",
+      "short_code": "T26",
+      "title": "실험동물의 부검 절차 및 육안 소견 작성을 위한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T26.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "laboratory_animal_necropsy_gross_findings",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "실험동물",
+          "부검",
+          "고정",
+          "육안소견"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "실험동물 부검회의, 부검준비, 장기 적출, 육안소견 관찰, 장기중량 측정과 고정을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "실험동물",
+          "부검",
+          "고정",
+          "육안소견"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.6,
+          "evidence": "실험동물 조직 취급",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-26-2023",
+          "guide_code": "T-26-2023"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CUT",
+          "confidence": 0.55,
+          "evidence": "부검 절개도구 사용",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-26-2023",
+          "guide_code": "T-26-2023"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "실험동물 부검대와 장기 고정",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.84,
+          "evidence": "실험동물 부검대와 장기 고정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-26-2023",
+          "guide_code": "T-26-2023"
+        },
+        {
+          "trigger_text": "육안소견·장기중량 기록지",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "육안소견·장기중량 기록지",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-26-2023",
+          "guide_code": "T-26-2023"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-27-2022",
+      "short_code": "T27",
+      "title": "실험동물 조직의 삭정을 위한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T27.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "laboratory_animal_tissue_trimming",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "부검",
+          "삭정",
+          "포르말린",
+          "카세트",
+          "탈회"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "시험동물 조직의 삭정 준비, 부검 소견 확인, 이상소견 조직 제작, 보관과 밀봉을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "부검",
+          "삭정",
+          "포르말린",
+          "카세트",
+          "탈회"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.58,
+          "evidence": "포르말린 등 병리 시약 취급",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-27-2022",
+          "guide_code": "T-27-2022"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CUT",
+          "confidence": 0.55,
+          "evidence": "조직 절단·삭정 도구 사용",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-27-2022",
+          "guide_code": "T-27-2022"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.55,
+          "evidence": "포르말린 등 시약 유해성 주지와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "T-27-2022",
+          "guide_code": "T-27-2022"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "포르말린 고정 조직과 카세트 삭정",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "포르말린 고정 조직과 카세트 삭정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-27-2022",
+          "guide_code": "T-27-2022"
+        },
+        {
+          "trigger_text": "조직 삭정 SOP 또는 병리 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "조직 삭정 SOP 또는 병리 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-27-2022",
+          "guide_code": "T-27-2022"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-28-2018",
+      "short_code": "T28",
+      "title": "화학물질의 급성흡입독성시험(고정농도법) 지침",
+      "source_file": "pipe-B/data/ci-output/ci-T28.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "acute_inhalation_toxicity_fixed_concentration_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "급성흡입독성",
+          "고정농도법",
+          "노출조건",
+          "빈사동물"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "급성흡입독성 시험의 동물 준비, 용량설정, 본시험, 노출조건 모니터링과 임상관찰을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "급성흡입독성",
+          "고정농도법",
+          "노출조건",
+          "빈사동물"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.6,
+          "evidence": "시험물질 흡입 노출시험",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-28-2018",
+          "guide_code": "T-28-2018"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "VENTILATION_POOR",
+          "confidence": 0.54,
+          "evidence": "노출챔버 조건 모니터링 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-28-2018",
+          "guide_code": "T-28-2018"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "흡입독성 노출챔버와 시험동물",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "흡입독성 노출챔버와 시험동물",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-28-2018",
+          "guide_code": "T-28-2018"
+        },
+        {
+          "trigger_text": "고정농도법 노출조건 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "고정농도법 노출조건 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-28-2018",
+          "guide_code": "T-28-2018"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-3-2015",
+      "short_code": "T3",
+      "title": "제조나노물질의 건강 유해성시험 시료의 적정용량 조제를 위한 해설지침",
+      "source_file": "pipe-B/data/ci-output/ci-T3.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "manufactured_nanomaterial_test_sample_dosimetry",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "나노물질",
+          "응집체",
+          "적정용량기준",
+          "분산체"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "제조나노물질 유해성시험 시료의 보관, 분산체 조제, 특성 확인, 투여 전 시료 관리와 배지 분산을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "나노물질",
+          "응집체",
+          "적정용량기준",
+          "분산체"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-3-2015",
+          "guide_code": "T-3-2015"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-3-2015",
+          "guide_code": "T-3-2015"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "나노물질 분산체 조제와 입자분포 측정",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "나노물질 분산체 조제와 입자분포 측정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-3-2015",
+          "guide_code": "T-3-2015"
+        },
+        {
+          "trigger_text": "나노입자 적정용량기준·분산 안정성 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "나노입자 적정용량기준·분산 안정성 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-3-2015",
+          "guide_code": "T-3-2015"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-31-2021",
+      "short_code": "T31",
+      "title": "시험동물 조직의 박절 및 염색 지침",
+      "source_file": "pipe-B/data/ci-output/ci-T31.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "laboratory_animal_tissue_sectioning_staining",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "박절",
+          "염색",
+          "크실렌",
+          "봉입"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "시험동물 조직의 박절, 슬라이드 제작, 염색, 품질확인, 폐시약 회수와 폐기를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "박절",
+          "염색",
+          "크실렌",
+          "봉입"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CUT",
+          "confidence": 0.6,
+          "evidence": "박절기 칼날 상처 주의와 안전장갑",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-31-2021",
+          "guide_code": "T-31-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.58,
+          "evidence": "염색시약·크실렌 대체제 취급",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-31-2021",
+          "guide_code": "T-31-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.55,
+          "evidence": "박절 작업 안전장갑 등 보호구",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "T-31-2021",
+          "guide_code": "T-31-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.55,
+          "evidence": "염색시약 유해성 주지와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "T-31-2021",
+          "guide_code": "T-31-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "마이크로톰 박절기와 조직 슬라이드 염색",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "마이크로톰 박절기와 조직 슬라이드 염색",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-31-2021",
+          "guide_code": "T-31-2021"
+        },
+        {
+          "trigger_text": "크실렌 대체제·염색기 시약 교체 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "크실렌 대체제·염색기 시약 교체 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-31-2021",
+          "guide_code": "T-31-2021"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-32-2021",
+      "short_code": "T32",
+      "title": "시험동물의 기관지·폐포 세척액 검사 지침",
+      "source_file": "pipe-B/data/ci-output/ci-T32.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "laboratory_animal_bronchoalveolar_lavage_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "시험동물",
+          "기관지·폐포 세척액",
+          "검체 채취",
+          "도말"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "시험동물 기관지·폐포 세척액 검체 채취, 원심분리, 임상화학검사, 총 세포수 측정, 슬라이드 제작과 세포감별을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "시험동물",
+          "기관지·폐포 세척액",
+          "검체 채취",
+          "도말"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.58,
+          "evidence": "동물 검체 취급",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-32-2021",
+          "guide_code": "T-32-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CUT",
+          "confidence": 0.52,
+          "evidence": "주사바늘 찔림 주의",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-32-2021",
+          "guide_code": "T-32-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "시험동물 기관지폐포 세척액 검체 채취",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.84,
+          "evidence": "시험동물 기관지폐포 세척액 검체 채취",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-32-2021",
+          "guide_code": "T-32-2021"
+        },
+        {
+          "trigger_text": "BAL 원심분리·도말 슬라이드",
+          "cue_type": "equipment",
+          "confidence": 0.8,
+          "evidence": "BAL 원심분리·도말 슬라이드",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-32-2021",
+          "guide_code": "T-32-2021"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-33-2023",
+      "short_code": "T33",
+      "title": "화학물질 독성발현경로(AOP)의 개발 및 이해에 관한 지침",
+      "source_file": "pipe-B/data/ci-output/ci-T33.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "adverse_outcome_pathway_development_document",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "독성발현경로",
+          "AOP",
+          "Key event",
+          "IATA"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "화학물질 독성발현경로(AOP)의 주요 사건, 주요 사건 관계, 통합시험전략과 규제 의사결정 적용을 설명하는 문서다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "독성발현경로",
+          "AOP",
+          "Key event",
+          "IATA"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.5,
+          "evidence": "화학물질 독성평가 문서이나 실험/현장 조치 아님",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-33-2023",
+          "guide_code": "T-33-2023"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.45,
+          "evidence": "규제 평가문서 성격의 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-33-2023",
+          "guide_code": "T-33-2023"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "AOP diagram 또는 key event 관계표",
+          "cue_type": "document_or_form",
+          "confidence": 0.82,
+          "evidence": "AOP diagram 또는 key event 관계표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-33-2023",
+          "guide_code": "T-33-2023"
+        },
+        {
+          "trigger_text": "독성발현경로 개발 문서",
+          "cue_type": "domain_term",
+          "confidence": 0.8,
+          "evidence": "독성발현경로 개발 문서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-33-2023",
+          "guide_code": "T-33-2023"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-4-2022",
+      "short_code": "T4",
+      "title": "화학물질의 90일 반복흡입독성시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T4.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "ninety_day_repeated_inhalation_toxicity_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "90일 반복흡입독성",
+          "NOAEC",
+          "에어로졸",
+          "노출챔버"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "90일 반복흡입독성 시험의 동물 순화, 농도군, 노출챔버 조건, 관찰, 부검 및 병리검사를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "90일 반복흡입독성",
+          "NOAEC",
+          "에어로졸",
+          "노출챔버"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.6,
+          "evidence": "시험물질 반복흡입독성 시험",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-4-2022",
+          "guide_code": "T-4-2022"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "VENTILATION_POOR",
+          "confidence": 0.54,
+          "evidence": "노출챔버 온습도·산소·이산화탄소 유지",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-4-2022",
+          "guide_code": "T-4-2022"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "흡입독성 노출챔버와 동물호흡영역",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "흡입독성 노출챔버와 동물호흡영역",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-4-2022",
+          "guide_code": "T-4-2022"
+        },
+        {
+          "trigger_text": "NOAEC·에어로졸 농도 모니터링 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "NOAEC·에어로졸 농도 모니터링 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-4-2022",
+          "guide_code": "T-4-2022"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-5-2017",
+      "short_code": "T5",
+      "title": "화학물질의 태자발달 독성시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T5.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "prenatal_developmental_toxicity_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "태자발달 독성",
+          "최기형성",
+          "NOAEL",
+          "GLP"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "태자발달 독성시험의 동물 순화, 용량군, 시험물질 투여, 모동물 관찰, 태자검사와 보고를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "태자발달 독성",
+          "최기형성",
+          "NOAEL",
+          "GLP"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-5-2017",
+          "guide_code": "T-5-2017"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-5-2017",
+          "guide_code": "T-5-2017"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "태자발달 독성시험 동물 관찰",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "태자발달 독성시험 동물 관찰",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-5-2017",
+          "guide_code": "T-5-2017"
+        },
+        {
+          "trigger_text": "NOAEL·최기형성 시험보고서",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "NOAEL·최기형성 시험보고서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-5-2017",
+          "guide_code": "T-5-2017"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-6-2017",
+      "short_code": "T6",
+      "title": "화학물질의 생식 및 발생독성스크리닝시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-T6.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "reproductive_developmental_toxicity_screening_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "생식 독성",
+          "발생 독성",
+          "모체 독성",
+          "무영향농도"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "생식 및 발생독성 스크리닝시험의 동물 선택, 사육환경, 투여농도, 교미, 임상증상 관찰, 부검을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "생식 독성",
+          "발생 독성",
+          "모체 독성",
+          "무영향농도"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-6-2017",
+          "guide_code": "T-6-2017"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-6-2017",
+          "guide_code": "T-6-2017"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "생식·발생독성 스크리닝 시험동물",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "생식·발생독성 스크리닝 시험동물",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-6-2017",
+          "guide_code": "T-6-2017"
+        },
+        {
+          "trigger_text": "교미·임상증상·부검 기록표",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "교미·임상증상·부검 기록표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-6-2017",
+          "guide_code": "T-6-2017"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-7-2020",
+      "short_code": "T7",
+      "title": "화학물질의 시험관내 포유류 세포 소핵시험 지침",
+      "source_file": "pipe-B/data/ci-output/ci-T7.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "in_vitro_mammalian_cell_micronucleus_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "포유류 세포 소핵시험",
+          "세포독성",
+          "사이토칼라신 B",
+          "대사활성화"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "시험관내 포유류 세포 소핵시험의 세포 선택, 배양조건, 대사활성화, 시험물질 처리, 세포독성 측정과 대조물질을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "포유류 세포 소핵시험",
+          "세포독성",
+          "사이토칼라신 B",
+          "대사활성화"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-7-2020",
+          "guide_code": "T-7-2020"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-7-2020",
+          "guide_code": "T-7-2020"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "세포배양과 소핵시험 현미경 분석",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "세포배양과 소핵시험 현미경 분석",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-7-2020",
+          "guide_code": "T-7-2020"
+        },
+        {
+          "trigger_text": "CBPI·세포독성·소핵 빈도 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "CBPI·세포독성·소핵 빈도 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-7-2020",
+          "guide_code": "T-7-2020"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    },
+    {
+      "guide_code": "T-9-2016",
+      "short_code": "T9",
+      "title": "생체시료 중 석면소체 및 석면섬유 분석지침",
+      "source_file": "pipe-B/data/ci-output/ci-T9.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "asbestos_body_fiber_biological_sample_analysis",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "석면소체",
+          "석면섬유",
+          "폐실질",
+          "현미경 관찰"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "폐조직 등 생체시료에서 석면소체·석면섬유를 조직소화, 여과, 표본 제작, 현미경 계수와 농도 계산으로 분석한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "석면소체",
+          "석면섬유",
+          "폐실질",
+          "현미경 관찰"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.55,
+          "evidence": "석면 노출평가 분석이나 현장 석면해체 조치는 아님",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-9-2016",
+          "guide_code": "T-9-2016"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.45,
+          "evidence": "의학적 분석문서 성격",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "T-9-2016",
+          "guide_code": "T-9-2016"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "폐조직 석면소체 현미경 표본",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "폐조직 석면소체 현미경 표본",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-9-2016",
+          "guide_code": "T-9-2016"
+        },
+        {
+          "trigger_text": "석면섬유 계수와 농도 계산표",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "석면섬유 계수와 농도 계산표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "T-9-2016",
+          "guide_code": "T-9-2016"
+        }
+      ],
+      "notes": "석면해체 작업지침과 분리되는 생체시료 분석법이다."
+    },
+    {
+      "guide_code": "W-10-2023",
+      "short_code": "W10",
+      "title": "화학물질의 발암성시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-W10.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "carcinogenicity_animal_test_protocol",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "발암성시험",
+          "시험동물",
+          "BMD",
+          "NOAEL",
+          "조직병리"
+        ],
+        "negative_context_terms": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "실험동물/세포시험"
+        ],
+        "evidence": "화학물질 발암성시험의 시험설계, 동물 준비, 시험물질 투여, 장기 관찰, 부검, 조직병리와 통계분석을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "발암성시험",
+          "시험동물",
+          "BMD",
+          "NOAEL",
+          "조직병리"
+        ],
+        "exclude_when": [
+          "현장 화학물질 취급",
+          "건설현장",
+          "항만하역",
+          "급식실",
+          "일반 보호구 사진"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.58,
+          "evidence": "화학물질 독성시험 또는 시험물질 조제 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "W-10-2023",
+          "guide_code": "W-10-2023"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.54,
+          "evidence": "현장 노출 조치가 아닌 시험법 문서라 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "W-10-2023",
+          "guide_code": "W-10-2023"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "발암성시험 동물실과 조직병리 검사",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.84,
+          "evidence": "발암성시험 동물실과 조직병리 검사",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "W-10-2023",
+          "guide_code": "W-10-2023"
+        },
+        {
+          "trigger_text": "BMD·NOAEL·종양발생률 분석표",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "BMD·NOAEL·종양발생률 분석표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "W-10-2023",
+          "guide_code": "W-10-2023"
+        }
+      ],
+      "notes": "독성시험/분석 프로토콜이므로 현장 개선조치 추천에서는 기본 제외한다."
+    }
+  ]
+}

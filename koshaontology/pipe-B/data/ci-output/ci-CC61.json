@@ -1,0 +1,1145 @@
+{
+  "metadata": {
+    "guideCode": "C-C-61-2026",
+    "shortCode": "CC61",
+    "domain": "C",
+    "extractedAt": "2026-04-21T17:24:03Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-C-041"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC61-001",
+      "text": "검토항목은 공정의 복잡성(공정배관계장도의 수량 등) 및 팀의 경험에 따라 그 크기를 정해야 한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 검토항목 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "검토항목 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-002",
+      "text": "평가팀은 다음 인원으로 구성하되, 경험이 풍부한 생산 및 정비담당자를 반드시 포함하여야 한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 평가팀 구성 (법령 근거 미확인)",
+      "additionalDetail": "(가) 리더: 운전경험, 위험성평가 교육훈련 등이 충분한 자 (나) 팀원: 정비 및 생산 관리자, 기술(공정) 및 안전기술자",
+      "workProcessPhase": "평가팀 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-003",
+      "text": "평가팀의 리더는 평가의 개요와 목적을 팀 구성원에게 충분히 설명하여야 한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 팀 리더 역할 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가팀 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-004",
+      "text": "평가에 사용되는 설계도서는 최신의 것이어야 한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 자료 수집 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "자료 수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-005",
+      "text": "기존 공장의 평가에 사용되는 설계도서들은 현장과 일치되는 것이라야 한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 자료 수집 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "자료 수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-006",
+      "text": "본 분석 기법을 통한 잠재 위험 분석의 효율을 높이기 위하여 장시간의 회의는 바람직하지 않으며 통상적으로 일주일에 2~3 회, 하루에 3 시간 내에서 회의를 진행하는 것이 좋다.",
+      "guideContext": "공정안전성 분석(K-PSR) 평가 회의 운영",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 회의",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-007",
+      "text": "평가 수행 전에 평가팀이 협의하여야 할 사항은 다음과 같다",
+      "guideContext": "공정안전성 분석(K-PSR) 평가시 협의사항 (법령 근거 미확인)",
+      "additionalDetail": "(1) 평가목표, 목적, 방법 및 관리에 대한 팀 브리핑 (2) 운전이력, 최초의 설계의도, 기계설비 변경사항, 생산능력 (3) 운전 중 취급하는 화학물질과 화학물질의 위험성, 사람의 노출, 환경에 대한 영향, 그리고 가능한 반응을 검토 (4) 설계 및 운전상의 특별 고려사항 (5) 운전, 화학물질, 공정의 중대한 잠재위험 (6) 평가 범위 (7) 공정의 지역별, 단계별로 평가항목 선별 방법",
+      "workProcessPhase": "평가시 협의",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-008",
+      "text": "잠재적인 위험물질 누출 가능성을 확인한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 위험성 평가 수행",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가 수행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-009",
+      "text": "이러한 평가사항들이 다음 4가지 범주에 부합하는지 여부를 평가한다. (가) 위험물질 누출의 가능성 (나) 현재의 설계 및 운전기준에 불일치 (다) 중요 안전 절차의 필요성 또는 사용 유무 (라) 정량적 위험성평가 등 추가 검토의 필요성",
+      "guideContext": "공정안전성 분석(K-PSR) 평가 범주 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-010",
+      "text": "위험형태별 원인·결과 및 현재 안전조치를 <별지서식1>에 기록한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 평가 기록 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-011",
+      "text": "현재안전조치가 충분하지 않을 경우 개선권고사항을 준비한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 개선권고 도출 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-012",
+      "text": "평가팀장은 평가에 의해 도출된 개선권고사항은 조치가 가능하도록 우선순위를 정하여 최종보고서에 포함시켜 경영진에게 보고한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 보고 절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 결과 보고",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-013",
+      "text": "후속조치의 이행 팀이 이해할 수 있도록 다음과 같은 자료들을 개선권고사항에 포함시켜 전달한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 개선권고사항 전달 (법령 근거 미확인)",
+      "additionalDetail": "(가) 평가 팀이 검토하였던 시나리오 (나) 평가 팀에 의해 파악된 가능한 결과 (다) 평가 팀이 제안한 변경의 요지 (라) 변경대상 또는 권고되는 검토사항",
+      "workProcessPhase": "평가 결과 보고",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-014",
+      "text": "평가결과보고서에는 다음과 같은 사항이 포함되어야 한다. (가) 공정 및 설비 개요 (나) 공정의 위험 특성 (다) 검토 범위와 목적 (라) 팀 리더 및 구성원의 인적사항 (마) 검토 결과 (바) 우선순위 및 일정이 포함된 조치계획",
+      "guideContext": "공정안전성 분석(K-PSR) 평가결과보고서 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가결과보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-015",
+      "text": "평가 팀에 의해 사용되었던 모든 타당성 있는 자료를 보아 위험성평가 서류철을 작성한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 서류 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가결과보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-016",
+      "text": "공정흐름도 및 운전절차 등 검토회의 시에 사용하였던 공정안전자료의 사본과 사용했던 주요기기가 표시된 공정배관계장도 등은 위험성평가 서류에 칠하여 보관한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 서류 보관 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가결과보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-017",
+      "text": "평가회의에서 논의된 내용은 작업일자별로 서류화하여야 한다. 또한 서기는 검토 과정에서 논의된 내용과 회의 결과를 기록하여야 한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 회의 기록 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가결과보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-018",
+      "text": "회의결과 사본은 검토를 위하여 팀 구성원에 배포되어져야 한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 회의 결과 배포 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가결과보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-019",
+      "text": "평가팀장은 평가결과 보고서가 발행된 이후 1 개월 이내에 후속조치 책임부서를 포함한 이행조치 계획서를 수립하여 승인을 받는다.",
+      "guideContext": "공정안전성 분석(K-PSR) 후속조치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "개선권고사항 후속조치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-020",
+      "text": "경영자는 공정안전관리 추진팀에게 평가결과보고서의 내용들이 적절하게 추진되고 있는지를 관리하도록 한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 후속조치 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "개선권고사항 후속조치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-021",
+      "text": "과거에 유사 설비에서 발생했던 사고 사례에 대하여도 평가한다.",
+      "guideContext": "공정안전성 분석(K-PSR) 사고사례 반영 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-104",
+      "text": "작업감독자의 적정개스킷 확인 후 설치",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 누출 위험 대응 (법령 근거 미확인)",
+      "additionalDetail": "보수작업 후 작업자 실수로 개스킷 조립 불량 및 명세에 맞지 않는 개스킷 사용 방지",
+      "workProcessPhase": "보수작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-105",
+      "text": "플랜지 및 개스킷 등급 관리 실시",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 누출 위험 대응 (법령 근거 미확인)",
+      "additionalDetail": "플랜지 및 개스킷 명세(Spec.)의 이력관리 미흡 방지",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-106",
+      "text": "안전밸브 설치, 압력조절장치 설치, 압력경보장치 설치, 고압경보스위치에 의한 연동장치 작동",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 반응저하에 의한 과압 누출 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-107",
+      "text": "가스감지기 설치 및 2시간 간격의 순찰 실시",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 펌프 씰 누설에 의한 벤젠 누출 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "일상 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-108",
+      "text": "표준운전절차 준수",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 운전시작시 열적반복에 의한 배관 변형 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "운전 시작",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-109",
+      "text": "철저한 접지 실시 및 주기적인 접지 상태 점검",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 정전기에 의한 화재·폭발 방지",
+      "additionalDetail": "원료 투입과정 중 정전기 발생으로 반응기내부 가연성 물질 점화 방지",
+      "workProcessPhase": "원료 투입",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-ELECTRIC-024",
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-110",
+      "text": "작업자 대전방지복 및 정전화 착용",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 정전기에 의한 화재·폭발 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "원료 투입",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-111",
+      "text": "온도조절장치 설치, 고온경보스위치에 의한 연동장치 작동, 안전밸브 설치, 압력조절장치 설치, 압력경보장치 설치, 고압경보스위치에 의한 연동장치 작동",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 이상반응에 의한 과압 폭발 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-112",
+      "text": "소화기 비치 및 소방설비 설치, 씰 상태 주기적 점검",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 펌프 씰 불량에 의한 과열 화재·폭발 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-113",
+      "text": "안전작업허가 절차에 의한 작업 실시",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 화기작업시 불티 비산에 의한 화재·폭발 방지 (법령 근거 미확인)",
+      "additionalDetail": "안전작업허가 절차의 간단, 명료화(Flowchart 형식 등)하여 효율적인 운영 유도",
+      "workProcessPhase": "화기작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-114",
+      "text": "촉매 투입 펌프의 예방 점검 철저",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 촉매 투입 펌프 고장에 의한 반응 저하 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-115",
+      "text": "펌프 트립 알람(Trip alarm) 설치, 저압경보계에 의한 예비 펌프 자동 작동, 고온경보스위치에 의한 연동장치 작동",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 원료 주입 펌프 고장에 의한 냉각 불량 방지",
+      "additionalDetail": "원료 주입 펌프의 예방 점검 철저",
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-116",
+      "text": "공정배수로 미설치 구간 덮개 설치",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 실족에 의한 골절 방지 (법령 근거 미확인)",
+      "additionalDetail": "일부구간 덮개 미설치 상태에서 실족 위험",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-117",
+      "text": "안전모 착용, 교육 실시 및 일상적 통로로 이용되는 곳에 경고표시 설치 검토",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 배관 및 돌출부 충돌 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-118",
+      "text": "중량물 작업시 2인 1조 작업 실시, 설비를 이용한 작업 실시, 허리보호대 등 안전보호구 착용",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 보수작업시 중량물에 의한 요통 방지 (법령 근거 미확인)",
+      "additionalDetail": "근골격계질환 예방교육 실시",
+      "workProcessPhase": "보수작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-119",
+      "text": "작업시 보안경 등 안전 보호구 착용 및 배관벤트 설치 검토",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 배관 퍼지 후 호스 해체시 잔압에 의한 안면 상해 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "배관 퍼지 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-120",
+      "text": "누유 및 빙결 가능 장소 즉시 청소, 기름걸레 등 비치",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 바닥 누유 및 겨울철 빙결로 인한 전도 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-121",
+      "text": "스팀트레이싱 노출 부위 보온 실시",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 스팀트레이싱 접촉 화상 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-122",
+      "text": "회전기기류 방호덮개 설치, 일상점검활동 강화, 안전교육 철저",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 정비작업 중 회전기기류 협착 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정비작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-123",
+      "text": "안전작업허가에 의한 작업 실시, 2인1조 작업 실시, 입조 전 산소농도 측정 실시, 공기치환설비 설치/가동, 관련 배관 맹판 설치, 입조자 구명줄 착용",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 용기내부 입조 작업시 산소 결핍에 의한 질식사고 방지",
+      "additionalDetail": "산소농도 측정결과 21% 미만일 경우 안전조치 여부 재확인",
+      "workProcessPhase": "용기 입조 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-CONFINED-002",
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-124",
+      "text": "입조전 관련 전원 장치 차단 조치, 안전작업허가에 의한 작업실시, 2인1조 작업 실시, 입조자 구명줄 착용",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 용기내부 입조 작업 중 기계 가동으로 인명 피해 방지",
+      "additionalDetail": "타사 사망사고사례 있음",
+      "workProcessPhase": "용기 입조 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-125",
+      "text": "전기 스위치 차단 조치",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 전기작업 중 감전사고 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "전기작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-126",
+      "text": "교류아크용접기에 자동전격방지기 설치",
+      "guideContext": "연속식 공정 K-PSR 적용 사례 - 용접 작업 중 감전사고 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 1",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-127",
+      "text": "분말 소화기 현장 비치, 세안·세척 시설 설치, 개인 보호 장구(불침투성 보호의 등) 착용",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 원료(분말) 누출에 의한 화재 및 인체 상해 방지",
+      "additionalDetail": "소화기 추가 배치, 안전작업수칙 보완(누출시 대책)",
+      "workProcessPhase": "원료 투입",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-128",
+      "text": "유량계 정기 검·교정 및 주1회 수시점검",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 유량계 고장에 의한 원료 과량 투입 방지 (법령 근거 미확인)",
+      "additionalDetail": "온도계 알람(Alarm) 설치 검토",
+      "workProcessPhase": "원료 투입",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-129",
+      "text": "온도센서 연1회 교체 및 예비 온도 센서 비치",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 스팀 밸브 조작 실수에 의한 온도 상승 방지 (법령 근거 미확인)",
+      "additionalDetail": "반응기 내부 온도 센서 및 게이지 이상 가능성 존재",
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-130",
+      "text": "온도 센서 이중 설치 및 다량 누출에 대비한 물질 확산방지 및 회수 방법 검토(방류재, 드레인 등)",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 냉각온도 조절 실패 시 누출 대비",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-131",
+      "text": "게이지 연2회 자체 검·교정 실시 및 검교정주기 단축",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 반응기 내부 온도 센서 및 게이지 고장 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-132",
+      "text": "압력계 설치(연2회 자체 검·교정실시) 및 작업관련 교육 철저",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 벤트 밸브 오조작에 의한 과압 누출 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-133",
+      "text": "정전기 대전방지용 비닐 사용 및 반응기 내부 질소 퍼지",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 원료 투입과정 중 정전기에 의한 화재 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "원료 투입",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-134",
+      "text": "온도계 검·교정, 원료 투입전 운전기록에 감독자와 작업자 이중 확인, 안전밸브 설치",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 반응기 내부 온도 제어 실패 및 원료 투입 오류에 의한 폭발 방지",
+      "additionalDetail": "작업관련 교육 실시 철저",
+      "workProcessPhase": "원료 투입",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-135",
+      "text": "안전작업허가에 의한 작업실시, 소화기 비치, 반응기 내부 세척 및 퍼지 실시 후 잔류가스 농도 확인 후 작업실시, 작업실시 중 가스감지기에 의한 반응기 내부 가스 농도 확인",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 반응기 내부 용접 작업 중 잔류 인화성 물질에 의한 폭발 방지",
+      "additionalDetail": "공작실(공무 Shop)에서 용접 실시, 세척 및 퍼지 작업 철저",
+      "workProcessPhase": "반응기 내부 용접 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-136",
+      "text": "유틸리티 유형별 등급에 의한 정기적 예방점검실시 및 비상전원 확보방안 강구",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 진공펌프 고장 및 정전에 대비",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-137",
+      "text": "비상발전기 등 비상전원 확보수단 검토",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 교반기 이상으로 생산시간 지연 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-138",
+      "text": "운전기록 상 각 단계별 확인 실시 및 작업절차관련 교육 철저",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 작업순서 미준수에 의한 이상 반응 및 품질 저하 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-139",
+      "text": "누수시 흡착포 등에 의한 즉시 제거 실시 및 누출 가능 부위 점검 및 보수",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 바닥 용매 누수시 미끄러짐 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-140",
+      "text": "파이프랙 등 돌출부에 충격 완화장치 및 경고표시 부착",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 보행 중 돌출부 충돌 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-141",
+      "text": "국소배기장치 및 공조시설 설치, 국소배기장치 용량 검토",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 작업시 유해가스 발생에 의한 호흡기 질환 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC61-142",
+      "text": "작업시 보호의 착용",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 화학물질 인체접촉에 의한 화상 등 피부상해 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "원료 취급",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-143",
+      "text": "내열장갑 지급 검토",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 스팀배관 보온 작업시 화상 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "보온 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-144",
+      "text": "체인블록 사용 및 지지대 보강 검토",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 감속기, 모터 해체 작업시 중량물 취급부주의 방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "장비 해체 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC61-145",
+      "text": "안전작업허가에 의한 작업 실시, 2인1조 작업 실시, 입조시 산소농도 입조 전/후 측정 실시, 안전작업허가가 1시간이상 부재시 재허가 실시",
+      "guideContext": "회분식 공정 K-PSR 적용 사례 - 용기내부 입조 작업시 산소 결핍에 의한 질식사고 방지",
+      "additionalDetail": "타사 사망사고사례 있음, 산소농도 측정결과 21% 미만일 경우 안전조치 여부 재확인",
+      "workProcessPhase": "용기 입조 작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록 2",
+      "basedOn": [
+        "SR-CONFINED-002",
+        "SR-CONFINED-021"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC61-001",
+      "term": "공정안전성 분석 기법(K-PSR, KOSHA Process safety review)",
+      "definition": "설치·가동중인 기존 화학공장의 공정안전성(Process safety)을 재검토하여 사고위험성을 분석(Review)하는 기법이다",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC61-002",
+      "term": "가이드워드(Guide words)",
+      "definition": "공정상의 잠재위험을 찾아내는데 도움을 주는 용어를 말하며, 위험형태와 원인으로 표현된다. 회분식 공정 및 연속식 공정의 가이드워드는 <별표 1> 및 <별표 2>와 같다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC61-003",
+      "term": "위험형태",
+      "definition": "사업장에서 발생한 사고로 인하여 직·간접적으로 인적, 물적, 환경적 피해를 입히는 원인이 될 수 있는 잠재적인 위험의 종류를 말하며 본 지침에서는 누출, 화재·폭발, 공정 트러블 및 상해 등 4가지로 표현된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC61-004",
+      "term": "원인·결과",
+      "definition": "위험형태가 발생될 수 있는 사고 원인 및 이로 인하여 발생 가능한 사고결과를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC61-005",
+      "term": "관련 문제사항",
+      "definition": "해당 위험 및 원인·결과 사항에 대한 주요 관심 사항 및 팀원 또는 경영진에서 생각하는 주요 쟁점사항 등을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC61-006",
+      "term": "현재안전조치",
+      "definition": "잠재 위험 및 원인·결과 사항에 대한 안전장치의 역할을 하고 있는 이미 설치된 장치나 현재의 관리상황 등을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC61-007",
+      "term": "개선권고사항",
+      "definition": "위험 및 원인·결과 사항에 대한 현재안전조치가 부족하다고 판단될 때 추가적인 안전성을 확보하기 위해 도출된 장치 또는 활동 등을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC61-01",
+      "processOrder": 1,
+      "processName": "평가팀 구성",
+      "safetyMeasures": "운전경험 및 위험성평가 교육훈련이 충분한 리더를 선정하고, 정비 및 생산 관리자, 기술(공정) 및 안전기술자를 팀원으로 구성한다. 경험이 풍부한 생산 및 정비담당자를 반드시 포함한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC61-02",
+      "processOrder": 2,
+      "processName": "자료 수집",
+      "safetyMeasures": "평가의 목적과 범위를 정한 후 최신의 설계도서를 수집하며, 현장과 일치하는 자료를 확보한다. 기존 위험성 평가서(HAZOP 등), 공정흐름도(PFD), 공정배관계장도(P&ID), 사고 보고서, 비상조치계획 등을 포함한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC61-03",
+      "processOrder": 3,
+      "processName": "검토항목 선정",
+      "safetyMeasures": "공정의 복잡성 및 팀의 경험에 따라 검토항목의 크기를 정하고, 기능상의 구분과 시스템의 복잡성에 따라 구분한다. 설계목적 변경, 공정 조건 변경, 주요 기기 존재 시 검토항목을 변경한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC61-04",
+      "processOrder": 4,
+      "processName": "평가시 협의사항 검토",
+      "safetyMeasures": "평가목표·목적·방법, 운전이력, 화학물질 위험성, 설계 및 운전상 특별 고려사항, 중대한 잠재위험, 평가 범위 등을 평가팀이 사전 협의한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC61-05",
+      "processOrder": 5,
+      "processName": "위험성 평가 수행",
+      "safetyMeasures": "검토항목별로 위험물질 누출 가능성을 확인하고, 원인·결과를 평가하며, 위험형태의 심각성을 판단한다. 가이드워드를 활용하여 누출, 화재·폭발, 공정 트러블, 상해 등 4가지 위험형태를 체계적으로 분석한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC61-06",
+      "processOrder": 6,
+      "processName": "개선권고사항 도출",
+      "safetyMeasures": "현재안전조치가 충분하지 않을 경우 개선권고사항을 준비하고, 조치 가능하도록 우선순위를 정한다. 평가 팀이 검토한 시나리오, 가능한 결과, 제안한 변경의 요지를 포함시킨다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC61-07",
+      "processOrder": 7,
+      "processName": "평가결과보고서 작성",
+      "safetyMeasures": "공정 및 설비 개요, 공정의 위험 특성, 검토 범위와 목적, 팀 구성원 인적사항, 검토 결과, 우선순위 및 일정이 포함된 조치계획을 보고서에 포함한다. 평가회의 논의 내용은 작업일자별로 서류화한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC61-08",
+      "processOrder": 8,
+      "processName": "개선권고사항 후속조치",
+      "safetyMeasures": "평가결과 보고서 발행 이후 1개월 이내에 후속조치 책임부서를 포함한 이행조치 계획서를 수립하여 승인을 받는다. 경영자는 공정안전관리 추진팀에게 적절한 추진 여부를 관리하도록 한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC61-27",
+      "processOrder": 9,
+      "processName": "연속식 공정 K-PSR 누출 위험 분석",
+      "safetyMeasures": "개스킷 적정성 확인, 플랜지 등급 관리, 안전밸브·압력조절장치·압력경보장치·고압경보스위치 연동장치 설치, 가스감지기 설치 및 순찰, 표준운전절차 준수, 보수 후 펌프 시험 실시",
+      "requiredPPE": [],
+      "sourceSection": "부록 1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC61-28",
+      "processOrder": 10,
+      "processName": "연속식 공정 K-PSR 화재·폭발 위험 분석",
+      "safetyMeasures": "접지 실시 및 점검, 대전방지복·정전화 착용, 온도조절장치·안전밸브·압력조절장치·경보장치 설치, 소화기 비치, 소방설비 설치, 안전작업허가 절차 준수",
+      "requiredPPE": [
+        "대전방지복",
+        "정전화"
+      ],
+      "sourceSection": "부록 1",
+      "relatedSR": [
+        "SR-ELECTRIC-024",
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC61-29",
+      "processOrder": 11,
+      "processName": "연속식 공정 K-PSR 상해 위험 분석",
+      "safetyMeasures": "배수로 덮개 설치, 경고표시 부착, 안전모 착용, 2인1조 작업, 보안경 등 보호구 착용, 방호덮개 설치, 입조 작업시 산소농도 측정 및 구명줄 착용, 전원 차단 후 작업, 자동전격방지기 설치",
+      "requiredPPE": [
+        "안전모",
+        "보안경",
+        "허리보호대",
+        "구명줄",
+        "안전보호구"
+      ],
+      "sourceSection": "부록 1",
+      "relatedSR": [
+        "SR-CONFINED-002",
+        "SR-CONFINED-021",
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC61-30",
+      "processOrder": 12,
+      "processName": "회분식 공정 K-PSR 누출 위험 분석",
+      "safetyMeasures": "소화기 비치, 세안·세척시설 설치, 보호장구 착용, 유량계 정기 검교정, 온도센서 이중 설치 및 교체, 게이지 검교정, 압력계 설치, 밸런스 점검, 플렉시블/방진고무 사용",
+      "requiredPPE": [
+        "불침투성 보호의",
+        "보호장구"
+      ],
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC61-31",
+      "processOrder": 13,
+      "processName": "회분식 공정 K-PSR 화재·폭발 위험 분석",
+      "safetyMeasures": "정전기 대전방지용 비닐 사용, 질소 퍼지, 온도계 검교정, 감독자·작업자 이중 확인, 안전밸브 설치, 안전작업허가 절차 준수, 잔류가스 농도 확인",
+      "requiredPPE": [],
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-ELECTRIC-024",
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC61-32",
+      "processOrder": 14,
+      "processName": "회분식 공정 K-PSR 상해 위험 분석",
+      "safetyMeasures": "흡착포에 의한 누수 즉시 제거, 돌출부 충격 완화장치·경고표시 부착, 2인1조 작업, 국소배기장치 설치, 보호의 착용, 체인블록 사용, 입조 작업시 산소농도 측정 및 재허가 제도",
+      "requiredPPE": [
+        "보호의",
+        "허리보호대",
+        "내열장갑"
+      ],
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-CONFINED-002",
+        "SR-CONFINED-021"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC61-053",
+      "equipmentName": "안전밸브",
+      "specifications": {
+        "용도": "반응기 과압 방지",
+        "적용공정": "연속식 및 회분식 공정",
+        "기능": "이상반응에 의한 과압 시 압력 해소"
+      },
+      "sourceSection": "부록 1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "ES-CC61-054",
+      "equipmentName": "가스감지기",
+      "specifications": {
+        "용도": "유해물질 누출 감지",
+        "적용공정": "연속식 및 회분식 공정",
+        "설치위치": "펌프 씰 주변 등 누출 가능 지역"
+      },
+      "sourceSection": "부록 1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "ES-CC61-055",
+      "equipmentName": "자동전격방지기",
+      "specifications": {
+        "용도": "용접 작업 중 감전사고 방지",
+        "적용장비": "교류아크용접기",
+        "기능": "무부하 전압 자동 차단"
+      },
+      "sourceSection": "부록 1",
+      "relatedSR": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "ES-CC61-056",
+      "equipmentName": "고압경보스위치 연동장치",
+      "specifications": {
+        "용도": "과압 시 자동 비상 차단",
+        "적용공정": "연속식 공정 반응기",
+        "연동대상": "압력조절장치, 안전밸브"
+      },
+      "sourceSection": "부록 1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "ES-CC61-057",
+      "equipmentName": "국소배기장치",
+      "specifications": {
+        "용도": "유해가스 발생 시 배기",
+        "적용공정": "회분식 공정",
+        "비고": "용량 검토 필요"
+      },
+      "sourceSection": "부록 2",
+      "relatedSR": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "ES-CC61-058",
+      "equipmentName": "펌프 트립 알람(Trip alarm)",
+      "specifications": {
+        "용도": "펌프 고장 감지 및 경보",
+        "적용공정": "연속식 공정",
+        "연동기능": "저압경보계에 의한 예비 펌프 자동 작동"
+      },
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC61-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정안전성 분석(K-PSR)기법 평가서",
+      "requiredSections": [
+        "공장 또는 공정명",
+        "팀원",
+        "검토항목(공정 및 주요설비)",
+        "수행일자",
+        "도면번호",
+        "위험형태",
+        "원인·결과",
+        "관련 문제사항",
+        "현재안전조치",
+        "개선권고사항"
+      ],
+      "sourceSection": "별지서식 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC61-002",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정안전성 분석(K-PSR) 평가결과보고서",
+      "requiredSections": [
+        "공정 및 설비 개요",
+        "공정의 위험 특성",
+        "검토 범위와 목적",
+        "팀 리더 및 구성원의 인적사항",
+        "검토 결과",
+        "우선순위 및 일정이 포함된 조치계획"
+      ],
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC61-003",
+      "documentType": "WORK_PLAN",
+      "title": "이행조치 계획서",
+      "requiredSections": [
+        "후속조치 책임부서",
+        "이행조치 내용",
+        "승인"
+      ],
+      "sourceSection": "5.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC61-004",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "위험성평가 서류철",
+      "requiredSections": [
+        "평가에 사용된 자료",
+        "공정흐름도 사본",
+        "운전절차 사본",
+        "공정배관계장도",
+        "작업일자별 회의 기록"
+      ],
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC61-027",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "K-PSR 연속식 공정 분석 워크시트",
+      "requiredSections": [
+        "위험형태",
+        "원인·결과",
+        "관련 문제사항",
+        "현재안전조치",
+        "개선권고사항"
+      ],
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC61-028",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "K-PSR 회분식 공정 분석 워크시트",
+      "requiredSections": [
+        "위험형태",
+        "원인·결과",
+        "관련 문제사항",
+        "현재안전조치",
+        "개선권고사항"
+      ],
+      "sourceSection": "부록 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC61-029",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정안전성 분석(K-PSR) 결과 보고서",
+      "requiredSections": [
+        "공장 또는 공정명",
+        "팀원",
+        "검토항목",
+        "수행일자",
+        "도면번호",
+        "위험형태별 분석결과"
+      ],
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    }
+  ]
+}

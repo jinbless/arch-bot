@@ -1,0 +1,1177 @@
+{
+  "metadata": {
+    "guideCode": "E-170-2023",
+    "shortCode": "E170",
+    "domain": "B",
+    "extractedAt": "2026-04-22T21:12:07Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-B-044"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-E170-001",
+      "text": "직류측 PV기기는 시스템의 교류측이 분리되었다고 하더라도 충전된 것으로 간주하여야 한다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E170-002",
+      "text": "기기의 선정과 설치는 안전한 정비를 도모하고, 안전한 정비 또는 운용을 위하여 PV기기 제조자가 정한 지침에 악영향을 미쳐서는 아니된다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-003",
+      "text": "직류 측에 안전특별저압(SELV) 및 보호특별저압(PELV)의 보호수단을 사용하기 위해서는 최대 개방회로 전압(Uoc_max)이 직류 120 V를 초과하지 않아야 한다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1.1",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E170-004",
+      "text": "교류측의 PV 전원 케이블은 전류 사용기에 전원을 공급하는 회로의 자동차단용 보호장치의 전원측에 연결되어야 한다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "CI-E170-005",
+      "text": "전기설비가 교류측과 직류측 사이에 최소한의 단순 분리가 이루어지지 않는 PV 발전 설비를 포함하는 경우, 전원의 자동차단에 의한 고장방지를 위하여 RCD를 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": "IEC/TR 60755의 B형 권고",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E170-006",
+      "text": "비절연 인버터(무변압기형)를 설치하고 그 전원측의 교류전로를 접지(저항접지 포함)하는 경우 직류성분과 교류성분 합성 실효치(rms)에 동작하는 지락차단장치(B형 RCD)를 교류측에 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": "태양광발전시스템에서는 B형 RCD를 사용하여야 한다",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E170-007",
+      "text": "B형 RCD는 인버터 용량(연속 출력정격)이 30 kVA 이하인 경우 지락전류 300 mA 이하에서 300 ms 이내에 동작하여야 한다. 인버터 용량이 30 kVA를 초과하는 경우 kVA당 10 mA를 가산한다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": "완만하게 상승하는 지락전류(slow rising leakage current) 조건",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E170-008",
+      "text": "B형 RCD는 지락전류가 급격히 변화하는 경우 규정된 시간 이내에 동작하여야 한다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": "30 mA: 0.3s, 60 mA: 0.15s, 150 mA: 0.04s",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E170-009",
+      "text": "직류 측에 사용되는 태양전지 모듈, 접속함, 케이블 등은 KS C IEC 61140에 따라 클래스II 또는 이와 동등한 절연 이어야한다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": "태양전지 모듈은 KS C IEC 61730-1에 규정된 클래스 A가 클래스 II 요구에 부합",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E170-010",
+      "text": "직류 측에는 비도전장소에 의한 감전방지가 허용되지 않는다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.2.3",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E170-011",
+      "text": "직류측에는 비접지 국부 등전위 본딩에 의한 보호가 허용되지 않는다.",
+      "guideContext": "태양광 발전설비 감전 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.2.4",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E170-012",
+      "text": "임의의 장소에서 케이블의 연속전류용량이 Iscstc의 1.25 배 이상일 경우, PV 스트링과 PV 어레이 케이블의 과부하 보호장치는 생략할 수 있다.",
+      "guideContext": "태양광 발전설비 직류측 과부하 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E170-013",
+      "text": "케이블의 연속 전류용량이 PV 발전기 Iscstc의 1.25 배 이상이라면, PV 주 케이블의 과부하 보호장치는 생략할 수 있다.",
+      "guideContext": "태양광 발전설비 직류측 과부하 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E170-014",
+      "text": "교류 측의 PV 전원 케이블은 교류 주회로에 접속 설치된 단락 또는 과전류 보호장치에 의하여 보호되어야 한다.",
+      "guideContext": "태양광 발전설비 단락 전류 방지",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.4",
+      "basedOn": [
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "CI-E170-015",
+      "text": "낙뢰에 의해 유도되는 전압을 최소화하기 위하여 모든 배선 루프의 면적은 가능한 한 작아야 한다.",
+      "guideContext": "태양광 발전설비 전자파 간섭(EMI) 보호 (법령 근거 미확인)",
+      "additionalDetail": "배선 길이는 짧게 유지",
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E170-016",
+      "text": "PV 모듈은 관련 기기 규격, 예를 들면 PV 모듈의 경우 KS C IEC 61215의 요구 사항에 부합하여야 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-017",
+      "text": "PV 스트링의 Uocstc가 직류 120 V를 넘는다면 II종 건물의 PV 모듈 또는 그에 상응하는 절연조치를 권고한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E170-018",
+      "text": "PV 어레이 정선박스, PV 발전기 정선박스와 스위치 기어 조립체는 KS C IEC 60439-1에 부합하여야 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-019",
+      "text": "직류측의 전기기기는 직류전압과 전류에 적합한 것이어야 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-020",
+      "text": "블로킹 다이오드는 과전류차단장치의 대안으로 사용되어서는 안 된다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "CI-E170-021",
+      "text": "블로킹 다이오드의 정격전압은 태양전지 스트링 최대개방전압(UOC_MAX_string)의 2배 이상의 정격전압으로 선정하고 현장에서 확인할 수 있어야 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-022",
+      "text": "블로킹 다이오드는 보호하고자 하는 회로의 표준시험조건(STC)에서 단락회로전류의 최소 1.4배의 전류정격 IMAX를 갖도록 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": "태양전지 스트링 1.4 ISC_module, 서브-어레이 1.4 ISC_sub_array, 어레이 1.4 ISC_array",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-023",
+      "text": "1개의 인버터에 연결된 태양전지 스트링이 3병렬 이상일 경우에는 각 스트링에 블로킹 다이오드를 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-024",
+      "text": "그림자 영향, 지락 및 단락 등 사고영향, 어레이의 출력 불균형 등의 경우에 역전류가 흐를 수 있으므로 블로킹 다이오드를 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-025",
+      "text": "배터리와 연결되어 있는 경우는 블로킹 다이오드를 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-026",
+      "text": "PV 모듈은 제조자가 명시한 바에 따라 현장의 최대 태양 방사 조건하에서 적절한 열 분산이 이루어지도록 설치되어야 한다.",
+      "guideContext": "태양광 발전설비 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "PV 모듈 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-027",
+      "text": "전선은 허용전류, 전압강하 등을 고려하여 공칭단면적 2.5 ㎟ 이상의 연동선 또는 이와 동등 이상의 세기 및 굵기의 것이어야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-028",
+      "text": "전선은 KS C IEC 62930에 적합한 태양광 전용 케이블을 사용해야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-029",
+      "text": "전선은 최대개방회로전압(UOC_MAX) 이상의 정격전압을 가져야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-030",
+      "text": "난연성 전선을 사용하거나 태양광 모듈의 주변온도보다 높은 온도정격을 가져야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": "태양전지 모듈 하부의 주변온도는 70 ℃ 이상으로 간주하는 것이 바람직하다",
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-031",
+      "text": "환경에 노출될 경우 자외선에 견디거나 적절한 보호에 의하여 자외선으로부터 보호되거나 UV 방지도관 또는 플라스틱 관에 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-032",
+      "text": "동선이 사용되는 곳은 시간경과에 따라 케이블의 성능 저하를 줄이기 위해, 다연선도체를 주석 처리 하여야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-033",
+      "text": "전선이 움직임이 있을 수 있는 곳(예: 추적장치 설비 또는 스트링 케이블이 바람에 노출되는 곳)에는 가연성 케이블을 사용하여야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-034",
+      "text": "태양전지 모듈 및 기타 기구에 전선을 접속하는 경우는 나사로 조이고, 기타 이와 동등 이상의 효력이 있는 방법으로 기계적·전기적으로 안전하게 접속하고, 접속점에 장력이 가해지지 않도록 해야 한다.",
+      "guideContext": "태양광 발전설비 전기배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-035",
+      "text": "전기배선은 바람, 결빙, 온도, 태양방사와 같이 예상되는 외부 영향을 견디도록 시설해야 한다.",
+      "guideContext": "태양광 발전설비 전기배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-036",
+      "text": "모듈의 출력배선은 극성별로 확인할 수 있도록 표시해야 한다.",
+      "guideContext": "태양광 발전설비 전기배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-037",
+      "text": "직렬 연결된 태양전지 모듈의 배선은 과도전압의 유도에 의한 영향을 줄이기 위하여 도전성 루프 면적이 최소가 되도록 배치해야 한다.",
+      "guideContext": "태양광 발전설비 전기배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-038",
+      "text": "배선설비 공사는 옥내에 시설할 경우에는 KEC 232.11, 232.12, 232.13, 232.51 또는 232.3.7의 규정에 준하여 시설해야 한다.",
+      "guideContext": "태양광 발전설비 전기배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-039",
+      "text": "옥측 또는 옥외에 시설할 경우에는 KEC 232.11, 232.12, 232.13 또는 232.51(232.51.3은 제외할 것)의 규정에 준하여 시설하고 필요할 경우 적절한 방호장치를 시설해야 한다.",
+      "guideContext": "태양광 발전설비 전기배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-040",
+      "text": "단자의 접속은 기계적, 전기적, 화학적 안전성을 확보하도록 하여야 한다.",
+      "guideContext": "태양광 발전설비 단자 접속",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.3",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-041",
+      "text": "단자를 체결 또는 잠글 때 너트나 나사는 풀림방지 기능이 있는 것을 사용하여야 한다.",
+      "guideContext": "태양광 발전설비 단자 접속",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.3",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-042",
+      "text": "외부터미널과 접속하기 위해 필요한 접점의 압력이 사용기간 동안 유지되어야 한다.",
+      "guideContext": "태양광 발전설비 단자 접속",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.3",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-043",
+      "text": "단자는 도체에 손상을 주지 않고 금속표면과 안전하게 체결되어야 한다.",
+      "guideContext": "태양광 발전설비 단자 접속",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.3",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-044",
+      "text": "배선용 커넥터는 KS C IEC 62852에 따른 직류 정격을 사용하여야 한다.",
+      "guideContext": "태양광 발전설비 배선용 커넥터",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.4",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-045",
+      "text": "커넥터는 설계 시 산출된 개방회로 최대전압 이상의 전압등급을 가져야 한다.",
+      "guideContext": "태양광 발전설비 배선용 커넥터",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.4",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-046",
+      "text": "장착회로에 대해서는 전류용량 이상의 전류정격을 가져야 한다.",
+      "guideContext": "태양광 발전설비 배선용 커넥터",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.4",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-047",
+      "text": "커넥터는 설치위치에 적합한 온도등급을 유지하여야 한다.",
+      "guideContext": "태양광 발전설비 배선용 커넥터",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.4",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-048",
+      "text": "함께 결합되는 암/수 커넥터는 동일한 제조업체의 동일한 형식이어야 하며, 즉 한 제조업체의 수 커넥터와 다른 제조업체의 암 커넥터 또는 그 반대로 연결해서는 안 된다.",
+      "guideContext": "태양광 발전설비 배선용 커넥터",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.4",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-049",
+      "text": "자외선 환경에 노출되는 경우 옥외용으로 평가하고, 설치장소에 적합한 IP 등급으로 선정하여야 한다.",
+      "guideContext": "태양광 발전설비 배선용 커넥터",
+      "additionalDetail": null,
+      "workProcessPhase": "단자 및 커넥터 접속",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.4",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-050",
+      "text": "PV 스트링 케이블, PV 어레이 케이블과 PV 직류 주 케이블은 지락 및 단락 위험이 최소화되도록 선정 및 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": "단심 피복 케이블의 사용을 통해 외부 영향에 대한 배선의 보호를 강화함으로써 충족 가능",
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2.5",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-051",
+      "text": "배선 시스템은 바람, 결빙, 온도, 태양광 등과 같이 예상되는 외부 영향을 견뎌야 한다.",
+      "guideContext": "태양광 발전설비 배선",
+      "additionalDetail": null,
+      "workProcessPhase": "배선 시스템 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.5",
+      "basedOn": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E170-052",
+      "text": "개폐장치는 점검이나 조작이 가능한 곳에 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 개폐장치 설치",
+      "additionalDetail": "특히 지붕에 설치하는 태양광발전시스템의 경우 쉽게 접근할 수 있고 눈에 잘 띄는 장소에 시설",
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-053",
+      "text": "PV 인버터의 정비를 허용하기 위하여 PV 인버터를 직류측과 교류측으로부터 분리시키는 수단이 있어야 한다.",
+      "guideContext": "태양광 발전설비 단로기 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-019"
+      ]
+    },
+    {
+      "identifier": "CI-E170-054",
+      "text": "개폐기는 PV 인버터의 직류 측에 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 단로기 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-055",
+      "text": "모든 정선박스에는 \"PV 발전기와 PV 어레이 박스안의 충전부가 PV 인버터로부터 단로 된 후에도 여전히 충전 상태일 수 있다\"는 경고표시를 부착하여야 한다.",
+      "guideContext": "태양광 발전설비 단로기 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.3.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E170-056",
+      "text": "풀 아웃 퓨즈는 IEC 60269-6 규격에 의한 태양광발전시스템 전용 퓨즈인 gPV를 사용한다.",
+      "guideContext": "태양광 발전설비 풀 아웃 퓨즈",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-057",
+      "text": "풀 아웃 퓨즈는 정극성(+), 부극성(-) 양 쪽에 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 풀 아웃 퓨즈",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-058",
+      "text": "풀 아웃 퓨즈(Pull-out Fuse) 분리 위치는 전원측(1차)과 부하(2차)측 모두 분리하여 감전의 우려가 없는 구조이어야 한다.",
+      "guideContext": "태양광 발전설비 풀 아웃 퓨즈",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E170-059",
+      "text": "태양전지 어레이에서 인버터에 이르는 전로에는 그 접속점에 근접하여 부하전류를 개폐할 수 있는 개폐기를 시설하여야 한다.",
+      "guideContext": "태양광 발전설비 개폐기 설치",
+      "additionalDetail": "인버터의 정비 등을 위하여 직류 측과 교류 측 양 측에 설치하여 인버터를 전원과 부하로 부터 분리할 수 있도록 시설",
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3.3",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-060",
+      "text": "개폐기는 태양전지 모듈을 병렬로 접속하는 전로에는 그 전로에 단락전류가 발생할 경우에도 단락전류를 차단하는 능력이 있는 것이어야 한다.",
+      "guideContext": "태양광 발전설비 개폐기 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.3",
+      "basedOn": [
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "CI-E170-061",
+      "text": "태양광시스템에 사용되는 개폐기는 최대 개방전압(UOC_MAX)에서 모든 극의 정격 전류를 차단하여야 한다.",
+      "guideContext": "태양광 발전설비 개폐기 설치",
+      "additionalDetail": "UOC_MAX가 1,000 V일 때 직렬로 4개의 극(각 극성에 대해 2개의 극이 직렬로 연결됨)이 필요",
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.3",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-062",
+      "text": "개폐기는 부하시 최대 회로전류에서 개방되도록 정격을 갖추어야 한다.",
+      "guideContext": "태양광 발전설비 개폐기 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "개폐장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.3",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E170-063",
+      "text": "보호 등전위 본딩 도체가 설치되는 경우, 이 도체는 가급적 직류 케이블, 교류 케이블 및 그 부속품들과 병렬로 가깝게 설치하여야 한다.",
+      "guideContext": "태양광 발전설비 접지 설비",
+      "additionalDetail": null,
+      "workProcessPhase": "접지 및 보호 본딩 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.4",
+      "basedOn": [
+        "SR-ELECTRIC-002"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-E170-001",
+      "term": "PV(Photovoltaic)",
+      "definition": "햇빛을 직류 전기로 바꾸어 전력을 생산하는 발전방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-002",
+      "term": "PV 셀(PV cell)",
+      "definition": "태양 광선과 같은 빛에 노출될 때 전기를 생성할 수 있는 기본 PV 장치로 태양광전지를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-003",
+      "term": "PV 모듈(PV module)",
+      "definition": "환경적으로 완전히 보호되고 상호 접속된 태양전지의 최소 조립체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-004",
+      "term": "PV 스트링(PV string)",
+      "definition": "PV어레이가 필요한 출력전압을 얻을 수 있도록 PV모듈이 직렬로 연결되어있는 회로를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-005",
+      "term": "PV 어레이(PV array)",
+      "definition": "직류전원공급설비를 구성하기 위하여 PV모듈 및 기타 필요한 구성품들이 기계적 및 전기적으로 통합된 조립체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-006",
+      "term": "PV 어레이 정선박스(PV array junction box)",
+      "definition": "PV 어레이의 모든 PV 스트링이 전기적으로 연결되어 있고, 필요한 경우 보호 장치를 배치할 수 있는 외함을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-007",
+      "term": "PV 발전기(PV generator)",
+      "definition": "PV 어레이의 조립체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-008",
+      "term": "PV 발전기 정선박스(PV generator junction box)",
+      "definition": "PV 어레이가 전기적으로 연결되어 있고, 필요한 경우 보호장치를 배치할 수 있는 외함을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-009",
+      "term": "PV 스트링 케이블(PV string cable)",
+      "definition": "PV 스트링을 구성하기 위해 PV 모듈을 연결하는 케이블을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-010",
+      "term": "PV 어레이 케이블(PV array cable)",
+      "definition": "PV 어레이의 출력 케이블을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-011",
+      "term": "PV 직류 주 케이블(PV DC main cable)",
+      "definition": "PV 정선박스를 PV 인버터의 직류 단자에 연결하는 케이블을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-012",
+      "term": "PV 인버터(PV inverter)",
+      "definition": "직류 전압과 전류를 교류전압과 전류로 변환하는 장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-013",
+      "term": "PV 공급 케이블(PV supply cable)",
+      "definition": "PV 인버터의 교류단자를 전기 설비의 배전 회로에 연결하는 케이블을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-014",
+      "term": "PV 교류 모듈(PV AC module)",
+      "definition": "전기 인터페이스 단자가 직류 접근이 허용되지 않고 교류전용인 통합 모듈/인버터 조립체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-015",
+      "term": "PV 설비(PV installation)",
+      "definition": "PV시스템의 조립된 기기를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-016",
+      "term": "표준 시험 조건(Standard Test Conditions：STC)",
+      "definition": "PV 셀과 PV 모듈을 위해 KS C IEC 60904-3에 명시된 시험 조건을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-017",
+      "term": "표준 시험 조건하의 개방회로전압(open-circuit voltage under standard test conditions Uocstc)",
+      "definition": "표준 시험 조건하에서 부하가 걸리지 않는 (개방된) PV 모듈, PV 스트링, PV 어레이, PV 발전기에 흐르는 전압 또는 PV 인버터의 직류측 전압을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-018",
+      "term": "표준 시험 조건하의 단락회로전류(short-circuit current under standard test conditions Iscstc)",
+      "definition": "표준 시험 조건에서 PV 모듈, PV 스트링, PV 어레이 또는 PV 발전기 발생기의 단락 회로 전류를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-019",
+      "term": "직류측(DC side)",
+      "definition": "PV 셀에서부터 PV 인버터의 직류단자에 이르기까지 PV 설비의 일부를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-020",
+      "term": "교류측(AC side)",
+      "definition": "PV 인버터의 교류 단자에서부터 전기 설비의 PV 전원 케이블의 접속점에 이르기까지 PV 설비의 일부를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-021",
+      "term": "단순 분리(simple separation)",
+      "definition": "기초절연방법으로 회로와 회로사이 또는 회로와 접지사이의 분리를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E170-022",
+      "term": "특별저압(ELV, Extra Low Voltage)",
+      "definition": "인체에 위협을 초래하지 않을 정도의 지압을 말하며, SELV(Safety Extra Low Voltage)는 비접지 회로에 해당되며, PELV(Protective Extra Low Voltage)는 접지회로에 해당된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-E170-01",
+      "processOrder": 1,
+      "processName": "접지 시스템 및 감전 방지 설계",
+      "safetyMeasures": "교류측과 직류측 사이에 최소한의 단순 분리 확인, 직류측 PV기기는 교류측 분리와 무관하게 충전된 것으로 간주, SELV/PELV 보호수단 사용 시 Uoc_max 직류 120V 이하 확인, 전식 방지를 위한 전기적 연결 확보",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": [
+        "SR-ELECTRIC-001",
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "WP-E170-02",
+      "processOrder": 2,
+      "processName": "RCD 및 보호장치 설치",
+      "safetyMeasures": "비절연 인버터 설치 시 B형 RCD를 교류측에 설치, 지락전류 검출 및 동작시간 조건 충족(완만한 상승: 300 mA 이하에서 300 ms 이내, 급격한 변화: 30 mA/0.3s, 60 mA/0.15s, 150 mA/0.04s), 교류측 PV 전원 케이블에 과전류 보호장치 설치",
+      "requiredPPE": [],
+      "sourceSection": "4.2.2.1",
+      "relatedSR": [
+        "SR-ELECTRIC-004",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "WP-E170-03",
+      "processOrder": 3,
+      "processName": "PV 모듈 및 전기기기 설치",
+      "safetyMeasures": "PV 모듈은 KS C IEC 61215 부합 확인, 직류측 전기기기는 직류전압과 전류에 적합한 것 사용, 블로킹 다이오드는 3병렬 이상 시 설치, 정격전압은 최대개방전압의 2배 이상, 전류정격은 단락회로전류의 1.4배 이상, 모듈 설치 시 적절한 열 분산 확보",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "WP-E170-04",
+      "processOrder": 4,
+      "processName": "배선 시스템 설치",
+      "safetyMeasures": "공칭단면적 2.5 ㎟ 이상 연동선 사용, KS C IEC 62930 적합 태양광 전용 케이블 사용, 최대개방회로전압 이상 정격전압, 난연성 전선 또는 높은 온도정격, 자외선 보호, 다연선도체 주석 처리, 전선 접속 시 나사 조임 및 장력 방지, 극성별 표시, 도전성 루프 면적 최소화",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "WP-E170-05",
+      "processOrder": 5,
+      "processName": "단자·커넥터 접속",
+      "safetyMeasures": "단자 접속 시 기계적·전기적·화학적 안전성 확보, 풀림방지 기능 너트/나사 사용, 접점 압력 유지, 커넥터는 KS C IEC 62852 직류 정격, 동일 제조업체 동일 형식 암/수 커넥터 사용, 설치장소에 적합한 IP 등급 선정",
+      "requiredPPE": [],
+      "sourceSection": "5.2.3",
+      "relatedSR": [
+        "SR-ELECTRIC-013",
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "WP-E170-06",
+      "processOrder": 6,
+      "processName": "개폐장치 설치",
+      "safetyMeasures": "개폐장치는 점검이나 조작 가능한 곳에 설치, PV 인버터 직류측과 교류측 분리 수단 확보, 태양전지 스트링에 단로기 필수 설치, 태양전지 어레이에 부하개폐기 필수 설치, 정선박스에 충전 상태 경고표시 부착, 풀 아웃 퓨즈는 gPV 사용 및 양극 설치, 개폐기는 최대 개방전압에서 정격 전류 차단 가능해야 함",
+      "requiredPPE": [],
+      "sourceSection": "5.3",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-019"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-E170-001",
+      "equipmentName": "PV 모듈",
+      "specifications": {
+        "standard": "KS C IEC 61215",
+        "insulationClass": "클래스 A (KS C IEC 61730-1) → 클래스 II 부합",
+        "insulationRequirement": "KS C IEC 61140 클래스 II 또는 동등"
+      },
+      "sourceSection": "5.1.1",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "ES-E170-002",
+      "equipmentName": "태양광 전용 케이블",
+      "specifications": {
+        "standard": "KS C IEC 62930",
+        "minCrossSection": "공칭단면적 2.5 ㎟ 이상",
+        "ratedVoltage": "최대개방회로전압(UOC_MAX) 이상",
+        "temperatureRating": "태양전지 모듈 하부 주변온도 70 ℃ 이상 기준",
+        "uvProtection": "자외선에 견디거나 UV 방지도관에 설치",
+        "conductorTreatment": "다연선도체 주석 처리"
+      },
+      "sourceSection": "5.2.1",
+      "relatedSR": [
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "ES-E170-003",
+      "equipmentName": "PV 어레이 정선박스 / PV 발전기 정선박스",
+      "specifications": {
+        "standard": "KS C IEC 60439-1"
+      },
+      "sourceSection": "5.1.1",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "ES-E170-004",
+      "equipmentName": "배선용 커넥터",
+      "specifications": {
+        "standard": "KS C IEC 62852",
+        "voltageRating": "개방회로 최대전압 이상",
+        "currentRating": "장착회로 전류용량 이상",
+        "matching": "동일 제조업체 동일 형식 암/수 커넥터",
+        "outdoorRating": "자외선 노출 시 옥외용 평가 및 적합 IP 등급"
+      },
+      "sourceSection": "5.2.4",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "ES-E170-005",
+      "equipmentName": "B형 RCD(지락차단장치)",
+      "specifications": {
+        "type": "Type B (교류, 맥류, 직류신호 검출)",
+        "standard": "KS C IEC 60755",
+        "slowRisingResponse": "인버터 30 kVA 이하: 300 mA 이하에서 300 ms 이내, 30 kVA 초과: kVA당 10 mA 가산",
+        "suddenChangeResponse": "30 mA: 0.3s, 60 mA: 0.15s, 150 mA: 0.04s",
+        "sensor": "플럭스 게이트(Flux gate) 센서"
+      },
+      "sourceSection": "4.2.2.1",
+      "relatedSR": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "ES-E170-006",
+      "equipmentName": "블로킹 다이오드",
+      "specifications": {
+        "ratedVoltage": "태양전지 스트링 최대개방전압(UOC_MAX_string)의 2배 이상",
+        "currentRating": "보호회로 STC 단락회로전류의 최소 1.4배(스트링: 1.4 ISC_module, 서브-어레이: 1.4 ISC_sub_array, 어레이: 1.4 ISC_array)",
+        "installCondition": "1개 인버터에 3병렬 이상 스트링 시 각 스트링에 설치"
+      },
+      "sourceSection": "5.1.2",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "ES-E170-007",
+      "equipmentName": "풀 아웃 퓨즈(gPV)",
+      "specifications": {
+        "standard": "IEC 60269-6",
+        "type": "태양광발전시스템 전용 퓨즈(gPV)",
+        "voltageRating": "최대개방전압 이상",
+        "installation": "정극성(+), 부극성(-) 양쪽 설치, 전원측(1차)과 부하(2차)측 모두 분리 구조"
+      },
+      "sourceSection": "5.3.2.2",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "ES-E170-008",
+      "equipmentName": "접속함",
+      "specifications": {
+        "standard": "KS C 8567",
+        "insulationRequirement": "이중절연 또는 강화절연 규정 적합(절연거리, 내전압시험)"
+      },
+      "sourceSection": "4.2.2.2",
+      "relatedSR": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "ES-E170-009",
+      "equipmentName": "개폐기(부하개폐기)",
+      "specifications": {
+        "voltageRating": "최대 개방전압(UOC_MAX)에서 모든 극의 정격 전류 차단",
+        "currentRating": "부하시 최대 회로전류에서 개방되도록 정격",
+        "shortCircuitCapability": "병렬 접속 전로의 단락전류 차단 능력",
+        "poleConfiguration": "UOC_MAX 1,000 V 시 직렬 4극(각 극성 2극 직렬) 구성"
+      },
+      "sourceSection": "5.3.3",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    }
+  ],
+  "documentRequirements": []
+}

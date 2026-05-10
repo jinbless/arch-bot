@@ -1,0 +1,5934 @@
+{
+  "schema_version": "codex_manual_pilot.v1",
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "asserted_mapping_updates": 0,
+  "review_status": "candidate",
+  "scope": {
+    "batch_id": "domain_guard_manual_batch_016",
+    "guide_count": 30,
+    "source": "pipe-B/data/ci-output plus pipe-B/data/guide-inventory.json",
+    "selection_policy": "inventory order excluding prior manual batches",
+    "purpose": "Guide domain/profile guard enrichment without external API calls"
+  },
+  "policies": {
+    "external_api_used": false,
+    "candidate_table_ready": true,
+    "auto_asserted_promotion": false,
+    "max_confidence_for_manual_sr_link": 0.86,
+    "notes": [
+      "Generated locally from extracted Guide JSON.",
+      "Candidate rows require global audit before import.",
+      "Rows must not be promoted to asserted mapping tables from this report.",
+      "Evidence spans are copied from guide titles, WorkProcess names, DomainTerm terms, or extracted WorkProcess/Checklist text.",
+      "SR candidates are conservative and must be imported as candidates only."
+    ],
+    "asserted_mapping": "disabled",
+    "sr_candidates": "candidate_only",
+    "min_evidence": "at least one extracted source span per candidate",
+    "runtime_intent": "generalized guide domain guard and scoring boundary"
+  },
+  "guides": [
+    {
+      "guide_code": "C-C-8-2026",
+      "short_code": "CC8",
+      "title": "플랜지 및 개스킷 등의 접합부에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC8.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "flange_gasket_joint_leak_prevention_pressure_chemical_piping",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "플랜지",
+          "개스킷",
+          "접합부",
+          "누출",
+          "압력 제거",
+          "배관",
+          "위험물질"
+        ],
+        "evidence": "플랜지와 개스킷 접합부에서 위험물질 누출을 방지하고, 잔류 압력과 유체를 제거한 뒤 접합면 손상·부식을 확인하는 Guide이다.",
+        "source_fields": [
+          "title",
+          "checklistItems.text",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-8-2026",
+          "guide_code": "C-C-8-2026",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.82,
+          "evidence": "유체 압력을 대기압으로 낮추고 배관·플랜지 접합부를 분해·점검한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-8-2026",
+          "guide_code": "C-C-8-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "위험물질 등이 누출되어 폭발·화재 또는 위험물이 누출되는 것을 방지하기 위하여 적절한 개스킷을 사용한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-8-2026",
+          "guide_code": "C-C-8-2026",
+          "sr_id": "SR-CHEMICAL-009",
+          "confidence": 0.84,
+          "evidence": "유해물질 취급설비 접합부의 누출 방지를 직접 다룬다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-8-2026",
+          "guide_code": "C-C-8-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-033",
+          "confidence": 0.84,
+          "evidence": "화학설비·배관 접합부의 누출 방지조치와 플랜지·개스킷 관리가 대응된다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-8-2026",
+          "guide_code": "C-C-8-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-003",
+          "confidence": 0.74,
+          "evidence": "호스·배관 결합부 확인과 접합부 누출 방지 맥락이 일부 겹친다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-8-2026",
+          "guide_code": "C-C-8-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-054",
+          "confidence": 0.73,
+          "evidence": "배관 개방·수리 전 잔류 유체와 압력 제거가 수리·청소 안전조치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-8-2026",
+          "guide_code": "C-C-8-2026",
+          "trigger_text": "플랜지/개스킷 접합부",
+          "cue_type": "equipment_component",
+          "confidence": 0.86,
+          "evidence": "플랜지 접합면, 개스킷, 볼트 체결부가 핵심 시각 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-8-2026",
+          "guide_code": "C-C-8-2026",
+          "trigger_text": "접합부 누출 흔적",
+          "cue_type": "visible_condition",
+          "confidence": 0.82,
+          "evidence": "접합부 주변의 누출 흔적, 부식, 재조임 상태를 확인한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "플랜지",
+          "개스킷",
+          "접합부",
+          "누출",
+          "압력 제거",
+          "배관",
+          "위험물질"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-80-2026",
+      "short_code": "CC80",
+      "title": "사업장 인수합병을 위한 공정안전평가에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC80.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "ma_due_diligence_process_safety_assessment_document_review",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "인수합병",
+          "공정안전평가",
+          "실사",
+          "통합계획",
+          "전환계획",
+          "점검표",
+          "PSM"
+        ],
+        "evidence": "인수합병 전후 EHS·공정안전 실사, 전환계획, 통합계획, PHA/SOP/교육/PSSR/작업허가/MOC/MI/사고/비상대응/감사 체크리스트를 다루는 문서형 Guide이다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "checklistItems.text"
+        ],
+        "confidence": 0.75,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-80-2026",
+          "guide_code": "C-C-80-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "인수합병 사업장에 대한 공정안전평가 절차와 체크리스트가 중심이다.",
+          "source_fields": [
+            "title",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-80-2026",
+          "guide_code": "C-C-80-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.7,
+          "evidence": "평가 대상은 공정안전관리 요소가 있는 화학공정 사업장으로 추정되지만 사진 단서만으로는 약하다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-80-2026",
+          "guide_code": "C-C-80-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.73,
+          "evidence": "관리감독과 점검 체계를 실사 항목으로 확인한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-80-2026",
+          "guide_code": "C-C-80-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.76,
+          "evidence": "사전조사, 작업계획서, 평가계획 수립 절차와 연결된다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-80-2026",
+          "guide_code": "C-C-80-2026",
+          "sr_id": "SR-MGMT-005",
+          "confidence": 0.7,
+          "evidence": "평가팀 구성과 역할 지정은 작업지휘 체계와 일부 유사하다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-80-2026",
+          "guide_code": "C-C-80-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-053",
+          "confidence": 0.69,
+          "evidence": "PSSR와 설비 사용 전 안전점검 항목이 체크리스트에 포함된다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-80-2026",
+          "guide_code": "C-C-80-2026",
+          "trigger_text": "공정안전 실사 체크리스트",
+          "cue_type": "document",
+          "confidence": 0.84,
+          "evidence": "PHA, SOP, 교육, PSSR, 작업허가, MOC, MI, 사고, 비상대응, 감사 체크리스트가 단서이다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-80-2026",
+          "guide_code": "C-C-80-2026",
+          "trigger_text": "인수합병 전환/통합 계획",
+          "cue_type": "document",
+          "confidence": 0.8,
+          "evidence": "전환계획과 통합계획이 Guide 사용경계의 핵심이다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "인수합병",
+          "공정안전평가",
+          "실사",
+          "통합계획",
+          "전환계획",
+          "점검표",
+          "PSM"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-81-2026",
+      "short_code": "CC81",
+      "title": "상대위험순위결정(Dow and Mond Indices)기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC81.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "dow_mond_relative_risk_index_fire_explosion_loss_estimation",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "Dow Index",
+          "Mond Index",
+          "상대위험순위",
+          "물질계수",
+          "화재폭발지수",
+          "손실지수",
+          "방유제",
+          "스프링클러"
+        ],
+        "evidence": "물질계수, 화재폭발지수, 손실지수, 방유제·비상탱크·스프링클러·수막·케이블 보호 등 상대위험순위 산정용 분석 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.82,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-81-2026",
+          "guide_code": "C-C-81-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.8,
+          "evidence": "화재폭발지수와 손실지수를 산정하고 화재보호 설비를 평가한다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-81-2026",
+          "guide_code": "C-C-81-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.82,
+          "evidence": "연소 또는 화학반응에 의한 화재 또는 폭발 잠재에너지 산정이 중심이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-81-2026",
+          "guide_code": "C-C-81-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.7,
+          "evidence": "소화설비 적합성은 지수 산정의 방호계수로 반영된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-81-2026",
+          "guide_code": "C-C-81-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-048",
+          "confidence": 0.7,
+          "evidence": "방유제가 손실완화 항목으로 등장하지만 법정 설치 판단은 별도 검토가 필요하다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-81-2026",
+          "guide_code": "C-C-81-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-046",
+          "confidence": 0.68,
+          "evidence": "케이블 보호와 내화 보호 항목이 분석계수로 쓰인다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-81-2026",
+          "guide_code": "C-C-81-2026",
+          "trigger_text": "Dow/Mond 지수 산정표",
+          "cue_type": "document",
+          "confidence": 0.84,
+          "evidence": "F&EI, Mond Index, 손실지수 계산표가 직접 단서이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-81-2026",
+          "guide_code": "C-C-81-2026",
+          "trigger_text": "방유제·스프링클러·수막 방호항목",
+          "cue_type": "safety_device",
+          "confidence": 0.78,
+          "evidence": "방유제, 비상탱크, 스프링클러, 수막, 케이블 보호가 방호요소이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "Dow Index",
+          "Mond Index",
+          "상대위험순위",
+          "물질계수",
+          "화재폭발지수",
+          "손실지수",
+          "방유제",
+          "스프링클러"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-82-2026",
+      "short_code": "CC82",
+      "title": "열매유 보일러에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC82.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "thermal_oil_boiler_expansion_tank_hot_oil_piping_fire_protection",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "열매유",
+          "보일러",
+          "팽창탱크",
+          "저장탱크",
+          "고온 배관",
+          "펌프",
+          "질소봉입",
+          "방유제"
+        ],
+        "evidence": "열매유 보일러, 팽창·저장탱크, 고온 배관·개스킷·펌프, 누출 차폐, 질소 회수, Fail-safe, 방유제를 다루는 설비 Guide이다.",
+        "source_fields": [
+          "title",
+          "equipmentSpecs.equipmentName",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.86,
+          "evidence": "보일러와 팽창탱크, 저장탱크, 배관 계통의 압력·온도 설계와 보호가 중심이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.84,
+          "evidence": "고온 열매유 누출, 비흡수성 단열재, 방유제, 질소봉입 등 화재 예방 조치를 다룬다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "sr_id": "SR-MACHINE-031",
+          "confidence": 0.8,
+          "evidence": "보일러 압력방출장치 설치·검사와 열매유 보일러 안전장치가 연결된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "sr_id": "SR-MACHINE-034",
+          "confidence": 0.78,
+          "evidence": "보일러 안전장치 정상 작동 유지관리와 Fail-safe 요구가 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.82,
+          "evidence": "화학설비·압력용기 안전밸브 등 설치·검사와 관련된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-048",
+          "confidence": 0.76,
+          "evidence": "열매유 저장·누출에 대비한 방유제 설치가 언급된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-051",
+          "confidence": 0.74,
+          "evidence": "Fail-safe와 긴급차단·정지 계통이 일부 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "trigger_text": "열매유 보일러와 팽창탱크",
+          "cue_type": "equipment_component",
+          "confidence": 0.88,
+          "evidence": "열매유 보일러, 팽창탱크, 저장탱크가 핵심 설비 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-82-2026",
+          "guide_code": "C-C-82-2026",
+          "trigger_text": "고온 열매유 배관·펌프 누출 차폐",
+          "cue_type": "visible_condition",
+          "confidence": 0.82,
+          "evidence": "고온 배관, 펌프, 누출 차폐판, 비흡수성 단열재가 시각 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "열매유",
+          "보일러",
+          "팽창탱크",
+          "저장탱크",
+          "고온 배관",
+          "펌프",
+          "질소봉입",
+          "방유제"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-83-2026",
+      "short_code": "CC83",
+      "title": "가스폭발 예방을 위한 폭연방출구 설치에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC83.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "gas_deflagration_vent_enclosure_pred_pstat_vent_area",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "가스폭발",
+          "폭연방출구",
+          "Pred",
+          "Pstat",
+          "방출면적",
+          "방출덕트",
+          "방출덮개",
+          "편향판"
+        ],
+        "evidence": "가스·증기 폭연 시 밀폐 설비의 Pred/Pstat, 방출구 면적, 방출덮개, 덕트, 편향판을 설계하는 폭발방호 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "equipmentSpecs.equipmentName"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-83-2026",
+          "guide_code": "C-C-83-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.88,
+          "evidence": "폭연방출구는 가스폭발 압력을 방출하기 위한 설비이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-83-2026",
+          "guide_code": "C-C-83-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.78,
+          "evidence": "가연성 가스·인화성 액체 증기 폭연 방호와 연결된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-83-2026",
+          "guide_code": "C-C-83-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.78,
+          "evidence": "위험물질 취급 설비의 폭발·화재 방호조치와 연결된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-83-2026",
+          "guide_code": "C-C-83-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.72,
+          "evidence": "폭발위험장소 관리와 환기·검지 경보가 보조 방호로 연결된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-83-2026",
+          "guide_code": "C-C-83-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.7,
+          "evidence": "폭발·화재 위험장소 방호설비의 하나로 폭연방출구가 검토된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-83-2026",
+          "guide_code": "C-C-83-2026",
+          "trigger_text": "폭연방출구/방출덮개",
+          "cue_type": "safety_device",
+          "confidence": 0.88,
+          "evidence": "방출구, 방출덮개, 저강도·고강도 밀폐설비가 시각 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-83-2026",
+          "guide_code": "C-C-83-2026",
+          "trigger_text": "방출덕트와 편향판",
+          "cue_type": "safety_device",
+          "confidence": 0.84,
+          "evidence": "폭연 방출 방향을 제어하는 덕트와 편향판이 핵심 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "가스폭발",
+          "폭연방출구",
+          "Pred",
+          "Pstat",
+          "방출면적",
+          "방출덕트",
+          "방출덮개",
+          "편향판"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-84-2026",
+      "short_code": "CC84",
+      "title": "연소소각법에 의한 휘발성유기화합물(VOC) 처리설비에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC84.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "voc_thermal_oxidizer_rto_rco_lel_flame_arrester_emergency_vent",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "VOC",
+          "휘발성유기화합물",
+          "열소각",
+          "RTO",
+          "RCO",
+          "LEL",
+          "화염방지기",
+          "비상배출구",
+          "촉매"
+        ],
+        "evidence": "VOC 연소소각설비(RTO/RCO/TO), LEL 25% 경보·50% 정지, 비상배출구, 안전밸브·파열판, 폭발방출구, 화염방지기, 버너 퍼지를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "휘발성유기화합물 처리설비와 촉매·연소 설비가 중심이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.86,
+          "evidence": "LEL 경보·정지, 폭발방출구, 화염방지기, 퍼지 등 폭발 예방 장치를 다룬다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.74,
+          "evidence": "VOC 발산원 밀폐·배기 처리와 국소배기 맥락이 연결된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "sr_id": "SR-CHEMICAL-006",
+          "confidence": 0.72,
+          "evidence": "전체환기와 배기 처리 조건은 보조적 관련이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.84,
+          "evidence": "LEL 감지·경보와 폭발위험장소 환기·가스검지경보장치가 직접 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-038",
+          "confidence": 0.78,
+          "evidence": "급격한 압력상승에 대한 파열판 설치가 Guide에 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-045",
+          "confidence": 0.82,
+          "evidence": "화염방지기 설치와 유지가 직접 등장한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.76,
+          "evidence": "폭발위험장소 방폭 전기기계·기구 사용과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "trigger_text": "VOC 연소소각설비/RTO/RCO",
+          "cue_type": "equipment_component",
+          "confidence": 0.89,
+          "evidence": "축열식·촉매식 산화설비, 연소실, 버너, 촉매층이 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-84-2026",
+          "guide_code": "C-C-84-2026",
+          "trigger_text": "LEL 감지기와 화염방지기",
+          "cue_type": "safety_device",
+          "confidence": 0.86,
+          "evidence": "LEL 25% 경보, 50% 정지, 화염방지기, 비상배출구가 시각 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "VOC",
+          "휘발성유기화합물",
+          "열소각",
+          "RTO",
+          "RCO",
+          "LEL",
+          "화염방지기",
+          "비상배출구",
+          "촉매"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-85-2026",
+      "short_code": "CC85",
+      "title": "불활성가스 치환에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC85.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "inert_gas_purging_nitrogen_co2_moc_oxygen_reduction",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "불활성가스",
+          "질소",
+          "이산화탄소",
+          "퍼지",
+          "치환",
+          "산소농도",
+          "최소산소농도",
+          "MOC"
+        ],
+        "evidence": "진공·압력·스위프·사이폰 퍼지로 산소농도를 목표 이하로 낮추고 질소·이산화탄소를 사용해 화염전파를 방지하는 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-85-2026",
+          "guide_code": "C-C-85-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.86,
+          "evidence": "산소농도를 최소산소농도 이하로 낮춰 폭발성 분위기를 제거한다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-85-2026",
+          "guide_code": "C-C-85-2026",
+          "axis": "work_context",
+          "feature_code": "CONFINED_SPACE",
+          "confidence": 0.78,
+          "evidence": "불활성가스 배관·주입은 산소결핍 위험과 작업 전 차단·표지 관리가 필요하다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-85-2026",
+          "guide_code": "C-C-85-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-005",
+          "confidence": 0.86,
+          "evidence": "산화에틸렌 등 주입·저장 시 불활성가스 치환과 직접 대응된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-85-2026",
+          "guide_code": "C-C-85-2026",
+          "sr_id": "SR-CONFINED-012",
+          "confidence": 0.78,
+          "evidence": "불활성기체 배관 장소 작업 시 밸브 차단 및 표지 게시와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-85-2026",
+          "guide_code": "C-C-85-2026",
+          "sr_id": "SR-CONFINED-013",
+          "confidence": 0.74,
+          "evidence": "안전판 불활성기체 외부 배출 설비와 퍼지 배출 관리가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-85-2026",
+          "guide_code": "C-C-85-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-076",
+          "confidence": 0.78,
+          "evidence": "불활성가스 기밀시험 시 위험방지와 퍼지 운전 안전성이 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-85-2026",
+          "guide_code": "C-C-85-2026",
+          "trigger_text": "질소/이산화탄소 퍼지 매니폴드",
+          "cue_type": "equipment_component",
+          "confidence": 0.86,
+          "evidence": "질소 또는 이산화탄소 주입 배관, 퍼지 라인, 밸브가 핵심 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-85-2026",
+          "guide_code": "C-C-85-2026",
+          "trigger_text": "산소농도계/MOC 관리표",
+          "cue_type": "measurement_device",
+          "confidence": 0.84,
+          "evidence": "산소농도와 최소산소농도 목표 관리가 시각·문서 단서이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "불활성가스",
+          "질소",
+          "이산화탄소",
+          "퍼지",
+          "치환",
+          "산소농도",
+          "최소산소농도",
+          "MOC"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-86-2026",
+      "short_code": "CC86",
+      "title": "공정안전보고서 등의 통합서식 작성방법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC86.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "psm_integrated_forms_chemical_accident_prevention_documents",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "공정안전보고서",
+          "통합서식",
+          "화학사고예방관리계획서",
+          "PFD",
+          "P&ID",
+          "안전밸브",
+          "방유제",
+          "방폭"
+        ],
+        "evidence": "공정안전보고서·화학사고예방관리계획서 통합서식 작성 Guide로, 물질·설비·도면·안전밸브·방폭·방유제·비상설비 항목을 문서화한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "checklistItems.text"
+        ],
+        "confidence": 0.76,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "서식 작성과 제출자료 구성, 도면·설비 명세 관리가 중심이다.",
+          "source_fields": [
+            "title",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.74,
+          "evidence": "유해화학물질 취급시설과 공정안전보고서 대상 자료를 다룬다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.7,
+          "evidence": "안전밸브·파열판 서식 항목이 있지만 설치 적합성 판단은 별도 검토가 필요하다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-048",
+          "confidence": 0.7,
+          "evidence": "방유제 자료 항목이 포함된다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.7,
+          "evidence": "방폭설비와 폭발위험장소 도면 항목이 포함된다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.68,
+          "evidence": "정전기·접지·피뢰 자료 항목이 포함된다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "sr_id": "SR-HAZMAT-013",
+          "confidence": 0.68,
+          "evidence": "긴급세척·세안설비 목록이 통합서식 항목으로 등장한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "trigger_text": "PSM/화학사고예방 통합서식",
+          "cue_type": "document",
+          "confidence": 0.86,
+          "evidence": "공정안전보고서와 화학사고예방관리계획서 통합서식이 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-86-2026",
+          "guide_code": "C-C-86-2026",
+          "trigger_text": "PFD/P&ID와 안전밸브·방폭 설비 목록",
+          "cue_type": "document",
+          "confidence": 0.82,
+          "evidence": "PFD, P&ID, 안전밸브, 파열판, 전기 단선도, 방폭기기, 피뢰·접지 목록이 단서이다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "공정안전보고서",
+          "통합서식",
+          "화학사고예방관리계획서",
+          "PFD",
+          "P&ID",
+          "안전밸브",
+          "방유제",
+          "방폭"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-87-2026",
+      "short_code": "CC87",
+      "title": "가스누출감지경보기 설치 및 유지보수에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC87.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "gas_leak_detector_alarm_calibration_explosionproof_power",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "가스누출감지경보기",
+          "인화성 가스",
+          "독성 가스",
+          "검지부",
+          "경보부",
+          "교정",
+          "방폭",
+          "비상전원"
+        ],
+        "evidence": "인화성·독성 가스 검지부와 경보부, 설치 위치, AC/DC·비상전원, 방폭 검지기, 교정·자체점검을 다루는 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "equipmentSpecs.equipmentName"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.82,
+          "evidence": "인화성·독성 가스 누출 감지를 다룬다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.84,
+          "evidence": "폭발위험장소의 가스검지경보장치와 방폭 검지기 설치가 중심이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.86,
+          "evidence": "폭발·화재 위험장소 환기장치 및 가스검지경보장치 설치와 직접 대응된다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "sr_id": "SR-CHEMICAL-010",
+          "confidence": 0.82,
+          "evidence": "유해물질 대량 취급 사업장 경보설비 및 제거설비 구비와 연결된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-050",
+          "confidence": 0.76,
+          "evidence": "특수화학설비 자동경보장치 설치와 경보부가 대응된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.74,
+          "evidence": "정전에 의한 재해 방지를 위한 비상전원 확보가 감지경보기 전원 요구와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.76,
+          "evidence": "폭발위험장소 방폭구조 전기기계·기구 사용과 방폭 검지기가 대응된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "sr_id": "SR-ELECTRIC-026",
+          "confidence": 0.7,
+          "evidence": "전자파·충격 등에 의한 오작동 방지와 EMI/진동 방지가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "trigger_text": "가스 검지부와 현장 경보등",
+          "cue_type": "measurement_device",
+          "confidence": 0.88,
+          "evidence": "현장 검지부, 경광등, 부저, 경보반이 직접 시각 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-87-2026",
+          "guide_code": "C-C-87-2026",
+          "trigger_text": "교정가스와 검지기 유지보수",
+          "cue_type": "maintenance_activity",
+          "confidence": 0.84,
+          "evidence": "검지기 교정, 자체점검, 센서 교체 작업이 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "가스누출감지경보기",
+          "인화성 가스",
+          "독성 가스",
+          "검지부",
+          "경보부",
+          "교정",
+          "방폭",
+          "비상전원"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-88-2026",
+      "short_code": "CC88",
+      "title": "방유제 설치에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC88.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "tank_dike_impermeable_containment_drain_capacity",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "방유제",
+          "저장탱크",
+          "유효용량",
+          "불침투성",
+          "배수밸브",
+          "방유턱",
+          "계단",
+          "위험물질"
+        ],
+        "evidence": "위험물질 저장탱크 주변 방유제의 유효용량 110%, 불침투·불연 구조, 슬리브 배관, 배수밸브 잠금, 계단·난간을 다루는 Guide이다.",
+        "source_fields": [
+          "title",
+          "equipmentSpecs.equipmentName",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-88-2026",
+          "guide_code": "C-C-88-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "위험물질 저장탱크 누출을 방유제로 포집한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-88-2026",
+          "guide_code": "C-C-88-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.78,
+          "evidence": "인화성 액체 저장탱크 누출·화재 확산 방지와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-88-2026",
+          "guide_code": "C-C-88-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-048",
+          "confidence": 0.86,
+          "evidence": "위험물 저장탱크 방유제 설치와 직접 대응된다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-88-2026",
+          "guide_code": "C-C-88-2026",
+          "sr_id": "SR-CHEMICAL-007",
+          "confidence": 0.76,
+          "evidence": "유해물질 취급 작업장 바닥 불침투성 재료 사용과 방유제 불침투 구조가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-88-2026",
+          "guide_code": "C-C-88-2026",
+          "sr_id": "SR-CHEMICAL-018",
+          "confidence": 0.76,
+          "evidence": "유해물질 저장 장소 안전조치와 저장탱크 방유제가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-88-2026",
+          "guide_code": "C-C-88-2026",
+          "trigger_text": "저장탱크 주변 방유제",
+          "cue_type": "equipment_component",
+          "confidence": 0.89,
+          "evidence": "탱크 주변의 방유제 벽체와 유효용량이 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-88-2026",
+          "guide_code": "C-C-88-2026",
+          "trigger_text": "잠금 배수밸브와 계단·난간",
+          "cue_type": "safety_device",
+          "confidence": 0.84,
+          "evidence": "배수밸브 잠금, 계단, 난간, 내부 설비 제한이 시각 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "방유제",
+          "저장탱크",
+          "유효용량",
+          "불침투성",
+          "배수밸브",
+          "방유턱",
+          "계단",
+          "위험물질"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-89-2026",
+      "short_code": "CC89",
+      "title": "내화구조에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC89.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "fireproofing_structure_hazardous_area_supports_cable_instrument_lines",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "내화구조",
+          "내화재료",
+          "위험장소",
+          "기둥",
+          "보",
+          "배관 지지대",
+          "케이블",
+          "계장배관"
+        ],
+        "evidence": "위험장소의 기둥·보·탱크 지지대·배관 지지대·전선관 지지대, MI/SI 케이블, STS 계장배관 내화보호를 다루는 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "equipmentSpecs.equipmentName"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "industry_alignment": [
+          "port_logistics",
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-89-2026",
+          "guide_code": "C-C-89-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.86,
+          "evidence": "화재 시 구조물과 지지대가 강도와 성능을 유지하도록 내화구조를 적용한다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-89-2026",
+          "guide_code": "C-C-89-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.78,
+          "evidence": "폭발위험장소·QRA 기반 내화 범위 선정과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-89-2026",
+          "guide_code": "C-C-89-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-046",
+          "confidence": 0.86,
+          "evidence": "폭발위험장소 건축물 내화구조 및 내화재료 기준과 직접 대응된다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-89-2026",
+          "guide_code": "C-C-89-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-031",
+          "confidence": 0.78,
+          "evidence": "화학설비 설치 건축물의 불연성 재료 사용과 연결된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-89-2026",
+          "guide_code": "C-C-89-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-047",
+          "confidence": 0.7,
+          "evidence": "화학설비 간 안전거리와 QRA 기반 내화 범위가 보조적으로 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-89-2026",
+          "guide_code": "C-C-89-2026",
+          "trigger_text": "내화 피복된 철골/배관 지지대",
+          "cue_type": "visible_condition",
+          "confidence": 0.88,
+          "evidence": "기둥, 보, 탱크 지지대, 배관 지지대의 내화피복이 시각 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-89-2026",
+          "guide_code": "C-C-89-2026",
+          "trigger_text": "MI/SI 케이블과 STS 계장배관",
+          "cue_type": "equipment_component",
+          "confidence": 0.8,
+          "evidence": "내화 케이블과 계장배관 보호가 보조 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "내화구조",
+          "내화재료",
+          "위험장소",
+          "기둥",
+          "보",
+          "배관 지지대",
+          "케이블",
+          "계장배관"
+        ],
+        "exclude_when": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-9-2026",
+      "short_code": "CC9",
+      "title": "긴급차단밸브의 설치에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC9.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "emergency_shutoff_valve_fail_close_remote_switch_toxic_flammable_transfer",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "긴급차단밸브",
+          "fail-close",
+          "원격조작스위치",
+          "인화성",
+          "독성",
+          "저장탱크",
+          "반응기",
+          "로리"
+        ],
+        "evidence": "인화성 가스·급성독성물질·인화성 액체 저장탱크, 반응기, 가열로, 로리 이송배관의 긴급차단밸브와 원격스위치·연 1회 시험을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-9-2026",
+          "guide_code": "C-C-9-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.82,
+          "evidence": "급성독성물질과 인화성 액체·가스 누출 차단이 핵심이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-9-2026",
+          "guide_code": "C-C-9-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.82,
+          "evidence": "주위 화재 또는 위험물질 누출 시 원격 차단하는 설비이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-9-2026",
+          "guide_code": "C-C-9-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-051",
+          "confidence": 0.86,
+          "evidence": "특수화학설비 긴급차단장치 등 설치 및 유지와 직접 대응된다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-9-2026",
+          "guide_code": "C-C-9-2026",
+          "sr_id": "SR-CHEMICAL-011",
+          "confidence": 0.84,
+          "evidence": "이상화학반응 대비 긴급 차단장치 설치·관리와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-9-2026",
+          "guide_code": "C-C-9-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-075",
+          "confidence": 0.78,
+          "evidence": "급성 독성물질 누출 방지 조치와 대상 물질 조건이 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-9-2026",
+          "guide_code": "C-C-9-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-055",
+          "confidence": 0.74,
+          "evidence": "폭발·화재 급박위험 시 작업중지·대피와 긴급차단 운전이 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-9-2026",
+          "guide_code": "C-C-9-2026",
+          "trigger_text": "긴급차단밸브와 공압/전동 액추에이터",
+          "cue_type": "safety_device",
+          "confidence": 0.89,
+          "evidence": "Fail-close 액추에이터, 내화 구동부, 차단밸브가 시각 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-9-2026",
+          "guide_code": "C-C-9-2026",
+          "trigger_text": "안전거리 밖 원격조작스위치",
+          "cue_type": "safety_device",
+          "confidence": 0.84,
+          "evidence": "현장 외부 원격스위치와 연 1회 작동시험 표지가 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "긴급차단밸브",
+          "fail-close",
+          "원격조작스위치",
+          "인화성",
+          "독성",
+          "저장탱크",
+          "반응기",
+          "로리"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-90-2026",
+      "short_code": "CC90",
+      "title": "안전밸브 등의 배출용량 산정 및 설치 등에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC90.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "safety_valve_relief_capacity_set_pressure_discharge_system",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "안전밸브",
+          "배출용량",
+          "설정압력",
+          "축적압력",
+          "압력용기",
+          "파열판",
+          "토출배관",
+          "차단밸브"
+        ],
+        "evidence": "압력용기·압축기·펌프·열팽창 계통의 안전밸브·파열판 배출용량, 설정압력, 축적압력, 전후단 차단밸브와 배출처리를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.88,
+          "evidence": "압력용기, 압축기, 펌프, 열팽창 설비의 압력방호가 중심이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.8,
+          "evidence": "과압에 따른 파열·폭발 위험을 배출용량과 안전처리로 제어한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.86,
+          "evidence": "화학설비·압력용기 안전밸브 등 설치 및 검사와 직접 대응된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-038",
+          "confidence": 0.84,
+          "evidence": "급격한 압력상승 우려 설비의 파열판 설치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-040",
+          "confidence": 0.86,
+          "evidence": "안전밸브등의 최고사용압력 이하 작동 요건과 직접 대응된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-041",
+          "confidence": 0.86,
+          "evidence": "안전밸브등의 배출용량 산정 기준과 직접 대응된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-042",
+          "confidence": 0.84,
+          "evidence": "안전밸브등 전단·후단 차단밸브 설치 금지와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-043",
+          "confidence": 0.84,
+          "evidence": "안전밸브등 배출 위험물의 안전 처리와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "trigger_text": "안전밸브/릴리프밸브 태그와 설정압력",
+          "cue_type": "safety_device",
+          "confidence": 0.89,
+          "evidence": "PSV/PRV, 설정압력, 봉인, 명판이 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-90-2026",
+          "guide_code": "C-C-90-2026",
+          "trigger_text": "토출배관과 파열판 조합",
+          "cue_type": "equipment_component",
+          "confidence": 0.85,
+          "evidence": "배출 배관, 파열판, 전후단 차단밸브 상태가 시각 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "안전밸브",
+          "배출용량",
+          "설정압력",
+          "축적압력",
+          "압력용기",
+          "파열판",
+          "토출배관",
+          "차단밸브"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-91-2026",
+      "short_code": "CC91",
+      "title": "화학설비 배관 등의 비파괴검사 및 열처리에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC91.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chemical_piping_ndt_heat_treatment_rt_ut_mt_pt_weld_integrity",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "비파괴검사",
+          "열처리",
+          "RT",
+          "UT",
+          "MT",
+          "PT",
+          "배관",
+          "용접부",
+          "독성물질"
+        ],
+        "evidence": "화학설비 배관 용접부의 RT/UT/MT/PT 비파괴검사, 유체 위험분류, 검사율, 재검사, 열처리를 다루는 Guide이다.",
+        "source_fields": [
+          "title",
+          "equipmentSpecs.equipmentName",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.8,
+          "evidence": "고위험유체·독성물질 배관의 검사·열처리 작업이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.82,
+          "evidence": "화학설비 배관 용접부와 압력 유지 설비의 건전성 확인이 중심이다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "sr_id": "SR-RADIATION-001",
+          "confidence": 0.72,
+          "evidence": "RT 검사 시 방사선 업무 건강장해 예방이 필요할 수 있으나 Guide 본문상 적용조건 검토가 필요하다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "sr_id": "SR-RADIATION-006",
+          "confidence": 0.7,
+          "evidence": "방사선 발생장치 정보 게시가 RT 장비 사용과 관련될 수 있다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.76,
+          "evidence": "화학설비·배관 부식 방지와 배관 건전성 검사가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-033",
+          "confidence": 0.76,
+          "evidence": "배관 접합부 누출 방지와 용접부 검사·재검사가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "sr_id": "SR-CHEMICAL-008",
+          "confidence": 0.74,
+          "evidence": "유해물질 접촉설비 부식 방지조치와 고위험유체 배관 검사 맥락이 겹친다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "trigger_text": "RT/UT/MT/PT 비파괴검사 장비",
+          "cue_type": "measurement_device",
+          "confidence": 0.88,
+          "evidence": "방사선투과, 초음파, 자분, 침투탐상 장비가 핵심 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-91-2026",
+          "guide_code": "C-C-91-2026",
+          "trigger_text": "배관 용접부 열처리/검사 표시",
+          "cue_type": "maintenance_activity",
+          "confidence": 0.84,
+          "evidence": "용접부, 검사필름, 열처리 기록, 재검사 표식이 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "비파괴검사",
+          "열처리",
+          "RT",
+          "UT",
+          "MT",
+          "PT",
+          "배관",
+          "용접부",
+          "독성물질"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-92-2026",
+      "short_code": "CC92",
+      "title": "자체감사에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC92.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "psm_self_audit_document_program",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "자체감사",
+          "공정안전",
+          "PSM",
+          "감사계획",
+          "감사팀",
+          "점검표",
+          "현장감사",
+          "면담",
+          "개선조치",
+          "감사보고서"
+        ],
+        "evidence": "공정안전 자체감사 계획, 감사팀 구성, 점검표, 현장 확인·면담, 감사보고서와 개선조치 추적을 다루는 문서형 Guide이다. | usage_profile_attention_correction_v2",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "checklistItems.text",
+          "synthetic_v1_v10_attention_review"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 현장 사진",
+          "기계만 보임",
+          "감사 문서 단서 없음",
+          "PSM 단서 없음"
+        ],
+        "industry_alignment": [
+          "공정안전보고서 대상",
+          "PSM 사업장",
+          "자체감사"
+        ],
+        "procedure_role": "document_reference"
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-92-2026",
+          "guide_code": "C-C-92-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "사업장 공정안전 자체감사와 개선조치 관리가 중심이다. | usage_profile_attention_correction_v2: 자체감사 Guide는 일반 현장/화학작업 feature만으로 추천하면 안 된다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName",
+            "synthetic_v1_v10_attention_review"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-92-2026",
+          "guide_code": "C-C-92-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.64,
+          "evidence": "공정안전보고서 대상 설비 감사로 보이나 사진 단서만으로는 약하다. | usage_profile_attention_correction_v2: 자체감사 Guide는 일반 현장/화학작업 feature만으로 추천하면 안 된다.",
+          "source_fields": [
+            "checklistItems.text",
+            "synthetic_v1_v10_attention_review"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-92-2026",
+          "guide_code": "C-C-92-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.76,
+          "evidence": "관리감독자의 유해·위험 방지 업무 수행 및 점검과 자체감사 체계가 연결된다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-92-2026",
+          "guide_code": "C-C-92-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.74,
+          "evidence": "감사계획과 사전조사·계획서 작성이 관련된다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-92-2026",
+          "guide_code": "C-C-92-2026",
+          "sr_id": "SR-MGMT-005",
+          "confidence": 0.7,
+          "evidence": "감사팀 구성과 역할 지정은 작업지휘자 지정과 일부 유사하다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-92-2026",
+          "guide_code": "C-C-92-2026",
+          "sr_id": "SR-MGMT-006",
+          "confidence": 0.68,
+          "evidence": "감사 중 의사소통·면담 절차가 신호방법과 직접 대응되지는 않는다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-92-2026",
+          "guide_code": "C-C-92-2026",
+          "trigger_text": "공정안전 자체감사 점검표",
+          "cue_type": "document",
+          "confidence": 0.86,
+          "evidence": "감사계획서, 점검표, 감사보고서가 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-92-2026",
+          "guide_code": "C-C-92-2026",
+          "trigger_text": "감사팀 현장 확인/면담",
+          "cue_type": "human_activity",
+          "confidence": 0.78,
+          "evidence": "감사팀의 현장확인, 인터뷰, 개선조치 회의가 시각 단서이다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "자체감사",
+          "공정안전",
+          "PSM",
+          "감사계획",
+          "감사팀",
+          "점검표",
+          "감사보고서"
+        ],
+        "exclude_when": [
+          "일반 현장 사진",
+          "기계만 보임",
+          "감사 문서 단서 없음",
+          "PSM 단서 없음"
+        ],
+        "runtime_use": "candidate_domain_guard_only",
+        "legal_asserted_use": false
+      },
+      "notes": [
+        "Schema-normalized for candidate-only domain guard; semantic candidates unchanged.",
+        "usage_profile_attention_correction_v2"
+      ]
+    },
+    {
+      "guide_code": "C-C-93-2026",
+      "short_code": "CC93",
+      "title": "상압저장탱크의 형식선정 및 설계에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC93.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "atmospheric_storage_tank_fixed_floating_roof_vent_inerting_static",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "상압저장탱크",
+          "고정지붕",
+          "부상지붕",
+          "통기설비",
+          "브리더밸브",
+          "불활성가스",
+          "정전기",
+          "실링"
+        ],
+        "evidence": "상압저장탱크 형식선정·설계, 고정/부상 지붕, 불활성화, 벤트·브리더밸브, 부식여유, 지붕·실링·정전기 제거를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "equipmentSpecs.equipmentName"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.82,
+          "evidence": "인화성·독성 물질 저장탱크 형식과 통기·불활성화를 다룬다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.8,
+          "evidence": "부상지붕·실링과 정전기 제거가 설계 요소로 등장한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-044",
+          "confidence": 0.86,
+          "evidence": "인화성 액체 대기압탱크 통기설비 설치 및 유지와 직접 대응된다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-045",
+          "confidence": 0.8,
+          "evidence": "화염방지기 설치와 탱크 통기설비가 연결된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-048",
+          "confidence": 0.78,
+          "evidence": "저장탱크 방유제 설치와 상압탱크 설계가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.8,
+          "evidence": "정전기에 의한 화재·폭발 방지 조치와 정전기 제거가 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "sr_id": "SR-CHEMICAL-018",
+          "confidence": 0.74,
+          "evidence": "유해물질 저장 장소 안전조치와 저장탱크 설계가 관련된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "trigger_text": "상압저장탱크 고정/부상지붕",
+          "cue_type": "equipment_component",
+          "confidence": 0.89,
+          "evidence": "고정지붕, 외부/내부 부상지붕 탱크가 핵심 시각 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-93-2026",
+          "guide_code": "C-C-93-2026",
+          "trigger_text": "브리더밸브·벤트·화염방지기",
+          "cue_type": "safety_device",
+          "confidence": 0.86,
+          "evidence": "통기구, 브리더밸브, 화염방지기, 질소봉입 라인이 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "상압저장탱크",
+          "고정지붕",
+          "부상지붕",
+          "통기설비",
+          "브리더밸브",
+          "불활성가스",
+          "정전기",
+          "실링"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-94-2026",
+      "short_code": "CC94",
+      "title": "파열판의 설치 및 교환 등에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC94.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "rupture_disc_install_replace_burst_pressure_relief_capacity",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "파열판",
+          "파열압력",
+          "교환",
+          "안전밸브",
+          "방출용량",
+          "플랜지",
+          "배관",
+          "압력방출"
+        ],
+        "evidence": "파열판의 파열압력, 임계유동, 방출용량, 보호대상 설비 가까운 설치, 플랜지·배관, 교환·점검을 다루는 압력방호 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.86,
+          "evidence": "파열판은 압력용기·화학설비 과압 방호 장치이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.8,
+          "evidence": "과압과 급격한 압력상승에 따른 파열·폭발 위험을 방출한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-038",
+          "confidence": 0.86,
+          "evidence": "급격한 압력상승 등 우려 설비의 파열판 설치와 직접 대응된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-039",
+          "confidence": 0.82,
+          "evidence": "급성 독성물질 유출 설비의 파열판·안전밸브 직렬 설치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-041",
+          "confidence": 0.82,
+          "evidence": "방출용량 산정이 파열판 용량 검토와 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-043",
+          "confidence": 0.78,
+          "evidence": "방출 위험물의 안전 처리가 배출 배관과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.76,
+          "evidence": "화학설비·압력용기 안전밸브 등 설치와 파열판 조합이 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "trigger_text": "파열판 홀더/플랜지 조립부",
+          "cue_type": "safety_device",
+          "confidence": 0.89,
+          "evidence": "파열판, 홀더, 플랜지, 설치 방향 표시가 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-94-2026",
+          "guide_code": "C-C-94-2026",
+          "trigger_text": "파열압력 태그와 교환 기록",
+          "cue_type": "document",
+          "confidence": 0.84,
+          "evidence": "파열압력, 제조번호, 교환일자, 검사표가 시각·문서 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "파열판",
+          "파열압력",
+          "교환",
+          "안전밸브",
+          "방출용량",
+          "플랜지",
+          "배관",
+          "압력방출"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-1-2021",
+      "short_code": "D1",
+      "title": "미압 배관 등에서의 폭연 방산구 설치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D1.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "low_pressure_piping_deflagration_vent_deflector_duct_area",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "미압 배관",
+          "폭연",
+          "방산구",
+          "방출면적",
+          "방출덕트",
+          "편향판",
+          "저압",
+          "배관"
+        ],
+        "evidence": "미압 배관 등에서 폭연 방산구, 방출면적 계산, 방출덕트, 편향판을 설계하는 폭발방호 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "equipmentSpecs.equipmentName"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-1-2021",
+          "guide_code": "D-1-2021",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.88,
+          "evidence": "폭연 방산구는 배관 폭연 압력을 방출하기 위한 장치이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-1-2021",
+          "guide_code": "D-1-2021",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.76,
+          "evidence": "미압 배관과 덕트의 압력 방산 경로 설계가 중심이다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-1-2021",
+          "guide_code": "D-1-2021",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.76,
+          "evidence": "위험물질 설비의 폭발 방호조치와 연결된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-1-2021",
+          "guide_code": "D-1-2021",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.7,
+          "evidence": "폭발·화재 위험장소 방호설비로 볼 수 있으나 구체 법정설비 매핑은 검토가 필요하다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-1-2021",
+          "guide_code": "D-1-2021",
+          "sr_id": "SR-FIRE_EXPLOSION-031",
+          "confidence": 0.68,
+          "evidence": "건축물·설비 구조 방호와 일부 관련되지만 직접성은 낮다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-1-2021",
+          "guide_code": "D-1-2021",
+          "trigger_text": "미압 배관 폭연 방산구",
+          "cue_type": "safety_device",
+          "confidence": 0.88,
+          "evidence": "배관 또는 덕트에 설치된 방산구 패널이 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-1-2021",
+          "guide_code": "D-1-2021",
+          "trigger_text": "방출덕트/편향판 방출 방향",
+          "cue_type": "safety_device",
+          "confidence": 0.84,
+          "evidence": "방출덕트와 편향판, 방출 방향 표시가 시각 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "미압 배관",
+          "폭연",
+          "방산구",
+          "방출면적",
+          "방출덕트",
+          "편향판",
+          "저압",
+          "배관"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-12-2012",
+      "short_code": "D12",
+      "title": "분진폭발방지에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D12.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "dust_explosion_prevention_collector_grounding_inerting_isolation_vent_suppression",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "분진폭발",
+          "분진",
+          "집진기",
+          "도전성 필터",
+          "본딩",
+          "접지",
+          "불활성가스",
+          "폭발방산",
+          "폭발억제"
+        ],
+        "evidence": "분진 제거·밀폐, 집진기, 도전성 필터, 본딩·접지, 불활성화, 폭발격리·방산·억제 장치를 다루는 분진폭발 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.88,
+          "evidence": "분진폭발 방지와 폭발격리·방산·억제 장치가 중심이다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.76,
+          "evidence": "분진 제거, 밀폐, 국소배기, 호흡보호 등 노출 저감과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "sr_id": "SR-DUST-001",
+          "confidence": 0.82,
+          "evidence": "분진작업 실내작업장 밀폐설비 또는 국소배기장치 설치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "sr_id": "SR-DUST-003",
+          "confidence": 0.74,
+          "evidence": "분진 비산 억제를 위한 습기 유지와 일부 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "sr_id": "SR-DUST-004",
+          "confidence": 0.76,
+          "evidence": "분진 국소배기·집진 설비 점검과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "sr_id": "SR-DUST-005",
+          "confidence": 0.8,
+          "evidence": "분진 제거와 청소가 폭발 예방의 핵심이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.84,
+          "evidence": "정전기에 의한 화재·폭발 방지 조치와 본딩·접지가 직접 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.74,
+          "evidence": "폭발위험장소 관리와 집진·검지·환기 방호가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "trigger_text": "집진기 폭발방산구/격리장치",
+          "cue_type": "safety_device",
+          "confidence": 0.89,
+          "evidence": "집진기, 폭발방산구, 폭발격리밸브, 폭발억제장치가 시각 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-12-2012",
+          "guide_code": "D-12-2012",
+          "trigger_text": "분진 퇴적과 본딩/접지선",
+          "cue_type": "visible_condition",
+          "confidence": 0.86,
+          "evidence": "바닥·설비 분진 퇴적, 도전성 필터, 접지선이 핵심 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "분진폭발",
+          "분진",
+          "집진기",
+          "도전성 필터",
+          "본딩",
+          "접지",
+          "불활성가스",
+          "폭발방산",
+          "폭발억제"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-13-2012",
+      "short_code": "D13",
+      "title": "염소저장설비에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D13.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chlorine_storage_tank_scrubber_gas_detector_dike_esv_prv",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "염소",
+          "염소저장설비",
+          "저장탱크",
+          "긴급차단밸브",
+          "안전밸브",
+          "파열판",
+          "가스검지기",
+          "방유제",
+          "스크러버"
+        ],
+        "evidence": "염소 저장탱크·배관, 긴급차단밸브, 안전밸브·파열판, 압력경보, 가스검지기, 방유제, 스크러버, 비상전원을 다루는 Guide이다.",
+        "source_fields": [
+          "title",
+          "equipmentSpecs.equipmentName",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.9,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.9,
+          "evidence": "염소 저장설비와 누출·제거설비가 핵심이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.86,
+          "evidence": "염소 가스 누출, 가스검지기, 스크러버, 방독보호구가 노출 방지와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "sr_id": "SR-CHEMICAL-010",
+          "confidence": 0.86,
+          "evidence": "유해물질 대량 취급 사업장 경보설비 및 제거설비와 가스검지기·스크러버가 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "sr_id": "SR-CHEMICAL-011",
+          "confidence": 0.82,
+          "evidence": "긴급차단장치 설치·관리와 염소 배관 ESV가 연결된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "sr_id": "SR-CHEMICAL-014",
+          "confidence": 0.78,
+          "evidence": "유해물질 사고 시 작업 중지, 대피 및 출입금지가 염소 누출 대응과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "sr_id": "SR-CHEMICAL-018",
+          "confidence": 0.8,
+          "evidence": "유해물질 저장용기·저장장소 안전조치와 염소 저장탱크가 대응된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.76,
+          "evidence": "안전밸브 등 설치와 염소 저장설비 압력보호가 연결된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-039",
+          "confidence": 0.76,
+          "evidence": "급성 독성물질 유출 설비의 파열판·안전밸브 직렬 설치와 연결된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.72,
+          "evidence": "가스검지·제거설비 비상전원 확보가 필요하다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "trigger_text": "염소 저장탱크/용기실",
+          "cue_type": "equipment_component",
+          "confidence": 0.9,
+          "evidence": "염소 탱크, 저장용기, 배관, 압력계가 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-13-2012",
+          "guide_code": "D-13-2012",
+          "trigger_text": "염소 가스검지기와 스크러버",
+          "cue_type": "safety_device",
+          "confidence": 0.88,
+          "evidence": "가스검지기, 경보반, 스크러버, 비상전원 설비가 시각 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "염소",
+          "염소저장설비",
+          "저장탱크",
+          "긴급차단밸브",
+          "안전밸브",
+          "파열판",
+          "가스검지기",
+          "방유제",
+          "스크러버"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-16-2012",
+      "short_code": "D16",
+      "title": "폭발억제장치의 설치 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D16.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "explosion_suppression_detector_controller_high_speed_extinguisher",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "폭발억제장치",
+          "검출기",
+          "제어기",
+          "고속소화기",
+          "작동회로",
+          "비상전원",
+          "차폐배선"
+        ],
+        "evidence": "폭발 검출기, 제어기, 고속 소화약제 방출기, 작동회로, 비상전원, 차폐배선과 정기점검을 다루는 폭발억제 Guide이다.",
+        "source_fields": [
+          "title",
+          "equipmentSpecs.equipmentName",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-16-2012",
+          "guide_code": "D-16-2012",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.88,
+          "evidence": "폭발 초기 압력·화염 검출 후 소화약제를 고속 방출해 폭발을 억제한다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-16-2012",
+          "guide_code": "D-16-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.74,
+          "evidence": "검출기·제어기 회로, 비상전원, 차폐배선 관리가 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-16-2012",
+          "guide_code": "D-16-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.76,
+          "evidence": "폭발 방호조치로서 폭발억제장치가 연결된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-16-2012",
+          "guide_code": "D-16-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.72,
+          "evidence": "폭발·화재 위험장소 방호설비의 하나이나 직접 조문성은 검토가 필요하다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-16-2012",
+          "guide_code": "D-16-2012",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.76,
+          "evidence": "정전에 의한 재해 방지를 위한 비상전원 확보가 제어기 전원과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-16-2012",
+          "guide_code": "D-16-2012",
+          "sr_id": "SR-ELECTRIC-026",
+          "confidence": 0.72,
+          "evidence": "전자파·기계 오작동 방지와 차폐배선·작동회로 신뢰성이 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-16-2012",
+          "guide_code": "D-16-2012",
+          "trigger_text": "폭발 검출기와 제어반",
+          "cue_type": "measurement_device",
+          "confidence": 0.88,
+          "evidence": "압력·화염 검출기, 제어반, 작동회로가 핵심 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-16-2012",
+          "guide_code": "D-16-2012",
+          "trigger_text": "고속 소화약제 방출기",
+          "cue_type": "safety_device",
+          "confidence": 0.88,
+          "evidence": "고속소화기, 약제용기, 방출노즐이 시각 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "폭발억제장치",
+          "검출기",
+          "제어기",
+          "고속소화기",
+          "작동회로",
+          "비상전원",
+          "차폐배선"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-2-2012",
+      "short_code": "D2",
+      "title": "활성탄  흡착설비의 안전설치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D2.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "activated_carbon_adsorber_voc_lfl_co_temperature_hotspot_purge",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "활성탄",
+          "흡착설비",
+          "VOC",
+          "LFL",
+          "CO",
+          "온도감시",
+          "핫스팟",
+          "질소퍼지",
+          "물분무"
+        ],
+        "evidence": "VOC 활성탄 흡착설비의 LFL 25% 관리, CO·온도 모니터링, 핫스팟, 물분무·질소, 방폭전기, 퍼지를 다루는 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "휘발성유기화합물 흡착과 활성탄 설비가 중심이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.84,
+          "evidence": "활성탄 핫스팟, CO·온도 감시, 물분무·질소 주입이 화재 예방과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.76,
+          "evidence": "VOC 발산원 밀폐·국소배기와 흡착설비가 연결된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.8,
+          "evidence": "폭발위험장소 환기·가스검지경보장치와 LFL 감시가 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-013",
+          "confidence": 0.74,
+          "evidence": "자연발화 위험 물질의 온도 상승 방지와 활성탄 핫스팟 관리가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.74,
+          "evidence": "소화설비 설치와 물분무·질소 대응이 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.76,
+          "evidence": "방폭 전기기계·기구 사용과 흡착설비 전기설비가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "trigger_text": "활성탄 흡착탑/베드",
+          "cue_type": "equipment_component",
+          "confidence": 0.89,
+          "evidence": "활성탄 흡착탑, 베드, 전처리 필터가 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-2-2012",
+          "guide_code": "D-2-2012",
+          "trigger_text": "CO·온도 감시와 질소/물분무 라인",
+          "cue_type": "measurement_device",
+          "confidence": 0.86,
+          "evidence": "CO 센서, 온도계, 질소퍼지, 물분무 배관이 시각 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "활성탄",
+          "흡착설비",
+          "VOC",
+          "LFL",
+          "CO",
+          "온도감시",
+          "핫스팟",
+          "질소퍼지",
+          "물분무"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-20-2017",
+      "short_code": "D20",
+      "title": "위험물질 저장취급 화학설비의 고무라이닝에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D20.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chemical_equipment_rubber_lining_surface_prep_curing_no_hot_work",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "고무라이닝",
+          "위험물질",
+          "화학설비",
+          "맨홀",
+          "고무시트",
+          "표면처리",
+          "경화",
+          "용접금지"
+        ],
+        "evidence": "위험물질 저장·취급 화학설비 내부 고무라이닝, 표면처리, 용접결함 보수, 경화, 라이닝 후 화기작업 금지를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-20-2017",
+          "guide_code": "D-20-2017",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.86,
+          "evidence": "위험물질 저장·취급 화학설비 내부 부식·침투 방지를 위한 고무라이닝이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-20-2017",
+          "guide_code": "D-20-2017",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.78,
+          "evidence": "라이닝 표면처리, 경화, 맨홀 내부 작업이 중심이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-20-2017",
+          "guide_code": "D-20-2017",
+          "sr_id": "SR-CHEMICAL-008",
+          "confidence": 0.84,
+          "evidence": "유해물질 접촉설비의 부식 방지조치와 고무라이닝이 직접 대응된다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-20-2017",
+          "guide_code": "D-20-2017",
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.8,
+          "evidence": "화학설비·배관 부식 방지조치와 연결된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-20-2017",
+          "guide_code": "D-20-2017",
+          "sr_id": "SR-FIRE_EXPLOSION-054",
+          "confidence": 0.76,
+          "evidence": "화학설비 개조·수리·청소 시 안전조치와 라이닝 보수작업이 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-20-2017",
+          "guide_code": "D-20-2017",
+          "sr_id": "SR-CHEMICAL-012",
+          "confidence": 0.74,
+          "evidence": "유해물질 취급설비 누출 방지 작업수칙과 라이닝 결함 관리가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-20-2017",
+          "guide_code": "D-20-2017",
+          "trigger_text": "고무라이닝된 화학설비 내부",
+          "cue_type": "visible_condition",
+          "confidence": 0.88,
+          "evidence": "탱크·용기 내부 고무라이닝 표면, 박리, 기포, 균열이 시각 단서이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-20-2017",
+          "guide_code": "D-20-2017",
+          "trigger_text": "맨홀 내부 표면처리/경화 작업",
+          "cue_type": "maintenance_activity",
+          "confidence": 0.84,
+          "evidence": "맨홀 출입, 표면처리, 고무시트 부착, 경화 작업이 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "고무라이닝",
+          "위험물질",
+          "화학설비",
+          "맨홀",
+          "고무시트",
+          "표면처리",
+          "경화",
+          "용접금지"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-21-2012",
+      "short_code": "D21",
+      "title": "옥외저장탱크의 포 소화설비 설계지침",
+      "source_file": "pipe-B/data/ci-output/ci-D21.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "outdoor_storage_tank_foam_fire_protection_fixed_outlet_pump_concentrate",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "옥외저장탱크",
+          "포 소화설비",
+          "고정포 방출구",
+          "포소화전",
+          "포펌프",
+          "포원액",
+          "인화성 액체"
+        ],
+        "evidence": "인화성 액체 옥외저장탱크의 고정포 방출구, 포소화전, 포펌프, 포원액, 비상전원을 설계하는 소화설비 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "equipmentSpecs.equipmentName"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-21-2012",
+          "guide_code": "D-21-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.88,
+          "evidence": "옥외저장탱크 화재에 대한 포 소화설비 설계가 중심이다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-21-2012",
+          "guide_code": "D-21-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.8,
+          "evidence": "인화성 액체 저장탱크와 누출·방유 관리가 연결된다.",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-21-2012",
+          "guide_code": "D-21-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.86,
+          "evidence": "폭발·화재 위험 장소 소화설비 설치 및 적합성 확보와 직접 대응된다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-21-2012",
+          "guide_code": "D-21-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-020",
+          "confidence": 0.76,
+          "evidence": "화재 위험 설비와 인화성 액체 간 방화조치와 연결된다.",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-21-2012",
+          "guide_code": "D-21-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-048",
+          "confidence": 0.74,
+          "evidence": "옥외저장탱크 방유제와 소화설비 배치가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-21-2012",
+          "guide_code": "D-21-2012",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.76,
+          "evidence": "포펌프 등 비상전원 확보와 연결된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-21-2012",
+          "guide_code": "D-21-2012",
+          "trigger_text": "탱크 고정포 방출구/폼 챔버",
+          "cue_type": "safety_device",
+          "confidence": 0.89,
+          "evidence": "탱크 상부 포 챔버, 고정포 방출구, 포 배관이 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-21-2012",
+          "guide_code": "D-21-2012",
+          "trigger_text": "포펌프와 포원액 탱크",
+          "cue_type": "equipment_component",
+          "confidence": 0.86,
+          "evidence": "포펌프, 포원액 저장탱크, 소화전함이 시각 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "옥외저장탱크",
+          "포 소화설비",
+          "고정포 방출구",
+          "포소화전",
+          "포펌프",
+          "포원액",
+          "인화성 액체"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-22-2012",
+      "short_code": "D22",
+      "title": "가연성가스 및 증기혼합물의 폭발한계 산정에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D22.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "flammable_gas_vapor_explosion_limit_calculation_lel_uel",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "폭발한계",
+          "연소하한계",
+          "연소상한계",
+          "LEL",
+          "UEL",
+          "르샤틀리에",
+          "온도보정",
+          "압력보정"
+        ],
+        "evidence": "가연성 가스·증기 혼합물의 폭발하한·상한, 르샤틀리에 계산, 온도·압력 보정을 다루는 계산형 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-22-2012",
+          "guide_code": "D-22-2012",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.86,
+          "evidence": "폭발한계 산정 자체가 폭발 위험성 판정의 기준이다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-22-2012",
+          "guide_code": "D-22-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.78,
+          "evidence": "가연성 가스와 증기 혼합물의 물성 계산이 중심이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-22-2012",
+          "guide_code": "D-22-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-006",
+          "confidence": 0.72,
+          "evidence": "폭발위험장소 구분도 작성에 폭발한계 자료가 활용될 수 있다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-22-2012",
+          "guide_code": "D-22-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.72,
+          "evidence": "가스검지·환기 기준 설정에 LEL 자료가 활용될 수 있다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-22-2012",
+          "guide_code": "D-22-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.68,
+          "evidence": "화기·발화원 금지 판단의 입력값일 뿐 직접 조문 매핑은 약하다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-22-2012",
+          "guide_code": "D-22-2012",
+          "trigger_text": "LEL/UEL 폭발한계 계산표",
+          "cue_type": "document",
+          "confidence": 0.86,
+          "evidence": "LEL, UEL, 혼합가스 조성, 보정계산표가 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-22-2012",
+          "guide_code": "D-22-2012",
+          "trigger_text": "가연성 가스·증기 물성 데이터",
+          "cue_type": "document",
+          "confidence": 0.82,
+          "evidence": "가스 성분표, 온도·압력 조건, 르샤틀리에식이 문서 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "폭발한계",
+          "연소하한계",
+          "연소상한계",
+          "LEL",
+          "UEL",
+          "르샤틀리에",
+          "온도보정",
+          "압력보정"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-24-2012",
+      "short_code": "D24",
+      "title": "화학설비의 안전설계 일반기준에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D24.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chemical_equipment_safe_design_inherent_passive_active_procedural_safeguards",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "화학설비",
+          "안전설계",
+          "근원적 안전",
+          "수동적 방호",
+          "능동적 방호",
+          "절차적 방호",
+          "압력방출",
+          "DCS"
+        ],
+        "evidence": "화학설비 안전설계 일반기준으로, 근원적·수동적·능동적·절차적 방호, 대체·완화, 압력방출, DCS 백업을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "화학설비 설계와 공정위험 저감 방법이 중심이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.8,
+          "evidence": "화학물질·공정조건 대체와 유해위험요인 제거를 다룬다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.76,
+          "evidence": "위험물질 제조·취급 시 폭발·화재·누출 방호조치의 상위 설계 원칙과 연결된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.76,
+          "evidence": "압력방출 설계와 안전밸브 설치가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-049",
+          "confidence": 0.74,
+          "evidence": "특수화학설비 계측장치 설치와 능동적 방호가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-050",
+          "confidence": 0.74,
+          "evidence": "자동경보장치와 능동적 방호 설계가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-051",
+          "confidence": 0.74,
+          "evidence": "긴급차단장치와 능동적 방호 설계가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "sr_id": "SR-CHEMICAL-008",
+          "confidence": 0.7,
+          "evidence": "화학물질 접촉설비 부식 방지가 안전설계 요소로 포함될 수 있다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "trigger_text": "화학설비 P&ID 안전방호 계층",
+          "cue_type": "document",
+          "confidence": 0.86,
+          "evidence": "P&ID, 압력방출, DCS, 인터록, 경보 계층이 핵심 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-24-2012",
+          "guide_code": "D-24-2012",
+          "trigger_text": "근원적/수동적/능동적 방호 설계표",
+          "cue_type": "document",
+          "confidence": 0.84,
+          "evidence": "대체, 완화, 압력방출, 인터록, 절차 방호 분류표가 단서이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "화학설비",
+          "안전설계",
+          "근원적 안전",
+          "수동적 방호",
+          "능동적 방호",
+          "절차적 방호",
+          "압력방출",
+          "DCS"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-28-2012",
+      "short_code": "D28",
+      "title": "소규모사업장에서의 화재·폭발사고 방지를 위한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D28.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "small_workplace_fire_explosion_prevention_extinguisher_detector_esv_flame_arrester",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "소규모사업장",
+          "화재",
+          "폭발",
+          "소화기",
+          "방유제",
+          "방폭전기",
+          "가스검지기",
+          "안전밸브",
+          "긴급차단밸브",
+          "화염방지기"
+        ],
+        "evidence": "소규모사업장의 화재·폭발 방지를 위해 소화기, 방유제, 방폭전기, 가스검지기, 안전밸브·파열판·폭발방산구, ESV, 화염방지기, 대피·점화원 금지를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.definition",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.88,
+          "evidence": "소규모사업장 화재 예방과 소화설비·화기금지가 중심이다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.88,
+          "evidence": "폭발방산구, 방폭전기, 가스검지, 불활성가스, 화염방지기 등 폭발 예방을 다룬다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.84,
+          "evidence": "위험물질 취급 시 폭발·화재·누출 방호조치와 직접 대응된다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.84,
+          "evidence": "폭발·화재 위험장소 환기장치 및 가스검지경보장치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.8,
+          "evidence": "발화원·화기 사용 금지와 직접 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.8,
+          "evidence": "소화설비 설치 및 적합성 확보와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.78,
+          "evidence": "안전밸브 등 설치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-038",
+          "confidence": 0.78,
+          "evidence": "파열판 설치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-045",
+          "confidence": 0.78,
+          "evidence": "화염방지기 설치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-051",
+          "confidence": 0.78,
+          "evidence": "긴급차단장치 설치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.78,
+          "evidence": "방폭 전기기계·기구 사용과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.78,
+          "evidence": "정전기 방지와 접지 관리가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "sr_id": "SR-CHEMICAL-010",
+          "confidence": 0.76,
+          "evidence": "유해물질 경보설비와 제거설비가 소규모사업장 방호대책에 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "trigger_text": "소규모 화학물질 보관장과 소화기",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.88,
+          "evidence": "드럼·용기 보관, 소화기, 방유턱, 점화원 금지 표지가 단서이다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-28-2012",
+          "guide_code": "D-28-2012",
+          "trigger_text": "가스검지기·방폭전기·화염방지기",
+          "cue_type": "safety_device",
+          "confidence": 0.86,
+          "evidence": "가스검지기, 방폭 전기설비, 안전밸브, 파열판, ESV, 화염방지기가 핵심 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "소규모사업장",
+          "화재",
+          "폭발",
+          "소화기",
+          "방유제",
+          "방폭전기",
+          "가스검지기",
+          "안전밸브",
+          "긴급차단밸브",
+          "화염방지기"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-3-2012",
+      "short_code": "D3",
+      "title": "유지공장의 용제추출공정 안전설계 및 운전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D3.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "solvent_extraction_process_flammable_solvent_deluge_foam_shutdown_purge",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "용제추출",
+          "용제",
+          "유지공장",
+          "인화성",
+          "배관",
+          "물분무",
+          "포소화",
+          "정지",
+          "퍼지",
+          "가스검지기"
+        ],
+        "evidence": "유지공장 용제추출공정의 용제 배관, 물분무·Deluge·포소화, 점화원 관리, 정지·퍼지, 가스검지기, 정전기·피뢰, Lockout, 용접·절단 금지를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "인화성 용제와 추출공정 배관·펌프가 중심이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.84,
+          "evidence": "방폭전기, 정전기, 퍼지, 가스검지, 점화원 관리가 폭발 예방과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.82,
+          "evidence": "폭발위험장소 환기장치 및 가스검지경보장치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.8,
+          "evidence": "화기·발화원 사용 금지와 용접·절단 금지가 대응된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.82,
+          "evidence": "물분무·Deluge·포소화설비가 소화설비 설치와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-045",
+          "confidence": 0.76,
+          "evidence": "화염방지기 설치와 용제 증기 역화방지가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-051",
+          "confidence": 0.76,
+          "evidence": "비상정지·차단과 정지·퍼지 절차가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.78,
+          "evidence": "폭발위험장소 방폭 전기기계·기구 사용과 직접 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.8,
+          "evidence": "정전기·피뢰·접지 관리가 직접 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "sr_id": "SR-CHEMICAL-012",
+          "confidence": 0.74,
+          "evidence": "유해물질 취급설비 누출 방지 작업수칙과 용제 배관 관리가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "trigger_text": "용제추출 공정 배관/펌프",
+          "cue_type": "equipment_component",
+          "confidence": 0.89,
+          "evidence": "용제 탱크, 추출기, 배관, 펌프가 핵심 단서이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-3-2012",
+          "guide_code": "D-3-2012",
+          "trigger_text": "Deluge/포소화와 가스검지기",
+          "cue_type": "safety_device",
+          "confidence": 0.86,
+          "evidence": "물분무, 포소화, 가스검지기, 방폭전기, 접지선이 시각 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "용제추출",
+          "용제",
+          "유지공장",
+          "인화성",
+          "배관",
+          "물분무",
+          "포소화",
+          "정지",
+          "퍼지",
+          "가스검지기"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-30-2012",
+      "short_code": "D30",
+      "title": "고열로부터 압력용기 보호에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D30.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pressure_vessel_external_fire_heat_protection_water_spray_insulation_depressurization",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "압력용기",
+          "고열",
+          "외부화재",
+          "물분무",
+          "단열",
+          "감압",
+          "인터록",
+          "워터재킷"
+        ],
+        "evidence": "외부 화재·고열로부터 압력용기를 보호하기 위한 단열, 물분무 10 L/m2/min, 내부 감압, 인터록, 워터재킷을 다루는 Guide이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.88,
+          "evidence": "압력용기를 고열과 외부화재로부터 보호하는 설비 기준이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.86,
+          "evidence": "외부 화재, 물분무, 단열, 워터재킷이 핵심 방호수단이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-020",
+          "confidence": 0.78,
+          "evidence": "화재 위험 설비와 인화성 액체 간 방화조치와 외부화재 방호가 연결된다.",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-023",
+          "confidence": 0.78,
+          "evidence": "고열물 취급 설비의 화재예방 구조와 고열 보호가 관련된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-030",
+          "confidence": 0.76,
+          "evidence": "고열물 취급 장소 화상 방지 및 보호구 착용은 작업자 보호 측면에서 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.82,
+          "evidence": "압력용기 안전밸브 등 설치와 고열 시 압력상승 방호가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-040",
+          "confidence": 0.78,
+          "evidence": "안전밸브 작동 요건과 고열 시 압력상승 관리가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-041",
+          "confidence": 0.78,
+          "evidence": "배출용량 산정과 화재 노출 시 방출량 검토가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "trigger_text": "압력용기 물분무/Deluge 설비",
+          "cue_type": "safety_device",
+          "confidence": 0.89,
+          "evidence": "압력용기 주변 물분무 노즐, 배관, Deluge 밸브가 핵심 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-30-2012",
+          "guide_code": "D-30-2012",
+          "trigger_text": "단열재와 워터재킷/감압 계통",
+          "cue_type": "equipment_component",
+          "confidence": 0.85,
+          "evidence": "용기 단열재, 워터재킷, 감압 밸브, 인터록 패널이 단서이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "압력용기",
+          "고열",
+          "외부화재",
+          "물분무",
+          "단열",
+          "감압",
+          "인터록",
+          "워터재킷"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "D-32-2012",
+      "short_code": "D32",
+      "title": "제어실의 위치선정 및 설계에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-D32.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "control_room_siting_blast_toxic_gas_positive_pressure_emergency_exit",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "제어실",
+          "양압",
+          "방폭벽",
+          "방폭지붕",
+          "방화문",
+          "가스검지기",
+          "공기호흡기",
+          "비상구",
+          "독성가스"
+        ],
+        "evidence": "공정 제어실 위치선정·설계, 25 Pa 양압, 방폭벽·지붕, 방화문, 가스검지기, SCBA, 독성가스 보호, 비상구·비상조명을 다루는 Guide이다.",
+        "source_fields": [
+          "title",
+          "equipmentSpecs.equipmentName",
+          "workProcesses.safetyMeasures"
+        ],
+        "confidence": 0.89,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "제어실이라는 작업장·건축 공간의 위치와 비상동선 설계가 중심이다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.8,
+          "evidence": "독성가스 보호, 가스검지기, 양압 공기공급 설비가 핵심이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.8,
+          "evidence": "가스검지경보장치와 제어실 독성·가연성 가스 감시가 연결된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-046",
+          "confidence": 0.78,
+          "evidence": "폭발위험장소 건축물 내화구조와 방폭벽·지붕 설계가 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "sr_id": "SR-WORKPLACE-015",
+          "confidence": 0.78,
+          "evidence": "위험물질 취급 작업장 비상구 설치와 제어실 비상구가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "sr_id": "SR-WORKPLACE-016",
+          "confidence": 0.78,
+          "evidence": "비상구·비상통로·비상용 기구 유지와 제어실 대피 동선이 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "sr_id": "SR-WORKPLACE-017",
+          "confidence": 0.74,
+          "evidence": "비상경보용 설비와 제어실 경보·비상조명 요구가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.7,
+          "evidence": "공기호흡기 비치가 보호구 지급·착용과 관련된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "trigger_text": "양압 제어실과 공기공급 설비",
+          "cue_type": "equipment_component",
+          "confidence": 0.89,
+          "evidence": "양압 설비, 공기흡입구, 차압계, 밀폐문이 핵심 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "D-32-2012",
+          "guide_code": "D-32-2012",
+          "trigger_text": "방폭벽·방화문·가스검지기/SCBA",
+          "cue_type": "safety_device",
+          "confidence": 0.86,
+          "evidence": "방폭벽, 방화문, 가스검지기, 공기호흡기, 비상구 표지가 시각 단서이다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "제어실",
+          "양압",
+          "방폭벽",
+          "방폭지붕",
+          "방화문",
+          "가스검지기",
+          "공기호흡기",
+          "비상구",
+          "독성가스"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    }
+  ]
+}

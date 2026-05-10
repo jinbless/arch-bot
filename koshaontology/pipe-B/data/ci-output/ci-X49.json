@@ -1,0 +1,197 @@
+{
+  "metadata": {
+    "guideCode": "X-49-2018",
+    "shortCode": "X49",
+    "domain": "A",
+    "extractedAt": "2026-04-22T11:57:18Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-A-013"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-X49-001",
+      "text": "위험물질의 저장, 운송 및 취급하는 자는 산업안전보건법, 화학물질관리법, 위험물안전관리법 등의 관계법령과 KOSHA Guide(인화성 액체 이송용 탱크차량의 안전에 관한 기술지침) 등을 준수하여야 한다.",
+      "guideContext": "위험물 운송 시 탱크트럭의 정량적 리스크 분석",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-X49-002",
+      "text": "위험물을 운송하려는 경우 위험물을 운반하는 자(운반계획 작성자)는 운반자명, 운반차량, 운반물 정보, 운반시간, 운반경로(도로) 등을 포함한 운반계획을 작성하여야 한다.",
+      "guideContext": "위험물 운송 시 탱크트럭의 정량적 리스크 분석 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X49-003",
+      "text": "작성된 운반경로는 국가교통정보센터, 실시간교통정보 등을 통해 경로 상황, 안전 여부 등을 확인하여야 한다.",
+      "guideContext": "위험물 운송 시 탱크트럭의 정량적 리스크 분석 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "운반경로 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X49-004",
+      "text": "개인적 리스크는 사업장의 내부 및 외부에 대하여 별도의 기준을 설정하여야 한다.",
+      "guideContext": "위험물 운송 시 탱크트럭의 정량적 리스크 분석 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "리스크 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.9",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X49-005",
+      "text": "사회적 리스크는 사업장의 출하시설, 운송 경로 및 사업장의 입하시설이 사람에게 영향을 미칠 수 있는 '합리적으로 실행가능한 낮은 수준(ALARP)'을 설정하여야 하며, 이를 기준으로 한다.",
+      "guideContext": "위험물 운송 시 탱크트럭의 정량적 리스크 분석 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "리스크 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.9",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-X49-001",
+      "term": "탱크트럭",
+      "definition": "본체 위에 카고 탱크를 장착하고 탱크 내부에 인화성 액체 등을 이송할 수 있도록 자체 엔진을 가지고 있는 차량을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X49-002",
+      "term": "탱크트럭의 정량적 리스크분석",
+      "definition": "위험물 운송을 포함하여 탱크를 비우고 탱크를 채우는 작업에서의 정량적인 리스크 분석을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-X49-01",
+      "processOrder": 1,
+      "processName": "리스크분석 목적과 범위 설정",
+      "safetyMeasures": "운송물질, 탱크를 비우는 시설, 탱크를 채우는 시설, 도로 사정 및 법규 요구사항 등을 포함하여 목적과 범위를 설정한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X49-02",
+      "processOrder": 2,
+      "processName": "유해위험요인 확인",
+      "safetyMeasures": "탱크를 비우고 탱크를 채우는 작업과정, 운송과정에서의 취급하는 위험물의 물리·화학적 성상과 리스크의 확인을 포함한다. 하향식(Top-down) 접근방식 또는 상향식(Bottom-up) 접근방식을 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-006"
+      ]
+    },
+    {
+      "identifier": "WP-X49-03",
+      "processOrder": 3,
+      "processName": "도로 분석",
+      "safetyMeasures": "안전운송, 환경조건, 기상조건, 도로상태, 도로의 혼잡성, 교량의 허용하중 상태, 터널의 높이와 진입성, 고속도로·국도·지방도의 선택성을 분석한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X49-04",
+      "processOrder": 4,
+      "processName": "빈도 분석",
+      "safetyMeasures": "사고 시나리오를 기준하여 사고발생 가능성을 분석한다. 최근 사고발생 자료의 분석, 관련 있는 과거자료의 활용, 신뢰성 있는 글로벌 자료 활용 및 결함수 분석 등 분석적 기법을 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X49-05",
+      "processOrder": 5,
+      "processName": "결과 분석",
+      "safetyMeasures": "누출원 모델링, 물리적인 효과 모델링, 영향평가 기준 정의, 영향평가 모델링 순서에 따라 수행한다. 사망가능성, 화상가능성, 복사열강도와 폭발과압에 의한 손상정도를 표현한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-X49-06",
+      "processOrder": 6,
+      "processName": "개인적 리스크 및 사회적 리스크 분석",
+      "safetyMeasures": "개인적 리스크는 사고 시나리오를 기준하여 개인 1명에 대하여 도출하고, 사회적 리스크는 피해범위 내의 사람들에 대한 리스크를 F-N 곡선으로 표현한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X49-07",
+      "processOrder": 7,
+      "processName": "민감도 분석",
+      "safetyMeasures": "개인과 프로빗 값(Probit value)과의 관계, 사람들의 인구 분포, 누출확률, 누출 빈도를 포함하여 분석한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X49-08",
+      "processOrder": 8,
+      "processName": "리스크 평가",
+      "safetyMeasures": "허용 가능한 기준(Tolerable acceptable criteria)을 토대로 평가한다. 개인적 리스크는 사업장 내부 및 외부에 대하여 별도의 기준을 설정하고, 사회적 리스크는 ALARP 기준을 설정한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.9",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [],
+  "documentRequirements": [
+    {
+      "identifier": "DR-X49-001",
+      "documentType": "WORK_PLAN",
+      "title": "위험물 운반계획",
+      "requiredSections": [
+        "운반자명",
+        "운반차량",
+        "운반물 정보",
+        "운반시간",
+        "운반경로(도로)"
+      ],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-X49-002",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "탱크트럭 정량적 리스크분석 보고서",
+      "requiredSections": [
+        "리스크분석 목적과 범위",
+        "유해위험요인 확인",
+        "도로 분석",
+        "빈도 분석",
+        "결과 분석",
+        "개인적 리스크 및 사회적 리스크 분석",
+        "민감도 분석",
+        "리스크 평가"
+      ],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    }
+  ]
+}

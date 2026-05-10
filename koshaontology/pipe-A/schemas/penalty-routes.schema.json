@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PenaltyRoutes",
+  "description": "RULE 조문별 벌칙(형사벌) + 과태료(행정벌) 경로 매핑",
+  "type": "object",
+  "required": ["metadata", "routes"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["generatedAt", "totalRoutes", "withPenalty", "withoutPenalty", "withAdministrativeFine", "withoutAdministrativeFine"],
+      "additionalProperties": false,
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "totalRoutes": { "type": "integer", "minimum": 0 },
+        "withPenalty": { "type": "integer", "minimum": 0 },
+        "withoutPenalty": { "type": "integer", "minimum": 0 },
+        "withAdministrativeFine": { "type": "integer", "minimum": 0 },
+        "withoutAdministrativeFine": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "routes": {
+      "type": "object",
+      "patternProperties": {
+        "^제\\d+조(의\\d+)?$": { "$ref": "#/$defs/penaltyRoute" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "penaltyRoute": {
+      "type": "object",
+      "required": ["title", "delegatedFrom", "hasPenalty", "hasAdministrativeFine", "criminal", "administrative"],
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "delegatedFrom": {
+          "type": ["string", "null"],
+          "description": "위임 근거 산안법 조문 (예: '제38조')"
+        },
+        "hasPenalty": { "type": "boolean", "description": "형사벌 적용 여부" },
+        "hasAdministrativeFine": { "type": "boolean", "description": "과태료 적용 여부" },
+        "criminal": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/criminalBlock" }
+          ]
+        },
+        "administrative": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/administrativeEntry" }
+          ]
+        }
+      }
+    },
+    "criminalBlock": {
+      "type": "object",
+      "required": ["violation_employer"],
+      "additionalProperties": false,
+      "properties": {
+        "violation_employer": { "$ref": "#/$defs/penaltyEntry" },
+        "violation_contractor": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/penaltyEntry" }
+          ]
+        },
+        "death": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/penaltyEntry" }
+          ]
+        },
+        "seriousAccident": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/tier3Entry" }
+          ]
+        }
+      }
+    },
+    "penaltyEntry": {
+      "type": "object",
+      "required": ["law", "penalty"],
+      "additionalProperties": false,
+      "properties": {
+        "law": { "type": "string" },
+        "penalty": { "type": "string" }
+      }
+    },
+    "tier3Entry": {
+      "type": "object",
+      "required": ["law", "death", "injury"],
+      "additionalProperties": false,
+      "properties": {
+        "law": { "type": "string" },
+        "death": { "type": "string" },
+        "injury": { "type": "string" }
+      }
+    },
+    "administrativeEntry": {
+      "type": "object",
+      "required": ["law", "maxFine", "fineTableRef", "oshaArticleRef"],
+      "additionalProperties": false,
+      "properties": {
+        "law": { "type": "string", "description": "제175조 항·호 참조 (예: '제175조제4항')" },
+        "maxFine": { "type": "string", "description": "법정 상한 (예: '1천만원 이하의 과태료')" },
+        "fineTableRef": { "type": "string", "description": "세부금액 참조 (시행령 별표35)" },
+        "oshaArticleRef": { "type": "string", "description": "과태료 근거 OSHA 조+항 (예: '제38조제1항')" }
+      }
+    }
+  }
+}

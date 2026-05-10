@@ -2,13 +2,20 @@
 .claude/
 .obsidian/
 
-# Child repositories managed separately
-OHS/
-koshaontology/
+# External repository dependency kept as a local sibling.
 legalize-kr/
 
-# Large source corpus managed outside this meta repository
-kosha-guides/
+# KOSHA source corpus policy: track parsed JSON and manifests only.
+kosha-guides/*
+!kosha-guides/parsed/
+!kosha-guides/parsed/**
+!kosha-guides/manifest/
+!kosha-guides/manifest/**
+kosha-guides/parsed/.split-chunks/
+
+# Local/user Pipe-B scratch files.
+koshaontology/pipe-B/data/tmp-*.json
+koshaontology/pipe-B/data/vlm-parse-log.jsonl
 
 # Python / build caches
 __pycache__/
@@ -22,9 +29,5 @@ __pycache__/
 # Synthetic observation generator scratch files
 pictures-json/_*
 
-# Keep synthetic testsets, but only keep latest lightweight aggregate reports
+# Keep synthetic testsets, but do not track historical report bodies.
 pictures-json/reports/*
-!pictures-json/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.md
-!pictures-json/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.json
-!pictures-json/reports/synthetic_observations_v1_v10_v10fix6_fp_cases.csv
-!pictures-json/reports/synthetic_observations_v1_v10_v10fix6_fn_cases.csv

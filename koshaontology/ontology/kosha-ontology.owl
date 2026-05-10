@@ -1,0 +1,2385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#hasLawType">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/law#Article"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#LawType"/>
+    <rdfs:label xml:lang="ko">법령 유형</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Inspection">
+    <rdfs:label xml:lang="ko">점검</rdfs:label>
+    <rdfs:label xml:lang="en">Inspection</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#SanctionType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">제재 유형</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#addressesFeature">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+    <rdfs:label xml:lang="ko">위험 특징 연결</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#penaltyBasisText">
+    <rdfs:label xml:lang="ko">벌칙 근거 문구</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyRule"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#EvBattery">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Ev Battery</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HarnessMissing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Harness Missing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#inWorkContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdfs:label xml:lang="ko">작업맥락</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/sr#addressesFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#addressesHazard">
+    <rdfs:label xml:lang="ko">대응 위험</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/sr#addressesFeature"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Exemption">
+    <rdfs:label xml:lang="ko">면제</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#Modality"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ConveyorWash">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Conveyor Wash</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#OtherEnvironmental">
+    <rdfs:label xml:lang="ko">기타 환경 요인</rdfs:label>
+    <rdfs:label xml:lang="en">Other Environmental</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Informative">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#BindingForce"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">정보</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#KitchenCooking">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Kitchen Cooking</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#CleaningWet">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Cleaning Wet</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#FIRE_EXPLOSION">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdfs:label xml:lang="ko">화재·폭발</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#DryerOperation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Dryer Operation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Na3502ebae5714daabbee0f850bb2e84e">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#EquipmentStandard"/>
+    <rdf:rest rdf:nodeID="N7c10094009ee41bfba8c0dd67121d241"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#workProcessPhase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">작업공정 단계</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HarvestWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Harvest Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#PackageSorting">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Package Sorting</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#Subsection">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">관</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/law#LegalStructure"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#belongsToPart">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">소속 편</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#guideCode">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">가이드 코드</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LawType_ENFORCE">
+    <rdfs:label xml:lang="ko">시행규칙</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/law#LawType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#AccidentType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">사고 유형</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#AdministrativeFine">
+    <rdfs:label xml:lang="ko">과태료</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/penalty#SanctionType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasVisualCue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">시각 단서 보유</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#VisualObservation"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#VisualCue"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#hasCondition">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyCondition"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyRule"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="ko">벌칙 선택 조건</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Employer">
+    <rdfs:label xml:lang="ko">사업주</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#DutyHolder"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#RegulatoryAuthority">
+    <rdfs:label xml:lang="ko">규제기관</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology#SubjectRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HarnessUntied">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">안전대 미체결</rdfs:label>
+    <rdfs:label xml:lang="en">Harness Untied</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ElectricalWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Electrical Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#NailGun">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Nail Gun</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#CorrectiveActionPlan">
+    <rdfs:label xml:lang="ko">조치 계획</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#GreenhouseWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Greenhouse Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#hasSourceArticle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">출처 조문</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#Article"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Chemical">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">화학물질</rdfs:label>
+    <rdfs:label xml:lang="en">Chemical</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ElectricalOverload">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Electrical Overload</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#HEAT_COLD">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">온도·습도</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HelmetWorn">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">안전모 착용</rdfs:label>
+    <rdfs:label xml:lang="en">Helmet Worn</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N96811e7552894b0abcd38846c55cdde6">
+    <rdf:rest rdf:nodeID="Nfaa9dab37e884dc7abece90bd2e71f54"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/penalty#Death"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#ChecklistItem">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="ko">사진 서비스에서는 최종 개선조치 본체가 아니라 시각 단서, 검색 색인, 보조 근거로 사용한다.</rdfs:comment>
+    <rdfs:label xml:lang="ko">점검항목</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Grinding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Grinding</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#GovernmentOfficial">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#RegulatoryAuthority"/>
+    <rdfs:label xml:lang="ko">고용노동부장관</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#Part">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/law#LegalStructure"/>
+    <rdfs:label xml:lang="ko">편</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Crush">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">끼임(압착)</rdfs:label>
+    <rdfs:label xml:lang="en">Crush</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Recommended">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#BindingForce"/>
+    <rdfs:label xml:lang="ko">권고</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#WindyWeather">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdfs:label xml:lang="ko">강풍</rdfs:label>
+    <rdfs:label xml:lang="en">Windy Weather</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#SeriousAccident">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/penalty#AccidentOutcome"/>
+    <rdfs:label xml:lang="ko">중대재해</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Cluttered">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">정리 미흡</rdfs:label>
+    <rdfs:label xml:lang="en">Cluttered</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#appliesSR">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:label xml:lang="ko">적용되는 SR</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Slip">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="ko">미끄러짐</rdfs:label>
+    <rdfs:label xml:lang="en">Slip</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasPenaltyExposureStatus">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#PenaltyExposureStatus"/>
+    <rdfs:label xml:lang="ko">벌칙 노출 상태</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#PenaltyExposure"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Crane">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="ko">양중기</rdfs:label>
+    <rdfs:label xml:lang="en">Crane</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#BuildingOwner">
+    <rdfs:label xml:lang="ko">건축물·설비 소유주/임차인</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#DutyHolder"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#realizesSHE">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+    <rdfs:label xml:lang="ko">실현하는 상황</rdfs:label>
+    <owl:inverseOf rdf:resource="https://cashtoss.info/ontology/risk/situation#appliesCI"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#domain">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">도메인</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N385e292a7436482bb78412a18fdb153c">
+    <rdf:rest rdf:nodeID="N119e171493e94d77bfacb0c22670bed6"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/app#ConfirmedFinding"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#GasAppliance">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Gas Appliance</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#appliesPenalty">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">적용되는 벌칙 (PA-12 chain 결과)</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <owl:propertyChainAxiom rdf:nodeID="N9a917fd5ba034e5789bf57ebc684af03"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#hasDocumentRequirement">
+    <rdfs:label xml:lang="ko">문서요구사항 보유</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#NormStatement">
+    <rdfs:label xml:lang="ko">규범 진술문</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/law#LegalEntity"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasSituationMatch">
+    <rdfs:label xml:lang="ko">상황 매칭 보유</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#SituationMatch"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#HazardFinding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N550f4f5cea0041a2ae104c8645933497">
+    <owl:oneOf rdf:nodeID="N7b5636f75d9f4759aca5f24f74432c45"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#triggerPattern">
+    <rdfs:label xml:lang="ko">시각 트리거 패턴</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#VisualTrigger"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LawType_RULE">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/law#LawType"/>
+    <rdfs:label xml:lang="ko">산업안전보건기준에 관한 규칙</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#PenaltyRule">
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/law#LegalEntity"/>
+    <rdfs:label xml:lang="ko">벌칙 적용 규칙</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#validUntil">
+    <rdfs:label xml:lang="ko">유효 종료일 (deprecate 시점)</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#StandingObservation">
+    <rdfs:label xml:lang="ko">서서 관찰</rdfs:label>
+    <rdfs:label xml:lang="en">Standing Observation</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#AgentState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#EmergencyResponse">
+    <rdfs:label xml:lang="ko">비상대응</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/sr#RequirementType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HotBeverage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Hot Beverage</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#recommendsAction">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#HazardFinding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#CorrectiveAction"/>
+    <rdfs:label xml:lang="ko">권장 개선 조치</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#GloveWorn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="ko">장갑 착용</rdfs:label>
+    <rdfs:label xml:lang="en">Glove Worn</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N0130a35541f246458858644709af31da">
+    <rdf:rest rdf:nodeID="Nd343f7b4f23c4573bbb888aca783ae9b"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/app#ConditionalPenaltyExposure"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6a25c033de4645eb8973dbfaf18a48ef">
+    <rdf:rest rdf:nodeID="N6c664869954e4591af413acba9c735d6"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#SafetyShoesWorn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Safety Shoes Worn</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#MaskWorn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="ko">마스크 착용</rdfs:label>
+    <rdfs:label xml:lang="en">Mask Worn</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ActiveSolo">
+    <rdfs:label xml:lang="ko">단독 작업 중</rdfs:label>
+    <rdfs:label xml:lang="en">Active Solo</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#AgentState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N0cfa8a00f0324f7e9d9f3990cb441139">
+    <rdf:rest rdf:nodeID="Na266b1334ddc4d089f31d7dcee2f9074"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology#Prohibition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ServingFloor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Serving Floor</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Conveyor">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">컨베이어</rdfs:label>
+    <rdfs:label xml:lang="en">Conveyor</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ColdDisplay">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Cold Display</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#paragraphRef">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">항 참조</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#VestMissing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Vest Missing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nfaa9dab37e884dc7abece90bd2e71f54">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/penalty#SeriousAccident"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N5047bc00d690483bb4e8537f57591c14">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#Environmental"/>
+    <rdf:rest rdf:nodeID="Nd24f9f8642cb4b37a8598dfc130fed5e"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N83ede8b27ccc483ba08012d38c058e07">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/app#NotDeterminedFinding"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#citesRequirement">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#CorrectiveAction"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdfs:label xml:lang="ko">인용 안전요구사항</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Toxic">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">독성물질</rdfs:label>
+    <rdfs:label xml:lang="en">Toxic</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#violatedNorm">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyRule"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">위반 대상 규범</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Fire">
+    <rdfs:label xml:lang="ko">화재·폭발</rdfs:label>
+    <rdfs:label xml:lang="en">Fire</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#OtherPPEState">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="ko">기타 보호구 상태</rdfs:label>
+    <rdfs:label xml:lang="en">Other PPEState</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#ciInWorkContext">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">CI 작업맥락</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#shortCode">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">단축 코드</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk#RiskPattern">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">위험 패턴</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#PenaltyExposure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">벌칙 노출</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#appliesCI">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">적용되는 체크리스트 항목</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#PressMachine">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Press Machine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#OilContamination">
+    <rdfs:label xml:lang="ko">기름 누출</rdfs:label>
+    <rdfs:label xml:lang="en">Oil Contamination</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#ManagementSystem">
+    <rdfs:label xml:lang="ko">관리 체계</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/sr#RequirementType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasActionRecommendation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#CorrectiveAction"/>
+    <rdfs:label xml:lang="ko">조치 추천 항목 보유</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#ActionRecommendation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#supersededBy">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdfs:label xml:lang="ko">대체된 SHE (supersession chain)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#NoPenaltyExposure">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/app#PenaltyExposureStatus"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">벌칙 노출 없음</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasPenaltyExposure">
+    <rdfs:label xml:lang="ko">벌칙 노출 보유</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#HazardFinding"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#PenaltyExposure"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ColdStorage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Cold Storage</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HairChemical">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Hair Chemical</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#PhysicalProtection">
+    <rdfs:label xml:lang="ko">물리적 보호</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/sr#RequirementType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#hasSubjectRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">의무 주체</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology#SubjectRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nffdbdaaf730c44dc96babba5f20a063a">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology#Exemption"/>
+    <rdf:rest rdf:nodeID="Ndb60ef8c78dd4c28882dc2abd9d5742f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#hasWorkProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">작업프로세스 보유</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#InteriorCleaning">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Interior Cleaning</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#termName">
+    <rdfs:label xml:lang="ko">용어</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#UploadedPhoto">
+    <rdfs:label xml:lang="ko">업로드 사진</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#PetBathing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Pet Bathing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#usesChecklistCue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+    <rdfs:label xml:lang="ko">보조 체크리스트 단서</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#CorrectiveAction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#NarrowSpace">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdfs:label xml:lang="en">Narrow Space</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasAccidentType">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/risk#hasFeature"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">사고 유형</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Ergonomic">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">근골격계</rdfs:label>
+    <rdfs:label xml:lang="en">Ergonomic</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#VentilationPoor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Ventilation Poor</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#matchesSituation">
+    <rdfs:label xml:lang="ko">매칭 위험상황</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#SituationMatch"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Dismantle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+    <rdfs:label xml:lang="ko">해체</rdfs:label>
+    <rdfs:label xml:lang="en">Dismantle</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Radiation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdfs:label xml:lang="ko">방사선</rdfs:label>
+    <rdfs:label xml:lang="en">Radiation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#belongsToSubsection">
+    <rdfs:label xml:lang="ko">소속 관</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern">
+    <rdfs:label xml:lang="ko">위험상황 패턴</rdfs:label>
+    <rdfs:comment xml:lang="ko">사진별 사건이 아니라 반복 재사용되는 위험상황 패턴. 사진 관찰 단서와 SR/KOSHA Guide를 연결하는 브릿지 역할을 한다.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskPattern"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#ppeType">
+    <rdfs:label xml:lang="ko">보호구 유형</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#GeneralWorkplace">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">General Workplace</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#RoutineOperation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+    <rdfs:label xml:lang="ko">통상운전</rdfs:label>
+    <rdfs:label xml:lang="en">Routine Operation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#SafetyRequirement">
+    <rdfs:label xml:lang="ko">안전요구사항</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ne4a85aa304dd43839bd084a9eeec2bd4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:oneOf rdf:nodeID="N3e2e2b32bd0041a2a4d251b33cb20e43"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#WorkProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">작업 프로세스</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#mappedTo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+    <rdfs:label xml:lang="ko">정규화 매핑</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#VisualCue"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasFinding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">위험 판단 보유</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#InspectionCase"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#HazardFinding"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#hasPenalty">
+    <rdfs:label xml:lang="ko">벌칙 여부</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasFindingStatus">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#HazardFinding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">판정 상태</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#FindingStatus"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#OtherAgentState">
+    <rdfs:label xml:lang="ko">기타</rdfs:label>
+    <rdfs:label xml:lang="en">Other Agent State</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#AgentState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#CatHandling">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Cat Handling</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#NightSoloWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Night Solo Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#penaltyArticle">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyRule"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#Article"/>
+    <rdfs:label xml:lang="ko">실제 벌칙 조문</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Burn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="en">Burn</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#FireWatcher">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#DutyHolder"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">화재감시자</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N20dca72e9e774a32b1bf5f08e0f6a71a">
+    <rdf:rest rdf:nodeID="Nee357e965aaa416b8392ec6f6db5deed"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#derivedFromNS"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#Environmental">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/sr#RequirementType"/>
+    <rdfs:label xml:lang="ko">환경</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#basedOnObservation">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#HazardFinding"/>
+    <rdfs:label xml:lang="ko">근거 관찰</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#VisualObservation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#AccidentOutcome">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">사고 결과</rdfs:label>
+    <owl:equivalentClass rdf:nodeID="N951e0a8a20b94fdca5d7134bf7eb9a3f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">환경 요인 (environmental)</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#requiresAccidentOutcome">
+    <rdfs:label xml:lang="ko">요구 사고 결과</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyCondition"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/penalty#AccidentOutcome"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology">
+    <rdfs:label xml:lang="ko">KOSHA 산업안전보건 온톨로지</rdfs:label>
+    <owl:versionInfo>2.0.0</owl:versionInfo>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:comment xml:lang="ko">산업안전보건기준에관한규칙(RULE) + KOSHA 가이드 기반 온톨로지. Pipe-A(법령 NS/SR) + Pipe-B(가이드 CI/DT/WP/ES/DR) 통합. OWL 2 DL.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#hasParentStructure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">상위 구조</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#definition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">정의</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N4896e9df1784457d9e56b79ed8070b40">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology#Informative"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#ConfirmedFinding">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/app#FindingStatus"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">확인됨</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Dust">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">분진</rdfs:label>
+    <rdfs:label xml:lang="en">Dust</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#NotDeterminedFinding">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/app#FindingStatus"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">판단 불가</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk#hasFeature">
+    <rdfs:label xml:lang="ko">위험 특징 보유</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk#RiskPattern"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#belongsToChapter">
+    <rdfs:label xml:lang="ko">소속 장</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasHazardousAgent">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/risk#hasFeature"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">유해 인자</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#LowLight">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdfs:label xml:lang="ko">저조도</rdfs:label>
+    <rdfs:label xml:lang="en">Low Light</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#broaderAgent">
+    <rdfs:comment xml:lang="ko">SKOS broader 대용. Individual 간 hierarchy를 표현 (Class subClassOf는 OWL 구조 위반).</rdfs:comment>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">상위 유해인자 (custom broader)</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#basedOnSR">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">SR 기반</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Electricity">
+    <rdfs:label xml:lang="ko">전기</rdfs:label>
+    <rdfs:label xml:lang="en">Electricity</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#HeatCold">
+    <rdfs:label xml:lang="ko">온도</rdfs:label>
+    <rdfs:label xml:lang="en">Heat Cold</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#ciAddressesAccidentType">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">CI 대응 사고유형</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#EmergencyStage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#TemporalStage"/>
+    <rdfs:label xml:lang="ko">비상 상황</rdfs:label>
+    <rdfs:label xml:lang="en">Emergency Stage</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Hazard">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">위험 유형</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Commissioning">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+    <rdfs:label xml:lang="ko">시운전</rdfs:label>
+    <rdfs:label xml:lang="en">Commissioning</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LawType_SADA">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/law#LawType"/>
+    <rdfs:label xml:lang="ko">중대재해 처벌 등에 관한 법률</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Mandatory">
+    <rdfs:label xml:lang="ko">필수</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#BindingForce"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#FireEvacuation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Fire Evacuation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#validFrom">
+    <rdfs:label xml:lang="ko">유효 시작일 (법령 시행일)</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#MaskMissing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Mask Missing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#RequirementType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="N49a7f31241b5430a81e44f9de66de062"/>
+    <rdfs:label xml:lang="ko">요구사항 유형</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#guidedBy">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/guide#KoshaGuide"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <owl:propertyChainAxiom rdf:nodeID="N21fd61af597145eeba2cf1e3bd34fd41"/>
+    <rdfs:label xml:lang="ko">관련 가이드</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#Training">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/sr#RequirementType"/>
+    <rdfs:label xml:lang="ko">교육훈련</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nde056195e6894e44b9e31b0f12ec2d74">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/penalty#SimpleViolation"/>
+    <rdf:rest rdf:nodeID="N96811e7552894b0abcd38846c55cdde6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#DeliveryBroker">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#DutyHolder"/>
+    <rdfs:label xml:lang="ko">물건 수거·배달 중개자</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#EquipmentStandard">
+    <rdfs:label xml:lang="ko">장비 기준</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/sr#RequirementType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#NeedsClarificationFinding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/app#FindingStatus"/>
+    <rdfs:label xml:lang="ko">확인 필요</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#paragraphCount">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:label xml:lang="ko">항 수</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#matchReason">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#ActionRecommendation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">추천 사유</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#SituationMatch">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">상황 매칭</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#addressesAccidentType">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">대응 사고유형</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/sr#addressesFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#hasSanction">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/penalty#SanctionType"/>
+    <rdfs:label xml:lang="ko">제재</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyRule"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#termForSR">
+    <rdfs:label xml:lang="ko">SR 관련 용어</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ncc243f5185734634acc42cf4f7601078">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/guide#isChecklistItemOf"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasTemporalStage">
+    <rdfs:label xml:lang="ko">시간 단계</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/risk#hasFeature"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/context#TemporalStage"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Vehicle">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">차량</rdfs:label>
+    <rdfs:label xml:lang="en">Vehicle</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Cut">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">절단</rdfs:label>
+    <rdfs:label xml:lang="en">Cut</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N7b5636f75d9f4759aca5f24f74432c45">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology#Mandatory"/>
+    <rdf:rest rdf:nodeID="N804d207281154b90aa76c0586b44280f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Permission">
+    <rdfs:label xml:lang="ko">허용</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#Modality"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#WetFloorWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Wet Floor Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#CHEMICAL_EXPOSURE">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">화학물질</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#LoadingDock">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Loading Dock</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#ElectricShock">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="en">Electric Shock</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#modifiedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">수정됨</rdfs:label>
+    <owl:inverseOf rdf:resource="https://cashtoss.info/ontology/law#modifies"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Ladder">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Ladder</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#DogGrooming">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Dog Grooming</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#EmergencyResponse">
+    <rdfs:label xml:lang="ko">비상대응</rdfs:label>
+    <rdfs:label xml:lang="en">Emergency Response</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#NoiseExposure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Noise Exposure</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasEnvironmental">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:label xml:lang="ko">환경 요인</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/risk#hasFeature"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#fileName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">파일명</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#UploadedPhoto"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#ProtectedPerson">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">보호대상</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology#SubjectRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#recommendationSource">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#ActionRecommendation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">추천 출처</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Collapse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="ko">붕괴</rdfs:label>
+    <rdfs:label xml:lang="en">Collapse</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Fall">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="ko">추락</rdfs:label>
+    <rdfs:label xml:lang="en">Fall</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#modifies">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">수정 대상</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasObservation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#VisualObservation"/>
+    <rdfs:label xml:lang="ko">관찰 사실 보유</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#UploadedPhoto"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#AssessmentReport">
+    <rdfs:label xml:lang="ko">사업주 안내 결과</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#ActionRecommendation">
+    <rdfs:label xml:lang="ko">조치 추천 항목</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#ConditionalPenaltyExposure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/app#PenaltyExposureStatus"/>
+    <rdfs:label xml:lang="ko">조건부 벌칙 노출</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6c1a1aee6ebd4ed78396d6a2a64a50be">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#PhysicalProtection"/>
+    <rdf:rest rdf:nodeID="Na3502ebae5714daabbee0f850bb2e84e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Corrosion">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">부식성물질</rdfs:label>
+    <rdfs:label xml:lang="en">Corrosion</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#DeliveryRider">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Delivery Rider</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#processOrder">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:label xml:lang="ko">프로세스 순서</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ActivePair">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#AgentState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">2인 작업 중</rdfs:label>
+    <rdfs:label xml:lang="en">Active Pair</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#MaterialHandling">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">하역·운반</rdfs:label>
+    <rdfs:label xml:lang="en">Material Handling</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#SafetyShoesMissing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Safety Shoes Missing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#CleaningNight">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Cleaning Night</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#text">
+    <rdfs:label xml:lang="ko">텍스트</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#OtherTemporal">
+    <rdfs:label xml:lang="ko">기타 시간 단계</rdfs:label>
+    <rdfs:label xml:lang="en">Other Temporal</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#TemporalStage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#DuringWork">
+    <rdfs:label xml:lang="ko">작업 진행 중</rdfs:label>
+    <rdfs:label xml:lang="en">During Work</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#TemporalStage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#safetyMeasures">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">안전조치</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasVisualTrigger">
+    <rdfs:label xml:lang="ko">시각 트리거</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/situation#VisualTrigger"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:comment xml:lang="ko">사진 관찰에서 SHE 패턴 매칭에 사용할 수 있는 재사용 가능한 시각 단서.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#FertilizerHandling">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Fertilizer Handling</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#ArcFlash">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">아크</rdfs:label>
+    <rdfs:label xml:lang="en">Arc Flash</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#WeldingRepair">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Welding Repair</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#BeforeWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#TemporalStage"/>
+    <rdfs:label xml:lang="ko">작업 시작 전</rdfs:label>
+    <rdfs:label xml:lang="en">Before Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Worker">
+    <rdfs:label xml:lang="ko">근로자</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#ProtectedPerson"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#requiresSubjectRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyCondition"/>
+    <rdfs:label xml:lang="ko">요구 주체 역할</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology#SubjectRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Na266b1334ddc4d089f31d7dcee2f9074">
+    <rdf:rest rdf:nodeID="Nffdbdaaf730c44dc96babba5f20a063a"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology#Permission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#guidedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">개선 조치 참고 가이드</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#CorrectiveAction"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/guide#KoshaGuide"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasAgentState">
+    <rdfs:label xml:lang="ko">작업자 상태</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/risk#hasFeature"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/context#AgentState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HighShelfWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">High Shelf Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Sawing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Sawing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Demolition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Demolition</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Painting">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Painting</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#appliesToArticle">
+    <owl:propertyChainAxiom rdf:nodeID="N4b05419e96184952a0a15299aa9cc204"/>
+    <rdfs:label xml:lang="ko">적용 조문</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#Article"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#documentType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">문서 유형</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ConfinedSpace">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">밀폐공간</rdfs:label>
+    <rdfs:label xml:lang="en">Confined Space</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HarnessTied">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">안전대 체결</rdfs:label>
+    <rdfs:label xml:lang="en">Harness Tied</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N4b05419e96184952a0a15299aa9cc204">
+    <rdf:rest rdf:nodeID="Nb0193efea0654d35a466258a3d78613b"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#derivedFromNS"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#AfterWork">
+    <rdfs:label xml:lang="ko">작업 종료 후</rdfs:label>
+    <rdfs:label xml:lang="en">After Work</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#TemporalStage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#VisualTrigger">
+    <rdfs:label xml:lang="ko">시각 트리거</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="ko">SHE 패턴 매칭에 사용할 수 있는 사진 관찰 단서.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#WorkActivity">
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+    <rdfs:label xml:lang="ko">작업 활동 (work_activity)</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N0e917ac278674423b9a866990ac6c008">
+    <owl:oneOf rdf:nodeID="N385e292a7436482bb78412a18fdb153c"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Modality">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="Nbe2713da919f4abca72009328a2ed898"/>
+    <rdfs:label xml:lang="ko">모달리티</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LegalEntity">
+    <rdfs:label xml:lang="ko">법령 엔티티</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LawType_DECREE">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/law#LawType"/>
+    <rdfs:label xml:lang="ko">대통령령</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#UndergroundTank">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Underground Tank</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#severityScore">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">심각도 점수</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#relatedChecklistCue">
+    <rdfs:comment xml:lang="ko">SHE 매칭에 보조 단서로 쓰는 체크리스트 항목. 최종 조치 본체가 아니라 검색 색인/근거 조각이다.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:label xml:lang="ko">관련 체크리스트 단서</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#ERGONOMIC">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdfs:label xml:lang="ko">근골격계</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N7c10094009ee41bfba8c0dd67121d241">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#ManagementSystem"/>
+    <rdf:rest rdf:nodeID="N5047bc00d690483bb4e8537f57591c14"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Maintenance">
+    <rdfs:label xml:lang="ko">정비</rdfs:label>
+    <rdfs:label xml:lang="en">Maintenance</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nce382af418e34ee9abded1115e04cd9b">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/app#NeedsClarificationFinding"/>
+    <rdf:rest rdf:nodeID="N83ede8b27ccc483ba08012d38c058e07"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#UnstableGround">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdfs:label xml:lang="en">Unstable Ground</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Biological">
+    <rdfs:label xml:lang="ko">생물학적</rdfs:label>
+    <rdfs:label xml:lang="en">Biological</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#WaxPolishing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Wax Polishing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#SCAFFOLDING">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdfs:label xml:lang="ko">비계</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Steelwork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="ko">철골작업</rdfs:label>
+    <rdfs:label xml:lang="en">Steelwork</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HighElevation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdfs:label xml:lang="ko">고소</rdfs:label>
+    <rdfs:label xml:lang="en">High Elevation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#VestWorn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Vest Worn</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#PenaltyCondition">
+    <rdfs:label xml:lang="ko">벌칙 선택 조건</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#referencesGuide">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/guide#KoshaGuide"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">가이드 상호참조</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/guide#KoshaGuide"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#GarmentSorting">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Garment Sorting</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#derivedFromNS">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+    <rdfs:label xml:lang="ko">NS에서 파생</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#WashingMachine">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Washing Machine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#TemporalStage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">시간 단계 (temporal_stage)</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#DutyHolder">
+    <rdfs:label xml:lang="ko">의무이행주체</rdfs:label>
+    <owl:disjointWith rdf:resource="https://cashtoss.info/ontology#ProtectedPerson"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology#SubjectRole"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ShelfStocking">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Shelf Stocking</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Rail">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">철도</rdfs:label>
+    <rdfs:label xml:lang="en">Rail</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#hasChecklistItem">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">점검항목 보유</rdfs:label>
+    <owl:inverseOf rdf:resource="https://cashtoss.info/ontology/guide#basedOnSR"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#CrowdManagement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Crowd Management</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#CONFINED_SPACE">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdfs:label xml:lang="ko">밀폐공간</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbe2713da919f4abca72009328a2ed898">
+    <owl:oneOf rdf:nodeID="N099092af708b4431b2b2664f8a4cfb8d"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#equipmentName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">장비명</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N79acb0f18e22482ab869591b2cc37224">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="Nf0ab413e29624622b19a7571e970d05d"/>
+    <owl:intersectionOf rdf:nodeID="N6a25c033de4645eb8973dbfaf18a48ef"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#delegatedFrom">
+    <rdfs:label xml:lang="ko">위임 근거</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#violatedIn">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:label xml:lang="ko">위반될 수 있는 상황</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="https://cashtoss.info/ontology/risk/situation#appliesSR"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#visualCueText">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#VisualCue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">시각 단서 텍스트</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N1e0bf99917cf4b379b2f082281e5c989">
+    <rdf:rest rdf:nodeID="N646c91fd7c0e473093758bca338bd57d"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#EmergencyResponse"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nf0ab413e29624622b19a7571e970d05d">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+    <owl:onProperty rdf:resource="https://cashtoss.info/ontology/law#modifies"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N3e2e2b32bd0041a2a4d251b33cb20e43">
+    <rdf:rest rdf:nodeID="N0130a35541f246458858644709af31da"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/app#DirectPenaltyExposure"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#ciAddressesAgent">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">CI 대응 유해인자</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#isDeleted">
+    <rdfs:label xml:lang="ko">삭제 여부</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#forAction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#ActionRecommendation"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#CorrectiveAction"/>
+    <rdfs:label xml:lang="ko">대상 개선 조치</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6c664869954e4591af413acba9c735d6">
+    <rdf:first rdf:nodeID="N1f54c7dc662841fc8594d1e90c5f7b4a"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#specForSR">
+    <rdfs:label xml:lang="ko">SR용 규격</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#sourceSection">
+    <rdfs:label xml:lang="ko">출처 섹션</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#relatedGuide">
+    <rdfs:label xml:lang="ko">관련 KOSHA 가이드</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/guide#KoshaGuide"/>
+    <rdfs:comment xml:lang="ko">SHE에 대응하는 개선 절차의 1순위 지식원.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Machine">
+    <rdfs:label xml:lang="ko">기계</rdfs:label>
+    <rdfs:label xml:lang="en">Machine</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#StorageShelf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Storage Shelf</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#DryCleaningSolvent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Dry Cleaning Solvent</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#StaticElectricity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Static Electricity</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Robot">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">로봇</rdfs:label>
+    <rdfs:label xml:lang="en">Robot</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Installation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+    <rdfs:label xml:lang="ko">설치</rdfs:label>
+    <rdfs:label xml:lang="en">Installation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#conditionText">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">조건 텍스트</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HarnessWorn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Harness Worn</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasWorkContext">
+    <rdfs:label xml:lang="ko">작업 맥락</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/risk#hasFeature"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#FuelSpill">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Fuel Spill</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#docForSR">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">SR 관련 문서</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#LadderInterior">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Ladder Interior</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HeavyLifting">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Heavy Lifting</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#FindingStatus">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">판정 상태</rdfs:label>
+    <owl:equivalentClass rdf:nodeID="N0e917ac278674423b9a866990ac6c008"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Scaffold">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">비계</rdfs:label>
+    <rdfs:label xml:lang="en">Scaffold</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#CorrectiveAction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">개선 조치</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#VisualObservation">
+    <rdfs:label xml:lang="ko">관찰 사실</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ConstructionEquip">
+    <rdfs:label xml:lang="ko">건설장비</rdfs:label>
+    <rdfs:label xml:lang="en">Construction Equip</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#title">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">제목</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ForkliftOperation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Forklift Operation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#confidence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">관찰 신뢰도</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#VisualObservation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#TireChange">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Tire Change</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#hasPenaltyRule">
+    <rdfs:label xml:lang="ko">벌칙 적용 규칙</rdfs:label>
+    <owl:inverseOf rdf:resource="https://cashtoss.info/ontology/penalty#violatedNorm"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyRule"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb0193efea0654d35a466258a3d78613b">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/law#hasSourceArticle"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#CashierArea">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Cashier Area</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Irrigation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Irrigation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#FoodContamination">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="en">Food Contamination</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#FallingObject">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="ko">낙하물</rdfs:label>
+    <rdfs:label xml:lang="en">Falling Object</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Transport">
+    <rdfs:label xml:lang="ko">운반</rdfs:label>
+    <rdfs:label xml:lang="en">Transport</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#ExcavationDriver">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#ProtectedPerson"/>
+    <rdfs:label xml:lang="ko">굴착기계등의 운전자</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#structureLabel">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">구조 라벨</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#FarmMachinery">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Farm Machinery</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N21fd61af597145eeba2cf1e3bd34fd41">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#hasChecklistItem"/>
+    <rdf:rest rdf:nodeID="Ncc243f5185734634acc42cf4f7601078"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#Section">
+    <rdfs:label xml:lang="ko">절</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/law#LegalStructure"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#SpecialEmployer">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#DutyHolder"/>
+    <rdfs:label xml:lang="ko">특수형태근로종사자 노무제공받는 자</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#OtherActivity">
+    <rdfs:label xml:lang="ko">기타 활동</rdfs:label>
+    <rdfs:label xml:lang="en">Other Activity</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#hasObject">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">대상</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#guideContext">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">가이드 컨텍스트</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#addressesAgent">
+    <rdfs:label xml:lang="ko">대응 유해인자</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/sr#addressesFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#hasAction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">행위</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#DeepFrying">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Deep Frying</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ndb60ef8c78dd4c28882dc2abd9d5742f">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology#Definition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#sourceGuide">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">출처 가이드</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#SimpleViolation">
+    <rdfs:label xml:lang="ko">단순 위반</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/penalty#AccidentOutcome"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd33be2ed94294c0bba6757ac8f09eb17">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/penalty#hasSanction"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#triggerText">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">시각 트리거 문구</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#VisualTrigger"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#SubjectRole">
+    <rdfs:label xml:lang="ko">의무 주체</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#CageCleaning">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Cage Cleaning</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#isChecklistItemOf">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/guide#ChecklistItem"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="https://cashtoss.info/ontology/guide#hasChecklistItem"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/guide#KoshaGuide"/>
+    <rdfs:label xml:lang="ko">소속 가이드</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#hasModality">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="ko">모달리티</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology#Modality"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#AnimalFeeding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Animal Feeding</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#FoodPrep">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Food Prep</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Excavation">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">굴착</rdfs:label>
+    <rdfs:label xml:lang="en">Excavation</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#Article">
+    <rdfs:label xml:lang="ko">조문</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/law#LegalEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#matchConfidence">
+    <rdfs:label xml:lang="ko">매칭 신뢰도</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#SituationMatch"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ActiveCrew">
+    <rdfs:label xml:lang="ko">다수 작업 중</rdfs:label>
+    <rdfs:label xml:lang="en">Active Crew</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#AgentState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#PenaltyExposureStatus">
+    <owl:equivalentClass rdf:nodeID="Ne4a85aa304dd43839bd084a9eeec2bd4"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">벌칙 노출 상태</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N1f54c7dc662841fc8594d1e90c5f7b4a">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://cashtoss.info/ontology/law#hasModality"/>
+    <owl:hasValue rdf:resource="https://cashtoss.info/ontology#Exemption"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#recommendedRequirement">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#ActionRecommendation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">추천 안전요구사항</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#BoxHandling">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Box Handling</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#DirectPenaltyExposure">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/app#PenaltyExposureStatus"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">직접 벌칙 노출</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HelmetMissing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="ko">안전모 미착용</rdfs:label>
+    <rdfs:label xml:lang="en">Helmet Missing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#identifier">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="ko">식별자</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#PressureVessel">
+    <rdfs:label xml:lang="ko">압력용기</rdfs:label>
+    <rdfs:label xml:lang="en">Pressure Vessel</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#GogglesWorn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="ko">보안경 착용</rdfs:label>
+    <rdfs:label xml:lang="en">Goggles Worn</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#fullText">
+    <rdfs:label xml:lang="ko">전문</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Sanding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Sanding</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#AnalysisTesting">
+    <rdfs:label xml:lang="ko">분석·시험</rdfs:label>
+    <rdfs:label xml:lang="en">Analysis Testing</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#BindingForce">
+    <owl:equivalentClass rdf:nodeID="N550f4f5cea0041a2ae104c8645933497"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">구속력</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#GlovesMissing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Gloves Missing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#EquipmentSpec">
+    <rdfs:label xml:lang="ko">장비 규격</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#HazardFinding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">위험 판단</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#DocumentRequirement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">문서 요구사항</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb0d136cb24304f0e8ca7efee302acaea">
+    <rdf:rest rdf:nodeID="N6c1a1aee6ebd4ed78396d6a2a64a50be"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#Procedural"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#FuelDispensing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Fuel Dispensing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#SuspectedFinding">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/app#FindingStatus"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">의심</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#Noise">
+    <rdfs:label xml:lang="ko">소음·진동</rdfs:label>
+    <rdfs:label xml:lang="en">Noise</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/agent#HazardousAgent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HighPressureWash">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">High Pressure Wash</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#CAUGHT_IN">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdfs:label xml:lang="ko">끼임</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#LiftWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Lift Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Supervisor">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#DutyHolder"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">감시인</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#GogglesMissing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdfs:label xml:lang="en">Goggles Missing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasPhoto">
+    <rdfs:label xml:lang="ko">사진 보유</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#InspectionCase"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#UploadedPhoto"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#processName">
+    <rdfs:label xml:lang="ko">프로세스명</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Welding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Welding</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#STRUCK_BY">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdfs:label xml:lang="ko">비래·낙하</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#hasBindingForce">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="ko">구속력</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#Chapter">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/law#LegalStructure"/>
+    <rdfs:label xml:lang="ko">장</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#SteamIron">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Steam Iron</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasWorkActivity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+    <rdfs:label xml:lang="ko">작업 활동</rdfs:label>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/risk#hasFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#hasSafetyRequirement">
+    <owl:inverseOf rdf:resource="https://cashtoss.info/ontology/sr#derivedFromNS"/>
+    <rdfs:label xml:lang="ko">안전요구사항 보유</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#PPERequirement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/sr#RequirementType"/>
+    <rdfs:label xml:lang="ko">보호구</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#ChemicalExposure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="en">Chemical Exposure</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LegalStructure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">법령 구조</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#ELECTRIC_SHOCK">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">감전</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Obligation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#Modality"/>
+    <rdfs:label xml:lang="ko">의무</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Definition">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#Modality"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">정의</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N119e171493e94d77bfacb0c22670bed6">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/app#SuspectedFinding"/>
+    <rdf:rest rdf:nodeID="Nce382af418e34ee9abded1115e04cd9b"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#RopeAccess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Rope Access</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N646c91fd7c0e473093758bca338bd57d">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#Training"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#hasEquipmentSpec">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">장비규격 보유</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#Death">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/penalty#AccidentOutcome"/>
+    <rdfs:label xml:lang="ko">사망</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#hasAction">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#CorrectiveActionPlan"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/app#CorrectiveAction"/>
+    <rdfs:label xml:lang="ko">조치 보유</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Contractor">
+    <rdfs:label xml:lang="ko">수급인</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#DutyHolder"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#SpecialWorker">
+    <rdfs:label xml:lang="ko">특수형태근로종사자</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#ProtectedPerson"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#hasNormStatement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">규범 진술문 보유</rdfs:label>
+    <owl:inverseOf rdf:resource="https://cashtoss.info/ontology/law#hasSourceArticle"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ChemicalApplication">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Chemical Application</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Explosion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="en">Explosion</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#NightSolo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Night Solo</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#CriminalSanction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">형사벌</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/penalty#SanctionType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#Procedural">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/sr#RequirementType"/>
+    <rdfs:label xml:lang="ko">절차적</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#PaintingWoodwork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Painting Woodwork</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk#RiskFeature">
+    <rdfs:comment xml:lang="ko">SHE의 8개 feature 차원 통합 상위 클래스. she:hasFeature의 range.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">위험 특징</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LawType_OSHA">
+    <rdfs:label xml:lang="ko">산업안전보건법</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/law#LawType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#recommendationRank">
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#ActionRecommendation"/>
+    <rdfs:label xml:lang="ko">추천 순위</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#hasPPEState">
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/context#PPEState"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/risk#hasFeature"/>
+    <rdfs:label xml:lang="ko">보호구 상태</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#OilDrain">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Oil Drain</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HotTool">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Hot Tool</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#NOISE_VIBRATION">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">소음·진동</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#Repair">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkActivity"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">수리</rdfs:label>
+    <rdfs:label xml:lang="en">Repair</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Driver">
+    <rdfs:label xml:lang="ko">운전자</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#ProtectedPerson"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#possiblePenalty">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">가능 벌칙</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/app#PenaltyExposure"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyRule"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N099092af708b4431b2b2664f8a4cfb8d">
+    <rdf:rest rdf:nodeID="N0cfa8a00f0324f7e9d9f3990cb441139"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology#Obligation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#violatedArticle">
+    <rdfs:label xml:lang="ko">위반 조문</rdfs:label>
+    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyRule"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#Article"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ChemicalWork">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Chemical Work</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd24f9f8642cb4b37a8598dfc130fed5e">
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/sr#PPERequirement"/>
+    <rdf:rest rdf:nodeID="N1e0bf99917cf4b379b2f082281e5c989"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#conditionType">
+    <rdfs:label xml:lang="ko">조건 유형</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#VisualCue">
+    <rdfs:label xml:lang="ko">시각 단서</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd343f7b4f23c4573bbb888aca783ae9b">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/app#NoPenaltyExposure"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N804d207281154b90aa76c0586b44280f">
+    <rdf:rest rdf:nodeID="N4896e9df1784457d9e56b79ed8070b40"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology#Recommended"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ChemicalSpotting">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Chemical Spotting</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ExtremeTemperature">
+    <rdfs:label xml:lang="ko">극한 온도</rdfs:label>
+    <rdfs:label xml:lang="en">Extreme Temperature</rdfs:label>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#WorkContext">
+    <rdfs:label xml:lang="ko">작업 맥락</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#VaporExposure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Vapor Exposure</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/app#InspectionCase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">분석 건</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#coApplicable">
+    <rdfs:label xml:lang="ko">공동 적용</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#HairWash">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Hair Wash</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#FALL">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdfs:label xml:lang="ko">추락</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#ColdExposure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+    <rdfs:label xml:lang="en">Cold Exposure</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#hasChecklistItem">
+    <rdfs:label xml:lang="ko">점검항목 보유</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#NailChemical">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Nail Chemical</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#SkinDevice">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Skin Device</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#exemptedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">면제 근거</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#AgentState">
+    <rdfs:label xml:lang="ko">작업자 상태 (agent_state)</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology#Prohibition">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology#Modality"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">금지</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#penaltyDescription">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">벌칙 내용</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#PesticideSpray">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Pesticide Spray</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#COLLAPSE">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#Hazard"/>
+    <rdfs:label xml:lang="ko">붕괴</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#hasRequirementType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="ko">요구사항 유형</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/agent#HazardousAgent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">유해 인자</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#additionalDetail">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="ko">추가 상세</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N49a7f31241b5430a81e44f9de66de062">
+    <owl:oneOf rdf:nodeID="Nb0d136cb24304f0e8ca7efee302acaea"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#PPEState">
+    <rdfs:label xml:lang="ko">보호구 상태 (ppe_state)</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://cashtoss.info/ontology/risk#RiskFeature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#articleCode">
+    <rdfs:label xml:lang="ko">조문 코드</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/hazard#Collision">
+    <rdfs:label xml:lang="ko">충돌</rdfs:label>
+    <rdfs:label xml:lang="en">Collision</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#ConveyorBelt">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#WorkContext"/>
+    <rdfs:label xml:lang="en">Conveyor Belt</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#relatedSR">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">관련 SR</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nee357e965aaa416b8392ec6f6db5deed">
+    <rdf:rest rdf:nodeID="Nd33be2ed94294c0bba6757ac8f09eb17"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/penalty#hasPenaltyRule"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LawType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">법령 유형</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#hasDomainTerm">
+    <rdfs:label xml:lang="ko">도메인용어 보유</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#KoshaGuide">
+    <rdfs:label xml:lang="ko">KOSHA 가이드</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/context#WetSurface">
+    <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="ko">젖은 표면</rdfs:label>
+    <rdfs:label xml:lang="en">Wet Surface</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N951e0a8a20b94fdca5d7134bf7eb9a3f">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:oneOf rdf:nodeID="Nde056195e6894e44b9e31b0f12ec2d74"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/law#belongsToSection">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="ko">소속 절</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N9a917fd5ba034e5789bf57ebc684af03">
+    <rdf:rest rdf:nodeID="N20dca72e9e774a32b1bf5f08e0f6a71a"/>
+    <rdf:first rdf:resource="https://cashtoss.info/ontology/risk/situation#appliesSR"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://cashtoss.info/ontology/guide#DomainTerm">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="ko">도메인 용어</rdfs:label>
+  </rdf:Description>
+</rdf:RDF>

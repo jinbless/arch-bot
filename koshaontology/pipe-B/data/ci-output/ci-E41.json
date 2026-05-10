@@ -1,0 +1,416 @@
+{
+  "metadata": {
+    "guideCode": "E-41-2012",
+    "shortCode": "E41",
+    "domain": "B",
+    "extractedAt": "2026-04-22T04:59:49Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-B-012"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-E41-001",
+      "text": "사용자는 제작자의 요구사양에 따라 발전기를 운전하여야 한다.",
+      "guideContext": "이동형 저압 발전기 운전",
+      "additionalDetail": null,
+      "workProcessPhase": "발전기 운전 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E41-002",
+      "text": "발전기와 관련된 제어장치 이외에 최소한 다음의 장치가 제공되어야 한다. (가) 원동기 정지장치 (나) 전력부하 연결을 위한 단자함(특히, 단자함이 금속인 경우 발전기 외함과 전기적으로 연결되어야 함) (다) 과전류 차단장치 (라) 전원 차단장치 (마) 발전기 외함의 접지장치",
+      "guideContext": "이동형 저압 발전기 필수 장치",
+      "additionalDetail": null,
+      "workProcessPhase": "발전기 운전 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "CI-E41-003",
+      "text": "이때 설치되는 누전차단기는 차단용량 30 mA, 차단시간 0.03초 이내의 것을 사용하여야 한다.",
+      "guideContext": "단상발전기 감전방지",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E41-004",
+      "text": "누전차단기의 외함은 절연재질로 하거나, 금속인 경우 보호도체와 본딩시켜야 한다.",
+      "guideContext": "소용량 단상발전기 누전차단기 추가 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E41-005",
+      "text": "누전차단기의 외함과 단상발전기의 보호도체와 발전기 내부에서 전기적으로 연결시켜야 한다.",
+      "guideContext": "소용량 단상발전기 누전차단기 추가 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E41-006",
+      "text": "누전차단기가 지락사고시 동작할 수 있도록 발전기 외함을 접지시켜야 한다.",
+      "guideContext": "단상발전기 접지",
+      "additionalDetail": null,
+      "workProcessPhase": "접지 시행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "CI-E41-007",
+      "text": "일반적으로 3상 발전기에는 누전차단기가 설치되어 있고, 중성선은 발전기 외함과 보호도체에 내부적으로 연결되어 있다. 부하측에 누전차단기가 설치되어 있지 않으면, 별도의 누전차단기를 발전기 가까운 곳에 설치하여야 한다.",
+      "guideContext": "3상 발전기 누전차단기",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E41-008",
+      "text": "기준점이 접지되어 있는 경우에는 전로의 절연이 파괴되어 대지간에 지락이 발생하거나 작업자를 통해 손상된 케이블과 대지간에 전로를 형성하는 경우에도 누전차단기가 즉시 동작하도록 설치하여야 한다.",
+      "guideContext": "접지 기준점 누전차단기 동작",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E41-009",
+      "text": "기준점은 발전기 외함, 지지구조물, 보호도체 등과 함께 전기적으로 연속적이어야 한다.",
+      "guideContext": "차량탑재형 저압 3상 발전기",
+      "additionalDetail": null,
+      "workProcessPhase": "접지 시행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "CI-E41-010",
+      "text": "3상 발전기의 경우에는 접지를 시켜야 한다.",
+      "guideContext": "차량탑재형 저압 3상 발전기",
+      "additionalDetail": null,
+      "workProcessPhase": "접지 시행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "CI-E41-011",
+      "text": "발전기 단자함에는 3상전원, 중성선, 보호도체를 연결하기 위한 단자대가 설치되어 있으므로, 3상 발전기에서 단상부하를 연결하는 경우에는 발전기 권선과 외함이 발전기 단자와 어떻게 연결되어 있는 지를 사전에 확인하여야 한다.",
+      "guideContext": "차량탑재형 3상 발전기에서 단상부하 연결",
+      "additionalDetail": null,
+      "workProcessPhase": "발전기 운전 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-E41-012",
+      "text": "인명을 손상할 수 있는 고장전류가 발생할 수 있는 경우에는 전로 사고시 누전차단기가 반드시 동작하도록 설치하여야 한다.",
+      "guideContext": "3상 전원계통 금속외함 접지효과",
+      "additionalDetail": null,
+      "workProcessPhase": "누전차단기 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "8",
+      "basedOn": [
+        "SR-ELECTRIC-004",
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E41-013",
+      "text": "누전차단기가 금속외함에 의한 접지효과에 의해 동작하기가 힘든 경우에는 반드시 대지를 통해 고장전류를 차단할 수 있도록 조치하여야 한다.",
+      "guideContext": "3상 전원계통 금속외함 접지효과",
+      "additionalDetail": null,
+      "workProcessPhase": "접지 시행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "8",
+      "basedOn": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "CI-E41-014",
+      "text": "누전차단기를 확실하게 동작시키기 위하여 단상발전기의 한극 또는 3상발전기의 중성선을 금속외함 및 보호도체 등을 함께 접지시켜야 한다.",
+      "guideContext": "3상 전원계통 금속외함 접지효과",
+      "additionalDetail": null,
+      "workProcessPhase": "접지 시행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "8",
+      "basedOn": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "CI-E41-015",
+      "text": "금속외장이 없는 일반케이블이 임시 배전계통에서 사용되고 있으나, 이는 절연파괴의 가능성이 매우 높다. 이는 불완전한 접지상태의 금속외함에 의해 작업자가 위험해질 수 있으므로, 금속외함은 반드시 발전기의 중성선과 본딩시켜야 한다.",
+      "guideContext": "비접지 기준점 저압 3상 발전기 임시 배전",
+      "additionalDetail": null,
+      "workProcessPhase": "접지 시행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-ELECTRIC-002",
+        "SR-ELECTRIC-013"
+      ]
+    },
+    {
+      "identifier": "CI-E41-016",
+      "text": "단상회로에 대하여는 폐회로 임피던스의 적용이 불가능하나, 과전류 보호장치가 5초 이내에 동작할 수 있도록 회로 임피던스는 가능한 한 작아야 한다.",
+      "guideContext": "단상 발전기 폐회로 임피던스",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "11",
+      "basedOn": [
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "CI-E41-017",
+      "text": "3상 회로에 대하여는 기준점이 접지되어 있거나 비접지 상태에 있더라도 폐회로 임피던스는 과전류 보호장치가 5초 이내에 동작할 수 있도록 가능한 한 작아야 한다.",
+      "guideContext": "3상 발전기 폐회로 임피던스",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "11",
+      "basedOn": [
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "CI-E41-018",
+      "text": "감전방지용 누전차단기가 설치된 경우에는 단상이거나 3상 모두에서 상 도체와 대지간에 형성된 폐회로 임피던스는 누전차단기가 정격에서 동작할 수 있도록 충분히 작아야 한다.",
+      "guideContext": "감전방지 누전차단기 폐회로 임피던스",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "11",
+      "basedOn": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "CI-E41-019",
+      "text": "누전차단기의 정격전류와 대지 궤환회로의 폐회로 임피던스를 곱한 전압 값은 50 V를 초과하면 안 된다.",
+      "guideContext": "누전차단기 폐회로 임피던스 기준",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "11",
+      "basedOn": [
+        "SR-ELECTRIC-004",
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-E41-020",
+      "text": "3상발전기의 권선은 중성선에 의한 기준점이 필요하고, 감전방지용 누전차단기가 설치된 경우에는 반드시 접지가 된 기준점이 필요하다.",
+      "guideContext": "3상발전기 기준점 접지",
+      "additionalDetail": null,
+      "workProcessPhase": "접지 시행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "12",
+      "basedOn": [
+        "SR-ELECTRIC-002"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-E41-001",
+      "term": "중성선",
+      "definition": "단상 3선식 또는 3상 변압기를 Y결선 하는 경우 그 중성점에 접속되는 전선을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E41-002",
+      "term": "보호도체",
+      "definition": "감전보호를 위하여 노출 도전부, 기타 도전부, 주접지 단자, 전원측의 접지점 또는 기타 접지점에 접속·사용하는 도체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "DT-E41-003",
+      "term": "기준점",
+      "definition": "전극에 전압을 가할 때 기준으로 하는 전위점을 말하며, 원칙적으로 접지를 한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "DT-E41-004",
+      "term": "지락",
+      "definition": "전압이 인가된 전선이 직접 땅에 접촉되었을 때의 상태를 말하며, 이때 고장전류가 과도하게 흐르게 된다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "DT-E41-005",
+      "term": "단락",
+      "definition": "전기회로에서 전위차가 있는 두 점 사이를 저항이 극히 작은 도선으로 연결되거나, 절연불량으로 작은 저항회로가 형성된 것을 말하며, 이때 고장전류가 과도하게 흐르게 된다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "DT-E41-006",
+      "term": "부동",
+      "definition": "발전기, 변압기 등의 상 권선에 대하여 접지, 기준점 설정 등 인위적으로 전위를 설정하지 않는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-E41-01",
+      "processOrder": 1,
+      "processName": "발전기 운전 준비 및 필수 장치 확인",
+      "safetyMeasures": "제작자의 요구사양에 따라 발전기를 운전하고, 원동기 정지장치, 단자함, 과전류 차단장치, 전원 차단장치, 외함 접지장치가 구비되었는지 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "4",
+      "relatedSR": [
+        "SR-ELECTRIC-003",
+        "SR-ELECTRIC-005"
+      ]
+    },
+    {
+      "identifier": "WP-E41-02",
+      "processOrder": 2,
+      "processName": "누전차단기 추가 설치",
+      "safetyMeasures": "차단용량 30 mA, 차단시간 0.03초 이내의 누전차단기를 설치한다. 외함은 절연재질로 하거나 보호도체와 본딩하고, 발전기 외함과 전기적으로 연결한다. 부하측에 누전차단기가 없으면 발전기 가까운 곳에 별도 설치한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1",
+      "relatedSR": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "WP-E41-03",
+      "processOrder": 3,
+      "processName": "접지 시행",
+      "safetyMeasures": "다음 방법으로 접지를 시행한다: (1) 1 m 이하 깊이에 접지봉 설치, (2) 주변 고정설비의 접지단자 이용, (3) 건물 철 구조물 이용, (4) 콘크리트 또는 구조물의 노출 철근 이용, (5) 접지된 주변 금속 구조물 이용.",
+      "requiredPPE": [],
+      "sourceSection": "9",
+      "relatedSR": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "WP-E41-04",
+      "processOrder": 4,
+      "processName": "3상 전원공급 케이블 선정",
+      "safetyMeasures": "단상부하 연결 시 4가닥 케이블은 부적합하므로 적합한 케이블을 선정한다. 유연 케이블, 금속외장 케이블, 금속편조 케이블 등은 부하형태, 유용성, 유연성 필요에 따라 결정한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-ELECTRIC-013"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-E41-001",
+      "equipmentName": "감전방지용 누전차단기",
+      "specifications": {
+        "ratedSensitivityCurrent": "30 mA",
+        "breakingTime": "0.03초 이내",
+        "enclosure": "절연재질 또는 금속(보호도체와 본딩)",
+        "function": "절연감시 및 감전예방"
+      },
+      "sourceSection": "6.1",
+      "relatedSR": [
+        "SR-ELECTRIC-004"
+      ]
+    },
+    {
+      "identifier": "ES-E41-002",
+      "equipmentName": "접지봉",
+      "specifications": {
+        "installationDepth": "1 m 이하"
+      },
+      "sourceSection": "9",
+      "relatedSR": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "ES-E41-003",
+      "equipmentName": "전원공급용 케이블",
+      "specifications": {
+        "types": "PVC 절연 케이블, 외장케이블, 시스 케이블, 금속외장 케이블, 금속편조 케이블",
+        "protectionConductor": "시스로 절연된 3가닥 케이블에 전기적 연속성을 갖는 보호접지용 금속선 포함",
+        "note": "플라스틱 외피와 금속외장을 갖는 케이블이 플라스틱 절연케이블보다 외부충격 손상 가능성이 낮아 더 안전"
+      },
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-ELECTRIC-013"
+      ]
+    }
+  ],
+  "documentRequirements": []
+}

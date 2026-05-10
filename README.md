@@ -8,9 +8,9 @@ The service goal is:
 
 ## Repository Role
 
-This repository is a meta repository. It keeps the current design documents, decision logs, evaluation summaries, and synthetic observation testsets.
+This repository is being converted from a coordination/meta repository into the root monorepo for the ontology-based KOSHA workplace-risk assistant.
 
-The implementation repositories remain separate:
+On branch `codex/monorepo-snapshot-import`, the project-owned implementation repositories are imported as ordinary root directories:
 
 | Area | Repository |
 |---|---|
@@ -18,19 +18,19 @@ The implementation repositories remain separate:
 | Backend/frontend service | <https://github.com/jinbless/OHS> |
 | Legal source dependency | <https://github.com/legalize-kr/legalize-kr> |
 
-The local workspace also contains those repositories as child directories. They have their own git histories, so check status separately inside `OHS/`, `koshaontology/`, and `legalize-kr/`.
+`legalize-kr` remains an external local sibling dependency and is not imported or pushed by this project.
 
-## Monorepo Transition Baseline
+## Monorepo Snapshot Baseline
 
-The project is moving toward a root-level monorepo operating model, but physical repository import has not happened yet. The current baseline keeps the sibling layout and records pushed commits before any future snapshot import.
+The project is moving to a root-level monorepo operating model by snapshot import. The original GitHub repositories preserve child history; root `arch-bot` records the imported baseline commits as provenance.
 
 Current decisions:
 
-- `koshaontology` and `OHS` are project-owned and are pushed to their existing GitHub repositories before root documentation is pushed.
-- `legalize-kr` is an external source dependency and is not a push target for this project.
-- Root `arch-bot` remains the main article and coordination repository until a future snapshot import.
-- Future monorepo import should use snapshot import by default; historical traceability remains in the original GitHub repositories.
-- `kosha-guides` and `pictures-json` are root-level project data assets, but only selected data should be tracked directly.
+- `koshaontology` imported baseline: `60d025ee873e071faf9c90cc0b1a89b05c4812bd`.
+- `OHS` imported baseline: `7eed7280e1ece9fa7bb32beb182017f5cfa96f5a`.
+- `legalize-kr` is an external source dependency and remains ignored by root git.
+- `kosha-guides/parsed/**` and `kosha-guides/manifest/**` are tracked as selected data assets.
+- `pictures-json/reports/**` remains external/local; root tracks `pictures-json/reports-manifest.json` and `docs/status/evaluation-baseline.md`.
 
 See:
 
@@ -43,8 +43,8 @@ See:
 
 Data policy is selective tracking plus external/LFS for large artifacts:
 
-- Track root docs, synthetic observation JSONL files, selected accepted reports, accepted serving artifacts, future `kosha-guides/parsed/**`, and future `kosha-guides/manifest/**`.
-- Keep raw KOSHA PDFs and old `pictures-json/reports/**` outside normal git history or behind LFS/manifest references.
+- Track root docs, synthetic observation JSONL files, accepted serving artifacts, `kosha-guides/parsed/**`, `kosha-guides/manifest/**`, and lightweight report/provenance manifests.
+- Keep raw KOSHA PDFs and `pictures-json/reports/**` report bodies outside normal git history or behind LFS/manifest references.
 - Treat manifest data as the operating source for provenance export.
 
 The ontology design now includes a planned source/provenance layer using W3C PROV-O, DCAT, DCTERMS, and SHACL. This layer stays separate from the main domain flow and is used for audit/debug/rebuild, not runtime scoring.
@@ -105,10 +105,11 @@ Recommended first read order:
 3. `MONOREPO_TRANSITION_PLAN.md`
 4. `DATA_GOVERNANCE.md`
 5. `repositories.md`
-6. `WORKPLAN_LLM_DOMAIN_GUARD.md`
-7. `온톨로지_통합구조_및_흐름도.md`
-8. `OHS/README.md`
-9. `koshaontology/pipe-A/status_pipea.md`, `koshaontology/pipe-B/status_pipeb.md`, `koshaontology/pipe-C/status_pipec.md`
+6. `docs/status/evaluation-baseline.md`
+7. `WORKPLAN_LLM_DOMAIN_GUARD.md`
+8. `온톨로지_통합구조_및_흐름도.md`
+9. `OHS/README.md`
+10. `koshaontology/pipe-A/status_pipea.md`, `koshaontology/pipe-B/status_pipeb.md`, `koshaontology/pipe-C/status_pipec.md`
 
 ## Key Documents
 
@@ -117,6 +118,9 @@ Recommended first read order:
 - `DATA_GOVERNANCE.md`
 - `repositories.md`
 - `docs/architecture/source-provenance.md`
+- `docs/status/evaluation-baseline.md`
+- `kosha-guides/manifest/guides-manifest.json`
+- `pictures-json/reports-manifest.json`
 - `WORKPLAN_LLM_DOMAIN_GUARD.md`
 - `온톨로지_통합구조_및_흐름도.md`
 - `온톨로지_법령레이어_상세도.md`

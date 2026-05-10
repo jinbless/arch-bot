@@ -1,0 +1,789 @@
+{
+  "metadata": {
+    "guideCode": "D-4-2012",
+    "shortCode": "D4",
+    "domain": "C",
+    "extractedAt": "2026-04-23T19:27:45Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-015"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-D4-001",
+      "text": "자동 고속작동 밸브시스템을 설계할 때에는 폭발위험물질의 폭발특성, 용기의 모양·배치형태 및 운전 특성, 용기와 배관에 사용되는 폭발방호 유형, 배관의 체적·길이·단면적·배치형태 및 강도, 배관 내 폭발위험물질의 유속, 자동 고속차단 밸브시스템의 각 구성품 위치, 밸브의 작동시간을 포함하는 것이 바람직하다.",
+      "guideContext": "폭발격리시스템 — 자동 고속작동 밸브시스템 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-002",
+      "text": "자동 고속작동 밸브는 폭발감지기와 연동시켜 고속작동 밸브시스템 작동시 폭연이 전파되는 것을 방지하도록 설계한다.",
+      "guideContext": "폭발격리시스템 — 자동 고속작동 밸브시스템 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.1.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-003",
+      "text": "자동 고속작동 밸브와 폭발감지기는 최고허용압력에 견딜 수 있도록 설계한다.",
+      "guideContext": "폭발격리시스템 — 자동 고속작동 밸브시스템 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-004",
+      "text": "고속작동 밸브와 폭발감지기 사이의 위치는 감지기, 밸브 및 장치회로의 반응시간과 덕트 내 예상되는 최고화염속도를 고려하여 설계한다.",
+      "guideContext": "폭발격리시스템 — 자동 고속작동 밸브시스템 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-005",
+      "text": "자동 고속작동 밸브시스템이 설치될 설비의 최고 운전온도에서도 기능에 영향이 없는 전기기동장치를 설치한다.",
+      "guideContext": "폭발격리시스템 — 전기기동장치",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.3",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-D4-006",
+      "text": "자동 고속작동 밸브시스템의 전원장치에는 비상전력이 공급되어야 하며 비상전원의 용량은 당해 전원장치에 연결된 고속차단 밸브시스템에 필요한 모든 전기기동장치 및 경보기 등을 작동하기에 충분하여야 한다.",
+      "guideContext": "폭발격리시스템 — 전원장치",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.4",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-D4-007",
+      "text": "자동 고속작동 밸브시스템의 각 구성품은 설계자 또는 공급자에 의해 규정된 위치 및 방법에 따라 설치한다.",
+      "guideContext": "폭발격리시스템 — 자동 고속작동 밸브시스템 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-008",
+      "text": "감지기와 고속작동 밸브는 주위환경 또는 진동 등에 의해 결함이 야기 되지 않도록 설치한다.",
+      "guideContext": "폭발격리시스템 — 자동 고속작동 밸브시스템 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.1.6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-009",
+      "text": "감지기와 고속작동 밸브는 이물질의 축적 등에 의하여 그 기능이 저하되지 않도록 설치한다.",
+      "guideContext": "폭발격리시스템 — 자동 고속작동 밸브시스템 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.1.6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-010",
+      "text": "자동 고속작동 밸브시스템의 각 구성품은 최고허용온도를 초과하지 않는 곳에 설치한다.",
+      "guideContext": "폭발격리시스템 — 자동 고속작동 밸브시스템 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1.6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-011",
+      "text": "자동 고속작동 밸브시스템이 설치된 장비를 보수할 경우에는 보수작업을 수행하기에 앞서 자동 고속작동 밸브시스템의 기능을 정지시켜야 하며 또한 고속작동 밸브가 설치된 설비의 제어장치와 자동 고속작동 밸브시스템의 전원장치와는 연동시켜 작동이 되지 않게 한다.",
+      "guideContext": "폭발격리시스템 — 보수작업자 안전",
+      "additionalDetail": null,
+      "workProcessPhase": "유지보수",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1.8",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-D4-012",
+      "text": "자동 고속작동 밸브시스템이 작동된 경우에는 모든 구성품을 재검사하고, 필요한 경우 해당 부품을 교체 또는 조정한다.",
+      "guideContext": "폭발격리시스템 — 검사 및 유지보수",
+      "additionalDetail": null,
+      "workProcessPhase": "유지보수",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1.9",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-013",
+      "text": "자동 고속작동 밸브시스템의 부품을 교체하거나 재조립한 경우에는 완전 운전조건으로 그 기능을 복원하기 전에 시험을 실시하여 그 성능을 확인하여야 한다.",
+      "guideContext": "폭발격리시스템 — 검사 및 유지보수",
+      "additionalDetail": null,
+      "workProcessPhase": "유지보수",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1.9",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-014",
+      "text": "화염분출기를 설계할 때에는 폭발위험물질의 폭발특성, 방호대상 장치와 이송설비의 용량·배치형태 및 운전특성, 용기에 사용된 폭발방호 유형, 배관의 체적·길이·단면적·배치형태 및 강도, 배관 내 폭발위험물질의 유속, 화염분출기와 배관의 위치, 난류에 영향을 미치는 관부속품(밸브, 엘보우 등) 및 조도와 같은 배관 특성, 점화원 위치를 포함하는 것이 바람직하다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-015",
+      "text": "화염분출기의 본체는 화염을 설비 외부로 향하게 하고, 하류배관으로부터 이격하여 설계한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-016",
+      "text": "화염분출기의 본체는 예상되는 최고폭발압력에 견딜 수 있도록 설계한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-017",
+      "text": "폐쇄장치는 파열판 또는 금속판을 사용한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-018",
+      "text": "폐쇄장치가 비산 위험이 있을 경우에는 케이즈(Cage)로 봉입한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-019",
+      "text": "화염분출기의 위치는 화염분출기로부터 분출되는 화염의 위험성을 고려하여 설계한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-020",
+      "text": "화염분출기를 시험할 때에는 동일한 폭발위험물질을 사용하여 시험하거나 화염전파특성이 유사한 폭발위험물질을 가지고 시험하여야 한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-021",
+      "text": "설치된 화염분출기와 점화원 사이의 배관 길이는 시험되는 화염분출기의 최대 길이와 동일하거나 그 이하이어야 한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-022",
+      "text": "점화원 위치(상류, 하류 또는 양자의 위치 모두)는 방호장치와 동일한 배치 형태에서 시험받아야 한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-023",
+      "text": "점화원을 상류에 위치하여 시험할 경우에는 화염분출기는 점화 또는 점화 후 전파하는 화염과 상호작용하는 미연소물질의 유속범위를 고려하여 시험해야 한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-024",
+      "text": "화염분출기는 제조회사의 지침에 따라 설치 및 유지 관리한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 설치와 유지관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-025",
+      "text": "화염분출기는 매번 작동 후 및 주기적으로 검사한다. 검사 시 장치의 성능에 영향을 미칠 수 있는 손상이 발생했는지를 결정하고, 필요한 경우 해당 부품을 보수 또는 교체한다.",
+      "guideContext": "폭발격리시스템 — 화염분출기 유지관리",
+      "additionalDetail": null,
+      "workProcessPhase": "유지보수",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-026",
+      "text": "화염방지기 시험에 사용되는 폭발위험물질은 실제 적용하는 위험물질과 동일하거나 화염전파특성이 유사한 물질이어야 한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-027",
+      "text": "화염방지기(설치된)와 점화원 사이의 배관 길이는 시험되는 화염방지기의 최대 길이와 동일하거나 그 이하이어야 한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-028",
+      "text": "특수형의 최소 및 최대 크기의 화염방지기는 시험을 실시하여야 한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-029",
+      "text": "화염방지기는 방지기의 구성품 및 설치 하드웨어, 케이스, 가스켓, 시일, 방지기의 연결에 사용되는 플랜지나 기타 연결기기 및 구조의 재질을 포함하여 방지기가 설치될 때와 동일한 상태로 시험을 실시하여야 한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-030",
+      "text": "화염방지기에서 발생 가능한 최고온도 및 최고압력이 사용되어야 한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-031",
+      "text": "특수한 적용을 필요로 하는 곳에는 점화원 시험(상류, 하류)을 수행해야 한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-032",
+      "text": "화염방지기는 실제로 예상되는 유속범위를 초과하여 시험을 실시한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-033",
+      "text": "화염방지기에 지속적 연소가 발생할 때에는 시험절차에 연속식 연소시험을 포함해야 한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-034",
+      "text": "화염방지기의 허용온도는 시험에 의해 결정되어야 하며, 보통 자연발화 온도 미만이다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-035",
+      "text": "관내 화염방지기 성능시험은 한국산업규격 KS B 6845 2004(화염방지장치의 성능시험방법)의 관내 폭연방지 장치 성능시험에 따른다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-036",
+      "text": "관내 화염방지기를 유효한 시험시간을 초과하여 계속해서 연소시험을 수행하면 파열될 수 있다. 이를 방지 위해서는 파열 전에 시험물질의 공급을 자동으로 차단시킬 수 있는 자동차단장치와 경보장치를 화염방지기 양쪽에 설치한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 시험 안전장치",
+      "additionalDetail": null,
+      "workProcessPhase": "시험",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.1",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-D4-037",
+      "text": "화염방지기는 제조회사의 지침에 따라 설치 및 유지 관리한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 설치와 유지관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-038",
+      "text": "화염방지기는 주기적으로 검사하며 설비가 작동된 후에도 검사한다. 검사 시 장치의 성능에 영향을 끼칠 수 있는 손상이 발생했는지를 결정하고, 필요한 경우 해당 부품을 보수 또는 교체한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 유지관리",
+      "additionalDetail": null,
+      "workProcessPhase": "유지보수",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-039",
+      "text": "화염방지기가 결빙되어 막힐 우려가 있는 경우에는 화염방지기에 보온 등 적절한 결빙 방지조치 또는 차압스위치와 같이 막힘의 개시를 감지하는 장치를 설치한다.",
+      "guideContext": "폭발격리시스템 — 화염방지기 유지관리",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-040",
+      "text": "로터리 밸브는 회전자와 밸브하우징 사이에 화염의 통과를 방지하기에 충분히 작은 간격을 두도록 설계한다. 밸브 하우징의 각 면에 최소 2개의 날개는 항상 최소 간격을 보유해야 한다.",
+      "guideContext": "폭발격리시스템 — 로터리 밸브 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-041",
+      "text": "로터리 밸브를 폭발분리장치로 사용하려면 분진 최소 점화에너지와 점화온도를 고려해야 한다.",
+      "guideContext": "폭발격리시스템 — 로터리 밸브 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.1",
+      "basedOn": [
+        "SR-DUST-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-042",
+      "text": "로터리 밸브는 예상되는 최고폭발압력에 견디도록 설계한다.",
+      "guideContext": "폭발격리시스템 — 로터리 밸브 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-043",
+      "text": "로터리 밸브는 분진 취급설비에만 설치하여 사용한다.",
+      "guideContext": "폭발격리시스템 — 로터리 밸브 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": [
+        "SR-DUST-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-044",
+      "text": "로터리 밸브는 시험 데이터에 의해 플라스틱 또는 합성물질이 화염 통과를 방지할 수 있다는 것이 입증되지 않는다면 몸체와 날개는 금속 재질을 사용하여 설치한다.",
+      "guideContext": "폭발격리시스템 — 로터리 밸브 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-045",
+      "text": "액봉 장치는 설비 내에서 취급되는 가스의 유속범위를 고려하여 설계한다.",
+      "guideContext": "폭발격리시스템 — 액봉 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-046",
+      "text": "액봉은 예상되는 최고폭발압력을 견디도록 설계한다.",
+      "guideContext": "폭발격리시스템 — 액봉 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D4-047",
+      "text": "액봉은 공인된 실행기준에 적합하게 설계한다.",
+      "guideContext": "폭발격리시스템 — 액봉 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D4-048",
+      "text": "기능불량 탐지 경보장치와 적정한 액위를 공급 및 유지하는 장치를 설치한다.",
+      "guideContext": "폭발격리시스템 — 액봉 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.5.1",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-D4-001",
+      "term": "폭발격리시스템",
+      "definition": "공정설비의 배관 또는 연결 덕트를 통해 다른 설비로의 폭발화염 및 압력이 확산되는 것을 사전에 격리 또는 완화시켜 설비 등의 손상을 예방하기 위하여 설치하는 일련의 장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D4-002",
+      "term": "자동 고속작동 밸브시스템",
+      "definition": "배관 또는 연결 덕트를 통해 전파하는 화염의 경로를 자동적으로 차단시키는 밸브시스템을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D4-003",
+      "term": "화염분출기",
+      "definition": "폭발 시 발생하는 폭발화염 및 과압을 설비 외부로 분출시키기 위하여 설치하는 장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D4-004",
+      "term": "화염방지기",
+      "definition": "가연성가스 또는 인화성액체를 저장하거나 수송하는 설비 내·외부에서 화재가 발생하는 경우 폭연 및 폭굉화염이 인접설비로 전파되지 않도록 차단하는 장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D4-005",
+      "term": "액봉",
+      "definition": "가스가 비가연성 액체에 의해 차단됨으로써 화염경로를 차단하는 장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-D4-01",
+      "processOrder": 1,
+      "processName": "폭발격리시스템 설계",
+      "safetyMeasures": "폭발위험물질의 폭발특성, 용기 모양·배치형태 및 운전특성, 배관 체적·길이·단면적·강도, 배관 내 유속, 구성품 위치, 밸브 작동시간 등을 고려하여 설계한다. 최고허용압력 및 최고화염속도를 반영하여야 한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.1.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-D4-02",
+      "processOrder": 2,
+      "processName": "자동 고속작동 밸브시스템 설치",
+      "safetyMeasures": "설계자 또는 공급자에 의해 규정된 위치 및 방법에 따라 설치한다. 주위환경·진동에 의한 결함 방지, 이물질 축적에 의한 기능 저하 방지, 최고허용온도 미초과 위치 설치. 전기기동장치는 최고 운전온도에서도 기능에 영향 없도록 설치한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.1.6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-D4-03",
+      "processOrder": 3,
+      "processName": "화염분출기 설치 및 시험",
+      "safetyMeasures": "화염을 설비 외부로 향하게 하고 하류배관으로부터 이격 설치. 비산 위험 시 케이즈 봉입. 동일 폭발위험물질 또는 유사 화염전파특성 물질로 시험. 매번 작동 후 및 주기적 검사 실시.",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-D4-04",
+      "processOrder": 4,
+      "processName": "화염방지기 설치 및 시험",
+      "safetyMeasures": "제조회사 지침에 따라 설치. 실제 적용 위험물질과 동일/유사 물질로 시험. KS B 6845 성능시험 실시. 결빙 우려 시 보온 등 결빙 방지조치 또는 차압스위치 설치. 주기적 및 작동 후 검사 실시.",
+      "requiredPPE": [],
+      "sourceSection": "4.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-D4-05",
+      "processOrder": 5,
+      "processName": "로터리 밸브 설치",
+      "safetyMeasures": "분진 취급설비에만 설치. 회전자와 밸브하우징 사이 충분히 작은 간격 유지. 분진 최소 점화에너지 및 점화온도 고려. 시험 입증 없으면 몸체와 날개는 금속 재질 사용.",
+      "requiredPPE": [],
+      "sourceSection": "4.4",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-DUST-001"
+      ]
+    },
+    {
+      "identifier": "WP-D4-06",
+      "processOrder": 6,
+      "processName": "액봉 설치",
+      "safetyMeasures": "가스 유속범위 고려 설계. 최고폭발압력 견딤. 공인된 실행기준 적합. 기능불량 탐지 경보장치 및 적정 액위 공급·유지 장치 설치.",
+      "requiredPPE": [],
+      "sourceSection": "4.5",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-D4-07",
+      "processOrder": 7,
+      "processName": "폭발격리시스템 검사 및 유지보수",
+      "safetyMeasures": "보수 시 시스템 기능 정지 후 작업 수행. 제어장치와 전원장치 연동 차단. 작동 후 모든 구성품 재검사. 부품 교체·재조립 시 시험 실시하여 성능 확인.",
+      "requiredPPE": [],
+      "sourceSection": "4.1.9",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-CHEMICAL-011"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-D4-001",
+      "equipmentName": "자동 고속작동 밸브시스템",
+      "specifications": {
+        "components": "폭발감지기, 고속작동 밸브, 전기기동장치, 전원장치, 감지회로",
+        "pressureRating": "최고허용압력에 견딜 수 있는 구조",
+        "temperatureRating": "최고허용온도 미초과 위치 설치",
+        "powerSupply": "비상전력 공급, 모든 전기기동장치 및 경보기 작동에 충분한 용량",
+        "operatingRequirement": "폭발감지기와 연동하여 폭연 전파 방지"
+      },
+      "sourceSection": "4.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "ES-D4-002",
+      "equipmentName": "화염분출기",
+      "specifications": {
+        "bodyDesign": "화염을 설비 외부로 향하게 하고 하류배관으로부터 이격",
+        "pressureRating": "예상되는 최고폭발압력에 견딜 수 있는 구조",
+        "closureDevice": "파열판 또는 금속판 사용",
+        "safetyFeature": "비산 위험 시 케이즈(Cage)로 봉입"
+      },
+      "sourceSection": "4.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "ES-D4-003",
+      "equipmentName": "화염방지기",
+      "specifications": {
+        "testStandard": "KS B 6845 2004(화염방지장치의 성능시험방법)",
+        "temperatureLimit": "허용온도는 시험에 의해 결정, 보통 자연발화 온도 미만",
+        "safetyDevice": "자동차단장치와 경보장치를 양쪽에 설치",
+        "coldWeatherProtection": "결빙 우려 시 보온 또는 차압스위치 설치"
+      },
+      "sourceSection": "4.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "ES-D4-004",
+      "equipmentName": "로터리 밸브",
+      "specifications": {
+        "clearance": "회전자와 밸브하우징 사이 화염 통과 방지 간격, 각 면에 최소 2개 날개 최소 간격 보유",
+        "material": "몸체와 날개는 금속 재질 (플라스틱·합성물질은 시험 입증 필요)",
+        "pressureRating": "예상되는 최고폭발압력에 견딤",
+        "application": "분진 취급설비 전용",
+        "designConsideration": "분진 최소 점화에너지 및 점화온도 고려"
+      },
+      "sourceSection": "4.4",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-DUST-001"
+      ]
+    },
+    {
+      "identifier": "ES-D4-005",
+      "equipmentName": "액봉",
+      "specifications": {
+        "designBasis": "설비 내 취급 가스의 유속범위 고려",
+        "pressureRating": "예상되는 최고폭발압력에 견딤",
+        "complianceStandard": "공인된 실행기준 적합",
+        "auxiliaryDevices": "기능불량 탐지 경보장치, 적정 액위 공급 및 유지 장치"
+      },
+      "sourceSection": "4.5",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    }
+  ],
+  "documentRequirements": []
+}

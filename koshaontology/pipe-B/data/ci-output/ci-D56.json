@@ -1,0 +1,949 @@
+{
+  "metadata": {
+    "guideCode": "D-56-2016",
+    "shortCode": "D56",
+    "domain": "C",
+    "extractedAt": "2026-04-22T12:58:27Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-048"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-D56-001",
+      "text": "맹판을 설치하기 위해서는 <별표 1>의 맹판 설치 및 제거 목록을 작성하고 맹판의 설치위치를 공정배관계장도면 (P&ID) 또는 관련도면에 표시하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 목록 작성 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-002",
+      "text": "공정별로 맹판 목록을 구분하여 작성하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 목록 작성 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-003",
+      "text": "공정 또는 시스템 격리, 압력시험, 용기 출입 등의 작업용도별로 구분하여 맹판 목록을 작성하거나 목록에 해당 사항을 기록하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 목록 작성 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-004",
+      "text": "맹판 목록에는 맹판번호, 설치 위치, 공정배관계장도면번호, 배관번호, 배관경, 맹판 설치용도, 맹판 형태, 유체명, 설치 및 제거 순서, 안전보호장구 필요여부 등이 포함되어야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 목록 작성 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-005",
+      "text": "운전부서장은 해당 공정에 대한 충분한 지식과 경험 및 해당 공정 유지보수 경험이 있는 작업자 중에서 \"맹관관리자\"를 선정하여 작업 전에 현장의 맹판 설치 위치에 꼬리표(Tag)를 부착하고, 작업성 및 안전성을 고려하여 맹판 설치 위치의 변경 혹은 안전시설의 추가 설치 등의 업무를 담당하도록 조치하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 목록 작성 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-006",
+      "text": "맹관관리자는 맹판 목록 및 설치 위치가 표시된 공정배관계장도면 등의 도면 및 맹판 설치 및 제거 목록을 작업 전에 현장에 비치하거나 제공하고, 해당 운전부서, 작업부서 및 도급업체 근로자들이 작업내용을 알 수 있도록 교육하여야 한다.",
+      "guideContext": "맹판 설치 및 제거",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 목록 작성 및 관리",
+      "bindingForce": "MANDATORY",
+      "requirementType": "TRAINING",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-CHEMICAL-024"
+      ]
+    },
+    {
+      "identifier": "CI-D56-007",
+      "text": "화학설비 등에 맹판을 설치할 경우에는 사전에 내부를 치환한 후 내부에 화학물질이 존재하지 않는 것을 확인하고 작업하여야 한다.",
+      "guideContext": "맹판 작업준비",
+      "additionalDetail": null,
+      "workProcessPhase": "작업준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-D56-008",
+      "text": "플랜지면의 손상 방지를 위해 맹판의 양쪽에 개스킷을 설치하는 것이 원칙이나, 비 압력용 맹판인 경우에는 한쪽에만 설치할 수 있다.",
+      "guideContext": "맹판 작업준비",
+      "additionalDetail": null,
+      "workProcessPhase": "작업준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-009",
+      "text": "맹판 체결용 볼트를 준비하되, 맹판의 두께에 따라 기존 설치된 볼트의 길이가 짧을 수 있으므로 설치된 볼트의 길이와 맹판의 두께를 고려하여 준비한다.",
+      "guideContext": "맹판 작업준비",
+      "additionalDetail": null,
+      "workProcessPhase": "작업준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-010",
+      "text": "맹판 손잡이 부분에는 꼬리표를 부착할 수 있는 구멍이 있어야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-011",
+      "text": "압력용 맹판은 사용하는 배관의 규격에 적합한 것을 사용하여야 하며, <별표 2>의 호칭압력에 따른 맹판 선정기준 및 <별표 3>의 맹판 두께별 적용압력 선정기준을 참조하여 사용한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-012",
+      "text": "비압력용 맹판은 탄소강 재질을 사용할 경우 최소 4 mm 이상의 두께가 되어야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-013",
+      "text": "규격품의 맹판이 없거나 플랜지 사이의 틈새가 좁아 규격품을 사용할 수 없는 경우에는 별도로 내부압력에 대한 두께 계산을 해서 선정하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-014",
+      "text": "설치되는 맹판이 운전중인 공정에 직접 영향을 받는 경우에는 해당 배관규격 및 재질과 동등 이상이어야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-015",
+      "text": "맹판은 설치되는 부분에서 받을 수 있는 가장 높은 압력 및 온도에 적합하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-016",
+      "text": "맹관관리자는 맹판을 준비할 때 다음 사항을 점검하여야 한다. 맹판의 수량 및 볼트의 수량 적정여부, 맹판 표시상태의 적정여부, 맹판의 재질 및 표면상태 적정여부, 스펙터클 블라인드 사용여부.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 준비 및 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-017",
+      "text": "맹판 설치 시에는 사업장의 규정에 따라 위험작업허가를 받아야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "작업허가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-018",
+      "text": "작업수행부서는 맹판 설치 시 필요할 경우 공기호흡기, 내산복, 안면보호구, 방화복 등의 안전보호장구를 사전에 준비하여야 한다.",
+      "guideContext": "맹판 설치 및 제거",
+      "additionalDetail": null,
+      "workProcessPhase": "작업준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "4.5",
+      "basedOn": [
+        "SR-CHEMICAL-025"
+      ]
+    },
+    {
+      "identifier": "CI-D56-019",
+      "text": "설비의 유지보수를 위해 설비내부에 출입하여 청소, 검사, 보수 및 시험 등 할 경우에는 다른 화학설비 및 부속설비와 연결된 부분에는 맹판 설치, 배관 분리 등을 통하여 격리하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-020",
+      "text": "맹판이 설치되는 설비 또는 배관 등은 치환(Purging)되거나 세척(Washing)되어야 한다.",
+      "guideContext": "맹판 설치작업",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-D56-021",
+      "text": "치환 또는 세척되지 않은 설비 또는 배관 등에 맹판을 설치할 경우에는 관련된 모든 근로자들(운전부서, 작업부서, 안전부서, 협력회사 관리감독자 및 작업자 등)이 참여하여 작업위험성평가를 수행한 후 작업에 필요한 안전보호장구 착용 및 작업위험성평가 조치사항을 모두 조치한 후 맹판 설치작업을 수행하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": "작업위험성평가에 직접 참석하지 못한 경우에는 맹관관리자가 작업 전에 위험성평가 결과를 관련 근로자에게 전달하여야 한다.",
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-022",
+      "text": "맹판의 손잡이 부분에는 크기(설치배관의 호칭경), 플랜지 호칭압력(Rating) 및 두께가 표시되어야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-023",
+      "text": "맹관관리자는 운전중인 공정 또는 시스템 격리용의 맹판 설치 시에는 작업 완료시까지 현장에서 작업을 감독하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-024",
+      "text": "맹관관리자는 작업 전에 반드시 운전중인 공정 또는 시스템 격리용 차단밸브의 닫힘 상태, 차단밸브와 맹판 설치지점 사이의 내부 유체 제거여부 및 압력 제거여부를 확인 후 맹판을 설치하도록 관리하고, 차단밸브에는 밸브 차단용 꼬리표를 부착한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-025",
+      "text": "인화성물질 등이 누출될 우려가 있는 부위의 작업 시에는 소화기 등의 소방시설을 비치한 후 작업하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-026",
+      "text": "인화성물질이 존재하는 부위에 맹판을 설치할 때에는 반드시 스파크가 발생되지 않는 공구 또는 도구를 사용하여야 한다.",
+      "guideContext": "맹판 설치작업",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-D56-027",
+      "text": "고소지역에 맹판을 설치할 때에는 안전한 작업발판을 설치하고 안전난간대를 설치하는 등의 추락방지조치를 하고, 공구 등이 떨어지지 않도록 발끝막이관을 설치하는 등의 조치하여야 한다.",
+      "guideContext": "맹판 설치작업",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FALL-001",
+        "SR-FALL-002"
+      ]
+    },
+    {
+      "identifier": "CI-D56-028",
+      "text": "가스상 급성독성물질 또는 질소 등이 존재하여 질식 또는 중독의 우려가 있는 곳에서 맹판을 설치할 때에는 공기호흡기 등의 안전보호장구를 착용한 후 작업하여야 한다.",
+      "guideContext": "맹판 설치작업",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-025",
+        "SR-CONFINED-006"
+      ]
+    },
+    {
+      "identifier": "CI-D56-029",
+      "text": "용기 등의 유지 보수 시 가동중인 타 공정간 또는 타 시스템간의 연결 배관에는 반드시 압력용 맹판을 설치하여 격리하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-030",
+      "text": "운전 중인 공정 또는 시스템 격리용 맹판(압력용 맹판)과 용기의 노즐 플랜지에 설치하는 비 압력용 맹판을 모두 설치할 필요가 있는 경우에는 반드시 압력용 맹판을 먼저 설치하고 비 압력용 맹판을 나중에 설치하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-031",
+      "text": "압력용 맹판과 비 압력용 맹판을 모두 설치한 경우의 맹판 제거 시에는 반드시 비 압력용 맹판을 먼저 제거하고 압력용 맹판은 나중에 제거하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-032",
+      "text": "맹판을 설치하거나 제거할 때에는 사전에 관련된 배관의 밸브 차단 또는 개방상태를 도면 및 현장을 확인한 후에 실시하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-033",
+      "text": "맹판을 설치한 경우에는 반드시 꼬리표를 부착하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-034",
+      "text": "맹판은 맹판 설치목록의 설치 우선순위에 따라 설치하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-035",
+      "text": "맹관관리자는 맹판이 배관규격에 적합한 크기, 규격 및 재질인지를 다시 확인하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-036",
+      "text": "플랜지를 분리하기 전에 배관 등의 내부가 완전하게 치환되었는지 확인하여야 한다.",
+      "guideContext": "맹판 설치작업",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4.3",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-D56-037",
+      "text": "만약 내부가 적절히 치환되지 않았다면 작업을 중지하고 해당 운전부서에 배관의 치환을 요청하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-038",
+      "text": "작업수행부서는 플랜지를 분리한 후에 배관내부의 이물질 유입, 플랜지면 손상 상태, 볼트·너트의 부식 또는 고착상태를 확인하고 조치하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-039",
+      "text": "쐐기(Wedge)를 사용하여 플랜지를 분리할 때는 쐐기의 이탈이나 무리한 하중으로 인한 플랜지면의 손상이 생기지 않도록 고려하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-040",
+      "text": "맹관관리자는 맹판의 설치가 완료되면 설치상태를 확인하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치 완료확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-041",
+      "text": "맹판에 부착된 꼬리표는 설치자 이외의 누구도 제거하여서는 아니 된다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 설치 완료확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-042",
+      "text": "맹관관리자는 맹판 설치현황을 맹판 작업의 완료 시까지 매일 운전부서, 작업수행부서, 도급업체와 공유하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 현황관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4.7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-043",
+      "text": "작업의 변경 또는 추가에 의해 맹판을 추가로 설치하거나 맹판의 위치가 변경되는 경우에는 맹판 목록에 반영하여 수정하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 현황관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4.8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-044",
+      "text": "맹관관리자는 운전중인 공정 또는 시스템 격리용의 맹판 제거 시에는 작업 완료시까지 현장에서 작업을 감독하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-045",
+      "text": "맹판 제거작업을 위해서는 맹판 설치 시와 동일한 안전작업허가를 받아야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-046",
+      "text": "운전중인 공정 및 시스템 사이의 맹판 제거 시에는 관련부서에 통보하여 작업 전에 확인을 받아야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-047",
+      "text": "인화성물질이 존재하는 부위의 맹판을 제거할 때에는 반드시 스파크가 발생되지 않는 공구 또는 도구를 사용하여야 한다.",
+      "guideContext": "맹판 제거작업",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-D56-048",
+      "text": "맹판 제거 시 인화성물질 등이 누출될 우려가 있는 부위의 작업 시에는 소화기 등의 소방시설을 비치한 후 작업하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-049",
+      "text": "고소지역의 맹판을 제거할 때에는 안전한 작업발판을 설치하고 안전난간대를 설치하는 등의 추락방지조치를 하고, 공구 등이 떨어지지 않도록 발끝막이관을 설치하는 등의 조치하여야 한다.",
+      "guideContext": "맹판 제거작업",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-FALL-001",
+        "SR-FALL-002"
+      ]
+    },
+    {
+      "identifier": "CI-D56-050",
+      "text": "가스상 급성독성물질 또는 질소 등이 존재하여 질식 또는 중독의 우려가 있는 곳의 맹판을 제거할 때에는 공기호흡기 등의 안전보호장구를 착용한 후 작업하여야 한다.",
+      "guideContext": "맹판 제거작업",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-CHEMICAL-025",
+        "SR-CONFINED-006"
+      ]
+    },
+    {
+      "identifier": "CI-D56-051",
+      "text": "맹판 제거는 맹판 목록상의 설치 우선순위의 역순으로 제거하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-052",
+      "text": "맹관관리자는 해당 맹판의 제거작업 전에 반드시 다른 설비 또는 다른 작업과의 관련 여부를 확인하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-053",
+      "text": "내부출입이 가능한 맨홀이 설치된 설비와 연결된 배관에 설치된 맹판을 제거할 때에는 반드시 맨홀 플랜지를 부착하여 출입할 수 없도록 조치한 후에 제거하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": "불가피하게 맨홀 플랜지를 부착하지 못하는 경우에는 맨홀 입구에 \"출입불가\" 표지관을 부착한 후 맹판을 제거하여야 한다.",
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-054",
+      "text": "작업 전에 반드시 밸브 닫힘상태, 내부유체의 존재여부, 내부온도 및 압력을 확인한 후 맹판을 제거하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-055",
+      "text": "맹판 제거 후 플랜지를 다시 체결할 때에는 배관내부의 이물질 존재여부, 플랜지면 손상여부를 확인하고, 플랜지면을 깨끗하게 청소하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-056",
+      "text": "배관구경 및 규격(Rating)에 맞고 결함이 없는 신품의 개스킷을 사용하여 플랜지를 조립하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-057",
+      "text": "플랜지를 다시 체결할 때에는 볼트를 대각선 방향 순서로 균일하게 체결하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-058",
+      "text": "볼트 체결이 완료되면 맹관관리자는 볼트가 제대로 체결되었는지 틈새 간격 및 볼트 돌출 길이 등을 확인하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거작업",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D56-059",
+      "text": "맹판 제거작업이 완료되면 맹관관리자는 맹판의 꼬리표를 제거하여 맹판 현황표에 부착하고 맹판 목록에 제거일자를 기록하고 서명하여야 한다.",
+      "guideContext": "맹판 설치 및 제거 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "맹판 제거 완료확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.6",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-D56-001",
+      "term": "맹판 (Blind)",
+      "definition": "유체의 흐름을 완전히 차단하기 위한 배관 요소로서 플랜지 사이, 밸브 또는 화학설비 등의 플랜지 말단에 설치하는 금속판을 말하며, 일반적으로 패들 블라인드 (Paddle blind)라 불리며, 손잡이가 달려 있다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D56-002",
+      "term": "맹관관리자",
+      "definition": "맹판 설치 및 제거작업을 관리감독하는 자를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D56-003",
+      "term": "압력용 맹판",
+      "definition": "맹판에 직접 내부압력이 걸리거나 밸브의 누설로 인해 내부압력이 걸릴 수 있는 경우의 맹판을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D56-004",
+      "term": "비 압력용 맹판",
+      "definition": "유지보수를 위한 치환이 완료된 후 용기 출입 작업 또는 배관작업을 위해 잔류된 가스 등의 유입을 차단하기 위해 설치하는 맹판을 말하며, 내부압력이 걸리지 않는 곳에 설치된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D56-005",
+      "term": "스펙터클 블라인드 (Spectacle blind)",
+      "definition": "맹판의 한 쪽은 구멍이 나 있고 한 쪽은 막혀 있는 상태의 맹판을 말한다. 안경모양의 형태이며 하나의 맹판으로 차단과 개방을 번갈아 수행할 수 있으며, 정기보수 시마다 항상 맹판을 설치하여야 하거나 또는 운전 중 맹판 설치가 필요한 부위에 주로 사용된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D56-006",
+      "term": "벤트 블라인드 (Vent blind)",
+      "definition": "내부치환 또는 압력시험 등의 용도에 따라 내부의 유체를 빼낼 수 있는 구멍 (Vent hole)이 설치된 맹판을 말하며, 일명 팽귄 블라인드라고 불린다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D56-007",
+      "term": "블라인드 플랜지 (Blind flange)",
+      "definition": "플랜지의 일종이며, 배관 또는 밸브 등의 개방된 말단을 격리하기 위해 설치하는 맹판을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D56-008",
+      "term": "스페이서 (Spacer)",
+      "definition": "패들 블라인드에 유체가 흐를 수 있도록 구멍이 있는 형태의 간격 유지용 배관부품을 말한다. 플랜지 사이에 맹판을 설치하려면 맹판 두께만큼 간격을 벌려야 하는데 고압배관 등은 두께를 벌리기가 쉽지 않으므로 미리 스페이서를 설치해 두면 맹판과 스페이서를 서로 교체하면 되므로 맹판을 쉽게 설치할 수 있게 한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D56-009",
+      "term": "쐐기 (Wedge)",
+      "definition": "맹판을 삽입하기 위해 플랜지 사이의 간격을 벌리기 위해 사용하는 기구를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-D56-01",
+      "processOrder": 1,
+      "processName": "맹판 목록 작성 및 관리",
+      "safetyMeasures": "맹판 설치 및 제거 목록 작성, P&ID에 설치위치 표시, 맹관관리자 선정, 현장 꼬리표 부착, 관련 근로자 교육 실시",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D56-02",
+      "processOrder": 2,
+      "processName": "작업준비",
+      "safetyMeasures": "타 공정 영향 시 관련부서 통보, 화학설비 내부 치환 후 확인, 현황판 및 관련도면 비치, 개스킷·쐐기·볼트 준비, 안전보호장구 사전 준비",
+      "requiredPPE": [
+        "공기호흡기",
+        "내산복",
+        "안면보호구",
+        "방화복"
+      ],
+      "sourceSection": "4.2",
+      "relatedSR": [
+        "SR-CONFINED-002",
+        "SR-CHEMICAL-025"
+      ]
+    },
+    {
+      "identifier": "WP-D56-03",
+      "processOrder": 3,
+      "processName": "맹판 준비 및 점검",
+      "safetyMeasures": "배관규격에 적합한 맹판 선정, 압력용·비압력용 구분, 맹판 수량·표시·재질·표면상태 점검, 위험작업허가 취득",
+      "requiredPPE": [],
+      "sourceSection": "4.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D56-04",
+      "processOrder": 4,
+      "processName": "맹판 설치작업",
+      "safetyMeasures": "설비·배관 치환 또는 세척, 밸브 닫힘 확인, 유체·압력 제거 확인, 인화성물질 부위 비화공구 사용, 고소지역 작업발판·안전난간 설치, 질식·중독 우려 시 공기호흡기 착용, 소화기 비치",
+      "requiredPPE": [
+        "공기호흡기",
+        "안면보호구"
+      ],
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-FALL-001",
+        "SR-CHEMICAL-025",
+        "SR-CONFINED-002",
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "WP-D56-05",
+      "processOrder": 5,
+      "processName": "맹판 설치 완료확인 및 현황관리",
+      "safetyMeasures": "맹관관리자 설치상태 확인, 꼬리표 기록·부착, 목록 서명, 설치현황 매일 공유, 변경 시 목록·도면 수정 및 승인",
+      "requiredPPE": [],
+      "sourceSection": "5.4.6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D56-06",
+      "processOrder": 6,
+      "processName": "맹판 제거작업",
+      "safetyMeasures": "설치 역순으로 제거, 안전작업허가 취득, 관련부서 통보·확인, 밸브·유체·온도·압력 확인, 인화성물질 부위 비화공구 사용, 고소지역 추락방지조치, 질식·중독 우려 시 공기호흡기 착용, 맨홀 부착용기는 맨홀 플랜지 부착 후 제거",
+      "requiredPPE": [
+        "공기호흡기",
+        "안면보호구"
+      ],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FALL-001",
+        "SR-CHEMICAL-025",
+        "SR-CONFINED-006",
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "WP-D56-07",
+      "processOrder": 7,
+      "processName": "기록 및 보관",
+      "safetyMeasures": "맹판 설치 관련 서류를 차기 유지보수 시까지 보존",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-D56-001",
+      "equipmentName": "맹판 (패들 블라인드)",
+      "specifications": {
+        "handleLength": "10 cm 이상",
+        "tagHole": "꼬리표 부착용 구멍 필수",
+        "handleMarking": "크기(호칭경), 플랜지 호칭압력(Rating), 두께 표시",
+        "nonPressureMinThickness": "탄소강 재질 시 최소 4 mm 이상",
+        "pressureRating": "별표 2 호칭압력별 선정기준 참조 (Class 150 ~ Class 2500)"
+      },
+      "sourceSection": "4.3.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D56-002",
+      "equipmentName": "호칭압력별 맹판 규격",
+      "specifications": {
+        "class150": "NPS 1/2~24, 외경 90~815mm, 두께 9.6~46.1mm",
+        "class300": "NPS 1/2~24, 외경 95~915mm, 두께 12.7~68.3mm",
+        "class600": "NPS 1/2~24, 외경 95~940mm, 두께 14.3~101.6mm",
+        "class900": "NPS 1/2~24, 외경 120~1040mm, 두께 22.3~139.7mm",
+        "class1500": "NPS 1/2~24, 외경 120~1170mm, 두께 22.3~203.2mm",
+        "class2500": "NPS 1/2~12, 외경 135~760mm, 두께 30.2~184.2mm",
+        "material": "ASTM A-37 Carbon Steel 기준"
+      },
+      "sourceSection": "별표 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D56-003",
+      "equipmentName": "맹판 두께별 적용압력",
+      "specifications": {
+        "material": "ASTM A-37 Carbon Steel",
+        "thicknessRange": "6.35mm ~ 50.8mm",
+        "pipeSizeRange": "1 inch (25mm) ~ 12 inch (300mm)",
+        "example_2inch_12.7mm": "33.0 kg/㎠ (4700 psi)",
+        "example_6inch_25.4mm": "16.9 kg/㎠ (2400 psi)",
+        "example_12inch_50.8mm": "18.3 kg/㎠ (2600 psi)"
+      },
+      "sourceSection": "별표 3",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-D56-001",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "맹판(Blind) 설치 및 제거 목록",
+      "requiredSections": [
+        "맹판번호",
+        "설치순서",
+        "P&ID No.",
+        "설치위치",
+        "배관사이즈",
+        "플랜지규격(Rating)",
+        "맹판설치용도",
+        "스펙터클블라인드 사용여부",
+        "Spacer 사용여부",
+        "내부유체종류",
+        "안전보호장구",
+        "설치일자",
+        "제거일자",
+        "맹관관리자",
+        "설치부서"
+      ],
+      "sourceSection": "별표 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-D56-002",
+      "documentType": "WORK_PLAN",
+      "title": "공정배관계장도면(P&ID) 맹판 설치위치 표시",
+      "requiredSections": [
+        "맹판 설치위치 표시",
+        "배관번호",
+        "공정구분"
+      ],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-D56-003",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "맹판 작업 위험성평가서",
+      "requiredSections": [
+        "작업위험 식별",
+        "안전보호장구 결정",
+        "조치사항",
+        "참여자 서명"
+      ],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-D56-004",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "맹판 설치 관련 서류 보존",
+      "requiredSections": [
+        "맹판 설치 및 제거 목록",
+        "관련 도면",
+        "작업허가서",
+        "위험성평가 결과"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    }
+  ]
+}

@@ -1,0 +1,2184 @@
+{
+  "generated_at": "2026-05-10T04:51:21.702153+00:00",
+  "method": "codex_manual_import_preview",
+  "source_audit": "manual-enrichment-domain-guard-semantic-audit.json",
+  "operational_no_sr_guides": {
+    "count": 17,
+    "items": [
+      {
+        "guide_code": "A-G-10-2025",
+        "title": "급식실 시설에 관한 기술지원규정",
+        "batch_id": "domain_guard_manual_batch_001",
+        "classification": "SR 보강",
+        "reason": "급식실 시설은 미끄럼, 화상, 가스, 조리설비 같은 현장 조치로 연결될 여지가 크다.",
+        "next_action": "SR 후보 evidence를 추가 검토한 뒤 candidate table에만 보강한다."
+      },
+      {
+        "guide_code": "A-G-5-2025",
+        "title": "조리작업장 내 조리도구 사용에 관한 기술지원규정",
+        "batch_id": "domain_guard_manual_batch_002",
+        "classification": "SR 보강",
+        "reason": "조리도구 사용은 베임, 화상, 끼임 등 즉시 조치형 SR 보강 후보로 볼 수 있다.",
+        "next_action": "SR 후보 evidence를 추가 검토한 뒤 candidate table에만 보강한다."
+      },
+      {
+        "guide_code": "A-G-7-2025",
+        "title": "공동주택 경비근로자의 관리업무 보조작업 시 안전에 관한 기술지원규정",
+        "batch_id": "domain_guard_manual_batch_002",
+        "classification": "taxonomy_gap",
+        "reason": "아파트 경비 보조업무는 야간 단독근무, 순찰, 폐기물, 조경 등 현재 taxonomy가 덜 세분화된 영역이다.",
+        "next_action": "별도 taxonomy/SR 확장 큐로 이동한다."
+      },
+      {
+        "guide_code": "B-5-2011",
+        "title": "조선업 안전점검 기술지침",
+        "batch_id": "domain_guard_manual_batch_001",
+        "classification": "domain_guard_only",
+        "reason": "조선업 점검 기술지침으로 업종 경계는 강하지만 현재 후보 evidence만으로 신규 SR 보강을 확정하기 어렵다.",
+        "next_action": "표준절차 생성 신호보다 domain boundary 신호로만 사용한다."
+      },
+      {
+        "guide_code": "H-163-2021",
+        "title": "고객응대 근로자의 감정노동평가 지침",
+        "batch_id": "domain_guard_manual_batch_031",
+        "classification": "taxonomy_gap",
+        "reason": "감정노동 평가 영역은 psychosocial risk taxonomy/SR 축이 별도로 필요하다.",
+        "next_action": "별도 taxonomy/SR 확장 큐로 이동한다."
+      },
+      {
+        "guide_code": "H-203-2018",
+        "title": "고객응대업무 종사자 건강보호 매뉴얼 작성지침",
+        "batch_id": "domain_guard_manual_batch_032",
+        "classification": "taxonomy_gap",
+        "reason": "고객응대 건강장해 예방은 현재 물리적 사고 중심 taxonomy와 분리해 다뤄야 한다.",
+        "next_action": "별도 taxonomy/SR 확장 큐로 이동한다."
+      },
+      {
+        "guide_code": "H-204-2018",
+        "title": "직장 따돌림 예방관리지침",
+        "batch_id": "domain_guard_manual_batch_032",
+        "classification": "taxonomy_gap",
+        "reason": "직장 내 괴롭힘은 psychosocial/management SR 축 확장이 필요하다.",
+        "next_action": "별도 taxonomy/SR 확장 큐로 이동한다."
+      },
+      {
+        "guide_code": "H-37-2021",
+        "title": "근로자의 자살 및 우울증 예방을 위한 사업장 지침",
+        "batch_id": "domain_guard_manual_batch_032",
+        "classification": "taxonomy_gap",
+        "reason": "우울증/자살 예방은 건강관리·정신건강 taxonomy가 필요해 일반 작업 사진 추천에 직접 쓰기 어렵다.",
+        "next_action": "별도 taxonomy/SR 확장 큐로 이동한다."
+      },
+      {
+        "guide_code": "H-75-2015",
+        "title": "사업장 작업환경 평가지침",
+        "batch_id": "033",
+        "classification": "document_only",
+        "reason": "작업환경 평가 방법론 성격이 강해 사진 기반 표준절차 primary 후보보다 평가 문서 참조로 제한한다.",
+        "next_action": "사진 기반 추천에서 primary procedure가 되지 않도록 broad SR을 차단한다."
+      },
+      {
+        "guide_code": "H-91-2021",
+        "title": "피로도 평가 및 관리지침",
+        "batch_id": "034",
+        "classification": "taxonomy_gap",
+        "reason": "피로도 평가는 건강관리/인적요인 taxonomy 확장 후 별도로 연결해야 한다.",
+        "next_action": "별도 taxonomy/SR 확장 큐로 이동한다."
+      },
+      {
+        "guide_code": "O-1-2011",
+        "title": "설비보수용 용접재료 선정에 관한 기술지침",
+        "batch_id": "domain_guard_manual_batch_001",
+        "classification": "document_only",
+        "reason": "용접재료 선정 지침 성격이 강해 사진 기반 표준절차 후보로 쓰기보다 문서 참조로 보존한다.",
+        "next_action": "사진 기반 추천에서 primary procedure가 되지 않도록 broad SR을 차단한다."
+      },
+      {
+        "guide_code": "X-45-2014",
+        "title": "도로 및 선로작업에서 리스크 감소를 위한 반사조끼 사용에 관한 지침",
+        "batch_id": "domain_guard_manual_batch_005",
+        "classification": "SR 보강",
+        "reason": "도로/철도 작업 고시인성 의복은 차량 충돌 및 PPE의 구체 작업 경계가 필요하다.",
+        "next_action": "SR 후보 evidence를 추가 검토한 뒤 candidate table에만 보강한다."
+      },
+      {
+        "guide_code": "X-69-2016",
+        "title": "제어실 운전원 휴먼에러확률 예측기법(THERP)에 관한 기술지침",
+        "batch_id": "domain_guard_manual_batch_005",
+        "classification": "document_only",
+        "reason": "THERP 기반 human error 정량평가 방법론으로 현장 조치 추천 근거가 아니다.",
+        "next_action": "사진 기반 추천에서 primary procedure가 되지 않도록 broad SR을 차단한다."
+      },
+      {
+        "guide_code": "X-70-2016",
+        "title": "운전원 행동분석(OAT)에 관한 기술지침",
+        "batch_id": "domain_guard_manual_batch_005",
+        "classification": "document_only",
+        "reason": "OAT 기반 방법론 문서라 사진 상황의 조치 추천보다 분석 문서 참조에 가깝다.",
+        "next_action": "사진 기반 추천에서 primary procedure가 되지 않도록 broad SR을 차단한다."
+      },
+      {
+        "guide_code": "X-72-2017",
+        "title": "휴먼에러의 체계적 예측 및 저감 방법(SHERPA)에 관한 지침",
+        "batch_id": "domain_guard_manual_batch_005",
+        "classification": "document_only",
+        "reason": "SHERPA 기반 방법론 문서라 현장 표준절차로 직접 노출하면 과추천 위험이 크다.",
+        "next_action": "사진 기반 추천에서 primary procedure가 되지 않도록 broad SR을 차단한다."
+      },
+      {
+        "guide_code": "X-73-2017",
+        "title": "휴먼에러에 대한 위험과 운전분석 기법(Human error HAZOP)에 관한 지침",
+        "batch_id": "domain_guard_manual_batch_005",
+        "classification": "document_only",
+        "reason": "Human error HAZOP 방법론 문서로 candidate-only/domain guard 용도에 머문다.",
+        "next_action": "사진 기반 추천에서 primary procedure가 되지 않도록 broad SR을 차단한다."
+      },
+      {
+        "guide_code": "X-74-2017",
+        "title": "휴먼에러의 정량적 평가 및 저감 기법(HEART)에 관한 지침",
+        "batch_id": "domain_guard_manual_batch_005",
+        "classification": "document_only",
+        "reason": "HEART 기반 방법론 문서라 broad SR로 표준절차를 만들면 안 된다.",
+        "next_action": "사진 기반 추천에서 primary procedure가 되지 않도록 broad SR을 차단한다."
+      }
+    ],
+    "classification_counts": {
+      "SR 보강": 3,
+      "taxonomy_gap": 6,
+      "domain_guard_only": 1,
+      "document_only": 7
+    }
+  },
+  "exclusive_broad_feature_only_guides": {
+    "count": 336,
+    "items": [
+      {
+        "guide_code": "A-1-2018",
+        "title": "구리에대한작업환경측정,분석기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-10-2018",
+        "title": "알루미늄에대한작업환경측정,분석기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-100-2018",
+        "title": "디메틸아닐린에 대한 작업환경측정,분석 기술지침_개정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-101-2018",
+        "title": "테트라하이드로퓨란에 대한 작업환경측정,분석 기술지침_개정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-102-2018",
+        "title": "황산디메틸에 대한 작업환경측정,분석 기술지침_개정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-103-2018",
+        "title": "요오드화메틸에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-104-2018",
+        "title": "메틸에틸케톤에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-105-2018",
+        "title": "디이소부틸케톤에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-106-2018",
+        "title": "메틸 n-부틸케톤에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-107-2018",
+        "title": "메틸 n-아밀케톤에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-108-2018",
+        "title": "메틸이소부틸케톤에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-11-2018",
+        "title": "은에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-110-2018",
+        "title": "아세톤에 대한 작업환경측정·분석 기술지침_개정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-111-2018",
+        "title": "비닐아세테이트에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-112-2018",
+        "title": "스토다드솔벤트에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-113-2018",
+        "title": "아세토니트릴에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-115-2018",
+        "title": "N,N-디메틸아세트아미드에_대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-116-2018",
+        "title": "1,4_디옥산에_대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-118-2018",
+        "title": "에틸렌글리콜모노메틸에테르에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-119-2018",
+        "title": "에틸렌글리콜모노부틸에테르에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-12-2018",
+        "title": "주석에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-120-2018",
+        "title": "에틸렌글리콜모노에틸에테르에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-121-2018",
+        "title": "에틸아크릴레이트에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-122-2018",
+        "title": "에틸렌글리콜모노에틸에테르아세테이트에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-123-2018",
+        "title": "초산부틸에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-124-2018",
+        "title": "초산이소부틸에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-125-2018",
+        "title": "초산이소펜틸에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-126-2018",
+        "title": "초산펜틸에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-127-2018",
+        "title": "초산프로필에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-128-2018",
+        "title": "에틸에테르에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-129-2018",
+        "title": "초산이소프로필에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-13-2018",
+        "title": "지르코니움에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-130-2018",
+        "title": "초산메틸에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-131-2018",
+        "title": "초산에틸에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-132-2018",
+        "title": "2-디에틸아미노에탄올에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-133-2018",
+        "title": "이소프로필알콜에_대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-134-2018",
+        "title": "에탄올아민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-135-2018",
+        "title": "1-부탄올에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-136-2018",
+        "title": "2-부탄올에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-137-2018",
+        "title": "이소부틸알콜에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-138-2018",
+        "title": "디메틸아민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-139-2018",
+        "title": "시클로헥사놀에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-140-2018",
+        "title": "이소아밀알콜에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-141-2018",
+        "title": "디에틸아민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-142-2018",
+        "title": "디에탄올아민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-143-2018",
+        "title": "디에틸렌트리아민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-144-2018",
+        "title": "알릴글리시딜에데르에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-145-2018",
+        "title": "에틸렌글리콜에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-146-2018",
+        "title": "트리에틸아민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-147-2018",
+        "title": "메틸아민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-148-2018",
+        "title": "에틸아민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-149-2018",
+        "title": "2,3-에폭시-1-프로판올에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-150-2018",
+        "title": "2-메톡시에틸아세테이트에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-151-2018",
+        "title": "개미산에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-152-2018",
+        "title": "과산화수소에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-153-2018",
+        "title": "무수초산에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-154-2018",
+        "title": "불화수소에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-155-2018",
+        "title": "브롬화수소에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-156-2018",
+        "title": "수산화나트륨에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-157-2018",
+        "title": "수산화칼륨에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-158-2018",
+        "title": "시안화나트륨에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-159-2018",
+        "title": "시안화칼륨에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-160-2018",
+        "title": "시안화칼슘에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-163-2018",
+        "title": "2-클로로-1,3-부타디엔에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-164-2018",
+        "title": "디(2-에틸헥실)프탈레이트에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-165-2018",
+        "title": "브이엠 및 피 나프타에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-166-2018",
+        "title": "페닐글리시딜에테르에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-167-2018",
+        "title": "1,1,2-트리클로로에탄에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-168-2018",
+        "title": "P-니트로아닐린에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-169-2018",
+        "title": "수산화테트라메틸암모늄에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-170-2018",
+        "title": "에틸렌이민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-171-2018",
+        "title": "초산이소아밀에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-172-2018",
+        "title": "프로필렌이민에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-182-2020",
+        "title": "아크릴산에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-183-2020",
+        "title": "염화수소에 대한 작업환경측정·분석기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-184-2020",
+        "title": "인산에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-185-2020",
+        "title": "질산에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-186-2020",
+        "title": "초산에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-187-2020",
+        "title": "트리클로로아세트산에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-190-2023",
+        "title": "수동식시료채취기를 이용한 탄화수소(끓는점 36-180℃)에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-191-2023",
+        "title": "수동식시료채취기를 이용한 할로겐화탄화수소에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-192-2023",
+        "title": "수동식시료채취기를 이용한 에스테르화합물에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-193-2023",
+        "title": "수동식시료채취기를 이용한 알코올 및 글리콜에테르화합물에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-21-2018",
+        "title": "염소화비페닐에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-23-2018",
+        "title": "1,1,2,2-테트라클로로에탄에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-25-2018",
+        "title": "1,2-디클로로에탄에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-26-2018",
+        "title": "1,2-디클로로에틸렌에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-27-2018",
+        "title": "사염화탄소에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-29-2018",
+        "title": "오르토-디클로로벤젠에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-30-2018",
+        "title": "클로로벤젠에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-31-2018",
+        "title": "테트라클로로에틸렌에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-32-2018",
+        "title": "메틸를로로포름에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-33-2018",
+        "title": "1,2,3-트리클로로프로판에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-34-2018",
+        "title": "메틸클로라이드에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-36-2018",
+        "title": "에틸렌글리콜모노부틸아세테이트에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-37-2018",
+        "title": "디클로로플루오르메탄에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-38-2018",
+        "title": "에틸렌클로로하이드린에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-39-2018",
+        "title": "1-브로모프로판에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-41-2018",
+        "title": "프레온141b에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-42-2018",
+        "title": "프레온113에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-46-2018",
+        "title": "요오드에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-48-2018",
+        "title": "오산화바나듐에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-53-2018",
+        "title": "금속가공유에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-58-2018",
+        "title": "아세트알데히드에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-59-2018",
+        "title": "아세트알데히드에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-67-2018",
+        "title": "니트로글리세린에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-68-2018",
+        "title": "에틸렌글리콜디나이트레이트에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-71-2018",
+        "title": "에틸벤젠에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-73-2018",
+        "title": "크실렌에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-74-2018",
+        "title": "크레졸에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-75-2018",
+        "title": "페놀에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-83-2018",
+        "title": "1,2-에폭시프로판에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-84-2018",
+        "title": "피리딘에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-85-2018",
+        "title": "에피클로로히드린에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-86-2018",
+        "title": "니트로메탄에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-94-2018",
+        "title": "o-메틸시클로헥사논에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-95-2018",
+        "title": "메틸시클로헥사놀에 대한 작업환경측정·분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "A-R-2-2026",
+        "title": "생산시스템의 수명주기 안전관리를 위한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-E-1-2025",
+        "title": "피뢰시스템에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-E-13-2026",
+        "title": "수변전설비에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-E-19-2026",
+        "title": "건축물 등의 피뢰설비 설치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-E-3-2025",
+        "title": "변전실 등의 양압유지에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-E-5-2025",
+        "title": "비상전원의 선정 및 설치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-E-9-2026",
+        "title": "접지설비에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-M-19-2026",
+        "title": "배관 주요사고 대비 비상계획에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-M-25-2026",
+        "title": "에너지 차단장치의 잠금·표지에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "B-M-31-2026",
+        "title": "주형 및 코어 제조기의 안전대책에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-10-2026",
+        "title": "통기설비 설치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-12-2026",
+        "title": "공정배관계장도(P&ID) 작성에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-14-2026",
+        "title": "공정흐름도(PFD) 작성에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-15-2026",
+        "title": "배관재질 선정에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-16-2026",
+        "title": "세안설비 등의 성능 및 설치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-18-2026",
+        "title": "플레어시스템의 설계·설치 및 운전에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-22-2026",
+        "title": "PVC 제조공정의 화재폭발 위험성평가 및 비상조치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-26-2026",
+        "title": "연료가스 배관의 사용전 작업의 위험관리에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-28-2026",
+        "title": "산화성 액체 및 고체의 안전관리에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-3-2025",
+        "title": "물반응성 물질 및 인화성고체의 취급저장에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-30-2026",
+        "title": "폭주반응 예방을 위한 열적 위험성평가에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-31-2026",
+        "title": "화학공정 설비의 운전 및 작업에 관한 안전관리 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-32-2026",
+        "title": "화염방지기 설치 등에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-33-2026",
+        "title": "건조설비 설치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-4-2025",
+        "title": "산화에틸렌 등의 취급설비의 안전에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-44-2026",
+        "title": "회분식 공정의 안전운전에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-6-2025",
+        "title": "상압저장탱크의 검사변경 및 보수에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-63-2026",
+        "title": "체크리스트를 활용한 공정안전지침에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-65-2026",
+        "title": "반도체 제조공정의 안전작업에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-72-2026",
+        "title": "화학물질 취급 사업장에서의 보안 취약성 평가에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-78-2026",
+        "title": "정유시설의 안전 운영에 관한 일반적인 위험관리에 대한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-83-2026",
+        "title": "가스폭발 예방을 위한 폭연방출구 설치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-84-2026",
+        "title": "연소소각법에 의한 휘발성유기화합물(VOC) 처리설비에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-87-2026",
+        "title": "가스누출감지경보기 설치 및 유지보수에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-88-2026",
+        "title": "방유제 설치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-89-2026",
+        "title": "내화구조에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-9-2026",
+        "title": "긴급차단밸브의 설치에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "C-C-92-2026",
+        "title": "자체감사에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-12-2012",
+        "title": "분진폭발방지에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-13-2012",
+        "title": "염소저장설비에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-16-2012",
+        "title": "폭발억제장치의 설치 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-2-2012",
+        "title": "활성탄  흡착설비의 안전설치에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-20-2017",
+        "title": "위험물질 저장취급 화학설비의 고무라이닝에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-21-2012",
+        "title": "옥외저장탱크의 포 소화설비 설계지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-24-2012",
+        "title": "화학설비의 안전설계 일반기준에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-28-2012",
+        "title": "소규모사업장에서의 화재·폭발사고 방지를 위한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-3-2012",
+        "title": "유지공장의 용제추출공정 안전설계 및 운전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-32-2012",
+        "title": "제어실의 위치선정 및 설계에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-33-2012",
+        "title": "가스 및 증기상의 화재폭발위험성이 있는 설비의 설계에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-34-2013",
+        "title": "무수암모니아 저장에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-38-2012",
+        "title": "진한황산 및 발연황산 저장탱크의 공정설계에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-4-2012",
+        "title": "배관이나 덕트로 연결된 설비사이의 폭발격리시스템 설치에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-46-2013",
+        "title": "화학공장의 화재예방에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-53-2013",
+        "title": "과산화수소 저장설비의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-58-2016",
+        "title": "용융탄산염형 연료전지 설계 및 설치에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-64-2018",
+        "title": "원심펌프의 최소유량 선정 및 펌프 설치 등에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-65-2018",
+        "title": "방호구조 설계 및 설치에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "D-7-2012",
+        "title": "연료전지의 설계 및 취급 안전 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-10-2013",
+        "title": "축전지 취급에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-108-2011",
+        "title": "비상설비 등에 대한 전원공급설비의 설치에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-112-2011",
+        "title": "서지보호장치 선정 및 설치지침에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-123-2012",
+        "title": "전기설비에서의 SF6 가스 분석 및 처리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-129-2012",
+        "title": "저압 개폐장치 및 제어장치의 유지관리 등에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-131-2012",
+        "title": "저압 개폐장치 및 제어장치의 오작동 방지 시험에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-135-2013",
+        "title": "저압 개폐장치 및 제어장치의 시험·점검에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-141-2013",
+        "title": "가연성 분진발생 사업장의 케이블에 의한 화재위험 관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-158-2017",
+        "title": "방폭전기기계기구 제조자 품질경영시스템 적용에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-181-2020",
+        "title": "폭발위험장소에서 사용하는 비전기설비의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-185-2021",
+        "title": "리튬 이온 에너지저장장치 설치 및 유지보수에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-186-2021",
+        "title": "폭발위험장소에서 전기설비 사용자의 역량평가를 위한 기술기준",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-187-2021",
+        "title": "폭발위험장소에서의 가스감지기 사용에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-22-2012",
+        "title": "폭발위험장소에서의 보호시스템 안전성 평가방법에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-46-2013",
+        "title": "전기단선도 작성에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-6-2012",
+        "title": "전기개폐장치의 관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-94-2011",
+        "title": "산업용 기계설비의 전기장치 설치에 관한 기술 기준",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-97-2022",
+        "title": "석유화학공장의 전기설비 설치에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-H-1-2025",
+        "title": "탄화수소(끓는점 36~216℃)에 대한 작업환경측정분석 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-H-4-2026",
+        "title": "유해인자 허용기준 이하 유지 유해인자에 대한 작업환경측정·분석에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-M-4-2025",
+        "title": "혈액원성 병원체에 의한 건강장해 예방 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-M-6-2026",
+        "title": "생물학적 노출지표물질(유기화합물_1차 검사항목)분석에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-M-7-2026",
+        "title": "생물학적 노출지표물질(유기화합물_2차 및 권장 검사항목)분석에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-M-8-2026",
+        "title": "생체시료 채취 및 관리에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-T-4-2025",
+        "title": "화학물질의 독성시험을 위한 동물실험윤리위원회 운영 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-T-6-2026",
+        "title": "동물실험 계획의 심의에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "E-T-9-2026",
+        "title": "화학물질에 의한 생체 외 포유류 세포의 유전자 돌연변이시험(Hprt 및 Xprt 유전자 변이)에 관한 기술지원규정",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "F-3-2014",
+        "title": "경질폴리우레탄폼 취급시 화재예방에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "G-106-2013",
+        "title": "실리카 분진이 발생되는 작업 시의 안전보건에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "G-24-2011",
+        "title": "기계류의 방사성 물질로부터 위험을 줄이기 위한 안전가이드",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "G-32-2016",
+        "title": "임산부 근로자의 유해위험요인 관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "G-34-2012",
+        "title": "도기 생산 시 건강 유해물질 관리 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "G-82-2018",
+        "title": "실험실 안전보건에 관한기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "G-9-2013",
+        "title": "위험물질 취급작업장 위험표시에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-103-2012",
+        "title": "냉동설비 보유 기계실의 안전보건 작업지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-110-2013",
+        "title": "결정형 유리규산 노출 근로자의 보건관리지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-138-2021",
+        "title": "채취_가검물에_의한_오염방지에_관한_지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-141-2021",
+        "title": "크롬의 생물학적 노출지표 물질 분석에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-142-2021",
+        "title": "니켈 및 황화니켈의 생물학적 노출 평가 분석 방법에 관한 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-145-2021",
+        "title": "비소의 생물학적 노출평가 분석방법에 관한 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-148-2021",
+        "title": "오산화바나듐의 생물학적 노출지표 물질 분석에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-149-2021",
+        "title": "망간의 생물학적 노출지표 물질 분석에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-15-2021",
+        "title": "수은의생물학적노출지표물질분석에관한지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-152-2021",
+        "title": "질산의 생물학적 노출지표 물질 분석에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-155-2019",
+        "title": "비파괴 작업근로자의 방사선노출 관리지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-16-2021",
+        "title": "불화수소의생물학적노출지표물질분석에관한지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-17-2021",
+        "title": "카드뮴의생물학적노출지표물질분석에관한지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-171-2023",
+        "title": "수산화테트라메틸암모늄(TMAH) 취급 전자산업 근로자의 보건관리지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-180-2021",
+        "title": "직업성 메틸알코올 급성중독 진료지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-181-2021",
+        "title": "직업성 염소 급성중독 진료지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-182-2021",
+        "title": "직업성 포름산(Formic Acid) 급성중독 진료지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-183-2021",
+        "title": "직업성 에틸렌글리콜 급성중독 진료지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-184-2021",
+        "title": "직업성 산화에틸렌 급성중독 진료지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-193-2021",
+        "title": "석면 해제 제거 작업자의 건강관리 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-197-2021",
+        "title": "사업장내 결핵발생 시 보건관리지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-2-2010",
+        "title": "비특이 기도과민 검사실시 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-209-2022",
+        "title": "인듐의 생물학적 노출지표 물질분석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-21-2021",
+        "title": "납의생물학적노출지표물질분석에관한지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-212-2022",
+        "title": "콜센터 감염병 관리를 위한 사무환경 조성에 관한 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-223-2023",
+        "title": "특수건강진단 신경행동검사 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-3-2010",
+        "title": "작업 중 최대호기유속 연속측정 실시지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-43-2021",
+        "title": "업무적합성평가시 운동부하검사 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-53-2021",
+        "title": "병원 근로자의 마취가스 노출관리 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-62-2021",
+        "title": "전리방사선 노출 근로자 건강관리지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-72-2015",
+        "title": "확산시료채취법과 흡착관열탈착 가스크로마토그래피",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-74-2015",
+        "title": "펌프식시료채취법과 흡착관 열탁착 가스크로마토그래피",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-81-2021",
+        "title": "화학물질의 유해성 평가를 위한 유전독성시험에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-83-2021",
+        "title": "화학물질의 급성경피독성 시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-93-2021",
+        "title": "의료기관 근로자의 공기매개 감염병에 대한 관리지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "H-99-2023",
+        "title": "일산화탄소의 생물학적 노출지표물질 분석에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "K-1-2023",
+        "title": "유해화학물질 저장 운반 및 취급에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "M-114-2012",
+        "title": "윤활유 분석에 의한 고장진단 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "M-131-2012",
+        "title": "기계의 결함진단을 위한 자료해석 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "M-16-2012",
+        "title": "곡물제분기 작업에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "M-191-2017",
+        "title": "안전제어시스템 설계를 위한 평균위험고장시간(MTTFd) 계산지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "M-192-2017",
+        "title": "기계안전을 위한 제어시스템의 안전관련부품류 설계 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "M-193-2020",
+        "title": "인쇄기의 안전작업에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "M-21-2012",
+        "title": "금속 절삭유 사용에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "M-53-2012",
+        "title": "사출성형의 플라스틱공정에서 흄 제어에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-10-2012",
+        "title": "소형 염소설비의 안전작업 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-104-2012",
+        "title": "휘발성 유기화합물 처리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-109-2012",
+        "title": "유기과산화물 및 그 제제의 저장에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-11-2012",
+        "title": "발포폴리스티렌의 취급 시 화재예방 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-112-2014",
+        "title": "마그네슘 분진폭발 예방에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-115-2012",
+        "title": "정유 및 석유화학공장의 소방설비에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-117-2012",
+        "title": "화학보호의 선정 사용 및 유지에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-12-2012",
+        "title": "전자산업에서의 특수가스 취급 안전 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-122-2012",
+        "title": "반도체 공정에서 가스를 취급하는 벌크시스템의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-132-2013",
+        "title": "화학공장의 혼합공정에서 화재 및 폭발 예방에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-139-2013",
+        "title": "가스용기의 비상조치방법에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-14-2012",
+        "title": "FRP 제조 시 화재폭발 위험관리 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-142-2014",
+        "title": "히드록실아민의 화재폭발 예방에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-149-2016",
+        "title": "저장캐비닛의 가스 실린더 보관에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-153-2016",
+        "title": "독성가스 취급시설 등의 안전관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-156-2017",
+        "title": "하수슬러지 탄화공정의 안전작업에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-16-2012",
+        "title": "반도체 제조설비에서 화재 방지 및 방호 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-160-2017",
+        "title": "니트로셀룰로오스 저장 및 취급에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-161-2017",
+        "title": "폐용제 정제설비의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-162-2017",
+        "title": "정유 및 석유화학 산업의 고정식 물분무설비(Water spray system)의 설계 등에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-167-2020",
+        "title": "화학물질의 취급 및 시료채취 등에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-17-2012",
+        "title": "침지탱크의 작업안전 관리 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-171-2021",
+        "title": "자동버너 제어설비의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-173-2021",
+        "title": "수소 취급설비의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-18-2012",
+        "title": "인화성 물질의 누출에 대한 안전조치 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-180-2023",
+        "title": "폐합성수지 열분해 공정의 안전관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-2-2012",
+        "title": "저장탱크 과충전방지에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-21-2010",
+        "title": "불산 취급공정의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-22-2012",
+        "title": "드라이크리닝 공정의 안전관리 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-26-2012",
+        "title": "인화성 액체의 혼합작업에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-27-2012",
+        "title": "폐용제 회수작업에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-30-2021",
+        "title": "수소충전소의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-32-2012",
+        "title": "산소공급설비의 안전기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-33-2012",
+        "title": "건조염소 배관시스템에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-34-2012",
+        "title": "인화성 액체드럼 보관장소의 화재예방에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-36-2012",
+        "title": "펄프지류제조업의 안전관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-42-2012",
+        "title": "주정 증류공정의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-44-2012",
+        "title": "장난감용 꽃불 안전저장 및 취급에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-46-2012",
+        "title": "클린룸의 안전관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-47-2021",
+        "title": "자동차용 수소연료 전지시스템의 안전에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-5-2012",
+        "title": "인쇄공정에서 유기용제의 화재폭발 위험 관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-52-2012",
+        "title": "공장 및 장치의 안전격리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-53-2012",
+        "title": "발열반응 공정의 사고예방 및 방호에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-54-2012",
+        "title": "아세틸렌 제조 및 충전 공정의 안전관리에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-55-2012",
+        "title": "황을 사용하는 공정의 화재 및 폭발방지에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-58-2012",
+        "title": "위험물질 사고대응에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-59-2012",
+        "title": "염산 및 질산의 탱크 저장에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-6-2011",
+        "title": "인화성 액체의 분무공정에서 화재·폭발 예방에 관한 가이드",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-60-2012",
+        "title": "암모니아 냉매설비의 안전관리 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-62-2012",
+        "title": "유기도료 제조설비의 안전관리 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-7-2011",
+        "title": "이동식 인화성 액체 저장용기의 안전에 관한 가이드",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-72-2011",
+        "title": "옥외 꽃불공연에 관한 안전기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-74-2011",
+        "title": "포장된 위험물의 창고저장에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "P-76-2011",
+        "title": "화학물질을 사용하는 실험실 내의 작업 및 설비안전 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-12-2022",
+        "title": "실험동물 관리지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-16-2021",
+        "title": "화학물질의 유전독성 평가를 위한 단세포 겔 전기영동시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-17-2021",
+        "title": "화학물질의 유전독성 평가를 위한 포유류 골수세포 염색체이상시험 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-19-2020",
+        "title": "화학물질의 고정용량법에 의한 급성경구독성시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-20-2020",
+        "title": "화학물질의 급성 눈 부식성 및 자극성 시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-21-2017",
+        "title": "화학물질의 생식능 및 차세대 영향시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-22-2021",
+        "title": "화학물질의 유전독성 평가를 위한 설치류 우성치사시험 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-23-2021",
+        "title": "화학물질의 유전독성 평가를 위한 포유류 정원세포 염색체이상시험 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-28-2018",
+        "title": "화학물질의 급성흡입독성시험(고정농도법) 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-3-2015",
+        "title": "제조나노물질의 건강 유해성시험 시료의 적정용량 조제를 위한 해설지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-33-2023",
+        "title": "화학물질 독성발현경로(AOP)의 개발 및 이해에 관한 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-4-2022",
+        "title": "화학물질의 90일 반복흡입독성시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-5-2017",
+        "title": "화학물질의 태자발달 독성시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-6-2017",
+        "title": "화학물질의 생식 및 발생독성스크리닝시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-7-2020",
+        "title": "화학물질의 시험관내 포유류 세포 소핵시험 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "T-9-2016",
+        "title": "생체시료 중 석면소체 및 석면섬유 분석지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "W-10-2023",
+        "title": "화학물질의 발암성시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "W-21-2019",
+        "title": "생물안전 3등급 실험실의 안전보건에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "W-22-2016",
+        "title": "비전리전자기파 측정 및 평가에 관한 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "W-3-2021",
+        "title": "생물안전 1·2등급 실험실의 안전보건에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "W-4-2021",
+        "title": "화학물질의 만성독성시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "W-5-2021",
+        "title": "화학물질의 독성등급법에 의한 급성경구독성시험에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "W-8-2021",
+        "title": "화학물질의 급성흡입독성시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "W-9-2021",
+        "title": "화학물질의 피부과민성시험 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "X-27-2012",
+        "title": "화학물질 리스크관리를 위한 작업공정별 관리요령의 활용에 관한 지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "X-76-2018",
+        "title": "안전관련 시스템의 공통원인고장의 영향 정량화에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "X-77-2018",
+        "title": "안전관련 시스템의 하드웨어 고장확률 계산에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      },
+      {
+        "guide_code": "X-78-2018",
+        "title": "LNG 및 인화성가스 저장탱크의 위험성평가에 관한 기술지침",
+        "flag_count": 1,
+        "recommendation": "Do not add new generic features; use domain_profile/visual_trigger as guide-specific signal."
+      }
+    ]
+  },
+  "serving_gate_reminder": {
+    "review_status_in": [
+      "asserted",
+      "candidate"
+    ],
+    "min_confidence": 0.65,
+    "excluded_statuses": [
+      "needs_review",
+      "rejected"
+    ]
+  }
+}

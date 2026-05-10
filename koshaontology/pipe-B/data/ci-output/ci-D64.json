@@ -1,0 +1,1649 @@
+{
+  "metadata": {
+    "guideCode": "D-64-2018",
+    "shortCode": "D64",
+    "domain": "C",
+    "extractedAt": "2026-04-22T14:33:13Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-C-049"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-D64-001",
+      "text": "유체에 접촉되는 경우에는 유체의 특성에 따라 재질을 선정하여야 한다.",
+      "guideContext": "원심펌프 축(Shaft) 재질 선정",
+      "additionalDetail": "축(Shaft)은 임펠라 등의 회전되는 부품을 지지하고, 모터의 동력을 전달하는 역할을 한다.",
+      "workProcessPhase": "펌프 설계 및 재질 선정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-D64-002",
+      "text": "운전온도가 300 ℃를 초과하는 펌프의 페데스탈에는 페데스탈의 열팽창을 줄이기 위해 냉각수를 공급할 필요가 있다.",
+      "guideContext": "원심펌프 페데스탈 냉각",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 설계 및 냉각계통 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-003",
+      "text": "펌프의 공정정보에는 시스템에서의 유효흡입양정(NPSHa, Net positive suction head available)이 포함되어야 한다.",
+      "guideContext": "원심펌프 흡입양정 검토 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 설계 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-004",
+      "text": "펌프의 유효흡입양정은 펌프 제작업체가 요구하는 필요흡입양정(NPSHr, Net positive suction head required)보다 커야 한다.",
+      "guideContext": "원심펌프 흡입양정 설계 기준 (법령 근거 미확인)",
+      "additionalDetail": "유효흡입양정이 필요흡입양정보다 작으면 공동현상(Cavitation)이 발생할 수 있다.",
+      "workProcessPhase": "펌프 설계 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-005",
+      "text": "NPSHa와 NPSHr 사이의 허용 여유(Margin)는 <표 1>을 참고하여 선정하되, <표 1>의 NPSHa/NPSHr 비율과 양정(m) 중 큰 값을 적용하며, 그 밖의 다른 기준을 적용할 수 있다.",
+      "guideContext": "원심펌프 흡입양정 여유 선정",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 설계 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-006",
+      "text": "원심펌프와 용적식 펌프 모두를 사용할 수 있는 경우에는 상대적으로 설비의 신뢰성이 높은 원심펌프를 선정하는 것이 좋다.",
+      "guideContext": "펌프 타입 선정",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 타입 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-007",
+      "text": "상세 설계 시에는 운전온도에 따라 재질, 냉각방식 및 실(Seal) 구조 등을 고려하여야 한다.",
+      "guideContext": "원심펌프 운전온도별 설계 고려사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 상세 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-008",
+      "text": "펌프는 설계 사용온도를 고려하여 최고허용온도(Maximum allowable working temperature)로 설계하고, 이 온도에 따라 케이싱의 재질이나 두께를 선정한다.",
+      "guideContext": "원심펌프 케이싱 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 상세 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-009",
+      "text": "실 플랜(Seal plan)에 따라 다를 수 있지만, 일반적으로 유체의 온도가 149 ℃ 이상일 경우에는 스터핑 박스(Stuffing box)에 냉각수를 공급하는 것이 좋다.",
+      "guideContext": "원심펌프 스터핑 박스 냉각",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 냉각계통 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-010",
+      "text": "정격온도(Rated temperature)가 80 ℃를 초과하고 120 ℃ 미만이면, 베이링 부분에만 냉각수를 공급할 수 있고, 공랭식(Air cooled) 베어링 시스템을 적용할 수 있다.",
+      "guideContext": "원심펌프 베어링 냉각",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 냉각계통 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-011",
+      "text": "정격온도가 180 ℃를 초과하고 300 ℃ 미만이면, 스터핑 박스 및 베어링 부분에 모두 냉각수를 공급하는 것이 좋다.",
+      "guideContext": "원심펌프 고온 운전 냉각",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 냉각계통 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-012",
+      "text": "정격온도가 300 ℃ 이상이면, 스터핑 박스, 베어링 부분 및 페데스탈(Pedestal) 부분까지 냉각수를 공급하는 것이 좋다.",
+      "guideContext": "원심펌프 초고온 운전 냉각",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 냉각계통 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-013",
+      "text": "운전온도가 아주 낮은 펌프는 금속 재질의 저온취성파괴 또는 오-링(O-ring)류의 경화가능성을 고려하여 재질을 선정하여야 한다.",
+      "guideContext": "원심펌프 저온 운전 재질 선정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 재질 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-014",
+      "text": "저온유체를 운전할 때 펌프 외부에 대기 중 수분이 응결할 가능성이 있는 경우에는 실(Seal) 부분에 스팀을 공급하여 녹일 수 있다.",
+      "guideContext": "원심펌프 저온 운전 응결 방지",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 저온 운전 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-015",
+      "text": "아스팔트 등의 점도가 높은 유체를 이송할 경우에는 펌프 케이싱에 스팀 자킷을 설치하여 적절한 온도를 유지한 상태로 이송할 수 있다.",
+      "guideContext": "원심펌프 고점도 유체 이송",
+      "additionalDetail": null,
+      "workProcessPhase": "고점도 유체 이송 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-071",
+      "text": "공정운전에 필요한 유량이 펌프의 안정적인 운전을 위해 필요한 최소유량보다 적을 경우 펌프 보호를 위해 저유량 보호조치인 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상",
+      "additionalDetail": "과열 손상 방지, 공동현상 및 진동방지, 반경방향 작용력 손상방지, 사이클링 운전 손상방지, 과부하방지 등을 위해 설치",
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-072",
+      "text": "감소운전(예, 정상유량의 50% 운전) 동안 공정이 안정적으로 운전되도록 설계된 경우 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상 조건",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-073",
+      "text": "공정이 감소된 유량으로 천천히 가동(Start-up)되어야 하는 경우 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상 조건",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-074",
+      "text": "공정의 유량(감소운전 포함)이 최소유량보다 적은 경우 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상 조건",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-075",
+      "text": "액위, 온도 및 분석기 등의 조절을 위해 전체 펌프배출량이 자동조절되는 경우 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상 조건",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-076",
+      "text": "사용측(Downstream)의 필요에 의해 유량이 감소 또는 정지될 수 있는 경우 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상 조건",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-077",
+      "text": "동일 시스템에 병렬로 운전되는 다른 성능곡선 또는 압력을 갖는 두 대 이상 펌프의 공통배관을 조절하는 경우 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상 조건",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-078",
+      "text": "유체가 기포점(Bubble point)에 있거나 또는 유체에 용해된 가스를 포함하는 경우 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상 조건",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-079",
+      "text": "펌프의 정격유량이 2.5 m³/hr보다 적은 경우 최소유량배관을 설치할 필요가 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치대상 조건",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-080",
+      "text": "최소유량은 펌프 제조업체에서 제시하는 자료가 없는 경우에는 펌프의 설계유량의 30 % 정도로 선정한다.",
+      "guideContext": "원심펌프 최소유량배관 설치기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-081",
+      "text": "펌프의 운전을 설계유량의 30 % 이하로 운전할 경우에는 진동이 발생될 수 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치기준",
+      "additionalDetail": "설계유량 30% 이하 운전 시 진동 발생 위험 경고",
+      "workProcessPhase": "최소유량 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-082",
+      "text": "2대 이상의 펌프를 설치하는 경우에는 해당 펌프의 토출배관이 만나는 공통배관(Common line) 지점에 최소유량배관을 설치한다.",
+      "guideContext": "원심펌프 최소유량배관 설치기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-083",
+      "text": "차압이 저압인 펌프는 고정식 오리피스를 우선 적용하고, 설치순서는 차단밸브, 오리피스, 차단밸브 순으로 설치한다.",
+      "guideContext": "원심펌프 최소유량배관 설치기준",
+      "additionalDetail": "펌프 제조업체의 요구사항이 없는 경우 적용",
+      "workProcessPhase": "최소유량배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-084",
+      "text": "차압이 고압인 펌프(다단 펌프 또는 고속운전 펌프)는 유량조절밸브(Fail open 구조)를 설치하여 최소유량을 관리한다.",
+      "guideContext": "원심펌프 최소유량배관 설치기준",
+      "additionalDetail": "펌프 제조업체의 요구사항이 없는 경우 적용",
+      "workProcessPhase": "최소유량배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-085",
+      "text": "설계유량이 2.5 m³/hr 이상이고 단일 사용처에 유량을 자동공급하는 펌프(Straight flow control pump) 또는 감소운전(Turndown) 용량이 최소유량 이상인 펌프에는 펌프의 최소유량에 해당되는 양에 저유량경보(FAL, Flow alarm low)를 설정하여 관리할 경우에는 최소유량배관을 생략할 수 있다.",
+      "guideContext": "원심펌프 최소유량배관 설치기준",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-086",
+      "text": "한 대의 펌프로 여러 곳에 이송할 경우, 한 곳이 레벨, 온도 또는 분석기 등의 조절을 위해 전체 토출량을 자동조절하는 경우라도 다른 사용처가 최소유량 이상으로 운전된다면, 최소유량배관은 필요하지 않다.",
+      "guideContext": "원심펌프 최소유량배관 설치기준",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량배관 설치 필요성 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-087",
+      "text": "정격유량을 설계유량의 110 %로 선정하는 것이 일반적이고, 어떤 경우에는 설계유량의 125 %로 선정할 수 있다. 만약 이런 경우에는 최소유량을 <표 2>에서 지정한 유량에 비례해서 증가시킬 필요가 있다.",
+      "guideContext": "원심펌프 최소유량 선정기준",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-088",
+      "text": "펌프가 정격유량보다 높은 조건(예, 설계유량의 110 % 초과 상태)에서 운전되면, 불안정한 운전상태가 발생될 수 있다.",
+      "guideContext": "원심펌프 최소유량 선정기준",
+      "additionalDetail": "정격유량 초과 운전 방지를 위한 설계 검토 필요",
+      "workProcessPhase": "최소유량 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-089",
+      "text": "펌프구동모터의 동력이 18.5 kW 이상인 경우 최소유량 조절은 콘트롤밸브로 조절하는 것이 좋다.",
+      "guideContext": "원심펌프 최소유량 조절",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량 조절방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-090",
+      "text": "펌프구동모터의 동력이 18.5 kW 미만인 경우 최소유량 조절은 오리피스로 조절하는 것이 좋다.",
+      "guideContext": "원심펌프 최소유량 조절",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량 조절방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-091",
+      "text": "최소유량배관에 오리피스를 설치하여 연속적으로 바이패스하는 방법이며, 오리피스 보수 등을 위해 오리피스 전·후단에 차단밸브를 설치하는 것이 좋다.",
+      "guideContext": "원심펌프 최소유량 조절 - 연속 바이패스방법",
+      "additionalDetail": "설치비용이 저렴하지만 연속적으로 유량이 바이패스되므로 에너지 손실이 크다",
+      "workProcessPhase": "연속 바이패스 오리피스 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-092",
+      "text": "On/off 밸브로 바이패스하는 경우 오리피스 보수 등을 위해 오리피스 전·후단에 차단밸브를 설치하는 것이 좋다.",
+      "guideContext": "원심펌프 최소유량 조절 - On/off 밸브 바이패스방법",
+      "additionalDetail": null,
+      "workProcessPhase": "On/off 밸브 바이패스 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-093",
+      "text": "On/off 밸브의 완전개방 및 완전차단 시에 발생되는 수충격(Hydraulic shock)에 의해 민감한 시스템은 영향을 받을 수 있다.",
+      "guideContext": "원심펌프 최소유량 조절 - On/off 밸브 바이패스방법",
+      "additionalDetail": "수충격 영향 검토 필요",
+      "workProcessPhase": "On/off 밸브 바이패스 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-094",
+      "text": "On/off 밸브로 바이패스하는 방법은 최소권장유량이 설계유량의 30% 이하일 경우에만 사용되고, 일반적으로 권장되지 않는 방법이다.",
+      "guideContext": "원심펌프 최소유량 조절 - On/off 밸브 바이패스방법",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량 조절방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-095",
+      "text": "2대의 펌프가 동시에 운전되는 경우에는 최소유량은 2배로 설정되어야 한다.",
+      "guideContext": "원심펌프 최소유량 조절 - 자동조절밸브 방법 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "자동조절밸브 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-096",
+      "text": "유체에 고체 성분이 포함되어 ARC 밸브를 사용할 수 없을 때 자동조절밸브를 사용한다.",
+      "guideContext": "원심펌프 최소유량 조절 - 자동조절밸브 방법 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최소유량 조절방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-124",
+      "text": "취급물질의 종류에 따라 관련 법규에서 요구하는 배관에 대한 규칙을 준수하여야 한다.",
+      "guideContext": "펌프 배관 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-D64-125",
+      "text": "배관지름은 여유가 있는 구경을 선정하고, 굽힘, 확대 및 분기 등은 가능한 한 적게 하여 압력손실을 줄인다.",
+      "guideContext": "펌프 배관 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-126",
+      "text": "배관에서 공기가 유입되거나 또는 공기가 고이지 않도록 하고, 배관의 상부 지점에는 벤트밸브를 설치한다.",
+      "guideContext": "펌프 배관 설치 시 고려사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-127",
+      "text": "120 ℃를 넘는 유체를 취급하는 펌프에는 승온(Warming up) 배관을 설치할 필요가 있다.",
+      "guideContext": "펌프 배관 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-128",
+      "text": "곡관부 등 하중이 많이 걸리는 부위는 콘크리트 기초 위에 충분한 배관 지지가 필요하다.",
+      "guideContext": "펌프 배관 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-129",
+      "text": "펌프의 흡입 및 토출 배관에는 진동을 흡수하기 위한 적절한 신축이음을 설치할 수 있다.",
+      "guideContext": "펌프 배관 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-130",
+      "text": "수충격(Hydraulic shock)이 발생할 위험성이 있는 경우에는 적절한 방지설비를 설치한다.",
+      "guideContext": "펌프 배관 설치 시 고려사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-131",
+      "text": "공사 후에는 반드시 배관 내부를 청소하여야 한다.",
+      "guideContext": "펌프 배관 설치 시 고려사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-132",
+      "text": "흡입배관에는 최소 배관지름의 4배 이상의 직관부를 설치하는 것이 바람직하다.",
+      "guideContext": "펌프 배관 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-133",
+      "text": "흡입배관은 펌프측이 높도록 1/100 정도의 구배의 상향배관으로 설치하여 흡입배관에 기체가 고일 수 없는 구조로 설치하여야 한다.",
+      "guideContext": "펌프 배관 설치 시 고려사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-134",
+      "text": "흡입배관의 유속은 1.5 m/s 이하로 하는 것이 바람직하며, 배관지름 및 물질종류별 흡입 권장유속은 <표 3>과 같다.",
+      "guideContext": "펌프 배관 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-135",
+      "text": "토출배관의 유속은 3 m/s 이하로 하는 것이 바람직하며, 배관지름 및 물질종류별 토출 권장유속은 <표 4>와 같다.",
+      "guideContext": "펌프 배관 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-136",
+      "text": "펌프 흡입측이 흡상인 경우에는 수축관의 상부가 평평한 상태가 되도록 설치하여 기포가 상부에 고이지 않도록 설치한다.",
+      "guideContext": "펌프 배관 설치 시 고려사항 (법령 근거 미확인)",
+      "additionalDetail": "[그림 11]의 (a) 참조",
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-137",
+      "text": "펌프 흡입측이 가압인 경우에는 수축관의 하부가 평평한 상태가 되도록 설치하여 액체가 하부에 고이지 않도록 설치한다.",
+      "guideContext": "펌프 배관 설치 시 고려사항 (법령 근거 미확인)",
+      "additionalDetail": "[그림 11]의 (b) 참조",
+      "workProcessPhase": "펌프 배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-138",
+      "text": "펌프의 기초는 펌프, 모터, 부속품 및 유체중량을 지지함과 동시에 운전에 의해 생기는 각종 진동을 흡수할 수 있을 정도의 강도를 가져야 한다.",
+      "guideContext": "펌프 기초 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 기초 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-D64-139",
+      "text": "기초 자체가 견딜 수 있는 중량은 전동기 직결형의 경우 기계중량의 3배 이상, 엔진 직결형의 경우는 기계 중량의 5배 이상으로 하는 것이 바람직하다.",
+      "guideContext": "펌프 기초 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 기초 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-140",
+      "text": "펌프와 모터가 직결 구동일 경우에는 반드시 일체형의 기초 위에 설치할 필요가 있다.",
+      "guideContext": "펌프 기초 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 기초 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-141",
+      "text": "겨울철 결빙기에는 지반의 표면이 얼어 지내력이 저하하므로 기초의 깊이를 동결 깊이보다 깊게 설치하여야 하며, 일반적으로 500 mm 이상으로 설치하고, 한랭지에서는 700~1000 mm 이상으로 설치할 필요가 있다.",
+      "guideContext": "펌프 기초 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 기초 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-HEAT-004"
+      ]
+    },
+    {
+      "identifier": "CI-D64-142",
+      "text": "건물의 2층 바닥 등에 펌프의 기초를 설치할 때는 들보의 중심과 기초의 중심을 일치시키거나 또는 2개의 들보에 걸치도록 설치하고, 가능한 한 건물의 벽에 가깝게 기초를 설치하는 것이 좋다.",
+      "guideContext": "펌프 기초 설치 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 기초 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-143",
+      "text": "모든 펌프의 인입측에는 펌프 보수를 위해 차단밸브를 설치한다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-MACHINE-003"
+      ]
+    },
+    {
+      "identifier": "CI-D64-144",
+      "text": "모든 펌프의 토출측에는 펌프 보수를 위해 차단밸브를 설치한다. 다만, 펌프 토출측이 낮은 지점, 대기 개방 등과 같이 역류의 가능성이 없는 경우에는 그러하지 아니 하다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-MACHINE-003"
+      ]
+    },
+    {
+      "identifier": "CI-D64-145",
+      "text": "펌프의 토출측에 압력계기, 체크밸브 및 차단밸브가 필요한 경우에는 펌프에서 압력계기, 체크밸브 및 차단밸브의 순서로 설치한다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-D64-146",
+      "text": "펌프의 토출측에는 역류방지를 위해 체크밸브를 설치한다. 다만, 펌프 토출측이 위치적으로 낮은 곳이거나 또는 압력이 낮은 곳으로 연결되어 역류의 가능성이 없는 경우는 제외한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-147",
+      "text": "예비펌프가 있는 경우에는 운전 중의 압력이 예비펌프에 영향을 미치는 것을 방지하기 위해 체크밸브를 설치한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-148",
+      "text": "최저 주위온도보다 높은 유동점을 갖는 유체인 경우에는 동절기의 펌프 보수 시 체크밸브와 차단밸브 사이의 유체가 굳는 현상을 예방하기 위해 체크밸브와 차단밸브를 가깝게 설치한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-149",
+      "text": "예비펌프의 예열(Warming-up) 필요시 미소개방(Throttle open)의 목적으로 체크밸브에 바이패스밸브를 설치할 경우 밸브 타입은 글로브밸브로 설치한다. 다만, 예열이 필요하지 않은 경우에는 체크밸브와 차단밸브 사이에 드레인밸브만 설치할 수 있다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "CI-D64-150",
+      "text": "펌프 케이싱에 벤트가 없는 경우에는 펌프 가동정지 시의 펌프 케이싱 및 토출배관 내의 유체 배출 및 공기, 질소 등의 배출을 위해 체크밸브 전단에 벤트라인을 설치한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-151",
+      "text": "펌프 토출측 압력계기는 체크밸브 전단에 설치하며, 정확한 압력을 알기 위해서는 가능한 한 펌프 가까이에 설치한다. 만약, 압력계기를 체크밸브 후단에 설치할 경우 체크밸브 후단의 다른 펌프 또는 배관의 압력에 영향을 받는다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-D64-152",
+      "text": "펌프의 인입측에는 이물질의 유입으로 인한 펌프손상을 방지하기 위해 스트레이너를 설치할 필요가 있으며, 스트레이너 타입은 인입측 배관 사이즈가 3인치 이상인 경우 T타입(공정지역) 또는 바스켓 타입(공정 외의 지역), 2인치 이하인 경우 Y타입이 권장된다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-153",
+      "text": "펌프의 드레인라인은 펌프 보수 시 내부물질의 배출을 위해 공정유체의 종류에 따라 탄화수소를 포함한 유체는 공정유체 드레인 처리시설(Process sewer facility) 및 폐수 드레인시설(Oily water sewer facility)에 같이 연결하고, 탄화수소를 포함하지 않은 유체는 폐수 드레인시설에만 연결하는 것이 좋다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-154",
+      "text": "펌프 인입측 및 토출측 밸브의 사이즈는 배관의 압력손실을 최소화하기 위해 인입측 및 토출측의 배관 사이즈와 같은 것을 사용하는 것이 좋다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-155",
+      "text": "펌프의 토출배관이 인입배관보다 압력등급(Pressure rating class)이 높은 경우, 압력등급의 변경지점은 인입측 차단밸브의 인입 플랜지가 된다. 즉, 인입측 차단밸브는 높은 압력등급(펌프 토출측 등급)에 따라 설계할 필요가 있다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-156",
+      "text": "고유동점 유체를 이송하는 경우에는 펌프 인입측 및 토출측 차단밸브는 펌프 내부의 고착 및 드레인 곤란을 방지하기 위해 예비펌프의 분리지점(Tee)에서 최대한 펌프에 가깝게 설치한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-157",
+      "text": "고유동점 유체를 이송하는 경우에는 펌프 루프(펌프 및 관련배관)에 대해 스팀 또는 전열 등의 트레이싱(Tracing)을 한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-158",
+      "text": "펌프 케이싱의 벤트라인은 가벼운 탄화수소(C4 이하)는 플레어스택과 같은 배기처리시설로 연결하고, 다른 유체는 공정유체 드레인 처리시설 및 폐수 드레인시설로 연결한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-159",
+      "text": "펌프의 베이스 플레이트(Base plate)는 개방구조의 폐수처리시설(Open sewer system)로 연결한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-160",
+      "text": "세척용 오일(Flush oil) 공급 및 회수라인은 고유동점 유체와 같은 경우에 필요하며, 다른 공급유체에는 필요 시 설치할 수 있다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-161",
+      "text": "펌프 토출측 배관의 압력-온도 등급(Pressure-temperature rating)이 ANSI 900 lb 이상인 경우에는 기밀유지를 위해 차단밸브를 이중으로 설치하는 것이 좋다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-162",
+      "text": "펌프 토출측 배관의 압력-온도 등급이 ANSI 1500 lb 이상인 경우에는 차단밸브를 이중으로 설치하되, Y타입-글로브밸브로 선정하는 것이 좋다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-163",
+      "text": "증기압이 높은 탄화수소를 이송하는 펌프의 케이싱 벤트라인 및 플레어스택 연결라인의 차단밸브는 이중밸브를 설치하는 것이 좋다.",
+      "guideContext": "펌프 스테이션 구성",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-164",
+      "text": "펌프 인입측에 연결되는 용기에는 인입측 압력손실을 방지하기 위해 와류차단기(Vortex breaker)를 설치한다.",
+      "guideContext": "펌프 스테이션 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 스테이션 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-165",
+      "text": "펌프와 모터의 축정렬(Alignment), 체결 및 고정이 제대로 되었는지 점검표 등을 확인한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-166",
+      "text": "베어링의 윤활유를 점검하여 베어링 하우징의 윤활유가 액면계의 규정위치까지 들어 있는가를 확인하고, 규정 위치보다도 아래인 경우는 윤활유를 보충한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-167",
+      "text": "그리스 타입인 경우에는 제품 출고 시에 그리스가 채워진 상태로 출고되므로 별도의 보급은 필요하지 않다. 다만, 장기 보관한 펌프의 경우에는 그리스의 노화가 우려되므로, 그리스를 완전히 세척하고, 그리스를 교환하여야 한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-168",
+      "text": "초기 운전 시 이물질이 들어갈 가능성이 있는 경우에는 펌프 흡입측에 임시 스트레이너를 설치하고, 스트레이너의 막힘에 의한 압력강하를 확인하기 위해 스트레이너의 전후에 차압계를 설치할 수 있다.",
+      "guideContext": "펌프 시운전 시 확인사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-169",
+      "text": "오일링 타입(Oil ring type)인 경우에는 운송 또는 설치 시에 오일링이 리테이너에서 벗어나는 수가 있으므로 확인할 필요가 있다.",
+      "guideContext": "펌프 시운전 시 확인사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-170",
+      "text": "원심펌프는 토출밸브를 닫고 기동한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-171",
+      "text": "사류펌프는 토출밸브를 닫고 운전하는 것이 원칙이나, 병렬운전을 하는 펌프는 1/3 정도 열고 기동한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-172",
+      "text": "축류펌프는 토출밸브를 열고 기동한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-173",
+      "text": "펌프와 관련된 냉각수 배관 및 실링오일 배관 등이 있는 경우는 연결상태가 적절한지를 점검한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-174",
+      "text": "펌프와 모터를 연결하기 전에 모터를 단독으로 약 3초 정도 운전하여 모터의 회전방향을 확인하며, 회전방향은 모터에서 펌프를 바라볼 때 시계방향이면 대부분 정상적으로 회전하는 상태이다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-175",
+      "text": "냉각유체(Cooling or quenching) 및 청소유체(Flushing) 등의 각 배관이 설치되어 있을 때에는 각 밸브를 열어 압력 및 유량이 적절한가를 관련 배관도면 및 데이터 시트를 보고 확인한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-176",
+      "text": "라인 베어링이 설치되어 있는 경우에는 냉각수 배관의 밸브를 열어 주수한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-177",
+      "text": "동절기 및 한냉지에서 운전할 때는 냉각수 배관 등에 부동액을 사용하는 등의 동결방지조치가 되어 있는가를 확인한다.",
+      "guideContext": "펌프 시운전 시 확인사항",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": [
+        "SR-HEAT-004"
+      ]
+    },
+    {
+      "identifier": "CI-D64-178",
+      "text": "펌프의 마중물(Priming) 존재여부를 확인하여 흡입측이 가압인 경우에는 흡입밸브를 열어 펌프 속에 유체를 채우고, 흡입측이 흡상인 경우는 진공펌프 등의 Priming 장치를 가동하여 Priming을 실시한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": "본체 또는 배관에 설치된 벤트밸브를 열어 액체가 가득 차게 되면 회전체를 손으로 돌려 회전차 내의 기체를 완전히 빼내고 펌프 내부가 액체로 채워져 있는가를 확인한다.",
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-179",
+      "text": "회전체를 손으로 돌려 원활한 회전여부를 확인한다. 만약 회전체의 움직임이 무디거나 부드럽지 않을 때는 내부에 녹이나 간극부의 마찰, 이물질의 흡입, 그랜드 패킹의 지나친 조임이 원인이므로 펌프를 분해하여 케이싱 웨어링 및 회전차 등의 회전부품을 점검한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-180",
+      "text": "벤트밸브를 전부 닫는다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-181",
+      "text": "최소유량배관이 설치되어 있지 않을 때에는 펌프 데이터 시트에 기재되어 있는 최소운전유량보다 적은 유량으로 운전되지 않도록 토출밸브를 조금 열어둔다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-182",
+      "text": "운전온도가 120 ℃를 넘는 유체를 취급할 때는 운전 전에 펌프를 충분한 승온(Warming up)을 실시한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": "승온 기준: 온도상승 2 ℃/min 이내, 돌변온도 50 ℃ 이내, 케이싱 표면 상하 온도차 20~30 ℃ 이내, 액체온도와 케이싱 표면 온도차 30 ℃ 이내",
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-183",
+      "text": "승온 도중에는 회전체를 손으로 돌리지 않아야 한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D64-184",
+      "text": "토출측에서 승온 유체를 주입할 때 케이싱 상하 온도차가 규정치에 달하지 않을 경우에는 드레인 밸브를 열어 온도가 균일하도록 조치한다.",
+      "guideContext": "펌프 시운전 시 확인사항 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "펌프 시운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-D64-001",
+      "term": "공동현상 (Cavitation)",
+      "definition": "유동하는 액체의 압력이 해당온도에서 액체의 증기압보다 내려가면 액체 속에 기포가 발생되어 공동(Cavity)을 만드는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D64-002",
+      "term": "최대운전온도 (Maximum operating temperature)",
+      "definition": "정상운전 중에 최대로 올라갈 수 있는 온도를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D64-003",
+      "term": "유효흡입양정 (NPSHa, Net positive suction head available)",
+      "definition": "펌프 흡입측의 전체 양정과 펌프의 흡입구에서 액체의 온도에 상응하는 증기압에 의한 양정과의 차이를 말하며, 흡입양정이 얼마나 더 내려가면 액체가 증기로 변하는지의 여유를 나타내며, 필요흡입양정(NPSHr)보다 큰 값을 갖는다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D64-004",
+      "term": "필요흡입양정 (NPSHr, Net positive suction head required)",
+      "definition": "펌프 제작업체에서 펌프 종류에 따라 해당 펌프를 안전하게 운전하기 위해 요구되는 값으로 펌프 흡입구에서의 유체의 흡입양정이 얼마 이상이 되어야 하는지를 나타내는 값이며, 펌프 자체에서 발생하는 손실수두의 개념이다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D64-005",
+      "term": "체절압력 (Shutoff pressure)",
+      "definition": "원심펌프에서 펌프 토출측의 밸브를 닫은 상태(유량이 흐르지 않은 상태)에서 펌프를 운전할 때의 압력을 말하며, 이는 원심펌프에서 최대의 압력값이다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D64-006",
+      "term": "최고효율점 (BEP, Best efficiency point)",
+      "definition": "원심펌프의 펌프 성능곡선에서 운전효율이 가장 높은 지점을 말하며, 정상유량과 정격유량의 중간지점 부근이 된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D64-007",
+      "term": "최소유량 (Minimum flow)",
+      "definition": "펌프를 안정적으로 운전하기 위한 최소한의 유량을 말하며, 펌프 종류별 및 운전조건별로 다르며, 일반적으로 펌프제작업체에서 제시되며, 최소연속유량 (Minimum continuous flow)라고도 불린다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D64-008",
+      "term": "자흡식 펌프 (Self-priming type pump)",
+      "definition": "펌프 내부의 유체가 펌프에서 쉽게 빠져나가지 않도록 설계되어 있고, 별도의 마중물(Priming)을 공급하지 않고 펌프 구동 시에 펌프 흡입측에 잔존해 있는 기체를 흡입시켜 유체를 펌핑할 수 있도록 만든 펌프를 말하며, 일반 원심펌프에는 펌프 흡입측에 별도의 자흡탱크를 설치하여 이와 유사한 기능을 할 수 있다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D64-009",
+      "term": "유동점 (Pour point)",
+      "definition": "유체를 냉각시키면 점도가 증가되어 유동성을 잃게 되고 굳어지기 시작하는데 이때의 온도를 응고점이라 하며, 응고점에 도달하기 직전의 유체가 흐를 수 있는 가장 낮은 온도를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-D64-01",
+      "processOrder": 1,
+      "processName": "펌프 타입 선정",
+      "safetyMeasures": "운전 가능한 유량과 압력범위에 따라 원심펌프 또는 용적식 펌프(왕복동펌프, 로타리펌프) 중 적절한 타입을 선정하고, 양쪽 모두 적용 가능한 경우 설비 신뢰성이 높은 원심펌프를 우선 선정한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-02",
+      "processOrder": 2,
+      "processName": "흡입양정(NPSH) 검토",
+      "safetyMeasures": "펌프의 유효흡입양정(NPSHa)이 필요흡입양정(NPSHr)보다 크도록 설계하고, NPSHa/NPSHr 비율 및 양정 허용 여유를 표 1 기준에 따라 선정한다. 공동현상(Cavitation) 방지를 위해 흡입측 배관 압력손실을 최소화한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.3.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-03",
+      "processOrder": 3,
+      "processName": "운전온도별 재질 및 냉각방식 결정",
+      "safetyMeasures": "운전온도에 따라 케이싱 재질과 두께를 선정하고, 정격온도 80℃ 초과 시 베어링 냉각, 149℃ 이상 시 스터핑 박스 냉각, 180℃ 초과 시 스터핑 박스 및 베어링 모두 냉각, 300℃ 이상 시 페데스탈까지 냉각수를 공급한다. 저온 운전 시 저온취성파괴 및 오-링 경화 가능성을 고려하여 재질을 선정한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-18",
+      "processOrder": 4,
+      "processName": "최소유량배관 설치 필요성 검토",
+      "safetyMeasures": "공정운전 필요 유량과 펌프 최소유량 비교, 감소운전·가동 조건·자동조절 여부·병렬 운전·유체 특성·정격유량 등 설치대상 조건 확인, 냉각수 순환펌프 등 불필요 대상 제외",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-19",
+      "processOrder": 5,
+      "processName": "최소유량 선정",
+      "safetyMeasures": "펌프 제조업체 자료 우선 확인, 자료 없을 시 설계유량의 30% 적용, 서비스 형태별 권장 최소유량 비율 확인(탄화수소 25~50%, 물 및 수용액 40~85%), NPSHa/NPSHr 권장비율 확인",
+      "requiredPPE": [],
+      "sourceSection": "5.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-20",
+      "processOrder": 6,
+      "processName": "최소유량 조절방법 선정",
+      "safetyMeasures": "펌프구동모터 소요동력 기준 확인(18.5 kW 기준), 18.5 kW 이상 콘트롤밸브, 18.5 kW 미만 오리피스 조절 권장, 유체 특성 및 시스템 민감도 고려",
+      "requiredPPE": [],
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-21",
+      "processOrder": 7,
+      "processName": "연속 바이패스 오리피스 설치",
+      "safetyMeasures": "오리피스 전·후단에 차단밸브 설치, 차압이 저압인 펌프에 우선 적용, 에너지 손실이 크므로 운전비용 검토 필요",
+      "requiredPPE": [
+        "안전모",
+        "안전화"
+      ],
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-22",
+      "processOrder": 8,
+      "processName": "On/off 밸브 바이패스 설치",
+      "safetyMeasures": "오리피스 전·후단 차단밸브 설치, 수충격(Hydraulic shock) 영향 검토, 최소권장유량이 설계유량 30% 이하인 경우에만 적용, 일반적으로 비권장 방법",
+      "requiredPPE": [
+        "안전모",
+        "안전화"
+      ],
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-23",
+      "processOrder": 9,
+      "processName": "자동 재순환(ARC) 밸브 설치",
+      "safetyMeasures": "스프링 작동 체크밸브와 콘트롤밸브 조합 밸브 사용, 보일러급수·응축수·화학물질·탄화수소 계통에 적용, 저유량 2대 이상 병렬 운전 시 유용",
+      "requiredPPE": [
+        "안전모",
+        "안전화"
+      ],
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-24",
+      "processOrder": 10,
+      "processName": "자동조절밸브 설치",
+      "safetyMeasures": "화학공정에서 가장 널리 사용, 2대 동시운전 시 최소유량 2배 설정, 유체에 고체 성분 포함 시 ARC 밸브 대체로 적용, 토출측 유량 최소유량 도달 시 자동개방 확인",
+      "requiredPPE": [
+        "안전모",
+        "안전화"
+      ],
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-31",
+      "processOrder": 11,
+      "processName": "펌프 배관 설치",
+      "safetyMeasures": "취급물질 종류에 따른 관련 법규 배관 규칙 준수, 배관지름 여유 구경 선정, 공기 유입·고임 방지 및 벤트밸브 설치, 수충격 방지설비 설치, 공사 후 배관 내부 청소, 흡입배관 1/100 구배 상향배관 설치, 흡입배관 유속 1.5 m/s 이하 및 토출배관 유속 3 m/s 이하 준수",
+      "requiredPPE": [],
+      "sourceSection": "6.1",
+      "relatedSR": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "WP-D64-32",
+      "processOrder": 12,
+      "processName": "펌프 기초 설치",
+      "safetyMeasures": "펌프·모터·부속품·유체중량 지지 및 진동 흡수 강도 확보, 전동기 직결형 기계중량 3배 이상·엔진 직결형 5배 이상 기초 중량 확보, 결빙기 기초 깊이 동결 깊이 이상(일반 500 mm, 한랭지 700~1000 mm), 직결 구동 시 일체형 기초 설치",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-COLLAPSE-002",
+        "SR-HEAT-004"
+      ]
+    },
+    {
+      "identifier": "WP-D64-33",
+      "processOrder": 13,
+      "processName": "펌프 스테이션 구성",
+      "safetyMeasures": "인입측·토출측 차단밸브 설치, 토출측 압력계기·체크밸브·차단밸브 순서 설치, 역류방지 체크밸브 설치, 이물질 유입 방지 스트레이너 설치, 벤트라인·드레인라인 적절 연결, 와류차단기 설치, 고압 등급(ANSI 900 lb 이상) 이중 차단밸브 설치",
+      "requiredPPE": [],
+      "sourceSection": "6.3",
+      "relatedSR": [
+        "SR-MACHINE-003",
+        "SR-FIRE_EXPLOSION-049",
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "WP-D64-34",
+      "processOrder": 14,
+      "processName": "펌프 시운전 전 점검",
+      "safetyMeasures": "축정렬·체결·고정 점검표 확인, 베어링 윤활유 점검 및 보충, 장기보관 펌프 그리스 교환, 오일링 리테이너 이탈 확인, 냉각수·실링오일 배관 연결상태 점검, 모터 회전방향 확인(시계방향), 동절기 동결방지조치 확인",
+      "requiredPPE": [],
+      "sourceSection": "6.4",
+      "relatedSR": [
+        "SR-HEAT-004"
+      ]
+    },
+    {
+      "identifier": "WP-D64-35",
+      "processOrder": 15,
+      "processName": "펌프 기동 및 운전",
+      "safetyMeasures": "원심펌프 토출밸브 닫고 기동, 사류펌프 토출밸브 닫고 운전(병렬운전 시 1/3 개방), 축류펌프 토출밸브 열고 기동, 마중물(Priming) 존재여부 확인, 회전체 원활 회전여부 확인, 벤트밸브 전부 닫기, 최소유량 이상 운전 확인",
+      "requiredPPE": [],
+      "sourceSection": "6.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D64-36",
+      "processOrder": 16,
+      "processName": "펌프 승온(Warming up)",
+      "safetyMeasures": "운전온도 120 ℃ 초과 유체 취급 시 실시, 온도상승 2 ℃/min 이내, 돌변온도 50 ℃ 이내, 케이싱 상하 온도차 20~30 ℃ 이내, 액체온도와 케이싱 표면 온도차 30 ℃ 이내, 승온 도중 회전체 손으로 돌리지 않을 것",
+      "requiredPPE": [],
+      "sourceSection": "6.4",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-D64-001",
+      "equipmentName": "원심펌프",
+      "specifications": {
+        "applicableFlowRange": "0.001 m³/min ~ 2,000 m³/min",
+        "applicablePressureRange": "1 m 미만 ~ 수천 미터(Head)",
+        "maxViscosity": "65 cSt (Centistoke) 미만",
+        "standard": "API Std 610"
+      },
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-002",
+      "equipmentName": "원심펌프 NPSH 허용 여유 기준",
+      "specifications": {
+        "petrochemicalHydrocarbon": "NPSHa/NPSHr 비율 1.1 또는 1.0 m",
+        "chemicalProcess": "NPSHa/NPSHr 비율 1.1~1.2 또는 0.6~1.0 m",
+        "powerPlantCoolingWater": "1.0 m",
+        "powerPlantBoilerFeedwater": "NPSHa/NPSHr 비율 1.3 (250 kW/stage 미만)",
+        "waterGeneral": "NPSHa/NPSHr 비율 1.1 또는 1.5 m",
+        "buildingFluid": "NPSHa/NPSHr 비율 1.1 또는 0.6 m",
+        "generalCatalogPump": "NPSHa/NPSHr 비율 1.1 또는 1.0 m"
+      },
+      "sourceSection": "4.3.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-003",
+      "equipmentName": "원심펌프 냉각수 공급 온도 기준",
+      "specifications": {
+        "bearingCoolingOnly": "정격온도 80 ℃ 초과 ~ 120 ℃ 미만",
+        "stuffingBoxCooling": "유체 온도 149 ℃ 이상",
+        "stuffingBoxAndBearingCooling": "정격온도 180 ℃ 초과 ~ 300 ℃ 미만",
+        "fullCoolingIncludingPedestal": "정격온도 300 ℃ 이상",
+        "airCooledBearingOption": "정격온도 80 ℃ 초과 ~ 120 ℃ 미만"
+      },
+      "sourceSection": "4.4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-004",
+      "equipmentName": "원심펌프 케이싱",
+      "specifications": {
+        "material": "유체의 온도, 압력 및 부식성에 따라 재질 결정",
+        "manufacturing": "대부분 주물로 제작",
+        "design": "최고허용온도(Maximum allowable working temperature)로 설계",
+        "mountingType": "API Std 610 기준 중심선 설치(Centerline mounting) 방식"
+      },
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-036",
+      "equipmentName": "최소유량배관(Minimum flow line)",
+      "specifications": {
+        "purpose": "과열 손상 방지, 공동현상 및 진동방지, 반경방향 작용력 손상방지, 사이클링 운전 손상방지, 과부하방지",
+        "installationCondition": "공정운전 필요 유량이 펌프 최소유량보다 적을 경우 설치"
+      },
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-037",
+      "equipmentName": "고정식 오리피스",
+      "specifications": {
+        "application": "차압이 저압인 펌프의 최소유량 조절",
+        "installationOrder": "차단밸브 → 오리피스 → 차단밸브",
+        "motorPowerCriteria": "펌프구동모터 동력 18.5 kW 미만 시 권장"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-038",
+      "equipmentName": "유량조절밸브(Fail open 구조)",
+      "specifications": {
+        "application": "차압이 고압인 펌프(다단 펌프 또는 고속운전 펌프)의 최소유량 관리",
+        "motorPowerCriteria": "펌프구동모터 동력 18.5 kW 이상 시 콘트롤밸브 권장",
+        "failMode": "Fail open"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-039",
+      "equipmentName": "저유량경보(FAL, Flow alarm low)",
+      "specifications": {
+        "setPoint": "펌프의 최소유량에 해당되는 양",
+        "application": "설계유량 2.5 m³/hr 이상 단일 사용처 자동공급 펌프 또는 감소운전 용량이 최소유량 이상인 펌프에 적용 시 최소유량배관 생략 가능"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-040",
+      "equipmentName": "자동 재순환밸브(ARC, Automatic recirculation valve)",
+      "specifications": {
+        "structure": "스프링으로 작동되는 체크밸브와 변동하는 콘트롤밸브를 조합한 밸브",
+        "application": "보일러급수 및 응축수 계통, 화학물질 서비스, 탄화수소 계통",
+        "operatingCharacteristic": "펌프 토출측 유량이 최소유량으로 떨어지면 바이패스 포트 개방",
+        "advantage": "펌프 전체 운전범위에서 안정적 작동, 저유량 2대 이상 병렬 운전 시 유용"
+      },
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-041",
+      "equipmentName": "On/off 밸브(최소유량 바이패스용)",
+      "specifications": {
+        "application": "최소유량배관에 오리피스와 함께 설치",
+        "operatingCondition": "펌프 토출측 유량이 최소유량으로 떨어지면 완전개방",
+        "limitation": "최소권장유량이 설계유량의 30% 이하일 경우에만 사용",
+        "caution": "완전개방 및 완전차단 시 수충격(Hydraulic shock) 발생 가능"
+      },
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-042",
+      "equipmentName": "자동조절밸브(최소유량 바이패스용)",
+      "specifications": {
+        "application": "화학공정에서 가장 널리 사용되는 최소유량 조절 방식",
+        "operatingCondition": "펌프 토출측 배관 유량이 최소유량에 도달하면 자동 개방",
+        "parallelOperation": "2대 동시 운전 시 최소유량 2배 설정",
+        "alternativeUse": "유체에 고체 성분 포함 시 ARC 밸브 대체"
+      },
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-063",
+      "equipmentName": "펌프 흡입배관",
+      "specifications": {
+        "recommendedVelocity": "1.5 m/s 이하",
+        "velocity_25mm_water": "0.50 m/s",
+        "velocity_50mm_water": "0.50 m/s",
+        "velocity_100mm_water": "0.55 m/s",
+        "velocity_150mm_water": "0.60 m/s",
+        "velocity_200mm_water": "0.75 m/s",
+        "velocity_250mm_water": "0.90 m/s",
+        "velocity_300mm_water": "1.40 m/s",
+        "velocity_300mm_over_water": "1.50 m/s",
+        "straightPipeLength": "최소 배관지름의 4배 이상",
+        "gradient": "펌프측이 높도록 1/100 정도의 구배 상향배관"
+      },
+      "sourceSection": "6.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-064",
+      "equipmentName": "펌프 토출배관",
+      "specifications": {
+        "recommendedVelocity": "3 m/s 이하",
+        "velocity_25mm_water": "1.00 m/s",
+        "velocity_50mm_water": "1.10 m/s",
+        "velocity_100mm_water": "1.25 m/s",
+        "velocity_150mm_water": "1.50 m/s",
+        "velocity_200mm_water": "1.75 m/s",
+        "velocity_250mm_water": "2.00 m/s",
+        "velocity_300mm_water": "2.65 m/s",
+        "velocity_300mm_over_water": "3.00 m/s"
+      },
+      "sourceSection": "6.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-065",
+      "equipmentName": "펌프 수축관(Reducer)",
+      "specifications": {
+        "suctionLift": "수축관의 상부가 평평한 상태가 되도록 설치하여 기포가 상부에 고이지 않도록 설치",
+        "pressurizedSuction": "수축관의 하부가 평평한 상태가 되도록 설치하여 액체가 하부에 고이지 않도록 설치"
+      },
+      "sourceSection": "6.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-066",
+      "equipmentName": "펌프 기초",
+      "specifications": {
+        "loadCapacity_motorDirect": "기계중량의 3배 이상",
+        "loadCapacity_engineDirect": "기계중량의 5배 이상",
+        "foundationDepth_general": "500 mm 이상",
+        "foundationDepth_coldRegion": "700~1000 mm 이상",
+        "requirement": "동결 깊이보다 깊게 설치"
+      },
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "ES-D64-067",
+      "equipmentName": "스트레이너",
+      "specifications": {
+        "type_3inch_above_process": "T타입",
+        "type_3inch_above_nonProcess": "바스켓 타입",
+        "type_2inch_below": "Y타입",
+        "purpose": "이물질 유입으로 인한 펌프손상 방지"
+      },
+      "sourceSection": "6.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-068",
+      "equipmentName": "펌프 승온(Warming up) 기준",
+      "specifications": {
+        "temperatureRiseRate": "2 ℃/min 이내",
+        "suddenTemperatureChange": "50 ℃ 이내",
+        "casingTopBottomTempDiff": "20~30 ℃ 이내",
+        "liquidCasingSurfaceTempDiff": "30 ℃ 이내",
+        "applicableCondition": "운전온도 120 ℃ 초과 유체"
+      },
+      "sourceSection": "6.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-069",
+      "equipmentName": "펌프 승온 유체 주입량 기준",
+      "specifications": {
+        "suctionDiameter_40_100mm": "0.6 m³/hr",
+        "suctionDiameter_150mm": "1.0 m³/hr",
+        "suctionDiameter_200mm": "1.3 m³/hr",
+        "suctionDiameter_250_300mm": "2.0 m³/hr"
+      },
+      "sourceSection": "6.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D64-070",
+      "equipmentName": "차단밸브 이중설치 기준",
+      "specifications": {
+        "singleValve": "ANSI 900 lb 미만",
+        "doubleValve": "ANSI 900 lb 이상",
+        "doubleValve_globeType": "ANSI 1500 lb 이상 (Y타입-글로브밸브)",
+        "purpose": "기밀유지"
+      },
+      "sourceSection": "6.3",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-D64-031",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "펌프 시운전 점검표",
+      "requiredSections": [
+        "축정렬(Alignment) 확인",
+        "체결 및 고정 상태",
+        "베어링 윤활유 점검",
+        "모터 회전방향 확인",
+        "냉각수·실링오일 배관 점검",
+        "동결방지조치 확인",
+        "마중물(Priming) 확인",
+        "토출밸브 개폐상태"
+      ],
+      "sourceSection": "6.4",
+      "relatedSR": null
+    }
+  ]
+}

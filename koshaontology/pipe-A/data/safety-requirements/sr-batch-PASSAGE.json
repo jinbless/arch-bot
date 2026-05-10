@@ -1,0 +1,450 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T09:00:00Z",
+    "batchId": "sr-batch-PASSAGE",
+    "totalSafetyRequirements": 10
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-PASSAGE-001",
+      "title": "통로 조명 75럭스 이상 확보",
+      "text": "사업주는 근로자가 안전하게 통행할 수 있도록 통로에 75럭스 이상의 채광 또는 조명시설을 설치하여야 한다. 다만, 갱도 또는 상시 통행하지 않는 지하실 등에서는 휴대용 조명기구를 사용하도록 한 경우 이를 갈음할 수 있다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제21조"],
+      "mandatedBy": ["NS-RULE21-0"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "조도", "condition": ">=", "value": 75, "unit": "lux", "source": "제21조 본문"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-002",
+      "title": "안전한 통로 설치 및 유지관리",
+      "text": "사업주는 작업장으로 통하는 장소 또는 작업장 내에 안전한 통로를 설치하고 항상 사용할 수 있는 상태로 유지하여야 하며, 통로의 주요 부분에 통로표시를 하여 근로자가 안전하게 통행할 수 있도록 하여야 한다. 또한 통로면으로부터 높이 2미터 이내에는 장애물이 없도록 하여야 하며, 부득이한 경우에는 부상 등의 위험을 방지하기 위한 안전 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제22조"],
+      "mandatedBy": ["NS-RULE22-0", "NS-RULE22-1", "NS-RULE22-2", "NS-RULE22-3"],
+      "addressesHazard": ["FALL", "STRUCK_BY"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "통로 상부 여유높이", "condition": ">=", "value": 2, "unit": "m", "source": "제22조 제3항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-003",
+      "title": "가설통로 구조기준 준수",
+      "text": "사업주는 가설통로를 설치하는 경우 견고한 구조로 하고, 경사는 30도 이하로 하여야 하며, 경사가 15도를 초과하는 경우에는 미끄러지지 않는 구조로 하여야 한다. 추락 위험이 있는 장소에는 안전난간을 설치하고, 수직갱에 가설된 통로의 길이가 15미터 이상인 경우에는 10미터 이내마다 계단참을, 건설공사에 사용하는 높이 8미터 이상인 비계다리에는 7미터 이내마다 계단참을 설치하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제23조"],
+      "mandatedBy": ["NS-RULE23-0"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "가설통로 경사", "condition": "<=", "value": 30, "unit": "도", "source": "제23조 제2호"},
+          {"parameter": "미끄럼방지 경사기준", "condition": ">", "value": 15, "unit": "도", "source": "제23조 제3호"},
+          {"parameter": "수직갱 통로 계단참 간격", "condition": "<=", "value": 10, "unit": "m", "source": "제23조 제5호"},
+          {"parameter": "수직갱 통로 길이", "condition": ">=", "value": 15, "unit": "m", "source": "제23조 제5호"},
+          {"parameter": "비계다리 높이", "condition": ">=", "value": 8, "unit": "m", "source": "제23조 제6호"},
+          {"parameter": "비계다리 계단참 간격", "condition": "<=", "value": 7, "unit": "m", "source": "제23조 제6호"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-004",
+      "title": "사다리식 통로 구조기준 준수",
+      "text": "사업주는 사다리식 통로를 설치하는 경우 견고한 구조로 하고, 심한 손상이나 부식이 없는 재료를 사용하며, 발판 간격은 일정하게 하여야 한다. 발판과 벽 사이는 15센티미터 이상, 폭은 30센티미터 이상으로 하고, 사다리의 상단은 걸쳐놓은 지점으로부터 60센티미터 이상 올라가도록 하며, 기울기는 75도 이하로 하여야 한다. 길이가 10미터 이상인 경우에는 5미터 이내마다 계단참을 설치하고, 고정식 사다리식 통로의 기울기는 90도 이하로 하되 높이가 7미터 이상인 경우에는 등받이울 또는 개인용 추락 방지 시스템을 설치하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제24조"],
+      "mandatedBy": ["NS-RULE24-0", "NS-RULE24-1"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "발판과 벽 사이 간격", "condition": ">=", "value": 15, "unit": "cm", "source": "제24조 제1항 제4호"},
+          {"parameter": "사다리 폭", "condition": ">=", "value": 30, "unit": "cm", "source": "제24조 제1항 제5호"},
+          {"parameter": "사다리 상단 돌출 높이", "condition": ">=", "value": 60, "unit": "cm", "source": "제24조 제1항 제7호"},
+          {"parameter": "사다리식 통로 계단참 간격", "condition": "<=", "value": 5, "unit": "m", "source": "제24조 제1항 제8호"},
+          {"parameter": "사다리식 통로 길이", "condition": ">=", "value": 10, "unit": "m", "source": "제24조 제1항 제8호"},
+          {"parameter": "사다리식 통로 기울기", "condition": "<=", "value": 75, "unit": "도", "source": "제24조 제1항 제9호"},
+          {"parameter": "고정식 사다리 기울기", "condition": "<=", "value": 90, "unit": "도", "source": "제24조 제1항 제9호 단서"},
+          {"parameter": "고정식 사다리 추락방지 높이", "condition": ">=", "value": 7, "unit": "m", "source": "제24조 제1항 제9호 단서"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-005",
+      "title": "갱내 통로 권상장치 접촉 위험 방지",
+      "text": "사업주는 갱내에 설치한 통로 또는 사다리식 통로에 권상장치가 설치된 경우, 권상장치와 근로자의 접촉에 의한 위험이 있는 장소에 판자벽이나 그 밖의 위험 방지를 위한 격벽을 설치하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제25조"],
+      "mandatedBy": ["NS-RULE25-0"],
+      "addressesHazard": ["CAUGHT_IN"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-006",
+      "title": "계단 및 계단참 강도·안전율 기준",
+      "text": "사업주는 계단 및 계단참을 설치하는 경우 매제곱미터당 500킬로그램 이상의 하중에 견딜 수 있는 강도를 가진 구조로 설치하여야 하며, 안전율은 4 이상으로 하여야 한다. 또한 계단 및 승강구 바닥을 구멍이 있는 재료로 만드는 경우에는 렌치나 그 밖의 공구 등이 낙하할 위험이 없는 구조로 하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제26조"],
+      "mandatedBy": ["NS-RULE26-0", "NS-RULE26-1"],
+      "addressesHazard": ["FALL", "COLLAPSE"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "계단 하중", "condition": ">=", "value": 500, "unit": "kg/m2", "source": "제26조 제1항"},
+          {"parameter": "안전율", "condition": ">=", "value": 4, "unit": "배", "source": "제26조 제1항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-007",
+      "title": "계단 폭 1m 이상 확보 및 장애물 금지",
+      "text": "사업주는 계단을 설치하는 경우 그 폭을 1미터 이상으로 하여야 하며, 계단에 손잡이 외의 다른 물건 등을 설치하거나 쌓아 두어서는 아니 된다. 다만, 급유용·보수용·비상용 계단 및 나선형 계단이거나 높이 1미터 미만의 이동식 계단인 경우에는 폭 기준을 적용하지 않는다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제27조"],
+      "mandatedBy": ["NS-RULE27-0", "NS-RULE27-2"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "계단 폭", "condition": ">=", "value": 1, "unit": "m", "source": "제27조 제1항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-008",
+      "title": "높이 3m 초과 계단 계단참 설치",
+      "text": "사업주는 높이가 3미터를 초과하는 계단에 높이 3미터 이내마다 진행방향으로 길이 1.2미터 이상의 계단참을 설치하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제28조"],
+      "mandatedBy": ["NS-RULE28-0"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "계단 높이", "condition": ">", "value": 3, "unit": "m", "source": "제28조 본문"},
+          {"parameter": "계단참 간격", "condition": "<=", "value": 3, "unit": "m", "source": "제28조 본문"},
+          {"parameter": "계단참 길이", "condition": ">=", "value": 1.2, "unit": "m", "source": "제28조 본문"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-009",
+      "title": "계단 바닥면 높이 2m 이내 장애물 제거",
+      "text": "사업주는 계단을 설치하는 경우 바닥면으로부터 높이 2미터 이내의 공간에 장애물이 없도록 하여야 한다. 다만, 급유용·보수용·비상용 계단 및 나선형 계단인 경우에는 이 기준을 적용하지 않는다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제29조"],
+      "mandatedBy": ["NS-RULE29-0"],
+      "addressesHazard": ["STRUCK_BY"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "계단 상부 여유높이", "condition": ">=", "value": 2, "unit": "m", "source": "제29조 본문"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PASSAGE-010",
+      "title": "높이 1m 이상 계단 개방측면 안전난간 설치",
+      "text": "사업주는 높이 1미터 이상인 계단의 개방된 측면에 안전난간을 설치하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제30조"],
+      "mandatedBy": ["NS-RULE30-0"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "계단 높이", "condition": ">=", "value": 1, "unit": "m", "source": "제30조 본문"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}

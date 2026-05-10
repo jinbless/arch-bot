@@ -1,0 +1,554 @@
+{
+  "metadata": {
+    "guideCode": "D-5-2012",
+    "shortCode": "D5",
+    "title": "화학공정의 시스템 디자인 크라이테리어에 관한 기술지침 (System design criteria)",
+    "totalPages": 25,
+    "pdfPath": "kosha-guides/C/D-5-2012 화학공정의 시스템 디자인 크라이테리어에 관한 기술지침.pdf",
+    "parsedAt": "2026-04-12T00:00:00+09:00",
+    "parsedBy": "step2-text-extraction v2.0",
+    "tocSections": [
+      {"sectionNumber": "1", "title": "목적", "startPage": 1},
+      {"sectionNumber": "2", "title": "적용범위", "startPage": 1},
+      {"sectionNumber": "3", "title": "정의", "startPage": 1},
+      {"sectionNumber": "4", "title": "시스템 엔지니어링", "startPage": 2},
+      {"sectionNumber": "4.1", "title": "배관 크기 선정 기준", "startPage": 2},
+      {"sectionNumber": "4.2", "title": "펌프의 헤드 계산", "startPage": 2},
+      {"sectionNumber": "4.3", "title": "최소우회흐름(Minimum flow bypass)", "startPage": 3},
+      {"sectionNumber": "4.4", "title": "배관 리스트(Line list)", "startPage": 3},
+      {"sectionNumber": "5", "title": "공정장치 설계 기준", "startPage": 3},
+      {"sectionNumber": "5.1", "title": "압력용기", "startPage": 3},
+      {"sectionNumber": "5.1.1", "title": "설계 압력", "startPage": 3},
+      {"sectionNumber": "5.1.2", "title": "설계 온도", "startPage": 4},
+      {"sectionNumber": "5.2", "title": "탱크(Tank)", "startPage": 4},
+      {"sectionNumber": "5.2.1", "title": "설계압력", "startPage": 4},
+      {"sectionNumber": "5.2.2", "title": "설계 온도", "startPage": 4},
+      {"sectionNumber": "5.3", "title": "열교환기", "startPage": 5},
+      {"sectionNumber": "5.3.1", "title": "설계압력", "startPage": 5},
+      {"sectionNumber": "5.3.2", "title": "설계온도", "startPage": 6},
+      {"sectionNumber": "5.4", "title": "펌프 후단시스템 설계압력", "startPage": 6},
+      {"sectionNumber": "6", "title": "배관 설계", "startPage": 6},
+      {"sectionNumber": "6.1", "title": "개요", "startPage": 6},
+      {"sectionNumber": "6.2", "title": "설계 온도와 압력", "startPage": 7},
+      {"sectionNumber": "7", "title": "공정배관계장도(P&ID) 설계", "startPage": 7},
+      {"sectionNumber": "7.1", "title": "일반사항", "startPage": 7},
+      {"sectionNumber": "7.1.1", "title": "타이틀블록(Title block) 및 범례도(Legend)", "startPage": 7},
+      {"sectionNumber": "7.1.2", "title": "장치 설명", "startPage": 7},
+      {"sectionNumber": "7.1.3", "title": "배관 번호", "startPage": 8},
+      {"sectionNumber": "7.2", "title": "공정배관계장도(P&ID) 작성 절차", "startPage": 9},
+      {"sectionNumber": "7.3", "title": "계장(Instrument)", "startPage": 9},
+      {"sectionNumber": "7.4", "title": "조절밸브 매니폴드(Manifold)", "startPage": 10},
+      {"sectionNumber": "7.5", "title": "펌프와 압축기의 매니폴드", "startPage": 10},
+      {"sectionNumber": "7.6", "title": "벤트, 드레인, 스팀아웃 및 퍼지", "startPage": 12},
+      {"sectionNumber": "7.7", "title": "단열 (Insulation)", "startPage": 14},
+      {"sectionNumber": "7.8", "title": "트레이싱(Tracing)", "startPage": 14},
+      {"sectionNumber": "7.9", "title": "샘플 연결부(Sample connection)", "startPage": 14},
+      {"sectionNumber": "7.10", "title": "배관사양 구분(Piping specification break)", "startPage": 15},
+      {"sectionNumber": "7.11", "title": "플랜트의 경계(Battery limit)와 헤더(Header) 차단밸브", "startPage": 17},
+      {"sectionNumber": "7.12", "title": "분배도면(Distribution drawing)", "startPage": 17},
+      {"sectionNumber": "7.13", "title": "밸브 적용", "startPage": 18},
+      {"sectionNumber": "8", "title": "유틸리티", "startPage": 19},
+      {"sectionNumber": "부록 1", "title": "펌프의 헤드 계산법", "startPage": 21},
+      {"sectionNumber": "부록 2", "title": "차단밸브와 바이패스밸브 호칭지름", "startPage": 23}
+    ]
+  },
+  "sections": [
+    {
+      "sectionNumber": "cover",
+      "sectionTitle": "표지 및 개요",
+      "pages": [1, 2],
+      "text": "KOSHA GUIDE D-5-2012\n\n화학공정의 시스템 디자인 크라이테리어에 관한 기술지침 (System design criteria)\n\n2012. 7\n\n한국산업안전보건공단\n\n안전보건기술지침의 개요\n\nO 작성자 : 서울산업대학교 안전공학과 이영순 교수\nO 개정자 : 이 정 석\n\nO 제 · 개정 경과\n  - 2009년 8월 화학안전분야 기준제정위원회 심의\n  - 2012년 7월 총괄 제정위원회 심의(개정, 법규개정조항 반영)\n\nO 관련 규격 및 자료\n  - KOSHA GUIDE 공정배관계장도 작성지침\n  - KOSHA GUIDE 상압저장탱크 공정설계 기술지침\n  - KOSHA GUIDE 화학설비 등의 공정설계지침\n  - 국·내외 엔지니어링 설계 매뉴얼\n\nO 관련법규\n  - 산업안전보건기준에 관한 규칙 제2장 4절(화학설비·압력용기 등)\n\nO 적용 및 문의\n  이 기술지침에 대한 의견 또는 문의는 한국산업안전보건공단 홈페이지 안전보건기술지침 소관 분야별 문의처 안내를 참고하시기 바랍니다.\n\n공표일자: 2012년 7월 18일\n제 정 자: 한국산업안전보건공단 이사장",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "1",
+      "sectionTitle": "목적",
+      "pages": [1, 1],
+      "text": "본 지침은 화학설비에 대한 공정 설계 및 그 부속설비에 대한 설계 기준을 제공하여 보다 안전하고 효율적인 화학공장의 상세 설계를 위한 기술지침을 제시하고자 한다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "2",
+      "sectionTitle": "적용범위",
+      "pages": [1, 1],
+      "text": "이 지침은 화학설비 및 그 부속설비에 적용한다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "3",
+      "sectionTitle": "정의",
+      "pages": [1, 2],
+      "text": "(1) 이 지침에서 사용되는 용어의 정의는 다음과 같다.\n\n(가) \"공정배관계장도(P&ID, Piping & Instrument Diagram)\"라 함은 공정의 시운전(Start-up operation), 정상운전(Normal operation), 운전정지(Shut down), 및 비상운전(Emergency operation) 시에 필요한 모든 공정장치, 동력기계, 배관, 공정제어 및 계기 등을 표시하고 이들 상호간에 연관 관계를 나타내 주며 상세설계, 건설, 변경, 유지보수 및 운전 등을 하는 데 필요한 기술적 정보를 파악 할 수 있는 도면을 말한다.\n\n(나) \"최대운전압력(Maximum operating pressure)\"이라 함은 정상운전 중에 최대로 올라갈 수 있는 압력을 말한다.\n\n(다) \"최대운전온도(Maximum operating temperature)\"라 함은 정상운전 중에 최대로 올라갈 수 있는 온도를 말한다.\n\n(라) \"유효양정(Net positive suction head)\"이라 함은 펌프가 설치되어 사용될 때, 펌프 그 자체와는 무관하게 흡입 측의 배관 또는 시스템에 따라서 정하여지는 값으로 펌프 흡입구 중심까지 유입되어 들어오는 액체에 외부로부터 주어지는 압력을 절대압력으로 나타낸 값에서 그 온도에서의 액체의 포화 증기압을 뺀 것을 유효양정이라 한다.\n\n(2) 그 밖에 이 지침에서 사용하는 용어의 정의는 특별한 규정이 있는 경우를 제외하고는 「산업안전보건법」, 같은 법 시행령, 같은 법 시행규칙 및 산업안전보건기준에 관한 규칙에서 정하는 바에 의한다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "4",
+      "sectionTitle": "시스템 엔지니어링",
+      "pages": [2, 3],
+      "text": "",
+      "tables": [],
+      "images": [],
+      "subsections": [
+        {
+          "sectionNumber": "4.1",
+          "sectionTitle": "배관 크기 선정 기준",
+          "pages": [2, 2],
+          "text": "(1) 배관지지대(Pipe rack) 위로 설치되는 배관의 최소 호칭지름은 50 mm(2 inch)이다.\n\n(2) 배관은 호칭지름 20 mm(3/4 inch) 이상을 사용한다. 단, 벤트, 드레인과 계기 연결부위는 제외한다.\n\n(3) 물질수지에서 나타난 유량은 배관 호칭지름을 설정을 위해 정상상태로 표시한다.\n\n(4) 최고공정유량은 정상상태의 110 %로 하며 최저흐름은 공정사양이나 공정흐름도(Process flow diagram)에서 보여주지 않는 한 50 %로 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "4.2",
+          "sectionTitle": "펌프의 헤드 계산",
+          "pages": [2, 2],
+          "text": "펌프의 헤드 계산은 <부록 1> 펌프의 헤드 계산법에 따른다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "4.3",
+          "sectionTitle": "최소우회흐름(Minimum flow bypass)",
+          "pages": [3, 3],
+          "text": "최소우회흐름을 결정할 때 다음을 고려하여야 한다.\n\n(가) 최소우회흐름의 필요조건은 펌프 제작자가 지정한다.\n\n(나) 설계유량(Rated flow)은 보통 최소우회유량을 고려하여 증량하지 않는다.\n\n(다) 최소우회흐름은 펌프 토출 측으로부터 펌프 흡입측 용기로 돌아간다.\n\n(라) 최소우회흐름 배관의 수동밸브는 자물쇠형으로 늘 개방되어 있어야한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "4.4",
+          "sectionTitle": "배관 리스트(Line list)",
+          "pages": [3, 3],
+          "text": "배관 리스트는 공정배관계장도(P&ID)와 같이 작성한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "sectionNumber": "5",
+      "sectionTitle": "공정장치 설계 기준",
+      "pages": [3, 6],
+      "text": "",
+      "tables": [],
+      "images": [],
+      "subsections": [
+        {
+          "sectionNumber": "5.1",
+          "sectionTitle": "압력용기",
+          "pages": [3, 6],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "5.1.1",
+              "sectionTitle": "설계 압력",
+              "pages": [3, 4],
+              "text": "(1) 최대운전압력이 게이지 압력으로 7 MPa(70 kgf/㎠) 이하인 공정용기의 설계압력은 아래의 수치 중 가장 큰 것으로 한다.\n\n  - 최대 운전 압력 + 180 kPa(1.8 kgf/㎠)\n  - 최대 운전 압력 x 1.1\n  - 350 kPa(3.5 kgf/㎠) (설계를 고려한 최소값)\n\n(2) 최대운전압력이 게이지 압력으로 7 MPa(70 kgf/㎠)를 초과하는 공정용기의 설계 압력은 아래의 수치 중 큰 것으로 한다.\n\n  - 최대 운전 압력 + 700 kPa(7 kgf/㎠)\n  - 최대 운전 압력 x 1.05\n\n(3) 진공 하에서 운전되는 경우에는 완전 진공에서 견딜 수 있도록 설계하여야 한다.\n\n(가) 압축기의 인입 측의 용기나 증기의 응축이 일어나는 용기 또는 용기 내의 액체의 방출로 진공이 발생하는 용기 등은 완전 진공에서 견딜 수 있도록 설계한다.\n\n(나) 반응설비는 반응의 특별한 조건에 견딜 수 있도록 설계하여야 하며, 가열로(Furnace) 또한 특별한 운전조건을 고려하여 설계할 필요가 있다.\n\n(다) 플레어 스택(Flare stack)으로 가는 압력방출시스템이 있는 용기는 플레어 크기를 줄이기 위하여 최소설계압력을 350 kPa(3.5 kgf/㎠)로 할 것을 고려한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "5.1.2",
+              "sectionTitle": "설계 온도",
+              "pages": [4, 4],
+              "text": "(1) 설계온도는 최고운전온도에 30 ℃를 더한 값으로 한다.\n\n(2) 액화가스 설비와 같이 운전온도가 20 ℃ 이하에서 운전되는 용기는 대기압에서 압력강하로 인해 발생하는 온도 하락의 위험에 대비하기 위하여 최저운전온도를 설계온도로 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "5.2",
+          "sectionTitle": "탱크(Tank)",
+          "pages": [4, 5],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "5.2.1",
+              "sectionTitle": "설계압력",
+              "pages": [4, 4],
+              "text": "(1) 통기관이 설치된 고정식 지붕탱크의 설계압력은 양압 750 Pa(0.0076 kgf/㎠), 진공압력 250 Pa(0.0025 kgf/㎠) 이내로 한다.\n\n(2) 불활성가스 봉입시설이 설치된 고정식 지붕탱크의 설계압력은 양압 2,000 Pa(0.0204 kgf/㎠), 진공압력 600 Pa(0.0061 kgf/㎠) 이내로 한다.\n\n(3) 부유식 지붕탱크의 설계압력은 양압 2,000 Pa(0.0204 kgf/㎠), 진공압력 250 Pa(0.0025 kgf/㎠)이내로 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "5.2.2",
+              "sectionTitle": "설계 온도",
+              "pages": [4, 5],
+              "text": "(1) 저장물질의 온도에 30 ℃를 더한 값으로 한다.\n\n(2) 스팀을 사용하여 상압저장탱크를 청소할 필요가 있는 경우에는 설계온도를 120 ℃로 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "5.3",
+          "sectionTitle": "열교환기",
+          "pages": [5, 6],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "5.3.1",
+              "sectionTitle": "설계압력",
+              "pages": [5, 5],
+              "text": "(1) 정상운전압력이 7 MPa(70 kgf/㎠) 이하인 경우 열교환기의 설계압력은 아래의 수치 중 가장 큰 것으로 한다.\n\n  - 최고운전압력 + 180 kPa(1.8 kgf/㎠)\n  - 최고운전압력 x 1.1\n  - 520 kPa(5.3 kgf/㎠) (TEMA 기준, 최소 설계압력)\n\n(2) 정상운전압력이 7 MPa(70 kgf/㎠) 초과인 경우 열교환기의 설계압력은 아래의 수치 중 큰 것으로 한다.\n\n  - 최고운전압력 + 700 kPa(7 kgf/㎠)\n  - 최고운전압력 x 1.05\n\n(3) 원심펌프의 토출 측에 열교환기가 설치되는 경우 열교환기의 설계압력은 원심펌프의 차단압력(Shut-off)을 계산하고 이를 고려하여야 한다.\n\n(가) 전기로 구동되는 원심펌프의 차단압력은 최고흡입압력에 120 %의 정상 양정(Normal differential head)을 더하여 구한다.\n\n(나) 증기터빈으로 움직이는 펌프의 경우 최고흡입압력에 145 %의 정상 양정을 더하여 구한다.\n\n(다) 진공으로 운전되는 용기의 양압은 350 kPa(3.5 kgf/㎠)이고, 음압은 완전 진공으로 설계한다.\n\n(라) 냉각수를 사용하는 열교환기의 경우 냉각수 측의 설계압력은 냉각수 시스템의 설계압력과 공정 측의 설계압력의 2/3 중 큰 수치로 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "5.3.2",
+              "sectionTitle": "설계온도",
+              "pages": [6, 6],
+              "text": "(1) 열교환기의 설계온도는 열교환기 인입부에서의 최고운전온도에 30 ℃를 더한 값으로 한다.\n\n(2) 열교환기의 냉각수의 설계온도는 90 ℃로 한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "5.4",
+          "sectionTitle": "펌프 후단시스템 설계압력",
+          "pages": [6, 6],
+          "text": "(1) 펌프 후단시스템에 안전밸브 없이 차단밸브만 설치된 장치는 펌프의 차단압력 또는 최고운전 흡입압력에서 펌프의 최소 유량 압력보다 높은 설계압력을 적용하여야 한다.\n\n(가) 모터로 움직이는 원심펌프의 차단(Shut-off)압력은 최고흡입압력에 설계(Rated) 양정(Differential head)의 125 % 값을 더하여 적용한다.\n\n(나) 증기터빈으로 움직이는 펌프의 경우 설계(Rated)유량에서 펌프의 최고 양정에 145 % 값을 더하여 적용한다.\n\n(다) 펌프가 최종 선종이 되고 차단압력을 확인되면 이를 장치 설계에 반영하여야 한다.\n\n(2) 만약 펌프 차단압력이 계산값보다 크다면 펌프후단시스템의 설계압력은 증가되어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "sectionNumber": "6",
+      "sectionTitle": "배관 설계",
+      "pages": [6, 7],
+      "text": "",
+      "tables": [],
+      "images": [],
+      "subsections": [
+        {
+          "sectionNumber": "6.1",
+          "sectionTitle": "개요",
+          "pages": [6, 6],
+          "text": "(1) 배관은 가장 가혹한 공정 조건으로 설계하여야 한다.\n\n(2) 배관 재질은 유체의 운전 조건, 부식성 등을 고려하여 선정한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "6.2",
+          "sectionTitle": "설계 온도와 압력",
+          "pages": [7, 7],
+          "text": "(1) 배관의 설계온도는 그 배관이 연결된 장치의 설계온도와 같다.\n\n(2) 배관의 설계압력은 아래의 수치 중 가장 큰 것으로 한다.\n\n  - 배관과 연결된 장치의 설계압력\n  - 시스템의 보호를 위해 설치된 안전밸브의 설정치\n  - 펌프 토출 측의 배관(차단밸브에 의해 차단될 수 있는 경우)은 펌프의 차단압력. 단, 전기로 구동되는 원심펌프의 차단압력은 최고흡입압력에 125 %의 정상 양정을 더하여 구한다. 증기터빈으로 움직이는 펌프의 경우, 최고흡입압력에 145 %의 정상 양정을 더하여 구한다.\n  - 정상운전압력 + 180 kPa(1.8 kgf/㎠) 또는 정상운전압력 x 1.1 또는 350 kPa(3.5 kgf/㎠) 중 큰 수치\n  - 대기압 이하로 운전될 경우 양압은 350 kPa(3.5 kgf/㎠) 음압은 완전진공으로 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "sectionNumber": "7",
+      "sectionTitle": "공정배관계장도(P&ID) 설계",
+      "pages": [7, 18],
+      "text": "",
+      "tables": [],
+      "images": [],
+      "subsections": [
+        {
+          "sectionNumber": "7.1",
+          "sectionTitle": "일반사항",
+          "pages": [7, 8],
+          "text": "",
+          "tables": [],
+          "images": [],
+          "subsections": [
+            {
+              "sectionNumber": "7.1.1",
+              "sectionTitle": "타이틀블록(Title block) 및 범례도(Legend)",
+              "pages": [7, 7],
+              "text": "(1) 타이틀 블록은 각 공정배관계장도마다 사용된다.\n\n(2) 범례도에는 계기류(Instrumentation), 부호(Symbol), 도면의 색인 등을 표시한다.",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "7.1.2",
+              "sectionTitle": "장치 설명",
+              "pages": [7, 8],
+              "text": "(1) 공정배관계장도(P&ID)는 장치에 대한 정보를 아래와 같이 제공한다.\n\n고유번호(Tag No.)\n장치 이름\n설계압력(kgf/㎠ G)과 설계온도(℃)\n열교환기 -전열 용량\n펌프-설계용량(Rated capacity) 및 설계동력\n용기 크기 (지름 x 길이)",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            },
+            {
+              "sectionNumber": "7.1.3",
+              "sectionTitle": "배관 번호",
+              "pages": [8, 8],
+              "text": "(1) 배관 번호는 정해진 규칙에 따라 부여하여야 한다.\n\n(가) 배관 호칭지름\n  - 배관, 밸브, 노즐의 호칭지름을 표기한다.\n\n배관번호 체계: 4\" - P - 10 01 - AAA - BB - ST\n  ► 트레이싱종류\n  ► 단열종류\n  ► 재질명세\n  ► 일련번호\n  ► 단위공정(공장)번호\n  ► 유체의 종류\n  ► 호칭지름(inch 혹은 mm)\n\n(나) 단열과 트레이싱\n  - 단열의 목적에 따라 아래와 같이 나타낸다.\n    P : Personnel protection\n    H : Heat conservation\n    C : Cold insulation\n  - 트레이싱의 종류에 따라 아래와 같이 나타낸다.\n    ET : Electrical tracing\n    ST : Steam tracing",
+              "tables": [],
+              "images": [],
+              "subsections": []
+            }
+          ]
+        },
+        {
+          "sectionNumber": "7.2",
+          "sectionTitle": "공정배관계장도(P&ID) 작성 절차",
+          "pages": [9, 9],
+          "text": "(1) 설치된 예비장치(Stand-by equipment)를 포함한 모든 장치와 노즐을 표시한다.\n\n(2) 모든 벤트 및 드레인의 크기와 위치를 표시한다.\n\n(3) 용기, 계장, 배관의 모든 종류의 단열(보온, 보냉, 운전자보호) 및 트레이싱(Heat tracing)을 표시한다.\n\n(4) 모든 조절밸브의 밸브구동기(Valve actuator)를 포함한 제어계통, 정전과 같은 이상 시 밸브의 개폐 위치(Fail position) 등을 표시한다.\n\n(5) 센서, 조절기, 지시계, 기록계, 경보계 등을 포함한 제어 계통을 표시한다.\n\n(6) 공기 또는 전기 등 신호라인(Signal line)을 표시한다.\n\n(7) 모든 배관 및 다트와 유체의 흐름방향 등을 표시한다.\n\n(8) 안전밸브의 크기, 설정압력 및 토출 측 연결부위의 조건을 표시한다.\n\n(9) 비정상운전 및 안전운전을 위한 연동시스템을 표시한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.3",
+          "sectionTitle": "계장(Instrument)",
+          "pages": [9, 9],
+          "text": "(가) 긴급차단시스템은 표시되어 있어야 한다.\n\n(나) 안전에 관련된 연동장치(Interlock)는 독립된 시스템으로 구성되어야 하고, 고장 시 밸브의 개폐 위치(Fail position)가 안전한 위치로 되도록 설계하여야 한다.(Fail safe)\n\n(다) 현장 제어루프(Local control loop)는 공압식(Pneumatic)이다.\n\n(라) 조절밸브(Control valve)는 공압조절기를 포함하고 있어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.4",
+          "sectionTitle": "조절밸브 매니폴드(Manifold)",
+          "pages": [10, 10],
+          "text": "(1) 조절밸브의 매니폴드 설계 테이블(부록 2)을 참조하여 바이패스밸브와 차단밸브의 크기를 선정한다.\n\n(2) 조절밸브가 배관보다 두 치수 이상 작을 경우 차단밸브와 바이패스밸브의 치수를 분석하여야 한다.\n\n(3) 다만 아래 조건일 경우 배관과 같은 치수의 차단밸브와 바이패스밸브를 사용한다.\n\n(가) 증발이 일어나거나 부피 팽창으로 인하여 원래 배관의 용량이 요구될 때\n\n(나) 작은 조절밸브가 있는 중력흐름(Gravity flow)일 때\n\n(다) 추후 확장이 요구될 때\n\n(라) 큰 압력손실로 인해 공동현상(Cavitation)이 우려될 때 확장(Expansion) 연결구를 조절밸브 출구 쪽에 설치한다.\n\n(마) 20 mm(3/4 inch.) 블리드밸브(Bleed valve)는 조절밸브의 전단에 <그림 1>처럼 설치한다.",
+          "tables": [],
+          "images": [
+            {
+              "imageNumber": "그림 1",
+              "caption": "블리드 밸브 매니폴드",
+              "description": "조절밸브 전단에 20mm(3/4inch) 블리드밸브가 설치된 매니폴드 배관 다이어그램",
+              "page": 10
+            }
+          ],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.5",
+          "sectionTitle": "펌프와 압축기의 매니폴드",
+          "pages": [10, 12],
+          "text": "(1) 펌프의 노즐 호칭지름을 알기 전에 밸브의 견적이 이뤄진다면, 펌프 흡입 측의 밸브와 토출 측의 밸브는 배관의 호칭지름과 동일하게 한다.\n\n(2) 펌프의 노즐 호칭지름을 알고 난 뒤에 밸브의 견적이 이뤄진다면, 펌프 흡입 측의 밸브와 토출 측의 밸브는 펌프 노즐과 같은 호칭지름으로 한다.\n\n(가) 펌프노즐과 배관의 호칭지름과 한 호칭지름 차이라면, 펌프 흡입 측의 밸브는 둘 중 큰 쪽으로 하고, 펌프 토출 측의 밸브는 작은 쪽으로 한다.\n\n(나) 펌프 흡입 측과 토출 측의 노즐이 배관의 지름보다 한 호칭지름 이상 다르다면, 밸브는 배관호칭지름보다 한 호칭지름 작은 것으로 한다.\n\n(다) 펌프 노즐이 배관 호칭지름보다 두 호칭지름 이상 작다면, 배관의 호칭지름이 적합한 지 또는 경제적인 측면에서 배관 호칭지름밸브와 단일 스웨지(Swage) 대 두 개의 스웨지와 한 호칭지름 작은 밸브를 고려해야 한다.\n\n(라) 펌프 노즐이 배관 호칭지름보다 두 호칭지름 이상 크다면, 배관 호칭지름을 점검하여야 한다. 토출부의 체크밸브와 차단밸브는 같은 호칭지름으로 하여야 한다.\n\n(3) 펌프와 압축기는 스트레이너와 함께 설치하여야 한다.\n\n(4) 최소 압축기의 흡입 배관은 최소 배관 지름의 3 배 길이의 직선 배관으로 설치하여야 한다.\n\n(5) 왕복동식 압축기의 흡입 측과 토출측에 맹판(Spectacle blind)을 설치하여야 한다.\n\n(6) 모든 열교환기의 유입부와 출구부에 온도측정장치를 설치한다.\n\n(7) 수냉식 열교환기의 물 배관 및 밸브는 <그림 2>처럼 설치한다.",
+          "tables": [],
+          "images": [
+            {
+              "imageNumber": "그림 2",
+              "caption": "수냉식 열교환기 주변 배관 및 밸브",
+              "description": "수냉식 열교환기의 냉각수 배관 및 밸브 배치도. PSV, 3/4\" 및 1\" 밸브, 냉각수 회수라인 및 공급라인 표시. 글로브밸브(Globe valve)는 4\" 이하, 게이트밸브(Gate valve)는 6\" 이상.",
+              "page": 12
+            }
+          ],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.6",
+          "sectionTitle": "벤트, 드레인, 스팀아웃 및 퍼지",
+          "pages": [12, 13],
+          "text": "(1) 수직 용기(Vertical vessel)의 드레인은 출구 배관의 바닥에 설치하여야 한다.\n\n(2) 스팀아웃 연결부는 수평 드럼(Horizontal drum)의 상단 또는 측면이나 수직 용기(Vertical vessel)의 하단부의 씸(Seam) 위의 최소 거리에 설치하여야 한다.\n\n(3) 퍼지연결부는 스팀아웃 연결부와 같은 규칙에 따른다.\n\n(4) 스팀아웃 또는 질소 퍼지는 50 mm(2 inch) 이상의 배관에 설치하여야 한다. 퍼지 배관의 2중 차단, 체크, 블라인드, 블리드(Bleed)는 공정 배관의 연결을 위해 설치하여야 한다.\n\n(5) 용기의 퍼지를 위한 퍼지배관에는 2 중 차단밸브, 제거 가능한 스풀과 벤트가 설치되어야 한다.\n\n(6) 벤트는 타워(Tower)나 수직 용기의 꼭대기에 설치하여야 한다. 수평 용기의 경우 벤트는 드레인과 같은 끝부분과 스팀아웃의 반대 끝부분의 꼭대기에 설치하여야 한다. 모든 벤트는 밸브와 블라인드 또는 캡으로 마감하여야 한다.\n\n(7) 칼럼이나 용기의 벤트, 드레인, 스팀아웃과 퍼지 연결 사이즈는 <표 1> 에 따른다.\n\n(8) 독성물질을 함유한 타워(Tower)의 모든 드레인은 이중차단을 하여야 한다.\n\n(9) 배관 시스템에서 벤트와 드레인은 <표 2>에 따른다. 운전을 위한 것이 아니거나 수압시험용 벤트와 드레인은 공정배관계장도(P&ID)에 표시하지 않는다.",
+          "tables": [
+            {
+              "tableNumber": "표 1",
+              "caption": "장치의 벤트, 드레인, 스팀아웃과 퍼지 사이즈",
+              "content": "| 장치의 부피 (m³) | 벤트 호칭지름 (mm) | 드레인 호칭지름 (mm) | 스팀아웃과 퍼지 호칭지름 (mm) |\n|---|---|---|---|\n| ~ 5.6 | 40(1 1/2\") | 40(1 1/2\") | 40(1 1/2\") |\n| 5.6 ~ 17 | 40(1 1/2\") | 50(2\") | 40(1 1/2\") |\n| 17 ~ 71 | 50(2\") | 80(3\") | 40(1 1/2\") |\n| 71 ~ | 80(3\") | 100(4\") | 40(1 1/2\") |",
+              "page": 13
+            },
+            {
+              "tableNumber": "표 2",
+              "caption": "배관의 벤트 및 드레인 사이즈",
+              "content": "| 배관 호칭지름 (mm) | 벤트 호칭지름 (mm) | 드레인 호칭지름 (mm) |\n|---|---|---|\n| 20(3/4\") ~ 100(4\") | 20(3/4\") | 20(3/4\") |\n| 150(6\") ~ 254(10\") | 20(3/4\") | 25(1\") |\n| 300(12\") ~ | 25(1\") | 40(1 1/2\") |",
+              "page": 13
+            }
+          ],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.6-continued",
+          "sectionTitle": "벤트, 드레인, 스팀아웃 및 퍼지 (계속)",
+          "pages": [13, 13],
+          "text": "(10) 80 mm(3 inch.)보다 작은 모든 벤트와 드레인은 캡을, 80 mm(3 inch.)보다 큰 벤트와 드레인은 맹판을 설치한다.\n\n(11) 상압저장탱크에는 과압 방지를 위하여 벤트, 일류(Overflow), 두 개의 최고 수위 경보(High level alarm) 또는 차단(Shutdown) 시스템과 API 과압방지기(Overpressure protection)를 설치하여야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.7",
+          "sectionTitle": "단열 (Insulation)",
+          "pages": [14, 14],
+          "text": "(1) 보통 65 ℃ 이상으로 운전되고 열 보전을 위한 단열이 없는 배관과 장치의 표면은 운전자보호를 위한 단열을 한다.\n\n(2) 단열 두께는 단열 시방서에 따른다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.8",
+          "sectionTitle": "트레이싱(Tracing)",
+          "pages": [14, 14],
+          "text": "(1) 트레이싱은 응축을 방지하거나 결빙으로부터 배관을 보호하거나 요구하는 수준의 액체 점도를 유지하기 위해 준비되어야 한다. 온도는 유동점이나 어는점보다 6 ℃ 이상이고 기포점(Bubble point) 이하이어야 한다.\n\n(2) 유지되어야 하는 온도는 배관 리스트의 비고란에 표기하여야 한다.\n\n(3) 전기트레이싱(Electric tracing)은 결빙방지를 위해, 증기트레이싱(Steam tracing)은 공정상의 이유로 사용한다.\n\n(4) 운전온도가 215 ℃를 넘을 경우 전기 트레이싱은 사용하지 않는다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.9",
+          "sectionTitle": "샘플 연결부(Sample connection)",
+          "pages": [14, 15],
+          "text": "샘플 연결부는 <그림 3>과 같이 설치한다.",
+          "tables": [],
+          "images": [
+            {
+              "imageNumber": "그림 3",
+              "caption": "샘플 연결부",
+              "description": "샘플 연결부 배관 다이어그램. 상단: 샘플 냉각기가 설치되지 않은 경우 (3/4\" 및 1/2\" S.C 밸브). 하단: 샘플 냉각기가 설치된 경우 (SERVICE WATER 공급, 3/4\" 및 5℃ ET 트레이싱, 열교환기, OWS 배출, SP 포함).",
+              "page": 15
+            }
+          ],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.10",
+          "sectionTitle": "배관사양 구분(Piping specification break)",
+          "pages": [15, 16],
+          "text": "(1) 공정압력이 스팀이나 유틸리티의 압력보다 높은 경우 또는 위험물질의 누설이 있는 경우 공정 장치의 유틸리티 서비스의 영구적인 연결은 허용되지 않는다. 모든 배관을 설치하고, 드롭-아웃 스풀(Drop-out spool)과 스너핑 스팀(Snuffing steam)과 스팀아웃(Steam out)과 질소 퍼지를 위한 연결부는 제외이다.\n\n(2) 스팀 또는 유틸리티 압력이 공정압력보다 높은 경우\n\n(3) 체크밸브가 있거나 혹은 없는 일반적인 구분의 경우\n\n(4) 타이-인 연결(Tie-in connection)\n  타이-인 연결은 공정배관계장도에 단위공정 번호(Unit no.) 와 타이-인 번호(Tie-in no.)를 명기한 6각형을 의미하며, 타이-인(Tie-in)은 플랜트의 경계(Battery limit)를 표현한다.",
+          "tables": [],
+          "images": [
+            {
+              "imageNumber": "그림 4",
+              "caption": "배관 사양 구분 표시(1)",
+              "description": "공정압력이 스팀/유틸리티 압력보다 높은 경우의 배관사양 구분 표시. 드롭-아웃 스풀, UTILITY SPECS와 PROCESS SPECS 경계 표시.",
+              "page": 15
+            },
+            {
+              "imageNumber": "그림 5",
+              "caption": "배관 사양 구분 표시(2)",
+              "description": "스팀 또는 유틸리티 압력이 공정압력보다 높은 경우의 배관사양 구분 표시. 공정규격이 부식성 규격인 경우 포함. 드롭-아웃 스풀, UTILITY SPECS와 PROCESS SPECS 경계 표시.",
+              "page": 16
+            },
+            {
+              "imageNumber": "그림 6",
+              "caption": "배관 사양 구분 표시(3)",
+              "description": "체크밸브가 있는 일반적인 구분의 경우. HIGHER SPECS와 LOWER SPECS 경계 표시.",
+              "page": 16
+            },
+            {
+              "imageNumber": "그림 7",
+              "caption": "배관 사양 구분 표시(4)",
+              "description": "체크밸브가 없는 일반적인 구분의 경우. HIGHER SPECS와 LOWER SPECS 경계 표시.",
+              "page": 16
+            },
+            {
+              "imageNumber": "그림 8",
+              "caption": "타이-인(Tie-in) 연결 표시",
+              "description": "단위공정 번호와 타이-인 번호를 명기한 6각형 기호를 이용한 타이-인 연결 표시 다이어그램.",
+              "page": 16
+            }
+          ],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.11",
+          "sectionTitle": "플랜트의 경계(Battery limit)와 헤더(Header) 차단밸브",
+          "pages": [17, 17],
+          "text": "(1) 플랜트 경계(Battery limit)를 지나는 배관에는 보통 맹판(Spectacle blind)과 경계 차단밸브를 설치하여야 한다. 20 mm(3/4 inch) 블리드 밸브는 경계의 안쪽에 설치하여야 한다.\n\n(2) 유틸리티를 위한 헤더(Header) 차단 규칙\n\n(가) 스팀 : 모든 공급 헤더와 사용처(User branch)를 위한 차단밸브를 설치하여야 한다. 터빈의 입구와 배출밸브(Exhaust valve)는 헤더가 아닌 터빈에 설치하여야 한다.\n\n(나) 응축수 : 헤더에 차단밸브를 설치하여야 한다.\n\n(다) 냉각수 : 헤더에 차단밸브는 설치하지 않는다. 차단밸브는 각 장치의 배관에 설치하여야 한다.\n\n(라) 질소 : 헤더에 차단밸브를 설치하여야 한다.\n\n(마) 계장용 공기(Instrument air) 와 유틸리티 공기 : 헤더에 차단밸브를 설치하여야 한다.\n\n(바) 서비스 용수(Service water) : 헤더에 차단밸브를 설치하여야 한다.\n\n(사) 모든 서비스(Service) : 헤더에 차단밸브를 설치하여야 한다.",
+          "tables": [],
+          "images": [
+            {
+              "imageNumber": "그림 9",
+              "caption": "플랜트의 경계",
+              "description": "Battery limit(B.L) 표시와 경계 차단밸브 및 3/4\" 블리드 밸브가 설치된 배관 다이어그램.",
+              "page": 17
+            }
+          ],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.12",
+          "sectionTitle": "분배도면(Distribution drawing)",
+          "pages": [17, 18],
+          "text": "(1) 플레어나 지상 드레인을 포함하는 유틸리티의 분배도면은 장치의 배치도와 근접한 배관 지지대를 나타내도록 분류하여야 한다.\n\n(2) 도면은 플랜트 구분에 의해 필요에 따라 나뉘야 한다. 공정 연결 배관과 단위공정의 차단은 공정의 공정배관계장도에 직접적으로 나타내어야 한다.\n\n(3) 경계와 플레어 설비와 공정 배관과 공유 영역에서 배관은 공정 연결도면에서 나타내어진다.\n\n(4) 한 도면에서 다른 도면으로 연결되는 배관의 표시는 관련된 범례도에 따른다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "7.13",
+          "sectionTitle": "밸브 적용",
+          "pages": [18, 19],
+          "text": "(1) <표 3>은 적당한 타입의 밸브를 선택하는 기술지침이다. 부식성 유체나 큰 압력손실 같은 특별한 서비스를 필요로 하는 경우에는 개별적으로 평가해야 한다.\n\n(2) 잠금 밸브 : 운전 중 밸브가 안전상의 이유로 열려져 있거나 닫혀져 있어야 하는 경우, 자물쇠형 개방(Locked open) 혹은 자물쇠형 잠금(Locked closed)으로 표시한다.",
+          "tables": [
+            {
+              "tableNumber": "표 3",
+              "caption": "밸브 사양 가이드",
+              "content": "| valve | symbol | note |\n|---|---|---|\n| GATE | (기호) | |\n| GLOBE | (기호) | 보통 12.7mm(1/2\") ~ 6(150\") |\n| CHECK | (기호) | |\n| NEEDLE | (기호) | 샘플 연결에 사용. |\n| BALL | (기호) | 유틸리티스테이션의 공기나 질소 라인 그리고 연료가스 라인 |\n| BUTTERFLY | (기호) | 냉각수 라인 : 6mm(150) ~ 762(30\") |",
+              "page": 19
+            }
+          ],
+          "images": [],
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "sectionNumber": "8",
+      "sectionTitle": "유틸리티",
+      "pages": [19, 20],
+      "text": "(1) 스팀, 용수, 공기를 위한 유틸리티 스테이션은 공장에서 편리한 위치에 설치하여야 한다.",
+      "tables": [],
+      "images": [
+        {
+          "imageNumber": "그림 11",
+          "caption": "유틸리티 스테이션",
+          "description": "유틸리티 스테이션 배관 다이어그램. UTILITY AIR, SERVICE WATER, LP STEAM, NITROGEN 헤더로부터 각 사용처에 1 1/2\" 및 3/4\" 밸브를 통해 분배. BALL VALVES 및 HOSE COUPLINGS(BY CUSTOMER) 포함.",
+          "page": 20
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "부록 1",
+      "sectionTitle": "펌프의 헤드 계산법",
+      "pages": [21, 22],
+      "text": "1. 펌프의 수압(Hydraulic) 계산 내역에 포함될 사항은 다음과 같다.\n\n(가) 펌프를 포함한 배관 스케치\n\n(나) 유체의 물성치의 결정\n\n(다) 펌프의 정상(Normal)운전조건과 설계(Rating)운전조건의 토출압력 계산\n\n(라) 펌프의 설계 운전조건에서의 허용유효양정(NPSHa) 계산\n\n(마) 원심펌프의 경우 예상 펌프성능곡선\n\n(바) 펌프 드라이버(Driver) 시방 결정\n\n2. 펌프 수압 계산 절차\n\n(1) 펌프의 설계(Rated) 용량은 정상운전유량의 통상 115 %로 하며 최소한 110 % 이상으로 한다.\n\n(2) 도달압력은 유체가 펌프를 통해 공급되는 용기 또는 탱크의 최고운전압력을 말한다. 여기서 최고운전압력은 설계압력을 의미하지 않는다.\n\n(사) 배관 손실은 배관 부속품, 밸브 등의 압력 손실과 배관에서의 압력손실을 모두 더한 값이다.\n\n(아) 유량계에서의 압력손실은 13.8 kPa(2 psi)로 간주한다.\n\n(자) 열교환기에서의 압력손실은 정상운전유량의 압력손실에 (설계유량/정상운전유량)²을 곱하여 적용한다.\n\n(차) 조절밸브의 압력손실은 계산값과 103.4 kPa(15 psi) 중 큰 값으로 한다.\n\n(카) 펌프의 토출압력은 도달압력, 배관손실, 유량계의 압력손실, 열교환기의 압력손실, 조절밸브의 압력손실, 그리고 기타손실의 합계이다.\n\n3. 펌프의 허용유효양정\n\n(1) 펌프의 허용유효양정은 KOSHA GUIDE (화학설비 등의 공정설계지침)에 따라 계산한다.\n\n(2) 펌프는 어느 경우에도 시스템에서의 허용유효양정이 펌프의 제작자가 요구하는 유효양정(NPSHr)보다 커야 한다.\n\n(3) 펌프의 허용유효양정은 다음과 같이 계산한다.\n\nNPSHa = H_p + H_z - H_vp - H_f\n\n여기서,\nNPSHa : 허용유효양정 (m)\nH_p : 펌프흡입측용기에서 유체의 압력에 상응하는 양정 (m)\nH_z : 펌프흡입측으로부터의 유체의 최소높이에 상응하는 양정 (m)\nH_vp : 유체의 흡입측 온도에서의 증기압에 상응하는 양정 (m)\nH_f : 펌프 흡입 배관에서의 압력손실에 상응하는 양정 (m)",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "부록 2",
+      "sectionTitle": "차단밸브와 바이패스밸브 호칭지름",
+      "pages": [23, 25],
+      "text": "조절밸브의 매니폴드(Manifold)의 밸브들은 <표 4> 호칭지름을 따른다.",
+      "tables": [
+        {
+          "tableNumber": "표 4",
+          "caption": "조절밸브의 매니폴드(Manifold)의 밸브",
+          "content": "| 조절밸브 (Control Valve) mm | 배관 호칭지름 (Line size) mm | 차단밸브 호칭지름 (Block Valve size) mm | 바이패스밸브호칭지름 (By-pass Valve size) mm |\n|---|---|---|---|\n| 20(3/4\") | 20(3/4\") | 20(3/4\") | 20(3/4\") |\n| 20(3/4\") | 25(1\") | 25(1\") | 25(1\") |\n| 20(3/4\") | 40(1 1/2\") | 40(1 1/2\") | 25(1\") |\n| 20(3/4\") | 2, 3, 4 | 50(2\") | 25(1\") |\n| 25(1\") | 25(1\") | 25(1\") | 25(1\") |\n| 25(1\") | 40(1 1/2\") | 40(1 1/2\") | 40(1 1/2\") |\n| 25(1\") | 2, 3, 4 | 50(2\") | 40(1 1/2\") |\n| 40(1 1/2\") | 1 1/2 | 40(1 1/2\") | 40(1 1/2\") |\n| 40(1 1/2\") | 2, 3, 4 | 50(2\") | 40(1 1/2\") |\n| 50(2\") | 50(2\") | 50(2\") | 50(2\") |\n| 50(2\") | 80, 100, 150 (3\", 4\", 6\") | 80(3\") | 80(3\") |\n| 63(2 1/2\") | 80, 100, 150 (3\", 4\", 6\") | 80(3\") | 80(3\") |\n| 80(3\") | 80(3\") | 80(3\") | 80(3\") |\n| 80(3\") | 100, 150, 200 (4\", 6\", 8\") | 100(4\") | 100(4\") |\n| 100(4\") | 100(4\") | 100(4\") | 100(4\") |\n| 100(4\") | 150, 200, 254 (6\", 8\", 10\") | 150(6\") | 150(6\") |\n| 150(6\") | 150, 200, 254, 300 (6\", 8\", 10\", 12\") | 150(6\") | 150(6\") |\n| 150(6\") | 150(6\") | 150(6\") | 150(6\") |\n| 150(6\") | 200, 254, 300 (8\", 10\", 12\") | 200(8\") | 200(8\") |\n| 200(8\") | 200(8\") | 200(8\") | 200(8\") |\n| 200(8\") | 254, 300 (10\", 12\") | 254(10\") | 254(10\") |\n| 254(10\") | 254(10\") | 254(10\") | 254(10\") |\n| 254(10\") | 300, 350 (12\", 14\") | 300(12\") | 300(12\") |",
+          "page": 23
+        }
+      ],
+      "images": [],
+      "subsections": []
+    }
+  ]
+}

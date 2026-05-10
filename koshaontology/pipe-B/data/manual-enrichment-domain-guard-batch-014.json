@@ -1,0 +1,5767 @@
+{
+  "schema_version": "codex_manual_pilot.v1",
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "asserted_mapping_updates": 0,
+  "review_status": "candidate",
+  "scope": {
+    "batch_id": "domain_guard_manual_batch_014",
+    "guide_count": 30,
+    "source": "pipe-B/data/ci-output plus pipe-B/data/guide-inventory.json",
+    "selection_policy": "inventory order excluding prior manual batches",
+    "purpose": "Guide domain/profile guard enrichment without external API calls"
+  },
+  "policies": {
+    "external_api_used": false,
+    "candidate_table_ready": true,
+    "auto_asserted_promotion": false,
+    "max_confidence_for_manual_sr_link": 0.86,
+    "notes": [
+      "Generated locally from extracted Guide JSON.",
+      "Candidate rows require global audit before import.",
+      "Rows must not be promoted to asserted mapping tables from this report.",
+      "Evidence spans are copied from guide titles, WorkProcess names, DomainTerm terms, or extracted WorkProcess/Checklist text.",
+      "SR candidates are conservative and must be imported as candidates only."
+    ],
+    "asserted_mapping": "disabled",
+    "sr_candidates": "candidate_only",
+    "min_evidence": "at least one extracted source span per candidate",
+    "runtime_intent": "generalized guide domain guard and scoring boundary"
+  },
+  "guides": [
+    {
+      "guide_code": "C-C-25-2026",
+      "short_code": "CC25",
+      "title": "회분식공정의 인적오류 사고 방지에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC25.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "batch_process_human_error_abnormal_operation",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "회분식공정",
+          "인적오류",
+          "오조작",
+          "원료 투입",
+          "적하",
+          "시료 채취",
+          "불활성가스",
+          "블로우 다운 탱크"
+        ],
+        "evidence": "회분식공정에서 오조작과 같은 인적오류에 의한 화재폭발사고를 예방하기 위해 작업표준과 상호체크를 요구한다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.88,
+          "evidence": "원료 투입, 적하 작업, 시료 채취 작업 등 화학공정 작업단계가 중심이다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.86,
+          "evidence": "오조작과 같은 인적오류에 의한 화재폭발사고를 예방한다.",
+          "source_fields": [
+            "checklistItems.text",
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "sr_id": "SR-CHEMICAL-011",
+          "confidence": 0.78,
+          "evidence": "이상 반응 시 원료의 긴급 제거, 반응 억제제, 블로우 다운 탱크를 준비한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-049",
+          "confidence": 0.8,
+          "evidence": "온도계 및 연속식 기록계, 단계별 경보장치로 이상 상태를 조기에 파악한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-050",
+          "confidence": 0.74,
+          "evidence": "주의·경계 단계별 경보장치와 작업자 상호 체크로 오조작을 방지한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.82,
+          "evidence": "시료 채취 시 대전방지 작업복·작업화 착용, 제전봉 제전, 금속재 도구 접지를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.68,
+          "evidence": "작업표준과 흐름도·체크리스트를 작성하고 역할을 나누어 상호체크한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "trigger_text": "회분식 반응기 원료 투입",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "원료 투입 전 이중 확인과 상호 체크를 요구한다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-25-2026",
+          "guide_code": "C-C-25-2026",
+          "trigger_text": "블로우 다운 탱크와 경보 온도계",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "블로우 다운 탱크, 온도계 및 연속식 기록계가 제시된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "회분식공정",
+          "인적오류",
+          "오조작",
+          "원료 투입",
+          "적하",
+          "시료 채취",
+          "불활성가스",
+          "블로우 다운 탱크"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-26-2026",
+      "short_code": "CC26",
+      "title": "연료가스 배관의 사용전 작업의 위험관리에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC26.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "fuel_gas_piping_precommissioning_inerting_blowing",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "연료가스",
+          "직화식 가열기",
+          "기밀시험",
+          "블로잉",
+          "불활성가스 치환",
+          "가스감지기",
+          "폭발하한"
+        ],
+        "evidence": "연료가스 배관 사용 전 기밀시험, 배관 세척, 불활성가스 치환, 가스 블로우 배출을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.89,
+          "evidence": "연료가스 배관과 직화식 가열기 사용 전 작업의 화재 위험 관리가 중심이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.9,
+          "evidence": "연료가스 농도를 폭발하한의 10% 이하로 유지하고 가스감지기·경보기를 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-076",
+          "confidence": 0.9,
+          "evidence": "고압의 질소, 탄산가스 등 불활성가스로 기밀시험을 실시하고 교정 받은 압력계를 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.9,
+          "evidence": "실내 배출 시 충분한 환기, 배출구 근처 가스감지기와 경보기 설치, 폭발하한 10% 이하 유지를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.84,
+          "evidence": "가스 블로우 배출구 인근 사람이나 점화원이 존재하지 않도록 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-006",
+          "confidence": 0.72,
+          "evidence": "연료가스 사용 전 위험성평가와 폭발위험 관리를 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.68,
+          "evidence": "연료가스 농도 확인 및 점화원 관리를 요구하는 폭발위험 작업장 맥락이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "trigger_text": "연료가스 배관 블로잉",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.88,
+          "evidence": "배관 세척(블로잉)과 가스 블로우 작업을 다룬다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-26-2026",
+          "guide_code": "C-C-26-2026",
+          "trigger_text": "가스감지기 및 경보기",
+          "cue_type": "equipment",
+          "confidence": 0.9,
+          "evidence": "실내 연료가스 농도 지속 확인, 폭발하한 10% 초과 시 경보.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "연료가스",
+          "직화식 가열기",
+          "기밀시험",
+          "블로잉",
+          "불활성가스 치환",
+          "가스감지기",
+          "폭발하한"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-27-2026",
+      "short_code": "CC27",
+      "title": "공정안전 성과지표 작성에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC27.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "process_safety_performance_indicator_kpi",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "공정안전 성과지표",
+          "선행지표",
+          "후행지표",
+          "위험관리시스템",
+          "데이터 수집",
+          "보고"
+        ],
+        "evidence": "공정안전 성과지표 작성과 위험관리시스템의 성과 측정, 데이터 수집·보고 절차가 중심이다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-27-2026",
+          "guide_code": "C-C-27-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "공정안전 관리시스템과 위험관리시스템 성과지표 작성이 중심이다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-27-2026",
+          "guide_code": "C-C-27-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.74,
+          "evidence": "중대 산업사고 방지를 위한 위험관리 시스템과 후행지표를 다룬다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-27-2026",
+          "guide_code": "C-C-27-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.68,
+          "evidence": "관리자 또는 책임자 임명, 실행 팀 구성, 최고 경영진 지원 확보를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-27-2026",
+          "guide_code": "C-C-27-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.66,
+          "evidence": "측정 시스템 범위, 사고 시나리오, 위험요소 원인 확인 등 사전 계획 성격의 지표범위를 설정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-27-2026",
+          "guide_code": "C-C-27-2026",
+          "sr_id": "SR-WORKPLACE-017",
+          "confidence": 0.6,
+          "evidence": "이탈 경보 체계 구축을 포함하지만 현장 비상경보 설비와는 직접 동일시하지 않는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-27-2026",
+          "guide_code": "C-C-27-2026",
+          "trigger_text": "공정안전 성과지표표",
+          "cue_type": "document",
+          "confidence": 0.78,
+          "evidence": "선행지표와 후행지표를 설정하고 데이터 수집·보고 자료를 준비한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-27-2026",
+          "guide_code": "C-C-27-2026",
+          "trigger_text": "위험관리시스템 성과 모니터링",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.76,
+          "evidence": "위험관리 시스템 확인 및 선행/후행 지표 설정이 핵심이다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "공정안전 성과지표",
+          "선행지표",
+          "후행지표",
+          "위험관리시스템",
+          "데이터 수집",
+          "보고"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-28-2026",
+      "short_code": "CC28",
+      "title": "산화성 액체 및 고체의 안전관리에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC28.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "oxidizing_liquid_solid_storage_segregation_fire_control",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "산화성 액체",
+          "산화성 고체",
+          "산화제",
+          "혼재 불가능 물질",
+          "스프링클러",
+          "저장용기",
+          "이격"
+        ],
+        "evidence": "산화성 액체 및 고체의 저장·취급, 혼재 방지, 소화용수와 스프링클러, 방폭 전기설비를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.9,
+          "evidence": "산화성 액체·고체와 혼재 불가능 물질의 화학물질 저장·취급 기준이 중심이다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.9,
+          "evidence": "산화제는 다른 물질의 연소에 기여하며 소화용수, 스프링클러, 화재·폭발 예방관리를 요구한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "equipmentSpecs.specifications",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.88,
+          "evidence": "산화제와 인화성 물질·윤활유·혼재 불가능 물질 접촉을 방지하고 유출 방지 수단을 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.84,
+          "evidence": "소화용수 급수설비와 습식 자동스프링클러 설비를 저장 특성에 맞게 확보한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.83,
+          "evidence": "화재·폭발 예방 관리에서 방폭 전기설비 설치를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-018",
+          "confidence": 0.78,
+          "evidence": "전 지역 흡연 금지와 금연 표지 부착을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "sr_id": "SR-CHEMICAL-017",
+          "confidence": 0.84,
+          "evidence": "저장지역 등급 표시와 모든 저장용기 화학명 표시를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.72,
+          "evidence": "유독 증기 대비 보호구 착용 등 산화제 취급상 주의사항을 근로자에게 적용해야 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "sr_id": "SR-WORKPLACE-014",
+          "confidence": 0.8,
+          "evidence": "혼재 불가능 물질과 분리 저장하고 저장지역을 구분한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "trigger_text": "산화제 저장용기와 등급 표시",
+          "cue_type": "chemical_label",
+          "confidence": 0.88,
+          "evidence": "저장지역에 등급 표시, 모든 저장용기에 화학명 표시.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-28-2026",
+          "guide_code": "C-C-28-2026",
+          "trigger_text": "습식 스프링클러와 산화제 저장고",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "습식 스프링클러만 허용하고 대량 산화제 저장용 탱크 및 저장고를 둔다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "산화성 액체",
+          "산화성 고체",
+          "산화제",
+          "혼재 불가능 물질",
+          "스프링클러",
+          "저장용기",
+          "이격"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-29-2026",
+      "short_code": "CC29",
+      "title": "경고표지를 이용한 화학물질 관리에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC29.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "chemical_warning_label_hazard_communication",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "경고표지",
+          "화학물질",
+          "혼합물",
+          "용기",
+          "포장",
+          "MSDS",
+          "노출"
+        ],
+        "evidence": "화학물질 경고표지와 용기·포장 표시, 위험성평가, 유출방지, 작업환경 측정을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.88,
+          "evidence": "화학물질 등, 혼합물, 용기, 포장에 대한 경고표지 관리가 중심이다.",
+          "source_fields": [
+            "domainTerms.term",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.84,
+          "evidence": "화학물질 노출 작업자 및 작업시간 최소화와 작업환경 측정을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "sr_id": "SR-CHEMICAL-017",
+          "confidence": 0.9,
+          "evidence": "화학물질 명칭 및 취급 주의사항을 경고표지로 게시·관리하는 Guide이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.84,
+          "evidence": "화학물질 물리·화학적 특성과 취급상 주의사항을 파악하고 예방조치를 결정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "sr_id": "SR-CHEMICAL-010",
+          "confidence": 0.72,
+          "evidence": "화학물질 유출 가능성을 최소화하고 외부 유출 방지·제어 대책을 파악한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "sr_id": "SR-VENTILATION-001",
+          "confidence": 0.8,
+          "evidence": "완전 밀폐형 관리가 어렵거나 개방부가 필요한 곳에 국소배기설비를 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.68,
+          "evidence": "화학물질 취급 작업자 노출 최소화와 보호구 적용은 작업별 보호구 지급과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "trigger_text": "화학물질 경고표지",
+          "cue_type": "chemical_label",
+          "confidence": 0.9,
+          "evidence": "화학물질 등의 용기 및 포장에 붙이거나 인쇄하는 표지.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-29-2026",
+          "guide_code": "C-C-29-2026",
+          "trigger_text": "국소배기와 일반환기",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "개방이 필요한 부분에는 국소배기설비를 설치하고 작업장에 일반 환기설비를 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "경고표지",
+          "화학물질",
+          "혼합물",
+          "용기",
+          "포장",
+          "MSDS",
+          "노출"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-3-2025",
+      "short_code": "CC3",
+      "title": "물반응성 물질 및 인화성고체의 취급저장에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC3.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "water_reactive_flammable_solid_storage_metal_fire",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "물반응성 물질",
+          "인화성 고체",
+          "알칼리금속",
+          "리튬",
+          "나트륨",
+          "스프링클러 금지",
+          "건조분말"
+        ],
+        "evidence": "물반응성 물질과 인화성 고체의 물 접촉 방지, 건조 저장, 금속화재 소화제를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.9,
+          "evidence": "물반응성 물질과 인화성 고체를 저장·취급한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.9,
+          "evidence": "알칼리금속류 화재 소화와 물·포말소화제 금지 등 화재대응이 중심이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-002",
+          "confidence": 0.92,
+          "evidence": "물반응성 물질은 건조하고 내화시설이 된 저장실에 보관하고 빗물·지하수 침투와 물·수증기 배관을 금지한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.82,
+          "evidence": "금속화재용 건조분말·건조염화나트륨·건조소다회 등을 비치하고 물·포말 소화제를 금지한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.82,
+          "evidence": "본딩·접지와 밀봉 용기 사용을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.78,
+          "evidence": "금속 수소화물 취급·저장 시 방폭구조 전기설비를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "sr_id": "SR-WORKPLACE-014",
+          "confidence": 0.82,
+          "evidence": "지정 저장지역, 분리된 방 또는 건물, 가연성 용매 저장소와의 분리를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "trigger_text": "물반응성 물질 건조 저장",
+          "cue_type": "chemical_label",
+          "confidence": 0.88,
+          "evidence": "건조하고 내화시설이 된 저장실에 보관한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-3-2025",
+          "guide_code": "C-C-3-2025",
+          "trigger_text": "금속화재용 건조분말 소화제",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "MET-L-X, Na-X, G-1 등 금속화재용 분말 소화제를 제시한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "물반응성 물질",
+          "인화성 고체",
+          "알칼리금속",
+          "리튬",
+          "나트륨",
+          "스프링클러 금지",
+          "건조분말"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-30-2026",
+      "short_code": "CC30",
+      "title": "폭주반응 예방을 위한 열적 위험성평가에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC30.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "runaway_reaction_thermal_hazard_calorimetry_pressure_relief",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "폭주반응",
+          "열적 위험성평가",
+          "반응열량계",
+          "DSC",
+          "단열열량계",
+          "비상 압력완화시스템",
+          "안전밸브",
+          "파열판"
+        ],
+        "evidence": "폭주반응 예방을 위한 열적 위험성평가와 냉각실패 시나리오, 비상 압력완화시스템 설계를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.9,
+          "evidence": "화학반응공정의 열역학·속도론 특성과 분해반응을 평가한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.9,
+          "evidence": "폭주반응에 따른 온도·압력 상승과 비상 압력완화시스템을 다룬다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "sr_id": "SR-CHEMICAL-011",
+          "confidence": 0.88,
+          "evidence": "원료 공급 속도 제어, 비상 냉각, 급냉·범람·덤핑 설비 등 이상화학반응 대응조치를 설계한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-038",
+          "confidence": 0.64,
+          "evidence": "폭주 시 최대 압력과 최대 열방출 속도 기반의 안전밸브·파열판 등 비상 압력완화시스템을 설계한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.64,
+          "evidence": "안전밸브와 파열판을 병렬 또는 직렬 설치하는 압력완화시스템을 다룬다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-049",
+          "confidence": 0.64,
+          "evidence": "온도·압력 상승속도 등 안전 관련 변수를 확인하고 계측한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-050",
+          "confidence": 0.64,
+          "evidence": "경보시스템과 독립 냉각매체를 포함한 기술적 예방·비상조치를 설계한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "trigger_text": "반응열량계와 DSC",
+          "cue_type": "equipment",
+          "confidence": 0.9,
+          "evidence": "반응열량계, DSC, 단열열량계를 사용해 열적 안정성과 폭주 조건을 평가한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-30-2026",
+          "guide_code": "C-C-30-2026",
+          "trigger_text": "안전밸브·파열판 압력완화",
+          "cue_type": "equipment",
+          "confidence": 0.9,
+          "evidence": "비상 압력완화시스템은 안전밸브와 파열판을 병렬 또는 직렬 설치한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "폭주반응",
+          "열적 위험성평가",
+          "반응열량계",
+          "DSC",
+          "단열열량계",
+          "비상 압력완화시스템",
+          "안전밸브",
+          "파열판"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged. Semantic audit 2026-05-09: document/risk-method profile field-control SR candidates demoted to needs_review for review-only use; semantic candidate rows preserved."
+    },
+    {
+      "guide_code": "C-C-31-2026",
+      "short_code": "CC31",
+      "title": "화학공정 설비의 운전 및 작업에 관한 안전관리 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC31.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chemical_process_equipment_operation_abnormal_reaction_control",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "이상반응",
+          "열교환기",
+          "감압증류",
+          "반응기",
+          "공기압축기",
+          "안전밸브",
+          "차단밸브",
+          "질소"
+        ],
+        "evidence": "화학공정 설비 운전 중 열교환기 누설, 배관 혼합위험, 감압증류, 반응기, 압축기, 계기류 관리를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.9,
+          "evidence": "열교환기, 배관, 용매회수, 반응기, 활성탄 설비 등 화학공정 운전 절차가 중심이다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.86,
+          "evidence": "윤활유 탱크 질소 충전, 폭발성혼합물 생성 확인, 고온 보온재 인화성 액체 침투 방지 등 화재폭발 관리가 많다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "sr_id": "SR-CHEMICAL-011",
+          "confidence": 0.82,
+          "evidence": "반응기 운전에서 오조작 물질 혼입과 불순물 위험성을 사전조사하고 반응기·열교환기를 정기 검사한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.78,
+          "evidence": "해수 냉매 열교환기와 보온재·배관의 부식·침투 위험을 관리한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.84,
+          "evidence": "공기압축기 안전밸브를 최고사용압력 이하로 작동 유지한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-049",
+          "confidence": 0.82,
+          "evidence": "압력·온도·유량 상시 감시와 현장 계기류 지시값 정상 확인을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-050",
+          "confidence": 0.76,
+          "evidence": "흡착탑 온도 감시장치·경보장치와 중요 계기 이상 시 대응을 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-005",
+          "confidence": 0.72,
+          "evidence": "열교환기 개방 시 충분한 퍼지와 질소 충전을 요구하는 불활성화 맥락이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "trigger_text": "열교환기와 배관 혼합위험",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "열교환기 조작 및 배관 혼합위험 관리를 다룬다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-31-2026",
+          "guide_code": "C-C-31-2026",
+          "trigger_text": "반응기·감압증류 운전",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "반응기 운전 관리와 감압증류 운전 절차가 제시된다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "이상반응",
+          "열교환기",
+          "감압증류",
+          "반응기",
+          "공기압축기",
+          "안전밸브",
+          "차단밸브",
+          "질소"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-32-2026",
+      "short_code": "CC32",
+      "title": "화염방지기 설치 등에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC32.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "flame_arrester_vent_flammable_tank_deflagration_detonation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "화염방지기",
+          "폭연방지기",
+          "폭굉방지기",
+          "통기관",
+          "소염소자",
+          "액봉식 화염방지기",
+          "인화성 액체"
+        ],
+        "evidence": "인화성 액체·가스 저장취급 화학설비의 통기관과 배관에 설치하는 화염방지기를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-32-2026",
+          "guide_code": "C-C-32-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.92,
+          "evidence": "외부 화염 유입 방지용 화염방지기와 인화방지망이 핵심 장치다.",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-32-2026",
+          "guide_code": "C-C-32-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.9,
+          "evidence": "폭연·폭굉 등급과 폭발등급별 화염방지기 선정이 중심이다.",
+          "source_fields": [
+            "domainTerms.term",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-32-2026",
+          "guide_code": "C-C-32-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-045",
+          "confidence": 0.94,
+          "evidence": "인화성 액체 및 가스를 저장·취급하는 화학설비의 증기·가스 방출부에 화염방지기를 설치한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-32-2026",
+          "guide_code": "C-C-32-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-044",
+          "confidence": 0.84,
+          "evidence": "보호대상 화학설비의 통기관 끝단 또는 통기밸브와 설비 사이에 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-32-2026",
+          "guide_code": "C-C-32-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-006",
+          "confidence": 0.78,
+          "evidence": "최대 시험안전틈새에 따른 폭발등급을 고려해 화염방지기를 선정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-32-2026",
+          "guide_code": "C-C-32-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.72,
+          "evidence": "소염소자 막힘·부식·변형·파손 점검과 통기 확보를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-32-2026",
+          "guide_code": "C-C-32-2026",
+          "trigger_text": "통기관 끝단 화염방지기",
+          "cue_type": "equipment",
+          "confidence": 0.92,
+          "evidence": "보호대상 화학설비의 통기관 끝단에 설치를 권장한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-32-2026",
+          "guide_code": "C-C-32-2026",
+          "trigger_text": "소염소자 정기점검",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "소염소자는 매년 1회 이상 막힘, 부식, 변형, 파손 상태를 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "화염방지기",
+          "폭연방지기",
+          "폭굉방지기",
+          "통기관",
+          "소염소자",
+          "액봉식 화염방지기",
+          "인화성 액체"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-33-2026",
+      "short_code": "CC33",
+      "title": "건조설비 설치에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC33.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "drying_equipment_fire_explosion_ventilation_burner_interlock",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "건조설비",
+          "연소실",
+          "건조실",
+          "덕트",
+          "댐퍼",
+          "폭발구",
+          "배기설비",
+          "긴급차단밸브"
+        ],
+        "evidence": "건조설비의 설계·설치·운전, 점화 전 환기, 가연성가스 농도, 버너와 연료 배관 안전을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.92,
+          "evidence": "건조설비의 폭발·화재 예방 조치가 중심이다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.92,
+          "evidence": "폭발구, 배기설비, 가연성가스 농도 폭발한계 관리와 방폭설비를 다룬다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-059",
+          "confidence": 0.94,
+          "evidence": "건조설비 사용 시 내부 청소·환기, 가스·증기 배출, 냉각 후 보관 등 폭발·화재 예방 조치를 요구한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.88,
+          "evidence": "가연성가스 농도를 폭발한계 25% 이하로 유지하고 배기설비를 운전한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.78,
+          "evidence": "소화설비와 폭발구, 안전한 배출구 이격을 다룬다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-021",
+          "confidence": 0.66,
+          "evidence": "점화 전 환기와 화재예방 뒤처리 성격의 운전관리를 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.82,
+          "evidence": "방폭 전기설비 및 전기기계·기구 사용 조건이 건조설비 폭발위험장소와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.82,
+          "evidence": "연료 배관 등전위 접지를 요구한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "trigger_text": "건조설비 폭발구",
+          "cue_type": "equipment",
+          "confidence": 0.9,
+          "evidence": "건조설비 내부 부피 6.1 m³ 당 1 m²의 폭발구를 제시한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-33-2026",
+          "guide_code": "C-C-33-2026",
+          "trigger_text": "버너와 긴급차단밸브",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "버너 점화와 긴급차단밸브, 연료배관 설치 기준을 다룬다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "건조설비",
+          "연소실",
+          "건조실",
+          "덕트",
+          "댐퍼",
+          "폭발구",
+          "배기설비",
+          "긴급차단밸브"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-34-2026",
+      "short_code": "CC34",
+      "title": "사업장 소방대의 안전활동 기준에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC34.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "industrial_fire_brigade_emergency_response_scba_hose",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "사업장 소방대",
+          "초기소화활동",
+          "옥내소화활동",
+          "옥외소화",
+          "SCBA",
+          "방호복",
+          "소방차",
+          "훈련"
+        ],
+        "evidence": "사업장 소방대의 조직, 사고관리체계, 훈련, 초기·진전 화재 소화활동, SCBA와 방호복을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.9,
+          "evidence": "초기소화활동, 옥외소화, 옥내소화활동 등 화재대응이 중심이다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.82,
+          "evidence": "사고관리체계, 비상조치 한계, 외부기관 역할, 대원 대기 등 비상대응 절차가 중심이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.78,
+          "evidence": "초기소화와 옥외·옥내 소화활동에 소화기, 소화전 관창, 소방차 등 소방설비를 활용한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.82,
+          "evidence": "SCBA, 구조물 내부용 진화복, 방호복과 방호 덮개를 지급·착용한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "sr_id": "SR-WORKPLACE-017",
+          "confidence": 0.66,
+          "evidence": "사고관리체계와 비상조치 절차, 통신장비 점검 등 경보·연락 체계를 유지한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "sr_id": "SR-CONFINED-022",
+          "confidence": 0.68,
+          "evidence": "SCBA 팀 단위 운용과 정기 훈련·실제 소방훈련을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.68,
+          "evidence": "문서화된 조직규약, 관리책임자 임명, 위계질서 수립이 중심이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "trigger_text": "SCBA 착용 소방대",
+          "cue_type": "ppe",
+          "confidence": 0.88,
+          "evidence": "자급식 호흡장비와 방호복이 주요 장비로 제시된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-34-2026",
+          "guide_code": "C-C-34-2026",
+          "trigger_text": "소화전 관창과 소방차 점검",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "옥내·옥외소화전 관창과 소방장비·소방차 점검정비를 다룬다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "사업장 소방대",
+          "초기소화활동",
+          "옥내소화활동",
+          "옥외소화",
+          "SCBA",
+          "방호복",
+          "소방차",
+          "훈련"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-35-2026",
+      "short_code": "CC35",
+      "title": "정유 및 석유화학 공정의 핵심성과지표 활용에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC35.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "refinery_petrochemical_process_safety_kpi_incident_indicator",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "정유",
+          "석유화학",
+          "공정안전",
+          "성과지표",
+          "누출",
+          "압력방출장치",
+          "작업허가서",
+          "변경관리"
+        ],
+        "evidence": "정유 및 석유화학 공정의 공정안전 성과지표와 사고·누출·작업허가·변경관리 지표를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-35-2026",
+          "guide_code": "C-C-35-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.82,
+          "evidence": "화재·폭발 직접손실과 압력방출장치 방출량을 공정안전 지표로 판정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-35-2026",
+          "guide_code": "C-C-35-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.82,
+          "evidence": "정유·석유화학 공정의 화재·폭발·누출 지표와 공정안전 한계 이상 운전을 다룬다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-35-2026",
+          "guide_code": "C-C-35-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.68,
+          "evidence": "공정안전 성과지표 위원회를 운영하고 사상 트렌드와 약점을 안전관리 활동에 반영한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-35-2026",
+          "guide_code": "C-C-35-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.66,
+          "evidence": "공정안전 성과지표 데이터 수집과 사고 조사, 개선활동 계획 수립 성격의 관리절차다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-35-2026",
+          "guide_code": "C-C-35-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.62,
+          "evidence": "화재·폭발, 주요 누출, 압력방출장치 방출량 등 중대사고 지표를 판정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-35-2026",
+          "guide_code": "C-C-35-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.6,
+          "evidence": "압력방출장치 방출량과 PRD 작동 기록을 지표로 수집한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-35-2026",
+          "guide_code": "C-C-35-2026",
+          "trigger_text": "공정안전 KPI 대시보드",
+          "cue_type": "document",
+          "confidence": 0.78,
+          "evidence": "1급, 2급, 3급, 4급 지표 데이터를 수집·분류한다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-35-2026",
+          "guide_code": "C-C-35-2026",
+          "trigger_text": "정유·석유화학 누출지표",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.78,
+          "evidence": "주요 누출, 압력방출장치 방출, 작업허가서 준수정도를 평가한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "정유",
+          "석유화학",
+          "공정안전",
+          "성과지표",
+          "누출",
+          "압력방출장치",
+          "작업허가서",
+          "변경관리"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-36-2026",
+      "short_code": "CC36",
+      "title": "위험성평가에서의 체크리스트(Checklist) 기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC36.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "process_risk_assessment_checklist_method",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "체크리스트",
+          "위험성평가",
+          "검토구간",
+          "평가기준",
+          "조치계획"
+        ],
+        "evidence": "체크리스트 평가은 공정·설비 자료를 수집하고 위험성평가 결과, 개선권고, 후속조치를 문서화하는 분석기법 Guide이다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-36-2026",
+          "guide_code": "C-C-36-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.74,
+          "evidence": "공정설명, 공정도, MSDS, 운전절차, 정비절차 등 화학공정 자료를 평가 대상으로 삼는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-36-2026",
+          "guide_code": "C-C-36-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "팀 구성, 자료수집, 위험도 평가, 조치계획과 후속조치가 중심인 관리형 작업이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-36-2026",
+          "guide_code": "C-C-36-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.68,
+          "evidence": "자료수집, 평가기준 작성, 조치계획 수립 및 후속조치 등 사전조사·작업계획 성격의 절차다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-36-2026",
+          "guide_code": "C-C-36-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.66,
+          "evidence": "평가팀 구성, 책임부서 지정, 경영자 또는 사업주의 후속조치 확인이 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-36-2026",
+          "guide_code": "C-C-36-2026",
+          "trigger_text": "체크리스트 평가",
+          "cue_type": "document",
+          "confidence": 0.78,
+          "evidence": "체크리스트 평가 절차와 평가표·보고서를 작성한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-36-2026",
+          "guide_code": "C-C-36-2026",
+          "trigger_text": "위험성평가 조치계획",
+          "cue_type": "document",
+          "confidence": 0.76,
+          "evidence": "개선권고사항과 조치계획, 책임부서, 후속조치를 기록한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "체크리스트",
+          "위험성평가",
+          "검토구간",
+          "평가기준",
+          "조치계획"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-37-2026",
+      "short_code": "CC37",
+      "title": "연속공정의 위험과 운전분석(HAZOP) 기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC37.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "continuous_process_hazop_risk_assessment",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "HAZOP",
+          "위험과 운전분석",
+          "검토구간",
+          "가이드워드",
+          "이탈",
+          "개선권고"
+        ],
+        "evidence": "연속공정 HAZOP은 공정·설비 자료를 수집하고 위험성평가 결과, 개선권고, 후속조치를 문서화하는 분석기법 Guide이다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-37-2026",
+          "guide_code": "C-C-37-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.74,
+          "evidence": "공정설명, 공정도, MSDS, 운전절차, 정비절차 등 화학공정 자료를 평가 대상으로 삼는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-37-2026",
+          "guide_code": "C-C-37-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "팀 구성, 자료수집, 위험도 평가, 조치계획과 후속조치가 중심인 관리형 작업이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-37-2026",
+          "guide_code": "C-C-37-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.68,
+          "evidence": "자료수집, 평가기준 작성, 조치계획 수립 및 후속조치 등 사전조사·작업계획 성격의 절차다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-37-2026",
+          "guide_code": "C-C-37-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.66,
+          "evidence": "평가팀 구성, 책임부서 지정, 경영자 또는 사업주의 후속조치 확인이 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-37-2026",
+          "guide_code": "C-C-37-2026",
+          "trigger_text": "연속공정 HAZOP",
+          "cue_type": "document",
+          "confidence": 0.78,
+          "evidence": "연속공정 HAZOP 절차와 평가표·보고서를 작성한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-37-2026",
+          "guide_code": "C-C-37-2026",
+          "trigger_text": "위험성평가 조치계획",
+          "cue_type": "document",
+          "confidence": 0.76,
+          "evidence": "개선권고사항과 조치계획, 책임부서, 후속조치를 기록한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "HAZOP",
+          "위험과 운전분석",
+          "검토구간",
+          "가이드워드",
+          "이탈",
+          "개선권고"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-38-2026",
+      "short_code": "CC38",
+      "title": "사고예상질문분석(WHAT-IF)에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC38.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "what_if_process_risk_assessment",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "WHAT-IF",
+          "사고예상질문",
+          "검토구간",
+          "위험등급",
+          "조치계획"
+        ],
+        "evidence": "사고예상질문분석은 공정·설비 자료를 수집하고 위험성평가 결과, 개선권고, 후속조치를 문서화하는 분석기법 Guide이다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-38-2026",
+          "guide_code": "C-C-38-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.74,
+          "evidence": "공정설명, 공정도, MSDS, 운전절차, 정비절차 등 화학공정 자료를 평가 대상으로 삼는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-38-2026",
+          "guide_code": "C-C-38-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "팀 구성, 자료수집, 위험도 평가, 조치계획과 후속조치가 중심인 관리형 작업이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-38-2026",
+          "guide_code": "C-C-38-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.68,
+          "evidence": "자료수집, 평가기준 작성, 조치계획 수립 및 후속조치 등 사전조사·작업계획 성격의 절차다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-38-2026",
+          "guide_code": "C-C-38-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.66,
+          "evidence": "평가팀 구성, 책임부서 지정, 경영자 또는 사업주의 후속조치 확인이 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-38-2026",
+          "guide_code": "C-C-38-2026",
+          "trigger_text": "사고예상질문분석",
+          "cue_type": "document",
+          "confidence": 0.78,
+          "evidence": "사고예상질문분석 절차와 평가표·보고서를 작성한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-38-2026",
+          "guide_code": "C-C-38-2026",
+          "trigger_text": "위험성평가 조치계획",
+          "cue_type": "document",
+          "confidence": 0.76,
+          "evidence": "개선권고사항과 조치계획, 책임부서, 후속조치를 기록한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "WHAT-IF",
+          "사고예상질문",
+          "검토구간",
+          "위험등급",
+          "조치계획"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-39-2026",
+      "short_code": "CC39",
+      "title": "결함수 분석 기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC39.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "fault_tree_analysis_process_reliability",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "결함수 분석",
+          "정상 사상",
+          "기본 사상",
+          "최소 킷세트",
+          "고장률"
+        ],
+        "evidence": "결함수 분석은 공정·설비 자료를 수집하고 위험성평가 결과, 개선권고, 후속조치를 문서화하는 분석기법 Guide이다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-39-2026",
+          "guide_code": "C-C-39-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.74,
+          "evidence": "공정설명, 공정도, MSDS, 운전절차, 정비절차 등 화학공정 자료를 평가 대상으로 삼는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-39-2026",
+          "guide_code": "C-C-39-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "팀 구성, 자료수집, 위험도 평가, 조치계획과 후속조치가 중심인 관리형 작업이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-39-2026",
+          "guide_code": "C-C-39-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.68,
+          "evidence": "자료수집, 평가기준 작성, 조치계획 수립 및 후속조치 등 사전조사·작업계획 성격의 절차다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-39-2026",
+          "guide_code": "C-C-39-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.66,
+          "evidence": "평가팀 구성, 책임부서 지정, 경영자 또는 사업주의 후속조치 확인이 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-39-2026",
+          "guide_code": "C-C-39-2026",
+          "trigger_text": "결함수 분석",
+          "cue_type": "document",
+          "confidence": 0.78,
+          "evidence": "결함수 분석 절차와 평가표·보고서를 작성한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-39-2026",
+          "guide_code": "C-C-39-2026",
+          "trigger_text": "위험성평가 조치계획",
+          "cue_type": "document",
+          "confidence": 0.76,
+          "evidence": "개선권고사항과 조치계획, 책임부서, 후속조치를 기록한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "결함수 분석",
+          "정상 사상",
+          "기본 사상",
+          "최소 킷세트",
+          "고장률"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-4-2025",
+      "short_code": "CC4",
+      "title": "산화에틸렌 등의 취급설비의 안전에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC4.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "ethylene_oxide_equipment_storage_sterilizer_blanketing_fire_explosion",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "산화에틸렌",
+          "저장탱크",
+          "질소 블랭킷",
+          "살균설비",
+          "자동스프링클러",
+          "안전밸브",
+          "Fail-closed",
+          "환기"
+        ],
+        "evidence": "산화에틸렌 저장탱크, 입출하, 배관, 펌프, 살균설비의 화재·폭발 방호와 질소 블랭킷을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.92,
+          "evidence": "산화에틸렌 취급설비와 저장탱크·살균설비가 중심이다.",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.92,
+          "evidence": "질소 블랭킷, 자동배출, 안전밸브, 폭발범위 밖 설계 등 폭발방호가 중심이다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-005",
+          "confidence": 0.92,
+          "evidence": "산화에틸렌 저장탱크 블랭킷과 불활성 기체 압송·치환을 요구한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.86,
+          "evidence": "자동스프링클러와 살수설비를 설치하고 저장·기화기·살균설비에 화재방호를 적용한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.86,
+          "evidence": "저장탱크 안전밸브와 고정식 살균설비 안전밸브를 설치한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-040",
+          "confidence": 0.82,
+          "evidence": "질소 블랭킷 저장탱크 안전밸브 설정압력과 작동조건을 제시한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-049",
+          "confidence": 0.82,
+          "evidence": "온도·압력 초과 시 자동 연속조치와 고온·저유량 경보장치를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-008",
+          "confidence": 0.82,
+          "evidence": "살균설비 환기설비와 충분한 환기를 요구한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-003",
+          "confidence": 0.78,
+          "evidence": "산화에틸렌 입출하 배관 전용표기, 탱크로리 대기, 배관 결합·이송 관리를 다룬다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "trigger_text": "산화에틸렌 저장탱크",
+          "cue_type": "equipment",
+          "confidence": 0.92,
+          "evidence": "질소 블랭킷 저장탱크와 안전밸브 설정압력이 제시된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-4-2025",
+          "guide_code": "C-C-4-2025",
+          "trigger_text": "고정식 산화에틸렌 살균설비",
+          "cue_type": "equipment",
+          "confidence": 0.9,
+          "evidence": "고정식 살균설비 설치와 운전 방호가 주요 절차다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "산화에틸렌",
+          "저장탱크",
+          "질소 블랭킷",
+          "살균설비",
+          "자동스프링클러",
+          "안전밸브",
+          "Fail-closed",
+          "환기"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-40-2026",
+      "short_code": "CC40",
+      "title": "이상위험도 분석기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC40.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "fmea_criticality_analysis_process_reliability",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "이상위험도 분석",
+          "FMEA",
+          "치명도 분석",
+          "고장형태",
+          "신뢰도"
+        ],
+        "evidence": "이상위험도 분석은 공정·설비 자료를 수집하고 위험성평가 결과, 개선권고, 후속조치를 문서화하는 분석기법 Guide이다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-40-2026",
+          "guide_code": "C-C-40-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.74,
+          "evidence": "공정설명, 공정도, MSDS, 운전절차, 정비절차 등 화학공정 자료를 평가 대상으로 삼는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-40-2026",
+          "guide_code": "C-C-40-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "팀 구성, 자료수집, 위험도 평가, 조치계획과 후속조치가 중심인 관리형 작업이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-40-2026",
+          "guide_code": "C-C-40-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.68,
+          "evidence": "자료수집, 평가기준 작성, 조치계획 수립 및 후속조치 등 사전조사·작업계획 성격의 절차다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-40-2026",
+          "guide_code": "C-C-40-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.66,
+          "evidence": "평가팀 구성, 책임부서 지정, 경영자 또는 사업주의 후속조치 확인이 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-40-2026",
+          "guide_code": "C-C-40-2026",
+          "trigger_text": "이상위험도 분석",
+          "cue_type": "document",
+          "confidence": 0.78,
+          "evidence": "이상위험도 분석 절차와 평가표·보고서를 작성한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-40-2026",
+          "guide_code": "C-C-40-2026",
+          "trigger_text": "위험성평가 조치계획",
+          "cue_type": "document",
+          "confidence": 0.76,
+          "evidence": "개선권고사항과 조치계획, 책임부서, 후속조치를 기록한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "이상위험도 분석",
+          "FMEA",
+          "치명도 분석",
+          "고장형태",
+          "신뢰도"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-41-2026",
+      "short_code": "CC41",
+      "title": "회분식 공정에 대한 위험과 운전분석(HAZOP) 기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC41.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "batch_process_hazop_reactor_pump_relief_assessment",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "회분식 공정",
+          "HAZOP",
+          "반응기",
+          "펌프",
+          "파열관",
+          "질소 공급",
+          "가이드워드",
+          "운전단계"
+        ],
+        "evidence": "회분식 공정 HAZOP에서 반응기, 펌프, 파열관, 질소 공급계통과 운전단계별 이탈을 평가한다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-41-2026",
+          "guide_code": "C-C-41-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.86,
+          "evidence": "반응기, 원료 투입 펌프, 이젝터, 질소 공급 계통 등 회분식 화학공정 장치를 평가한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-41-2026",
+          "guide_code": "C-C-41-2026",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.82,
+          "evidence": "파열관과 질소 봉입, 안전밸브 등 과압·이상반응 방호장치를 평가한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-41-2026",
+          "guide_code": "C-C-41-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-038",
+          "confidence": 0.82,
+          "evidence": "이상반응으로 인한 과압 방출용 파열관을 스크러버에 연결한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-41-2026",
+          "guide_code": "C-C-41-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.78,
+          "evidence": "질소 공급 계통에 압력조절기 및 안전밸브를 포함한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-41-2026",
+          "guide_code": "C-C-41-2026",
+          "sr_id": "SR-CHEMICAL-011",
+          "confidence": 0.72,
+          "evidence": "회분식 공정의 시퀀스 이탈과 이상반응 원인을 평가한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-41-2026",
+          "guide_code": "C-C-41-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.7,
+          "evidence": "평가자료 수집, 세부계획 수립, 평가결과 기록지와 조치계획을 작성한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-41-2026",
+          "guide_code": "C-C-41-2026",
+          "trigger_text": "회분식 반응기 HAZOP",
+          "cue_type": "document",
+          "confidence": 0.84,
+          "evidence": "회분식 공정은 단계를 고려해 시간과 시퀀스 이탈을 평가한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-41-2026",
+          "guide_code": "C-C-41-2026",
+          "trigger_text": "파열관과 질소 공급 계통",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "반응기, 파열관, 질소 공급 계통이 장비 단서로 제시된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "회분식 공정",
+          "HAZOP",
+          "반응기",
+          "펌프",
+          "파열관",
+          "질소 공급",
+          "가이드워드",
+          "운전단계"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-42-2026",
+      "short_code": "CC42",
+      "title": "사건수 분석 기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC42.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "event_tree_analysis_safety_function",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "사건수 분석",
+          "초기사건",
+          "안전요소",
+          "사고결과",
+          "문서화"
+        ],
+        "evidence": "사건수 분석은 공정·설비 자료를 수집하고 위험성평가 결과, 개선권고, 후속조치를 문서화하는 분석기법 Guide이다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-42-2026",
+          "guide_code": "C-C-42-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.74,
+          "evidence": "공정설명, 공정도, MSDS, 운전절차, 정비절차 등 화학공정 자료를 평가 대상으로 삼는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-42-2026",
+          "guide_code": "C-C-42-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "팀 구성, 자료수집, 위험도 평가, 조치계획과 후속조치가 중심인 관리형 작업이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-42-2026",
+          "guide_code": "C-C-42-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.68,
+          "evidence": "자료수집, 평가기준 작성, 조치계획 수립 및 후속조치 등 사전조사·작업계획 성격의 절차다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-42-2026",
+          "guide_code": "C-C-42-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.66,
+          "evidence": "평가팀 구성, 책임부서 지정, 경영자 또는 사업주의 후속조치 확인이 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-42-2026",
+          "guide_code": "C-C-42-2026",
+          "trigger_text": "사건수 분석",
+          "cue_type": "document",
+          "confidence": 0.78,
+          "evidence": "사건수 분석 절차와 평가표·보고서를 작성한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-42-2026",
+          "guide_code": "C-C-42-2026",
+          "trigger_text": "위험성평가 조치계획",
+          "cue_type": "document",
+          "confidence": 0.76,
+          "evidence": "개선권고사항과 조치계획, 책임부서, 후속조치를 기록한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "사건수 분석",
+          "초기사건",
+          "안전요소",
+          "사고결과",
+          "문서화"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-43-2026",
+      "short_code": "CC43",
+      "title": "사고피해영향 평가에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC43.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "consequence_analysis_probit_fire_explosion_toxic_release",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "사고피해영향",
+          "프로빗",
+          "화재",
+          "폭발",
+          "독성물질 누출",
+          "복사열",
+          "과압",
+          "독성부하"
+        ],
+        "evidence": "화재, 폭발, 독성물질 누출 등 중대산업사고의 피해영향을 프로빗 모델로 평가한다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-43-2026",
+          "guide_code": "C-C-43-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.84,
+          "evidence": "화재시 복사열과 화상·사망 피해영향을 산정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-43-2026",
+          "guide_code": "C-C-43-2026",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.84,
+          "evidence": "독성물질 누출 시 독성부하와 프로빗 모델로 인체 영향을 산정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-43-2026",
+          "guide_code": "C-C-43-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.66,
+          "evidence": "화재, 폭발, 독성물질 누출 등 중대산업사고 피해예측을 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-43-2026",
+          "guide_code": "C-C-43-2026",
+          "sr_id": "SR-CHEMICAL-010",
+          "confidence": 0.62,
+          "evidence": "독성물질 누출 시 인체 상해정도를 산정하므로 유해물질 누출 경보·제거 대책 검토와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-43-2026",
+          "guide_code": "C-C-43-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-075",
+          "confidence": 0.62,
+          "evidence": "독성물질 누출에 의한 인체 영향 평가와 급성 독성물질 누출방지 조치 검토가 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-43-2026",
+          "guide_code": "C-C-43-2026",
+          "trigger_text": "프로빗 피해영향 계산",
+          "cue_type": "document",
+          "confidence": 0.8,
+          "evidence": "프로빗 계산식과 백분율 환산표로 피해확률을 평가한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-43-2026",
+          "guide_code": "C-C-43-2026",
+          "trigger_text": "화재·폭발·독성 누출 시나리오",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.8,
+          "evidence": "화재, 폭발 또는 독성물질 누출 사고형태별 영향을 산정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "사고피해영향",
+          "프로빗",
+          "화재",
+          "폭발",
+          "독성물질 누출",
+          "복사열",
+          "과압",
+          "독성부하"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-44-2026",
+      "short_code": "CC44",
+      "title": "회분식 공정의 안전운전에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC44.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "batch_process_safe_operation_static_inerting_distillation_drying_maintenance",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "회분식 공정",
+          "원료 반입",
+          "정전기",
+          "불활성가스",
+          "증류",
+          "건조",
+          "분쇄",
+          "안전작업허가"
+        ],
+        "evidence": "회분식 공정의 원료 저장·반입, 반응, 증류, 건조, 분쇄, 설비 보수점검 안전운전을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.9,
+          "evidence": "회분식 공정의 원료 반입·저장, 반응, 증류, 건조, 분쇄, 보수점검 절차가 중심이다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.9,
+          "evidence": "인화성액체 유속·정치시간, 방폭전기, 건조설비, 가연성분진 등 화재폭발 방지를 다룬다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-003",
+          "confidence": 0.86,
+          "evidence": "인화성액체 탱크로리 주입설비에서 호스 결합부 확인과 주입관리를 요구한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.9,
+          "evidence": "탱크로리 주입설비 정치시간, 유속제한, 접지 등 정전기 발생 방지 조치를 요구한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-005",
+          "confidence": 0.84,
+          "evidence": "필요시 불활성가스 치환과 반응 중 불활성가스 이용을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.84,
+          "evidence": "반응기 안전밸브와 저장설비 안전밸브 설치를 다룬다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-038",
+          "confidence": 0.82,
+          "evidence": "부식성·고형물 생성 예상 시 안전밸브 전단에 파열관을 설치한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-059",
+          "confidence": 0.86,
+          "evidence": "건조 작업에서 내부 청소, 냉각 후 보관, 가스누출 정기감지 등을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-054",
+          "confidence": 0.86,
+          "evidence": "설비 보수·점검 작업에서 안전작업허가지침 준수와 설비 내부 위험물질 확인을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.84,
+          "evidence": "가연성가스·증기·분진 위험장소에 방폭구조 전기기계·기구를 사용한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "trigger_text": "회분식 반응기와 안전밸브",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "반응기용 안전밸브와 파열관, 증류 온도계가 제시된다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-44-2026",
+          "guide_code": "C-C-44-2026",
+          "trigger_text": "탱크로리 주입 정전기 방지",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.88,
+          "evidence": "정치시간, 유속 제한, 접지 등 제전조치를 실시한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "회분식 공정",
+          "원료 반입",
+          "정전기",
+          "불활성가스",
+          "증류",
+          "건조",
+          "분쇄",
+          "안전작업허가"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-45-2026",
+      "short_code": "CC45",
+      "title": "작업자 실수분석 기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC45.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "human_error_analysis_process_task_tank_unloading",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "작업자 실수분석",
+          "HTA",
+          "PHEA",
+          "실수인자",
+          "탱크 하역",
+          "접지클립",
+          "암모니아 이송"
+        ],
+        "evidence": "작업자 실수분석 기법과 탱크 하역·암모니아 이송 작업의 단계별 실수 예측을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "industry_alignment": [
+          "port_logistics",
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "탱크 하역, 연결호스, 증기라인, 암모니아 이송 등 화학공정 작업분석 사례가 포함된다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.82,
+          "evidence": "암모니아 이송 중 누출 확인, 누출 발생 시 차량밸브와 공정측 밸브 차단을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.7,
+          "evidence": "작업자 특성·작업환경·작업매뉴얼·절차서·비상조치계획서를 수집하고 작업을 단계별로 세분화한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.68,
+          "evidence": "평가팀 구성, 개선조치 실행계획 수립, 경영자의 감사·확인을 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.82,
+          "evidence": "탱커 연결 전 접지클립 연결과 접지 스위치 투입을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-003",
+          "confidence": 0.78,
+          "evidence": "연결호스를 탱커에 연결하고 이송 중 누출을 확인하는 호스·배관 주입 작업이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.66,
+          "evidence": "작업자와 운전기사의 보호구 착용 및 교차확인을 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "trigger_text": "탱크 하역작업 접지클립",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "접지클립 연결, 접지 스위치 투입, 연결호스 연결이 제시된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-45-2026",
+          "guide_code": "C-C-45-2026",
+          "trigger_text": "암모니아 이송 누출확인",
+          "cue_type": "chemical_label",
+          "confidence": 0.84,
+          "evidence": "암모니아 이송 중 누출되지 않음을 확인하고 누출 시 밸브 차단·벤트를 수행한다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "작업자 실수분석",
+          "HTA",
+          "PHEA",
+          "실수인자",
+          "탱크 하역",
+          "접지클립",
+          "암모니아 이송"
+        ],
+        "exclude_when": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-46-2026",
+      "short_code": "CC46",
+      "title": "화학물질폭로영향지수(CEI) 산정에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC46.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "chemical_exposure_index_toxic_release_cei_erpg",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "CEI",
+          "화학물질폭로영향지수",
+          "ERPG",
+          "독성물질",
+          "누출시나리오",
+          "대기확산",
+          "공정흐름도"
+        ],
+        "evidence": "독성물질 누출의 화학물질폭로영향지수 산정, ERPG-2, 누출량과 대기확산량 계산을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-46-2026",
+          "guide_code": "C-C-46-2026",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.88,
+          "evidence": "독성물질 누출의 ERPG와 대기확산, 인체 노출영향 산정이 중심이다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-46-2026",
+          "guide_code": "C-C-46-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "공정배관·호스·용기·탱크의 누출 시나리오와 화학물질 물성 자료를 사용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-46-2026",
+          "guide_code": "C-C-46-2026",
+          "sr_id": "SR-CHEMICAL-010",
+          "confidence": 0.66,
+          "evidence": "유해물질 누출 시 경보·제거설비와 영향범위 검토가 필요한 독성 누출 평가다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-46-2026",
+          "guide_code": "C-C-46-2026",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.72,
+          "evidence": "평가 물질의 물리·화학적 성질 자료와 독성 정보를 확보한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-46-2026",
+          "guide_code": "C-C-46-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-075",
+          "confidence": 0.68,
+          "evidence": "중대한 누출을 야기할 수 있는 배관이나 설비를 정하고 독성물질 누출량을 계산한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-46-2026",
+          "guide_code": "C-C-46-2026",
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.6,
+          "evidence": "독성물질 노출 평가 결과 보호조치 검토와 연결된다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-46-2026",
+          "guide_code": "C-C-46-2026",
+          "trigger_text": "ERPG-2 독성 노출거리",
+          "cue_type": "document",
+          "confidence": 0.84,
+          "evidence": "ERPG-2 농도와 CEI를 이용해 독성물질 폭로영향을 산정한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-46-2026",
+          "guide_code": "C-C-46-2026",
+          "trigger_text": "누출 배관·설비 시나리오",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "공정배관·호스·용기·탱크 등 누출 유형별 누출량을 계산한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "CEI",
+          "화학물질폭로영향지수",
+          "ERPG",
+          "독성물질",
+          "누출시나리오",
+          "대기확산",
+          "공정흐름도"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-47-2026",
+      "short_code": "CC47",
+      "title": "누출원 모델링에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC47.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "chemical_leak_source_modeling_release_rate_vessel_pipe",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "누출원 모델링",
+          "화학설비",
+          "배관",
+          "용기",
+          "누출량",
+          "가스누출",
+          "액체누출",
+          "2상누출"
+        ],
+        "evidence": "화학설비와 배관의 누출원 면적, 누출량, 가스·액체·2상 누출 모델링을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-47-2026",
+          "guide_code": "C-C-47-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.86,
+          "evidence": "화학설비, 배관, 이송·압축설비, 밸브, 비상배출관의 누출을 모델링한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-47-2026",
+          "guide_code": "C-C-47-2026",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.82,
+          "evidence": "누출량과 대기 중 방출 위험물질 상태를 예측하는 피해예측 입력자료 Guide이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-47-2026",
+          "guide_code": "C-C-47-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.66,
+          "evidence": "용기·배관 균열/파손, 오조작 밸브 열림, 비상배출 등 위험물 누출 원인을 식별한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-47-2026",
+          "guide_code": "C-C-47-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.66,
+          "evidence": "배관 재질별 거칠기 계수와 마찰계수를 사용해 배관 누출량을 산정한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-47-2026",
+          "guide_code": "C-C-47-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-075",
+          "confidence": 0.62,
+          "evidence": "유해·급성 독성물질 누출방지 검토에 필요한 누출량과 누출상태 산정 방법이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-47-2026",
+          "guide_code": "C-C-47-2026",
+          "sr_id": "SR-CHEMICAL-010",
+          "confidence": 0.6,
+          "evidence": "누출량과 누출속도 예측은 유해물질 누출 경보·제거설비 검토의 입력자료다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-47-2026",
+          "guide_code": "C-C-47-2026",
+          "trigger_text": "배관 누출량 계산",
+          "cue_type": "document",
+          "confidence": 0.82,
+          "evidence": "배관 재질별 거칠기 계수와 유량감소계수로 누출량을 산정한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-47-2026",
+          "guide_code": "C-C-47-2026",
+          "trigger_text": "화학설비 누출원 면적",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.8,
+          "evidence": "설비 유형별 누출원 면적 산정 기준을 적용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "누출원 모델링",
+          "화학설비",
+          "배관",
+          "용기",
+          "누출량",
+          "가스누출",
+          "액체누출",
+          "2상누출"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-48-2026",
+      "short_code": "CC48",
+      "title": "유해위험설비의 점검·정비·유지관리에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC48.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "hazardous_equipment_inspection_maintenance_reliability_psm",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "유해위험설비",
+          "점검",
+          "정비",
+          "예방정비",
+          "예측정비",
+          "압력용기",
+          "배관",
+          "비상정지"
+        ],
+        "evidence": "유해·위험설비의 점검·정비·유지관리, 중요도 등급화, 점검주기, 절차서와 결과보고를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "압력용기·저장탱크, 배관, 압력방출, 비상정지, 전기·계측제어 등 공정설비 유지관리가 중심이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.8,
+          "evidence": "압력용기와 저장탱크, 압력방출 설비를 중요 점검 대상으로 분류한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-054",
+          "confidence": 0.84,
+          "evidence": "화학설비와 부속설비의 점검·정비·유지관리 작업을 절차서에 따라 수행한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.76,
+          "evidence": "연간 점검계획서와 A·B급 기기 점검작업 절차서를 작성한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.72,
+          "evidence": "압력용기·압력방출 설비를 기기 분류와 점검대상에 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.72,
+          "evidence": "부식·마모속도 추이와 취급물질·운전조건을 고려해 점검주기를 결정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "sr_id": "SR-MACHINE-007",
+          "confidence": 0.66,
+          "evidence": "점검·정비 중 사용중지와 보완 후 운전 등 위험방지 조치가 필요하다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "trigger_text": "유해위험설비 점검계획서",
+          "cue_type": "document",
+          "confidence": 0.84,
+          "evidence": "연간 점검계획서와 점검작업 절차서를 작성한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-48-2026",
+          "guide_code": "C-C-48-2026",
+          "trigger_text": "압력용기·배관·압력방출 설비 목록",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "공정설비를 압력용기와 저장탱크, 배관, 압력방출 등으로 분류한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "유해위험설비",
+          "점검",
+          "정비",
+          "예방정비",
+          "예측정비",
+          "압력용기",
+          "배관",
+          "비상정지"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-49-2026",
+      "short_code": "CC49",
+      "title": "안전작업허가에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC49.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "safe_work_permit_hot_work_confined_space_chemical_equipment",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "안전작업허가",
+          "화기작업",
+          "일반위험작업",
+          "밀폐공간",
+          "위험지역",
+          "산소농도측정기",
+          "불티차단막",
+          "소화기"
+        ],
+        "evidence": "화기작업, 일반위험작업, 밀폐공간 등 보충작업을 포함한 안전작업허가 신청·확인·승인·게시 절차를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "axis": "work_context",
+          "feature_code": "WELDING",
+          "confidence": 0.9,
+          "evidence": "화기작업은 용접, 용단, 연마, 드릴 등 불꽃·스파크 발생 작업을 포함한다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "axis": "work_context",
+          "feature_code": "CONFINED_SPACE",
+          "confidence": 0.88,
+          "evidence": "밀폐공간 작업의 산소농도 측정, 송기마스크, 구명선, 구조장비가 포함된다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.86,
+          "evidence": "화기작업 및 위험지역에서 점화원, 불티, 인화성물질을 관리한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-016",
+          "confidence": 0.8,
+          "evidence": "위험설비 해체작업과 잔류 위험물 제거 확인이 허가 전 확인사항이다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-017",
+          "confidence": 0.84,
+          "evidence": "화기작업 중 비산불티차단막, 불받이포, 소화기와 화재감시 성격의 조치를 둔다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-054",
+          "confidence": 0.86,
+          "evidence": "화학설비 보수·정비 시 안전작업허가와 위험물 누출 방지 확인이 핵심이다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-CONFINED-001",
+          "confidence": 0.9,
+          "evidence": "밀폐공간 출입 전 산소농도 18% 이상 23.5% 미만을 측정한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-CONFINED-003",
+          "confidence": 0.7,
+          "evidence": "밀폐공간 작업 허가와 현장 게시 중 출입 인원 확인이 필요하다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-CONFINED-007",
+          "confidence": 0.84,
+          "evidence": "밀폐공간 작업자 구명선과 구조용 기구를 비치한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-CONFINED-011",
+          "confidence": 0.78,
+          "evidence": "통풍 불충분 장소 화기작업 시 가스농도 측정과 환기 등 적정공기 유지가 필요하다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-CONFINED-023",
+          "confidence": 0.68,
+          "evidence": "작업 재개 시 안전상태 확인과 허가서 서명 등 작업방법 주지 성격의 절차가 있다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.82,
+          "evidence": "송기마스크 등 호흡용 보호구와 개인보호구를 허가조건으로 둔다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "trigger_text": "안전작업허가서 현장 게시",
+          "cue_type": "document",
+          "confidence": 0.9,
+          "evidence": "허가서를 해당 작업 현장에 게시하고 작업 재개 시 안전상태를 다시 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-49-2026",
+          "guide_code": "C-C-49-2026",
+          "trigger_text": "산소농도 측정기·불티차단막·소화기",
+          "cue_type": "equipment",
+          "confidence": 0.9,
+          "evidence": "산소 농도 측정기, 비산불티차단막, 이동식 소화기, 송기마스크가 장비 단서다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "안전작업허가",
+          "화기작업",
+          "일반위험작업",
+          "밀폐공간",
+          "위험지역",
+          "산소농도측정기",
+          "불티차단막",
+          "소화기"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-5-2025",
+      "short_code": "CC5",
+      "title": "안전밸브 분출압력 및 시트기밀 시험에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC5.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "safety_valve_set_pressure_seat_tightness_test_inert_gas",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "안전밸브",
+          "분출압력",
+          "시트기밀",
+          "표준압력계",
+          "불활성가스",
+          "질소",
+          "설정압력",
+          "발포성 용액"
+        ],
+        "evidence": "안전밸브 분출압력과 시트기밀 시험, 표준압력계, 불활성가스 가압, 분리 전 잔류압력 제거를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.9,
+          "evidence": "압력방출장치와 안전밸브 시험, 압력계, 불활성가스 용기가 핵심이다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.88,
+          "evidence": "과압 폭발 방지를 위한 안전밸브 설정압력·분출압력·시트기밀 시험 Guide이다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.9,
+          "evidence": "압력용기 등 과압 설비에 설치하는 안전밸브의 검사·시험 방법이다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-040",
+          "confidence": 0.9,
+          "evidence": "안전밸브 설정압력과 분출개시압력 확인으로 최고사용압력 이하 작동을 검증한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-041",
+          "confidence": 0.72,
+          "evidence": "분출압력시험과 시험결과 기록·저장은 배출용량·설정압 검토와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-042",
+          "confidence": 0.7,
+          "evidence": "시험대상 안전밸브 분리 전 장치 압력 차단과 차단밸브 잠금·표찰부착을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-043",
+          "confidence": 0.78,
+          "evidence": "가연성·독성물질 잔류 시 불활성가스 치환, 연소 또는 안전 배출, 중화 회수를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-076",
+          "confidence": 0.88,
+          "evidence": "불활성가스 용기와 교정 받은 압력계로 서서히 가압하여 시험한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "sr_id": "SR-MACHINE-007",
+          "confidence": 0.66,
+          "evidence": "분리 시험 전 잔류압력 제거와 잠금·표찰부착은 정비작업 운전정지와 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "trigger_text": "안전밸브 시험대와 표준압력계",
+          "cue_type": "equipment",
+          "confidence": 0.9,
+          "evidence": "국가교정기관으로부터 교정 받은 압력계와 안전밸브 시험장치를 사용한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-5-2025",
+          "guide_code": "C-C-5-2025",
+          "trigger_text": "발포성 용액 시트기밀 검사",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "발포성용액을 도포하여 분출개시압력과 누설 여부를 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "안전밸브",
+          "분출압력",
+          "시트기밀",
+          "표준압력계",
+          "불활성가스",
+          "질소",
+          "설정압력",
+          "발포성 용액"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-50-2026",
+      "short_code": "CC50",
+      "title": "도급업체의 안전관리계획 작성에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC50.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "contractor_psm_safety_management_plan_permit_information",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "도급업체",
+          "안전관리계획서",
+          "안전작업허가",
+          "안전보건정보",
+          "비상조치계획",
+          "협의체",
+          "순회점검"
+        ],
+        "evidence": "공정안전보고서 제출 사업장의 도급업체 선정, 정보제공, 수행 중 안전관리, 안전관리계획서 작성·승인을 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "healthcare",
+          "agriculture"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.84,
+          "evidence": "도급업체 선정, 협의체, 순회점검, 합동점검, 안전관리계획서 등 사업장 관리절차가 중심이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.78,
+          "evidence": "유해·위험 화학물질 관련 작업 시 안전보건정보 문서와 비상조치계획을 제공한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.76,
+          "evidence": "안전보건 수준 평가, 협의체 운영, 순회점검, 합동점검 등 관리감독 체계를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.78,
+          "evidence": "안전관리계획서에 조직, 협의체, 교육계획, 방호조치, 안전장구, 평가, 재해기록을 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.74,
+          "evidence": "유해·위험 화학물질 관련 작업 시 안전보건정보 문서를 제공한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "sr_id": "SR-FIRE_EXPLOSION-054",
+          "confidence": 0.72,
+          "evidence": "도급업무 수행 중 유해·위험작업 시 안전작업허가서를 발급한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "sr_id": "SR-WORKPLACE-018",
+          "confidence": 0.66,
+          "evidence": "유해·위험장소 안전·보건조치와 출입·작업관리 성격의 절차가 포함된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "trigger_text": "도급업체 안전관리계획서",
+          "cue_type": "document",
+          "confidence": 0.86,
+          "evidence": "안전관리계획서를 작성하고 사업주의 검토·승인을 거쳐 보존한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-50-2026",
+          "guide_code": "C-C-50-2026",
+          "trigger_text": "도급업무 안전작업허가",
+          "cue_type": "document",
+          "confidence": 0.82,
+          "evidence": "유해·위험작업 시 안전작업허가서 발급과 비상경보 운영체계를 둔다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "도급업체",
+          "안전관리계획서",
+          "안전작업허가",
+          "안전보건정보",
+          "비상조치계획",
+          "협의체",
+          "순회점검"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "C-C-51-2026",
+      "short_code": "CC51",
+      "title": "공정안전에 관한 근로자 교육훈련 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-CC51.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "process_safety_training_contractor_worker_competency",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "공정안전교육훈련",
+          "공정안전보고서",
+          "수급업체 근로자",
+          "특별교육",
+          "비상조치",
+          "교육필증",
+          "재교육"
+        ],
+        "evidence": "공정안전보고서 내용, 일반안전·보건, 공정안전, 수급업체·일용근로자 특별교육과 평가·사후관리를 다룬다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "healthcare",
+          "agriculture"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-51-2026",
+          "guide_code": "C-C-51-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.82,
+          "evidence": "교육훈련계획 수립, 교육 실시, 평가, 교육필증과 현장출입 관리가 중심이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-51-2026",
+          "guide_code": "C-C-51-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.78,
+          "evidence": "공정안전자료, 공정위험성 평가서, 안전운전계획, 비상조치계획을 직무별로 교육한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-51-2026",
+          "guide_code": "C-C-51-2026",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.7,
+          "evidence": "유해·위험 공정의 물질·위험성·취급상 주의사항과 공정안전자료를 교육한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-51-2026",
+          "guide_code": "C-C-51-2026",
+          "sr_id": "SR-MGMT-001",
+          "confidence": 0.7,
+          "evidence": "교육훈련 계획, 실시, 평가, 재교육, 현장출입 제한 등 관리체계를 운영한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-51-2026",
+          "guide_code": "C-C-51-2026",
+          "sr_id": "SR-MGMT-004",
+          "confidence": 0.66,
+          "evidence": "신규·변경 설비 시운전 전 교육과 작업 전 특별교육 등 사전계획 성격의 교육절차다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-51-2026",
+          "guide_code": "C-C-51-2026",
+          "sr_id": "SR-CONFINED-023",
+          "confidence": 0.58,
+          "evidence": "비상시 조치사항과 특별교육은 밀폐공간 등 특정 작업 전 교육 SR과 부분적으로 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-51-2026",
+          "guide_code": "C-C-51-2026",
+          "trigger_text": "공정안전 교육훈련계획",
+          "cue_type": "document",
+          "confidence": 0.84,
+          "evidence": "연간 교육훈련계획과 전년도 교육훈련 결과보고서를 반영한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "C-C-51-2026",
+          "guide_code": "C-C-51-2026",
+          "trigger_text": "수급업체 특별교육",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "안전수칙, 출입 준수사항, 안전작업허가, 유사재해 사례, 비상시 조치사항을 작업 전에 교육한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "공정안전교육훈련",
+          "공정안전보고서",
+          "수급업체 근로자",
+          "특별교육",
+          "비상조치",
+          "교육필증",
+          "재교육"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    }
+  ]
+}

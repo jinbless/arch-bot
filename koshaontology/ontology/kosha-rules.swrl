@@ -1,0 +1,96 @@
+# KOSHA 온톨로지 SWRL 추론 규칙 v2
+# Pipe-A + Pipe-B + 옵션C SubjectRole
+# Openllet/Pellet 추론 엔진 또는 SPARQL CONSTRUCT로 실행 가능
+
+# ═══════════════════════════════════════════════════════════
+# Pipe-A 추론 규칙 (R-1 ~ R-4)
+# ═══════════════════════════════════════════════════════════
+
+# R-1: 단서조항 면제 추론 (exemptedBy)
+# EXEMPTION 모달리티인 NS가 OBLIGATION NS를 modifies하면,
+# 해당 OBLIGATION NS는 exemptedBy 관계를 가진다.
+#
+# NormStatement(?ns1) ∧ hasModality(?ns1, Obligation) ∧
+# NormStatement(?ns2) ∧ hasModality(?ns2, Exemption) ∧
+# modifies(?ns2, ?ns1)
+#   → exemptedBy(?ns1, ?ns2)
+
+# R-2: 동일 조문 기반 SR 공동 적용 (coApplicable)
+# 같은 Article에 근거하는 서로 다른 SR은 공동 적용 관계이다.
+#
+# SafetyRequirement(?sr1) ∧ SafetyRequirement(?sr2) ∧
+# appliesToArticle(?sr1, ?art) ∧ appliesToArticle(?sr2, ?art) ∧
+# DifferentFrom(?sr1, ?sr2)
+#   → coApplicable(?sr1, ?sr2)
+
+# R-3: 제재 심각도 자동 분류 (highSeverityPenalty)
+# 심각도 점수가 5 이상인 제재는 고위험으로 분류한다.
+#
+# SanctionType(?san) ∧ severityScore(?san, ?score) ∧
+# swrlb:greaterThanOrEqual(?score, 5)
+#   → highSeverity(?san, true)
+
+# R-4: SR 간 위험 의존성 추론
+# 같은 위험 유형을 다루는 SR 중, 같은 조문에 근거한 것은 의존 관계이다.
+#
+# SafetyRequirement(?sr1) ∧ SafetyRequirement(?sr2) ∧
+# addressesHazard(?sr1, ?haz) ∧ addressesHazard(?sr2, ?haz) ∧
+# appliesToArticle(?sr1, ?art) ∧ appliesToArticle(?sr2, ?art) ∧
+# DifferentFrom(?sr1, ?sr2)
+#   → dependsOn(?sr1, ?sr2)
+
+# ═══════════════════════════════════════════════════════════
+# Pipe-B 추론 규칙 (R-5 ~ R-6)
+# ═══════════════════════════════════════════════════════════
+
+# R-5: CI→SR basedOn inverse 추론
+# CI가 SR에 basedOnSR 관계를 가지면,
+# SR은 해당 CI에 hasChecklistItem 관계를 가진다.
+# (OWL에서 owl:inverseOf로 선언됨, Openllet이 자동 추론)
+#
+# ChecklistItem(?ci) ∧ basedOnSR(?ci, ?sr)
+#   → hasChecklistItem(?sr, ?ci)
+
+# R-6: 가이드 상호참조 대칭 추론
+# Guide A가 Guide B를 참조하면, B도 A를 참조한다.
+# (OWL에서 owl:SymmetricProperty로 선언됨, Openllet이 자동 추론)
+#
+# KoshaGuide(?g1) ∧ KoshaGuide(?g2) ∧ referencesGuide(?g1, ?g2)
+#   → referencesGuide(?g2, ?g1)
+
+# ═══════════════════════════════════════════════════════════
+# 옵션C SubjectRole 추론 규칙 (R-7 ~ R-8)
+# ═══════════════════════════════════════════════════════════
+
+# R-7: SubjectRole 계층 추론
+# Employer, Supervisor 등은 DutyHolder의 인스턴스이고,
+# DutyHolder는 SubjectRole의 하위 클래스이므로,
+# Employer는 SubjectRole이기도 하다.
+# (OWL에서 rdfs:subClassOf로 선언됨, Openllet이 자동 추론)
+#
+# DutyHolder(?x) → SubjectRole(?x)
+# ProtectedPerson(?x) → SubjectRole(?x)
+# RegulatoryAuthority(?x) → SubjectRole(?x)
+
+# R-8: DutyHolder/ProtectedPerson disjoint 검증
+# 의무이행주체와 보호대상은 겹치지 않는다.
+# 만약 한 인스턴스가 양쪽에 동시 속하면 inconsistency 발생.
+# (OWL에서 owl:disjointWith로 선언됨, Openllet이 자동 검증)
+#
+# DutyHolder(?x) ∧ ProtectedPerson(?x) → ⊥ (모순)
+
+# ═══════════════════════════════════════════════════════════
+# OWL 공리 (kosha-ontology.owl에 포함됨, 참고용)
+# ═══════════════════════════════════════════════════════════
+#
+# PA-1: hasNormStatement = inverseOf(hasSourceArticle)
+# PA-2: hasSafetyRequirement = inverseOf(derivedFromNS)
+# PA-3: modifiedBy = inverseOf(modifies)
+# PA-4: appliesToArticle = propertyChain(derivedFromNS, hasSourceArticle)
+# PA-5: hasChecklistItem = inverseOf(basedOnSR)
+# PA-6: hasParentStructure = TransitiveProperty
+# PA-7: referencesGuide = SymmetricProperty
+# PA-8: coApplicable = SymmetricProperty
+# PA-9: modifies = AsymmetricProperty
+# A-4:  EXEMPTION NS → must have modifies target
+# A-9:  DutyHolder disjointWith ProtectedPerson

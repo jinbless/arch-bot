@@ -1,0 +1,1012 @@
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix she: <https://cashtoss.info/ontology/risk/situation#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+she:appliesSR rdfs:domain she:SituationalHazardPattern .
+
+she:hasAccidentType rdfs:domain she:SituationalHazardPattern ;
+    rdfs:range haz:AccidentType ;
+    rdfs:subPropertyOf risk:hasFeature .
+
+she:hasAgentState rdfs:domain she:SituationalHazardPattern ;
+    rdfs:range ctx:AgentState ;
+    rdfs:subPropertyOf risk:hasFeature .
+
+she:hasEnvironmental rdfs:domain she:SituationalHazardPattern ;
+    rdfs:range ctx:EnvironmentalFactor ;
+    rdfs:subPropertyOf risk:hasFeature .
+
+she:hasHazardousAgent rdfs:domain she:SituationalHazardPattern ;
+    rdfs:range agent:HazardousAgent ;
+    rdfs:subPropertyOf risk:hasFeature .
+
+she:hasPPEState rdfs:domain she:SituationalHazardPattern ;
+    rdfs:range ctx:PPEState ;
+    rdfs:subPropertyOf risk:hasFeature .
+
+she:hasTemporalStage rdfs:domain she:SituationalHazardPattern ;
+    rdfs:range ctx:TemporalStage ;
+    rdfs:subPropertyOf risk:hasFeature .
+
+she:hasVisualTrigger rdfs:domain she:SituationalHazardPattern .
+
+she:hasWorkActivity rdfs:domain she:SituationalHazardPattern ;
+    rdfs:range ctx:WorkActivity ;
+    rdfs:subPropertyOf risk:hasFeature .
+
+she:hasWorkContext rdfs:domain she:SituationalHazardPattern ;
+    rdfs:range ctx:WorkContext ;
+    rdfs:subPropertyOf risk:hasFeature .
+
+she:relatedChecklistCue rdfs:domain she:SituationalHazardPattern .
+
+she:relatedGuide rdfs:domain she:SituationalHazardPattern .
+
+sr:SR-PILOT_CONSTRUCTION_EQUIP-001 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_CONSTRUCTION_EQUIP-002,
+        sr:SR-PILOT_CONSTRUCTION_EQUIP-003 ;
+    core:identifier "SR-PILOT_CONSTRUCTION_EQUIP-001"^^xsd:string ;
+    core:text "사업주는 항타기나 항발기에 도르래나 도르래 뭉치를 부착하는 경우 부착부가 받는 하중에 의하여 파괴될 우려가 없는 브라켓ㆍ샤클 및 와이어로프 등으로 견고하게 부착하여야 한다."^^xsd:string ;
+    core:title "제216조 제1항: 항타기·항발기 도르래 견고 부착"^^xsd:string ;
+    sr:addressesFeature haz:STRUCK_BY ;
+    sr:addressesHazard haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE216-0 ;
+    sr:directlyAppliesToArticle law:RULE_제216조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:EquipmentStandard .
+
+sr:SR-PILOT_ELECTRIC-001 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_ELECTRIC-002,
+        sr:SR-PILOT_ELECTRIC-003 ;
+    core:identifier "SR-PILOT_ELECTRIC-001"^^xsd:string ;
+    core:text "사업주는 밀폐공간·이동/휴대장비·정전전로·충전전로·충전전로 인근 차량 작업 등 각 호의 전기작업에 사용하는 절연용 보호구, 절연용 방호구, 활선작업용 기구, 활선작업용 장치에 대하여 각각의 사용목적에 적합한 종별ㆍ재질 및 치수의 것을 사용해야 한다."^^xsd:string ;
+    core:title "제323조 제1항: 전기작업 적합 절연용 보호구·기구 사용"^^xsd:string ;
+    sr:addressesFeature haz:ELECTRIC_SHOCK ;
+    sr:addressesHazard haz:ELECTRIC_SHOCK ;
+    sr:derivedFromNS law:NS-RULE323-0 ;
+    sr:directlyAppliesToArticle law:RULE_제323조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PPERequirement .
+
+sr:SR-PILOT_EXCAVATION-001 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_EXCAVATION-002,
+        sr:SR-PILOT_EXCAVATION-003 ;
+    core:identifier "SR-PILOT_EXCAVATION-001"^^xsd:string ;
+    core:text "사업주는 매설물ㆍ조적벽ㆍ콘크리트벽 또는 옹벽 등의 건설물에 근접한 장소에서 굴착작업을 할 때에 해당 가설물의 파손 등에 의하여 근로자가 위험해질 우려가 있는 경우에는 해당 건설물을 보강하거나 이설하는 등 해당 위험을 방지하기 위한 조치를 하여야 한다."^^xsd:string ;
+    core:title "제341조 제1항: 건설물 근접 굴착 시 보강·이설 조치"^^xsd:string ;
+    sr:addressesFeature haz:COLLAPSE ;
+    sr:addressesHazard haz:COLLAPSE ;
+    sr:derivedFromNS law:NS-RULE341-0 ;
+    sr:directlyAppliesToArticle law:RULE_제341조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_EXCAVATION-004 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_EXCAVATION-005,
+        sr:SR-PILOT_EXCAVATION-006,
+        sr:SR-PILOT_EXCAVATION-007 ;
+    core:identifier "SR-PILOT_EXCAVATION-004"^^xsd:string ;
+    core:text "사업주는 터널공사 등의 건설작업을 할 때에 인화성 가스가 발생할 위험이 있는 경우에는 폭발이나 화재를 예방하기 위하여 인화성 가스의 농도를 측정할 담당자를 지명하고, 그 작업을 시작하기 전에 가스가 발생할 위험이 있는 장소에 대하여 그 인화성 가스의 농도를 측정하여야 한다."^^xsd:string ;
+    core:title "제350조 제1항: 터널 인화성 가스 농도측정 담당자 지명"^^xsd:string ;
+    sr:addressesFeature haz:FIRE_EXPLOSION ;
+    sr:addressesHazard haz:FIRE_EXPLOSION ;
+    sr:derivedFromNS law:NS-RULE350-0 ;
+    sr:directlyAppliesToArticle law:RULE_제350조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_HAZMAT-001 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_HAZMAT-002,
+        sr:SR-PILOT_HAZMAT-003,
+        sr:SR-PILOT_HAZMAT-004 ;
+    core:identifier "SR-PILOT_HAZMAT-001"^^xsd:string ;
+    core:text "사업주는 석면해체ㆍ제거작업장과 연결되거나 인접한 장소에 평상복 탈의실, 샤워실 및 작업복 탈의실 등의 위생설비를 설치하고 필요한 용품 및 용구를 갖추어 두어야 한다."^^xsd:string ;
+    core:title "제494조 제1항: 석면해체작업장 위생설비 설치"^^xsd:string ;
+    sr:addressesFeature haz:CHEMICAL_EXPOSURE ;
+    sr:addressesHazard haz:CHEMICAL_EXPOSURE ;
+    sr:derivedFromNS law:NS-RULE494-0 ;
+    sr:directlyAppliesToArticle law:RULE_제494조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_MACHINE-001 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-002,
+        sr:SR-PILOT_MACHINE-003,
+        sr:SR-PILOT_MACHINE-004,
+        sr:SR-PILOT_MACHINE-005,
+        sr:SR-PILOT_MACHINE-006,
+        sr:SR-PILOT_MACHINE-007,
+        sr:SR-PILOT_MACHINE-008,
+        sr:SR-PILOT_MACHINE-009,
+        sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-001"^^xsd:string ;
+    core:text "사업주는 기계의 원동기·회전축·기어·풀리·플라이휠·벨트 및 체인 등 근로자가 위험에 처할 우려가 있는 부위에 덮개·울·슬리브 및 건널다리 등의 방호설비를 설치하여야 한다."^^xsd:string ;
+    core:title "제87조 제1항: 기계 위험부위 덮개ㆍ울 등 방호설비 설치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN ;
+    sr:addressesHazard haz:CAUGHT_IN ;
+    sr:derivedFromNS law:NS-RULE87-0 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_MACHINE-012 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-013,
+        sr:SR-PILOT_MACHINE-014,
+        sr:SR-PILOT_MACHINE-015 ;
+    core:identifier "SR-PILOT_MACHINE-012"^^xsd:string ;
+    core:text "사업주는 동력으로 작동되는 기계의 정비·청소·급유·검사·수리·교체 또는 조정 작업이나 그 밖에 이와 유사한 작업을 할 때에 근로자가 위험해질 우려가 있으면 해당 기계의 운전을 정지하여야 한다."^^xsd:string ;
+    core:title "제92조 제1항: 정비ㆍ청소 등 작업 시 기계 운전 정지"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN ;
+    sr:addressesHazard haz:CAUGHT_IN ;
+    sr:derivedFromNS law:NS-RULE92-0 ;
+    sr:directlyAppliesToArticle law:RULE_제92조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_MGMT-001 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MGMT-002,
+        sr:SR-PILOT_MGMT-003,
+        sr:SR-PILOT_MGMT-004 ;
+    core:identifier "SR-PILOT_MGMT-001"^^xsd:string ;
+    core:text "사업주는 별표 4의 각 호의 작업을 하는 경우 근로자의 위험을 방지하기 위하여 별표 4에 따라 해당 작업, 작업장의 지형ㆍ지반 및 지층 상태 등에 대한 사전조사를 하고 그 결과를 기록ㆍ보존해야 하며, 조사결과를 고려하여 별표 4의 구분에 따른 사항을 포함한 작업계획서를 작성하고 그 계획에 따라 작업을 하도록 해야 한다."^^xsd:string ;
+    core:title "제38조 제1항: 사전조사·작업계획서 작성 및 준수"^^xsd:string ;
+    sr:addressesFeature haz:COLLAPSE ;
+    sr:addressesHazard haz:COLLAPSE ;
+    sr:derivedFromNS law:NS-RULE38-0 ;
+    sr:directlyAppliesToArticle law:RULE_제38조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:ManagementSystem .
+
+sr:SR-PILOT_PRESSURE-001 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_PRESSURE-002,
+        sr:SR-PILOT_PRESSURE-003 ;
+    core:identifier "SR-PILOT_PRESSURE-001"^^xsd:string ;
+    core:text "사업주는 근로자가 고압작업을 하는 경우 그 작업 중에 고압작업자 및 공기압축기 운전자와의 연락 또는 그 밖에 필요한 조치를 하기 위한 감시인을 기압조절실 부근에 상시 배치하여야 한다."^^xsd:string ;
+    core:title "제539조 제1항: 고압작업 시 기압조절실 감시인 배치"^^xsd:string ;
+    sr:addressesFeature haz:CONFINED_SPACE ;
+    sr:addressesHazard haz:CONFINED_SPACE ;
+    sr:derivedFromNS law:NS-RULE539-0 ;
+    sr:directlyAppliesToArticle law:RULE_제539조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:ManagementSystem .
+
+sr:SR-PILOT_PROHIBITED_CHEM-001 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_PROHIBITED_CHEM-002,
+        sr:SR-PILOT_PROHIBITED_CHEM-003 ;
+    core:identifier "SR-PILOT_PROHIBITED_CHEM-001"^^xsd:string ;
+    core:text "사업주는 금지유해물질 제조ㆍ사용 설비가 설치된 실험실등에는 관계근로자가 아닌 사람의 출입을 금지하고, 산업안전보건법 시행규칙 별표 6 일람표 번호 503에 따른 표지를 출입구에 붙여야 한다."^^xsd:string ;
+    core:title "제505조 제1항: 금지유해물질 실험실 출입금지·표지"^^xsd:string ;
+    sr:addressesFeature haz:CHEMICAL_EXPOSURE ;
+    sr:addressesHazard haz:CHEMICAL_EXPOSURE ;
+    sr:derivedFromNS law:NS-RULE505-0 ;
+    sr:directlyAppliesToArticle law:RULE_제505조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:addressesAccidentType rdfs:subPropertyOf sr:addressesFeature .
+
+sr:addressesAgent rdfs:subPropertyOf sr:addressesFeature .
+
+sr:addressesHazard rdfs:domain sr:SafetyRequirement ;
+    rdfs:range haz:Hazard ;
+    rdfs:subPropertyOf sr:addressesFeature .
+
+sr:inWorkContext rdfs:subPropertyOf sr:addressesFeature .
+
+law:NS-RULE216-0 a law:NormStatement ;
+    core:identifier "NS-RULE216-0"^^xsd:string ;
+    core:text "사업주는 항타기나 항발기에 도르래나 도르래 뭉치를 부착하는 경우에는 부착부가 받는 하중에 의하여 파괴될 우려가 없는 브라켓ㆍ샤클 및 와이어로프 등으로 견고하게 부착하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제216조 ;
+    law:paragraphRef "제216조 제1항"^^xsd:string .
+
+law:NS-RULE216-1 a law:NormStatement ;
+    core:identifier "NS-RULE216-1"^^xsd:string ;
+    core:text "사업주는 항타기 또는 항발기의 권상장치의 드럼축과 권상장치로부터 첫 번째 도르래의 축 간의 거리를 권상장치 드럼폭의 15배 이상으로 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제216조 ;
+    law:paragraphRef "제216조 제2항"^^xsd:string .
+
+law:NS-RULE216-2 a law:NormStatement ;
+    core:identifier "NS-RULE216-2"^^xsd:string ;
+    core:text "제2항의 도르래는 권상장치의 드럼 중심을 지나야 하며 축과 수직면상에 있어야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제216조 ;
+    law:paragraphRef "제216조 제3항"^^xsd:string .
+
+law:NS-RULE323-0 a law:NormStatement ;
+    core:identifier "NS-RULE323-0"^^xsd:string ;
+    core:text "사업주는 다음 각 호의 작업에 사용하는 절연용 보호구, 절연용 방호구, 활선작업용 기구, 활선작업용 장치에 대하여 각각의 사용목적에 적합한 종별ㆍ재질 및 치수의 것을 사용해야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제323조 ;
+    law:paragraphRef "제323조 제1항"^^xsd:string .
+
+law:NS-RULE323-1 a law:NormStatement ;
+    core:identifier "NS-RULE323-1"^^xsd:string ;
+    core:text "사업주는 절연용 보호구등이 안전한 성능을 유지하고 있는지를 정기적으로 확인하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제323조 ;
+    law:paragraphRef "제323조 제2항"^^xsd:string .
+
+law:NS-RULE323-2 a law:NormStatement ;
+    core:identifier "NS-RULE323-2"^^xsd:string ;
+    core:text "사업주는 근로자가 절연용 보호구등을 사용하기 전에 흠ㆍ균열ㆍ파손, 그 밖의 손상 유무를 발견하여 정비 또는 교환을 요구하는 경우에는 즉시 조치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제323조 ;
+    law:paragraphRef "제323조 제3항"^^xsd:string .
+
+law:NS-RULE341-0 a law:NormStatement ;
+    core:identifier "NS-RULE341-0"^^xsd:string ;
+    core:text "사업주는 매설물ㆍ조적벽ㆍ콘크리트벽 또는 옹벽 등의 건설물에 근접한 장소에서 굴착작업을 할 때에 해당 가설물의 파손 등에 의하여 근로자가 위험해질 우려가 있는 경우에는 해당 건설물을 보강하거나 이설하는 등 해당 위험을 방지하기 위한 조치를 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제341조 ;
+    law:paragraphRef "제341조 제1항"^^xsd:string .
+
+law:NS-RULE341-1 a law:NormStatement ;
+    core:identifier "NS-RULE341-1"^^xsd:string ;
+    core:text "사업주는 굴착작업에 의하여 노출된 매설물 등이 파손됨으로써 근로자가 위험해질 우려가 있는 경우에는 해당 매설물 등에 대한 방호조치를 하거나 이설하는 등 필요한 조치를 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제341조 ;
+    law:paragraphRef "제341조 제2항"^^xsd:string .
+
+law:NS-RULE341-2 a law:NormStatement ;
+    core:identifier "NS-RULE341-2"^^xsd:string ;
+    core:text "사업주는 제2항의 매설물 등의 방호작업에 대하여 관리감독자에게 해당 작업을 지휘하도록 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제341조 ;
+    law:paragraphRef "제341조 제3항"^^xsd:string .
+
+law:NS-RULE350-0 a law:NormStatement ;
+    core:identifier "NS-RULE350-0"^^xsd:string ;
+    core:text "사업주는 터널공사 등의 건설작업을 할 때에 인화성 가스가 발생할 위험이 있는 경우에는 폭발이나 화재를 예방하기 위하여 인화성 가스의 농도를 측정할 담당자를 지명하고, 그 작업을 시작하기 전에 가스가 발생할 위험이 있는 장소에 대하여 그 인화성 가스의 농도를 측정하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제350조 ;
+    law:paragraphRef "제350조 제1항"^^xsd:string .
+
+law:NS-RULE350-1 a law:NormStatement ;
+    core:identifier "NS-RULE350-1"^^xsd:string ;
+    core:text "사업주는 제1항에 따라 측정한 결과 인화성 가스가 존재하여 폭발이나 화재가 발생할 위험이 있는 경우에는 인화성 가스 농도의 이상 상승을 조기에 파악하기 위하여 그 장소에 자동경보장치를 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제350조 ;
+    law:paragraphRef "제350조 제2항"^^xsd:string .
+
+law:NS-RULE350-2 a law:NormStatement ;
+    core:identifier "NS-RULE350-2"^^xsd:string ;
+    core:text "지하철도공사를 시행하는 사업주는 터널굴착(개착식을 포함한다) 등으로 인하여 도시가스관이 노출된 경우에 접속부 등 필요한 장소에 자동경보장치를 설치하고, 도시가스사업법에 따른 해당 도시가스사업자와 합동으로 정기적 순회점검을 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제350조 ;
+    law:paragraphRef "제350조 제3항"^^xsd:string .
+
+law:NS-RULE350-3 a law:NormStatement ;
+    core:identifier "NS-RULE350-3"^^xsd:string ;
+    core:text "사업주는 제2항 및 제3항에 따른 자동경보장치에 대하여 당일 작업 시작 전 계기의 이상 유무, 검지부의 이상 유무, 경보장치의 작동상태를 점검하고 이상을 발견하면 즉시 보수하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제350조 ;
+    law:paragraphRef "제350조 제4항"^^xsd:string .
+
+law:NS-RULE38-0 a law:NormStatement ;
+    core:identifier "NS-RULE38-0"^^xsd:string ;
+    core:text "사업주는 다음 각 호의 작업을 하는 경우 근로자의 위험을 방지하기 위하여 별표 4에 따라 해당 작업, 작업장의 지형ㆍ지반 및 지층 상태 등에 대한 사전조사를 하고 그 결과를 기록ㆍ보존해야 하며, 조사결과를 고려하여 별표 4의 구분에 따른 사항을 포함한 작업계획서를 작성하고 그 계획에 따라 작업을 하도록 해야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제38조 ;
+    law:paragraphRef "제38조 제1항"^^xsd:string .
+
+law:NS-RULE38-1 a law:NormStatement ;
+    core:identifier "NS-RULE38-1"^^xsd:string ;
+    core:text "사업주는 제1항에 따라 작성한 작업계획서의 내용을 해당 근로자에게 알려야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제38조 ;
+    law:paragraphRef "제38조 제2항"^^xsd:string .
+
+law:NS-RULE38-2 a law:NormStatement ;
+    core:identifier "NS-RULE38-2"^^xsd:string ;
+    core:text "사업주는 항타기나 항발기를 조립ㆍ해체ㆍ변경 또는 이동하는 작업을 하는 경우 그 작업방법과 절차를 정하여 근로자에게 주지시켜야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제38조 ;
+    law:paragraphRef "제38조 제3항"^^xsd:string .
+
+law:NS-RULE38-3 a law:NormStatement ;
+    core:identifier "NS-RULE38-3"^^xsd:string ;
+    core:text "사업주는 제1항제12호의 작업에 궤도작업차량을 사용하는 경우 미리 그 구간을 운행하는 열차의 운행관계자와 협의하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제38조 ;
+    law:paragraphRef "제38조 제4항"^^xsd:string .
+
+law:NS-RULE494-0 a law:NormStatement ;
+    core:identifier "NS-RULE494-0"^^xsd:string ;
+    core:text "사업주는 석면해체·제거작업장과 연결되거나 인접한 장소에 평상복 탈의실, 샤워실 및 작업복 탈의실 등의 위생설비를 설치하고 필요한 용품 및 용구를 갖추어 두어야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제494조 ;
+    law:paragraphRef "제494조 제1항"^^xsd:string .
+
+law:NS-RULE494-1 a law:NormStatement ;
+    core:identifier "NS-RULE494-1"^^xsd:string ;
+    core:text "사업주는 석면해체·제거작업에 종사한 근로자에게 제491조제1항 각 호의 개인보호구를 작업복 탈의실에서 벗어 밀폐용기에 보관하도록 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제494조 ;
+    law:paragraphRef "제494조 제2항"^^xsd:string .
+
+law:NS-RULE494-2 a law:NormStatement ;
+    core:identifier "NS-RULE494-2"^^xsd:string ;
+    core:text "사업주는 석면해체·제거작업을 하는 근로자가 작업 도중 일시적으로 작업장 밖으로 나가는 경우에는 고성능 필터가 장착된 진공청소기를 사용하는 방법 등으로 개인보호구에 부착된 석면분진을 제거한 후 나가도록 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제494조 ;
+    law:paragraphRef "제494조 제3항"^^xsd:string .
+
+law:NS-RULE494-3 a law:NormStatement ;
+    core:identifier "NS-RULE494-3"^^xsd:string ;
+    core:text "사업주는 제2항에 따라 보관 중인 개인보호구를 폐기하거나 세척하는 등 석면분진을 제거하기 위하여 필요한 조치를 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제494조 ;
+    law:paragraphRef "제494조 제4항"^^xsd:string .
+
+law:NS-RULE505-0 a law:NormStatement ;
+    core:identifier "NS-RULE505-0"^^xsd:string ;
+    core:text "사업주는 금지유해물질 제조ㆍ사용 설비가 설치된 실험실등에는 관계근로자가 아닌 사람의 출입을 금지하고, 「산업안전보건법 시행규칙」 별표 6 중 일람표 번호 503에 따른 표지를 출입구에 붙여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제505조 ;
+    law:paragraphRef "제505조 제1항"^^xsd:string .
+
+law:NS-RULE505-1 a law:NormStatement ;
+    core:identifier "NS-RULE505-1"^^xsd:string ;
+    core:text "사업주는 금지유해물질 또는 이에 의하여 오염된 물질은 일정한 장소를 정하여 저장하거나 폐기하여야 하며, 그 장소에는 관계 근로자가 아닌 사람의 출입을 금지하고, 그 내용을 보기 쉬운 장소에 게시하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제505조 ;
+    law:paragraphRef "제505조 제2항"^^xsd:string .
+
+law:NS-RULE505-2 a law:NormStatement ;
+    core:identifier "NS-RULE505-2"^^xsd:string ;
+    core:text "근로자는 제1항 및 제2항에 따라 출입이 금지된 장소에 사업주의 허락 없이 출입해서는 아니 된다."^^xsd:string ;
+    law:hasModality core:Prohibition ;
+    law:hasSourceArticle law:RULE_제505조 ;
+    law:paragraphRef "제505조 제3항"^^xsd:string .
+
+law:NS-RULE539-0 a law:NormStatement ;
+    core:identifier "NS-RULE539-0"^^xsd:string ;
+    core:text "사업주는 근로자가 고압작업을 하는 경우 그 작업 중에 고압작업자 및 공기압축기 운전자와의 연락 또는 그 밖에 필요한 조치를 하기 위한 감시인을 기압조절실 부근에 상시 배치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제539조 ;
+    law:paragraphRef "제539조 제1항"^^xsd:string .
+
+law:NS-RULE539-1 a law:NormStatement ;
+    core:identifier "NS-RULE539-1"^^xsd:string ;
+    core:text "사업주는 고압작업자 및 공기압축기 운전자와 감시인이 서로 통화할 수 있도록 통화장치를 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제539조 ;
+    law:paragraphRef "제539조 제2항"^^xsd:string .
+
+law:NS-RULE539-2 a law:NormStatement ;
+    core:identifier "NS-RULE539-2"^^xsd:string ;
+    core:text "사업주는 제2항에 따른 통화장치가 고장난 경우에 다른 방법으로 연락할 수 있는 설비를 갖추어야 하며, 그 설비를 고압작업자, 공기압축기 운전자 및 감시인이 보기 쉬운 곳에 갖추어 두어야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제539조 ;
+    law:paragraphRef "제539조 제3항"^^xsd:string .
+
+law:NS-RULE87-0 a law:NormStatement ;
+    core:identifier "NS-RULE87-0"^^xsd:string ;
+    core:text "사업주는 기계의 원동기·회전축·기어·풀리·플라이휠·벨트 및 체인 등 근로자가 위험에 처할 우려가 있는 부위에 덮개·울·슬리브 및 건널다리 등을 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제1항"^^xsd:string .
+
+law:NS-RULE87-1 a law:NormStatement ;
+    core:identifier "NS-RULE87-1"^^xsd:string ;
+    core:text "사업주는 회전축·기어·풀리 및 플라이휠 등에 부속되는 키·핀 등의 기계요소는 묻힘형으로 하거나 해당 부위에 덮개를 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제2항"^^xsd:string .
+
+law:NS-RULE87-10 a law:NormStatement ;
+    core:identifier "NS-RULE87-10"^^xsd:string ;
+    core:text "사업주는 압력용기등에 부속하는 원동기·축이음·벨트·풀리의 회전 부위 등 근로자가 위험에 처할 우려가 있는 부위에 덮개 또는 울 등을 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제11항"^^xsd:string .
+
+law:NS-RULE87-2 a law:NormStatement ;
+    core:identifier "NS-RULE87-2"^^xsd:string ;
+    core:text "사업주는 벨트의 이음 부분에 돌출된 고정구를 사용해서는 아니 된다."^^xsd:string ;
+    law:hasModality core:Prohibition ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제3항"^^xsd:string .
+
+law:NS-RULE87-3 a law:NormStatement ;
+    core:identifier "NS-RULE87-3"^^xsd:string ;
+    core:text "사업주는 제1항의 건널다리에는 안전난간 및 미끄러지지 아니하는 구조의 발판을 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제4항"^^xsd:string .
+
+law:NS-RULE87-4 a law:NormStatement ;
+    core:identifier "NS-RULE87-4"^^xsd:string ;
+    core:text "사업주는 연삭기 또는 평삭기의 테이블, 형삭기 램 등의 행정끝이 근로자에게 위험을 미칠 우려가 있는 경우에 해당 부위에 덮개 또는 울 등을 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제5항"^^xsd:string .
+
+law:NS-RULE87-5 a law:NormStatement ;
+    core:identifier "NS-RULE87-5"^^xsd:string ;
+    core:text "사업주는 선반 등으로부터 돌출하여 회전하고 있는 가공물이 근로자에게 위험을 미칠 우려가 있는 경우에 덮개 또는 울 등을 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제6항"^^xsd:string .
+
+law:NS-RULE87-6 a law:NormStatement ;
+    core:identifier "NS-RULE87-6"^^xsd:string ;
+    core:text "사업주는 원심기에는 덮개를 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제7항"^^xsd:string .
+
+law:NS-RULE87-7 a law:NormStatement ;
+    core:identifier "NS-RULE87-7"^^xsd:string ;
+    core:text "사업주는 분쇄기등을 가동하거나 원료가 흩날리거나 하여 근로자가 위험해질 우려가 있는 경우 해당 부위에 덮개를 설치하는 등 필요한 조치를 해야 하며, 분쇄기등의 가동 중 덮개를 열어야 하는 경우에는 다음 각 호의 어느 하나 이상에 해당하는 조치를 해야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제8항"^^xsd:string .
+
+law:NS-RULE87-8 a law:NormStatement ;
+    core:identifier "NS-RULE87-8"^^xsd:string ;
+    core:text "사업주는 근로자가 분쇄기등의 개구부로부터 가동 부분에 접촉함으로써 위해를 입을 우려가 있는 경우 덮개 또는 울 등을 설치해야 하며, 분쇄기등의 가동 중 덮개 또는 울 등을 열어야 하는 경우에는 다음 각 호의 어느 하나 이상에 해당하는 조치를 해야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제9항"^^xsd:string .
+
+law:NS-RULE87-9 a law:NormStatement ;
+    core:identifier "NS-RULE87-9"^^xsd:string ;
+    core:text "사업주는 종이·천·비닐 및 와이어 로프 등의 감김통 등에 의하여 근로자가 위험해질 우려가 있는 부위에 덮개 또는 울 등을 설치하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제87조 ;
+    law:paragraphRef "제87조 제10항"^^xsd:string .
+
+law:NS-RULE92-0 a law:NormStatement ;
+    core:identifier "NS-RULE92-0"^^xsd:string ;
+    core:text "사업주는 동력으로 작동되는 기계의 정비·청소·급유·검사·수리·교체 또는 조정 작업 또는 그 밖에 이와 유사한 작업을 할 때에 근로자가 위험해질 우려가 있으면 해당 기계의 운전을 정지하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제92조 ;
+    law:paragraphRef "제92조 제1항"^^xsd:string .
+
+law:NS-RULE92-2 a law:NormStatement ;
+    core:identifier "NS-RULE92-2"^^xsd:string ;
+    core:text "사업주는 제1항에 따라 기계의 운전을 정지한 경우에 다른 사람이 그 기계를 운전하는 것을 방지하기 위하여 기계의 기동장치에 잠금장치를 하고 그 열쇠를 별도 관리하거나 표지판을 설치하는 등 필요한 방호 조치를 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제92조 ;
+    law:paragraphRef "제92조 제2항"^^xsd:string .
+
+law:NS-RULE92-3 a law:NormStatement ;
+    core:identifier "NS-RULE92-3"^^xsd:string ;
+    core:text "사업주는 작업하는 과정에서 적절하지 아니한 작업방법으로 인하여 기계가 갑자기 가동될 우려가 있는 경우 작업지휘자를 배치하는 등 필요한 조치를 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제92조 ;
+    law:paragraphRef "제92조 제3항"^^xsd:string .
+
+law:NS-RULE92-4 a law:NormStatement ;
+    core:identifier "NS-RULE92-4"^^xsd:string ;
+    core:text "사업주는 기계·기구 및 설비 등의 내부에 압축된 기체 또는 액체 등이 방출되어 근로자가 위험해질 우려가 있는 경우에 제1항부터 제3항까지의 규정에 따른 조치 외에도 압축된 기체 또는 액체 등을 미리 방출시키는 등 위험 방지를 위하여 필요한 조치를 하여야 한다."^^xsd:string ;
+    law:hasModality core:Obligation ;
+    law:hasSourceArticle law:RULE_제92조 ;
+    law:paragraphRef "제92조 제4항"^^xsd:string .
+
+agent:HazardousAgent rdfs:subClassOf risk:RiskFeature .
+
+ctx:AgentState rdfs:subClassOf risk:RiskFeature .
+
+ctx:EnvironmentalFactor rdfs:subClassOf risk:RiskFeature .
+
+ctx:PPEState rdfs:subClassOf risk:RiskFeature .
+
+ctx:TemporalStage rdfs:subClassOf risk:RiskFeature .
+
+ctx:WorkActivity rdfs:subClassOf risk:RiskFeature .
+
+ctx:WorkContext rdfs:subClassOf risk:RiskFeature .
+
+haz:AccidentType rdfs:subClassOf risk:RiskFeature .
+
+haz:Hazard rdfs:subClassOf risk:RiskFeature .
+
+sr:SR-PILOT_CONSTRUCTION_EQUIP-002 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_CONSTRUCTION_EQUIP-003 ;
+    core:identifier "SR-PILOT_CONSTRUCTION_EQUIP-002"^^xsd:string ;
+    core:text "사업주는 항타기 또는 항발기의 권상장치의 드럼축과 권상장치로부터 첫 번째 도르래의 축 간의 거리를 권상장치 드럼폭의 15배 이상으로 하여야 한다."^^xsd:string ;
+    core:title "제216조 제2항: 권상장치 드럼축-도르래 거리 15배 이상"^^xsd:string ;
+    sr:addressesFeature haz:STRUCK_BY ;
+    sr:addressesHazard haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE216-1 ;
+    sr:directlyAppliesToArticle law:RULE_제216조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:EquipmentStandard .
+
+sr:SR-PILOT_ELECTRIC-002 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_ELECTRIC-003 ;
+    core:identifier "SR-PILOT_ELECTRIC-002"^^xsd:string ;
+    core:text "사업주는 절연용 보호구등이 안전한 성능을 유지하고 있는지를 정기적으로 확인하여야 한다."^^xsd:string ;
+    core:title "제323조 제2항: 절연용 보호구등 정기 성능 점검"^^xsd:string ;
+    sr:addressesFeature haz:ELECTRIC_SHOCK ;
+    sr:addressesHazard haz:ELECTRIC_SHOCK ;
+    sr:derivedFromNS law:NS-RULE323-1 ;
+    sr:directlyAppliesToArticle law:RULE_제323조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_EXCAVATION-002 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_EXCAVATION-003 ;
+    core:identifier "SR-PILOT_EXCAVATION-002"^^xsd:string ;
+    core:text "사업주는 굴착작업에 의하여 노출된 매설물 등이 파손됨으로써 근로자가 위험해질 우려가 있는 경우에는 해당 매설물 등에 대한 방호조치를 하거나 이설하는 등 필요한 조치를 하여야 한다."^^xsd:string ;
+    core:title "제341조 제2항: 노출된 매설물 방호조치 또는 이설"^^xsd:string ;
+    sr:addressesFeature haz:STRUCK_BY ;
+    sr:addressesHazard haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE341-1 ;
+    sr:directlyAppliesToArticle law:RULE_제341조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_EXCAVATION-005 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_EXCAVATION-006,
+        sr:SR-PILOT_EXCAVATION-007 ;
+    core:identifier "SR-PILOT_EXCAVATION-005"^^xsd:string ;
+    core:text "사업주는 제1항에 따라 측정한 결과 인화성 가스가 존재하여 폭발이나 화재가 발생할 위험이 있는 경우에는 인화성 가스 농도의 이상 상승을 조기에 파악하기 위하여 그 장소에 자동경보장치를 설치하여야 한다."^^xsd:string ;
+    core:title "제350조 제2항: 인화성 가스 자동경보장치 설치"^^xsd:string ;
+    sr:addressesFeature haz:FIRE_EXPLOSION ;
+    sr:addressesHazard haz:FIRE_EXPLOSION ;
+    sr:derivedFromNS law:NS-RULE350-1 ;
+    sr:directlyAppliesToArticle law:RULE_제350조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_HAZMAT-002 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_HAZMAT-003,
+        sr:SR-PILOT_HAZMAT-004 ;
+    core:identifier "SR-PILOT_HAZMAT-002"^^xsd:string ;
+    core:text "사업주는 석면해체ㆍ제거작업에 종사한 근로자에게 제491조제1항 각 호의 개인보호구를 작업복 탈의실에서 벗어 밀폐용기에 보관하도록 하여야 한다."^^xsd:string ;
+    core:title "제494조 제2항: 석면작업 개인보호구 밀폐용기 보관"^^xsd:string ;
+    sr:addressesFeature haz:CHEMICAL_EXPOSURE ;
+    sr:addressesHazard haz:CHEMICAL_EXPOSURE ;
+    sr:derivedFromNS law:NS-RULE494-1 ;
+    sr:directlyAppliesToArticle law:RULE_제494조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_MACHINE-002 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-003,
+        sr:SR-PILOT_MACHINE-004,
+        sr:SR-PILOT_MACHINE-005,
+        sr:SR-PILOT_MACHINE-006,
+        sr:SR-PILOT_MACHINE-007,
+        sr:SR-PILOT_MACHINE-008,
+        sr:SR-PILOT_MACHINE-009,
+        sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-002"^^xsd:string ;
+    core:text "사업주는 회전축·기어·풀리 및 플라이휠 등에 부속되는 키·핀 등의 기계요소는 묻힘형으로 하거나 해당 부위에 덮개를 설치하여 근로자의 신체가 회전부에 접촉되지 않도록 하여야 한다."^^xsd:string ;
+    core:title "제87조 제2항: 키ㆍ핀 등 기계요소 묻힘형 또는 덮개 설치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN ;
+    sr:addressesHazard haz:CAUGHT_IN ;
+    sr:derivedFromNS law:NS-RULE87-1 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_MACHINE-013 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-014,
+        sr:SR-PILOT_MACHINE-015 ;
+    core:identifier "SR-PILOT_MACHINE-013"^^xsd:string ;
+    core:text "사업주는 제1항에 따라 기계의 운전을 정지한 경우에 다른 사람이 그 기계를 운전하는 것을 방지하기 위하여 기계의 기동장치에 잠금장치를 하고 그 열쇠를 별도 관리하거나 표지판을 설치하는 등 필요한 방호 조치를 하여야 한다."^^xsd:string ;
+    core:title "제92조 제2항: 운전 정지 기계 기동장치 잠금ㆍ표지 조치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN ;
+    sr:addressesHazard haz:CAUGHT_IN ;
+    sr:derivedFromNS law:NS-RULE92-2 ;
+    sr:directlyAppliesToArticle law:RULE_제92조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_MGMT-002 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MGMT-003,
+        sr:SR-PILOT_MGMT-004 ;
+    core:identifier "SR-PILOT_MGMT-002"^^xsd:string ;
+    core:text "사업주는 제1항에 따라 작성한 작업계획서의 내용을 해당 근로자에게 알려야 한다."^^xsd:string ;
+    core:title "제38조 제2항: 작업계획서 내용 근로자 주지"^^xsd:string ;
+    sr:addressesFeature haz:COLLAPSE ;
+    sr:addressesHazard haz:COLLAPSE ;
+    sr:derivedFromNS law:NS-RULE38-1 ;
+    sr:directlyAppliesToArticle law:RULE_제38조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:ManagementSystem .
+
+sr:SR-PILOT_PRESSURE-002 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_PRESSURE-003 ;
+    core:identifier "SR-PILOT_PRESSURE-002"^^xsd:string ;
+    core:text "사업주는 고압작업자 및 공기압축기 운전자와 감시인이 서로 통화할 수 있도록 통화장치를 설치하여야 한다."^^xsd:string ;
+    core:title "제539조 제2항: 고압작업자·운전자·감시인 통화장치 설치"^^xsd:string ;
+    sr:addressesFeature haz:CONFINED_SPACE ;
+    sr:addressesHazard haz:CONFINED_SPACE ;
+    sr:derivedFromNS law:NS-RULE539-1 ;
+    sr:directlyAppliesToArticle law:RULE_제539조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:EmergencyResponse .
+
+sr:SR-PILOT_PROHIBITED_CHEM-002 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_PROHIBITED_CHEM-003 ;
+    core:identifier "SR-PILOT_PROHIBITED_CHEM-002"^^xsd:string ;
+    core:text "사업주는 금지유해물질 또는 이에 의하여 오염된 물질을 일정한 장소를 정하여 저장하거나 폐기하여야 하며, 그 장소에는 관계 근로자가 아닌 사람의 출입을 금지하고, 그 내용을 보기 쉬운 장소에 게시하여야 한다."^^xsd:string ;
+    core:title "제505조 제2항: 금지유해물질 저장·폐기 장소 출입통제"^^xsd:string ;
+    sr:addressesFeature haz:CHEMICAL_EXPOSURE ;
+    sr:addressesHazard haz:CHEMICAL_EXPOSURE ;
+    sr:derivedFromNS law:NS-RULE505-1 ;
+    sr:directlyAppliesToArticle law:RULE_제505조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+risk:RiskPattern a owl:Class ;
+    rdfs:label "위험 패턴"@ko .
+
+sr:SR-PILOT_CONSTRUCTION_EQUIP-003 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_CONSTRUCTION_EQUIP-003"^^xsd:string ;
+    core:text "사업주는 제2항에 따른 도르래가 권상장치의 드럼 중심을 지나며 축과 수직면상에 있도록 하여야 한다."^^xsd:string ;
+    core:title "제216조 제3항: 도르래 위치 드럼중심·축 수직면 정렬"^^xsd:string ;
+    sr:addressesFeature haz:STRUCK_BY ;
+    sr:addressesHazard haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE216-2 ;
+    sr:directlyAppliesToArticle law:RULE_제216조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:EquipmentStandard .
+
+sr:SR-PILOT_ELECTRIC-003 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_ELECTRIC-003"^^xsd:string ;
+    core:text "사업주는 근로자가 절연용 보호구등을 사용하기 전에 흠ㆍ균열ㆍ파손, 그 밖의 손상 유무를 발견하여 정비 또는 교환을 요구하는 경우에는 즉시 조치하여야 한다."^^xsd:string ;
+    core:title "제323조 제3항: 손상 보호구 정비·교환 즉시조치"^^xsd:string ;
+    sr:addressesFeature haz:ELECTRIC_SHOCK ;
+    sr:addressesHazard haz:ELECTRIC_SHOCK ;
+    sr:derivedFromNS law:NS-RULE323-2 ;
+    sr:directlyAppliesToArticle law:RULE_제323조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_EXCAVATION-003 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_EXCAVATION-003"^^xsd:string ;
+    core:text "사업주는 제2항의 매설물 등의 방호작업에 대하여 관리감독자에게 해당 작업을 지휘하도록 하여야 한다."^^xsd:string ;
+    core:title "제341조 제3항: 매설물 방호작업 관리감독자 지휘"^^xsd:string ;
+    sr:addressesFeature haz:STRUCK_BY ;
+    sr:addressesHazard haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE341-2 ;
+    sr:directlyAppliesToArticle law:RULE_제341조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:ManagementSystem .
+
+sr:SR-PILOT_EXCAVATION-006 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_EXCAVATION-007 ;
+    core:identifier "SR-PILOT_EXCAVATION-006"^^xsd:string ;
+    core:text "지하철도공사를 시행하는 사업주는 터널굴착(개착식을 포함한다) 등으로 인하여 도시가스관이 노출된 경우에 접속부 등 필요한 장소에 자동경보장치를 설치하고, 도시가스사업법에 따른 해당 도시가스사업자와 합동으로 정기적 순회점검을 하여야 한다."^^xsd:string ;
+    core:title "제350조 제3항: 노출 도시가스관 자동경보장치·합동순회점검"^^xsd:string ;
+    sr:addressesFeature haz:FIRE_EXPLOSION ;
+    sr:addressesHazard haz:FIRE_EXPLOSION ;
+    sr:derivedFromNS law:NS-RULE350-2 ;
+    sr:directlyAppliesToArticle law:RULE_제350조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_HAZMAT-003 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_HAZMAT-004 ;
+    core:identifier "SR-PILOT_HAZMAT-003"^^xsd:string ;
+    core:text "사업주는 석면해체ㆍ제거작업 중 근로자가 일시적으로 작업장 밖으로 나가는 경우 고성능 필터가 장착된 진공청소기 등으로 개인보호구에 부착된 석면분진을 제거한 후 나가도록 하여야 한다."^^xsd:string ;
+    core:title "제494조 제3항: 일시퇴장 시 석면분진 제거 의무"^^xsd:string ;
+    sr:addressesFeature haz:CHEMICAL_EXPOSURE ;
+    sr:addressesHazard haz:CHEMICAL_EXPOSURE ;
+    sr:derivedFromNS law:NS-RULE494-2 ;
+    sr:directlyAppliesToArticle law:RULE_제494조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_MACHINE-003 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-004,
+        sr:SR-PILOT_MACHINE-005,
+        sr:SR-PILOT_MACHINE-006,
+        sr:SR-PILOT_MACHINE-007,
+        sr:SR-PILOT_MACHINE-008,
+        sr:SR-PILOT_MACHINE-009,
+        sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-003"^^xsd:string ;
+    core:text "사업주는 벨트의 이음 부분에 돌출된 고정구를 사용해서는 아니 된다. 돌출 고정구는 회전 중 근로자에게 충격·끼임 위험을 발생시킬 수 있으므로 매립형 또는 평면형 고정구로 대체하여야 한다."^^xsd:string ;
+    core:title "제87조 제3항: 벨트 이음부 돌출 고정구 사용 금지"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:addressesHazard haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE87-2 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:EquipmentStandard .
+
+sr:SR-PILOT_MACHINE-014 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-015 ;
+    core:identifier "SR-PILOT_MACHINE-014"^^xsd:string ;
+    core:text "사업주는 작업하는 과정에서 적절하지 아니한 작업방법으로 인하여 기계가 갑자기 가동될 우려가 있는 경우 작업지휘자를 배치하는 등 필요한 조치를 하여야 한다."^^xsd:string ;
+    core:title "제92조 제3항: 기계 갑작스러운 가동 우려 시 작업지휘자 배치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN ;
+    sr:addressesHazard haz:CAUGHT_IN ;
+    sr:derivedFromNS law:NS-RULE92-3 ;
+    sr:directlyAppliesToArticle law:RULE_제92조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:ManagementSystem .
+
+sr:SR-PILOT_MGMT-003 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MGMT-004 ;
+    core:identifier "SR-PILOT_MGMT-003"^^xsd:string ;
+    core:text "사업주는 항타기나 항발기를 조립ㆍ해체ㆍ변경 또는 이동하는 작업을 하는 경우 그 작업방법과 절차를 정하여 근로자에게 주지시켜야 한다."^^xsd:string ;
+    core:title "제38조 제3항: 항타기·항발기 작업방법 근로자 주지"^^xsd:string ;
+    sr:addressesFeature haz:STRUCK_BY ;
+    sr:addressesHazard haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE38-2 ;
+    sr:directlyAppliesToArticle law:RULE_제38조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_PRESSURE-003 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_PRESSURE-003"^^xsd:string ;
+    core:text "사업주는 제2항에 따른 통화장치가 고장난 경우 다른 방법으로 연락할 수 있는 설비를 갖추어야 하며, 그 설비를 고압작업자, 공기압축기 운전자 및 감시인이 보기 쉬운 곳에 갖추어 두어야 한다."^^xsd:string ;
+    core:title "제539조 제3항: 통화장치 고장 시 대체 연락설비 비치"^^xsd:string ;
+    sr:addressesFeature haz:CONFINED_SPACE ;
+    sr:addressesHazard haz:CONFINED_SPACE ;
+    sr:derivedFromNS law:NS-RULE539-2 ;
+    sr:directlyAppliesToArticle law:RULE_제539조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:EmergencyResponse .
+
+sr:SR-PILOT_PROHIBITED_CHEM-003 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_PROHIBITED_CHEM-003"^^xsd:string ;
+    core:text "근로자는 제1항 및 제2항에 따라 출입이 금지된 장소에 사업주의 허락 없이 출입해서는 아니 된다."^^xsd:string ;
+    core:title "제505조 제3항: 출입금지 장소 무단출입 금지"^^xsd:string ;
+    sr:addressesFeature haz:CHEMICAL_EXPOSURE ;
+    sr:addressesHazard haz:CHEMICAL_EXPOSURE ;
+    sr:derivedFromNS law:NS-RULE505-2 ;
+    sr:directlyAppliesToArticle law:RULE_제505조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_EXCAVATION-007 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_EXCAVATION-007"^^xsd:string ;
+    core:text "사업주는 제2항 및 제3항에 따른 자동경보장치에 대하여 당일 작업 시작 전 계기의 이상 유무, 검지부의 이상 유무, 경보장치의 작동상태를 점검하고 이상을 발견하면 즉시 보수하여야 한다."^^xsd:string ;
+    core:title "제350조 제4항: 작업 시작 전 자동경보장치 점검·보수"^^xsd:string ;
+    sr:addressesFeature haz:FIRE_EXPLOSION ;
+    sr:addressesHazard haz:FIRE_EXPLOSION ;
+    sr:derivedFromNS law:NS-RULE350-3 ;
+    sr:directlyAppliesToArticle law:RULE_제350조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_HAZMAT-004 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_HAZMAT-004"^^xsd:string ;
+    core:text "사업주는 제2항에 따라 보관 중인 개인보호구를 폐기하거나 세척하는 등 석면분진을 제거하기 위하여 필요한 조치를 하여야 한다."^^xsd:string ;
+    core:title "제494조 제4항: 보관 보호구 폐기·세척 등 조치"^^xsd:string ;
+    sr:addressesFeature haz:CHEMICAL_EXPOSURE ;
+    sr:addressesHazard haz:CHEMICAL_EXPOSURE ;
+    sr:derivedFromNS law:NS-RULE494-3 ;
+    sr:directlyAppliesToArticle law:RULE_제494조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_MACHINE-004 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-005,
+        sr:SR-PILOT_MACHINE-006,
+        sr:SR-PILOT_MACHINE-007,
+        sr:SR-PILOT_MACHINE-008,
+        sr:SR-PILOT_MACHINE-009,
+        sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-004"^^xsd:string ;
+    core:text "사업주는 제1항에 따른 건널다리에는 안전난간과 미끄러지지 아니하는 구조의 발판을 설치하여 근로자의 추락 및 미끄럼 사고를 방지하여야 한다."^^xsd:string ;
+    core:title "제87조 제4항: 건널다리 안전난간ㆍ미끄럼방지 발판 설치"^^xsd:string ;
+    sr:addressesFeature haz:FALL ;
+    sr:addressesHazard haz:FALL ;
+    sr:derivedFromNS law:NS-RULE87-3 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_MACHINE-015 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_MACHINE-015"^^xsd:string ;
+    core:text "사업주는 기계·기구 및 설비 등의 내부에 압축된 기체 또는 액체 등이 방출되어 근로자가 위험해질 우려가 있는 경우에 제1항부터 제3항까지의 규정에 따른 조치 외에도 압축된 기체 또는 액체 등을 미리 방출시키는 등 위험 방지를 위하여 필요한 조치를 하여야 한다."^^xsd:string ;
+    core:title "제92조 제4항: 압축 기체ㆍ액체 사전 방출 등 위험 방지 조치"^^xsd:string ;
+    sr:addressesFeature haz:FIRE_EXPLOSION,
+        haz:STRUCK_BY ;
+    sr:addressesHazard haz:FIRE_EXPLOSION,
+        haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE92-4 ;
+    sr:directlyAppliesToArticle law:RULE_제92조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_MGMT-004 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_MGMT-004"^^xsd:string ;
+    core:text "사업주는 제1항제12호의 작업에 궤도작업차량을 사용하는 경우 미리 그 구간을 운행하는 열차의 운행관계자와 협의하여야 한다."^^xsd:string ;
+    core:title "제38조 제4항: 궤도작업차량 사용 시 열차운행자 협의"^^xsd:string ;
+    sr:addressesFeature haz:STRUCK_BY ;
+    sr:addressesHazard haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE38-3 ;
+    sr:directlyAppliesToArticle law:RULE_제38조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:Procedural .
+
+sr:SR-PILOT_MACHINE-005 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-006,
+        sr:SR-PILOT_MACHINE-007,
+        sr:SR-PILOT_MACHINE-008,
+        sr:SR-PILOT_MACHINE-009,
+        sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-005"^^xsd:string ;
+    core:text "사업주는 연삭기 또는 평삭기의 테이블, 형삭기 램 등의 행정끝이 근로자에게 위험을 미칠 우려가 있는 경우에 해당 부위에 덮개 또는 울 등의 방호설비를 설치하여야 한다."^^xsd:string ;
+    core:title "제87조 제5항: 연삭기ㆍ평삭기 행정끝 덮개ㆍ울 설치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:addressesHazard haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE87-4 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:addressesFeature a owl:ObjectProperty ;
+    rdfs:label "위험 특징 연결"@ko ;
+    rdfs:domain sr:SafetyRequirement ;
+    rdfs:range risk:RiskFeature .
+
+sr:SR-PILOT_MACHINE-006 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-007,
+        sr:SR-PILOT_MACHINE-008,
+        sr:SR-PILOT_MACHINE-009,
+        sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-006"^^xsd:string ;
+    core:text "사업주는 선반 등으로부터 돌출하여 회전하고 있는 가공물이 근로자에게 위험을 미칠 우려가 있는 경우에 해당 부위에 덮개 또는 울 등의 방호설비를 설치하여야 한다."^^xsd:string ;
+    core:title "제87조 제6항: 선반 돌출 회전 가공물 덮개ㆍ울 설치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:addressesHazard haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE87-5 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+law:RULE_제216조 a law:Article ;
+    core:title "도르래의 부착 등"^^xsd:string ;
+    law:articleCode "제216조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+law:RULE_제323조 a law:Article ;
+    core:title "절연용 보호구 등의 사용"^^xsd:string ;
+    law:articleCode "제323조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+law:RULE_제341조 a law:Article ;
+    core:title "매설물 등 파손에 의한 위험방지"^^xsd:string ;
+    law:articleCode "제341조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+law:RULE_제505조 a law:Article ;
+    core:title "출입의 금지 등"^^xsd:string ;
+    law:articleCode "제505조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+law:RULE_제539조 a law:Article ;
+    core:title "연락"^^xsd:string ;
+    law:articleCode "제539조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+sr:SR-PILOT_MACHINE-007 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-008,
+        sr:SR-PILOT_MACHINE-009,
+        sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-007"^^xsd:string ;
+    core:text "사업주는 원심기에는 덮개를 설치하여 회전 중 발생할 수 있는 비산물의 충격 및 회전부 접촉으로 인한 근로자의 위험을 방지하여야 한다."^^xsd:string ;
+    core:title "제87조 제7항: 원심기 덮개 설치 의무"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:addressesHazard haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE87-6 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_MACHINE-008 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-009,
+        sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-008"^^xsd:string ;
+    core:text "사업주는 분쇄기등을 가동하거나 원료가 흩날려 근로자가 위험해질 우려가 있는 경우 해당 부위에 덮개를 설치하는 등 필요한 조치를 하여야 하며, 가동 중 덮개를 열어야 하는 경우에는 정지·연동장치·감응형 방호장치 등 각 호의 어느 하나 이상의 안전조치를 하여야 한다."^^xsd:string ;
+    core:title "제87조 제8항: 분쇄기 덮개 설치 및 가동 중 안전조치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:addressesHazard haz:CAUGHT_IN,
+        haz:STRUCK_BY ;
+    sr:derivedFromNS law:NS-RULE87-7 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+law:RULE_제350조 a law:Article ;
+    core:title "인화성 가스의 농도측정 등"^^xsd:string ;
+    law:articleCode "제350조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+law:RULE_제38조 a law:Article ;
+    core:title "사전조사 및 작업계획서의 작성 등"^^xsd:string ;
+    law:articleCode "제38조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+law:RULE_제494조 a law:Article ;
+    core:title "위생설비의 설치 등"^^xsd:string ;
+    law:articleCode "제494조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+law:RULE_제92조 a law:Article ;
+    core:title "정비 등의 작업 시의 운전정지 등"^^xsd:string ;
+    law:articleCode "제92조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+
+risk:hasFeature a owl:ObjectProperty ;
+    rdfs:label "위험 특징 보유"@ko ;
+    rdfs:domain risk:RiskPattern ;
+    rdfs:range risk:RiskFeature .
+
+sr:SR-PILOT_MACHINE-009 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-010,
+        sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-009"^^xsd:string ;
+    core:text "사업주는 근로자가 분쇄기등의 개구부로부터 가동 부분에 접촉함으로써 위해를 입을 우려가 있는 경우 덮개 또는 울 등을 설치하여야 하며, 가동 중 덮개 또는 울을 열어야 하는 경우에는 정지·연동장치·감응형 방호장치 등 각 호의 어느 하나 이상의 안전조치를 하여야 한다."^^xsd:string ;
+    core:title "제87조 제9항: 분쇄기 개구부 덮개ㆍ울 설치 및 안전조치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN ;
+    sr:addressesHazard haz:CAUGHT_IN ;
+    sr:derivedFromNS law:NS-RULE87-8 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_MACHINE-010 a sr:SafetyRequirement ;
+    core:coApplicable sr:SR-PILOT_MACHINE-011 ;
+    core:identifier "SR-PILOT_MACHINE-010"^^xsd:string ;
+    core:text "사업주는 종이·천·비닐 및 와이어 로프 등의 감김통 등에 의하여 근로자가 위험해질 우려가 있는 부위에 덮개 또는 울 등의 방호설비를 설치하여 신체 끼임 사고를 방지하여야 한다."^^xsd:string ;
+    core:title "제87조 제10항: 감김통 등 위험부위 덮개ㆍ울 설치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN ;
+    sr:addressesHazard haz:CAUGHT_IN ;
+    sr:derivedFromNS law:NS-RULE87-9 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+sr:SR-PILOT_MACHINE-011 a sr:SafetyRequirement ;
+    core:identifier "SR-PILOT_MACHINE-011"^^xsd:string ;
+    core:text "사업주는 압력용기등에 부속하는 원동기·축이음·벨트·풀리의 회전 부위 등 근로자가 위험에 처할 우려가 있는 부위에 덮개 또는 울 등의 방호설비를 설치하여야 한다."^^xsd:string ;
+    core:title "제87조 제11항: 압력용기 부속 회전부위 덮개ㆍ울 설치"^^xsd:string ;
+    sr:addressesFeature haz:CAUGHT_IN ;
+    sr:addressesHazard haz:CAUGHT_IN ;
+    sr:derivedFromNS law:NS-RULE87-10 ;
+    sr:directlyAppliesToArticle law:RULE_제87조 ;
+    sr:hasBindingForce core:Mandatory ;
+    sr:hasRequirementType sr:PhysicalProtection .
+
+risk:RiskFeature a owl:Class ;
+    rdfs:label "위험 특징"@ko .
+
+she:SituationalHazardPattern a owl:Class ;
+    rdfs:label "위험상황 패턴"@ko ;
+    rdfs:subClassOf risk:RiskPattern .
+
+law:RULE_제87조 a law:Article ;
+    core:title "원동기ㆍ회전축 등의 위험 방지"^^xsd:string ;
+    law:articleCode "제87조"^^xsd:string ;
+    law:lawType "RULE"^^xsd:string .
+

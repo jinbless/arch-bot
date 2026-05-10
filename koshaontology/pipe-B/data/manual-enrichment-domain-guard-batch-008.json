@@ -1,0 +1,4808 @@
+{
+  "schema_version": "codex_manual_pilot.v1",
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "asserted_mapping_updates": 0,
+  "review_status": "candidate",
+  "scope": {
+    "batch_id": "domain_guard_manual_batch_008",
+    "guide_count": 30,
+    "source": "pipe-B/data/ci-output plus pipe-B/data/guide-inventory.json",
+    "selection_policy": "inventory order excluding prior manual batches",
+    "purpose": "Guide domain/profile guard enrichment without external API calls",
+    "curation_policy": "batch_008_source_json_manual_read",
+    "curation_status": "manual_reviewed"
+  },
+  "policies": {
+    "external_api_used": false,
+    "candidate_table_ready": true,
+    "auto_asserted_promotion": false,
+    "max_confidence_for_manual_sr_link": 0.86,
+    "notes": [
+      "Batch 008 was manually re-read and corrected from extracted Guide JSON.",
+      "No external API was used.",
+      "Candidate rows require global audit before import.",
+      "Rows must not be promoted to asserted mapping tables from this report.",
+      "Evidence spans are copied from guide titles, WorkProcess names, DomainTerm terms, or extracted WorkProcess/Checklist text.",
+      "SR candidates are conservative and must be imported as candidates only."
+    ],
+    "asserted_mapping": "disabled",
+    "sr_candidates": "candidate_only",
+    "min_evidence": "at least one extracted source span per candidate",
+    "runtime_intent": "generalized guide domain guard and scoring boundary"
+  },
+  "guides": [
+    {
+      "guide_code": "E-116-2021",
+      "short_code": "E116",
+      "title": "과전류 보호장치 선정 및 설치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E116.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "overcurrent_protective_device_selection_installation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "과전류",
+          "과부하전류",
+          "단락전류",
+          "보호장치",
+          "배선용차단기",
+          "누전차단기",
+          "퓨즈"
+        ],
+        "evidence": "과전류 보호장치 선정 및 설치에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-116-2021",
+          "guide_code": "E-116-2021",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_OVERLOAD",
+          "confidence": 0.84,
+          "evidence": "과전류가 흐를 경우 전선의 절연피복, 접속부, 단자부 또는 전선 주위의 온도가 위험한 수준이 되기 전에 과전류를 차단할 수 있는 보호장치를 설치한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-116-2021",
+          "guide_code": "E-116-2021",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.82,
+          "evidence": "과부하전류와 단락전류에 대한 보호장치는 설치된 지점에서의 최대 예상단락전류를 차단할 수 있는 용량이어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-116-2021",
+          "guide_code": "E-116-2021",
+          "sr_id": "SR-ELECTRIC-005",
+          "confidence": 0.86,
+          "evidence": "과부하 보호와 단락 보호를 각각 설치한 경우 단락 보호장치의 통전허용에너지가 과부하 보호장치에 손상을 주지 않도록 조정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-116-2021",
+          "guide_code": "E-116-2021",
+          "sr_id": "SR-ELECTRIC-013",
+          "confidence": 0.68,
+          "evidence": "전원회로에는 과전류가 흐를 경우 전선의 절연피복, 접속부, 단자부 또는 전선 주위의 온도가 위험한 수준이 되기 전에 과전류를 차단할 수 있는 보호장치를 설치한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-116-2021",
+          "guide_code": "E-116-2021",
+          "trigger_text": "과전류 보호장치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "과전류 보호장치 선정 및 설치에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-116-2021",
+          "guide_code": "E-116-2021",
+          "trigger_text": "배선용차단기/누전차단기/퓨즈",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.82,
+          "evidence": "과부하 보호장치 (배선용차단기/누전차단기/퓨즈)",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "과전류",
+          "과부하전류",
+          "단락전류",
+          "보호장치",
+          "배선용차단기",
+          "누전차단기",
+          "퓨즈"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-121-2012",
+      "short_code": "E121",
+      "title": "정전기방전 차폐체의 표준시험방법에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E121.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "esd_shielding_standard_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "정전기방전",
+          "ESD",
+          "차폐체",
+          "ESD 시뮬레이터",
+          "용량성 프로브",
+          "시험 샘플"
+        ],
+        "evidence": "정전기방전 차폐체의 표준시험방법에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-121-2012",
+          "guide_code": "E-121-2012",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.82,
+          "evidence": "정전기 방전(Electrostatic discharge, ESD)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-121-2012",
+          "guide_code": "E-121-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.74,
+          "evidence": "ESD 시뮬레이터(등가회로 저항 1500 Ω, 직렬 커패시터 100 pF)",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-121-2012",
+          "guide_code": "E-121-2012",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.66,
+          "evidence": "정전기 방전(Electrostatic discharge, ESD)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-121-2012",
+          "guide_code": "E-121-2012",
+          "trigger_text": "ESD 시뮬레이터",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.83,
+          "evidence": "ESD 시뮬레이터",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-121-2012",
+          "guide_code": "E-121-2012",
+          "trigger_text": "차폐체 시험 샘플",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "차폐체 시험 샘플",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "정전기방전",
+          "ESD",
+          "차폐체",
+          "ESD 시뮬레이터",
+          "용량성 프로브",
+          "시험 샘플"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-123-2012",
+      "short_code": "E123",
+      "title": "전기설비에서의 SF6 가스 분석 및 처리에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E123.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "sf6_gas_analysis_recovery_electrical_equipment",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "SF6",
+          "절연가스",
+          "가스회수장치",
+          "인클로저",
+          "SO2",
+          "HF",
+          "환기구"
+        ],
+        "evidence": "전기설비에서의 SF6 가스 분석 및 처리에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-123-2012",
+          "guide_code": "E-123-2012",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.84,
+          "evidence": "독성 분해 생성물(HF, SO2, SOF2, SO2F2) 농도를 작업 영역에서 안전한 수준으로 유지한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-123-2012",
+          "guide_code": "E-123-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.78,
+          "evidence": "전기설비에서의 SF6 가스 분석 및 처리에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-123-2012",
+          "guide_code": "E-123-2012",
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.75,
+          "evidence": "옥내 SF6 처리 작업 : 충분한 환기구를 확보한다. 독성 분해 생성물(HF, SO2, SOF2, SO2F2) 농도를 작업 영역에서 안전한 수준으로 유지한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-123-2012",
+          "guide_code": "E-123-2012",
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.72,
+          "evidence": "기사용 SF6 취급에 종사하는 작업자에게는 개인 안전장구(장갑, 보안경 등을 포함)를 제공하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-123-2012",
+          "guide_code": "E-123-2012",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.68,
+          "evidence": "SF6 가스나 분해 산물 접촉 시 제조업체의 지침과 사용자 코드를 따른다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-123-2012",
+          "guide_code": "E-123-2012",
+          "trigger_text": "SF6 가스",
+          "cue_type": "material_or_agent",
+          "confidence": 0.85,
+          "evidence": "전기설비에서의 SF6 가스 분석 및 처리에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-123-2012",
+          "guide_code": "E-123-2012",
+          "trigger_text": "가스회수장치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.82,
+          "evidence": "가스회수장치",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "SF6",
+          "절연가스",
+          "가스회수장치",
+          "인클로저",
+          "SO2",
+          "HF",
+          "환기구"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-129-2012",
+      "short_code": "E129",
+      "title": "저압 개폐장치 및 제어장치의 유지관리 등에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E129.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "low_voltage_switchgear_controlgear_rating_maintenance",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "저압 개폐장치",
+          "제어장치",
+          "단로기",
+          "퓨즈 결합장치",
+          "명판",
+          "단락보호장치"
+        ],
+        "evidence": "저압 개폐장치 및 제어장치의 유지관리 등에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.85,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-129-2012",
+          "guide_code": "E-129-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.8,
+          "evidence": "저압 개폐장치 및 제어장치의 유지관리 등에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-129-2012",
+          "guide_code": "E-129-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.78,
+          "evidence": "정격 사용전압, 정격 절연전압, 정격 임펄스 내전압 확인",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-129-2012",
+          "guide_code": "E-129-2012",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.72,
+          "evidence": "제품 표시 및 명판 확인 : 명판 표시가 쉽게 지워지지 않고 읽을 수 있는지 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-129-2012",
+          "guide_code": "E-129-2012",
+          "sr_id": "SR-ELECTRIC-005",
+          "confidence": 0.69,
+          "evidence": "단락보호장치(SCPD)의 형식, 특성 확인.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-129-2012",
+          "guide_code": "E-129-2012",
+          "trigger_text": "저압 개폐장치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "저압 개폐장치",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-129-2012",
+          "guide_code": "E-129-2012",
+          "trigger_text": "단락보호장치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.77,
+          "evidence": "단락보호장치(SCPD)의 형식, 특성 확인.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "저압 개폐장치",
+          "제어장치",
+          "단로기",
+          "퓨즈 결합장치",
+          "명판",
+          "단락보호장치"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-13-2012",
+      "short_code": "E13",
+      "title": "가스충전소 및 주유소에서의 정전기 재해방지에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E13.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "fuel_station_static_electricity_bonding",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "가스충전소",
+          "주유소",
+          "충전호스",
+          "주유 노즐",
+          "접지",
+          "본딩",
+          "정전기방지 패드"
+        ],
+        "evidence": "가스충전소 및 주유소에서의 정전기 재해방지에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-13-2012",
+          "guide_code": "E-13-2012",
+          "axis": "work_context",
+          "feature_code": "FUEL_DISPENSING",
+          "confidence": 0.85,
+          "evidence": "충전(주유) 전 안전준비",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-13-2012",
+          "guide_code": "E-13-2012",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.85,
+          "evidence": "정전기로 인한 화재·폭발을 방지하기 위해 정전기발생 및 제거방법에 대하여 충전(주유) 작업의 안전수칙 및 체크리스트를 작성·활용하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-13-2012",
+          "guide_code": "E-13-2012",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.86,
+          "evidence": "정전기의 대전방지를 위한 접지저항은 10⁵ Ω 이하로 유지하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-13-2012",
+          "guide_code": "E-13-2012",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.78,
+          "evidence": "0종, 1종 및 2종 장소에 설치되는 전기설비는 각각의 환경에 고려하여 선택되어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-13-2012",
+          "guide_code": "E-13-2012",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.75,
+          "evidence": "충전 중 이동 및 타인 접촉 등 불필요한 행동금지, 충전 중 운전자 및 충전기 접근금지",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-13-2012",
+          "guide_code": "E-13-2012",
+          "trigger_text": "충전호스 접지 및 본딩",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "충전호스 접지 및 본딩 설비 체결상태 확인",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-13-2012",
+          "guide_code": "E-13-2012",
+          "trigger_text": "정전기방지 패드",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.82,
+          "evidence": "정전기방지 패드 이상유무 확인",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "가스충전소",
+          "주유소",
+          "충전호스",
+          "주유 노즐",
+          "접지",
+          "본딩",
+          "정전기방지 패드"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-130-2012",
+      "short_code": "E130",
+      "title": "전압인가식 제전장치의 성능평가 및 사용안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E130.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "voltage_applied_static_eliminator_safety",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "전압인가식 제전장치",
+          "제전기",
+          "제전전극",
+          "방전침",
+          "고압전원",
+          "대전판 모니터"
+        ],
+        "evidence": "전압인가식 제전장치의 성능평가 및 사용안전에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-130-2012",
+          "guide_code": "E-130-2012",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.85,
+          "evidence": "제전전극의 방전침과 그 주변에 부착된 이물질을 정기적으로 청소·제거한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-130-2012",
+          "guide_code": "E-130-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.8,
+          "evidence": "보수 등으로 장치를 점검하는 경우에는 반드시 전원을 끄고 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-130-2012",
+          "guide_code": "E-130-2012",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.82,
+          "evidence": "정전기 방전; 대전방지; 제전장치",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-130-2012",
+          "guide_code": "E-130-2012",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.76,
+          "evidence": "폭발위험장소에서 사용되는 전압인가식 제전기는 방폭인증 제품이어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-130-2012",
+          "guide_code": "E-130-2012",
+          "sr_id": "SR-ELECTRIC-019",
+          "confidence": 0.7,
+          "evidence": "보수 등으로 장치를 점검하는 경우에는 반드시 전원을 끄고 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-130-2012",
+          "guide_code": "E-130-2012",
+          "trigger_text": "전압인가식 제전장치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "전압인가식 제전장치의 성능평가 및 사용안전에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-130-2012",
+          "guide_code": "E-130-2012",
+          "trigger_text": "제전전극 방전침",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.81,
+          "evidence": "제전전극의 방전침과 그 주변에 부착된 이물질을 정기적으로 청소·제거한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "전압인가식 제전장치",
+          "제전기",
+          "제전전극",
+          "방전침",
+          "고압전원",
+          "대전판 모니터"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-131-2012",
+      "short_code": "E131",
+      "title": "저압 개폐장치 및 제어장치의 오작동 방지 시험에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E131.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "low_voltage_switchgear_emc_malfunction_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "저압 개폐장치",
+          "오작동 방지",
+          "정전기 방전 내성시험",
+          "서지 시험",
+          "전자계 내성",
+          "EFT/B"
+        ],
+        "evidence": "저압 개폐장치 및 제어장치의 오작동 방지 시험에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-131-2012",
+          "guide_code": "E-131-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.79,
+          "evidence": "저압 개폐장치 및 제어장치의 오작동 방지 시험에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-131-2012",
+          "guide_code": "E-131-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.78,
+          "evidence": "전자회로가 있는 기기는 전기자기 방해에 대하여 충분한 내성이 필요하다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-131-2012",
+          "guide_code": "E-131-2012",
+          "sr_id": "SR-ELECTRIC-026",
+          "confidence": 0.84,
+          "evidence": "전자회로가 있는 기기는 전기자기 방해에 대하여 충분한 내성이 필요하다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-131-2012",
+          "guide_code": "E-131-2012",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.67,
+          "evidence": "제품 표준에서 시험방법을 규정하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-131-2012",
+          "guide_code": "E-131-2012",
+          "trigger_text": "정전기 방전 시험기",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.82,
+          "evidence": "정전기 방전 시험기(ESD Generator)",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-131-2012",
+          "guide_code": "E-131-2012",
+          "trigger_text": "서지 시험기",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.78,
+          "evidence": "서지 시험기(Surge Generator)",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "저압 개폐장치",
+          "오작동 방지",
+          "정전기 방전 내성시험",
+          "서지 시험",
+          "전자계 내성",
+          "EFT/B"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-132-2013",
+      "short_code": "E132",
+      "title": "38kV 이상 개폐장치의 유지보수에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E132.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "high_voltage_switchgear_38kv_maintenance",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "38kV",
+          "고압 개폐장치",
+          "유지보수",
+          "검전기",
+          "접지",
+          "잠금장치",
+          "경고표지"
+        ],
+        "evidence": "38kV 이상 개폐장치의 유지보수에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-132-2013",
+          "guide_code": "E-132-2013",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.85,
+          "evidence": "개폐장치를 차단하고 전압이 없음을 확인한 즉시 접지시킨다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-132-2013",
+          "guide_code": "E-132-2013",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.83,
+          "evidence": "전기감전자의 응급처치에 관한 지침을 게시하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-132-2013",
+          "guide_code": "E-132-2013",
+          "sr_id": "SR-ELECTRIC-019",
+          "confidence": 0.84,
+          "evidence": "개폐장치를 차단하고 전압이 없음을 확인한 즉시 접지시킨다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-132-2013",
+          "guide_code": "E-132-2013",
+          "sr_id": "SR-ELECTRIC-023",
+          "confidence": 0.76,
+          "evidence": "검전기는 매 사용전후에 검증한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-132-2013",
+          "guide_code": "E-132-2013",
+          "sr_id": "SR-ELECTRIC-007",
+          "confidence": 0.72,
+          "evidence": "연동의 결함 발견 시 다른 수단으로 안전을 확보한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-132-2013",
+          "guide_code": "E-132-2013",
+          "sr_id": "SR-ELECTRIC-018",
+          "confidence": 0.72,
+          "evidence": "전기유지보수 작업자들은 가능하면 심폐소생술을 할 수 있도록 훈련을 받아야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-132-2013",
+          "guide_code": "E-132-2013",
+          "trigger_text": "38kV 이상 개폐장치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "38kV 이상 개폐장치의 유지보수에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-132-2013",
+          "guide_code": "E-132-2013",
+          "trigger_text": "검전기와 접지",
+          "cue_type": "visual_cue",
+          "confidence": 0.82,
+          "evidence": "검전기로 충전여부를 시험한 후 작업을 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "38kV",
+          "고압 개폐장치",
+          "유지보수",
+          "검전기",
+          "접지",
+          "잠금장치",
+          "경고표지"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-134-2013",
+      "short_code": "E134",
+      "title": "의료용 전기 시스템의 안전한 사용에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E134.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "medical_electrical_system_patient_environment",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "의료용 전기 시스템",
+          "ME 장비",
+          "환자환경",
+          "멀티콘센트",
+          "임상공학",
+          "경보시스템"
+        ],
+        "evidence": "의료용 전기 시스템의 안전한 사용에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "항만하역",
+          "건설 장비",
+          "일반 기계 방호",
+          "피뢰설비"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance",
+          "healthcare"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-134-2013",
+          "guide_code": "E-134-2013",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.8,
+          "evidence": "ME 장비 보호등급 확인 및 표시",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-134-2013",
+          "guide_code": "E-134-2013",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.77,
+          "evidence": "1급 ME 장비의 기본 안전은 기본절연을 확실하게 하고, 보호접지에 의해 이루어져야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-134-2013",
+          "guide_code": "E-134-2013",
+          "sr_id": "SR-ELECTRIC-002",
+          "confidence": 0.75,
+          "evidence": "1급 ME 장비의 기본 안전은 기본절연을 확실하게 하고, 보호접지에 의해 이루어져야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-134-2013",
+          "guide_code": "E-134-2013",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.72,
+          "evidence": "새로운 ME 장비 또는 새로운 ME 시스템을 주문하기 전에 관련 표준 준수, 성능 적합성, 기존 설비 호환성을 고려한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-134-2013",
+          "guide_code": "E-134-2013",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.66,
+          "evidence": "경보시스템의 구성은 책임급 의료진 또는 부서의 장에 의해 승인되어야 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-134-2013",
+          "guide_code": "E-134-2013",
+          "trigger_text": "ME 장비",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "ME 장비 보호등급 확인 및 표시",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-134-2013",
+          "guide_code": "E-134-2013",
+          "trigger_text": "환자환경 멀티콘센트",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "멀티콘센트 설치 및 장비 연결",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "의료용 전기 시스템",
+          "ME 장비",
+          "환자환경",
+          "멀티콘센트",
+          "임상공학",
+          "경보시스템"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "건설 장비",
+          "일반 기계 방호",
+          "피뢰설비"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-135-2013",
+      "short_code": "E135",
+      "title": "저압 개폐장치 및 제어장치의 시험·점검에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E135.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "low_voltage_switchgear_type_routine_testing",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "저압 개폐장치",
+          "제어장치",
+          "형식시험",
+          "검수시험",
+          "절연시험",
+          "임펄스 내전압"
+        ],
+        "evidence": "저압 개폐장치 및 제어장치의 시험·점검에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.85,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-135-2013",
+          "guide_code": "E-135-2013",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.79,
+          "evidence": "저압 개폐장치 및 제어장치의 시험·점검에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-135-2013",
+          "guide_code": "E-135-2013",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.78,
+          "evidence": "상용주파 내전압 시험용 고전압 변압기",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-135-2013",
+          "guide_code": "E-135-2013",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.72,
+          "evidence": "시험하는 기기는 모든 본질적인 세부사항에 있어서 그 기기가 나타내는 형식의 설계와 일치하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-135-2013",
+          "guide_code": "E-135-2013",
+          "sr_id": "SR-ELECTRIC-005",
+          "confidence": 0.67,
+          "evidence": "정격 임펄스 내전압 0.33 kV 기기 최소 공간거리",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-135-2013",
+          "guide_code": "E-135-2013",
+          "sr_id": "SR-ELECTRIC-001",
+          "confidence": 0.66,
+          "evidence": "상용주파 내전압 시험용 고전압 변압기",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-135-2013",
+          "guide_code": "E-135-2013",
+          "trigger_text": "형식시험/검수시험",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.8,
+          "evidence": "형식시험(Type test); 검수시험(Routine test)",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-135-2013",
+          "guide_code": "E-135-2013",
+          "trigger_text": "임펄스 내전압 시험설비",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.79,
+          "evidence": "임펄스 내전압 시험설비",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "저압 개폐장치",
+          "제어장치",
+          "형식시험",
+          "검수시험",
+          "절연시험",
+          "임펄스 내전압"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-139-2013",
+      "short_code": "E139",
+      "title": "비상 등기구의 기능안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E139.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "emergency_luminaire_functional_safety",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "비상 등기구",
+          "비상 조명",
+          "비상 안전표지",
+          "비상 모드",
+          "중앙전원",
+          "정격 광출력"
+        ],
+        "evidence": "비상 등기구의 기능안전에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-139-2013",
+          "guide_code": "E-139-2013",
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.83,
+          "evidence": "비상 조명(Emergency lighting)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-139-2013",
+          "guide_code": "E-139-2013",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.75,
+          "evidence": "중앙전원 공급형 비상 등기구",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-139-2013",
+          "guide_code": "E-139-2013",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.78,
+          "evidence": "중앙 전원 공급형 등기구 광출력 시험",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-139-2013",
+          "guide_code": "E-139-2013",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.66,
+          "evidence": "형식, 동작모드, 부수장치, 등기구의 정격기간을 등기구에 명확히 표시해야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-139-2013",
+          "guide_code": "E-139-2013",
+          "trigger_text": "비상 등기구",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "비상 등기구의 기능안전에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-139-2013",
+          "guide_code": "E-139-2013",
+          "trigger_text": "비상 안전표지",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "비상 안전표지",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "비상 등기구",
+          "비상 조명",
+          "비상 안전표지",
+          "비상 모드",
+          "중앙전원",
+          "정격 광출력"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-140-2013",
+      "short_code": "E140",
+      "title": "비상 등기구 배터리의 관리에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E140.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "emergency_luminaire_battery_management",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "비상 등기구 배터리",
+          "니켈-카드뮴 축전지",
+          "납축전지",
+          "충전기",
+          "비상 모드"
+        ],
+        "evidence": "비상 등기구 배터리의 관리에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-140-2013",
+          "guide_code": "E-140-2013",
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.8,
+          "evidence": "비상 등기구 배터리의 관리에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-140-2013",
+          "guide_code": "E-140-2013",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.78,
+          "evidence": "전원 내장형 비상 등기구에는 정상 전원과 배터리 충전용 회로의 도전부 사이에 적당한 이격이 있어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-140-2013",
+          "guide_code": "E-140-2013",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.78,
+          "evidence": "비상 등기구는 설계된 수명동안 배터리에 의해 특성이 허용값 이내로 유지될 수 있어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-140-2013",
+          "guide_code": "E-140-2013",
+          "sr_id": "SR-ELECTRIC-001",
+          "confidence": 0.67,
+          "evidence": "도전부가 드러나 있는 경우에는 이중절연, 강화절연 등 기타 동등한 절연이 필요하다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-140-2013",
+          "guide_code": "E-140-2013",
+          "sr_id": "SR-ELECTRIC-002",
+          "confidence": 0.66,
+          "evidence": "정상과 비상 전원 사이의 전기적 분리는 이중 절연, 접지된 스크린 또는 기타 동등한 수단에 의해 보장되어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-140-2013",
+          "guide_code": "E-140-2013",
+          "trigger_text": "비상 등기구 배터리",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "비상 등기구 배터리의 관리에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-140-2013",
+          "guide_code": "E-140-2013",
+          "trigger_text": "밀폐형 니켈-카드뮴 축전지",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "밀폐형 니켈-카드뮴 축전지",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "비상 등기구 배터리",
+          "니켈-카드뮴 축전지",
+          "납축전지",
+          "충전기",
+          "비상 모드"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-141-2013",
+      "short_code": "E141",
+      "title": "가연성 분진발생 사업장의 케이블에 의한 화재위험 관리에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E141.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "combustible_dust_cable_fire_risk",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "가연성 분진",
+          "케이블",
+          "폭발성 분진운",
+          "분진층",
+          "점화원",
+          "난연 성능"
+        ],
+        "evidence": "가연성 분진발생 사업장의 케이블에 의한 화재위험 관리에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-141-2013",
+          "guide_code": "E-141-2013",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.84,
+          "evidence": "가연성 분진발생 사업장의 케이블에 의한 화재위험 관리에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-141-2013",
+          "guide_code": "E-141-2013",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.81,
+          "evidence": "폭발성 분진운 및 가연성 분진층이 존재하는 장소에는 점화원을 두지 않아야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-141-2013",
+          "guide_code": "E-141-2013",
+          "sr_id": "SR-FIRE_EXPLOSION-006",
+          "confidence": 0.78,
+          "evidence": "폭발성 분진운 및 가연성 분진층이 존재하는 장소에는 점화원을 두지 않아야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-141-2013",
+          "guide_code": "E-141-2013",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.76,
+          "evidence": "점화원 제거가 불가능할 경우, 폭발성 분진 또는 가연성 분진이 점화될 가능성을 줄이기 위한 안전조치를 취하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-141-2013",
+          "guide_code": "E-141-2013",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.72,
+          "evidence": "장비가 점화원이 될 수 있으므로 폭발성 혼합물이 발생할 가능성이 클 경우에는 점화원이 될 가능성이 아주 낮은 장비를 사용해야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-141-2013",
+          "guide_code": "E-141-2013",
+          "trigger_text": "가연성 분진 케이블",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "가연성 분진발생 사업장의 케이블에 의한 화재위험 관리에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-141-2013",
+          "guide_code": "E-141-2013",
+          "trigger_text": "케이블 분진층",
+          "cue_type": "visual_cue",
+          "confidence": 0.79,
+          "evidence": "폭발성 분진 및 가연성 분진이 존재하거나 지속적으로 축적될 수 있는 장소에서는 케이블에 축적된 분진의 상시적 제거가 용이하지 않다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "가연성 분진",
+          "케이블",
+          "폭발성 분진운",
+          "분진층",
+          "점화원",
+          "난연 성능"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-142-2013",
+      "short_code": "E142",
+      "title": "압축공기 구동식 연마기의 정전기 대책에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E142.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pneumatic_grinder_static_control",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "압축공기 구동식 연마기",
+          "에어호스",
+          "도전성 롤러",
+          "접지선",
+          "정전화",
+          "습식 집진기"
+        ],
+        "evidence": "압축공기 구동식 연마기의 정전기 대책에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-142-2013",
+          "guide_code": "E-142-2013",
+          "axis": "work_context",
+          "feature_code": "GRINDING",
+          "confidence": 0.85,
+          "evidence": "압축공기 구동식 연마기의 정전기 대책에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-142-2013",
+          "guide_code": "E-142-2013",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.84,
+          "evidence": "연마기, 피연마물, 작업자에 대한 정전기 대책을 동시에 실시한 상태에서 작업한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-142-2013",
+          "guide_code": "E-142-2013",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.84,
+          "evidence": "접지선 또는 도전성 에어호스를 이용하여 연마기를 접지극에 접속한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-142-2013",
+          "guide_code": "E-142-2013",
+          "sr_id": "SR-MACHINE-037",
+          "confidence": 0.72,
+          "evidence": "벨트 연마기는 도전성 롤러를 사용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-142-2013",
+          "guide_code": "E-142-2013",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.72,
+          "evidence": "연마작업 장소에서 인화성 액체·스프레이 캔 사용을 금지하고, 통풍을 확보한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-142-2013",
+          "guide_code": "E-142-2013",
+          "trigger_text": "압축공기 구동식 연마기",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "압축공기 구동식 연마기의 정전기 대책에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-142-2013",
+          "guide_code": "E-142-2013",
+          "trigger_text": "도전성 에어호스",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.81,
+          "evidence": "도전성 에어호스",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "압축공기 구동식 연마기",
+          "에어호스",
+          "도전성 롤러",
+          "접지선",
+          "정전화",
+          "습식 집진기"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-147-2015",
+      "short_code": "E147",
+      "title": "통신케이블 설치근로자의 안전작업에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E147.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "communication_cable_manhole_pole_installation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "통신케이블",
+          "맨홀",
+          "지하케이블",
+          "전주작업",
+          "고소작업차량",
+          "혼합가스 농도 측정기"
+        ],
+        "evidence": "통신케이블 설치근로자의 안전작업에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-147-2015",
+          "guide_code": "E-147-2015",
+          "axis": "work_context",
+          "feature_code": "CONFINED_SPACE",
+          "confidence": 0.83,
+          "evidence": "지하케이블 포설작업은 지하 맨홀에서 이루어지는 작업이다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-147-2015",
+          "guide_code": "E-147-2015",
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.8,
+          "evidence": "전주작업 (지상케이블) : 떨어짐(추락), 미끄러짐(전도) 위험에 유의",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-147-2015",
+          "guide_code": "E-147-2015",
+          "sr_id": "SR-CONFINED-001",
+          "confidence": 0.8,
+          "evidence": "가스측정기로 측정 후 환풍기 가동. 질식 위험에 유의",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-147-2015",
+          "guide_code": "E-147-2015",
+          "sr_id": "SR-CONFINED-002",
+          "confidence": 0.78,
+          "evidence": "가스측정기로 측정 후 환풍기 가동.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-147-2015",
+          "guide_code": "E-147-2015",
+          "sr_id": "SR-FALL-003",
+          "confidence": 0.76,
+          "evidence": "전주작업 (지상케이블) : 안전거리에 사다리 설치. 떨어짐(추락) 위험에 유의",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-147-2015",
+          "guide_code": "E-147-2015",
+          "sr_id": "SR-ELECTRIC-022",
+          "confidence": 0.72,
+          "evidence": "근접된 충전선로에서 작업하는 작업자에 대하여 전기아크 발생 위험성에 대한 전위노출 평가가 수행되었음을 보증한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-147-2015",
+          "guide_code": "E-147-2015",
+          "trigger_text": "통신케이블 맨홀",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.84,
+          "evidence": "준비작업 - 맨홀작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-147-2015",
+          "guide_code": "E-147-2015",
+          "trigger_text": "고소작업차량/버킷트럭",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "고소작업차량(버킷트럭)",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "통신케이블",
+          "맨홀",
+          "지하케이블",
+          "전주작업",
+          "고소작업차량",
+          "혼합가스 농도 측정기"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-15-2012",
+      "short_code": "E15",
+      "title": "개폐장치의 사용에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E15.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "switchgear_operation_maintenance_sf6",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "개폐장치",
+          "스위치",
+          "차단기",
+          "퓨즈 스위치",
+          "SF6",
+          "변전실",
+          "접지장비"
+        ],
+        "evidence": "개폐장치의 사용에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-15-2012",
+          "guide_code": "E-15-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.83,
+          "evidence": "개폐장치의 관리, 작동 및 정비를 담당하는 직원은 그들에게 요구되는 업무에 관한 교육을 받아야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-15-2012",
+          "guide_code": "E-15-2012",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.79,
+          "evidence": "정전 상태에서의 정비를 통하여 장치 결함, 절연유 오염과 성능 저하 및 접촉부와 아크 제어 장치 부식 등의 사항을 점검한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-15-2012",
+          "guide_code": "E-15-2012",
+          "sr_id": "SR-ELECTRIC-019",
+          "confidence": 0.82,
+          "evidence": "정전 상태에서의 정비를 통하여 장치 결함, 절연유 오염과 성능 저하 및 접촉부와 아크 제어 장치 부식 등의 사항을 점검한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-15-2012",
+          "guide_code": "E-15-2012",
+          "sr_id": "SR-ELECTRIC-007",
+          "confidence": 0.74,
+          "evidence": "표시기·연동 장치 작동 여부 점검",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-15-2012",
+          "guide_code": "E-15-2012",
+          "sr_id": "SR-ELECTRIC-023",
+          "confidence": 0.72,
+          "evidence": "시험 프로브와 접지장비의 일반 상태·손상·성능 저하 시험",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-15-2012",
+          "guide_code": "E-15-2012",
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.66,
+          "evidence": "SF6 가스나 분해 산물 접촉 시 1회용 방호 작업복 사용, 철저한 개인위생 유지",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-15-2012",
+          "guide_code": "E-15-2012",
+          "trigger_text": "개폐장치/차단기",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "개폐장치의 사용에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-15-2012",
+          "guide_code": "E-15-2012",
+          "trigger_text": "SF6 가스 차단기",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.78,
+          "evidence": "SF6 가스 취급 및 안전 예방",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "개폐장치",
+          "스위치",
+          "차단기",
+          "퓨즈 스위치",
+          "SF6",
+          "변전실",
+          "접지장비"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-158-2017",
+      "short_code": "E158",
+      "title": "방폭전기기계기구 제조자 품질경영시스템 적용에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E158.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "ex_equipment_manufacturer_quality_management",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "방폭전기기계기구",
+          "제조자",
+          "품질경영시스템",
+          "Ex 인증서",
+          "기술 문서",
+          "제품심사"
+        ],
+        "evidence": "방폭전기기계기구 제조자 품질경영시스템 적용에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-158-2017",
+          "guide_code": "E-158-2017",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.76,
+          "evidence": "방폭전기기계·기구 제조자가 방폭전기기계·기구 안전인증을 취득하기 위해서는 단계별 심사를 받아야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-158-2017",
+          "guide_code": "E-158-2017",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.74,
+          "evidence": "잠재적 폭발분위기에 사용하기 위한 설비와 관련된 조치의 책임과 권한",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-158-2017",
+          "guide_code": "E-158-2017",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.68,
+          "evidence": "제품 및 서비스 요구사항 검토 : Ex 인증서와 설비 그룹, 온도 등급, 방폭구조, 기기 보호수준(EPL) 및 주위 온도 범위가 호환되는지 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-158-2017",
+          "guide_code": "E-158-2017",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.68,
+          "evidence": "Ex 인증서 및 기술 문서에 설명된 유형을 준수하는지 확인한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-158-2017",
+          "guide_code": "E-158-2017",
+          "trigger_text": "방폭전기기계기구",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.83,
+          "evidence": "방폭전기기계기구 제조자 품질경영시스템 적용에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-158-2017",
+          "guide_code": "E-158-2017",
+          "trigger_text": "Ex 인증서",
+          "cue_type": "document_or_marking",
+          "confidence": 0.8,
+          "evidence": "Ex 인증서와 설비 그룹, 온도 등급, 방폭구조, 기기 보호수준(EPL)",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "방폭전기기계기구",
+          "제조자",
+          "품질경영시스템",
+          "Ex 인증서",
+          "기술 문서",
+          "제품심사"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-16-2012",
+      "short_code": "E16",
+      "title": "빌딩 건설현장에서의 배전설비에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E16.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "building_construction_site_temporary_distribution",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "빌딩 건설현장",
+          "배전설비",
+          "임시 전원",
+          "가공선로",
+          "지중케이블",
+          "누전차단기",
+          "현장 전기설비"
+        ],
+        "evidence": "빌딩 건설현장에서의 배전설비에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "항만하역",
+          "급식실",
+          "실험실 분석",
+          "일반 사무실"
+        ],
+        "industry_alignment": [
+          "construction",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-16-2012",
+          "guide_code": "E-16-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "건설현장에 공급되는 배전설비는 전기설비기술기준에 적합하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-16-2012",
+          "guide_code": "E-16-2012",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.8,
+          "evidence": "전기작업 전 정전상태 확인. 선로명 표기. 감전사고 응급조치 사항 게시.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-16-2012",
+          "guide_code": "E-16-2012",
+          "sr_id": "SR-ELECTRIC-013",
+          "confidence": 0.8,
+          "evidence": "케이블 및 배선 설치 : 이동 케이블은 유연케이블 사용. 지하매설 케이블 기계적 보호 및 경로 표시.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-16-2012",
+          "guide_code": "E-16-2012",
+          "sr_id": "SR-ELECTRIC-004",
+          "confidence": 0.76,
+          "evidence": "누전차단기 월1회 시험.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-16-2012",
+          "guide_code": "E-16-2012",
+          "sr_id": "SR-ELECTRIC-019",
+          "confidence": 0.75,
+          "evidence": "전기작업 전 정전상태 확인.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-16-2012",
+          "guide_code": "E-16-2012",
+          "sr_id": "SR-ELECTRIC-022",
+          "confidence": 0.72,
+          "evidence": "기존 가공선로·지중케이블 접촉사고 방지 안전조치.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-16-2012",
+          "guide_code": "E-16-2012",
+          "trigger_text": "건설현장 배전설비",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.85,
+          "evidence": "빌딩 건설현장에서의 배전설비에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-16-2012",
+          "guide_code": "E-16-2012",
+          "trigger_text": "가공선로/지중케이블",
+          "cue_type": "visual_cue",
+          "confidence": 0.82,
+          "evidence": "기존의 가공선로, 지중케이블 등과의 접촉으로 인한 사고방지를 예방할 수 있는 사전 안전조치가 필요하다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "빌딩 건설현장",
+          "배전설비",
+          "임시 전원",
+          "가공선로",
+          "지중케이블",
+          "누전차단기",
+          "현장 전기설비"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "급식실",
+          "실험실 분석",
+          "일반 사무실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-163-2017",
+      "short_code": "E163",
+      "title": "특수전력시스템 설치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E163.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "special_power_systems_installation",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "특수전력시스템",
+          "600 V 이상",
+          "터널 전기설비",
+          "비상 전원시스템",
+          "화재경보시스템",
+          "통신시스템",
+          "태양광"
+        ],
+        "evidence": "특수전력시스템 설치에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.82,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "construction",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-163-2017",
+          "guide_code": "E-163-2017",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.78,
+          "evidence": "특수전력시스템 설치에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-163-2017",
+          "guide_code": "E-163-2017",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.76,
+          "evidence": "600 V 이상 전력시스템 지상 배선 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-163-2017",
+          "guide_code": "E-163-2017",
+          "sr_id": "SR-ELECTRIC-013",
+          "confidence": 0.72,
+          "evidence": "도체는 견고한 금속 배관, 금속 튜브, 비금속 배관, 케이블 트레이 등에 설치해야한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-163-2017",
+          "guide_code": "E-163-2017",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.7,
+          "evidence": "비상 전원시스템 설치 : 비상전로 배선은 다른 배선 및 장비와 완전히 독립적으로 설치.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-163-2017",
+          "guide_code": "E-163-2017",
+          "sr_id": "SR-ELECTRIC-001",
+          "confidence": 0.68,
+          "evidence": "절연되지 않은 단자는 충전부 접촉 방지 조치.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-163-2017",
+          "guide_code": "E-163-2017",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.67,
+          "evidence": "외함은 환경조건에 따라 방수형·내후형·수중형 사용.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-163-2017",
+          "guide_code": "E-163-2017",
+          "trigger_text": "특수전력시스템",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.83,
+          "evidence": "특수전력시스템 설치에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-163-2017",
+          "guide_code": "E-163-2017",
+          "trigger_text": "터널 전기설비",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.78,
+          "evidence": "터널 전기설비 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "특수전력시스템",
+          "600 V 이상",
+          "터널 전기설비",
+          "비상 전원시스템",
+          "화재경보시스템",
+          "통신시스템",
+          "태양광"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-164-2017",
+      "short_code": "E164",
+      "title": "특정용도의 전기기계기구 설치에 관란 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E164.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "specific_use_electrical_equipment_installation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "전기표지",
+          "윤곽조명",
+          "크레인",
+          "호이스트",
+          "엘리베이터",
+          "전기용접기",
+          "X레이",
+          "수영장",
+          "관개기계"
+        ],
+        "evidence": "특정용도의 전기기계기구 설치에 관란 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-164-2017",
+          "guide_code": "E-164-2017",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.8,
+          "evidence": "특정용도의 전기기계기구 설치에 관란 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-164-2017",
+          "guide_code": "E-164-2017",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.77,
+          "evidence": "충전부 접근 작업공간 최소 760mm 확보",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-164-2017",
+          "guide_code": "E-164-2017",
+          "sr_id": "SR-ELECTRIC-001",
+          "confidence": 0.72,
+          "evidence": "자격자 이외의 사람들이 접근 할 수 있는 600 V를 넘는 옥내 표지판의 절연되지 않은 부분 접근용 문 또는 덮개는 1차측 전로를 분리시키는 연동 개폐기이거나 특수 구조의 공구를 이용해서만 열 수 있어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-164-2017",
+          "guide_code": "E-164-2017",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.7,
+          "evidence": "전기기계기구 설치에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-164-2017",
+          "guide_code": "E-164-2017",
+          "sr_id": "SR-ELECTRIC-004",
+          "confidence": 0.68,
+          "evidence": "수중 기기 GFCI 설치, 150V 이상 수중 조명 금지, 분수대 전기기기 GFCI 보호",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-164-2017",
+          "guide_code": "E-164-2017",
+          "sr_id": "SR-ELECTRIC-006",
+          "confidence": 0.67,
+          "evidence": "전기용접기 단로장치 설치 : 아크 용접기에 단로장치 설치",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-164-2017",
+          "guide_code": "E-164-2017",
+          "trigger_text": "특정용도 전기기계기구",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "특정용도의 전기기계기구 설치에 관란 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-164-2017",
+          "guide_code": "E-164-2017",
+          "trigger_text": "크레인·호이스트 충전부",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.78,
+          "evidence": "크레인·호이스트 충전부 접근 작업공간",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "전기표지",
+          "윤곽조명",
+          "크레인",
+          "호이스트",
+          "엘리베이터",
+          "전기용접기",
+          "X레이",
+          "수영장",
+          "관개기계"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-168-2018",
+      "short_code": "E168",
+      "title": "병원전기설비 설치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E168.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "hospital_medical_location_electrical_installation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "병원전기설비",
+          "의료장소",
+          "그룹 2",
+          "의료용 IT 시스템",
+          "절연감시장치",
+          "등전위 본딩",
+          "안전공급 전원"
+        ],
+        "evidence": "병원전기설비 설치에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "항만하역",
+          "건설 장비",
+          "일반 기계 방호",
+          "피뢰설비"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance",
+          "healthcare"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-168-2018",
+          "guide_code": "E-168-2018",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.83,
+          "evidence": "병원전기설비 설치에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-168-2018",
+          "guide_code": "E-168-2018",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.81,
+          "evidence": "그룹 2의 의료장소에서는 기기의 노출 도전부를 등전위 본딩 도체에 연결해야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-168-2018",
+          "guide_code": "E-168-2018",
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.8,
+          "evidence": "안전공급 설비 설치 : 안전공급용 전원 상시 충전.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-168-2018",
+          "guide_code": "E-168-2018",
+          "sr_id": "SR-ELECTRIC-004",
+          "confidence": 0.77,
+          "evidence": "그룹 1 TN 시스템 말단 회로 30mA RCD 사용.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-168-2018",
+          "guide_code": "E-168-2018",
+          "sr_id": "SR-ELECTRIC-002",
+          "confidence": 0.76,
+          "evidence": "그룹 2의 의료장소에서는 기기의 노출 도전부를 등전위 본딩 도체에 연결해야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-168-2018",
+          "guide_code": "E-168-2018",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.72,
+          "evidence": "의료용 IT 시스템 설치 및 절연감시장치 부착.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-168-2018",
+          "guide_code": "E-168-2018",
+          "trigger_text": "의료용 IT 시스템",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "의료용 IT 시스템 절연감시장치",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-168-2018",
+          "guide_code": "E-168-2018",
+          "trigger_text": "등전위 본딩 버스바",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "등전위 본딩 버스바는 의료장소 내 또는 인근에 위치.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "병원전기설비",
+          "의료장소",
+          "그룹 2",
+          "의료용 IT 시스템",
+          "절연감시장치",
+          "등전위 본딩",
+          "안전공급 전원"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "건설 장비",
+          "일반 기계 방호",
+          "피뢰설비"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-17-2012",
+      "short_code": "E17",
+      "title": "고전압 개폐장치의 정비에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E17.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "high_voltage_switchgear_maintenance",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "고전압 개폐장치",
+          "정비",
+          "검전기",
+          "휴대접지장치",
+          "연동장치",
+          "고전압 배전반"
+        ],
+        "evidence": "고전압 개폐장치의 정비에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-17-2012",
+          "guide_code": "E-17-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.85,
+          "evidence": "정비를 위한 접근과 격리 : 장비 주변 격리, 전원 차단상태 확인 및 즉시 접지",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-17-2012",
+          "guide_code": "E-17-2012",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.82,
+          "evidence": "전원 차단상태 확인 및 즉시 접지, 전원 재투입 방지 대책 수립",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-17-2012",
+          "guide_code": "E-17-2012",
+          "sr_id": "SR-ELECTRIC-019",
+          "confidence": 0.84,
+          "evidence": "전원 차단상태 확인 및 즉시 접지, 전원 재투입 방지 대책 수립",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-17-2012",
+          "guide_code": "E-17-2012",
+          "sr_id": "SR-ELECTRIC-023",
+          "confidence": 0.76,
+          "evidence": "절연도구·휴대접지장치 보관 및 상태 유지",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-17-2012",
+          "guide_code": "E-17-2012",
+          "sr_id": "SR-ELECTRIC-007",
+          "confidence": 0.74,
+          "evidence": "표시기·연동 장치 작동 여부 점검",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-17-2012",
+          "guide_code": "E-17-2012",
+          "sr_id": "SR-ELECTRIC-018",
+          "confidence": 0.72,
+          "evidence": "유자격자 수행이 필요한 고전압 개폐장치 정비 절차",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-17-2012",
+          "guide_code": "E-17-2012",
+          "trigger_text": "고전압 개폐장치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "고전압 개폐장치의 정비에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-17-2012",
+          "guide_code": "E-17-2012",
+          "trigger_text": "휴대접지장치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "휴대접지장치 보관 및 상태 유지",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "고전압 개폐장치",
+          "정비",
+          "검전기",
+          "휴대접지장치",
+          "연동장치",
+          "고전압 배전반"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-170-2023",
+      "short_code": "E170",
+      "title": "태양광 발전설비 설치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E170.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "photovoltaic_pv_array_installation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "태양광",
+          "PV 모듈",
+          "PV 어레이",
+          "인버터",
+          "정선박스",
+          "B형 RCD",
+          "gPV 퓨즈"
+        ],
+        "evidence": "태양광 발전설비 설치에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "industry_alignment": [
+          "port_logistics"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-170-2023",
+          "guide_code": "E-170-2023",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "태양광 발전설비 설치에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-170-2023",
+          "guide_code": "E-170-2023",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.8,
+          "evidence": "직류측 PV기기는 시스템의 교류측이 분리되었다고 하더라도 충전된 것으로 간주하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-170-2023",
+          "guide_code": "E-170-2023",
+          "sr_id": "SR-ELECTRIC-001",
+          "confidence": 0.78,
+          "evidence": "직류측 PV기기는 시스템의 교류측이 분리되었다고 하더라도 충전된 것으로 간주하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-170-2023",
+          "guide_code": "E-170-2023",
+          "sr_id": "SR-ELECTRIC-004",
+          "confidence": 0.76,
+          "evidence": "비절연 인버터 설치 시 B형 RCD를 교류측에 설치",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-170-2023",
+          "guide_code": "E-170-2023",
+          "sr_id": "SR-ELECTRIC-013",
+          "confidence": 0.76,
+          "evidence": "배선 시스템 설치 : 태양광 전용 케이블 사용, 자외선 보호, 극성별 표시",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-170-2023",
+          "guide_code": "E-170-2023",
+          "sr_id": "SR-ELECTRIC-005",
+          "confidence": 0.7,
+          "evidence": "교류측 PV 전원 케이블에 과전류 보호장치 설치",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-170-2023",
+          "guide_code": "E-170-2023",
+          "trigger_text": "PV 모듈/어레이",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "PV 모듈; PV 어레이",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-170-2023",
+          "guide_code": "E-170-2023",
+          "trigger_text": "B형 RCD",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "B형 RCD(지락차단장치)",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "태양광",
+          "PV 모듈",
+          "PV 어레이",
+          "인버터",
+          "정선박스",
+          "B형 RCD",
+          "gPV 퓨즈"
+        ],
+        "exclude_when": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-171-2018",
+      "short_code": "E171",
+      "title": "스를래쉬필링으로 인한 정전기 화재사고 예방에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E171.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "splash_filling_flammable_liquid_static_fire",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "스플래쉬 필링",
+          "인화성액체",
+          "충전 배관",
+          "접지",
+          "본딩",
+          "불활성 가스",
+          "비도전성 용기"
+        ],
+        "evidence": "스를래쉬필링으로 인한 정전기 화재사고 예방에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-171-2018",
+          "guide_code": "E-171-2018",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.85,
+          "evidence": "생성된 전하가 축적되는 위험을 줄이기 위하여 접지하고, 전하가 축적되더라도 전위차가 발생하지 않도록 본딩한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-171-2018",
+          "guide_code": "E-171-2018",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.82,
+          "evidence": "비도전성 공정 용기를 사용할 때 용기 표면에 대전된 전하가 방전되어 화재 위험이 있음",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-171-2018",
+          "guide_code": "E-171-2018",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.84,
+          "evidence": "설비 접지 및 본딩 : 생성된 전하가 축적되는 위험을 줄이기 위하여 접지하고 본딩한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-171-2018",
+          "guide_code": "E-171-2018",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.76,
+          "evidence": "인화성 물질이 공기 중에 노출되지 않도록 용기의 맨홀이 개방되지 않도록 관리한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-171-2018",
+          "guide_code": "E-171-2018",
+          "sr_id": "SR-FIRE_EXPLOSION-003",
+          "confidence": 0.7,
+          "evidence": "충전 배관은 탱크 바닥까지 연장하여 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-171-2018",
+          "guide_code": "E-171-2018",
+          "trigger_text": "스플래쉬 필링",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.85,
+          "evidence": "스플래쉬 필링(Splash Filling)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-171-2018",
+          "guide_code": "E-171-2018",
+          "trigger_text": "충전 배관",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.82,
+          "evidence": "충전 배관(Fill Line)",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "스플래쉬 필링",
+          "인화성액체",
+          "충전 배관",
+          "접지",
+          "본딩",
+          "불활성 가스",
+          "비도전성 용기"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-173-2018",
+      "short_code": "E173",
+      "title": "정전기 대전 방지용 손목스트랩의 시험방법에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E173.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "anti_static_wrist_strap_test",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "손목 스트랩",
+          "손목밴드",
+          "접지 코드",
+          "저항값 시험",
+          "전기적 연속성",
+          "이탈력 시험"
+        ],
+        "evidence": "정전기 대전 방지용 손목스트랩의 시험방법에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-173-2018",
+          "guide_code": "E-173-2018",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.83,
+          "evidence": "인체에 대전된 정전기에 의한 화재 또는 폭발 위험이 있는 경우에는 정전기 대전 방지용 안전화 착용, 제전복 착용, 정전기 제전용구 사용 등의 조치를 하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-173-2018",
+          "guide_code": "E-173-2018",
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.74,
+          "evidence": "전기적 연속성 시험장치",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-173-2018",
+          "guide_code": "E-173-2018",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.7,
+          "evidence": "인체에 대전된 정전기에 의한 화재 또는 폭발 위험이 있는 경우에는 정전기 대전 방지용 안전화 착용, 제전복 착용, 정전기 제전용구 사용 등의 조치를 하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-173-2018",
+          "guide_code": "E-173-2018",
+          "sr_id": "SR-ELECTRIC-023",
+          "confidence": 0.66,
+          "evidence": "손목 스트랩 시스템 시험용 저항계",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-173-2018",
+          "guide_code": "E-173-2018",
+          "trigger_text": "정전기 대전 방지용 손목스트랩",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "정전기 대전 방지용 손목스트랩의 시험방법에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-173-2018",
+          "guide_code": "E-173-2018",
+          "trigger_text": "접지 코드",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "접지 코드 굴곡시험장치",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "손목 스트랩",
+          "손목밴드",
+          "접지 코드",
+          "저항값 시험",
+          "전기적 연속성",
+          "이탈력 시험"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-178-2020",
+      "short_code": "E178",
+      "title": "폭발위험장소에서의 정전기관련 물성 측정에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E178.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "hazardous_area_static_property_measurement",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "폭발위험장소",
+          "정전기관련 물성",
+          "표면 저항",
+          "누설 저항",
+          "분체 저항률",
+          "액체 도전율"
+        ],
+        "evidence": "폭발위험장소에서의 정전기관련 물성 측정에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-178-2020",
+          "guide_code": "E-178-2020",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.84,
+          "evidence": "폭발위험장소에서의 정전기관련 물성 측정에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-178-2020",
+          "guide_code": "E-178-2020",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.8,
+          "evidence": "이 표준의 시험방법들은 고전압 전원 공급 장비와 일부 시험에서 잘못 취급할 경우 위험을 초래할 수 있는 인화성 가스의 사용을 포함한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-178-2020",
+          "guide_code": "E-178-2020",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.82,
+          "evidence": "정전기관련 물성 측정",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-178-2020",
+          "guide_code": "E-178-2020",
+          "sr_id": "SR-FIRE_EXPLOSION-006",
+          "confidence": 0.72,
+          "evidence": "폭발위험장소(Hazardous area)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-178-2020",
+          "guide_code": "E-178-2020",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.68,
+          "evidence": "폭발위험장소에서 정전기관련 물성을 측정한다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-178-2020",
+          "guide_code": "E-178-2020",
+          "trigger_text": "표면 저항 측정용 병렬 전극",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "표면 저항 측정용 병렬 전극",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-178-2020",
+          "guide_code": "E-178-2020",
+          "trigger_text": "폭발위험장소 정전기 측정",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.84,
+          "evidence": "폭발위험장소에서의 정전기관련 물성 측정에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "폭발위험장소",
+          "정전기관련 물성",
+          "표면 저항",
+          "누설 저항",
+          "분체 저항률",
+          "액체 도전율"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-179-2020",
+      "short_code": "E179",
+      "title": "정전기 오염방지에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E179.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "esd_contamination_control_cleanroom",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "정전기 오염방지",
+          "ESD",
+          "청정실",
+          "도전성 바닥재",
+          "손목 접지대",
+          "이오나이저"
+        ],
+        "evidence": "정전기 오염방지에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-179-2020",
+          "guide_code": "E-179-2020",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.84,
+          "evidence": "접지에 의한 정전기 방지",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-179-2020",
+          "guide_code": "E-179-2020",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.72,
+          "evidence": "청정실 내 기류는 0.1~0.5 m/s 정도의 미풍속으로 운전한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-179-2020",
+          "guide_code": "E-179-2020",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.78,
+          "evidence": "인체에 대한 정전기 대책 실시 : 도전성 테이블, 바닥, 손목 접지대, 도전성 신발을 사용하여 인체의 정전기를 제거한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-179-2020",
+          "guide_code": "E-179-2020",
+          "sr_id": "SR-ELECTRIC-002",
+          "confidence": 0.68,
+          "evidence": "정전기 방지의 기본은 접지이다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-179-2020",
+          "guide_code": "E-179-2020",
+          "trigger_text": "손목 접지대",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.82,
+          "evidence": "손목 접지대",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-179-2020",
+          "guide_code": "E-179-2020",
+          "trigger_text": "도전성 바닥재",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.8,
+          "evidence": "도전성 바닥재",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "정전기 오염방지",
+          "ESD",
+          "청정실",
+          "도전성 바닥재",
+          "손목 접지대",
+          "이오나이저"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-18-2012",
+      "short_code": "E18",
+      "title": "저압 개폐장치의 정비에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E18.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "low_voltage_switchgear_maintenance",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "저압 개폐장치",
+          "정비",
+          "검전기",
+          "절연장구",
+          "잠금장치",
+          "접지장비"
+        ],
+        "evidence": "저압 개폐장치의 정비에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-18-2012",
+          "guide_code": "E-18-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "전기설비 격리, 검전기로 정전상태 확인, 불시 에너지 재충전 방지 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-18-2012",
+          "guide_code": "E-18-2012",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.82,
+          "evidence": "전기도체는 전류가 흐르지 않는 것이 사전 입증되지 않았으면 항상 활선인 것으로 간주하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-18-2012",
+          "guide_code": "E-18-2012",
+          "sr_id": "SR-ELECTRIC-019",
+          "confidence": 0.84,
+          "evidence": "전기설비 격리, 검전기로 정전상태 확인, 불시 에너지 재충전 방지 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-18-2012",
+          "guide_code": "E-18-2012",
+          "sr_id": "SR-ELECTRIC-023",
+          "confidence": 0.78,
+          "evidence": "절연장구 제공 및 절연성능 주기적 검사, 접지장비 구비 및 관리",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-18-2012",
+          "guide_code": "E-18-2012",
+          "sr_id": "SR-ELECTRIC-001",
+          "confidence": 0.74,
+          "evidence": "주변 활선전원 절연덮개 격리 또는 경고표지 부착",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-18-2012",
+          "guide_code": "E-18-2012",
+          "sr_id": "SR-ELECTRIC-002",
+          "confidence": 0.72,
+          "evidence": "시험장비 금속 외함 접지",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-18-2012",
+          "guide_code": "E-18-2012",
+          "trigger_text": "저압 개폐장치 정비",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.85,
+          "evidence": "저압 개폐장치의 정비에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-18-2012",
+          "guide_code": "E-18-2012",
+          "trigger_text": "검전기/절연장구",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.82,
+          "evidence": "검전기; 절연장구(절연공구, 절연보호구, 방호구)",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "저압 개폐장치",
+          "정비",
+          "검전기",
+          "절연장구",
+          "잠금장치",
+          "접지장비"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-181-2020",
+      "short_code": "E181",
+      "title": "폭발위험장소에서 사용하는 비전기설비의 안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E181.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "non_electrical_equipment_hazardous_area_ignition_control",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "폭발위험장소",
+          "비전기설비",
+          "점화원제어",
+          "기기보호수준",
+          "EPL",
+          "기계적 스파크"
+        ],
+        "evidence": "폭발위험장소에서 사용하는 비전기설비의 안전에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-181-2020",
+          "guide_code": "E-181-2020",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.84,
+          "evidence": "폭발성 분위기에서 사용하는 비전기설비는 이 지침의 요구 사항을 준수해야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-181-2020",
+          "guide_code": "E-181-2020",
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.76,
+          "evidence": "기계적으로 발생되는 스파크",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-181-2020",
+          "guide_code": "E-181-2020",
+          "sr_id": "SR-FIRE_EXPLOSION-006",
+          "confidence": 0.76,
+          "evidence": "폭발성 분위기에서 사용하는 비전기설비",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-181-2020",
+          "guide_code": "E-181-2020",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.74,
+          "evidence": "점화원이 발생할 가능성을 최소화한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-181-2020",
+          "guide_code": "E-181-2020",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.66,
+          "evidence": "폭발위험장소에서 사용하는 비전기설비의 안전",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-181-2020",
+          "guide_code": "E-181-2020",
+          "trigger_text": "비전기설비",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "비전기설비",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-181-2020",
+          "guide_code": "E-181-2020",
+          "trigger_text": "EPL 기기보호수준",
+          "cue_type": "document_or_marking",
+          "confidence": 0.8,
+          "evidence": "기기보호수준",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "폭발위험장소",
+          "비전기설비",
+          "점화원제어",
+          "기기보호수준",
+          "EPL",
+          "기계적 스파크"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-182-2021",
+      "short_code": "E182",
+      "title": "정전기에 의한 화재폭발 재해조사에 대한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E182.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "static_fire_explosion_accident_investigation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "정전기 화재폭발",
+          "재해조사",
+          "현장 보존",
+          "스파크 방전",
+          "브러시 방전",
+          "FTA",
+          "ETA"
+        ],
+        "evidence": "정전기에 의한 화재폭발 재해조사에 대한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-182-2021",
+          "guide_code": "E-182-2021",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.84,
+          "evidence": "정전기에 의한 화재·폭발은 발생 확률이 낮지만, 잠재 위험성이 큰 것으로 고려하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-182-2021",
+          "guide_code": "E-182-2021",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.8,
+          "evidence": "화재·폭발의 기점 방향을 특정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-182-2021",
+          "guide_code": "E-182-2021",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.7,
+          "evidence": "직접 원인 조사 - 점화원 대전 물체 조사 : 대전 가능성이 있는 물체에 대해 도전율 등의 전기적 특성, 크기, 형상, 설치 위치를 조사한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-182-2021",
+          "guide_code": "E-182-2021",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.66,
+          "evidence": "정전기 방전이 점화원이 될 수 있었는지 판단한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-182-2021",
+          "guide_code": "E-182-2021",
+          "trigger_text": "정전기 화재폭발 재해조사",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.85,
+          "evidence": "정전기에 의한 화재폭발 재해조사에 대한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "E-182-2021",
+          "guide_code": "E-182-2021",
+          "trigger_text": "스파크 방전/브러시 방전",
+          "cue_type": "visual_cue",
+          "confidence": 0.78,
+          "evidence": "스파크 방전; 브러시 방전",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "정전기 화재폭발",
+          "재해조사",
+          "현장 보존",
+          "스파크 방전",
+          "브러시 방전",
+          "FTA",
+          "ETA"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    }
+  ]
+}

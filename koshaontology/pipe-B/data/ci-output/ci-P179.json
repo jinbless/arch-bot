@@ -1,0 +1,459 @@
+{
+  "metadata": {
+    "guideCode": "P-179-2022",
+    "shortCode": "P179",
+    "domain": "C",
+    "extractedAt": "2026-05-08T00:37:34Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-C-023"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-P179-001",
+      "text": "혼합가스가 인화성 가스 또는 증기만으로 구성되어 있는 경우에는 폭발성 여부를 판정할 필요가 없다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-002",
+      "text": "혼합가스의 폭발성 여부는 식 (4-1)을 사용하여 결정한다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 (법령 근거 미확인)",
+      "additionalDetail": "∑(i=1 to n) A'_i/T_αi ≤ 1 이면 비인화성 가스, > 1 이면 인화성 가스로 판정",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-003",
+      "text": "T_αi값이 없을 경우에는 폭발하한계(LEL)를 사용할 수 있고, LEL을 모를 경우에는 보수적으로 인화성 가스는 1%, 인화성 액체는 0.5%, 자연발화성 가스 및 액체는 0.1%를 사용할 수 있다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정",
+      "additionalDetail": "T_αi는 질소와 혼합될 때 공기 중에서 인화성이 아닌 상태가 되는 인화성 가스 i의 최대 함유량(mole%)",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-004",
+      "text": "화학식 중에 원자가 3개 이상인 물질의 경우에는 질소등가계수를 1.5를 적용하고 그 외의 경우에는 <부록 1>의 불활성 가스의 질소등가계수를 사용한다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 (법령 근거 미확인)",
+      "additionalDetail": "K_i는 질소와 비교한 불활성 가스의 질소등가계수",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-022",
+      "text": "실험을 통해 혼합가스의 폭발하한계를 파악하는 방법이 가장 적절하다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발하한계 산정 방법 선택",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-023",
+      "text": "르사틀리에 공식을 적용할 때 인화성이 있는 혼합가스에는 적용할 수 있지만, 잠재적으로 폭발성인 혼합가스에는 적용할 수 없다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "르사틀리에 공식 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-024",
+      "text": "르사틀리에 공식은 부분적인 할로겐화 탄화수소(Partially halogenated hydrocarbon) 또는 공기 이외의 산화제(Oxidizer)에 대해서는 적용할 수 없다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "르사틀리에 공식 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-025",
+      "text": "르사틀리에 공식은 인화성 가스, 질소 및 공기의 혼합가스에 적용되고 질소 외의 불활성 가스를 포함하는 경우에는 적용할 수 없다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "르사틀리에 공식 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-026",
+      "text": "ISO 10156 계산식은 질소와 공기 이외의 불활성 가스를 포함하는 혼합가스에 적용된다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정",
+      "additionalDetail": "르사틀리에 공식이 적용되지 않는 범위의 혼합가스에 대해 ISO 10156 계산식을 사용한다.",
+      "workProcessPhase": "ISO 10156 계산식 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-027",
+      "text": "불활성 가스의 질소등가계수(K_i) 산정 시 화학식 중에 원자가 3개 이상인 물질의 경우에는 1.5를 적용하고 그 외의 경우에는 <부록 1>의 불활성 가스의 질소등가계수를 사용한다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": "K는 몰분율에 따른 무게 기준의 불활성 가스의 질소등가계수(K_i)의 평균값이고 혼합물질에서 공기 또는 산소는 불활성 가스로 고려되고 K의 값은 1로 간주된다.",
+      "workProcessPhase": "ISO 10156 계산 5단계 - 질소등가계수 평균값 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-028",
+      "text": "혼합물질 중에 인화성 가스와 산소(또는 산화제)가 포함되어 있을 때에는 먼저 인화성 여부를 검토하고 또한 산소가 산화제로 작용될 수 있으므로 폭발성 여부를 검토한 후에 폭발하한계를 계산할 필요가 있다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "산화제 포함 혼합가스 폭발하한계 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-029",
+      "text": "Tαi값이 없을 경우에는 폭발하한계(LEL)를 사용할 수 있고, LEL을 모를 경우에는 보수적으로 인화성 가스는 1%, 인화성 액체는 0.5%, 자연발화성 가스 및 액체는 0.1%를 사용할 수 있다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정",
+      "additionalDetail": "Tαi는 질소와 혼합될 때 공기 중에서 인화성이 아닌 상태가 되는 인화성 가스 i의 최대 함유량(mole%)이며 <부록 2>에 제시되어 있다.",
+      "workProcessPhase": "산화제 포함 혼합가스 5단계 - Tc(mix) 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-030",
+      "text": "혼합물질의 인화성 여부 판단 시 3단계에서 구한 Anf(일반화된 인화성 성분의 합계)가 LELmix보다 크고 Anf가 Tci,F보다 크면, 인화성 가스로 판정된다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": "Anf > LELmix이고, Anf > Tci(flamax)이면, 인화성 가스이다.",
+      "workProcessPhase": "산화제 포함 혼합가스 8단계 - 인화성 판단",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-031",
+      "text": "산화제 능력(Oxidizing power, OP)은 식 (5-12)를 사용하여 산정하며, OP 값이 0.235(23.5%)보다 클 경우에는 산화성 가스(Oxidizing gas)로 간주한다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "산화제 포함 혼합가스 9단계 - 산화제 능력 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-032",
+      "text": "혼합물질의 한계산소농도(LOCmix) 산정 시 만약 질소 이외의 다른 불활성 가스를 사용할 경우에는 일반화계수(F)를 사용하여 한계산소농도를 수정하고, <부록 4>를 참조한다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "산화제 포함 혼합가스 10단계 - 한계산소농도 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-033",
+      "text": "혼합물질의 폭발성 여부 판단 시 혼합물질의 한계산소농도(LOCmix)가 산소당량농도(xO2)보다 작으면 폭발성 물질로 판단된다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "산화제 포함 혼합가스 11단계 - 폭발성 판단",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P179-034",
+      "text": "불활성 가스의 질소등가계수(Ki)의 평균값(K) 산정 시 산소의 당량계수는 1로 적용된다.",
+      "guideContext": "혼합가스의 폭발성 여부 판정 및 폭발하한계 산정 (법령 근거 미확인)",
+      "additionalDetail": "K= ΣKiBi/ΣBi 식을 사용하여 계산한다.",
+      "workProcessPhase": "산화제 포함 혼합가스 12단계 - 질소등가계수 평균값 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-P179-001",
+      "term": "폭발하한계",
+      "definition": "가스 등이 공기 중에서 점화원에 의하여 착화되어 화염이 전파되는 가스 등의 최소농도를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P179-002",
+      "term": "질소등가계수",
+      "definition": "질소를 1로 고려했을 때 질소 이외의 불활성 가스를 질소와 비교한 계수를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P179-003",
+      "term": "산소등가계수",
+      "definition": "산소를 1로 고려했을 때 산소 이외의 다른 산화성 가스를 산소와 비교한 계수를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-P179-06",
+      "processOrder": 1,
+      "processName": "르사틀리에 공식을 이용한 폭발하한계 산정",
+      "safetyMeasures": "혼합가스의 폭발하한계(LEL)를 구하기 위해 르사틀리에 공식 LEL_mix = 100 / ∑(A_i/LEL_i)을 적용한다. 인화성이 있는 혼합가스에만 적용 가능하며, 잠재적으로 폭발성인 혼합가스, 부분적인 할로겐화 탄화수소, 공기 이외의 산화제, 질소 외의 불활성 가스를 포함하는 혼합가스에는 적용할 수 없다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P179-07",
+      "processOrder": 2,
+      "processName": "ISO 10156 계산 1~3단계 - 물성치 정리 및 폭발성 판단 (산화제 미포함)",
+      "safetyMeasures": "1단계: 인화성 가스(폭발하한계, 몰분율, Tαi)와 불활성 가스(몰분율, 질소등가계수 Ki)의 물성치를 정리한다. 2단계: 식 (4-2)를 사용하여 인화성 가스의 당량 함유량(A'_i)을 구한다. 3단계: 식 (4-1)을 사용하여 혼합가스의 폭발성 여부를 판단한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P179-08",
+      "processOrder": 3,
+      "processName": "ISO 10156 계산 4~7단계 - 폭발하한계 산정 (산화제 미포함)",
+      "safetyMeasures": "4단계: 식 (5-2)로 인화성 성분만의 폭발하한계(L'_M)를 계산한다. 5단계: 식 (5-3)으로 불활성 가스의 질소등가계수(K_i) 평균값(K)을 구한다. 6단계: 식 (5-4) 또는 (5-5)로 인화성 성분의 수정된 폭발하한계(LFL'_i)를 구한다. 7단계: 수정된 폭발하한계를 사용하여 식 (5-1)로 최종 혼합물질의 폭발하한계를 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P179-09",
+      "processOrder": 4,
+      "processName": "산화제 포함 혼합가스 1~4단계 - 자료 정리 및 일반화",
+      "safetyMeasures": "1단계: 인화성 가스(몰분율, LEL, Tαi, LOC), 불활성 가스(몰분율, 질소등가계수 Ki), 산화제(산소농도, 산화성 가스 몰분율, 산소등가계수 Ci)의 자료를 정리한다. 2단계: 일반화계수 F = 1/[1+Σ(Ki-1)Bi]를 산정한다. 3단계: 일반화된 인화성 성분의 합계 Anf = ΣAi×F를 산정한다. 4단계: 인화성 성분만의 폭발하한계(LFL'M)를 식 (5-2)로 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P179-10",
+      "processOrder": 5,
+      "processName": "산화제 포함 혼합가스 5~8단계 - 인화성 판단",
+      "safetyMeasures": "5단계: 인화성 가스 혼합물이 공기 중에서 인화성을 갖지 않는 최대함유량 Tc(mix)를 식 (5-9)로 산정한다. 6단계: 산소당량농도 xO2 = CO2×F를 산정한다. 7단계: 산소농도를 고려한 Tci,F = Tci×(1-xO2/21%)를 산정한다. 8단계: Anf > LELmix이고 Anf > Tci,F이면 인화성 가스로 판정한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P179-11",
+      "processOrder": 6,
+      "processName": "산화제 포함 혼합가스 9~11단계 - 산화성·폭발성 판단",
+      "safetyMeasures": "9단계: 산화제 능력 OP = ΣxiCi/(Σxi+ΣKiBi)를 산정하고, OP > 0.235이면 산화성 가스로 간주한다. 10단계: 혼합물질의 한계산소농도 LOCmix = ΣAi/Σ(Ai/LOCi)를 산정한다. 질소 외 불활성 가스 사용 시 일반화계수(F)로 LOC를 수정한다. 11단계: LOCmix < xO2이면 폭발성 물질로 판단한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P179-12",
+      "processOrder": 7,
+      "processName": "산화제 포함 혼합가스 12~15단계 - 폭발하한계 최종 산정",
+      "safetyMeasures": "12단계: 불활성 가스의 질소등가계수 평균값 K = ΣKiBi/ΣBi를 산정한다(산소 당량계수는 1). 13단계: LEL 계수 CL을 식 (5-6)으로 산정한다. 14단계: 성분별 수정된 폭발하한계 LFL' = CL × LFL을 산정한다. 15단계: 수정된 성분별 폭발하한계를 식 (5-2)에 적용하여 최종 LFLmix를 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3.2",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-P179-068",
+      "equipmentName": "Chlorine (산화성 가스)",
+      "specifications": {
+        "oxygenEquivalencyCoefficient": "0.7",
+        "referenceTable": "부록 3 산화성 가스의 산소등가계수"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-069",
+      "equipmentName": "Fluorine (산화성 가스)",
+      "specifications": {
+        "oxygenEquivalencyCoefficient": "40",
+        "note": "시험되지 않은 산화성 가스는 보수적인 값(40)을 적용",
+        "referenceTable": "부록 3 산화성 가스의 산소등가계수"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-070",
+      "equipmentName": "Nitric oxide (산화성 가스)",
+      "specifications": {
+        "oxygenEquivalencyCoefficient": "0.3",
+        "referenceTable": "부록 3 산화성 가스의 산소등가계수"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-071",
+      "equipmentName": "Nitrogen trifluoride (산화성 가스)",
+      "specifications": {
+        "oxygenEquivalencyCoefficient": "1.6",
+        "referenceTable": "부록 3 산화성 가스의 산소등가계수"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-072",
+      "equipmentName": "Nitrous oxide (산화성 가스)",
+      "specifications": {
+        "oxygenEquivalencyCoefficient": "0.6",
+        "referenceTable": "부록 3 산화성 가스의 산소등가계수"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-073",
+      "equipmentName": "Oxygen (산화성 가스)",
+      "specifications": {
+        "oxygenEquivalencyCoefficient": "1",
+        "referenceTable": "부록 3 산화성 가스의 산소등가계수"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-074",
+      "equipmentName": "Acetylene (dissolved)",
+      "specifications": {
+        "molecularWeight": "26",
+        "limitingOxygenConcentration": "2%",
+        "eigaSdsNo": "001",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-075",
+      "equipmentName": "Hydrogen",
+      "specifications": {
+        "molecularWeight": "2",
+        "limitingOxygenConcentration": "4.3%",
+        "eigaSdsNo": "067A",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-076",
+      "equipmentName": "Methane",
+      "specifications": {
+        "molecularWeight": "16",
+        "limitingOxygenConcentration": "11.0%",
+        "eigaSdsNo": "078A",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-077",
+      "equipmentName": "Propane (R290)",
+      "specifications": {
+        "molecularWeight": "44",
+        "limitingOxygenConcentration": "9.8%",
+        "eigaSdsNo": "104",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-078",
+      "equipmentName": "Ethylene",
+      "specifications": {
+        "molecularWeight": "28",
+        "limitingOxygenConcentration": "7.6%",
+        "eigaSdsNo": "055A",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-079",
+      "equipmentName": "Ammonia, anhydrous",
+      "specifications": {
+        "molecularWeight": "17",
+        "limitingOxygenConcentration": "12.2%",
+        "eigaSdsNo": "002",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-080",
+      "equipmentName": "Carbon monoxide",
+      "specifications": {
+        "molecularWeight": "28",
+        "limitingOxygenConcentration": "4.7%",
+        "eigaSdsNo": "019",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-081",
+      "equipmentName": "Hydrogen sulphide",
+      "specifications": {
+        "molecularWeight": "34",
+        "limitingOxygenConcentration": "9.1%",
+        "eigaSdsNo": "073",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P179-082",
+      "equipmentName": "Ethylene oxide",
+      "specifications": {
+        "molecularWeight": "44",
+        "limitingOxygenConcentration": "2%",
+        "eigaSdsNo": "056",
+        "referenceTable": "부록 4 한계산소농도(LOC)"
+      },
+      "sourceSection": "부록 4",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": []
+}

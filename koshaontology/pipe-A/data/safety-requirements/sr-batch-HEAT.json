@@ -1,0 +1,526 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T00:00:00+09:00",
+    "batchId": "sr-batch-HEAT",
+    "totalSafetyRequirements": 13
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-HEAT-001",
+      "title": "고열·한랭·다습·폭염 작업장 온도·습도 조절장치 설치 및 휴식 부여",
+      "text": "사업주는 고열·한랭 또는 다습작업이 실내인 경우 냉난방 또는 통풍 등을 위한 적절한 온도·습도 조절장치를 설치하여야 하며, 근로자가 폭염작업을 하는 경우에는 온도·습도 조절장치의 설치·가동, 작업시간대 조정, 적절한 휴식시간 부여 중 하나 이상의 조치를 해야 한다. 특히 폭염특보 기준 체감온도 33도 이상인 작업장소에서 폭염작업을 하는 경우에는 매 2시간 이내에 20분 이상의 휴식을 주어야 한다. 냉방장치를 설치하는 경우 외부 대기온도보다 현저히 낮게 설정해서는 아니 된다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제560조"],
+      "mandatedBy": ["NS-RULE560-0", "NS-RULE560-2", "NS-RULE560-3", "NS-RULE560-4", "NS-RULE560-6"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "체감온도", "condition": ">=", "value": 33, "unit": "도", "source": "제560조 제3항"},
+          {"parameter": "휴식주기", "condition": "<=", "value": 2, "unit": "시간", "source": "제560조 제3항"},
+          {"parameter": "휴식시간", "condition": ">=", "value": 20, "unit": "분", "source": "제560조 제3항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-002",
+      "title": "실내 고열작업 시 환기장치 설치 및 열원 격리 조치",
+      "text": "사업주는 실내에서 고열작업을 하는 경우에 고열을 감소시키기 위하여 환기장치 설치, 열원과의 격리, 복사열 차단 등 필요한 조치를 하여야 한다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제561조"],
+      "mandatedBy": ["NS-RULE561-0"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-003",
+      "title": "고열·폭염작업 건강장해 예방 및 응급조치",
+      "text": "사업주는 근로자가 고열작업 또는 폭염작업을 하는 경우에 열경련·열탈진 등의 건강장해를 예방하기 위하여 고열 순응 조치, 온도계·온습도계 비치, 건강장해 증상 및 예방조치·응급조치 요령 사전 안내, 체감온도와 조치사항의 일자별 기록·보관 등의 조치를 하여야 한다. 고열작업 또는 폭염작업으로 인하여 열사병 등 건강장해가 발생되었거나 의심되는 경우에는 지체 없이 소방관서에 신고하는 등 필요한 적절한 조치를 해야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제562조"],
+      "mandatedBy": ["NS-RULE562-0", "NS-RULE562-1", "NS-RULE562-2"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-004",
+      "title": "한랭작업 시 동상 등 건강장해 예방 조치",
+      "text": "사업주는 근로자가 한랭작업을 하는 경우에 동상 등의 건강장해를 예방하기 위하여 혈액순환 운동지도, 영양지도, 더운물 준비, 젖은 작업복 즉시 교체 등의 조치를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제563조"],
+      "mandatedBy": ["NS-RULE563-0"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-005",
+      "title": "다습작업 시 습기 제거 및 위생관리 조치",
+      "text": "사업주는 근로자가 다습작업을 하는 경우에 습기 제거를 위하여 환기하는 등 적절한 조치를 하여야 하며, 작업의 성질상 습기 제거가 어려운 경우에는 개인위생관리를 하도록 하는 등 필요한 조치를 하여야 한다. 실내에서 다습작업을 하는 경우에는 수시로 소독하거나 청소하는 등 미생물이 번식하지 않도록 필요한 조치를 하여야 한다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제564조"],
+      "mandatedBy": ["NS-RULE564-0", "NS-RULE564-2", "NS-RULE564-3"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-006",
+      "title": "가습 시 깨끗한 물 사용 의무",
+      "text": "사업주는 작업의 성질상 가습을 하여야 하는 경우에 근로자의 건강에 유해하지 않도록 깨끗한 물을 사용하여야 한다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제565조"],
+      "mandatedBy": ["NS-RULE565-0"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-007",
+      "title": "고열·한랭·다습 작업 시 적절한 휴식 등 조치",
+      "text": "사업주는 근로자가 고열·한랭·다습 작업을 하는 경우에는 적절하게 휴식하도록 하는 등 근로자 건강장해를 예방하기 위하여 필요한 조치를 해야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제566조"],
+      "mandatedBy": ["NS-RULE566-0"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-008",
+      "title": "고열·한랭·다습·폭염 작업 시 휴게시설 설치",
+      "text": "사업주는 근로자가 고열·한랭·다습 작업을 하는 경우에 근로자들이 휴식시간에 이용할 수 있는 휴게시설을 갖추어야 하며, 해당 휴게시설은 고열·한랭 또는 다습작업과 격리된 장소에 설치하여야 한다. 또한 근로자가 폭염에 직접 노출되는 옥외 장소에서 작업을 하는 경우에는 휴식시간에 이용할 수 있는 그늘진 장소를 제공하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제567조"],
+      "mandatedBy": ["NS-RULE567-0", "NS-RULE567-1", "NS-RULE567-2"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-009",
+      "title": "갱내 기온 37도 이하 유지 의무",
+      "text": "사업주는 갱내에서 고열이 발생하는 장소의 기온을 섭씨 37도 이하로 유지하여야 한다. 다만 인명구조 작업이나 유해·위험 방지작업으로서 필요한 건강장해 방지 조치를 한 경우에는 예외로 한다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제568조"],
+      "mandatedBy": ["NS-RULE568-0"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "갱내 기온", "condition": "<=", "value": 37, "unit": "도", "source": "제568조 본문"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-010",
+      "title": "고열·저온물체 취급 장소 출입 금지 및 게시",
+      "text": "사업주는 다량의 고열물체를 취급하는 장소나 매우 뜨거운 장소, 다량의 저온물체를 취급하는 장소나 매우 차가운 장소에 관계 근로자가 아닌 사람의 출입을 금지하고 그 내용을 보기 쉬운 장소에 게시하여야 한다. 근로자는 출입이 금지된 장소에 사업주의 허락 없이 출입해서는 아니 된다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제569조"],
+      "mandatedBy": ["NS-RULE569-0", "NS-RULE569-1"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-011",
+      "title": "작업복 심하게 젖는 작업장 세척·탈의·건조시설 설치",
+      "text": "사업주는 작업 중 근로자의 작업복이 심하게 젖게 되는 작업장에 탈의시설, 목욕시설, 세탁시설 및 작업복을 말릴 수 있는 건조시설을 설치하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제570조"],
+      "mandatedBy": ["NS-RULE570-0"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-012",
+      "title": "발한 작업장 소금과 음료수 비치 의무",
+      "text": "사업주는 근로자가 작업 중 땀을 많이 흘리게 되는 장소에 소금과 깨끗한 음료수 등을 충분히 섭취할 수 있도록 갖추어 두어야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제571조"],
+      "mandatedBy": ["NS-RULE571-0"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HEAT-013",
+      "title": "고열·한랭 작업 시 방열·방한 보호구 지급 및 착용",
+      "text": "사업주는 다량의 고열물체를 취급하거나 매우 더운 장소에서 작업하는 근로자에게 방열장갑과 방열복을, 다량의 저온물체를 취급하거나 현저히 추운 장소에서 작업하는 근로자에게 방한모·방한화·방한장갑 및 방한복을 지급하고 착용하도록 하여야 하며, 보호구는 근로자 개인 전용의 것을 지급하여야 한다. 근로자는 지급된 보호구를 사업주의 지시에 따라 착용하여야 한다.",
+      "requirementType": "PPE_REQUIREMENT",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제572조"],
+      "mandatedBy": ["NS-RULE572-0", "NS-RULE572-1", "NS-RULE572-2"],
+      "addressesHazard": ["HEAT_COLD"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}

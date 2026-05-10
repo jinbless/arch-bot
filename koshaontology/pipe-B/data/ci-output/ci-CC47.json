@@ -1,0 +1,319 @@
+{
+  "metadata": {
+    "guideCode": "C-C-47-2026",
+    "shortCode": "CC47",
+    "domain": "C",
+    "extractedAt": "2026-04-22T05:00:52Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-038"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC47-001",
+      "text": "사업주는 산업안전보건법 시행규칙 제50조(공정안전보고서의 세부내용 등)에 따른 내용을 공정안전보고서에 포함하여 작성·제출 하여야 한다.",
+      "guideContext": "누출원 모델링에 관한 기술지원규정 (법령 근거 미확인)",
+      "additionalDetail": "공정안전보고서에 비상조치계획(장비·인력 보유현황, 비상연락체계, 비상조치 조직 임무 및 수행 절차, 교육계획, 주민홍보계획)을 포함하여야 한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC47-002",
+      "text": "이송 또는 압축설비를 제외한 화학설비의 균열 또는 파손에 의한 경우 그 화학설비에서 취급·지장하는 위험물질이 10분 동안에 모두 누출될 수 있는 구멍(Hole)의 면적으로 누출원의 면적을 산정하거나 가정한다.",
+      "guideContext": "누출원 모델링 누출원 면적 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "누출원 면적 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-003",
+      "text": "배관의 균열 및 파열에 의한 경우 (가) 배관의 호칭지름이 50 ㎜ 미만인 경우 : 배관의 단면적 (나) 배관의 호칭지름이 50 ㎜ 이상 100㎜ 이하인 경우 : 50 ㎜ 배관의 단면적 (다) 배관의 호칭지름이 100 ㎜를 초과하는 경우 : 배관 단면적의 20 %",
+      "guideContext": "누출원 모델링 누출원 면적 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "누출원 면적 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-004",
+      "text": "이송 또는 압축설비의 균열 또는 파손에 의한 경우 흡인측 배관의 크기에 따라 배관의 균열 및 파열 기준에서 규정하는 면적으로 누출원의 면적을 산정한다.",
+      "guideContext": "누출원 모델링 누출원 면적 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "누출원 면적 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-005",
+      "text": "오조작에 의하여 밸브가 열린 경우 그 밸브의 구멍(Full bore)의 면적으로 누출원의 면적을 산정한다.",
+      "guideContext": "누출원 모델링 누출원 면적 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "누출원 면적 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-006",
+      "text": "비상 배출인 경우 비상 배출관의 내경에 의한 면적으로 누출원의 면적을 산정한다.",
+      "guideContext": "누출원 모델링 누출원 면적 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "누출원 면적 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-007",
+      "text": "가스 또는 증기 상태로 누출되는 경우 임계흐름압력비(P_CF/P_1)를 산정하여 누출속도가 음속 이상인지 음속 미만인지 판정한 후 해당하는 누출량 산정식을 적용한다.",
+      "guideContext": "누출원 모델링 화학설비 가스 누출량 산정",
+      "additionalDetail": "P_CF/P_1 = (2/(χ+1))^(χ/(χ-1))으로 산정하며, P_a/P_1 ≤ P_CF/P_1이면 음속 이상, P_a/P_1 > P_CF/P_1이면 음속 미만으로 판정한다.",
+      "workProcessPhase": "누출량 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-008",
+      "text": "C_D가 불확실한 경우에는 C_D=1로 가정한다.",
+      "guideContext": "누출원 모델링 누출계수 가정",
+      "additionalDetail": null,
+      "workProcessPhase": "누출량 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC47-009",
+      "text": "2상 유체의 누출은 다음과 같은 위험물질이 누출되는 경우로 분류한다. (가) 포화 액체(Saturated liquid) ① 평형(Equilibrium) : 누출되는 지점이 화학설비 외부로부터 0.1 m 이상인 경우 ② 비평형(Nonequilibrium) : 누출되는 지점이 화학설비 외부로부터 0.1 m 이내인 경우 (나) 과냉각 액체(Subcooled liquid)",
+      "guideContext": "누출원 모델링 2상 유체 누출 분류",
+      "additionalDetail": "평형 여부에 따라 적용 계산식이 달라지므로 누출지점과 화학설비 외벽 간 거리(0.1 m 기준)를 정확히 확인하여야 한다.",
+      "workProcessPhase": "누출량 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-010",
+      "text": "2상 유체의 누출시에 생성되는 증기의 비율(Flash fraction)은 f_v = 1 - e^(-C̄_PL·(T_1-T_b)/ΔH_V)로 계산한다.",
+      "guideContext": "누출원 모델링 증기 비율 계산",
+      "additionalDetail": "f_v: 생성되는 증기 비율, C̄_PL: 액체의 평균 정압 비열(J/kg·K), T_b: 대기압하에서의 액체의 비점(K), ΔH_V: 평균 증발 잠열(J/kg)",
+      "workProcessPhase": "누출량 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC47-011",
+      "text": "배관에서 가스 또는 증기상태로 누출되는 경우 배관의 거칠기 계수(Roughness factor)를 이용하여 마찰계수를 산정한다. 배관의 거칠기 계수가 0을 초과하는 경우 1/√f = -4 log₁₀[1/3.7·(ε/D)]로 산정하고, 배관의 거칠기 계수가 0인 경우 f = 0으로 한다.",
+      "guideContext": "누출원 모델링 배관 마찰계수 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "누출량 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.1.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-012",
+      "text": "배관에서 액체상태로 누출되는 경우 Re√f 값을 산정하여 충류(Laminar flow, Re√f ≤ 180)인지 난류(Turbulent flow, Re√f ≥ 525)인지 판정한 후 해당하는 누출량 산정식을 적용한다.",
+      "guideContext": "누출원 모델링 배관 액체 누출량 산정",
+      "additionalDetail": null,
+      "workProcessPhase": "누출량 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-CC47-013",
+      "text": "배관에서 포화액체가 액체-증기로 누출되는 경우 L_P/D 비에 따른 유량감소계수(F)를 적용하여 누출량을 산정한다.",
+      "guideContext": "누출원 모델링 배관 2상 누출량 산정",
+      "additionalDetail": "L_P/D = 0일 때 F=1, 50일 때 0.85, 100일 때 0.75, 200일 때 0.65, 400일 때 0.55",
+      "workProcessPhase": "누출량 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.3.1",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC47-001",
+      "term": "누출원 모델링",
+      "definition": "화재·폭발·누출 등에 의한 사고시의 피해예측에 필요한 입력자료, 즉 누출량(또는 누출속도), 누출되는 기간 및 누출되는 위험물질의 상태 등을 예측하는 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC47-002",
+      "term": "용기 등",
+      "definition": "산업안전보건기준에 관한 규칙 별표7의 화학설비 및 그 부속설비를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC47-003",
+      "term": "배관",
+      "definition": "산업안전보건기준에 관한 규칙 별표7 제2호의 화학설비의 부속설비 중 \"가\" 항의 설비를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC47-004",
+      "term": "포화액체",
+      "definition": "취급·지장온도에서 그 물질의 포화 증기압 하에서 취급·지장되는 액체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC47-005",
+      "term": "과냉각 액체",
+      "definition": "취급·지장온도에서 그 물질의 포화 증기압 이상으로 취급·지장되는 액체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC47-01",
+      "processOrder": 1,
+      "processName": "누출 원인 및 누출 상태 파악",
+      "safetyMeasures": "누출 원인(용기·배관 균열/파손, 오조작 밸브 열림, 비상배출)을 식별하고 누출되는 위험물질의 상태(가스/증기, 액체, 액체-증기 2상)를 분류한다.",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC47-02",
+      "processOrder": 2,
+      "processName": "누출원 면적 산정",
+      "safetyMeasures": "설비 유형(화학설비, 배관, 이송/압축설비, 밸브, 비상배출관)에 따라 적절한 누출원 면적 산정 기준을 적용한다. 최악 및 대안의 사고 시나리오의 경우 KOSHA GUIDE C-C-58에 따른 설비별 누출공 크기 선정 기준을 따를 수 있다.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC47-03",
+      "processOrder": 3,
+      "processName": "화학설비 누출량 산정",
+      "safetyMeasures": "누출 상태에 따라 가스/증기 누출(임계흐름압력비 판정 후 음속 이상/미만 구분), 액체 누출, 또는 액체-증기 2상 누출(포화/과냉각, 평형/비평형 분류)에 해당하는 계산식을 적용하여 누출량(kg/sec)을 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC47-04",
+      "processOrder": 4,
+      "processName": "배관 누출량 산정",
+      "safetyMeasures": "배관 재질별 거칠기 계수와 마찰계수를 산정하고, 가스 누출 시 마하번호·임계흐름압력비·가스누출온도를 시행착오법으로 산정한다. 액체 누출 시 Re√f로 흐름 종류(층류/난류)를 판정한다. 2상 누출 시 유량감소계수(F)를 적용한다.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC47-001",
+      "equipmentName": "누출지점별 누출계수(C_D)",
+      "specifications": {
+        "벤츄리메터_노즐": "C_D 0.95~0.99",
+        "오리피스_구멍_음속미만": "C_D 0.61~0.67",
+        "오리피스_구멍_음속이상_Pa_P1_equals_PCF_P1": "C_D 0.75",
+        "오리피스_구멍_음속이상_P1_much_greater_Pa": "C_D 0.84"
+      },
+      "sourceSection": "7.1.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC47-002",
+      "equipmentName": "배관 재질별 거칠기 계수(ε)",
+      "specifications": {
+        "주철관_CastIron": "2.6×10⁻⁴ m",
+        "아연도강관": "1.5×10⁻⁴ m",
+        "일반강관": "4.6×10⁻⁵ m",
+        "단철관_WroughtIron": "4.6×10⁻⁵ m",
+        "압연튜브_DrawnTube": "1.5×10⁻⁶ m",
+        "유리관": "0",
+        "프라스틱관": "0"
+      },
+      "sourceSection": "8.1.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "ES-CC47-003",
+      "equipmentName": "배관 L_P/D 비에 따른 유량감소계수(F)",
+      "specifications": {
+        "LP_D_0": "F = 1",
+        "LP_D_50": "F = 0.85",
+        "LP_D_100": "F = 0.75",
+        "LP_D_200": "F = 0.65",
+        "LP_D_400": "F = 0.55"
+      },
+      "sourceSection": "8.3.1",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC47-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정안전보고서",
+      "requiredSections": [
+        "비상조치를 위한 장비·인력 보유현황",
+        "사고발생 시 각 부서·관련 기관과의 비상연락체계",
+        "사고발생 시 비상조치를 위한 조직의 임무 및 수행 절차",
+        "비상조치계획에 따른 교육계획",
+        "주민홍보계획"
+      ],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    }
+  ]
+}

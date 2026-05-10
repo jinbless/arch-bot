@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ValidationReport",
+  "type": "object",
+  "required": ["metadata", "passed", "summary", "errors"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["generatedAt", "filesChecked", "totalNS"],
+      "additionalProperties": false,
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "filesChecked": { "type": "integer", "minimum": 0 },
+        "totalNS": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "passed": { "type": "boolean" },
+    "summary": {
+      "type": "object",
+      "required": ["schemaErrors", "identifierDuplicates", "fkViolations", "sanctionMismatches", "modalitySanctionConflicts"],
+      "additionalProperties": true,
+      "properties": {
+        "schemaErrors": { "type": "integer", "minimum": 0 },
+        "identifierDuplicates": { "type": "integer", "minimum": 0 },
+        "fkViolations": { "type": "integer", "minimum": 0 },
+        "sanctionMismatches": { "type": "integer", "minimum": 0 },
+        "modalitySanctionConflicts": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule", "identifier", "message"],
+        "additionalProperties": false,
+        "properties": {
+          "rule": { "type": "string" },
+          "identifier": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,694 @@
+{
+  "metadata": {
+    "guideCode": "E-104-2011",
+    "shortCode": "E104",
+    "domain": "B",
+    "extractedAt": "2026-04-23T17:11:06Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-B-063"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-E104-001",
+      "text": "전기설비의 설계 및 설치시에는 다음 특성에 관하여 평가되어야 한다. (가) 설비의 사용목적, 방식 및 계통, 전원 등 (나) 설비가 받는 환경, 사용조건 등의 외적 영향 (다) 기기의 적합성 (라) 보전성",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "일반특성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-002",
+      "text": "감전보호방식 및 전기설비의 선정·설치시에는 4.1항에 의한 특성을 고려하여야 한다.",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "일반특성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-003",
+      "text": "열 및 전압강하의 허용범위 내에서 경제적이고 신뢰성이 있는 전기설비를 설계하기 위하여 예상되는 최대부하를 결정하여야 한다.",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기공급방식 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-004",
+      "text": "전기설비 또는 일부의 최대전력수요 및 부하의 다양성을 고려하는 것이 바람직하다.",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가",
+      "additionalDetail": null,
+      "workProcessPhase": "전기공급방식 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-005",
+      "text": "직류접지계통에서는 전식을 고려하는 것이 바람직하다.",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가",
+      "additionalDetail": null,
+      "workProcessPhase": "접지계통 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-006",
+      "text": "전원의 설계 또는 설치시에는 다음 특성을 평가하여야 한다. (가) 전류와 주파수의 종류 (나) 공칭전압 (다) 전원 수급점에 있어서 추정되는 단락전류 (라) 최대수요 등 전기설비에 요구하는 적합성",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전원 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-007",
+      "text": "이들 특성평가는 먼저 외부 전원에 대하여 실시하고, 해당되는 경우에 자가용 전원을 결정하여야 한다. 이 요구사항은 주전원 및 안전설비전원 또는 예비전원에도 동등하게 적용된다.",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가",
+      "additionalDetail": null,
+      "workProcessPhase": "전원 평가",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E104-008",
+      "text": "설비의 화재예방이나 비상대피용 등 안전시설이 법으로 규정되어 있는 경우 또는 설비의 사용을 규정하는 자로부터 예비전원의 시설을 요구받는 경우, 안전설비 또는 예비설비에 공급하는 전원의 특성은 별도로 평가하여야 한다.",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가",
+      "additionalDetail": null,
+      "workProcessPhase": "안전설비 전원 평가",
+      "bindingForce": "MANDATORY",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E104-009",
+      "text": "당해 전원은 충분한 용량, 신뢰성, 정격 및 규정된 작동에 대하여 적합한 절환시간을 가지는 것으로 한다.",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가",
+      "additionalDetail": null,
+      "workProcessPhase": "안전설비 전원 평가",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-E104-010",
+      "text": "전기설비의 회로는 목적 및 필요에 따라 각각 분리·운영하여야 한다. (가) 고장시에 위험방지 및 파급의 최소화 (나) 안전검사, 시험 및 보수의 용이 (다) 조명회로 등 단일회로의 고장에 의해 야기될 수 있는 위험 고려",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 분리 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-011",
+      "text": "개별적으로 제어할 필요가 있는 설비의 경우, 타 회로의 고장에 의한 영향을 받지 않도록 전용 회로를 시설하여야 한다.",
+      "guideContext": "전기설비 설치 시 환경·사용조건평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설비 분리 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-041",
+      "text": "주위 온도는 당해 기기가 설치된 장소의 대기온도를 나타내며, 온도는 동일 장소에 설치된 다른 기기의 영향을 포함하여 고려한다.",
+      "guideContext": "전기설비 설치 시 주위 온도 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "환경조건 등급분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.3.1",
+      "basedOn": [
+        "SR-HEAT-001"
+      ]
+    },
+    {
+      "identifier": "CI-E104-042",
+      "text": "어떤 기기에 대하여 주위온도란 당해 기기의 열적인 효과를 고려하지 않고, 동일 장소에 설치된 다른 모든 기기를 운전한 경우의 온도이다.",
+      "guideContext": "전기설비 설치 시 주위 온도 측정 기준",
+      "additionalDetail": null,
+      "workProcessPhase": "환경조건 등급분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3.1",
+      "basedOn": [
+        "SR-HEAT-001"
+      ]
+    },
+    {
+      "identifier": "CI-E104-043",
+      "text": "24시간을 초과하는 평균온도는 상한보다 -5℃를 초과해서는 아니 된다.",
+      "guideContext": "전기설비 설치 시 주위 온도 등급분류",
+      "additionalDetail": null,
+      "workProcessPhase": "환경조건 등급분류",
+      "bindingForce": "MANDATORY",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.3.1",
+      "basedOn": [
+        "SR-HEAT-001"
+      ]
+    },
+    {
+      "identifier": "CI-E104-044",
+      "text": "온도범위의 등급은 온도의 영향이 없는 경우에만 적용한다.",
+      "guideContext": "전기설비 설치 시 주위 온도 등급분류",
+      "additionalDetail": null,
+      "workProcessPhase": "환경조건 등급분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-045",
+      "text": "어떠한 특정의 환경에서는 두 가지의 범위를 조합할 필요가 있다.",
+      "guideContext": "전기설비 설치 시 주위 온도 등급분류",
+      "additionalDetail": null,
+      "workProcessPhase": "환경조건 등급분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-046",
+      "text": "이들의 범위 이외의 온도에 해당되는 설비에서는 특별한 검토가 필요하다.",
+      "guideContext": "전기설비 설치 시 주위 온도 등급분류",
+      "additionalDetail": "AA1~AA8 등급분류 범위를 벗어나는 온도 조건에서의 전기설비 설치 시 적용",
+      "workProcessPhase": "환경조건 등급분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-047",
+      "text": "이 지침에서 주어진 기호는 기기 표시에는 사용하지 않는다.",
+      "guideContext": "전기설비 환경·사용조건 등급분류 기호 체계 (법령 근거 미확인)",
+      "additionalDetail": "외적인 영향의 등급분류 기호(예: AC2 = 환경-표고 > 2,000M)는 평가·설계 목적으로만 사용",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-048",
+      "text": "상대습도의 높고 낮음은 각각 절대습도의 높고 낮음에 의해 제한된다. 따라서, 환경조건의 A와 C 또는 B와 D의 한계 값은 동시에 일어나지 않는다.",
+      "guideContext": "전기설비 설치 시 주위 기후 조건 평가",
+      "additionalDetail": "각각의 기후조건의 등급에 대하여 온도, 상대습도의 상호의존을 나타낸 온습도선도 등은 부록에 나타내었다.",
+      "workProcessPhase": "환경조건 등급분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-049",
+      "text": "전기설비에 접근하지 못하도록 할 것",
+      "guideContext": "어린이 전용 장소(육아실 등)에서의 전기설비 접근 방지 (법령 근거 미확인)",
+      "additionalDetail": "사람의 능력 등급분류 BA2(어린이)에 해당하는 장소에서 적용",
+      "workProcessPhase": "사용조건 등급분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "7.4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-050",
+      "text": "지진파가 건축물과 공진하는 경우에 그 영향을 특별히 고려한다.",
+      "guideContext": "전기설비 설치 시 지진의 영향 등급분류",
+      "additionalDetail": "지진 가속도 600 Gal 초과(AP4 등급, 고심각)에 해당하는 환경에서 적용. 일반적으로 지진 가속도의 주기는 0~10 Hz이다. 건축물을 파괴할 정도의 지진은 제외.",
+      "workProcessPhase": "환경조건 등급분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7.3.12",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-160",
+      "text": "다른 전기설비나 전원에 유해한 영향을 줄 위험이 있거나, 전원에 피해를 줄 우려가 있는 기기는 다음 특성을 평가하여야 한다. (1) 과도과전압 (2) 급변동부하 (3) 기동전류 (4) 고조파 전류 (5) 직류 피드백(FEED BACK) (6) 고주파 진동 (7) 대지 누설전류 (8) 추가접지의 필요성",
+      "guideContext": "전기설비 적합성 평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "적합성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-161",
+      "text": "설비는 수명기간 중에 통상적으로 기대되는 합리적인 보수의 빈도수 및 정도에 관해서 평가되어야 한다",
+      "guideContext": "전기설비 보전성 평가 (법령 근거 미확인)",
+      "additionalDetail": "설비운전에 책임이 있는 자가 있는 경우에는 그 지시를 따라야 한다",
+      "workProcessPhase": "보전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "9",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-162",
+      "text": "설비운전에 책임이 있는 자가 있는 경우에는 그 지시를 따라야 한다",
+      "guideContext": "전기설비 보전성 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "보전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "9",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-163",
+      "text": "감전보호, 기기 선정 및 설치, 검사 등의 규정을 만족시키기 위한 보수의 빈도 및 정도를 결정하는 경우에는 다음 사항을 고려하여야 한다. (1) 그 수명기간 중 필요로 하는 정기검사, 시험, 보수 및 수리가 용이하고 안전하다. (2) 안전보호수단의 효과가 그 수명기간 중에 유효하다. (3) 설비의 적절한 기능 작동에 관련된 기기의 신뢰성이 그 수명기간 중 보증된다.",
+      "guideContext": "전기설비 보전성 평가 세부기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "보전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "9",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E104-164",
+      "text": "안전설비의 전원공급은 다음 중 하나의 것이어야 한다. (1) 수동 공급(운전자에 의해 수동 기동) (2) 자동 공급(운전자와 관계없이 자동 기동)",
+      "guideContext": "안전설비 전원공급 방식",
+      "additionalDetail": null,
+      "workProcessPhase": "안전설비 전원 선정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-E104-001",
+      "term": "충전부",
+      "definition": "정상상태에서 전압이 인가되는 도체 또는 도전성 부분을 말하며 중성선은 포함하나 보호도체는 포함하지 아니한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E104-002",
+      "term": "보호도체",
+      "definition": "감전보호를 위하여 노출 도전부, 기타 도전부, 주접지 단자, 전원측의 접지점 또는 기타 접지점에 접속·사용하는 도체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E104-003",
+      "term": "노출 도전부",
+      "definition": "전류가 정상적인 상태에서는 흐르지 않으나 고장시에는 흐를 수 있는 전기설비의 도전부를 말한다. 예로는 금속제 개폐장치의 외함, 전선관 및 덕트 등이 있다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E104-004",
+      "term": "기타 도전부",
+      "definition": "전기설비에 포함되지 않는 부분이 어떠한 대지 전위를 갖을 우려가 있는 도전부를 말한다. 예로는 금속으로 된 창문틀, 침대, 라디에이터 등이 있다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E104-005",
+      "term": "PEN도체",
+      "definition": "보호도체와 중성선의 기능이 하나로 결합된 도체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E104-006",
+      "term": "안전설비",
+      "definition": "다중이용시설·작업장 등에서 위험 상황이 발생 할 경우, 이를 방호하거나 경보하기 위하여 시설한 설비 또는 위험장소로부터 피난하기 위해 필요로 하는 설비를 말한다. 그 예로는 비상대피등, 소방펌프, 배연장치, 경보 및 지시장치 등이 있다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-E104-01",
+      "processOrder": 1,
+      "processName": "전기설비 일반특성 평가",
+      "safetyMeasures": "설비의 사용목적, 방식 및 계통, 전원, 외적 영향(환경·사용조건), 기기의 적합성, 보전성에 관하여 평가한다.",
+      "requiredPPE": [],
+      "sourceSection": "4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E104-02",
+      "processOrder": 2,
+      "processName": "전기공급방식 결정",
+      "safetyMeasures": "전력계통의 종류(교류·직류), 접지방식의 종류(TN, TT, IT 계통)를 결정하고, 최대부하를 산정하여 경제적이고 신뢰성 있는 설비를 설계한다.",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E104-03",
+      "processOrder": 3,
+      "processName": "전원 특성 평가 및 설비 분리",
+      "safetyMeasures": "전류·주파수 종류, 공칭전압, 단락전류, 최대수요를 평가하고, 안전설비·예비설비 전원은 별도 평가한다. 회로는 목적에 따라 분리·운영하고 전용 회로를 시설한다.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "WP-E104-11",
+      "processOrder": 4,
+      "processName": "환경조건 등급분류 평가",
+      "safetyMeasures": "설치장소의 주위 온도(AA), 기후 조건(AB), 표고(AC), 물의 존재(AD), 외부고형물(AE), 부식·오염물질(AF), 기계적 응력-충격(AG)·진동(AH), 식물·곰팡이(AK), 동물(AL), 전자기 영향(AM), 태양방사(AN), 지진(AP), 뇌(AQ), 공기이동(AR), 풍속(AS)의 등급을 분류하고 기호를 부여한다.",
+      "requiredPPE": [],
+      "sourceSection": "7.3",
+      "relatedSR": [
+        "SR-HEAT-001"
+      ]
+    },
+    {
+      "identifier": "WP-E104-12",
+      "processOrder": 5,
+      "processName": "사용조건 등급분류 평가",
+      "safetyMeasures": "설치장소의 사람의 능력(BA), 인체의 전기저항(BB), 대지전위에 의한 사람 접촉(BC), 비상시의 피난(BD), 공정물질 또는 저장물질의 성질(BE) 등급을 분류하고 기호를 부여한다. BA2(어린이) 장소에서는 전기설비 접근 방지 조치를 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "7.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E104-13",
+      "processOrder": 6,
+      "processName": "시설물 구조 등급분류 평가",
+      "safetyMeasures": "설치 시설물의 구성 재료(CA: 불연성/가연성), 시설물의 설계(CB: 화재 파급, 이동성, 비고정·유연성) 등급을 분류하고 기호를 부여한다.",
+      "requiredPPE": [],
+      "sourceSection": "7.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E104-41",
+      "processOrder": 7,
+      "processName": "전기설비 적합성 평가",
+      "safetyMeasures": "다른 전기설비나 전원에 유해한 영향을 줄 위험이 있는 기기에 대해 과도과전압, 급변동부하, 기동전류, 고조파 전류, 직류 피드백, 고주파 진동, 대지 누설전류, 추가접지의 필요성 등 8가지 특성을 평가한다",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E104-42",
+      "processOrder": 8,
+      "processName": "전기설비 보전성 평가",
+      "safetyMeasures": "설비의 수명기간 중 합리적인 보수의 빈도수 및 정도를 평가하고, 감전보호·기기 선정 및 설치·검사 등의 규정 만족을 위해 정기검사·시험·보수·수리의 용이성과 안전성, 안전보호수단의 유효성, 기기 신뢰성 보증 여부를 고려한다",
+      "requiredPPE": [],
+      "sourceSection": "9",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E104-43",
+      "processOrder": 9,
+      "processName": "안전설비 전원 선정 및 설치",
+      "safetyMeasures": "안전설비용 전원으로 축전지, 1차 전지, 상용 전원과 독립된 발전기, 독립된 전력공급망 간선 중 적절한 종류를 선정하고, 수동 공급 또는 자동 공급 방식을 결정하며, 자동전원의 경우 미차단·최단시 차단(0.15초 이내)·단시 차단(0.5초 이내)·중시 차단(15초 이내)·장시 차단(15초 초과) 등급에 따라 설치한다",
+      "requiredPPE": [],
+      "sourceSection": "10",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-E104-021",
+      "equipmentName": "주위 온도 등급분류 체계 (AA1~AA8)",
+      "specifications": {
+        "AA1": "-60℃ ~ +5℃ (극저온)",
+        "AA2": "-40℃ ~ +5℃",
+        "AA3": "-25℃ ~ +5℃",
+        "AA4": "-5℃ ~ +40℃ (일반 내후성)",
+        "AA5": "+5℃ ~ +40℃ (온도 제한 내후성)",
+        "AA6": "+5℃ ~ +60℃ (극고온)",
+        "AA7": "-25℃ ~ +55℃ (옥외 내후성)",
+        "AA8": "-50℃ ~ +40℃ (옥외 비내후성)",
+        "referenceStandard": "IEC 60364, IEC 60721"
+      },
+      "sourceSection": "7.3.1",
+      "relatedSR": [
+        "SR-HEAT-001"
+      ]
+    },
+    {
+      "identifier": "ES-E104-022",
+      "equipmentName": "주위 기후 조건 등급분류 체계 (AB1~AB8)",
+      "specifications": {
+        "AB1": "-60℃~+5℃, 상대습도 3~100%, 절대습도 0.003~7 g/m³ (극저온 옥내외)",
+        "AB4": "-5℃~+40℃, 상대습도 5~95%, 절대습도 1~29 g/m³ (내후성 비제한)",
+        "AB5": "+5℃~+40℃, 상대습도 5~85%, 절대습도 1~25 g/m³ (내후성 온도 제한)",
+        "AB7": "-25℃~+55℃, 상대습도 10~100%, 절대습도 0.5~29 g/m³ (옥내 외기 개방)",
+        "AB8": "-50℃~+40℃, 상대습도 15~100%, 절대습도 0.04~36 g/m³ (옥외 비내후성)",
+        "referenceStandard": "IEC 60721"
+      },
+      "sourceSection": "7.3.2",
+      "relatedSR": [
+        "SR-HEAT-001"
+      ]
+    },
+    {
+      "identifier": "ES-E104-023",
+      "equipmentName": "표고 등급분류 체계 (AC1~AC2)",
+      "specifications": {
+        "AC1": "≤ 2,000 m",
+        "AC2": "> 2,000 m"
+      },
+      "sourceSection": "7.3.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-024",
+      "equipmentName": "물의 존재 등급분류 체계 (AD1~AD8)",
+      "specifications": {
+        "AD1": "무시 (물 존재확률 무시)",
+        "AD2": "자유낙하 물방울 (수직 낙하)",
+        "AD3": "살수 (60도까지 분무 낙하)",
+        "AD4": "비산 (모든 방향 물 비산)",
+        "AD5": "분사 (모든 방향 물분사)",
+        "AD6": "과도-물결 (해변, 바닥가)",
+        "AD7": "물의 침투 (수심 150mm~1m)",
+        "AD8": "수몰 (0.1 bar 이상 수압, 상시 침수)",
+        "referenceStandard": "IEC 60721"
+      },
+      "sourceSection": "7.3.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-025",
+      "equipmentName": "외부고형물 존재 등급분류 체계 (AE1~AE6)",
+      "specifications": {
+        "AE1": "무시",
+        "AE2": "작은 물체 (≥ 2.5mm)",
+        "AE3": "미세한 물체 (≥ 1mm)",
+        "AE4": "가벼운 먼지 (10~35 mg/(m²·D))",
+        "AE5": "중간의 먼지 (35~350 mg/(m²·D))",
+        "AE6": "무거운 먼지 (350~1000 mg/(m²·D))",
+        "referenceStandard": "IEC 60721"
+      },
+      "sourceSection": "7.3.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-026",
+      "equipmentName": "부식·오염물질 존재 등급분류 체계 (AF1~AF4)",
+      "specifications": {
+        "AF1": "무시",
+        "AF2": "대기성 (해변, 화학·시멘트공장 등 대기오염 지역)",
+        "AF3": "간헐·우발 (소량 화학물질 우발 접촉, 실험실·보일러실)",
+        "AF4": "연속 (다량 부식·오염물질 연속 발생, 화학공장)",
+        "referenceStandard": "IEC 60721"
+      },
+      "sourceSection": "7.3.6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-027",
+      "equipmentName": "기계적 충격 등급분류 체계 (AG1~AG3)",
+      "specifications": {
+        "AG1": "저심각 (주택 등)",
+        "AG2": "중심각 (일반 공업)",
+        "AG3": "고심각 (중공업)",
+        "referenceStandard": "IEC 60721"
+      },
+      "sourceSection": "7.3.7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-028",
+      "equipmentName": "기계적 진동 등급분류 체계 (AH1~AH3)",
+      "specifications": {
+        "AH1": "저심각 (주택 등, 진동 영향 무시)",
+        "AH2": "중심각 (일반 공업)",
+        "AH3": "고심각 (엄한 조건의 공업 설비)",
+        "referenceStandard": "IEC 60721"
+      },
+      "sourceSection": "7.3.7",
+      "relatedSR": [
+        "SR-NOISE-001"
+      ]
+    },
+    {
+      "identifier": "ES-E104-029",
+      "equipmentName": "정전기 방전 등급분류 체계 (AM-31-1~4)",
+      "specifications": {
+        "AM-31-1": "저수준 (합성섬유 카페트 위 보행자 정전기)",
+        "AM-31-2": "중수준 (카페트 종류·습도 관련)",
+        "AM-31-3": "고수준",
+        "AM-31-4": "극고수준",
+        "referenceStandard": "IEC 61000-4-2"
+      },
+      "sourceSection": "7.3.10.3",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "ES-E104-030",
+      "equipmentName": "지진 영향 등급분류 체계 (AP1~AP4)",
+      "specifications": {
+        "AP1": "무시 (가속도 ≤ 30 Gal)",
+        "AP2": "저심각 (30 < 가속도 ≤ 300 Gal)",
+        "AP3": "중심각 (300 < 가속도 ≤ 600 Gal)",
+        "AP4": "고심각 (가속도 > 600 Gal)",
+        "unit": "1 Gal = 1 cm/s²",
+        "seismicFrequencyRange": "0~10 Hz"
+      },
+      "sourceSection": "7.3.12",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-031",
+      "equipmentName": "뇌(서지) 등급분류 체계 (AQ1~AQ3)",
+      "specifications": {
+        "AQ1": "무시 (≤ 25일/년)",
+        "AQ2": "간접뢰 (> 25일/년, 가공선 공급설비·건물 외부 설비)",
+        "AQ3": "직접뢰 (기기 피격 위험)",
+        "note": "AQ2·AQ3의 위험은 특히 뇌가 많은 지역에 관련"
+      },
+      "sourceSection": "7.3.13",
+      "relatedSR": [
+        "SR-ELECTRIC-025"
+      ]
+    },
+    {
+      "identifier": "ES-E104-032",
+      "equipmentName": "태양방사 등급분류 체계 (AN1~AN3)",
+      "specifications": {
+        "AN1": "소 (강도 ≤ 500 W/m²)",
+        "AN2": "중 (500 < 강도 ≤ 700 W/m²)",
+        "AN3": "대 (700 < 강도 ≤ 1,120 W/m²)",
+        "referenceStandard": "IEC 60721-3-3"
+      },
+      "sourceSection": "7.3.11",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-033",
+      "equipmentName": "풍속 등급분류 체계 (AS1~AS3)",
+      "specifications": {
+        "AS1": "약 (속도 ≤ 20 m/s)",
+        "AS2": "중 (20 ≤ 속도 ≤ 30 m/s)",
+        "AS3": "대 (30 ≤ 속도 ≤ 50 m/s)"
+      },
+      "sourceSection": "7.3.15",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-034",
+      "equipmentName": "나노초 전도성 서지 등급분류 체계 (AM-22-1~4)",
+      "specifications": {
+        "AM-22-1": "무시되는 수준 (전자장해대책 시설 환경, 컴퓨터실)",
+        "AM-22-2": "중수준 (전자장해대책 시설 환경, 감시제어실)",
+        "AM-22-3": "고수준 (소용량 유도성 부하 개폐, 저압배전방)",
+        "AM-22-4": "극고수준 (고전압변전소, 중공업시설 배전반)",
+        "referenceStandard": "IEC 60801-4"
+      },
+      "sourceSection": "7.3.10.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E104-035",
+      "equipmentName": "마이크로~밀리초 전도성 서지 등급분류 체계 (AM-23-1~3)",
+      "specifications": {
+        "AM-23-1": "제어수준 (서지어레스터 보호 회로, 접지 변압기)",
+        "AM-23-2": "중수준 (원거리 낙뢰 1km 이상, 파미장 10~1,000μs, 전원임피던스 20~300Ω)",
+        "AM-23-3": "고수준 (근거리 낙뢰 1km 미만, 파미장 1.2~50μs, 전원임피던스 1~10Ω)",
+        "referenceStandard": "IEC 60364-4-443"
+      },
+      "sourceSection": "7.3.10.2",
+      "relatedSR": [
+        "SR-ELECTRIC-025"
+      ]
+    },
+    {
+      "identifier": "ES-E104-081",
+      "equipmentName": "안전설비용 자동전원",
+      "specifications": {
+        "미차단(NO BREAK)": "주파수 또는 전압변동 등 과도기간 중 특정조건 내 연속 공급 보증",
+        "최단시 차단(VERY SHORT BREAK)": "0.15초 이내 자동 공급",
+        "단시 차단(SHORT BREAK)": "0.5초 이내 자동 공급",
+        "중시 차단(MEDIUM BREAK)": "15초 이내 자동 공급",
+        "장시 차단(LONG BREAK)": "15초 초과 시간 자동 공급"
+      },
+      "sourceSection": "10",
+      "relatedSR": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "ES-E104-082",
+      "equipmentName": "기계적 조건 등급별 진동 규격",
+      "specifications": {
+        "AG1_AH1_변위진폭": "0.3 m",
+        "AG1_AH1_가속도진폭": "1 m/s²",
+        "AG1_AH1_주파수범위": "2~9 Hz / 9~200 Hz",
+        "AG2_AH2_변위진폭": "1.5 m",
+        "AG2_AH2_가속도진폭": "5 m/s²",
+        "AG2_AH2_주파수범위": "2~9 Hz / 9~200 Hz",
+        "AG3_AH3_변위진폭": "3.0~15 m",
+        "AG3_AH3_가속도진폭": "10~50 m/s²",
+        "AG3_AH3_주파수범위": "2~9 Hz / 9~200 Hz",
+        "비정상진동_L_alpha": "40 m/s² (AG1), 40~70 m/s² (AG2)",
+        "비정상진동_I_alpha": "100 m/s² (AG2)",
+        "비정상진동_II_alpha": "250 m/s² (AG3)"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": []
+}

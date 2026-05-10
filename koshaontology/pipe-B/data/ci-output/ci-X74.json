@@ -1,0 +1,304 @@
+{
+  "metadata": {
+    "guideCode": "X-74-2017",
+    "shortCode": "X74",
+    "domain": "A",
+    "extractedAt": "2026-04-22T12:07:58Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-A-014"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-X74-001",
+      "text": "철저한 분석을 위해서는 선정된 작업이나 시나리오의 집합이 시스템을 대표할 수 있어야 한다.",
+      "guideContext": "HEART 기법 단계 1: 분석 대상 작업 결정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "분석 대상 작업 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-002",
+      "text": "계층적 작업분석을 통해 휴먼에러의 정량적 평가 및 저감 기법의 대상이 될 작업과 시스템에 대해 철저하게 분석하여 기술한다.",
+      "guideContext": "HEART 기법 단계 2: 계층적 작업 분석",
+      "additionalDetail": null,
+      "workProcessPhase": "계층적 작업 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-003",
+      "text": "작업을 목표에 따라 여러 개의 세부 작업들로 구분하고, 필요한 경우 세부 작업들을 다시 더 작은 작업들로 나누는 과정을 반복한다.",
+      "guideContext": "HEART 기법 단계 2: 계층적 작업 분석 세부 절차",
+      "additionalDetail": null,
+      "workProcessPhase": "계층적 작업 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-004",
+      "text": "가이드라인의 집합 형태로 분석 대상 작업에 대해 적합한 휴먼에러의 분류, 원인, 강도를 찾는다.",
+      "guideContext": "HEART 기법 단계 3: 선별 절차 수행",
+      "additionalDetail": null,
+      "workProcessPhase": "선별 절차 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-005",
+      "text": "<표 1>의 작업 유형을 활용하여 대상 작업에 휴먼에러 확률을 할당한다.",
+      "guideContext": "HEART 기법 단계 4: 인간 비신뢰도에 따른 작업 분류",
+      "additionalDetail": "작업 유형 A~H, M 중 대상 작업에 해당하는 유형을 선택하여 인간 비신뢰도 기준치를 설정",
+      "workProcessPhase": "인간 비신뢰도에 따른 작업 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-006",
+      "text": "대상 작업과 연관된 에러발생조건을 확인한다. 대상 작업에 적용할 에러발생조건을 다음의 <표 2>에서 찾는다.",
+      "guideContext": "HEART 기법 단계 5: 에러발생조건 확인",
+      "additionalDetail": "38개 에러발생조건 중 대상 작업에 해당하는 조건 선택",
+      "workProcessPhase": "에러발생조건 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-007",
+      "text": "확인된 각각의 에러발생조건들에 대해 영향의 비율을 결정한다. 영향 비율은 평가자의 주관적 판단에 기반하여 0(낮음)과 1(높음) 사이의 수로 평가한다.",
+      "guideContext": "HEART 기법 단계 6: 영향 비율 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "영향 비율 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-008",
+      "text": "각각의 확인된 에러발생조건들에 대하여 그 영향을 평가한다. 영향 평가 결과는 (최대 예상 에러율 변화량 - 1) × 영향 비율 평가 결과 + 1에 의해 계산된다.",
+      "guideContext": "HEART 기법 단계 7: 영향 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "영향 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-009",
+      "text": "휴먼에러에 의한 대상 작업의 실패 확률을 계산한다. 확률은 1을 초과할 수 없으므로, 계산 결과가 1을 넘는 경우 확률은 1로 간주한다.",
+      "guideContext": "HEART 기법 단계 8: 휴먼에러 확률 계산",
+      "additionalDetail": "휴먼에러 확률 = 인간 비신뢰도 기준치 × 영향 평가 결과 1 × 영향평가 결과 2 × …",
+      "workProcessPhase": "휴먼에러 확률 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-010",
+      "text": "에러와 시스템의 특성을 고려하여 보다 구체적인 개선방안을 제시하여야 한다.",
+      "guideContext": "HEART 기법 단계 9: 개선방안 제시 (법령 근거 미확인)",
+      "additionalDetail": "에러발생조건들에 대해 범용적인 개선방안들이 제공되지만 시스템에 특화된 것은 아니므로 구체화 필요",
+      "workProcessPhase": "개선방안 제시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.9",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X74-011",
+      "text": "분석 과정 전반에 대한 모든 세부 사항을 문서로 정리한다. 분석이 완료되면 분석 결과를 적합한 표현 형태로 변환한다.",
+      "guideContext": "HEART 기법 단계 10: 문서화",
+      "additionalDetail": null,
+      "workProcessPhase": "문서화",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.10",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-X74-001",
+      "term": "휴먼에러",
+      "definition": "시스템의 효율, 안전, 성능 등을 저해할 수 있는 부적절하거나 바람직하지 않은 인간의 행동 또는 의사결정을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X74-002",
+      "term": "작업",
+      "definition": "시스템의 목적이나 기능을 달성하기 위한 인간 행동의 단위를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X74-003",
+      "term": "계층적 작업 분석",
+      "definition": "작업을 목표에 따라 여러 개의 세부 작업들로 나누고 이 세부 작업들을 다시 더 작은 작업들로 나누는 과정을 반복함으로써 작업의 구조를 계층의 형태로 상세하게 표현하는 분석 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X74-004",
+      "term": "인간 신뢰도",
+      "definition": "신뢰할 수 있거나 사용할 수 있는 시스템에 대하여 인간의 행동이 성공적으로 이루어질 확률을 말한다. 즉, 시스템의 신뢰도나 가용도를 훼손할만한 외적인 직무나 행동이 실행되지 않을 뿐만 아니라, 요구되는 시간 내에 시스템이 요구하는 인간행동, 직무, 또는 작업이 성공적으로 완수될 확률을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X74-005",
+      "term": "인간 비신뢰도",
+      "definition": "인간 신뢰도와 반대의 개념으로, 신뢰할 수 있거나 사용할 수 있는 시스템에 대하여 인간의 행동이 성공적으로 이루어지지 않을 확률을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X74-006",
+      "term": "에러발생조건",
+      "definition": "휴먼에러의 정량적 평가 및 저감 기법(HEART)에서 작업의 인간 비신뢰도를 높여 에러를 발생시킬 수 있는 여지를 증가시키는 작업자, 작업, 도구, 환경, 관리 등과 관련된 조건들을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X74-007",
+      "term": "리스크",
+      "definition": "특정 목적에 영향을 주는 긍정 또는 부정적인 상황의 발생 기회에 대한 불확실성을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X74-008",
+      "term": "영향 비율",
+      "definition": "어떤 에러발생조건이 전혀 영향을 미치지 않는 상황을 0, 최대로 영향을 미치는 상황을 1로 가정하였을 때, 현재의 대상 작업을 수행하는 조건이 어떠한 수준인지를 비율로 나타낸 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-X74-01",
+      "processOrder": 1,
+      "processName": "분석 대상 작업 결정",
+      "safetyMeasures": "분석 대상 시스템에 대해 적합한 작업이나 시나리오의 집합을 선정하며, 선정된 작업이나 시나리오의 집합이 시스템을 대표할 수 있어야 한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-02",
+      "processOrder": 2,
+      "processName": "계층적 작업 분석",
+      "safetyMeasures": "작업을 목표에 따라 여러 개의 세부 작업들로 구분하고, 필요한 경우 세부 작업들을 다시 더 작은 작업들로 나누는 과정을 반복한다. 전문가/작업자 대상 인터뷰, 직접적 또는 간접적 관찰, 절차서·체크리스트·교육자료·리스크 평가 결과 등을 검토한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-03",
+      "processOrder": 3,
+      "processName": "선별 절차 수행",
+      "safetyMeasures": "가이드라인의 집합 형태로 분석 대상 작업에 대해 적합한 휴먼에러의 분류, 원인, 강도를 찾는다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-04",
+      "processOrder": 4,
+      "processName": "인간 비신뢰도에 따른 작업 분류",
+      "safetyMeasures": "작업 유형(A~H, M)을 활용하여 대상 작업에 휴먼에러 확률 기준치를 할당한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-05",
+      "processOrder": 5,
+      "processName": "에러발생조건 확인",
+      "safetyMeasures": "대상 작업과 연관된 에러발생조건을 38개 에러발생조건 목록에서 확인하고, 각 조건의 최대 예상 에러율 변화량을 파악한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-06",
+      "processOrder": 6,
+      "processName": "영향 비율 평가",
+      "safetyMeasures": "확인된 각각의 에러발생조건들에 대해 영향의 비율을 0(낮음)과 1(높음) 사이의 수로 평가한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-07",
+      "processOrder": 7,
+      "processName": "영향 평가",
+      "safetyMeasures": "영향 평가 결과 = (최대 예상 에러율 변화량 - 1) × 영향 비율 평가 결과 + 1 공식에 의해 각 에러발생조건의 영향을 계산한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-08",
+      "processOrder": 8,
+      "processName": "휴먼에러 확률 계산",
+      "safetyMeasures": "휴먼에러 확률 = 인간 비신뢰도 기준치 × 영향 평가 결과들의 곱으로 계산하며, 결과가 1을 넘는 경우 확률은 1로 간주한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-09",
+      "processOrder": 9,
+      "processName": "개선방안 제시",
+      "safetyMeasures": "확인된 에러들에 대해 가능한 개선방안을 찾아서 제시하며, 에러와 시스템의 특성을 고려하여 보다 구체적인 개선방안을 제시하여야 한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.9",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X74-10",
+      "processOrder": 10,
+      "processName": "문서화",
+      "safetyMeasures": "분석 과정 전반에 대한 모든 세부 사항을 문서로 정리하고, 분석 결과를 적합한 표현 형태로 변환한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.10",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [],
+  "documentRequirements": [
+    {
+      "identifier": "DR-X74-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "휴먼에러의 정량적 평가 및 저감 기법(HEART) 분석 문서",
+      "requiredSections": [
+        "분석 대상 작업 결정",
+        "계층적 작업 분석",
+        "선별 절차 수행",
+        "인간 비신뢰도에 따른 작업 분류",
+        "에러발생조건 확인",
+        "영향 비율 평가",
+        "영향 평가",
+        "휴먼에러 확률 계산",
+        "개선방안"
+      ],
+      "sourceSection": "5.10",
+      "relatedSR": null
+    }
+  ]
+}

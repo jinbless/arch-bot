@@ -1,0 +1,625 @@
+{
+  "metadata": {
+    "guideCode": "D-32-2012",
+    "shortCode": "D32",
+    "domain": "C",
+    "extractedAt": "2026-04-23T19:18:09Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-014"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-D32-001",
+      "text": "제어실 위치는 폭발위험장소가 아닌 안전한 장소에 위험성 및 운전성을 고려하여 선정한다.",
+      "guideContext": "제어실 위치선정 및 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "제어실 위치 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-ELECTRIC-012"
+      ]
+    },
+    {
+      "identifier": "CI-D32-002",
+      "text": "독성물질의 누출에 의한 중독위험이 있는 경우에는 독성물질을 취급하는 공정지역의 밖에 설치하여야 한다.",
+      "guideContext": "제어실 위치선정 및 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "제어실 위치 선정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-ELECTRIC-012"
+      ]
+    },
+    {
+      "identifier": "CI-D32-003",
+      "text": "제어실은 25 Pa(2.5 mmH2O) 이상으로 유지되도록 양압설비를 설치하여야 한다.",
+      "guideContext": "제어실 위치선정 및 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "제어실 구조 설계",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "CI-D32-004",
+      "text": "누출량은 KOSHA GUIDE \"누출원 모델링에 관한 기술지침\"에 따라 산정한다.",
+      "guideContext": "제어실 위치선정 및 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "제어실 위치 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D32-005",
+      "text": "복사열량 또는 폭발압력 계산 방법은 KOSHA GUIDE P-0-2012\"사고피해예측 기법\" 또는 이와 동등 이상의 기법을 활용하여 산정하거나 기타 피해예측프로그램을 활용하여 계산한다.",
+      "guideContext": "제어실 위치선정 및 설계",
+      "additionalDetail": null,
+      "workProcessPhase": "제어실 위치 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D32-006",
+      "text": "화재시에 대비하여 제어실과 화재원과는 화재에 의한 복사열량이 제어실의 외벽에서 최대로 12.6 kW/㎡(3994.2 Btu/ft²hr) 이하가 되도록 적정한 안전거리를 유지하여야 한다.",
+      "guideContext": "제어실 화재 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-007",
+      "text": "외부화재 발생 후 30 분 동안에 내부온도가 최대로 10℃ 이상 상승되지 않도록 건물의 구조 및 내부온도 조절설비를 설치하여야 한다.",
+      "guideContext": "제어실 화재 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-008",
+      "text": "화재원과 마주보지 않는 곳에 긴급 대피로를 설치하여야 한다. 이 경우에 대피로에서 복사열량이 2 kW/㎡(634 Btu/ft²hr)를 초과하지 않아야 한다.",
+      "guideContext": "제어실 화재 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-CONFINED-021"
+      ]
+    },
+    {
+      "identifier": "CI-D32-009",
+      "text": "제어실의 환기를 위한 공기 흡입구는 화재시 발생하는 연기 흡입이 최소화될 수 있는 곳에 설치하여야 한다.",
+      "guideContext": "제어실 화재 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "CI-D32-010",
+      "text": "제어실 건물내부에는 비상등 및 피난구 유도등이 설치되어야 한다.",
+      "guideContext": "제어실 화재 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-D32-011",
+      "text": "폭발위험장소로 향하는 출입문은 갑종 방화문을 설치하여야 한다.",
+      "guideContext": "제어실 화재 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-012",
+      "text": "제어실과 공정설비 또는 공장동 사이의 전기계장용 케이블 등은 복사열에 의하여 손상되지 않도록 조치하여야 한다.",
+      "guideContext": "제어실 화재 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-D32-013",
+      "text": "제어실은 가연성가스 또는 인화성물질의 누출원이 될 수 있는 설비로부터 30 m 이상의 안전거리를 유지하여야 한다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 이상)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "7.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-014",
+      "text": "제어실 건물내에는 운전에 필요한 필수 요원만을 상주할 수 있도록 설계 한다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 이상)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D32-015",
+      "text": "제어실의 지붕 또는 상층에는 하중이 무거운 설비를 설치하여서는 아니 된다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 이상)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7.2",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-D32-016",
+      "text": "제어실의 지붕은 30 ms(Millisecond) 동안에 100 kPa(14.5 psi)의 폭발압력에 붕괴되지 않도록 설계·시공하여야 한다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 이상)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7.2",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-D32-017",
+      "text": "제어실 벽은 주위에서 화재·폭발이 발생하였을 경우 20 ms 동안에 70 kPa(10.2 psi) 및 100 ms 동안에 20 kPa(2.9 psi)의 폭발압력에 견딜 수 있는 방폭벽으로 설계·시공하여야 한다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 이상)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "7.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-018",
+      "text": "제어실 건물에는 창문을 설치하여서는 아니 된다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 이상)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "7.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-019",
+      "text": "제어실은 가연성가스 또는 인화성물질의 누출원에서 화재 발생시 제어실의 외벽에서의 복사열량이 12.6 kW/㎡(3994.2 Btu/ft²hr) 이하가 되도록 적정한 안전거리를 유지하여야 한다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 미만)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "8.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-020",
+      "text": "제어실 건물내의 근무자를 최소화 하여야 한다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 미만) (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D32-021",
+      "text": "제어실의 지붕 또는 상층에는 하중이 무거운 설비를 설치하여서는 아니 된다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 미만)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.2",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-D32-022",
+      "text": "제어실 건물에는 창문을 없애거나 최소화 하여야 하며 창문의 유리는 파편이 튀지 않는 망입유리 등을 사용하여야 한다.",
+      "guideContext": "제어실 개방계 증기운폭발 보호대책 (누출량 15톤 미만)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "8.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-023",
+      "text": "취급하는 독성물질이 화재·폭발의 위험이 있는 경우에는 제2장 화재로부터 보호대책 및 제3장 개방계 증기운폭발로부터 보호대책을 준수하여야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "9",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-D32-024",
+      "text": "건물은 가스밀폐 구조로 설계·시공하여야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-CHEMICAL-003"
+      ]
+    },
+    {
+      "identifier": "CI-D32-025",
+      "text": "창문은 망입 유리로 하고, 열 수 없는 구조로 하여야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-CHEMICAL-003"
+      ]
+    },
+    {
+      "identifier": "CI-D32-026",
+      "text": "출입문과 창문틀은 강제 또는 이와 동등 이상의 강도를 갖는 비수축성 재질을 사용하여야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-D32-027",
+      "text": "제어실 출입문은 2개로 제한하고, 각 출입문은 자동으로 닫히는 이중문 구조로 하여 외부의 공기 또는 가스가 내부로 들어오지 못하도록 하여야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-CHEMICAL-003"
+      ]
+    },
+    {
+      "identifier": "CI-D32-028",
+      "text": "제어실에는 공정설비를 안전하게 정지시키는데 필요한 시간동안 신선한 공기를 공급할 수 있는 설비를 설치하여야 하며 시간당 8회 이상 공기를 치환할 수 있어야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "CI-D32-029",
+      "text": "제어실에는 공장의 비상조치부서와 전용 회선의 비상연락망이 설치되어야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-D32-030",
+      "text": "제어실에는 가스누출감지경보기가 설치되어야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-D32-031",
+      "text": "제어실에는 풍향지시계를 설치하여야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-D32-032",
+      "text": "제어실에는 독성물질 누출시에 대피 하는데 필요한 자급식 호흡기를 상시 근로자에게 1개씩 지급될 수 있도록 준비하여야 한다.",
+      "guideContext": "제어실 독성물질 누출 보호대책",
+      "additionalDetail": null,
+      "workProcessPhase": "독성물질 보호대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "10",
+      "basedOn": [
+        "SR-CHEMICAL-025"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-D32-001",
+      "term": "개방계증기운폭발",
+      "definition": "가연성 가스가 탱크나 배관 내에 저장·취급되는 과정에서 서서히 지속적으로 누출되면서 대기 중에 구름형태로 모여 바람·대류 등의 영향으로 움직이다가 담뱃불, 정전기, 기계적 마찰, 스파크 등의 점화원에 의하여 순간적으로 모든 가스가 동시에 폭발하는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D32-002",
+      "term": "제어실",
+      "definition": "현장에 설치되어 있는 밸브 또는 공정설비 등을 원격으로 조정·감시할 수 있는 장치를 한 장소에 모아놓은 곳을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D32-003",
+      "term": "공정지역",
+      "definition": "위험물질을 취급하는 공정설비들이 설치되어 있는 지역을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-D32-01",
+      "processOrder": 1,
+      "processName": "제어실 위치 선정",
+      "safetyMeasures": "폭발위험장소가 아닌 안전한 장소에 위험성 및 운전성을 고려하여 선정하고, 독성물질 취급 공정지역 밖에 설치한다. 누출량 및 복사열량·폭발압력을 사전 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": [
+        "SR-ELECTRIC-012"
+      ]
+    },
+    {
+      "identifier": "WP-D32-02",
+      "processOrder": 2,
+      "processName": "제어실 구조 설계 (공통)",
+      "safetyMeasures": "25 Pa 이상 양압설비를 설치하여 외부 가스 유입을 방지한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "WP-D32-03",
+      "processOrder": 3,
+      "processName": "화재 보호대책 적용",
+      "safetyMeasures": "화재원과 복사열량 12.6 kW/㎡ 이하 안전거리 유지, 30분간 내부온도 10℃ 이상 상승 방지 구조, 긴급 대피로·비상등·피난구 유도등 설치, 갑종 방화문 설치, 케이블 복사열 손상 방지 조치를 수행한다.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "WP-D32-04",
+      "processOrder": 4,
+      "processName": "개방계 증기운폭발 보호대책 적용",
+      "safetyMeasures": "누출량 15톤 이상 시 30 m 이상 안전거리 확보, 지붕 100 kPa/30 ms 내압설계, 벽체 70 kPa/20 ms 및 20 kPa/100 ms 방폭벽 설계, 창문 설치 금지. 누출량 15톤 미만 시 복사열량 12.6 kW/㎡ 이하 안전거리, 망입유리 사용, 근무자 최소화.",
+      "requiredPPE": [],
+      "sourceSection": "7.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "WP-D32-05",
+      "processOrder": 5,
+      "processName": "독성물질 누출 보호대책 적용",
+      "safetyMeasures": "가스밀폐 구조 설계, 망입유리·열 수 없는 창문, 자동 이중문 구조, 시간당 8회 이상 공기치환 설비, 가스누출감지경보기·풍향지시계·비상연락망 설치, 자급식 호흡기 비치.",
+      "requiredPPE": [
+        "자급식 호흡기"
+      ],
+      "sourceSection": "10",
+      "relatedSR": [
+        "SR-CHEMICAL-003",
+        "SR-CHEMICAL-006",
+        "SR-CHEMICAL-010",
+        "SR-CHEMICAL-025"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-D32-001",
+      "equipmentName": "양압설비",
+      "specifications": {
+        "minimumPressure": "25 Pa (2.5 mmH2O) 이상"
+      },
+      "sourceSection": "4.2",
+      "relatedSR": [
+        "SR-CONFINED-002"
+      ]
+    },
+    {
+      "identifier": "ES-D32-002",
+      "equipmentName": "제어실 지붕 (누출량 15톤 이상)",
+      "specifications": {
+        "blastResistance": "100 kPa (14.5 psi)",
+        "duration": "30 ms"
+      },
+      "sourceSection": "7.2",
+      "relatedSR": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "ES-D32-003",
+      "equipmentName": "제어실 방폭벽 (누출량 15톤 이상)",
+      "specifications": {
+        "blastResistance_1": "70 kPa (10.2 psi) / 20 ms",
+        "blastResistance_2": "20 kPa (2.9 psi) / 100 ms"
+      },
+      "sourceSection": "7.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "ES-D32-004",
+      "equipmentName": "갑종 방화문",
+      "specifications": {
+        "location": "폭발위험장소로 향하는 출입문",
+        "grade": "갑종"
+      },
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "ES-D32-005",
+      "equipmentName": "망입유리",
+      "specifications": {
+        "feature": "파편이 튀지 않는 구조",
+        "application": "제어실 창문"
+      },
+      "sourceSection": "8.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D32-006",
+      "equipmentName": "공기공급설비 (독성물질 보호용)",
+      "specifications": {
+        "airChangeRate": "시간당 8회 이상",
+        "supplyDuration": "공정설비를 안전하게 정지시키는데 필요한 시간"
+      },
+      "sourceSection": "10",
+      "relatedSR": [
+        "SR-CHEMICAL-006"
+      ]
+    },
+    {
+      "identifier": "ES-D32-007",
+      "equipmentName": "가스누출감지경보기",
+      "specifications": {
+        "location": "제어실 내 설치"
+      },
+      "sourceSection": "10",
+      "relatedSR": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "ES-D32-008",
+      "equipmentName": "자급식 호흡기",
+      "specifications": {
+        "quantity": "상시 근로자 1인당 1개",
+        "purpose": "독성물질 누출 시 대피용"
+      },
+      "sourceSection": "10",
+      "relatedSR": [
+        "SR-CHEMICAL-025"
+      ]
+    },
+    {
+      "identifier": "ES-D32-009",
+      "equipmentName": "풍향지시계",
+      "specifications": {
+        "location": "제어실 내 설치",
+        "purpose": "독성물질 누출 시 풍향 확인"
+      },
+      "sourceSection": "10",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-D32-010",
+      "equipmentName": "이중문 (독성물질 보호용)",
+      "specifications": {
+        "quantity": "출입문 2개소",
+        "structure": "자동으로 닫히는 이중문 구조",
+        "material": "강제 또는 이와 동등 이상의 강도를 갖는 비수축성 재질"
+      },
+      "sourceSection": "10",
+      "relatedSR": [
+        "SR-CHEMICAL-003"
+      ]
+    }
+  ],
+  "documentRequirements": []
+}

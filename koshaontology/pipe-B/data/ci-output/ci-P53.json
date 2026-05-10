@@ -1,0 +1,569 @@
+{
+  "metadata": {
+    "guideCode": "P-53-2012",
+    "shortCode": "P53",
+    "domain": "C",
+    "extractedAt": "2026-04-24T13:29:27Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-028"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-P53-001",
+      "text": "발열반응 공정을 설계하는 경우 공정에 사용되는 화학반응과 그 공정에 대하여 위험한 원료와 중간체 및 부산물을 제거하기 위하여 대체할 수 있는 화학반응이 있는지 여부, 덜 위험한 원료로 대체 가능한 지 여부, 저장탱크 내 위험한 물질의 재고량을 최소화하였는지 여부, 위험물질을 처리하는 모든 공정장치의 재고량을 최소화하도록 설계하였는지 여부, 위험한 물질을 이송하는 배관의 길이가 최소화되도록 공정장치를 위치하였는지 여부, 공정장치의 설계압력이 공정에서 생성되는 최고압력보다 크도록 설계하였는지 여부, 운전자 실수에 의해 위험한 상황이 벌어지는 것이 불가능하거나 어렵도록 장치를 설계하는 것이 가능한지 여부 등을 검토하도록 한다.",
+      "guideContext": "발열반응 공정 설계 시 고려사항",
+      "additionalDetail": null,
+      "workProcessPhase": "발열반응 공정 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-002",
+      "text": "설계 및 절차 작성 시에 인터락과 비상운전정지 등과 같은 안전대책을 적용하도록 한다.",
+      "guideContext": "발열반응 공정 예방대책",
+      "additionalDetail": null,
+      "workProcessPhase": "공정 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-003",
+      "text": "안전한 온도와 원하지 않는 발열반응이 시작되는 온도 사이의 안전 여유 시간을 확보하여야 한다.",
+      "guideContext": "발열반응 공정 예방대책 (법령 근거 미확인)",
+      "additionalDetail": "온도제어 실패(냉각 실패)로 인한 사고 예방을 위한 온도 안전여유 확보",
+      "workProcessPhase": "온도 제어",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-004",
+      "text": "잘못된 반응물의 추가 방지. 또는 올바른 반응물을 너무 일찍/늦게/많이/적게 추가되는 것을 방지하여야 한다.",
+      "guideContext": "발열반응 공정 예방대책 (법령 근거 미확인)",
+      "additionalDetail": "반응물의 올바르지 못한 공급으로 인한 사고 예방",
+      "workProcessPhase": "반응물 추가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-005",
+      "text": "교반기나 펌프의 작동이 너무 늦거나 중단되거나 순환이 되지 않거나 잘못된 속도로 운전되는 경우의 발생 현상을 예측하여 예방 및 방호 대책을 수립하여야 한다.",
+      "guideContext": "발열반응 공정 예방대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "교반 제어",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-006",
+      "text": "압력, 농도, 전도도, pH 등 반응을 제어하는 데 사용하는 변수를 제어하여야 한다.",
+      "guideContext": "발열반응 공정 예방대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정 변수 제어",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-007",
+      "text": "축적효과를 줄이기 위해서는 반응물의 추가속도와 반응속도 사이의 균형을 유지하여야 한다.",
+      "guideContext": "반응속도 제어 (법령 근거 미확인)",
+      "additionalDetail": "반회분식공정에서 반응물 추가 중지 후에도 축적된 반응물에 의해 반응이 지속되고 온도가 증가할 수 있음",
+      "workProcessPhase": "반응속도 제어",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-008",
+      "text": "반응기에서 미반응물질의 축적이 적은 경우 반응혼합물이 안전하지 않은 온도에 도달할 수 없으므로 온도와 추가속도를 제어하는 것이 가능하다. 이 경우 적정한 운전조건을 결정하기 위해 등온열량계를 사용하는 것이 좋다.",
+      "guideContext": "반응속도 제어",
+      "additionalDetail": null,
+      "workProcessPhase": "반응속도 제어",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-009",
+      "text": "폭주반응을 야기할 수 있는 교반의 누락과 같은 공정의 오작동을 감지하여 적절히 대처한다.",
+      "guideContext": "반응속도 제어",
+      "additionalDetail": null,
+      "workProcessPhase": "반응속도 제어",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-010",
+      "text": "반응물 추가의 중지는 발열폭주반응의 가능성과 미반응물질의 축적이 증가되는 것을 방지한다. 미반응물질의 축적 감소로 완전한 반응제어를 하는 것이 가능하지 않지만 방호의 수준을 감소시킬 수 있으므로 이를 적절하게 활용하여 미반응물질의 축적을 제한한다.",
+      "guideContext": "반응속도 제어",
+      "additionalDetail": "예로 비상압력을 방출하는 안전변의 단면적 감소 가능",
+      "workProcessPhase": "반응속도 제어",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-011",
+      "text": "자동안전제어시스템을 설계할 때에는 위험을 유발할 수 있는 중요한 시퀀스가 무엇인지를 고려해야 하고 체계적인 방법을 사용하여야 한다. 이런 형식의 분석에는 위험과 운전분석(HAZOP study), 결함수 분석기법(FTA) 등이 유용하다.",
+      "guideContext": "완벽성 있는 공정제어 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정제어 시스템 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-012",
+      "text": "반회분식 공정을 고려하고 반응기 온도에 관한 안전운전의 한계를 잘 정의하여야 한다.",
+      "guideContext": "완벽성 있는 공정제어 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "공정제어 시스템 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-013",
+      "text": "방출과 봉쇄를 제외한 방호대책은 보통 제어시스템에 의존하므로 방호대책의 건전성과 제어시스템의 완벽성을 유지하여야 한다.",
+      "guideContext": "방호대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "방호대책 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-014",
+      "text": "방호대책은 방어의 마지막 단계로 최악의 시나리오에 대한 조치로 설계되어야 한다.",
+      "guideContext": "방호대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "방호대책 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-015",
+      "text": "반응시스템은 폭주반응에 의해 생성된 최고압력에도 견딜 수 있도록 설계하여야 한다.",
+      "guideContext": "반응 시스템의 봉쇄 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-016",
+      "text": "환류 응축기, 충진 용기, 계기의 연결부위, 배관, 샘플 포인트 등과 같이 반응기에 연결된 모든 장치는 반응에 의해 생성되는 최고압력에 견딜 수 있도록 설계하여야 한다.",
+      "guideContext": "반응 시스템의 봉쇄 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-017",
+      "text": "반응물 공급 배관의 경우, 반응기 최고압력이 역류의 원인이 될 수 있는 가능성에 대해서도 고려하여야 한다.",
+      "guideContext": "반응 시스템의 봉쇄 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "반응기 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-018",
+      "text": "파열관이나 안전밸브 또는 벤트로부터 방출되는 방출물은 안전하게 방출되어야 한다. 그러므로 반응기의 방출물이 위험하거나 환경에 유해하다면 대기로 직접 방출되어서는 안 된다.",
+      "guideContext": "파열관, 안전밸브, 벤트 및 덤핑 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "방호설비 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-019",
+      "text": "반응기의 방출물이 위험하거나 환경에 유해한 경우 파열관이나 안전밸브 또는 벤트의 방출물은 녹아웃 드럼(Knockout drum), 퀜치 드럼(Quench drum), 플레어 스택(Flare stack), 스크러버(Scrubber)와 같은 시스템에서 처리하여야 한다.",
+      "guideContext": "파열관, 안전밸브, 벤트 및 덤핑 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "방호설비 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-020",
+      "text": "어떤 폐기시스템이든 최악의 시나리오에 대비하여 적절한 크기로 설계하여야 한다.",
+      "guideContext": "파열관, 안전밸브, 벤트 및 덤핑 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "방호설비 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-021",
+      "text": "반응기가 화재로 휩싸일 가능성이 있는 곳에서는 압력방출시스템(Relief system)을 설계할 때 반응물질의 열적 안정성을 고려해야 한다.",
+      "guideContext": "파열관, 안전밸브, 벤트 및 덤핑 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "방호설비 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-022",
+      "text": "추가 냉각 시스템의 신뢰도와 완벽성에 대해 평가하여야 한다.",
+      "guideContext": "추가 냉각 (법령 근거 미확인)",
+      "additionalDetail": "환류응축기 설치, 냉각코일이나 자켓에 냉매 사용, 외부 열교환기를 거쳐 펌핑하는 경우 등 모든 추가 냉각 방법에 대해 평가 필요",
+      "workProcessPhase": "방호설비 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-023",
+      "text": "반응 억제제 시스템을 설계할 때는 최악의 시나리오에서 반응 억제제를 가능한 빨리 투입하고 교반할 수 있는지 주의해야 한다.",
+      "guideContext": "반응 억제 (법령 근거 미확인)",
+      "additionalDetail": "교반의 실패가 최악의 시나리오를 야기할 수도 있으며, 반응물질이 점성이 크다면 반응 억제제가 적절히 교반되지 않아 반응이 제대로 억제되지 않을 수도 있음",
+      "workProcessPhase": "방호설비 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-024",
+      "text": "급랭 시 모든 경우의 조치는 반응기의 과압을 피하기 위해 빠르게 진행되어야 한다.",
+      "guideContext": "긴급배출 및 급랭 (법령 근거 미확인)",
+      "additionalDetail": "반응기 내부에 충분한 공간이 있는 경우 직접 급랭액을 공급하거나 반응기 내용물을 급랭액이 담긴 용기에 쏟아 부을 수 있음",
+      "workProcessPhase": "비상조치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-025",
+      "text": "반응기 내에서 발열반응 시 냉각수 공급 실패로 인한 반응폭주를 예방하기 위하여 반응기로 투입되는 냉각수와 반응기의 온도가 연동(Inter-lock)되도록 자동화 시스템을 구축하는 것이 필요함.",
+      "guideContext": "발열반응 폭발사고 예방대책",
+      "additionalDetail": "사고사례 A에서 냉각 실패 및 반응표준시간 미준수로 인한 반응폭주 발생",
+      "workProcessPhase": "공정 자동화",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록-1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-026",
+      "text": "원료 투입이나 촉매 투입 시 작업자의 계량 오류로 인한 비정상적인 원료 및 촉매의 투입을 방지하기 위해 원료 투입 배관을 상호 정확한 비율로 투입되도록 하기 위해 비례제어(Ratio Control)가 되도록 시스템을 구성하고 회분식 공정의 특성상 조제법이 다양한 종류의 제품을 안전하게 운전하기 위해서는 분산제어 시스템(Distributed Control System, DCS)을 설치하는 등 회분식 공정을 자동화하는 것이 필요함.",
+      "guideContext": "발열반응 폭발사고 예방대책",
+      "additionalDetail": null,
+      "workProcessPhase": "공정 자동화",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록-1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-027",
+      "text": "비상조치를 위한 폭주저지 방안으로서 고압의 물을 자동으로 투입 할 수 있도록 고압의 물을 저장할 수 있는 압력챔버를 설치하고 비상시 즉시 투입할 수 있도록 비상조작스위치를 제어실과 공정에 설치하는 것이 필요함.",
+      "guideContext": "발열반응 폭발사고 예방대책",
+      "additionalDetail": "기존 냉각수 압력(2 kgf/㎠)으로는 반응폭주 시 투입할 수 없는 상황이 발생할 수 있음",
+      "workProcessPhase": "비상설비 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록-1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-028",
+      "text": "반응기에 온도제어장치를 설치하여 일정 비율 이상의 온도상승이 발생하면 운전자의 개입 없이 즉시 고압의 물이 투입될 수 있도록 설비를 자동화하는 것이 필요함.",
+      "guideContext": "발열반응 폭발사고 예방대책",
+      "additionalDetail": "운전자들이 발열반응 발생 시 불량된 제품의 회수율을 높이기 위해 진공펌프를 먼저 가동하면서 온도를 낮추는 방법을 택하고 있어 이를 실패하면 반응폭주로 이어질 수 있는 문제점이 있음",
+      "workProcessPhase": "비상설비 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록-1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-029",
+      "text": "위험성평가 등을 통해 그 예방 대책과 비상조치 방안이 강구된 후 안전하게 운전하여야 함.",
+      "guideContext": "산화반응 폭발사고 예방대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록-2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-030",
+      "text": "물질, 반응조건(온도변화 등)등에 대하여 위험성평가를 실시하여 폭주반응을 예방하고 폭주반응 시 비상조치계획을 수립하여 조치하여야 함.",
+      "guideContext": "산화반응 폭발사고 예방대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록-2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-031",
+      "text": "폭주반응 발생 시에 대비하여 반응 억제 방법을 수립하여 시행할 수 있도록 조치하여야 함.",
+      "guideContext": "산화반응 폭발사고 예방대책 (법령 근거 미확인)",
+      "additionalDetail": "예: 물 투입 시 반응속도를 측정하여 효과적일 때 물을 공급할 수 있도록 설비 보완 조치 등",
+      "workProcessPhase": "비상조치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록-2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-032",
+      "text": "폭주반응 시 운전자가 운전정지시킬 수 있는 기준을 설정하고 그 기준이 발생하면 즉시 비상조치를 시행하여야 함.",
+      "guideContext": "산화반응 폭발사고 예방대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "비상조치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록-2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-033",
+      "text": "운전자에게 해당 반응의 위험성, 이상시 조치방법을 교육하고 스스로 판단하여 폭주반응 발생 시 운전정지 등 비상조치를 할 수 있도록 교육하여야 함.",
+      "guideContext": "산화반응 폭발사고 예방대책 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "교육",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "부록-2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P53-034",
+      "text": "파열판은 배출용량이 화재폭발 등의 발생 시 소요분출량을 계산하여 적정한 크기의 파열판을 설치하여야 함.",
+      "guideContext": "산화반응 폭발사고 예방대책 (법령 근거 미확인)",
+      "additionalDetail": "사고사례 B에서 파열판의 용량부족으로 압력상승 시 반응기내 압력을 안전하게 방출하지 못함",
+      "workProcessPhase": "방호설비 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록-2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-P53-001",
+      "term": "폭주반응",
+      "definition": "반응속도가 지수 함수적으로 증대되어 반응 용기 내부의 온도 및 압력이 비정상적으로 상승하여 반응이 과격하게 진행되는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P53-002",
+      "term": "위험과 운전분석",
+      "definition": "공정에 존재하는 위험요인과 공정의 효율을 떨어뜨릴 수 있는 운전 상의 문제점을 찾아내어 그 원인을 제거하는 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P53-003",
+      "term": "결함수 분석기법",
+      "definition": "사고의 원인이 되는 장치의 이상이나 고장의 다양한 조합 및 작업자 실수 원인을 규명하는 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-P53-01",
+      "processOrder": 1,
+      "processName": "발열반응 공정 설계 시 위험성 검토",
+      "safetyMeasures": "위험한 원료·중간체·부산물 제거를 위한 대체 화학반응 검토, 덜 위험한 원료 대체 가능성 검토, 저장탱크 및 공정장치 내 위험물질 재고량 최소화, 설계압력이 최고압력보다 크도록 설계, 운전자 실수 방지 설계",
+      "requiredPPE": [],
+      "sourceSection": "4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P53-02",
+      "processOrder": 2,
+      "processName": "예방대책 수립 (온도·반응물·교반·변수 제어)",
+      "safetyMeasures": "안전한 온도와 발열반응 시작 온도 사이 안전여유 확보, 잘못된 반응물 추가 방지, 교반기·펌프 오작동 예측 및 대책 수립, 압력·농도·전도도·pH 등 제어변수 관리, 인터락 및 비상운전정지 안전대책 적용",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P53-03",
+      "processOrder": 3,
+      "processName": "반응속도 제어 및 공정제어 시스템 설계",
+      "safetyMeasures": "반응물 추가속도와 반응속도 균형 유지, 미반응물질 축적 최소화, 폭주반응 야기 오작동 감지, 자동안전제어시스템 설계 시 HAZOP·FTA 등 체계적 분석 실시, 반응기 온도 안전운전 한계 정의",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P53-04",
+      "processOrder": 4,
+      "processName": "방호대책 설계 (봉쇄·방출·냉각·억제·급랭)",
+      "safetyMeasures": "반응시스템 최고압력 봉쇄 설계, 파열관·안전밸브·벤트 설치 및 방출물 안전 처리, 추가 냉각시스템 신뢰도 평가, 반응 억제제 투입 시스템 설계, 긴급배출·급랭 설비 설치, 최악의 시나리오에 대비한 설계",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P53-05",
+      "processOrder": 5,
+      "processName": "위험성평가 실시 및 비상조치계획 수립",
+      "safetyMeasures": "물질·반응조건에 대한 위험성평가 실시, 폭주반응 예방 및 비상조치계획 수립, 운전정지 기준 설정, 운전자 교육 실시, 적정 배출용량 파열판 설치",
+      "requiredPPE": [],
+      "sourceSection": "부록-2",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-P53-001",
+      "equipmentName": "파열판(Rupture disc)",
+      "specifications": {
+        "designCriteria": "화재폭발 등의 발생 시 소요분출량을 계산하여 적정한 크기로 설계",
+        "function": "폭주반응 시 발생하는 증기나 가스로 인한 상승 압력을 제한"
+      },
+      "sourceSection": "6.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P53-002",
+      "equipmentName": "안전밸브(Safety valve)",
+      "specifications": {
+        "function": "폭주반응 시 발생하는 증기나 가스로 인한 상승 압력을 제한",
+        "maintenanceNote": "수지 등이 시트 면에 침적되어 개로를 막을 수 있으므로 주기적 점검 필요"
+      },
+      "sourceSection": "6.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P53-003",
+      "equipmentName": "녹아웃 드럼(Knockout drum)",
+      "specifications": {
+        "function": "위험하거나 환경에 유해한 방출물을 안전하게 처리",
+        "designCriteria": "최악의 시나리오에 대비하여 적절한 크기로 설계"
+      },
+      "sourceSection": "6.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P53-004",
+      "equipmentName": "퀜치 드럼(Quench drum)",
+      "specifications": {
+        "function": "위험하거나 환경에 유해한 방출물을 안전하게 처리",
+        "designCriteria": "최악의 시나리오에 대비하여 적절한 크기로 설계"
+      },
+      "sourceSection": "6.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P53-005",
+      "equipmentName": "압력챔버(비상 고압수 저장장치)",
+      "specifications": {
+        "minimumPressure": "2 kgf/㎠ 이상",
+        "function": "반응폭주 시 고압의 물을 반응기에 자동 투입하여 폭주반응 저지",
+        "controlSystem": "비상조작스위치를 제어실과 공정에 설치"
+      },
+      "sourceSection": "부록-1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P53-006",
+      "equipmentName": "분산제어 시스템(Distributed Control System, DCS)",
+      "specifications": {
+        "function": "회분식 공정의 다양한 조제법 제품을 안전하게 운전하기 위한 공정 자동화",
+        "features": "원료 투입 배관의 비례제어(Ratio Control) 포함"
+      },
+      "sourceSection": "부록-1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P53-007",
+      "equipmentName": "등온열량계",
+      "specifications": {
+        "function": "미반응물질 축적이 적은 경우 적정한 운전조건을 결정하기 위해 사용"
+      },
+      "sourceSection": "5.2",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-P53-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "발열반응 공정 위험성평가서",
+      "requiredSections": [
+        "물질 위험성 분석",
+        "반응조건(온도변화 등) 위험성 분석",
+        "폭주반응 예방대책",
+        "비상조치 방안"
+      ],
+      "sourceSection": "부록-2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-P53-002",
+      "documentType": "WORK_PLAN",
+      "title": "발열반응 공정 운전절차서",
+      "requiredSections": [
+        "반응표준시간(승온 단계)",
+        "냉각수 공급 절차",
+        "원료 투입 비율",
+        "비상시 폭주저지 절차"
+      ],
+      "sourceSection": "부록-1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-P53-003",
+      "documentType": "WORK_PLAN",
+      "title": "비상조치계획서",
+      "requiredSections": [
+        "폭주반응 시 비상조치 기준",
+        "운전정지 절차",
+        "고압수 투입 절차",
+        "비상연락망"
+      ],
+      "sourceSection": "부록-1",
+      "relatedSR": null
+    }
+  ]
+}

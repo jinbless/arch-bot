@@ -1,0 +1,663 @@
+{
+  "metadata": {
+    "guideCode": "C-C-19-2026",
+    "shortCode": "CC19",
+    "domain": "C",
+    "extractedAt": "2026-04-21T22:30:38Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-003"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC19-001",
+      "text": "사업주는 제261조제1항 각 호의 설비가 다음 각 호의 어느 하나에 해당하는 경우에는 파열판을 설치하여야 한다. 1. 반응 폭주 등 급격한 압력 상승 우려가 있는 경우 2. 급성 독성물질의 누출로 인하여 주위의 작업환경을 오염시킬 우려가 있는 경우 3. 운전 중 안전밸브에 이상 물질이 누적되어 안전밸브가 작동되지 아니할 우려가 있는 경우",
+      "guideContext": "안전밸브와 파열판 직렬설치 - 법적 필수사항",
+      "additionalDetail": "산업안전기준에 관한 규칙 제262조(파열판의 설치)",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC19-002",
+      "text": "사업주는 급성 독성물질이 지속적으로 외부에 유출될 수 있는 화학설비 및 그 부속설비에 파열판과 안전밸브를 직렬로 설치하고 그 사이에는 압력지시계 또는 자동경보장치를 설치하여야 한다.",
+      "guideContext": "안전밸브와 파열판 직렬설치 - 법적 필수사항",
+      "additionalDetail": "산업안전기준에 관한 규칙 제263조(파열판 및 안전밸브의 직렬설치)",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049",
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC19-003",
+      "text": "파열관과 안전밸브를 직렬로 설치할 때 그 사이에는 압력지시계, 시험용 콕크, 자동경보장치 등을 설치하여 파열관의 파손 또는 누출을 감지할 수 있어야 한다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "파열판 직렬설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049",
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC19-004",
+      "text": "만약 파열관이 누설되어 파열관과 안전밸브 사이에 배압이 형성되면 파열관의 파열압력은 배압만큼 상승하여 위험을 초래할 수 있으므로 배압이 형성되면 즉시 교체하여야 한다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "파열판 유지보수",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-005",
+      "text": "파열관 홀더의 형식은 다음과 같이 파열관의 형식 및 그 사용용도에 따라 적절히 선택하여야 한다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치",
+      "additionalDetail": "삽입/캡슐형, 전면 플랜지형, 유니언형, 플리그/나사형 등",
+      "workProcessPhase": "파열판 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "CI-CC19-006",
+      "text": "삽입/캡슐형 파열관 홀더는 조임기(Fastener)를 이용하거나 조임기 없이 입구 및 출구 부재(Member)를 가져야 하며, 설치용 플랜지 볼트 내부에 장착하여야 한다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-007",
+      "text": "파열관의 파열조각이 안전밸브의 용량과 성능에 미치는 영향이 평가되고, 파열 후 파열조각이 밸브입구로 튀어나오면 안 된다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-008",
+      "text": "파열관 안전장치의 설계는 파열로 인한 파열관 재료의 방출이 안전밸브의 성능을 저하시키지 않아야 한다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "파열판 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-009",
+      "text": "파열관 안전장치의 배관 공칭지름은 안전밸브 입구의 공칭크기보다 작아서는 안된다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-010",
+      "text": "파열관과 안전밸브 사이 거리는 배관 지름의 5배 이내로 설치하여야 한다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-011",
+      "text": "파열관과 안전밸브 사이 거리가 배관 지름의 5배를 넘는 경우에는 제조자와 협의하여야 한다.",
+      "guideContext": "압력용기와 안전밸브 사이에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-012",
+      "text": "파열관 안전장치와 분출배관은 안전밸브의 작동특성에 영향을 미치지 않도록 설계하여야 한다.",
+      "guideContext": "안전밸브 배출구 쪽에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": "배출설비로부터 부식성 가스의 밸브 내부 침입 방지를 위한 설치 조건",
+      "workProcessPhase": "배출구 측 파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-013",
+      "text": "파열관과 안전밸브 사이의 공간에는 허용할 수 없는 압력축적을 감시하거나 방지할 수 있는 적절한 수단이 제공하여야 한다.",
+      "guideContext": "안전밸브 배출구 쪽에 파열판 설치",
+      "additionalDetail": null,
+      "workProcessPhase": "배출구 측 파열판 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-CC19-014",
+      "text": "파열관과 안전장치 사이의 공간은 파열관이 정확하게 작동하도록 보증할 수 있는 충분한 크기이어야 한다. 다만, 스프링식 안전밸브는 안전밸브와 파열관 사이의 공간에서 배압이 발생한 경우에는 설정된 압력에서 열리지 않을 수 있어 반드시 배압에 관계없이 작동이 가능한 벨로우즈형(Balanced) 안전밸브를 설치하여야 한다.",
+      "guideContext": "안전밸브 배출구 쪽에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "배출구 측 파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-015",
+      "text": "파열된 후 파열관 장치에 생긴 구멍이 허용 과압을 초과하지 않고, 부착된 압력 방출밸브의 정격 용량과 같은 유량을 충분히 배출시켜야 한다.",
+      "guideContext": "안전밸브 배출구 쪽에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "배출구 측 파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-016",
+      "text": "파열관 이후의 배관은 파열관 또는 그 파편에 의해 유로가 방해받지 않아야 한다.",
+      "guideContext": "안전밸브 배출구 쪽에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "배출구 측 파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-017",
+      "text": "설정온도에서 파열관의 최대 파열압력에 분출배관의 압력을 더한 것이 다음을 초과해서는 안 된다. ① 안전밸브의 배압 제한값 ② 안전밸브와 얼관 사이의 어떠한 배관이나 피팅의 설계압력 ③ 관련 표준에서의 허용하는 압력",
+      "guideContext": "안전밸브 배출구 쪽에 파열판 설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "배출구 측 파열판 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-018",
+      "text": "압축성 유체 방출용 압력방출장치는 저장된 액체 위쪽의 증기 공간 내 압력용기에 연결하거나, 보호해야 할 압력용기 내 증기 공간에 연결된 배관에 연결하여야 한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직렬설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-019",
+      "text": "압력용기와 압력방출밸브 사이의 모든 관, 관이음쇠 및 되닫힘되지 않는 압력방출장치(설치한 경우)의 구멍은 최소한 압력방출밸브의 입구 면적을 가져야 한다. 이때, 이 상류 계통의 특성들은 압력 강하로 인해 방출 용량이 요구값 이하로 감소되지 않거나, 압력방출밸브의 적절한 작동에 악영향을 미치지 않아야 한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직렬설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-020",
+      "text": "압력용기 노즐은 압력용기와 압력방출장치 사이의 유동에 지장이 없도록 설계하여야 한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직렬설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-021",
+      "text": "한 개의 연결부에 2개 이상의 압력방출장치를 설치할 경우 연결부의 입구 쪽 내부 단면적은 압력방출장치의 흐름을 제한하지 않는 크기이거나, 여기에 연결된 안전장치의 조합 입구 면적과 같아야 한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직렬설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-022",
+      "text": "보호를 받는 기기로부터 안전밸브의 입구까지의 연결은 파열관 안전장치의 영향을 포함한 안전밸브 입구까지의 압력강하가 그 안전밸브의 설정입력의 3%를 초과하지 않도록 가능한 짧아야 한다. 이때, 3 % 압력강하는 그 안전밸브의 최고방출압력에서 배관 등을 포함하여 그 조합장치를 통과하는 흐름 상태에서 산정한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직렬설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-023",
+      "text": "파열관과 안전밸브로부터의 분출은 안전하게 처리하여야 하고, 의도하지 않았는데도 불구하고 다른 기기(예를 들어 사용 중이 아니거나 정비 중인 기기)로 흘러들어가 위험을 야기하는 것을 방지하여야 한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "분출물 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-024",
+      "text": "조합장치의 출구와 대기 또는 방산장치 사이의 분출배관은 항상 적절하게 드레인하여야 한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "분출배관 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-025",
+      "text": "배출물질의 분출 중에 예상되는 반력을 흡수하도록 조치를 하여야 한다. 배풀 플레이트(Baffle plate)가 압력방출장치의 요구분출용량을 감소시키지 않는다면, 분출 유체의 방향전환과 반동의 감소를 위하여 파열관 안전장치의 배출구에 장착될 수도 있다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "분출배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-026",
+      "text": "밀폐된 처리시스템에서는 드레인 포인트를 설치하기 어려울 수 있으나, 이런 경우 배관의 경로는 액체가 고일 수 있는 낮은 곳을 피해야 한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "분출배관 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-027",
+      "text": "조합형 안전장치의 공급자는 파열관 안전장치와 안전밸브의 제조자가 제공하는 지침서에 추가하여 위험성평가의 결과를 감안한 조립 및 설치 지침서를 제공하여야 한다.",
+      "guideContext": "파열판과 안전밸브의 직렬설치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직렬설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-028",
+      "text": "파열관과 안전밸브를 직렬로 조합하여 설치하는 압력방출장치는 압력용기의 설계압력 또는 최고허용운전압력(MAWP) 보다 10 % 또는 20 kPa 중에서 큰 값을 초과하여 압력이 상승하지 않도록 하여야 한다.",
+      "guideContext": "안전장치 성능 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "안전장치 성능 설정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-029",
+      "text": "여러 개의 압력방출장치를 설치하고 압력을 설정하는 경우 하나를 제외한 나머지는 최고허용운전압력 보다 16 % 또는 30 kPa 중에서 큰 값을 초과하여 압력이 상승하지 않도록 하여야 한다.",
+      "guideContext": "안전장치 성능 (법령 근거 미확인)",
+      "additionalDetail": "CI-CC19-028의 예외 조건",
+      "workProcessPhase": "안전장치 성능 설정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-030",
+      "text": "압력용기가 화염 또는 예상하지 못한 다른 외부 열원에 노출될 수 있을 경우, 압력방출 장치는 최고허용운전압력의 21 %를 초과하여 압력이 상승하지 않도록 하여야 한다.",
+      "guideContext": "안전장치 성능 (법령 근거 미확인)",
+      "additionalDetail": "CI-CC19-028의 예외 조건 - 화염/외부 열원 노출",
+      "workProcessPhase": "안전장치 성능 설정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-031",
+      "text": "파열관과 안전밸브를 직렬로 조합하여 설치하는 압력방출장치의 배출용량은 안전밸브의 표시 용량에 정격배출용량 계수 0.9를 곱하거나, 제조자가 조합된 압력방출장치의 용량을 적용할 수 있다.",
+      "guideContext": "안전장치 성능",
+      "additionalDetail": null,
+      "workProcessPhase": "안전장치 성능 설정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-032",
+      "text": "조합형 안전장치가 액체용일 경우에는 파열관 안전장치와 안전밸브 제조자와 상의하여야 한다. 안전밸브를 열기에 불충분한 매체의 흐름을 초래할 수 있는 특수한 상황(예를 들어, 얼팽창 릴리프 시스템이나 유입 용도)에 사용하고자 할 경우에는 특별한 주의가 필요하며, 파열관 안전장치와 안전밸브 제조자의 요구사항을 따라야 한다.",
+      "guideContext": "안전장치 성능 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "안전장치 성능 설정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-033",
+      "text": "안전밸브 분출량시험은 KS B 6750 부속서11(규정) 안전밸브 용량환산 또는 이와 동등 이상의 규격을 따라야 한다.",
+      "guideContext": "안전장치 성능 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "안전장치 성능 시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-034",
+      "text": "파열관의 분출용량시험기준은 KS B 6750(압력용기-설계 및 제조일반) 및 KS B ISO 4126-6(과압 방지 안전장치-제6부 : 파열판식 안전장치의 적용, 선택 및 설치) 또는 이와 동등 이상의 규격을 따라야 한다.",
+      "guideContext": "안전장치 성능 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "안전장치 성능 시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-035",
+      "text": "조합형 안전장치의 배출용량은 제조자가 제시하는 인증용량을 적용하여야 한다.",
+      "guideContext": "안전장치 성능 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "안전장치 성능 설정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-036",
+      "text": "조합형 안전장치는 파열관 명판에 다음의 내용을 표시하여야 한다. (가) 조합형 안전장치를 식별하는 고유의 참조번호 (나) 제조자의 명칭과 형식구분 (다) 관련 표준의 번호 (라) 조합형 안전장치가 설계된 최고허용압력 및 온도 (마) 조합형 안전장치에 대한 공칭크기(예 DN, NPS 등) (바) 조합형 안전장치의 재질 (사) 조합형 안전장치의 제조연월",
+      "guideContext": "안전장치 표시 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "안전장치 표시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-037",
+      "text": "조합형 안전장치는 관련법에 따라 안전인증을 받은 사항을 표시하여야 한다.",
+      "guideContext": "안전장치 표시 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "안전장치 표시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC19-038",
+      "text": "배출설비로부터 부식성 가스의 밸브 내부 침입을 방지하기 위해 다음의 조건을 추가로 만족시킬 경우에는 안전밸브의 배출구 쪽에 설치할 수 있다.",
+      "guideContext": "안전밸브 배출구 쪽에 파열판 설치",
+      "additionalDetail": "부식성 가스 침입 방지 목적",
+      "workProcessPhase": "배출구 측 파열판 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC19-001",
+      "term": "안전밸브",
+      "definition": "입구쪽의 압력이 일정 압력에 도달하면 자동적으로 스프링이 작동하면서 유체가 분출되고 일정압력 이하가 되면 다시 정상상태로 복원되어 유체가 새어나오지 않도록 만들어진 밸브를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC19-002",
+      "term": "설정입력",
+      "definition": "운전 중에 안전밸브가 열리도록 설정한 안전밸브 입구 측에서의 입력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC19-003",
+      "term": "파열관",
+      "definition": "입구 측의 압력이 설정입력에 도달하면 관이 파열하면서 유체가 분출하도록 용기 등에 설치된 얇은 판으로 다시 닫히지 않는 압력방출 안전장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC19-004",
+      "term": "조합",
+      "definition": "안전밸브와 배관 공칭지름의 5배 이내의 거리에 설치된 파열관으로 구성되는 시설의 조합(Combination)을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC19-005",
+      "term": "파열압력",
+      "definition": "파열관이 파열시 파열관 전·후단에 걸리는 차압으로 명판에 표시된 입력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC19-006",
+      "term": "파열관 조립체",
+      "definition": "파열관 홀더 내에 요구되는 기능을 수행하도록 설치된 구성부품의 완전한 조립체를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC19-007",
+      "term": "파열관 홀더",
+      "definition": "파열관 조립체를 제자리에 유지시키는 파열관 안전장치의 일부분을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC19-008",
+      "term": "배출압력",
+      "definition": "가압된 시스템 내의 방출조건하에서의 최고압력을 말하며, 파열관의 파열압력과 다를 수도 있다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC19-009",
+      "term": "배압",
+      "definition": "토출 측에 연결된 배출물 처리설비 등으로부터 안전밸브의 토출 측에 걸리는 압력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC19-01",
+      "processOrder": 1,
+      "processName": "압력용기와 안전밸브 사이에 파열판 설치",
+      "safetyMeasures": "파열관과 안전밸브 사이에 압력지시계, 시험용 콕크, 자동경보장치 설치. 파열관 홀더 형식을 용도에 맞게 선택(삽입/캡슐형, 전면 플랜지형, 유니언형, 플리그/나사형). 파열관-안전밸브 거리 배관지름 5배 이내. 배관 공칭지름은 안전밸브 입구 공칭크기 이상.",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "WP-CC19-02",
+      "processOrder": 2,
+      "processName": "안전밸브 배출구 쪽에 파열판 설치",
+      "safetyMeasures": "파열관 안전장치와 분출배관이 안전밸브 작동특성에 영향 미치지 않도록 설계. 압력축적 감시/방지 수단 제공. 배압에 관계없이 작동 가능한 벨로우즈형(Balanced) 안전밸브 사용. 파열관 이후 배관 유로 방해 방지.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "WP-CC19-03",
+      "processOrder": 3,
+      "processName": "파열판과 안전밸브 직렬 조합 설치",
+      "safetyMeasures": "압축성 유체 방출용 장치는 증기 공간 내 압력용기에 연결. 입구까지 압력강하 설정입력의 3% 이내. 분출배관 적절히 드레인. 배출물질 분출 시 반력 흡수 조치. 배관 경로에서 액체 고임 방지. 조합형 안전장치 공급자는 위험성평가 결과 감안한 조립 및 설치 지침서 제공.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "WP-CC19-04",
+      "processOrder": 4,
+      "processName": "안전장치 성능 검증 및 시험",
+      "safetyMeasures": "조합형 압력방출장치 압력이 설계압력 또는 MAWP 대비 10% 또는 20 kPa 중 큰 값을 초과하지 않도록 설정. 배출용량은 안전밸브 표시 용량에 정격배출용량 계수 0.9 적용. 안전밸브 분출량시험 KS B 6750 준수. 파열관 분출용량시험 KS B 6750 및 KS B ISO 4126-6 준수.",
+      "requiredPPE": [],
+      "sourceSection": "8.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC19-05",
+      "processOrder": 5,
+      "processName": "안전장치 명판 표시 및 인증",
+      "safetyMeasures": "파열관 명판에 고유 참조번호, 제조자 명칭과 형식구분, 관련 표준 번호, 최고허용압력 및 온도, 공칭크기, 재질, 제조연월 표시. 관련법에 따라 안전인증 사항 표시.",
+      "requiredPPE": [],
+      "sourceSection": "8.2",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC19-001",
+      "equipmentName": "안전밸브 (Safety valve)",
+      "specifications": {
+        "type": "스프링식 자동 복원 밸브",
+        "function": "설정압력 도달 시 자동 분출, 압력 하강 시 자동 복원",
+        "pressureDropLimit": "입구까지 압력강하 설정입력의 3% 이내"
+      },
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC19-002",
+      "equipmentName": "파열관 (Rupture/bursting disc)",
+      "specifications": {
+        "type": "비복원식 압력방출 안전장치",
+        "function": "설정입력 도달 시 파열하여 유체 분출",
+        "installationDistance": "안전밸브와 배관 공칭지름 5배 이내"
+      },
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC19-003",
+      "equipmentName": "파열관 홀더",
+      "specifications": {
+        "types": "삽입/캡슐형, 전면 플랜지형, 유니언형, 플리그/나사형",
+        "requirement": "파열관 형식 및 사용용도에 따라 적절히 선택"
+      },
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-035"
+      ]
+    },
+    {
+      "identifier": "ES-CC19-004",
+      "equipmentName": "벨로우즈형(Balanced) 안전밸브",
+      "specifications": {
+        "type": "배압 보상형 안전밸브",
+        "application": "안전밸브 배출구 쪽 파열판 직렬설치 시 배압 발생 환경",
+        "requirement": "배압에 관계없이 설정 압력에서 작동 가능"
+      },
+      "sourceSection": "6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC19-005",
+      "equipmentName": "조합형 압력방출장치",
+      "specifications": {
+        "pressureLimit": "설계압력 또는 MAWP 대비 10% 또는 20 kPa 중 큰 값 이내",
+        "multiDeviceLimit": "여러 개 설치 시 MAWP 대비 16% 또는 30 kPa 중 큰 값 이내",
+        "fireExposureLimit": "화염 노출 시 MAWP의 21% 이내",
+        "capacityFactor": "정격배출용량 계수 0.9",
+        "testStandard": "KS B 6750, KS B ISO 4126-6"
+      },
+      "sourceSection": "8.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC19-006",
+      "equipmentName": "압력지시계 및 자동경보장치",
+      "specifications": {
+        "installLocation": "파열관과 안전밸브 사이",
+        "function": "파열관의 파손 또는 누출 감지",
+        "additionalDevice": "시험용 콕크"
+      },
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049",
+        "SR-CHEMICAL-010"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC19-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "조합형 안전장치 위험성평가",
+      "requiredSections": [
+        "조합형 안전장치 위험요인 분석",
+        "조립 및 설치 안전조치",
+        "운전 조건별 위험성 평가"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC19-002",
+      "documentType": "WORK_PLAN",
+      "title": "파열판과 안전밸브 직렬설치 조립 및 설치 지침서",
+      "requiredSections": [
+        "파열관 안전장치 설치 절차",
+        "안전밸브 조합 절차",
+        "위험성평가 결과 반영사항",
+        "제조자 지침서 참조사항"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    }
+  ]
+}

@@ -1,0 +1,691 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T09:00:00+09:00",
+    "batchId": "sr-batch-SCAFFOLD",
+    "totalSafetyRequirements": 17
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-SCAFFOLD-001",
+      "title": "비계 재료의 품질 기준",
+      "text": "사업주는 비계의 재료로 변형, 부식 또는 심하게 손상된 것을 사용해서는 아니 되며, 강관비계의 재료는 한국산업표준(KS)에서 정하는 기준 이상의 것을 사용하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제54조"],
+      "mandatedBy": ["NS-RULE54-0", "NS-RULE54-1"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-002",
+      "title": "작업발판 최대적재하중 설정 및 초과 금지",
+      "text": "사업주는 비계의 구조 및 재료에 따라 작업발판의 최대적재하중을 정하고, 이를 초과하여 적재해서는 아니 된다. 최대적재하중은 비계의 구조적 안전성을 기반으로 산정하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제55조"],
+      "mandatedBy": ["NS-RULE55-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-003",
+      "title": "높이 2m 이상 비계 작업발판 구조기준",
+      "text": "사업주는 비계(달비계, 달대비계 및 말비계 제외)의 높이가 2미터 이상인 작업장소에 작업발판을 설치하여야 한다. 발판재료는 작업하중을 견딜 수 있도록 견고한 것으로 하고, 작업발판의 폭은 40센티미터 이상, 발판재료 간의 틈은 3센티미터 이하로 하여야 한다. 추락 위험이 있는 장소에는 안전난간을 설치하고, 작업발판 지지물은 하중에 의하여 파괴될 우려가 없는 것을 사용하며, 작업발판재료는 뒤집히거나 떨어지지 않도록 둘 이상의 지지물에 연결하거나 고정시켜야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제56조"],
+      "mandatedBy": ["NS-RULE56-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "비계 높이", "condition": ">=", "value": 2, "unit": "m", "source": "제56조 본문"},
+          {"parameter": "작업발판 폭", "condition": ">=", "value": 40, "unit": "cm", "source": "제56조 제2호"},
+          {"parameter": "발판재료 간 틈", "condition": "<=", "value": 3, "unit": "cm", "source": "제56조 제2호"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-004",
+      "title": "비계 조립·해체·변경 작업 시 안전조치",
+      "text": "사업주는 달비계 또는 높이 5미터 이상의 비계를 조립, 해체하거나 변경하는 작업을 하는 경우 관리감독자의 지휘 하에 작업하도록 하고, 조립·해체·변경의 시기·범위·절차를 근로자에게 주지시켜야 한다. 작업구역에는 해당 작업 종사자 외의 출입을 금지하고 그 내용을 게시하여야 하며, 악천후 시에는 작업을 중지시켜야 한다. 비계재료의 연결·해체 작업 시에는 폭 20센티미터 이상의 발판을 설치하고 안전대 사용 등 추락방지 조치를 하여야 하며, 재료·기구 등의 운반 시 달줄 또는 달포대 등을 사용하게 하여야 한다. 강관비계 또는 통나무비계를 조립하는 경우 쌍줄로 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제57조"],
+      "mandatedBy": ["NS-RULE57-0", "NS-RULE57-1"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "비계 높이(조립·해체 대상)", "condition": ">=", "value": 5, "unit": "m", "source": "제57조 제1항"},
+          {"parameter": "발판 폭(연결·해체 작업)", "condition": ">=", "value": 20, "unit": "cm", "source": "제57조 제1항 제5호"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-005",
+      "title": "비계 점검 및 이상 발견 시 즉시 보수",
+      "text": "사업주는 비, 눈 등 기상상태 악화로 작업을 중지시킨 후 또는 비계를 조립·해체·변경한 후에 비계에서 작업을 하는 경우, 작업 시작 전에 발판 재료의 손상 여부 및 부착·걸림 상태, 연결부·접속부의 풀림 상태, 연결 재료·철물의 손상·부식 상태, 손잡이 탈락 여부, 기둥의 침하·변형·변위·흔들림 상태, 로프의 부착 상태 및 매단 장치의 흔들림 상태를 점검하고 이상 발견 시 즉시 보수하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제58조"],
+      "mandatedBy": ["NS-RULE58-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-006",
+      "title": "강관비계 조립 시 구조적 안전 준수사항",
+      "text": "사업주는 강관비계를 조립하는 경우 비계기둥에 밑받침철물 또는 깔판·받침목 등을 사용하여 미끄러짐·침하를 방지하고, 접속부·교차부는 적합한 부속철물로 접속하거나 단단히 묶어야 한다. 교차 가새로 보강하고, 외줄비계·쌍줄비계·돌출비계에는 벽이음 및 버팀을 설치하여야 하며, 가공전로에 근접하여 비계를 설치하는 경우 가공전로 이설 또는 절연용 방호구 장착 등 접촉방지 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제59조"],
+      "mandatedBy": ["NS-RULE59-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-007",
+      "title": "강관비계 구조 치수 및 적재하중 기준",
+      "text": "사업주는 강관을 사용하여 비계를 구성하는 경우 비계기둥 간격은 띠장 방향 1.85미터 이하, 장선 방향 1.5미터 이하로 하고, 띠장 간격은 2.0미터 이하로 하여야 한다. 비계기둥의 제일 윗부분으로부터 31미터 되는 지점 밑부분의 비계기둥은 2개의 강관으로 묶어 세우고, 비계기둥 간의 적재하중은 400킬로그램을 초과하지 않도록 하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제60조"],
+      "mandatedBy": ["NS-RULE60-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "비계기둥 간격(띠장 방향)", "condition": "<=", "value": 1.85, "unit": "m", "source": "제60조 제1호"},
+          {"parameter": "비계기둥 간격(장선 방향)", "condition": "<=", "value": 1.5, "unit": "m", "source": "제60조 제1호"},
+          {"parameter": "띠장 간격", "condition": "<=", "value": 2.0, "unit": "m", "source": "제60조 제2호"},
+          {"parameter": "쌍기둥 보강 기준 높이", "condition": ">=", "value": 31, "unit": "m", "source": "제60조 제3호"},
+          {"parameter": "비계기둥 간 적재하중", "condition": "<=", "value": 400, "unit": "kg", "source": "제60조 제4호"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-008",
+      "title": "강관 강도 식별 조치",
+      "text": "사업주는 바깥지름 및 두께가 같거나 유사하면서 강도가 다른 강관을 같은 사업장에서 사용하는 경우, 강관에 색 또는 기호를 표시하는 등 강관의 강도를 알아볼 수 있는 조치를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제61조"],
+      "mandatedBy": ["NS-RULE61-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-009",
+      "title": "강관틀비계 조립·사용 시 준수사항",
+      "text": "사업주는 강관틀 비계를 조립하여 사용하는 경우 소정의 안전기준을 준수하여야 한다. 강관틀비계는 구조적 안전성을 확보하고 전도·붕괴를 방지하기 위한 조치를 취한 상태에서 조립·사용하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제62조"],
+      "mandatedBy": ["NS-RULE62-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-010",
+      "title": "달비계(곤돌라형·작업의자형) 설치 기준",
+      "text": "사업주는 곤돌라형 달비계 및 작업의자형 달비계를 설치하는 경우 각각의 유형에 맞는 구조적 안전기준을 준수하여야 한다. 달비계는 추락 및 붕괴 위험을 방지하기 위한 설치 요건을 충족하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제63조"],
+      "mandatedBy": ["NS-RULE63-0", "NS-RULE63-1"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-011",
+      "title": "달비계 작업 전 점검 및 즉시 보수",
+      "text": "사업주는 달비계에서 근로자에게 작업을 시키는 경우, 작업을 시작하기 전에 발판 재료의 손상·부착·걸림 상태, 연결부·접속부 풀림 상태, 연결 재료·철물의 손상·부식 상태, 손잡이 탈락 여부, 기둥의 침하·변형·변위·흔들림 상태, 로프 부착 및 매단 장치 흔들림 상태를 점검하고 이상 발견 시 즉시 보수하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제64조"],
+      "mandatedBy": ["NS-RULE64-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-012",
+      "title": "달대비계 하중 안전 조치",
+      "text": "사업주는 달대비계를 조립하여 사용하는 경우 해당 비계가 하중에 충분히 견딜 수 있도록 구조적 안전 조치를 하여야 한다. 달대비계의 구조는 작업하중 및 자중을 안전하게 지지할 수 있어야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제65조"],
+      "mandatedBy": ["NS-RULE65-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-013",
+      "title": "걸침비계 설치 구조기준 및 철선 사용 금지",
+      "text": "사업주는 선박 및 보트 건조작업에서 걸침비계를 설치하는 경우 소정의 구조적 안전기준을 준수하여야 한다. 작업발판 밑 부분에 띠장 및 장선으로 사용되는 수평부재 간의 결속에는 철선을 사용해서는 아니 된다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제66조"],
+      "mandatedBy": ["NS-RULE66-0", "NS-RULE66-1"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-014",
+      "title": "말비계 조립·사용 시 준수사항",
+      "text": "사업주는 말비계를 조립하여 사용하는 경우 소정의 안전기준을 준수하여야 한다. 말비계는 전도 및 이탈을 방지하기 위한 구조적 안전 요건을 충족하여야 하며, 작업 시 안전한 상태를 유지하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제67조"],
+      "mandatedBy": ["NS-RULE67-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-015",
+      "title": "이동식비계 조립·작업 시 준수사항",
+      "text": "사업주는 이동식비계를 조립하여 작업을 하는 경우 소정의 안전기준을 준수하여야 한다. 이동식비계는 이동 중 전도를 방지하고, 바퀴 잠금장치 등 안정성 확보를 위한 조치를 취한 상태에서 사용하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제68조"],
+      "mandatedBy": ["NS-RULE68-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-016",
+      "title": "시스템 비계 구조기준 준수",
+      "text": "사업주는 시스템 비계를 사용하여 비계를 구성하는 경우 소정의 구조적 안전기준을 준수하여야 한다. 시스템 비계의 수직재, 수평재, 가새재 등 각 부재는 구조적 안정성을 확보하도록 설치하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제69조"],
+      "mandatedBy": ["NS-RULE69-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-SCAFFOLD-017",
+      "title": "시스템비계 조립 작업 시 준수사항",
+      "text": "사업주는 시스템 비계를 조립 작업하는 경우 소정의 안전기준을 준수하여야 한다. 조립 과정에서 구조적 안전성을 확보하고, 전도·붕괴를 방지하기 위한 절차적 조치를 이행하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제70조"],
+      "mandatedBy": ["NS-RULE70-0"],
+      "addressesHazard": ["FALL", "SCAFFOLDING"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}

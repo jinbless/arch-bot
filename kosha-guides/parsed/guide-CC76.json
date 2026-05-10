@@ -1,0 +1,277 @@
+{
+  "metadata": {
+    "guideCode": "C-C-76-2026",
+    "shortCode": "CC76",
+    "title": "화학설비의 건전성 모니터링에 관한 기술지원규정",
+    "totalPages": 20,
+    "pdfPath": "kosha-guides/C/C-C-76-2026 화학설비의 건전성 모니터링에 관한 기술지원규정.pdf",
+    "parsedAt": "2026-04-18T10:00:00+09:00",
+    "parsedBy": "step2-text-extraction v2.0",
+    "tocSections": [
+      {
+        "sectionNumber": "1",
+        "title": "목적",
+        "startPage": 4
+      },
+      {
+        "sectionNumber": "2",
+        "title": "적용범위",
+        "startPage": 4
+      },
+      {
+        "sectionNumber": "3",
+        "title": "용어의 정의",
+        "startPage": 4
+      },
+      {
+        "sectionNumber": "4",
+        "title": "화학설비의 건전성 모니터링 수행절차",
+        "startPage": 5
+      },
+      {
+        "sectionNumber": "5",
+        "title": "화학설비의 건전성 모니터링 시스템 구축",
+        "startPage": 7
+      },
+      {
+        "sectionNumber": "5.1",
+        "title": "화학설비의 건전성 모니터링 시스템 개발절차",
+        "startPage": 7
+      },
+      {
+        "sectionNumber": "5.2",
+        "title": "건전성 모델 개발팀",
+        "startPage": 8
+      },
+      {
+        "sectionNumber": "5.3",
+        "title": "IOW 평가대상 선정",
+        "startPage": 9
+      },
+      {
+        "sectionNumber": "5.4",
+        "title": "부식 검토",
+        "startPage": 10
+      },
+      {
+        "sectionNumber": "5.5",
+        "title": "IOW 시스템 구성",
+        "startPage": 10
+      },
+      {
+        "sectionNumber": "5.6",
+        "title": "IOW 시스템 구축",
+        "startPage": 13
+      },
+      {
+        "sectionNumber": "별표 1",
+        "title": "온라인 모니터링이 가능한 손상메커니즘의 주요 핵심변수 및 핵심변수 범위",
+        "startPage": 14
+      }
+    ]
+  },
+  "sections": [
+    {
+      "sectionNumber": "1",
+      "sectionTitle": "목적",
+      "pages": [
+        4,
+        4
+      ],
+      "text": "이 규정은 화학설비의 건전성에 영향을 주는 인자들을 모니터링하여 화학설비의 건전성을 유지하는데 필요한 사항을 제시하는데 그 목적이 있다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "2",
+      "sectionTitle": "적용범위",
+      "pages": [
+        4,
+        4
+      ],
+      "text": "이 규정은 부식성 유체를 사용하거나 부식을 일으키는 환경에 있는 화학설비에서 건전성을 모니터링하는 경우에 적용한다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "3",
+      "sectionTitle": "용어의 정의",
+      "pages": [
+        4,
+        5
+      ],
+      "text": "(1) 이 규정에서 사용되는 용어의 정의는 다음과 같다.\n\n(가) \"건전성 모니터링 (Integrity operating window, IOW)\"이라 함은 공정에서 미리 정해진 시간동안 설정된 범위에서 벗어날 경우 장비의 무결성에 영향을 미칠 수 있는 공정변수(매개변수)의 한계를 두어 모니터링하는 것을 말한다.\n\n(나) \"임계하한 (Critical limit, Low Low)\"라 함은 짧은 시간동안 급격하게 건전성에 영향을 미칠 수 있는 한계값의 최저 하한값을 말한다.\n\n(다) \"표준하한 (Standard limit, Low)\"라 함은 운전에 민감하게 영향을 받아 건전성에 영향을 미칠 수 있는 한계값의 하한값을 말한다.\n\n(라) \"임계상한 (Critical limit, High High)라 함은  짧은 시간동안 급격하게 건전성에 영향을 미칠 수 있는 한계값의 최고 상한값을 말한다.\n\n(마) \"표준상한 (Standard limit, High)\"라 함은 운전에 민감하게 영향을 받아 건전성에 영향을 미칠 수 있는 한계값의 상한값을 말한다.\n\n(바) \"중요도 (Criticality)\"라 함은 공정변수의 이탈로 인해 고장이 발생할 경우 이로 인한 잠재적 위험을 말한다.\n\n(사) \"응답시간 (Response time)\"이라 함은 공정변수가 IOW의 한계값을 초과한 후 운전자가 대응하여 정상으로 돌아오는 시간을 말하며, 경보발생 후 운전자의 대응까지 허용 가능한 시간으로 나타낸다.\n\n(아) \"부식 검토구간 (Corrosion loop)\"이라 함은 부식의 경향이 유사한 구간을 연결해 놓은 구간을 말하며, 부식회로(Corrosion circuit)라고 하기도 한다.\n\n(자) \"손상메커니즘 (Damage mechanisms, DM)\"이라 함은 부식성 유체 또는 환경에 기인하여 재질의 퇴화를 나타내는 현상을 말한다.\n\n(차) \"고장발생 가능성 (Likelihood of failure, LOF)\"이라 함은 잠재적 손상메커니즘으로 인한 설비의 고장이 발생할 가능성을 말한다.\n\n(카) \"고장피해 크기 (Consequence of failure, COF)\"라 함은 설비의 고장으로 인한 사고 결과를 말하며, 인명, 환경, 독성, 조업 중단 등의 손실을 의미한다.\n\n(타) \"위험도 (Risk)\"라 함은 고장발생 가능성(LOF)과 고장피해 크기(COF)의 곱(Matrix)을 말한다.\n\n(2) 기타 이 규정에서 사용하는 용어의 정의는 특별한 규정이 있는 경우를 제외하고는 「산업안전보건법」, 같은 법 시행령, 같은 법 시행규칙 및 「산업안전보건기준에 관한 규칙」에서 정의하는 바에 의한다.",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "4",
+      "sectionTitle": "화학설비의 건전성 모니터링 수행절차",
+      "pages": [
+        5,
+        7
+      ],
+      "text": "(1) API RP 584는 IOW의 수행하기 위한 가장 좋은 가이드로, API RP 584에서 제시하는 IOW 수행절차는 <그림 1>과 같다.\n\n(2) <그림 1>의 단계별 IOW 수행절차는 다음과 같다.\n\n(가) 1단계(설계 및 운전조건 정의)에서는 설계 및 운전조건에 대해 정의해야 하며, 운전조건 검토 시에는 정상상태, 업셋(Upset), 공정시작(Start-up), 공정종료(Shut-down) 등을 고려한다.\n\n(나) 2단계(IOW 한계설정을 위한 향후 운전조건 및 전제조건 정의)에서는 운전조건에서 허용 가능한 위험도(Risk)를 정의하고, 전제조건은 개별 설비를 기준으로 고려(예로, 허용 가능한 손상메커니즘의 범위 등)한다.\n\n(다) 3단계(잠재적 및 활성 손상메커니즘 정의)에서는 <별표 1> 등을 고려하여 발생 가능한 손상메커니즘이 무엇인지를 확인한다.\n\n(라) 4단계(식별된 각 손상메커니즘에 영향을 줄 수 있는 모든 공정변수 확인)에서는 잠재적 또는 활성 손상메커니즘이 있으면 각 손상메커니즘에 영향을 주는 공정변수를 정의한다.\n\n(마) 5단계(허용할 수 없는 손상율을 피하기 위한 상한 및 하한 한계 설정 및 조정)에서는 허용 가능한 손상메커니즘을 제외하고, 허용할 수 없는 손상메커니즘이 있는 경우 공정변수(pH, 농도, 온도, 압력 등)의 상한 및 하한 값을 정의한다.\n\n(바) 6단계(각 한계의 위험수준 평가)에서는 5단계에서 고려된 공정변수의 상한 및 하한을 벗어나는 경우를 고려하여 LOF와 COF에 의한 위험도(Risk)를 평가한다.\n\n(사) 7단계(한계 및 위험도가 전제조건에 부합한지를 검토)에서는 6단계에서 고려된 위험수준이 2단계에서 설정한 전제조건에 만족하는지를 확인하며, 만족하지 않을 경우에는 5단계를 반복한다.\n\n(아) 8단계(각 IOW의 중요도(Criticality) 결정)에서는 7단계에서 고려된 위험수준이 전제조건을 만족할 경우 최종 IOW의 중요도를 결정한다.\n\n(자) 9단계(초과 시 적절한 조치 및 응답시간 정의)에서는 최종 결정된 IOW에 대하여 허용한계를 초과 시 적절한 조치방안을 수립하고, 대응을 위한 응답시간을 설정한다.\n\n(3) 화학설비의 건전성 모니터링이 가능한 손상메커니즘 대표적인 핵심변수와 핵심변수의 예는 <별표 1>에 나타내었다.",
+      "tables": [],
+      "images": [
+        {
+          "imageNumber": "그림 1",
+          "caption": "<그림 1> API RP 584의 IOW 수행절차",
+          "description": "API RP 584의 IOW 수행절차 흐름도. 9단계로 구성됨. (1단계) Define design and operating conditions → (2단계) Define future operating conditions and premises for establishing IOW Limits → (3단계) Define potential and active damage mechanisms → (4단계) Identify all process variables that can affect each damage mechanism identified → (5단계) Set or adjust upper and/or lower limits to avoid unacceptable damage rates → (6단계) Risk rank each limit → (7단계) Do limits/risk fit within premise? [NO이면 5단계로 되돌아감, YES이면 다음 단계로] → (8단계) Determine criticality of each IOW → (9단계) Define appropriate actions and response times if exceeded",
+          "page": 6
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "5",
+      "sectionTitle": "화학설비의 건전성 모니터링 시스템 구축",
+      "pages": [
+        7,
+        13
+      ],
+      "text": "",
+      "tables": [],
+      "images": [],
+      "subsections": [
+        {
+          "sectionNumber": "5.1",
+          "sectionTitle": "화학설비의 건전성 모니터링 시스템 개발절차",
+          "pages": [
+            7,
+            7
+          ],
+          "text": "화학설비의 건전성 안전관리를 위한 건전성 모니터링 시스템 개발절차는 다음과 같다.\n\n(1) 건전성 모델 개발팀 구성\n\n(2) IOW 평가대상 선정\n\n(3) 부식 검토\n\n(4) IOW 개발\n\n(5) IOW 시스템 구축",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "5.2",
+          "sectionTitle": "건전성 모델 개발팀",
+          "pages": [
+            8,
+            9
+          ],
+          "text": "팀리더, 설비 검사전문가, 재질 및 부식 전문가, 공정 전문가, 운전 전문가, 위험성평가 전문가로 구성하는 것을 권장한다.\n\n(1) 팀리더\n\n(가) 위험설비의 운전 또는 검사에 충분한 경험과 지식\n\n(나) 평가팀을 조직화\n\n(다) 추진 진도관리 및 수집된 자료에 대한 정확도 검증\n\n(라) 임의의 가정치에 대한 논리 확보 및 문서화\n\n(마) 자료 수집 또는 가정치 설정을 자문하는 전문가 확보\n\n(바) 추진보고서 작성 및 보급\n\n(사) 위험도 감소계획의 실행여부 확인 등\n\n(2) 설비 검사전문가\n\n(가) 설비상태 및 운전조건에 대한 자료 확보\n\n(나) 재료 또는 부식 전문가와 함께 설비상태를 예측\n\n(다) 설비 검사자 및 부식 전문가와 함께 과거의 검사효과 평가\n\n(라) 추진결과의 검사계획서를 이행\n\n(3) 재질 및 부식 전문가\n\n(가) 손상 또는 파손 메커니즘의 형태와 적용방법에 대한 평가\n\n(나) 현재의 실비상태에 대한 평가\n\n(다) 현재상태와 예측치의 차이 발생 시 그 이유 규명\n\n(라) 재질 변경, 부식방지 물질 추가, 코팅 추가 등 사고발생 가능성 감소방안 제시\n\n(4) 공정 전문가\n\n(가) 위험설비의 운전조건, 유체조성, 독성 및 인화성 등 공정 기술정보 제공\n\n(나) 공정조건 변경 등을 통해 위험도 감소방안 제시 및 평가\n\n(5) 운전 전문가\n\n(가) 운전변수들이 규정된 운전범위 내에서 운전되고 있는지를 확인\n\n(나) 검사원으로부터 제공된 검사결과 또는 설비상태에 적합하도록 정비, 교체 등에 대한 평가책임과 결정된 정비방안을 수행\n\n(6) 위험성평가 전문가\n\n(가) 분석에 필요한 자료를 이용하여 위험성을 분석 및 평가\n\n(나) 자료 종류 및 정확도, 가정치 등의 결정",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "5.3",
+          "sectionTitle": "IOW 평가대상 선정",
+          "pages": [
+            9,
+            10
+          ],
+          "text": "(1) IOW는 손상메커니즘이 발생되는 부분에 대해 변수를 모니터링하는 목적으로 개발하므로 IOW의 평가대상은 부식 위험성평가 대상과 동일하다.\n\n(가) 부식 위험성평가 대상은 부식이 심각하지 않은 공정에서 부식이 심각한 공정의 순으로 진행한다.\n\n(나) 부식이 심각한 공정을 우선적으로 수행할 경우 처음 수행하는 팀의 경우 숙련도가 낮아 많은 오류로 인해 반복작업의 빈도가 증가하기 때문에 심각하지 않은 공정을 평가하여 숙련도를 익힌 후 심각한 공정으로 옮겨갈 것을 권장한다.\n\n(다) 부식 위험성평가 대상은 공정상의 고정설비, 배관, 회전기계를 대상으로 한다. 즉, 부식이 발생 가능한 설비는 모두 대상으로 한다.\n\n(라) 열교환기(Heat exchanger) 및 공기냉각기(Air cooler)의 경우 유체가 접촉하는 부위에 따라 나타나는 부식의 형태가 달라지기 때문에 이를 사전에 파악하여 평가하여야 한다.\n\n(2) 부식 위험성평가가 진행되었으면 IOW 평가대상 선정은 필요하지 않다.\n\n(3) 부식 위험성평가가 진행되지 않았으면 부식이 심각하지 않은 공정에서 부식이 심각한 공정의 순으로 진행한다.\n\n(4) 평가대상은 공정상에 포함되어 있는 설비와 배관을 대상으로 한다. 즉, 부식이 발생 가능한 설비는 모두 포함한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "5.4",
+          "sectionTitle": "부식 검토",
+          "pages": [
+            10,
+            10
+          ],
+          "text": "(가) IOW를 구축하기 전에 실시하는 부식 검토는 부식 위험성평가를 완료한 후에 실시하여야 하며, 만약 부식 위험성평가가 진행되지 않았으면 본 단계에서 진행하여야 한다.\n\n(나) 부식 검토에서는 반드시 정상상태, 업셋(Upset), 공정시작(Start-up), 공정종료(Shut-down) 등을 고려하여 잠재적 손상메커니즘이 가능한지를 검토하여야 한다. 예로, 정상적인 운전범위에서는 손상메커니즘이 발생하지 않지만, 운전온도가 높아지거나 또는 운전온도가 낮아지는 경우 이로 인해 발생 가능한 잠재적 손상메커니즘을 고려하여야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "5.5",
+          "sectionTitle": "IOW 시스템 구성",
+          "pages": [
+            10,
+            12
+          ],
+          "text": "(1) IOW 시트(Sheet)에는 다음의 내용을 포함하여야 한다.\n\n(가) 기본정보\n\n① 공정번호\n\n② 부식 검토구간 번호(Corrosion loop No.)\n\n③ 부식 검토구간 설명(Corrosion loop description)\n\n④ 주 설비(Main equipment)\n\n⑤ 주 설비 설명(Asset description)\n\n(나) 모니터링\n\n① 태그번호(Tag No.)\n\n② 태그 설명(Tag description)\n\n③ 공정변수(Parameters)\n\n④ 공정변수 단위(Unit)\n\n(나) 위험 정보\n\n① LOF\n\n② COF\n\n③ RISK\n\n(라) IOW 한계\n\n① 임계하한(Critical limit, Low Low)\n\n② 표준하한(Standard limit, Low)\n\n③ 표준상한(Standard limit, High)\n\n④ 임계상한(Critical limit, High High)\n\n(마) 건전성\n\n① 한계설정 이유(Reason for limit)\n\n② 초과 시 사고결과(Consequence of exceeding limit)\n\n(바) 대응\n\n① 대응 응답시간(Time in exceedance)\n\n② 측정주기(Measurement frequency)\n\n③ 대응계획(Corrective action)\n\n④ 대응부서(Escalation notification)\n\n(2) 위험 관리\n\n(가) IOW 개발 시 위험도(Risk)는 <그림 2>와 같이 5X5 위험도 행렬을 사용한다.\n\n(나) 부식 위험성평가(Corrosion risk assessment, CRA) 또는 RBI의 결과가 있는 경우에는 해당 위험도를 사용하여도 된다.\n\n(다) 사업장에서는 허용할 수 있는 위험에 대한 경계를 설정하여야 하며, 허용할 수 있는 위험의 경계는 사업장에서 적용 가능한 능력에 따라 설정할 수 있다.",
+          "tables": [],
+          "images": [
+            {
+              "imageNumber": "그림 2",
+              "caption": "<그림 2> API RP 584의 5X5 위험도 행렬",
+              "description": "5X5 위험도 행렬(Risk Matrix). X축: Consequence (A, B, C, D, E), Y축: Probability (1~5). 위험도 수준 범례: High(빨강), Medium High(주황), Medium(노랑), Low(초록)으로 색상 구분하여 표시.",
+              "page": 12
+            }
+          ],
+          "subsections": []
+        },
+        {
+          "sectionNumber": "5.6",
+          "sectionTitle": "IOW 시스템 구축",
+          "pages": [
+            13,
+            13
+          ],
+          "text": "(1) IOW가 평가된 후 활용하기 위해서는 자체 또는 제3자에 의해 공급된 IOW 시스템에 결과를 입력하여 실시간으로 모니터링하여야 한다.\n\n(2) IOW 시스템은 IOW 시트(Sheet)를 적절하게 보여주고 작업자가 대응을 즉각적으로 취할 수 있는 기능을 갖추어야 한다.",
+          "tables": [],
+          "images": [],
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "sectionNumber": "별표 1",
+      "sectionTitle": "온라인 모니터링이 가능한 손상메커니즘의 주요 핵심변수 및 핵심변수 범위",
+      "pages": [
+        14,
+        19
+      ],
+      "text": "",
+      "tables": [
+        {
+          "tableNumber": "별표 1 (유형 1)",
+          "caption": "(유형 1) 기계적 및 금속적 결함(Mechanical and metallurgical failure)",
+          "content": "| 손상메커니즘 | 핵심변수 | 핵심변수 범위 | 비고 |\n|---|---|---|---|\n| 흑연화 (Graphitization) | 최대운전온도 | 427~593℃ (800~1100℉) | |\n| 연화(구상화) (Softening(Spheroidization)) | 최대운전온도 | 440~760℃ (850~1400℉) | |\n| 뜨임 취성 (Temper embrittlement) | 최대운전온도 | <427℃(800℉) | |\n| 885℉ 취성 (885℉ embrittlement) | 최대운전온도 | 371~538℃ (700~1000℉) | |\n| 시그마 상 취성 (Sigma phase embrittlement) | 최대운전온도 | 538~927℃ (1000~1700℉) | |\n| 크리프 및 응력 파열 (Creep & stress rupture) | 금속재질별 크리프 온도 임계값 초과여부 | 초과함/초과하지 않음 | |\n| 열 피로 (Thermal fatigue) | 운전온도 변화크기 | > ΔT 93℃(200℉) | |\n| 단기 과열-응력 파열 (Short temperature overheating-stress rupture) | 설계온도 초과 국부과열 여부 | Yes or No | |\n| 침식/침식-부식 (Erosion/erosion-corrosion) | 유체속도 / 유체농도 / 유체온도 / 유체압력 | - / 전체 / 전체 / 전체 | |\n| 재가열 균열 (Reheat cracking) | 최대운전온도 | >= 399℃(750℉) | |\n| 산소 분위기 점화 및 연소 (Gaseous oxygen-enhanced ignition and combustion) | 증기의 산소함량 / 운전압력 / 티타늄 절대압력 / 유체속도 / 최대운전온도 | > 25% / > 15 psig(0.103 MPa) / > 1 psi(7 kPa) / - / - | |",
+          "page": 14
+        },
+        {
+          "tableNumber": "별표 1 (유형 2)",
+          "caption": "(유형 2) 균일 또는 국부 두께손실(Uniform or localized loss of thickness)",
+          "content": "| 손상메커니즘 | 핵심변수 | 핵심변수 범위 | 비고 |\n|---|---|---|---|\n| 대기 부식 (Atmospheric corrosion) | 최대운전온도 / 염분 함량 / 황화합물 함량 | 전체 / 전체 / Yes or No | |\n| 보온밑 부식 (Corrosion under insulation (CUI)) | 최대운전온도 | -12~175℃ | |\n| 냉각수 부식 (Cooling water corrosion) | 최대운전온도 / pH 값 / 유체속도 / 염화물 농도(ppm Cl⁻) / 산소 농도(ppm O₂) | - / - / - / 전체 / 전체 | |\n| 보일러 응축수 부식 (Boiler water condensate corrosion) | 산소 농도(ppm O₂) / 이산화탄소 농도(ppm CO₂) / pH 값 / 최대운전온도 | - / - / - / - | |\n| 이산화탄소 부식 (CO₂ corrosion) | 최대운전온도 / 이산화탄소 농도(ppm CO₂) / pH 값 / 물 함량 / 유체속도 / 이슬점온도 아래 여부 | <= 140℃ / - / <7.0 / >= 20% / <= 1 m/s / <149℃(300℉) | |\n| 연도가스 이슬점 부식 (Flue gas dew point corrosion) | 황 농도 / 염화물 농도 / 최대금속표면온도 | 전체 / 전체 / <138℃(280℉) 황산 경우, <54℃(130℉) 염산 경우 | |\n| 미생물 유도부식 (Microbiologically influenced corrosion(MIC)) | 물 함량 / pH 값 / 최대운전온도 | 전체 / 0~12 / -17~113℃(0~235℉) | |\n| 토양 부식 (Soil corrosion) | 최대운전온도 / 수분 함량 / 산소 함량 | <49, 49~104, >104 / - / - | |\n| 가성소다 부식 (Caustic corrosion) | 가성소다(NaOH) 함량 / 최대운전온도 | - / >79℃(175℉) | |\n| 탈 성분 부식 (Dealloying corrosion) | 최대운전온도 / pH 값 | - / - | |\n| 흑연 부식 (Graphitic corrosion(see Dealloying)) | 최대운전온도 / pH 값 | <93℃(200℉) / - | |\n| 아민 부식 (Amine corrosion) | 아민 농도(wt%) / 최대운전온도 / 유체 속도 / HSAS(heat stable amine salts) 농도 | >0 wt% / >= 88℃ / <= 1.5 or > 1.5 m/s / MEA(mono-ethanol amine) 및 DEA(di-ethanol amine)(≤ 2 wt%, 2-4 wt%, >4 wt%), MDEA(methyl di-ethanol amine)(<500, 500~4000, >4000, wppm) | |\n| 중황화암모늄 부식 (Ammonium bisulfide corrosion (알칼리 산성수 (Alkaline sour water))) | NH₄HS 농도(wt%) / H₂S 농도(wt%) / NH₃ 농도(wt%) / 유체속도 / pH 값 | > 2 wt% / - / > 3.05 m/s / - | |\n| 염화암모늄 부식 (Ammonium chloride corrosion) | NH₃ 농도 / HCl 농도 / H₂O 농도 / 아민염 농도 / 최대운전온도 / 물 존재여부 | - / - / - / - / >149℃(300℉) / Yes or No | |\n| 염산 부식 (Hydrochloric acid(HCl) corrosion) | 염소이온(Cl⁻) 농도 / pH 값 / 최대운전온도 / 산소함량 | >0 wppm / <7 / >= 38℃ / 전체 | |\n| 고온 H₂/H₂S 부식 (High temperature H₂/H₂S Corrosion) | 최대운전온도 / H₂S의 농도(Vapor) / 수소 함량 | >= 218℃ / >0.002 mole% / 전체 | |\n| 불화수소(HF)산 부식 (Hydrofluoric(HF) acid corrosion) | HF산 농도(수분) / 최대운전온도 / 유체속도 / 산소/산화제 함량 / 탄산가스(Aerated) 함량 | >0 wt% / >= 27℃ / <3.05 or >= 3.05 m/s / 전체 / 전체 | |\n| 나프텐산 부식 (Naphthenic acid corrosion) | 최대운전온도 / 황 함량 / 유체속도 | >= 232℃ / >0.2 wt% / <30.48 m/s | |\n| 페놀(석탄산) 부식 (Phenol(Carbolic acid) corrosion) | 페놀 함량 / 최대운전온도 / 수분함량 / 유체속도 | 전체 / >= 121℃(250℉) / 전체 / <9.14 m/s | |\n| 인산 부식 (Phosphoric acid corrosion) | 인산 농도 / 최대운전온도 / 물 함량 | 전체 / - / 전체 | |\n| 산성수 부식(산성) (Sour water corrosion (acidic)) | H₂S 함량 / pH 값 / 최대운전온도 / 산소/산화제 농도 / 염화물 함량 / 유체속도 | 전체 / 4.5~7.0 / >= 38℃ / <= 50 or >50 ppb / 전체 / - | |\n| 황산 부식 (Sulfuric acid corrosion) | 황산농도(wt%) / 최대운전온도 / 유체속도 | <65 wt% / >6℃ / >2~3 fps(0.6~0.9 m/s) | |\n| 수성 유기산 부식 (Aqueous organic acid corrosion) | 유기산의 양 / 최대금속표면온도 / 유체속도 / pH 값 | - / - / - / - | |",
+          "page": 15
+        },
+        {
+          "tableNumber": "별표 1 (유형 3)",
+          "caption": "(유형 3) 고온 부식(High temperature corrosion)",
+          "content": "| 손상메커니즘 | 핵심변수 | 핵심변수 범위 | 비고 |\n|---|---|---|---|\n| 산화 (Oxidation) | 최대금속표면온도 / 수증기의 존재여부 | >= 496℃ / Yes or No | |\n| 황화 (Sulfidation) | 최대운전온도 / 유체속도 | >= 232℃ / <30.48 m/s | |\n| 침탄 (Carburization) | 최대운전온도 | >593℃(1100℉) | |\n| 탈탄 (Decarburization) | 최대운전온도 | - | |\n| 금속 오염 (Metal dusting) | 최대운전온도 | 482~816℃ (900~1500℉) | |\n| 연료 재 부식 (Fuel ash corrosion) | 오염물질 농도 / 황 함량 / 최대금속표면온도 | 전체 / 전체 / <538℃(1000℉) | |\n| 질화 (Nitriding) | 최대운전온도 | >316℃(600℉) | |",
+          "page": 17
+        },
+        {
+          "tableNumber": "별표 1 (유형 4)",
+          "caption": "(유형 4) 환경 기인 균열(Environment assisted cracking)",
+          "content": "| 손상메커니즘 | 핵심변수 | 핵심변수 범위 | 비고 |\n|---|---|---|---|\n| 탄산염 응력부식 균열 (Carbonate stress corrosion cracking(ACSCC)) | CO₃ 함량 / CO₂ 함량 / H₂S 함량 / Cyanides 함량 / 산소 함량 / 물 함량 / pH 값 / 최대운전온도 | 전체 / 전체 / 전체 / 전체 / 전체 / 전체 / >= 2 / >= 60℃(140℉) | |\n| 가성소다 응력부식 균열 (가성소다 취성) (Caustic stress corrosion cracking(Caustic embrittlement)) | 가성소다 함량 / 최대운전온도 | 전체 / - | |\n| 암모니아 응력부식 균열 (Ammonia stress corrosion cracking) | NH₃ 함량 / 산소(O₂) 함량 / 물 함량 | 전체 / 전체 / 전체 | |\n| 수소 취성 (Hydrogen embrittlement) | 수소 농도 / H₂S 농도 / HF 농도 | >임계농도 / 농도 / 농도 | |\n| 에탄올 응력부식 균열 (Ethanol stress corrosion cracking) | 연료등급 에탄올 함량 / 용존산소 함량 / 수분 함량 | 전체 / 전체 / 0.1~4.5 vol% | |\n| 폴리티온산 응력부식 균열 (Polythionic acid stress corrosion cracking (PASCC)) | 산소 함량 / 물 함량 / 가성소다 함량 | - / - / - | |\n| 아민 응력부식 균열 (Amine stress corrosion cracking) | 아민 함량 / 최대운전온도 | 전체 / 모든 온도 | |\n| 습식 H₂S 손상 (Wet H₂S damage (Blistering/HIC/SOHIC/SSC)) | H₂S 함량 / Free H₂O 함량 / HCN 함량 / pH 값 | >20 ppm / 전체 / 20 ppm / 5.5 | |\n| 불화수소 응력 균열 (Hydrogen stress cracking-HF) | HF 함량 | 전체 | |\n| 탄산염 응력 부식균열 (Chloride stress corrosion cracking) | Cl 용존 O₂ / 최대운전온도 | >5 ppm / >60℃(140℉) | |",
+          "page": 18
+        },
+        {
+          "tableNumber": "별표 1 (유형 5)",
+          "caption": "(유형 5) 기타 손상메커니즘",
+          "content": "| 손상메커니즘 | 핵심변수 | 핵심변수 범위 | 비고 |\n|---|---|---|---|\n| 고온 수소 침식 (High temperature hydrogen attack) | 최대운전온도 / 수소 분압 | - / >10,000 psi | |\n| 티타늄 수소화 (Titanium hydriding) | 최대금속표면온도 / 수소 용해도 / pH 값 | >= 74℃(165℉) / >300 ppm / <= 3 or >= 8 | |\n| 염수 부식 (Brine corrosion) | 용해염물(염화물, 할로겐화물) 함량 / 산소 함량 / pH 값 / 유체속도 / 최대운전온도 / 유리염소 함량 / H₂S 함량 | 전체 / 전체 / <= 6 / 높은 유속 / 전체 / > 0.5 ppm / 전체 | |\n| 농담전지 부식 (Concentration cell corrosion) | 물 함량 / 산소 함량 | 전체 / 전체 | |\n| 니켈 합금의 불산 응력 부식 균열 (Hydrofluoric acid stress corrosion cracking of nickel alloys) | 플루오르화제이구리 (CuF) 함량 / HF 함량 / 산소 함량 | 전체 / 전체 / 전체 | |\n| 산소 처리수 부식 (Oxygenated process water corrosion) | 산소 함량 / 물 함량 / 최대운전온도 / 최대운전압력 / 유체속도 | >= 20 ppb / 전체 / 낮은 온도 / 높은 압력 / >3 m/s(10 fps) | |",
+          "page": 19
+        }
+      ],
+      "images": [],
+      "subsections": []
+    },
+    {
+      "sectionNumber": "개정이력",
+      "sectionTitle": "기술지원규정 개정 이력",
+      "pages": [
+        20,
+        20
+      ],
+      "text": "□ 개정일 : 2025. 1. 30.\n○ 개정자 : 한국산업안전보건공단 전문기술실\n○ 개정사유 : 확인(체계정비)\n○ 주요 개정내용\n- 국문 명칭(기술지침→기술지원규정) 개정",
+      "tables": [],
+      "images": [],
+      "subsections": []
+    }
+  ]
+}

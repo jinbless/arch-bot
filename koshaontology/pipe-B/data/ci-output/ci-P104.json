@@ -1,0 +1,354 @@
+{
+  "metadata": {
+    "guideCode": "P-104-2012",
+    "shortCode": "P104",
+    "domain": "C",
+    "extractedAt": "2026-04-24T20:52:28Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-050"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-P104-001",
+      "text": "만일 부유식지붕이 없는 탱크를 사용할 때는 적절한 회수 또는 처리시설을 갖추어야 한다.",
+      "guideContext": "석유화학산업 저장탱크 VOC 누출 저감",
+      "additionalDetail": "저장탱크 내부 또는 외부에 부유식지붕(FLOATING ROOF) 설치 시 탱크 충전 및 온도 변화로 인한 누출을 줄일 수 있으나, 미설치 시 회수 또는 처리시설이 필요함",
+      "workProcessPhase": null,
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-CHEMICAL-002"
+      ]
+    },
+    {
+      "identifier": "CI-P104-002",
+      "text": "VOC의 연소 상태 등을 알기 위해 연소온도를 연속으로 측정하는 장치들도 필요하다.",
+      "guideContext": "고온산화(열소각) 장치 운전",
+      "additionalDetail": null,
+      "workProcessPhase": "고온산화(열소각)",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-P104-003",
+      "text": "배출가스 중 VOC의 농도가 높으면 폭발방지를 위한 설비를 설치하여야 한다.",
+      "guideContext": "고온산화(열소각) 장치 운전",
+      "additionalDetail": "저농도 VOC는 보조연료가 필요하나, 고농도 VOC는 폭발 위험이 있으므로 별도의 폭발방지 설비 설치 필요",
+      "workProcessPhase": "고온산화(열소각)",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-P104-004",
+      "text": "촉매층 사이의 온도와 압력이 촉매의 활성을 잘 유지될 수 있도록 계속 측정·감시해야 한다.",
+      "guideContext": "촉매산화(촉매소각) 장치 운전",
+      "additionalDetail": "촉매층의 온도 상승은 VOC 산화정도를 나타내며 온도가 감소되면 VOC 산화가 불완전하다는 것을 나타냄. 압력강하 감소는 촉매가 외부로 빠져나가는 것을 의미함",
+      "workProcessPhase": "촉매산화(촉매소각)",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-P104-005",
+      "text": "과도한 열은 촉매를 불활성화 시키기 때문에 촉매층으로의 유입 온도는 촉매의 활성이 유지될 수 있도록 충분히 낮게 유지시켜 주어야 한다.",
+      "guideContext": "촉매산화(촉매소각) 장치 운전 (법령 근거 미확인)",
+      "additionalDetail": "촉매 산화는 보통 산화온도가 260~480℃ 범위에서 조업함",
+      "workProcessPhase": "촉매산화(촉매소각)",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P104-006",
+      "text": "촉매의 수명을 연장하기 위해서는 주기적으로 촉매에 묻어있는 불활성 물질이나 미세입자들을 제거해 주어야 한다.",
+      "guideContext": "촉매산화(촉매소각) 장치 유지보수 (법령 근거 미확인)",
+      "additionalDetail": "촉매 세정 방법으로는 공기나 스팀 통과, 조업온도 이상 가열 공기 이용, 산이나 염기성 용액 처리 등이 있음",
+      "workProcessPhase": "촉매산화(촉매소각)",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P104-007",
+      "text": "탑내의 과도한 열축적을 피하기 위해서 활성탄 흡착탑에는 농도가 1만 ppmv를 초과하지 않는 것이 좋다.",
+      "guideContext": "흡착 공정 운전",
+      "additionalDetail": "탄소흡착제에는 휘발성이 높은 VOC(분자량 40 이하)는 흡착이 잘 안되며 비휘발성 물질(분자량 130 이상 또는 비점 150℃ 초과)은 탈착이 잘 안됨",
+      "workProcessPhase": "흡착",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P104-008",
+      "text": "충전탑을 설계할 때는 배출 가스 중의 입자상 물질에 의해 막히거나 오염되어 유효 표면적이 작아지지 않도록 해야 한다.",
+      "guideContext": "흡수 공정 충전탑 설계 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "흡수",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P104-009",
+      "text": "탑정에서의 액체분산이 충전탑의 성능에 큰 영향을 받기 때문에 기체흐름을 방해하지 않는 범위내에서 액체가 전면적에 고루게 분산되도록 해 주어야 한다.",
+      "guideContext": "흡수 공정 충전탑 운전 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "흡수",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P104-010",
+      "text": "VOC 함유기체는 먼지를 제거하고 냉각과 가습을 시켜주어야 하는데 이런 전처리 조작은 탑의 운전에 매우 중요하다.",
+      "guideContext": "생물학적 처리(바이오필터) 전처리 (법령 근거 미확인)",
+      "additionalDetail": "배출가스중의 먼지는 탑내에 공극을 막아 VOC분해효율을 감소시키며, 가습은 탑의 균열 및 미반응 VOC가 대기중으로 빠져나가는 것을 방지함",
+      "workProcessPhase": "생물학적 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P104-011",
+      "text": "촉매 산화방법은 납, 비소, 황, 안티몬, 수은, 아연 또는 다른 촉매 유도체를 포함하는 배출가스에는 촉매의 활성이 급격히 저하되는 등 효과적이지 못하다.",
+      "guideContext": "촉매산화(촉매소각) 적용 제한사항",
+      "additionalDetail": "촉매 유독(poisoning) 물질 함유 배출가스에 대한 사전 확인 필요",
+      "workProcessPhase": "촉매산화(촉매소각)",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-P104-012",
+      "text": "배출가스에 포함된 수분을 제거해 주어야 하며 제오라이트를 변형시키면 소수성으로 바뀌면서 탄소 흡착제보다 상대습도에 덜 영향을 받게 된다.",
+      "guideContext": "흡착 공정 제오라이트 적용 시 전처리 (법령 근거 미확인)",
+      "additionalDetail": "VOC를 흡착시키기 전에 수분 제거가 필요하며 제오라이트의 소수성 변형을 통해 수분 영향을 줄일 수 있음",
+      "workProcessPhase": "흡착",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-P104-001",
+      "term": "VOC",
+      "definition": "지방족 탄화수소류, 방향족 탄화수소류, 비균질 탄화수소류 (알데히드, 케톤, 알코올 등) 및 지방족과 비균질이 혼합되어 있는 탄화수소 중 레이드 증기압이 27.6 킬로파스칼 이상인 물질을 말한다. 단, 메탄 및 에탄 등 광화학 반응성이 낮은 물질로서 국가에서 정하여 고시하는 물질은 제외한다.",
+      "sourceSection": "2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-P104-002",
+      "term": "광화학 산화물",
+      "definition": "VOC가 빛과 반응하여 생성된 오존, 알데히드, 스모그 중의 질소화합물 등을 말한다.",
+      "sourceSection": "2",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-P104-01",
+      "processOrder": 1,
+      "processName": "고온산화(열소각)",
+      "safetyMeasures": "VOC 함유 배출가스를 포집·예열·혼합 후 650~870℃에서 연소하여 이산화탄소와 물로 전환. 체류시간 0.5~1초 유지. 할로겐 화합물 존재 시 체류시간 연장 필요. VOC 고농도 시 폭발방지 설비 설치 필수. 연소온도 연속 측정 장치 설치.",
+      "requiredPPE": [],
+      "sourceSection": "6.1",
+      "relatedSR": [
+        "SR-CHEMICAL-010",
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "WP-P104-02",
+      "processOrder": 2,
+      "processName": "촉매산화(촉매소각)",
+      "safetyMeasures": "촉매(백금, 팔라듐, 금속산화물 등) 충전 연소실에서 260~480℃ 범위로 VOC 산화. 납·비소·황·수은 등 촉매독 물질 함유 배출가스 사전 확인. 촉매층 온도·압력 연속 측정·감시. 유입 온도를 촉매 활성 유지 범위 내로 관리. 주기적 촉매 세정(공기·스팀 통과, 산·염기 용액 처리).",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "WP-P104-03",
+      "processOrder": 3,
+      "processName": "흡착",
+      "safetyMeasures": "활성탄, 제오라이트 등 흡착제를 이용하여 VOC 분리. 활성탄 흡착탑 VOC 농도 1만 ppmv 이하 유지(과열 방지). 고정층 형식은 2개 이상 흡착탑으로 연속운전(흡착/탈착 교대). 탈착 시 스팀 또는 진공 사용. 제오라이트 적용 시 배출가스 수분 사전 제거.",
+      "requiredPPE": [],
+      "sourceSection": "6.3",
+      "relatedSR": [
+        "SR-CHEMICAL-002"
+      ]
+    },
+    {
+      "identifier": "WP-P104-04",
+      "processOrder": 4,
+      "processName": "흡수",
+      "safetyMeasures": "기체와 액체(물, 가성소다, 고비점 탄화수소 등) 향류 접촉으로 VOC 분리. 충전탑 설계 시 입자상 물질에 의한 막힘 방지. 탑정 액체분산 균일화. 흡수제는 VOC 특성에 따라 선택(수용성 VOC는 물 사용).",
+      "requiredPPE": [],
+      "sourceSection": "6.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P104-05",
+      "processOrder": 5,
+      "processName": "냉각응축",
+      "safetyMeasures": "냉각조작으로 비응축성 가스에서 VOC 분리. 직접응축기(냉매 직접 접촉) 또는 간접응축기(다관식 열교환기) 사용. 냉매별 사용온도: 냉수 7℃, 브라인 -35℃, CFC -68℃, 저온유체(질소·CO₂) -195℃.",
+      "requiredPPE": [],
+      "sourceSection": "6.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P104-06",
+      "processOrder": 6,
+      "processName": "생물학적 처리(바이오필터)",
+      "safetyMeasures": "미생물을 이용하여 VOC를 이산화탄소·물·무기질로 변환. VOC 함유기체의 전처리(먼지 제거, 냉각, 가습) 필수. 충전재(흙, 퇴비, 혼합물) 선정 시 공극율·투과성 고려. VOC 종류에 따른 미생물 선정 및 분해속도 확인.",
+      "requiredPPE": [],
+      "sourceSection": "6.6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-P104-07",
+      "processOrder": 7,
+      "processName": "분리막기술",
+      "safetyMeasures": "반투과성 합성 고분자막으로 배출가스에서 VOC 선택적 분리. 진공펌프로 막모듈 내 압력을 낮게 유지. 염소계 탄화수소, CFC 등 회수 어려운 기체 처리에 효과적. 막 사이 압력차를 구동력으로 이용.",
+      "requiredPPE": [],
+      "sourceSection": "6.7",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-P104-001",
+      "equipmentName": "고온산화(열소각) 장치",
+      "specifications": {
+        "combustionTemperature": "650~870℃",
+        "residenceTime": "0.5~1초",
+        "components": "송풍기, 혼합기, 버너, 내화방 연소실, 열회수장치, 굴뚝",
+        "heatRecoveryMethods": "열교환(RECUPERATIVE) 방식 또는 재생(REGENERATIVE) 방식"
+      },
+      "sourceSection": "6.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P104-002",
+      "equipmentName": "촉매산화(촉매소각) 장치",
+      "specifications": {
+        "operatingTemperature": "260~480℃",
+        "catalystTypes": "백금, 팔라듐(귀금속), 크롬산화물, 코발트산화물, 구리산화물, 망간산화물(금속산화물)",
+        "catalystLifespan": "평균 2~5년",
+        "catalystForm": "입자상 충전 또는 벌꿀집 형태(HONEYCOMB TYPE) 지지체 합침"
+      },
+      "sourceSection": "6.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P104-003",
+      "equipmentName": "활성탄 흡착탑",
+      "specifications": {
+        "adsorbentTypes": "입상 활성탄, 분말탄, 섬유상 활성탄",
+        "maxVOCConcentration": "1만 ppmv 이하",
+        "effectiveRange": "분자량 40~130, 비점 150℃ 이하",
+        "regenerationCycle": "탈착 1~1.5시간 (재생, 건조, 냉각 3단계)",
+        "towerLifespan": "보통 2~5년"
+      },
+      "sourceSection": "6.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P104-004",
+      "equipmentName": "제오라이트 흡착제",
+      "specifications": {
+        "material": "수소화 규산염 (화산암 자연 채취 또는 인공 합성)",
+        "characteristics": "소수성 변형 사용, 비가연성, 탄소 흡착제 대비 저농도·고유속 성능 우수",
+        "advantage": "상대습도 영향 적음, 발열반응 내성 강함"
+      },
+      "sourceSection": "6.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P104-005",
+      "equipmentName": "냉각응축 장치",
+      "specifications": {
+        "directCondenser": "분무탑형 또는 단탑형 (냉매 직접 접촉)",
+        "indirectCondenser": "다관식 열교환기 (관내 냉매, 관외 가스)",
+        "coolantTemperatures": "냉수 7℃, 브라인 -35℃, CFC -68℃, 저온유체(N₂, CO₂) -195℃"
+      },
+      "sourceSection": "6.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-P104-006",
+      "equipmentName": "부유식지붕(FLOATING ROOF) 저장탱크",
+      "specifications": {
+        "purpose": "저장탱크 VOC 누출 저감",
+        "installation": "탱크 내부 또는 외부 설치",
+        "effect": "탱크 충전 시 및 주야간 온도 변화에 의한 VOC 누출 저감"
+      },
+      "sourceSection": "4.1",
+      "relatedSR": [
+        "SR-CHEMICAL-002"
+      ]
+    },
+    {
+      "identifier": "ES-P104-007",
+      "equipmentName": "증기회수장치(VAPOR RECOVERY SYSTEM)",
+      "specifications": {
+        "purpose": "하역·운반 과정 VOC 증기 회수",
+        "recoveryRate": "95% 이상 회수 가능",
+        "application": "부두 하역, 육상 저유소 운반탱크 트럭 적재"
+      },
+      "sourceSection": "4.1",
+      "relatedSR": [
+        "SR-CHEMICAL-002"
+      ]
+    },
+    {
+      "identifier": "ES-P104-008",
+      "equipmentName": "바이오필터 장치",
+      "specifications": {
+        "packingMaterial": "흙, 퇴비, 활성탄, 알루미나 등",
+        "pretreatment": "먼지 제거, 냉각, 가습",
+        "fastDegradation": "알데히드, 케톤, 알콜, 에테르, 유기산",
+        "slowDegradation": "할로겐화합물",
+        "towerType": "밀폐형 또는 개방형, 단일 또는 다수 탑"
+      },
+      "sourceSection": "6.6",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-P104-001",
+      "documentType": "WORK_PLAN",
+      "title": "환경오염물질 처리 관련 설비자료",
+      "requiredSections": [
+        "VOC 발생원 현황",
+        "VOC 처리설비 사양",
+        "처리공정 운전조건"
+      ],
+      "sourceSection": "1",
+      "relatedSR": null
+    }
+  ]
+}

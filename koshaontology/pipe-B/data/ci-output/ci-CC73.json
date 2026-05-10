@@ -1,0 +1,1648 @@
+{
+  "metadata": {
+    "guideCode": "C-C-73-2026",
+    "shortCode": "CC73",
+    "domain": "C",
+    "extractedAt": "2026-05-07T06:43:49Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-C-009"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC73-001",
+      "text": "공정위험성평가는 체크리스트(Check List)기법, 상대위험순위결정(Dow and Mond Indices, DMI)기법, 작업자실수분석(Human Error Analysis, HEA)기법, 사고예상질문분석(What-if)기법, 위험과 운전분석(Hazard and Operability Studies, HAZOP)기법, 이상위험도분석(Failure Modes Effects and Criticality Analysis, FMECA)기법, 결함수분석(Fault Tree Analysis, FTA)기법, 사건수분석(Event Tree Analysis, ETA)기법, 원인결과분석(Cause-Consequence Analysis, CCA)기법, 예비위험분석(Preliminary Hazard Analysis, PHA)기법, 공정위험분석(Process Hazard Review, PHR)기법, 공정안전성분석(KOSHA Process Safety Review, K-PSR)기법, 방호계층분석(Layer of Protection Analysis, LOPA)기법, 작업안전분석(Job Safety Analysis, JSA)기법 등을 적절히 활용하여야 한다.",
+      "guideContext": "정기적인 공정위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-002",
+      "text": "공정안전보고서에 공정위험성평가서 및 잠재위험에 대한 사고예방·피해 최소화 대책을 포함해야 한다. 공정위험성평가서는 공정의 특성 등을 고려하여 체크리스트(Check List), 상대위험순위 결정(Dow and Mond Indices), 작업자 실수 분석(HEA), 사고 예상 질문 분석(What-if), 위험과 운전 분석(HAZOP), 이상위험도 분석(FMECA), 결함 수 분석(FTA), 사건 수 분석(ETA), 원인결과 분석(CCA) 등의 위험성평가 기법 중 한 가지 이상을 선정하여 위험성평가를 한 후 그 결과에 따라 작성해야 하며, 사고예방·피해최소화 대책은 위험성평가 결과 잠재위험이 있다고 인정되는 경우에만 작성한다.",
+      "guideContext": "정기적인 공정위험성평가 (법령 근거 미확인)",
+      "additionalDetail": "산업안전보건법 시행규칙 제50조(공정안전보고서의 세부 내용 등) 인용",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-041",
+      "text": "공정, 설비, 절차 등이 변경되어 새로운 위험이 발생하였거나 기존 위험이 강화된 경우",
+      "guideContext": "정기적인 공정위험성평가 — 사업장 내부 및 외부 변화",
+      "additionalDetail": "정기적 평가의 유효성 재확인이 필요한 사유에 해당",
+      "workProcessPhase": "변화 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-042",
+      "text": "사업장 내부 또는 사업장 외부의 거주 상황 변경으로 위험 집단이 변경된 경우",
+      "guideContext": "정기적인 공정위험성평가 — 사업장 내부 및 외부 변화",
+      "additionalDetail": null,
+      "workProcessPhase": "변화 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-043",
+      "text": "기존 공정위험성평가에서 다루어지지 않은 시나리오로 실제 사고가 발생한 경우",
+      "guideContext": "정기적인 공정위험성평가 — 이전 평가 허점 및 결점",
+      "additionalDetail": null,
+      "workProcessPhase": "허점·결점 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-044",
+      "text": "이전 공정위험성평가에서 승인된 안전조치가 제거되었거나, 손상되었거나, 신뢰성이 떨어진 경우",
+      "guideContext": "정기적인 공정위험성평가 — 이전 평가 허점 및 결점",
+      "additionalDetail": null,
+      "workProcessPhase": "허점·결점 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-045",
+      "text": "이전 분석 팀이 구할 수 없었던 새로운 정보 및 기술을 파악하고 수집한 경우",
+      "guideContext": "정기적인 공정위험성평가 — 새로운 정보, 기술",
+      "additionalDetail": null,
+      "workProcessPhase": "신규 정보 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-046",
+      "text": "신규 정보로 잠재적 위험이 보다 상세히 파악되고 훨씬 심각한 결과를 초래할 수 있는 것으로 확인된 경우",
+      "guideContext": "정기적인 공정위험성평가 — 새로운 정보, 기술",
+      "additionalDetail": null,
+      "workProcessPhase": "신규 정보 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-047",
+      "text": "이전 분석 팀의 권고사항이 미해결된 경우 안전상 중요한 문제였다면 왜 시행되지 않았는지 파악할 수 있음",
+      "guideContext": "정기적인 공정위험성평가 — 미해결 권고사항",
+      "additionalDetail": null,
+      "workProcessPhase": "권고사항 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-048",
+      "text": "이전의 권고사항이 안전상 시급성을 요하는 문제가 아니라면 불필요한 사항으로 종결하는 등 이전 권고사항의 유효성을 다시 평가할 수 있음",
+      "guideContext": "정기적인 공정위험성평가 — 미해결 권고사항",
+      "additionalDetail": null,
+      "workProcessPhase": "권고사항 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-049",
+      "text": "사업장의 정책 변화, 내부 구성원 인식의 변화로 기존의 평가 기준인 위험의 허용 수준이 변화한 경우",
+      "guideContext": "정기적인 공정위험성평가 — 위험성 허용수준 변경",
+      "additionalDetail": null,
+      "workProcessPhase": "허용수준 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-050",
+      "text": "사업장 외부 이해관계자 등 사회 전반의 안전, 환경에 대한 인식 변화 및 법규강화 등으로 기존의 평가 기준인 위험의 허용 수준이 변화한 경우",
+      "guideContext": "정기적인 공정위험성평가 — 위험성 허용수준 변경",
+      "additionalDetail": null,
+      "workProcessPhase": "허용수준 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-051",
+      "text": "정기적 평가는 물리적, 분석적 범위를 명확하게 규정하고, 검토할 장비와 인력, 기록 등을 미리 확정하여 효율적인 자원 배분 및 사용이 이루어질 수 있도록 사전 준비를 철저히 해야 한다.",
+      "guideContext": "정기적인 공정위험성평가 — 수행방법 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정기적 평가 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-052",
+      "text": "단일 공정을 세분화하여 정기적 평가를 하거나, 분리된 공정을 합하여 정기적 평가를 할 수 있다.",
+      "guideContext": "정기적인 공정위험성평가 — 평가 범위 결정",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 범위 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-053",
+      "text": "통합한 어느 한 공정의 평가 주기가 정기적 평가 주기를 초과하지 않아야 한다.",
+      "guideContext": "정기적인 공정위험성평가 — 평가 범위 결정 (법령 근거 미확인)",
+      "additionalDetail": "공정 통합 시 개별 공정의 평가 주기 준수 필수",
+      "workProcessPhase": "평가 범위 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-054",
+      "text": "정기적 평가 팀원은 다음 방식의 장단점을 고려하여 사업장에서 구성한다.",
+      "guideContext": "정기적인 공정위험성평가 — 팀원 선정",
+      "additionalDetail": "기존 팀 활용, 새로운 팀 선정, 신규 및 이전 팀원 합산 방식 중 선택",
+      "workProcessPhase": "팀원 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-055",
+      "text": "정기적 평가 분석을 위한 자료 수집은 공정위험성평가가 실시되기 이전의 정보 이외에 이전에 다루어지지 않은 자료, 권고사항 등 아래에 열거한 정보가 수집되어야 한다.",
+      "guideContext": "정기적인 공정위험성평가 — 정보 수집 (법령 근거 미확인)",
+      "additionalDetail": "표 2에 열거된 25종 정보 항목 수집 필요",
+      "workProcessPhase": "정보 수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-056",
+      "text": "숙련된 경험 활용과 효율성 및 일관성을 유지하도록 기존 팀을 활용하는 방식",
+      "guideContext": "정기적인 공정위험성평가 — 팀원 선정 방식",
+      "additionalDetail": null,
+      "workProcessPhase": "팀원 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-057",
+      "text": "객관성 유지와 이전 분석 팀이 간과한 위험요소 발굴을 위해 새로운 팀을 선정하는 방식",
+      "guideContext": "정기적인 공정위험성평가 — 팀원 선정 방식",
+      "additionalDetail": null,
+      "workProcessPhase": "팀원 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-080",
+      "text": "지난 공정위험성평가 실시 이후의 업무 및 유지보수 기록을 대상으로 무작위 선정하여 검토한다.",
+      "guideContext": "정기적 평가 정보수집 - 유지보수 기록 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정보수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-081",
+      "text": "소프트웨어에서 키워드 검색을 실시하여 유지보수 업무의 유형을 확인하여 업무지시가 제대로 이루어졌는지 평가할 수 있다.",
+      "guideContext": "정기적 평가 정보수집 - 유지보수 기록",
+      "additionalDetail": null,
+      "workProcessPhase": "정보수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-082",
+      "text": "분석 대상 공정과 관련된 화학물질, 여분의 부품, 장비 등의 구매 내역을 무작위 검토하여 잠재적 문제가 존재하는지 확인한다.",
+      "guideContext": "정기적 평가 정보수집 - 구매 내역 및 기록 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정보수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-083",
+      "text": "공정안전관리(PSM) 자체 감사와 규제당국 등 제3자가 실시한 감사에 충분한 주의를 기울여야 한다.",
+      "guideContext": "정기적 평가 정보수집 - PSM 프로그램 감사 (법령 근거 미확인)",
+      "additionalDetail": "해당 자료는 세심하게 검토해야 할 PSM 프로그램 상의 요소가 무엇인지 파악하는데 도움이 된다.",
+      "workProcessPhase": "정보수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-084",
+      "text": "정기적 평가 시 효율적·생산적으로 업무를 진행할 수 있도록 관련 문서를 미리 검토하고, 사전에 적절히 정리하여 비용, 시간과 노력을 경제적으로 쓸 수 있도록 한다.",
+      "guideContext": "정기적 평가 유념사항 - 생산성 유지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "정보수집",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-085",
+      "text": "시설 위치 선정에 대하여 다음과 같은 주제로 체크리스트를 개발 활용한다.",
+      "guideContext": "정기적 평가 유념사항 - 시설 위치 선정 (법령 근거 미확인)",
+      "additionalDetail": "① 업무 단위별 배치도와 장비 사이 간격 ② 대량 유해물질의 보관 장소 ③ 제어실 및 기타 점유 건물(유지보수실, 연구소, 행정실 등) 위치와 구조 ④ 전동기 제어반과 기타 폭발위험지역 구분 ⑤ 기타 점화원이 있는 장소 ⑥ 사업장 및 사업장 밖의 지역과 관련이 있는 시설의 위치 ⑦ 소화용수의 주(main)시설 및 보충시설 위치 ⑧ 배수시설, 유출 유액부(Spill basins), 방유제, 하수관의 위치와 적합성 ⑨ 비상대비 시설(샤워시설, 호흡기, 개인보호장비 등)의 위치",
+      "workProcessPhase": "유념사항 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-086",
+      "text": "인적 요소에 대하여 다음과 같은 주제로 체크리스트를 개발 활용한다.",
+      "guideContext": "정기적 평가 유념사항 - 인적 요소 (법령 근거 미확인)",
+      "additionalDetail": "① 장비 식별 ② 제어장치 및 장비의 접근성/가용성 ③ 업무량과 스트레스 ④ 교육 ⑤ 업무절차 ⑥ 시설관리 ⑦ 토의 정리",
+      "workProcessPhase": "유념사항 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-087",
+      "text": "토의 정리는 인적 요소, 위치 선정, 과거발생 사고 등 논의되어야 할 사안에 대한 토의 내용을 검토하고 문서화함으로써 간과되거나 누락된 사항이 없는지 전반적으로 정리하여 공정위험성평가 정기적 평가가 회사의 요건이나 관련 법률에 맞게 진행되도록 할 수 있다.",
+      "guideContext": "정기적 평가 유념사항 - 인적 요소 토의 정리",
+      "additionalDetail": null,
+      "workProcessPhase": "유념사항 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-088",
+      "text": "규제 요건의 신실·개정 또는 산업 공통표준 신실·개정, 회사 정책의 개정, 업무 절차의 변경, 손실예방 목표 변경, 공정 위험 또는 위해 요소에 관한 신규 정보나 인식 확보, 사업장 외부의 환경 변화 등 내부 및 외부 요인의 중대성을 고려하여 정기적 평가 방법을 선택한다.",
+      "guideContext": "정기적 평가 방법 선정 - 내부 및 외부 영향 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-089",
+      "text": "내부 및 외부 변화의 횟수나 중대성이 경미한 수준인 경우, 이전 공정위험성평가를 부분 재실시한 후 갱신과 유효성 확인 단계를 진행할 수 있다.",
+      "guideContext": "정기적 평가 방법 선정 - 내부 및 외부 영향",
+      "additionalDetail": "반대로 다수의 중대한 변화가 발생한 경우에는 공정위험성평가 전면 재실시가 더 적절하다.",
+      "workProcessPhase": "평가 방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-090",
+      "text": "이전 공정위험성평가에서 발견된 허점이나 결점이 별로 없거나 경미한 내용인 경우 이전 공정위험성평가의 부분 재실시로 해결할 수 있다.",
+      "guideContext": "정기적 평가 방법 선정 - 이전 평가 품질과 완결성",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-091",
+      "text": "이전 공정위험성평가의 품질이나 완결성보다 중대한 문제가 발견되었다면 공정위험성평가를 전면 재실시해야 한다.",
+      "guideContext": "정기적 평가 방법 선정 - 이전 평가 품질과 완결성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-092",
+      "text": "분석 대상 공정과 장비에 발생한 변화의 빈도와 특성, 유사한 시설 및 공정에 대한 사고 이력 등을 파악한다.",
+      "guideContext": "정기적 평가 방법 선정 - 운전 경험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-093",
+      "text": "변경이나 사고의 횟수는 적으나 일부에 중대한 의미가 있는 경우, 부분 재실시·갱신·유효성 확인을 통해 반영할 수 있다.",
+      "guideContext": "정기적 평가 방법 선정 - 운전 경험",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-094",
+      "text": "MOC가 효과적으로 시행 및 문서화되고, 중대한 사고가 거의 또는 아예 발생하지 않는 등 위험 요소가 적절히 관리된 시설의 절차에 대해 양질의 공정위험성평가가 진행된 경우 갱신 및 유효성 확인을 적용한다.",
+      "guideContext": "정기적 평가 범위 - 갱신 및 유효성 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "갱신 및 유효성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-095",
+      "text": "갱신 및 유효성 확인 시 이전 공정위험성평가 문서의 섹션별 검토를 실시하여 공정위험성평가 보고서의 필요한 부분에 한하여 검토 수정한다.",
+      "guideContext": "정기적 평가 범위 - 갱신 및 유효성 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "갱신 및 유효성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-096",
+      "text": "갱신 및 유효성 확인 시 변경사항이 기존 사고 시나리오에 어떤 영향을 주는지 파악한다.",
+      "guideContext": "정기적 평가 범위 - 갱신 및 유효성 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "갱신 및 유효성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-097",
+      "text": "갱신 및 유효성 확인 시 새로운 시나리오의 추가 필요성을 판단한다.",
+      "guideContext": "정기적 평가 범위 - 갱신 및 유효성 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "갱신 및 유효성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-098",
+      "text": "갱신 및 유효성 확인 시 섹션단위가 아닌 보다 넓은 범위에서 변경사항과 사고의 중대성을 평가한다.",
+      "guideContext": "정기적 평가 범위 - 갱신 및 유효성 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "갱신 및 유효성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-099",
+      "text": "갱신 및 유효성 확인 시 논의 내용은 별도의 분석표나 워크시트에 기록한다.",
+      "guideContext": "정기적 평가 범위 - 갱신 및 유효성 확인 (법령 근거 미확인)",
+      "additionalDetail": "변경 및 사고 설명, 공정안전 영향, 위해관리 방안 또는 권고사항을 기록한다.",
+      "workProcessPhase": "갱신 및 유효성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-100",
+      "text": "부분 재실시 시 해당 허점이나 결점과 관련된 특정 문제를 확실하게 처리한다.",
+      "guideContext": "정기적 평가 범위 - 부분 재실시 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "부분 재실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-101",
+      "text": "부분 재실시 시 기존 공정위험성평가로부터 사고시나리오의 발생 가능한 결과를 순서대로 나열한다.",
+      "guideContext": "정기적 평가 범위 - 부분 재실시 (법령 근거 미확인)",
+      "additionalDetail": "그 외 다른 정량적 기술방안을 채택하여 영향 범위를 분석한다.",
+      "workProcessPhase": "부분 재실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-102",
+      "text": "전면 재실시는 이전 공정위험성평가 실시 방식에 허점이나 결점이 존재하는 경우, 분석 대상 공정·장비에 통제되지 않은 변화가 발생한 경우, 사고 또는 아차사고가 발생한 경우에 적용한다.",
+      "guideContext": "정기적 평가 범위 - 전면 재실시 (법령 근거 미확인)",
+      "additionalDetail": "순수한 평가업무량의 관점에서 전면 재실시를 선택하는 경우도 있다.",
+      "workProcessPhase": "전면 재실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-103",
+      "text": "전면 재실시 시 백지 상태에서 다시 평가를 수행한다.",
+      "guideContext": "정기적 평가 범위 - 전면 재실시 (법령 근거 미확인)",
+      "additionalDetail": "분석 대상 공정의 위험과 복잡성에 알맞은 분석법을 사용하며 이전 공정위험성평가 적용사항과 대체로 동일하게 적용한다.",
+      "workProcessPhase": "전면 재실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-104",
+      "text": "일정 횟수 이상 정기적 평가를 실시 후에는 전면 재실시를 고려한다.",
+      "guideContext": "정기적 평가 범위 - 전면 재실시",
+      "additionalDetail": null,
+      "workProcessPhase": "전면 재실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-105",
+      "text": "정기적 평가 실시를 위한 교육 시 공정 소개 및 현장 견학을 실시한다.",
+      "guideContext": "정기적 평가 팀원 교육 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팀원 교육",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.2.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-106",
+      "text": "정기적 평가 실시를 위한 교육 시 평가 목적 및 실시 과정을 설명한다.",
+      "guideContext": "정기적 평가 팀원 교육 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팀원 교육",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.2.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-107",
+      "text": "정기적 평가 실시를 위한 교육 시 정기적 평가 분석법으로 선정된 방법을 교육한다.",
+      "guideContext": "정기적 평가 팀원 교육 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팀원 교육",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.2.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-108",
+      "text": "정기적 평가 실시를 위한 교육 시 변경 기록 검토 요령을 교육한다.",
+      "guideContext": "정기적 평가 팀원 교육 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "팀원 교육",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6.2.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-109",
+      "text": "이전 공정위험성평가의 엄밀성을 평가하여 공정위험성평가가 충분히 엄격하게 실시되었는지 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 이전 평가 품질 평가 (법령 근거 미확인)",
+      "additionalDetail": "실제로 실시된 검토 수준과 해당 공정에서 나타난 위험의 복잡성이 명확하게 어긋나지 않는지, 공정의 화학적·제어·안전시스템·연속공정 측면의 복잡성, 공정에 내포된 위험의 심각성, 부정적 사고의 발생 가능 수준, 공정운전한계와의 근접도, 제어 방안과 안전조치의 세부성, 이전 평가 이후 사고·아차사고 사례 건수 등을 확인한다.",
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-110",
+      "text": "복잡하고 위험도가 높은 공정 또는 안전 한계에 가까운 공정은 일반적으로 보다 엄격한 공정위험성평가 기법이 적용되어야 하는데, 적절한 위험성평가 기법을 선정하여 활용하였는지 평가한다.",
+      "guideContext": "정기적 평가 검토항목 - 적용된 평가분석기법 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-111",
+      "text": "엔지니어링과 공정 운영에 전문적 지식을 갖춘 팀이 수행했는지, 평가 대상 공정에 관한 경험과 지식을 갖춘 직원이 최소 한 명 포함되었는지, 팀원 중 한 명은 분석에 사용되는 공정 위험성평가 방법에 숙련된 사람인지 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 팀 구성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-112",
+      "text": "공정위험성평가의 절차 마련 및 준수 여부, 해당 절차의 갱신이나 유효성 확인 여부, 권고사항의 해결 여부를 관리·확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 문서화 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-113",
+      "text": "회사 자체 기준이나 법적 기준의 준수 여부를 평가하고, 해당 기준이 기초 자료로 활용하기에 적절한지 평가한다.",
+      "guideContext": "정기적 평가 검토항목 - 결론도출 (법령 근거 미확인)",
+      "additionalDetail": "필수 기준 체크리스트 <별첨 1> 참조",
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-114",
+      "text": "이전 공정위험성평가의 품질과 완결성에 허점 또는 결점이 존재하는지 파악하여 평가한다.",
+      "guideContext": "정기적 평가 검토항목 - 품질 및 완결성 평가 (법령 근거 미확인)",
+      "additionalDetail": "공정의 위험성, 치명적 결과를 초래할 가능성이 있는 이전 사고 확인, 위험감지 방법의 적절성, 공학적·행정적 통제 조치, 통제 미이행 시 결과, 시설 위치 선정, 인적 요소, 근로자 통제 실패 시 영향 범위 정성적 평가 등을 고려한다.",
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-115",
+      "text": "조기경보 발령을 위한 위험감지 방법이 적절히 적용되는가 여부 등 위험 및 위험과 밀접한 관계가 있는 문제에 관한 공학적, 행정적 통제 조치를 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 품질 및 완결성 평가 (법령 근거 미확인)",
+      "additionalDetail": "공학적, 행정적 통제가 이루어지지 않은 경우 발생하는 결과도 평가한다.",
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-116",
+      "text": "업무 현장 내 근로자에 대한 통제가 실패할 경우 안전과 건강에 발생할 수 있는 영향의 범위에 대한 정성적 평가를 실시한다.",
+      "guideContext": "정기적 평가 검토항목 - 품질 및 완결성 평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-117",
+      "text": "공정위험성평가 품질 문제의 원인으로 평가 팀의 경험 부족, 팀원의 적절한 교육 미실시, 공정위험성평가 실시 전 준비 부족, 분석에 충분한 시간이 할당되지 않아 피상적인 평가가 이루어지는 경우 등을 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 일반적 문제 (법령 근거 미확인)",
+      "additionalDetail": "정기적 평가 시에도 품질 문제가 똑같이 발생할 수 있고, 그 원인도 동일할 가능성이 있으므로 같은 문제가 발생하지 않도록 <별첨 2>를 참조하여 평가한다.",
+      "workProcessPhase": "이전 평가 품질 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-118",
+      "text": "이전 공정위험성평가 이후 발생한 변경사항에 대해 통제된 변화와 통제되지 않은 변화 모두를 파악하는 방법에 대해 알아보고 고려하여 평가를 실시한다.",
+      "guideContext": "정기적 평가 검토항목 - 변경사항 평가 (법령 근거 미확인)",
+      "additionalDetail": "<별첨 3>의 변경유형의 예를 참고한다.",
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-119",
+      "text": "공정 변경을 파악하고 그와 관련된 정보를 수집하여 체계적으로 정리한다.",
+      "guideContext": "정기적 평가 검토항목 - 확인된 변경사항 기록 (법령 근거 미확인)",
+      "additionalDetail": "<별첨 4> 변경 요약표 예시를 참조한다.",
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-120",
+      "text": "공정이나 장비 식별번호 단위로 정리된 MOC 파일을 통해 문서화된 변경을 쉽게 파악할 수 있어야 한다.",
+      "guideContext": "정기적 평가 검토항목 - 변경요소관리 및 가동 전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-121",
+      "text": "자료의 내용을 검토하여 변경사항의 특성 및 안전과 관련된 잠재적 영향이 적절히 고려되었는지 확인해야 한다.",
+      "guideContext": "정기적 평가 검토항목 - 변경요소관리 및 가동 전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-122",
+      "text": "가동 전 안전점검 기록 검토는 변경요소관리 기록과 교차 점검하여 변경요소관리 검토 시 적절히 다루어지지 못한 변경을 찾는 수단으로 활용한다.",
+      "guideContext": "정기적 평가 검토항목 - 변경요소관리 및 가동 전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-123",
+      "text": "최신 도면과 이전 공정위험성평가에 사용된 도면의 개정 번호를 각각 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - P&ID 비교 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-124",
+      "text": "두 도면을 시각적으로 비교하여 신규 장비나 생산라인이 없는지 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - P&ID 비교 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-125",
+      "text": "이전 공정위험성평가 이후 마련된 도면의 모든 개정관에 대하여 각 변경의 특징과 관련 정보(MOC 기록 식별기준 등)를 문서화해야 한다.",
+      "guideContext": "정기적 평가 검토항목 - P&ID 비교 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-126",
+      "text": "P&ID에 포함된 변화가 모두 통제된 변화가 아닐 가능성이 있으므로, 도면상의 변경사항에 대해 관련 MOC, PSSR 등의 기록을 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - P&ID 비교 (법령 근거 미확인)",
+      "additionalDetail": "해당 기록을 확인할 수 없는 경우 그 사실을 문서로 남기고, 해당 변경사항은 정기적 평가 시 자세히 검토한다.",
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-127",
+      "text": "최신 운전 절차와 이전 공정위험성평가가 실시된 시점에 유효했던 운전 절차를 교차 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 절차검토 (법령 근거 미확인)",
+      "additionalDetail": "두 절차상의 변화가 MOC에서 다루어지지 않을 수 있으므로 MOC 기록과 교차 확인한다.",
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-128",
+      "text": "운전 절차 검토 시 정상 운전되는 연속공정뿐 아니라 시운전, 중단, 유지보수 등 비정례적이지만 중요한 운전이 누락되지 않도록 주의한다.",
+      "guideContext": "정기적 평가 검토항목 - 절차검토 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-129",
+      "text": "이전 공정위험성평가 보고서와 사고조사 보고서에서 권고된 사항의 시행 기록을 검토하고 MOC 기록과 비교한다.",
+      "guideContext": "정기적 평가 검토항목 - 권고사항 시행 기록 검토 (법령 근거 미확인)",
+      "additionalDetail": "권고사항의 시행에 관한 평가가 충분히 엄밀하게 이루어지지 않은 경우, 이를 별도로 표시하고 정기적 평가 시 상세히 검토한다.",
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-130",
+      "text": "문서화·통제되지 않은 변화로서 특정한 비정상적 상황 발생 시 시설 전체의 대응 역량 또는 대응 속도에 영향을 줄 수 있는 직원 변경 또는 핵심 인력의 변경을 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 통제되지 않은 변화 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-131",
+      "text": "운전 또는 유지보수 업무를 담당하던 사업장 직원을 계약업체 직원으로 대체한 경우를 통제되지 않은 변화로서 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 통제되지 않은 변화 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-132",
+      "text": "접유 목적의 신규 건축물 추가, 인근 시설 철거 또는 공정과 인접한 기존 건물의 이용자가 늘어나 기존 위치 선정의 검토 결과에 영향을 줄 가능성이 있는 경우를 통제되지 않은 변화로서 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 통제되지 않은 변화 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-133",
+      "text": "공정안전정보가 정확한지 확인(P&ID 유효성 확인 등)하고 파악되지 않은 변화를 평가팀원 및 관련 공정담당자의 면담을 통해 확인된 변경사항을 기록하고 차후 MOC 기록과 비교하여 문서화되지 않은 변화를 확인한다.",
+      "guideContext": "정기적 평가 검토항목 - 면담을 통한 변화 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "변경사항 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-141",
+      "text": "이전 공정위험성평가 보고서의 형식과 내용을 유사한 형태의 \"신규 보고서\"로 작성한다.",
+      "guideContext": "정기적 평가 문서화 (법령 근거 미확인)",
+      "additionalDetail": "공정위험성평가의 문서화 방식 중 첫 번째 방법",
+      "workProcessPhase": "정기적 평가 문서화",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-142",
+      "text": "이전 공정위험성평가 보고서나 작성이 완료된 변화관리 내역, 사고조사 보고서 등과 같은 개별적인 핵심 문서를 정기적 평가 시 활용된 워크시트나 체크리스트와 함께 하나로 종합한 후, 정기적 평가 결과 요약 보고서를 포함하여 통합한 \"기본 보고서\"를 작성한다.",
+      "guideContext": "정기적 평가 문서화 (법령 근거 미확인)",
+      "additionalDetail": "공정위험성평가의 문서화 방식 중 두 번째 방법",
+      "workProcessPhase": "정기적 평가 문서화",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-143",
+      "text": "정기적 평가로 도출된 권고사항의 시행, 관리할 내용을 문서화 한다.",
+      "guideContext": "권고사항 후속 점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "권고사항 후속 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-144",
+      "text": "완료해야 할 내용",
+      "guideContext": "권고사항 후속 점검 문서화 항목",
+      "additionalDetail": "정기적 평가로 도출된 권고사항의 시행, 관리할 내용 중 문서화해야 할 세부 항목",
+      "workProcessPhase": "권고사항 후속 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-145",
+      "text": "완료를 위한 추진 일정",
+      "guideContext": "권고사항 후속 점검 문서화 항목",
+      "additionalDetail": "정기적 평가로 도출된 권고사항의 시행, 관리할 내용 중 문서화해야 할 세부 항목",
+      "workProcessPhase": "권고사항 후속 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-146",
+      "text": "후속 점검을 담당할 책임자",
+      "guideContext": "권고사항 후속 점검 문서화 항목",
+      "additionalDetail": "정기적 평가로 도출된 권고사항의 시행, 관리할 내용 중 문서화해야 할 세부 항목",
+      "workProcessPhase": "권고사항 후속 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-147",
+      "text": "권고사항이 완결될 때까지 주기적으로 현황 보고서 작성",
+      "guideContext": "권고사항 후속 점검 문서화 항목",
+      "additionalDetail": "정기적 평가로 도출된 권고사항의 시행, 관리할 내용 중 문서화해야 할 세부 항목",
+      "workProcessPhase": "권고사항 후속 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-148",
+      "text": "권고사항의 해결 방법",
+      "guideContext": "권고사항 후속 점검 문서화 항목",
+      "additionalDetail": "정기적 평가로 도출된 권고사항의 시행, 관리할 내용 중 문서화해야 할 세부 항목",
+      "workProcessPhase": "권고사항 후속 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-149",
+      "text": "권고사항이 해결된 날짜",
+      "guideContext": "권고사항 후속 점검 문서화 항목",
+      "additionalDetail": "정기적 평가로 도출된 권고사항의 시행, 관리할 내용 중 문서화해야 할 세부 항목",
+      "workProcessPhase": "권고사항 후속 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-150",
+      "text": "권고 및 해결사항을 교육한 직원 명단",
+      "guideContext": "권고사항 후속 점검 문서화 항목",
+      "additionalDetail": "정기적 평가로 도출된 권고사항의 시행, 관리할 내용 중 문서화해야 할 세부 항목",
+      "workProcessPhase": "권고사항 후속 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-151",
+      "text": "공정위험성평가 리더/수행자의 자격요건이 회사와 규제 요건에 명시된 자격을 모두 충족하였나? 즉, 해당 리더/수행자가 이전 공정위험성평가의 분석법에 대한 적절한 교육을 받고 경력과 자격을 갖춘 사람인가?",
+      "guideContext": "필수 기준 체크리스트",
+      "additionalDetail": null,
+      "workProcessPhase": "정기적 평가 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "별첨 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-152",
+      "text": "공정위험성평가 팀 구성/자격요건이 회사와 규제요건에 명시된 자격을 모두 충족하였나? 구체적으로, 해당 팀은 최소한 아래 항목에 해당하였나? – 분석이 진행되는 동안 최소한의 대체인력이 확보되어 팀 구성이 안정적으로 유지됨 – 공정운영과 관련된 팀원(들)이 최근 해당 공정의 업무에 직접 참여하였고, 기타 공정과 장비에 관한 적절한 지식을 갖춤 – 해당 산업과 특정 공정에 관련 경험이 있는 엔지니어가 참여함",
+      "guideContext": "필수 기준 체크리스트",
+      "additionalDetail": null,
+      "workProcessPhase": "정기적 평가 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "별첨 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-153",
+      "text": "공정위험성평가 시 선택된 분석법은 분석 대상 공정의 복잡성을 고려할 때 적합한가? 즉, 선정된 공정위험성평가 분석법으로 해당 공정의 잠재적 위험을 모두 충분히 엄격하게 분석할 수 있었나?",
+      "guideContext": "필수 기준 체크리스트",
+      "additionalDetail": null,
+      "workProcessPhase": "정기적 평가 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-154",
+      "text": "공정위험성평가 시 선택된 분석법은 아래의 승인 분석법 중에서 선택되었나? 아니면 그에 상응하는 다른 분석법이 선택되었나? – 사고예상질문분석(What-if) – 체크리스트(Check List) – 사고예상질문/체크리스트(What-if/Check List) – 위험과 운전분석(HAZOP) – 이상위험도 분석(FMEA) – 결함수 분석(FTA)",
+      "guideContext": "필수 기준 체크리스트",
+      "additionalDetail": null,
+      "workProcessPhase": "정기적 평가 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-155",
+      "text": "공정위험성평가 문서는 적절히 마련되어 아래 요건을 충족하는가? 혹은 재조정 과정을 거쳐 적절한 문서가 될 수 있나? – 공정위험성평가 리더/수행자와 팀원의 자격요건 확인 – 공정위험성평가 팀 회의 날짜 명시 – 치명적인 피해로 이어질 수 있는 사고를 비롯해 과거에 발생한 사고를 공정위험성평가 팀이 검토하였다는 사실을 명시 – 분석 팀이 활용한 공정안전정보가 분석을 철저히 수행하기에 적합한 자료였음을 확인 – 일일 워크시트, 공학적, 행정적 통제 방안(안전조치)에 관한 의견, 통제 실패(그로 인한 영향)와 원인 등 공정위험성평가 팀이 발견한 사실을 검토 – 위치 선정에 관한 사항 확인 – 인적 요소에 관한 사항 확인 – 안전과 건강에 영향이 발생할 수 있는 범위를 파악하기 위한 정량적 평가가 시행되었음을 명시(위험 수준별 분류 또는 기타 다른 형태로 문서화)",
+      "guideContext": "필수 기준 체크리스트",
+      "additionalDetail": null,
+      "workProcessPhase": "정기적 평가 문서화",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "별첨 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-156",
+      "text": "팀 또는 평가 수행자의 전문 지식 결여",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-157",
+      "text": "공정안전정보 부족 (불완전하거나 정확하지 않은 P&ID를 활용 등)",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-158",
+      "text": "해당 공정과 관련된 위험을 모두 확인하거나 문서화하지 않음",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-159",
+      "text": "중대한 초기사고를 포착하지 못함",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-160",
+      "text": "모든 공정운전 상황이 다루어지지 않음 (시운전, 조업중단, 세정, 촉매 교환 등)",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-161",
+      "text": "검토구간에 대한 설명 누락",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-162",
+      "text": "분석 결과가 \"전체를 포괄하는\" 결론으로 이어지지 못함 ('용기 파열' 가능성과 그로 인한 결과를 고려하기보다는 '용기 내 고임'에서 중단)",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-163",
+      "text": "결과 평가 시 기존에 마련된 안전조치를 그대로 인정함",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-164",
+      "text": "빈도를 평가할 때 부적절한 안전조치를 제안함 (작업자의 개입을 조치로 제시하였으나, 실제 공정에서는 해당 문제가 작업자가 대응할 수 없을 만큼 빠른 속도로 진행됨)",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-165",
+      "text": "유효하지 않거나 무의미한 안전조치를 제안함",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-166",
+      "text": "면밀히 검토하지 않은 안전조치 (\"작업자 교육 및 지식 강화\"를 과도하게 제안하는 등)",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-167",
+      "text": "제어 시스템과 차단 시스템 사이에서 발생할 수 있는 공통형태고장(common mode failure)이 고려되지 못함",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-168",
+      "text": "위치 선정 또는 인적 요소 관련 문제가 고려되지 못함",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-169",
+      "text": "결과나 빈도를 과도하게 긍정적으로 추정하고 위험성을 과소평가함",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-170",
+      "text": "시나리오의 위험등급이 부적절함",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-171",
+      "text": "과거 사건을 충실하게 고려하지 않음",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-172",
+      "text": "분석 내용 전체를 문서화하지 않음 (심각한 시나리오만 문서화 등)",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-173",
+      "text": "권고사항이 지나치게 모호하거나 시행이 불가능한 내용임",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-174",
+      "text": "권고사항이 가능할 것 같지 않은 정도로 적음 (분석이 피상적으로 이루어졌을 가능성이 있음)",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC73-175",
+      "text": "문서가 적절히 마련되지 않음 (이전 팀이 채택한 분석법 설명 등)",
+      "guideContext": "주요 평가 사례 – 공정위험성평가 시 흔히 발생하는 결함 사례",
+      "additionalDetail": "정기적 평가 시 이 사항이 발생하지 않았는지 확인하여야 한다",
+      "workProcessPhase": "정기적 평가 검토",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "별첨 2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC73-001",
+      "term": "공정위험성평가",
+      "definition": "사업장 내에 존재하는 모든 위험을 확인·평가하는 산업안전보건법 제41조의2 위험성평가는 물론, 사업장 내에서 발생한 중대산업사고로 인하여 사업장 외부에 미치는 영향에 대한 위험성평가를 포괄한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-002",
+      "term": "정기적 평가",
+      "definition": "기존에 실시한 공정위험성평가가 일정기간이 경과한 현재 시점에서도 그대로 유효한지(사용할 수 있는지) 여부를 정기적으로 평가하는 것을 말한다. 사업장 내부 및 외부의 변화(변경) 정도를 고려하여 ① 전면 재실시(Redo), ② 부분 재실시(Retrofit), ③ 갱신 및 유효성 확인(Update & Revalidation)의 3가지 방법으로 실행된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-003",
+      "term": "갱신 및 유효성 확인(Update & Revalidation)",
+      "definition": "기존 공정위험성평가 이후 발생한 변화(변경)된 내용 및 새로 습득한 내용의 반영을 위해 수정만을 필요로 할 때 실시하는 것으로 평가 이후 사고나 큰 변경이 없었던 공정에 적용하는 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-004",
+      "term": "부분 재실시(Retrofit)",
+      "definition": "기존 공정위험성평가에서 해결 가능한 허점이나 결점이 한 가지 이상 발견되어 이를 해결하기 위해 정기적 평가 초기 단계에 실시하는 것으로 결점이 해결된 이후에는 갱신 및 유효성 확인의 방법으로 갱신 등 평가를 진행한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-005",
+      "term": "전면 재실시(Redo)",
+      "definition": "기존 공정위험성평가의 허점이나 결함, 평가 이후 발생한 사고 및 아차사고, 변경의 특성·빈도·규모가 커서 수정이 불가능한 경우 적용하는 것으로 백지상태에서 처음부터 다시 평가하는 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-006",
+      "term": "허점(Gaps)",
+      "definition": "분석의 누락을 말한다. 즉, 공정위험성평가를 해야 할 필요성이 있었으나 실제로 시행되지 못한 부분이 있는 경우를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-007",
+      "term": "결점(Deficiencies)",
+      "definition": "공정위험성평가 방법 선정 오류, 평가대상 요건을 완전히 파악하지 못했거나 평가가 잘못 수행된 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-008",
+      "term": "변경요소관리(Management Of Change, MOC)",
+      "definition": "사업장이 제조공정에서 취급하는 화학물질의 변경이나 제조공정의 변경, 장치 및 설비 등의 주요구조 변경 또는 각종 운전·작업 절차의 변경이 있을 경우에 관련 변경을 적절하게 검토·수행하도록 규정한 절차를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-009",
+      "term": "가동 전 안전검토(Pre-Startup Safety Review, PSSR)",
+      "definition": "사업장에서 새로운 설비를 설치하거나 공정 또는 설비 변경 후 설비를 재가동하기 전에 검토를 실시하여 안전하게 설비를 가동하는데 필요한 사항과 방법을 규정한 절차를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC73-010",
+      "term": "검토구간(Node)",
+      "definition": "장비의 경계가 되는 부분으로 공정 변수와의 편차를 파악하는 조사가 실시되는 부분을 말하며, 공정배관계장도(P&ID)상 검토구간 위치에 대해 공정 변수에 이긋나지 않는지 파악한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC73-11",
+      "processOrder": 1,
+      "processName": "정기적 평가 범위 결정",
+      "safetyMeasures": "이전 공정위험성평가와 동일할 필요 없이 단일 공정 세분화 또는 분리 공정 통합 가능하나, 통합 시 개별 공정의 평가 주기가 정기적 평가 주기를 초과하지 않아야 한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-12",
+      "processOrder": 2,
+      "processName": "정기적 평가 팀원 선정",
+      "safetyMeasures": "기존 팀 활용(경험·일관성), 새로운 팀 선정(객관성·미발견 위험 발굴), 신규 및 이전 팀원 합산 방식의 장단점을 고려하여 사업장에서 구성한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-13",
+      "processOrder": 3,
+      "processName": "정기적 평가 일정 및 자원 관리",
+      "safetyMeasures": "이전 공정위험성평가의 품질과 완결성, 이후 발생한 정보의 가용성, 문서화되지 않은 변경 사항의 양, 변경관리(MOC) 및 가동 전 안전검토(PSSR) 프로그램의 품질을 고려하여 소요시간을 결정한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-14",
+      "processOrder": 4,
+      "processName": "정기적 평가를 위한 필요한 정보 수집",
+      "safetyMeasures": "이전 공정위험성평가 보고서, 권고사항 완료 보고서, 변경요소관리(MOC) 및 가동 전 안전검토(PSSR) 문서, 사고·아차사고 보고서, 공정배관계장도(P&ID), 안전시스템 사양·기능 점검 기록, 기계적 완결성 정보, 법규 개정 정보 등 25종 정보를 수집하여야 한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-21",
+      "processOrder": 5,
+      "processName": "정기적 평가 정보수집",
+      "safetyMeasures": "유지보수 기록 무작위 선정 검토, 키워드 검색을 통한 유지보수 업무 유형 확인, 구매 내역 무작위 검토, PSM 자체 감사 및 제3자 감사 자료 검토",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-22",
+      "processOrder": 6,
+      "processName": "정기적 평가 유념사항 검토",
+      "safetyMeasures": "생산성 유지를 위한 관련 문서 사전 검토·정리, 시설 위치 선정 체크리스트 개발·활용(배치도, 유해물질 보관, 제어실 위치, 폭발위험지역, 점화원, 소화용수, 배수시설, 비상대비시설 등), 인적 요소 체크리스트 개발·활용(장비 식별, 접근성, 업무량, 교육, 업무절차, 시설관리, 토의 정리)",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-23",
+      "processOrder": 7,
+      "processName": "정기적 평가 방법 선정",
+      "safetyMeasures": "내부 및 외부 영향(규제 요건 개정, 정책 변경, 환경 변화 등)의 중대성 고려, 이전 공정위험성평가의 품질과 완결성 확인, 운전 경험(변화 빈도·특성, 사고 이력) 파악을 통해 갱신·부분 재실시·전면 재실시 중 적절한 방법 선정",
+      "requiredPPE": [],
+      "sourceSection": "6.2.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-24",
+      "processOrder": 8,
+      "processName": "갱신 및 유효성 확인(Update & Revalidation) 수행",
+      "safetyMeasures": "이전 평가 문서 섹션별 검토, 필요한 부분에 한하여 수정, 변경사항이 기존 사고 시나리오에 미치는 영향 파악, 새로운 시나리오 추가 필요성 판단, 검토 작업표 등 보충자료 활용, 논의 내용 별도 분석표나 워크시트에 기록",
+      "requiredPPE": [],
+      "sourceSection": "6.2.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-25",
+      "processOrder": 9,
+      "processName": "부분 재실시(Retrofit) 수행",
+      "safetyMeasures": "허점이나 결점과 관련된 특정 문제 확실하게 처리, 이전 평가 문서 섹션별 검토, 사고시나리오의 발생 가능한 결과 순서대로 나열, 정량적 기술방안 채택하여 영향 범위 분석, 결점 해결 후 갱신 및 유효성 확인 단계로 진행",
+      "requiredPPE": [],
+      "sourceSection": "6.2.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-26",
+      "processOrder": 10,
+      "processName": "전면 재실시(Redo) 수행",
+      "safetyMeasures": "백지 상태에서 다시 평가 수행, 공정의 위험과 복잡성에 알맞은 분석법 사용, 이전 평가 적용사항과 대체로 동일하게 적용, 일정 횟수 이상 정기적 평가 후에는 전면 재실시 고려",
+      "requiredPPE": [],
+      "sourceSection": "6.2.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-27",
+      "processOrder": 11,
+      "processName": "정기적 평가 팀원 교육",
+      "safetyMeasures": "공정 소개 및 현장 견학 실시, 평가 목적 및 실시 과정 설명, 정기적 평가 분석법으로 선정된 방법 교육, 변경 기록 검토 요령 교육",
+      "requiredPPE": [],
+      "sourceSection": "6.2.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-28",
+      "processOrder": 12,
+      "processName": "이전 공정위험성평가에 대한 품질 평가",
+      "safetyMeasures": "엄밀성 평가(검토 수준과 위험 복잡성 정합성), 적용된 평가분석기법 적절성 평가, 팀 구성 적절성 평가, 문서화 절차 준수 여부 확인, 회사·법적 기준 준수 여부 평가, 품질 및 완결성 허점·결점 파악, 공학적·행정적 통제 조치 확인, 인적 요소 평가",
+      "requiredPPE": [],
+      "sourceSection": "6.2.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-29",
+      "processOrder": 13,
+      "processName": "변경사항 평가",
+      "safetyMeasures": "MOC 파일 통한 문서화된 변경 파악, 가동 전 안전점검 기록과 MOC 기록 교차 점검, P&ID 비교(최신 도면과 이전 도면), 운전 절차 교차 확인, 권고사항 시행 기록 검토, 통제되지 않은 변화(인력 변경, 계약업체 대체, 시설 변화 등) 확인, 면담을 통한 미파악 변화 확인",
+      "requiredPPE": [],
+      "sourceSection": "6.2.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-36",
+      "processOrder": 14,
+      "processName": "정기적 평가 문서화 – 신규 보고서 작성",
+      "safetyMeasures": "이전 공정위험성평가 보고서의 형식과 내용을 유사한 형태의 신규 보고서로 작성한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-37",
+      "processOrder": 15,
+      "processName": "정기적 평가 문서화 – 기본 보고서 작성",
+      "safetyMeasures": "이전 공정위험성평가 보고서나 변화관리 내역, 사고조사 보고서 등 핵심 문서를 워크시트·체크리스트와 종합하고 정기적 평가 결과 요약 보고서를 포함하여 기본 보고서를 작성한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-38",
+      "processOrder": 16,
+      "processName": "권고사항 후속 점검 및 문서화",
+      "safetyMeasures": "정기적 평가로 도출된 권고사항의 시행·관리할 내용을 문서화한다. 완료해야 할 내용, 추진 일정, 책임자, 주기적 현황 보고서, 해결 방법, 해결 날짜, 교육 직원 명단을 포함한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-39",
+      "processOrder": 17,
+      "processName": "필수 기준 체크리스트 검토",
+      "safetyMeasures": "리더/수행자 자격요건, 팀 구성 요건, 분석법 적합성, 승인 분석법 준수 여부, 문서 요건 충족 여부를 체크리스트로 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "별첨 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-40",
+      "processOrder": 18,
+      "processName": "주요 평가 사례 기반 품질 검토",
+      "safetyMeasures": "전문 지식 결여, 공정안전정보 부족, 위험 누락, 부적절한 안전조치, 문서화 미비 등 20개 주요 결함 사례에 해당하는 문제가 없는지 검토한다.",
+      "requiredPPE": [],
+      "sourceSection": "별첨 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC73-41",
+      "processOrder": 19,
+      "processName": "변경유형 확인 및 반영",
+      "safetyMeasures": "하드웨어, 제어 시스템, 안전 시스템, 기술, 사업장 지역, 운전, 관리 시스템, 기타 항목의 변경사례를 확인하여 정기적 평가에 반영한다.",
+      "requiredPPE": [],
+      "sourceSection": "별첨 3",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC73-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정위험성평가서",
+      "requiredSections": [
+        "공정위험성평가 기법 선정",
+        "잠재위험 확인·평가 결과",
+        "사고예방·피해 최소화 대책"
+      ],
+      "sourceSection": "4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-011",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "이전 공정위험성평가 보고서",
+      "requiredSections": [
+        "평가 결과",
+        "권고사항",
+        "검토구간 정보"
+      ],
+      "sourceSection": "6.1.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-012",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "이전 공정위험성평가 보고서의 권고사항에 대한 완료 보고서",
+      "requiredSections": [
+        "권고사항 이행 현황",
+        "완료 여부"
+      ],
+      "sourceSection": "6.1.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-013",
+      "documentType": "INCIDENT_REPORT",
+      "title": "사고 또는 아차사고 보고서",
+      "requiredSections": [
+        "사고 경위",
+        "원인 분석",
+        "재발방지 대책"
+      ],
+      "sourceSection": "6.1.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-014",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "변경요소관리(MOC) 및 가동 전 안전검토(PSSR) 문서",
+      "requiredSections": [
+        "변경 내용",
+        "안전검토 결과",
+        "승인 이력"
+      ],
+      "sourceSection": "6.1.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-021",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "필수 기준 체크리스트",
+      "requiredSections": [
+        "공정위험성평가 엄밀성",
+        "적용된 평가분석기법",
+        "팀 구성",
+        "문서화",
+        "결론도출"
+      ],
+      "sourceSection": "6.2.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-022",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "품질 문제 평가 체크리스트",
+      "requiredSections": [
+        "평가 팀 경험",
+        "팀원 교육 실시 여부",
+        "사전 준비 충분성",
+        "분석 시간 할당 적절성"
+      ],
+      "sourceSection": "6.2.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-023",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "변경 요약표",
+      "requiredSections": [
+        "변경 식별",
+        "변경 내용",
+        "공정안전 영향",
+        "위해관리 방안"
+      ],
+      "sourceSection": "6.2.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-024",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "갱신 및 유효성 확인 분석표/워크시트",
+      "requiredSections": [
+        "변경 및 사고 설명",
+        "공정안전 영향",
+        "위해관리 방안 또는 권고사항"
+      ],
+      "sourceSection": "6.2.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-025",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "시설 위치 선정 체크리스트",
+      "requiredSections": [
+        "배치도 및 장비 간격",
+        "유해물질 보관 장소",
+        "제어실 및 점유 건물 위치",
+        "폭발위험지역 구분",
+        "점화원 장소",
+        "소화용수 시설 위치",
+        "배수시설 위치",
+        "비상대비 시설 위치"
+      ],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-026",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "인적 요소 체크리스트",
+      "requiredSections": [
+        "장비 식별",
+        "제어장치 접근성",
+        "업무량과 스트레스",
+        "교육",
+        "업무절차",
+        "시설관리",
+        "토의 정리"
+      ],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-036",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정위험성평가 신규 보고서",
+      "requiredSections": [
+        "이전 공정위험성평가 보고서 형식 준용",
+        "정기적 평가 결과"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-037",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정위험성평가 기본 보고서 (통합 보고서)",
+      "requiredSections": [
+        "이전 공정위험성평가 보고서",
+        "변화관리 내역",
+        "사고조사 보고서",
+        "워크시트",
+        "체크리스트",
+        "정기적 평가 결과 요약 보고서"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-038",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "권고사항 후속 점검 현황 보고서",
+      "requiredSections": [
+        "완료해야 할 내용",
+        "추진 일정",
+        "후속 점검 책임자",
+        "주기적 현황 보고",
+        "해결 방법",
+        "해결 날짜",
+        "교육 직원 명단"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC73-039",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "필수 기준 체크리스트",
+      "requiredSections": [
+        "리더/수행자 자격요건 충족 확인",
+        "팀 구성/자격요건 충족 확인",
+        "분석법 적합성 확인",
+        "승인 분석법 선택 여부",
+        "문서 요건 충족 확인"
+      ],
+      "sourceSection": "별첨 1",
+      "relatedSR": null
+    }
+  ]
+}

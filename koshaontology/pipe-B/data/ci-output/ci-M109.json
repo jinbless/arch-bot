@@ -1,0 +1,292 @@
+{
+  "metadata": {
+    "guideCode": "M-109-2012",
+    "shortCode": "M109",
+    "domain": "B",
+    "extractedAt": "2026-04-22T06:01:37Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-B-015"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-M109-001",
+      "text": "사용중인 용기에 대한 최고허용압력은 노동부 고시 \"압력용기 제작기준·안전기준 및 검사기준\" 또는 미국기계학회 코드(ASME code section Ⅷ Div.1) 최신판의 요구 조건에 따라 결정되어야 한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최고허용압력 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-002",
+      "text": "부식이 예상되는 조건에서 사용되는 압력용기의 두께는 실제측정두께에서 차기 검사일까지 예상되는 부식량(두께)의 2배를 빼서 구하여야 한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "두께 산출",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M109-003",
+      "text": "용기에 부가되는 하중의 허용은 ASME code section Ⅷ Div.1의 요구조건에 따라야 한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최고허용압력 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-004",
+      "text": "부식율이 부적절하게 예측되었다는 것이 관명되는 경우에는, 실제 파악된 부식율을 바탕으로 예측된 부식율을 증가 또는 감소시켜야 한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "부식율 결정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M109-005",
+      "text": "용기의 내부 또는 가동중 검사의 최대 주기는 예상되는 잔존수명의 1/2 또는 10년을 초과할 수 없으며, 둘 중 짧은 것을 택한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가 (법령 근거 미확인)",
+      "additionalDetail": "잔존수명이 4년 이하로 예상되는 경우에는 잔존수명의 1/2을 검사주기로 정할 수 있으나 최대 2년을 초과할 수는 없다.",
+      "workProcessPhase": "검사주기 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-006",
+      "text": "잔존수명 계산시에는 잔존수명에 영향을 미치는 인자들이 매우 다양함으로 이러한 인자들을 반영하여야 한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가 (법령 근거 미확인)",
+      "additionalDetail": "잔존수명(년) = (실제측정두께 - 요구두께) / 부식율(mm/년)",
+      "workProcessPhase": "검사주기 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-007",
+      "text": "부식율이 0.025mm/년 이하인 용기의 내부검사는 운전중 검사로 대체할 수 있다. 다만, 이때에는 정기적으로 완전한 외부검사(비파괴시험 등에 의한 두께측정 포함)가 수행되었을 경우에 한한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가",
+      "additionalDetail": "취급 내용물이 부식성이 없고, 외부 검사시 문제점 미발견, 운전온도가 크리프 파괴온도 한계 미초과, 오염 우려 없는 경우에 해당",
+      "workProcessPhase": "검사주기 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-008",
+      "text": "비파괴시험에 의하여 두께를 측정한다. 다만, 비파괴시험은 <표 1>의 허용공차를 만족하여야 한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가 (법령 근거 미확인)",
+      "additionalDetail": "두께 8mm 미만: 허용공차 0.10t, 두께 8mm 이상: 0.8mm 또는 0.05t 중 큰 것",
+      "workProcessPhase": "두께 측정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-009",
+      "text": "부식 깊이는 부식이 되지 않은 용기의 표면을 기준으로 산정한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "부식 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M109-010",
+      "text": "용기의 설계시 적용한 용접효율을 반영하여 두께를 계산하여야 한다. 다만, 모재부의 계산두께 산출시에는 용접효율을 고려하지 않는다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "두께 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-011",
+      "text": "점부식의 깊이가 용기의 최소두께에서 부식 여유를 제외한 두께의 1/2 이하인 경우, 직경 20cm 원내에서 점부식의 면적이 45㎠를 초과하지 않는 경우, 직경 20cm 원내에서 직선상에 있는 점부식 크기의 합이 5cm를 초과하지 않는 경우에는 점부식을 무시하고 두께를 구할 수 있다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "부식 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-012",
+      "text": "실제측정두께가 계산두께보다 얇은 경우, 용기가 사용되고 있는 압력조건을 견딜 수 있는지 여부를 판단하기 위하여 실제측정두께의 값을 이용하여 최고허용압력을 구하여 새로운 용기로 교체하거나 운전압력을 낮추는 등의 운전조건을 변경하여 안전하게 사용하여야 한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가 (법령 근거 미확인)",
+      "additionalDetail": "내압을 받는 원통형 동체 및 경관의 최고허용압력은 검사기준 제13조(동체) 및 제14조(경관, 관관 및 덮개판)에 따라 계산한다.",
+      "workProcessPhase": "위험성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M109-013",
+      "text": "실제측정두께가 계산두께와 최소두께 사이의 값을 갖는 경우, 즉 부식여유가 일부 감소된 경우에는 실제측정두께를 이용하여 부식율과 예상 잔존수명을 감안하여 최고사용압력을 구한다.",
+      "guideContext": "압력용기의 두께감소에 따른 위험성 평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-M109-001",
+      "term": "최고허용압력",
+      "definition": "압력용기의 제작 두께(부식유여는 제외한다.)를 기준으로 하여 계산된 허용가능한 최고의 압력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M109-002",
+      "term": "최소두께",
+      "definition": "온도, 압력 및 모든 하중을 감안한 계산두께에 부식여유를 더한 두께를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M109-003",
+      "term": "실제측정두께",
+      "definition": "두께를 구하고자 하는 해당 부위에 대하여 측정한 두께를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M109-004",
+      "term": "요구두께",
+      "definition": "해당 부위에 대한 계산두께를 말한다. 다만, 규정상 최소한의 두께가 정해진 경우에는 그 두께를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-M109-01",
+      "processOrder": 1,
+      "processName": "부식율 결정",
+      "safetyMeasures": "동일 또는 유사 조건에서 운전되는 용기로부터 수집한 데이터를 이용하여 부식율 산출. 데이터 불가 시 소유주 경험·지식 기반 산출. 그래도 불가 시 부식 감시기구 사용 또는 비파괴시험으로 주기적 두께 측정하여 가동 약 1,000시간 경과 시점에서 부식율 산출.",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "WP-M109-02",
+      "processOrder": 2,
+      "processName": "자율적 검사주기 결정",
+      "safetyMeasures": "검사 최대 주기는 잔존수명의 1/2 또는 10년 중 짧은 것 이내. 잔존수명 4년 이하 시 최대 2년. 잔존수명(년) = (실제측정두께 - 요구두께) / 부식율(mm/년) 산식 적용. 검사 시 별지 제1호 서식 활용 가능.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M109-03",
+      "processOrder": 3,
+      "processName": "두께 측정 및 부식 평가",
+      "safetyMeasures": "비파괴시험에 의해 두께 측정. 허용공차: 8mm 미만은 0.10t, 8mm 이상은 0.8mm 또는 0.05t 중 큰 것. 개구부가 있는 경우 개구부를 이용하여 측정. 비파괴시험 불가 시 관통 홀을 뚫어 측정 가능. 부식 깊이는 부식되지 않은 표면 기준 산정.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "WP-M109-04",
+      "processOrder": 4,
+      "processName": "실제측정두께 확인",
+      "safetyMeasures": "두께가 가장 많이 감소된 부위를 측정하여 실제측정두께를 구한다.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M109-05",
+      "processOrder": 5,
+      "processName": "동체 및 경관 두께 계산",
+      "safetyMeasures": "검사기준 제13조(동체) 및 제14조(경관, 관관 및 덮개판)에 따라 동체 및 경관의 두께를 구한다. 부식여유를 감안한 요구두께를 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M109-06",
+      "processOrder": 6,
+      "processName": "부식율 결정 및 두께 비교 평가",
+      "safetyMeasures": "제작두께와 실제측정두께의 차를 바탕으로 부식율 결정. 실제측정두께가 계산두께보다 얇은 경우 최고허용압력을 구하여 용기 교체 또는 운전조건 변경. 실제측정두께가 계산두께와 최소두께 사이인 경우 부식율과 잔존수명을 감안하여 최고사용압력 산출.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-M109-001",
+      "equipmentName": "압력용기 (탑조, 용기, 열교환기)",
+      "specifications": {
+        "minOperatingPressure": "1.96N/cm²G (0.2kgf/cm²G) 이상",
+        "maxOperatingTemperature": "350℃ 이하",
+        "designCode": "ASME code section Ⅷ Div.1 또는 노동부 고시 검사기준"
+      },
+      "sourceSection": "2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M109-002",
+      "equipmentName": "비파괴시험 장비 (두께 측정용)",
+      "specifications": {
+        "toleranceUnder8mm": "0.10t (두께 8mm 미만)",
+        "toleranceOver8mm": "0.8mm 또는 0.05t 중 큰 것 (두께 8mm 이상)"
+      },
+      "sourceSection": "7",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-M109-001",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "압력용기 검사기록 서식",
+      "requiredSections": [
+        "개요 (공정명, 용기번호, 위치, 안지름, 제조자 등)",
+        "설계 정보 (설계코드, 설계온도, 설계압력, 최대허용압력)",
+        "안전장치 정보 (안전밸브 설정압력, 용접효율, 부식여유)",
+        "두께 측정 기록표 (위치번호, 원래두께, 최소요구두께, 실제측정두께)",
+        "지적사항 (지적위치 기술, 방법, 검사자)"
+      ],
+      "sourceSection": "별지 제1호",
+      "relatedSR": null
+    }
+  ]
+}

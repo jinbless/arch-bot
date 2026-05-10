@@ -1,0 +1,816 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T00:00:00+09:00",
+    "batchId": "sr-batch-HAZMAT-01",
+    "totalSafetyRequirements": 20
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-HAZMAT-001",
+      "title": "허가대상 유해물질 제조·사용 설비기준 준수",
+      "text": "사업주는 허가대상 유해물질(베릴륨 및 석면 제외)을 제조하거나 사용하는 경우 작업장소 격리, 바닥·벽 불침투성 재료 사용, 원재료 공급·이송 시 신체 접촉 방지, 반응조 밀폐, 밀폐 상태 점검 구조, 분말 상태 물질 습기 사용 등의 설비기준을 준수하고, 유해물질의 가스·증기 또는 분진의 발산원을 밀폐하는 설비나 포위식·부스식 후드의 국소배기장치를 설치하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제453조"],
+      "mandatedBy": ["NS-RULE453-0", "NS-RULE453-1"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-002",
+      "title": "국소배기장치 제어풍속 성능기준",
+      "text": "사업주는 허가대상 유해물질 제조·사용 시 설치하는 국소배기장치의 성능이 물질의 상태에 따라 가스상태 0.5m/s 이상, 입자상태 1.0m/s 이상의 제어풍속을 확보하도록 하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제454조"],
+      "mandatedBy": ["NS-RULE454-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "제어풍속(가스상태)",
+            "condition": ">=",
+            "value": 0.5,
+            "unit": "m/s",
+            "source": "제454조 본문"
+          },
+          {
+            "parameter": "제어풍속(입자상태)",
+            "condition": ">=",
+            "value": 1.0,
+            "unit": "m/s",
+            "source": "제454조 본문"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-003",
+      "title": "허가대상 유해물질 배출액 처리",
+      "text": "사업주는 허가대상 유해물질의 제조·사용 설비로부터 오염물이 배출되는 경우 근로자의 건강장해를 예방할 수 있도록 배출액을 중화·침전·여과 또는 그 밖의 적절한 방식으로 처리하여야 한다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제455조"],
+      "mandatedBy": ["NS-RULE455-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-004",
+      "title": "국소배기장치 사용 전 점검 및 기록 보존",
+      "text": "사업주는 국소배기장치를 설치 후 처음 사용하거나 분해·개조·수리 후 처음 사용하는 경우 덕트·배풍기 분진상태, 접속부 헐거움 여부, 흡배기 능력 등 성능 유지에 필요한 사항을 사용 전에 점검하고, 이상 발견 시 즉시 청소·보수 등 필요한 조치를 하며, 점검 기록을 보존하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제456조"],
+      "mandatedBy": ["NS-RULE456-0", "NS-RULE456-1", "NS-RULE456-2"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-005",
+      "title": "허가대상 유해물질 작업장 출입금지 및 표지 게시",
+      "text": "사업주는 허가대상 유해물질을 제조하거나 사용하는 작업장에 관계 근로자 외 출입을 금지하고 출입구에 법정 표지를 게시하여야 하며, 석면 작업장에는 별도 표지(일람표 번호 502)를 부착하여야 한다. 또한 유해물질 및 오염된 물질은 지정 장소에 저장·폐기하고 해당 장소의 출입을 제한하며 내용을 게시하여야 한다. 근로자는 출입이 금지된 장소에 사업주의 허락 없이 출입해서는 아니 된다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제457조"],
+      "mandatedBy": ["NS-RULE457-0", "NS-RULE457-1", "NS-RULE457-2", "NS-RULE457-3"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-006",
+      "title": "허가대상 유해물질 작업장 흡연·음식물 섭취 금지",
+      "text": "사업주는 허가대상 유해물질을 제조하거나 사용하는 작업장에서 근로자가 흡연하거나 음식물을 섭취하지 않도록 조치하고 그 내용을 보기 쉬운 장소에 게시하여야 한다. 근로자는 흡연 또는 음식물 섭취가 금지된 장소에서 이를 해서는 아니 된다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제458조"],
+      "mandatedBy": ["NS-RULE458-0", "NS-RULE458-1"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-007",
+      "title": "허가대상 유해물질 명칭·유해성 등 게시",
+      "text": "사업주는 허가대상 유해물질을 제조하거나 사용하는 작업장에 해당 물질의 명칭, 인체에 미치는 영향, 취급상의 주의사항, 착용하여야 할 보호구, 응급처치와 긴급 방재 요령을 보기 쉬운 장소에 게시하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제459조"],
+      "mandatedBy": ["NS-RULE459-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-008",
+      "title": "허가대상 유해물질 유해성·취급방법 근로자 주지",
+      "text": "사업주는 근로자가 허가대상 유해물질을 제조하거나 사용하는 경우 물리적·화학적 특성, 발암성 등 인체에 미치는 영향과 증상, 취급상의 주의사항, 착용하여야 할 보호구와 착용방법, 위급상황 시의 대처방법과 응급조치 요령, 그 밖에 건강장해 예방에 관한 사항을 근로자에게 알려야 한다.",
+      "requirementType": "TRAINING",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제460조"],
+      "mandatedBy": ["NS-RULE460-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-009",
+      "title": "허가대상 유해물질 운반·저장 용기 및 표시 관리",
+      "text": "사업주는 허가대상 유해물질을 운반하거나 저장하는 경우 누출 우려가 없는 견고한 용기를 사용하거나 단단하게 포장하고, 용기·포장의 보기 쉬운 위치에 물질 명칭과 취급 주의사항을 표시하여야 한다. 유해물질은 지정 장소에 보관하고, 사용한 용기·포장은 밀폐하거나 실외 지정 장소에 보관하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제461조"],
+      "mandatedBy": ["NS-RULE461-0", "NS-RULE461-1", "NS-RULE461-2", "NS-RULE461-3"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-010",
+      "title": "허가대상 유해물질 제조·사용 작업수칙 수립·주지",
+      "text": "사업주는 근로자가 허가대상 유해물질(베릴륨 및 석면 제외)을 제조·사용하는 경우 밸브·콕 조작, 냉각·가열·교반·압축장치 조작, 계측·제어장치 감시·조정, 안전장치 조정, 접합부 누출 점검, 시료 채취 및 기구 처리, 이상 상황 응급조치, 보호구 사용·점검·보관·청소, 용기 투입 작업, 누출 방지 조치에 관한 작업수칙을 정하고 해당 작업근로자에게 알려야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제462조"],
+      "mandatedBy": ["NS-RULE462-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-011",
+      "title": "허가대상 유해물질 보관 장소 잠금장치 설치",
+      "text": "사업주는 허가대상 유해물질이 보관된 장소에 잠금장치를 설치하는 등 관계근로자가 아닌 사람이 임의로 출입할 수 없도록 적절한 출입통제 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제463조"],
+      "mandatedBy": ["NS-RULE463-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-012",
+      "title": "허가대상 유해물질 작업장 목욕·탈의 시설 설치",
+      "text": "사업주는 허가대상 유해물질을 제조·사용하는 경우 작업장소와 격리된 장소에 평상복 탈의실, 목욕실 및 작업복 탈의실을 입구→평상복 탈의실→목욕실→작업복 탈의실→출구 순서로 설치하고 필요한 용품·용구를 갖추어야 한다. 또한 취급근로자가 착용한 작업복·보호구는 오염 방지 장소에서 벗도록 하고 세탁 등 오염 제거 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제464조"],
+      "mandatedBy": ["NS-RULE464-0", "NS-RULE464-1", "NS-RULE464-2"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-013",
+      "title": "허가대상 유해물질 작업장 긴급 세척시설·세안설비 설치",
+      "text": "사업주는 허가대상 유해물질을 제조·사용하는 작업장에 근로자가 쉽게 사용할 수 있도록 긴급 세척시설과 세안설비를 설치하고, 사용 시 배관 찌꺼기와 녹물 등이 나오지 않고 맑은 물이 나올 수 있도록 유지하여야 한다.",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제465조"],
+      "mandatedBy": ["NS-RULE465-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-014",
+      "title": "허가대상 유해물질 누출 시 즉시 제거 조치",
+      "text": "사업주는 허가대상 유해물질을 제조·사용하는 작업장에서 해당 물질이 누출된 경우 즉시 해당 물질이 흩날리지 않는 방법으로 제거하는 등 필요한 조치를 하여야 한다.",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제466조"],
+      "mandatedBy": ["NS-RULE466-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-015",
+      "title": "허가대상 유해물질 시료 채취 시 준수사항",
+      "text": "사업주는 허가대상 유해물질(베릴륨 제외)의 제조설비로부터 시료를 채취하는 경우 전용 용기를 사용하고, 미리 지정된 장소에서 시료가 흩날리거나 새지 않도록 채취하며, 사용한 용기는 세척 후 일정한 장소에 보관하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제467조"],
+      "mandatedBy": ["NS-RULE467-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-016",
+      "title": "허가대상 유해물질 작업 시 방독마스크 등 지급·착용",
+      "text": "사업주는 근로자가 허가대상 유해물질을 제조하거나 사용하는 작업을 하는 경우 개인 전용의 방진마스크나 방독마스크 등을 지급하여 착용하도록 하고, 보관함을 갖추어야 한다. 근로자는 지급된 방독마스크 등을 사업주의 지시에 따라 착용하여야 한다.",
+      "requirementType": "PPE_REQUIREMENT",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제469조"],
+      "mandatedBy": ["NS-RULE469-0", "NS-RULE469-1", "NS-RULE469-2"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-017",
+      "title": "피부장해 유발 유해물질 취급 시 보호복 등 비치·착용",
+      "text": "사업주는 근로자가 피부장해 등을 유발할 우려가 있는 허가대상 유해물질을 취급하는 경우 불침투성 보호복·보호장갑·보호장화 및 피부보호용 약품을 갖추어 두고 사용하도록 하여야 한다. 근로자는 지급된 보호구를 사업주의 지시에 따라 착용하여야 한다.",
+      "requirementType": "PPE_REQUIREMENT",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제470조"],
+      "mandatedBy": ["NS-RULE470-0", "NS-RULE470-1"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-018",
+      "title": "베릴륨 제조·사용 설비기준 준수",
+      "text": "사업주는 베릴륨을 제조하거나 사용하는 경우 가열응착·탈착 설비의 격리실 설치 및 국소배기장치 설치, 밀폐식 구조 또는 덮개 설치, 가동 중 덮인 상태로 내부 관찰, 바닥·벽 불침투성 재료 사용, 아크로 작업장 국소배기장치 설치, 공급·이송 시 신체 비접촉 방법, 분말 상태 격리실 원격조작 등의 설비기준을 지켜야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제471조"],
+      "mandatedBy": ["NS-RULE471-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-019",
+      "title": "베릴륨 용융 아크로 모래차단막 설치",
+      "text": "사업주는 베릴륨과 그 물질을 함유하는 제제로서 함유된 중량 비율이 1퍼센트를 초과하는 물질을 녹이는 아크로 등에 대하여 삽입 부분의 간격을 작게 하기 위한 모래차단막을 설치하거나 이에 준하는 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제472조"],
+      "mandatedBy": ["NS-RULE472-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "베릴륨 함유 중량 비율",
+            "condition": ">",
+            "value": 1,
+            "unit": "%",
+            "source": "제472조 본문"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-HAZMAT-020",
+      "title": "가열응착·탈착 베릴륨 흡입 방법 추출",
+      "text": "사업주는 가열응착 또는 가열탈착을 한 베릴륨을 추출하는 경우 흡입 방법으로 꺼내도록 하여야 한다. 이는 베릴륨 분진의 비산을 방지하기 위한 조치이다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제473조"],
+      "mandatedBy": ["NS-RULE473-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}

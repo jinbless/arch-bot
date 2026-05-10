@@ -1,0 +1,896 @@
+{
+  "metadata": {
+    "guideCode": "C-C-52-2026",
+    "shortCode": "CC52",
+    "domain": "C",
+    "extractedAt": "2026-04-22T05:38:36Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-039"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC52-001",
+      "text": "사업주는 산업안전보건법 시행규칙 제50조(공정안전보고서의 세부내용 등)에 따른 내용을 공정안전보고서에 포함하여 작성·제출 하여야 한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-002",
+      "text": "신설, 변경 또는 정비·보수된 설비가 제작기준대로 제작되었는지 확인",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "가동전 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-003",
+      "text": "신설, 변경 또는 정비·보수된 설비가 설치기준 또는 시방서에 따라 설치되었는지의 확인",
+      "guideContext": "가동전 안전점검",
+      "additionalDetail": null,
+      "workProcessPhase": "가동전 점검",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-004",
+      "text": "신설, 변경 또는 정비·보수된 설비가 규정된 검사를 실시하여 합격되었는지의 확인",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "가동전 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-005",
+      "text": "신설, 변경 또는 정비·보수된 설비의 안전장치와 자동제어기능의 확인",
+      "guideContext": "가동전 안전점검",
+      "additionalDetail": null,
+      "workProcessPhase": "가동전 점검",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-006",
+      "text": "위험성 평가보고서 중 개선권고 사항이 이행되었는지의 확인",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "가동전 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-007",
+      "text": "안전운전에 필요한 절차 및 자료",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": "가동전 점검 시 최소 점검 내용",
+      "workProcessPhase": "가동전 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-008",
+      "text": "시운전 및 운전개시에 필요한 준비",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": "가동전 점검 시 최소 점검 내용",
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-009",
+      "text": "가동전 점검을 위한 팀은 점검범위에 따라 별도의 가동전 점검을 위해 사전 교육·훈련된 기술자 또는 다음과 같은 기술자들로 구성한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": "팀 책임자, 설계기술자, 운전기술자, 검사 및 정비 기술자, 비상계획 및 안전관리자, 제작 전문기술자(필요 시)",
+      "workProcessPhase": "점검팀 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-010",
+      "text": "가동전 점검은 설비의 신설, 변경 또는 정비·보수를 위한 기계, 전기, 배관 및 계장 공사가 완료된 후부터 시운전 전까지의 기간에 점검한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "가동전 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-011",
+      "text": "점검팀은 점검할 대상설비에 대하여 점검항목, 점검사항 및 점검결과 기재난 등으로 구분하여 점검표를 준비한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "점검표 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-012",
+      "text": "점검표는 각 공정 또는 설비별로 설계도서, 설치시방서 및 안전운전절차서에 따라 안전운전에 필요한 사항을 점검할 수 있도록 구체적으로 작성한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "점검표 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-013",
+      "text": "점검표는 <부록 1>에서 예시한 \"가동전 안전점검표에 포함될 항목\"을 참고하여 사업장의 특성에 맞도록 단위공정별로 작성한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "점검표 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-014",
+      "text": "점검팀은 작성된 점검표에 따라 점검을 수행하고, 명세서 및 시방서의 요구사항에 대한 적합여부를 판정하는 \"가동전 안전점검 보고서\"를 작성한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "점검 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "9",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-015",
+      "text": "점검보고서중 결함이 있거나 또는 개선대책이 필요한 사항에 대해서는 \"개선항목 요구표\"를 작성한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "점검결과 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "10",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-016",
+      "text": "개선항목 요구표에 포함된 사항은 시운전 전에 개선이 완료되도록 \"개선항목 실행 계획서\"를 작성하고, 이를 이행한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "점검결과 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "10",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-017",
+      "text": "가동전 안전점검보고서, 개선항목 요구표 및 개선항목 실행계획서는 공장운전개시 후 최소한 3년간 보관한다.",
+      "guideContext": "가동전 안전점검 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "점검결과 처리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "10",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-018",
+      "text": "공장의 사용 및 운전을 위한 각종 인허가의 신청 및 취득",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "공정운전 일반사항",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-019",
+      "text": "안전운전 절차서 확보",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "공정운전 일반사항",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-020",
+      "text": "설비(기기)별 제작자의 설치 시방서 확보",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "공정운전 일반사항",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-021",
+      "text": "운전 및 정비 절차서 확보",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "공정운전 일반사항",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-022",
+      "text": "설치상태와 일치된 공정 흐름도 및 배관·계장도 확보",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "공정운전 일반사항",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-023",
+      "text": "공정별 운전원 및 정비작업원 교육 실시",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "공정운전 일반사항",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-024",
+      "text": "시운전절차서 확보",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "공정운전 일반사항",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-025",
+      "text": "기기 설치완료 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-026",
+      "text": "회전기기의 회전방향의 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-027",
+      "text": "안전장치의 설치 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "회전기기 조립 시 안전장치 설치 여부 확인",
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-028",
+      "text": "단위공정 구역간의 종합 기밀시험 수행확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-029",
+      "text": "기밀 및 압력시험이 적용 코드에 맞게 수행되었는지 여부 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-030",
+      "text": "모든 장치 및 설비 설계는 설계시방서에 맞게 수행되었는지 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-031",
+      "text": "압력방출장치별로 압력설정치 목록표 준비",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-032",
+      "text": "압력방출장치의 시험은 공인된 시험설비에 의해 수행되었는지 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-033",
+      "text": "배기가스 회수 또는 흡수 설비의 폭발방지 기능 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-034",
+      "text": "설비 및 기기의 설치가 끝난 후 가설설비의 제거 및 청소 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-035",
+      "text": "제작자가 추천하는 예비품 및 특수공구 목록표 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "시운전 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-036",
+      "text": "용기의 설치와 내부 부속장치의 조립상태 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": null,
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-037",
+      "text": "정비 및 청소를 위한 안전공간 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "열교환기 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-038",
+      "text": "가동 전 버너 기능 및 예비점화 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "가열기 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-039",
+      "text": "내화벽돌의 건조 및 건조 후 내화벽돌 균열점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "가열기 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-040",
+      "text": "운전설비의 정압기 및 과부하 방지장치의 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "회전기기(펌프, 압축기, 터빈) 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-041",
+      "text": "경보장치의 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "회전기기(펌프, 압축기, 터빈) 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-042",
+      "text": "회전기기 및 인근 배관의 진동점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "회전기기(펌프, 압축기, 터빈) 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-043",
+      "text": "탱크 상부의 추락방지 난간대 설치 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "저장탱크 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-044",
+      "text": "사다리의 설치 상태와 점검구의 상태 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "저장탱크 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-PASSAGE-003"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-045",
+      "text": "배관이나 부속품이 설계도면과의 일치 여부 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "배관설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-046",
+      "text": "밸브류의 설치방향이 유체흐름 방향과 일치하는지 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "배관설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-047",
+      "text": "배관의 지지대 및 배관걸이 등이 설계에 맞게 견고하게 설치되었는지 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "배관설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-COLLAPSE-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-048",
+      "text": "필요한 경우 밸브에 잠금장치 설치",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "배관설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-049",
+      "text": "메가미터(Megameter)를 사용하여 전선로의 절연시험",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "전력계통 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-050",
+      "text": "메가미터를 사용하여 전동기와 변압기의 권선의 상간, 상과 접지간 절연시험",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "전력계통 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-051",
+      "text": "접지의 연결연속성과 대지에 대한 저항값을 측정하기 위한 접지시스템 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "전력계통 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-ELECTRIC-002"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-052",
+      "text": "모든 수배전반, 전동기 제어장치 및 발전기의 시운전 및 조정",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "전력계통 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-053",
+      "text": "수배전반과 회로차단기의 상호연동 시험",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "전력계통 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-054",
+      "text": "비상전력 및 조명 시스템의 설치 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "전력계통 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-ELECTRIC-008"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-055",
+      "text": "무부하상태에서 계기 운전성 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "계장설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-056",
+      "text": "모든 전기적 신호와 경보배선은 전기의 연속성 확보, 전원 및 극성 등의 정확성 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "계장설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-ELECTRIC-003"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-057",
+      "text": "최적의 자동운전 및 안전운전을 위하여 공장기동이나 정지시 또는 긴급차단시 기기 등의 연동작동을 확인하는 시퀀스테스트",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "계장설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC52-058",
+      "text": "설계명세서 및 적용코드에 의한 압력시험 수행확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "보일러 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-059",
+      "text": "안전밸브의 작동시험 및 설정치 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "보일러 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-060",
+      "text": "소화설비는 설치 완성 검사후 무부하 시험상태에서 점검하고 조정",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "유틸리티 설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-061",
+      "text": "디젤 엔진펌프는 정기적으로 자동작동시험 및 점검",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "유틸리티 설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC52-062",
+      "text": "화재진압용 필수 소화약제 확보와 고정식 및 이동식 소화장비의 설치 확인",
+      "guideContext": "가동전 안전점검표 예시",
+      "additionalDetail": "유틸리티 설비 점검 항목",
+      "workProcessPhase": "기기별 점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "부록",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC52-001",
+      "term": "시운전",
+      "definition": "기계설비의 설치를 완료하고 작동을 개시하여 단일기기 또는 각 설비의 기계적 성능이 명세·설계기준 등과 일치(또는 도달)하는지를 확인하는 운전을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC52-002",
+      "term": "개선항목",
+      "definition": "기계설치 완료 또는 시운전 전에 설비 및 자재류가 명세·설계도면 등과 일치하지 않는 항목이나 개선하여야 하는 항목표를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC52-01",
+      "processOrder": 1,
+      "processName": "점검팀 구성",
+      "safetyMeasures": "팀 책임자, 해당공정·설비 설계기술자, 운전기술자, 검사 및 정비 기술자, 비상계획 및 안전관리자로 구성. 필요 시 제작 전문기술자 포함.",
+      "requiredPPE": null,
+      "sourceSection": "6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC52-02",
+      "processOrder": 2,
+      "processName": "점검표 작성",
+      "safetyMeasures": "점검항목, 점검사항 및 점검결과 기재난으로 구분하여 점검표 준비. 설계도서, 설치시방서, 안전운전절차서에 따라 단위공정별로 구체적 작성.",
+      "requiredPPE": null,
+      "sourceSection": "8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC52-03",
+      "processOrder": 3,
+      "processName": "가동전 점검 수행",
+      "safetyMeasures": "설비의 신설, 변경 또는 정비·보수를 위한 기계, 전기, 배관 및 계장 공사 완료 후부터 시운전 전까지 점검 수행. 제작기준, 설치기준, 검사합격, 안전장치, 위험성평가 이행 확인.",
+      "requiredPPE": null,
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC52-04",
+      "processOrder": 4,
+      "processName": "점검보고서 작성",
+      "safetyMeasures": "작성된 점검표에 따라 점검 수행 후 명세서 및 시방서 요구사항에 대한 적합여부를 판정하는 가동전 안전점검 보고서 작성.",
+      "requiredPPE": null,
+      "sourceSection": "9",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC52-05",
+      "processOrder": 5,
+      "processName": "점검결과 처리 및 개선",
+      "safetyMeasures": "결함·개선대책 필요 사항에 대해 개선항목 요구표 작성. 시운전 전 개선 완료되도록 개선항목 실행 계획서 작성·이행. 보고서류는 운전개시 후 최소 3년간 보관.",
+      "requiredPPE": null,
+      "sourceSection": "10",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC52-001",
+      "equipmentName": "메가미터",
+      "specifications": {
+        "용도": "전선로 절연시험, 전동기·변압기 권선의 상간 및 상-접지간 절연시험",
+        "적용대상": "전력계통 전선로, 전동기, 변압기"
+      },
+      "sourceSection": "부록",
+      "relatedSR": [
+        "SR-ELECTRIC-001"
+      ]
+    },
+    {
+      "identifier": "ES-CC52-002",
+      "equipmentName": "오일 절연방식 변압기",
+      "specifications": {
+        "적용기준": "100 KV 이상",
+        "점검항목": "절연유 샘플검사"
+      },
+      "sourceSection": "부록",
+      "relatedSR": [
+        "SR-ELECTRIC-003"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC52-001",
+      "documentType": "WORK_PLAN",
+      "title": "공정안전보고서",
+      "requiredSections": [
+        "안전운전지침서",
+        "설비점검·검사 및 보수계획, 유지계획 및 지침서",
+        "안전작업허가",
+        "도급업체 안전관리계획",
+        "근로자 등 교육계획",
+        "가동 전 점검지침",
+        "변경요소 관리계획",
+        "자체감사 및 사고조사계획"
+      ],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC52-002",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "가동전 안전점검표",
+      "requiredSections": [
+        "점검항목",
+        "점검사항",
+        "점검결과 기재난"
+      ],
+      "sourceSection": "8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC52-003",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "가동전 안전점검 보고서",
+      "requiredSections": [
+        "점검대상",
+        "일련번호",
+        "점검결과",
+        "점검자",
+        "개선항목"
+      ],
+      "sourceSection": "9",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC52-004",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "개선항목(Punch list) 요구표",
+      "requiredSections": [
+        "개선항목",
+        "개선진행 결과",
+        "책임부서",
+        "개선일자"
+      ],
+      "sourceSection": "10",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC52-005",
+      "documentType": "WORK_PLAN",
+      "title": "개선항목(Punch list) 실행 계획서",
+      "requiredSections": [
+        "개선항목",
+        "개선방법",
+        "개선부서",
+        "실행일정"
+      ],
+      "sourceSection": "10",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC52-006",
+      "documentType": "WORK_PLAN",
+      "title": "안전운전절차서",
+      "requiredSections": null,
+      "sourceSection": "11",
+      "relatedSR": null
+    }
+  ]
+}

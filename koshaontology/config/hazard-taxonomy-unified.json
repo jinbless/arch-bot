@@ -1,0 +1,420 @@
+{
+  "version": "3.0",
+  "structure": "faceted_multi_axis",
+  "description": "3축 faceted hazard 분류 체계. 기존 flat 12종을 AccidentType/HazardousAgent/WorkContext 3축으로 재구조화.",
+  "axes": {
+    "accident_type": {
+      "label": "사고 유형",
+      "owl_namespace": "https://cashtoss.info/ontology/risk/hazard#",
+      "owl_prefix": "haz",
+      "description": "어떤 종류의 사고가 발생할 수 있는가?",
+      "codes": {
+        "FALL": {
+          "label_ko": "추락",
+          "label_en": "Fall",
+          "sub": ["SLIP"],
+          "legacy_map": ["FALL"]
+        },
+        "SLIP": {
+          "label_ko": "미끄러짐",
+          "label_en": "Slip/Trip",
+          "parent": "FALL",
+          "sub": [],
+          "legacy_map": []
+        },
+        "COLLISION": {
+          "label_ko": "충돌",
+          "label_en": "Collision",
+          "sub": [],
+          "legacy_map": ["STRUCK_BY"],
+          "note": "STRUCK_BY 세분화: 차량/장비 직접 충돌"
+        },
+        "FALLING_OBJECT": {
+          "label_ko": "낙하물",
+          "label_en": "Falling Object",
+          "sub": [],
+          "legacy_map": ["STRUCK_BY"],
+          "note": "STRUCK_BY 세분화: 물체 낙하에 의한 타격"
+        },
+        "CRUSH": {
+          "label_ko": "끼임(압착)",
+          "label_en": "Crush/Entrapment",
+          "sub": [],
+          "legacy_map": ["CAUGHT_IN"],
+          "note": "CAUGHT_IN 세분화: 회전체/프레스 끼임"
+        },
+        "CUT": {
+          "label_ko": "절단",
+          "label_en": "Cut/Laceration",
+          "sub": [],
+          "legacy_map": ["CAUGHT_IN"],
+          "note": "CAUGHT_IN 세분화: 날카로운 부분에 의한 절단"
+        },
+        "COLLAPSE": {
+          "label_ko": "붕괴",
+          "label_en": "Collapse",
+          "sub": [],
+          "legacy_map": ["COLLAPSE"]
+        },
+        "ERGONOMIC": {
+          "label_ko": "근골격계",
+          "label_en": "Ergonomic",
+          "sub": ["REPETITIVE", "HEAVY_LIFTING", "POSTURE"],
+          "legacy_map": ["ERGONOMIC"],
+          "note": "Phase 5에서 별도 축(BodyLoad) 분리 검토"
+        },
+        "REPETITIVE": {
+          "label_ko": "반복동작",
+          "label_en": "Repetitive Motion",
+          "parent": "ERGONOMIC",
+          "sub": [],
+          "legacy_map": []
+        },
+        "HEAVY_LIFTING": {
+          "label_ko": "중량물취급",
+          "label_en": "Heavy Lifting",
+          "parent": "ERGONOMIC",
+          "sub": [],
+          "legacy_map": []
+        },
+        "POSTURE": {
+          "label_ko": "부적절자세",
+          "label_en": "Awkward Posture",
+          "parent": "ERGONOMIC",
+          "sub": [],
+          "legacy_map": []
+        }
+      }
+    },
+    "hazardous_agent": {
+      "label": "유해 인자",
+      "owl_namespace": "https://cashtoss.info/ontology/risk/agent#",
+      "owl_prefix": "agent",
+      "description": "어떤 유해 요인이 존재하는가?",
+      "codes": {
+        "CHEMICAL": {
+          "label_ko": "화학물질",
+          "label_en": "Chemical",
+          "sub": ["DUST", "TOXIC", "CORROSION"],
+          "legacy_map": ["CHEMICAL_EXPOSURE"]
+        },
+        "DUST": {
+          "label_ko": "분진",
+          "label_en": "Dust",
+          "parent": "CHEMICAL",
+          "sub": [],
+          "legacy_map": []
+        },
+        "TOXIC": {
+          "label_ko": "독성물질",
+          "label_en": "Toxic Substance",
+          "parent": "CHEMICAL",
+          "sub": [],
+          "legacy_map": []
+        },
+        "CORROSION": {
+          "label_ko": "부식성물질",
+          "label_en": "Corrosive Substance",
+          "parent": "CHEMICAL",
+          "sub": [],
+          "legacy_map": []
+        },
+        "RADIATION": {
+          "label_ko": "방사선",
+          "label_en": "Radiation",
+          "sub": [],
+          "legacy_map": []
+        },
+        "FIRE": {
+          "label_ko": "화재·폭발",
+          "label_en": "Fire/Explosion",
+          "sub": [],
+          "legacy_map": ["FIRE_EXPLOSION"]
+        },
+        "ELECTRICITY": {
+          "label_ko": "전기",
+          "label_en": "Electricity",
+          "sub": ["ARC_FLASH"],
+          "legacy_map": ["ELECTRIC_SHOCK"]
+        },
+        "ARC_FLASH": {
+          "label_ko": "아크",
+          "label_en": "Arc Flash",
+          "parent": "ELECTRICITY",
+          "sub": [],
+          "legacy_map": []
+        },
+        "NOISE": {
+          "label_ko": "소음·진동",
+          "label_en": "Noise/Vibration",
+          "sub": [],
+          "legacy_map": ["NOISE_VIBRATION"]
+        },
+        "HEAT_COLD": {
+          "label_ko": "온도",
+          "label_en": "Heat/Cold",
+          "sub": [],
+          "legacy_map": ["HEAT_COLD"]
+        },
+        "BIOLOGICAL": {
+          "label_ko": "생물학적",
+          "label_en": "Biological",
+          "sub": [],
+          "legacy_map": []
+        }
+      }
+    },
+    "work_context": {
+      "label": "작업 맥락",
+      "owl_namespace": "https://cashtoss.info/ontology/risk/context#",
+      "owl_prefix": "ctx",
+      "description": "어떤 작업 환경/장비인가?",
+      "codes_from_sr_prefix": true,
+      "codes": {
+        "SCAFFOLD": {
+          "label_ko": "비계",
+          "label_en": "Scaffold",
+          "sr_prefixes": ["SCAFFOLD"],
+          "legacy_map": ["SCAFFOLDING"]
+        },
+        "CONFINED_SPACE": {
+          "label_ko": "밀폐공간",
+          "label_en": "Confined Space",
+          "sr_prefixes": ["CONFINED"],
+          "legacy_map": ["CONFINED_SPACE"]
+        },
+        "EXCAVATION": {
+          "label_ko": "굴착",
+          "label_en": "Excavation",
+          "sr_prefixes": ["EXCAVATION", "SHORING"]
+        },
+        "MACHINE": {
+          "label_ko": "기계",
+          "label_en": "Machine",
+          "sr_prefixes": ["MACHINE"]
+        },
+        "VEHICLE": {
+          "label_ko": "차량",
+          "label_en": "Vehicle",
+          "sr_prefixes": ["VEHICLE"]
+        },
+        "CRANE": {
+          "label_ko": "양중기",
+          "label_en": "Crane/Lifting",
+          "sr_prefixes": ["CRANE", "LIFTING", "RIGGING"]
+        },
+        "CONVEYOR": {
+          "label_ko": "컨베이어",
+          "label_en": "Conveyor",
+          "sr_prefixes": ["CONVEYOR"]
+        },
+        "ROBOT": {
+          "label_ko": "로봇",
+          "label_en": "Robot",
+          "sr_prefixes": ["ROBOT"]
+        },
+        "CONSTRUCTION_EQUIP": {
+          "label_ko": "건설장비",
+          "label_en": "Construction Equipment",
+          "sr_prefixes": ["CONSTRUCTION_EQUIP"]
+        },
+        "RAIL": {
+          "label_ko": "철도",
+          "label_en": "Rail",
+          "sr_prefixes": ["RAIL"]
+        },
+        "PRESSURE_VESSEL": {
+          "label_ko": "압력용기",
+          "label_en": "Pressure Vessel",
+          "sr_prefixes": ["PRESSURE"]
+        },
+        "STEELWORK": {
+          "label_ko": "철골작업",
+          "label_en": "Steelwork",
+          "sr_prefixes": ["STEELWORK"]
+        },
+        "MATERIAL_HANDLING": {
+          "label_ko": "하역·운반",
+          "label_en": "Material Handling",
+          "sr_prefixes": ["CARGO", "HEAVY_LOAD"]
+        },
+        "GENERAL_WORKPLACE": {
+          "label_ko": "일반작업장",
+          "label_en": "General Workplace",
+          "sr_prefixes": ["WORKPLACE", "OFFICE"]
+        },
+        "PASSAGE": {
+          "label_ko": "통로",
+          "label_en": "Passage/Walkway",
+          "sr_prefixes": ["PASSAGE"]
+        },
+        "FIRE_EXPLOSION_WORK": {
+          "label_ko": "화재·폭발작업",
+          "label_en": "Fire/Explosion Work",
+          "sr_prefixes": ["FIRE_EXPLOSION"]
+        },
+        "CHEMICAL_WORK": {
+          "label_ko": "화학물질작업",
+          "label_en": "Chemical Work",
+          "sr_prefixes": ["CHEMICAL", "HAZMAT", "PROHIBITED_CHEM"]
+        },
+        "ELECTRICAL_WORK": {
+          "label_ko": "전기작업",
+          "label_en": "Electrical Work",
+          "sr_prefixes": ["ELECTRIC"]
+        },
+        "RADIATION_WORK": {
+          "label_ko": "방사선작업",
+          "label_en": "Radiation Work",
+          "sr_prefixes": ["RADIATION"]
+        },
+        "DUST_WORK": {
+          "label_ko": "분진작업",
+          "label_en": "Dust Work",
+          "sr_prefixes": ["DUST"]
+        },
+        "NOISE_WORK": {
+          "label_ko": "소음·진동작업",
+          "label_en": "Noise/Vibration Work",
+          "sr_prefixes": ["NOISE"]
+        },
+        "HEAT_COLD_WORK": {
+          "label_ko": "온도작업",
+          "label_en": "Heat/Cold Work",
+          "sr_prefixes": ["HEAT"]
+        },
+        "PATHOGEN_WORK": {
+          "label_ko": "병원체작업",
+          "label_en": "Pathogen Work",
+          "sr_prefixes": ["PATHOGEN"]
+        },
+        "VENTILATION": {
+          "label_ko": "환기",
+          "label_en": "Ventilation",
+          "sr_prefixes": ["VENTILATION"]
+        },
+        "DEMOLITION": {
+          "label_ko": "해체",
+          "label_en": "Demolition",
+          "sr_prefixes": ["DEMOLITION"]
+        },
+        "LOGGING": {
+          "label_ko": "벌목",
+          "label_en": "Logging",
+          "sr_prefixes": ["LOGGING"]
+        },
+        "FALL_PROTECTION": {
+          "label_ko": "추락방호",
+          "label_en": "Fall Protection",
+          "sr_prefixes": ["FALL"]
+        },
+        "COLLAPSE_PREVENTION": {
+          "label_ko": "붕괴방지",
+          "label_en": "Collapse Prevention",
+          "sr_prefixes": ["COLLAPSE"]
+        },
+        "ERGONOMIC_WORK": {
+          "label_ko": "근골격계작업",
+          "label_en": "Ergonomic Work",
+          "sr_prefixes": ["ERGONOMIC"]
+        },
+        "PPE_MGMT": {
+          "label_ko": "보호구관리",
+          "label_en": "PPE Management",
+          "sr_prefixes": ["PPE"]
+        },
+        "WASTE_MGMT": {
+          "label_ko": "폐기물관리",
+          "label_en": "Waste Management",
+          "sr_prefixes": ["WASTE"]
+        },
+        "SAFETY_MGMT": {
+          "label_ko": "안전관리",
+          "label_en": "Safety Management",
+          "sr_prefixes": ["MGMT"]
+        },
+        "SPECIAL_WORKER": {
+          "label_ko": "특수근로자",
+          "label_en": "Special Worker",
+          "sr_prefixes": ["SPECIAL_WORKER"]
+        },
+        "OTHER": {
+          "label_ko": "기타위험",
+          "label_en": "Other Hazard",
+          "sr_prefixes": ["OTHER_HAZARD"]
+        },
+        "WELFARE": {
+          "label_ko": "복지시설",
+          "label_en": "Welfare Facilities",
+          "sr_prefixes": ["WELFARE"]
+        }
+      }
+    }
+  },
+  "migration_map": {
+    "STRUCK_BY": {
+      "target_axis": "accident_type",
+      "split_to": ["COLLISION", "FALLING_OBJECT"],
+      "strategy": "LLM_SPLIT",
+      "note": "SR text 기반 차량충돌 vs 낙하물 구분"
+    },
+    "CAUGHT_IN": {
+      "target_axis": "accident_type",
+      "split_to": ["CRUSH", "CUT"],
+      "strategy": "LLM_SPLIT",
+      "note": "SR text 기반 끼임 vs 절단 구분"
+    },
+    "SCAFFOLDING": {
+      "target_axis": "work_context",
+      "move_to": "SCAFFOLD",
+      "strategy": "DIRECT_MOVE"
+    },
+    "CONFINED_SPACE": {
+      "target_axis": "work_context",
+      "move_to": "CONFINED_SPACE",
+      "strategy": "DIRECT_MOVE"
+    },
+    "CHEMICAL_EXPOSURE": {
+      "target_axis": "hazardous_agent",
+      "move_to": "CHEMICAL",
+      "split_to": ["DUST", "TOXIC", "CORROSION", "RADIATION"],
+      "strategy": "PREFIX_SPLIT",
+      "note": "SR prefix로 80% 자동 세분화"
+    },
+    "FIRE_EXPLOSION": {
+      "target_axis": "hazardous_agent",
+      "move_to": "FIRE",
+      "strategy": "DIRECT_MOVE"
+    },
+    "ELECTRIC_SHOCK": {
+      "target_axis": "hazardous_agent",
+      "move_to": "ELECTRICITY",
+      "strategy": "DIRECT_MOVE"
+    },
+    "NOISE_VIBRATION": {
+      "target_axis": "hazardous_agent",
+      "move_to": "NOISE",
+      "strategy": "DIRECT_MOVE"
+    },
+    "HEAT_COLD": {
+      "target_axis": "hazardous_agent",
+      "move_to": "HEAT_COLD",
+      "strategy": "DIRECT_MOVE"
+    },
+    "FALL": {
+      "target_axis": "accident_type",
+      "move_to": "FALL",
+      "strategy": "DIRECT_MOVE"
+    },
+    "COLLAPSE": {
+      "target_axis": "accident_type",
+      "move_to": "COLLAPSE",
+      "strategy": "DIRECT_MOVE"
+    },
+    "ERGONOMIC": {
+      "target_axis": "accident_type",
+      "move_to": "ERGONOMIC",
+      "strategy": "DIRECT_MOVE"
+    }
+  }
+}

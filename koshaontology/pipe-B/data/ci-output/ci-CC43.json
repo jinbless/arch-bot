@@ -1,0 +1,223 @@
+{
+  "metadata": {
+    "guideCode": "C-C-43-2026",
+    "shortCode": "CC43",
+    "domain": "C",
+    "extractedAt": "2026-04-22T04:08:10Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-037"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC43-001",
+      "text": "사업주는 산업안전보건법 시행규칙 제50조(공정안전보고서의 세부내용 등)에 따른 내용을 공정안전보고서에 포함하여야 한다.",
+      "guideContext": "사고피해영향 평가 (법령 근거 미확인)",
+      "additionalDetail": "공정위험성평가서 및 잠재위험에 대한 사고예방·피해 최소화 대책을 포함하여야 하며, 체크리스트, 상대위험순위 결정, 작업자 실수 분석, 사고 예상 질문 분석, 위험과 운전 분석, 이상위험도 분석, 결함 수 분석, 사건 수 분석, 원인결과 분석 중 한 가지 이상의 위험성평가 기법을 선정하여야 한다.",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC43-002",
+      "text": "화재, 폭발 또는 독성물질 누출 등과 같은 중대산업사고 발생시 사업장내의 근로자, 인근 주민 또는 주변 시설물 등에 미칠 수 있는 사고의 크기를 KOSHA GUIDE C-C-56-2026 「사고피해예측 기법에 관한 기술지원규정」에 따라 계산한다.",
+      "guideContext": "사고피해영향 평가 - 피해예측 단계",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC43-003",
+      "text": "영향평가 결과를 얻기 위해서는 화재, 폭발 또는 독성물질 누출 등 사고형태에 맞는 프로빗 계산식을 5항, 6항 그리고 7항에서 선정한 후 4.1항에서 산정된 피해의 크기 및 노출시간 등을 반영하여 프로빗 값을 계산한다.",
+      "guideContext": "사고피해영향 평가 - 영향평가 단계",
+      "additionalDetail": null,
+      "workProcessPhase": "영향평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC43-004",
+      "text": "계산된 프로빗 값을 <표 1>에 대입하면 백분율로 환산한 값을 얻게 되며 이는 화재, 폭발 또는 누출로 인해 인체나 구조물이 부상, 사망 또는 손상에 이르는 확률을 백분율로 쉽게 표현한 것이다.",
+      "guideContext": "사고피해영향 평가 - 프로빗 백분율 환산",
+      "additionalDetail": null,
+      "workProcessPhase": "영향평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC43-005",
+      "text": "얼복사로 인한 사람의 상해정도는 화재로 인한 화염에 노출된 시간과 복사열 강도값의 함수인 프로빗 분석 계산식을 이용하여 산정 한다.",
+      "guideContext": "사고피해영향 평가 - 화재시 피해영향",
+      "additionalDetail": "1도 화상: Pr = -39.83 + 3.0186 ln(tQ^(4/3)), 2도 화상: Pr = -43.14 + 3.0186 ln(tQ^(4/3)), 화재 사망: Pr = -36.38 + 2.56 ln(tQ^(4/3))",
+      "workProcessPhase": "화재시 피해영향 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC43-006",
+      "text": "폭발사고는 비산물 등에 의한 직접적인 피해와 폭풍 과압의 영향에 의한 간접적인 피해를 아기하며 과압 또는 임펄스(Impulse)의 함수인 프로빗 계산식을 이용하여 산정한다.",
+      "guideContext": "사고피해영향 평가 - 폭발시 영향",
+      "additionalDetail": "아이젠버그(Eisenberg) 계산식 및 티엔오(TNO) 계산식을 활용하여 인체 영향(폐출혈, 고막파열, 충격 사망·부상) 및 구조물 영향(손상, 유리파손, 붕괴)을 평가한다.",
+      "workProcessPhase": "폭발시 영향 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC43-007",
+      "text": "독성물질누출에 의한 사람의 상해정도는 누출물질에 노출된 시간과 독성치에 비례하여 다음과 같이 계산한다.",
+      "guideContext": "사고피해영향 평가 - 독성물질 누출시 영향",
+      "additionalDetail": "시간에 관계없이 일정한 농도인 경우 TL = C^n · te, 농도가 시간에 따라 변하는 경우 TL ≈ Σ Ci^n · tei 로 독성부하를 계산한다.",
+      "workProcessPhase": "독성물질 누출시 영향 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC43-008",
+      "text": "독성물질 누출로 인한 피해영향을 계산하기 위해 사용되는 프로빗 분석식은 Pr = At + Bt lnTL 이며, At, Bt는 특정 독성물질의 상수이다.",
+      "guideContext": "사고피해영향 평가 - 독성물질 프로빗 모델",
+      "additionalDetail": "아크롤레인, 암모니아, 염소, 포스겐 등 20종 독성물질에 대한 프로빗 계산식 상수(At, Bt, n)가 <표 3>에 제시되어 있다.",
+      "workProcessPhase": "독성물질 누출시 영향 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "CI-CC43-009",
+      "text": "산업안전보건기준에 관한 규칙 별표 1의 위험물질에 의한 화재, 폭발 또는 누출시의 사고피해영향 평가 시 적용한다.",
+      "guideContext": "사고피해영향 평가 적용범위",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC43-001",
+      "term": "프로빗 (Probit)분석법",
+      "definition": "가상사고의 피해크기와 피해영향 가능성의 연관관계를 실험식을 이용하여 분석하는 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC43-01",
+      "processOrder": 1,
+      "processName": "피해예측",
+      "safetyMeasures": "화재, 폭발 또는 독성물질 누출 등과 같은 중대산업사고 발생시 사업장내의 근로자, 인근 주민 또는 주변 시설물 등에 미칠 수 있는 사고의 크기를 KOSHA GUIDE C-C-56-2026에 따라 계산한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC43-02",
+      "processOrder": 2,
+      "processName": "프로빗 계산식 선정 및 프로빗 값 계산",
+      "safetyMeasures": "사고형태(화재, 폭발, 독성물질 누출)에 맞는 프로빗 계산식을 선정한 후 피해의 크기 및 노출시간 등을 반영하여 프로빗 값을 계산한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC43-03",
+      "processOrder": 3,
+      "processName": "화재시 피해영향 산정",
+      "safetyMeasures": "화염에 노출된 시간과 복사열 강도값의 함수인 프로빗 분석 계산식을 이용하여 1도 화상, 2도 화상, 화재 사망에 대한 인체 상해정도를 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC43-04",
+      "processOrder": 4,
+      "processName": "폭발시 영향 산정",
+      "safetyMeasures": "과압 또는 임펄스의 함수인 프로빗 계산식(아이젠버그 및 티엔오 모델)을 이용하여 인체 영향(폐출혈, 고막파열, 충격 사망·부상)과 구조물 영향(손상, 유리파손, 붕괴)을 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC43-05",
+      "processOrder": 5,
+      "processName": "독성물질 누출시 영향 산정",
+      "safetyMeasures": "독성부하(Toxic load)를 계산한 후 프로빗 모델(Pr = At + Bt lnTL)을 이용하여 독성물질 누출에 의한 인체 상해정도를 산정한다. 독성물질별 상수(At, Bt, n)는 <표 3>을 참조한다.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": [
+        "SR-CHEMICAL-010"
+      ]
+    },
+    {
+      "identifier": "WP-CC43-06",
+      "processOrder": 6,
+      "processName": "프로빗 값 백분율 환산 및 결과 해석",
+      "safetyMeasures": "계산된 프로빗 값을 프로빗값과 백분율의 상관관계표(<표 1>)에 대입하여 백분율로 환산하고, 인체나 구조물이 부상, 사망 또는 손상에 이르는 확률을 평가한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC43-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정안전보고서",
+      "requiredSections": [
+        "공정위험성평가서",
+        "잠재위험에 대한 사고예방 대책",
+        "피해 최소화 대책"
+      ],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC43-002",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정위험성평가서",
+      "requiredSections": [
+        "체크리스트(Check List)",
+        "상대위험순위 결정(Dow and Mond Indices)",
+        "작업자 실수 분석(HEA)",
+        "사고 예상 질문 분석(What-if)",
+        "위험과 운전 분석(HAZOP)",
+        "이상위험도 분석(FMECA)",
+        "결함 수 분석(FTA)",
+        "사건 수 분석(ETA)",
+        "원인결과 분석(CCA)"
+      ],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    }
+  ]
+}

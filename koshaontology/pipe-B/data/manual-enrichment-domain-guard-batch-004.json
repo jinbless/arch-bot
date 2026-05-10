@@ -1,0 +1,4327 @@
+{
+  "schema_version": "codex_manual_pilot.v1",
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "asserted_mapping_updates": 0,
+  "review_status": "candidate",
+  "scope": {
+    "batch_id": "domain_guard_manual_batch_004",
+    "guide_count": 30,
+    "source": "pipe-B/data/ci-output plus pipe-B/data/guide-inventory.json",
+    "selection_policy": "inventory order excluding prior manual batches",
+    "purpose": "Guide domain/profile guard enrichment without external API calls",
+    "curation_policy": "batch_004_source_json_manual_read",
+    "curation_status": "manual_reviewed"
+  },
+  "policies": {
+    "external_api_used": false,
+    "candidate_table_ready": true,
+    "auto_asserted_promotion": false,
+    "max_confidence_for_manual_sr_link": 0.86,
+    "notes": [
+      "Batch 004 was manually re-read and corrected from extracted Guide JSON.",
+      "No external API was used.",
+      "Candidate rows require global audit before import.",
+      "Rows must not be promoted to asserted mapping tables from this report.",
+      "Evidence spans are copied from guide titles, WorkProcess names, DomainTerm terms, or extracted WorkProcess/Checklist text.",
+      "SR candidates are conservative and must be imported as candidates only."
+    ],
+    "asserted_mapping": "disabled",
+    "sr_candidates": "candidate_only",
+    "min_evidence": "at least one extracted source span per candidate",
+    "runtime_intent": "generalized guide domain guard and scoring boundary"
+  },
+  "guides": [
+    {
+      "guide_code": "G-52-2017",
+      "short_code": "G52",
+      "title": "액상유체 이송용 배관시공 안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G52.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "liquid_chemical_piping_construction",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "액상유체",
+          "배관",
+          "스풀",
+          "플랜지",
+          "밸브",
+          "누출탐지"
+        ],
+        "evidence": "액상유체 이송용 배관시공은 화학공장 등의 액상 화학물질 배관, 플랜지, 밸브, 누출탐지와 압력계 설치를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.9,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-52-2017",
+          "guide_code": "G-52-2017",
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.82,
+          "evidence": "열팽창 등 배관 내부 과압 요인이 있을 경우 릴리프 밸브 등 과압력 해소 장치를 설치해야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-52-2017",
+          "guide_code": "G-52-2017",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "액상유체는 화학공장 등에 사용 또는 취급하는 액상의 화학물질을 말한다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-52-2017",
+          "guide_code": "G-52-2017",
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.82,
+          "evidence": "배관의 재질은 이송 유체의 물리적, 화학적 특성에 상응하여 부식 가능성을 피해야 한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-52-2017",
+          "guide_code": "G-52-2017",
+          "sr_id": "SR-CHEMICAL-017",
+          "confidence": 0.76,
+          "evidence": "현장 주변 표지판에 배관도면, 이송 유체, 배관의 안전작동한계를 공지한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-52-2017",
+          "guide_code": "G-52-2017",
+          "trigger_text": "액상 화학물질 배관",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "액상유체 이송용 배관, 스풀, 플랜지, 밸브",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-52-2017",
+          "guide_code": "G-52-2017",
+          "trigger_text": "누출탐지·압력계·차단밸브",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "누출탐지시스템, 압력계, 긴급 폐쇄 밸브, 릴리프 밸브",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "액상유체",
+          "배관",
+          "스풀",
+          "플랜지",
+          "밸브",
+          "누출탐지"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-53-2013",
+      "short_code": "G53",
+      "title": "공연 및 체육 행사 개최시 안전에 관한 지침",
+      "source_file": "pipe-B/data/ci-output/ci-G53.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "event_crowd_emergency_safety",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "행사",
+          "참가자",
+          "혼잡",
+          "응급구조팀",
+          "화재",
+          "대피"
+        ],
+        "evidence": "공연 및 체육 행사 개최 시 참가자 동선, 혼잡, 응급구조, 화재 예방, 대피 계획을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-53-2013",
+          "guide_code": "G-53-2013",
+          "axis": "work_context",
+          "feature_code": "CROWD_MANAGEMENT",
+          "confidence": 0.86,
+          "evidence": "참가자들이 일시에 몰려드는 것을 방지하고 행사 직후 퇴장을 시간대별로 통제한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-53-2013",
+          "guide_code": "G-53-2013",
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.8,
+          "evidence": "화재 등 비상 시 관람객 안전 대피를 위한 사전 계획을 마련한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-53-2013",
+          "guide_code": "G-53-2013",
+          "sr_id": "SR-WELFARE-004",
+          "confidence": 0.66,
+          "evidence": "행사 계획에 의료 및 응급상황 대비, 간이 진료소와 구급 활동 차량 대기를 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-53-2013",
+          "guide_code": "G-53-2013",
+          "sr_id": "SR-WORKPLACE-009",
+          "confidence": 0.62,
+          "evidence": "참가자 출입구 흐름과 출입구 위치 분산, 비상 시 대피 동선을 관리한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-53-2013",
+          "guide_code": "G-53-2013",
+          "trigger_text": "공연·체육 행사 군중",
+          "cue_type": "work_activity",
+          "confidence": 0.86,
+          "evidence": "공연 및 체육 행사 개최시 안전에 관한 지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-53-2013",
+          "guide_code": "G-53-2013",
+          "trigger_text": "출입구·주차장·무대 대피 동선",
+          "cue_type": "visual_cue",
+          "confidence": 0.82,
+          "evidence": "교통 출입구 흐름, 주차공간, 무대 배치, 퇴장 통제",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "행사",
+          "참가자",
+          "혼잡",
+          "응급구조팀",
+          "화재",
+          "대피"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-55-2012",
+      "short_code": "G55",
+      "title": "차량경정비작업안전에관한기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G55.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "vehicle_repair_lift_pit_electrical",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "차량정비",
+          "리프트",
+          "잭",
+          "핏트",
+          "전기기계",
+          "배기가스"
+        ],
+        "evidence": "차량경정비 작업에서 리프트, 잭, 핏트, 전기기계·기구, 배터리, 배기가스 관리를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.9,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-55-2012",
+          "guide_code": "G-55-2012",
+          "axis": "work_context",
+          "feature_code": "LIFT_WORK",
+          "confidence": 0.84,
+          "evidence": "리프트를 올린 뒤 Stopper를 체결하고 작업하며 리프트 안전장치를 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-55-2012",
+          "guide_code": "G-55-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.82,
+          "evidence": "전기기계·기구는 접지선을 설치하고 누전차단기를 접속하며 이동전선을 보호한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-55-2012",
+          "guide_code": "G-55-2012",
+          "sr_id": "SR-LIFTING-004",
+          "confidence": 0.72,
+          "evidence": "4주식 리프트에는 자동정지 안전장치와 발 보호덮개가 설치되어 있어야 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-55-2012",
+          "guide_code": "G-55-2012",
+          "sr_id": "SR-ELECTRIC-004",
+          "confidence": 0.82,
+          "evidence": "대지전압 150V 초과 휴대형 작업등과 이동형 전기기계·기구에 감전방지용 누전차단기를 접속한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-55-2012",
+          "guide_code": "G-55-2012",
+          "trigger_text": "자동차 리프트·핏트 정비",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "핏트, 리프트, 잭, 차축거치대를 이용한 차량 승강 작업",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-55-2012",
+          "guide_code": "G-55-2012",
+          "trigger_text": "휴대 작업등·배터리·배기가스",
+          "cue_type": "visual_cue",
+          "confidence": 0.82,
+          "evidence": "전기기계·기구 점검, 배터리 충전, 엔진 시동 및 배기가스 관리",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "차량정비",
+          "리프트",
+          "잭",
+          "핏트",
+          "전기기계",
+          "배기가스"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-6-2011",
+      "short_code": "G6",
+      "title": "산업폐기물 처리 사업장에 관한 안전가이드",
+      "source_file": "pipe-B/data/ci-output/ci-G6.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "industrial_waste_site_transport_machine",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "산업폐기물",
+          "폐기물 구덩이",
+          "차량",
+          "하역",
+          "컨테이너"
+        ],
+        "evidence": "산업폐기물 처리 사업장에서 차량 동선, 하역, 기계장치, 수작업 이동, 전도 방지를 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "industry_alignment": [
+          "port_logistics",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-6-2011",
+          "guide_code": "G-6-2011",
+          "axis": "work_context",
+          "feature_code": "VEHICLE",
+          "confidence": 0.84,
+          "evidence": "근로자와 차량을 효과적으로 배치하고 속도제한, 반사경, 일방통행 체계로 교통동선을 통제한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-6-2011",
+          "guide_code": "G-6-2011",
+          "axis": "work_context",
+          "feature_code": "MATERIAL_HANDLING",
+          "confidence": 0.78,
+          "evidence": "수작업 물건 이동과 하역작업 시 상해 위험을 사전 평가하고 운송거리와 반복작업을 줄인다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-6-2011",
+          "guide_code": "G-6-2011",
+          "sr_id": "SR-CARGO-004",
+          "confidence": 0.78,
+          "evidence": "작업장 운송 안전 환경 조성과 폐기물 구덩이 추락 방지를 위해 통행제한과 조명·난간을 관리한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-6-2011",
+          "guide_code": "G-6-2011",
+          "sr_id": "SR-CARGO-007",
+          "confidence": 0.7,
+          "evidence": "컨테이너가 기울어져 있을 때 접근을 제한하고 용량 초과 적재를 금지한다.",
+          "source_fields": [
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-6-2011",
+          "guide_code": "G-6-2011",
+          "trigger_text": "산업폐기물 처리장 차량동선",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "산업폐기물 처리 사업장, 환승지, 폐기물 매립지, 차량 동선",
+          "source_fields": [
+            "title",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-6-2011",
+          "guide_code": "G-6-2011",
+          "trigger_text": "폐기물 구덩이·컨테이너·반사경",
+          "cue_type": "visual_cue",
+          "confidence": 0.82,
+          "evidence": "폐기물 구덩이, 컨테이너, 반사경, 일방통행 표지판",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "산업폐기물",
+          "폐기물 구덩이",
+          "차량",
+          "하역",
+          "컨테이너"
+        ],
+        "exclude_when": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-60-2012",
+      "short_code": "G60",
+      "title": "건물 관리 작업 시 안전보건에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G60.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "building_facility_maintenance",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "건물 관리",
+          "맨홀",
+          "송풍기",
+          "변전실",
+          "자동문",
+          "바닥청소"
+        ],
+        "evidence": "건물 관리 작업에서 맨홀, 송풍기 벨트, 주차타워, 변전실, 자동문, 바닥청소, 고소 전구 교체를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "항만하역",
+          "건설 장비",
+          "일반 기계 방호",
+          "피뢰설비"
+        ],
+        "industry_alignment": [
+          "healthcare"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-60-2012",
+          "guide_code": "G-60-2012",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "변전실 전기 작업은 자격증 소지자가 수행하고 작업 전 전원 차단과 충전부 절연조치를 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-60-2012",
+          "guide_code": "G-60-2012",
+          "axis": "work_context",
+          "feature_code": "WET_FLOOR_WORK",
+          "confidence": 0.78,
+          "evidence": "건물 바닥 청소 시 미끄럼 주의 표지판 설치, 바닥 물기 즉시 제거, 미끄럼 방지 신발 착용을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-60-2012",
+          "guide_code": "G-60-2012",
+          "sr_id": "SR-ELECTRIC-019",
+          "confidence": 0.76,
+          "evidence": "변전실 배선차단기 교체작업 시 작업 전 전원을 차단하고 충전부 절연조치를 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-60-2012",
+          "guide_code": "G-60-2012",
+          "sr_id": "SR-WORKPLACE-001",
+          "confidence": 0.7,
+          "evidence": "바닥 청소 및 배수관 통수 작업에서 물기 제거와 미끄럼 방지 조치를 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-60-2012",
+          "guide_code": "G-60-2012",
+          "trigger_text": "건물 관리·변전실 작업",
+          "cue_type": "work_activity",
+          "confidence": 0.84,
+          "evidence": "변전실 전기 작업, 진공전류차단기, 활선작업",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-60-2012",
+          "guide_code": "G-60-2012",
+          "trigger_text": "젖은 바닥·고소 전구·자동문",
+          "cue_type": "visual_cue",
+          "confidence": 0.8,
+          "evidence": "바닥 물기, 미끄럼 주의 표지판, 고소 전구 교체, 자동문 수리",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "건물 관리",
+          "맨홀",
+          "송풍기",
+          "변전실",
+          "자동문",
+          "바닥청소"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "건설 장비",
+          "일반 기계 방호",
+          "피뢰설비"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-64-2011",
+      "short_code": "G64",
+      "title": "벌목작업 현장의 응급처치에 관한 지침",
+      "source_file": "pipe-B/data/ci-output/ci-G64.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "logging_site_first_aid",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "벌목작업",
+          "응급처치",
+          "구급상자",
+          "절단 재해",
+          "깔림 재해"
+        ],
+        "evidence": "벌목작업 현장에서 절단·깔림 등 재해 발생 시 응급처치와 이송 계획을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-64-2011",
+          "guide_code": "G-64-2011",
+          "axis": "work_context",
+          "feature_code": "LOGGING",
+          "confidence": 0.82,
+          "evidence": "벌목작업 현장에서 응급처치 담당자와 비상연락망, 예비후송수단을 확보한다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-64-2011",
+          "guide_code": "G-64-2011",
+          "axis": "accident_type",
+          "feature_code": "FALLING_OBJECT",
+          "confidence": 0.72,
+          "evidence": "깔림 재해 응급처치와 골절부위 부목 고정, 척추 손상 시 움직임 최소화를 다룬다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-64-2011",
+          "guide_code": "G-64-2011",
+          "sr_id": "SR-WELFARE-004",
+          "confidence": 0.76,
+          "evidence": "재해에 대비하여 구급용구를 작업지원 차량과 작업현장에 비치하고 응급처치 담당자를 지명한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-64-2011",
+          "guide_code": "G-64-2011",
+          "trigger_text": "벌목 현장 응급처치",
+          "cue_type": "work_activity",
+          "confidence": 0.84,
+          "evidence": "벌목작업 현장의 응급처치에 관한 지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-64-2011",
+          "guide_code": "G-64-2011",
+          "trigger_text": "구급상자·절단부위·부목",
+          "cue_type": "visual_cue",
+          "confidence": 0.8,
+          "evidence": "구급상자, 절단부위 세척, 부목 고정, 응급의료기관 연락",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "벌목작업",
+          "응급처치",
+          "구급상자",
+          "절단 재해",
+          "깔림 재해"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-65-2011",
+      "short_code": "G65",
+      "title": "장애인 근로자의 안전작업에 관한 지침",
+      "source_file": "pipe-B/data/ci-output/ci-G65.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "disabled_worker_task_accommodation",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "장애인 근로자",
+          "위험성 평가",
+          "작업환경",
+          "작업장비",
+          "상담"
+        ],
+        "evidence": "장애인 근로자의 개인 능력과 차이를 고려한 위험성평가, 작업환경·장비 조치, 상담 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.78,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-65-2011",
+          "guide_code": "G-65-2011",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.68,
+          "evidence": "장애인 근로자 개인의 능력과 차이를 고려하여 작업 시 예상되는 위험요소를 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-65-2011",
+          "guide_code": "G-65-2011",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.66,
+          "evidence": "작업과정, 작업환경, 작업장비를 근로자의 수행 능력에 맞게 조치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-65-2011",
+          "guide_code": "G-65-2011",
+          "trigger_text": "장애인 근로자 작업배치",
+          "cue_type": "context_term",
+          "confidence": 0.78,
+          "evidence": "장애인 근로자의 안전작업에 관한 지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-65-2011",
+          "guide_code": "G-65-2011",
+          "trigger_text": "능력별 작업환경 조정",
+          "cue_type": "visual_cue",
+          "confidence": 0.74,
+          "evidence": "개인의 능력과 차이를 고려한 작업과정·환경·장비 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "장애인 근로자",
+          "위험성 평가",
+          "작업환경",
+          "작업장비",
+          "상담"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-66-2011",
+      "short_code": "G66",
+      "title": "외국인 근로자의 안전작업에 관한 지침",
+      "source_file": "pipe-B/data/ci-output/ci-G66.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "foreign_worker_multilingual_risk_management",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "외국인 근로자",
+          "통역자",
+          "모국어",
+          "위험성 평가",
+          "안전교육"
+        ],
+        "evidence": "외국인 근로자의 언어·문화 특성을 고려한 위험성평가, 통역, 교육, 모국어 공지 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.8,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-66-2011",
+          "guide_code": "G-66-2011",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.68,
+          "evidence": "외국인 근로자의 연령, 숙련도, 작업 경험 등을 고려하여 평가대상과 범위를 확정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-66-2011",
+          "guide_code": "G-66-2011",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.62,
+          "evidence": "언어 및 문화적 특성을 고려하여 위험도와 허용 가능한 위험수준을 정한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-66-2011",
+          "guide_code": "G-66-2011",
+          "trigger_text": "외국인 근로자 안전교육",
+          "cue_type": "context_term",
+          "confidence": 0.8,
+          "evidence": "외국인 근로자의 안전작업에 관한 지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-66-2011",
+          "guide_code": "G-66-2011",
+          "trigger_text": "모국어 표지·통역자 배석",
+          "cue_type": "visual_cue",
+          "confidence": 0.78,
+          "evidence": "모국어 및 영어 등 이해 가능한 언어로 작성, 통역자 배석",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "외국인 근로자",
+          "통역자",
+          "모국어",
+          "위험성 평가",
+          "안전교육"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-67-2011",
+      "short_code": "G67",
+      "title": "건물 외벽 청소 작업에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G67.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "building_exterior_rope_access_cleaning",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "건물 외벽 청소",
+          "로프",
+          "킹크",
+          "안전대",
+          "낙하물"
+        ],
+        "evidence": "건물 외벽 청소에서 로프 설치, 하강, 안전대, 낙하물 방지, 지상 통제를 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.92,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-67-2011",
+          "guide_code": "G-67-2011",
+          "axis": "work_context",
+          "feature_code": "ROPE_ACCESS",
+          "confidence": 0.9,
+          "evidence": "작업용 로프 및 안전보조로프를 건물의 고정지지물에 2개소 이상 결속한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-67-2011",
+          "guide_code": "G-67-2011",
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.88,
+          "evidence": "구명줄 설치 및 안전대 등 개인보호구를 착용하고 옥상에서 천천히 하강한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-67-2011",
+          "guide_code": "G-67-2011",
+          "sr_id": "SR-FALL-003",
+          "confidence": 0.86,
+          "evidence": "작업용 로프 및 안전보조로프 결속과 구명줄·안전대 착용을 요구한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-67-2011",
+          "guide_code": "G-67-2011",
+          "sr_id": "SR-CARGO-002",
+          "confidence": 0.78,
+          "evidence": "작업 전 로프 이상 유무를 확인하고 손상된 로프를 교체한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-67-2011",
+          "guide_code": "G-67-2011",
+          "trigger_text": "건물 외벽 로프 하강",
+          "cue_type": "work_activity",
+          "confidence": 0.9,
+          "evidence": "건물 외벽 청소 작업, 로프 설치 및 결속, 하강 작업",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-67-2011",
+          "guide_code": "G-67-2011",
+          "trigger_text": "킹크 로프·안전대·지상 방책",
+          "cue_type": "visual_cue",
+          "confidence": 0.86,
+          "evidence": "킹크, 스트랜드 손상, 안전대, 지상 안전구역과 방책",
+          "source_fields": [
+            "domainTerms.term",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "건물 외벽 청소",
+          "로프",
+          "킹크",
+          "안전대",
+          "낙하물"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-70-2011",
+      "short_code": "G70",
+      "title": "동물원 근로자의 안전작업에 관한 지침",
+      "source_file": "pipe-B/data/ci-output/ci-G70.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "zoo_animal_handling_worker_safety",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "동물원",
+          "동물 이동",
+          "동물 접촉",
+          "울타리",
+          "다트건"
+        ],
+        "evidence": "동물원 근로자의 동물 이동·접촉·울타리 출입·수중작업·동물 탈출 대응 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-70-2011",
+          "guide_code": "G-70-2011",
+          "axis": "work_context",
+          "feature_code": "ANIMAL_FEEDING",
+          "confidence": 0.74,
+          "evidence": "동물 접촉 작업에서 동물의 나이·크기·행동특성 파악, 근로자와 동물 사이 친근성 형성을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-70-2011",
+          "guide_code": "G-70-2011",
+          "axis": "work_context",
+          "feature_code": "CAGE_CLEANING",
+          "confidence": 0.72,
+          "evidence": "동물 울타리 내 출입 작업 시 동물 격리 확인과 작업 후 근로자 전원 퇴출 확인을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-70-2011",
+          "guide_code": "G-70-2011",
+          "sr_id": "SR-PATHOGEN-010",
+          "confidence": 0.6,
+          "evidence": "동물 접촉 작업의 감염 위험은 동물매개 감염병 예방 조치와 관련되나, 동물원 행동위험 전체를 포괄하지는 않는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-70-2011",
+          "guide_code": "G-70-2011",
+          "trigger_text": "동물원 울타리 내 작업",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "동물 울타리 내 출입 작업, 동물 이동 작업, 동물 접촉 작업",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-70-2011",
+          "guide_code": "G-70-2011",
+          "trigger_text": "다트건·그물망·격리문",
+          "cue_type": "visual_cue",
+          "confidence": 0.82,
+          "evidence": "다트건, 그물망, 격리용 문, 포획 장비, 방문객 통제",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "동물원",
+          "동물 이동",
+          "동물 접촉",
+          "울타리",
+          "다트건"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-71-2011",
+      "short_code": "G71",
+      "title": "안전보건 벤치마킹에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G71.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "safety_health_benchmarking",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "안전보건 벤치마킹",
+          "재해율",
+          "빈도율",
+          "강도율",
+          "파트너"
+        ],
+        "evidence": "안전보건 벤치마킹을 통해 현 사업장 분석, 파트너 선택, 교훈 적용을 수행하는 관리 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.78,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "healthcare",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-71-2011",
+          "guide_code": "G-71-2011",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "현 사업장의 안전보건 관리수준, 조직 구성, 정책 수립 여부 및 이행 상태를 검토한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-71-2011",
+          "guide_code": "G-71-2011",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.58,
+          "evidence": "안전보건 통계와 작업별 위험성평가를 비교·분석하는 관리지침이다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-71-2011",
+          "guide_code": "G-71-2011",
+          "trigger_text": "안전보건 벤치마킹 회의",
+          "cue_type": "context_term",
+          "confidence": 0.78,
+          "evidence": "동종 또는 유사 사업장의 정책과 비교·분석하는 안전보건 벤치마킹",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-71-2011",
+          "guide_code": "G-71-2011",
+          "trigger_text": "재해율·빈도율·강도율 표",
+          "cue_type": "visual_cue",
+          "confidence": 0.74,
+          "evidence": "안전보건 통계 자료, 재해율, 빈도율, 강도율 비교",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "안전보건 벤치마킹",
+          "재해율",
+          "빈도율",
+          "강도율",
+          "파트너"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-73-2011",
+      "short_code": "G73",
+      "title": "소 사육장 내에서의 안전지침",
+      "source_file": "pipe-B/data/ci-output/ci-G73.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "cattle_barn_handling_safety",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "소 사육장",
+          "크리쉬",
+          "울타리",
+          "램프",
+          "전도",
+          "전기 울타리"
+        ],
+        "evidence": "소 사육장 내에서 소 이동·접촉, 사육장 바닥, 램프, 전기울타리, 비상상황을 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-73-2011",
+          "guide_code": "G-73-2011",
+          "axis": "work_context",
+          "feature_code": "ANIMAL_FEEDING",
+          "confidence": 0.78,
+          "evidence": "소 행동 특성을 숙지하고 도피로를 확보하며 소와 지나치게 근접하지 않은 상태에서 인도한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-73-2011",
+          "guide_code": "G-73-2011",
+          "axis": "work_context",
+          "feature_code": "WET_FLOOR_WORK",
+          "confidence": 0.74,
+          "evidence": "사육장 바닥 오물을 수시로 수거하고 시멘트 바닥은 홈 처리로 미끄럼 방지 조치를 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-73-2011",
+          "guide_code": "G-73-2011",
+          "sr_id": "SR-ELECTRIC-001",
+          "confidence": 0.7,
+          "evidence": "전기 울타리를 사용하는 경우 안전표지 부착과 경고 방송 등 감전사고 방지 조치를 한다.",
+          "source_fields": [
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-73-2011",
+          "guide_code": "G-73-2011",
+          "sr_id": "SR-WORKPLACE-001",
+          "confidence": 0.68,
+          "evidence": "사육장 청결 및 바닥 관리에서 미끄럼과 전도 방지를 위해 오물 제거와 바닥 관리를 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-73-2011",
+          "guide_code": "G-73-2011",
+          "trigger_text": "소 사육장·축사 울타리",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "소 사육장, 크리쉬, 울타리, 램프",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-73-2011",
+          "guide_code": "G-73-2011",
+          "trigger_text": "미끄러운 축사 바닥·전기울타리",
+          "cue_type": "visual_cue",
+          "confidence": 0.8,
+          "evidence": "바닥 오물, 미끄럼 방지, 전기 울타리 안전표지, 램프 바닥",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "소 사육장",
+          "크리쉬",
+          "울타리",
+          "램프",
+          "전도",
+          "전기 울타리"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-76-2011",
+      "short_code": "G76",
+      "title": "공기재킷의 제작·사용에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G76.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "air_jacket_gas_manifold_welding_support",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "공기재킷",
+          "용접",
+          "용단",
+          "호스",
+          "매니폴드",
+          "커플링"
+        ],
+        "evidence": "선박 블록 내부 용접·용단 작업자의 공기재킷, 호스, 플러그·커플링, 매니폴드 제작·사용 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.9,
+        "negative_context_terms": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "industry_alignment": [
+          "port_logistics"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-76-2011",
+          "guide_code": "G-76-2011",
+          "axis": "work_context",
+          "feature_code": "WELDING",
+          "confidence": 0.86,
+          "evidence": "선박용 블럭 내부와 같은 공간에서 용접·용단 작업자가 작업복 안으로 공기를 공급받는다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-76-2011",
+          "guide_code": "G-76-2011",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.78,
+          "evidence": "재킷과 호스는 용접 불티에 손상되지 않는 내열성 또는 방염처리 재질을 사용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-76-2011",
+          "guide_code": "G-76-2011",
+          "sr_id": "SR-FIRE_EXPLOSION-010",
+          "confidence": 0.78,
+          "evidence": "서로 다른 가스 플러그와 커플링의 구경을 다르게 하여 산소 등 다른 가스용 커플링 오연결을 방지한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-76-2011",
+          "guide_code": "G-76-2011",
+          "sr_id": "SR-CHEMICAL-017",
+          "confidence": 0.72,
+          "evidence": "매니폴드에는 취급하는 가스명 명찰을 부착하고 색상으로 구분한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-76-2011",
+          "guide_code": "G-76-2011",
+          "trigger_text": "공기재킷·매니폴드",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "공기재킷, 호스, 플러그, 커플링, 매니폴드",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-76-2011",
+          "guide_code": "G-76-2011",
+          "trigger_text": "용접 불티·가스색상 구분 호스",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "내열성 호스, 가스 종류별 색상, 명찰, 플러그 오연결 방지",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "공기재킷",
+          "용접",
+          "용단",
+          "호스",
+          "매니폴드",
+          "커플링"
+        ],
+        "exclude_when": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-78-2021",
+      "short_code": "G78",
+      "title": "유해위험물 탱크로리의 검사 및 입출하 등에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G78.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "hazardous_tank_lorry_loading_static_control",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "탱크로리",
+          "유해위험물",
+          "잔류가스",
+          "입·출하",
+          "정전기",
+          "본딩"
+        ],
+        "evidence": "유해위험물 탱크로리 검사, 잔류가스 처리, 입·출하, 본딩·접지, 정전기 완화 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.94,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-78-2021",
+          "guide_code": "G-78-2021",
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.9,
+          "evidence": "가연성가스 또는 인화성 물질 취급 시 정전기에 의한 화재·폭발을 방지하기 위해 접지 클램프를 연결한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-78-2021",
+          "guide_code": "G-78-2021",
+          "axis": "work_context",
+          "feature_code": "VEHICLE",
+          "confidence": 0.82,
+          "evidence": "탱크로리는 유해·위험물 탱크를 이동용 차량에 탑재한 운송차량이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-78-2021",
+          "guide_code": "G-78-2021",
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.88,
+          "evidence": "탱크로리 차체 접지, 본딩, 정전기 정치 시간 등 정전기 완화 조치를 요구한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-78-2021",
+          "guide_code": "G-78-2021",
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.82,
+          "evidence": "제어밸브 전기인입, 스위치 박스, 펌프 등은 방폭상태를 확인한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-78-2021",
+          "guide_code": "G-78-2021",
+          "trigger_text": "유해위험물 탱크로리",
+          "cue_type": "equipment",
+          "confidence": 0.92,
+          "evidence": "탱크로리, 잔류가스처리, 입·출하작업, 교환적재",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-78-2021",
+          "guide_code": "G-78-2021",
+          "trigger_text": "접지클램프·본딩·방폭 펌프",
+          "cue_type": "visual_cue",
+          "confidence": 0.9,
+          "evidence": "접지 클램프, 본딩, 방폭 스위치 박스, 가스검지기, 소화기 비치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "탱크로리",
+          "유해위험물",
+          "잔류가스",
+          "입·출하",
+          "정전기",
+          "본딩"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-82-2018",
+      "short_code": "G82",
+      "title": "실험실 안전보건에 관한기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G82.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "laboratory_chemical_experiment_safety",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "실험실",
+          "유해물질",
+          "부스",
+          "폐액",
+          "후드",
+          "실험장치"
+        ],
+        "evidence": "실험실에서 유해물질, 부스, 폐액, 후드, 실험장치, 화재·폭발과 응급조치를 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.92,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "healthcare",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-82-2018",
+          "guide_code": "G-82-2018",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.88,
+          "evidence": "유해물질 취급 실험은 반드시 부스에서 실시하고 폐액이나 누출된 유해물질을 안전하게 처리한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-82-2018",
+          "guide_code": "G-82-2018",
+          "axis": "work_context",
+          "feature_code": "VENTILATION_POOR",
+          "confidence": 0.82,
+          "evidence": "실험실 부스와 국소배기장치, 후드 자체검사와 제어풍속 측정을 실시한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-82-2018",
+          "guide_code": "G-82-2018",
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.82,
+          "evidence": "실험 준비 시 실험복, 보안경 등 보호장비를 착용하고 유해물질 취급 시 보호구를 사용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-82-2018",
+          "guide_code": "G-82-2018",
+          "sr_id": "SR-VENTILATION-001",
+          "confidence": 0.76,
+          "evidence": "실험실 부스와 후드 등 국소배기장치 설치·성능 관리를 후보화한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-82-2018",
+          "guide_code": "G-82-2018",
+          "trigger_text": "실험실 부스·시약",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.9,
+          "evidence": "실험실, 실험, 유해물질, 부스, 시약 보관상태",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-82-2018",
+          "guide_code": "G-82-2018",
+          "trigger_text": "폐액 수거용기·세안장치·후드",
+          "cue_type": "visual_cue",
+          "confidence": 0.86,
+          "evidence": "폐액 수거용기, 부스, 세안장치, 후드, 안전점검표",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "실험실",
+          "유해물질",
+          "부스",
+          "폐액",
+          "후드",
+          "실험장치"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-87-2012",
+      "short_code": "G87",
+      "title": "고령근로자의 작업에 관한 안전지침",
+      "source_file": "pipe-B/data/ci-output/ci-G87.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "older_worker_task_adaptation",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "고령근로자",
+          "신체능력",
+          "인지",
+          "휴식시간",
+          "작업환경"
+        ],
+        "evidence": "고령근로자의 신체적·인지적 특성을 고려한 작업 요구도, 휴식, 작업환경, 교육 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.8,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-87-2012",
+          "guide_code": "G-87-2012",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.78,
+          "evidence": "고령근로자의 신체적·인지적 특성을 고려하여 작업 요구사항과 작업환경 적합성을 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-87-2012",
+          "guide_code": "G-87-2012",
+          "axis": "work_context",
+          "feature_code": "NOISE_EXPOSURE",
+          "confidence": 0.7,
+          "evidence": "고령근로자가 근무하는 작업장 내에는 소음 수준이 60dB 이하인 환경을 유지한다.",
+          "source_fields": [
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-87-2012",
+          "guide_code": "G-87-2012",
+          "sr_id": "SR-NOISE-001",
+          "confidence": 0.7,
+          "evidence": "소음원을 격리하고 고령근로자 작업장의 소음 수준을 낮춘다.",
+          "source_fields": [
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-87-2012",
+          "guide_code": "G-87-2012",
+          "sr_id": "SR-NOISE-004",
+          "confidence": 0.66,
+          "evidence": "귀마개를 활용한다.",
+          "source_fields": [
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-87-2012",
+          "guide_code": "G-87-2012",
+          "trigger_text": "고령근로자 작업 적합성",
+          "cue_type": "context_term",
+          "confidence": 0.8,
+          "evidence": "고령근로자의 작업에 관한 안전지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-87-2012",
+          "guide_code": "G-87-2012",
+          "trigger_text": "휴식·소음·작업요구도",
+          "cue_type": "visual_cue",
+          "confidence": 0.76,
+          "evidence": "휴식시간, 소음 60dB 이하, 신체적·인지적 작업요구도",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "고령근로자",
+          "신체능력",
+          "인지",
+          "휴식시간",
+          "작업환경"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-88-2012",
+      "short_code": "G88",
+      "title": "도로변 수목 관리작업 안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G88.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "roadside_tree_pruning_pesticide_work",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "도로변 수목",
+          "가지치기",
+          "고소작업",
+          "농약",
+          "살수차"
+        ],
+        "evidence": "도로변 수목 관리에서 가지치기, 고소작업, 물주기, 농약 방충작업, 차량 운행을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.9,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "agriculture"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-88-2012",
+          "guide_code": "G-88-2012",
+          "axis": "work_context",
+          "feature_code": "PESTICIDE_SPRAY",
+          "confidence": 0.86,
+          "evidence": "방충작업에서 보호안경, 안전장갑, 보호의, 방독마스크를 착용하고 농약을 희석·분무한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-88-2012",
+          "guide_code": "G-88-2012",
+          "axis": "work_context",
+          "feature_code": "LADDER",
+          "confidence": 0.8,
+          "evidence": "작업차량이나 사다리차에 탑승 또는 사다리에 올라가 가지치기 작업을 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-88-2012",
+          "guide_code": "G-88-2012",
+          "sr_id": "SR-FALL-007",
+          "confidence": 0.78,
+          "evidence": "가지치기 고소작업 시 안전난간 설치 및 안전대 착용 등 추락재해 방지 조치를 한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-88-2012",
+          "guide_code": "G-88-2012",
+          "sr_id": "SR-OTHER_HAZARD-004",
+          "confidence": 0.78,
+          "evidence": "농약원재료 방제작업 시 보호구 착용, 환기, 점화원 제거 등 안전조치를 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-88-2012",
+          "guide_code": "G-88-2012",
+          "trigger_text": "도로변 수목 가지치기",
+          "cue_type": "work_activity",
+          "confidence": 0.88,
+          "evidence": "도로변 수목 관리작업, 가지치기, 물주기, 방충작업",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-88-2012",
+          "guide_code": "G-88-2012",
+          "trigger_text": "농약 분무·사다리차·경광봉",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "농약 희석 및 분무, 사다리차, 주의 표지판, 경광봉, 바리케이트",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "도로변 수목",
+          "가지치기",
+          "고소작업",
+          "농약",
+          "살수차"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-89-2012",
+      "short_code": "G89",
+      "title": "숙박시설객실청소작업에관한 안전지침",
+      "source_file": "pipe-B/data/ci-output/ci-G89.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "hotel_housekeeping_cleaning",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "숙박시설",
+          "객실청소",
+          "린넨",
+          "욕실",
+          "락스",
+          "청소카트"
+        ],
+        "evidence": "숙박시설 객실청소에서 먼지, 바닥, 욕실, 침대정리, 린넨, 화학약품과 카트 이동을 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-89-2012",
+          "guide_code": "G-89-2012",
+          "axis": "work_context",
+          "feature_code": "INTERIOR_CLEANING",
+          "confidence": 0.84,
+          "evidence": "먼지 털기, 실내 정돈, 바닥 청소, 욕실 및 화장실 청소, 침대 정리 작업을 수행한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-89-2012",
+          "guide_code": "G-89-2012",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_SPOTTING",
+          "confidence": 0.8,
+          "evidence": "화학약품 사용 시 보호안경·보호장갑·보호복 착용, 락스와 세제 혼합 금지를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-89-2012",
+          "guide_code": "G-89-2012",
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.78,
+          "evidence": "화학약품 사용 및 욕실 청소 시 보호안경, 보호장갑, 보호복을 착용한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-89-2012",
+          "guide_code": "G-89-2012",
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.74,
+          "evidence": "먼지 흡입 방지 마스크와 락스 작업 시 호흡용 보호구 필요성을 다룬다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-89-2012",
+          "guide_code": "G-89-2012",
+          "trigger_text": "객실청소·린넨 카트",
+          "cue_type": "work_activity",
+          "confidence": 0.86,
+          "evidence": "숙박시설 객실청소, 린넨류, 청소용 운반카트",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-89-2012",
+          "guide_code": "G-89-2012",
+          "trigger_text": "락스·세제·젖은 욕실 바닥",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "락스와 세제 혼합 금지, 욕실 물기, 보호장갑, 청소카트",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "숙박시설",
+          "객실청소",
+          "린넨",
+          "욕실",
+          "락스",
+          "청소카트"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-9-2013",
+      "short_code": "G9",
+      "title": "위험물질 취급작업장 위험표시에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G9.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "hazardous_material_workplace_signage",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "위험물질",
+          "폭발성물질",
+          "인화성액체",
+          "경고표지",
+          "소방기관"
+        ],
+        "evidence": "위험물질 취급작업장에서 위험물 총량, 소방기관 신고, 경고표지 제작·부착을 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.92,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-9-2013",
+          "guide_code": "G-9-2013",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.86,
+          "evidence": "위험물질은 화재, 폭발, 급성독성 등의 원인이 되는 위험성을 가진 물질이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-9-2013",
+          "guide_code": "G-9-2013",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.84,
+          "evidence": "폭발성물질, 발화성물질, 인화성액체와 가스 등 위험물 총량과 표지를 관리한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-9-2013",
+          "guide_code": "G-9-2013",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.82,
+          "evidence": "위험물 종류와 총량을 산정하고 총량 기준 이상의 위험물이 존재하지 않도록 관리한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-9-2013",
+          "guide_code": "G-9-2013",
+          "sr_id": "SR-CHEMICAL-017",
+          "confidence": 0.84,
+          "evidence": "경고표지를 모든 현장 입구나 잘 보이는 위치에 부착하고 위험물 정보를 게시한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-9-2013",
+          "guide_code": "G-9-2013",
+          "trigger_text": "위험물질 경고표지",
+          "cue_type": "visual_cue",
+          "confidence": 0.9,
+          "evidence": "위험물질 취급작업장 위험표시, 경고표지, 금지·경고·지시·안내 표지",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-9-2013",
+          "guide_code": "G-9-2013",
+          "trigger_text": "드럼통·탱크·컨테이너 위험물",
+          "cue_type": "visual_cue",
+          "confidence": 0.86,
+          "evidence": "탱크, 컨테이너, 드럼통에 저장된 위험물 총량과 현장 입구 표지",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "위험물질",
+          "폭발성물질",
+          "인화성액체",
+          "경고표지",
+          "소방기관"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-90-2015",
+      "short_code": "G90",
+      "title": "운반구에 관한 안전지침",
+      "source_file": "pipe-B/data/ci-output/ci-G90.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "manual_transport_cart_handling",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "운반구",
+          "견인끈",
+          "보조끈",
+          "바퀴",
+          "이동통로",
+          "적재"
+        ],
+        "evidence": "운반구 작업에서 바퀴 고정장치, 적재 높이, 이동통로, 상·하차, 보관·유지보수를 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "industry_alignment": [
+          "port_logistics"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-90-2015",
+          "guide_code": "G-90-2015",
+          "axis": "work_context",
+          "feature_code": "MATERIAL_HANDLING",
+          "confidence": 0.84,
+          "evidence": "운반구는 작업장 내 물품, 도구, 자재 운반을 목적으로 이용하는 무동력 운반기구이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-90-2015",
+          "guide_code": "G-90-2015",
+          "axis": "accident_type",
+          "feature_code": "COLLISION",
+          "confidence": 0.72,
+          "evidence": "표시된 이동통로를 통해 이동하고 급커브 구간에서는 여유 있게 회전한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-90-2015",
+          "guide_code": "G-90-2015",
+          "sr_id": "SR-CARGO-004",
+          "confidence": 0.62,
+          "evidence": "운반구 이동통로 표시와 충분한 여유 공간 확보는 통로·조명·안전난간 조치와 일부 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-90-2015",
+          "guide_code": "G-90-2015",
+          "sr_id": "SR-ERGONOMIC-008",
+          "confidence": 0.6,
+          "evidence": "자재 상·하차 시 2인1조와 적절한 운반도구 사용은 작업부하 관리와 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-90-2015",
+          "guide_code": "G-90-2015",
+          "trigger_text": "무동력 운반구·카트",
+          "cue_type": "equipment",
+          "confidence": 0.88,
+          "evidence": "운반구, 견인끈, 보조끈, 바퀴 고정 장치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-90-2015",
+          "guide_code": "G-90-2015",
+          "trigger_text": "가슴높이 적재·이동통로 표시",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "적재 높이는 작업자 가슴 높이 이하, 표시된 이동통로, 바퀴 고정 장치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "운반구",
+          "견인끈",
+          "보조끈",
+          "바퀴",
+          "이동통로",
+          "적재"
+        ],
+        "exclude_when": [
+          "일반 창고",
+          "급식실",
+          "실험실",
+          "조선 도크만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-91-2012",
+      "short_code": "G91",
+      "title": "장애인 및 환자이송용 호이스트 이용에 관한 안전지침",
+      "source_file": "pipe-B/data/ci-output/ci-G91.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "patient_transfer_hoist_sling",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "환자이송용 호이스트",
+          "슬링",
+          "하네스",
+          "이동경로",
+          "한계중량"
+        ],
+        "evidence": "장애인 및 환자 이송용 호이스트, 슬링, 하네스, 이동경로, 안전점검 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.9,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-91-2012",
+          "guide_code": "G-91-2012",
+          "axis": "work_context",
+          "feature_code": "LIFT_WORK",
+          "confidence": 0.84,
+          "evidence": "호이스트와 슬링의 연결 상태와 한계중량을 확인하고 한계중량을 초과하지 않는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-91-2012",
+          "guide_code": "G-91-2012",
+          "axis": "work_context",
+          "feature_code": "WET_FLOOR_WORK",
+          "confidence": 0.72,
+          "evidence": "호이스트 이동 전 바닥의 물기, 케이블 또는 장애물을 제거한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-91-2012",
+          "guide_code": "G-91-2012",
+          "sr_id": "SR-RIGGING-006",
+          "confidence": 0.62,
+          "evidence": "호이스트 슬링의 손상·소모·찢어진 부분 점검은 고리걸이용구 안전성 확보와 부분적으로 관련된다.",
+          "source_fields": [
+            "domainTerms.term",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-91-2012",
+          "guide_code": "G-91-2012",
+          "sr_id": "SR-ERGONOMIC-001",
+          "confidence": 0.6,
+          "evidence": "환자 이송 작업의 위험성평가와 작업환경 점검은 근골격계 유해요인 조사와 일부 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-91-2012",
+          "guide_code": "G-91-2012",
+          "trigger_text": "환자이송 호이스트",
+          "cue_type": "equipment",
+          "confidence": 0.9,
+          "evidence": "호이스트, 슬링, 하네스, 환자 탑승, 호이스트 이동",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-91-2012",
+          "guide_code": "G-91-2012",
+          "trigger_text": "침상 옆 슬링·바퀴 고정장치",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "슬링 연결 상태, 바퀴 고정 장치, 이동경로 물기와 케이블 제거",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "환자이송용 호이스트",
+          "슬링",
+          "하네스",
+          "이동경로",
+          "한계중량"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-93-2012",
+      "short_code": "G93",
+      "title": "고령근로자의 안전보건교육에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G93.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "older_worker_safety_training",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "고령근로자",
+          "안전보건교육",
+          "신체능력",
+          "인지능력",
+          "직무스트레스"
+        ],
+        "evidence": "고령근로자의 신체·감각·인지 특성을 반영한 안전보건교육 프로그램 운영 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.8,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "healthcare"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-93-2012",
+          "guide_code": "G-93-2012",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.76,
+          "evidence": "고령근로자의 신체적·감각적·인지적 특성을 반영하여 교육자료와 교육과정을 개발한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-93-2012",
+          "guide_code": "G-93-2012",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "고령근로자에게 정기적인 교육 참가 기회와 적합한 교재·보조재를 제공한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-93-2012",
+          "guide_code": "G-93-2012",
+          "trigger_text": "고령근로자 안전보건교육",
+          "cue_type": "context_term",
+          "confidence": 0.8,
+          "evidence": "고령근로자의 안전보건교육에 관한 기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-93-2012",
+          "guide_code": "G-93-2012",
+          "trigger_text": "운동·인지·스트레스 프로그램",
+          "cue_type": "visual_cue",
+          "confidence": 0.76,
+          "evidence": "운동프로그램, 인지 증진 프로그램, 직무스트레스 예방관리 프로그램",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "고령근로자",
+          "안전보건교육",
+          "신체능력",
+          "인지능력",
+          "직무스트레스"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-94-2012",
+      "short_code": "G94",
+      "title": "산업재해 예방을 위한 작업능력 증진에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G94.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "work_ability_promotion_program",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "작업능력",
+          "WAI",
+          "작업요구도",
+          "건강증진",
+          "작업부하"
+        ],
+        "evidence": "작업능력 측정, 부족원인 분석, 증진계획과 프로그램 운영, 작업 부하·환경 개선 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.8,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "healthcare",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-94-2012",
+          "guide_code": "G-94-2012",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.78,
+          "evidence": "근육을 쓰는 작업 감소, 어려운 작업 자세 감소, 공구와 작업 공간 개선을 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-94-2012",
+          "guide_code": "G-94-2012",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.68,
+          "evidence": "작업능력 수준 측정과 증진 프로그램을 운영하고 효과를 평가한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-94-2012",
+          "guide_code": "G-94-2012",
+          "sr_id": "SR-ERGONOMIC-003",
+          "confidence": 0.66,
+          "evidence": "작업 부하와 환경 개선은 근골격계 유해요인 조사 결과에 따른 작업환경 개선 조치와 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-94-2012",
+          "guide_code": "G-94-2012",
+          "sr_id": "SR-HEAT-001",
+          "confidence": 0.6,
+          "evidence": "기후에 의한 위험과 작업환경 개선 항목은 온도·습도 조절과 일부 관련된다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-94-2012",
+          "guide_code": "G-94-2012",
+          "trigger_text": "작업능력 지수·건강증진 프로그램",
+          "cue_type": "context_term",
+          "confidence": 0.82,
+          "evidence": "작업능력 수준 측정, WAI, 건강증진 프로그램, 체력증진 프로그램",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-94-2012",
+          "guide_code": "G-94-2012",
+          "trigger_text": "작업부하·작업자세 개선",
+          "cue_type": "visual_cue",
+          "confidence": 0.78,
+          "evidence": "근육 작업 감소, 어려운 작업 자세 감소, 공구와 작업 공간 개선",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "작업능력",
+          "WAI",
+          "작업요구도",
+          "건강증진",
+          "작업부하"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-95-2012",
+      "short_code": "G95",
+      "title": "산업현장의 안전디자인 적용에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G95.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "safe_design_lifecycle",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "안전디자인",
+          "생애주기",
+          "사용편의성",
+          "위험통제",
+          "디자인"
+        ],
+        "evidence": "산업현장의 안전디자인을 생애주기 관점에서 위험요인 파악·통제·평가에 적용하는 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.78,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-95-2012",
+          "guide_code": "G-95-2012",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "초기 계획단계부터 전체 생애주기에 걸쳐 위험요인 파악과 관리를 수행한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-95-2012",
+          "guide_code": "G-95-2012",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.66,
+          "evidence": "사용자 안전, 편리함, 효용성, 생산성, 편안함을 고려한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-95-2012",
+          "guide_code": "G-95-2012",
+          "sr_id": "SR-ERGONOMIC-003",
+          "confidence": 0.6,
+          "evidence": "안전디자인의 작업환경 개선과 인간 특성 반영은 근골격계 작업환경 개선과 부분적으로 관련된다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-95-2012",
+          "guide_code": "G-95-2012",
+          "trigger_text": "안전디자인 검토표",
+          "cue_type": "context_term",
+          "confidence": 0.78,
+          "evidence": "산업현장의 안전디자인 적용, 생애주기, 사용편의성",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-95-2012",
+          "guide_code": "G-95-2012",
+          "trigger_text": "위험통제 옵션·디자인 대안",
+          "cue_type": "visual_cue",
+          "confidence": 0.74,
+          "evidence": "위험통제 옵션 개발, 디자인 옵션, 평가와 시험작동",
+          "source_fields": [
+            "workProcesses.processName",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "안전디자인",
+          "생애주기",
+          "사용편의성",
+          "위험통제",
+          "디자인"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-96-2012",
+      "short_code": "G96",
+      "title": "인적오류 예방에 관한 인간공학적 안전보건 관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-G96.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "human_error_ergonomic_management",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "인적오류",
+          "인간공학",
+          "OJT",
+          "인간기계체계",
+          "의사소통"
+        ],
+        "evidence": "인적오류 예방을 위해 작업절차, 교육, 인력배치, 의사소통, 인간공학적 작업장 설계를 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.82,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "manufacturing",
+          "healthcare"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-96-2012",
+          "guide_code": "G-96-2012",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.78,
+          "evidence": "사람과 작업 간 적합성 부족으로 발생하는 인적오류를 인간공학적 원리로 관리한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-96-2012",
+          "guide_code": "G-96-2012",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.68,
+          "evidence": "작업절차, 안전보건교육, 인력배치, 의사소통체계를 구축한다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-96-2012",
+          "guide_code": "G-96-2012",
+          "sr_id": "SR-ERGONOMIC-003",
+          "confidence": 0.6,
+          "evidence": "작업설계와 작업장 설계 개선은 인간공학적 작업환경 개선과 일부 관련된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-96-2012",
+          "guide_code": "G-96-2012",
+          "trigger_text": "인적오류·작업절차",
+          "cue_type": "context_term",
+          "confidence": 0.82,
+          "evidence": "인적오류 예방, 작업절차 수립, OJT, 의사소통체계",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-96-2012",
+          "guide_code": "G-96-2012",
+          "trigger_text": "작업허가·인수인계·표준절차서",
+          "cue_type": "visual_cue",
+          "confidence": 0.78,
+          "evidence": "작업허가 시스템, 인수인계, 작업순서별 세부 지침",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "인적오류",
+          "인간공학",
+          "OJT",
+          "인간기계체계",
+          "의사소통"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "G-99-2013",
+      "short_code": "G99",
+      "title": "근로자 회합 시 근로자 안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G99.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "workplace_meeting_crowd_safety",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "회합",
+          "참가자",
+          "보행자 통로",
+          "안전방책",
+          "응급계획"
+        ],
+        "evidence": "근로자 회합에서 참가자 수, 보행자 통로, 안전방책, 응급상황 대응, 회합 후 평가를 관리한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-99-2013",
+          "guide_code": "G-99-2013",
+          "axis": "work_context",
+          "feature_code": "CROWD_MANAGEMENT",
+          "confidence": 0.86,
+          "evidence": "참가자들이 질서 있게 회합 장소로 진입하고 이동하도록 안내요원과 안전방책을 배치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-99-2013",
+          "guide_code": "G-99-2013",
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.8,
+          "evidence": "화재·폭발·구조물 무너짐 등 응급상황 시 출입구·통로 개방과 대피를 계획한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-99-2013",
+          "guide_code": "G-99-2013",
+          "sr_id": "SR-WORKPLACE-009",
+          "confidence": 0.68,
+          "evidence": "예상 참가자 수를 고려하여 보행자 통로와 출구·입구 연결 통로를 확보한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-99-2013",
+          "guide_code": "G-99-2013",
+          "sr_id": "SR-WELFARE-004",
+          "confidence": 0.64,
+          "evidence": "응급계획과 응급구조대원 접근, 관련 기관 지원 요청을 준비한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-99-2013",
+          "guide_code": "G-99-2013",
+          "trigger_text": "근로자 회합·집체교육",
+          "cue_type": "work_activity",
+          "confidence": 0.84,
+          "evidence": "근로자 회합, 집체교육, 회의, 세미나, 워크숍, 캠페인",
+          "source_fields": [
+            "title",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-99-2013",
+          "guide_code": "G-99-2013",
+          "trigger_text": "안전방책·보행자 통로·안내요원",
+          "cue_type": "visual_cue",
+          "confidence": 0.82,
+          "evidence": "안전방책, 보행자 통로, 안내 표지판, 램프, 안내요원",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "회합",
+          "참가자",
+          "보행자 통로",
+          "안전방책",
+          "응급계획"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "X-10-2012",
+      "short_code": "X10",
+      "title": "저온 접촉면에 대한 인체반응의 리스크평가 지침",
+      "source_file": "pipe-B/data/ci-output/ci-X10.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "cold_contact_surface_risk_assessment",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "저온 접촉면",
+          "표면온도",
+          "접촉시간",
+          "동상",
+          "열관성"
+        ],
+        "evidence": "저온 접촉면, 표면온도, 접촉시간, 피부 영향과 동상·무감각·통증 리스크 평가 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.9,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-10-2012",
+          "guide_code": "X-10-2012",
+          "axis": "accident_type",
+          "feature_code": "COLD_EXPOSURE",
+          "confidence": 0.88,
+          "evidence": "0℃ 이하 액체와 저온 표면은 피부를 얼게 하여 급격한 동상을 유발할 수 있다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-10-2012",
+          "guide_code": "X-10-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "HEAT_COLD",
+          "confidence": 0.84,
+          "evidence": "표면온도와 접촉시간 임계값을 활용해 통증·무감각·동상 리스크를 평가한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-10-2012",
+          "guide_code": "X-10-2012",
+          "sr_id": "SR-HEAT-004",
+          "confidence": 0.86,
+          "evidence": "저온 접촉면에 대한 리스크 발견 시 단열, 가드, 표시, 보호구 착용 등 동상 예방 대책을 마련한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-10-2012",
+          "guide_code": "X-10-2012",
+          "sr_id": "SR-HEAT-013",
+          "confidence": 0.7,
+          "evidence": "저온 접촉면 작업에서 충분한 의복 및 장갑 등 방한 보호구 착용을 후보화한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-10-2012",
+          "guide_code": "X-10-2012",
+          "trigger_text": "저온 접촉면·표면온도",
+          "cue_type": "observed_hazard",
+          "confidence": 0.88,
+          "evidence": "접촉면, 표면온도, 접촉온도, 접촉시간",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-10-2012",
+          "guide_code": "X-10-2012",
+          "trigger_text": "열전대 측정·동상 임계값 그래프",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "열전대, 표면온도-접촉시간 임계값 그래프, 보호장갑",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "저온 접촉면",
+          "표면온도",
+          "접촉시간",
+          "동상",
+          "열관성"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "X-12-2012",
+      "short_code": "X12",
+      "title": "산림작업 시 안전보건 리스크관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-X12.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "forestry_work_risk_management",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "산림작업",
+          "기계톱",
+          "방제",
+          "장비 작업",
+          "운반 작업"
+        ],
+        "evidence": "산림작업에서 기계톱, 방제, 장비, 운반 작업의 안전보건 리스크 관리를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "항만하역",
+          "건설 장비",
+          "일반 기계 방호",
+          "피뢰설비"
+        ],
+        "industry_alignment": [
+          "manufacturing",
+          "healthcare"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-12-2012",
+          "guide_code": "X-12-2012",
+          "axis": "work_context",
+          "feature_code": "LOGGING",
+          "confidence": 0.84,
+          "evidence": "기계톱 작업은 나무를 자르기 위한 안전 절차와 보호구 착용을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-12-2012",
+          "guide_code": "X-12-2012",
+          "axis": "work_context",
+          "feature_code": "PESTICIDE_SPRAY",
+          "confidence": 0.78,
+          "evidence": "방제 작업은 유해 물질에 적합한 보호구 착용과 장비 사용을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-12-2012",
+          "guide_code": "X-12-2012",
+          "sr_id": "SR-LOGGING-001",
+          "confidence": 0.78,
+          "evidence": "산림작업 기계톱 작업에서 벌목작업 안전수칙과 보호구 착용을 후보화한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-12-2012",
+          "guide_code": "X-12-2012",
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.72,
+          "evidence": "방제 작업에서 사용하는 유해 물질에 적합한 보호구 착용을 요구한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-12-2012",
+          "guide_code": "X-12-2012",
+          "trigger_text": "산림작업 기계톱",
+          "cue_type": "work_activity",
+          "confidence": 0.86,
+          "evidence": "산림작업, 기계톱 작업, 산림작업관리자, 도급업체",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-12-2012",
+          "guide_code": "X-12-2012",
+          "trigger_text": "임도·목재운반·방제 약제",
+          "cue_type": "visual_cue",
+          "confidence": 0.82,
+          "evidence": "진입로, 임도, 목재 운반, 방제 약제, 대형 트럭",
+          "source_fields": [
+            "checklistItems.text",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "산림작업",
+          "기계톱",
+          "방제",
+          "장비 작업",
+          "운반 작업"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "건설 장비",
+          "일반 기계 방호",
+          "피뢰설비"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "X-15-2012",
+      "short_code": "X15",
+      "title": "저온작업에대한리스크관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-X15.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "cold_work_risk_management",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "저온작업",
+          "한랭",
+          "건강설문지",
+          "업무적합성",
+          "방한복"
+        ],
+        "evidence": "저온작업에서 관찰, 정량적 리스크 분석, 건강설문, 업무적합성, 작업자 교육을 관리한다.",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "checklistItems.text"
+        ],
+        "confidence": 0.9,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "healthcare",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-15-2012",
+          "guide_code": "X-15-2012",
+          "axis": "accident_type",
+          "feature_code": "COLD_EXPOSURE",
+          "confidence": 0.88,
+          "evidence": "저온 노출의 유형, 방한복, 개인 보호구, 환경적 요소를 포함해 유해위험요인을 파악한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-15-2012",
+          "guide_code": "X-15-2012",
+          "axis": "hazardous_agent",
+          "feature_code": "HEAT_COLD",
+          "confidence": 0.84,
+          "evidence": "저온 관련 리스크 관리 방법과 난방·휴식·따뜻한 음료 제공 등 예방대책을 적용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-15-2012",
+          "guide_code": "X-15-2012",
+          "sr_id": "SR-HEAT-004",
+          "confidence": 0.86,
+          "evidence": "저온 관련 리스크를 파악·평가·관리하고 동상 등 건강장해 예방 조치를 수행한다.",
+          "source_fields": [
+            "workProcesses.relatedSR",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-15-2012",
+          "guide_code": "X-15-2012",
+          "sr_id": "SR-HEAT-001",
+          "confidence": 0.74,
+          "evidence": "난방 제공, 난방된 휴식 공간, 적절한 작업-휴식 주기 계획을 요구한다.",
+          "source_fields": [
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-15-2012",
+          "guide_code": "X-15-2012",
+          "trigger_text": "저온작업·방한복",
+          "cue_type": "observed_hazard",
+          "confidence": 0.88,
+          "evidence": "저온 노출 유형, 방한복, 개인보호구, 환경적 요소",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-15-2012",
+          "guide_code": "X-15-2012",
+          "trigger_text": "건강설문·업무적합성 평가",
+          "cue_type": "visual_cue",
+          "confidence": 0.84,
+          "evidence": "건강설문지 조사, 문진 및 건강진단, 업무적합성 평가",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "저온작업",
+          "한랭",
+          "건강설문지",
+          "업무적합성",
+          "방한복"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "X-27-2012",
+      "short_code": "X27",
+      "title": "화학물질 리스크관리를 위한 작업공정별 관리요령의 활용에 관한 지침",
+      "source_file": "pipe-B/data/ci-output/ci-X27.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chemical_process_control_instructions",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "화학물질",
+          "작업공정별 관리요령",
+          "MSDS",
+          "노출농도",
+          "노출시간"
+        ],
+        "evidence": "화학물질 작업공정별 관리요령을 작성·게시하고 MSDS, 노출농도, 응급조치, 폐기물처리를 연계하는 지침",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.92,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-27-2012",
+          "guide_code": "X-27-2012",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.88,
+          "evidence": "화학물질 취급 작업에 대해 작업조건, 작업물질, 노출농도와 노출시간을 비교·검토한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-27-2012",
+          "guide_code": "X-27-2012",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.86,
+          "evidence": "작업상 근로자가 작업물질의 가스상·입자상 농도에 노출되는 조건을 관리한다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-27-2012",
+          "guide_code": "X-27-2012",
+          "sr_id": "SR-CHEMICAL-017",
+          "confidence": 0.82,
+          "evidence": "화학물질 작업공정별 관리요령을 작업장소에 비치·게시하고 근로자가 이해하기 쉬운 형태로 작성한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-27-2012",
+          "guide_code": "X-27-2012",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.78,
+          "evidence": "화학물질 취급 작업 수행 전 및 연 1회 이상 작업공정별 관리요령에 대해 교육한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-27-2012",
+          "guide_code": "X-27-2012",
+          "trigger_text": "화학물질 작업공정별 관리요령",
+          "cue_type": "document_or_context",
+          "confidence": 0.9,
+          "evidence": "작업공정별 관리요령, MSDS, 작업조건, 작업물질, 노출농도",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "X-27-2012",
+          "guide_code": "X-27-2012",
+          "trigger_text": "MSDS 게시물·보호구·응급조치 항목",
+          "cue_type": "visual_cue",
+          "confidence": 0.86,
+          "evidence": "화학제품 정보, 취급·저장방법, 노출방지·보호구, 응급조치, 폐기시 주의사항",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate"
+        }
+      ],
+      "manual_review": {
+        "reviewed_by": "codex",
+        "reviewed_at": "2026-05-09",
+        "review_depth": "source_json_manual_read",
+        "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft."
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "화학물질",
+          "작업공정별 관리요령",
+          "MSDS",
+          "노출농도",
+          "노출시간"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Batch 004 was manually re-read from ci-output JSON and corrected from the generated draft. Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    }
+  ]
+}

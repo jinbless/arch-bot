@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-05-10T04:51:21.677495+00:00",
+  "method": "codex_manual_import_preview",
+  "source_method": "codex_manual_pilot",
+  "serving_policy": {
+    "min_confidence": 0.65,
+    "review_status_in": [
+      "asserted",
+      "candidate"
+    ],
+    "excluded_statuses": [
+      "needs_review",
+      "rejected"
+    ]
+  },
+  "totals": {
+    "batch_files": 35,
+    "guides": 1038,
+    "unique_guides": 1038,
+    "duplicate_guide_codes": [],
+    "asserted_mapping_updates": 0
+  },
+  "candidate_row_summary": {
+    "guide_entity_feature_candidates": {
+      "rows": 2084,
+      "serving_eligible": 1812,
+      "excluded_by_review_status": 268,
+      "excluded_by_confidence": 4,
+      "review_status_counts": {
+        "candidate": 1816,
+        "needs_review": 268
+      }
+    },
+    "guide_sr_link_candidates": {
+      "rows": 4323,
+      "serving_eligible": 2767,
+      "excluded_by_review_status": 1556,
+      "excluded_by_confidence": 0,
+      "review_status_counts": {
+        "candidate": 2767,
+        "needs_review": 1556
+      }
+    },
+    "guide_visual_trigger_candidates": {
+      "rows": 2077,
+      "serving_eligible": 2067,
+      "excluded_by_review_status": 10,
+      "excluded_by_confidence": 0,
+      "review_status_counts": {
+        "candidate": 2067,
+        "needs_review": 10
+      }
+    }
+  },
+  "validation": {
+    "missing_required_fields": [],
+    "invalid_review_status": [],
+    "invalid_sr_id": [],
+    "non_catalog_feature_code": [],
+    "entity_fk_violations": [],
+    "duplicate_unique_keys": {
+      "guide_sr_link_candidates": [
+        {
+          "key": [
+            "GUIDE",
+            "A-67-2018",
+            "SR-FIRE_EXPLOSION-015",
+            "codex_manual_pilot"
+          ],
+          "count": 2
+        },
+        {
+          "key": [
+            "GUIDE",
+            "A-68-2018",
+            "SR-FIRE_EXPLOSION-015",
+            "codex_manual_pilot"
+          ],
+          "count": 2
+        }
+      ]
+    }
+  },
+  "import_strategy": {
+    "mode": "preview_only",
+    "candidate_tables_only": true,
+    "asserted_mapping_updates": 0,
+    "replace_per_method_required": true,
+    "replace_method": "codex_manual_pilot",
+    "why_replace_per_method": "Corrected manual batches may demote confidence/review_status; GREATEST(confidence) upserts would keep stale high confidence.",
+    "recommended_steps": [
+      "BEGIN",
+      "DELETE FROM guide_entity_feature_candidates WHERE method = 'codex_manual_pilot'",
+      "DELETE FROM guide_sr_link_candidates WHERE method = 'codex_manual_pilot'",
+      "DELETE FROM guide_visual_trigger_candidates WHERE method = 'codex_manual_pilot'",
+      "INSERT flattened candidate rows",
+      "COMMIT"
+    ]
+  }
+}

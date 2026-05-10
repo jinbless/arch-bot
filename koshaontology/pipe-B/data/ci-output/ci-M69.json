@@ -1,0 +1,709 @@
+{
+  "metadata": {
+    "guideCode": "M-69-2012",
+    "shortCode": "M69",
+    "domain": "B",
+    "extractedAt": "2026-04-21T12:29:10Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-B-054"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-M69-001",
+      "text": "단기 대 장기 부식률의 적절한 사용은 공인된 압력용기 검사원(이하 \"검사자\"라 한다.)에 의해 결정되어야한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 부식률 결정",
+      "additionalDetail": "장기 부식률은 장비 수명 초기와 최근 기록을, 단기 부식률은 가장 최근의 두 측정치를 사용한다.",
+      "workProcessPhase": "부식률 결정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M69-002",
+      "text": "장기간(LT, Long-Term) 부식률은 다음 식으로 계산하여야 한다. 장기간부식률 = (t초기두께 - t실제두께) / (t초기두께와 t실제두께 사이의 시간(년))",
+      "guideContext": "압력용기 잔여수명 평가 — 부식률 결정",
+      "additionalDetail": "t초기두께는 해당 CMLs에서 최초 측정두께이거나 새 부식률 환경 시점의 두께, t실제두께는 가장 최근 검사기간에 측정된 CMLs의 실제두께",
+      "workProcessPhase": "부식률 결정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M69-003",
+      "text": "단기간(ST, Short-Term) 부식률은 다음 식으로 계산하여야 한다. 단기간부식률 = (t이전두께 - t실제두께) / (t이전두께와 t실제두께 사이의 시간(년))",
+      "guideContext": "압력용기 잔여수명 평가 — 부식률 결정",
+      "additionalDetail": "t이전두께는 앞선 검사기간에 측정한 이전 두께(t실제두께와 동일 위치에서 이전검사 기간에 측정한 두께)",
+      "workProcessPhase": "부식률 결정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M69-004",
+      "text": "장기 및 단기 장기 부식률은 자료 평가의 일부로서 비교하는 것이 바람직하다. 검사자는 부식 전문가와 협의하여 현재 조건을 잘 반영한 부식률을 채택해야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 부식률 결정",
+      "additionalDetail": null,
+      "workProcessPhase": "부식률 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-005",
+      "text": "신규 압력용기나 사용조건이 바뀌는 압력용기의 경우, 다음 방법 중 하나를 예상 부식률 결정을 위해 사용하여야 한다. (가) 동일 또는 유사조건에서 운전되는 압력용기에 대해 사용자에 의하여 수집된 자료로부터 계산 (나) 사용자의 경험으로부터 평가 (다) 동일 또는 유사조건의 압력용기에 대하여 공표된 자료로부터 평가 (라) 적당한 부식감시장치 또는 실제두께측정에 의하여 약 1,000시간 사용 후 결정",
+      "guideContext": "압력용기 잔여수명 평가 — 신규/변경 용기 부식률",
+      "additionalDetail": null,
+      "workProcessPhase": "부식률 결정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M69-006",
+      "text": "만약, 예상 부식률을 위 항목 중 어느 하나에 의해 결정될 수 없다면, 가동 중(On-Stream) 부식률 결정은 적당한 부식감시장치 또는 실제두께측정에 의하여 약 1,000시간 사용 후 정하여야 한다. 차후의 결정은 부식률이 확정되기 전까지 적당한 시차를 가져야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 신규/변경 용기 부식률",
+      "additionalDetail": null,
+      "workProcessPhase": "부식률 결정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-M69-007",
+      "text": "부정확한 부식률 추정으로 나중에 결정된 경우, 잔여수명계산의 부식률은 실제 부식률로 변경해야한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 신규/변경 용기 부식률",
+      "additionalDetail": null,
+      "workProcessPhase": "부식률 결정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M69-008",
+      "text": "용기의 잔여수명(년)은 다음 수식으로부터 계산해야 한다 : 잔여수명(년) = (t실제두께 - t요구두께) / 부식률(mm/year)",
+      "guideContext": "압력용기 잔여수명 평가 — 잔여수명 계산 (법령 근거 미확인)",
+      "additionalDetail": "t실제두께는 가장 최근 검사에 측정한 CMLs의 실제 두께, t요구두께는 부식여유 및 제조자의 허용공차를 포함하지 않고 설계 식에 따라 계산한 두께",
+      "workProcessPhase": "잔여수명 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-009",
+      "text": "자료 결과의 통계학적 처리는 특히, 국부부식이 쉬운 압력용기 부위의 실제 상태를 반영하는지 확인에 주의를 기울여야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 잔여수명 계산 (법령 근거 미확인)",
+      "additionalDetail": "국부부식은 중대함으로 통계학적 분석은 임의로 압력용기에 적용되지 않을 수 있다.",
+      "workProcessPhase": "잔여수명 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-010",
+      "text": "압력용기의 계속사용을 위한 최대허용사용압력(MAWP)은 그 용기에 적용한 KS, ASME 또는 제작규격의 최신판을 사용하여 구한 값을 근거로 해야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — MAWP 결정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최대허용사용압력 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-011",
+      "text": "이들 계산식으로부터 구한 최대허용사용압력의 결과는 해당 규격에 따른 등급조정이 실시되지 않는 한 최초의 최대허용사용압력을 초과해서는 안 된다.",
+      "guideContext": "압력용기 잔여수명 평가 — MAWP 결정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최대허용사용압력 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-012",
+      "text": "부식성 사용조건에서, 이들 계산식에 사용되는 벽두께는 검사 시 측정된 실제두께에서 차기 검사일 이전에 추정된 부식 손실량의 2배를 빼야 한다. t = t실제두께 - 2(C부식률 × I검사주기)",
+      "guideContext": "압력용기 잔여수명 평가 — MAWP 결정",
+      "additionalDetail": "C부식률은 연간 지배 부식률(㎜), I검사주기는 연간 차기의 내부 또는 가동중 검사 간격",
+      "workProcessPhase": "최대허용사용압력 결정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M69-013",
+      "text": "검사 시 측정된 실제두께가 재료시험성적서 또는 제조자의 자료보고서에 기록된 두께보다 두꺼운 경우, 문제가 되는 구성품의 두께가 성형으로 인해 가장 많이 얇아질 것 같은 부위는 여러 번 두께측정에 의하여 실제두께를 확인해야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — MAWP 결정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최대허용사용압력 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-014",
+      "text": "두께측정 절차는 검사자의 승인을 받아야 한다. 허용공차는 해당 제작규격에 따라 기타 하중 영향을 고려해야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — MAWP 결정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최대허용사용압력 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-015",
+      "text": "용접부 주변 용기표면이 부식되고 이음효율이 1.0 미만인 경우, 적절한 용접이음효율(일반적으로 1.0)을 이용하여 별도로 계산해야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 부식영역 적합성 분석 (법령 근거 미확인)",
+      "additionalDetail": "용접부 표면은 용접부의 양쪽 면 2.5 ㎝(토우로부터 측정된) 거리나 용접부의 양쪽 면 요구두께 2배 길이 중 더 큰 쪽을 포함한다.",
+      "workProcessPhase": "부식영역 적합성 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-016",
+      "text": "최초 설계응력이 해당 온도에서 규정된 최소항복강도의 2/3를 초과한 경우 σ 값을 규정된 최소항복강도의 2/3로 대체시켜야 한다. 이 방법이 사용될 경우, 기술자는 이 분석을 수행해야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 얇은 부분 대체 평가 (법령 근거 미확인)",
+      "additionalDetail": "ASME Section Ⅷ, Division 2, Appendix 4 사용 시 적용",
+      "workProcessPhase": "부식영역 적합성 분석",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-017",
+      "text": "용기의 신뢰성을 보장하기 위해 모든 압력용기는 이 장에서 제공된 빈도, 주기로 검사를 하여야한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 검사 주기 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "검사 계획 수립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-018",
+      "text": "RBI 평가에 의해 보증되지 않으면, 각 지상의 압력용기는 5년 또는 요구되는 내부 또는 가동 중 검사주기 중 더 짧은 기간을 초과하지 않는 주기로 육안 외부검사를 지정해야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 외부 검사 (법령 근거 미확인)",
+      "additionalDetail": "검사는 용기가 운전 중인 동안에 수행하는 것이 좋다.",
+      "workProcessPhase": "검사 계획 수립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-019",
+      "text": "RBI 평가에 의해 보증되지 않으면, 내부 또는 가동 중 검사의 주기는 용기 잔여수명의 1/2 또는 10년 중 더 짧은 기간을 초과하지 않아야 한다. 잔여수명이 4년보다 적은 경우 검사 주기는 최대 2년까지 전체 잔여수명으로 할 수 있다.",
+      "guideContext": "압력용기 잔여수명 평가 — 내부 및 가동 중 검사주기 (법령 근거 미확인)",
+      "additionalDetail": "주기는 사용자의 품질보증시스템에 따라 검사자 또는 기술자에 의해 확정된다.",
+      "workProcessPhase": "검사 계획 수립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-020",
+      "text": "7.4 (1) (나)에 규정한 요구사항이 충족되지 않는다면 다음 검사는 내부검사를 하여야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 가동 중 검사 범위 (법령 근거 미확인)",
+      "additionalDetail": "RBI 평가가 위험이 수용할 만큼 낮고 외부 비파괴검사 기술의 효과가 적합한 것으로 결정한 경우, 대체방법으로 가동 중 검사를 수행할 수 있다.",
+      "workProcessPhase": "검사 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-021",
+      "text": "가동 중 검사가 실시될 때, 검사자에게 용기 상태의 정확한 평가를 할 수 있도록 용기의 모든 부분(경관, 동체, 그리고 노즐)에 대한 충분한 평가 권한을 부여하여야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 가동 중 검사 범위 (법령 근거 미확인)",
+      "additionalDetail": "비파괴검사 범위의 유형을 검사계획에 지정하는 것이 바람직하다. 초음파두께측정, 방사선투과시험 또는 기타 적절한 비파괴시험 방법을 포함할 수 있다.",
+      "workProcessPhase": "검사 실시",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-022",
+      "text": "부식률이 다른 두 가지 이상 영역을 가진 대형 용기의 경우, 각 영역은 해당 영역에 대한 주기에 따라 검사를 하여야 한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 여러 부식영역 용기 (법령 근거 미확인)",
+      "additionalDetail": "검사 주기 결정 또는 내부 검사를 가동 중 검사로 대체할 때 각 영역은 독립적으로 처리될 수 있다.",
+      "workProcessPhase": "검사 계획 수립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-023",
+      "text": "4.3에 따른 잔여수명을 계산할 때 실제두께를 부식영역에서 어떤 길이의 가장 얇은 평균으로 대체한다.",
+      "guideContext": "압력용기 잔여수명 평가 — 국부적으로 얇은 영역 평가",
+      "additionalDetail": null,
+      "workProcessPhase": "부식영역 적합성 분석",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "CI-M69-100",
+      "text": "제조자는 계산의 기록과 \"KS B 6750 부속서 31 원통 동체와 동체의 구형부분 내의 국부적인 얇은 부위\"를 사용하여 평가한 모든 국부적인 얇은 부위(LTA)의 위치와 범위의 기록을 유지하여야 하며, 요구가 있을 경우에는 그러한 정보를 구매자 또는 사용자나 사용자가 지정한 대리인에게 제공하여야 한다. 이 정보는 이 요건을 만족시키기 위하여 실시한 설계계산서에 기록하여야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 국부적 얇은 부위 기록 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-101",
+      "text": "최고설계온도는 규격에서 명시한 최고온도한계를 초과해서는 안 된다.",
+      "guideContext": "압력용기의 잔여수명 평가 - LTA 일반요건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-102",
+      "text": "단일 LTA는 다음의 식을 만족시켜야 한다. tL/t ≥ 0.9, L ≤ √Rt, C ≤ 2L, t - tL ≤ 5",
+      "guideContext": "압력용기의 잔여수명 평가 - 원통형 동체 단일 LTA 허용 기준 (법령 근거 미확인)",
+      "additionalDetail": "tL: LTA의 최소 두께, t: 계산두께, L: LTA의 투영 축방향 길이, R: 안쪽 반지름, C: LTA의 투영 원주방향 길이",
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-103",
+      "text": "단일 LTA의 어떤 가장자리이던지 경관이나 보강재와 같은 구조적 불연속부로부터 2.5√Rt 보다 가깝게 있어서는 안 된다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 원통형 동체 LTA 위치 제한 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-104",
+      "text": "보강이 필요 없는 구멍들에 대해서는, LTA의 가장자리와 구멍의 중심 사이의 최소 축방향 거리는 구멍의 안지름과 √Rt 의 합 이상이 되어야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 원통형 동체 LTA와 구멍 간 거리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-105",
+      "text": "보강이 필요한 구멍들에 대해서는, LTA의 가장자리와 구멍의 보강 한계 사이의 최소 축방향 거리는 √Rt 이상이 되어야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 원통형 동체 LTA와 보강구멍 간 거리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-106",
+      "text": "LTA와 그보다 두꺼운 표면 사이의 중간부위는 LTA 깊이의 3배 이상이 되는 경사부의 길이를 가져야 한다. 바닥 중간부위의 최소반지름은 LTA 깊이의 2배 이상이어야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 원통형 동체 LTA 경사부 요건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-107",
+      "text": "내부압력 이외의 기계적 하중으로 인한 LTA의 길이방향 응력은 0.3S를 초과해서는 안 된다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 원통형 동체 LTA 응력 한계 (법령 근거 미확인)",
+      "additionalDetail": "S: 최대허용응력값",
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-108",
+      "text": "LTA에서의 두께는 길이방향의 압축력에 대한 최대허용응력 또는 외압을 받는 동체와 튜브 두께의 요건을 만족시켜야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 원통형 동체 LTA 외압 두께 요건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-109",
+      "text": "마무리를 한 축방향 길이 L1과 L2를 가진 한 쌍의 국부적 얇은 부위는 그 개별 LTA가 원통형 동체에 있는 단일 국부적 얇은 부위의 요건을 만족시키고, Θ가 45°이하인 경우 최소 축방향 격리는 (1.0 + 1.5cosθ)(L1 + L2)/2 또는 2t 보다 커야 하며, Θ가 45°를 초과하는 경우 최소 축방향 격리는 2.91cosθ(L1 + L2)/2 이상이고 최소 원주방향 격리는 2t 이상이 되어야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 원통형 동체 여러 LTA 쌍 허용 조건 (법령 근거 미확인)",
+      "additionalDetail": "모든 LTA의 쌍들이 이 규정을 만족시키면 LTA의 여러 쌍들을 허용할 수 있다",
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-110",
+      "text": "동체의 구형부분 내 단일 LTA는 다음의 식을 만족시켜야 한다. tL/t ≥ 0.9, L ≤ √Rt, t - tL ≤ 5",
+      "guideContext": "압력용기의 잔여수명 평가 - 구형부분 단일 LTA 허용 기준 (법령 근거 미확인)",
+      "additionalDetail": "반구형 경관, 접시형·타원형 경관의 구형 부분에 적용",
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-111",
+      "text": "단일 LTA의 어느 가장자리나 구조적 불연속부로부터 2.5√Rt 보다 가깝게 있어서는 안 된다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 구형부분 LTA 위치 제한 (법령 근거 미확인)",
+      "additionalDetail": "경관과 원통형 동체 사이의 일정한 두께의 연결부는 LTA 규정에 대하여 구조적 불연속으로 간주하지 않는다",
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-112",
+      "text": "접시형 경관의 LTA는 그 경관의 구형 부분 내에 전부 위치해 있어야만 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 접시형 경관 LTA 위치 제한 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-113",
+      "text": "타원형 경관의 LTA는 전부 한 원 안에 있어야 하며, 그 원의 중심은 압력용기의 축과 일치하고 그 직경은 동체의 안지름의 80%와 같다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 타원형 경관 LTA 위치 제한 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-114",
+      "text": "LTA에서의 두께는 이음부가 없거나 맞대기 이음구조로 제조하는 외압을 받는 구형 동체 또는 성형경관에 대한 볼록면의 압력에 대한 요구두께 요건을 만족시켜야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 구형부분 LTA 외압 두께 요건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-115",
+      "text": "여러 개의 LTA는 그들의 가장자리가 2.5√Rt 보다 가깝지 않으면 단일 LTA로 취급하여야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 구형부분 여러 LTA 결합 처리 (법령 근거 미확인)",
+      "additionalDetail": "결합한 LTA의 둘러싸인 범위는 DL의 크기 내에 있어야 하며, 각 LTA는 단독 LTA 규정을 만족시켜야 한다",
+      "workProcessPhase": "LTA 건전성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "8.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M69-116",
+      "text": "하나의 압력용기에 대한 정보는 이 서식의 개별 사본에 기록해야 한다.",
+      "guideContext": "압력용기의 잔여수명 평가 - 검사기록 관리 (법령 근거 미확인)",
+      "additionalDetail": "검사자는 서식 사본 한 부를 현장 자료 기록용, 또 다른 사본은 사무실 기록용으로 사용한다",
+      "workProcessPhase": "검사기록 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "9",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-M69-001",
+      "term": "설계압력",
+      "definition": "압력용기 각부의 최소요구두께 또는 물리적 특성을 결정할 목적으로 압력용기 설계에 사용하는 금속온도에 부합하는 압력을 말한다. 압력용기 특정 부분의 두께를 결정하기 위해서는 경우에 따라 설계압력에 정수두압을 더한 압력을 사용하여야 한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-002",
+      "term": "운전압력",
+      "definition": "정상운전 시 압력용기 최상부에서의 압력을 말하며, 정상운전 범위내의 최대운전압력과 최저운전압력을 의미한다. 최대운전압력은 최대허용사용압력을 초과해서는 안 되며, 또한 압력방출장치가 자주 열리는 것을 방지하기 위하여 일반적으로 압력방출장치의 설정압력보다 낮은 수준에서 유지한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-003",
+      "term": "설계온도",
+      "definition": "설계압력을 정할 때 설계압력에 부합되는 사용조건으로부터 정해지는 금속에서 유지될 수 있는 온도를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-004",
+      "term": "운전온도",
+      "definition": "해당 용기를 사용한 규정된 운전 중 최고운전온도와 최저운전온도의 정상운전 범위 내 온도를 의미한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-005",
+      "term": "최대허용사용압력",
+      "definition": "용기 제작에 사용된 재질 두께(부식여유 제외)를 기준으로 산출한 용기의 상부에 허용 가능한 압력을 말한다. 이 압력은 임의의 압력경계 부품에 대하여 정수두압을 포함하고, 부식여유를 제외한 공칭두께를 사용하며, 또한 압력에 부합하는 지정된 온도에서 일어날 수 있는 하중들의 임의 조합 영향을 고려하여, KS B 6750 규격에서 구하는 내압 또는 외압 중에서 가장 낮은 압력이다. 이 압력은 압력용기를 보호하는 압력방출장치의 압력설정에 대한 근거가 된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-006",
+      "term": "최대허용응력값",
+      "definition": "KS B 6750 압력용기 – 설계 및 제조일반 규격에 주어진 설계식에 사용하는 규정된 재료에 대하여 허용할 수 있는 최대 단위 응력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-007",
+      "term": "최소두께",
+      "definition": "온도, 압력 및 모든 하중을 감안한 계산두께에 부식여유를 더한 두께를 말하며, 설계두께라고도 한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-008",
+      "term": "실제측정두께",
+      "definition": "두께를 구하고자 하는 해당 부위에 대하여 측정한 두께를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-009",
+      "term": "요구두께",
+      "definition": "규격에 규정된 식에 의하여 계산한 두께로서 부식여유를 더하기 전의 두께를 말한다. 다만, 규격에서 최소한의 두께가 정해진 경우에는 그 두께를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-010",
+      "term": "공칭두께",
+      "definition": "상업적으로 입수할 수 있도록 선택된 두께이고, 제조자에게 공급되는 두께를 말한다. 판재의 경우, 제조자의 선택에서 공칭두께는 성형전(승인된)에 재료시험증명서에 나타난 두께나 고려하고 있는 이음부 또는 그 자리에서 판에 측정된 두께로 하여야 한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-011",
+      "term": "컨디션 모니터링 위치",
+      "definition": "정기적 시험을 시행하는 압력용기의 지정된 장소. 이전에, 그들은 일반적으로 \"두께 모니터링 위치 (TMLs)\"라고도 했다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M69-012",
+      "term": "가동 중 검사",
+      "definition": "압력용기의 계속운전을 위한 적합성을 확인하기 위해 실시하는 검사를 말한다. 압력용기의 적합성을 확인하기 위해 비파괴시험을 실시하며, 검사가 실시되는 동안 압력용기를 운전해도 되고 운전하지 않아도 된다. 근본적으로 가동 중 검사는 내부검사를 위해 압력용기의 내부로 들어가지 않는 것을 의미한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-M69-01",
+      "processOrder": 1,
+      "processName": "부식률 결정",
+      "safetyMeasures": "장기간(LT) 및 단기간(ST) 부식률을 각각 계산하여 비교하고, 공인된 압력용기 검사원이 부식 전문가와 협의하여 현재 조건을 잘 반영한 부식률을 채택한다. 신규 용기의 경우 동일 또는 유사조건 자료, 사용자 경험, 공표 자료, 또는 약 1,000시간 사용 후 실측으로 결정한다.",
+      "requiredPPE": [],
+      "sourceSection": "4",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "WP-M69-02",
+      "processOrder": 2,
+      "processName": "잔여수명 계산",
+      "safetyMeasures": "잔여수명(년) = (t실제두께 - t요구두께) / 부식률 공식을 적용하며, 국부부식이 쉬운 부위에 대해 통계학적 분석 시 실제 상태 반영 여부를 주의 깊게 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M69-03",
+      "processOrder": 3,
+      "processName": "최대허용사용압력(MAWP) 결정",
+      "safetyMeasures": "해당 용기에 적용한 KS, ASME 또는 제작규격의 최신판을 사용하여 MAWP을 계산하며, 부식성 사용조건에서는 실제두께에서 추정 부식 손실량의 2배를 차감한 값을 사용한다. 결과가 최초 MAWP을 초과하지 않는지 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M69-04",
+      "processOrder": 4,
+      "processName": "부식영역 적합성 분석",
+      "safetyMeasures": "국부적으로 얇은 영역은 규정된 평균 길이 내 평균값으로 평가하고, 공식(Pitting)은 잔여두께·총면적·선형합 기준으로 무시 여부를 판단한다. 용접이음효율 1.0 미만인 부식부는 별도 계산하며, 대안으로 ASME Section Ⅷ, Division 2 또는 API 579 분석 방법을 적용할 수 있다.",
+      "requiredPPE": [],
+      "sourceSection": "6",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-032"
+      ]
+    },
+    {
+      "identifier": "WP-M69-05",
+      "processOrder": 5,
+      "processName": "검사 계획 수립 및 실시",
+      "safetyMeasures": "외부검사는 5년 또는 내부/가동 중 검사주기 중 짧은 기간 이내, 내부/가동 중 검사는 잔여수명의 1/2 또는 10년 중 짧은 기간 이내로 주기를 설정한다. 가동 중 검사 시 초음파두께측정, 방사선투과시험 등 비파괴시험 방법을 검사계획에 지정하고, 검사자에게 용기 전 부분(경관, 동체, 노즐)에 대한 충분한 평가 권한을 부여한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "WP-M69-26",
+      "processOrder": 6,
+      "processName": "압력용기 검사기록 작성 및 관리",
+      "safetyMeasures": "압력용기를 검사하는 동안 수집한 자료를 별지 제1호~제5호 서식에 따라 보관·활용한다. 검사자는 서식 사본 한 부를 현장 자료 기록용으로 사용하고, 또 다른 사본은 사무실 기록용으로 사용한다. 기본 자료를 이용할 수 없는 압력용기를 검사할 때에는 현장에서 얻을 수 있는 모든 관련 치수 및 자료를 포함한 서식에 압력용기의 스케치를 만든다.",
+      "requiredPPE": [],
+      "sourceSection": "9",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [],
+  "documentRequirements": [
+    {
+      "identifier": "DR-M69-001",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "압력용기 검사계획서",
+      "requiredSections": [
+        "비파괴검사 범위 및 유형",
+        "초음파두께측정 계획",
+        "방사선투과시험 계획",
+        "검사주기 설정 근거",
+        "CMLs(컨디션 모니터링 위치) 지정"
+      ],
+      "sourceSection": "7.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-M69-002",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "압력용기 잔여수명 평가 보고서",
+      "requiredSections": [
+        "부식률 결정(장기/단기)",
+        "잔여수명 계산 결과",
+        "최대허용사용압력(MAWP) 계산",
+        "부식영역 적합성 분석",
+        "검사주기 설정"
+      ],
+      "sourceSection": "4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-M69-026",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "압력용기 검사기록 서식",
+      "requiredSections": [
+        "기재사항(공정 명칭, 설치위치, 안지름, 재료규격, 설계온도, 최대허용사용압력 등)",
+        "두께측정 자료(검사부위 위치, 최소두께, 최소 요구두께, 측정일자)",
+        "검사방법 및 공인검사원"
+      ],
+      "sourceSection": "9",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-M69-027",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "압력용기 영구기록(이력)",
+      "requiredSections": [
+        "기본사항(가 번호, 구분번호, 제조자명, 일련번호, 시험압력, 인수·설치일자)",
+        "기재사항 일반사항(도면번호, 제작규격, 크기, 설계압력·온도·응력, 동체 제작형태)",
+        "상부·하부 경관 형태(타원형, 반구형, 접시형, 원추형, 이음효율, 두께)",
+        "출입구 및 노즐 정보"
+      ],
+      "sourceSection": "9",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-M69-028",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "압력용기 검사표",
+      "requiredSections": [
+        "도면(제작자, 제약자, 사용자별 동체·라이닝·내부 도면)",
+        "압력용기 두께 측정값(측정지점별 최소두께, 최소 허용두께, 측정일자)"
+      ],
+      "sourceSection": "9",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-M69-029",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "운전 중인 공정에 대한 모든 압력용기의 기록표(1)",
+      "requiredSections": [
+        "압력용기 명칭 및 스케치 번호",
+        "운전 자료(압력 유지시간)",
+        "사용조건 자료(평균 최대운전압력, 평균 최고운전온도)",
+        "검사 및 시험 자료(공칭 안지름, 최소두께 동체·경관, 이음효율, 경관계수, 최종 검사 내역)"
+      ],
+      "sourceSection": "9",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-M69-030",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "운전 중인 공정에 대한 모든 압력용기의 기록표(2)",
+      "requiredSections": [
+        "시험압력(압력용기, 코일) 및 시험유체",
+        "최대허용운전압력·최고허용운전온도·운전온도에서의 사용응력",
+        "승인 운전압력·온도 및 안전밸브 설정압력",
+        "보호 라이닝 자료(도면번호, 설치일자, 재료 및 종류, 수리·제거 이력)"
+      ],
+      "sourceSection": "9",
+      "relatedSR": null
+    }
+  ]
+}

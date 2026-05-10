@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  fuseki:
+    build:
+      context: ./fuseki
+      dockerfile: Dockerfile
+    container_name: kosha-fuseki
+    ports:
+      - "3030:3030"
+    volumes:
+      - ..:/ontology:ro
+    environment:
+      - JAVA_OPTS=-Xmx30g -XX:+UseG1GC -XX:MaxGCPauseMillis=200
+      - ONTOLOGY_DIR=/ontology
+      - FUSEKI_PORT=3030
+      - REASONER_MODE=openllet
+    restart: unless-stopped
+    networks:
+      - kosha-shared
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3030/$$/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 1800s
+
+networks:
+  kosha-shared:
+    external: true

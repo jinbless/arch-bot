@@ -1,0 +1,95 @@
+# kosha-ontology.formatted.ttl 핵심 구조 주석본
+# 전체 스키마 원본은 kosha-ontology.formatted.ttl을 기준으로 본다.
+# 이 파일은 읽기용 요약 주석본이며, 주요 변경 구조만 triple식으로 설명한다.
+
+@prefix core: <https://cashtoss.info/ontology#> . # core:는 프로젝트 공통 어휘 네임스페이스다.
+@prefix law: <https://cashtoss.info/ontology/law#> . # law:는 법령/조문/규범진술문 네임스페이스다.
+@prefix sr: <https://cashtoss.info/ontology/sr#> . # sr:는 안전요구사항 네임스페이스다.
+@prefix pen: <https://cashtoss.info/ontology/penalty#> . # pen:는 벌칙/제재 네임스페이스다.
+@prefix guide: <https://cashtoss.info/ontology/guide#> . # guide:는 KOSHA Guide 네임스페이스다.
+@prefix owl: <http://www.w3.org/2002/07/owl#> . # owl:은 OWL 표준 어휘다.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # rdfs:는 RDF Schema 표준 어휘다.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> . # xsd:는 XML Schema 데이터 타입 어휘다.
+
+law:Article a owl:Class ;
+    rdfs:label "조문"@ko ;
+    rdfs:subClassOf law:LegalEntity .
+# triple 1: law:Article은 / rdf:type 관계로 / owl:Class를 가진다.
+# triple 2: law:Article은 / rdfs:subClassOf 관계로 / law:LegalEntity를 가진다.
+
+law:LawType a owl:Class ;
+    rdfs:label "법령 유형"@ko .
+# triple: law:LawType은 / rdf:type 관계로 / owl:Class를 가진다.
+
+law:hasLawType a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain law:Article ;
+    rdfs:range law:LawType ;
+    rdfs:label "법령 유형"@ko .
+# triple 1: law:hasLawType은 / rdf:type 관계로 / owl:ObjectProperty를 가진다.
+# triple 2: law:hasLawType은 / rdfs:domain 관계로 / law:Article을 가진다.
+# triple 3: law:hasLawType은 / rdfs:range 관계로 / law:LawType을 가진다.
+
+law:NormStatement a owl:Class ;
+    rdfs:label "규범 진술문"@ko ;
+    rdfs:subClassOf law:LegalEntity .
+# triple: law:NormStatement는 / rdfs:subClassOf 관계로 / law:LegalEntity를 가진다.
+
+law:hasSourceArticle a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain law:NormStatement ;
+    rdfs:range law:Article ;
+    rdfs:label "출처 조문"@ko .
+# triple: law:hasSourceArticle은 / rdfs:domain 관계로 / law:NormStatement를 가진다.
+# 해석: 이 속성을 쓰는 주어 자리에는 규범진술문이 온다.
+
+law:hasModality a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain law:NormStatement ;
+    rdfs:range core:Modality ;
+    rdfs:label "모달리티"@ko .
+# triple: law:hasModality는 / rdfs:range 관계로 / core:Modality를 가진다.
+# 해석: 규범진술문은 의무/금지/허용/면제/정의 중 하나의 성격을 가진다.
+
+law:hasSubjectRole a owl:ObjectProperty ;
+    rdfs:domain law:NormStatement ;
+    rdfs:range core:SubjectRole ;
+    rdfs:label "의무 주체"@ko .
+# triple: law:hasSubjectRole은 / rdfs:range 관계로 / core:SubjectRole을 가진다.
+
+core:Modality a owl:Class ;
+    rdfs:label "모달리티"@ko .
+# triple: core:Modality는 / rdf:type 관계로 / owl:Class를 가진다.
+
+core:SubjectRole a owl:Class ;
+    rdfs:label "주체 역할"@ko .
+# triple: core:SubjectRole은 / rdf:type 관계로 / owl:Class를 가진다.
+
+pen:PenaltyRule a owl:Class ;
+    rdfs:label "벌칙 적용 규칙"@ko ;
+    rdfs:subClassOf law:LegalEntity .
+# triple: pen:PenaltyRule은 / rdfs:subClassOf 관계로 / law:LegalEntity를 가진다.
+
+pen:violatedArticle a owl:ObjectProperty ;
+    rdfs:domain pen:PenaltyRule ;
+    rdfs:range law:Article ;
+    rdfs:label "위반 조문"@ko .
+# triple: pen:violatedArticle은 / rdfs:range 관계로 / law:Article을 가진다.
+# 해석: 벌칙 적용 규칙은 어떤 조문 위반에 대한 것인지 Article로 연결한다.
+
+pen:violatedNorm a owl:ObjectProperty ;
+    rdfs:domain pen:PenaltyRule ;
+    rdfs:range law:NormStatement ;
+    rdfs:label "위반 대상 규범"@ko .
+# triple: pen:violatedNorm은 / rdfs:range 관계로 / law:NormStatement를 가진다.
+
+pen:penaltyArticle a owl:ObjectProperty ;
+    rdfs:domain pen:PenaltyRule ;
+    rdfs:range law:Article ;
+    rdfs:label "실제 벌칙 조문"@ko .
+# triple: pen:penaltyArticle은 / rdfs:range 관계로 / law:Article을 가진다.
+# 해석: 벌칙 적용 규칙은 실제 처벌 근거가 되는 법 조문을 가진다.
+
+pen:hasSanction a owl:ObjectProperty ;
+    rdfs:domain pen:PenaltyRule ;
+    rdfs:range pen:SanctionType ;
+    rdfs:label "제재"@ko .
+# triple: pen:hasSanction은 / rdfs:domain 관계로 / pen:PenaltyRule을 가진다.
+# 해석: 제재는 이제 NormStatement가 직접 소유하지 않고 PenaltyRule이 소유한다.

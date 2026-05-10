@@ -1,0 +1,797 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T12:00:00+09:00",
+    "batchId": "sr-batch-CONFINED-01",
+    "totalSafetyRequirements": 20
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-CONFINED-001",
+      "title": "밀폐공간 산소 및 유해가스 농도 측정·평가 및 기록",
+      "text": "사업주는 밀폐공간에서 근로자에게 작업을 하도록 하는 경우, 작업 시작 전에 산소 및 유해가스 농도의 측정·평가에 관한 지식과 실무경험이 있는 사람을 지정하여 측정장비를 지급하고 적정공기 유지 여부를 평가하도록 해야 한다. 측정·평가자에 대해서는 밀폐공간의 위험성, 측정장비 조작방법, 농도 측정방법, 적정공기 기준 및 평가 방법에 관한 숙지여부를 확인하고 필요한 교육을 실시해야 한다. 측정 결과 적정공기가 유지되지 않는 경우에는 작업장을 환기시키거나 공기호흡기 또는 송기마스크를 지급하여 착용하도록 하는 등 건강장해 예방을 위한 필요한 조치를 해야 하며, 측정 및 평가 결과는 측정자의 성명, 일시·장소 및 결과 등을 기록하여 3년간 보존해야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제619조"],
+      "mandatedBy": ["NS-RULE619-0", "NS-RULE619-1", "NS-RULE619-2", "NS-RULE619-3"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "기록 보존기간", "condition": ">=", "value": 3, "unit": "년", "source": "제619조 제4항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-002",
+      "title": "밀폐공간 작업 시 적정공기 유지를 위한 환기 조치",
+      "text": "사업주는 근로자가 밀폐공간에서 작업을 하는 경우, 작업 시작 전과 작업 중에 해당 작업장을 적정공기 상태가 유지되도록 환기하여야 한다. 폭발이나 산화 등의 위험으로 환기할 수 없거나 작업의 성질상 환기하기가 매우 곤란한 경우에는 근로자에게 공기호흡기 또는 송기마스크를 지급하여 착용하도록 해야 하며, 근로자는 지급된 보호구를 착용하여야 한다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제620조"],
+      "mandatedBy": ["NS-RULE620-0", "NS-RULE620-2"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-003",
+      "title": "밀폐공간 출입 시 인원 점검",
+      "text": "사업주는 근로자가 밀폐공간에서 작업을 하는 경우, 그 장소에 근로자를 입장시킬 때와 퇴장시킬 때마다 인원을 점검하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제621조"],
+      "mandatedBy": ["NS-RULE621-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-004",
+      "title": "밀폐공간 관계자 외 출입 금지 및 표지 게시",
+      "text": "사업주는 사업장 내 밀폐공간을 사전에 파악하여, 관계 근로자가 아닌 사람의 출입을 금지하고, 별지 제4호서식에 따른 출입금지 표지를 밀폐공간 근처의 보기 쉬운 장소에 게시하여야 한다. 근로자는 출입이 금지된 장소에 사업주의 허락 없이 출입해서는 아니 된다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제622조"],
+      "mandatedBy": ["NS-RULE622-0", "NS-RULE622-1"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-005",
+      "title": "밀폐공간 외부 감시인 배치 및 연락 설비 설치",
+      "text": "사업주는 근로자가 밀폐공간에서 작업을 하는 동안, 작업상황을 감시할 수 있는 감시인을 지정하여 밀폐공간 외부에 배치하여야 한다. 감시인은 밀폐공간에서 종사하는 근로자에게 이상이 있을 경우 지체 없이 소방관서에 신고하고, 해당 소방관서 장의 협조를 받아 적절한 조치를 한 후 사업주 및 관리감독자에게 즉시 알려야 한다. 또한 사업주는 밀폐공간 작업장과 외부 감시인 간에 항상 연락을 취할 수 있는 설비를 설치하여야 한다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제623조"],
+      "mandatedBy": ["NS-RULE623-0", "NS-RULE623-1", "NS-RULE623-2"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-006",
+      "title": "밀폐공간 작업 시 안전대·구명밧줄 등 보호구 지급·착용",
+      "text": "사업주는 밀폐공간에서 작업하는 근로자가 산소결핍이나 유해가스로 인하여 추락할 우려가 있는 경우, 해당 근로자에게 안전대나 구명밧줄, 공기호흡기 또는 송기마스크를 지급하여 착용하도록 하여야 한다. 안전대나 구명밧줄을 착용하도록 하는 경우에는 이를 안전하게 착용할 수 있는 설비 등을 설치하여야 하며, 근로자는 지급된 보호구를 착용하여야 한다.",
+      "requirementType": "PPE_REQUIREMENT",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제624조"],
+      "mandatedBy": ["NS-RULE624-0", "NS-RULE624-1", "NS-RULE624-2"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-007",
+      "title": "밀폐공간 비상 대피용 구출 기구 비치",
+      "text": "사업주는 근로자가 밀폐공간에서 작업을 하는 경우, 공기호흡기 또는 송기마스크, 사다리 및 섬유로프 등 비상시에 근로자를 피난시키거나 구출하기 위하여 필요한 기구를 갖추어 두어야 한다.",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제625조"],
+      "mandatedBy": ["NS-RULE625-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-008",
+      "title": "상시 환기장치 설치 밀폐공간의 정기 점검 및 결과 게시",
+      "text": "사업주는 상시 가동되는 급·배기 환기장치를 설치한 밀폐공간에 대하여, 환기장치의 작동 및 사용상태와 밀폐공간 내 적정공기 유지상태를 월 1회 이상 정기적으로 점검하고, 이상이 발견된 경우에는 즉시 필요한 조치를 해야 한다. 점검결과(점검일자, 점검자, 환기장치 작동상태, 적정공기 유지상태 및 조치사항)는 해당 밀폐공간의 출입구에 상시 게시해야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제626조"],
+      "mandatedBy": ["NS-RULE626-1", "NS-RULE626-2"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "점검 주기", "condition": ">=", "value": 1, "unit": "회/월", "source": "제626조 제2항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-009",
+      "title": "터널·갱 굴착 작업 시 유해가스 농도 조사 및 처리",
+      "text": "사업주는 근로자가 터널·갱 등을 파는 작업을 하는 경우, 근로자가 유해가스에 노출되지 않도록 미리 그 농도를 조사하고, 유해가스의 처리방법, 터널·갱 등을 파는 시기 등을 정한 후 이에 따라 작업을 하도록 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제627조"],
+      "mandatedBy": ["NS-RULE627-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-010",
+      "title": "이산화탄소 소화설비 방호구역 및 소화용기 보관장소 안전조치",
+      "text": "사업주는 이산화탄소를 사용한 소화설비가 설치된 지하실, 전기실, 옥내 위험물 저장창고 등 방호구역과 소화약제로 이산화탄소가 충전된 소화용기 보관장소에 대하여 출입금지, 출입기록 관리, 점검 전 환기·안전조치, 소화설비 임의 작동 금지, 감지·경보장치 설치 등의 조치를 해야 한다. 처음 출입하는 근로자에 대해서는 출입 전에 이산화탄소 위험성에 관한 교육을 실시하여 그 내용을 주지시켜야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제628조"],
+      "mandatedBy": ["NS-RULE628-0", "NS-RULE628-3"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-011",
+      "title": "통풍 불충분 장소 용접·용단 작업 시 적정공기 유지 조치",
+      "text": "사업주는 근로자가 탱크·보일러 또는 반응탑의 내부 등 통풍이 충분하지 않은 장소에서 용접·용단 작업을 하는 경우, 작업장소의 가스농도를 측정하고 환기시키는 등의 방법으로 적정공기 상태를 유지하거나, 적정공기 유지가 어려운 경우 공기호흡기 또는 송기마스크를 지급하여 착용하도록 하여야 한다. 근로자는 지급된 보호구를 사업주의 지시에 따라 착용하여야 한다.",
+      "requirementType": "ENVIRONMENTAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제629조"],
+      "mandatedBy": ["NS-RULE629-0", "NS-RULE629-1"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-012",
+      "title": "불활성기체 배관 장소 작업 시 밸브 차단 및 표지 게시",
+      "text": "사업주는 근로자가 불활성기체를 내보내는 배관이 있는 보일러·탱크·반응탑 또는 선창 등의 장소에서 작업을 하는 경우, 밸브나 콕을 잠그거나 차단판을 설치하고, 잠금장치 및 개방 금지 게시, 불활성기체의 명칭과 개폐 방향 등 조작방법에 관한 표지를 게시하는 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제630조"],
+      "mandatedBy": ["NS-RULE630-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-013",
+      "title": "안전판 불활성기체 외부 배출 설비 설치",
+      "text": "사업주는 근로자가 탱크나 반응탑 등 용기의 안전판으로부터 불활성기체가 배출될 우려가 있는 작업을 하는 경우, 해당 안전판으로부터 배출되는 불활성기체를 직접 외부로 내보내기 위한 설비를 설치하는 등 해당 불활성기체가 작업장소에 잔류하는 것을 방지하기 위한 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제631조"],
+      "mandatedBy": ["NS-RULE631-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-014",
+      "title": "냉장실·냉동실 작업 시 출입문 임의 잠김 방지 및 내부 인원 확인",
+      "text": "사업주는 근로자가 냉장실·냉동실 등의 내부에서 작업을 하는 경우, 근로자가 작업하는 동안 해당 설비의 출입문이 임의로 잠기지 않도록 조치하여야 한다. 또한 냉장실·냉동실 등 밀폐하여 사용하는 시설이나 설비의 출입문을 잠그는 경우에는 내부에 작업자가 있는지를 반드시 확인하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제632조"],
+      "mandatedBy": ["NS-RULE632-0", "NS-RULE632-2"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-015",
+      "title": "밀폐시설 출입뚜껑·출입문 임의 잠김 방지 조치",
+      "text": "사업주는 근로자가 탱크·반응탑 또는 그 밖의 밀폐시설에서 작업을 하는 경우, 근로자가 작업하는 동안 해당 설비의 출입뚜껑이나 출입문이 임의로 잠기지 않도록 조치하고 작업하게 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제633조"],
+      "mandatedBy": ["NS-RULE633-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-016",
+      "title": "통풍 불충분 장소 가스배관 해체·부착 시 가스 차단 및 환기 조치",
+      "text": "사업주는 근로자가 지하실이나 맨홀의 내부 또는 그 밖에 통풍이 불충분한 장소에서 가스를 공급하는 배관을 해체하거나 부착하는 작업을 하는 경우, 배관 작업장소에 해당 가스가 들어오지 않도록 차단하고, 적정공기 상태가 유지되도록 환기를 하거나 근로자에게 공기호흡기 또는 송기마스크를 지급하여 착용하도록 하여야 한다. 근로자는 지급된 보호구를 사업주의 지시에 따라 착용하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제634조"],
+      "mandatedBy": ["NS-RULE634-0", "NS-RULE634-1"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-017",
+      "title": "압기공법 작업 시 유해가스 및 산소농도 조사·조치",
+      "text": "사업주는 근로자가 별표 18 제1호에 따른 지층이나 그와 인접한 장소에서 압기공법으로 작업을 하는 경우, 유해가스가 샐 우려가 있는지 여부 및 공기 중의 산소농도를 조사하여야 한다. 조사 결과 유해가스가 새고 있거나 공기 중에 산소가 부족한 경우에는 즉시 작업을 중지하고 출입을 금지하는 등 필요한 조치를 하여야 하며, 근로자는 출입이 금지된 장소에 사업주의 허락 없이 출입해서는 아니 된다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제635조"],
+      "mandatedBy": ["NS-RULE635-0", "NS-RULE635-1", "NS-RULE635-2"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-018",
+      "title": "지하실·피트 내 배관 유해가스 누출 방지 및 적정공기 유지",
+      "text": "사업주는 근로자가 밀폐공간의 내부를 통하는 배관이 설치되어 있는 지하실이나 피트 등의 내부에서 작업을 하는 경우, 그 배관을 통하여 산소가 결핍된 공기나 유해가스가 새지 않도록 조치하여야 한다. 해당 작업장소에서 산소결핍 공기나 유해가스가 새는 경우에는 이를 직접 외부로 내보낼 수 있는 설비를 설치하는 등 적정공기 상태를 유지하기 위한 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제636조"],
+      "mandatedBy": ["NS-RULE636-0", "NS-RULE636-1"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-019",
+      "title": "오염된 설비 분해·수리·청소 시 안전조치",
+      "text": "사업주는 근로자가 분뇨·오수·펄프액 및 부패하기 쉬운 물질에 오염된 펌프·배관 또는 그 밖의 부속설비에 대하여 분해·개조·수리 또는 청소 등을 하는 경우, 작업방법 및 순서를 사전에 통지하고, 황화수소 중독 방지에 관한 지식을 가진 사람을 지휘자로 지정하는 등의 안전조치를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제637조"],
+      "mandatedBy": ["NS-RULE637-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-CONFINED-020",
+      "title": "밀폐공간 측정·점검 이상 발견 시 사후조치",
+      "text": "사업주는 관리감독자가 별표 2 제20호나목부터 라목까지의 규정에 따른 측정 또는 점검 결과 이상을 발견하여 보고했을 경우, 즉시 환기, 보호구 지급, 설비 보수 등 근로자의 안전을 위해 필요한 조치를 해야 한다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제638조"],
+      "mandatedBy": ["NS-RULE638-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}

@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SafetyRequirementFile",
+  "description": "SR 배치 파일 스키마. 모든 필드에 additionalProperties: false 적용.",
+  "type": "object",
+  "required": ["metadata", "safetyRequirements"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["generatedAt", "batchId", "totalSafetyRequirements"],
+      "additionalProperties": false,
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "batchId": { "type": "string", "pattern": "^sr-batch-[a-zA-Z0-9_-]+$" },
+        "totalSafetyRequirements": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "safetyRequirements": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/safetyRequirement" }
+    }
+  },
+  "$defs": {
+    "safetyRequirement": {
+      "type": "object",
+      "required": [
+        "identifier", "title", "text", "requirementType",
+        "bindingForce", "referencesArticle", "mandatedBy", "addressesHazard"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "pattern": "^SR-[A-Z_]+-[0-9]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requirementType": {
+          "type": "string",
+          "enum": [
+            "PHYSICAL_PROTECTION", "PPE_REQUIREMENT", "PROCEDURAL",
+            "TRAINING", "EQUIPMENT_STANDARD", "ENVIRONMENTAL",
+            "MANAGEMENT_SYSTEM", "EMERGENCY_RESPONSE"
+          ]
+        },
+        "bindingForce": {
+          "type": "string",
+          "enum": ["MANDATORY", "RECOMMENDED"]
+        },
+        "referencesArticle": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^제\\d+조(의\\d+)?$"
+          }
+        },
+        "mandatedBy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^NS-[A-Z0-9]+-[0-9A-Z]+$"
+          }
+        },
+        "addressesHazard": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "FALL", "COLLAPSE", "STRUCK_BY", "CAUGHT_IN",
+              "ELECTRIC_SHOCK", "FIRE_EXPLOSION", "CHEMICAL_EXPOSURE",
+              "ERGONOMIC", "CONFINED_SPACE", "SCAFFOLDING",
+              "NOISE_VIBRATION", "HEAT_COLD"
+            ]
+          }
+        },
+        "structuralRequirements": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["items"],
+              "additionalProperties": false,
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": { "$ref": "#/$defs/structuralItem" }
+                }
+              }
+            }
+          ]
+        },
+        "hasSanction": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/sanctionBlock" }
+          ]
+        },
+        "hasModificationLink": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["modificationType", "modifiesSR"],
+              "additionalProperties": false,
+              "properties": {
+                "modificationType": {
+                  "type": "string",
+                  "enum": ["EXCEPTION", "PROVISO", "LIMITATION", "EXEMPTION"]
+                },
+                "modifiesSR": {
+                  "type": "string",
+                  "pattern": "^SR-"
+                },
+                "exemptionCondition": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          ]
+        },
+        "requiresPPE": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["ppeType"],
+                "properties": {
+                  "ppeType": { "type": "string" },
+                  "ksStandard": { "type": ["string", "null"] },
+                  "usageCondition": { "type": ["string", "null"] }
+                }
+              }
+            }
+          ]
+        },
+        "hasCorrectiveAction": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["text"],
+                "properties": {
+                  "text": { "type": "string" },
+                  "estimatedCostRange": { "type": ["string", "null"] },
+                  "difficulty": { "type": ["string", "null"] },
+                  "timeToImplement": { "type": ["string", "null"] }
+                }
+              }
+            }
+          ]
+        },
+        "hasIncidentResponse": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["responseType"],
+                "properties": {
+                  "responseType": { "type": "string" },
+                  "deadline": { "type": ["string", "null"] },
+                  "responsibleRole": { "type": ["string", "null"] }
+                }
+              }
+            }
+          ]
+        },
+        "applicableIndustry": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          ]
+        },
+        "hazardAssessment": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["hazardFactor"],
+                "properties": {
+                  "hazardFactor": { "type": "string" },
+                  "severityLevel": { "type": ["string", "null"] },
+                  "likelihoodLevel": { "type": ["string", "null"] },
+                  "riskScore": { "type": ["integer", "null"] }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "structuralItem": {
+      "type": "object",
+      "required": ["parameter", "condition", "value", "unit"],
+      "additionalProperties": false,
+      "properties": {
+        "parameter": { "type": "string", "minLength": 1 },
+        "condition": {
+          "type": "string",
+          "enum": [">=", "<=", ">", "<", "==", "!=", "range"]
+        },
+        "value": {
+          "oneOf": [
+            { "type": "number" },
+            { "type": "string", "minLength": 1 }
+          ]
+        },
+        "unit": { "type": "string", "minLength": 1 },
+        "source": { "type": "string" }
+      }
+    },
+    "sanctionBlock": {
+      "type": "object",
+      "required": ["criminal", "administrative"],
+      "additionalProperties": false,
+      "properties": {
+        "criminal": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/criminalBlock" }
+          ]
+        },
+        "administrative": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/administrativeEntry" }
+          ]
+        }
+      }
+    },
+    "criminalBlock": {
+      "type": "object",
+      "required": ["violation_employer"],
+      "additionalProperties": false,
+      "properties": {
+        "violation_employer": {
+          "type": "object",
+          "required": ["law", "penalty"],
+          "additionalProperties": false,
+          "properties": {
+            "law": { "type": "string" },
+            "penalty": { "type": "string" }
+          }
+        },
+        "violation_contractor": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["law", "penalty"],
+              "additionalProperties": false,
+              "properties": {
+                "law": { "type": "string" },
+                "penalty": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "death": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["law", "penalty"],
+              "additionalProperties": false,
+              "properties": {
+                "law": { "type": "string" },
+                "penalty": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "seriousAccident": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["law", "death", "injury"],
+              "additionalProperties": false,
+              "properties": {
+                "law": { "type": "string" },
+                "death": { "type": "string" },
+                "injury": { "type": "string" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "administrativeEntry": {
+      "type": "object",
+      "required": ["law", "maxFine"],
+      "additionalProperties": false,
+      "properties": {
+        "law": { "type": "string" },
+        "maxFine": { "type": "string" },
+        "fineTableRef": { "type": "string" },
+        "oshaArticleRef": { "type": "string" }
+      }
+    }
+  }
+}

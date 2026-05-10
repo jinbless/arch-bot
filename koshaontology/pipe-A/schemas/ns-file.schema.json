@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NormStatementFile",
+  "description": "NS 배치 파일 스키마. 모든 필드에 additionalProperties: false 적용.",
+  "type": "object",
+  "required": ["metadata", "normStatements"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["generatedAt", "batchId", "lawId", "targetArticles", "totalNormStatements"],
+      "additionalProperties": false,
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "batchId": { "type": "string", "pattern": "^batch-[a-zA-Z0-9-]+$" },
+        "lawId": { "type": "string", "enum": ["RULE", "OSHA", "SADA", "DECREE", "ENFORCE"] },
+        "targetArticles": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^제\\d+조(의\\d+)?$" }
+        },
+        "totalNormStatements": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "normStatements": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/normStatement" }
+    }
+  },
+  "$defs": {
+    "normStatement": {
+      "type": "object",
+      "required": [
+        "identifier", "articleCode", "lawId", "paragraphRef",
+        "text", "hasModality"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "pattern": "^NS-[A-Z0-9]+-[0-9A-Z]+$"
+        },
+        "articleCode": {
+          "type": "string",
+          "pattern": "^제\\d+조(의\\d+)?$"
+        },
+        "lawId": {
+          "type": "string",
+          "enum": ["RULE", "OSHA", "SADA", "DECREE", "ENFORCE"]
+        },
+        "paragraphRef": {
+          "type": "string",
+          "description": "항 참조 (예: '제24조 제1항', '제24조 본문')"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hasModality": {
+          "type": "string",
+          "enum": ["OBLIGATION", "PROHIBITION", "PERMISSION", "POWER", "EXEMPTION", "DEFINITION"]
+        },
+        "hasSubjectRole": {
+          "type": ["string", "null"],
+          "description": "의무 주체 (예: '사업주', '근로자', '도급인'). DEFINITION 조문은 null."
+        },
+        "hasAction": {
+          "type": ["string", "null"],
+          "description": "의무 행위 (예: '설치하여야 한다', '사용을 금지하여야 한다'). DEFINITION 조문은 null."
+        },
+        "hasObject": {
+          "type": ["string", "null"],
+          "description": "행위 대상 (예: '안전난간', '방호장치'). DEFINITION 조문은 null."
+        },
+        "hasCondition": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["conditionType", "text"],
+              "additionalProperties": false,
+              "properties": {
+                "conditionType": {
+                  "type": "string",
+                  "enum": ["QUANTITATIVE", "QUALITATIVE", "CAUSAL", "TEMPORAL", "PROCEDURAL", "SUBJECTIVE"]
+                },
+                "text": { "type": "string", "minLength": 1 }
+              }
+            }
+          ]
+        },
+        "hasSanction": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/sanctionBlock" }
+          ]
+        },
+        "hasModificationLink": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["modificationType", "modifiesNS"],
+              "additionalProperties": false,
+              "properties": {
+                "modificationType": {
+                  "type": "string",
+                  "enum": ["EXCEPTION", "PROVISO", "LIMITATION"]
+                },
+                "modifiesNS": {
+                  "type": "string",
+                  "pattern": "^NS-"
+                }
+              }
+            }
+          ]
+        },
+        "roleGuidance": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": false,
+              "properties": {
+                "EMPLOYER": { "type": "string" },
+                "WORKER": { "type": "string" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "sanctionBlock": {
+      "type": "object",
+      "required": ["criminal", "administrative"],
+      "additionalProperties": false,
+      "properties": {
+        "criminal": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/criminalBlock" }
+          ]
+        },
+        "administrative": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/administrativeEntry" }
+          ]
+        }
+      }
+    },
+    "criminalBlock": {
+      "type": "object",
+      "required": ["violation_employer"],
+      "additionalProperties": false,
+      "properties": {
+        "violation_employer": {
+          "type": "object",
+          "required": ["law", "penalty"],
+          "additionalProperties": false,
+          "properties": {
+            "law": { "type": "string" },
+            "penalty": { "type": "string" }
+          }
+        },
+        "violation_contractor": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["law", "penalty"],
+              "additionalProperties": false,
+              "properties": {
+                "law": { "type": "string" },
+                "penalty": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "death": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["law", "penalty"],
+              "additionalProperties": false,
+              "properties": {
+                "law": { "type": "string" },
+                "penalty": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "seriousAccident": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["law", "death", "injury"],
+              "additionalProperties": false,
+              "properties": {
+                "law": { "type": "string" },
+                "death": { "type": "string" },
+                "injury": { "type": "string" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "administrativeEntry": {
+      "type": "object",
+      "required": ["law", "maxFine"],
+      "additionalProperties": false,
+      "properties": {
+        "law": { "type": "string" },
+        "maxFine": { "type": "string" },
+        "fineTableRef": { "type": "string" },
+        "oshaArticleRef": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,4792 @@
+{
+  "schema_version": "codex_manual_pilot.v1",
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "asserted_mapping_updates": 0,
+  "review_status": "candidate",
+  "scope": {
+    "batch_id": "domain_guard_manual_batch_010",
+    "guide_count": 30,
+    "source": "pipe-B/data/ci-output plus pipe-B/data/guide-inventory.json",
+    "selection_policy": "inventory order excluding prior manual batches",
+    "purpose": "Guide domain/profile guard enrichment without external API calls"
+  },
+  "policies": {
+    "external_api_used": false,
+    "candidate_table_ready": true,
+    "auto_asserted_promotion": false,
+    "max_confidence_for_manual_sr_link": 0.86,
+    "notes": [
+      "Batch 010 upgraded from generated draft to source-JSON manual review.",
+      "Candidate rows require global audit before import.",
+      "Rows must not be promoted to asserted mapping tables from this report.",
+      "Evidence spans are copied from guide titles, WorkProcess names, DomainTerm terms, or extracted WorkProcess/Checklist text.",
+      "SR candidates are conservative and must be imported as candidates only."
+    ],
+    "asserted_mapping": "disabled",
+    "sr_candidates": "candidate_only",
+    "min_evidence": "at least one extracted source span per candidate",
+    "runtime_intent": "generalized guide domain guard and scoring boundary"
+  },
+  "guides": [
+    {
+      "guide_code": "E-85-2017",
+      "short_code": "E85",
+      "title": "전기설비 설치상의 안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E85.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "electrical_installation_wiring_grounding_overcurrent",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "전기설비",
+          "전기기기",
+          "배선",
+          "접지",
+          "과전류",
+          "단로장치",
+          "분전반"
+        ],
+        "evidence": "전기설비 설치상의 안전에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "전기기기가 일반작업자에게 위험하지 않도록 적정 설치·사용 여부, 방호부의 기계적 강도 및 내구성, 배선의 휨 및 접속 공간, 전기 절연, 온도상승, 아크발생 현상 등을 검사한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "E-85-2017",
+          "guide_code": "E-85-2017"
+        },
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "ELECTRICITY",
+          "confidence": 0.82,
+          "evidence": "접지도체는 다른 도체와 식별 가능하도록 구별하고, 지정된 극성에 맞게 접속한다. 접지단자는 접지 이외 용도로 사용하지 않는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "E-85-2017",
+          "guide_code": "E-85-2017"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.78,
+          "evidence": "이 지침에서 요구되거나 허용되는 도체와 전기기기는 인증 받은 것이어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-85-2017",
+          "guide_code": "E-85-2017"
+        },
+        {
+          "sr_id": "SR-ELECTRIC-013",
+          "confidence": 0.76,
+          "evidence": "전기배선은 이 지침에서 요구하는 것 이외에 단락 및 지락사고 시에도 견딜 수 있도록 시설한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-85-2017",
+          "guide_code": "E-85-2017"
+        },
+        {
+          "sr_id": "SR-ELECTRIC-005",
+          "confidence": 0.75,
+          "evidence": "도체 및 전기기기 용량에 적합한 과전류 보호장치로 보호하고, 퓨즈 또는 차단기 조작 시 화상위험이 없도록 설치 또는 차폐한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-85-2017",
+          "guide_code": "E-85-2017"
+        },
+        {
+          "sr_id": "SR-ELECTRIC-002",
+          "confidence": 0.74,
+          "evidence": "접지경로는 영구적으로 연속적이어야 하며, 전로의 금속제 외함, 전기기기의 금속제 외함 및 침대, 비충전 금속부분 등을 접지한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-85-2017",
+          "guide_code": "E-85-2017"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "분전반·배전반·전기기기 설치",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "전기기계·기구(전기기기); 배전반; 분전반",
+          "source_fields": [
+            "domainTerms.term",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "E-85-2017",
+          "guide_code": "E-85-2017"
+        },
+        {
+          "trigger_text": "배선·접지·과전류차단장치 시공",
+          "cue_type": "work_activity",
+          "confidence": 0.83,
+          "evidence": "배선 설계 및 접지 시공; 과전류 보호장치 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "E-85-2017",
+          "guide_code": "E-85-2017"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "전기설비",
+          "전기기기",
+          "배선",
+          "접지",
+          "과전류",
+          "단로장치",
+          "분전반"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-94-2011",
+      "short_code": "E94",
+      "title": "산업용 기계설비의 전기장치 설치에 관한 기술 기준",
+      "source_file": "pipe-B/data/ci-output/ci-E94.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "industrial_machine_electrical_equipment_controlgear",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "산업용 기계설비",
+          "제어장비",
+          "전기취급지역",
+          "제어회로",
+          "전원차단장치",
+          "PE 단자"
+        ],
+        "evidence": "산업용 기계설비의 전기장치 설치에 관한 기술 기준",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "전기설비 위험성평가, 전기 부품 선정, 전원 공급 설계, 전기장치 설치·운전, PE 단자, 전원차단장치 설치를 다룬다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "E-94-2011",
+          "guide_code": "E-94-2011"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.82,
+          "evidence": "기계 운전을 제어하는 제어회로, 액츄에이터, 제어장비, 방호장치와 산업용 기계설비의 전기장치를 대상으로 한다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "E-94-2011",
+          "guide_code": "E-94-2011"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.74,
+          "evidence": "기계 전기장치에 사용하는 전기부품을 선정하고 전원 공급장치 및 외부 환경조건을 검토한다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-94-2011",
+          "guide_code": "E-94-2011"
+        },
+        {
+          "sr_id": "SR-ELECTRIC-002",
+          "confidence": 0.72,
+          "evidence": "EMC 접지 도체, 외부 접지, PE 단자 등 접지 계통을 포함한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-94-2011",
+          "guide_code": "E-94-2011"
+        },
+        {
+          "sr_id": "SR-ELECTRIC-026",
+          "confidence": 0.68,
+          "evidence": "EMC 접지 도체 및 전자파 적합성 요구사항을 전기장치 설치 기준에 포함한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-94-2011",
+          "guide_code": "E-94-2011"
+        },
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.66,
+          "evidence": "전원차단장치에 잠금장치와 위치표시를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-94-2011",
+          "guide_code": "E-94-2011"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "산업용 기계 제어반·제어장비",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "제어장비(CONTROLGEAR); 제어기구(CONTROL DEVICE); 제어회로",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "E-94-2011",
+          "guide_code": "E-94-2011"
+        },
+        {
+          "trigger_text": "전원차단장치·PE 단자·접지 도체",
+          "cue_type": "equipment_detail",
+          "confidence": 0.82,
+          "evidence": "전원차단장치; PE 단자; 외부 접지",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "E-94-2011",
+          "guide_code": "E-94-2011"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "산업용 기계설비",
+          "제어장비",
+          "전기취급지역",
+          "제어회로",
+          "전원차단장치",
+          "PE 단자"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-96-2011",
+      "short_code": "E96",
+      "title": "산업용 기계설비의 비상정지장치 설계에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E96.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "industrial_machine_emergency_stop_design",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "비상정지장치",
+          "수동 액츄에이터",
+          "0정지방식",
+          "1정지방식",
+          "기계 액츄에이터",
+          "제어장치"
+        ],
+        "evidence": "산업용 기계설비의 비상정지장치 설계에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.84,
+          "evidence": "비상정지기능은 작업상황에 관계없이 항상 사용하고 조작할 수 있도록 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "E-96-2011",
+          "guide_code": "E-96-2011"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CRUSH",
+          "confidence": 0.78,
+          "evidence": "비상정지장치는 위험을 자동적으로 해소 또는 감소시키는 방법으로 작동되도록 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "E-96-2011",
+          "guide_code": "E-96-2011"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.72,
+          "evidence": "0정지방식은 기계 액츄에이터 동력원의 즉시 차단 또는 위험요소 및 기계 구동장치 사이의 기계적인 분리에 의한 정지방식이다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-96-2011",
+          "guide_code": "E-96-2011"
+        },
+        {
+          "sr_id": "SR-MACHINE-008",
+          "confidence": 0.68,
+          "evidence": "비상정지장치는 비상정지기능 이외의 방호수단 또는 자동 안전장치의 대용으로 사용하여서는 안된다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-96-2011",
+          "guide_code": "E-96-2011"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "비상정지 버튼·수동 액츄에이터",
+          "cue_type": "control",
+          "confidence": 0.85,
+          "evidence": "비상정지장치; 수동 액츄에이터; 제어장치",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "E-96-2011",
+          "guide_code": "E-96-2011"
+        },
+        {
+          "trigger_text": "산업용 기계 정지 제어회로",
+          "cue_type": "control_or_equipment",
+          "confidence": 0.82,
+          "evidence": "0정지방식; 1정지방식; 기계 액츄에이터",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "E-96-2011",
+          "guide_code": "E-96-2011"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "비상정지장치",
+          "수동 액츄에이터",
+          "0정지방식",
+          "1정지방식",
+          "기계 액츄에이터",
+          "제어장치"
+        ],
+        "exclude_when": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "E-97-2022",
+      "short_code": "E97",
+      "title": "석유화학공장의 전기설비 설치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-E97.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "petrochemical_plant_electrical_installation_exproof_power_system",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "석유화학공장",
+          "폭발위험장소",
+          "방폭기기",
+          "변압기",
+          "가스절연개폐기",
+          "전력계통"
+        ],
+        "evidence": "석유화학공장의 전기설비 설치에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "외부전원, 자가발전 병렬운전, 계통보호, 변압기 선정, 가공선로 설치, 전기설비 유지관리를 다룬다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "E-97-2022",
+          "guide_code": "E-97-2022"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.83,
+          "evidence": "폭발위험장소구분도를 작성하고, 방폭등급에 적합한 안전인증 제품을 선정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "E-97-2022",
+          "guide_code": "E-97-2022"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-ELECTRIC-011",
+          "confidence": 0.78,
+          "evidence": "폭발위험장소구분도를 작성하고, 방폭등급에 적합한 안전인증 제품을 선정하며, 필요시 물리적 격리 또는 양압설비를 채택하여야 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-97-2022",
+          "guide_code": "E-97-2022"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-006",
+          "confidence": 0.76,
+          "evidence": "폭발위험장소 구분 및 방폭기기 선정 절차를 포함한다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-97-2022",
+          "guide_code": "E-97-2022"
+        },
+        {
+          "sr_id": "SR-ELECTRIC-008",
+          "confidence": 0.72,
+          "evidence": "자가발전 및 외부전원 병렬운전 설계와 전력의 재급전 절차를 수립한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-97-2022",
+          "guide_code": "E-97-2022"
+        },
+        {
+          "sr_id": "SR-ELECTRIC-023",
+          "confidence": 0.68,
+          "evidence": "점검·유지보수 시 방염작업복, 절연장갑, 안전모 등 안전장구를 착용하여야 한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "E-97-2022",
+          "guide_code": "E-97-2022"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "석유화학공장 전기실·변전설비",
+          "cue_type": "workplace_context",
+          "confidence": 0.85,
+          "evidence": "석유화학공장의 전기설비 설치에 관한 기술지침; 변압기 선정 및 설치",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "E-97-2022",
+          "guide_code": "E-97-2022"
+        },
+        {
+          "trigger_text": "방폭기기·폭발위험장소 구분도",
+          "cue_type": "equipment_or_document",
+          "confidence": 0.84,
+          "evidence": "폭발위험장소구분도를 작성하고, 방폭등급에 적합한 안전인증 제품을 선정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "E-97-2022",
+          "guide_code": "E-97-2022"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "석유화학공장",
+          "폭발위험장소",
+          "방폭기기",
+          "변압기",
+          "가스절연개폐기",
+          "전력계통"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-10-2012",
+      "short_code": "M10",
+      "title": "날카로운 모서리의 수작업에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M10.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "sharp_edge_manual_handling_cut_prevention",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "날카로운 모서리",
+          "수작업",
+          "절단 보호용 장갑",
+          "핸드패드",
+          "스크랩",
+          "부스러기"
+        ],
+        "evidence": "날카로운 모서리의 수작업에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CUT",
+          "confidence": 0.84,
+          "evidence": "날카로운 모서리가 너무 뜨겁거나 차가운지 여부, 취급되는 물체의 무게, 신체의 어떤 부위가 가장 큰 위험에 노출되는지 검토해야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-10-2012",
+          "guide_code": "M-10-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "MATERIAL_HANDLING",
+          "confidence": 0.8,
+          "evidence": "날카로운 물품의 운송이 빈번할 경우에는 컨베이어 벨트를 설치하거나 프로세스를 자동화시킬 수 있다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-10-2012",
+          "guide_code": "M-10-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-011",
+          "confidence": 0.7,
+          "evidence": "보다 안전한 절단 도구를 사용한다(세라믹 칼, 디버링 공구, 가위).",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-10-2012",
+          "guide_code": "M-10-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-005",
+          "confidence": 0.66,
+          "evidence": "스크랩은 삽, 부스러기는 공구·브러쉬 사용 등 절삭편·비산물 직접 접촉을 피하는 조치를 제시한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-10-2012",
+          "guide_code": "M-10-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "날카로운 모서리 금속판·스크랩",
+          "cue_type": "material_or_hazard",
+          "confidence": 0.84,
+          "evidence": "날카로운 모서리 물품의 직접적인 취급 배제; 스크랩은 삽, 부스러기는 공구·브러쉬 사용",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-10-2012",
+          "guide_code": "M-10-2012"
+        },
+        {
+          "trigger_text": "절단 보호용 장갑·핸드패드",
+          "cue_type": "ppe_or_equipment",
+          "confidence": 0.83,
+          "evidence": "절단 보호용 장갑; 핸드패드(Hand pad)",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-10-2012",
+          "guide_code": "M-10-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "날카로운 모서리",
+          "수작업",
+          "절단 보호용 장갑",
+          "핸드패드",
+          "스크랩",
+          "부스러기"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-103-2017",
+      "short_code": "M103",
+      "title": "공기압 시스템의 안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M103.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pneumatic_system_compressed_air_safety",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "공기압 시스템",
+          "압축기",
+          "공기저장탱크",
+          "안전밸브",
+          "압축공기 관로",
+          "채찍 현상"
+        ],
+        "evidence": "공기압 시스템의 안전에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.84,
+          "evidence": "공기저장탱크는 압력용기 제작 및 안전기준 준수, 가압 상태 분해 방지 구조, 안전밸브·압력계·드레인 포트 설치를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-103-2017",
+          "guide_code": "M-103-2017"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "NOISE_EXPOSURE",
+          "confidence": 0.78,
+          "evidence": "압축공기 배기 시 발생하는 소음은 관련 기준을 충족할 수 있도록 안전한 소음기 등을 설치한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-103-2017",
+          "guide_code": "M-103-2017"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.76,
+          "evidence": "안전밸브는 설정압력을 최고사용압력 이하로 설정하고 분출량이 압축기 토출량 이상인지 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-103-2017",
+          "guide_code": "M-103-2017"
+        },
+        {
+          "sr_id": "SR-MACHINE-002",
+          "confidence": 0.74,
+          "evidence": "압축기 설치 시 회전부 덮개 설치, 충분한 강도의 기초 확보, 방음·방진 설비를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-103-2017",
+          "guide_code": "M-103-2017"
+        },
+        {
+          "sr_id": "SR-NOISE-001",
+          "confidence": 0.72,
+          "evidence": "공기압 시스템 설계에서 소음 저감 설계와 소음기 성능을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-103-2017",
+          "guide_code": "M-103-2017"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "공기압 시스템·압축공기 배관",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "공기압 시스템; 압축공기 관로; 호스 및 연결장치 설치",
+          "source_fields": [
+            "domainTerms.term",
+            "equipmentSpecs.equipmentName",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-103-2017",
+          "guide_code": "M-103-2017"
+        },
+        {
+          "trigger_text": "공기저장탱크·안전밸브·압력계",
+          "cue_type": "equipment_detail",
+          "confidence": 0.84,
+          "evidence": "안전밸브; 공기저장탱크; 압력계",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-103-2017",
+          "guide_code": "M-103-2017"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "공기압 시스템",
+          "압축기",
+          "공기저장탱크",
+          "안전밸브",
+          "압축공기 관로",
+          "채찍 현상"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-107-2012",
+      "short_code": "M107",
+      "title": "압력용기 등의 초음파탐상 시험에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M107.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pressure_vessel_ultrasonic_testing_ndt",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "압력용기",
+          "초음파탐상",
+          "탐상기",
+          "대비시험편",
+          "탐촉자",
+          "결함 판정"
+        ],
+        "evidence": "압력용기 등의 초음파탐상 시험에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.82,
+          "evidence": "압력용기 등의 초음파탐상 시험에 관한 기술지침이며 압력용기의 결함 탐상·판정을 다룬다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-107-2012",
+          "guide_code": "M-107-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.72,
+          "evidence": "초음파 탐상시험 준비, 탐상조건 설정, 주사, 결함 분류, 기록을 요구하는 검사 절차 문서이다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-107-2012",
+          "guide_code": "M-107-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.68,
+          "evidence": "압력용기 등 화학설비·압력용기의 검사와 결함 판정을 위한 초음파탐상 시험 절차를 다룬다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-107-2012",
+          "guide_code": "M-107-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-035",
+          "confidence": 0.64,
+          "evidence": "압력용기 사용 적합성 판단을 위한 비파괴 검사 성격이므로 최고사용압력 등 압력용기 관리 SR과 보수적으로 연결한다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-107-2012",
+          "guide_code": "M-107-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "압력용기 초음파탐상 장비",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "초음파탐상 시험; 탐상기; 탐촉자",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-107-2012",
+          "guide_code": "M-107-2012"
+        },
+        {
+          "trigger_text": "대비시험편·표준시험편·결함 에코",
+          "cue_type": "equipment_detail",
+          "confidence": 0.82,
+          "evidence": "표준시험편; 대비시험편; 에코; 지시",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-107-2012",
+          "guide_code": "M-107-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "압력용기",
+          "초음파탐상",
+          "탐상기",
+          "대비시험편",
+          "탐촉자",
+          "결함 판정"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-109-2012",
+      "short_code": "M109",
+      "title": "압력용기의 두께감소에 따른 위험성 평가에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M109.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pressure_vessel_thickness_loss_risk_assessment",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "압력용기",
+          "두께감소",
+          "부식률",
+          "잔여수명",
+          "최대허용사용압력",
+          "두께측정"
+        ],
+        "evidence": "압력용기의 두께감소에 따른 위험성 평가에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.84,
+          "evidence": "압력용기의 두께감소, 잔여두께, 최대허용사용압력, 잔여수명 평가를 다룬다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-109-2012",
+          "guide_code": "M-109-2012"
+        },
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.76,
+          "evidence": "부식률 산정과 화학설비·배관의 두께감소 위험성 평가를 포함한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-109-2012",
+          "guide_code": "M-109-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.78,
+          "evidence": "배관의 침식 및 부식은 살 두께 감소에 의한 손상이 문제가 되므로 수질관리, 내식성 재료, 저 유속 및 적정한 배관 경로를 고려한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-109-2012",
+          "guide_code": "M-109-2012"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.72,
+          "evidence": "압력용기의 두께측정 결과로 최고허용사용압력과 잔여수명을 평가한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-109-2012",
+          "guide_code": "M-109-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "압력용기 두께측정·부식률 평가",
+          "cue_type": "work_activity",
+          "confidence": 0.85,
+          "evidence": "압력용기의 두께감소에 따른 위험성 평가; 부식률; 두께측정",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-109-2012",
+          "guide_code": "M-109-2012"
+        },
+        {
+          "trigger_text": "초음파 두께측정기·NDT 검사",
+          "cue_type": "equipment_or_measurement",
+          "confidence": 0.8,
+          "evidence": "비파괴검사·두께측정·잔여수명 평가 절차를 포함한다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-109-2012",
+          "guide_code": "M-109-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "압력용기",
+          "두께감소",
+          "부식률",
+          "잔여수명",
+          "최대허용사용압력",
+          "두께측정"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-111-2015",
+      "short_code": "M111",
+      "title": "압력용기의 용접설계에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M111.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pressure_vessel_welding_design_ndt",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "압력용기",
+          "용접설계",
+          "용접절차서",
+          "맞대기 용접",
+          "방사선 투과시험",
+          "후열처리"
+        ],
+        "evidence": "압력용기의 용접설계에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.84,
+          "evidence": "압력용기 제작자는 용접에 앞서 용접시공 절차서를 작성하고 용접이음 설계 및 용접시공 방법의 확인시험을 하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-111-2015",
+          "guide_code": "M-111-2015"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "WELDING",
+          "confidence": 0.83,
+          "evidence": "맞대기 용접, 용접 그루브, 용접절차, 후열처리, 비파괴시험을 다룬다.",
+          "source_fields": [
+            "checklistItems.text",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-111-2015",
+          "guide_code": "M-111-2015"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.7,
+          "evidence": "치사적 물질을 포함하는 압력용기의 맞대기 용접부는 전 길이에 대한 방사선 투과시험을 실시하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-111-2015",
+          "guide_code": "M-111-2015"
+        },
+        {
+          "sr_id": "SR-MACHINE-035",
+          "confidence": 0.66,
+          "evidence": "압력용기 용접부 설계와 검사 기준을 통해 압력용기 사용 적합성을 확보하는 문서이다.",
+          "source_fields": [
+            "title",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-111-2015",
+          "guide_code": "M-111-2015"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "압력용기 용접부·그루브",
+          "cue_type": "work_activity",
+          "confidence": 0.84,
+          "evidence": "맞대기 용접에서 용접 그루브의 치수와 형상은 완전한 용융과 완전 용입이 가능하도록 설계되어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-111-2015",
+          "guide_code": "M-111-2015"
+        },
+        {
+          "trigger_text": "방사선 투과시험·용접절차서",
+          "cue_type": "document_or_activity",
+          "confidence": 0.82,
+          "evidence": "용접시공 절차서; 전 길이에 대한 방사선 투과시험",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-111-2015",
+          "guide_code": "M-111-2015"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "압력용기",
+          "용접설계",
+          "용접절차서",
+          "맞대기 용접",
+          "방사선 투과시험",
+          "후열처리"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-113-2012",
+      "short_code": "M113",
+      "title": "압력용기 보수에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M113.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pressure_vessel_repair_welding_pwht",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "압력용기 보수",
+          "보수용접",
+          "국부 후열처리",
+          "클래딩",
+          "용접봉",
+          "비파괴검사"
+        ],
+        "evidence": "압력용기 보수에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.84,
+          "evidence": "ASME, NBIC 코드 등에 따라 제작된 압력용기의 보수시 보수팀 자격, 설계, 재료, 비파괴검사 및 압력시험을 다룬다.",
+          "source_fields": [
+            "checklistItems.text",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-113-2012",
+          "guide_code": "M-113-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "WELDING",
+          "confidence": 0.83,
+          "evidence": "보수용접, 저수소계 용접봉, 예열처리, 후열처리, 용접 결함 수정을 포함한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-113-2012",
+          "guide_code": "M-113-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.78,
+          "evidence": "클래딩은 내식성이 적은 재료의 모재에 내식성이 있는 재료를 붙인 것으로, 보수 재료는 호환성 있는 재료를 사용한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-113-2012",
+          "guide_code": "M-113-2012"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-035",
+          "confidence": 0.74,
+          "evidence": "보수하는 데 사용하는 재료는 KS 또는 동등 이상의 코드를 따라야 하며 설비 재료와 동일하거나 호환성이 있어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-113-2012",
+          "guide_code": "M-113-2012"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.7,
+          "evidence": "비파괴검사 및 압력시험, 최고허용압력 재평가를 보수 절차에 포함한다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-113-2012",
+          "guide_code": "M-113-2012"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-054",
+          "confidence": 0.66,
+          "evidence": "압력용기 보수와 수리 작업 절차 전반을 다루므로 화학설비 개조·수리 안전조치와 보수적으로 연결한다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-113-2012",
+          "guide_code": "M-113-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "압력용기 보수용접·후열처리",
+          "cue_type": "work_activity",
+          "confidence": 0.85,
+          "evidence": "보수용접; 국부 후열처리; 용접 실시; 후열처리",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-113-2012",
+          "guide_code": "M-113-2012"
+        },
+        {
+          "trigger_text": "저수소계 용접봉·열전도계",
+          "cue_type": "equipment_or_material",
+          "confidence": 0.83,
+          "evidence": "저수소계 용접봉; 열전도계; 클래딩 수정용접 용접봉",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-113-2012",
+          "guide_code": "M-113-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "압력용기 보수",
+          "보수용접",
+          "국부 후열처리",
+          "클래딩",
+          "용접봉",
+          "비파괴검사"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-114-2012",
+      "short_code": "M114",
+      "title": "윤활유 분석에 의한 고장진단 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M114.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "lubricating_oil_analysis_machine_fault_diagnosis",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "윤활유",
+          "시료채취",
+          "점도분석",
+          "마모입자",
+          "경향관리",
+          "고장진단"
+        ],
+        "evidence": "윤활유 분석에 의한 고장진단 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "manufacturing",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.82,
+          "evidence": "윤활유 분석 결과로 기계 분해하여 마모 입자 근원 파악 및 원인 시정을 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-114-2012",
+          "guide_code": "M-114-2012"
+        },
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.76,
+          "evidence": "산가, 염기가, 점도지수, 유동점, 인화점 및 연소점 등 윤활유 시료의 화학·물성 분석을 다룬다.",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-114-2012",
+          "guide_code": "M-114-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-006",
+          "confidence": 0.66,
+          "evidence": "심각한 상태 발견 시 즉시 책임자 통보하고 기계 분해하여 마모 입자 근원 파악 및 원인 시정을 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-114-2012",
+          "guide_code": "M-114-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "윤활유 시료채취·분석실",
+          "cue_type": "laboratory_analysis",
+          "confidence": 0.84,
+          "evidence": "시료채취; 윤활유 분석 시험; 실험실 요구 절차에 따라 채취",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-114-2012",
+          "guide_code": "M-114-2012"
+        },
+        {
+          "trigger_text": "점도·산가·마모입자 분석 결과표",
+          "cue_type": "document_or_measurement",
+          "confidence": 0.82,
+          "evidence": "점도분석, 점도지수, 유동점, 인화점 및 연소점, 마모입자 분석 등 항목별 KS 시험방법에 따라 분석 실시",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-114-2012",
+          "guide_code": "M-114-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "윤활유",
+          "시료채취",
+          "점도분석",
+          "마모입자",
+          "경향관리",
+          "고장진단"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-121-2012",
+      "short_code": "M121",
+      "title": "성능매개변수를 이용한 기계의 상태감시와 진단 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M121.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "machine_condition_monitoring_performance_parameters",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "성능매개변수",
+          "상태감시",
+          "스펙트럼 분석",
+          "측정치",
+          "결함진단",
+          "기준값"
+        ],
+        "evidence": "성능매개변수를 이용한 기계의 상태감시와 진단 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "manufacturing",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.82,
+          "evidence": "대상기계의 감시시스템이나 제어시스템에서 이미 측정하고 있는 매개변수들을 확인하고 결함진단을 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-121-2012",
+          "guide_code": "M-121-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "NOISE_EXPOSURE",
+          "confidence": 0.7,
+          "evidence": "전류, 전압 및 진동과 같은 매개변수를 스펙트럼 분석 등으로 측정하여 변화를 검토한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-121-2012",
+          "guide_code": "M-121-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-006",
+          "confidence": 0.66,
+          "evidence": "결함진단 수행 가능성을 판단하고 요구 성능의 편차를 검토하여 진단자료를 계속 보완한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-121-2012",
+          "guide_code": "M-121-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "기계 상태감시 센서·성능매개변수",
+          "cue_type": "equipment_or_measurement",
+          "confidence": 0.84,
+          "evidence": "감시매개변수 선정; 측정 가능성 검토; 감시매개변수 기록",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-121-2012",
+          "guide_code": "M-121-2012"
+        },
+        {
+          "trigger_text": "스펙트럼 분석·진동/전류 측정",
+          "cue_type": "analysis_diagram",
+          "confidence": 0.82,
+          "evidence": "전류, 전압 및 진동과 같은 매개변수; 스펙트럼 분석",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-121-2012",
+          "guide_code": "M-121-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "성능매개변수",
+          "상태감시",
+          "스펙트럼 분석",
+          "측정치",
+          "결함진단",
+          "기준값"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-123-2012",
+      "short_code": "M123",
+      "title": "기계류의 위험성평가 지침",
+      "source_file": "pipe-B/data/ci-output/ci-M123.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "machine_risk_assessment_safeguarding",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "기계류",
+          "위험성평가",
+          "위험성분석",
+          "위험확인",
+          "위험도 산정",
+          "안전가드"
+        ],
+        "evidence": "기계류의 위험성평가 지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "manufacturing",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.83,
+          "evidence": "기계에 관련되는 모든 위험상태와 발생할 수 있는 사고들을 확인한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-123-2012",
+          "guide_code": "M-123-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.76,
+          "evidence": "위험성평가 범위 결정, 위험확인, 위험도 산정, 위험성 판단 및 위험수준 감소 절차를 제공한다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-123-2012",
+          "guide_code": "M-123-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-002",
+          "confidence": 0.68,
+          "evidence": "위험수준 감소가 필요한 경우 안전가드 설치 등 적절한 안전조치를 검토한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-123-2012",
+          "guide_code": "M-123-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-008",
+          "confidence": 0.66,
+          "evidence": "방호대책과 안전조치의 적정성을 위험성평가로 판단하는 문서이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-123-2012",
+          "guide_code": "M-123-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-011",
+          "confidence": 0.64,
+          "evidence": "기계의 사용범위, 예상 사용자의 능력, 위험 노출 가능 인원을 고려하여 안전한 사용 조건을 결정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-123-2012",
+          "guide_code": "M-123-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "기계 위험성평가표·M-HAZOP",
+          "cue_type": "document_or_form",
+          "confidence": 0.83,
+          "evidence": "M-HAZOP, What-if, FMECA, FTA, ETA 등의 기법을 활용할 수 있다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-123-2012",
+          "guide_code": "M-123-2012"
+        },
+        {
+          "trigger_text": "기계 방호대책·안전가드 검토",
+          "cue_type": "document_or_activity",
+          "confidence": 0.8,
+          "evidence": "위험성 판단 및 위험수준 감소; 안전가드 설치 등 적절한 안전조치",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-123-2012",
+          "guide_code": "M-123-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "기계류",
+          "위험성평가",
+          "위험성분석",
+          "위험확인",
+          "위험도 산정",
+          "안전가드"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-124-2012",
+      "short_code": "M124",
+      "title": "정련기 방호조치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M124.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "textile_scouring_machine_steam_pressure_interlock",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "정련기",
+          "외통뚜껑",
+          "내통문",
+          "스팀",
+          "압력계",
+          "안전핀"
+        ],
+        "evidence": "정련기 방호조치에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.84,
+          "evidence": "외통뚜껑이 개방되어 있을 경우 내통회전이 불가능하도록 내통구동스위치와 구동모터를 전기적으로 연동한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-124-2012",
+          "guide_code": "M-124-2012"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "BURN",
+          "confidence": 0.82,
+          "evidence": "정련 완료 후 내부가 온도 60℃이하 및 대기압 상태임을 확인하고 배출구 외통뚜껑을 개방한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-124-2012",
+          "guide_code": "M-124-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-044",
+          "confidence": 0.8,
+          "evidence": "정련 완료 후 내부압력을 제거하고 온도 60℃ 이하 및 대기압 상태임을 확인한 뒤 배출구를 개방한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-124-2012",
+          "guide_code": "M-124-2012"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-030",
+          "confidence": 0.74,
+          "evidence": "가성소다, 탈지제, 호발제, 과산화수소 등 정련 약품 준비 시 방진 및 방독마스크, 고무장갑, 고무장화 등 개인보호장구를 착용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-124-2012",
+          "guide_code": "M-124-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.7,
+          "evidence": "내통구동스위치와 구동모터를 전기적으로 연동하고 외통뚜껑 개방 시 내통회전을 불가능하게 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-124-2012",
+          "guide_code": "M-124-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "정련기 외통뚜껑·내통문",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "외통뚜껑; 내통문; 투입구; 배출구",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-124-2012",
+          "guide_code": "M-124-2012"
+        },
+        {
+          "trigger_text": "스팀 정련기 압력계·안전핀",
+          "cue_type": "equipment_detail",
+          "confidence": 0.84,
+          "evidence": "공압작동식 돌출형 안전핀; 온도계와 압력계를 확인",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-124-2012",
+          "guide_code": "M-124-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "정련기",
+          "외통뚜껑",
+          "내통문",
+          "스팀",
+          "압력계",
+          "안전핀"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-128-2012",
+      "short_code": "M128",
+      "title": "시멘트 벽돌·블럭 성형기의 방호조치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M128.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "cement_block_molding_machine_guarding",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "시멘트 벽돌",
+          "블록 성형기",
+          "혼합기",
+          "핑거카",
+          "큐빙기",
+          "파렛트"
+        ],
+        "evidence": "시멘트 벽돌·블럭 성형기의 방호조치에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.84,
+          "evidence": "혼합기 덮개에 연동장치를 설치하여 덮개를 닫아야만 혼합기가 가동되도록 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-128-2012",
+          "guide_code": "M-128-2012"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CRUSH",
+          "confidence": 0.83,
+          "evidence": "성형기의 위험점에 근로자가 접근하는 것을 방지하기 위하여 성형기 전·후면에는 견고한 안전울을 설치한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-128-2012",
+          "guide_code": "M-128-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.78,
+          "evidence": "성형기 전·후면 비상정지스위치와 혼합기·큐빙기 주전원 차단, 키잠금, 연동장치 설치를 요구한다.",
+          "source_fields": [
+            "equipmentSpecs.relatedSR",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-128-2012",
+          "guide_code": "M-128-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-002",
+          "confidence": 0.74,
+          "evidence": "회전부 및 왕복운동 부위에 안전울 또는 방책을 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-128-2012",
+          "guide_code": "M-128-2012"
+        },
+        {
+          "sr_id": "SR-VEHICLE-003",
+          "confidence": 0.68,
+          "evidence": "야적 및 출하작업에서 지게차 운행경로 확인, 야적장 적정 높이 적재, 3단 이상 로프 결속을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-128-2012",
+          "guide_code": "M-128-2012"
+        },
+        {
+          "sr_id": "SR-CARGO-007",
+          "confidence": 0.66,
+          "evidence": "벽돌제품 야적 시 안정성 확보와 붕괴예방 조치를 다룬다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-128-2012",
+          "guide_code": "M-128-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "시멘트 벽돌 성형기·혼합기",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.85,
+          "evidence": "혼합기; 성형기; 시멘트 벽돌제품",
+          "source_fields": [
+            "domainTerms.term",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-128-2012",
+          "guide_code": "M-128-2012"
+        },
+        {
+          "trigger_text": "핑거카·큐빙기·파렛트 적재라인",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "핑거카; 큐빙기; 파렛트; 체인컨베이어",
+          "source_fields": [
+            "domainTerms.term",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-128-2012",
+          "guide_code": "M-128-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "시멘트 벽돌",
+          "블록 성형기",
+          "혼합기",
+          "핑거카",
+          "큐빙기",
+          "파렛트"
+        ],
+        "exclude_when": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-13-2012",
+      "short_code": "M13",
+      "title": "플라스틱 판재 및 필름 와인딩기 작업에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M13.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "plastic_film_winding_nip_guarding",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "필름 와인딩기",
+          "말림",
+          "이동말림",
+          "연동식 가드",
+          "트립와이어",
+          "릴 교체"
+        ],
+        "evidence": "플라스틱 판재 및 필름 와인딩기 작업에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.84,
+          "evidence": "모든 고정 및 연동 가드가 제 위치에 있으며 튼튼하고 좋은 상태를 유지하는지 일일점검한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-13-2012",
+          "guide_code": "M-13-2012"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CRUSH",
+          "confidence": 0.84,
+          "evidence": "말림 및 이동말림은 위험하므로 방호 조치를 적용해야 하며 저속 기기에서도 사망 재해가 발생할 수 있다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-13-2012",
+          "guide_code": "M-13-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-038",
+          "confidence": 0.8,
+          "evidence": "가드와 말림(Nip)은 롤러 위험부위 방호와 직접 관련되며 연동식 가드를 설치한다.",
+          "source_fields": [
+            "domainTerms.relatedSR",
+            "equipmentSpecs.relatedSR"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-13-2012",
+          "guide_code": "M-13-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.72,
+          "evidence": "와인딩 구역 내 모든 작업 위치에서 접근 가능한 비상 정지장치를 마련한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-13-2012",
+          "guide_code": "M-13-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-008",
+          "confidence": 0.7,
+          "evidence": "연동가드, ESPE, 압력 감지식 매트, 트립와이어 등 방호시스템의 기능 점검을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-13-2012",
+          "guide_code": "M-13-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "필름 와인딩기 롤러 말림점",
+          "cue_type": "equipment_or_hazard",
+          "confidence": 0.86,
+          "evidence": "말림(Nip); 두 개의 로울러 사이에 말려드는 것",
+          "source_fields": [
+            "domainTerms.term",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-13-2012",
+          "guide_code": "M-13-2012"
+        },
+        {
+          "trigger_text": "연동식 가드·트립와이어·라이트커튼",
+          "cue_type": "control_or_equipment",
+          "confidence": 0.85,
+          "evidence": "연동식 가드; 트립와이어; 전자감응식 방호장치",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-13-2012",
+          "guide_code": "M-13-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "필름 와인딩기",
+          "말림",
+          "이동말림",
+          "연동식 가드",
+          "트립와이어",
+          "릴 교체"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-131-2012",
+      "short_code": "M131",
+      "title": "기계의 결함진단을 위한 자료해석 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M131.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "machine_fault_diagnosis_data_analysis",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "기계 결함진단",
+          "상태감시",
+          "이상상태",
+          "결함가설",
+          "특징설명인자",
+          "진단보고서"
+        ],
+        "evidence": "기계의 결함진단을 위한 자료해석 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "manufacturing",
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.82,
+          "evidence": "기계의 상태감시 시스템 및 진단시스템을 구축하기 위하여 예비조사를 수행한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-131-2012",
+          "guide_code": "M-131-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.72,
+          "evidence": "진단보고서, 결함가설, 상태감시 자료 수집 및 측정 등 문서·분석 중심 절차이다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-131-2012",
+          "guide_code": "M-131-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-006",
+          "confidence": 0.66,
+          "evidence": "기계의 현재 특징설명인자와 기준값을 비교하여 이상상태를 검출하고 수정운전이나 보수작업을 제안한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-131-2012",
+          "guide_code": "M-131-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "기계 상태감시 진단보고서",
+          "cue_type": "document_or_form",
+          "confidence": 0.84,
+          "evidence": "진단요구사항 보고서 작성; 진단보고서에 진단을 시작하게 한 이상상태를 기재",
+          "source_fields": [
+            "workProcesses.processName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-131-2012",
+          "guide_code": "M-131-2012"
+        },
+        {
+          "trigger_text": "결함가설·이상상태·경보 데이터",
+          "cue_type": "analysis_diagram",
+          "confidence": 0.82,
+          "evidence": "경고(Alarm); 이상상태; 결함; 증상",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-131-2012",
+          "guide_code": "M-131-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "기계 결함진단",
+          "상태감시",
+          "이상상태",
+          "결함가설",
+          "특징설명인자",
+          "진단보고서"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-133-2012",
+      "short_code": "M133",
+      "title": "농업기계의 안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M133.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "agricultural_machinery_guarding_operation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "농업기계",
+          "작업부분",
+          "위험부분",
+          "트랙터",
+          "방호가드",
+          "운전석"
+        ],
+        "evidence": "농업기계의 안전에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "manufacturing",
+          "agriculture"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "FARM_MACHINERY",
+          "confidence": 0.84,
+          "evidence": "농업기계는 농업에 사용되는 기계를 말하며 위험부분의 방호와 작업 전 점검, 급유·정비작업을 다룬다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-133-2012",
+          "guide_code": "M-133-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.83,
+          "evidence": "위험부분은 회전축, 풀리, 스프로킷, 기어, 벨트, 체인, 톱날 및 팬 등 동력 구동부를 말한다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-133-2012",
+          "guide_code": "M-133-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-046",
+          "confidence": 0.76,
+          "evidence": "농업용기계에 해당하는 농업기계 안전 기준이며 작업부분·위험부분·운전석·방호장치 기준을 포함한다.",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-133-2012",
+          "guide_code": "M-133-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-002",
+          "confidence": 0.74,
+          "evidence": "기계자체 또는 지상에 고정시켜 위험부분에 사람의 신체가 접촉하는 것을 차단하기위한 방호가드를 설치하여야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-133-2012",
+          "guide_code": "M-133-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-007",
+          "confidence": 0.7,
+          "evidence": "벨트 등의 조정, 정비, 수리, 청소 등 위험이 수반되는 작업은 기계장치를 정지한 상태에서 수행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-133-2012",
+          "guide_code": "M-133-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "농업기계·트랙터·작업부분",
+          "cue_type": "vehicle_equipment",
+          "confidence": 0.85,
+          "evidence": "농업기계; 작업부분; 운전석; 발판",
+          "source_fields": [
+            "domainTerms.term",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-133-2012",
+          "guide_code": "M-133-2012"
+        },
+        {
+          "trigger_text": "농업기계 방호가드·위험부분",
+          "cue_type": "equipment_detail",
+          "confidence": 0.84,
+          "evidence": "방호장치; 부분 방호 덮개; 위험부분",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-133-2012",
+          "guide_code": "M-133-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "농업기계",
+          "작업부분",
+          "위험부분",
+          "트랙터",
+          "방호가드",
+          "운전석"
+        ],
+        "exclude_when": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-134-2012",
+      "short_code": "M134",
+      "title": "신선기 재해 방지를 위한 방호조치 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M134.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "wire_drawing_machine_guarding_emergency_stop",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "신선기",
+          "선재",
+          "드럼",
+          "안내롤",
+          "캐비닛형 덮개",
+          "무릎식 비상정지장치"
+        ],
+        "evidence": "신선기 재해 방지를 위한 방호조치 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.84,
+          "evidence": "신선기 선재와 드럼사이의 협착점과 안내롤 전면에 덮개·고정식 가드·연동장치를 설치한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-134-2012",
+          "guide_code": "M-134-2012"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CRUSH",
+          "confidence": 0.84,
+          "evidence": "선재와 드럼 사이 협착점 및 안내롤과 선재 사이 협착 위험을 방호한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-134-2012",
+          "guide_code": "M-134-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-040",
+          "confidence": 0.8,
+          "evidence": "신선기 인발블록·꼬는 기계 케이지 덮개 설치 SR과 직접 관련되는 신선기 방호장치 지침이다.",
+          "source_fields": [
+            "title",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-134-2012",
+          "guide_code": "M-134-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.74,
+          "evidence": "드럼 전면에 무릎식 바형 또는 수동복귀형 비상정지장치를 설치하고 페일세이프 회로를 구성한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-134-2012",
+          "guide_code": "M-134-2012"
+        },
+        {
+          "sr_id": "SR-NOISE-004",
+          "confidence": 0.72,
+          "evidence": "신선기 안전 운전 시 방진마스크·귀마개·지정된 작업복 착용을 요구한다.",
+          "source_fields": [
+            "workProcesses.requiredPPE",
+            "workProcesses.relatedSR"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-134-2012",
+          "guide_code": "M-134-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "신선기 드럼·선재·안내롤",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.86,
+          "evidence": "신선기; 드럼; 안내롤; 선재",
+          "source_fields": [
+            "domainTerms.term",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-134-2012",
+          "guide_code": "M-134-2012"
+        },
+        {
+          "trigger_text": "캐비닛형 덮개·무릎식 비상정지장치",
+          "cue_type": "control_or_equipment",
+          "confidence": 0.85,
+          "evidence": "캐비닛형 덮개; 무릎식 바형 비상정지장치; 전기식 연동장치",
+          "source_fields": [
+            "domainTerms.term",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-134-2012",
+          "guide_code": "M-134-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "신선기",
+          "선재",
+          "드럼",
+          "안내롤",
+          "캐비닛형 덮개",
+          "무릎식 비상정지장치"
+        ],
+        "exclude_when": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-135-2023",
+      "short_code": "M135",
+      "title": "고무 또는 합성수지 가공용 롤러기 방호조치에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M135.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "rubber_plastic_roller_machine_guarding",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "롤러기",
+          "급정지장치",
+          "정지봉",
+          "스톡가이드",
+          "밀트레이",
+          "급정지거리"
+        ],
+        "evidence": "고무 또는 합성수지 가공용 롤러기 방호조치에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.84,
+          "evidence": "정상운전 중 위험(협착, 분쇄)지역에 접근되는 것을 막기 위하여 고정식가드, 연동식 가드, 급정지장치 등을 설치한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-135-2023",
+          "guide_code": "M-135-2023"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CRUSH",
+          "confidence": 0.84,
+          "evidence": "롤러 사이에 말려들거나 말려 들어갈 우려가 있는 경우 정지봉·로프·급정지장치를 사용한다.",
+          "source_fields": [
+            "domainTerms.definition",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-135-2023",
+          "guide_code": "M-135-2023"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-038",
+          "confidence": 0.8,
+          "evidence": "롤러기 위험 부위 울·가이드롤러 설치 SR과 직접 관련되며 고정식가드, 연동식 가드, 급정지장치를 요구한다.",
+          "source_fields": [
+            "title",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-135-2023",
+          "guide_code": "M-135-2023"
+        },
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.74,
+          "evidence": "급정지장치와 전기적 감응시간, 브레이크 성능, 전기설비 점검을 포함한다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-135-2023",
+          "guide_code": "M-135-2023"
+        },
+        {
+          "sr_id": "SR-NOISE-004",
+          "confidence": 0.7,
+          "evidence": "롤러기 운전 작업에서 소음 보호구(귀마개 등)를 착용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "workProcesses.relatedSR"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-135-2023",
+          "guide_code": "M-135-2023"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.66,
+          "evidence": "롤러기 청소작업에서 유기용제 사용 시 배기 시스템을 가동하여 유해 증기를 제거한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-135-2023",
+          "guide_code": "M-135-2023"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "고무·합성수지 롤러기",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.86,
+          "evidence": "롤러기; 2개 이상의 롤러; 고무 또는 합성수지 가공용 롤러기",
+          "source_fields": [
+            "domainTerms.term",
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-135-2023",
+          "guide_code": "M-135-2023"
+        },
+        {
+          "trigger_text": "급정지장치 정지봉·로프",
+          "cue_type": "control_or_equipment",
+          "confidence": 0.85,
+          "evidence": "급정지장치 정지봉; 급정지장치 조작부 로프; 급정지거리 기준",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-135-2023",
+          "guide_code": "M-135-2023"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "롤러기",
+          "급정지장치",
+          "정지봉",
+          "스톡가이드",
+          "밀트레이",
+          "급정지거리"
+        ],
+        "exclude_when": [
+          "보건검진",
+          "실험실 분석",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-136-2012",
+      "short_code": "M136",
+      "title": "리프트 피니언축 초음파탐상시험에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M136.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "construction_lift_pinion_shaft_ultrasonic_testing",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "건설용 리프트",
+          "피니언축",
+          "초음파 탐상시험",
+          "표준시험편",
+          "탐촉자",
+          "에코"
+        ],
+        "evidence": "리프트 피니언축 초음파탐상시험에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "항만하역",
+          "급식실",
+          "실험실 분석",
+          "일반 사무실"
+        ],
+        "industry_alignment": [
+          "construction"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "LIFT_WORK",
+          "confidence": 0.82,
+          "evidence": "건설용 리프트는 가이드레일을 따라 상하로 움직이는 운반구를 매달아 화물을 운반하는 설비이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-136-2012",
+          "guide_code": "M-136-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.8,
+          "evidence": "피니언이 조립되는 축 끝단에서 탐상하고 결함지시와 유사결함지시를 평가한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-136-2012",
+          "guide_code": "M-136-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-006",
+          "confidence": 0.66,
+          "evidence": "피니언축 결함지시를 판정하여 건설용 리프트 기계부품의 결함 여부를 확인하는 검사 절차이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-136-2012",
+          "guide_code": "M-136-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "건설용 리프트 피니언축",
+          "cue_type": "equipment_detail",
+          "confidence": 0.84,
+          "evidence": "건설용 리프트; 피니언이 조립되는 축 끝단에서 탐상",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-136-2012",
+          "guide_code": "M-136-2012"
+        },
+        {
+          "trigger_text": "초음파 탐상기·표준시험편",
+          "cue_type": "equipment_or_measurement",
+          "confidence": 0.83,
+          "evidence": "초음파 탐상시험; 표준시험편; 탐촉자; 에코",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-136-2012",
+          "guide_code": "M-136-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "건설용 리프트",
+          "피니언축",
+          "초음파 탐상시험",
+          "표준시험편",
+          "탐촉자",
+          "에코"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "급식실",
+          "실험실 분석",
+          "일반 사무실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-137-2023",
+      "short_code": "M137",
+      "title": "기계의 제작 구매 사용시 안전기준에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M137.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "machine_lifecycle_risk_assessment_safeguarding",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "기계",
+          "위험성평가",
+          "방호대책",
+          "본질안전설계",
+          "안전방호장치",
+          "비상정지장치"
+        ],
+        "evidence": "기계의 제작 구매 사용시 안전기준에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.85,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.84,
+          "evidence": "기계 제조자 위험성평가, 기계 구입, 기계 사용 사업주 위험성평가, 방호대책 수립을 다룬다.",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "본질안전설계대책, 안전방호장치, 부가보호대책, 사용상의 정보제공 순서로 위험성 감소대책을 수립·실행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-002",
+          "confidence": 0.64,
+          "evidence": "고정식 가드, 인터록 부착 개폐식 가드, 조정식 가드, 광전자식 방호장치 등 방호장치를 다룬다.",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        },
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.64,
+          "evidence": "비상정지장치는 모든 운전모드에서 다른 기능보다 우선 실행하고 해제 시 즉시 재기동을 방지한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        },
+        {
+          "sr_id": "SR-MACHINE-008",
+          "confidence": 0.64,
+          "evidence": "본질안전설계대책, 안전방호장치, 부가보호대책을 사용상의 정보제공으로 대체해서는 안 된다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        },
+        {
+          "sr_id": "SR-MACHINE-011",
+          "confidence": 0.68,
+          "evidence": "기계 인수 시 작동법과 안전 정보 제공 여부, 설명서 이해 용이성 등을 점검한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        },
+        {
+          "sr_id": "SR-MACHINE-006",
+          "confidence": 0.66,
+          "evidence": "구입한 기계가 안전하지 않다고 생각되는 경우 사용하지 않고 제조자 또는 공급자에게 보완하게 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "기계 위험성평가·방호대책 문서",
+          "cue_type": "document_or_form",
+          "confidence": 0.84,
+          "evidence": "위험성평가 절차: 사전준비, 유해·위험요인 파악, 위험성 결정, 위험성 감소대책 수립 및 실행, 기록 및 보존",
+          "source_fields": [
+            "checklistItems.additionalDetail"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        },
+        {
+          "trigger_text": "가드·비상정지장치·광전자식 방호장치",
+          "cue_type": "control_or_equipment",
+          "confidence": 0.83,
+          "evidence": "고정식 가드; 비상정지장치; 광전자식 방호장치",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-137-2023",
+          "guide_code": "M-137-2023"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "기계",
+          "위험성평가",
+          "방호대책",
+          "본질안전설계",
+          "안전방호장치",
+          "비상정지장치"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged. Semantic audit 2026-05-09: document/risk-method profile field-control SR candidates demoted to needs_review for review-only use; semantic candidate rows preserved."
+    },
+    {
+      "guide_code": "M-139-2012",
+      "short_code": "M139",
+      "title": "세라믹 바닥재의 미끄러짐 측정과 평가에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M139.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "ceramic_floor_slip_measurement_control",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "세라믹 바닥재",
+          "미끄러짐",
+          "마찰 계수",
+          "습윤시험",
+          "정지마찰계수",
+          "논슬립"
+        ],
+        "evidence": "세라믹 바닥재의 미끄러짐 측정과 평가에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "industry_alignment": [
+          "laboratory"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.82,
+          "evidence": "습윤한 바닥의 주변지역은 작업자의 이동으로 표면물질이 확산되어 미끄러워지므로 정지마찰계수를 계산한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-139-2012",
+          "guide_code": "M-139-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "WET_FLOOR_WORK",
+          "confidence": 0.82,
+          "evidence": "세제, 식용유, 엔진오일이 묻은 세라믹 바닥재는 측정결과와 관계없이 미끄러짐 평가를 매우 높음으로 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-139-2012",
+          "guide_code": "M-139-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PASSAGE-002",
+          "confidence": 0.66,
+          "evidence": "작업장 바닥의 미끄러짐 특성을 구획·표시하고 청소, 논슬립 재료 교체, 안전화 착용 등 통로 유지관리 조치를 제시한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-139-2012",
+          "guide_code": "M-139-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "세라믹 바닥재 미끄러짐 측정",
+          "cue_type": "work_activity",
+          "confidence": 0.84,
+          "evidence": "세라믹 바닥재; 마찰 계수; 미끄러짐 측정",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-139-2012",
+          "guide_code": "M-139-2012"
+        },
+        {
+          "trigger_text": "젖은 바닥·오일·세제 표면물질",
+          "cue_type": "observed_hazard",
+          "confidence": 0.83,
+          "evidence": "물, 세제, 식용유, 오일 등 표면 물질; 습윤시험",
+          "source_fields": [
+            "domainTerms.definition",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-139-2012",
+          "guide_code": "M-139-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "세라믹 바닥재",
+          "미끄러짐",
+          "마찰 계수",
+          "습윤시험",
+          "정지마찰계수",
+          "논슬립"
+        ],
+        "exclude_when": [
+          "일반 건설현장",
+          "항만하역",
+          "급식실",
+          "일반 창고"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-14-2012",
+      "short_code": "M14",
+      "title": "수동용 칼(Hand Knife)의 사용에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M14.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "hand_knife_cutting_tool_safety",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "수동용 칼",
+          "접을 수 있는 칼",
+          "둥근 칼날",
+          "절단방지 장갑",
+          "칼 보관",
+          "폐기함"
+        ],
+        "evidence": "수동용 칼(Hand Knife)의 사용에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [],
+        "industry_alignment": [
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CUT",
+          "confidence": 0.84,
+          "evidence": "접을 수 있는 칼 날, 둥근 칼 날, 미끄럽지 않은 손잡이를 갖춘 칼을 선택한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-14-2012",
+          "guide_code": "M-14-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "MATERIAL_HANDLING",
+          "confidence": 0.76,
+          "evidence": "작업장 근방의 선반, 박스 등 적절한 보관 시설을 제공하고 이동 시 덮개를 제공한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-14-2012",
+          "guide_code": "M-14-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-011",
+          "confidence": 0.72,
+          "evidence": "보다 안전한 절단 도구를 사용하고 기타 다른 용도의 칼들은 모두 제거한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-14-2012",
+          "guide_code": "M-14-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-009",
+          "confidence": 0.68,
+          "evidence": "절단방지 장갑, 팔 보호대, 에이프런, 레깅스, 보호 신발 등 적절한 개인 보호구를 제공한다.",
+          "source_fields": [
+            "workProcesses.requiredPPE",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-14-2012",
+          "guide_code": "M-14-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-005",
+          "confidence": 0.64,
+          "evidence": "둥근 끝 칼날은 찔리는 부상을 방지하고 작업환경 정비로 절단 작업 위험을 낮춘다.",
+          "source_fields": [
+            "equipmentSpecs.specifications"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-14-2012",
+          "guide_code": "M-14-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "수동용 칼·칼날·절단 작업",
+          "cue_type": "tool_or_activity",
+          "confidence": 0.85,
+          "evidence": "수동용 칼; 접을 수 있는 칼; 둥근 칼 날",
+          "source_fields": [
+            "title",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-14-2012",
+          "guide_code": "M-14-2012"
+        },
+        {
+          "trigger_text": "절단방지 장갑·팔 보호대",
+          "cue_type": "ppe_or_equipment",
+          "confidence": 0.83,
+          "evidence": "절단방지 장갑; 팔 보호대; 에이프런; 레깅스",
+          "source_fields": [
+            "equipmentSpecs.equipmentName",
+            "workProcesses.requiredPPE"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-14-2012",
+          "guide_code": "M-14-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "수동용 칼",
+          "접을 수 있는 칼",
+          "둥근 칼날",
+          "절단방지 장갑",
+          "칼 보관",
+          "폐기함"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-142-2012",
+      "short_code": "M142",
+      "title": "고압 금속 다이캐스팅기의 안전작업에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M142.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "high_pressure_metal_die_casting_machine_guarding",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "다이캐스팅기",
+          "용융 금속",
+          "고온 챔버",
+          "샷 슬리브",
+          "움직이는 가드",
+          "주조 공정"
+        ],
+        "evidence": "고압 금속 다이캐스팅기의 안전작업에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "manufacturing"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.84,
+          "evidence": "다이캐스팅기의 안전장치는 기계 자체의 위험요인에 의한 재해가 발생하지 않도록 설계되어야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-142-2012",
+          "guide_code": "M-142-2012"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "BURN",
+          "confidence": 0.83,
+          "evidence": "고온 분사 금속 보호 구조를 확보하고 용해로 수증기 폭발 방지를 위한 물 유입 차단을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-142-2012",
+          "guide_code": "M-142-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-MACHINE-002",
+          "confidence": 0.76,
+          "evidence": "가드, 안전 트림 장치, 밀폐 가드 내 비상정지장치, 리밋 스위치 등을 설치한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-142-2012",
+          "guide_code": "M-142-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.72,
+          "evidence": "밀폐 가드 내 비상 정지 장치 설치와 안전장치 정기 점검을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-142-2012",
+          "guide_code": "M-142-2012"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-024",
+          "confidence": 0.74,
+          "evidence": "주조 공정에서 용해로 수증기 폭발 방지를 위한 물 유입 차단을 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-142-2012",
+          "guide_code": "M-142-2012"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-030",
+          "confidence": 0.7,
+          "evidence": "용융 금속·고온 분사 금속으로 인한 화상 방지 경계에 해당한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-142-2012",
+          "guide_code": "M-142-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "고압 금속 다이캐스팅기",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.86,
+          "evidence": "다이캐스팅기; 고압 금속 다이캐스팅기의 안전작업",
+          "source_fields": [
+            "domainTerms.term",
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-142-2012",
+          "guide_code": "M-142-2012"
+        },
+        {
+          "trigger_text": "용융 금속·샷 슬리브·움직이는 가드",
+          "cue_type": "equipment_detail",
+          "confidence": 0.85,
+          "evidence": "용융된 금속; 샷 슬리브; 움직이는 가드",
+          "source_fields": [
+            "domainTerms.definition",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-142-2012",
+          "guide_code": "M-142-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "다이캐스팅기",
+          "용융 금속",
+          "고온 챔버",
+          "샷 슬리브",
+          "움직이는 가드",
+          "주조 공정"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-146-2012",
+      "short_code": "M146",
+      "title": "고령화 설비의 손상평가와 수명예측에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M146.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "aging_equipment_damage_life_assessment_ndt",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "고령화 설비",
+          "경년손상",
+          "크리이프",
+          "비파괴검사",
+          "피로수명",
+          "남은수명"
+        ],
+        "evidence": "고령화 설비의 손상평가와 수명예측에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.82,
+          "evidence": "경수로 압력용기·노심 구조물·배관의 경년손상과 손상평가, 남은수명 예측을 다룬다.",
+          "source_fields": [
+            "checklistItems.guideContext",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-146-2012",
+          "guide_code": "M-146-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.78,
+          "evidence": "설비의 수명예측은 최초 설계시뿐만 아니라 사용기간 중에도 지속적으로 실시한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-146-2012",
+          "guide_code": "M-146-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-032",
+          "confidence": 0.76,
+          "evidence": "배관의 침식 및 부식은 살 두께 감소에 의한 손상이 문제가 되므로 수질관리, 내식성 재료, 저 유속 및 적정한 배관 경로를 고려한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-146-2012",
+          "guide_code": "M-146-2012"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-037",
+          "confidence": 0.68,
+          "evidence": "정기 검사시마다 손상평가를 실시하고 남은 수명을 예측하며 비파괴검사·평가를 수행한다.",
+          "source_fields": [
+            "checklistItems.text",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-146-2012",
+          "guide_code": "M-146-2012"
+        },
+        {
+          "sr_id": "SR-MACHINE-006",
+          "confidence": 0.66,
+          "evidence": "정기검사 결과 손상에 의한 수명 단축이 예상되면 사전에 보수 및 교체를 실시한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-146-2012",
+          "guide_code": "M-146-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "고령화 설비 손상평가·수명예측",
+          "cue_type": "document_or_activity",
+          "confidence": 0.84,
+          "evidence": "고령화 설비; 경년손상; 남은수명 예측",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-146-2012",
+          "guide_code": "M-146-2012"
+        },
+        {
+          "trigger_text": "초음파·방사선·전기저항 비파괴검사",
+          "cue_type": "equipment_or_measurement",
+          "confidence": 0.83,
+          "evidence": "초음파 검사장비; 방사선 검사장비; 전기저항 측정장비",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-146-2012",
+          "guide_code": "M-146-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "고령화 설비",
+          "경년손상",
+          "크리이프",
+          "비파괴검사",
+          "피로수명",
+          "남은수명"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-150-2022",
+      "short_code": "M150",
+      "title": "불활성기체 등을 이용한 기밀시험 방법에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M150.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "inert_gas_leak_tightness_testing_pressure",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "기밀시험",
+          "불활성가스",
+          "누출검출",
+          "압력게이지",
+          "진공상자",
+          "초음파 누출검출기"
+        ],
+        "evidence": "불활성기체 등을 이용한 기밀시험 방법에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "PRESSURE_VESSEL",
+          "confidence": 0.84,
+          "evidence": "가압 기밀시험 시 설계압력의 25% 이하로 시험하고 압력계를 설치해 내부압력을 확인한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-150-2022",
+          "guide_code": "M-150-2022"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CONFINED_SPACE",
+          "confidence": 0.78,
+          "evidence": "불활성가스 기밀시험과 밀폐된 기기 가압·감압 작업은 산소결핍·유해가스 위험을 동반할 수 있다.",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-150-2022",
+          "guide_code": "M-150-2022"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-076",
+          "confidence": 0.8,
+          "evidence": "불활성가스 기밀시험 방법과 시험 안전 조치 및 가압 절차를 직접 다룬다.",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-150-2022",
+          "guide_code": "M-150-2022"
+        },
+        {
+          "sr_id": "SR-FIRE_EXPLOSION-049",
+          "confidence": 0.76,
+          "evidence": "모든 게이지는 표준 정하중시험기 또는 교정 마스터 게이지와 비교하여 교정하고 최소 1년에 한번 재교정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "equipmentSpecs.relatedSR"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-150-2022",
+          "guide_code": "M-150-2022"
+        },
+        {
+          "sr_id": "SR-CONFINED-020",
+          "confidence": 0.72,
+          "evidence": "시험 안전 조치 및 가압 중 이상 징후 시 즉시 감압 후 수정한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-150-2022",
+          "guide_code": "M-150-2022"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "불활성가스 기밀시험·누출검출",
+          "cue_type": "work_activity",
+          "confidence": 0.86,
+          "evidence": "기밀시험; 불활성가스; 누출검출기",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-150-2022",
+          "guide_code": "M-150-2022"
+        },
+        {
+          "trigger_text": "압력게이지·진공상자·거품형성 용액",
+          "cue_type": "equipment_or_device",
+          "confidence": 0.84,
+          "evidence": "다이얼 지시형 및 기록형 압력게이지; 진공상자; 거품형성 용액",
+          "source_fields": [
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-150-2022",
+          "guide_code": "M-150-2022"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "기밀시험",
+          "불활성가스",
+          "누출검출",
+          "압력게이지",
+          "진공상자",
+          "초음파 누출검출기"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-153-2012",
+      "short_code": "M153",
+      "title": "가공목재 및 판재의 적재에 관한 안전기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M153.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "wood_panel_stacking_storage_material_handling",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "가공목재",
+          "판재",
+          "적재",
+          "하적단",
+          "지게차",
+          "붕괴예방"
+        ],
+        "evidence": "가공목재 및 판재의 적재에 관한 안전기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "industry_alignment": [
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "MATERIAL_HANDLING",
+          "confidence": 0.82,
+          "evidence": "가공목재 및 판재의 적재·해체·야적 안정성 확보를 다루는 물류·자재취급 가이드이다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-153-2012",
+          "guide_code": "M-153-2012"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "FALLING_OBJECT",
+          "confidence": 0.8,
+          "evidence": "목재·판재 적재 높이, 결속, 붕괴예방, 낙하 방지 조치가 핵심이다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-153-2012",
+          "guide_code": "M-153-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CARGO-006",
+          "confidence": 0.76,
+          "evidence": "하적단 붕괴·화물 낙하 방지 및 적재·해체 기준과 직접 관련되는 목재·판재 적재 가이드이다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-153-2012",
+          "guide_code": "M-153-2012"
+        },
+        {
+          "sr_id": "SR-CARGO-007",
+          "confidence": 0.74,
+          "evidence": "화물 적재 시 안정성 확보 기준과 연결되는 적재 안정성 가이드이다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-153-2012",
+          "guide_code": "M-153-2012"
+        },
+        {
+          "sr_id": "SR-VEHICLE-003",
+          "confidence": 0.66,
+          "evidence": "지게차를 이용한 판재 운반·적재 장면에서는 차량계 하역운반기계 화물 적재 안전기준과 보수적으로 연결한다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-153-2012",
+          "guide_code": "M-153-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "가공목재·판재 적재 더미",
+          "cue_type": "material_or_activity",
+          "confidence": 0.84,
+          "evidence": "가공목재 및 판재의 적재에 관한 안전기술지침",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-153-2012",
+          "guide_code": "M-153-2012"
+        },
+        {
+          "trigger_text": "지게차 목재·판재 하역장",
+          "cue_type": "vehicle_or_material",
+          "confidence": 0.8,
+          "evidence": "가공목재 및 판재의 적재; 지게차; 하적단 붕괴·화물 낙하",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-153-2012",
+          "guide_code": "M-153-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "가공목재",
+          "판재",
+          "적재",
+          "하적단",
+          "지게차",
+          "붕괴예방"
+        ],
+        "exclude_when": [
+          "급식실",
+          "보건검진",
+          "일반 운반작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-154-2012",
+      "short_code": "M154",
+      "title": "유리섬유 강화 플라스틱(GRP) 탱크 제조 및 사용에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M154.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "grp_tank_manufacturing_chemical_static_confined",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "GRP 탱크",
+          "유리섬유",
+          "합성수지",
+          "촉매",
+          "정전기",
+          "밀폐공간 출입"
+        ],
+        "evidence": "유리섬유 강화 플라스틱(GRP) 탱크 제조 및 사용에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "industry_alignment": [
+          "chemical_process",
+          "electrical_maintenance"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "합성수지와 촉매는 밀봉하여 냉암소에 저장하고 촉매와 촉진제는 절대 직접 혼합하지 않는다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "STATIC_ELECTRICITY",
+          "confidence": 0.83,
+          "evidence": "GRP는 전기적으로 절연체이나 정전기가 축적되어 잠재적 점화원으로 작용할 수 있으므로 정전기 제거장치를 고려해야 한다.",
+          "source_fields": [
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-ELECTRIC-024",
+          "confidence": 0.78,
+          "evidence": "인화성 액체 저장 시 정전기 제거장치를 고려하고 탱크 설치 시 접지를 실시한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.basedOn"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.74,
+          "evidence": "제조 시 화학물질 취급에서 촉매와 수지의 인체 접촉을 방지하고 방진마스크, 보호장갑, 보안경을 사용한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "workProcesses.requiredPPE"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-017",
+          "confidence": 0.66,
+          "evidence": "합성수지와 촉매 취급·저장 및 혼합 시 취급 주의사항 고지가 필요한 화학물질 작업이다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        },
+        {
+          "sr_id": "SR-CONFINED-001",
+          "confidence": 0.72,
+          "evidence": "탱크 출입 시 밀폐공간 출입에 해당하므로 위험작업허가서를 발행하고 안전조치를 취한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        },
+        {
+          "sr_id": "SR-CONFINED-002",
+          "confidence": 0.68,
+          "evidence": "내부검사 시 밀폐공간 출입허가 및 안전조치를 이행한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "GRP 탱크·유리섬유·합성수지",
+          "cue_type": "equipment_or_material",
+          "confidence": 0.86,
+          "evidence": "GRP탱크; 합성수지; 유리섬유 제품",
+          "source_fields": [
+            "title",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        },
+        {
+          "trigger_text": "탱크 내부검사·밀폐공간 출입",
+          "cue_type": "workplace_context",
+          "confidence": 0.84,
+          "evidence": "탱크 출입 시 밀폐공간 출입에 해당하므로 위험작업허가서를 발행하고 안전조치를 취한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-154-2012",
+          "guide_code": "M-154-2012"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "GRP 탱크",
+          "유리섬유",
+          "합성수지",
+          "촉매",
+          "정전기",
+          "밀폐공간 출입"
+        ],
+        "exclude_when": [
+          "사무실",
+          "급식실",
+          "항만하역만 있음",
+          "일반 운전작업"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    },
+    {
+      "guide_code": "M-155-2023",
+      "short_code": "M155",
+      "title": "이동식 고소작업대의 선정과 안전관리에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-M155.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "mobile_elevated_work_platform_selection_operation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "이동식 고소작업대",
+          "작업대",
+          "아웃트리거",
+          "붐형 작업대",
+          "안전대",
+          "송전선"
+        ],
+        "evidence": "이동식 고소작업대의 선정과 안전관리에 관한 기술지침",
+        "source_fields": [
+          "title"
+        ],
+        "confidence": 0.87,
+        "negative_context_terms": [],
+        "industry_alignment": []
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "LIFT_WORK",
+          "confidence": 0.84,
+          "evidence": "고소작업대는 고소에서 작업자가 작업을 할 수 있도록 작업대를 달고 동력을 사용하여 이동시키는 작업대이다.",
+          "source_fields": [
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-155-2023",
+          "guide_code": "M-155-2023"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.83,
+          "evidence": "작업 중 안전대 부착, 정격하중 초과 금지, 사다리 사용 금지, 방호가드 및 터치-바 설치를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "entity_type": "GUIDE",
+          "entity_id": "M-155-2023",
+          "guide_code": "M-155-2023"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-VEHICLE-016",
+          "confidence": 0.82,
+          "evidence": "이동식 고소작업대 설치·이동·사용 시 안전조치와 직접 관련된다.",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-155-2023",
+          "guide_code": "M-155-2023"
+        },
+        {
+          "sr_id": "SR-FALL-003",
+          "confidence": 0.76,
+          "evidence": "작업 중 안전대 부착, 작업대 바닥에 안정되게 서서 작업, 사다리 사용 금지를 요구한다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-155-2023",
+          "guide_code": "M-155-2023"
+        },
+        {
+          "sr_id": "SR-ELECTRIC-022",
+          "confidence": 0.7,
+          "evidence": "주행 시 송전선 최소 이격거리 준수를 요구하므로 충전전로 인근 차량·기계장치 작업과 연결된다.",
+          "source_fields": [
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-155-2023",
+          "guide_code": "M-155-2023"
+        },
+        {
+          "sr_id": "SR-MACHINE-003",
+          "confidence": 0.66,
+          "evidence": "자동안전장치, 과부하방지장치, 비상정지장치 정상작동 확인을 요구한다.",
+          "source_fields": [
+            "equipmentSpecs.specifications",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "M-155-2023",
+          "guide_code": "M-155-2023"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "이동식 고소작업대·시저리프트·붐 리프트",
+          "cue_type": "vehicle_equipment",
+          "confidence": 0.86,
+          "evidence": "이동식 고소작업대; 수직 가위형 리프트 작업대; 자가추진식 붐형 작업대",
+          "source_fields": [
+            "domainTerms.term",
+            "equipmentSpecs.equipmentName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-155-2023",
+          "guide_code": "M-155-2023"
+        },
+        {
+          "trigger_text": "아웃트리거·작업대 안전대·방호가드",
+          "cue_type": "equipment_detail",
+          "confidence": 0.84,
+          "evidence": "아웃트리거; 방호가드; 안전대 부착; 작업대 바닥",
+          "source_fields": [
+            "domainTerms.term",
+            "equipmentSpecs.equipmentName",
+            "workProcesses.safetyMeasures"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "M-155-2023",
+          "guide_code": "M-155-2023"
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "이동식 고소작업대",
+          "작업대",
+          "아웃트리거",
+          "붐형 작업대",
+          "안전대",
+          "송전선"
+        ],
+        "exclude_when": [],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Schema-normalized for candidate-only domain guard; semantic candidates unchanged."
+    }
+  ]
+}

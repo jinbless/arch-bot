@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KOSHA 온톨로지 SPARQL</title>
+  <link rel="stylesheet" href="https://unpkg.com/@triply/yasgui/build/yasgui.min.css" />
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
+    header { background: #2c3e50; color: white; padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+    header h1 { font-size: 20px; margin: 0; font-weight: 500; }
+    header .badge { background: #27ae60; color: white; font-size: 11px; padding: 3px 8px; border-radius: 10px; }
+    header .info { font-size: 13px; color: #bdc3c7; margin-left: auto; }
+    #yasgui { padding: 16px; }
+    .examples { padding: 0 24px 16px; }
+    .examples h3 { font-size: 14px; color: #555; margin-bottom: 8px; }
+    .examples details { margin-bottom: 6px; }
+    .examples summary { cursor: pointer; font-size: 13px; color: #2980b9; }
+    .examples pre { background: #ecf0f1; padding: 10px; font-size: 12px; border-radius: 4px; overflow-x: auto; margin: 4px 0 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>KOSHA 산업안전보건 온톨로지 v3</h1>
+    <span class="badge">READ-ONLY</span>
+    <span class="info">626K+ triples &middot; Pipe-A + Pipe-B + Pipe-C &middot; risk/SHE/Guide/PenaltyRule &middot; Openllet OWL DL Reasoner</span>
+  </header>
+
+  <div class="examples">
+    <h3>예시 쿼리 (현재 v2/risk 구조 기준, 복사해서 위 에디터에 붙여넣기)</h3>
+    <details>
+      <summary>주요 클래스별 인스턴스 수</summary>
+      <pre>PREFIX law: &lt;https://cashtoss.info/ontology/law#&gt;
+PREFIX sr: &lt;https://cashtoss.info/ontology/sr#&gt;
+PREFIX guide: &lt;https://cashtoss.info/ontology/guide#&gt;
+PREFIX pen: &lt;https://cashtoss.info/ontology/penalty#&gt;
+SELECT ?className (COUNT(?s) AS ?cnt) WHERE {
+  VALUES (?className ?type) {
+    ("Article" law:Article)
+    ("NormStatement" law:NormStatement)
+    ("SafetyRequirement" sr:SafetyRequirement)
+    ("KoshaGuide" guide:KoshaGuide)
+    ("ChecklistItem" guide:ChecklistItem)
+    ("PenaltyRule" pen:PenaltyRule)
+  }
+  ?s a ?type .
+} GROUP BY ?className ORDER BY DESC(?cnt)</pre>
+    </details>
+    <details>
+      <summary>의무이행주체(DutyHolder)별 의무 NormStatement 수</summary>
+      <pre>PREFIX law: &lt;https://cashtoss.info/ontology/law#&gt;
+PREFIX core: &lt;https://cashtoss.info/ontology#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?roleName (COUNT(?ns) AS ?cnt) WHERE {
+  ?ns a law:NormStatement ;
+      law:hasModality core:Obligation ;
+      law:hasSubjectRole ?role .
+  ?role a core:DutyHolder ;
+        rdfs:label ?roleName .
+  FILTER(LANG(?roleName) = "ko")
+} GROUP BY ?roleName ORDER BY DESC(?cnt)</pre>
+    </details>
+    <details>
+      <summary>risk:RiskFeature 하위 위험 분류 클래스</summary>
+      <pre>PREFIX risk: &lt;https://cashtoss.info/ontology/risk#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?featureClass ?label WHERE {
+  ?featureClass rdfs:subClassOf risk:RiskFeature .
+  FILTER(STRSTARTS(STR(?featureClass), "https://cashtoss.info/ontology/risk/"))
+  OPTIONAL { ?featureClass rdfs:label ?label . FILTER(LANG(?label) = "ko") }
+} ORDER BY ?featureClass</pre>
+    </details>
+    <details>
+      <summary>추락 위험 안전요구사항</summary>
+      <pre>PREFIX sr: &lt;https://cashtoss.info/ontology/sr#&gt;
+PREFIX haz: &lt;https://cashtoss.info/ontology/risk/hazard#&gt;
+PREFIX core: &lt;https://cashtoss.info/ontology#&gt;
+SELECT ?srId ?title WHERE {
+  ?sr a sr:SafetyRequirement ;
+      sr:addressesAccidentType haz:Fall ;
+      core:identifier ?srId ;
+      core:title ?title .
+} LIMIT 20</pre>
+    </details>
+    <details>
+      <summary>비계 + 추락 교차 쿼리</summary>
+      <pre>PREFIX sr: &lt;https://cashtoss.info/ontology/sr#&gt;
+PREFIX haz: &lt;https://cashtoss.info/ontology/risk/hazard#&gt;
+PREFIX ctx: &lt;https://cashtoss.info/ontology/risk/context#&gt;
+PREFIX core: &lt;https://cashtoss.info/ontology#&gt;
+SELECT ?srId ?title WHERE {
+  ?sr a sr:SafetyRequirement ;
+      sr:addressesAccidentType haz:Fall ;
+      sr:inWorkContext ctx:Scaffold ;
+      core:identifier ?srId ;
+      core:title ?title .
+} LIMIT 20</pre>
+    </details>
+    <details>
+      <summary>유해인자별 SR 분포</summary>
+      <pre>PREFIX sr: &lt;https://cashtoss.info/ontology/sr#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?agentLabel (COUNT(?sr) AS ?cnt) WHERE {
+  ?sr a sr:SafetyRequirement ;
+      sr:addressesAgent ?agent .
+  ?agent rdfs:label ?agentLabel .
+  FILTER(LANG(?agentLabel) = "ko")
+} GROUP BY ?agentLabel ORDER BY DESC(?cnt)</pre>
+    </details>
+    <details>
+      <summary>3축 전체 분포 (AccidentType × Agent × WorkContext)</summary>
+      <pre>PREFIX sr: &lt;https://cashtoss.info/ontology/sr#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?atLabel ?agLabel ?wcLabel (COUNT(?sr) AS ?cnt) WHERE {
+  ?sr a sr:SafetyRequirement ;
+      sr:addressesAccidentType ?at ;
+      sr:addressesAgent ?ag ;
+      sr:inWorkContext ?wc .
+  ?at rdfs:label ?atLabel . FILTER(LANG(?atLabel)="ko")
+  ?ag rdfs:label ?agLabel . FILTER(LANG(?agLabel)="ko")
+  ?wc rdfs:label ?wcLabel . FILTER(LANG(?wcLabel)="ko")
+} GROUP BY ?atLabel ?agLabel ?wcLabel ORDER BY DESC(?cnt) LIMIT 20</pre>
+    </details>
+    <details>
+      <summary>가이드별 CI-SR 연결률</summary>
+      <pre>PREFIX guide: &lt;https://cashtoss.info/ontology/guide#&gt;
+PREFIX core: &lt;https://cashtoss.info/ontology#&gt;
+SELECT ?guideCode ?guideTitle (COUNT(?ci) AS ?totalCI) (COUNT(?sr) AS ?linkedCI) WHERE {
+  ?g a guide:KoshaGuide ;
+     guide:guideCode ?guideCode ;
+     core:title ?guideTitle ;
+     guide:hasChecklistItem ?ci .
+  OPTIONAL { ?ci guide:basedOnSR ?sr }
+} GROUP BY ?guideCode ?guideTitle ORDER BY DESC(?totalCI) LIMIT 20</pre>
+    </details>
+    <details>
+      <summary>가이드 CI → SR → 조문 → PenaltyRule 추적</summary>
+      <pre>PREFIX guide: &lt;https://cashtoss.info/ontology/guide#&gt;
+PREFIX sr: &lt;https://cashtoss.info/ontology/sr#&gt;
+PREFIX law: &lt;https://cashtoss.info/ontology/law#&gt;
+PREFIX pen: &lt;https://cashtoss.info/ontology/penalty#&gt;
+PREFIX core: &lt;https://cashtoss.info/ontology#&gt;
+SELECT ?ciId ?srId ?artCode ?penalty WHERE {
+  ?ci a guide:ChecklistItem ;
+      core:identifier ?ciId ;
+      guide:basedOnSR ?sr .
+  ?sr core:identifier ?srId ;
+      sr:derivedFromNS ?ns .
+  ?ns law:hasSourceArticle ?art ;
+      pen:hasPenaltyRule ?pr .
+  ?art law:articleCode ?artCode .
+  ?pr pen:hasSanction ?san .
+  ?san pen:penaltyDescription ?penalty .
+} LIMIT 20</pre>
+    </details>
+    <details>
+      <summary>제42조 위반 시 법적 결과 추적</summary>
+      <pre>PREFIX law: &lt;https://cashtoss.info/ontology/law#&gt;
+PREFIX sr: &lt;https://cashtoss.info/ontology/sr#&gt;
+PREFIX pen: &lt;https://cashtoss.info/ontology/penalty#&gt;
+PREFIX core: &lt;https://cashtoss.info/ontology#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+SELECT DISTINCT ?srId ?riskLabel ?penaltyDesc ?severity WHERE {
+  ?art law:articleCode "제42조"^^xsd:string ;
+       law:hasLawType law:LawType_RULE .
+  ?ns law:hasSourceArticle ?art .
+  ?sr sr:derivedFromNS ?ns ;
+      core:identifier ?srId .
+  OPTIONAL {
+    ?sr sr:addressesHazard|sr:addressesAccidentType ?risk .
+    ?risk rdfs:label ?riskLabel .
+    FILTER(LANG(?riskLabel) = "ko")
+  }
+  ?ns pen:hasPenaltyRule ?pr .
+  ?pr pen:hasSanction ?san .
+  ?san pen:penaltyDescription ?penaltyDesc ;
+       pen:severityScore ?severity .
+} ORDER BY DESC(?severity) LIMIT 20</pre>
+    </details>
+    <details>
+      <summary>PenaltyRule 샘플 — 위반 조문과 실제 벌칙 조문 분리</summary>
+      <pre>PREFIX pen: &lt;https://cashtoss.info/ontology/penalty#&gt;
+PREFIX law: &lt;https://cashtoss.info/ontology/law#&gt;
+SELECT ?pr ?violatedCode ?penaltyCode ?penaltyDesc WHERE {
+  ?pr a pen:PenaltyRule ;
+      pen:violatedArticle ?violatedArticle ;
+      pen:penaltyArticle ?penaltyArticle ;
+      pen:hasSanction ?sanction .
+  ?violatedArticle law:articleCode ?violatedCode .
+  ?penaltyArticle law:articleCode ?penaltyCode .
+  ?sanction pen:penaltyDescription ?penaltyDesc .
+} LIMIT 20</pre>
+    </details>
+  </div>
+
+  <div id="yasgui"></div>
+
+  <script src="https://unpkg.com/@triply/yasgui/build/yasgui.min.js"></script>
+  <script>
+    const basePath = window.location.pathname.replace(/\/+$/, '');
+    const endpoint = basePath + '/kosha/sparql';
+    const yasgui = new Yasgui(document.getElementById('yasgui'), {
+      requestConfig: { endpoint: endpoint },
+      yasqe: {
+        value: 'PREFIX law: <https://cashtoss.info/ontology/law#>\nPREFIX sr: <https://cashtoss.info/ontology/sr#>\nPREFIX guide: <https://cashtoss.info/ontology/guide#>\nPREFIX pen: <https://cashtoss.info/ontology/penalty#>\nSELECT ?className (COUNT(?s) AS ?cnt) WHERE {\n  VALUES (?className ?type) {\n    ("Article" law:Article)\n    ("NormStatement" law:NormStatement)\n    ("SafetyRequirement" sr:SafetyRequirement)\n    ("KoshaGuide" guide:KoshaGuide)\n    ("ChecklistItem" guide:ChecklistItem)\n    ("PenaltyRule" pen:PenaltyRule)\n  }\n  ?s a ?type .\n} GROUP BY ?className ORDER BY DESC(?cnt)'
+      }
+    });
+  </script>
+</body>
+</html>

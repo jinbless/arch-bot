@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "guide-text-v2.schema.json",
+  "title": "KOSHA Guide Text v2",
+  "description": "가이드 PDF에서 추출한 텍스트 JSON의 v2 스키마",
+  "type": "object",
+  "required": ["metadata", "sections"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["guideCode", "shortCode", "title", "totalPages", "pdfPath", "parsedAt", "parsedBy", "tocSections"],
+      "additionalProperties": false,
+      "properties": {
+        "guideCode": {
+          "type": "string",
+          "minLength": 6,
+          "description": "가이드코드 (예: A-G-4-2025)"
+        },
+        "shortCode": {
+          "type": "string",
+          "pattern": "^[A-Z0-9][A-Z0-9]+$",
+          "description": "shortCode (예: AG4)"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "가이드 제목"
+        },
+        "totalPages": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "PDF 총 페이지 수"
+        },
+        "pdfPath": {
+          "type": "string",
+          "minLength": 1,
+          "description": "PDF 상대 경로 (kosha-guides/ 기준)"
+        },
+        "parsedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "파싱 일시 (ISO 8601)"
+        },
+        "parsedBy": {
+          "type": "string",
+          "minLength": 1,
+          "description": "파싱 주체/버전"
+        },
+        "tocSections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["sectionNumber", "title"],
+            "additionalProperties": false,
+            "properties": {
+              "sectionNumber": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "startPage": {
+                "type": ["integer", "null"],
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/section"
+      }
+    }
+  },
+  "$defs": {
+    "section": {
+      "type": "object",
+      "required": ["sectionNumber", "sectionTitle", "text", "tables", "images"],
+      "additionalProperties": false,
+      "properties": {
+        "sectionNumber": {
+          "type": "string",
+          "minLength": 1,
+          "description": "섹션 번호 (예: 1, 2.1, 3.(2))"
+        },
+        "sectionTitle": {
+          "type": "string",
+          "minLength": 1,
+          "description": "섹션 제목"
+        },
+        "pages": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "시작·종료 페이지 [start, end]"
+        },
+        "text": {
+          "type": "string",
+          "description": "섹션 본문 텍스트 (원문 그대로)"
+        },
+        "tables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tableNumber", "caption", "content"],
+            "additionalProperties": false,
+            "properties": {
+              "tableNumber": {
+                "type": ["string", "null"],
+                "description": "표 번호"
+              },
+              "caption": {
+                "type": ["string", "null"],
+                "description": "표 캡션"
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1,
+                "description": "표 내용 (markdown 형식)"
+              },
+              "page": {
+                "type": ["integer", "null"],
+                "minimum": 1,
+                "description": "표 위치 페이지"
+              }
+            }
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["imageNumber", "caption"],
+            "additionalProperties": false,
+            "properties": {
+              "imageNumber": {
+                "type": ["string", "null"],
+                "description": "그림 번호"
+              },
+              "caption": {
+                "type": ["string", "null"],
+                "description": "그림 캡션"
+              },
+              "description": {
+                "type": ["string", "null"],
+                "description": "그림 설명"
+              },
+              "page": {
+                "type": ["integer", "null"],
+                "minimum": 1,
+                "description": "그림 위치 페이지"
+              }
+            }
+          }
+        },
+        "subsections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          },
+          "description": "하위 섹션 (재귀 구조)"
+        }
+      }
+    }
+  }
+}

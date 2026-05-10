@@ -1,0 +1,826 @@
+{
+  "metadata": {
+    "guideCode": "E-76-2013",
+    "shortCode": "E76",
+    "domain": "B",
+    "extractedAt": "2026-04-23T06:50:46Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-B-047"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-E76-001",
+      "text": "금속외함은 전기설비기술기준의 판단기준에 따라 접지하여야 한다. 다만, MIG/MAG 와이어송급기의 경우 이상상태에서 과전류가 접지도체로 흘러 손손될 가능성이 있으므로 전원장치를 분리하여야 한다.",
+      "guideContext": "아크용접장치 일반 요구사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-E76-002",
+      "text": "절연변압기로 전원을 공급한 경우, 와이어송급기 외함의 접지는 생략할 수 있으며, 그 외의 경우에 와이어송급기 외함은 접지하여야 한다.",
+      "guideContext": "아크용접장치 일반 요구사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-E76-003",
+      "text": "용접장치는 용접 전극의 무부하 전압으로 인한 감전 위험성이 없도록 적절한 조치를 하여야 한다(5항 (4)의 (마), (바) 참고).",
+      "guideContext": "아크용접장치 일반 요구사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-E76-004",
+      "text": "아크가 발생하는 장소 및 전극홀더나 용접기가 있는 장소에서는 절연막, 이격거리 등과 같은 보호가 필요하다.",
+      "guideContext": "아크용접장치 전기회로 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기회로 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-005",
+      "text": "용접회로와 기타 도전부는 충분한 단면적을 갖는 절연된 도체로 등전위 본딩을 하여야 한다.",
+      "guideContext": "아크용접장치 전기회로",
+      "additionalDetail": null,
+      "workProcessPhase": "전기회로 구성",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-E76-006",
+      "text": "용접중인 공작물에 근접한 가스실린더가 용접회로와 접촉하지 않도록 주의해야 한다.",
+      "guideContext": "아크용접장치 전기회로",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-007",
+      "text": "용접회로의 귀로케이블 및 공작물의 등전위본딩에 사용되는 도체는 용접전류를 충분히 공급할 수 있는 단면적과 유연성이 있는 절연 도체를 사용하여야 한다.",
+      "guideContext": "아크용접장치 전기회로 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기회로 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-008",
+      "text": "용접회로의 귀로케이블 및 공작물의 등전위본딩은 적절한 장비를 사용하여 견고하게 연결하고 전기적으로 접속이 유지되어야 한다. 마그네틱 장비를 사용할 때에는 공작물의 표면과 장비의 접촉면은 청결하여야 한다.",
+      "guideContext": "아크용접장치 전기회로 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기회로 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-009",
+      "text": "연결체와 단자의 연결은 풀리지 않도록 견고하게 하여야 한다.",
+      "guideContext": "아크용접장치 전기회로 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기회로 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-010",
+      "text": "용접회로는 전원공급 이전에 모두 연결하여야 하며, 적절한 예방조치로 작업자와 장비에 대한 위험성을 최소화하여야 한다.",
+      "guideContext": "아크용접장치 전기회로 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기회로 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-011",
+      "text": "3상 교류로 구성된 다중조작 전원장비를 설치할 때 작업자는 각 전원장비와 일정 거리를 유지하여 감전의 위험성이 없도록 설치하여야 한다.",
+      "guideContext": "아크용접장치 전기회로",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-E76-012",
+      "text": "장비가 연결 또는 분리되기 전에 동작회로의 전원이 차단되어야 한다.",
+      "guideContext": "아크용접장치 전기회로 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기회로 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-013",
+      "text": "보조장비 전원의 출력전압은 무부하 전압상태에서 허용된 출력전압을 초과하면 안 된다.",
+      "guideContext": "아크용접장치 전기회로 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "전기회로 구성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-014",
+      "text": "용접전원 연결은 전문가를 통해 관련 규정에 적합하게 연결하고 허용되는 무부하 전압을 초과하지 않아야 한다.",
+      "guideContext": "아크용접장치 전원 연결 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(1)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-015",
+      "text": "서로 간에 연결되어 있는 전원중 하나가 정비를 받아야 하는 경우에는 주 공급전원 및 용접회로에서 그 전원을 분리시켜야 한다.",
+      "guideContext": "아크용접장치 전원 연결 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 점검 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(1)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-016",
+      "text": "작업 시 작업감독자는 장비가 정확하게 연결되었는지를 주기적으로 확인하여야 한다.",
+      "guideContext": "아크용접장치 점검 및 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 점검 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(2)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-017",
+      "text": "모든 연결은 견고하여야 하며, 장비의 정상 작동 유무를 확인하고 조금의 결함이라도 발견되면 정비하여야한다.",
+      "guideContext": "아크용접장치 점검 및 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 점검 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(2)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-018",
+      "text": "장치의 케이블, 전극 홀더, 플러그, 소켓에 대해서는 특별한 주의를 하여야 한다.",
+      "guideContext": "아크용접장치 점검 및 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 점검 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(2)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-019",
+      "text": "작업자는 노출 도전부에 이상 유무를 작업 전후 수시로 확인하도록 교육받아야 하며, 결함이 발견되면 즉시 보고하고 장비는 정비되기 전까지 사용하면 안 된다.",
+      "guideContext": "아크용접장치 점검 및 관리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 점검 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6(2)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-020",
+      "text": "작업자가 작업을 중단하거나 작업위치를 벗어나는 경우(점심시간, 위치변경, 전원 변경, 용접회로 변경)에는 전원을 분리시키거나 전극 홀더 또는 용접건이 임의로 작동되지 않도록 보호장치를 시설하여야 한다.",
+      "guideContext": "아크용접장치 전원 분리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "작업 중단 및 전원 분리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(3)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-021",
+      "text": "전원을 다른 장소로 옮길 경우 용접장치는 주전원으로부터 분리시켜야 한다.",
+      "guideContext": "아크용접장치 전원 분리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "작업 중단 및 전원 분리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(3)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-022",
+      "text": "용접장치의 점검 및 정비 시 용접장치는 전원으로부터 분리시켜야 한다.",
+      "guideContext": "아크용접장치 전원 분리 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 점검 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(3)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-023",
+      "text": "외함 및 보호막은 통전중인 장비로부터 작업자를 충분히 보호할 수 있어야 한다.",
+      "guideContext": "아크용접장치 외함 및 보호막 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6(4)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-024",
+      "text": "작업자는 안전교육을 통해 장치의 올바른 사용방법 및 작업공간의 위험성 등을 인지하여야 한다.",
+      "guideContext": "아크용접장치 안전교육 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "6(5)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-025",
+      "text": "용접 작업자와 아크 주변에서 작업하는 작업자들은 작업 시 아크 보호복과 부속품을 사용하여야 하며, 용접작업자가 전극을 교체할 경우 반드시 보호장갑을 착용하여야 한다.",
+      "guideContext": "아크용접장치 보호복 및 부속품",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "6(6)",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-030"
+      ]
+    },
+    {
+      "identifier": "CI-E76-026",
+      "text": "눈, 안면 및 목 보호에 필요한 부속품은 KS P 8142(용접용 보호면)에 따른다.",
+      "guideContext": "아크용접장치 보호복 및 부속품",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "6(6)",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-030"
+      ]
+    },
+    {
+      "identifier": "CI-E76-027",
+      "text": "보호복의 부속품은 KS K ISO 11611(용접 및 관련 공정에서 사용하는 보호복)에 따른다.",
+      "guideContext": "아크용접장치 보호복 및 부속품",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "6(6)",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-030"
+      ]
+    },
+    {
+      "identifier": "CI-E76-028",
+      "text": "전극홀더 및 용접건이 사용되지 않은 경우에는 전원을 차단하여야 한다.",
+      "guideContext": "아크용접장치 전원 차단 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "작업 중단 및 전원 분리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(7)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-029",
+      "text": "3상 다중조작 전원 또는 단일 공작물에 사용하는 일부 전원, 서로 연결된 공작물, 작업자가 서로 접촉 가능한 위치에 있을 경우는 두 전극이 접촉하거나 동시에 용접건에 접촉하지 않도록 주의하여야 한다.",
+      "guideContext": "아크용접장치 다중조작 전원 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6(8)",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-030",
+      "text": "전원과 용접장치는 환경에 적절한 것을 사용하여야 한다.",
+      "guideContext": "감전위험 높은 환경 용접작업 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "감전위험 환경 용접",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-031",
+      "text": "절연스탠드 또는 매트는 어디에서나 사용이 가능하여야 한다.",
+      "guideContext": "감전위험 높은 환경 용접작업 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "감전위험 환경 용접",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-032",
+      "text": "작업자는 위험발생 시 주변에 즉시 도움을 줄 수 있는 다른 작업자가 있는 장소와 용접회로 및 전원의 전기적인 분리를 쉽게 할 수 있는 곳에서 작업하여야 한다.",
+      "guideContext": "감전위험 높은 환경 용접작업 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "감전위험 환경 용접",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-033",
+      "text": "감전위험성이 높은 작업환경에서 용접장치는 안전초저전압(SELV : Safety Extra Low-Voltage)으로 공급되는 제어장치를 사용하며, 용접장치의 주전원에는 인체감전보호용 누전차단기(정격감도전류 30 mA 이하, 정격동작시간 30 ms 이하)를 설치하는 것이 바람직하다.",
+      "guideContext": "감전위험 높은 환경 용접작업",
+      "additionalDetail": null,
+      "workProcessPhase": "감전위험 환경 용접",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-034",
+      "text": "사업주는 다음 각 호의 어느 하나에 해당하는 장소에서 교류아크용접기(자동으로 작동되는 것은 제외한다)를 사용하는 경우에는 교류아크용접기에 자동전격방지기를 설치하여야 한다. (1) 선박의 이중 선체 내부, 밸러스트 탱크, 보일러 내부 등 도전체에 둘러싸인 장소 (2) 추락할 위험이 있는 높이 2 m 이상의 장소로 철골 등 도전성이 높은 물체에 근로자가 접촉할 우려가 있는 장소 (3) 근로자가 물·땀 등으로 인하여 도전성이 높은 습윤 상태에서 작업하는 장소",
+      "guideContext": "교류 아크용접 방호조치 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-035",
+      "text": "같은 공작물에 사용되는 여러 전원중 하나에 결함이 발생한다면 2차 전원을 장치에서 분리시켜야 하고 정비되기 전까지 1차 전원은 차단하여 감전의 위험성이 없도록 하여야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 점검 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-036",
+      "text": "플라즈마 아크용접은 무부하 전압이 최대 200 V까지 사용이 가능하여 감전재해 위험성이 매우 높기 때문에, 점검 및 관리를 하는데 있어서 주의가 필요하다. 특히 냉각장비에서 물이 새거나 절연물에 영향을 미치지 않도록 하여야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 점검 및 관리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-037",
+      "text": "작업자는 안면보호구를 착용하여 아크로부터 눈을 보호하는 것이 필수적이다. 눈, 안면 및 목을 보호하는 장비는 KS P 8142에 따른다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록3.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-030"
+      ]
+    },
+    {
+      "identifier": "CI-E76-038",
+      "text": "작업자의 신체는 보호복을 착용하는 것으로 칩비산, 아크의 직접적 또는 반사에 의한 영향으로부터 신체를 보호하여야 한다. 보호복과 관련된 규정은 KS K ISO 11611이다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록3.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-030"
+      ]
+    },
+    {
+      "identifier": "CI-E76-039",
+      "text": "무반사 커튼이나 스크린으로 작업자나 아크 주변 사람의 신체를 보호하여야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "부록3.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-040",
+      "text": "용접 시 발생하는 흄, 가스, 증기는 작업자에게 유해하기 때문에 환기를 통해 유독가스로부터 보호되어야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "부록4",
+      "basedOn": [
+        "SR-HEAT-002"
+      ]
+    },
+    {
+      "identifier": "CI-E76-041",
+      "text": "소음에 대한 노출기준은 고용노동부고시 제2011-13호의 별표 2-1을 따른다. 작업자가 90 dB을 초과하는 소음 수준에서 하루에 8시간 이상 노출된 경우 별도의 보호를 하지 않으면 작업자의 건강에 손상을 줄 수 있으며, 노출시간에 관계없이 115 dB을 초과하는 소음에 노출되면 안 된다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "부록5",
+      "basedOn": [
+        "SR-NOISE-001"
+      ]
+    },
+    {
+      "identifier": "CI-E76-042",
+      "text": "소음에 대해 의심이 되는 경우에는 어떠한 상황에서도 소음측정자를 통해 소음을 확인해야 하며, 만약 규정된 소음 노출기준을 초과했다면 과소음발생지역 문구 표시, 적절한 보호구 착용, 소음원 차단, 소음방지장치 적정성 주기적 확인 등의 조치를 실행해야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "부록5",
+      "basedOn": [
+        "SR-NOISE-002",
+        "SR-NOISE-004"
+      ]
+    },
+    {
+      "identifier": "CI-E76-043",
+      "text": "작업 후에는 남아있는 금속이 폭발하거나 화염이 발생하지 않도록 냉각시키는 것을 필수적으로 수행해야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "작업 중단 및 전원 분리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-044",
+      "text": "가연성 물질은 용기나 적재함에서 제거되어야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록6.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-045",
+      "text": "정전기가 축적되는 것을 막을 수 있도록 예방조치를 취해야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": "탱크 본체와 스팀 배관을 접지시키는 방법 등",
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록6.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-E76-046",
+      "text": "연소하기 쉽거나 폭발하기 쉬운 물질은 용접하는 곳 부근에서 가능한 멀리 치워야 한다. 가연성 물질은 화염이 있는 곳에 두면 안 된다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-047",
+      "text": "가스실린더는 반드시 용접전류 주변에 옮기면 안 되며, 아크가 가스실린더로 접근하는 환경을 만들어서는 안 된다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-E76-048",
+      "text": "칩핑작업이나 그라인딩을 하는 경우 발생되는 분체가 작업자의 눈에 손상을 주기 때문에 작업 시 반드시 눈 보호구를 착용하여야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접 작업 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "부록7",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-030"
+      ]
+    },
+    {
+      "identifier": "CI-E76-049",
+      "text": "모든 가스 실린더는 스탠드형으로 안정적으로 사용하거나 실린더를 고정시킬 수 있는 것을 사용하여 넘어지는 것을 방지하여야 한다.",
+      "guideContext": "아크용접장치 부록 권장사항",
+      "additionalDetail": null,
+      "workProcessPhase": "용접장치 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록7",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-E76-001",
+      "term": "아크용접",
+      "definition": "수동 금속아크용접(MMA), 비활성가스 텅스텐 아크용접(TIG), 반자동 금속 아크용접(MIG/MAG), 자동 금속 아크용접(submerged arc and open arc), 플라즈마 아크용접, 아크에어가우징 등을 말하며, 전원에 따라 직류아크용접과 교류아크용접으로 구분되어 진다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-002",
+      "term": "수동 금속 아크용접",
+      "definition": "자동 또는 반자동적인 대체수단 없이 소모성 용접봉을 사용하는 아크용접을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-003",
+      "term": "비활성가스 텅스텐 아크용접",
+      "definition": "비활성가스 아크의 일종이며, 텅스텐 등 쉽게 소모되지 않는 금속을 전극으로 하는 용접으로 비활성가스에 의해 보호되는 아크와 용접부 내에 비소모성이고, 활성된 텅스텐 전극을 사용하는 아크용접을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-004",
+      "term": "반자동 금속 아크용접",
+      "definition": "용접봉이 자동으로 제어되고, 용접봉의 위치는 수동으로 하는 금속 아크용접을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-005",
+      "term": "자동 금속 아크용접",
+      "definition": "용접봉 및 전극, 용접대상물의 이동이 자동으로 제어되는 금속 아크용접을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-006",
+      "term": "플라즈마 아크용접",
+      "definition": "플라즈마에 의해 발생한 아크를 사용하는 용접을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-007",
+      "term": "아크에어 가우징",
+      "definition": "아크열로 녹인 금속표면에 연속해서 압축공기를 분사하여 홈을 파는 방법의 용접을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-008",
+      "term": "용접회로",
+      "definition": "용접을 하기위해 필요한 전원을 공급하는 회로로 용접공정의 모든 도전부를 포함한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-009",
+      "term": "노출 도전부",
+      "definition": "전류가 정상적인 상태에서는 흐르지 않고 고장 시에 흐를 수 있는 전기설비의 도전부를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-010",
+      "term": "기타 도전부",
+      "definition": "전기설비에 포함되지 않으나, 대지 전위를 가지기 쉬운 도전부를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-011",
+      "term": "등전위 본딩",
+      "definition": "노출 도전부와 기타 도전부를 전기적으로 연결하는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-012",
+      "term": "공작물",
+      "definition": "가공되는 재료를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-013",
+      "term": "이동 용접장비",
+      "definition": "고정배선에 연결되지 않은 용접장비(전원, 와이어송급기, 용접건 등)로 운반장치 없이 쉽게 움직일 수 있는 용접장비를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-014",
+      "term": "고정 전원",
+      "definition": "다른 장소로 쉽게 이동하지 못하도록 고정 배선에 의하여 공급되는 전원을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-015",
+      "term": "보호복 및 부속품",
+      "definition": "감전재해 등 전기적인 위험성, 피부, 눈에 위험적인 방사선 및 칩 등으로부터 작업자를 보호하기 위한 보호복 및 부속품(장갑, 안면보호면, 용접마스크, 렌즈 필터 등)을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-E76-016",
+      "term": "전문가",
+      "definition": "작업에 대한 전문지식, 작업장소의 위험성 판단, 관련 경험, 장비의 지식 등을 겸비하고, 해당 업무에 대해 객관적으로 판단할 수 있는 사람을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-E76-01",
+      "processOrder": 1,
+      "processName": "용접장치 설치 및 전기회로 연결",
+      "safetyMeasures": "금속외함 접지, 등전위 본딩, 절연 도체 사용, 귀로케이블 견고 연결, 용접회로 전원공급 이전 연결 완료, 3상 다중조작 전원 감전방지 이격 설치",
+      "requiredPPE": [
+        "보호장갑",
+        "안전화"
+      ],
+      "sourceSection": "4",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "WP-E76-02",
+      "processOrder": 2,
+      "processName": "용접장치 점검 및 관리",
+      "safetyMeasures": "작업감독자 장비 연결 주기적 확인, 케이블·전극 홀더·플러그·소켓 특별 주의, 노출 도전부 이상 유무 작업 전후 확인, 결함 발견 시 즉시 보고 및 사용 금지",
+      "requiredPPE": [
+        "보호장갑"
+      ],
+      "sourceSection": "6(2)",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E76-03",
+      "processOrder": 3,
+      "processName": "용접 작업 수행",
+      "safetyMeasures": "아크 보호복 및 부속품 착용, 전극 교체 시 보호장갑 필수 착용, KS P 8142 용접용 보호면 사용, 가스실린더 용접회로 접촉 방지, 환기를 통한 용접 흄 관리",
+      "requiredPPE": [
+        "보호복",
+        "보호장갑",
+        "용접용 보호면",
+        "안전화"
+      ],
+      "sourceSection": "6(6)",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-030",
+        "SR-HEAT-002"
+      ]
+    },
+    {
+      "identifier": "WP-E76-04",
+      "processOrder": 4,
+      "processName": "작업 중단 및 전원 분리",
+      "safetyMeasures": "작업 중단·위치 이탈 시 전원 분리 또는 보호장치 시설, 전원 이동 시 주전원 분리, 전극홀더·용접건 미사용 시 전원 차단, 작업 후 금속 냉각",
+      "requiredPPE": [
+        "보호장갑"
+      ],
+      "sourceSection": "6(3)",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E76-05",
+      "processOrder": 5,
+      "processName": "감전위험 환경 용접 작업",
+      "safetyMeasures": "환경에 적절한 전원·용접장치 사용, 절연스탠드·매트 사용, 도움 가능한 작업자 배치, 누전차단기(30mA/30ms) 설치 권장, 안전초저전압(SELV) 제어장치 사용",
+      "requiredPPE": [
+        "보호복",
+        "보호장갑",
+        "용접용 보호면",
+        "안전화"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-E76-06",
+      "processOrder": 6,
+      "processName": "교류 아크용접 방호조치",
+      "safetyMeasures": "도전체 둘러싸인 장소, 높이 2m 이상 도전성 물체 접촉 우려 장소, 습윤 상태 장소에서 교류아크용접기 사용 시 자동전격방지기 설치",
+      "requiredPPE": [
+        "보호복",
+        "보호장갑",
+        "용접용 보호면"
+      ],
+      "sourceSection": "8",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-E76-001",
+      "equipmentName": "용접용 보호면",
+      "specifications": {
+        "ksStandard": "KS P 8142",
+        "purpose": "눈, 안면 및 목 보호"
+      },
+      "sourceSection": "6(6)",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-030"
+      ]
+    },
+    {
+      "identifier": "ES-E76-002",
+      "equipmentName": "용접 및 관련 공정용 보호복",
+      "specifications": {
+        "ksStandard": "KS K ISO 11611",
+        "purpose": "칩비산, 아크의 직접적 또는 반사 영향으로부터 신체 보호"
+      },
+      "sourceSection": "6(6)",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-030"
+      ]
+    },
+    {
+      "identifier": "ES-E76-003",
+      "equipmentName": "인체감전보호용 누전차단기",
+      "specifications": {
+        "ratedSensitivityCurrent": "30 mA 이하",
+        "ratedOperatingTime": "30 ms 이하",
+        "purpose": "감전위험성이 높은 환경에서 용접장치 주전원 보호"
+      },
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-E76-004",
+      "equipmentName": "자동전격방지기",
+      "specifications": {
+        "applicableEquipment": "교류아크용접기(자동 작동 제외)",
+        "requiredLocations": "도전체 둘러싸인 장소, 높이 2m 이상 도전성 물체 접촉 우려 장소, 습윤 상태 작업 장소"
+      },
+      "sourceSection": "8",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": []
+}

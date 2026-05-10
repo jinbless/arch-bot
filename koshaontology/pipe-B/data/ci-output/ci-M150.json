@@ -1,0 +1,792 @@
+{
+  "metadata": {
+    "guideCode": "M-150-2022",
+    "shortCode": "M150",
+    "domain": "B",
+    "extractedAt": "2026-04-23T08:14:08Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-B-050"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-M150-001",
+      "text": "기밀시험은 문서화된 절차서에 따라 실시해야 하며, 각 절차서는 가능한 한 최소한 다음의 정보를 포함한다. (1) 시험의 범위 (2) 누출을 검출하거나 누출율을 측정하기 위해 사용되는 장비의 종류 (3) 표면 세척처리 및 사용한 장비의 종류 (4) 실시하게 될 시험의 방법 또는 기법 (5) 사용되는 온도, 압력, 가스 및 농도",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "절차서 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-002",
+      "text": "다이얼 지시형 및 기록형 압력게이지가 기밀시험에 사용되는 경우, 압력게이지의 눈금관은 최대압력의 2배 정도의 범위를 가져야 하며, 어떠한 경우에도 최대압력의 1.5배 미만이거나 4배 이상의 눈금범위를 가져서는 안 된다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": "해당 규격서에서 규정한 특정 게이지에 대한 눈금범위 요건은 해당 규격서에서 요구하는 대로 한다.",
+      "workProcessPhase": "장비 준비",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-M150-003",
+      "text": "기기를 가압하거나 진공으로 하여 기밀시험을 하게 되는 경우, 다이얼 지시형 게이지는 기기를 가압하거나 감압하는 동안 조작자가 게이지를 쉽게 볼 수 있도록 기기에 직접 연결하거나 원격위치에서 연결해야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": null,
+      "workProcessPhase": "장비 설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-M150-004",
+      "text": "1 개 이상의 게이지가 요구되는 대형 압력용기 또는 시스템의 경우, 기록형 게이지가 권고되고, 이 기록형 게이지는 2개 이상의 지시형 게이지 1개와 대체할 수 있다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": null,
+      "workProcessPhase": "장비 설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-005",
+      "text": "거품형성 용액은 시험표면으로부터 이탈하지 않는 막을 만들어야 하고, 또한 형성된 거품은 공기 건조 또는 낮은 표면장력으로 인해 급격히 소멸되지 않아야 한다. 가정용 비눗물 또는 세제를 거품시험 용액으로 대신 사용하는 것은 허용되지 않는다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "장비 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-006",
+      "text": "거품형성 용액은 시험조건의 온도에 적합한 것이어야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "장비 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-007",
+      "text": "시험할 부위의 표면은 기름, 그리스, 페인트 또는 다른 오염물질이 있어서는 안 된다. 기밀시험 전에 액체로 기기를 세척하였다면 기밀시험 전에 건조해야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험대상 기기 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-008",
+      "text": "모든 구멍은 시험을 완료한 후에 쉽게 제거될 수 있도록 플러그, 덮개, 밀봉왁스, 시멘트, 또는 다른 적합한 재료를 사용하여 밀봉한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험대상 기기 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-009",
+      "text": "시험하는 동안 모든 기기의 최저금속온도는 해당 규격서나 압력기기 또는 부품의 수압, 수 기압(hydropneumatic), 기압시험 등에 대한 참조규격에서 규정한대로 유지하여야 한다. 시험하는 동안 최소 또는 최대 온도는 사용한 기밀시험 방법에서 허용하는 온도를 초과해서는 안 된다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험대상 기기 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "4.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-010",
+      "text": "해당 규격서 또는 참조규격에 규정되어 있지 않는 한, 가압 기밀시험하게 될 기기는 설계압력의 25 % 이하의 압력으로 시험한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험대상 기기 준비",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-011",
+      "text": "배관·용기 그 밖의 설비에 대하여 불활성가스를 이용하여 기밀시험을 하는 때에는 과다한 압력 또는 잘못된 작업방법으로 인한 파열의 위험을 방지하기 위하여, 국가교정기관으로부터 교정을 받은 압력계를 설치하고 내부압력을 수시로 확인하여야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": "안전보건규칙 제300조(기밀시험시의 위험방지) 근거",
+      "workProcessPhase": "시험 안전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-M150-012",
+      "text": "용접이음이 있는 배관·용기를 가압하여 기밀시험을 할 경우에는 기밀시험 전에 전 길이 방사선투과시험을 하여야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 안전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-013",
+      "text": "기밀시험에 사용하는 기체의 온도는 압력용기가 취성파괴를 일으킬 염려가 없는 온도이어야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 안전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-014",
+      "text": "기밀시험은 시험압력의 50 %까지 서서히 승압시키고 이상이 없는 것을 확인한 이후에 10 %씩 가압시킨다. 이때 안전한 위치에서 이상 유무를 감시하면서 시험압력에 도달할 때까지 승압시킨다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 안전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-015",
+      "text": "기밀시험 중에 기밀시험 장비 또는 계통에 이상 징후가 확인된 경우에는 즉시 압력을 하강하고 이상을 수정한 후에 시험을 다시 하여야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 안전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "4.3",
+      "basedOn": [
+        "SR-CONFINED-020"
+      ]
+    },
+    {
+      "identifier": "CI-M150-016",
+      "text": "압력계는 기밀시험을 하는 배관 등의 내부압력을 항상 확인할 수 있도록 작업자가 보기 쉬운 장소에 설치하여야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 안전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-M150-017",
+      "text": "기밀시험 종료 후 설비내부 점검 시에는 반드시 환기를 하고, 불활성가스의 체류유무를 측정하여 안전한 상태를 확인한 후 점검하여야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 후 조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": [
+        "SR-CONFINED-001"
+      ]
+    },
+    {
+      "identifier": "CI-M150-018",
+      "text": "기밀시험에 사용되는 모든 다이얼 지시형 및 기록형 게이지는 표준 정하중시험기, 교정 마스터 게이지 또는 수은주와 비교하여 교정해야 하고, 참조규격 또는 규격서에서 다르게 규정하지 않는 한 게이지는 최소한 1년에 한번은 재교정해야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": null,
+      "workProcessPhase": "측정기기 교정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-M150-019",
+      "text": "사용되는 모든 게이지는 제조자가 규정한 정밀도 이내의 결과를 나타내어야 하고, 오류 또는 보정값에 문제가 있는 경우 즉시 재교정 또는 교체하여야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": null,
+      "workProcessPhase": "측정기기 교정",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-M150-020",
+      "text": "온도의 측정값이 해당 규격서 또는 참조규격에서 요구되는 경우, 온도측정 장치를 해당 규격서 또는 참조규격의 요건에 따라 교정해야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "측정기기 교정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-021",
+      "text": "예비 기밀시험은 본 시험을 하는 동안 누출을 막거나 가리지 않는 방법으로 실시해야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "예비 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-022",
+      "text": "수압시험 또는 수 기압시험(hydropneumatic test)이 기밀시험 전에 실시하는 경우, 오염물질이 누출을 가릴 수 있으므로 예비 기밀시험은 수압시험 또는 수 기압시험 전에 실시할 것을 권고한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험",
+      "additionalDetail": null,
+      "workProcessPhase": "시험 순서",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-023",
+      "text": "시험하기 전, 시험압력을 최소 15분 동안 유지해야 한다.",
+      "guideContext": "직접 가압 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직접 가압 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-024",
+      "text": "시험할 부품의 표면온도는 시험기간 동안 4 ℃ 미만이거나 52 ℃를 초과해서는 안 된다. 국부가열 또는 냉각은 시험하는 동안 온도가 4 ℃~52 ℃ 범위 내로 유지된다면 허용된다. 위의 온도 제한범위를 벗어난 경우에는 절차서의 승인이 필요하다.",
+      "guideContext": "직접 가압 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직접 가압 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-025",
+      "text": "거품형성 용액은 시험부위에 용액을 흘리거나, 분무 또는 솔질하여 시험할 표면에 적용해야 한다.",
+      "guideContext": "직접 가압 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": "용액을 적용하면서 생기는 거품의 수는 누출로 생긴 거품을 가리지 않도록 최소화하는 것이 바람직하다.",
+      "workProcessPhase": "직접 가압 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-026",
+      "text": "직접 육안시험은 보통 검사할 표면과 눈의 거리가 600 ㎜ 이내이고, 검사할 표면과 눈의 각도가 30° 이상이 되도록 충분히 접근할 수 있을 경우에 실시한다. 시험 장소에서 빛의 최소강도는 1000 럭스(lux) 이상으로 해야 한다.",
+      "guideContext": "직접 가압 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": "시력의 각도를 개선하기 위해 거울을 사용할 수 있고, 확대경과 같은 보조기구도 시험에 도움을 주기 위해 사용할 수 있다.",
+      "workProcessPhase": "직접 가압 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-027",
+      "text": "직접육안시험은 문서화하여 보관하여야 한다.",
+      "guideContext": "직접 가압 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "직접 가압 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-028",
+      "text": "누출이 관찰되는 경우에는 누출의 위치를 표기한다. 그 기기는 후에 감압하여 참조규격에서 요구하는 대로 누출부를 수리한다. 수리가 완료된 후, 수리 부위는 이 규격서의 요건에 따라 재시험을 한다.",
+      "guideContext": "직접 가압 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "평가 및 수리",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-029",
+      "text": "진공상자를 이용한 거품 기밀시험 시 시험할 부품의 표면온도는 시험기간 동안 4 ℃ 미만이거나 52 ℃를 초과해서는 안 된다.",
+      "guideContext": "진공상자 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": "국부가열 또는 냉각은 시험하는 동안 온도가 4 ℃~52 ℃ 범위 내로 유지된다면 허용된다.",
+      "workProcessPhase": "진공상자 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-030",
+      "text": "거품형성 용액은 진공상자를 배치하기 전 시험부위에 용액을 흘리거나, 분무하거나 또는 솔질하여 시험할 표면에 적용해야 한다.",
+      "guideContext": "진공상자 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "진공상자 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-031",
+      "text": "시험표면의 용액이 도포된 부위에 진공상자를 놓고 요구되는 진공압까지 진공시켜야 한다.",
+      "guideContext": "진공상자 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "진공상자 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-032",
+      "text": "필요한 부분진공은 시험하는 동안 최소 10 초간 유지한다.",
+      "guideContext": "진공상자 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "진공상자 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-033",
+      "text": "진공상자의 중첩은 연속되는 각각의 시험에 대해 전회의 시험과 다음 시험간에 최소 50 ㎜가 중첩되어야 한다.",
+      "guideContext": "진공상자 거품 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "진공상자 거품 기밀시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-034",
+      "text": "각각의 시험은 밀폐된 기기 또는 시스템을 기체로 가압하거나 진공상태에서 수행하며, 시험 중 온도변화에 따라 압력 또는 부피가 감소할 수 있으므로 최대허용변화범위를 규정하여야 한다.",
+      "guideContext": "압력변화시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "압력변화시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-035",
+      "text": "대기압 이상으로 시험하는 기기는 본문의 4.3에 따라 가압해야 한다.",
+      "guideContext": "압력변화시험",
+      "additionalDetail": null,
+      "workProcessPhase": "압력변화시험",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-M150-036",
+      "text": "소형 가압시스템의 온도를 안정시키는 경우에는 가압 완료 후로부터 시험 시작 전까지 최소한 15분은 유지하여야 한다.",
+      "guideContext": "압력변화시험 (법령 근거 미확인)",
+      "additionalDetail": "시스템의 급속 온도만이 측정될 수 있는 개스킷 공간과 같은 매우 작은 가압 시스템의 경우",
+      "workProcessPhase": "압력변화시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-037",
+      "text": "시험을 시작할 때에는 초기의 온도 및 압력값을 기록하여야 한다. 그 후 일정한 간격으로 기록하고 규정된 시험시간을 유지하여야 하며, 시험시간은 60분을 초과하지 않아야 한다.",
+      "guideContext": "압력변화시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "압력변화시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-038",
+      "text": "이 기법은 감도(최대 감도가 1×10⁻³ Pa·㎥/s)가 낮음으로 치사적 물질 또는 해로운 물질을 저장하는 압력용기의 적합성 시험에는 사용하지 않는 것이 좋다.",
+      "guideContext": "초음파 누출검출기 시험",
+      "additionalDetail": null,
+      "workProcessPhase": "초음파 누출검출기 시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-039",
+      "text": "시험하는 기기는 누출 신호를 들을 수 없게 하는 주변 또는 잡음신호를 발생하는 다른 장비 및 구조물과는 가능한 한 격리되어야 한다.",
+      "guideContext": "초음파 누출검출기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "초음파 누출검출기 시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "7.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-040",
+      "text": "초음파 누출검출기 시험 시 시험하기 전 시험압력을 최소 15분 동안 유지해야 한다.",
+      "guideContext": "초음파 누출검출기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "초음파 누출검출기 시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-041",
+      "text": "주사속도는 누출기준으로부터 누출율을 검출할 수 있는 속도를 초과해서는 안 된다.",
+      "guideContext": "초음파 누출검출기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "초음파 누출검출기 시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-042",
+      "text": "20 ㎑~100 ㎑ 범위의 음향에너지를 검출할 수 있는 전자식 초음파 누출검출기를 사용하여 검출해야 한다.",
+      "guideContext": "초음파 누출검출기 시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "초음파 누출검출기 시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "7.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-043",
+      "text": "초음파 누출검출시험은 최소한 <표 1>에 열거한 요건을 포함하는 문서화된 절차서에 따라 실시해야 한다. 문서화된 절차서는 각 요건에 대한 단일값 또는 그 값들의 범위를 정해야 한다.",
+      "guideContext": "초음파 누출검출기 시험 (법령 근거 미확인)",
+      "additionalDetail": "필수 변수: 장치 제조자 및 모델, 누출기준, 가압 가스, 시험압력, 압력 유지시간, 주사거리, 주사속도",
+      "workProcessPhase": "초음파 누출검출기 시험",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7.4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-044",
+      "text": "시험보고서는 최소한 그 방법 또는 기법에 적용되는 다음의 정보를 포함해야 한다. (1) 시험일자 (2) 조작자의 인증자격 수준 및 성명 (3) 시험절차서 번호 및 개정번호 (4) 시험방법 또는 기법 (5) 시험결과 (6) 기기의 식별표시 (7) 시험장비, 표준누출 및 재료 식별표시 (8) 시험조건, 시험압력, 추적가스 및 가스농도 (9) 게이지의 제조자, 모델, 범위 및 식별번호 (10) 온도 측정장치 및 식별번호 (11) 방법 또는 기법 설정을 나타내는 스케치",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "문서화",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-M150-045",
+      "text": "시험보고서는 참조규격의 요건에 따라 보존하여야 한다.",
+      "guideContext": "불활성기체 등을 이용한 기밀시험 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "문서화",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.2",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-M150-001",
+      "term": "기밀시험",
+      "definition": "누출의 존재라든가 누출부분 또는 누출량을 검출하는 시험방법으로 일반적으로 비파괴시험분야에서는 누설 또는 누출탐상시험이라 한다. 여기서 기밀시험은 압력시험을 의미하지 않는다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M150-002",
+      "term": "누출",
+      "definition": "구멍 또는 틈을 통해 압력이 높은 쪽에서 낮은 쪽으로 흐르는 유체의 흐름을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M150-003",
+      "term": "누출율",
+      "definition": "누출을 통한 규정 압력차의 결과로 단위시간당 주어진 온도에서의 누출되는 액체 또는 가스가 흐르는 비율을 말한다. 누출율은 Pa·㎥/s 또는 Pa·ℓ/s와 같은 여러 단위로 나타낸다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M150-004",
+      "term": "게이지 압력",
+      "definition": "절대압력과 대기압력의 차이를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M150-005",
+      "term": "불활성가스",
+      "definition": "헬륨, 네온 및 아르곤과 같이 다른 물질과 혼합되는 것이 어려운 가스를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M150-006",
+      "term": "압력 유지시간",
+      "definition": "시험에 필요한 차압이 시스템에서 얻어지는 시간 또는 시험을 통해 누출을 검출하거나 누출율을 측정하기 위해 소요되는 경과시간을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M150-007",
+      "term": "초음파 누출검출기",
+      "definition": "구멍을 통과하면서 발생되는 분자난류에 의해 생성되는 초음파에너지를 검출하고 이것을 사용가능한 신호로 전환하는 장비를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-M150-008",
+      "term": "추적가스",
+      "definition": "특정한 누출검출기에 검출될 수 있고 누출부의 존재를 나타낼 수 있는 가스로서 검출 가스(Search gas)라고도 한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-M150-01",
+      "processOrder": 1,
+      "processName": "절차서 준비 및 장비 교정",
+      "safetyMeasures": "기밀시험 절차서를 문서화하고 시험 범위, 장비 종류, 세척처리, 시험 방법, 온도·압력·가스 농도 정보를 포함한다. 모든 게이지는 표준 정하중시험기 또는 교정 마스터 게이지와 비교하여 교정하고, 최소 1년에 한번 재교정한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "WP-M150-02",
+      "processOrder": 2,
+      "processName": "시험대상 기기 준비",
+      "safetyMeasures": "시험 부위 표면의 기름, 그리스, 페인트 등 오염물질을 제거하고 건조한다. 모든 구멍은 플러그, 덮개, 밀봉왁스 등으로 밀봉한다. 최저금속온도를 해당 규격서에서 규정한대로 유지한다. 가압 기밀시험 시 설계압력의 25 % 이하로 시험한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.2.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M150-03",
+      "processOrder": 3,
+      "processName": "시험 안전 조치 및 가압",
+      "safetyMeasures": "국가교정기관으로부터 교정을 받은 압력계를 설치하고 내부압력을 수시로 확인한다. 용접이음 배관·용기는 가압 전 전 길이 방사선투과시험을 실시한다. 시험압력의 50 %까지 서서히 승압 후 10 %씩 가압하며 안전한 위치에서 감시한다. 이상 징후 시 즉시 감압 후 수정한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049",
+        "SR-CONFINED-020"
+      ]
+    },
+    {
+      "identifier": "WP-M150-04",
+      "processOrder": 4,
+      "processName": "예비 기밀시험",
+      "safetyMeasures": "정밀 기밀시험 전에 큰 누출을 사전 검출하기 위해 실시한다. 본 시험 시 누출을 막거나 가리지 않는 방법으로 실시한다. 수압시험이 예정된 경우 수압시험 전에 예비 기밀시험을 실시할 것을 권고한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M150-05",
+      "processOrder": 5,
+      "processName": "직접 가압 거품 기밀시험",
+      "safetyMeasures": "시험압력을 최소 15분 유지한다. 표면온도 4 ℃~52 ℃ 범위를 유지한다. 거품형성 용액을 시험 표면에 적용하고 연속적 거품 성장 여부를 관찰한다. 직접 육안시험 시 조명 1000 럭스 이상, 눈-표면 거리 600 ㎜ 이내, 각도 30° 이상을 확보한다.",
+      "requiredPPE": [],
+      "sourceSection": "7.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M150-06",
+      "processOrder": 6,
+      "processName": "진공상자 거품 기밀시험",
+      "safetyMeasures": "표면온도 4 ℃~52 ℃ 범위를 유지한다. 진공상자 배치 전 거품형성 용액을 도포한다. 요구되는 진공압까지 진공시키고 최소 10초간 유지한다. 진공상자 중첩 시 전회 시험과 최소 50 ㎜ 중첩한다.",
+      "requiredPPE": [],
+      "sourceSection": "7.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M150-07",
+      "processOrder": 7,
+      "processName": "압력변화시험",
+      "safetyMeasures": "밀폐된 기기를 가압 또는 진공상태에서 수행하며 최대허용변화범위를 규정한다. 대기압 이상 시험 시 4.3 안전기준을 준수한다. 소형 가압시스템은 가압 후 최소 15분 유지한다. 초기 온도·압력값을 기록하고 시험시간은 60분 이내로 한다.",
+      "requiredPPE": [],
+      "sourceSection": "7.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "WP-M150-08",
+      "processOrder": 8,
+      "processName": "초음파 누출검출기 시험",
+      "safetyMeasures": "잡음신호를 발생하는 장비와 격리된 장소에서 실시한다. 시험압력을 최소 15분 유지한다. 20 ㎑~100 ㎑ 범위의 전자식 초음파 누출검출기를 사용한다. 주사속도는 누출율 검출 가능 속도를 초과하지 않는다.",
+      "requiredPPE": [],
+      "sourceSection": "7.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-M150-09",
+      "processOrder": 9,
+      "processName": "시험 후 조치 및 문서화",
+      "safetyMeasures": "기밀시험 종료 후 설비 내부 점검 시 반드시 환기하고 불활성가스 체류유무를 측정하여 안전 확인 후 점검한다. 누출 발견 시 위치를 표기하고 감압 후 수리한 뒤 재시험한다. 시험보고서를 작성하고 참조규격 요건에 따라 보존한다.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": [
+        "SR-CONFINED-001"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-M150-001",
+      "equipmentName": "다이얼 지시형 및 기록형 압력게이지",
+      "specifications": {
+        "scaleRange": "최대압력의 1.5배 이상 4배 미만 (권장 2배)",
+        "calibration": "표준 정하중시험기, 교정 마스터 게이지 또는 수은주 비교 교정",
+        "recalibrationInterval": "최소 1년에 1회",
+        "placement": "조작자가 쉽게 볼 수 있는 위치에 기기 직접 연결 또는 원격 연결"
+      },
+      "sourceSection": "4.2.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "ES-M150-002",
+      "equipmentName": "거품형성 용액",
+      "specifications": {
+        "filmProperty": "시험표면으로부터 이탈하지 않는 막 형성",
+        "bubbleStability": "공기 건조 또는 낮은 표면장력으로 급격히 소멸되지 않을 것",
+        "temperatureCompatibility": "시험조건의 온도에 적합할 것",
+        "restriction": "가정용 비눗물 또는 세제 사용 불가"
+      },
+      "sourceSection": "4.2.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M150-003",
+      "equipmentName": "진공상자",
+      "specifications": {
+        "overlapRequirement": "연속 시험 시 전회와 최소 50 ㎜ 중첩",
+        "vacuumHoldTime": "최소 10초간 부분진공 유지"
+      },
+      "sourceSection": "7.2.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M150-004",
+      "equipmentName": "전자식 초음파 누출검출기",
+      "specifications": {
+        "frequencyRange": "20 ㎑~100 ㎑",
+        "maxSensitivity": "1×10⁻³ Pa·㎥/s",
+        "acceptanceCriteria": "허용 누출율 1×10⁻² Pa·㎥/s 이하",
+        "limitation": "치사적 물질 또는 해로운 물질 저장 압력용기 적합성 시험에는 사용 권고하지 않음"
+      },
+      "sourceSection": "7.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-M150-005",
+      "equipmentName": "국가교정기관 교정 압력계",
+      "specifications": {
+        "calibration": "국가교정기관으로부터 교정을 받을 것",
+        "placement": "작업자가 보기 쉬운 장소에 설치",
+        "monitoring": "내부압력을 수시로 확인 가능할 것"
+      },
+      "sourceSection": "4.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-M150-001",
+      "documentType": "WORK_PLAN",
+      "title": "기밀시험 절차서",
+      "requiredSections": [
+        "시험의 범위",
+        "누출 검출 장비의 종류",
+        "표면 세척처리 및 사용 장비",
+        "시험 방법 또는 기법",
+        "사용 온도·압력·가스 및 농도"
+      ],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-M150-002",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "시험보고서",
+      "requiredSections": [
+        "시험일자",
+        "조작자 인증자격 수준 및 성명",
+        "시험절차서 번호 및 개정번호",
+        "시험방법 또는 기법",
+        "시험결과",
+        "기기 식별표시",
+        "시험장비·표준누출·재료 식별표시",
+        "시험조건·시험압력·추적가스·가스농도",
+        "게이지 제조자·모델·범위·식별번호",
+        "온도 측정장치 및 식별번호",
+        "방법 또는 기법 설정 스케치"
+      ],
+      "sourceSection": "8.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-M150-003",
+      "documentType": "WORK_PLAN",
+      "title": "초음파 누출검출시험 절차서",
+      "requiredSections": [
+        "장치 제조자 및 모델",
+        "누출기준",
+        "가압 가스",
+        "시험압력",
+        "압력 유지시간",
+        "주사거리",
+        "주사속도",
+        "신호장치",
+        "시험요원 자격인정"
+      ],
+      "sourceSection": "7.4.4",
+      "relatedSR": null
+    }
+  ]
+}

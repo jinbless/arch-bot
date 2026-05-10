@@ -1,0 +1,2677 @@
+{
+  "metadata": {
+    "guideCode": "C-C-56-2026",
+    "shortCode": "CC56",
+    "domain": "C",
+    "extractedAt": "2026-05-07T06:13:00Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-C-007"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC56-001",
+      "text": "가상사고를 중심으로 사고피해 예측을 수행하되 그중 사고 발생 빈도 또는 가능성이 높은 가상사고를 중점적으로 분석한다.",
+      "guideContext": "사고피해예측 기법",
+      "additionalDetail": "가상사고 시나리오 선정은 KOSHA GUIDE C-C-58-2026 및 C-C-60-2026을 활용",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-002",
+      "text": "정성적인 위험성 평가 단계로서 주로 위험과 운전 분석 기법 또는 체크리스트 기법 등에 의하여 공정내에 잠재하고 있는 위험요소를 확인한다.",
+      "guideContext": "사고피해예측 기법",
+      "additionalDetail": "1단계(근본적인 위험 요소 확인)",
+      "workProcessPhase": "근본적인 위험 요소 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-003",
+      "text": "누출 모델은 물질이 어떻게 누출되는지를 분석하는 것으로서 배관의 파손, 플랜지 누출, 안전밸브 작동, 운전원 실수 등에 의한 잠재적인 누출원 등을 확인하여 방출되는 위험물질의 양, 온도, 밀도, 시간, 누출상태(가스, 증기, 액체, 혼합물) 등을 계산한다.",
+      "guideContext": "사고피해예측 기법",
+      "additionalDetail": "2단계(누출 모델 작성)",
+      "workProcessPhase": "누출 모델 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-004",
+      "text": "2단계의 누출 모델을 근거로 하여 대기 중으로 확산되는 위험물질의 거리에 따른 농도, 확산되는 증기운 구름의 크기, 농도, 형태를 예측한다.",
+      "guideContext": "사고피해예측 기법",
+      "additionalDetail": "3단계(확산 모델)",
+      "workProcessPhase": "확산 모델",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-005",
+      "text": "누출되는 위험물질이 인화성가스 또는 인화성액체인 경우에는 화재·폭발로 인하여 사업장내의 근로자 및 주변 시설에 미치는 화재·폭발의 영향을 계산한다.",
+      "guideContext": "사고피해예측 기법",
+      "additionalDetail": "4단계(피해예측) - 인화성 물질",
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-006",
+      "text": "독성물질인 경우에는 작업자, 인근 주민 또는 주변 환경에 미치는 영향을 계산 한다.",
+      "guideContext": "사고피해예측 기법",
+      "additionalDetail": "4단계(피해예측) - 독성물질",
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-007",
+      "text": "독성물질의 확산에 따른 피해를 최소화 하기 위하여는 독성물질 누출원으로 부터 확산 거리에 따른 농도, 독성 가스운의 지속시간 등을 예측하여야 한다.",
+      "guideContext": "사고피해예측 기법 (법령 근거 미확인)",
+      "additionalDetail": "독성물질 누출 시 확산 농도 및 지속시간 예측 의무",
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-008",
+      "text": "누출 물질의 독성 정보를 제공하여야 한다.",
+      "guideContext": "사고피해예측 기법 (법령 근거 미확인)",
+      "additionalDetail": "독성물질 누출 시 독성 정보 제공 의무",
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-012",
+      "text": "공기보다 가벼운 가스의 확산은 확산되는 지역의 대기조건에 의하여 영향을 받는다. 적용 가능한 모델은 다음과 같으며 가우시안 플름모델 및 피프모델을 이용한 확산 피해예측절차는 <부록 1>의 \"확산피해예측절차(가벼운 가스)\"를 참조한다.",
+      "guideContext": "사고피해예측 기법 - 가벼운 가스 확산 모델 적용 (법령 근거 미확인)",
+      "additionalDetail": "가우시안 플름(Gaussian plume) 모델, 가우시안 피프(Gaussian puff) 모델 등 적용",
+      "workProcessPhase": "확산 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-013",
+      "text": "공기보다 무거운 가스의 확산모델은 다음과 같으며 에이치엠피(HMP)모델 및 비엠(BM)모델을 이용한 확산피해예측절차는 <부록 2>의 \"확산피해예측절차(무거운 가스)\"를 참조한다.",
+      "guideContext": "사고피해예측 기법 - 무거운 가스 확산 모델 적용 (법령 근거 미확인)",
+      "additionalDetail": "BM(Britter & McQuaid) 모델, HMP(Hoot, Meroney & Peterka) 모델, Degadis 모델 등 적용",
+      "workProcessPhase": "확산 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-014",
+      "text": "증기운 화재시는 가연성 증기운의 크기를 측정하여 복사열을 예측할 수 있도록 대기 확산 모델을 사용하고, 액면 화재시에는 TNO 모델 등의 적절한 액면 화재 모델을 사용한다.",
+      "guideContext": "사고피해예측 기법 - 증기운 화재 및 액면 화재 모델 적용 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-015",
+      "text": "고압분출 화재는 미국식유협회(API) 또는 TNO 모델을 사용하여 복사열을 예측한다. 간단히 정량적으로 예측할 수 있는 계산절차는 <부록 4>의 \"미국식유협회(API) 고압분출화재모델 피해예측절차\"를 참조한다.",
+      "guideContext": "사고피해예측 기법 - 고압분출 화재 복사열 예측 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "화재 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-016",
+      "text": "비등액체 팽창증기폭발 또는 화구 발생시의 거리에 따른 복사열 등이 주변 시설물 및 근로자에 미치는 영향을 예측하도록 한다.",
+      "guideContext": "사고피해예측 기법 - BLEVE·화구 복사열 영향 예측 (법령 근거 미확인)",
+      "additionalDetail": "비등액체 팽창증기폭발·화구의 피해예측 모델은 TNT 당량 또는 단일팽창 모델 등을 사용하여 계산한다.",
+      "workProcessPhase": "폭발 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-017",
+      "text": "비등액체 팽창증기폭발·화구의 피해예측 모델은 TNT 당량 또는 단일팽창 모델 등을 사용하여 계산한다.",
+      "guideContext": "사고피해예측 기법 - BLEVE·화구 피해예측 모델 적용 (법령 근거 미확인)",
+      "additionalDetail": "간단히 정량적으로 예측할 수 있는 계산절차 및 예시는 <부록 5> 및 <부록 5-예> 참조",
+      "workProcessPhase": "폭발 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-018",
+      "text": "증기운 폭발시에는 거리에 따른 폭발압력이 인체 및 주변 시설물에 미치는 영향을 예측하여야 한다.",
+      "guideContext": "사고피해예측 기법 - 증기운 폭발 과압 영향 예측 (법령 근거 미확인)",
+      "additionalDetail": "TNT 당량 모델, TNO 상관 모델, TNO 멀티에너지 모델 등 사용",
+      "workProcessPhase": "폭발 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-019",
+      "text": "물리적 폭발 예측에 사용되는 모델은 다음과 같다. (1) TNT 당량 모델 (2) 기타",
+      "guideContext": "사고피해예측 기법 - 물리적 폭발 피해예측 모델 적용 (법령 근거 미확인)",
+      "additionalDetail": "간단한 수 계산에 의한 물리적 폭발 피해예측 절차는 <부록 6>의 \"물리적 폭발 피해예측절차\"를 참조한다.",
+      "workProcessPhase": "폭발 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-020",
+      "text": "밀폐계 증기운 폭발 예측에 사용되는 모델은 다음과 같다. (1) TNT 당량 모델 (2) TNO 상관 모델 (3) TNO 멀티에너지 모델 (4) 기타",
+      "guideContext": "사고피해예측 기법 - 밀폐계 증기운 폭발 예측 모델 적용 (법령 근거 미확인)",
+      "additionalDetail": "밀폐된 공간에서의 증기운 폭발은 매우 높은 과압, 폭풍파 또는 용기 조각의 비산 등으로 나타난다.",
+      "workProcessPhase": "폭발 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-021",
+      "text": "증기운 폭발 예측에 사용되는 모델은 다음과 같다. (1) TNT 당량 모델 (2) TNO 상관 모델 (3) TNO 멀티에너지 모델 (4) 기타",
+      "guideContext": "사고피해예측 기법 - 증기운 폭발 예측 모델 목록 (법령 근거 미확인)",
+      "additionalDetail": "간단한 수계산에 의한 증기운 폭발 피해예측절차 및 예시는 <부록 7>, <부록 8> 및 <부록 8-예> 참조",
+      "workProcessPhase": "폭발 피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-022",
+      "text": "화재, 폭발 또는 독성물질의 누출 등과 같은 중대산업사고의 발생시 복사열, 과압 또는 공기중에 확산되어 있는 독성물질에 의하여 사업장 내의 근로자, 인근 주민 또는 주변 시설물 등에 어느 정도의 위험이 미치는지 또는 이 위험을 받아들일 수 있는지 여부를 판단할 수 있는 위험기준을 작성한다",
+      "guideContext": "사고피해예측 기법 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험기준 정립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-023",
+      "text": "대기중에 확산되는 독성 물질에 근로자, 인근 주민 등이 노출되는 경우 독성물질의 농도 및 노출시간에 따른 인체에 미치는 영향을 판단할 수 있는 기준은 KOSHA GUIDE C-C-46-2026 「화학물질폭로영향지수(CEI) 산정에 관한 기술지원규정」에서 규정하는 ERPG-2 농도에 도달할 수 있는 거리로 한다.",
+      "guideContext": "사고피해예측 기법 - 독성물질 확산 위험기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험기준 정립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-024",
+      "text": "인화성가스 및 인화성액체가 누출되어 대기중에 확산되는 경우에는 그 물질에 의한 화재에 의하여 근로자, 인근주민 및 주위환경에 영향을 주므로 그 판단 기준은 그 물질의 폭발하한농도가 되는 최대거리로 한다.",
+      "guideContext": "사고피해예측 기법 - 인화성물질 확산 위험기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험기준 정립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-025",
+      "text": "화구 등과 같이 짧은 시간동안 발생하는 강렬한 복사열에 의한 위험 또는 증기운 화재, 고압분출 화재, 액면 화재 등에 의한 장시간의 복사열에 의하여 근로자 또는 주변 기기에 미치는 영향을 판단할 수 있는 기준은 5 kW/㎡(1,585 Btu/hr/ft²)의 복사열이 미치는 거리로 한다. 참고로 복사열에 의한 영향은 <별표 1>과 같다.",
+      "guideContext": "사고피해예측 기법 - 화재 복사열 위험기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험기준 정립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-026",
+      "text": "증기운 폭발 등과 같은 폭발 사고시 주변 기기 및 근로자 등에 미치는 영향을 판단할 수 있는 기준은 0.07 kgf/㎠ (6.9 kPa, 1 psi)의 과압이 도달하는 거리로 한다. 참고로 과압에 의한 영향은 <별표 2>와 같다.",
+      "guideContext": "사고피해예측 기법 - 폭발 과압 위험기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험기준 정립",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-027",
+      "text": "피해예측 보고서에는 누출량, 누출시간, 기상 조건등 확산모델 계산에 사용한 누출모델 기본자료 및 거리에 따른 과압, 복사열, 독성물질의 농도등 가상 사고로 인한 피해를 예측할 수 있는 자료가 포함되어야 하며<별지 양식 1> 내지<별지 양식3>의 양식에 그 결과를 요약한다.",
+      "guideContext": "사고피해예측 기법 - 피해예측 보고서 작성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측 보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-028",
+      "text": "풍향, 풍속, 온도, 습도 등 사업장의 기상자료. 다만, 사업장 내의 기상 자료가 없는 경우에는 주변 기상청, 공항 등에서 측정한 자료를 인용할 수 있다.",
+      "guideContext": "사고피해예측 기법 - 기상자료 수집 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측 보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-029",
+      "text": "(1) 누출 물질의 명칭 및 양 (2) 누출 시간",
+      "guideContext": "사고피해예측 기법 - 누출 물질 정보 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측 보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-030",
+      "text": "제 6항의 피해예측 결과 각 사고 시나리오별로 최소한 다음과 같은 결과가 포함되도록 한다.",
+      "guideContext": "사고피해예측 기법 - 피해예측 결과 포함 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측 보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-031",
+      "text": "확산 피해예측 결과에는 (1) 누출물질의 농도, 온도, 밀도 (2) 거리에 따른 농도 등이 포함되어야 한다.",
+      "guideContext": "사고피해예측 기법 - 확산 결과 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측 보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-032",
+      "text": "액면 화재 피해예측 결과에는 (1) 액면의 크기(지름) (2) 불꽃의 기울기 (3) 복사열량 (4) 거리에 따른 복사열 강도 등이 포함되어야 한다.",
+      "guideContext": "사고피해예측 기법 - 액면 화재 결과 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측 보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-033",
+      "text": "증기운 폭발 피해예측 결과에는 (1) 증기운의 크기 (2) 증기운의 밀도 및 온도 (3) 거리에 따른 과압 (4) 최대 과압 등이 포함되어야 한다.",
+      "guideContext": "사고피해예측 기법 - 증기운 폭발 결과 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측 보고서 작성",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "8.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-044",
+      "text": "위험물질 중 가벼운가스가 화학설비 및 부속설비에서 누출되어 대기중으로 확산되는 경우에 적용한다.",
+      "guideContext": "사고피해예측 기법 - 확산피해예측 절차(가벼운 가스) (법령 근거 미확인)",
+      "additionalDetail": "부록 1 적용범위 규정",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-045",
+      "text": "연속누출과 순간누출의 분류는 누출물질의 도달시간을 기준으로 다음과 같이 구분한다. 도달시간의 산정: t_tr = 2X/u (t_tr: 일정지점에의 도달시간(s), X: 누출원으로부터의 거리(m), u: 바람의 속도(m/s)). 연속누출: t_d≥t_tr인 경우, 순간누출: t_d<t_tr인 경우 (t_d: 누출기간(s)).",
+      "guideContext": "사고피해예측 기법 - 연속/순간누출 분류 (법령 근거 미확인)",
+      "additionalDetail": "식 (1-1) 적용",
+      "workProcessPhase": "누출 유형 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-046",
+      "text": "연속누출인 경우 가벼운 가스와 무거운 가스의 분류 기준은 리차드슨 수(Ri_o)를 이용하여 판정한다. 무거운 가스: Ri_o ≥ 0.003인 경우, 가벼운 가스: Ri_o < 0.003인 경우. Ri_o = g(ρ_r − ρ_a)×V_v / (ρ_a × u²₁₀ × d).",
+      "guideContext": "사고피해예측 기법 - 연속누출 가스 분류 기준 (법령 근거 미확인)",
+      "additionalDetail": "식 (1-2) 적용. g: 중력가속도(9.8m/s²), ρ_r: 누출물질 비중(kg/㎥), ρ_a: 공기 비중(kg/㎥), u₁₀: 지상 10m 풍속(m/s), V_v: 체적 누출속도(㎥/s), d: 누출원 지름(m)",
+      "workProcessPhase": "가스 유형 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-047",
+      "text": "순간누출인 경우 가벼운 가스와 무거운 가스의 분류 기준은 리차드슨 수(Ri_o)를 이용하여 판정한다. 무거운 가스: Ri_o ≥ 0.04인 경우, 가벼운 가스: Ri_o < 0.04인 경우. Ri_o = g(ρ_r − ρ_a)×V^⅓ / (ρ_a × u²₁₀).",
+      "guideContext": "사고피해예측 기법 - 순간누출 가스 분류 기준 (법령 근거 미확인)",
+      "additionalDetail": "식 (1-3) 적용. V: 누출량(㎥)",
+      "workProcessPhase": "가스 유형 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-048",
+      "text": "가우시안 플름모델은 가벼운가스의 연속누출에 적용한다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 적용대상 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "확산 모델 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-049",
+      "text": "가우시안 플름모델의 적용시에는 누출속도가 일정하다는 전제조건이 있다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (1)",
+      "workProcessPhase": "확산 모델 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-050",
+      "text": "가우시안 플름모델의 적용시에는 장애물이 없는 평평한 곳에서 누출이 일어난다는 전제조건이 있다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (2)",
+      "workProcessPhase": "확산 모델 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-051",
+      "text": "가우시안 플름모델의 적용시에는 화학반응이나 열역학적 영향이 없다는 전제조건이 있다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (3)",
+      "workProcessPhase": "확산 모델 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-052",
+      "text": "가우시안 플름모델의 적용시에는 누출기간이 일정지점에 도달하는데 걸리는 시간보다 길다는 전제조건이 있다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (4)",
+      "workProcessPhase": "확산 모델 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-053",
+      "text": "가우시안 플름모델의 적용시에는 누출된 물질은 오랜시간동안 공기중에 머무를 수 있는 안정된 가스라는 전제조건이 있다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (5)",
+      "workProcessPhase": "확산 모델 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-054",
+      "text": "가우시안 플름모델의 적용시에는 플름이 지표면 및 혼합되는 높이에서 완전하게 반사된다는 전제조건이 있다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (6)",
+      "workProcessPhase": "확산 모델 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-055",
+      "text": "가우시안 플름모델의 적용시에는 누출이 한 지점에서 일어난다는 전제조건이 있다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (7)",
+      "workProcessPhase": "확산 모델 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-056",
+      "text": "<표 1-1>과 <표 1-2>를 사용하여 확산계수 σ_y와 σ_z을 각각 산출한다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 플름모델 확산계수 산출 (법령 근거 미확인)",
+      "additionalDetail": "σy(m) = 465.11628 × tanΘ (Θ = 0.017453293(c−d loge x)), σz(m) = axb. 대기안정도 A~F별 계수 적용",
+      "workProcessPhase": "확산계수 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-057",
+      "text": "계산된 σz가 5,000m 이상인 경우에는 σz = 5,000m로 사용한다.",
+      "guideContext": "사고피해예측 기법 - 확산계수 상한 (법령 근거 미확인)",
+      "additionalDetail": "대기안정도 A에서 x > 3.11km인 경우에도 σz = 5,000m로 사용",
+      "workProcessPhase": "확산계수 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-058",
+      "text": "유효누출높이 산출 시 부력플럭스를 다음 식으로 산출한다. F_B = (g×v×d²×△T) / (4T_s). 여기서 F_B: 부력플럭스(m⁴/s³), v: 누출속도(m/s), d: 누출원의 지름(m), △T: (T_s − T_a)(K), T_s: 누출되는 온도의 물질(K), T_a: 대기온도(K).",
+      "guideContext": "사고피해예측 기법 - 부력플럭스 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (1-4)",
+      "workProcessPhase": "유효누출높이 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-059",
+      "text": "세류(Downwash)높이 조정계수(△H_D)는 다음과 같이 산출한다. △H_D = 2[V/u − 1.5]d (v<1.5u인 경우), △H_D = 0 (v≥1.5u인 경우).",
+      "guideContext": "사고피해예측 기법 - 세류높이 조정계수 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (1-7), (1-8)",
+      "workProcessPhase": "유효누출높이 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-060",
+      "text": "유효누출높이(H_E)는 다음과 같이 산출한다. H_E = Hs + △H_D + △H_B (△T > △T_c인 경우), H_E = Hs + △H_D + △H_M (△T ≤ △T_c인 경우). 여기서 H_E: 유효누출높이(m), H_S: 실제누출높이(m), △H_D: 세류높이조정계수(m), △H_B: 부력영향높이조정계수(m), △H_M: 타성영향높이조정계수(m).",
+      "guideContext": "사고피해예측 기법 - 유효누출높이 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (1-18), (1-19). △T와 임계온도차(△T_c) 비교에 따라 부력 또는 타성 영향 적용",
+      "workProcessPhase": "유효누출높이 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-061",
+      "text": "가우시안 퍼프모델은 가벼운가스의 순간누출에 적용한다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 퍼프모델 적용대상 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "확산 모델 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-062",
+      "text": "가우시안 퍼프모델의 적용시에는 장해물이 없는 평평한 곳에서 누출이 일어나며, 화학반응이나 열역학적 영향이 없고, 누출기간이 일정지역에 도달하는데 걸리는 시간보다 짧으며, 누출된 물질은 오랜시간 동안 대기중에 머무를 수 있는 안정된 가스이고, 예측농도가 순간누출의 최대농도이며, 누출이 한 지역에서 일어난다는 전제조건이 있다.",
+      "guideContext": "사고피해예측 기법 - 가우시안 퍼프모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (1)~(6)",
+      "workProcessPhase": "확산 모델 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-063",
+      "text": "가우시안 퍼프모델의 확산계수는 <표 1-3>을 이용하여 산출한다. 대기안정도 A~C: σx, σy = 0.14x^0.92, σz = 0.53x^0.73. 대기안정도 D: σx, σy = 0.16x^0.92, σz = 0.15x^0.70. 대기안정도 F~E: σx, σy = 0.02x^0.89, σz = 0.05x^0.61.",
+      "guideContext": "사고피해예측 기법 - 퍼프모델 확산계수 산출 (법령 근거 미확인)",
+      "additionalDetail": "x: 바람방향에서의 누출원과의 거리",
+      "workProcessPhase": "확산계수 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-064",
+      "text": "가우시안 퍼프모델의 유효누출높이는 6.2항(부력플럭스 산출, 대기안정도 변수 산출, 세류높이 조정계수 산출, 임계온도차 산출, 부력·타성 영향높이 조정계수 산출, 유효누출높이 산출)을 이용하여 산출한다.",
+      "guideContext": "사고피해예측 기법 - 퍼프모델 유효누출높이 (법령 근거 미확인)",
+      "additionalDetail": "플름모델과 동일한 유효누출높이 산출 절차 적용",
+      "workProcessPhase": "유효누출높이 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-065",
+      "text": "가벼운 가스의 확산은 대기의 난류에 의하여 영향을 받는다.",
+      "guideContext": "사고피해예측 기법 - 가벼운 가스 확산 특성 (법령 근거 미확인)",
+      "additionalDetail": "가벼운 가스가 대기중에 석여 있어도 대기중에서의 바람의 흐름에 영향을 주지 않는다",
+      "workProcessPhase": "가스 유형 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-066",
+      "text": "무거운 가스의 확산은 누출된 가스가 중력에 의하여 유도되는 흐름에 영향을 받는다. 무거운 가스가 대기중에 석여 있으면 대기중에서의 바람의 흐름에 영향을 준다.",
+      "guideContext": "사고피해예측 기법 - 무거운 가스 확산 특성 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "가스 유형 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-067",
+      "text": "누출된 인화성액체 또는 인화성가스가 누출 즉시 점화되지 않는다면 증기운을 형성하여 먼 거리까지 확산된다. 이 증기운은 확산 되면서 공기와 희석되고 결과적으로 폭발 하한계에 도달하여 더 이상 화재의 위험이 없게 된다. 그러나 독성물질 경우에는 독성물질이 바람에 의해 상당히 먼거리까지 확산되어 농도가 낮다 할 지라도 근로자 및 주민에게 심각한 영향을 미칠 수 있다.",
+      "guideContext": "사고피해예측 기법 - 확산 피해요인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-068",
+      "text": "대기안정도는 바람속도(지상 10m 측정), 낮의 복사강도(강/중/약), 밤의 구름량(흐림/맑음)을 기준으로 A(매우 불안정)~G(매우 안정)까지 구분하여 적용한다. '밤'이라 함은 해지기 1시간 전부터 해뜬후 1시간 사이를 말하며, '강'은 태양고도 60°이상, '중'은 60°미만 35°이상, '약'은 35°미만을 말한다.",
+      "guideContext": "사고피해예측 기법 - 대기안정도 적용기준 (법령 근거 미확인)",
+      "additionalDetail": "붙임 1-1 대기안정도 표 참조",
+      "workProcessPhase": "대기안정도 판정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "ENVIRONMENTAL",
+      "sourceSection": "부록 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-069",
+      "text": "위험물질 중 무거운 가스가 화학설비 및 그 부속설비에서 누출되어 대기중으로 확산되는 경우에 적용한다.",
+      "guideContext": "확산피해예측 절차(무거운 가스) (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-070",
+      "text": "연속 수직방향으로 직접누출되는 무거운 가스의 연속누출 플름에 적용한다.",
+      "guideContext": "HMP 모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-071",
+      "text": "플름은 단상(Single phase)의 가스로 가정한다.",
+      "guideContext": "HMP 모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-072",
+      "text": "장애물이 없는 평평한 지역에서의 확산으로 가정한다.",
+      "guideContext": "HMP 모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-073",
+      "text": "대기안정도가 E~F인 경우에 적용한다",
+      "guideContext": "HMP 모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-074",
+      "text": "액면(Liquid pool)에서의 증발시에는 적용하지 아니한다.",
+      "guideContext": "HMP 모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-075",
+      "text": "4.5항에서 계산한 분류비중비율(δ)이 0.005이하이면 가벼운 가스 모델을 사용한다.",
+      "guideContext": "무거운 가스 여부 확인 판단기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "무거운 가스 여부 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-076",
+      "text": "분류비중비율이 0.005를 초과하는 경우 무거운 가스 모델 즉 HMP모델을 사용한다.",
+      "guideContext": "무거운 가스 여부 확인 판단기준 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "무거운 가스 여부 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-077",
+      "text": "Xc가 XTD보다 작은 경우에는 Xc=XTD를 사용한다.",
+      "guideContext": "일정지점 농도산출 시 보정 조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "일정지점 농도산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.11",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-081",
+      "text": "모멘트(Momentum)을 무시할 수 있는 연속누출 및 순간누출시의 지상에서의 농도 계산시에 적용한다.",
+      "guideContext": "BM모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-082",
+      "text": "장애물이 없는 평평한 지형에서 확산되는 것으로 가정한다.",
+      "guideContext": "BM모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-083",
+      "text": "대기안정도가 C 또는 D인 경우에 사용한다.",
+      "guideContext": "BM모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-084",
+      "text": "연속누출농도는 3분에서 10분까지의 평균농도로 산출한다.",
+      "guideContext": "BM모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-085",
+      "text": "순간누출인 경우에는 최초의 지름과 높이의 비를 1로 가정한다.",
+      "guideContext": "BM모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-086",
+      "text": "플룸에서 화학반응이 일어나지 않는다.",
+      "guideContext": "BM모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-087",
+      "text": "열역학적인 영향을 고려하지 않는다.",
+      "guideContext": "BM모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-088",
+      "text": "u₁₀×td/x≥2.5 인 경우는 연속누출로 간주한다.",
+      "guideContext": "BM모델 누출원 구분 (법령 근거 미확인)",
+      "additionalDetail": "u₁₀ : 10m 높이에서의 바람속도 (m/s), td : 누출시간(s), x : 누출원으로부터의 거리",
+      "workProcessPhase": "누출원 구분",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-089",
+      "text": "u₁₀×td/x≤0.6 인 경우는 순간누출로 간주한다.",
+      "guideContext": "BM모델 누출원 구분 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "누출원 구분",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-090",
+      "text": "0.6<u₁₀×td/x<2.5 인 경우에는 연속누출과 순간누출로 간주하여 모두 계산한후 농도가 작은 것을 사용한다.",
+      "guideContext": "BM모델 누출원 구분 경계 구간 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "누출원 구분",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.1.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-091",
+      "text": "연속누출인 경우 [g'o×Vv/(u¹⁰³×dc)]^(1/5) ≥ 0.15 이면 무거운 가스 누출로 간주한다.",
+      "guideContext": "BM모델 무거운 가스 여부 확인 (법령 근거 미확인)",
+      "additionalDetail": "g'o : 초기부력계수, g(ρr-ρa)/ρa (m/s²), Vv : 체적 누출속도(m³/s), dc : 연속누출의 특성치, √(Vv/u₁₀)(m)",
+      "workProcessPhase": "무거운 가스 여부 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-092",
+      "text": "연속누출인 경우 [g'o×Vv/(u¹⁰³×dc)]^(1/5) < 0.15 이면 가벼운 가스 누출로 간주한다.",
+      "guideContext": "BM모델 무거운 가스 여부 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "무거운 가스 여부 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-093",
+      "text": "순간누출인 경우 [g'o×Vo/(u₁₀×di)]^(1/4) ≥ 0.20 이면 무거운 가스 누출로 간주한다.",
+      "guideContext": "BM모델 무거운 가스 여부 확인 (법령 근거 미확인)",
+      "additionalDetail": "Vo : 초기 중기운 부피(m³), di : 순간누출의 특성치, ³√Vo (m)",
+      "workProcessPhase": "무거운 가스 여부 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-094",
+      "text": "순간누출인 경우 [g'o×Vo/(u₁₀×di)]^(1/4) < 0.20 이면 가벼운 가스 누출로 간주한다.",
+      "guideContext": "BM모델 무거운 가스 여부 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "무거운 가스 여부 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-095",
+      "text": "지장탱크 또는 배관에서 인화성 물질이 누출되어 그 물질이 액면을 형성하여 화재를 일으키는 경우에 적용한다.",
+      "guideContext": "TNO 액면화재모델 피해예측 절차 적용범위 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-096",
+      "text": "TNO 액면화재모델의 적용시에는 지상에서의 액면 화재에 적용한다.",
+      "guideContext": "TNO 액면화재모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (1)",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-097",
+      "text": "TNO 액면화재모델의 적용시에는 산소가 충분히 공급되는 것으로 가정한다.",
+      "guideContext": "TNO 액면화재모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (2)",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-098",
+      "text": "TNO 액면화재모델의 적용시에는 액표면적이 일정한 것으로 가정한다.",
+      "guideContext": "TNO 액면화재모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (3)",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-099",
+      "text": "TNO 액면화재모델의 적용시에는 완전연소로 가정한다.",
+      "guideContext": "TNO 액면화재모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (4)",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-100",
+      "text": "TNO 액면화재모델의 적용시에는 연소시 생성되는 이산화탄소 및 검댕에 의한 투과도에 영향을 미치지 않는 것으로 가정한다.",
+      "guideContext": "TNO 액면화재모델 전제조건 (법령 근거 미확인)",
+      "additionalDetail": "전제조건 (5)",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-101",
+      "text": "연소속도라 함은 액표면에서의 단위면적당 증발량을 말하며 다음의 식 또는 <표 3-1>에서 구한다.",
+      "guideContext": "TNO 액면화재모델 연소속도 산출 (법령 근거 미확인)",
+      "additionalDetail": "액체의 비점과 대기온도 관계에 따라 식 (3-1) 또는 식 (3-2) 적용",
+      "workProcessPhase": "연소속도 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-102",
+      "text": "액체의 비점이 대기온도보다 높은 경우 연소속도는 m = 0.001Hc / [Cp(Tb－Ta) + △Hv] 식으로 산출한다.",
+      "guideContext": "TNO 액면화재모델 연소속도 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (3-1), Hc: 순연소열량(J/kg), △Hv: 증발잠열(J/kg), Cp: 비열(J/kg·K), Ta: 대기온도(K), Tb: 비점(K)",
+      "workProcessPhase": "연소속도 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-103",
+      "text": "액체의 비점이 대기온도보다 낮은 경우 연소속도는 m = 0.001Hc / △Hv 식으로 산출한다.",
+      "guideContext": "TNO 액면화재모델 연소속도 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (3-2), Hc: 순연소열량(J/kg), △Hv: 증발잠열(J/kg)",
+      "workProcessPhase": "연소속도 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-104",
+      "text": "불꽃이 기울어진 경우 불꽃의 길이는 Lf = 110R[m / (ρa√(2×g×R))]^0.67 × U^-0.21 식으로 산출한다.",
+      "guideContext": "TNO 액면화재모델 불꽃 길이 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (3-3), R: 액표면의 반지름(m), ρa: 대기온도에서의 공기의 밀도(kg/㎥), g: 중력가속도(9.8m/s²), u: 1.6m 높이에서의 바람속도(m/s)",
+      "workProcessPhase": "불꽃 길이 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-105",
+      "text": "불꽃이 수직인 경우 불꽃의 길이는 Lf = 84R[m / (ρa√(2g×R))]^0.61 식으로 산출한다.",
+      "guideContext": "TNO 액면화재모델 불꽃 길이 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (3-4), R: 액표면의 반지름(m), m: 연소속도(kg/㎡·s), ρa: 대기온도에서의 공기의 밀도(kg/㎥)",
+      "workProcessPhase": "불꽃 길이 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-106",
+      "text": "불꽃의 기울기는 U ≤ 1인 경우 cosθ = 1, U > 1인 경우 cosθ = 1/√U로 산출한다.",
+      "guideContext": "TNO 액면화재모델 불꽃 기울기 산출 (법령 근거 미확인)",
+      "additionalDetail": "U = u / [2g×m×R/ρv]^(1/3)",
+      "workProcessPhase": "불꽃 기울기 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-107",
+      "text": "표면방출 플럭스량은 E = β×m×Hcs / (2πR×Lf + S) 식으로 산출한다.",
+      "guideContext": "TNO 액면화재모델 표면방출 플럭스량 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (3-5), β: 전체복사열의 비율(<표 3-2>참조), 일반 탄화수소의 경우 0.35로 한다",
+      "workProcessPhase": "표면방출 플럭스량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-108",
+      "text": "최대 지형시계인자는 F = √(Fv² + Fh²) 식으로 산출하며, 수직지형시계인자(Fv)와 수평지형시계인자(Fh)는 불꽃이 수직인 경우와 기울어진 경우를 구분하여 각각의 식으로 산출한다.",
+      "guideContext": "TNO 액면화재모델 지형시계인자 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (3-6)~(3-10), X: 불꽃 길이와 반지름의 비, Y: 불꽃으로부터 떨어진 거리와 반지름의 비",
+      "workProcessPhase": "지형시계인자 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-109",
+      "text": "투과도는 τ = 2.02 [Ppw × ℓ]^-0.09 식으로 산출한다.",
+      "guideContext": "TNO 액면화재모델 투과도 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (3-11), Ppw = RH×PW, ℓ: 불꽃으로부터 떨어진 거리(m), RH: 상대습도, PW: 물의 증기압(N/㎡, <표 3-3> 참조)",
+      "workProcessPhase": "투과도 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-110",
+      "text": "복사열량은 Q = τ × F × E 식으로 산출한다.",
+      "guideContext": "TNO 액면화재모델 복사열량 산출 (법령 근거 미확인)",
+      "additionalDetail": "식 (3-12), Q: 복사열량(w/㎡), τ: 투과도, F: 최대지형시각인자, E: 표면방출플럭스량(W/㎡)",
+      "workProcessPhase": "복사열량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-111",
+      "text": "4.5항에서 산출한 거리별 복사열량을 알게되면 그 지점에서의 피해는 간단히 예측할 수 있다. 본 코드 12쪽의 <별표 1>를 이용하여 주변근로자 및 설비에 미치는 피해를 객관적으로 산정한다.",
+      "guideContext": "TNO 액면화재모델 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "4.5항 내지 4.7항을 일정거리로 바꾸어 반복 계산하여 사고지점으로부터 일정거리별 복사열량을 산출한 후 피해 산정",
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-112",
+      "text": "API 고압분출화재모델의 적용시에는 다음의 전제조건이 있다. (1) 분출속도가 일정하다. (2) 수직으로 누출이 일어난다. (3) 완전연소가 일어난다. (4) 생성된 이산화탄소 및 검댕에 의하여 투과도에 영향을 주지 않는다. (5) 고압분출화재에 의하여 모든 열이 방출된다.",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": "모델 적용 전 5가지 전제조건 충족 여부를 확인한다",
+      "workProcessPhase": "전제조건 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-113",
+      "text": "총 방사열량을 Qt = W × Hc 식을 이용하여 산출한다. 여기서, Qt : 총 방사열량(kW), W : 분출속도(kg/s), Hc : 연소열량(kJ/kg)",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "총 방사열량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-114",
+      "text": "<부록 3>의 4.6항을 이용하여 투과도를 산출한다.",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "투과도 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-115",
+      "text": "복사열비율(β)는 다음의 수치를 이용한다. (1) 수소인 경우 : β = 0.15 (2) 메탄인 경우 : β = 0.2 (3) 기타 탄화수소인 경우 : β = 0.3",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "복사열비율 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-116",
+      "text": "분출음속을 vs = 91.2√(χTs/Ms) 식을 이용하여 산출한다. 여기서, vs : 분출음속(m/s), χ : 비열계수 (Cp/Cv), Ms : 누출되는 물질의 분자량, Ts : 분출물질의 온도",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "불꽃 중심점 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-117",
+      "text": "분출마하수를 Ma = 0.1161 × (W / Ps×d²) × √(Ts/rMs) 식을 이용하여 산출한다. 여기서, Ma : 분출마하수(무차원), W : 분출속도(kg/s), Ps : 분출압력(kN/㎡), d : 누출부위의 지름(m)",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "불꽃 중심점 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-118",
+      "text": "폭발하한농도변수와 추력변수를 이용하여 <그림 4-1>과 <그림 4-2>에서 중심점간의 수평거리(X_c)와 수직거리(Y_c)를 각각 산출한다.",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": "폭발하한농도변수 C_LP = C_L [v/u][M_s/28.8], 추력변수 d_j R = d(v/u)[T_a×M_s/T_s]^½ 산출 후 그래프에서 읽음",
+      "workProcessPhase": "불꽃 중심점 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.4.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-119",
+      "text": "불꽃의 중심점으로부터 영향거리를 D = √[(L-X_c)² + (h+Y_c)²] 식을 이용하여 산출한다. 여기서, D : 불꽃의 중심점으로부터의 영향거리(m), L : 누출중심으로 부터의 일정거리(m), h : 누출원의 높이(m), X_c : 중심간의 수평거리(m), Y_c : 중심간의 수직거리(m)",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "영향거리 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-120",
+      "text": "일정거리에서의 복사열량을 Q = τ×β×Q_t / 4πD² 식을 이용하여 산출한다. 여기서, Q : 일정거리에서의 복사열량(kW/m²), τ : 투과도(무차원), β : 복사일 비율(무차원), Q_t : 총방사열량(kW), D : 불꽃중심으로부터의 영향거리(m)",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "복사열량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-121",
+      "text": "4.5항과 4.6항을 이용하여 일정거리로 바꾸어 반복계산하면 누출중심으로부터 일정거리별 복사열량을 산출한다.",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "거리별 복사열량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-122",
+      "text": "4.7항에서 산출한 거리별 복사열량을 알게되면 그 지점에서의 피해는 간단히 예측할 수 있다. 본 코드 12쪽의 <별표 1>을 이용하여 주변 근로자 및 설비에 미치는 피해를 객관적으로 산정한다.",
+      "guideContext": "API 고압분출화재모델 피해예측절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 4-4.8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-123",
+      "text": "액화가스 또는 과열 액체를 지장·취급하고 있는 용기 또는 배관이 갑자기 파손되어 외부로 내용물이 누출되는 경우에 적용한다.",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "BLEVE/Fireball 피해예측 절차의 적용범위",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-124",
+      "text": "화구의 크기는 D = 5.8 × M^(1/3) 식에 의하여 산출한다. 여기서, D : 화구의 지름(m), M : 용기 또는 배관 파열시 그 내부에 지장·취급중인 물질의 양(kg)",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "식 (5-1)",
+      "workProcessPhase": "화구 크기 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-125",
+      "text": "누출된 물질의 양(M)이 30,000kg미만인 경우 화염의 지속시간은 t = 0.45 × M^(1/3) 식에 의하여 산출한다. 여기서, t : 화염지속시간(초)",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "식 (5-2), M < 30,000kg 조건",
+      "workProcessPhase": "화염 지속시간 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-126",
+      "text": "누출된 물질의 양이 30,000kg이상인 경우 화염의 지속시간은 t = 2.6 × M^(1/6) 식에 의하여 산출한다.",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "식 (5-3), M ≥ 30,000kg 조건",
+      "workProcessPhase": "화염 지속시간 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-127",
+      "text": "화구 중심의 높이는 H = 0.75D 식에 의하여 산출한다. 여기서, H : 화구 중심의 높이(m)",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "식 (5-4)",
+      "workProcessPhase": "화구 중심 높이 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-128",
+      "text": "대기 투과도는 τ_a = 2.02 (P_w × X_s)^(-0.09) 식에 의하여 산출한다. P_w = 1013.25 × R_H × exp (14.4114-5328/T_a). 여기서, τ_a : 대기일전도도 (무차원), R_H : 절대습도(%), T_a : 대기온도(K), X_s : 화구 표면에서부터 피해 지점까지의 거리(m) √H²+L²-D/2, L : 화구 중심에서부터 피해 지점까지의 수평거리(m)",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "식 (5-5), (5-6)",
+      "workProcessPhase": "대기 투과도 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-129",
+      "text": "표면 방사에너지는 E = R×M×H_c / (3.14D² × t) 식에 의하여 산출한다. 여기서, E : 표면 방사에너지 (kJ/m²·s), R : 연소열의 복사비율 (무차원) - 0.3 (용기 또는 배관이 압력 방출장치의 설정압력 미만에서 터진 경우), 0.4 (용기 또는 배관이 압력 방출장치의 설정압력 이상에서 터진 경우), H_c : 순 연소열량 (kJ/kg)",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "식 (5-7), R값은 압력 방출장치 설정압력 기준으로 구분",
+      "workProcessPhase": "표면 방사에너지 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-130",
+      "text": "시계인자는 L ≥ D/2 인 경우 F_v = L × (D/2)² / (L² + H²)^(3/2) 식에 의하여 산출하고, L < D/2 인 경우 F_v = H × (D/2)² / (L² + H²)^(3/2) 식에 의하여 산출한다. 여기서, F_v : 시계인자(무차원)",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "식 (5-8), (5-9), L과 D/2 크기 비교에 따라 구분 적용",
+      "workProcessPhase": "시계인자 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-131",
+      "text": "복사열은 Q = τ_a × E × F_v 식에 의하여 산출한다. 여기서, Q : 일정 지점에서의 복사열(kW/m²). 3.1.1항 내지 3.1.7항에서 화구로부터 피해 지점까지의 거리를 바꾸어 반복 계산하면 폭발지점으로부터 일정거리별 복사열을 산출하여 다음과 같은 양식에 의한 그래프를 작성할 수 있다.",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "식 (5-10), 거리별 반복 계산으로 복사열 프로파일 작성",
+      "workProcessPhase": "복사열 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-132",
+      "text": "3.1.8항에서 산출한 거리별 복사열의 크기를 알게 되면 그 지점에서의 피해는 간단히 예측할 수 있다. 본 코드 12쪽의 <별표 1>을 이용하여 복사열에 의한 주변 근로자 및 설비에 미치는 피해의 크기를 객관적으로 산정한다. 폭발압에 의한 피해는 <부록 6> \"물리적 폭발 피해예측 절차\"에서 규정하는 방법에 따른다.",
+      "guideContext": "사고피해예측 기법 - 비등액체 팽창 폭발/화구 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "별표 1 활용 복사열 피해 산정 및 부록 6 폭발압 피해예측 연계",
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 5.3.1.9",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-139",
+      "text": "가입된 가스 및 액체를 지장·취급하고 있는 압력용기가 갑자기 파손되어 외부로 내부에너지가 방출되는 경우에 적용한다.",
+      "guideContext": "물리적 폭발 피해예측 적용범위 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-140",
+      "text": "폭발파에 의한 피해 예측 방법은 <그림 6-1>에 의하여 선정한다.",
+      "guideContext": "물리적 폭발 피해예측 방법 선정 (법령 근거 미확인)",
+      "additionalDetail": "Tb(비점), Tc(임계온도), T(물질 온도) 기준으로 방법 선정",
+      "workProcessPhase": "피해예측 방법 선정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-141",
+      "text": "R̄가 2이상인 경우에는 다음 절차에 따라 계속하고 2미만인 경우에는 5.3.3항에 의한 수정된 방법을 이용하여 피해예측을 한다.",
+      "guideContext": "가스 압력용기 폭발 기본방법 에너지 환산거리 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "에너지 환산거리 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-142",
+      "text": "앞에서 구한 P̄s 및 Ī는 지상에 설치된 구형인 경우를 기준한 것이므로 압력용기의 형태 및 설치 높이에 따라 다음과 같이 보정한다.",
+      "guideContext": "가스 압력용기 폭발 기본방법 환산초과압력 및 환산임펄스 보정 (법령 근거 미확인)",
+      "additionalDetail": "원통형인 경우 <표 6-1>, 높이 설치 구형인 경우 <표 6-2>, 높이 설치 원통형인 경우 <표 6-1> 및 <표 6-2> 동시 적용",
+      "workProcessPhase": "P̄s 및 Ī 보정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-143",
+      "text": "입력용기가 원통형인 경우 앞에서 구한 P̄s 및 Ī에 <표 6-1>에 의한 보정계수를 곱하여 보정된 P̄sa 및 Ī를 계산한다.",
+      "guideContext": "가스 압력용기 폭발 기본방법 원통형 보정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "P̄s 및 Ī 보정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-144",
+      "text": "지상보다 높이 설치된 구형인 경우 앞에서 구한 P̄s 및 Ī에 <표 6-2>에 의한 보정계수를 곱하여 보정된 P̄sa 및 Ī를 계산한다.",
+      "guideContext": "가스 압력용기 폭발 기본방법 높이 설치 구형 보정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "P̄s 및 Ī 보정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-145",
+      "text": "지상보다 높이 설치된 원통형인 경우 앞에서 구한 P̄s 및 Ī에 <표 6-1> 및 <표 6-2>에 의한 보정계수를 동시에 곱하여 보정된 P̄sa 및 Ī를 계산한다.",
+      "guideContext": "가스 압력용기 폭발 기본방법 높이 설치 원통형 보정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "P̄s 및 Ī 보정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-146",
+      "text": "계산된 최대압력이 압력용기의 폭발압력보다 큰 경우에는 압력용기의 폭발압력 대신에 계산된 최대압력을 삽입하여 처음부터 다시 계산한다.",
+      "guideContext": "가스 압력용기 폭발 기본방법 최대압력 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최대압력 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-147",
+      "text": "폭발지점으로부터 피해거리를 바꾸어 계산하여 폭발지점으로부터 일정 거리별 최대압력 및 임펄스를 산정하여 가로축을 폭발지점으로부터의 거리, 세로축을 최대압력 또는 임펄스로하여 도표를 작성한다.",
+      "guideContext": "가스 압력용기 폭발 기본방법 거리별 최대압력 및 임펄스 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "거리별 최대압력 및 임펄스 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-148",
+      "text": "거리별 최대압력 또는 임펄스를 알게되면 그 지점에서의 피해는 간단히 예측할 수 있다. 본 코드 14쪽의 <별표 2>를 이용하여 폭발파에 의한 주변 근로자 및 설비에 미치는 피해의 크기를 객관적으로 산정한다.",
+      "guideContext": "가스 압력용기 폭발 기본방법 피해 범위 예측 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해 범위 예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 6-5.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-149",
+      "text": "전항에서 산정한 에너지 환산거리가 2 미만인 경우에 한하여 <그림 6-5> \"수정된 방법에 의한 피해예측 흐름도\"에 따라 계속한다.",
+      "guideContext": "수정된 방법 에너지 환산거리 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수정된 방법 에너지 환산거리 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-150",
+      "text": "수정된 방법은 폭발파(Explosion's blast wave)가 완전 대칭으로 형성된다는 가정하에서 제안된 방법이며, 이 경우에는 지면에 설치된 반구형의 압력 용기에서 폭발한 것으로 간주하여 가상 반지름을 산정한다.",
+      "guideContext": "수정된 방법 가상 반지름 산정 (법령 근거 미확인)",
+      "additionalDetail": "r_o = 0.782V^(1/3), r_o: 폭발용기의 가상 반지름(m), V: 입력용기의 체적(m³)",
+      "workProcessPhase": "수정된 방법 가상 반지름 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-151",
+      "text": "계산된 최대압력이 압력용기의 폭발압력보다 큰 경우에는 압력용기의 폭발압력 대신에 계산된 최대압력을 삽입하여 처음부터 다시 계산한다.",
+      "guideContext": "수정된 방법 최대압력 확인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수정된 방법 최대압력 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-152",
+      "text": "폭발지점으로부터 피해거리를 바꾸어 계산하여 폭발지점으로부터 일정 거리별 최대압력 및 임펄스를 산정하여 가로축을 폭발지점으로부터의 거리, 세로축을 최대압력 또는 임펄스로하여 도표를 작성한다.",
+      "guideContext": "수정된 방법 거리별 최대압력 및 임펄스 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수정된 방법 거리별 최대압력 및 임펄스 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-153",
+      "text": "거리별 최대압력 또는 임펄스를 알게되면 그 지점에서의 피해는 간단히 예측할 수 있다. 본 코드 14쪽의 <별표 2>를 이용하여 폭발파에 의한 주변 근로자 및 설비에 미치는 피해의 크기를 객관적으로 산정한다.",
+      "guideContext": "수정된 방법 피해범위 예측 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "수정된 방법 피해범위 예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-154",
+      "text": "피해예측 순서는 <그림 6-7>에 따른다.",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 피해예측",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-155",
+      "text": "폭발시의 내부에너지(Internal energy) 산정 u_ex = h_ex - P_ex·v_ex 여기서, u_ex : P_ex에서의 내부에너지 (J/kg), h_ex : P_ex에서의 엔탈피 (J/kg), P_ex : 압력용기의 폭발압력 (N/m²(abs)), v_ex : P_ex에서의 비용적 (m³/kg). 상기 자료는 열역학 그래프(Thermodynamic graph) 또는 열역학 테이블(Thermodynamic table)로부터 구한다.",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 단계별 계산절차",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-156",
+      "text": "폭발후의 내부에너지 산정. 가. 열역학 그래프를 이용하는 방법: 열역학 그래프를 이용하여 압력용기의 폭발압력(Pex)으로부터 등엔트로피(Isentrophic) 팽창곡선을 따라 대기압력(P0)에 있어서의 비엔탈피(h2), 비엔트로피(s2) 및 비용적(v2)를 구하여 u2 = h2 - P0v2 식을 이용하여 폭발후 내부에너지를 구한다. 나. 열역학 테이블을 이용하는 방법: u2 = (1-X)h1 + hv -(1-X)P0v1 - Xp0vv 여기서, X : 증기의 비율 (sex-s1)/(sv - s1).",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 단계별 계산절차",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-157",
+      "text": "폭발에 의한 팽창 일 에너지 산정 eex = uex -u2 여기서, cex : 팽창 일에너지 (J/kg).",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 단계별 계산절차",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-158",
+      "text": "폭발에너지 산정 Eex = 2 × eex × m1 여기서, m1 : 누출된 물질의 량 (kg). 지장·취급하는 물질이 혼합물인 경우에는 혼합물을 이루고 있는 각각의 물질에 대하여 (1)항 내지 (4)항에 의한 에너지를 산정하여 모두 합하여 혼합물에 대한 폭발에너지를 구한다.",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 단계별 계산절차",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-159",
+      "text": "에너지 환산거리(R̄)의 산정 R̄ = r×(P0/Eex)^(1/3) 여기서, r : 압력용기의 중심으로부터 피해지점까지의 거리(m).",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 단계별 계산절차",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-160",
+      "text": "최대압력 및 임펄스 산정 및 확인. 5.3.2 (4)항 내지 (8)항을 이용하여 산정 및 확인한다.",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 단계별 계산절차",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-161",
+      "text": "폭발지점으로부터 피해 거리를 바꾸어 계산하여 폭발지점으로 부터 일정 거리별 최대압력 및 임펄스를 산정하여 가로축을 폭발지점으로 부터의 거리, 세로축을 최대압력 또는 임펄스로하여 도표를 작성한다.",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 단계별 계산절차",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-162",
+      "text": "거리별 최대압력 또는 임펄스를 알게되면 그 지점에서의 피해는 간단히 예측할 수 있다. 본 코드 14쪽의 <별표 2>를 이용하여 폭발파에 의한 주변 근로자 및 설비에 미치는 피해의 크기를 객관적으로 산정한다.",
+      "guideContext": "사고피해예측 기법 - 폭발플래싱 피해범위 예측",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-163",
+      "text": "등온 팽창에 의하여 가스를 지장·취급하는 압력용기가 폭발하여 발생하는 폭발파에 의한 피해예측에 적용한다.",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": "등온 팽창 용기 폭발 피해예측 적용 범위",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-164",
+      "text": "W=4×10⁻⁵V×(Pb/P0)×R×T0×ln(Pb/P0) 식을 이용하여 폭발에너지를 산정한다. 여기서, W : 폭발에너지 (kg-TNT), V : 압력용기내의 가스 부피 (m³), Pb : 압력용기의 폭발압력 (bar(abs)), P0 : 대기압력 (bar(abs)), T0 : 표준 상태에서의 온도(273K), R : 이상기체상수 (1.987 ㎉/kg-mole·K)",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": "식(6-14)를 이용한 폭발에너지 산정",
+      "workProcessPhase": "폭발에너지 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-165",
+      "text": "식<6-7>을 이용하여 압력용기 표면에서의 최대압력을 산정한다. 이때에 P̄s를 압력용기 표면에서의 최대압력으로 한다.",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "최대압력 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-166",
+      "text": "P̄s = P̄s0/P0 식을 이용하여 환산초과압력을 산정한다.",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": "식(6-15)를 이용한 환산초과압력 산정",
+      "workProcessPhase": "환산초과압력 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-167",
+      "text": "<그림 6-8>로부터 세로축의 값을 P̄s로 하여 환산거리(ZG)를 구한다.",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "환산거리 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-168",
+      "text": "RG = ZG × W^(1/3) 식을 이용하여 사고지점으로 부터의 거리(RG)를 산정한다. 여기서, RG : 사고지점으로 부터의 거리(m)",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": "식(6-16)를 이용한 사고지점 거리 산정",
+      "workProcessPhase": "사고지점 거리 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-169",
+      "text": "Rv = RG - rcs 식을 이용하여 가상거리를 산정한다. 여기서, Rv : 가상거리(m), rcs : 압력용기의 중심으로부터 압력용기 표면까지의 거리(m)",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": "식(6-17)를 이용한 가상거리 산정",
+      "workProcessPhase": "가상거리 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.2.6",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-170",
+      "text": "폭발지점으로부터 피해 거리를 바꾸어 계산하여 폭발지점으로 일정 거리별 과압을 산정하여 가로축을 폭발지점으로부터의 거리, 세로축을 과압으로하여 도표를 작성한다.",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "거리별 과압 산정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-171",
+      "text": "거리별 과압을 알게되면 그 지점에서의 피해는 간단히 예측할 수 있다. 본 코드 14쪽의 <별표2>를 이용하여 폭발파에 의한 주변 근로자 및 설비에 미치는 피해의 크기를 객관적으로 산정한다.",
+      "guideContext": "사고피해예측 기법 - 등온 팽창 용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "피해범위 예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-172",
+      "text": "가스를 지장·취급하고 있는 압력용기의 폭발시에 파편에 의한 피해 범위를 산정하는데 적용한다.",
+      "guideContext": "사고피해예측 기법 - 가스 저장·취급 압력용기 폭발 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-173",
+      "text": "파편에 의한 피해예측은 다음 순서에 따른다.",
+      "guideContext": "사고피해예측 기법 - 가스 저장·취급 압력용기 폭발 피해예측 방법 (법령 근거 미확인)",
+      "additionalDetail": "전체 에너지 산정 → 가상 에너지 산정 → 파편의 초기속도 산정 → 파편의 초기환산속도 산정 → 파편의 환산비산반경 산정 → 파편의 비산반경 산정 순서",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-174",
+      "text": "전체 에너지 산정은 E = k × Pex×V/(γ-1) 식에 의하여 계산한다. 여기서 E는 전체에너지(J), k는 상수, Pex는 압력용기의 폭발압력(N/m²(abs)), P0는 대기압(N/m²(abs)), V는 압력용기의 체적(m³), γ는 비열계수이다.",
+      "guideContext": "사고피해예측 기법 - 전체 에너지 산정 (법령 근거 미확인)",
+      "additionalDetail": "k=1-(P0/Pex)^((γ-1)/γ) + (γ-1)(P0/Pex)[1-(P0/Pex)^(-1/γ)]",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-175",
+      "text": "가상 에너지(Scaled energy) 산정은 Ē = (2E/(Mv·a0²))^(1/2) 식에 의하여 계산한다. 여기서 Ē는 가상에너지(J), Mv는 압력용기의 무게(kg), a0는 지장·취급 물질에서의 음속(m/s)이다.",
+      "guideContext": "사고피해예측 기법 - 가상 에너지 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-176",
+      "text": "가상에너지가 0.8 이하인 경우 파편의 초기속도는 전체운동 에너지를 이용하는 방법(vi = [2Ek/Mv]^(1/2), Ek = 0.5E) 또는 이론적인 방법(유체속에서의 음속 산정, P̄ 산정, 파편 보정 계수를 이용한 초기 속도 산정) 중 하나를 이용하여 계산한다.",
+      "guideContext": "사고피해예측 기법 - 파편 초기속도 산정(가상에너지 0.8 이하) (법령 근거 미확인)",
+      "additionalDetail": "이론적 방법: a0 = √(γRT/Ms), P̄ = (Pex-P0)V/(Mv·a0²), ln(vi/Kf·a0) = a ln P̄ + b, Kf = 1.306 × Ff + 0.308446",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-177",
+      "text": "가상에너지가 0.8을 초과하는 경우 파편의 초기속도는 vi = 1.092√(E×G/Mv) 식에 의하여 계산한다. 여기서 G는 구형 압력용기인 경우 1/(1+3MG/5Mv), 원통형 압력용기인 경우 1/(1+MG/2Mv)이며, MG는 지장·취급 물질의 무게(kg)이다.",
+      "guideContext": "사고피해예측 기법 - 파편 초기속도 산정(가상에너지 0.8 초과) (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-178",
+      "text": "파편의 초기환산속도는 v̄i = ρo×CD×AD×vi²/(Mf·g) 식에 의하여 산정한다. 여기서 v̄i는 파편의 초기환산속도(무차원), ρo는 대기의 밀도(kg/m³), CD는 항력계수(표 6-4 참조), AD는 파편이 힘을 받는 면적(m²), Mf는 파편의 무게, g는 중력가속도(9.8m/sec²)이다.",
+      "guideContext": "사고피해예측 기법 - 파편 초기환산속도 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-179",
+      "text": "양력·항력비(Lift to drag ratio, CLAL/CDAD)를 모르는 경우에는 CL을 \"0\"으로 가정한다. 여기서 CL은 양력계수(Lift coefficient, 무차원), AL은 파편이 힘을 받는 방향과 평행을 이루는 부분의 면적(m²)이다.",
+      "guideContext": "사고피해예측 기법 - 파편 환산비산반경 산정 (법령 근거 미확인)",
+      "additionalDetail": "<그림 6-9>에서 파편의 환산비산반경(R̄f)을 읽는다",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-180",
+      "text": "파편의 비산반경은 rf = R̄f×Mf/(ρo×CD×AD) 식에 의하여 산정한다. 여기서 rf는 파편의 비산반경(m)이다.",
+      "guideContext": "사고피해예측 기법 - 파편 비산반경 산정 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "8.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-181",
+      "text": "8.2항에 의한 피해예측 방법을 활용하여 계산한다. 다만 파편의 초기 속도는 <식 6-23>를 이용하여 계산하여야 한다.",
+      "guideContext": "사고피해예측 기법 - 액체 저장·취급 압력용기 폭발 피해예측 방법 (법령 근거 미확인)",
+      "additionalDetail": "액체를 지장·취급하고 있는 압력용기의 폭발시에 파편에 의한 피해 범위를 산정하는데 적용",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "9.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-182",
+      "text": "<부록 5>\" 비등액체 팽창 폭발/화구 피해예측 절차\"에서 규정하는 방법에 따른다.",
+      "guideContext": "사고피해예측 기법 - 가연성 가스 및 인화성 물질 저장·취급 압력용기 폭발 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "가연성 가스 및 인화성 물질을 그 물질의 대기압하에서의 비점 이상에서 지장·취급하는 압력 용기가 폭발하여 화재를 일으킨 경우에 적용",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "10.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-183",
+      "text": "대량의 인화성가스 또는 인화성액체가 용기나 배관 등에서 지속적으로 누출되어 증기운 폭발을 일으키는 경우에 적용한다.",
+      "guideContext": "TNT당량 모델 피해예측 절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 7-1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-184",
+      "text": "대기중에 누출된 인화성가스 또는 인화성액체의 증기에 대한 증기운폭발이 일어나면 화재·폭발에 의한 복사열과 동시에 폭발압에 의한 피해를 동시에 입는다. 그러나 피해의 크기에 있어서 복사열에 의한 피해보다 폭발압에 의한 피해가 훨씬 심각하다.",
+      "guideContext": "TNT당량 모델 피해요인 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 7-2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-185",
+      "text": "누출원 모델을 이용하여 누출된 인화성가스 또는 인화성액체의 양을 산출한다.",
+      "guideContext": "TNT당량 모델 피해예측 절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "누출량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 7-3.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-186",
+      "text": "누출된 인화성가스 또는 인화성액체의 연소열량을 Perry's Handbook 등의 자료를 이용하여 산출한다.",
+      "guideContext": "TNT당량 모델 피해예측 절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "연소열량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 7-3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-187",
+      "text": "폭발수율계수는 실험적으로 얻는 수치이다. 통상 0.01 내지 0.1을 사용한다. 본 지침에서는 0.1을 사용한다.",
+      "guideContext": "TNT당량 모델 피해예측 절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "폭발수율계수 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 7-3.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-188",
+      "text": "TNT 당량을 W = μ×M×Ec / 2000 공식에 의하여 산출한다. 여기서 W는 TNT당량(kg 또는 lb), μ는 폭발수율계수(0.1사용), M은 누출된 인화성가스 또는 인화성액체의 량(kg 또는 lb), Ec는 폭발을 일으킨 물질의 연소열(kJ/kg또는 Btu/lb)이다.",
+      "guideContext": "TNT당량 모델 피해예측 절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "TNT 당량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 7-3.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-189",
+      "text": "환산거리를 ZG = RG/W^(1/3) 공식에 의하여 산출한다. 여기서 ZG는 환산거리(m/kg^(1/3) 또는 ft/lb^(1/3)), RG는 사고지점으로부터 거리(m 또는 ft), W는 TNT당량(kg 또는 lb)이다.",
+      "guideContext": "TNT당량 모델 피해예측 절차 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "환산거리 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 7-3.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-190",
+      "text": "거리별 과압을 산출한 후 본 코드 12쪽의 <별표 2>를 이용하여 과압에 의하여 주변 근로자 및 설비에 미치는 피해의 크기를 객관적으로 산출한다.",
+      "guideContext": "TNT당량 모델 피해예측 절차 (법령 근거 미확인)",
+      "additionalDetail": "폭발지점으로부터 일정거리별 과압을 산출하여 그래프를 작성한 후, <별표 2>를 이용하여 피해를 예측한다.",
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 7-3.8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-191",
+      "text": "<그림 8-1>를 이용하여 탱크 또는 배관이 파열된 경우 파열 직경별 최대 누출 속도를 찾는다.",
+      "guideContext": "액화석유가스 증기운 폭발 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "액체 상태의 액화석유가스 누출인 경우 적용",
+      "workProcessPhase": "누출량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-192",
+      "text": "누출 지속 시간을 산출한다.",
+      "guideContext": "액화석유가스 증기운 폭발 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "액체 상태 LPG 누출 시 총 누출량 계산을 위한 선행 단계",
+      "workProcessPhase": "누출량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-193",
+      "text": "총 누출량을 산출한다.",
+      "guideContext": "액화석유가스 증기운 폭발 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "총 누출량 = 최대 누출속도(kg/s) × 누출시간(s)",
+      "workProcessPhase": "누출량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-194",
+      "text": "4.2항에서 계산된 환산거리를 이용하여 <그림 8-4>로 부터 과압을 찾는다.",
+      "guideContext": "액화석유가스 증기운 폭발 피해예측 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "과압 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-195",
+      "text": "<별표 2>을 이용하여 과압에 의하여 주변 운전원 또는 설비에 미치는 피해의 크기를 객관적으로 산정한다.",
+      "guideContext": "액화석유가스 증기운 폭발 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "거리별 과압을 알게 되면 그 지점에서의 피해 예측",
+      "workProcessPhase": "피해예측",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC56-196",
+      "text": "실제에 있어서는 <그림8-1> 내지 <그림 8-3>를 이용하여 누출량을 산출하여야 함.",
+      "guideContext": "액화석유가스 증기운 폭발 피해예측 (법령 근거 미확인)",
+      "additionalDetail": "예시에서는 누출량을 가정하였으나 실제 적용 시에는 그림을 이용하여 산출 필수",
+      "workProcessPhase": "누출량 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록 8",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC56-001",
+      "term": "위험물질",
+      "definition": "안전보건규칙 별표1의 제4호 인화성 액체, 제5호 인화성 가스 및 제7호 급성 독성물질을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-002",
+      "term": "누출 모델 (Source term model)",
+      "definition": "피해예측 특히 확산결과를 계산하기 위하여 사용되는 누출에 관한 일련의 자료, 즉 누출량(또는 누출속도), 누출되는 기간 및 누출되는 위험물질의 상태 등을 예측하는 방법을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-003",
+      "term": "순간누출",
+      "definition": "짧은시간에 위험물질이 누출되는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-004",
+      "term": "연속누출",
+      "definition": "오랜 시간 동안 위험물질이 누출되는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-005",
+      "term": "확산",
+      "definition": "위험물질이 공기등과 같은 주변의 유체에 의하여 희석되어지는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-006",
+      "term": "퍼프 (Puff)",
+      "definition": "순간누출에 의하여 형성되는 증기운을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-007",
+      "term": "플륨 (Plume)",
+      "definition": "연속누출에 의하여 형성되는 증기운을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-008",
+      "term": "비등액체 팽창증기폭발 (BLEVE)",
+      "definition": "가연성인 위험물질이 용기 또는 배관 내에 비점 이상의 온도 및 입력하에서 액체상태로 지장·취급되는 경우 외부화재, 부식, 내부압력초과 및 설비결함 등에 의하여 용기의 파손과 함께 대기 중으로 누출되면 액체상태의 위험물질이 증발되면서 갑자기 증기로 변화되어 외부로 치솟게 되는데 이때에 외부 화재, 스파크, 정전기, 담뱃불 등의 발화원에 의하여 폭발 및 화염을 발생시키는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-009",
+      "term": "화구 (Fireball)",
+      "definition": "지장·취급조건에 따라 다르긴 하지만 비등액체 팽창증기폭발에 의하여 공중에 생성된 공같은 모양의 화염 덩어리를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-010",
+      "term": "증기운 폭발 (Vapor cloud explosion)",
+      "definition": "가연성의 위험물질이 용기 또는 배관내에 지장·취급되는 과정에서 서서히 지속적으로 누출되면서 대기 중에 구름형태로 모이게 되어 바람·대류 등의 영향으로 움직이다가 담배불, 정전기, 기계적 마찰, 스파크 등의 발화원에 의하여 순간적으로 모든가스가 동시에 폭발하는 현상으로서 폭발에 의한 과압에 의하여 엄청난 손상을 가져오는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-011",
+      "term": "밀폐계 증기운 폭발 (Confined vapor cloud explosion)",
+      "definition": "용기나 건물 등 밀폐된 공간에서 위험물질의 가스 또는 증기와 공기와의 혼합물에 의한 폭발을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-012",
+      "term": "물리적 폭발 (Physical explosion)",
+      "definition": "압력용기가 과압방지장치의 고장, 부식·마모·화학적 침식 등에 의한 두께의 감소 및 과열·재질의 결합 등에 의한 용기의 강도 감소 등에 의하여 내부압력에 견디지 못하고 폭발하는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-013",
+      "term": "과압 (Overpressure)",
+      "definition": "어느 지점에 대기압 보다 큰 압력으로 전달되는 압력을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-014",
+      "term": "폭발파 (Blast wave)",
+      "definition": "폭발에 의하여 형성되는 압력 파동을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-015",
+      "term": "증기운 화재 (Flash fire)",
+      "definition": "누출된 위험물질이 공기중으로 확산되어 구름형태로 떠다니다가 물질의 폭발하한계 이하로 희석되기전 발화원을 만나면 화재가 발생하는 것을 말한다. 이 경우 화염의 속도는 음속보다 작으며 무시할 수 있을 정도의 과압이 발생한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-016",
+      "term": "고압분출 화재 (Jet fire)",
+      "definition": "배관, 지장 탱크등에서 연속적으로 누출되는 고압의 위험물질이 누출원 근처의 발화원에 의하여 점화되는 현상을 말하며 이 경우 연속적으로 복사열이 발생된다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC56-017",
+      "term": "액면 화재 (Pool fire)",
+      "definition": "액체(액화가스포함)의 위험물질이 누출되어 주변 바닥에 고여 있는 액체가 기화하여 발화원에 의해 점화된 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC56-01",
+      "processOrder": 1,
+      "processName": "근본적인 위험 요소 확인",
+      "safetyMeasures": "정성적인 위험성 평가 단계로서 주로 위험과 운전 분석 기법 또는 체크리스트 기법 등에 의하여 공정내에 잠재하고 있는 위험요소를 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-02",
+      "processOrder": 2,
+      "processName": "누출 모델 작성",
+      "safetyMeasures": "배관의 파손, 플랜지 누출, 안전밸브 작동, 운전원 실수 등에 의한 잠재적인 누출원 등을 확인하여 방출되는 위험물질의 양, 온도, 밀도, 시간, 누출상태(가스, 증기, 액체, 혼합물) 등을 계산한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-03",
+      "processOrder": 3,
+      "processName": "확산 모델",
+      "safetyMeasures": "2단계의 누출 모델을 근거로 하여 대기 중으로 확산되는 위험물질의 거리에 따른 농도, 확산되는 증기운 구름의 크기, 농도, 형태를 예측한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-04",
+      "processOrder": 4,
+      "processName": "피해예측",
+      "safetyMeasures": "누출되는 위험물질이 인화성가스 또는 인화성액체인 경우에는 화재·폭발로 인하여 사업장내의 근로자 및 주변 시설에 미치는 화재·폭발의 영향을 계산하며 독성물질인 경우에는 작업자, 인근 주민 또는 주변 환경에 미치는 영향을 계산 한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-06",
+      "processOrder": 5,
+      "processName": "가벼운 가스 확산 피해예측",
+      "safetyMeasures": "가우시안 플름(Gaussian plume) 모델, 가우시안 피프(Gaussian puff) 모델 등을 적용하여 확산 피해를 예측한다. 확산 피해예측절차는 <부록 1>의 \"확산피해예측절차(가벼운 가스)\"를 참조한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-07",
+      "processOrder": 6,
+      "processName": "무거운 가스 확산 피해예측",
+      "safetyMeasures": "BM(Britter & McQuaid) 모델, HMP(Hoot, Meroney & Peterka) 모델, Degadis 모델 등을 적용하여 확산 피해를 예측한다. 확산피해예측절차는 <부록 2>의 \"확산피해예측절차(무거운 가스)\"를 참조한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-08",
+      "processOrder": 7,
+      "processName": "화재(액면/증기운/고압분출) 피해예측",
+      "safetyMeasures": "증기운 화재시는 대기 확산 모델을 사용하여 가연성 증기운의 크기를 측정하고 복사열을 예측한다. 액면 화재시에는 TNO 모델 등의 적절한 액면 화재 모델을 사용한다. 고압분출 화재는 미국식유협회(API) 또는 TNO 모델을 사용하여 복사열을 예측한다. <부록 3> TNO 액면화재모델 및 <부록 4> API 고압분출화재모델 피해예측절차를 참조한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-09",
+      "processOrder": 8,
+      "processName": "비등액체 팽창증기폭발·화구 피해예측",
+      "safetyMeasures": "화구의 크기 또는 화구로부터 거리에 따른 복사열 등은 비등액체 팽창증기폭발 및 화구 모델을 사용하여 예측한다. TNT 당량 또는 단일팽창 모델 등을 사용하여 계산한다. <부록 5> 및 <부록 5-예>의 복사열 산정 예시를 참조한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-10",
+      "processOrder": 9,
+      "processName": "폭발(물리적/증기운/밀폐계) 피해예측",
+      "safetyMeasures": "물리적 폭발은 TNT 당량 모델 등을 사용하며 <부록 6>을 참조한다. 증기운 폭발은 TNT 당량 모델, TNO 상관 모델, TNO 멀티에너지 모델 등을 사용하며 거리에 따른 폭발압력이 인체 및 주변 시설물에 미치는 영향을 예측하여야 한다. <부록 7>, <부록 8> 및 <부록 8-예>를 참조한다. 밀폐계 증기운 폭발도 동일 모델을 적용한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-11",
+      "processOrder": 10,
+      "processName": "위험기준 정립",
+      "safetyMeasures": "중대산업사고 발생시 복사열, 과압 또는 독성물질에 의한 위험 정도를 판단할 수 있는 위험기준을 작성한다. 독성물질은 ERPG-2 농도 도달 거리, 인화성물질은 폭발하한농도 최대거리, 화재는 5 kW/㎡ 복사열 거리, 폭발은 0.07 kgf/㎠ 과압 도달 거리를 기준으로 한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-12",
+      "processOrder": 11,
+      "processName": "피해예측 보고서 작성",
+      "safetyMeasures": "누출량, 누출시간, 기상 조건 등 확산모델 계산에 사용한 누출모델 기본자료 및 거리에 따른 과압, 복사열, 독성물질의 농도 등 가상 사고로 인한 피해를 예측할 수 있는 자료를 포함하여 보고서를 작성하고, 별지 양식 1 내지 별지 양식 3에 결과를 요약한다.",
+      "requiredPPE": [],
+      "sourceSection": "8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-21",
+      "processOrder": 12,
+      "processName": "누출 유형 분류 (연속/순간누출 및 가벼운/무거운 가스 판정)",
+      "safetyMeasures": "도달시간 t_tr = 2X/u를 산정하여 연속누출(t_d≥t_tr)과 순간누출(t_d<t_tr)을 분류한다. 리차드슨 수(Ri_o)를 계산하여 가벼운 가스와 무거운 가스를 분류한다. 연속누출: Ri_o < 0.003이면 가벼운 가스, 순간누출: Ri_o < 0.04이면 가벼운 가스.",
+      "requiredPPE": [],
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-22",
+      "processOrder": 13,
+      "processName": "가우시안 플름모델 확산계수(σy, σz) 산출",
+      "safetyMeasures": "대기안정도(A~F)별로 <표 1-1>의 계수(c, d)를 사용하여 σy = 465.11628 × tanΘ (Θ = 0.017453293(c−d loge x))를 산출한다. <표 1-2>의 계수(a, b)를 사용하여 σz = axb를 산출한다. 계산된 σz가 5,000m 이상인 경우 σz = 5,000m로 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-23",
+      "processOrder": 14,
+      "processName": "유효누출높이(HE) 산출",
+      "safetyMeasures": "부력플럭스(F_B) 산출(식 1-4) → 대기안정도 변수(S) 산출(식 1-5, 1-6) → 세류높이 조정계수(△H_D) 산출(식 1-7, 1-8) → 임계온도차(△T_c) 산출(식 1-9~1-11) → 부력영향높이 조정계수(△H_B) 산출(식 1-12~1-15) → 타성영향높이 조정계수(△H_M) 산출(식 1-16, 1-17) → 유효누출높이(H_E) 산출(식 1-18, 1-19). △T > △T_c이면 부력 적용, △T ≤ △T_c이면 타성 적용.",
+      "requiredPPE": [],
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-24",
+      "processOrder": 15,
+      "processName": "가우시안 플름모델 농도 예측",
+      "safetyMeasures": "σz < 1.6Hm인 경우와 σz ≥ 1.6Hm인 경우를 구분하여 농도를 산출한다. σz ≥ 1.6Hm인 경우: C(x,y,z,HE) = Q / ((2π)^(1/2) σy Hm u) × exp[-0.5(y/σy)²] (식 1-21). C: 농도(kg/m³), Q: 누출량(kg/s), u: 유효누출높이에서의 풍속(m/s), Hm: 혼합높이(m).",
+      "requiredPPE": [],
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-25",
+      "processOrder": 16,
+      "processName": "가우시안 퍼프모델 확산계수 산출 및 농도 예측",
+      "safetyMeasures": "<표 1-3>을 이용하여 확산계수(σx, σy, σz) 산출. 유효누출높이는 플름모델과 동일한 절차(6.2항) 적용. σz ≤ 0.8Hm인 경우: 식(1-22) 적용, σz > 0.8Hm인 경우: 식(1-23) 적용. CP: 최고순간농도(kg/m³), Q: 누출량(kg), t: 누출 순간으로부터의 측정 시간(s).",
+      "requiredPPE": [],
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-26",
+      "processOrder": 17,
+      "processName": "대기안정도 판정",
+      "safetyMeasures": "지상 10m에서 측정한 바람속도, 낮의 복사강도(강/중/약), 밤의 구름량(흐림/맑음)을 기준으로 대기안정도(A~G)를 판정한다. 붙임 1-1 대기안정도 표를 적용한다. A: 매우 불안정, B: 약간 불안정, C: 약간 불안정, D: 중간, E: 약간 안정, F: 안정, G: 매우 안정.",
+      "requiredPPE": [],
+      "sourceSection": "부록 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-27",
+      "processOrder": 18,
+      "processName": "리차드슨 수 산출",
+      "safetyMeasures": "Ri_o = g(ρr - ρa) × Vv / (ρa × u²₁₀ × d) 수식을 이용하여 리차드슨 수를 산출한다. g: 중력가속도(9.8m/s²), ρr: 누출물질 비중(kg/m³), ρa: 공기 비중(kg/m³), u₁₀: 지상 10m 높이 바람속도(m/s), Vv: 체적 누출속도(m³/s), d: 누출원 지름(m)",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-28",
+      "processOrder": 19,
+      "processName": "플름상승높이·희석계수·상당분자량·분류비중비율 산출",
+      "safetyMeasures": "수식 (2-2)로 플름상승높이(△h), 수식 (2-3)으로 플름희석계수(D_H), 수식 (2-4)(2-5)로 최대상승높이에서의 상당분자량(M_H)과 온도(T_H), 수식 (2-6)으로 분류비중비율(δ)을 순차적으로 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-29",
+      "processOrder": 20,
+      "processName": "무거운 가스 여부 확인 및 모델 선택",
+      "safetyMeasures": "분류비중비율(δ)이 0.005 이하이면 가벼운 가스 모델을 사용하고, 0.005를 초과하면 무거운 가스 모델(HMP모델)을 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-30",
+      "processOrder": 21,
+      "processName": "플룸 최대상승 지점·지상도달 지점 거리 및 농도 산출",
+      "safetyMeasures": "수식 (2-7)로 플름이 최대로 상승하는 지점까지의 거리(Xm), 수식 (2-8)로 해당 지점 농도(Cmp), 수식 (2-9)로 플룸이 지상에 도달한 거리(XTD), 수식 (2-10)으로 지상도달 지점 농도(CTD)를 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-31",
+      "processOrder": 22,
+      "processName": "일정지점에서의 농도 산출",
+      "safetyMeasures": "X≤Xc인 경우 수식 (2-11), X>Xc인 경우 수식 (2-12)를 적용하여 일정지점에서의 농도(C)를 산출한다. Xc가 XTD보다 작은 경우에는 Xc=XTD를 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.11",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-32",
+      "processOrder": 23,
+      "processName": "BM모델 전제조건 확인",
+      "safetyMeasures": "모멘트 무시 가능 여부, 평평한 지형 가정, 대기안정도 C 또는 D 확인, 연속누출농도 3~10분 평균 산출, 순간누출 시 지름과 높이 비 1 가정, 화학반응 미발생 및 열역학적 영향 미고려 조건을 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-33",
+      "processOrder": 24,
+      "processName": "연속누출과 순간누출 구분",
+      "safetyMeasures": "u₁₀×td/x≥2.5이면 연속누출, u₁₀×td/x≤0.6이면 순간누출로 간주한다. 0.6<u₁₀×td/x<2.5인 경우 양쪽 모두 계산 후 농도가 작은 값을 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-34",
+      "processOrder": 25,
+      "processName": "무거운 가스 여부 판정",
+      "safetyMeasures": "연속누출 시 [g'o×Vv/(u¹⁰³×dc)]^(1/5)≥0.15이면 무거운 가스, 순간누출 시 [g'o×Vo/(u₁₀×di)]^(1/4)≥0.20이면 무거운 가스로 간주한다. 기준 미만이면 가벼운 가스로 간주한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-35",
+      "processOrder": 26,
+      "processName": "농도 예측 계산",
+      "safetyMeasures": "연속누출은 그림 2-1 및 표 2-1 상관관계식을 사용하여 농도를 계산한다. 순간누출은 그림 2-2 및 표 2-2 상관관계식을 사용하여 농도를 계산한다. x가 0에 가까울 때에는 각각 해석적인 내삽식을 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-37",
+      "processOrder": 27,
+      "processName": "연소속도 산출",
+      "safetyMeasures": "액체의 비점과 대기온도를 비교하여 비점이 높은 경우 식 (3-1), 낮은 경우 식 (3-2)를 적용하거나 <표 3-1>에서 물질별 연소속도를 참조한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-38",
+      "processOrder": 28,
+      "processName": "불꽃의 길이 및 기울기 산출",
+      "safetyMeasures": "불꽃이 기울어진 경우 식 (3-3), 수직인 경우 식 (3-4)를 적용하여 불꽃 길이를 산출하고, U값에 따라 cosθ를 결정하여 불꽃 기울기를 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-39",
+      "processOrder": 29,
+      "processName": "표면방출 플럭스량 및 지형시계인자 산출",
+      "safetyMeasures": "식 (3-5)로 표면방출 플럭스량을 산출하고(β는 <표 3-2> 참조, 일반 탄화수소 0.35), 수직·수평 지형시계인자를 불꽃 형태에 따라 식 (3-6)~(3-9)로 산출한 후 식 (3-10)으로 최대 지형시계인자를 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-40",
+      "processOrder": 30,
+      "processName": "투과도 및 복사열량 산출",
+      "safetyMeasures": "식 (3-11)로 투과도를 산출하고(물의 증기압은 <표 3-3> 참조), 식 (3-12) Q = τ × F × E로 불꽃에서부터 일정거리에서의 복사열량을 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-41",
+      "processOrder": 31,
+      "processName": "거리별 복사열량 산출 및 피해예측",
+      "safetyMeasures": "4.5항 내지 4.7항을 일정거리로 바꾸어 반복 계산하여 사고지점으로부터 일정거리별 복사열량을 산출하고, <별표 1>를 이용하여 주변근로자 및 설비에 미치는 피해를 객관적으로 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-42",
+      "processOrder": 32,
+      "processName": "적용범위 확인 및 전제조건 검토",
+      "safetyMeasures": "압축가스 및 액화가스가 지장탱크 또는 배관의 일정한 구멍을 통하여 고압으로 분출되면서 화재를 일으키는 경우에 적용한다. 분출속도 일정, 수직 누출, 완전연소, 투과도 무영향, 모든 열 방출 등 5가지 전제조건을 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 4-1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-43",
+      "processOrder": 33,
+      "processName": "총 방사열량 및 투과도 산출",
+      "safetyMeasures": "총 방사열량을 Qt = W × Hc 식으로 산출하고, <부록 3>의 4.6항을 이용하여 투과도를 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 4-4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-44",
+      "processOrder": 34,
+      "processName": "복사열비율 및 불꽃 중심점 산출",
+      "safetyMeasures": "복사열비율(β)을 물질별로 결정하고(수소 0.15, 메탄 0.2, 기타 탄화수소 0.3), 분출음속·분출마하수·분출속도·폭발하한농도변수·추력변수를 순차적으로 산출하여 불꽃의 중심점 위치(수평거리 X_c, 수직거리 Y_c)를 결정한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 4-4.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-45",
+      "processOrder": 35,
+      "processName": "영향거리 및 복사열량 산출",
+      "safetyMeasures": "불꽃의 중심점으로부터 영향거리를 D = √[(L-X_c)² + (h+Y_c)²] 식으로 산출하고, 일정거리에서의 복사열량을 Q = τ×β×Q_t / 4πD² 식으로 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 4-4.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-46",
+      "processOrder": 36,
+      "processName": "거리별 복사열량 반복계산 및 피해예측",
+      "safetyMeasures": "일정거리를 바꾸어 반복계산하여 누출중심으로부터 거리별 복사열량을 산출하고, 본 코드 12쪽의 <별표 1>을 이용하여 주변 근로자 및 설비에 미치는 피해를 객관적으로 산정한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 4-4.7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-47",
+      "processOrder": 37,
+      "processName": "BLEVE/화구 피해요인 분석",
+      "safetyMeasures": "액화가스 또는 과열 액체의 누출사고에 의한 비등액체 팽창 폭발이 일어나면 폭발압에 의한 피해를 입는다. 가연성 물질인 경우 폭발과 동시에 화재가 발생하고 생성된 화구에 의하여 강한 복사열이 발생하여 폭발압과 복사열에 의한 피해를 동시에 입는다. 폭발압에 의한 피해보다 복사열에 의한 피해가 훨씬 심각하므로 복사열 피해예측을 우선 수행한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-48",
+      "processOrder": 38,
+      "processName": "복사열 피해예측 계산 (화구 크기~표면 방사에너지)",
+      "safetyMeasures": "화구 크기 D = 5.8 × M^(1/3), 화염 지속시간 t (M 30,000kg 기준 구분), 화구 중심 높이 H = 0.75D, 대기 투과도 τ_a, 표면 방사에너지 E = R×M×H_c / (3.14D² × t)를 순차적으로 산출한다. R은 압력 방출장치 설정압력 기준으로 0.3 또는 0.4를 적용한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 5.3.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-49",
+      "processOrder": 39,
+      "processName": "시계인자·복사열 산출 및 거리별 반복 계산",
+      "safetyMeasures": "시계인자 F_v를 L과 D/2 크기 비교에 따라 산출하고, 복사열 Q = τ_a × E × F_v를 계산한다. 화구로부터 피해 지점까지의 거리를 바꾸어 3.1.1항 내지 3.1.7항을 반복 계산하여 폭발지점으로부터 일정거리별 복사열을 산출하고 그래프를 작성한다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 5.3.1.6",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC56-50",
+      "processOrder": 40,
+      "processName": "복사열 및 폭발압 피해예측",
+      "safetyMeasures": "거리별 복사열 크기를 산출한 후 본 코드 <별표 1>을 이용하여 복사열에 의한 주변 근로자 및 설비에 미치는 피해의 크기를 객관적으로 산정한다. 폭발압에 의한 피해는 <부록 6> 물리적 폭발 피해예측 절차에서 규정하는 방법에 따른다.",
+      "requiredPPE": [],
+      "sourceSection": "부록 5.3.1.9",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC56-048",
+      "equipmentName": "물질별 연소속도 참조표 (표 3-1)",
+      "specifications": {
+        "liquidHydrogen": "0.017 kg/㎡·s",
+        "LNG_CH4": "0.078 kg/㎡·s",
+        "LPG_C3H8": "0.099 kg/㎡·s",
+        "methanol": "0.017 kg/㎡·s",
+        "ethanol": "0.015 kg/㎡·s",
+        "benzene": "0.085 kg/㎡·s",
+        "hexane": "0.074 kg/㎡·s",
+        "heptane": "0.101 kg/㎡·s",
+        "xylene": "0.090 kg/㎡·s",
+        "acetone": "0.041 kg/㎡·s",
+        "gasoline": "0.055 kg/㎡·s",
+        "kerosene": "0.039 kg/㎡·s",
+        "crudeOil": "0.022-0.045 kg/㎡·s"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-049",
+      "equipmentName": "물질별 전체복사열의 비율 참조표 (표 3-2)",
+      "specifications": {
+        "methanol_80mm": "β = 0.162",
+        "methanol_1200mm": "β = 0.170",
+        "LNG_1500mm": "β = 0.15-0.24",
+        "LNG_3000mm": "β = 0.24-0.34",
+        "LNG_6000mm": "β = 0.20-0.27",
+        "butane_300mm": "β = 0.199",
+        "butane_750mm": "β = 0.269",
+        "gasoline_1200mm": "β = 0.30-0.40",
+        "gasoline_3000mm": "β = 0.13-0.14",
+        "benzene_all": "β = 0.35",
+        "generalHydrocarbon": "β = 0.35"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-050",
+      "equipmentName": "온도별 물의 증기압 참조표 (표 3-3)",
+      "specifications": {
+        "range": "0℃~41℃",
+        "at0C": "610 N/㎡",
+        "at10C": "1230 N/㎡",
+        "at20C": "2340 N/㎡",
+        "at30C": "4240 N/㎡",
+        "at40C": "7380 N/㎡",
+        "usage": "투과도 산출 시 Ppw = RH × PW 계산에 사용"
+      },
+      "sourceSection": "부록 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-063",
+      "equipmentName": "연소열 복사비율(R) 적용 기준",
+      "specifications": {
+        "belowReliefPressure": "R = 0.3 (용기 또는 배관이 압력 방출장치의 설정압력 미만에서 터진 경우)",
+        "aboveReliefPressure": "R = 0.4 (용기 또는 배관이 압력 방출장치의 설정압력 이상에서 터진 경우)"
+      },
+      "sourceSection": "부록 5.3.1.5",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-064",
+      "equipmentName": "화구 크기 및 화염 지속시간 산출 기준",
+      "specifications": {
+        "fireballDiameter": "D = 5.8 × M^(1/3) (m)",
+        "flameDurationUnder30t": "t = 0.45 × M^(1/3) (초), M < 30,000kg",
+        "flameDurationOver30t": "t = 2.6 × M^(1/6) (초), M ≥ 30,000kg",
+        "fireballCenterHeight": "H = 0.75D (m)"
+      },
+      "sourceSection": "부록 5.3.1.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-073",
+      "equipmentName": "가스 압력용기 (구형, 지상 설치)",
+      "specifications": {
+        "requiredData": "폭발압력(Pj), 대기압(P0), 가스 체적(Vo), 비열계수(γ=Cp/Cv), 피해거리(χ), 용기형태(구형/원통형)",
+        "blastEnergyFormula": "Eex = (Pex - P0)×2×Vo / (γ - 1)",
+        "scaledDistanceFormula": "R̄ = r × (P0/Eex)^(1/3)",
+        "peakOverpressureFormula": "Ps = Po(P̄sa + 1)",
+        "impulseFormula": "i_s = (Ī_a × P_o^(2/3) × E_ex^(1/3)) / a_o"
+      },
+      "sourceSection": "부록 6-5.3.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-074",
+      "equipmentName": "원통형 압력용기 보정 계수 (표 6-1)",
+      "specifications": {
+        "R_less_0.3_Ps": "4",
+        "R_less_0.3_I": "2",
+        "R_0.3_to_1.6_Ps": "1.6",
+        "R_0.3_to_1.6_I": "1.1",
+        "R_1.6_to_3.5_Ps": "1.6",
+        "R_1.6_to_3.5_I": "1",
+        "R_greater_3.5_Ps": "1.4",
+        "R_greater_3.5_I": "1"
+      },
+      "sourceSection": "부록 6-5.3.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-075",
+      "equipmentName": "지상보다 높이 설치된 구형 압력용기 보정 계수 (표 6-2)",
+      "specifications": {
+        "R_less_1_Ps": "2",
+        "R_less_1_I": "1.6",
+        "R_1_or_greater_Ps": "1.1",
+        "R_1_or_greater_I": "1"
+      },
+      "sourceSection": "부록 6-5.3.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-076",
+      "equipmentName": "반구형 압력용기 (수정된 방법)",
+      "specifications": {
+        "virtualRadiusFormula": "r_o = 0.782V^(1/3)",
+        "initialStartingDistanceFormula": "R̄₀ = r_o(P₀/E_ex)^(1/3)",
+        "assumption": "폭발파가 완전 대칭으로 형성, 지면 설치 반구형 간주",
+        "applicableCondition": "에너지 환산거리(R̄) 2 미만",
+        "atmosphericSoundSpeed": "340 m/s"
+      },
+      "sourceSection": "5.3.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-091",
+      "equipmentName": "파편 항력 계수 (Drag coefficient)",
+      "specifications": {
+        "cylindrical_side_perpendicular": "CD = 1.20",
+        "spherical": "CD = 0.47",
+        "cylindrical_front_parallel": "CD = 0.82",
+        "disc_or_cube_perpendicular": "CD = 1.17",
+        "cube_45deg": "CD = 1.05",
+        "cube_parallel": "CD = 0.80",
+        "rectangular_plate_45deg_long": "CD = 2.05",
+        "rectangular_plate_45deg_short": "CD = 1.55",
+        "rectangular_plate_front": "CD = 1.98"
+      },
+      "sourceSection": "8.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-092",
+      "equipmentName": "파편 속도 상수 (구형 압력용기)",
+      "specifications": {
+        "fragments_2_a": "0.622206",
+        "fragments_2_b": "0.213936",
+        "fragments_10_a": "0.598495",
+        "fragments_10_b": "0.221165",
+        "fragments_100_a": "0.287515",
+        "fragments_100_b": "0.287515"
+      },
+      "sourceSection": "8.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC56-093",
+      "equipmentName": "파편 속도 상수 (원통형 압력용기)",
+      "specifications": {
+        "fragments_2_a": "0.814896",
+        "fragments_2_b": "0.355218",
+        "fragments_10_a": "0.598255",
+        "fragments_10_b": "0.564998",
+        "fragments_100_a": "0.591785",
+        "fragments_100_b": "0.602712"
+      },
+      "sourceSection": "8.2",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC56-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "공정 위험성 평가서",
+      "requiredSections": [
+        "근본적인 위험 요소 확인",
+        "누출 모델 작성",
+        "확산 모델",
+        "피해예측",
+        "피해최소화 대책"
+      ],
+      "sourceSection": "1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC56-011",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "피해예측 보고서",
+      "requiredSections": [
+        "기상 자료",
+        "누출 물질의 정보",
+        "피해예측 결과(확산)",
+        "피해예측 결과(액면 화재)",
+        "피해예측 결과(증기운 화재)",
+        "피해예측 결과(고압분출 화재)",
+        "피해예측 결과(비등액체팽창증기폭발)",
+        "피해예측 결과(증기운 폭발)",
+        "피해예측 결과(밀폐계 증기운 폭발)",
+        "피해예측 결과(물리적 폭발)"
+      ],
+      "sourceSection": "8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC56-012",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "별지 양식 1 내지 별지 양식 3 (피해예측 결과 요약)",
+      "requiredSections": [
+        "누출모델 기본자료",
+        "거리에 따른 과압",
+        "복사열",
+        "독성물질의 농도"
+      ],
+      "sourceSection": "8",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC56-016",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "피해예측결과 요약(확산)",
+      "requiredSections": [
+        "사업장 및 대상공장",
+        "기상자료 및 지형",
+        "가상시나리오(물질명, 물질분류, 누출물질밀도, 누출량, 누출원, 누출원지름, 누출/운전온도, 누출/운전압력, 누출종류, 누출기간)",
+        "피해예측결과(ERPG 2 농도, 폭발하한농도, ERPG 1·2·3 거리, 폭발하한농도 거리, 사용모델)",
+        "첨부(계산근거)"
+      ],
+      "sourceSection": "별지 양식 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC56-017",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "피해예측결과 요약(화재)",
+      "requiredSections": [
+        "사업장 및 대상공장",
+        "기상자료 및 지형",
+        "가상시나리오(물질명, 물질분류, 누출물질밀도, 누출량, 누출원, 누출원지름, 누출/운전온도, 누출/운전압력, 누출종류, 누출기간)",
+        "피해예측결과(화재종류, 복사열량, 화재/화구크기, 불꽃기울기, 화구높이, 복사열 5kW/㎡ 거리, 사용모델)",
+        "첨부(계산근거)"
+      ],
+      "sourceSection": "별지 양식 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-CC56-018",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "피해예측결과 요약(폭발)",
+      "requiredSections": [
+        "사업장 및 대상공장",
+        "기상자료 및 지형",
+        "가상시나리오(물질명, 물질분류, 누출물질밀도, 누출량, 누출원, 누출원지름, 누출/운전온도, 누출/운전압력, 누출종류, 누출기간)",
+        "피해예측결과(화재종류, 증기운크기, 최대과압, 0.07kgf/㎠ 과압거리, 최대과압거리, 파편비상거리, 사용모델)",
+        "첨부(계산근거)"
+      ],
+      "sourceSection": "별지 양식 3",
+      "relatedSR": null
+    }
+  ]
+}

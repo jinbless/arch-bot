@@ -1,0 +1,4748 @@
+{
+  "schema_version": "codex_manual_pilot.v1",
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "asserted_mapping_updates": 0,
+  "review_status": "candidate",
+  "scope": {
+    "batch_id": "domain_guard_manual_batch_002",
+    "guide_count": 30,
+    "source": "batch 002 source-JSON recheck; pilot normalization; candidate-only",
+    "selection_policy": "inventory order excluding batch 001",
+    "purpose": "Guide domain/profile guard enrichment without external API calls"
+  },
+  "policies": {
+    "external_api_used": false,
+    "candidate_table_ready": true,
+    "auto_asserted_promotion": false,
+    "max_confidence_for_manual_sr_link": 0.86,
+    "notes": [
+      "Evidence spans are copied from guide titles, WorkProcess names, DomainTerm terms, or extracted WorkProcess/Checklist text.",
+      "SR candidates are conservative and use existing relatedSR/basedOn ids when present in the extracted Guide JSON.",
+      "Administrative, measurement, and analysis-only Guides are profiled so they do not dominate photo-based standard procedures unless visible context is explicit.",
+      "SR candidates are conservative and must be imported as candidates only.",
+      "Rows must not be promoted to asserted mapping tables from this report."
+    ],
+    "asserted_mapping": "disabled",
+    "sr_candidates": "candidate_only",
+    "runtime_intent": "generalized guide domain guard and scoring boundary",
+    "min_evidence": "at least one extracted source span per candidate"
+  },
+  "guides": [
+    {
+      "guide_code": "A-46-2018",
+      "short_code": "A46",
+      "title": "요오드에 대한 작업환경측정·분석 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-A46.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chemical_measurement_iodine",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "요오드",
+          "작업환경측정",
+          "시료채취",
+          "표준용액",
+          "검량선",
+          "탈착효율"
+        ],
+        "evidence": "요오드에 대한 작업환경측정·분석 기술지침; 시료채취; 검량선 작성 및 정도관리",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "현장 요오드 취급",
+          "분석장비/시료채취 단서 없음"
+        ],
+        "industry_alignment": [
+          "작업환경측정 분석실",
+          "요오드 분석"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-46-2018",
+          "guide_code": "A-46-2018",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "요오드에 대한 작업환경측정·분석",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-46-2018",
+          "guide_code": "A-46-2018",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.72,
+          "evidence": "시료채취",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-46-2018",
+          "guide_code": "A-46-2018",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.56,
+          "evidence": "요오드 분석 시 유해성 주지와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-46-2018",
+          "guide_code": "A-46-2018",
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.54,
+          "evidence": "시약 취급 보호구·세척시설과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-46-2018",
+          "guide_code": "A-46-2018",
+          "trigger_text": "요오드 시료채취 장비 또는 흡착관",
+          "cue_type": "sampling_equipment",
+          "confidence": 0.78,
+          "evidence": "시료채취 기구 및 측정방법 선택",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-46-2018",
+          "guide_code": "A-46-2018",
+          "trigger_text": "검량선·표준용액 분석 작업",
+          "cue_type": "laboratory_analysis",
+          "confidence": 0.72,
+          "evidence": "검량선 작성을 위한 표준용액 제조",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "요오드",
+          "작업환경측정",
+          "시료채취",
+          "표준용액",
+          "검량선",
+          "탈착효율"
+        ],
+        "exclude_when": [
+          "현장 요오드 취급",
+          "분석장비/시료채취 단서 없음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "작업환경측정·분석법이므로 현장 요오드 취급 개선조치로 직접 승격하지 않는다."
+    },
+    {
+      "guide_code": "A-48-2018",
+      "short_code": "A48",
+      "title": "오산화바나듐에 대한 작업환경측정·분석 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-A48.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chemical_measurement_vanadium_pentoxide",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "오산화바나듐",
+          "작업환경측정",
+          "XRD",
+          "시료채취",
+          "은막여과지",
+          "THF"
+        ],
+        "evidence": "오산화바나듐에 대한 작업환경측정·분석 기술지침; XRD 분석 준비; 시료 전처리",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "현장 오산화바나듐 취급",
+          "분석장비/시료채취 단서 없음"
+        ],
+        "industry_alignment": [
+          "작업환경측정 분석실",
+          "오산화바나듐 분석"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-48-2018",
+          "guide_code": "A-48-2018",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.84,
+          "evidence": "오산화바나듐에 대한 작업환경측정·분석",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-48-2018",
+          "guide_code": "A-48-2018",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.74,
+          "evidence": "개인시료 및 지역시료 채취",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-48-2018",
+          "guide_code": "A-48-2018",
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.56,
+          "evidence": "오산화바나듐 분석 시 유해성 주지와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-48-2018",
+          "guide_code": "A-48-2018",
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.54,
+          "evidence": "분석실 흡입 노출 보조 후보",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-48-2018",
+          "guide_code": "A-48-2018",
+          "trigger_text": "XRD 분석기 또는 샘플홀더",
+          "cue_type": "laboratory_analysis",
+          "confidence": 0.8,
+          "evidence": "XRD 분석 준비 (샘플홀더 장착)",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-48-2018",
+          "guide_code": "A-48-2018",
+          "trigger_text": "작업환경 시료채취 펌프와 여과지",
+          "cue_type": "sampling_equipment",
+          "confidence": 0.76,
+          "evidence": "시료채취 준비 (펌프 보정)",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "오산화바나듐",
+          "작업환경측정",
+          "XRD",
+          "시료채취",
+          "은막여과지",
+          "THF"
+        ],
+        "exclude_when": [
+          "현장 오산화바나듐 취급",
+          "분석장비/시료채취 단서 없음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "작업환경측정·분석법이므로 현장 오산화바나듐 취급 개선조치로 직접 승격하지 않는다."
+    },
+    {
+      "guide_code": "A-G-11-2025",
+      "short_code": "AG11",
+      "title": "용접방화포등의 성능 및 설치기준에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG11.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "welding_fire_blanket",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "용접방화포",
+          "용접불티",
+          "비산거리",
+          "수직형 용접방화포",
+          "수평형 용접방화포"
+        ],
+        "evidence": "용접방화포등의 성능 및 설치기준; 용접불티 비산방지덮개",
+        "source_fields": [
+          "title",
+          "domainTerms.term"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "용접방화포",
+          "용접·용단"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-11-2025",
+          "guide_code": "A-G-11-2025",
+          "axis": "work_context",
+          "feature_code": "WELDING",
+          "confidence": 0.84,
+          "evidence": "용접방화포등",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-11-2025",
+          "guide_code": "A-G-11-2025",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.84,
+          "evidence": "용접불티 비산방지덮개",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-11-2025",
+          "guide_code": "A-G-11-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-009",
+          "confidence": 0.78,
+          "evidence": "용접·용단 작업 폭발·화재 예방",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-11-2025",
+          "guide_code": "A-G-11-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-017",
+          "confidence": 0.78,
+          "evidence": "화재감시자 및 소화장비",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-11-2025",
+          "guide_code": "A-G-11-2025",
+          "sr_id": "SR-FIRE_EXPLOSION-021",
+          "confidence": 0.7,
+          "evidence": "화기 사용 장소 화재예방 설비",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-11-2025",
+          "guide_code": "A-G-11-2025",
+          "trigger_text": "용접방화포 또는 불티 비산방지덮개",
+          "cue_type": "control",
+          "confidence": 0.86,
+          "evidence": "용접불티 비산방지덮개",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-11-2025",
+          "guide_code": "A-G-11-2025",
+          "trigger_text": "용접 작업 주변 수직·수평 방화포",
+          "cue_type": "work_activity_control",
+          "confidence": 0.82,
+          "evidence": "수직형 용접방화포; 수평형 용접방화포",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "No extracted relatedSR/basedOn ids were present in the compact guide summary; SR candidates intentionally left empty."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "용접방화포",
+          "용접불티",
+          "비산거리",
+          "수직형 용접방화포",
+          "수평형 용접방화포"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-12-2026",
+      "short_code": "AG12",
+      "title": "개인보호구의 사용 및 관리에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG12.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "personal_protective_equipment_visible_ppe_gap",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "개인보호구",
+          "보호구 착용",
+          "안전모",
+          "보안경",
+          "보호장갑",
+          "방진마스크",
+          "방독마스크",
+          "호흡용보호구",
+          "귀마개",
+          "귀덮개"
+        ],
+        "evidence": "개인보호구의 사용 및 관리; 보호구 착용 및 사용; 호흡용보호구 | usage_profile_attention_correction_v3",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term",
+          "synthetic_v1_v10_attention_review"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "보호구 단서 없음",
+          "장비만 보임",
+          "통로 위험만 보임",
+          "전선만 보임",
+          "적재물만 보임",
+          "실내 교육 환경",
+          "해당 없음"
+        ],
+        "industry_alignment": [
+          "보호구 착용",
+          "PPE 관리",
+          "호흡보호구",
+          "청력보호구"
+        ],
+        "procedure_role": "field_control"
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-12-2026",
+          "guide_code": "A-G-12-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "보호구 지급 | usage_profile_attention_correction_v3: PPE Guide는 보호구 자체의 착용·선정·관리 단서가 있어야 추천한다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "synthetic_v1_v10_attention_review"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-12-2026",
+          "guide_code": "A-G-12-2026",
+          "axis": "hazardous_agent",
+          "feature_code": "NOISE",
+          "confidence": 0.64,
+          "evidence": "귀덮개, 귀마개 | usage_profile_attention_correction_v3: PPE Guide는 보호구 자체의 착용·선정·관리 단서가 있어야 추천한다.",
+          "source_fields": [
+            "domainTerms.term",
+            "synthetic_v1_v10_attention_review"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-12-2026",
+          "guide_code": "A-G-12-2026",
+          "sr_id": "SR-PPE-001",
+          "confidence": 0.82,
+          "evidence": "설비개선 우선 및 보호구 제한적 사용 원칙",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-12-2026",
+          "guide_code": "A-G-12-2026",
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.86,
+          "evidence": "작업별 보호구 지급 및 착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-12-2026",
+          "guide_code": "A-G-12-2026",
+          "sr_id": "SR-PPE-003",
+          "confidence": 0.84,
+          "evidence": "보호구 점검·관리·청결 유지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-12-2026",
+          "guide_code": "A-G-12-2026",
+          "sr_id": "SR-PPE-004",
+          "confidence": 0.62,
+          "evidence": "감염 우려 보호구는 해당 문맥에서만",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-12-2026",
+          "guide_code": "A-G-12-2026",
+          "trigger_text": "안전모·보안경·보호장갑 등 개인보호구",
+          "cue_type": "ppe",
+          "confidence": 0.8,
+          "evidence": "개인보호구(Personal protective Equipments; PPE)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-12-2026",
+          "guide_code": "A-G-12-2026",
+          "trigger_text": "귀마개·귀덮개·호흡용보호구",
+          "cue_type": "ppe",
+          "confidence": 0.78,
+          "evidence": "귀덮개, 귀마개, 호흡용보호구",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "개인보호구",
+          "보호구 착용",
+          "안전모",
+          "보안경",
+          "보호장갑",
+          "방진마스크",
+          "방독마스크",
+          "귀마개",
+          "귀덮개"
+        ],
+        "exclude_when": [
+          "보호구 단서 없음",
+          "장비만 보임",
+          "통로 위험만 보임",
+          "전선만 보임",
+          "실내 교육 환경",
+          "해당 없음"
+        ],
+        "runtime_use": "candidate_domain_guard_only",
+        "legal_asserted_use": false
+      },
+      "notes": [
+        "보호구 일반 Guide라 PPE 단서가 있을 때 보조 절차로 쓰고 특정 위험 SR 근거처럼 과표시하지 않는다.",
+        "usage_profile_attention_correction_v3"
+      ]
+    },
+    {
+      "guide_code": "A-G-13-2026",
+      "short_code": "AG13",
+      "title": "벨트슬링 사용·점검 등에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG13.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "belt_sling_rigging",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "벨트슬링",
+          "줄걸이",
+          "권상",
+          "이송",
+          "하역",
+          "기본 사용 하중",
+          "고리"
+        ],
+        "evidence": "벨트슬링 사용·점검; 줄걸이 작업; 권상·이송·하역 작업",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "벨트슬링",
+          "달기구",
+          "양중"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-13-2026",
+          "guide_code": "A-G-13-2026",
+          "axis": "work_context",
+          "feature_code": "HEAVY_LIFTING",
+          "confidence": 0.82,
+          "evidence": "권상·이송·하역 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-13-2026",
+          "guide_code": "A-G-13-2026",
+          "axis": "accident_type",
+          "feature_code": "FALLING_OBJECT",
+          "confidence": 0.76,
+          "evidence": "줄걸이 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-13-2026",
+          "guide_code": "A-G-13-2026",
+          "sr_id": "SR-RIGGING-004",
+          "confidence": 0.84,
+          "evidence": "벨트 슬링 선정",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-13-2026",
+          "guide_code": "A-G-13-2026",
+          "sr_id": "SR-RIGGING-005",
+          "confidence": 0.82,
+          "evidence": "사용 전 점검",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-13-2026",
+          "guide_code": "A-G-13-2026",
+          "trigger_text": "벨트슬링과 줄걸이 인양 작업",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "벨트슬링 사용·점검; 줄걸이 작업",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-13-2026",
+          "guide_code": "A-G-13-2026",
+          "trigger_text": "슬링 고리·봉제부·하중 표시",
+          "cue_type": "equipment_detail",
+          "confidence": 0.78,
+          "evidence": "고리(eye); 봉제부(scam part); 기본 사용 하중",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "벨트슬링",
+          "줄걸이",
+          "권상",
+          "이송",
+          "하역",
+          "기본 사용 하중",
+          "고리"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-15-2026",
+      "short_code": "AG15",
+      "title": "중소규모 사업장 비상조치계획 작성에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG15.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "emergency_action_plan_document_and_drill",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "비상조치계획",
+          "비상대피 계획",
+          "대피도",
+          "비상훈련",
+          "비상연락망",
+          "응급처치",
+          "사고 대응"
+        ],
+        "evidence": "중소규모 사업장 비상조치계획 작성; 근로자 대피; 구호조치 및 응급처치 | usage_profile_attention_correction_v2",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "synthetic_v1_v10_attention_review"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "계획서 단서 없음",
+          "대피도 단서 없음",
+          "일반 위험 상황",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "비상조치계획",
+          "비상대피 계획",
+          "중소규모 사업장"
+        ],
+        "procedure_role": "management_program"
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-15-2026",
+          "guide_code": "A-G-15-2026",
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.76,
+          "evidence": "비상대피 계획",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-15-2026",
+          "guide_code": "A-G-15-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "비상조치계획 수립 | usage_profile_attention_correction_v2: 비상조치계획 Guide는 일반 사업장 feature만으로 추천하면 안 된다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "synthetic_v1_v10_attention_review"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-15-2026",
+          "guide_code": "A-G-15-2026",
+          "sr_id": "SR-WORKPLACE-016",
+          "confidence": 0.76,
+          "evidence": "비상구·비상통로·비상용 기구 유지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-15-2026",
+          "guide_code": "A-G-15-2026",
+          "sr_id": "SR-WORKPLACE-017",
+          "confidence": 0.74,
+          "evidence": "비상 경보용 설비",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-15-2026",
+          "guide_code": "A-G-15-2026",
+          "sr_id": "SR-WELFARE-004",
+          "confidence": 0.68,
+          "evidence": "구급용구 비치 및 관리자 지정",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-15-2026",
+          "guide_code": "A-G-15-2026",
+          "trigger_text": "비상대피도 또는 비상조치계획 문서",
+          "cue_type": "document_or_sign",
+          "confidence": 0.76,
+          "evidence": "비상조치계획",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-15-2026",
+          "guide_code": "A-G-15-2026",
+          "trigger_text": "응급처치 설비와 대피 안내 표지",
+          "cue_type": "emergency_control",
+          "confidence": 0.72,
+          "evidence": "구호조치 및 응급처치; 근로자 대피",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "비상조치계획",
+          "비상대피 계획",
+          "대피도",
+          "비상훈련",
+          "비상연락망",
+          "응급처치",
+          "사고 대응"
+        ],
+        "exclude_when": [
+          "계획서 단서 없음",
+          "대피도 단서 없음",
+          "일반 위험 상황",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only",
+        "legal_asserted_use": false
+      },
+      "notes": [
+        "비상조치계획 문서·훈련·비상연락망 단서가 있을 때만 절차 후보로 사용한다.",
+        "usage_profile_attention_correction_v2"
+      ]
+    },
+    {
+      "guide_code": "A-G-16-2026",
+      "short_code": "AG16",
+      "title": "작업장 조명기구의 선정, 설치 및 정비에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG16.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "workplace_lighting_electrical",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "조명기구",
+          "조도",
+          "이동식 작업등",
+          "옥내 조명",
+          "옥외 조명",
+          "눈부심"
+        ],
+        "evidence": "작업장 조명기구의 선정, 설치 및 정비; 이동식 작업등 감전예방 조치; 조도",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.82,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "작업장 조명",
+          "조명기구"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-16-2026",
+          "guide_code": "A-G-16-2026",
+          "axis": "work_context",
+          "feature_code": "ELECTRICAL_WORK",
+          "confidence": 0.78,
+          "evidence": "이동식 작업등 감전예방 조치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-16-2026",
+          "guide_code": "A-G-16-2026",
+          "axis": "accident_type",
+          "feature_code": "ELECTRIC_SHOCK",
+          "confidence": 0.76,
+          "evidence": "이동식 작업등 감전예방 조치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-16-2026",
+          "guide_code": "A-G-16-2026",
+          "sr_id": "SR-WORKPLACE-005",
+          "confidence": 0.8,
+          "evidence": "작업장 채광·조명 눈부심·명암차 방지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-16-2026",
+          "guide_code": "A-G-16-2026",
+          "sr_id": "SR-WORKPLACE-006",
+          "confidence": 0.82,
+          "evidence": "작업면 조도 기준 준수",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-16-2026",
+          "guide_code": "A-G-16-2026",
+          "sr_id": "SR-ELECTRIC-003",
+          "confidence": 0.6,
+          "evidence": "조명기구 설치 시 전기기계·기구 적정 설치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-16-2026",
+          "guide_code": "A-G-16-2026",
+          "trigger_text": "이동식 작업등 또는 임시 조명",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "이동식 작업등",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-16-2026",
+          "guide_code": "A-G-16-2026",
+          "trigger_text": "작업장 조명기구와 조도 측정",
+          "cue_type": "equipment_or_measurement",
+          "confidence": 0.78,
+          "evidence": "작업장 조명 위험성 평가; 조도",
+          "source_fields": [
+            "workProcesses.processName",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "조명기구",
+          "조도",
+          "이동식 작업등",
+          "옥내 조명",
+          "옥외 조명",
+          "눈부심"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-17-2026",
+      "short_code": "AG17",
+      "title": "인력운반작업에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG17.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "manual_material_handling",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "인력운반작업",
+          "들기작업",
+          "중량물",
+          "박스형 화물",
+          "포대",
+          "R-NLE"
+        ],
+        "evidence": "인력운반작업; 들기작업; 중량물; 박스형 화물 운반",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "인력운반",
+          "중량물 취급"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-17-2026",
+          "guide_code": "A-G-17-2026",
+          "axis": "work_context",
+          "feature_code": "HEAVY_LIFTING",
+          "confidence": 0.84,
+          "evidence": "중량물",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-17-2026",
+          "guide_code": "A-G-17-2026",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.82,
+          "evidence": "작업물 들기작업 부하 평가",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-17-2026",
+          "guide_code": "A-G-17-2026",
+          "sr_id": "SR-CARGO-006",
+          "confidence": 0.78,
+          "evidence": "포대 적재 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-17-2026",
+          "guide_code": "A-G-17-2026",
+          "sr_id": "SR-CARGO-007",
+          "confidence": 0.76,
+          "evidence": "쌓기 작업",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-17-2026",
+          "guide_code": "A-G-17-2026",
+          "trigger_text": "사람이 직접 드는 박스형 화물 또는 포대",
+          "cue_type": "work_activity",
+          "confidence": 0.84,
+          "evidence": "박스형 화물 운반; 포대 적재 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-17-2026",
+          "guide_code": "A-G-17-2026",
+          "trigger_text": "중량물 들기·운반 자세",
+          "cue_type": "body_posture",
+          "confidence": 0.8,
+          "evidence": "작업물 들기작업 부하 평가",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "인력운반작업",
+          "들기작업",
+          "중량물",
+          "박스형 화물",
+          "포대",
+          "R-NLE"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-19-2026",
+      "short_code": "AG19",
+      "title": "고시인성(의복·설비·작업환경 등) 표시에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG19.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "high_visibility_marking",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "고시인성",
+          "반사기",
+          "반사지",
+          "안전표지",
+          "안전색",
+          "형광 재료",
+          "재귀반사"
+        ],
+        "evidence": "고시인성 의복 등급 선정 및 착용; 화물자동차·특수자동차 반사띠 설치",
+        "source_fields": [
+          "workProcesses.processName"
+        ],
+        "confidence": 0.82,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "고시인성 표시",
+          "차량·이동장비"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-19-2026",
+          "guide_code": "A-G-19-2026",
+          "axis": "work_context",
+          "feature_code": "VEHICLE",
+          "confidence": 0.74,
+          "evidence": "화물자동차·특수자동차 반사띠 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-19-2026",
+          "guide_code": "A-G-19-2026",
+          "axis": "accident_type",
+          "feature_code": "COLLISION",
+          "confidence": 0.7,
+          "evidence": "돌출부·장애물 경고표지 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-19-2026",
+          "guide_code": "A-G-19-2026",
+          "sr_id": "SR-VEHICLE-002",
+          "confidence": 0.62,
+          "evidence": "차량·이동장비 접촉위험 장소 출입 제한과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-19-2026",
+          "guide_code": "A-G-19-2026",
+          "sr_id": "SR-WORKPLACE-018",
+          "confidence": 0.58,
+          "evidence": "고시인성 표시와 위험 장소 출입 관리 보조 후보",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-19-2026",
+          "guide_code": "A-G-19-2026",
+          "trigger_text": "형광 안전조끼 또는 고시인성 의복",
+          "cue_type": "ppe_or_marking",
+          "confidence": 0.82,
+          "evidence": "고시인성 의복",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-19-2026",
+          "guide_code": "A-G-19-2026",
+          "trigger_text": "반사띠·후부반사기·안전표지",
+          "cue_type": "marking",
+          "confidence": 0.8,
+          "evidence": "후부반사기, 후부반사지",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "고시인성",
+          "반사기",
+          "반사지",
+          "안전표지",
+          "안전색",
+          "형광 재료",
+          "재귀반사"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-2-2025",
+      "short_code": "AG2",
+      "title": "작업장 내 통로(경사로, 계단, 발판사다리) 선정 및 설치에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG2.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "workplace_access_stairs_ladders",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "통로",
+          "경사로",
+          "계단",
+          "발판사다리",
+          "안전난간",
+          "미끄럼방지",
+          "작업대"
+        ],
+        "evidence": "작업장 내 통로(경사로, 계단, 발판사다리); 안전난간 설치",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "통로",
+          "경사로",
+          "계단",
+          "발판사다리"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-2-2025",
+          "guide_code": "A-G-2-2025",
+          "axis": "work_context",
+          "feature_code": "LADDER",
+          "confidence": 0.82,
+          "evidence": "발판사다리(Stepladder)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-2-2025",
+          "guide_code": "A-G-2-2025",
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.84,
+          "evidence": "안전난간 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-2-2025",
+          "guide_code": "A-G-2-2025",
+          "sr_id": "SR-FALL-001",
+          "confidence": 0.84,
+          "evidence": "안전난간 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-2-2025",
+          "guide_code": "A-G-2-2025",
+          "sr_id": "SR-PASSAGE-003",
+          "confidence": 0.82,
+          "evidence": "통로 설치 검토 및 치수 결정",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-2-2025",
+          "guide_code": "A-G-2-2025",
+          "trigger_text": "작업장 통로·경사로·계단",
+          "cue_type": "workplace_context",
+          "confidence": 0.84,
+          "evidence": "경사로(Ramp), 계단(Stairway), 통로(Walkway)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-2-2025",
+          "guide_code": "A-G-2-2025",
+          "trigger_text": "발판사다리와 안전난간",
+          "cue_type": "equipment_or_control",
+          "confidence": 0.82,
+          "evidence": "계단·발판사다리 설치; 안전난간 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "통로",
+          "경사로",
+          "계단",
+          "발판사다리",
+          "안전난간",
+          "미끄럼방지",
+          "작업대"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-20-2026",
+      "short_code": "AG20",
+      "title": "그레이팅 설치 등에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG20.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "grating_floor_installation",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "그레이팅",
+          "베이링 바",
+          "크로스 바",
+          "고정",
+          "체결",
+          "설치"
+        ],
+        "evidence": "그레이팅 설치; 그레이팅 고정 및 체결; 베이링 바",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "그레이팅",
+          "바닥 개구부"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-20-2026",
+          "guide_code": "A-G-20-2026",
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.78,
+          "evidence": "그레이팅 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-20-2026",
+          "guide_code": "A-G-20-2026",
+          "axis": "accident_type",
+          "feature_code": "COLLAPSE",
+          "confidence": 0.78,
+          "evidence": "그레이팅 고정 및 체결",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-20-2026",
+          "guide_code": "A-G-20-2026",
+          "sr_id": "SR-FALL-002",
+          "confidence": 0.78,
+          "evidence": "개구부 등 추락 위험장소 방호 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-20-2026",
+          "guide_code": "A-G-20-2026",
+          "sr_id": "SR-WORKPLACE-011",
+          "confidence": 0.72,
+          "evidence": "안전난간 구조 및 설치 기준",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-20-2026",
+          "guide_code": "A-G-20-2026",
+          "sr_id": "SR-WORKPLACE-001",
+          "confidence": 0.68,
+          "evidence": "작업장 바닥 안전·청결 유지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-20-2026",
+          "guide_code": "A-G-20-2026",
+          "trigger_text": "바닥 그레이팅 또는 금속 격자 발판",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "그레이팅 (Grating)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-20-2026",
+          "guide_code": "A-G-20-2026",
+          "trigger_text": "그레이팅 체결부·베이링 바·크로스 바",
+          "cue_type": "equipment_detail",
+          "confidence": 0.8,
+          "evidence": "베이링 바 (Bearing Bar), 크로스 바 (Cross Bar)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "그레이팅",
+          "베이링 바",
+          "크로스 바",
+          "고정",
+          "체결",
+          "설치"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-3-2025",
+      "short_code": "AG3",
+      "title": "오토바이 배달작업 시 안전에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG3.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "motorcycle_delivery",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "오토바이",
+          "배달작업",
+          "도보 배달",
+          "운행 전 점검",
+          "머플러",
+          "보차도 경계석"
+        ],
+        "evidence": "오토바이 배달작업; 오토바이 운행; 도보 배달",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "오토바이 배달",
+          "배달종사자"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-3-2025",
+          "guide_code": "A-G-3-2025",
+          "axis": "work_context",
+          "feature_code": "DELIVERY_RIDER",
+          "confidence": 0.86,
+          "evidence": "오토바이 배달작업",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-3-2025",
+          "guide_code": "A-G-3-2025",
+          "axis": "accident_type",
+          "feature_code": "COLLISION",
+          "confidence": 0.78,
+          "evidence": "오토바이 운행",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-3-2025",
+          "guide_code": "A-G-3-2025",
+          "sr_id": "SR-SPECIAL_WORKER-001",
+          "confidence": 0.78,
+          "evidence": "오토바이 운행",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-3-2025",
+          "guide_code": "A-G-3-2025",
+          "sr_id": "SR-SPECIAL_WORKER-002",
+          "confidence": 0.76,
+          "evidence": "운행 전 점검",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-3-2025",
+          "guide_code": "A-G-3-2025",
+          "trigger_text": "배달용 오토바이 또는 라이더",
+          "cue_type": "vehicle_or_worker",
+          "confidence": 0.86,
+          "evidence": "오토바이 배달작업",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-3-2025",
+          "guide_code": "A-G-3-2025",
+          "trigger_text": "건물 출입·계단 이동 중 배달",
+          "cue_type": "work_activity",
+          "confidence": 0.74,
+          "evidence": "도보 배달 (건물 출입 및 계단 이동)",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "오토바이",
+          "배달작업",
+          "도보 배달",
+          "운행 전 점검",
+          "머플러",
+          "보차도 경계석"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-4-2025",
+      "short_code": "AG4",
+      "title": "이동식 사다리의 사용에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG4.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "portable_ladder_use",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "이동식 사다리",
+          "발판",
+          "버팀대",
+          "설치",
+          "작업 수행"
+        ],
+        "evidence": "이동식 사다리의 사용; 이동식 사다리 설치; 발판 (Step)",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "이동식 사다리",
+          "고소작업"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-4-2025",
+          "guide_code": "A-G-4-2025",
+          "axis": "work_context",
+          "feature_code": "LADDER",
+          "confidence": 0.86,
+          "evidence": "이동식 사다리 (Portable ladder)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-4-2025",
+          "guide_code": "A-G-4-2025",
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.84,
+          "evidence": "이동식 사다리 작업 수행",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-4-2025",
+          "guide_code": "A-G-4-2025",
+          "sr_id": "SR-PASSAGE-004",
+          "confidence": 0.82,
+          "evidence": "사다리식 통로 구조기준",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-4-2025",
+          "guide_code": "A-G-4-2025",
+          "sr_id": "SR-FALL-001",
+          "confidence": 0.78,
+          "evidence": "추락 위험장소 작업발판 및 방호망",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-4-2025",
+          "guide_code": "A-G-4-2025",
+          "sr_id": "SR-FALL-005",
+          "confidence": 0.72,
+          "evidence": "높이 2m 초과 작업장소 승강설비",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-4-2025",
+          "guide_code": "A-G-4-2025",
+          "trigger_text": "이동식 사다리 또는 휴대용 사다리",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "이동식 사다리 (Portable ladder)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-4-2025",
+          "guide_code": "A-G-4-2025",
+          "trigger_text": "사다리 발판·버팀대",
+          "cue_type": "equipment_detail",
+          "confidence": 0.8,
+          "evidence": "발판 (Step), 버팀대 (Stile)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "No extracted relatedSR/basedOn ids were present in the compact guide summary; SR candidates intentionally left empty."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "이동식 사다리",
+          "발판",
+          "버팀대",
+          "설치",
+          "작업 수행"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-5-2025",
+      "short_code": "AG5",
+      "title": "조리작업장 내 조리도구 사용에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG5.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "food_service_cooking_tools",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "조리작업장",
+          "가스레인지",
+          "조리용 칼",
+          "조리도구",
+          "끼임",
+          "넘어짐"
+        ],
+        "evidence": "조리작업장 내 조리도구 사용; 가스레인지 사용 및 관리; 조리용 칼 사용 및 관리",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "조리작업장",
+          "조리도구"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-5-2025",
+          "guide_code": "A-G-5-2025",
+          "axis": "work_context",
+          "feature_code": "KITCHEN_COOKING",
+          "confidence": 0.84,
+          "evidence": "조리작업장",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-5-2025",
+          "guide_code": "A-G-5-2025",
+          "axis": "accident_type",
+          "feature_code": "CUT",
+          "confidence": 0.8,
+          "evidence": "조리용 칼 사용 및 관리",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-5-2025",
+          "guide_code": "A-G-5-2025",
+          "trigger_text": "조리용 칼 또는 절단 조리도구",
+          "cue_type": "tool",
+          "confidence": 0.84,
+          "evidence": "조리용 칼 사용 및 관리",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-5-2025",
+          "guide_code": "A-G-5-2025",
+          "trigger_text": "가스레인지와 조리작업장",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "가스레인지 사용 및 관리",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "No extracted relatedSR/basedOn ids were present in the compact guide summary; SR candidates intentionally left empty."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "조리작업장",
+          "가스레인지",
+          "조리용 칼",
+          "조리도구",
+          "끼임",
+          "넘어짐"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-6-2025",
+      "short_code": "AG6",
+      "title": "학교 급식실 근로자의 안전보건에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG6.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "school_cafeteria_work",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "학교 급식실",
+          "배식",
+          "세척",
+          "조리",
+          "식자재",
+          "트렌치 판",
+          "배식카"
+        ],
+        "evidence": "학교 급식실 근로자; 배식 작업; 세척 및 청소 작업; 조리 작업",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "학교 급식실",
+          "조리실"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-6-2025",
+          "guide_code": "A-G-6-2025",
+          "axis": "work_context",
+          "feature_code": "KITCHEN_COOKING",
+          "confidence": 0.84,
+          "evidence": "조리 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-6-2025",
+          "guide_code": "A-G-6-2025",
+          "axis": "work_context",
+          "feature_code": "WET_FLOOR_WORK",
+          "confidence": 0.78,
+          "evidence": "세척 및 청소 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-6-2025",
+          "guide_code": "A-G-6-2025",
+          "sr_id": "SR-WORKPLACE-001",
+          "confidence": 0.66,
+          "evidence": "급식실 바닥 전도 방지와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-6-2025",
+          "guide_code": "A-G-6-2025",
+          "sr_id": "SR-HEAT-002",
+          "confidence": 0.6,
+          "evidence": "조리실 환기·열원 격리와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-6-2025",
+          "guide_code": "A-G-6-2025",
+          "sr_id": "SR-HEAT-003",
+          "confidence": 0.58,
+          "evidence": "고열작업 건강장해 예방과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-6-2025",
+          "guide_code": "A-G-6-2025",
+          "trigger_text": "학교 급식실 조리·배식 공간",
+          "cue_type": "workplace_context",
+          "confidence": 0.86,
+          "evidence": "학교 급식실 근로자; 배식 작업",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-6-2025",
+          "guide_code": "A-G-6-2025",
+          "trigger_text": "배식카·트렌치 판·세척구역",
+          "cue_type": "equipment",
+          "confidence": 0.8,
+          "evidence": "배식카, 트렌치 판",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "No extracted relatedSR/basedOn ids were present in the compact guide summary; SR candidates intentionally left empty."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "학교 급식실",
+          "배식",
+          "세척",
+          "조리",
+          "식자재",
+          "트렌치 판",
+          "배식카"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-7-2025",
+      "short_code": "AG7",
+      "title": "공동주택 경비근로자의 관리업무 보조작업 시 안전에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG7.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "apartment_security_auxiliary_work",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "공동주택",
+          "경비근로자",
+          "야간 순찰",
+          "지하주차장",
+          "생활폐기물",
+          "수목 전지",
+          "예초기"
+        ],
+        "evidence": "공동주택 경비근로자; 야간 순찰; 지하주차장 순찰; 생활폐기물 수거 작업",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "공동주택 경비",
+          "관리업무 보조"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-7-2025",
+          "guide_code": "A-G-7-2025",
+          "axis": "work_context",
+          "feature_code": "NIGHT_SOLO_WORK",
+          "confidence": 0.78,
+          "evidence": "야간 순찰",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-7-2025",
+          "guide_code": "A-G-7-2025",
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.76,
+          "evidence": "지붕 등 고소작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-7-2025",
+          "guide_code": "A-G-7-2025",
+          "trigger_text": "공동주택 경비실·순찰·지하주차장",
+          "cue_type": "workplace_context",
+          "confidence": 0.82,
+          "evidence": "지하주차장 순찰; 야간 순찰",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-7-2025",
+          "guide_code": "A-G-7-2025",
+          "trigger_text": "예초기·고지 가위·생활폐기물 수거",
+          "cue_type": "tool_or_activity",
+          "confidence": 0.8,
+          "evidence": "예초기 제초작업; 고지 가위; 생활폐기물(유리·거울) 수거 작업",
+          "source_fields": [
+            "workProcesses.processName",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "No extracted relatedSR/basedOn ids were present in the compact guide summary; SR candidates intentionally left empty."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "공동주택",
+          "경비근로자",
+          "야간 순찰",
+          "지하주차장",
+          "생활폐기물",
+          "수목 전지",
+          "예초기"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-8-2025",
+      "short_code": "AG8",
+      "title": "산업재해 기록·분류에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG8.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "incident_record_classification",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "산업재해",
+          "기록",
+          "분류",
+          "재해자",
+          "업무상사고",
+          "업무상질병"
+        ],
+        "evidence": "산업재해 기록·분류; 발생형태 분석 및 분류; 업무상사고 재해자와 업무상질병 재해자 분류",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.72,
+        "negative_context_terms": [
+          "재해기록 문서 없음",
+          "현장 위험 사진만 있음"
+        ],
+        "industry_alignment": [
+          "산업재해 기록",
+          "재해분류"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-8-2025",
+          "guide_code": "A-G-8-2025",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.68,
+          "evidence": "사업장 특성 분석항목 조사·기록",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-8-2025",
+          "guide_code": "A-G-8-2025",
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.6,
+          "evidence": "업무상질병 재해자",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-8-2025",
+          "guide_code": "A-G-8-2025",
+          "trigger_text": "산업재해 조사표 또는 기록 문서",
+          "cue_type": "document",
+          "confidence": 0.68,
+          "evidence": "산업재해 기록·분류",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-8-2025",
+          "guide_code": "A-G-8-2025",
+          "trigger_text": "재해 발생형태 분류표",
+          "cue_type": "document",
+          "confidence": 0.66,
+          "evidence": "발생형태 분석 및 분류",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "Administrative classification guide; should not rank highly from image context alone."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "산업재해",
+          "기록",
+          "분류",
+          "재해자",
+          "업무상사고",
+          "업무상질병"
+        ],
+        "exclude_when": [
+          "재해기록 문서 없음",
+          "현장 위험 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-G-9-2025",
+      "short_code": "AG9",
+      "title": "창고 작업 시 안전에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AG9.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "warehouse_storage_rack_material_handling",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "창고 적재대",
+          "팔레트 적재물",
+          "랙",
+          "선반",
+          "적재 불량",
+          "낙하물",
+          "산업용 트럭",
+          "지게차",
+          "고소 작업",
+          "중량물 인력 작업"
+        ],
+        "evidence": "창고 작업 시 안전; 적재 작업; 산업용 트럭 작업; 낙하물 방지 작업 | usage_profile_attention_correction_v3",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "synthetic_v1_v10_attention_review"
+        ],
+        "confidence": 0.88,
+        "negative_context_terms": [
+          "사진에서 관찰 가능한 위험 요소가 없다",
+          "없음(지상 물품 정리 작업)",
+          "사다리가 보관 중",
+          "낮은 위치의 물품",
+          "해당 없음",
+          "보관 중이고 주변에 사람이 없음"
+        ],
+        "industry_alignment": [
+          "창고 적재",
+          "물류창고",
+          "랙 적재",
+          "팔레트 적재"
+        ],
+        "procedure_role": "field_control"
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-9-2025",
+          "guide_code": "A-G-9-2025",
+          "axis": "work_context",
+          "feature_code": "STORAGE_SHELF",
+          "confidence": 0.78,
+          "evidence": "적재 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-9-2025",
+          "guide_code": "A-G-9-2025",
+          "axis": "accident_type",
+          "feature_code": "FALLING_OBJECT",
+          "confidence": 0.64,
+          "evidence": "낙하물 방지 작업 | usage_profile_attention_correction_v3: 창고 Guide는 일반 낙하물 feature보다 창고 적재/랙/팔레트 문맥이 우선이다.",
+          "source_fields": [
+            "workProcesses.processName",
+            "synthetic_v1_v10_attention_review"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-9-2025",
+          "guide_code": "A-G-9-2025",
+          "sr_id": "SR-CARGO-006",
+          "confidence": 0.82,
+          "evidence": "낙하물 방지 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-9-2025",
+          "guide_code": "A-G-9-2025",
+          "sr_id": "SR-CARGO-007",
+          "confidence": 0.8,
+          "evidence": "적재 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-9-2025",
+          "guide_code": "A-G-9-2025",
+          "trigger_text": "창고 적재대 또는 팔레트 적재물",
+          "cue_type": "workplace_context",
+          "confidence": 0.84,
+          "evidence": "창고 작업 시 안전; 적재 작업",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-G-9-2025",
+          "guide_code": "A-G-9-2025",
+          "trigger_text": "산업용 트럭과 고소 작업",
+          "cue_type": "equipment_or_activity",
+          "confidence": 0.8,
+          "evidence": "산업용 트럭 작업; 고소 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "창고 적재대",
+          "팔레트 적재물",
+          "랙",
+          "선반",
+          "적재 불량",
+          "낙하물",
+          "산업용 트럭",
+          "지게차"
+        ],
+        "exclude_when": [
+          "사진에서 관찰 가능한 위험 요소가 없다",
+          "사다리가 보관 중",
+          "낮은 위치의 물품",
+          "해당 없음"
+        ],
+        "runtime_use": "candidate_domain_guard_only",
+        "legal_asserted_use": false
+      },
+      "notes": [
+        "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema.",
+        "usage_profile_attention_correction_v3"
+      ]
+    },
+    {
+      "guide_code": "A-R-1-2026",
+      "short_code": "AR1",
+      "title": "자율안전보건관리체계 구축 및 운영에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AR1.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "safety_management_system",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "안전보건관리체계",
+          "위험성평가",
+          "안전작업절차",
+          "TBM",
+          "근로자 참여"
+        ],
+        "evidence": "자율안전보건관리체계 구축 및 운영; 위험성평가 실시; 안전작업절차 수립",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.72,
+        "negative_context_terms": [
+          "관리체계 문서 없음",
+          "현장 위험 사진만 있음"
+        ],
+        "industry_alignment": [
+          "자율안전보건관리체계"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-1-2026",
+          "guide_code": "A-R-1-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.7,
+          "evidence": "작업장 안전확인 및 점검",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-1-2026",
+          "guide_code": "A-R-1-2026",
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.58,
+          "evidence": "위험성평가 실시",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-1-2026",
+          "guide_code": "A-R-1-2026",
+          "trigger_text": "안전보건관리체계 문서 또는 게시판",
+          "cue_type": "document",
+          "confidence": 0.66,
+          "evidence": "안전보건관리체계",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-1-2026",
+          "guide_code": "A-R-1-2026",
+          "trigger_text": "TBM 또는 위험성평가 기록",
+          "cue_type": "document_or_meeting",
+          "confidence": 0.64,
+          "evidence": "작업허가 및 TBM; 위험성평가 실시",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "Management-system guide; import should not make it a photo-first standard procedure unless document/context cues exist."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "안전보건관리체계",
+          "위험성평가",
+          "안전작업절차",
+          "TBM",
+          "근로자 참여"
+        ],
+        "exclude_when": [
+          "관리체계 문서 없음",
+          "현장 위험 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "A-R-2-2026",
+      "short_code": "AR2",
+      "title": "생산시스템의 수명주기 안전관리를 위한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AR2.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "production_system_lifecycle_safety_document_review",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "생산시스템 수명주기",
+          "수명주기 안전관리",
+          "구상 단계",
+          "설계 단계",
+          "제조 단계",
+          "운영 단계",
+          "폐기 단계",
+          "위험성평가 자료"
+        ],
+        "evidence": "생산시스템의 수명주기 안전관리; 구상(Concept) 단계; 설계(Design/Definition) 단계 | usage_profile_attention_correction_v3",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "synthetic_v1_v10_attention_review"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "현장 위험 사진만 있음",
+          "수명주기 문서 없음",
+          "적재물만 보임",
+          "장비만 보임"
+        ],
+        "industry_alignment": [
+          "생산시스템 수명주기",
+          "설계·제조·운영 단계 위험성평가"
+        ],
+        "procedure_role": "document_reference"
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-2-2026",
+          "guide_code": "A-R-2-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "생산시스템",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-2-2026",
+          "guide_code": "A-R-2-2026",
+          "axis": "work_context",
+          "feature_code": "MACHINE",
+          "confidence": 0.62,
+          "evidence": "제조(Production) 단계",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-2-2026",
+          "guide_code": "A-R-2-2026",
+          "trigger_text": "생산시스템 수명주기 문서",
+          "cue_type": "document",
+          "confidence": 0.62,
+          "evidence": "수명 주기(Life cycle)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-2-2026",
+          "guide_code": "A-R-2-2026",
+          "trigger_text": "설계·제조·운영 단계 위험성평가 자료",
+          "cue_type": "document",
+          "confidence": 0.62,
+          "evidence": "구상단계(Concept phase) 위험성평가; 설계단계(Design phase) 위험성평가",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "Lifecycle/design guide; weak photo triggers only."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "생산시스템 수명주기",
+          "수명주기 안전관리",
+          "구상 단계",
+          "설계 단계",
+          "제조 단계",
+          "운영 단계",
+          "위험성평가 자료"
+        ],
+        "exclude_when": [
+          "현장 위험 사진만 있음",
+          "수명주기 문서 없음",
+          "적재물만 보임",
+          "장비만 보임"
+        ],
+        "runtime_use": "candidate_domain_guard_only",
+        "legal_asserted_use": false
+      },
+      "notes": [
+        "생산시스템 수명주기 안전관리 문서 Guide로 현장 개별 위험 SR과 직접 연결하지 않는다.",
+        "usage_profile_attention_correction_v3"
+      ]
+    },
+    {
+      "guide_code": "A-R-3-2026",
+      "short_code": "AR3",
+      "title": "보우타이 리스크 평가 기법에 관한 기술지원규정",
+      "source_file": "pipe-B/data/ci-output/ci-AR3.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "bowtie_risk_assessment",
+        "mismatch_policy": "allow_with_low_boost",
+        "required_context_terms": [
+          "보우타이",
+          "리스크 평가",
+          "사고 시나리오",
+          "방호계층",
+          "위협",
+          "예방대책"
+        ],
+        "evidence": "보우타이 리스크 평가 기법; 리스크 평가팀 구성 및 운영; 사고 시나리오",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.7,
+        "negative_context_terms": [
+          "보우타이 분석표 없음",
+          "현장 위험 사진만 있음"
+        ],
+        "industry_alignment": [
+          "보우타이",
+          "리스크 평가"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-3-2026",
+          "guide_code": "A-R-3-2026",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "리스크 평가 대상공정(또는 작업) 선정",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-3-2026",
+          "guide_code": "A-R-3-2026",
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.55,
+          "evidence": "공정(또는 작업) 설명",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-3-2026",
+          "guide_code": "A-R-3-2026",
+          "trigger_text": "보우타이 리스크 평가표 또는 선도",
+          "cue_type": "document",
+          "confidence": 0.66,
+          "evidence": "보우타이 선도",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "A-R-3-2026",
+          "guide_code": "A-R-3-2026",
+          "trigger_text": "방호계층·사고 시나리오 분석 문서",
+          "cue_type": "document",
+          "confidence": 0.64,
+          "evidence": "방호계층; 사고 시나리오",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "Risk-assessment methodology; should be document/context driven, not image-driven."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "보우타이",
+          "리스크 평가",
+          "사고 시나리오",
+          "방호계층",
+          "위협",
+          "예방대책"
+        ],
+        "exclude_when": [
+          "보우타이 분석표 없음",
+          "현장 위험 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "보우타이 분석 방법론 Guide로 현장 개별 위험 SR과 직접 연결하지 않는다."
+    },
+    {
+      "guide_code": "F-2-2011",
+      "short_code": "F2",
+      "title": "목재가공시설의 화재폭발 예방기준",
+      "source_file": "pipe-B/data/ci-output/ci-F2.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "wood_processing_fire_explosion",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "목재가공시설",
+          "목분진",
+          "분진폭발",
+          "백 필터",
+          "사이클론 집진기",
+          "폭발압력 방산구"
+        ],
+        "evidence": "목재가공시설의 화재폭발 예방기준; 목분진 포집·이송설비 설치; 분진폭발 위험설비",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "목재가공시설",
+          "화재폭발",
+          "분진"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.84,
+          "evidence": "화재폭발 예방기준",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.84,
+          "evidence": "분진폭발 위험설비 시공 및 관리",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "sr_id": "SR-FIRE_EXPLOSION-001",
+          "confidence": 0.78,
+          "evidence": "화재·폭발 방호조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "sr_id": "SR-FIRE_EXPLOSION-015",
+          "confidence": 0.74,
+          "evidence": "화재·폭발 위험장소 발화원 사용 금지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "sr_id": "SR-FIRE_EXPLOSION-019",
+          "confidence": 0.74,
+          "evidence": "소화설비 설치 및 적합성 확보",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "sr_id": "SR-DUST-001",
+          "confidence": 0.72,
+          "evidence": "목재분진 밀폐·국소배기",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "sr_id": "SR-DUST-006",
+          "confidence": 0.68,
+          "evidence": "분진 유해성 및 예방방법 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "trigger_text": "목재가공 분진 또는 톱밥 집진 설비",
+          "cue_type": "workplace_context",
+          "confidence": 0.84,
+          "evidence": "목분진 포집·이송설비 설치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-2-2011",
+          "guide_code": "F-2-2011",
+          "trigger_text": "백필터·사이클론 집진기·폭발압력 방산구",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "백 필터, 사이클론 집진기, 폭발압력 방산구",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "목재가공시설",
+          "목분진",
+          "분진폭발",
+          "백 필터",
+          "사이클론 집진기",
+          "폭발압력 방산구"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "F-3-2014",
+      "short_code": "F3",
+      "title": "경질폴리우레탄폼 취급시 화재예방에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-F3.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "rigid_polyurethane_foam_fire",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "경질폴리우레탄폼",
+          "우레탄폼",
+          "시스템폴리올",
+          "발포작업",
+          "우레탄 원액",
+          "화재예방"
+        ],
+        "evidence": "경질폴리우레탄폼 취급시 화재예방; 우레탄폼; 발포작업 중",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.85,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "경질폴리우레탄폼",
+          "화재예방"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-3-2014",
+          "guide_code": "F-3-2014",
+          "axis": "hazardous_agent",
+          "feature_code": "FIRE",
+          "confidence": 0.84,
+          "evidence": "화재예방",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-3-2014",
+          "guide_code": "F-3-2014",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.78,
+          "evidence": "우레탄 원액 여분처리",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-3-2014",
+          "guide_code": "F-3-2014",
+          "sr_id": "SR-FIRE_EXPLOSION-030",
+          "confidence": 0.84,
+          "evidence": "비상조치",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-3-2014",
+          "guide_code": "F-3-2014",
+          "sr_id": "SR-CHEMICAL-010",
+          "confidence": 0.78,
+          "evidence": "원료 원액 관리",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-3-2014",
+          "guide_code": "F-3-2014",
+          "trigger_text": "경질폴리우레탄폼 또는 발포 작업",
+          "cue_type": "material_or_activity",
+          "confidence": 0.86,
+          "evidence": "발포작업 중; 우레탄폼",
+          "source_fields": [
+            "workProcesses.processName",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "F-3-2014",
+          "guide_code": "F-3-2014",
+          "trigger_text": "시스템폴리올·우레탄 원액 용기",
+          "cue_type": "chemical_container",
+          "confidence": 0.8,
+          "evidence": "시스템폴리올; 우레탄 원액 여분처리",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "경질폴리우레탄폼",
+          "우레탄폼",
+          "시스템폴리올",
+          "발포작업",
+          "우레탄 원액",
+          "화재예방"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "G-1-2023",
+      "short_code": "G1",
+      "title": "소용량 탱크 및 드럼의 화기작업에 관한 안전지침",
+      "source_file": "pipe-B/data/ci-output/ci-G1.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "small_tank_drum_hot_work",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "소용량 탱크",
+          "드럼",
+          "화기작업",
+          "가스제거",
+          "불활성화",
+          "인화성물질",
+          "폭발"
+        ],
+        "evidence": "소용량 탱크 및 드럼의 화기작업; 가스제거(Gas freeing); 불활성화(Inerting)",
+        "source_fields": [
+          "title",
+          "domainTerms.term"
+        ],
+        "confidence": 0.85,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "소용량 탱크",
+          "드럼",
+          "화기작업"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-1-2023",
+          "guide_code": "G-1-2023",
+          "axis": "work_context",
+          "feature_code": "WELDING",
+          "confidence": 0.76,
+          "evidence": "화기작업(Hot work)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-1-2023",
+          "guide_code": "G-1-2023",
+          "axis": "accident_type",
+          "feature_code": "EXPLOSION",
+          "confidence": 0.84,
+          "evidence": "폭발(Explosion)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-1-2023",
+          "guide_code": "G-1-2023",
+          "sr_id": "SR-FIRE_EXPLOSION-009",
+          "confidence": 0.8,
+          "evidence": "탱크·드럼 화기작업 폭발·화재 예방",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-1-2023",
+          "guide_code": "G-1-2023",
+          "sr_id": "SR-FIRE_EXPLOSION-016",
+          "confidence": 0.82,
+          "evidence": "위험물 잔류 배관·용기 화재위험작업 전 제거",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-1-2023",
+          "guide_code": "G-1-2023",
+          "sr_id": "SR-CONFINED-001",
+          "confidence": 0.68,
+          "evidence": "탱크 내부 가스농도 측정",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-1-2023",
+          "guide_code": "G-1-2023",
+          "sr_id": "SR-CONFINED-002",
+          "confidence": 0.66,
+          "evidence": "탱크 내부 환기",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-1-2023",
+          "guide_code": "G-1-2023",
+          "trigger_text": "소형 탱크 또는 드럼 화기작업",
+          "cue_type": "work_activity",
+          "confidence": 0.86,
+          "evidence": "소용량 탱크 및 드럼의 화기작업",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-1-2023",
+          "guide_code": "G-1-2023",
+          "trigger_text": "가스 제거·불활성화 표지 또는 장비",
+          "cue_type": "control",
+          "confidence": 0.8,
+          "evidence": "가스제거(Gas freeing); 불활성화(Inerting)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "소용량 탱크",
+          "드럼",
+          "화기작업",
+          "가스제거",
+          "불활성화",
+          "인화성물질",
+          "폭발"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "G-10-2023",
+      "short_code": "G10",
+      "title": "작업장 내 운반차량의 운행에 관한 안전지침",
+      "source_file": "pipe-B/data/ci-output/ci-G10.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "workplace_transport_vehicle",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "운반차량",
+          "차량 후진",
+          "주차",
+          "차량 연결",
+          "차량 해제",
+          "작업장"
+        ],
+        "evidence": "작업장 내 운반차량의 운행; 차량 후진 작업; 차량 연결(Coupling)",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "작업장 운반차량",
+          "구내운반차"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-10-2023",
+          "guide_code": "G-10-2023",
+          "axis": "work_context",
+          "feature_code": "VEHICLE",
+          "confidence": 0.84,
+          "evidence": "작업장 내 운반차량",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-10-2023",
+          "guide_code": "G-10-2023",
+          "axis": "accident_type",
+          "feature_code": "COLLISION",
+          "confidence": 0.78,
+          "evidence": "차량 후진 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-10-2023",
+          "guide_code": "G-10-2023",
+          "sr_id": "SR-VEHICLE-001",
+          "confidence": 0.74,
+          "evidence": "차량계 하역운반기계 전도·굴러떨어짐 방지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-10-2023",
+          "guide_code": "G-10-2023",
+          "sr_id": "SR-VEHICLE-002",
+          "confidence": 0.76,
+          "evidence": "차량 접촉 위험 장소 출입 제한",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-10-2023",
+          "guide_code": "G-10-2023",
+          "sr_id": "SR-MACHINE-013",
+          "confidence": 0.62,
+          "evidence": "차량계 기계 제한속도 지정",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-10-2023",
+          "guide_code": "G-10-2023",
+          "trigger_text": "작업장 운반차량 또는 후진 차량",
+          "cue_type": "vehicle",
+          "confidence": 0.84,
+          "evidence": "작업장 내 운반차량; 차량 후진 작업",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-10-2023",
+          "guide_code": "G-10-2023",
+          "trigger_text": "차량 연결·해제 작업",
+          "cue_type": "work_activity",
+          "confidence": 0.78,
+          "evidence": "차량 연결(Coupling); 차량 해제(Uncoupling)",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "운반차량",
+          "차량 후진",
+          "주차",
+          "차량 연결",
+          "차량 해제",
+          "작업장"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "G-100-2013",
+      "short_code": "G100",
+      "title": "지게차 운전자의 안전교육훈련에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G100.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "forklift_operator_training",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "지게차",
+          "안전교육훈련",
+          "재교육훈련",
+          "전환 교육훈련",
+          "로드 백래스트"
+        ],
+        "evidence": "지게차 운전자의 안전교육훈련; 지게차; 기본 안전교육훈련",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.82,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "지게차",
+          "운전자 교육훈련"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-100-2013",
+          "guide_code": "G-100-2013",
+          "axis": "work_context",
+          "feature_code": "FORKLIFT_OPERATION",
+          "confidence": 0.84,
+          "evidence": "지게차 운전자",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-100-2013",
+          "guide_code": "G-100-2013",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "안전교육훈련",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-100-2013",
+          "guide_code": "G-100-2013",
+          "sr_id": "SR-VEHICLE-009",
+          "confidence": 0.72,
+          "evidence": "지게차 전조등·후미등·후방확인장치 교육과 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-100-2013",
+          "guide_code": "G-100-2013",
+          "sr_id": "SR-VEHICLE-010",
+          "confidence": 0.72,
+          "evidence": "지게차 헤드가드 교육과 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-100-2013",
+          "guide_code": "G-100-2013",
+          "sr_id": "SR-VEHICLE-011",
+          "confidence": 0.7,
+          "evidence": "지게차 백레스트 교육과 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-100-2013",
+          "guide_code": "G-100-2013",
+          "sr_id": "SR-VEHICLE-013",
+          "confidence": 0.72,
+          "evidence": "지게차 안전띠 착용 교육과 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-100-2013",
+          "guide_code": "G-100-2013",
+          "trigger_text": "지게차 또는 지게차 운전자 교육",
+          "cue_type": "equipment_or_training",
+          "confidence": 0.8,
+          "evidence": "지게차 운전자의 안전교육훈련",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-100-2013",
+          "guide_code": "G-100-2013",
+          "trigger_text": "로드 백래스트 익스텐션",
+          "cue_type": "equipment_detail",
+          "confidence": 0.72,
+          "evidence": "로드 백래스트 익스텐션(Load backrest extension)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "Training-focused guide; should not outrank operational forklift guides unless training context is visible."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "지게차",
+          "안전교육훈련",
+          "재교육훈련",
+          "전환 교육훈련",
+          "로드 백래스트"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "G-101-2013",
+      "short_code": "G101",
+      "title": "운송용 차량에서의 작업 시 떨어짐 사고를 방지하기 위한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G101.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "transport_vehicle_fall_prevention",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "운송용 차량",
+          "차량 승·하차",
+          "적재칸",
+          "테일 리프트",
+          "캣워크",
+          "트레일러"
+        ],
+        "evidence": "운송용 차량에서의 작업 시 떨어짐 사고; 차량 승·하차; 테일 리프트 작업",
+        "source_fields": [
+          "title",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "운송용 차량",
+          "떨어짐"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-101-2013",
+          "guide_code": "G-101-2013",
+          "axis": "work_context",
+          "feature_code": "VEHICLE",
+          "confidence": 0.82,
+          "evidence": "운송용 차량",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-101-2013",
+          "guide_code": "G-101-2013",
+          "axis": "accident_type",
+          "feature_code": "FALL",
+          "confidence": 0.86,
+          "evidence": "떨어짐 사고를 방지",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-101-2013",
+          "guide_code": "G-101-2013",
+          "sr_id": "SR-VEHICLE-017",
+          "confidence": 0.82,
+          "evidence": "화물자동차 적재함 승강설비",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-101-2013",
+          "guide_code": "G-101-2013",
+          "sr_id": "SR-FALL-001",
+          "confidence": 0.74,
+          "evidence": "운송용 차량 작업 중 떨어짐 방지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-101-2013",
+          "guide_code": "G-101-2013",
+          "sr_id": "SR-CARGO-004",
+          "confidence": 0.66,
+          "evidence": "하역작업장 안전난간과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-101-2013",
+          "guide_code": "G-101-2013",
+          "trigger_text": "트럭 적재칸 또는 테일 리프트",
+          "cue_type": "vehicle_equipment",
+          "confidence": 0.84,
+          "evidence": "적재칸 바닥관리; 테일 리프트 작업",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-101-2013",
+          "guide_code": "G-101-2013",
+          "trigger_text": "차량 승하차 발판·캣워크",
+          "cue_type": "fall_hazard",
+          "confidence": 0.82,
+          "evidence": "운전석 발판(Cap step), 캣워크(Catwalk)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "운송용 차량",
+          "차량 승·하차",
+          "적재칸",
+          "테일 리프트",
+          "캣워크",
+          "트레일러"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "G-102-2013",
+      "short_code": "G102",
+      "title": "농장의 안전경영에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G102.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "farm_safety_management",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "농장",
+          "안전경영",
+          "슬러리",
+          "위험성 평가",
+          "응급조치"
+        ],
+        "evidence": "농장의 안전경영; 농장; 위험성 평가; 응급조치 실행",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.processName"
+        ],
+        "confidence": 0.78,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "농장",
+          "농업 안전경영"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-102-2013",
+          "guide_code": "G-102-2013",
+          "axis": "work_context",
+          "feature_code": "FARM_MACHINERY",
+          "confidence": 0.62,
+          "evidence": "농장",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-102-2013",
+          "guide_code": "G-102-2013",
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.68,
+          "evidence": "관리체계 1단계 – 계획",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-102-2013",
+          "guide_code": "G-102-2013",
+          "sr_id": "SR-MACHINE-046",
+          "confidence": 0.58,
+          "evidence": "농업용기계 검정 합격품 사용과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-102-2013",
+          "guide_code": "G-102-2013",
+          "trigger_text": "농장 작업장 또는 농장 안전관리 문서",
+          "cue_type": "workplace_or_document",
+          "confidence": 0.7,
+          "evidence": "농장; 관리체계 1단계 – 계획",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-102-2013",
+          "guide_code": "G-102-2013",
+          "trigger_text": "슬러리 저장·처리 구역",
+          "cue_type": "workplace_context",
+          "confidence": 0.66,
+          "evidence": "슬러리(slurry)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "quality_notes": [
+        "Broad farm management guide; visual triggers are weak unless farm context is explicit."
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "농장",
+          "안전경영",
+          "슬러리",
+          "위험성 평가",
+          "응급조치"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "G-106-2013",
+      "short_code": "G106",
+      "title": "실리카 분진이 발생되는 작업 시의 안전보건에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G106.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "silica_dust_work",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "실리카 분진",
+          "호흡성 결정형 실리카",
+          "블라스팅",
+          "분진",
+          "호흡용 보호구"
+        ],
+        "evidence": "실리카 분진이 발생되는 작업; 호흡성 결정형 실리카; 블라스팅",
+        "source_fields": [
+          "title",
+          "domainTerms.term"
+        ],
+        "confidence": 0.86,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "실리카 분진",
+          "분진작업"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-106-2013",
+          "guide_code": "G-106-2013",
+          "axis": "hazardous_agent",
+          "feature_code": "CHEMICAL",
+          "confidence": 0.82,
+          "evidence": "실리카 분진(Silica dust)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-106-2013",
+          "guide_code": "G-106-2013",
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.82,
+          "evidence": "실리카 분진이 발생되는 작업",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-106-2013",
+          "guide_code": "G-106-2013",
+          "sr_id": "SR-DUST-001",
+          "confidence": 0.82,
+          "evidence": "실리카 분진 밀폐·국소배기",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-106-2013",
+          "guide_code": "G-106-2013",
+          "sr_id": "SR-DUST-006",
+          "confidence": 0.78,
+          "evidence": "분진 유해성 및 예방방법 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-106-2013",
+          "guide_code": "G-106-2013",
+          "sr_id": "SR-DUST-008",
+          "confidence": 0.78,
+          "evidence": "분진 노출기준 초과 시 호흡기보호 프로그램",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-106-2013",
+          "guide_code": "G-106-2013",
+          "sr_id": "SR-DUST-009",
+          "confidence": 0.8,
+          "evidence": "분진작업 호흡용 보호구",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-106-2013",
+          "guide_code": "G-106-2013",
+          "trigger_text": "실리카 분진 또는 블라스팅 작업",
+          "cue_type": "work_activity",
+          "confidence": 0.86,
+          "evidence": "블라스팅(Blasting), 실리카 분진(Silica dust)",
+          "source_fields": [
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-106-2013",
+          "guide_code": "G-106-2013",
+          "trigger_text": "호흡용 보호구와 분진 저감 설비",
+          "cue_type": "ppe_or_control",
+          "confidence": 0.82,
+          "evidence": "호흡용 보호구 유지관리; 작업장 분진 관리",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "실리카 분진",
+          "호흡성 결정형 실리카",
+          "블라스팅",
+          "분진",
+          "호흡용 보호구"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    },
+    {
+      "guide_code": "G-108-2014",
+      "short_code": "G108",
+      "title": "경운기 사용 시 안전에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-G108.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "cultivator_farm_machinery",
+        "mismatch_policy": "penalize_without_required_context",
+        "required_context_terms": [
+          "경운기",
+          "경운 작업",
+          "트레일러",
+          "동력 인출 장치",
+          "조향 클러치",
+          "연료 보급"
+        ],
+        "evidence": "경운기 사용 시 안전; 경운 작업; 트레일러 운행; 동력 인출 장치",
+        "source_fields": [
+          "title",
+          "workProcesses.processName",
+          "domainTerms.term"
+        ],
+        "confidence": 0.84,
+        "negative_context_terms": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "industry_alignment": [
+          "경운기",
+          "농업용 기계"
+        ]
+      },
+      "feature_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-108-2014",
+          "guide_code": "G-108-2014",
+          "axis": "work_context",
+          "feature_code": "FARM_MACHINERY",
+          "confidence": 0.86,
+          "evidence": "경운기 사용",
+          "source_fields": [
+            "title"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-108-2014",
+          "guide_code": "G-108-2014",
+          "axis": "accident_type",
+          "feature_code": "COLLISION",
+          "confidence": 0.72,
+          "evidence": "트레일러 운행",
+          "source_fields": [
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 0
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-108-2014",
+          "guide_code": "G-108-2014",
+          "sr_id": "SR-MACHINE-046",
+          "confidence": 0.72,
+          "evidence": "농업용기계 검정 합격품 사용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-108-2014",
+          "guide_code": "G-108-2014",
+          "sr_id": "SR-MACHINE-013",
+          "confidence": 0.6,
+          "evidence": "차량계 기계 제한속도 지정과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.term"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-108-2014",
+          "guide_code": "G-108-2014",
+          "trigger_text": "경운기 또는 농업용 트레일러",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "경운기 사용; 트레일러 운행",
+          "source_fields": [
+            "title",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        },
+        {
+          "entity_type": "GUIDE",
+          "entity_id": "G-108-2014",
+          "guide_code": "G-108-2014",
+          "trigger_text": "동력 인출 장치·조향 클러치·연료 보급",
+          "cue_type": "equipment_detail",
+          "confidence": 0.78,
+          "evidence": "동력 인출 장치(Power take off); 조향 클러치(Steering clutch); 연료 보급",
+          "source_fields": [
+            "domainTerms.term",
+            "workProcesses.processName"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 1
+        }
+      ],
+      "recommendation_boundary": {
+        "include_when": [
+          "경운기",
+          "경운 작업",
+          "트레일러",
+          "동력 인출 장치",
+          "조향 클러치",
+          "연료 보급"
+        ],
+        "exclude_when": [
+          "문서/장비/작업장 단서 없음",
+          "무관 업종",
+          "일반 보호구 사진만 있음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "notes": "Pilot batch rechecked against source JSON and normalized to the batch 003-035 candidate-only schema."
+    }
+  ]
+}

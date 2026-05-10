@@ -1,0 +1,607 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T15:00:00+09:00",
+    "batchId": "sr-batch-LIFTING",
+    "totalSafetyRequirements": 15
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-LIFTING-001",
+      "title": "양중기 및 달기구 정격하중 등 표시",
+      "text": "사업주는 양중기(승강기 제외) 및 달기구를 사용하여 작업할 때, 운전자 또는 작업자가 보기 쉬운 곳에 해당 기계의 정격하중, 운전속도, 경고표시 등을 부착하여야 한다. 다만, 달기구는 정격하중만 표시한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제133조"],
+      "mandatedBy": ["NS-RULE133-0"],
+      "addressesHazard": ["STRUCK_BY"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-002",
+      "title": "양중기 방호장치 사전 조정",
+      "text": "사업주는 크레인, 이동식 크레인, 리프트, 곤돌라, 승강기의 과부하방지장치, 권과방지장치, 비상정지장치, 제동장치 등 방호장치가 정상적으로 작동될 수 있도록 미리 조정하여야 한다. 크레인 및 이동식 크레인의 권과방지장치는 달기구 윗면과 권상장치 아랫면의 간격이 0.25m 이상(직동식은 0.05m 이상)이 되도록 조정하여야 하며, 권과방지장치를 설치하지 않은 크레인에는 권상용 와이어로프에 위험표시 및 경보장치를 설치하여 과감김에 의한 위험을 방지하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제134조"],
+      "mandatedBy": ["NS-RULE134-0", "NS-RULE134-1", "NS-RULE134-2"],
+      "addressesHazard": ["STRUCK_BY"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "권과방지장치 간격", "condition": ">=", "value": 0.25, "unit": "m", "source": "제134조 제2항"},
+          {"parameter": "직동식 권과방지장치 간격", "condition": ">=", "value": 0.05, "unit": "m", "source": "제134조 제2항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-003",
+      "title": "양중기 적재하중 초과 사용 금지",
+      "text": "사업주는 양중기에 그 적재하중을 초과하는 하중을 걸어서 사용하도록 해서는 아니 된다. 과부하에 의한 양중기 전도, 붕괴 및 낙하 위험을 방지하기 위하여 정격하중 범위 내에서만 사용하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제135조"],
+      "mandatedBy": ["NS-RULE135-0"],
+      "addressesHazard": ["STRUCK_BY", "COLLAPSE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-004",
+      "title": "리프트 안전장치 설치",
+      "text": "사업주는 리프트(자동차정비용 리프트 제외)의 운반구 이탈 등의 위험을 방지하기 위하여 권과방지장치, 과부하방지장치, 비상정지장치 등을 설치하는 등 필요한 안전조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제151조"],
+      "mandatedBy": ["NS-RULE151-0"],
+      "addressesHazard": ["STRUCK_BY"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-005",
+      "title": "리프트 무인작동 제한 및 임의 조작 방지",
+      "text": "사업주는 운반구 내부에만 탑승조작장치가 설치되어 있는 리프트를 사람이 탑승하지 아니한 상태로 작동하게 해서는 아니 된다. 또한, 리프트 조작반에 잠금장치를 설치하는 등 관계 근로자가 아닌 사람이 리프트를 임의로 조작하여 발생하는 위험을 방지하기 위한 조치를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제152조"],
+      "mandatedBy": ["NS-RULE152-0", "NS-RULE152-1"],
+      "addressesHazard": ["STRUCK_BY", "CAUGHT_IN"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-006",
+      "title": "리프트 피트 청소 시 운반구 낙하 방지 조치",
+      "text": "사업주는 리프트의 피트 등의 바닥을 청소하는 경우, 운반구의 낙하에 의한 근로자의 위험을 방지하기 위하여 운반구 고정, 전원 차단 등 필요한 안전조치를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제153조"],
+      "mandatedBy": ["NS-RULE153-0"],
+      "addressesHazard": ["STRUCK_BY"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-007",
+      "title": "리프트 붕괴 및 전도 방지 조치",
+      "text": "사업주는 지반침하, 불량한 자재사용 또는 헐거운 결선 등으로 리프트가 붕괴되거나 넘어지지 않도록 필요한 조치를 하여야 한다. 순간풍속이 초당 35m를 초과하는 바람이 불어올 우려가 있는 경우, 건설용 리프트(지하에 설치된 것 제외)에 대하여 받침의 수를 증가시키는 등 붕괴 방지 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제154조"],
+      "mandatedBy": ["NS-RULE154-0", "NS-RULE154-1"],
+      "addressesHazard": ["COLLAPSE"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "순간풍속", "condition": ">", "value": 35, "unit": "m/s", "source": "제154조 제2항"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-008",
+      "title": "리프트 운반구 주행로 위 정지 금지",
+      "text": "사업주는 리프트 운반구를 주행로 위에 달아 올린 상태로 정지시켜 두어서는 아니 된다. 운반구의 낙하에 의한 근로자 위험을 방지하기 위하여 운반구는 정해진 정지위치에 두어야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제155조"],
+      "mandatedBy": ["NS-RULE155-0"],
+      "addressesHazard": ["STRUCK_BY"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-009",
+      "title": "리프트 설치·조립·해체 작업 시 안전조치",
+      "text": "사업주는 리프트의 설치, 조립, 수리, 점검 또는 해체 작업을 하는 경우 작업지휘자를 지정하고, 작업지휘자로 하여금 작업방법 결정, 재료 점검, 보호구 착용 감시 등의 사항을 이행하도록 하여야 한다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제156조"],
+      "mandatedBy": ["NS-RULE156-0", "NS-RULE156-1"],
+      "addressesHazard": ["STRUCK_BY", "COLLAPSE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-010",
+      "title": "이삿짐운반용 리프트 운전방법 주지",
+      "text": "사업주는 이삿짐운반용 리프트를 사용하는 근로자에게 운전방법 및 고장이 났을 경우의 조치방법을 주지시켜야 한다.",
+      "requirementType": "TRAINING",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제157조"],
+      "mandatedBy": ["NS-RULE157-0"],
+      "addressesHazard": ["STRUCK_BY"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-011",
+      "title": "이삿짐 운반용 리프트 전도 방지",
+      "text": "사업주는 이삿짐 운반용 리프트를 사용하는 작업을 하는 경우, 리프트의 전도를 방지하기 위하여 아웃리거 설치, 지반 안정성 확인 등 소정의 기준을 준수하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제158조"],
+      "mandatedBy": ["NS-RULE158-0"],
+      "addressesHazard": ["COLLAPSE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-012",
+      "title": "이삿짐 운반용 리프트 화물 낙하 방지",
+      "text": "사업주는 이삿짐 운반용 리프트 운반구로부터 화물이 빠지거나 떨어지지 않도록 적재물 고정, 운반구 울타리 설치 등 낙하방지 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제159조"],
+      "mandatedBy": ["NS-RULE159-0"],
+      "addressesHazard": ["STRUCK_BY"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-013",
+      "title": "곤돌라 운전방법 및 고장 시 처치방법 주지",
+      "text": "사업주는 곤돌라를 사용하는 근로자에게 곤돌라의 운전방법 또는 고장이 났을 때의 처치방법을 주지시켜야 한다.",
+      "requirementType": "TRAINING",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제160조"],
+      "mandatedBy": ["NS-RULE160-0"],
+      "addressesHazard": ["FALL"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-014",
+      "title": "옥외 승강기 폭풍 시 무너짐 방지 조치",
+      "text": "사업주는 순간풍속이 초당 35m를 초과하는 바람이 불어올 우려가 있는 경우, 옥외에 설치되어 있는 승강기에 대하여 받침의 수를 증가시키는 등 승강기가 무너지는 것을 방지하기 위한 조치를 하여야 한다.",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제161조"],
+      "mandatedBy": ["NS-RULE161-0"],
+      "addressesHazard": ["COLLAPSE"],
+      "structuralRequirements": {
+        "items": [
+          {"parameter": "순간풍속", "condition": ">", "value": 35, "unit": "m/s", "source": "제161조 본문"}
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-LIFTING-015",
+      "title": "승강기 설치·조립·해체 작업 시 안전조치",
+      "text": "사업주는 승강기의 설치, 조립, 수리, 점검 또는 해체 작업을 하는 경우 작업지휘자를 지정하고, 작업지휘자로 하여금 작업방법 결정, 재료 점검, 보호구 착용 감시 등의 사항을 이행하도록 하여야 한다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제162조"],
+      "mandatedBy": ["NS-RULE162-0", "NS-RULE162-1"],
+      "addressesHazard": ["STRUCK_BY", "COLLAPSE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제38조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제38조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}

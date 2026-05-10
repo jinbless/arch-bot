@@ -1,0 +1,1285 @@
+{
+  "metadata": {
+    "guideCode": "X-77-2018",
+    "shortCode": "X77",
+    "domain": "A",
+    "extractedAt": "2026-04-23T08:08:34Z",
+    "extractedBy": "claude-opus-split",
+    "batchId": "pipeb-batch-A-029"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-X77-001",
+      "text": "안전관련 시스템의 하부시스템(subsystem)의 구조(architecture)는 KS C IEC 61508 part 2(2010)에서는 엄격하게 제한을 하고 있으며, \"최소 하드웨어 고장허용치(Minimum Hardware Fault Tolerance, HFT)\"를 요구한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "하부시스템 구조 설계 시 HFT 요구사항을 충족해야 함",
+      "workProcessPhase": "하부시스템 구조 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-002",
+      "text": "KS C IEC 61508 에서는 사용된 장치(부품)와 구조에 따라 최고로 높은 단계의 안전무결성수준이 결정되므로 다음과 같이 3가지 조건을 요구한다. (가) 하부시스템에 대한 구조적 제한(architectural constraints) ; 최소 하드웨어 고장허용치(HFT) 평가 (나) 안전고장분율(Safe Failure Fraction, SFF) 계산 및 적용 (다) 요구시 고장 평균확률(PFDavg)",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "하부시스템 구조 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-003",
+      "text": "안전계장기능의 안전무결성수준(SIL)을 결정할 경우 구조적 제약 평가결과에 따라 하위시스템의 각 요소(부품)의 가지고 있는 값 중 가장 낮은 수준으로 결정한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "예를 들면, 하위시스템의 각 요소(부품)의 안전무결성수준이 SIL 4와 SIL 3로 분포되어 있을 경우 최종 안전계장기능은 SIL 3로 결정한다.",
+      "workProcessPhase": "하부시스템 구조 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-004",
+      "text": "안전계장기능의 고장률(λ)은 고장의 형태에 따라 \"안전한 고장률(safe failure rate, λS)\"과 \"위험한 고장률(dangerous failure rate, λD)\"로 나눈다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "4가지 고장형태: 안전한 검출(λSd), 안전한 미검출(λSu), 위험한 검출(λDd), 위험한 미검출(λDu)",
+      "workProcessPhase": "고장형태 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-005",
+      "text": "안전관련 시스템 및 안전계장기능의 요구시 고장 평균확률(PFDavg) 계산 시에는 유일하게 \"위험한 미검출 고장률(λDu)\"이 사용된다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "안전한 고장률(λS)과 위험한 검출 고장률(λDd)은 안전무결성에 영향을 주지 않음",
+      "workProcessPhase": "PFDavg 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-006",
+      "text": "안전관련시스템은 저요구모드를 적용하여 요구시 고장평균확률(PFDavg)을 계산한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "PFDavg 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-007",
+      "text": "안전관련 시스템의 PFDavg 는 분석적인 방법 또는 Monte Carlo 방법론을 수행하여야 한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "전통적인 방법으로 여러개 요소의 PFDavg,i 로부터 계산할 수 없으며, Boolean 기반의 RBD를 수행한다.",
+      "workProcessPhase": "PFDavg 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-008",
+      "text": "안전고장분율과 최소 하드웨어 고장허용치의 적용은 다음과 같이 수행한다. (가) Type A는 구성된 모든 하위시스템 요소(부품)의 고장유형이 쉽고, 명확한 고장 데이터가 확보된 간단한 조작부 요소(부품)들에 적용한다. (나) Type B는 Type A의 이외의 것들로 sensor transmitter, logic solver 등 복잡하고, 전자 부품의 모든 것들에 적용한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "Type A: mechanical devices, simple electronic devices 등 / Type B: sensor transmitter, logic solver 등",
+      "workProcessPhase": "하부시스템 구조 결정",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-039",
+      "text": "시스템의 요구시 평균 고장확률은 10^-1이하 이거나 평균 고장빈도는 10^-1/년 이하이다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "PFD 계산 수행 전 시스템이 이 조건을 충족하는지 확인하여야 한다.",
+      "workProcessPhase": "계산 가정사항 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-040",
+      "text": "각 요소(부품)들의 고장률은 시스템 수명 기간에는 일정하다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "고장률 일정 가정은 계산의 기본 전제조건이다.",
+      "workProcessPhase": "계산 가정사항 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-041",
+      "text": "감지부는 센서(들), voting, 및 입력모듈 등 다른 요소들로 구성되며, 이는 연결선으로 이어진다. 다만, <그림 3>과 같이 센서와 센서간에 신호는 연결되지 않는다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "계산 가정사항 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-042",
+      "text": "논리기는 감지부로부터 신호를 받는 입력모듈과 연결되며, 조작부에 신호를 주는 출력모듈을 포함한 여러 요소(들)로 구성되어 있다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "계산 가정사항 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-043",
+      "text": "조작부는 논리기에서 받은 신호를 최종 수행(actuator 등)하는 요소(들)로 구성되어 있으며, 이는 연결선으로 이어진다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "계산 가정사항 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-044",
+      "text": "하드웨어 고장률은 계산식이 사용되며, 기존 표의 값은 하부시스템이 단순 채널인 경우 사용한다.(예, 2oo3 voting 감지부가 사용된다면, 하나의 센서를 위해 고장률은 표의 값을 사용되고, 2oo3의 voting효과는 별도로 분리하여 계산한다.)",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "하드웨어 고장률 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-045",
+      "text": "voting 그룹이 있는 채널들은 동일한 고장률을 가지며, 자가진단 기능을 갖는다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "계산 가정사항 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-046",
+      "text": "하부시스템 채널의 전체 하드웨어 고장률(λ)은 위험한 고장률(λD)과 안전한 고장률(λS)의 합이다. 이들 고장률은 동일하다고 가정한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "λ = λD + λS 이고, λD = λS 로 가정한다.",
+      "workProcessPhase": "하드웨어 고장률 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-047",
+      "text": "각각의 안전기능을 위해 완전한 보증시험(proof test) 및 보수가 이루어진다. (즉, 검출되지 않고 남아 있는 모든 고장들은 보증시험 시에 검출됨)",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "보증시험은 미검출 고장을 모두 발견할 수 있어야 한다.",
+      "workProcessPhase": "보증시험 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-048",
+      "text": "보증시험의 주기는 평균보수시간(Mean Repair Time, 보통 8 시간으로 가정, 이하 \"MRT\"라 한다)에 비해 상당히 긴 기간으로 6 개월 이상이다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "보증시험 주기(T1)는 최소 6개월 이상으로 설정한다.",
+      "workProcessPhase": "보증시험 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-049",
+      "text": "하부시스템별로 보증시험과 MRT를 가진다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "보증시험 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-050",
+      "text": "자기진단 기능을 갖는 하부시스템인 경우 평균복구시간(Mean Time To Restoration, MTTR)에는 고장 검출과 보수시간이 포함된다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "하드웨어 고장률 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "계산 시에 필요한 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-051",
+      "text": "안전계장기능의 구성 요소 중 1개만 고장이 나면, 안전기능이 완전히 고장이 난다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "직렬 구조의 특성으로, 하부시스템 중 하나라도 고장 시 전체 안전기능이 상실된다.",
+      "workProcessPhase": "요구시 고장확률 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "계산 과정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-052",
+      "text": "전체 안전계장기능이 감지부, 논리기 및 조작부로 하부시스템으로 구성되어 있다면, 하부시스템 구성 개별 요소의 요구시 고장 평균확률(PFDavg)로부터 전체 PFDsys,avg는 각 요소의 요구시 고장확률을 더해서 계산한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "PFDSYS,avg = PFDs + PFDL + PFDFE",
+      "workProcessPhase": "요구시 고장확률 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "계산 과정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-053",
+      "text": "1oo2는 주로 조작부의 솔레노이드 밸브 연결에 활용한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "1oo2 voting 구조는 2개의 채널이 병렬로 구성되어 각각 안전기능을 수행할 수 있다.",
+      "workProcessPhase": "구조 및 voting 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "1 out of 2 voting 기능",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-054",
+      "text": "대부분 안전무결성수준(SIL) 3 이상을 요구할 경우, 조작부의 솔레노이드 밸브 연결에 활용하며, 감지부를 2oo2로 구성할 경우에는 오작동 등 잘못된 고장 확률을 줄일 수 있다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "2oo2 하부시스템 구성의 요구시 고장 평균확률(PFDG)은 1oo1의 2배에 해당한다.",
+      "workProcessPhase": "구조 및 voting 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "2 out of 2 voting 기능",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-055",
+      "text": "2oo3 연결은 대부분 안전무결성수준(SIL) 3 이상을 요구할 경우, 감지부 또는 논리기에 활용한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "3개의 채널이 병렬로 구성되어 통합 출력신호로 구성된다.",
+      "workProcessPhase": "구조 및 voting 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "2 out of 3 voting 기능",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-056",
+      "text": "산업현장에서는 안전계장기능 제조자나 공급자의 요구사항에 따라, 정기적으로 작동시험(Manual test)을 실시한다면, 고장률(λ) 중에 위험한 검출 고장률(λDd)은 문제가 되지 않는다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "정기 작동시험 실시 시 간단한 계산식(λDu 기반)을 활용할 수 있다.",
+      "workProcessPhase": "보증시험 수행",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "간단한 계산식을 활용한 요구시 고장확률 계산",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-057",
+      "text": "각 별표에서 계산값은 개별 고장 후 평균복구시간(MTTR)을 8 시간으로 가정하였다. 고장률은 위험한 고장률(λD)을 기준으로 하여, 0.5E-07에서 2.5E-05까지 6단계로 구분하여 값을 나타냈다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "표 활용 시 MTTR 8시간 가정 기준임을 확인한다.",
+      "workProcessPhase": "요구시 고장확률 계산",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "표를 활용한 요구시 고장 평균확률값 계산",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-058",
+      "text": "안전계장기능(시스템)은 안전무결성수준(SIL) 2 수준으로 고려한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "SIL 검증 예시에서 목표 SIL 수준을 설정한다.",
+      "workProcessPhase": "SIL 충족 검증",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "안전계장기능 구성의 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-059",
+      "text": "감지부는 3개의 아날로그 압력센서를 1그룹으로 구성되고, 1oo3 voting으로 연결된다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "구조 및 voting 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "안전계장기능 구성의 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-060",
+      "text": "논리기는 PE 시스템으로 자가진단 및 중복성 1oo2D으로 구성되어 있다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "구조 및 voting 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "안전계장기능 구성의 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-061",
+      "text": "조작부는 1 개의 차단밸브와 1 개의 벤트밸브가 설치되어 있으며, 안전기능을 성취하려면 차단밸브와 벤트밸브가 동시에 작동되어야 한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "조작부의 차단밸브와 벤트밸브 동시 작동이 안전기능 성취의 필수 조건이다.",
+      "workProcessPhase": "구조 및 voting 설계",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "안전계장기능 구성의 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-062",
+      "text": "요구시 고장 평균확률 계산을 위해서는 보증시험 주기는 1년으로 가정한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "SIL 충족 검증",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "안전계장기능 구성의 가정",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-063",
+      "text": "1.3E-02는 안전무결성수준(SIL) 1에 해당하므로, 안전무결성수준 2를 충족하지 못함을 알 수 있다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "보증시험 주기 1년, 현재 구성으로는 SIL 2 미충족 사례이다.",
+      "workProcessPhase": "SIL 충족 검증",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "하부시스템의 요구시 고장 평균확률 계산",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-064",
+      "text": "보증시험 주기를 6개월로 단축하면, 다음과 같이 각각의 요구시 고장 평균확률은 개선이 된다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "SIL 미충족 시 보증시험 주기 단축을 통한 보강 방안이다.",
+      "workProcessPhase": "안전기능 보강",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "하부시스템의 안전기능 보강",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-065",
+      "text": "6.7E-03은 안전무결성수준(SIL) 2에 해당하므로, 안전무결성수준 2를 충족한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "보증시험 주기를 6개월로 단축한 결과 SIL 2를 충족하는 사례이다.",
+      "workProcessPhase": "SIL 충족 검증",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "하부시스템의 안전기능 보강",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-066",
+      "text": "조작부의 차단밸브의 1oo1 voting을 중복성을 추가하여 1oo2로 보강하고, β = 10 %, βD는 5 % 로 가정한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "SIL 미충족 시 중복성 추가를 통한 보강 방안이다.",
+      "workProcessPhase": "안전기능 보강",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "하부시스템의 안전기능 보강",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-067",
+      "text": "5.6E-03은 안전무결성수준(SIL) 2에 해당하므로, 안전무결성수준 2를 충족한다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "차단밸브 1oo2 보강 후 SIL 2를 충족하는 사례이다.",
+      "workProcessPhase": "SIL 충족 검증",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "하부시스템의 안전기능 보강",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-088",
+      "text": "각 별표에서 계산값은 개별 고장 후 평균복구시간(MTTR)을 8 시간으로 가정하였다",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "6개월 보증시험주기 기준 PFD 계산 시 적용하는 MTTR 기준값",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-089",
+      "text": "고장률은 위험한 고장률(λD)을 기준으로 하여, 0.5E-07에서 2.5E-05까지 6단계로 구분하여 값을 나타냈다",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "PFD 산출을 위한 위험한 고장률(λD) 6단계 구분 기준",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-090",
+      "text": "위험한 고장률(λD)은 0.5λ로 가정",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "총 고장률(λ) 대비 위험한 고장률(λD) 비율 산정 기준",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-091",
+      "text": "이 표는 β = 2× βD 를 가정한다. 1oo1, 1oo2 는 β 와 βD 의 값은 평균 고장확률에 영향을 미치지 않는다",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "공통원인 고장 분율(β, βD) 관계 가정 및 1oo1/1oo2 구성 적용 조건",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-092",
+      "text": "안전한 고장율을 위험한 고장률과 K =0.98과 동등하다고 가정한다",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "1oo2D 시스템 자동시험회로 성공분률(K) 가정 기준, IEC 61508 part 6 Annex B Table B.2 기반",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-126",
+      "text": "각 별표에서 계산값은 개별 고장 후 평균복구시간(MTTR)을 8 시간으로 가정하였다.",
+      "guideContext": "안전관련 시스템 하드웨어 고장확률 계산 시 MTTR 가정 조건 (법령 근거 미확인)",
+      "additionalDetail": "IEC 61508 part 6 Annex B Table B.3 기반 계산 전제조건",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-127",
+      "text": "고장률은 위험한 고장률(λD)을 기준으로 하여, 0.5E-07에서 2.5E-05까지 6단계로 구분하여 값을 나타냈다.",
+      "guideContext": "안전관련 시스템 PFD 계산 시 위험고장률 기준 적용 (법령 근거 미확인)",
+      "additionalDetail": "1년 보증시험주기 기준 PFD 산출용 고장률 범위",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-128",
+      "text": "이 표는 β = 2× βD 를 가정한다. 1oo1, 1oo2 는 β 와 βD 의 값은 평균 고장확률에 영향을 미치지 않는다.",
+      "guideContext": "공통원인고장(CCF) 계수 β 적용 기준 (법령 근거 미확인)",
+      "additionalDetail": "β와 βD의 관계 가정 및 1oo1/1oo2 구성에서의 영향도",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-129",
+      "text": "안전한 고장율을 위험한 고장률과 K =0.98과 동등하다고 가정한다.",
+      "guideContext": "안전고장률과 위험고장률 간 비율 계수(K) 가정 조건 (법령 근거 미확인)",
+      "additionalDetail": "K=0.98은 안전고장률(λS)과 위험고장률(λD)의 비율 가정값",
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-160",
+      "text": "각 별표에서 계산값은 개별 고장 후 평균복구시간(MTTR)을 8 시간으로 가정하였다. 고장률은 위험한 고장률(λD)을 기준으로 하여, 0.5E-07에서 2.5E-05까지 6단계로 구분하여 값을 나타냈다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "별표 4의 PFD 산출 시 적용 가정사항으로, MTTR 8시간 및 위험고장률(λD) 기준 6단계 구분을 따라야 함",
+      "workProcessPhase": "고장확률 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-161",
+      "text": "이 표는 β = 2× βD 를 가정한다. 1oo1, 1oo2 는 β 와 βD 의 값은 평균 고장확률에 영향을 미치지 않는다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "공통원인고장(CCF) 인자 적용 시 β = 2×βD 관계를 가정하며, 1oo1 및 1oo2 구성에서는 β, βD가 PFD에 영향 없음",
+      "workProcessPhase": "공통원인고장 인자 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-162",
+      "text": "안전한 고장율을 위험한 고장률과 K =0.98과 동등하다고 가정한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "안전고장률(λS)과 위험고장률(λD) 비율 K=0.98 가정",
+      "workProcessPhase": "고장확률 산출",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "별표 4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-163",
+      "text": "안전계장기능에 대한 총 요구시 고장평균확률(PFDSYS)를 구하면, 2.3E-04 + 4.8E-06 + 1.3E-02 = 1.3E-02이다. 이는 안전무결성수준(SIL) 1에 해당한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "각 하부시스템(감지부, 논리기, 조작부)의 PFD를 합산하여 총 PFDSYS를 산출하고 SIL 등급을 판정하는 절차",
+      "workProcessPhase": "SIL 검증",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-164",
+      "text": "안전계장기능이 안전무결성수준(SIL) 2를 만족하기 위해서는 다음과 같이 보증시험 주기를 6개월로 단축하거나, 조작부 등의 구성(voting)을 1oo1에서 1oo2로 개선하면 된다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "목표 SIL 미달 시 보증시험 주기 단축 또는 하부시스템 이중화(voting 개선) 중 택일 가능",
+      "workProcessPhase": "SIL 검증",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-165",
+      "text": "1년 주기의 보증시험주기(proof test interval)와 8시간의 평균복구시간(MTTR)을 적용",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "SIL 검증 예제에서 보증시험주기 1년, MTTR 8시간을 기본 조건으로 적용",
+      "workProcessPhase": "SIL 검증",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-166",
+      "text": "보증시험 주기를 6 개월로 단축할 경우 PFDs = 1.1E-04, PFDL = 2.6E-06, PFDFE = 2.2E-03 + 4.4E-03 = 6.6E-03, PFDSYS = 6.7E-03을 얻을 수 있다. 이는 안전무결성수준 2를 만족한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "보증시험 주기 단축(1년→6개월)을 통한 SIL 등급 향상 방법",
+      "workProcessPhase": "SIL 개선",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "부록",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-X77-167",
+      "text": "조작부의 차단밸브를 1oo2로 개선할 경우(β = 10 % βD = 5 %로 가정) PFDs = 2.3E-04, PFDL = 4.8E-06, PFDFE = 4.4E-03 + 9.7E-04 = 5.4E-03, PFDSYS = 5.6E-03을 얻을 수 있다. 이는 안전무결성수준 2를 만족한다.",
+      "guideContext": "안전관련 시스템의 하드웨어 고장확률 계산 (법령 근거 미확인)",
+      "additionalDetail": "조작부 이중화(1oo1→1oo2, β=10%, βD=5%)를 통한 SIL 등급 향상 방법",
+      "workProcessPhase": "SIL 개선",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "부록",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-X77-001",
+      "term": "전기/전자/프로그램 가능형 전자장치",
+      "definition": "전기/전자/프로그램이 가능한 전자기술을 기반으로 한 장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-002",
+      "term": "프로그램 가능형 전자장치",
+      "definition": "하드웨어, 소프트웨어 및 입출력 장치로 구성된 컴퓨터 기술을 기반으로 한 전자장치를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-003",
+      "term": "안전관련 시스템",
+      "definition": "운전설비의 안전상태를 유지하도록 안전기능을 수행하는 전기/전자/프로그램 가능형 시스템, 기타 다른 기술로 구성된 시스템 또는 외부의 리스크 감소 설비 등을 말한다. 이 지침에서는 \"안전계장기능\" 또는 \"안전계장설비\"를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-004",
+      "term": "안전기능",
+      "definition": "안전계장기능, 또는 다른 기술적 안전(관련)시스템 또는 외부 리스크 저감설비에 의한 수행되는 기능으로 안전한 상태를 유지하거나 성취하기 위한 기능을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-005",
+      "term": "안전계장기능",
+      "definition": "높은 안전무결수준(safety integrity level, SIL)을 지닌 안전기능으로, 여러 가지의 하부시스템의 조합으로 구성되어 있는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-006",
+      "term": "하부시스템",
+      "definition": "안전계장기능의 작동을 위한 시스템으로써 감지부, 논리기, 조작부 등으로 개별 채널과 이를 연결을 위한 전자인터페이스를 포함한 조합을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-007",
+      "term": "채널",
+      "definition": "안전계장기능의 하부시스템을 구성하는 감지부(sensors), 논리기(logic solver) 및 조작부(final elements) 중의 하나를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-008",
+      "term": "안전계장설비",
+      "definition": "하나 또는 그 이상의 안전계장기능 및 관련 부속설비를 통합한 계장시스템으로 안전관련 시스템의 일종을 말하며, 운전조건을 벗어난 상태가 발생했을 때, 해당공정을 안전하게 정지시키거나, 리스크를 저감하기 위한 설비를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-009",
+      "term": "안전무결성",
+      "definition": "안전(관련)시스템이 주어진 시간동안 모든 운전상태에서 요구되는 안전기능을 만족스럽게 수행할 수 있는 확률을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-010",
+      "term": "요구시 고장확률",
+      "definition": "안전관련 시스템 등의 하부시스템을 구성하는 요소 등과 같이 안전 기능 작동이 요구될 시점에 고장이 발생하여 작동이 되지 않을 수 있는 확률을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-011",
+      "term": "위험감소분률",
+      "definition": "요구시 고장확률의 역의 개념으로 정수로 나타내기 위한 수치를 말하며, 식은 1/PFD 이다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-012",
+      "term": "안전무결성수준",
+      "definition": "전기/전자/프로그램 가능형 전자장치로 구성된 안전관련 시스템에서, 안전기능의 안전무결성 요건을 불연속의 수준(1~4)으로 명시한 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-013",
+      "term": "공통원인고장",
+      "definition": "안전계장설비에 전원공급 중단과 같이 한가지의 고장원인이 설비 전체의 고장으로 이어지는 원인고장이나, 하부시스템의 채널 모두에 공통의 영향을 미치는 원인고장을 말한다. 이 지침에서는 채널에 공통의 영향을 미치는 원인고장에 한한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-014",
+      "term": "저요구 모드",
+      "definition": "안전관련 시스템과 같이 이상이 발생이 할 때 작동하는 요소로, 작동이 가끔 일어나는 채널의 고장률(λ)로써 시간당 고장 횟수(회/h) 또는 연당 고장 횟수(회/year)로 표현하는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-015",
+      "term": "고요구 모드",
+      "definition": "공정제어관련 시스템과 같이 운전 중에 작동이 지속적으로 일어나는 채널의 고장률(λ)로써 시간당 고장 횟수(회/h)로 표현하는 것을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-X77-016",
+      "term": "안전고장분율",
+      "definition": "장치(부품)의 총고장률(λ) 중에 안전한 고장률(λS)과 위험한 검출 고장률(λDd)의 합의 분율을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-X77-01",
+      "processOrder": 1,
+      "processName": "신뢰도 블록다이어그램(RBD) 구성",
+      "safetyMeasures": "안전관련 시스템의 감지부, 논리기, 조작부 및 공통원인고장(CCF)으로 안전 루프를 구성하고, 최소 컷셋(minimal cut set)을 식별한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-02",
+      "processOrder": 2,
+      "processName": "고장형태 분류",
+      "safetyMeasures": "안전계장기능의 고장률(λ)을 안전한 고장률(λS)과 위험한 고장률(λD)로 분류하고, 4가지 고장형태(λSd, λSu, λDd, λDu)로 세분화하여 PFDavg 계산에 사용할 위험한 미검출 고장률(λDu)을 식별한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-03",
+      "processOrder": 3,
+      "processName": "하부시스템 구조 결정 및 SFF/HFT 평가",
+      "safetyMeasures": "장치(부품)를 Type A 또는 Type B로 분류하고, 안전고장분율(SFF)을 계산하여 해당 SIL 수준에 요구되는 최소 하드웨어 고장허용치(HFT)를 결정한다. 하위시스템의 각 요소 중 가장 낮은 SIL 수준으로 최종 안전무결성수준을 결정한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-04",
+      "processOrder": 4,
+      "processName": "요구시 고장 평균확률(PFDavg) 계산",
+      "safetyMeasures": "저요구모드를 적용하여 각 컷셋의 MDT를 산출하고, 직렬 및 병렬 구조에 따라 PFDavg를 계산한다. 병렬 구조의 경우 적분을 통한 MDT 계산이 필요하며, 분석적인 방법 또는 Monte Carlo 방법론을 사용한다.",
+      "requiredPPE": [],
+      "sourceSection": "4.4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-10",
+      "processOrder": 5,
+      "processName": "계산 가정사항 확인",
+      "safetyMeasures": "시스템 요구시 평균 고장확률이 10^-1 이하인지 확인하고, 각 요소 고장률의 일정성, 하부시스템 구성(감지부·논리기·조작부), 보증시험 주기(6개월 이상), MRT(8시간 가정) 등 13개 가정사항을 검토한다.",
+      "requiredPPE": [],
+      "sourceSection": "계산 시에 필요한 가정",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-11",
+      "processOrder": 6,
+      "processName": "하드웨어 고장률 계산",
+      "safetyMeasures": "하부시스템 채널의 전체 하드웨어 고장률(λ)을 위험한 고장률(λD)과 안전한 고장률(λS)으로 분리하고, 위험한 고장률을 검출(λDd)과 미검출(λDu)로 구분하여 계산한다. λDu = λD(1-DC), λDd = λD·DC 로 산출한다.",
+      "requiredPPE": [],
+      "sourceSection": "하드웨어 고장률의 계산 방법",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-12",
+      "processOrder": 7,
+      "processName": "구조별 voting 계산 수행",
+      "safetyMeasures": "안전계장기능의 하부시스템 voting 구조(1oo1, 1oo2, 2oo2, 1oo2D, 2oo3, 1oo3)에 따라 해당 계산식을 적용하여 요구시 고장 평균확률(PFDG)을 산출한다. 공통원인고장(CCF) β, βD 파라미터를 반영한다.",
+      "requiredPPE": [],
+      "sourceSection": "각 구조 및 연결구성에 따른 계산",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-13",
+      "processOrder": 8,
+      "processName": "전체 안전계장기능 PFD 계산",
+      "safetyMeasures": "감지부(PFDs), 논리기(PFDL), 조작부(PFDFE) 각각의 요구시 고장 평균확률을 합산하여 전체 시스템의 요구시 고장 평균확률(PFDSYS,avg)을 계산한다. PFDSYS,avg = PFDs + PFDL + PFDFE",
+      "requiredPPE": [],
+      "sourceSection": "계산 과정",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-14",
+      "processOrder": 9,
+      "processName": "안전무결성수준(SIL) 충족 검증",
+      "safetyMeasures": "산출된 PFDSYS,avg 값을 SIL 등급표와 대조하여 목표 SIL 수준 충족 여부를 판정한다. SIL 1: 10^-2~10^-1, SIL 2: 10^-3~10^-2, SIL 3: 10^-4~10^-3, SIL 4: 10^-5~10^-4",
+      "requiredPPE": [],
+      "sourceSection": "안전계장기능에 대한 안전무결성수준(SIL) 충족 검증",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-15",
+      "processOrder": 10,
+      "processName": "안전기능 보강 (SIL 미충족 시)",
+      "safetyMeasures": "SIL 미충족 시 보증시험 주기 단축(예: 1년→6개월) 또는 하부시스템 중복성 추가(예: 1oo1→1oo2)를 통해 PFDG를 개선한다. 보강 후 PFDSYS,avg를 재계산하여 목표 SIL 충족 여부를 재검증한다.",
+      "requiredPPE": [],
+      "sourceSection": "하부시스템의 안전기능 보강",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-X77-40",
+      "processOrder": 11,
+      "processName": "안전계장기능의 안전무결성 수준(SIL) 검증 절차",
+      "safetyMeasures": "1단계: 안전계장기능의 각 하부시스템(감지부, 논리기, 조작부) 구성 확인. 2단계: 해당 별표(보증시험주기 및 MTTR 기준)에서 각 하부시스템의 요구시 고장평균확률(PFD) 산출. 3단계: 감지부 PFDs + 논리기 PFDL + 조작부 PFDFE를 합산하여 총 PFDSYS 산출. 4단계: PFDSYS를 안전무결성수준(SIL) 기준표와 대조하여 SIL 등급 판정. 5단계: 목표 SIL 미달 시 보증시험 주기 단축 또는 하부시스템 구성(voting) 개선 검토.",
+      "requiredPPE": [],
+      "sourceSection": "부록",
+      "relatedSR": null
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-X77-020",
+      "equipmentName": "아날로그 압력센서 (감지부)",
+      "specifications": {
+        "quantity": "3개 1그룹",
+        "voting": "1oo3",
+        "diagnosticCoverage": "해당 자가진단범위 적용",
+        "pfdAvg_1year": "2.3E-04 (별표 3 기준)",
+        "pfdAvg_6month": "1.1E-04 (별표 2 기준)"
+      },
+      "sourceSection": "안전계장기능 구성의 가정",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-021",
+      "equipmentName": "PE 시스템 논리기",
+      "specifications": {
+        "type": "프로그램 가능형 전자장치(PED)",
+        "voting": "1oo2D",
+        "features": "자가진단 및 중복성 구비",
+        "pfdAvg_1year": "4.8E-06 (별표 3 기준)",
+        "pfdAvg_6month": "2.6E-06 (별표 2 기준)"
+      },
+      "sourceSection": "안전계장기능 구성의 가정",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-022",
+      "equipmentName": "차단밸브 (조작부)",
+      "specifications": {
+        "quantity": "1개",
+        "voting_default": "1oo1",
+        "voting_reinforced": "1oo2 (보강 시)",
+        "pfdAvg_1year_1oo1": "8.8E-03 (별표 3 기준)",
+        "pfdAvg_1year_1oo2": "9.7E-04 (별표 3 기준, β=10%, βD=5%)",
+        "pfdAvg_6month_1oo1": "4.4E-03 (별표 2 기준)"
+      },
+      "sourceSection": "안전계장기능 구성의 가정",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-023",
+      "equipmentName": "벤트밸브 (조작부)",
+      "specifications": {
+        "quantity": "1개",
+        "requirement": "차단밸브와 동시 작동 필요",
+        "pfdAvg_1year": "4.4E-03 (별표 3 기준)",
+        "pfdAvg_6month": "2.2E-03 (별표 2 기준)"
+      },
+      "sourceSection": "안전계장기능 구성의 가정",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-024",
+      "equipmentName": "솔레노이드 밸브 (1oo2 연결용)",
+      "specifications": {
+        "application": "조작부 1oo2 voting 연결",
+        "usage": "안전무결성수준(SIL) 3 이상 요구 시 2oo2로도 활용 가능"
+      },
+      "sourceSection": "1 out of 2 voting 기능",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-045",
+      "equipmentName": "보증시험(Proof-test) 주기(Ti)",
+      "specifications": {
+        "parameterType": "시험 주기",
+        "unit": "hour / month / year",
+        "usageRange": "1개월(730h), 6개월(2,190h), 1년(8,760h), 2년(17,520h)"
+      },
+      "sourceSection": "별표 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-046",
+      "equipmentName": "평균복구시간(MTTR) / 평균보수시간(MRT)",
+      "specifications": {
+        "parameterType": "복구시간",
+        "standardValue": "8시간",
+        "unit": "hour",
+        "note": "MRT = MTTR = 8시간"
+      },
+      "sourceSection": "별표 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-047",
+      "equipmentName": "자가진단범위(DC)",
+      "specifications": {
+        "parameterType": "진단 분률",
+        "unit": "%",
+        "usageRange": "0%, 60%, 90%, 99%"
+      },
+      "sourceSection": "별표 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-048",
+      "equipmentName": "공통원인 고장 분율(β / βD)",
+      "specifications": {
+        "parameterType": "고장 분율",
+        "assumption": "β = 2×βD",
+        "betaRange": "2%, 10%, 20%",
+        "betaDRange": "1%, 5%, 10%"
+      },
+      "sourceSection": "별표 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-049",
+      "equipmentName": "위험한 고장률(λD)",
+      "specifications": {
+        "parameterType": "고장률",
+        "unit": "시간당(회/h)",
+        "assumption": "λD = 0.5λ",
+        "usageRange": "0.05E-06, 0.25E-06, 0.5E-06, 2.5E-06, 5E-06, 25E-06"
+      },
+      "sourceSection": "별표 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-050",
+      "equipmentName": "1oo2D 시스템 자동시험회로 성공분률(K)",
+      "specifications": {
+        "parameterType": "성공 분률",
+        "applicableTo": "1oo2D 시스템",
+        "standardValue": "0.98"
+      },
+      "sourceSection": "별표 1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-051",
+      "equipmentName": "1oo1 구성 안전계장시스템 PFD 기준",
+      "specifications": {
+        "configuration": "1oo1",
+        "description": "단일 채널 구성",
+        "proofTestInterval": "6개월(2,190h)",
+        "mttr": "8시간",
+        "pfdRange_DC0": "1.1E-04(λD=0.5E-07) ~ 5.5E-02(λD=2.5E-05)",
+        "pfdRange_DC60": "4.4E-05(λD=0.5E-07) ~ 2.2E-02(λD=2.5E-05)",
+        "pfdRange_DC90": "1.1E-05(λD=0.5E-07) ~ 5.7E-03(λD=2.5E-05)",
+        "pfdRange_DC99": "1.5E-06(λD=0.5E-07) ~ 7.5E-04(λD=2.5E-05)",
+        "note": "β, βD 값이 평균 고장확률에 영향을 미치지 않음",
+        "source": "IEC 61508 part 6 Annex B Table B.2"
+      },
+      "sourceSection": "별표 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-052",
+      "equipmentName": "1oo2 구성 안전계장시스템 PFD 기준",
+      "specifications": {
+        "configuration": "1oo2",
+        "description": "이중화 채널 구성 (1-out-of-2)",
+        "proofTestInterval": "6개월(2,190h)",
+        "mttr": "8시간",
+        "pfdRange_DC0_β2": "2.2E-06(λD=0.5E-07) ~ 5.0E-03(λD=2.5E-05)",
+        "pfdRange_DC99_β2": "2.6E-08(λD=0.5E-07) ~ 6.5E-05(λD=2.5E-05)",
+        "source": "IEC 61508 part 6 Annex B Table B.2"
+      },
+      "sourceSection": "별표 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-053",
+      "equipmentName": "2oo2 구성 안전계장시스템 PFD 기준",
+      "specifications": {
+        "configuration": "2oo2",
+        "description": "이중화 채널 동시 작동 구성 (2-out-of-2)",
+        "proofTestInterval": "6개월(2,190h)",
+        "mttr": "8시간",
+        "pfdRange_DC0": "2.2E-04(λD=0.5E-07) ~ >1E-01(λD=2.5E-05)",
+        "pfdRange_DC99": "8.0E-06(λD=0.5E-07) ~ 1.5E-03(λD=2.5E-05)",
+        "note": "β, βD 값이 평균 고장확률에 영향을 미치지 않음",
+        "source": "IEC 61508 part 6 Annex B Table B.2"
+      },
+      "sourceSection": "별표 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-054",
+      "equipmentName": "1oo2D 구성 안전계장시스템 PFD 기준",
+      "specifications": {
+        "configuration": "1oo2D",
+        "description": "자가진단 기능 포함 이중화 구성 (1-out-of-2 with Diagnostics)",
+        "proofTestInterval": "6개월(2,190h)",
+        "mttr": "8시간",
+        "K": "0.98",
+        "pfdRange_DC0_β2": "2.2E-06(λD=0.5E-07) ~ 5.0E-03(λD=2.5E-05)",
+        "pfdRange_DC99_β2": "2.6E-08(λD=0.5E-07) ~ 1.3E-05(λD=2.5E-05)",
+        "source": "IEC 61508 part 6 Annex B Table B.2"
+      },
+      "sourceSection": "별표 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-055",
+      "equipmentName": "2oo3 구성 안전계장시스템 PFD 기준",
+      "specifications": {
+        "configuration": "2oo3",
+        "description": "삼중화 다수결 구성 (2-out-of-3)",
+        "proofTestInterval": "6개월(2,190h)",
+        "mttr": "8시간",
+        "pfdRange_DC0_β2": "2.2E-06(λD=0.5E-07) ~ 1.3E-02(λD=2.5E-05)",
+        "pfdRange_DC99_β2": "2.6E-08(λD=0.5E-07) ~ 1.5E-05(λD=2.5E-05)",
+        "source": "IEC 61508 part 6 Annex B Table B.2"
+      },
+      "sourceSection": "별표 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-056",
+      "equipmentName": "1oo3 구성 안전계장시스템 PFD 기준",
+      "specifications": {
+        "configuration": "1oo3",
+        "description": "삼중화 구성 (1-out-of-3)",
+        "proofTestInterval": "6개월(2,190h)",
+        "mttr": "8시간",
+        "pfdRange_DC0_β2": "2.2E-06(λD=0.5E-07) ~ 4.7E-03(λD=2.5E-05)",
+        "pfdRange_DC99_β2": "2.6E-08(λD=0.5E-07) ~ 6.5E-05(λD=2.5E-05)",
+        "source": "IEC 61508 part 6 Annex B Table B.2"
+      },
+      "sourceSection": "별표 2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-064",
+      "equipmentName": "1oo1 구성 안전관련 시스템 (1년 보증시험주기, MTTR 8시간)",
+      "specifications": {
+        "architecture": "1oo1",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "pfdAtDC0_lambdaD_0.5E-07": "2.2E-04",
+        "pfdAtDC60_lambdaD_0.5E-07": "8.8E-05",
+        "pfdAtDC90_lambdaD_0.5E-07": "2.2E-05",
+        "pfdAtDC99_lambdaD_0.5E-07": "2.6E-06",
+        "pfdAtDC0_lambdaD_2.5E-07": "1.1E-03",
+        "pfdAtDC60_lambdaD_2.5E-07": "4.4E-04",
+        "pfdAtDC90_lambdaD_2.5E-07": "1.1E-04",
+        "pfdAtDC99_lambdaD_2.5E-07": "1.3E-05",
+        "pfdAtDC0_lambdaD_0.5E-06": "2.2E-03",
+        "pfdAtDC60_lambdaD_0.5E-06": "8.8E-04",
+        "pfdAtDC90_lambdaD_0.5E-06": "2.2E-04",
+        "pfdAtDC99_lambdaD_0.5E-06": "2.6E-05",
+        "referenceStandard": "IEC 61508 part 6 Annex B Table B.3"
+      },
+      "sourceSection": "별표 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-065",
+      "equipmentName": "1oo2 구성 안전관련 시스템 (1년 보증시험주기, MTTR 8시간)",
+      "specifications": {
+        "architecture": "1oo2",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "description": "이중화 구성으로 2개 채널 중 1개가 작동하면 안전기능 수행",
+        "pfdAtDC0_lambdaD_0.5E-07_beta2": "4.4E-06",
+        "pfdAtDC0_lambdaD_0.5E-07_beta10": "2.2E-05",
+        "pfdAtDC0_lambdaD_0.5E-07_beta20": "4.4E-05",
+        "pfdAtDC90_lambdaD_0.5E-07_beta2": "4.4E-07",
+        "pfdAtDC90_lambdaD_0.5E-07_beta10": "2.2E-06",
+        "pfdAtDC90_lambdaD_0.5E-07_beta20": "4.4E-06",
+        "pfdAtDC99_lambdaD_0.5E-07_beta2": "4.8E-08",
+        "pfdAtDC99_lambdaD_0.5E-07_beta10": "2.4E-07",
+        "pfdAtDC99_lambdaD_0.5E-07_beta20": "4.8E-07",
+        "referenceStandard": "IEC 61508 part 6 Annex B Table B.3"
+      },
+      "sourceSection": "별표 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-066",
+      "equipmentName": "2oo2 구성 안전관련 시스템 (1년 보증시험주기, MTTR 8시간)",
+      "specifications": {
+        "architecture": "2oo2",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "description": "2개 채널 모두 작동해야 안전기능 수행하는 직렬 구성",
+        "pfdAtDC0_lambdaD_0.5E-07": "4.4E-04",
+        "pfdAtDC60_lambdaD_0.5E-07": "1.8E-04",
+        "pfdAtDC90_lambdaD_0.5E-07": "4.5E-05",
+        "pfdAtDC99_lambdaD_0.5E-07": "5.2E-06",
+        "pfdAtDC0_lambdaD_2.5E-06": "2.2E-02",
+        "pfdAtDC90_lambdaD_2.5E-06": "2.2E-03",
+        "pfdAtDC99_lambdaD_2.5E-06": "2.6E-04",
+        "referenceStandard": "IEC 61508 part 6 Annex B Table B.3",
+        "note": "β 및 βD 값이 평균 고장확률에 영향을 미치지 않음"
+      },
+      "sourceSection": "별표 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-067",
+      "equipmentName": "1oo2D 구성 안전관련 시스템 (1년 보증시험주기, MTTR 8시간)",
+      "specifications": {
+        "architecture": "1oo2D",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "description": "진단기능을 갖춘 이중화 구성 (1-out-of-2 with Diagnostics)",
+        "pfdAtDC0_lambdaD_0.5E-07_beta2": "4.4E-06",
+        "pfdAtDC0_lambdaD_0.5E-07_beta10": "2.2E-05",
+        "pfdAtDC0_lambdaD_0.5E-07_beta20": "4.4E-05",
+        "pfdAtDC90_lambdaD_0.5E-07_beta2": "4.4E-07",
+        "pfdAtDC99_lambdaD_0.5E-07_beta2": "4.8E-08",
+        "pfdAtDC99_lambdaD_2.5E-05_beta2": "2.4E-05",
+        "pfdAtDC99_lambdaD_2.5E-05_beta10": "1.2E-04",
+        "pfdAtDC99_lambdaD_2.5E-05_beta20": "2.4E-04",
+        "referenceStandard": "IEC 61508 part 6 Annex B Table B.3"
+      },
+      "sourceSection": "별표 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-068",
+      "equipmentName": "2oo3 구성 안전관련 시스템 (1년 보증시험주기, MTTR 8시간)",
+      "specifications": {
+        "architecture": "2oo3",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "description": "3중화 구성으로 3개 중 2개 이상 작동 시 안전기능 수행 (2-out-of-3)",
+        "pfdAtDC0_lambdaD_0.5E-07_beta2": "4.6E-06",
+        "pfdAtDC0_lambdaD_0.5E-07_beta10": "2.7E-05",
+        "pfdAtDC0_lambdaD_0.5E-07_beta20": "4.4E-05",
+        "pfdAtDC99_lambdaD_0.5E-07_beta2": "4.8E-08",
+        "pfdAtDC99_lambdaD_2.5E-05_beta2": "3.1E-05",
+        "pfdAtDC99_lambdaD_2.5E-05_beta10": "1.3E-04",
+        "pfdAtDC99_lambdaD_2.5E-05_beta20": "2.5E-04",
+        "referenceStandard": "IEC 61508 part 6 Annex B Table B.3"
+      },
+      "sourceSection": "별표 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-069",
+      "equipmentName": "1oo3 구성 안전관련 시스템 (1년 보증시험주기, MTTR 8시간)",
+      "specifications": {
+        "architecture": "1oo3",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "description": "3중화 구성으로 3개 중 1개만 작동해도 안전기능 수행 (1-out-of-3)",
+        "pfdAtDC0_lambdaD_0.5E-07_beta2": "4.4E-06",
+        "pfdAtDC0_lambdaD_0.5E-07_beta10": "1.1E-05",
+        "pfdAtDC0_lambdaD_0.5E-07_beta20": "2.2E-05",
+        "pfdAtDC99_lambdaD_0.5E-07_beta2": "4.8E-08",
+        "pfdAtDC99_lambdaD_2.5E-05_beta2": "4.8E-05",
+        "pfdAtDC99_lambdaD_2.5E-05_beta10": "2.4E-04",
+        "pfdAtDC99_lambdaD_2.5E-05_beta20": "2.4E-04",
+        "referenceStandard": "IEC 61508 part 6 Annex B Table B.3"
+      },
+      "sourceSection": "별표 3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-081",
+      "equipmentName": "감지부(Sensor) 하부시스템 - 2oo3 구성",
+      "specifications": {
+        "votingArchitecture": "2oo3",
+        "dangerousFailureRate": "λD = 2.5E-06",
+        "diagnosticCoverage": "90%",
+        "ccfFactors": "β=2%, βD=1% ~ β=20%, βD=10%",
+        "pfdRange": "2.7E-05 ~ 2.3E-04 (DC 90% 기준)",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "sourceStandard": "IEC 61508 part 6 Annex B"
+      },
+      "sourceSection": "부록",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-082",
+      "equipmentName": "논리기(Logic Solver) 하부시스템 - 1oo2D 구성",
+      "specifications": {
+        "votingArchitecture": "1oo2D",
+        "dangerousFailureRate": "λD = 0.5E-06",
+        "diagnosticCoverage": "99%",
+        "ccfFactors": "β=2%, βD=1% ~ β=20%, βD=10%",
+        "pfdRange": "4.8E-06 ~ 4.8E-05 (DC 99% 기준)",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "sourceStandard": "IEC 61508 part 6 Annex B"
+      },
+      "sourceSection": "부록",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-083",
+      "equipmentName": "조작부(Final Element) 하부시스템 - 1oo1 구성",
+      "specifications": {
+        "votingArchitecture": "1oo1",
+        "dangerousFailureRates": "λD = 2.5E-06, λD = 0.5E-05",
+        "diagnosticCoverage": "0% ~ 99%",
+        "pfdAtDC60": "4.4E-03 (λD=2.5E-06), 8.8E-03 (λD=0.5E-05)",
+        "proofTestInterval": "1년",
+        "mttr": "8시간",
+        "sourceStandard": "IEC 61508 part 6 Annex B"
+      },
+      "sourceSection": "부록",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-X77-084",
+      "equipmentName": "별표 4 기준 하부시스템 구성별 PFD 참조표 (보증시험주기 2년, MTTR 8시간)",
+      "specifications": {
+        "proofTestInterval": "2년",
+        "mttr": "8시간",
+        "dangerousFailureRateRange": "0.5E-07 ~ 2.5E-05 (6단계)",
+        "votingConfigurations": "1oo1, 1oo2, 2oo2, 1oo2D, 2oo3, 1oo3",
+        "diagnosticCoverageRange": "0%, 60%, 90%, 99%",
+        "ccfAssumption": "β = 2×βD",
+        "safetyFailureFractionAssumption": "K = 0.98",
+        "sourceStandard": "IEC 61508 part 6 Annex B Table B.4"
+      },
+      "sourceSection": "별표 4",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-X77-010",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "안전계장기능 PFD 계산 기록서",
+      "requiredSections": [
+        "계산 가정사항",
+        "하부시스템별 고장률 데이터",
+        "voting 구조별 PFDG 계산결과",
+        "전체 PFDSYS 산출결과",
+        "SIL 충족 판정"
+      ],
+      "sourceSection": "요구시 고장 평균확률 계산",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-X77-011",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "안전무결성수준(SIL) 검증 보고서",
+      "requiredSections": [
+        "목표 SIL 수준",
+        "하부시스템 구성 및 voting",
+        "각 하부시스템 PFD 값",
+        "전체 PFDSYS 값",
+        "SIL 충족 여부 판정",
+        "보강 조치사항 (미충족 시)"
+      ],
+      "sourceSection": "안전계장기능에 대한 안전무결성수준(SIL) 충족 검증",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-X77-012",
+      "documentType": "SAFETY_CHECKLIST",
+      "title": "보증시험 계획 및 기록",
+      "requiredSections": [
+        "보증시험 주기",
+        "하부시스템별 시험항목",
+        "MRT 기준",
+        "시험결과",
+        "보수이력"
+      ],
+      "sourceSection": "계산 시에 필요한 가정",
+      "relatedSR": null
+    }
+  ]
+}

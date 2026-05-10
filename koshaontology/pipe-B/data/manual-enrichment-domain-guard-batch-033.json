@@ -1,0 +1,5373 @@
+{
+  "schema_version": "codex_manual_pilot.v1",
+  "generated_at": "2026-05-09",
+  "method": "codex_manual_pilot",
+  "asserted_mapping_updates": 0,
+  "review_status": "candidate",
+  "scope": {
+    "batch_id": "033",
+    "guide_count": 30,
+    "source": "source JSON manual review; no external API; candidate-only"
+  },
+  "policies": {
+    "asserted_mapping": "disabled",
+    "sr_candidates": "candidate_only",
+    "min_evidence": "at least one extracted source span per candidate",
+    "runtime_intent": "generalized guide domain guard and scoring boundary",
+    "external_api_used": false,
+    "candidate_table_ready": true,
+    "auto_asserted_promotion": false,
+    "max_confidence_for_manual_sr_link": 0.86,
+    "notes": [
+      "Evidence spans are copied from guide titles, WorkProcess names, DomainTerm terms, or extracted WorkProcess/Checklist text.",
+      "SR candidates are conservative and must be imported as candidates only.",
+      "Rows must not be promoted to asserted mapping tables from this report."
+    ]
+  },
+  "guides": [
+    {
+      "guide_code": "H-4-2021",
+      "short_code": "H4",
+      "title": "일반건강진단결과에 따른 사후관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H4.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "general_health_exam_aftercare",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "일반건강진단",
+          "건강진단결과",
+          "사후관리"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "사업장 보건관리",
+          "일반건강진단"
+        ],
+        "evidence": "건강진단 실시결과에 따른 작업장소 변경, 작업전환, 근로시간 단축, 야간근무 제한, 작업환경측정, 시설·설비 개선 등 사후관리 조치를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.84
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "일반건강진단",
+          "건강진단결과",
+          "사후관리"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.7,
+          "evidence": "건강진단결과에 따른 사후관리 조치와 사업장 보건지도 중심",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-4-2021",
+          "guide_code": "H-4-2021"
+        },
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.62,
+          "evidence": "감염병 또는 질병이 있는 근로자에 대한 근무 제한 문맥 포함",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-4-2021",
+          "guide_code": "H-4-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "일반건강진단 결과표 또는 사후관리 통보서",
+          "cue_type": "document_or_form",
+          "confidence": 0.75,
+          "evidence": "일반건강진단 결과표 또는 사후관리 통보서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-4-2021",
+          "guide_code": "H-4-2021"
+        },
+        {
+          "trigger_text": "작업전환·근로시간 단축 등 보건 사후관리 면담",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.72,
+          "evidence": "작업전환·근로시간 단축 등 보건 사후관리 면담",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-4-2021",
+          "guide_code": "H-4-2021"
+        }
+      ],
+      "notes": "법정 건강진단 사후관리 문맥이 없으면 표준 절차 추천에서 강하게 감점한다."
+    },
+    {
+      "guide_code": "H-41-2021",
+      "short_code": "H41",
+      "title": "흉부방사선검사 이상 근로자의 진료지침 개정",
+      "source_file": "pipe-B/data/ci-output/ci-H41.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "chest_radiology_abnormality_followup",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "흉부방사선검사",
+          "흉부CT",
+          "진폐",
+          "폐결핵"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "사업장 보건관리",
+          "특수건강진단",
+          "흉부방사선"
+        ],
+        "evidence": "단순흉부방사선촬영, 흉부CT, 진폐증, 폐결핵 등 흉부방사선 이상 소견의 진료와 작업 제한/복귀를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.84
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "흉부방사선검사",
+          "흉부CT",
+          "진폐",
+          "폐결핵"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.68,
+          "evidence": "전염성 결핵환자와 접촉자 건강진단 문맥 포함",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-41-2021",
+          "guide_code": "H-41-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "흉부방사선 이상 근로자의 진료·업무복귀 절차",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-41-2021",
+          "guide_code": "H-41-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PATHOGEN-008",
+          "confidence": 0.66,
+          "evidence": "전염성 결핵환자 접촉자 건강진단 및 조치 문맥",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-41-2021",
+          "guide_code": "H-41-2021"
+        },
+        {
+          "sr_id": "SR-PATHOGEN-009",
+          "confidence": 0.64,
+          "evidence": "공기매개 감염병 노출 후 관리와 유사하나 흉부방사선 사후관리 중심",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-41-2021",
+          "guide_code": "H-41-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "흉부방사선 사진 또는 판독 결과",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "흉부방사선 사진 또는 판독 결과",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-41-2021",
+          "guide_code": "H-41-2021"
+        },
+        {
+          "trigger_text": "진폐·폐결핵 의심 근로자 보건 상담",
+          "cue_type": "domain_term",
+          "confidence": 0.73,
+          "evidence": "진폐·폐결핵 의심 근로자 보건 상담",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-41-2021",
+          "guide_code": "H-41-2021"
+        }
+      ],
+      "notes": "검진 판독/진료지침이므로 일반 호흡보호구 사진만으로는 과추천하지 않는다."
+    },
+    {
+      "guide_code": "H-42-2021",
+      "short_code": "H42",
+      "title": "피부보호구의 사용 지침, 보호용 장갑",
+      "source_file": "pipe-B/data/ci-output/ci-H42.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "chemical_protective_glove_selection",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "보호용 장갑",
+          "투과시간",
+          "침투율",
+          "화학물질"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "화학물질 취급",
+          "보호구 관리"
+        ],
+        "evidence": "보호용 장갑의 재료, 손 크기, 투과시간, 침투율, 분해 및 사용·폐기 기준을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.89
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "보호용 장갑",
+          "투과시간",
+          "침투율",
+          "화학물질"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.87,
+          "evidence": "화학물질 투과시간·침투율·분해 기준으로 장갑을 선정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-42-2021",
+          "guide_code": "H-42-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.84,
+          "evidence": "화학물질 취급 작업에서 보호용 장갑 지급·사용·폐기",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-42-2021",
+          "guide_code": "H-42-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.84,
+          "evidence": "작업별 적합한 보호구 지급 및 착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-42-2021",
+          "guide_code": "H-42-2021"
+        },
+        {
+          "sr_id": "SR-PPE-003",
+          "confidence": 0.82,
+          "evidence": "보호구 점검·관리·청결 유지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-42-2021",
+          "guide_code": "H-42-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.81,
+          "evidence": "피부 자극성·부식성 물질 취급 시 보호복과 세척시설",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-42-2021",
+          "guide_code": "H-42-2021"
+        },
+        {
+          "sr_id": "SR-HAZMAT-017",
+          "confidence": 0.75,
+          "evidence": "피부장해 유발 유해물질 취급 시 보호복 비치·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-42-2021",
+          "guide_code": "H-42-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "화학보호 장갑 또는 내화학 장갑",
+          "cue_type": "ppe",
+          "confidence": 0.85,
+          "evidence": "화학보호 장갑 또는 내화학 장갑",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-42-2021",
+          "guide_code": "H-42-2021"
+        },
+        {
+          "trigger_text": "투과시간·침투율 표기 또는 화학물질 장갑 선택표",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "투과시간·침투율 표기 또는 화학물질 장갑 선택표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-42-2021",
+          "guide_code": "H-42-2021"
+        }
+      ],
+      "notes": "일반 목장갑 사진이 아니라 화학물질 피부노출과 장갑 선정 문맥이 있어야 한다."
+    },
+    {
+      "guide_code": "H-43-2021",
+      "short_code": "H43",
+      "title": "업무적합성평가시 운동부하검사 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H43.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "exercise_stress_test_fit_for_work",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "운동부하검사",
+          "최대산소섭취량",
+          "업무적합성평가",
+          "작업대사량"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "산업보건 진료",
+          "업무적합성평가"
+        ],
+        "evidence": "업무적합성평가에서 운동부하검사와 최대산소섭취량을 이용해 작업강도와 근무 가능 시간을 판단한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "운동부하검사",
+          "최대산소섭취량",
+          "업무적합성평가",
+          "작업대사량"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.62,
+          "evidence": "작업 대사량과 평균/최대 작업강도 평가 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-43-2021",
+          "guide_code": "H-43-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.6,
+          "evidence": "현장 위험보다 의학적 업무적합성 평가 절차",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-43-2021",
+          "guide_code": "H-43-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "운동부하검사 장비 또는 심전도 모니터링",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "운동부하검사 장비 또는 심전도 모니터링",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-43-2021",
+          "guide_code": "H-43-2021"
+        },
+        {
+          "trigger_text": "업무적합성평가서와 최대산소섭취량 수치",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "업무적합성평가서와 최대산소섭취량 수치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-43-2021",
+          "guide_code": "H-43-2021"
+        }
+      ],
+      "notes": "작업현장 사진이 아니라 의료검사/업무적합성 문맥이 필수인 배타 가이드."
+    },
+    {
+      "guide_code": "H-44-2021",
+      "short_code": "H44",
+      "title": "호흡기 감작물질 노출근로자의 보건관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H44.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "respiratory_sensitizer_exposure_health_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "호흡기 감작물질",
+          "호흡용보호구",
+          "천식",
+          "노출평가"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "화학물질 취급",
+          "도장·접착·세척",
+          "보건관리"
+        ],
+        "evidence": "호흡기 감작물질 식별, 노출평가, 발산원 관리, 건강감시, 사후관리 및 교육을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "호흡기 감작물질",
+          "호흡용보호구",
+          "천식",
+          "노출평가"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.86,
+          "evidence": "호흡기 감작물질 노출평가와 발산원 관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.82,
+          "evidence": "감작물질 취급 근로자의 보호구·교육·건강감시",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.79,
+          "evidence": "유해물질 발산원 밀폐 또는 국소배기장치 필요",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.8,
+          "evidence": "유해성 및 취급 주의사항 사전 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.78,
+          "evidence": "호흡용 보호구 지급 및 착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        },
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.74,
+          "evidence": "작업조건에 맞는 보호구 지급·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        },
+        {
+          "sr_id": "SR-PPE-003",
+          "confidence": 0.7,
+          "evidence": "보호구 점검·관리",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "호흡기 감작물질 취급 공정",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.8,
+          "evidence": "호흡기 감작물질 취급 공정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        },
+        {
+          "trigger_text": "국소배기장치와 방독마스크 착용",
+          "cue_type": "ppe",
+          "confidence": 0.78,
+          "evidence": "국소배기장치와 방독마스크 착용",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-44-2021",
+          "guide_code": "H-44-2021"
+        }
+      ],
+      "notes": "단순 마스크 착용이 아니라 감작물질 노출평가/건강감시 문맥을 요구한다."
+    },
+    {
+      "guide_code": "H-45-2022",
+      "short_code": "H45",
+      "title": "특수건강진단 사전조사 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H45.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "special_health_exam_pre_survey",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "특수건강진단",
+          "사전조사",
+          "유해인자",
+          "현장방문"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "특수건강진단",
+          "사업장 보건관리"
+        ],
+        "evidence": "특수건강진단 대상 유해인자 파악을 위한 자료수집, 현장방문, 업무일지, 제안서 작성 절차를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.84
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "특수건강진단",
+          "사전조사",
+          "유해인자",
+          "현장방문"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.64,
+          "evidence": "특수건강진단 대상 유해인자 조사 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-45-2022",
+          "guide_code": "H-45-2022"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "사업장 현장방문과 사전조사 절차",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-45-2022",
+          "guide_code": "H-45-2022"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.62,
+          "evidence": "관리대상 유해물질 주지와 일부 유해인자 조사 문맥이 겹침",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-45-2022",
+          "guide_code": "H-45-2022"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "특수건강진단 사전조사표",
+          "cue_type": "document_or_form",
+          "confidence": 0.79,
+          "evidence": "특수건강진단 사전조사표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-45-2022",
+          "guide_code": "H-45-2022"
+        },
+        {
+          "trigger_text": "유해인자 현장조사 또는 작업공정 면담",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.74,
+          "evidence": "유해인자 현장조사 또는 작업공정 면담",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-45-2022",
+          "guide_code": "H-45-2022"
+        }
+      ],
+      "notes": "유해인자 조사 절차이지 특정 공정 안전조치 가이드는 아니다."
+    },
+    {
+      "guide_code": "H-46-2021",
+      "short_code": "H46",
+      "title": "천식을 진단받은 근로자의 업무적합성 평가 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H46.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "asthma_fit_for_work_assessment",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "천식",
+          "업무적합성평가",
+          "천식유발물질",
+          "직업성 천식"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "산업보건 진료",
+          "감작물질 취급"
+        ],
+        "evidence": "천식 진단 근로자의 직업성/비직업성/직업악화성 천식 구분과 업무적합성 평가를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.86
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "천식",
+          "업무적합성평가",
+          "천식유발물질",
+          "직업성 천식"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.72,
+          "evidence": "천식유발물질과 직업성 천식 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-46-2021",
+          "guide_code": "H-46-2021"
+        },
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.61,
+          "evidence": "호흡기 질환 자체는 의학적 평가 문맥으로만 사용",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-46-2021",
+          "guide_code": "H-46-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.63,
+          "evidence": "천식유발물질 취급 주지와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-46-2021",
+          "guide_code": "H-46-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.62,
+          "evidence": "호흡용 보호구는 감작물질 노출 관리 시에만 후보",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-46-2021",
+          "guide_code": "H-46-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "천식 진단서 또는 업무적합성평가서",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "천식 진단서 또는 업무적합성평가서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-46-2021",
+          "guide_code": "H-46-2021"
+        },
+        {
+          "trigger_text": "천식유발물질 노출 작업 상담",
+          "cue_type": "domain_term",
+          "confidence": 0.74,
+          "evidence": "천식유발물질 노출 작업 상담",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-46-2021",
+          "guide_code": "H-46-2021"
+        }
+      ],
+      "notes": "의학적 업무적합성 판단 문맥이 없으면 현장 조치 추천으로 쓰지 않는다."
+    },
+    {
+      "guide_code": "H-47-2021",
+      "short_code": "H47",
+      "title": "장시간 근로자 보건관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H47.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "long_working_hours_health_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "장시간 근로",
+          "법정기준근로시간",
+          "면담",
+          "수면위생"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "근로시간 관리",
+          "사업장 보건관리"
+        ],
+        "evidence": "장시간 근로자의 근로시간 관리, 면담, 추적관리, 수면위생 및 직업환경의학 의뢰를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.83
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "장시간 근로",
+          "법정기준근로시간",
+          "면담",
+          "수면위생"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.66,
+          "evidence": "근로시간·면담·사후관리 중심의 보건관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-47-2021",
+          "guide_code": "H-47-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.58,
+          "evidence": "피로와 수면 관리 문맥이나 물리적 인간공학 위험은 약함",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-47-2021",
+          "guide_code": "H-47-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "장시간 근로자 면담 기록 또는 근로시간표",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "장시간 근로자 면담 기록 또는 근로시간표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-47-2021",
+          "guide_code": "H-47-2021"
+        },
+        {
+          "trigger_text": "수면위생·피로관리 보건상담",
+          "cue_type": "domain_term",
+          "confidence": 0.72,
+          "evidence": "수면위생·피로관리 보건상담",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-47-2021",
+          "guide_code": "H-47-2021"
+        }
+      ],
+      "notes": "야간작업 전용 시설 조치와 혼동하지 않는다."
+    },
+    {
+      "guide_code": "H-48-2020",
+      "short_code": "H48",
+      "title": "직업성 암의 업무관련성 평가 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H48.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "occupational_cancer_work_relatedness_assessment",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "직업성 암",
+          "발암인자",
+          "최소유도기",
+          "업무관련성"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "산업보건 진료",
+          "발암물질 취급 이력"
+        ],
+        "evidence": "발암인자 확인, 노출량 평가, 최소유도기·최대잠재기 검토를 통한 직업성 암 업무관련성 평가 절차다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.86
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "직업성 암",
+          "발암인자",
+          "최소유도기",
+          "업무관련성"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.7,
+          "evidence": "발암인자 노출 이력과 정량/정성 평가",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-48-2020",
+          "guide_code": "H-48-2020"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.6,
+          "evidence": "업무관련성 평가 절차 중심",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-48-2020",
+          "guide_code": "H-48-2020"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.6,
+          "evidence": "발암성 유해물질 취급 주지와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-48-2020",
+          "guide_code": "H-48-2020"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "직업성 암 업무관련성 평가서",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "직업성 암 업무관련성 평가서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-48-2020",
+          "guide_code": "H-48-2020"
+        },
+        {
+          "trigger_text": "발암인자 노출 이력 조사",
+          "cue_type": "domain_term",
+          "confidence": 0.76,
+          "evidence": "발암인자 노출 이력 조사",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-48-2020",
+          "guide_code": "H-48-2020"
+        }
+      ],
+      "notes": "질병 업무관련성 평가 문서로, 현장 사진 추천은 매우 제한해야 한다."
+    },
+    {
+      "guide_code": "H-49-2021",
+      "short_code": "H49",
+      "title": "가을철 발열성 질환의 관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H49.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "autumn_febrile_vector_borne_disease_prevention",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "가을철 발열성 질환",
+          "고위험군 근로자",
+          "야외작업",
+          "예방접종"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "야외작업",
+          "농림·건설·조경",
+          "감염병 예방"
+        ],
+        "evidence": "야외작업자 대상 가을철 발열성 질환 예방교육, 장갑·장화 착용, 휴게시설, 예방접종, 증상 시 진료를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.86
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "가을철 발열성 질환",
+          "고위험군 근로자",
+          "야외작업",
+          "예방접종"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.84,
+          "evidence": "곤충·동물매개 감염병과 발열성 질환 예방",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-49-2021",
+          "guide_code": "H-49-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.7,
+          "evidence": "야외작업자 휴식·위생·보고 체계",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-49-2021",
+          "guide_code": "H-49-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PATHOGEN-010",
+          "confidence": 0.83,
+          "evidence": "곤충·동물매개 감염병 고위험작업 예방 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-49-2021",
+          "guide_code": "H-49-2021"
+        },
+        {
+          "sr_id": "SR-PATHOGEN-011",
+          "confidence": 0.82,
+          "evidence": "감염병 증상 발생 시 즉시 진료 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-49-2021",
+          "guide_code": "H-49-2021"
+        },
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.7,
+          "evidence": "고무장갑·장화 등 보호구 착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-49-2021",
+          "guide_code": "H-49-2021"
+        },
+        {
+          "sr_id": "SR-PPE-004",
+          "confidence": 0.66,
+          "evidence": "감염 우려 시 개인 전용 보호구 문맥",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-49-2021",
+          "guide_code": "H-49-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "야외 풀밭·덤불 작업과 고무장갑·장화",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "야외 풀밭·덤불 작업과 고무장갑·장화",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-49-2021",
+          "guide_code": "H-49-2021"
+        },
+        {
+          "trigger_text": "쯔쯔가무시증·유행성출혈열 예방교육",
+          "cue_type": "domain_term",
+          "confidence": 0.78,
+          "evidence": "쯔쯔가무시증·유행성출혈열 예방교육",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-49-2021",
+          "guide_code": "H-49-2021"
+        }
+      ],
+      "notes": "실내 감기/독감 관리와 분리하고 야외 벡터 감염병 문맥을 우선한다."
+    },
+    {
+      "guide_code": "H-5-2021",
+      "short_code": "H5",
+      "title": "인플루엔자대유행시직장내관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H5.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "influenza_pandemic_workplace_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "인플루엔자",
+          "대유행",
+          "업무지속계획",
+          "비상대책위원회"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "사무실",
+          "콜센터",
+          "일반 사업장",
+          "감염병 예방"
+        ],
+        "evidence": "인플루엔자 대유행 시 직장 내 예방교육, 의심자 관리, 환경소독, 회의·거리두기, 비상대책위원회와 업무지속계획을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.87
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "인플루엔자",
+          "대유행",
+          "업무지속계획",
+          "비상대책위원회"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "BIOLOGICAL",
+          "confidence": 0.86,
+          "evidence": "인플루엔자 대유행과 직장 내 감염병 예방관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-5-2021",
+          "guide_code": "H-5-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.7,
+          "evidence": "사업장 업무지속계획과 비상대책위원회",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-5-2021",
+          "guide_code": "H-5-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PATHOGEN-001",
+          "confidence": 0.82,
+          "evidence": "근로자 감염병 예방 종합 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-5-2021",
+          "guide_code": "H-5-2021"
+        },
+        {
+          "sr_id": "SR-PATHOGEN-008",
+          "confidence": 0.76,
+          "evidence": "공기매개 감염병 예방 조치와 예방접종",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-5-2021",
+          "guide_code": "H-5-2021"
+        },
+        {
+          "sr_id": "SR-PATHOGEN-009",
+          "confidence": 0.76,
+          "evidence": "공기매개 감염병 노출 후 관리",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-5-2021",
+          "guide_code": "H-5-2021"
+        },
+        {
+          "sr_id": "SR-PPE-004",
+          "confidence": 0.68,
+          "evidence": "감염 우려 시 개인 전용 보호구 지급",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-5-2021",
+          "guide_code": "H-5-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "직장 내 인플루엔자 대유행 대응 포스터",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "직장 내 인플루엔자 대유행 대응 포스터",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-5-2021",
+          "guide_code": "H-5-2021"
+        },
+        {
+          "trigger_text": "손씻기·마스크·공용부 소독·거리두기",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.8,
+          "evidence": "손씻기·마스크·공용부 소독·거리두기",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-5-2021",
+          "guide_code": "H-5-2021"
+        }
+      ],
+      "notes": "단순 마스크 사진보다 대유행/업무지속계획 문맥을 강하게 본다."
+    },
+    {
+      "guide_code": "H-50-2021",
+      "short_code": "H50",
+      "title": "뇌심혈관질환 근로자의 업무복귀시 업무적합성 평가 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H50.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "cardio_cerebrovascular_return_to_work_fit_assessment",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "뇌심혈관질환",
+          "업무복귀",
+          "업무적합성평가",
+          "작업강도"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "산업보건 진료",
+          "업무복귀 평가"
+        ],
+        "evidence": "뇌심혈관질환 근로자의 업무복귀 시 의학적 상태와 작업강도를 검토해 업무적합성을 평가한다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.85
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "뇌심혈관질환",
+          "업무복귀",
+          "업무적합성평가",
+          "작업강도"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.63,
+          "evidence": "업무복귀와 작업조건 조정 절차",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-50-2021",
+          "guide_code": "H-50-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.56,
+          "evidence": "작업강도 검토와 일부 관련되나 현장 인간공학 조치는 약함",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-50-2021",
+          "guide_code": "H-50-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "뇌심혈관질환 업무복귀 평가서",
+          "cue_type": "document_or_form",
+          "confidence": 0.79,
+          "evidence": "뇌심혈관질환 업무복귀 평가서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-50-2021",
+          "guide_code": "H-50-2021"
+        },
+        {
+          "trigger_text": "업무적합성평가 면담과 작업강도 검토",
+          "cue_type": "domain_term",
+          "confidence": 0.74,
+          "evidence": "업무적합성평가 면담과 작업강도 검토",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-50-2021",
+          "guide_code": "H-50-2021"
+        }
+      ],
+      "notes": "심폐소생술/응급조치 가이드와 분리한다."
+    },
+    {
+      "guide_code": "H-51-2021",
+      "short_code": "H51",
+      "title": "피부감작물질 노출 근로자의 보건관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H51.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "skin_sensitizer_contact_dermatitis_health_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "피부감작물질",
+          "접촉피부염",
+          "피부보호구",
+          "업무복귀"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "화학물질 취급",
+          "보건관리"
+        ],
+        "evidence": "피부감작물질 노출 근로자의 개인관리, 작업장 관리, 업무관련성 판단, 업무적합성과 복귀를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.87
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "피부감작물질",
+          "접촉피부염",
+          "피부보호구",
+          "업무복귀"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.84,
+          "evidence": "피부감작물질 노출과 접촉피부염 예방",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-51-2021",
+          "guide_code": "H-51-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.82,
+          "evidence": "피부보호구와 작업장 관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-51-2021",
+          "guide_code": "H-51-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.82,
+          "evidence": "피부 자극성·부식성 유해물질 보호복 및 세척시설",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-51-2021",
+          "guide_code": "H-51-2021"
+        },
+        {
+          "sr_id": "SR-HAZMAT-017",
+          "confidence": 0.8,
+          "evidence": "피부장해 유발 유해물질 보호복 비치·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-51-2021",
+          "guide_code": "H-51-2021"
+        },
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.74,
+          "evidence": "작업별 보호구 지급·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-51-2021",
+          "guide_code": "H-51-2021"
+        },
+        {
+          "sr_id": "SR-PPE-003",
+          "confidence": 0.7,
+          "evidence": "보호구 점검·청결 유지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-51-2021",
+          "guide_code": "H-51-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "피부감작물질 취급과 보호장갑·보호복",
+          "cue_type": "ppe",
+          "confidence": 0.82,
+          "evidence": "피부감작물질 취급과 보호장갑·보호복",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-51-2021",
+          "guide_code": "H-51-2021"
+        },
+        {
+          "trigger_text": "접촉피부염 보건상담 또는 피부 노출 관리",
+          "cue_type": "domain_term",
+          "confidence": 0.78,
+          "evidence": "접촉피부염 보건상담 또는 피부 노출 관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-51-2021",
+          "guide_code": "H-51-2021"
+        }
+      ],
+      "notes": "피부질환 업무적합성과 화학물질 피부노출 둘 다 있어야 점수가 오른다."
+    },
+    {
+      "guide_code": "H-52-2021",
+      "short_code": "H52",
+      "title": "요추불안정증의 업무적합성 평가 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H52.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "lumbar_instability_fit_for_work_assessment",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "요추불안정증",
+          "요통 설문",
+          "방사선검사",
+          "업무적합성평가"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "산업보건 진료",
+          "근골격계 업무적합성"
+        ],
+        "evidence": "요추불안정증 근로자의 병력, 요통설문, 신체·방사선검사, 요추근력 검사와 업무적합성 평가를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.84
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "요추불안정증",
+          "요통 설문",
+          "방사선검사",
+          "업무적합성평가"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "ERGONOMIC",
+          "confidence": 0.68,
+          "evidence": "요추근력과 작업적합성 평가가 근골격계 부담과 일부 연결",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-52-2021",
+          "guide_code": "H-52-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.58,
+          "evidence": "의학적 평가 절차 중심",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-52-2021",
+          "guide_code": "H-52-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-ERGONOMIC-001",
+          "confidence": 0.58,
+          "evidence": "근골격계 부담작업 조사와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-52-2021",
+          "guide_code": "H-52-2021"
+        },
+        {
+          "sr_id": "SR-ERGONOMIC-002",
+          "confidence": 0.56,
+          "evidence": "유해요인 조사방법과 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-52-2021",
+          "guide_code": "H-52-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "요추불안정증 업무적합성평가서",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "요추불안정증 업무적합성평가서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-52-2021",
+          "guide_code": "H-52-2021"
+        },
+        {
+          "trigger_text": "요통 설문·요추근력 검사",
+          "cue_type": "domain_term",
+          "confidence": 0.74,
+          "evidence": "요통 설문·요추근력 검사",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-52-2021",
+          "guide_code": "H-52-2021"
+        }
+      ],
+      "notes": "허리 통증 사진만으로 표준 절차 추천하지 않고 평가 문서/면담 문맥을 요구한다."
+    },
+    {
+      "guide_code": "H-53-2021",
+      "short_code": "H53",
+      "title": "병원 근로자의 마취가스 노출관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H53.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "hospital_anesthetic_gas_exposure_control",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "마취가스",
+          "수술실",
+          "마취기",
+          "배기장치"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "건설현장",
+          "급식실",
+          "피뢰설비"
+        ],
+        "industry_alignment": [
+          "병원",
+          "수술실",
+          "마취과"
+        ],
+        "evidence": "병원 수술실의 마취가스 제거장치, 환기, 마취장비 누출 점검, 수술 후 처리와 보건관리를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.91
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "마취가스",
+          "수술실",
+          "마취기",
+          "배기장치"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "건설현장",
+          "급식실",
+          "피뢰설비"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.88,
+          "evidence": "수술실 마취가스 노출과 누출 관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "VENTILATION_POOR",
+          "confidence": 0.84,
+          "evidence": "수술실 전체환기와 마취가스 제거장치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.79,
+          "evidence": "마취가스 발산원 제거·배기장치와 유사",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-006",
+          "confidence": 0.78,
+          "evidence": "전체환기 필요환기량과 설치 위치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.74,
+          "evidence": "마취가스 유해성 및 취급 주의사항 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.66,
+          "evidence": "호흡용 보호구는 누출·비상상황에 한정",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        },
+        {
+          "sr_id": "SR-VENTILATION-006",
+          "confidence": 0.78,
+          "evidence": "전체환기장치 설치 기준",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        },
+        {
+          "sr_id": "SR-VENTILATION-007",
+          "confidence": 0.76,
+          "evidence": "환기장치 작업 중 가동",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "수술실 마취기와 마취가스 배기장치",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "수술실 마취기와 마취가스 배기장치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        },
+        {
+          "trigger_text": "마취가스 누출 점검 또는 수술실 환기",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "마취가스 누출 점검 또는 수술실 환기",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-53-2021",
+          "guide_code": "H-53-2021"
+        }
+      ],
+      "notes": "병원 수술실 문맥이 없으면 배타적으로 제외한다."
+    },
+    {
+      "guide_code": "H-56-2023",
+      "short_code": "H56",
+      "title": "순음청력검사에 관한 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H56.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pure_tone_audiometry_protocol",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "순음청력검사",
+          "청력검사기",
+          "차폐",
+          "청력도"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "특수건강진단",
+          "청력검사실"
+        ],
+        "evidence": "순음청력검사의 장비 점검, 음향보정, 검사실 배경소음, 차폐, 청력도 작성 절차다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "순음청력검사",
+          "청력검사기",
+          "차폐",
+          "청력도"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "NOISE_EXPOSURE",
+          "confidence": 0.64,
+          "evidence": "소음노출 근로자 청력평가와 간접 연결",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-56-2023",
+          "guide_code": "H-56-2023"
+        },
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "NOISE",
+          "confidence": 0.62,
+          "evidence": "청력검사 프로토콜이며 소음 현장 조치는 아님",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-56-2023",
+          "guide_code": "H-56-2023"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-NOISE-005",
+          "confidence": 0.58,
+          "evidence": "청력보존 프로그램 내 청력검사와 간접 연결",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-56-2023",
+          "guide_code": "H-56-2023"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "방음 청력검사실 또는 청력검사기",
+          "cue_type": "equipment",
+          "confidence": 0.83,
+          "evidence": "방음 청력검사실 또는 청력검사기",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-56-2023",
+          "guide_code": "H-56-2023"
+        },
+        {
+          "trigger_text": "순음청력검사 결과 청력도",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "순음청력검사 결과 청력도",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-56-2023",
+          "guide_code": "H-56-2023"
+        }
+      ],
+      "notes": "시끄러운 현장 사진보다 청력검사 프로토콜 문맥이 필요하다."
+    },
+    {
+      "guide_code": "H-57-2023",
+      "short_code": "H57",
+      "title": "현장 응급대응체계 원칙 및 관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H57.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "worksite_emergency_response_system",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "응급대응체계",
+          "응급대응팀",
+          "대피",
+          "구급"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "전 업종",
+          "비상대응",
+          "현장 응급조치"
+        ],
+        "evidence": "산업재해·중대재해 발생 시 신고, 연락망, 대피방송, 접근통제, 응급처치·이송, 기록 보존 절차를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.86
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "응급대응체계",
+          "응급대응팀",
+          "대피",
+          "구급"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.78,
+          "evidence": "현장 응급대응체계와 신고·대피·이송 절차",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-57-2023",
+          "guide_code": "H-57-2023"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.7,
+          "evidence": "대피방송과 비상통로 확보 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-57-2023",
+          "guide_code": "H-57-2023"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-WELFARE-004",
+          "confidence": 0.78,
+          "evidence": "구급용구 비치 및 관리자 지정",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-57-2023",
+          "guide_code": "H-57-2023"
+        },
+        {
+          "sr_id": "SR-WORKPLACE-016",
+          "confidence": 0.74,
+          "evidence": "비상구·비상통로·비상용 기구 이용 가능 상태",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-57-2023",
+          "guide_code": "H-57-2023"
+        },
+        {
+          "sr_id": "SR-WORKPLACE-017",
+          "confidence": 0.72,
+          "evidence": "비상 경보용 설비 설치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-57-2023",
+          "guide_code": "H-57-2023"
+        },
+        {
+          "sr_id": "SR-WORKPLACE-018",
+          "confidence": 0.68,
+          "evidence": "위험 장소 접근통제",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-57-2023",
+          "guide_code": "H-57-2023"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "현장 응급대응팀 또는 비상연락망",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "현장 응급대응팀 또는 비상연락망",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-57-2023",
+          "guide_code": "H-57-2023"
+        },
+        {
+          "trigger_text": "재해자 응급처치·이송·대피 통제",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.78,
+          "evidence": "재해자 응급처치·이송·대피 통제",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-57-2023",
+          "guide_code": "H-57-2023"
+        }
+      ],
+      "notes": "심폐소생술만이 아니라 현장 응급대응체계 전체를 다루는 가이드."
+    },
+    {
+      "guide_code": "H-59-2021",
+      "short_code": "H59",
+      "title": "현장 심폐소생술 시행지침",
+      "source_file": "pipe-B/data/ci-output/ci-H59.json",
+      "domain_profile": {
+        "profile_level": "general",
+        "domain_family": "field_cpr_first_aid",
+        "mismatch_policy": "allow_broad_context",
+        "required_context_terms": [
+          "심폐소생술",
+          "자동제세동기",
+          "기도폐쇄",
+          "응급처치"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "전 업종",
+          "현장 응급처치"
+        ],
+        "evidence": "현장에서 재해자 발생 시 심폐소생술, 자동제세동기 사용, 기도폐쇄 대응 등 응급처치 절차를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.84
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "심폐소생술",
+          "자동제세동기",
+          "기도폐쇄",
+          "응급처치"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.72,
+          "evidence": "현장 재해자 응급처치와 심폐소생술",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-59-2021",
+          "guide_code": "H-59-2021"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "FIRE_EVACUATION",
+          "confidence": 0.56,
+          "evidence": "비상상황 대응과 간접 연결",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-59-2021",
+          "guide_code": "H-59-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-WELFARE-004",
+          "confidence": 0.8,
+          "evidence": "구급용구 비치 및 관리자 지정과 응급처치 수행",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-59-2021",
+          "guide_code": "H-59-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "심폐소생술 또는 AED 사용 장면",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "심폐소생술 또는 AED 사용 장면",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-59-2021",
+          "guide_code": "H-59-2021"
+        },
+        {
+          "trigger_text": "기도폐쇄 응급처치 또는 구급용구",
+          "cue_type": "equipment",
+          "confidence": 0.78,
+          "evidence": "기도폐쇄 응급처치 또는 구급용구",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-59-2021",
+          "guide_code": "H-59-2021"
+        }
+      ],
+      "notes": "업종 경계는 넓지만 응급처치 장면/장비 단서가 필요하다."
+    },
+    {
+      "guide_code": "H-6-2020",
+      "short_code": "H6",
+      "title": "안티몬 노출 근로자의 건강관리 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H6.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "antimony_exposure_worker_health_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "안티몬",
+          "TLV-TWA",
+          "특수건강진단",
+          "세안설비"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "금속·화학물질 취급",
+          "특수건강진단"
+        ],
+        "evidence": "안티몬 노출 근로자의 건강영향, 특수건강진단, 눈·피부·흡입·섭취 응급조치와 세척시설을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "안티몬",
+          "TLV-TWA",
+          "특수건강진단",
+          "세안설비"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.86,
+          "evidence": "안티몬 노출과 흡입·피부·눈 응급조치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.82,
+          "evidence": "안티몬 취급 근로자 건강관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.8,
+          "evidence": "유해성 및 취급 주의사항 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.72,
+          "evidence": "흡입 노출 시 호흡용 보호구",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.82,
+          "evidence": "눈·피부 세척시설 및 보호복",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-013",
+          "confidence": 0.78,
+          "evidence": "긴급 세척시설·세안설비 설치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-014",
+          "confidence": 0.72,
+          "evidence": "누출 시 즉시 제거 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-017",
+          "confidence": 0.74,
+          "evidence": "피부장해 유발 물질 보호복",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "안티몬 취급 작업 또는 MSDS",
+          "cue_type": "domain_term",
+          "confidence": 0.8,
+          "evidence": "안티몬 취급 작업 또는 MSDS",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        },
+        {
+          "trigger_text": "세안설비·비상샤워와 화학물질 노출 응급조치",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "세안설비·비상샤워와 화학물질 노출 응급조치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-6-2020",
+          "guide_code": "H-6-2020"
+        }
+      ],
+      "notes": "세안설비 단독 과노출을 막기 위해 안티몬/화학물질 노출 문맥을 요구한다."
+    },
+    {
+      "guide_code": "H-62-2021",
+      "short_code": "H62",
+      "title": "전리방사선 노출 근로자 건강관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H62.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "ionizing_radiation_worker_health_management",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "전리방사선",
+          "방사선관리구역",
+          "개인선량계",
+          "방사성물질"
+        ],
+        "negative_context_terms": [
+          "자외선 소독기",
+          "항만하역",
+          "일반 화학물질",
+          "소음"
+        ],
+        "industry_alignment": [
+          "방사선 업무",
+          "병원·비파괴검사·원자력"
+        ],
+        "evidence": "전리방사선 노출 근로자의 관리구역, 개인선량계, 보호구, 위생, 비상조치 및 건강진단을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.91
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "전리방사선",
+          "방사선관리구역",
+          "개인선량계",
+          "방사성물질"
+        ],
+        "exclude_when": [
+          "자외선 소독기",
+          "항만하역",
+          "일반 화학물질",
+          "소음"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.64,
+          "evidence": "방사선관리구역과 출입 제한은 작업장 관리이나 taxonomy gap 존재",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.56,
+          "evidence": "방사성물질 오염·세척 문맥을 임시로 표현한 taxonomy gap",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-RADIATION-001",
+          "confidence": 0.88,
+          "evidence": "방사선 업무 건강장해 예방 및 개인선량계 착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        },
+        {
+          "sr_id": "SR-RADIATION-002",
+          "confidence": 0.87,
+          "evidence": "방사선 관리구역 지정 및 출입 제한",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        },
+        {
+          "sr_id": "SR-RADIATION-014",
+          "confidence": 0.84,
+          "evidence": "방사성물질 오염지역 보호구 지급·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        },
+        {
+          "sr_id": "SR-RADIATION-016",
+          "confidence": 0.82,
+          "evidence": "방사성물질 취급작업 세척시설 설치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        },
+        {
+          "sr_id": "SR-RADIATION-018",
+          "confidence": 0.82,
+          "evidence": "방사선 유해성 및 건강관리 요령 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "방사선관리구역 표지와 개인선량계",
+          "cue_type": "signage",
+          "confidence": 0.86,
+          "evidence": "방사선관리구역 표지와 개인선량계",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        },
+        {
+          "trigger_text": "방사성물질 취급과 보호복·세척시설",
+          "cue_type": "ppe",
+          "confidence": 0.82,
+          "evidence": "방사성물질 취급과 보호복·세척시설",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-62-2021",
+          "guide_code": "H-62-2021"
+        }
+      ],
+      "notes": "자외선 소독기와 구별되는 전리방사선 배타 가이드."
+    },
+    {
+      "guide_code": "H-70-2020",
+      "short_code": "H70",
+      "title": "석면 해체·제거 작업 지침",
+      "source_file": "pipe-B/data/ci-output/ci-H70.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "asbestos_removal_work_control",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "석면",
+          "석면해체",
+          "HEPA",
+          "음압기",
+          "글로브백"
+        ],
+        "negative_context_terms": [
+          "일반 철거",
+          "분진 없는 사무실",
+          "항만하역",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "석면해체·제거",
+          "건축물 철거"
+        ],
+        "evidence": "석면함유물질 해체·제거 작업의 계획, 경고표지, 보호구, 위생설비, 밀폐·음압, 습윤작업, 폐기물 처리를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.94
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "석면",
+          "석면해체",
+          "HEPA",
+          "음압기",
+          "글로브백"
+        ],
+        "exclude_when": [
+          "일반 철거",
+          "분진 없는 사무실",
+          "항만하역",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.88,
+          "evidence": "석면분진 노출과 호흡보호구·위생설비",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "DEMOLITION",
+          "confidence": 0.86,
+          "evidence": "건축물·설비 석면해체·제거 작업",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-HAZMAT-024",
+          "confidence": 0.88,
+          "evidence": "석면 직업성 질병 정보 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-025",
+          "confidence": 0.88,
+          "evidence": "석면분진 발생 우려 자재 유지·관리",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-026",
+          "confidence": 0.9,
+          "evidence": "철거·해체 전 일반석면조사",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-027",
+          "confidence": 0.91,
+          "evidence": "석면해체·제거작업 계획 수립 및 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-028",
+          "confidence": 0.9,
+          "evidence": "석면해체·제거작업장 경고표지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-029",
+          "confidence": 0.91,
+          "evidence": "석면해체·제거작업 개인보호구",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-030",
+          "confidence": 0.9,
+          "evidence": "작업장 출입 금지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-031",
+          "confidence": 0.88,
+          "evidence": "작업장 내 흡연·음식물 섭취 금지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-032",
+          "confidence": 0.91,
+          "evidence": "위생설비 설치 및 보호구 관리",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-033",
+          "confidence": 0.92,
+          "evidence": "석면 유형별 안전조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-034",
+          "confidence": 0.9,
+          "evidence": "석면함유 잔재물 청소 및 폐기물 처리",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-HAZMAT-035",
+          "confidence": 0.88,
+          "evidence": "석면함유 폐기물 처리와 분진억제",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "sr_id": "SR-DUST-009",
+          "confidence": 0.76,
+          "evidence": "분진작업 호흡용 보호구",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "석면해체 경고표지·음압기·HEPA 장비",
+          "cue_type": "signage",
+          "confidence": 0.88,
+          "evidence": "석면해체 경고표지·음압기·HEPA 장비",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        },
+        {
+          "trigger_text": "글로브백·방진복·호흡보호구 착용 석면 작업",
+          "cue_type": "ppe",
+          "confidence": 0.9,
+          "evidence": "글로브백·방진복·호흡보호구 착용 석면 작업",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-70-2020",
+          "guide_code": "H-70-2020"
+        }
+      ],
+      "notes": "석면 단서가 없으면 일반 철거/분진 작업에 과추천하지 않는다."
+    },
+    {
+      "guide_code": "H-71-2015",
+      "short_code": "H71",
+      "title": "유기화합물 취급 관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H71.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "organic_compound_handling_health_control",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "유기화합물",
+          "관리대상 유해물질",
+          "국소배기",
+          "호흡용보호구"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "화학물질 취급",
+          "도장·세척·접착"
+        ],
+        "evidence": "유기화합물 취급 시 대체, 밀폐·국소배기, 환기, 작업환경측정, 건강진단, 저장, 비상조치, 호흡보호구를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.91
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "유기화합물",
+          "관리대상 유해물질",
+          "국소배기",
+          "호흡용보호구"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.9,
+          "evidence": "유기화합물 노출과 관리대상 유해물질 조치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.88,
+          "evidence": "유기화합물 취급·저장·환기·비상조치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "VENTILATION_POOR",
+          "confidence": 0.78,
+          "evidence": "국소배기 및 전체환기 관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.86,
+          "evidence": "발산원 밀폐 또는 국소배기",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-006",
+          "confidence": 0.8,
+          "evidence": "전체환기 필요환기량",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.86,
+          "evidence": "유해성 및 취급 주의사항 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-025",
+          "confidence": 0.84,
+          "evidence": "호흡용 보호구 지급·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-026",
+          "confidence": 0.82,
+          "evidence": "피부 자극성 물질 보호복·세척시설",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "sr_id": "SR-VENTILATION-006",
+          "confidence": 0.78,
+          "evidence": "전체환기장치 설치 기준",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "sr_id": "SR-VENTILATION-007",
+          "confidence": 0.78,
+          "evidence": "환기장치 작업 중 가동",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "sr_id": "SR-HAZMAT-014",
+          "confidence": 0.7,
+          "evidence": "누출 시 제거 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "유기용제 취급 용기·MSDS·국소배기장치",
+          "cue_type": "equipment",
+          "confidence": 0.84,
+          "evidence": "유기용제 취급 용기·MSDS·국소배기장치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        },
+        {
+          "trigger_text": "방독마스크와 유기화합물 취급 작업",
+          "cue_type": "ppe",
+          "confidence": 0.82,
+          "evidence": "방독마스크와 유기화합물 취급 작업",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-71-2015",
+          "guide_code": "H-71-2015"
+        }
+      ],
+      "notes": "화학물질 취급/유기화합물 문맥이 있을 때 표준 절차 후보로 사용한다."
+    },
+    {
+      "guide_code": "H-72-2015",
+      "short_code": "H72",
+      "title": "확산시료채취법과 흡착관열탈착 가스크로마토그래피",
+      "source_file": "pipe-B/data/ci-output/ci-H72.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "sorbent_tube_thermal_desorption_gc_analysis",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "흡착관",
+          "열탈착",
+          "가스크로마토그래피",
+          "파과부피"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "작업환경측정 분석실",
+          "분석화학"
+        ],
+        "evidence": "확산시료채취법, 흡착관 열탈착, 가스크로마토그래피 분석, 검량선 및 농도 계산을 다루는 측정분석 프로토콜이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.9
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "흡착관",
+          "열탈착",
+          "가스크로마토그래피",
+          "파과부피"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.6,
+          "evidence": "화학물질 시료 분석 프로토콜이나 현장 취급 조치는 아님",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-72-2015",
+          "guide_code": "H-72-2015"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.58,
+          "evidence": "노출농도 분석 문맥만 존재",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-72-2015",
+          "guide_code": "H-72-2015"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "흡착관 열탈착 장치와 가스크로마토그래피",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "흡착관 열탈착 장치와 가스크로마토그래피",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-72-2015",
+          "guide_code": "H-72-2015"
+        },
+        {
+          "trigger_text": "검량선·파과부피·시료채취 분석표",
+          "cue_type": "document_or_form",
+          "confidence": 0.82,
+          "evidence": "검량선·파과부피·시료채취 분석표",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-72-2015",
+          "guide_code": "H-72-2015"
+        }
+      ],
+      "notes": "실험실 분석법이므로 일반 화학물질 현장 조치 추천에서는 제외한다."
+    },
+    {
+      "guide_code": "H-73-2015",
+      "short_code": "H73",
+      "title": "용접작업 보건관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H73.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "welding_fume_health_management",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "용접",
+          "용접흄",
+          "국소배기",
+          "밀폐공간",
+          "유해광선"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "용접작업",
+          "제조·건설·수리"
+        ],
+        "evidence": "실내·옥외·밀폐공간 용접의 작업환경관리, 작업계획, 작업환경측정, 건강진단, 위생관리와 보호구를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.9
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "용접",
+          "용접흄",
+          "국소배기",
+          "밀폐공간",
+          "유해광선"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "WELDING",
+          "confidence": 0.9,
+          "evidence": "용접작업 보건관리와 용접흄 노출",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.84,
+          "evidence": "용접흄·가스와 유해물질 노출",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "CONFINED_SPACE",
+          "confidence": 0.74,
+          "evidence": "밀폐공간 용접 작업관리",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-DUST-001",
+          "confidence": 0.78,
+          "evidence": "분진작업 밀폐 또는 국소배기",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "sr_id": "SR-DUST-002",
+          "confidence": 0.76,
+          "evidence": "국소배기 제어풍속 성능",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "sr_id": "SR-DUST-006",
+          "confidence": 0.76,
+          "evidence": "분진 유해성 및 예방방법 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "sr_id": "SR-DUST-009",
+          "confidence": 0.8,
+          "evidence": "호흡용 보호구 지급·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-002",
+          "confidence": 0.76,
+          "evidence": "유해물질 발산원 국소배기",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "sr_id": "SR-CHEMICAL-024",
+          "confidence": 0.74,
+          "evidence": "유해성 및 취급 주의사항 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "sr_id": "SR-CONFINED-001",
+          "confidence": 0.68,
+          "evidence": "밀폐공간 산소·유해가스 측정",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "sr_id": "SR-CONFINED-002",
+          "confidence": 0.68,
+          "evidence": "밀폐공간 환기 조치",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.76,
+          "evidence": "용접 보호구 지급·착용",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "용접흄과 국소배기장치",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.86,
+          "evidence": "용접흄과 국소배기장치",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        },
+        {
+          "trigger_text": "용접면·호흡보호구·차광 보호구",
+          "cue_type": "ppe",
+          "confidence": 0.84,
+          "evidence": "용접면·호흡보호구·차광 보호구",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-73-2015",
+          "guide_code": "H-73-2015"
+        }
+      ],
+      "notes": "용접 단서가 명확할 때만 화학/분진 SR 후보와 결합한다."
+    },
+    {
+      "guide_code": "H-74-2015",
+      "short_code": "H74",
+      "title": "펌프식시료채취법과 흡착관 열탁착 가스크로마토그래피",
+      "source_file": "pipe-B/data/ci-output/ci-H74.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "pump_sorbent_tube_thermal_desorption_gc_analysis",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "펌프식시료채취",
+          "흡착관",
+          "열탈착",
+          "가스크로마토그래피"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "작업환경측정 분석실",
+          "분석화학"
+        ],
+        "evidence": "펌프식 시료채취, 흡착관 열탈착, 안전시료채취량, 검량선 및 가스크로마토그래피 분석 프로토콜이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.9
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "펌프식시료채취",
+          "흡착관",
+          "열탈착",
+          "가스크로마토그래피"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.6,
+          "evidence": "화학물질 시료채취·분석 프로토콜",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-74-2015",
+          "guide_code": "H-74-2015"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.58,
+          "evidence": "노출농도 분석 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-74-2015",
+          "guide_code": "H-74-2015"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "펌프식 시료채취기와 흡착관",
+          "cue_type": "equipment",
+          "confidence": 0.86,
+          "evidence": "펌프식 시료채취기와 흡착관",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-74-2015",
+          "guide_code": "H-74-2015"
+        },
+        {
+          "trigger_text": "열탈착 GC 분석표와 검량선",
+          "cue_type": "document_or_form",
+          "confidence": 0.82,
+          "evidence": "열탈착 GC 분석표와 검량선",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-74-2015",
+          "guide_code": "H-74-2015"
+        }
+      ],
+      "notes": "현장 조치보다 분석실 프로토콜로 제한한다."
+    },
+    {
+      "guide_code": "H-75-2015",
+      "short_code": "H75",
+      "title": "사업장 작업환경 평가지침",
+      "source_file": "pipe-B/data/ci-output/ci-H75.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "work_environment_evaluation_and_improvement",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "작업환경",
+          "작업환경개선",
+          "평가",
+          "사후평가"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "사업장 보건관리",
+          "작업환경개선"
+        ],
+        "evidence": "작업환경 평가, 개선계획 수립, 개선 후 평가와 사후관리 절차를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.8
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "작업환경",
+          "작업환경개선",
+          "평가",
+          "사후평가"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.68,
+          "evidence": "작업환경 평가와 개선계획 중심",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-75-2015",
+          "guide_code": "H-75-2015"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "VENTILATION_POOR",
+          "confidence": 0.56,
+          "evidence": "환기 등 개선 대책 가능성이 있으나 특정성은 약함",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-75-2015",
+          "guide_code": "H-75-2015"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "작업환경평가표 또는 개선계획서",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "작업환경평가표 또는 개선계획서",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-75-2015",
+          "guide_code": "H-75-2015"
+        },
+        {
+          "trigger_text": "작업환경개선 전후 평가",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.72,
+          "evidence": "작업환경개선 전후 평가",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-75-2015",
+          "guide_code": "H-75-2015"
+        }
+      ],
+      "notes": "일반 작업장 사진만으로는 추천하지 않고 평가/개선 문맥을 요구한다."
+    },
+    {
+      "guide_code": "H-77-2012",
+      "short_code": "H77",
+      "title": "국소진동 측정 및 평가지침",
+      "source_file": "pipe-B/data/ci-output/ci-H77.json",
+      "domain_profile": {
+        "profile_level": "domain_specific",
+        "domain_family": "local_vibration_measurement_evaluation",
+        "mismatch_policy": "score_down_without_required_context",
+        "required_context_terms": [
+          "국소진동",
+          "진동측정",
+          "가속도계",
+          "평가"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "진동공구 작업",
+          "작업환경측정"
+        ],
+        "evidence": "국소진동의 측정 장비, 측정 위치, 가속도 평가와 노출평가 절차를 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.82
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "국소진동",
+          "진동측정",
+          "가속도계",
+          "평가"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "NOISE_EXPOSURE",
+          "confidence": 0.6,
+          "evidence": "taxonomy gap: 진동 노출을 소음·진동 계열로 임시 표현",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-77-2012",
+          "guide_code": "H-77-2012"
+        },
+        {
+          "axis": "hazardous_agent",
+          "feature_code": "NOISE",
+          "confidence": 0.58,
+          "evidence": "소음이 아니라 국소진동 측정이므로 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-77-2012",
+          "guide_code": "H-77-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-NOISE-007",
+          "confidence": 0.72,
+          "evidence": "진동작업 유해성 및 예방사항 주지",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-77-2012",
+          "guide_code": "H-77-2012"
+        },
+        {
+          "sr_id": "SR-NOISE-008",
+          "confidence": 0.7,
+          "evidence": "진동 기계·기구 점검 및 보수 관리",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "non_llm_evidence_count": 2,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-77-2012",
+          "guide_code": "H-77-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "진동공구와 가속도계 측정",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "진동공구와 가속도계 측정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-77-2012",
+          "guide_code": "H-77-2012"
+        },
+        {
+          "trigger_text": "국소진동 노출평가 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "국소진동 노출평가 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-77-2012",
+          "guide_code": "H-77-2012"
+        }
+      ],
+      "notes": "소음작업과 혼동하지 않고 국소진동 측정/평가 문맥을 요구한다."
+    },
+    {
+      "guide_code": "H-78-2012",
+      "short_code": "H78",
+      "title": "자외선 소독기에서 발생되는 자외선의 노출평가 및 관리지침",
+      "source_file": "pipe-B/data/ci-output/ci-H78.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "uv_sterilizer_exposure_evaluation",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "자외선 소독기",
+          "자외선",
+          "유효조도",
+          "노출평가"
+        ],
+        "negative_context_terms": [
+          "전리방사선",
+          "방사선관리구역",
+          "항만하역",
+          "석면"
+        ],
+        "industry_alignment": [
+          "자외선 소독 설비",
+          "보건·실험실·급식 위생설비"
+        ],
+        "evidence": "자외선 소독기에서 발생하는 자외선의 측정, 유효조도 산출, 노출기준 비교와 관리방안을 다룬다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.86
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "자외선 소독기",
+          "자외선",
+          "유효조도",
+          "노출평가"
+        ],
+        "exclude_when": [
+          "전리방사선",
+          "방사선관리구역",
+          "항만하역",
+          "석면"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "accident_type",
+          "feature_code": "BURN",
+          "confidence": 0.58,
+          "evidence": "자외선 피부·눈 손상 가능성을 임시 표현",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-78-2012",
+          "guide_code": "H-78-2012"
+        },
+        {
+          "axis": "work_context",
+          "feature_code": "GENERAL_WORKPLACE",
+          "confidence": 0.56,
+          "evidence": "설비 노출평가 문맥이나 taxonomy gap 존재",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-78-2012",
+          "guide_code": "H-78-2012"
+        }
+      ],
+      "sr_link_candidates": [
+        {
+          "sr_id": "SR-PPE-002",
+          "confidence": 0.56,
+          "evidence": "자외선 보호구가 필요한 경우에만 약한 후보",
+          "source_fields": [
+            "workProcesses.safetyMeasures",
+            "checklistItems.text",
+            "domainTerms.definition"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "asserted": false,
+          "entity_type": "GUIDE",
+          "entity_id": "H-78-2012",
+          "guide_code": "H-78-2012"
+        }
+      ],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "자외선 소독기와 UV 경고표지",
+          "cue_type": "equipment",
+          "confidence": 0.82,
+          "evidence": "자외선 소독기와 UV 경고표지",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-78-2012",
+          "guide_code": "H-78-2012"
+        },
+        {
+          "trigger_text": "유효조도·자외선 노출평가 측정",
+          "cue_type": "document_or_form",
+          "confidence": 0.78,
+          "evidence": "유효조도·자외선 노출평가 측정",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-78-2012",
+          "guide_code": "H-78-2012"
+        }
+      ],
+      "notes": "전리방사선 SR과 혼동하지 않도록 별도 UV 배타 프로파일로 둔다."
+    },
+    {
+      "guide_code": "H-81-2021",
+      "short_code": "H81",
+      "title": "화학물질의 유해성 평가를 위한 유전독성시험에 관한 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-H81.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "chemical_genotoxicity_lab_test_protocol",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "유전독성시험",
+          "S9",
+          "세포배양",
+          "염색체이상"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "화학물질 유해성 평가"
+        ],
+        "evidence": "화학물질 유해성 평가를 위한 박테리아, 세포배양, 염색체이상 등 유전독성 시험 프로토콜이다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "유전독성시험",
+          "S9",
+          "세포배양",
+          "염색체이상"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.6,
+          "evidence": "화학물질 유해성 시험실 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-81-2021",
+          "guide_code": "H-81-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.55,
+          "evidence": "현장 노출보다 시험법이므로 약한 후보",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-81-2021",
+          "guide_code": "H-81-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "유전독성시험 실험실과 세포배양",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "유전독성시험 실험실과 세포배양",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-81-2021",
+          "guide_code": "H-81-2021"
+        },
+        {
+          "trigger_text": "S9 mix·염색체이상 시험기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "S9 mix·염색체이상 시험기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-81-2021",
+          "guide_code": "H-81-2021"
+        }
+      ],
+      "notes": "현장 화학물질 안전조치가 아니라 실험실 시험법으로 제한한다."
+    },
+    {
+      "guide_code": "H-83-2021",
+      "short_code": "H83",
+      "title": "화학물질의 급성경피독성 시험 기술지침",
+      "source_file": "pipe-B/data/ci-output/ci-H83.json",
+      "domain_profile": {
+        "profile_level": "exclusive",
+        "domain_family": "acute_dermal_toxicity_animal_lab_test_protocol",
+        "mismatch_policy": "exclude_without_required_context",
+        "required_context_terms": [
+          "급성경피독성",
+          "LD50",
+          "시험동물",
+          "GLP"
+        ],
+        "negative_context_terms": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "industry_alignment": [
+          "독성시험 실험실",
+          "GLP",
+          "시험동물"
+        ],
+        "evidence": "화학물질 급성경피독성 시험의 시험계획, 동물 구입·순화, 시험물질 투여, 관찰, 병리, 최종보고 절차다.",
+        "source_fields": [
+          "title",
+          "domainTerms.term",
+          "workProcesses.summary",
+          "checklistItems.text"
+        ],
+        "confidence": 0.88
+      },
+      "recommendation_boundary": {
+        "include_when": [
+          "급성경피독성",
+          "LD50",
+          "시험동물",
+          "GLP"
+        ],
+        "exclude_when": [
+          "항만하역",
+          "피뢰설비",
+          "도크",
+          "조선",
+          "급식실"
+        ],
+        "runtime_use": "candidate_domain_guard_only"
+      },
+      "feature_candidates": [
+        {
+          "axis": "work_context",
+          "feature_code": "CHEMICAL_WORK",
+          "confidence": 0.6,
+          "evidence": "화학물질 독성시험 실험실 문맥",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-83-2021",
+          "guide_code": "H-83-2021"
+        },
+        {
+          "axis": "accident_type",
+          "feature_code": "CHEMICAL_EXPOSURE",
+          "confidence": 0.55,
+          "evidence": "현장 노출 조치가 아닌 시험법",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.safetyMeasures",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "needs_review",
+          "non_llm_evidence_count": 1,
+          "entity_type": "GUIDE",
+          "entity_id": "H-83-2021",
+          "guide_code": "H-83-2021"
+        }
+      ],
+      "sr_link_candidates": [],
+      "visual_trigger_candidates": [
+        {
+          "trigger_text": "시험동물 급성경피독성 시험",
+          "cue_type": "workplace_or_activity",
+          "confidence": 0.82,
+          "evidence": "시험동물 급성경피독성 시험",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-83-2021",
+          "guide_code": "H-83-2021"
+        },
+        {
+          "trigger_text": "LD50·GLP 시험계획서와 병리 관찰 기록",
+          "cue_type": "document_or_form",
+          "confidence": 0.8,
+          "evidence": "LD50·GLP 시험계획서와 병리 관찰 기록",
+          "source_fields": [
+            "title",
+            "domainTerms.term",
+            "workProcesses.summary",
+            "checklistItems.text"
+          ],
+          "method": "codex_manual_pilot",
+          "review_status": "candidate",
+          "entity_type": "GUIDE",
+          "entity_id": "H-83-2021",
+          "guide_code": "H-83-2021"
+        }
+      ],
+      "notes": "실험동물 독성시험 프로토콜로, 일반 화학 취급 현장 추천에서 제외한다."
+    }
+  ]
+}

@@ -1,0 +1,830 @@
+{
+  "metadata": {
+    "guideCode": "D-43-2012",
+    "shortCode": "D43",
+    "domain": "C",
+    "extractedAt": "2026-04-22T12:20:34Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-046"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-D43-001",
+      "text": "집진장치의 사용자는 취급분진, 집진장치 및 집진공정에 잠재된 위험성을 잘 이해하고 운전 및 보수점검 방법을 안전하게 해야한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-002",
+      "text": "집진장치 제작자는 폭발을 예방하기 위하여 설계, 제작, 운전, 보수, 점검 등에 관한 사항을 사용자에게 알려 분진폭발 예방에 노력해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-003",
+      "text": "공기를 반송기체로 해서 가연성 분진을 포집 취급하는 경우 가연물(분진)과 산소를 확실히 제거하는 것은 불가능하므로 착화원이 발생할 수 있는 기기 사용을 금지한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-D43-004",
+      "text": "분진이 접촉되는 부분은 금속제로 접지 및 본딩을 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "정전기 방전에 의한 착화 방지",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-005",
+      "text": "전기 안전지침에 따라 누설저항은 10⁶Ω이하로, 접지저항은 1kΩ 이하로 관리하여야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "정전기 방전 착화원 제거",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-006",
+      "text": "분진을 취급하는 공정 바닥은 도전성으로 하고 작업자는 대전방지용 보호 장구를 착용해야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "정전기 방전 착화원 제거",
+      "workProcessPhase": "운전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PPE_REQUIREMENT",
+      "sourceSection": "4.3.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-007",
+      "text": "집진장치 본체 내부에 전기 기계 기구를 설치할 때 또는 계측·제어용의 기기 센서류를 삽입 할 경우 방폭용으로 해야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "전기기계 기구에 의한 불꽃 및 과열 방지",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.2",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-D43-008",
+      "text": "송풍기용 전동기는 방폭용으로 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "전기기계 기구에 의한 불꽃 및 과열 방지",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.2",
+      "basedOn": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "CI-D43-009",
+      "text": "과부하 방지장치 설치 및 온도상승에 따른 분진 추적을 방지해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "전기기계 기구에 의한 과열 방지",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-010",
+      "text": "송풍기 회전 날개는 케이싱간의 마찰 충격을 방지하기 위한 재질 및 간극에 이물이 쌓이지 않는 구조로 설계한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "기계적 마찰, 충격 및 과열 방지",
+      "workProcessPhase": "설계·제작",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-011",
+      "text": "과부하 경보 장치를 부착한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "기계적 마찰, 충격 및 과열 방지",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-012",
+      "text": "분진과 금속등 이물은 자력이나 비중차를 이용하여 선별 제거한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "고온물, 불티, 착화분, 이물등의 혼입방지",
+      "workProcessPhase": "운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-013",
+      "text": "보수 전에는 사전 청소를 실시하고, 작업 준비시에는 화기 사용허가를 확인하는 등 작업관리를 명확하게 하여야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "보수 작업에 따른 용접등의 화기엄금",
+      "workProcessPhase": "보수·점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-014",
+      "text": "분진의 쌓임을 방지할 수 있는 구조로 하고, 집진장치 및 닥트내 기류의 급변화 및 돌기면 등이 없도록 설계를 하여야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "자연발화 방지",
+      "workProcessPhase": "설계·제작",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "4.3.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-015",
+      "text": "여러 종류의 분진을 하나의 집진장치로 처리할 경우에는 아래와 같은 위험성이 있으므로 분진별로 집진장치를 설치해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "풍속 차이로 분진 체류, 혼합물 폭발성 평가 곤란, 폭발 전파 확대 위험",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-016",
+      "text": "재질은 분진 종류 및 공존가스의 성질에 따라 내식성 및 내마모성을 고려하여 선정한다. 분진의 대전을 방지·제거하기 위해서 도전성재질로 하거나 내벽을 도전성 도료로 도포해야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "집진장치 재질 선정 기준",
+      "workProcessPhase": "설계·제작",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-017",
+      "text": "본체 및 닥트는 기밀성을 유지하는 구조로 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·제작",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-018",
+      "text": "집진장치 및 닥트는 송풍압에 견딜 수 있는 강도를 유지해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·제작",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-019",
+      "text": "집진장치에는 내부폭발에 대비하여 폭발방산구를 설치해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.5",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-020",
+      "text": "집진장치, 송풍기 및 닥트 등에는 접지를 해야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.6",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-021",
+      "text": "포집한 분진을 회수할 때에는 대전을 방지할 수 있는 재질의 용기를 사용해야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": null,
+      "workProcessPhase": "운전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1.7",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-022",
+      "text": "포집분진 배출구의 위치는 안전성이 확보되도록 옥외로 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.1.8",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-023",
+      "text": "사이크론은 대전 방지를 위하여 도전성이 좋은 금속 재질로 하고 반드시 접지 해야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-024",
+      "text": "공기 누설을 방지하기 위하여 배관 접속부, 점검구 및 포집 분진 회수구 등에 충분한 기밀이 유지되도록 해야한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "사이크론 기밀 유지",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-025",
+      "text": "내부 점검 및 청소를 위한 점검구를 설치한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "사이크론 점검구",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-026",
+      "text": "백으로 사용한 여과포 및 봉합시는 도전성의 섬유를 사용하여야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "백필터 정전기 제거",
+      "workProcessPhase": "설계·제작",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-027",
+      "text": "여과포에 금속제품을 취부할 경우 전기저항은 10⁶Ω 이하이어야 한다. 이 경우 측정 전극간 거리는 50cm이상 인가전압은 1kV로 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "백필터 정전기 제거 기준",
+      "workProcessPhase": "설계·제작",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-028",
+      "text": "백필터 본체 및 금속제 밴드 접지 저항은 1kΩ 이하이어야 한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "백필터 접지저항 기준",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2.2",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-029",
+      "text": "여과포에 분진제거 용접기 기구는 집진장치 밖에 설치한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "백필터 착화원 격리",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-030",
+      "text": "여과포 내에 포집된 분진량이 일시에 증가하지 않도록 조치해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-031",
+      "text": "분진 포집에 사용하는 물과 분진이 반응하여 발열하거나 가연성 가스가 생길 경우 습식 방식의 집진장치는 피한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "습식 집진장치 사용 제한",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-032",
+      "text": "스러지를 연속적으로 밖으로 배출하는 후처리 공정은 있어서는 가연성 가스의 발생 및 체류를 방지하는 구조로 하여야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "습식 집진장치 후처리 공정",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-033",
+      "text": "집진장치의 운전을 중단하거나 정지 중 가연성 가스의 체류 여부를 확인할 수 있도록 가스감지장치를 설치한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "습식 집진장치 가스 감시",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-034",
+      "text": "회전 날개와 구동축은 운전중 헐거움이 없게 단단히 결합시키고 분진과 접촉에 의한 마찰 편심 굴곡이 생기지 않는 재질로 설계제작 해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "송풍기 안전 설계",
+      "workProcessPhase": "설계·제작",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-035",
+      "text": "고온분진을 집진 할 경우 온도 저하에 따른 결로 또는 고착 방지를 위한 보온 대책을 실시해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-036",
+      "text": "배관닥트 등에 분진유동에 따른 대전과 분진 추적을 방지하기 위한 구조로 해야한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.5.1",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-037",
+      "text": "배관닥트 등은 분진 쌓임, 분진충돌에 의한 마모 및 대전을 고려한 적절한 풍속(5-30 m/s)이 유지 될 수 있는 관경이어야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-038",
+      "text": "분진 쌓임이나 마모가 생기기 쉬운 곳은 정기 점검을 위한 점검구를 설치하고 밸브 배관의 부분적 교환 및 해체가 용이한 구조로 해야한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-039",
+      "text": "닥트의 휨, 늘어짐, U자형 및 굴곡부가 생기지 않는 구조로 해야한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-040",
+      "text": "배관 닥트의 가지관중에 분진 침입, 쌓임 방지, 차폐 및 후드 등을 견고하게 설치해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-041",
+      "text": "집진장치내 발생한 폭발이 역 전파로 인한 피해 확대 방지를 위하여 역류 방지 장치를 설치해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-042",
+      "text": "집진장치내 폭발이 발생해 압력을 방산 시킬 경우, 배관내의 분진이 분출, 비산하는 등 2차 폭발이 생기지 않도록 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.5.4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-043",
+      "text": "집진장치 내에서 폭발이 발생할 경우 폭발 초기 단계에서 검출하고 연소 억제제를 고속 살포하여 집진장치 파괴 및 압력 상승 방지를 해야하며 장치설계는 KOSHA GUIDE D-11-2012(폭발억제 장치의 설치에 관한 기술상 지침)에 따른다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "폭발억제 장치",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-044",
+      "text": "분진 폭발 발생을 검출하려면 반응성에 따른 압력센서를 사용한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "폭발억제 장치 구조",
+      "workProcessPhase": "설계·설치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-045",
+      "text": "운전 개시 때는 집진장치내 축적분진이 없는지 확인해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-046",
+      "text": "집진장치 송풍기 배관등 접지 상태를 확인한다.",
+      "guideContext": "집진설비 분진폭발방지",
+      "additionalDetail": "운전 전 점검사항",
+      "workProcessPhase": "운전",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "CI-D43-047",
+      "text": "집진장치의 분진이 포집되는 상태, 계측제어 및 안전 장치가 정상 작동하는지를 확인해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": "운전 전 점검사항",
+      "workProcessPhase": "운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-048",
+      "text": "추가로 후드를 설치하는 경우에는 집진 능력을 재검토한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-049",
+      "text": "이상냄새, 진동, 이상음 등이 감지 될 경우 운전을 정지하고 원인 규명을 하고 적정한 대책 강구 후 운전을 재개해야 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-050",
+      "text": "작업 계획을 세워 작업 내용, 방법, 순서, 사용할 기기, 도구 및 책임자를 선정하여 주지시킨다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "보수·점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-051",
+      "text": "수리 작업중에는 집진장치 밖에 감시자를 배치하고 소화기를 비치한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "보수·점검",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-052",
+      "text": "만일의 경우를 대비하여 분진 발화시 탈출구를 확보하고 피난에 지장이 없도록 주변 정리정돈을 철저히 한다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "운전",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "7",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-D43-053",
+      "text": "교육훈련 계획을 세워 분진 위험성 분진 취급장치, 구조, 운반방법 및 비정상 작업시 안전에 관한 사항을 교육시킨다.",
+      "guideContext": "집진설비 분진폭발방지 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": null,
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "TRAINING",
+      "sourceSection": "7",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-D43-001",
+      "term": "가연성 분진",
+      "definition": "직경 420μm 이하(40 메쉬 표준체 통과)의 미세한 분말상의 물질로 적절한 비율에서 공기와 혼합 할 때 점화원에 의해 발화될 수 있는 분진을 말하며, 주로 알루미늄·마그네시움등 금속분, 폴리에틸렌·합성고무 등 합성수지, 소맥분·전분 등의 농산물, 목분, 유황분, 석탄분 및 의약품분 등을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D43-002",
+      "term": "분진폭발",
+      "definition": "분진과 공기의 혼합물(분진 운이라 한다)이 점화되어 빠른 속도로 반응하여 다량의 에너지를 급격하게 방출하는 현상을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D43-003",
+      "term": "폭발방산구",
+      "definition": "용기등 내부에서 폭발에 의하여 이상 압력이 생성될 때 용기에 약한 부분을 의도적으로 만들어 이상압력을 반응시킬 수 있는 문, 창문, 패널 등을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D43-004",
+      "term": "폭발지수",
+      "definition": "최대 압력상승 속도를 기반으로 하여 정의된 분진폭발의 격렬성을 나타낸 척도로, 단위는 Ks 로 표시하며 단위는 ar·m/sec를 사용한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-D43-005",
+      "term": "위험등급",
+      "definition": "가연성 분진의 폭발 위험성을 Ks수치를 기본으로 한 3등급(s −11, s −2, s −3)으로 분류한 평가법으로 분진의 폭발이 격렬한 상대적인 비교 척도를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-D43-01",
+      "processOrder": 1,
+      "processName": "집진장치 운전 개시 전 점검",
+      "safetyMeasures": "집진장치내 축적분진 유무 확인, 송풍기·배관 등 접지 상태 확인, 계측제어 및 안전장치 정상 작동 확인",
+      "requiredPPE": [
+        "대전방지용 보호 장구"
+      ],
+      "sourceSection": "7",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "WP-D43-02",
+      "processOrder": 2,
+      "processName": "집진장치 운전 중 감시",
+      "safetyMeasures": "이상냄새·진동·이상음 감지 시 운전 정지 및 원인 규명, 후드 추가 설치 시 집진능력 재검토, 분진 발화 시 탈출구 확보 및 주변 정리정돈",
+      "requiredPPE": [
+        "대전방지용 보호 장구"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D43-03",
+      "processOrder": 3,
+      "processName": "집진장치 보수 작업",
+      "safetyMeasures": "보수 전 사전 청소 실시, 화기 사용허가 확인, 작업 계획 수립(작업 내용·방법·순서·기기·도구·책임자 선정), 집진장치 밖에 감시자 배치 및 소화기 비치",
+      "requiredPPE": [
+        "대전방지용 보호 장구"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-D43-04",
+      "processOrder": 4,
+      "processName": "착화원 관리",
+      "safetyMeasures": "분진 접촉 부분 금속제 접지 및 본딩, 누설저항 10⁶Ω 이하·접지저항 1kΩ 이하 관리, 방폭용 전기기계기구 사용, 이물 선별 제거, 분진 쌓임 방지 구조 설계",
+      "requiredPPE": [
+        "대전방지용 보호 장구"
+      ],
+      "sourceSection": "4.3.2",
+      "relatedSR": [
+        "SR-ELECTRIC-024",
+        "SR-ELECTRIC-011"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-D43-001",
+      "equipmentName": "백필터 여과포",
+      "specifications": {
+        "material": "도전성 섬유",
+        "electricalResistance": "10⁶Ω 이하 (금속제품 취부 시)",
+        "measurementCondition": "측정 전극간 거리 50cm 이상, 인가전압 1kV"
+      },
+      "sourceSection": "5.2.2",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "ES-D43-002",
+      "equipmentName": "백필터 본체 및 금속제 밴드",
+      "specifications": {
+        "groundingResistance": "1kΩ 이하"
+      },
+      "sourceSection": "5.2.2",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "ES-D43-003",
+      "equipmentName": "집진설비 접지 및 누설저항",
+      "specifications": {
+        "leakageResistance": "10⁶Ω 이하",
+        "groundingResistance": "1kΩ 이하"
+      },
+      "sourceSection": "4.3.2",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "ES-D43-004",
+      "equipmentName": "배관닥트",
+      "specifications": {
+        "windSpeed": "5-30 m/s",
+        "material": "도전성 재질 또는 도전성 도료 도포",
+        "structuralRequirement": "휨·늘어짐·U자형·굴곡부 방지 구조"
+      },
+      "sourceSection": "5.5.2",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "ES-D43-005",
+      "equipmentName": "사이크론",
+      "specifications": {
+        "material": "도전성이 좋은 금속 재질",
+        "grounding": "반드시 접지",
+        "airtightness": "배관 접속부·점검구·회수구 기밀 유지"
+      },
+      "sourceSection": "5.2.1",
+      "relatedSR": [
+        "SR-ELECTRIC-024"
+      ]
+    },
+    {
+      "identifier": "ES-D43-006",
+      "equipmentName": "송풍기",
+      "specifications": {
+        "motor": "방폭용 전동기",
+        "bladeMaterial": "케이싱간 마찰 충격 방지 재질",
+        "safetyDevice": "과부하 방지장치 및 경보장치 부착"
+      },
+      "sourceSection": "5.4",
+      "relatedSR": [
+        "SR-ELECTRIC-011"
+      ]
+    },
+    {
+      "identifier": "ES-D43-007",
+      "equipmentName": "폭발방산구",
+      "specifications": {
+        "designBasis": "집진장치 형태·치수와 분진폭발 특성에 따른 설계",
+        "referenceStandard": "KOSHA GUIDE D-34-2012",
+        "staticActivationPressure": "Pstat 0.1bar (설계 예시)"
+      },
+      "sourceSection": "6.1",
+      "relatedSR": null
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-D43-001",
+      "documentType": "WORK_PLAN",
+      "title": "집진장치 보수 작업계획서",
+      "requiredSections": [
+        "작업 내용",
+        "작업 방법",
+        "작업 순서",
+        "사용할 기기·도구",
+        "책임자"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DR-D43-002",
+      "documentType": "TRAINING_RECORD",
+      "title": "분진 위험성 교육훈련 계획",
+      "requiredSections": [
+        "분진 위험성",
+        "분진 취급장치 구조",
+        "운반방법",
+        "비정상 작업시 안전사항"
+      ],
+      "sourceSection": "7",
+      "relatedSR": null
+    }
+  ]
+}

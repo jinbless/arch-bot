@@ -1,0 +1,658 @@
+{
+  "metadata": {
+    "guideCode": "C-C-30-2026",
+    "shortCode": "CC30",
+    "domain": "C",
+    "extractedAt": "2026-04-22T03:38:16Z",
+    "extractedBy": "claude-opus-pilot",
+    "batchId": "pipeb-batch-C-034"
+  },
+  "checklistItems": [
+    {
+      "identifier": "CI-CC30-001",
+      "text": "발열반응을 수반하는 화학공정을 설계하는 경우 화학반응의 위험을 확인하기 위하여 공정안전에 관련된 변수와 특성을 다음과 같이 검토 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "화학반응 위험성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-002",
+      "text": "1차 반응단계에서 위험의 확인을 위해서 다음과 같은 안전에 관련된 변수와 특성을 고려한다. 공정자료 : 공정형태 (회분식, 반회분식 혹은 연속식), 반응물질의 양, 농도, 반응온도, 반응기의 액위, 첨가시간 (Time of addition), 냉각능력 (Cooling capacity)",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": "일반적 물리화학적 특성, 열역학적 특성, 속도론적 특성도 함께 검토",
+      "workProcessPhase": "화학반응 위험성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-003",
+      "text": "2차 반응 단계에서 위험의 확인을 위해서 다음과 같은 안전에 관련된 변수와 특성을 고려한다. 전파 특성 : 폭연능력 (Deflagration capacity), 폭연속도, 폭연 시 압력상승속도, 폭굉능력 (Detonation capability), 폭굉속도, 열적 감도, 기계적 감도",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": "공정자료, 물리화학적 특성, 열역학적 특성, 속도론적 특성도 함께 검토",
+      "workProcessPhase": "화학반응 위험성 확인",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "4",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-004",
+      "text": "반응의 열적 제어를 보장하기 위해서 반응기에서 생성된 열을 제거하기 위해서 냉각시스템의 능력이 충분하도록 해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "평가에 필요한 자료는 반응열 방출 속도 (qrx)와 반응기의 냉각능력 (qex)이며, 반응열량계로부터 얻을 수 있다",
+      "workProcessPhase": "냉각실패 시나리오 평가",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.1",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-005",
+      "text": "중합의 경우 반응질량의 점도변화와 반응기 벽에서 오염에 대한 특별한 주의를 기울여야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "냉각실패 시나리오 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-006",
+      "text": "미 전환된 반응물 축적도 (Degree of accumulation, Xac)의 함수로서 합성반응의 최대온도 (MTSR)을 계산한다. MTSR = Tp + Xac·△Tad,rx 이다. 여기서 △Tad,rx 는 반응열량계에서 구한 단열상승온도이다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "냉각실패 시나리오 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-007",
+      "text": "TMRad 이 온도의 함수이므로, TMRad 이 일정한 값(8시간, 24시간)에 도달하는 온도를 찾는다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험도 등급 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-008",
+      "text": "세 가지 온도 척도(Tp, MTSR 및 TD24)와 더불어 장비의 기술적인 근거에 의한 최대온도(MTT) 척도의 상대적 위치를 고려한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": "위험도 1~5등급 분류의 기준이 되는 온도 척도",
+      "workProcessPhase": "위험도 등급 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-009",
+      "text": "시나리오별로 가장 낮은 위험 1 등급에서 가장 높은 위험까지 5 등급으로 분류할 수 있다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": "위험도 등급은 폭주반응 위험감소 대책(조치)을 선택하기 위한 유용한 도구로 활용",
+      "workProcessPhase": "위험도 등급 분류",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "5.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-010",
+      "text": "위험도 등급 3에서 합성반응 온도제어 실패 후, 기술적인 허용치 (MTSR>MTT)로 도달되지만, MTSR<TD24 이므로 분해반응을 촉발시킬 수 없다. 그 첫 번째 조치는 증발냉각을 사용하거나, 제어하에 있는 반응량을 유지하기 위해서 감압을 하여준다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "백업 냉각시스템, 반응물의 덤핑, 또는 급냉을 사용할 수 있다. 압력완화시스템 사용 시 Catch pot를 설치해야 한다",
+      "workProcessPhase": "위험감소 대책 수립",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-011",
+      "text": "선택적으로 압력완화시스템을 사용할 수 있지만, 장치 외부로 반응물의 분출을 피하기 위하여 Catch pot를 설치해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "위험도 등급 3 대응 조치",
+      "workProcessPhase": "위험감소 대책 수립",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-012",
+      "text": "위험도 등급 5에서는 주반응과 이차 반응 사이에 안전장벽이 없다. 따라서, 단지 급냉이나 덤핑을 사용할 수 있다. 대부분의 경우 분해반응이 매우 높은 에너지를 방출하므로 안전조치의 설계에 특별한 주의가 필요하다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "적어도 폭주를 일으킬 가능성이나 사고의 피해크기를 감소시키기 위해서 공정의 설계를 선택적으로 고려해야 한다",
+      "workProcessPhase": "위험감소 대책 수립",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-013",
+      "text": "응축기는 상대적으로 높은 증발속도에서 충분한 용량을 제공하여야 한다. 더 나아가 환류시스템은 일반적인 모드 실패를 피하기 위해서 냉각매체에 독립적으로 운전되도록 설계해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "안전장벽(Safety barrier)으로서 MTT의 이용 시 고려사항",
+      "workProcessPhase": "위험감소 대책 수립",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-014",
+      "text": "밀폐계에서 기술적 허용치는 반응기에서의 압력 완화시스템의 설정압력에 도달하는 온도가 될 것이다. 이러한 경우에 설정압력에 도달하기 전에 반응기의 제어로 감압이 가능하며, 제어할 수 있는 설정압력의 온도에서 반응을 완화시킬 수 있도록 설계 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "위험감소 대책 수립",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "5.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-015",
+      "text": "반응물질의 열적 안정성을 평가해야 하는 경우에 반응 전후나 반응 중에 수행되어지는 반응물질에 대한 DSC실험으로부터 얻을 수 있다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "열적위험성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-016",
+      "text": "만일 높은 에너지 피텐셜을 가진다면, 과압이 1차 반응이나 이차 반응에서 발생하는 지를 찾아야 한다. 만일 그 피텐셜이 원하는 반응(1차 반응)에서 생긴다면 열 방출속도, 냉각용량, 축적량, 즉 MTSR에 관련된 모든 면이 검토되어야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "열적위험성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-017",
+      "text": "만일 그 피텐셜이 2차 반응에서 생긴다면 MTSR에서 TMRad 을 결정하기 위해 속도론적 검토가 있어야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "열적위험성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-018",
+      "text": "반응제어로부터 생기는 문제, 즉 최대 열방출속도는 반응기의 냉각용량과 비교해야 한다. 만일 가능하다면 가스방출속도를 반응기의 가스처리능력과 비교해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "열적위험성 평가",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "5.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-019",
+      "text": "희석에 의해서 단열온도상승을 감소시킨다. 반회분식 반응기(Semi-batch reactor)의 경우에 전환된 반응물의 축적량의 제한으로 폭주 피텐셜을 감소시킬 수 있도록 해야한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "위험감소 대책 적용",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-020",
+      "text": "위험물질의 사용이나 불안정한 중간물질 혹은 높은 활성 화합물을 피하는 적당한 합성 경로 선택으로 이루어진 치환 (Substitution)방법을 고려해야 한다. 이것은 공정안전측면에서 공정개발의 초기 단계에서 이루어져야 하며, 안전이나 환경 측면에서 공정개발 시작에서부터 통합적인 공정개발 원리에 따라 고려되어야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": "안전한 공정의 설계 원리에 따라 반응에 의해서 방출되는 절대적인 에너지 량을 줄이는 방법",
+      "workProcessPhase": "위험감소 대책 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-021",
+      "text": "위험물질의 양을 제한하는 등 잠재적으로 방출되는 절대 에너지를 감소시키는 것으로 공정의 보강 (Intensification)방법을 고려해야 한다. 일반적으로 더 작은 반응기는 높은 고압에 건딜 수 있도록 설계해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험감소 대책 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-022",
+      "text": "안전한 형태의 위험물질을 사용하는 대치 (Attenuation)방법을 고려해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "위험감소 대책 적용",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "sourceSection": "6.1",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-023",
+      "text": "반회분식이나 연속운전에서 원료 공급 속도를 제어한다. 축적량을 제한하는 부분 (Portion) 공급(첨가)를 한다. 반응기내에 존재하는 반응물량, 즉 축적량을 감소시키도록 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "컨트롤 밸브, 원심펌프, 공급탱크와 계량 펌프를 이용한 원료 공급 방법 포함",
+      "workProcessPhase": "기술적 예방조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-024",
+      "text": "비상시 냉각은 실패의 경우 정상적인 냉각시스템으로 대체한다. 이것은 일반적으로 반응기 자켓으로 통하거나 냉각 코일을 통하여 흐르는 냉각수로 냉각 매체원과 독립적이어야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "기술적 예방조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-025",
+      "text": "유틸리티 실패 (특히 냉각실패의 원인 전력)의 경우에도 냉각매체가 흐를 수 있어야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "기술적 예방조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-026",
+      "text": "비상시 냉각을 위해 온도를 반응물질의 응고점(solidification point)아래로 떨어지지 않도록 해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "기술적 예방조치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-027",
+      "text": "덤핑 시 탱크는 공정 중에 어떠한 경우라도 반응물질을 받을 준비가 되도록 하여야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "반응물질이 안전한 장소로 이송되어 지고, 반응기가 위치하는 곳의 플랜트를 보호하도록 한다",
+      "workProcessPhase": "기술적 예방조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-028",
+      "text": "만일 유틸리티가 고장이 있다 하여도 비상시 수송이 되도록 설계해야 한다. 리시버 탱크에 회식제나 급냉 유체의 유무를 확인해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "기술적 예방조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-029",
+      "text": "감압화 (Depersonalization)는 온도상승 속도와 열 방출 속도가 느린 경우에 폭주의 초기 단계에 작동할 수 있도록 한다. 스크러버와 환류응축기는 독립적인 유틸리티로 작동되도록 설계하여야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "기술적 예방조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-030",
+      "text": "경보시스템은 발열반응의 경우 열방출속도가 크게 되기 전에 그 초기에 제어하도록 설계한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "기술적 예방조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.2",
+      "basedOn": [
+        "SR-CHEMICAL-010",
+        "SR-FIRE_EXPLOSION-049"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-031",
+      "text": "비상시 압력완화는 가스나 증기를 배출하는 벤트라인의 개방에 의해서 압력 증가를 중지하여 과압에 대응하여 반응기를 보호하도록 되어있다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "비상시 조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-032",
+      "text": "열적 피텐셜을 가진 반응의 경우, 벤트라인의 설계는 개방 맨홀을 가졌다 하더라도 폭발로부터 반응기를 보호할 수 있도록 설계해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": null,
+      "workProcessPhase": "비상시 조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-033",
+      "text": "압력 완화장치의 설계는 안전밸브와 파열판을 병렬이나 직렬로 설치해야 할지를 결정한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "물리적 시나리오와 화학적 시나리오를 구분하여 설계",
+      "workProcessPhase": "비상시 조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-034",
+      "text": "다목적 반응기의 압력완화시스템의 설계를 위한 시나리오를 정의하기가 어렵기 때문에 완화 온도에서 최대 열방출 속도는 공정온도와 반응기의 냉각용량을 파악해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": null,
+      "workProcessPhase": "비상시 조치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "PROCEDURAL",
+      "sourceSection": "6.3",
+      "basedOn": null
+    },
+    {
+      "identifier": "CI-CC30-035",
+      "text": "봉쇄 (Containment)는 폭주반응의 결과를 경감시키는 위한 방법으로 폭주 후 최대 압력을 건디도록 설계하여야 한다. 또한, 반응기의 내용물은 나중에 적당한 방법으로 처리할 수 있도록 해야 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가",
+      "additionalDetail": "단단한 밀폐된 방을 사용하거나 선택적으로 안전백 유지 시스템 (Safe-bag retention system)을 사용할 수 있다",
+      "workProcessPhase": "비상시 조치",
+      "bindingForce": "MANDATORY",
+      "requirementType": "PHYSICAL_PROTECTION",
+      "sourceSection": "6.3",
+      "basedOn": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "CI-CC30-036",
+      "text": "충분한 용량을 가진 중력분리기 (Gravity separator)를 사용하며, 탱크는 만일 벤트 되는 혼합물에 적당한 액체를 이용하여 살포한다면 수동적인 Quench tank 로도 사용할 수 있도록 한다.",
+      "guideContext": "폭주반응 예방을 위한 열적 위험성평가 (법령 근거 미확인)",
+      "additionalDetail": "압력완화의 유출물 처리 공정",
+      "workProcessPhase": "비상시 조치",
+      "bindingForce": "RECOMMENDED",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "sourceSection": "6.3",
+      "basedOn": null
+    }
+  ],
+  "domainTerms": [
+    {
+      "identifier": "DT-CC30-001",
+      "term": "폭주반응 (Runaway reaction)",
+      "definition": "발열반응이 일어나는 반응기에서 냉각실패로 인해 반응속도가 급격히 증대되어 용기 내부의 온도 및 압력이 비정상적으로 상승하는 이상반응을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": [
+        "SR-CHEMICAL-011"
+      ]
+    },
+    {
+      "identifier": "DT-CC30-002",
+      "term": "1차 반응 (Primary reaction)",
+      "definition": "반응원료가 투입되어 일정반응 온도에서 정상적으로 반응하는 주반응 (Main reaction)으로 분해반응 (Decomposition reaction)이 일어나기 전까지의 반응을 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-003",
+      "term": "2차 반응 (Secondary reaction)",
+      "definition": "냉각실패로 인하여 반응기 내 미 전환된 반응물이 분해하여 분해반응이 일어나서 폭주반응에 다다르는 단계까지의 반응이다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-004",
+      "term": "위험 (Risk)",
+      "definition": "사고의 가능성 (Probability)과 사고의 피해크기 (Severity)의 곱으로 정의한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-005",
+      "term": "압력상승속도 (Rate of pressure rise)",
+      "definition": "밀폐장치 내에서 압력을 가할 때 시간당 압력이 상승하는 속도로 정의한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-006",
+      "term": "발열개시온도 (Exothermic onset temperature)",
+      "definition": "물질에 열을 가했을 때, 시료자체가 자기반응 하거나 자기분해가 시작되면서 열을 방출하는 온도를 말한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-007",
+      "term": "자기가속분해온도 (Self-accelerating decomposition temperature, SADT)",
+      "definition": "열적으로 불안정한 불질의 자기 가속 분해가 일어나는 최저온도로 정의한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-008",
+      "term": "활성화에너지 (Activation energy)",
+      "definition": "반응을 일으키는 데 필요한 최소한의 에너지로, 반응에 참여하기 위해서는 이 에너지 이상의 에너지를 가져야만 한다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-009",
+      "term": "공정온도 (Process temperature, Tp)",
+      "definition": "냉각실패 시나리오에서 냉각실패가 일어나기 직전의 초기온도이다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-010",
+      "term": "합성반응의 최대온도 (Maximum temperature of synthesis reaction, MTSR)",
+      "definition": "냉각실패가 일어날 때 반응기내에 미 반응물질이 남아있어, 반응의 완성에 의해 온도가 상승한다. 온도상승은 미 전환된 반응물의 축적도에 의존하며, 이 조건에서 도달할 수 있는 최대온도이다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-011",
+      "term": "TMRad 이 24시간에서 온도 (TD24)",
+      "definition": "반응혼합물의 열적안정성에 의해서 정의되며, 반응물질의 열적안정성이 문제가 없는 가장 높은 온도이다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "DT-CC30-012",
+      "term": "기술적 근거에 의한 최대온도 (MTT)",
+      "definition": "개방계 반응시스템에서는 끓는점(비점)이 되고, 밀폐시스템에서 안전밸브나 파열관의 설정 압력으로, 반응시스템의 최대허용입력에서 온도이다.",
+      "sourceSection": "3",
+      "relatedSR": null
+    }
+  ],
+  "workProcesses": [
+    {
+      "identifier": "WP-CC30-01",
+      "processOrder": 1,
+      "processName": "화학반응공정 위험성 확인",
+      "safetyMeasures": "1차 반응단계 및 2차 반응단계에서 공정자료, 물리화학적 특성, 열역학적 특성, 속도론적 특성, 전파 특성을 검토하여 안전 관련 변수와 특성을 확인한다.",
+      "requiredPPE": [],
+      "sourceSection": "4",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC30-02",
+      "processOrder": 2,
+      "processName": "냉각실패 시나리오 도시 및 전개",
+      "safetyMeasures": "냉각실패에 따른 반응시간별 온도 변화를 도시하고, 공정온도(Tp) → MTSR → 최종온도(Tend) 시나리오를 전개한다. 냉각시스템 능력, MTSR 계산, 2차 반응 온도 평가, 최악 결과 평가, 폭주 속도 평가를 순차적으로 수행한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC30-03",
+      "processOrder": 3,
+      "processName": "위험도 등급 분류 (1~5등급)",
+      "safetyMeasures": "Tp, MTSR, TD24, MTT 네 가지 온도 척도의 상대적 위치를 비교하여 위험도 1~5등급으로 분류한다. 등급별 안전장벽 및 대응조치를 결정한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.2",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC30-04",
+      "processOrder": 4,
+      "processName": "열적위험성 평가 수행",
+      "safetyMeasures": "사고의 피해크기와 가능성을 분리하여 경제적 면을 고려한 체계적 평가 절차를 수행한다. DSC 실험, 단열온도상승 확인, 에너지 피텐셜 평가, 속도론적 검토를 포함한다.",
+      "requiredPPE": [],
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "WP-CC30-05",
+      "processOrder": 5,
+      "processName": "폭주반응 제거 조치 적용",
+      "safetyMeasures": "희석에 의한 단열온도상승 감소, 치환(Substitution) 방법에 의한 합성 경로 변경, 공정 보강(Intensification)에 의한 에너지 감소, 대치(Attenuation)에 의한 안전한 물질 사용을 적용한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.1",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    },
+    {
+      "identifier": "WP-CC30-06",
+      "processOrder": 6,
+      "processName": "기술적 예방조치 및 비상시 조치 설계",
+      "safetyMeasures": "원료 공급 속도 제어, 비상시 냉각시스템(독립 냉각매체), 급냉·범람·덤핑 설비, 감압화, 경보시스템을 설계·설치한다. 비상시 압력완화시스템(안전밸브, 파열판), 유출물 처리 공정, 봉쇄 설비를 포함한다.",
+      "requiredPPE": [],
+      "sourceSection": "6.2",
+      "relatedSR": [
+        "SR-CHEMICAL-011",
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    }
+  ],
+  "equipmentSpecs": [
+    {
+      "identifier": "ES-CC30-001",
+      "equipmentName": "반응열량계",
+      "specifications": {
+        "purpose": "반응열 방출 속도(qrx), 냉각능력(qex), 단열온도상승(△Tad,rx), 열전환율, 열적 축적량(Xac) 측정",
+        "application": "MTSR 계산 및 폭주반응 시나리오 평가를 위한 데이터 취득"
+      },
+      "sourceSection": "5.1",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC30-002",
+      "equipmentName": "DSC (시차주사열량계)",
+      "specifications": {
+        "purpose": "반응물질의 열적 안정성 평가, 분해열 측정, 발열개시온도 확인",
+        "application": "반응 전후 및 반응 중 반응물질의 열적 특성 분석"
+      },
+      "sourceSection": "5.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC30-003",
+      "equipmentName": "단열열량계",
+      "specifications": {
+        "purpose": "단열 조건에서의 온도·압력 상승 속도 측정, TMRad 결정",
+        "application": "화학 시나리오에서 폭주 조건하의 열화학적 특성 데이터 취득"
+      },
+      "sourceSection": "6.3",
+      "relatedSR": null
+    },
+    {
+      "identifier": "ES-CC30-004",
+      "equipmentName": "비상 압력완화시스템 (안전밸브·파열판)",
+      "specifications": {
+        "configuration": "안전밸브와 파열판을 병렬 또는 직렬 설치",
+        "designBasis": "설정압력에서 과압 방지, 폭주 시 최대 압력 및 최대 열방출 속도 기반 설계",
+        "auxiliaryEquipment": "Catch pot (반응물 분출 방지용)"
+      },
+      "sourceSection": "6.3",
+      "relatedSR": [
+        "SR-FIRE_EXPLOSION-001"
+      ]
+    }
+  ],
+  "documentRequirements": [
+    {
+      "identifier": "DR-CC30-001",
+      "documentType": "RISK_ASSESSMENT",
+      "title": "폭주반응 예방을 위한 열적 위험성평가서",
+      "requiredSections": [
+        "화학반응공정 위험성 확인 (1차·2차 반응 변수 및 특성)",
+        "냉각실패 시나리오 도시 및 전개",
+        "사고 피해크기 평가 (단열온도상승 기준)",
+        "사고 가능성 평가 (TMRad 기준)",
+        "위험도 등급 분류 (1~5등급)",
+        "위험감소 대책 (제거 조치, 기술적 예방조치, 비상시 조치)"
+      ],
+      "sourceSection": "5.3",
+      "relatedSR": null
+    }
+  ]
+}

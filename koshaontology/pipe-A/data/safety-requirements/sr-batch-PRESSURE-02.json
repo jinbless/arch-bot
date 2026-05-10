@@ -1,0 +1,651 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-12T00:00:00+09:00",
+    "batchId": "sr-batch-PRESSURE-02",
+    "totalSafetyRequirements": 15
+  },
+  "safetyRequirements": [
+    {
+      "identifier": "SR-PRESSURE-021",
+      "title": "잠함작업실 아랫부분 굴착 깊이 50cm 이상 금지",
+      "text": "사업주는 잠함의 급격한 침하에 따른 고압실 내 고압작업자의 위험을 방지하기 위하여 잠함작업실 아랫부분을 50센티미터 이상 파서는 아니 된다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제543조"],
+      "mandatedBy": ["NS-RULE543-0"],
+      "addressesHazard": ["COLLAPSE"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "잠함작업실 아랫부분 굴착 깊이",
+            "condition": "<",
+            "value": 50,
+            "unit": "cm",
+            "source": "제543조 본문"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-022",
+      "title": "표면공급식 잠수작업 분당 송기량 60리터 이상 확보",
+      "text": "사업주는 표면공급식 잠수작업을 하는 잠수작업자에게 공기를 보내는 경우에 잠수작업자마다 그 수심의 압력 아래에서 분당 송기량을 60리터 이상이 되도록 하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제544조"],
+      "mandatedBy": ["NS-RULE544-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "분당 송기량",
+            "condition": ">=",
+            "value": 60,
+            "unit": "L/min",
+            "source": "제544조 본문"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-023",
+      "title": "스쿠버 잠수작업 시 2명 1조 편성 및 안전장비 제공",
+      "text": "사업주는 스쿠버 잠수작업 시 잠수작업자 2명을 1조로 편성하고 감시인을 배치하여야 하며, 비상기체통·수중시계·수중압력계·예리한 칼·부력조절기를 제공하고 호흡용 기체통 및 비상기체통의 기능과 기체량을 확인하여 잠수작업자에게 알려야 한다. 잠수작업자는 작업 중 비상기체통을 휴대하여야 하며, 휴대가 어려운 경우 인근 장소에 비치하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제545조"],
+      "mandatedBy": ["NS-RULE545-0", "NS-RULE545-1", "NS-RULE545-2", "NS-RULE545-3", "NS-RULE545-4", "NS-RULE545-5"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "잠수작업자 조 편성 인원",
+            "condition": ">=",
+            "value": 2,
+            "unit": "명",
+            "source": "제545조 제1항"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-024",
+      "title": "잠수작업자에 대한 고농도 산소 단독 호흡 금지",
+      "text": "사업주는 잠수작업자에게 고농도의 산소만을 들이마시도록 해서는 아니 된다. 산소 독성에 의한 건강장해를 예방하기 위하여 적정 혼합기체를 공급하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제546조"],
+      "mandatedBy": ["NS-RULE546-0"],
+      "addressesHazard": ["CHEMICAL_EXPOSURE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-025",
+      "title": "표면공급식 잠수작업 시 감시인 배치 및 장비 제공",
+      "text": "사업주는 표면공급식 잠수작업 시 잠수작업자 1명당 감시인 1명, 2명 이상인 경우 감시인 1명당 잠수작업자 2명을 초과하지 않도록 배치하고, 감시인이 적정 잠수·부상 관리, 송기 연락, 사고 시 신속 연락, 장비 점검을 준수하도록 하여야 한다. 18미터 이상 수심·부상 제한 장소·감압정지 필요 시 비상기체통, 잠수마스크 또는 잠수헬멧, 통화장치를 제공하고, 신호밧줄·수중시계·수중압력계·예리한 칼 등을 지니도록 하여야 한다. 잠수작업자는 비상기체통을 휴대하되, 휴대 곤란 시 인근 장소에 비치하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제547조"],
+      "mandatedBy": ["NS-RULE547-0", "NS-RULE547-1", "NS-RULE547-2", "NS-RULE547-3", "NS-RULE547-4", "NS-RULE547-6", "NS-RULE547-7"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "감시인 1명당 최대 잠수작업자 수",
+            "condition": "<=",
+            "value": 2,
+            "unit": "명",
+            "source": "제547조 제1항"
+          },
+          {
+            "parameter": "장비 제공 기준 수심",
+            "condition": ">=",
+            "value": 18,
+            "unit": "m",
+            "source": "제547조 제3항"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-026",
+      "title": "잠수작업 장소 잠수신호기 표시 의무",
+      "text": "사업주는 잠수작업(실내 제외)을 하는 장소에 해사안전법 제85조 제5항 제2호에 따른 잠수신호기 표시를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제548조"],
+      "mandatedBy": ["NS-RULE548-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-027",
+      "title": "고압작업 관리감독자 휴대기구 지급",
+      "text": "사업주는 고압작업의 관리감독자에게 휴대용압력계·손전등, 이산화탄소 등 유해가스농도측정기 및 비상시에 사용할 수 있는 신호용 기구를 지니도록 하여야 한다.",
+      "requirementType": "EQUIPMENT_STANDARD",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제549조"],
+      "mandatedBy": ["NS-RULE549-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-028",
+      "title": "기압조절실 비관계자 출입 금지 및 게시",
+      "text": "사업주는 기압조절실을 설치한 장소와 조작하는 장소에 관계근로자가 아닌 사람의 출입을 금지하고 그 내용을 보기 쉬운 장소에 게시하여야 하며, 근로자는 사업주의 허락 없이 출입이 금지된 장소에 출입해서는 아니 된다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제550조"],
+      "mandatedBy": ["NS-RULE550-0", "NS-RULE550-1"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-029",
+      "title": "고압작업 설비·기구 정기 점검 및 보수",
+      "text": "사업주는 고압작업을 위한 설비나 기구(배기관, 통화장치, 밸브, 냉각장치, 자동경보장치, 용구, 공기압축기, 압력계, 공기청정장치)에 대하여 각 호에서 정하는 바에 따라 점검하여야 하며, 점검 결과 이상을 발견한 경우에 즉시 보수, 교체, 그 밖에 필요한 조치를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제551조"],
+      "mandatedBy": ["NS-RULE551-0", "NS-RULE551-1"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-030",
+      "title": "잠수작업 설비 작업 전·주기별 점검 및 보수",
+      "text": "사업주는 잠수작업자가 잠수작업을 하기 전에 스쿠버 또는 표면공급식 구분에 따라 잠수기구 등을 점검하여야 하며, 표면공급식 잠수작업의 경우 공기압축기·수압펌프(매주), 수중압력계(매월), 수중시계(3개월), 산소발생기(6개월) 등을 주기별로 점검하여야 한다. 점검 결과 이상을 발견한 경우에 즉시 보수, 교체, 그 밖에 필요한 조치를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제552조"],
+      "mandatedBy": ["NS-RULE552-0", "NS-RULE552-1", "NS-RULE552-2"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-031",
+      "title": "송기설비 사용 전 점검 및 보수",
+      "text": "사업주는 송기설비를 설치한 후 처음으로 사용하는 경우, 분해하여 개조하거나 수리를 한 후 처음으로 사용하는 경우, 또는 1개월 이상 사용하지 아니한 송기설비를 다시 사용하는 경우에 해당 송기설비를 점검한 후 사용하여야 하며, 점검 결과 이상을 발견한 경우에 즉시 보수, 교체, 그 밖에 필요한 조치를 하여야 한다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제553조"],
+      "mandatedBy": ["NS-RULE553-0", "NS-RULE553-1"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-032",
+      "title": "송기설비 사고 시 대피 및 안전 확인 후 재출입",
+      "text": "사업주는 송기설비의 고장이나 그 밖의 사고로 인하여 고압작업자에게 건강장해가 발생할 우려가 있는 경우에 즉시 고압작업자를 외부로 대피시켜야 하며, 사고 발생 후에는 송기설비의 이상 유무, 잠함 등의 이상 침하 또는 기울어진 상태 등을 점검하여 건강장해 우려가 없음을 확인한 후에 출입하도록 하여야 한다.",
+      "requirementType": "EMERGENCY_RESPONSE",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제554조"],
+      "mandatedBy": ["NS-RULE554-0", "NS-RULE554-1"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-033",
+      "title": "고압작업·잠수작업 설비 점검 결과 기록 및 3년 보존",
+      "text": "사업주는 제551조부터 제553조까지의 규정에 따른 점검을 한 경우에 점검연월일, 점검 방법, 점검 구분, 점검 결과, 점검자의 성명, 점검 결과에 따른 필요한 조치사항을 기록하여 3년간 보존하여야 한다.",
+      "requirementType": "MANAGEMENT_SYSTEM",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제555조"],
+      "mandatedBy": ["NS-RULE555-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": {
+        "items": [
+          {
+            "parameter": "기록 보존 기간",
+            "condition": ">=",
+            "value": 3,
+            "unit": "년",
+            "source": "제555조 본문"
+          }
+        ]
+      },
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-034",
+      "title": "고기압 고압작업 시간 고시 기준 준수",
+      "text": "사업주는 근로자가 고압작업을 하는 경우에 고용노동부장관이 정하여 고시하는 작업시간 기준에 따라야 하며, 이를 초과하여 고압작업을 하도록 해서는 아니 된다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제556조"],
+      "mandatedBy": ["NS-RULE556-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    },
+    {
+      "identifier": "SR-PRESSURE-035",
+      "title": "잠수작업 시간 고시 기준 준수",
+      "text": "사업주는 근로자가 잠수작업을 하는 경우에 고용노동부장관이 정하여 고시하는 잠수시간 기준에 따라야 하며, 이를 초과하여 잠수작업을 하도록 해서는 아니 된다.",
+      "requirementType": "PROCEDURAL",
+      "bindingForce": "MANDATORY",
+      "referencesArticle": ["제557조"],
+      "mandatedBy": ["NS-RULE557-0"],
+      "addressesHazard": ["CONFINED_SPACE"],
+      "structuralRequirements": null,
+      "hasSanction": {
+        "criminal": {
+          "violation_employer": {
+            "law": "산업안전보건법 제168조 제1호 (제39조 경유)",
+            "penalty": "5년 이하의 징역 또는 5천만원 이하의 벌금"
+          },
+          "violation_contractor": {
+            "law": "산업안전보건법 제169조 제1호 (제63조 경유)",
+            "penalty": "3년 이하의 징역 또는 3천만원 이하의 벌금"
+          },
+          "death": {
+            "law": "산업안전보건법 제167조 (제39조 위반 + 사망)",
+            "penalty": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          },
+          "seriousAccident": {
+            "law": "중대재해 처벌 등에 관한 법률 제6조",
+            "death": "1년 이상의 징역 또는 10억원 이하의 벌금",
+            "injury": "7년 이하의 징역 또는 1억원 이하의 벌금"
+          }
+        },
+        "administrative": null
+      },
+      "hasModificationLink": null,
+      "requiresPPE": null,
+      "hasCorrectiveAction": null,
+      "hasIncidentResponse": null,
+      "applicableIndustry": null,
+      "hazardAssessment": null
+    }
+  ]
+}
