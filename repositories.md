@@ -28,7 +28,7 @@ The original repositories remain the history archive for work before the snapsho
 - URL: <https://github.com/jinbless/arch-bot>
 - Main baseline before import: `1565a9d14e76b7e3ceb6753354621f5d043c92de`
 - Import branch: `codex/monorepo-snapshot-import`
-- Import branch commit: pending until commit/push completes
+- Snapshot import commit: `e9dcde3589cc4049973138c50550ddc889caf3a5`
 - Role: monorepo root, governance docs, imported OHS/koshaontology source, selected Guide corpus, synthetic inputs, lightweight manifests
 
 ## Data Directories
