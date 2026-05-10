@@ -6,10 +6,10 @@
 
 ## 현재 구현 메모 (2026-05-10, monorepo + usage_profile11)
 
-현재 작업 기준은 root `arch-bot` monorepo snapshot branch다.
+현재 작업 기준은 root `arch-bot/main` monorepo다.
 
 ```text
-branch: codex/monorepo-snapshot-import
+branch: main
 OHS: root tracked directory
 koshaontology: root tracked directory
 legalize-kr: external dependency, root ignored

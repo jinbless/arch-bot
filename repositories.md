@@ -2,7 +2,7 @@
 
 Latest updated: 2026-05-10
 
-Root `arch-bot` is the monorepo snapshot branch. The project-owned child repositories were pushed first, then imported into root by snapshot on branch `codex/monorepo-snapshot-import`.
+Root `arch-bot/main` is the monorepo. The project-owned child repositories were pushed first, then imported into root by snapshot and merged to `main`.
 
 `legalize-kr` is external and remains outside root git.
 
@@ -27,7 +27,8 @@ The original repositories remain the history archive for work before the snapsho
 
 - URL: <https://github.com/jinbless/arch-bot>
 - Main baseline before import: `1565a9d14e76b7e3ceb6753354621f5d043c92de`
-- Import branch: `codex/monorepo-snapshot-import`
+- Current `main`: `a6552e33f944fd34a4f6eb8737b92366454c778c`
+- Import branch used: `codex/monorepo-snapshot-import`
 - Snapshot import commit: `e9dcde3589cc4049973138c50550ddc889caf3a5`
 - Role: monorepo root, governance docs, imported OHS/koshaontology source, selected Guide corpus, synthetic inputs, lightweight manifests
 
@@ -57,4 +58,4 @@ C:\project\arch-bot
 
 ## Operating Rule
 
-After the snapshot import branch is merged, normal project changes should be committed and pushed through root `arch-bot`. Only use the original child repositories to inspect pre-import history or to recover a pre-import baseline.
+Normal project changes should now be committed and pushed through root `arch-bot/main`. Only use the original child repositories to inspect pre-import history or to recover a pre-import baseline.

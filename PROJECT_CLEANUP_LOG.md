@@ -8,7 +8,7 @@
 
 원천 데이터, 실행 코드, 온톨로지 파일, 합성 테스트셋, 프론트 의존성은 보존한다.
 
-현재 git 운영 기준은 root `arch-bot` monorepo snapshot branch다. `OHS/`와 `koshaontology/`는 root에서 추적하고, `legalize-kr/`는 외부 의존 repo로 ignore한다.
+현재 git 운영 기준은 root `arch-bot/main` monorepo다. `OHS/`와 `koshaontology/`는 root에서 추적하고, `legalize-kr/`는 외부 의존 repo로 ignore한다.
 
 ## 현재 기준 문서
 

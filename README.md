@@ -8,9 +8,9 @@ The service goal is:
 
 ## Repository Role
 
-This repository is the root monorepo snapshot for the ontology-based KOSHA workplace-risk assistant on branch `codex/monorepo-snapshot-import`.
+This repository is the root monorepo for the ontology-based KOSHA workplace-risk assistant on `main`.
 
-On branch `codex/monorepo-snapshot-import`, the project-owned implementation repositories are imported as ordinary root directories:
+The project-owned implementation repositories are imported as ordinary root directories:
 
 | Area | Repository |
 |---|---|
@@ -18,11 +18,11 @@ On branch `codex/monorepo-snapshot-import`, the project-owned implementation rep
 | Backend/frontend service | <https://github.com/jinbless/OHS> |
 | Legal source dependency | <https://github.com/legalize-kr/legalize-kr> |
 
-`legalize-kr` remains an external local sibling dependency and is not imported or pushed by this project. GitHub `main` is still pre-merge until the snapshot branch is reviewed and merged.
+`legalize-kr` remains an external local sibling dependency and is not imported or pushed by this project.
 
 ## Monorepo Snapshot Baseline
 
-The project has moved to a root-level monorepo operating model on the snapshot branch. The original GitHub repositories preserve child history; root `arch-bot` records the imported baseline commits as provenance.
+The project has moved to a root-level monorepo operating model on `main`. The original GitHub repositories preserve child history; root `arch-bot` records the imported baseline commits as provenance.
 
 Current decisions:
 

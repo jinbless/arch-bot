@@ -21,7 +21,7 @@ LLM output must not be treated as legal asserted evidence. It may improve candid
 
 - Root monorepo snapshot: `/mnt/c/project/arch-bot`
   - This workplan lives at `WORKPLAN_LLM_DOMAIN_GUARD.md`.
-  - `OHS/` and `koshaontology/` are ordinary root-tracked directories on `codex/monorepo-snapshot-import`.
+  - `OHS/` and `koshaontology/` are ordinary root-tracked directories on `main`.
   - New report bodies may be generated locally under `pictures-json/reports/`, but root git tracks `pictures-json/reports-manifest.json` and `docs/status/evaluation-baseline.md` instead of historical report bodies.
 
 - OHS source: `/mnt/c/project/arch-bot/OHS`

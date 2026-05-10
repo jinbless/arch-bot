@@ -10,10 +10,10 @@
 C:\project\arch-bot
 ```
 
-현재 기준은 root `arch-bot` monorepo 전환 브랜치다.
+현재 기준은 root `arch-bot` monorepo `main` 브랜치다.
 
 ```text
-branch: codex/monorepo-snapshot-import
+branch: main
 ```
 
 `OHS/`와 `koshaontology/`는 기존 child GitHub repo의 pushed baseline을 root로 snapshot import한 디렉토리다. `legalize-kr/`는 외부 의존 repo로 유지하며 root git에서 추적하지 않는다.
@@ -191,8 +191,8 @@ kosha-guides/parsed: 1038
 
 ## 8. 바로 이어서 할 일
 
-1. `codex/monorepo-snapshot-import` 브랜치가 push/PR까지 완료됐는지 확인한다.
-2. 이후 새 작업은 root `arch-bot`에서 수행한다.
+1. 새 작업은 root `arch-bot/main`에서 수행한다.
+2. 작업 전 `git status --short --branch`로 clean 상태를 확인한다.
 3. Guide 품질 작업은 `usage_profile11` 기준으로 이어간다.
 4. 다음 구조적 보강 대상은 `NO_TOP 395`, `missing_usage_profile`, `industry_boundary_gap`, `workprocess_mismatch` 큐다.
 5. 단순 keyword 추가가 아니라 Guide usage profile의 `observable_required_cues`, `negative_boundaries`, `procedure_role`, `primary_work_process_ids` 보강으로 처리한다.

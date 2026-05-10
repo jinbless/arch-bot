@@ -50,21 +50,27 @@ External dependency:
 - Track `pictures-json/reports-manifest.json` and `docs/status/evaluation-baseline.md`, not historical `pictures-json/reports/**` bodies.
 - Keep `legalize-kr/` ignored and path-compatible as an external sibling dependency.
 
-## Import Branch
+## Import Result
 
-The import was performed and pushed on:
+The import was prepared on:
 
 ```text
 codex/monorepo-snapshot-import
 ```
 
-Initial snapshot import commit:
+It was then fast-forward merged and pushed to root `main`.
+
+Current root `main` commit:
+
+```text
+a6552e33f944fd34a4f6eb8737b92366454c778c
+```
+
+Initial snapshot import commit inside that history:
 
 ```text
 e9dcde3589cc4049973138c50550ddc889caf3a5
 ```
-
-GitHub `main` remains pre-merge until the snapshot branch is reviewed and merged.
 
 ## Required Verification
 
@@ -107,4 +113,4 @@ JSON manifests parse: OK
 
 Before a successful commit, restore `OHS/.git` and `koshaontology/.git` from the external backup directory and switch back to root `main`.
 
-After a pushed import branch, rollback is a normal Git branch cleanup in `arch-bot`; child repository histories remain intact on GitHub.
+After the `main` merge, rollback is a normal Git revert/reset decision in `arch-bot`; child repository histories remain intact on GitHub.
