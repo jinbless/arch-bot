@@ -8,7 +8,7 @@ The service goal is:
 
 ## Repository Role
 
-This repository is being converted from a coordination/meta repository into the root monorepo for the ontology-based KOSHA workplace-risk assistant.
+This repository is the root monorepo snapshot for the ontology-based KOSHA workplace-risk assistant on branch `codex/monorepo-snapshot-import`.
 
 On branch `codex/monorepo-snapshot-import`, the project-owned implementation repositories are imported as ordinary root directories:
 
@@ -18,11 +18,11 @@ On branch `codex/monorepo-snapshot-import`, the project-owned implementation rep
 | Backend/frontend service | <https://github.com/jinbless/OHS> |
 | Legal source dependency | <https://github.com/legalize-kr/legalize-kr> |
 
-`legalize-kr` remains an external local sibling dependency and is not imported or pushed by this project.
+`legalize-kr` remains an external local sibling dependency and is not imported or pushed by this project. GitHub `main` is still pre-merge until the snapshot branch is reviewed and merged.
 
 ## Monorepo Snapshot Baseline
 
-The project is moving to a root-level monorepo operating model by snapshot import. The original GitHub repositories preserve child history; root `arch-bot` records the imported baseline commits as provenance.
+The project has moved to a root-level monorepo operating model on the snapshot branch. The original GitHub repositories preserve child history; root `arch-bot` records the imported baseline commits as provenance.
 
 Current decisions:
 
@@ -136,154 +136,18 @@ Recommended first read order:
 - `koshaontology/pipe-B/status_pipeb.md`
 - `koshaontology/pipe-C/status_pipec.md`
 
-## Latest Synthetic Evaluation
+## Current Evaluation Baseline
 
-Latest aggregate report before the OHS product refactor:
-
-- `pictures-json/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.md`
-
-Summary:
-
-```text
-v1~v10 total cases: 2360
-SHE TP/FN/FP/TN: 2016/0/67/277
-SHE recall: 100.0%
-SHE precision: 96.8%
-SHE specificity: 80.5%
-normal suppression: 276/276 (100.0%)
-```
-
-The remaining priority is not SHE recall. It is the boundary between confirmed risk and confirmation-needed candidate results.
-
-Latest domain-guard smoke reports:
-
-- `pictures-json/reports/synthetic_observations_v10_domain_guard2_report.md`
-- `pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.md`
-
-Summary:
-
-```text
-v10 cases: 330
-SHE recall: 100.0%
-SHE false negative: 0
-SHE false positive: 0
-normal suppression: 100.0%
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-A-G-18 top procedure: 51 -> 3
-G-116 top procedure: 5 -> 0
-A-G-10 top procedure: 14 -> 3
-```
-
-The current product task is therefore not raw SHE recall. The priority is improving Guide/WorkProcess domain alignment while preserving status and penalty boundaries.
-
-## Latest Broad SR / Manual Domain Guard Runtime
-
-The 1,038 manual Guide domain profiles are now exported as OHS serving artifacts, while asserted mapping tables remain untouched. OHS serving uses `confidence >= 0.65` plus `review_status in ('candidate', 'asserted')`; broad SRs are secondary-only.
-
-Latest reports:
-
-- `koshaontology/pipe-B/data/manual-enrichment-domain-guard-import-preview.md`
-- `koshaontology/pipe-B/data/manual-enrichment-domain-guard-review-queues.md`
-- `pictures-json/reports/synthetic_observations_v10_domain_guard_broad_sr_policy_report.md`
-- `pictures-json/reports/actual_response_samples_v1_v10_domain_guard1_vs_pipeb1038_broad_sr_policy.md`
-- `pictures-json/reports/actual_response_samples_v1_v10_domain_guard1_vs_pipeb1038_broad_sr_policy_watch_summary.md`
-
-Validation summary: v10 SHE recall 100%, FN 0, FP 0; actual response 240 status changed 0; A-G-18 top procedure 33 -> 3 and remaining cases are all 항만 하역업.
-
-## Latest Synthetic Guide Recommendation Evaluation
-
-New Guide-specific evaluator:
-
-- `OHS/backend/scripts/evaluate_synthetic_guide_recommendations.py`
-
-Latest reports:
-
-- `pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile1_20260509_230048.md`
-- `pictures-json/reports/synthetic_observations_v10_usage_profile1_report.md`
-- `pictures-json/reports/actual_response_samples_v1_v10_usage_profile1_vs_pipeb1038.md`
-
-Summary:
-
-```text
-synthetic Guide v1~v10 total: 2,360
-legacy obvious top Guide mismatch: 1,149
-current obvious top Guide mismatch: 533
-reduction: 53.61%
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-ambiguous_over_promoted: 5
-v10 SHE recall: 100.0%, FN 0, FP 0
-```
-
-The main remaining work is structural Guide usage-profile repair, not keyword expansion: `industry_boundary_gap`, `missing_usage_profile`, and `workprocess_mismatch` queues now identify the next data corrections.
-
-### Usage Profile Attention Correction v2
-
-First structural repair pass completed for 8 overexposed Guides: `B-E-3`, `C-C-16`, `A-G-1`, `B-M-32`, `G-32`, `A-G-15`, `C-C-92`, `C-18`. Runtime now prefers manual 1,038 Guide profiles before legacy hardcoded rules, blocks exclusive Guide feature-only promotion, treats `ELECTRICAL_WORK` as broad/generic for domain matching, and requires explicit context for `management_program` Guides.
-
-Latest reports:
-
-- `pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile2_20260509_233015.md`
-- `pictures-json/reports/synthetic_observations_v10_usage_profile2_report.md`
-- `pictures-json/reports/actual_response_samples_v1_v10_usage_profile2_vs_pipeb1038.md`
-
-Summary:
-
-```text
-synthetic Guide v1~v10 total: 2,360
-legacy obvious top Guide mismatch: 1,150
-current obvious top Guide mismatch: 361
-reduction: 68.61%
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-ambiguous_over_promoted: 5
-v10 SHE recall: 100.0%, FN 0, FP 0
-backend compileall: OK
-frontend build: OK
-```
-
-Next structural queues: `NO_TOP`/`missing_usage_profile` 367 separation, remaining overexposed Guides (`A-G-12`, `A-G-9`, `C-70`, `H-100`, `A-R-2`, `H-187`, `A-G-14`, `E-M-4`), and WorkProcess mismatch (`D-C-7`, `E-G-22`, `H-116`, `M-62`).
-
-### Usage Profile Correction v3/v5
-
-Second structural repair pass completed. OHS now treats industry alignment as a supplemental signal only; `exclusive` and `domain_specific` Guide profiles need Guide-specific term/context evidence before they can become top standard procedures. The manual batch profiles were tightened for the previous overexposure set: `A-G-12`, `A-G-9`, `C-70`, `H-100`, `A-R-2`, `H-187`, `A-G-14`, `E-G-22`, `H-116`, `M-62`, `D-C-7`.
-
-Latest reports:
-
-- `pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.md`
-- `pictures-json/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.md`
-- `pictures-json/reports/synthetic_observations_v10_usage_profile5_report.md`
-- `pictures-json/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.md`
-
-Summary:
-
-```text
-synthetic Guide v1~v10 total: 2,360
-legacy obvious top Guide mismatch: 1,151
-current obvious top Guide mismatch: 220
-reduction: 80.89%
-v10 SHE recall: 100.0%, FN 0, FP 0
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-ambiguous_over_promoted: 5
-backend compileall: OK
-frontend build: OK
-```
-
-Remaining work is coverage recovery, not keyword stuffing: `NO_TOP` 404 has been split into taxonomy/profile gaps and `synthetic_fixture_gap` 72.
-
-### Usage Profile v11: Actionable SHE Guide Gate
-
-Latest accepted baseline: `usage_profile11`.
+Accepted runtime baseline: `usage_profile11`.
 
 This pass keeps the risk/SHE status boundary stable and moves the extra guard to Guide recommendation. Standard procedures and immediate checklist items now use actionable SHE matches as direct recommendation evidence; context-only/non-actionable SHE matches no longer create Guide procedures by themselves.
 
-Latest reports:
+Report bodies stay local/external under `pictures-json/reports/**`; root git tracks the manifest and summary instead:
+
+- `pictures-json/reports-manifest.json`
+- `docs/status/evaluation-baseline.md`
+
+Referenced local report bodies:
 
 - `pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.md`
 - `pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.md`
@@ -308,3 +172,5 @@ frontend build: OK
 ```
 
 Important implementation note: broadening `hazard_normalizer`/`hazard_rule_engine` with extra text aliases improved some NO_TOP coverage but changed actual 240 status counts, so that approach was rejected. Remaining coverage work should update Guide usage profiles and WorkProcess relevance, not status-level risk inference.
+
+Earlier `v10fix6`, `domain_guard2`, and `usage_profile1/2/5` results are historical milestones. Treat `usage_profile11` as the only current product baseline unless a newer accepted evaluation is recorded in `docs/status/evaluation-baseline.md`.

@@ -19,21 +19,45 @@ LLM output must not be treated as legal asserted evidence. It may improve candid
 
 ## Workspace Boundaries
 
-- Root meta repo: `/mnt/c/project/arch-bot`
+- Root monorepo snapshot: `/mnt/c/project/arch-bot`
   - This workplan lives at `WORKPLAN_LLM_DOMAIN_GUARD.md`.
-  - New reports may be added under `pictures-json/reports/`.
-  - Old report bodies under `pictures-json/reports/**` must not be edited.
+  - `OHS/` and `koshaontology/` are ordinary root-tracked directories on `codex/monorepo-snapshot-import`.
+  - New report bodies may be generated locally under `pictures-json/reports/`, but root git tracks `pictures-json/reports-manifest.json` and `docs/status/evaluation-baseline.md` instead of historical report bodies.
 
-- OHS repo: `/mnt/c/project/arch-bot/OHS`
+- OHS source: `/mnt/c/project/arch-bot/OHS`
   - Runtime recommendation logic, backend/frontend checks, and actual/synthetic replay scripts.
   - Do not edit `frontend/node_modules/**`.
 
-- koshaontology repo: `/mnt/c/project/arch-bot/koshaontology`
+- koshaontology source: `/mnt/c/project/arch-bot/koshaontology`
   - Pipe-B LLM candidate generation and Pipe-C audit/status.
   - LLM rows are stored in candidate tables only.
 
-- legalize-kr repo: `/mnt/c/project/arch-bot/legalize-kr`
-  - Read-only for this workstream.
+- legalize-kr external dependency: `/mnt/c/project/arch-bot/legalize-kr`
+  - Read-only for this workstream and ignored by root git.
+
+## Current Accepted Baseline
+
+`usage_profile11` supersedes the earlier `domain_guard2` and `usage_profile1/2/5` milestones.
+
+```text
+synthetic Guide v1~v10 total: 2,360
+legacy obvious top Guide mismatch: 1,145
+current obvious top Guide mismatch: 165
+reduction: 85.59%
+NO_TOP: 395
+v10 SHE recall: 100.0%, FN 0, FP 0
+actual response 240 status changed: 0
+negative_false_positive: 10
+positive_missed: 2
+ambiguous_over_promoted: 5
+```
+
+Current baseline index:
+
+```text
+docs/status/evaluation-baseline.md
+pictures-json/reports-manifest.json
+```
 
 ## 30 Guide LLM Pilot Set
 
@@ -121,10 +145,10 @@ Do not pass `--apply-asserted` or `--apply-facets` in the pilot.
 Status:
 
 ```text
-2026-05-09: Pilot command was not executed in this Codex session.
-Reason: external OpenAI API enrichment would send local Guide data outside the workspace,
-and the sandbox escalation reviewer rejected the action. Do not retry or work around this
-without explicit user approval for external data transfer.
+2026-05-09: External API LLM pilot was not executed.
+Reason: this path sends local Guide text outside the workspace and requires explicit user approval.
+The project instead completed local Codex manual review batches 001~035 for all 1,038 Guides.
+If external LLM use is approved later, compare it against the manual baseline rather than replacing it blindly.
 ```
 
 ## Domain Guard Acceptance Checks
@@ -196,8 +220,7 @@ Build checks:
 
 ```text
 OHS backend targeted Python compile: OK
-OHS frontend build: OK via Windows cmd.exe
-WSL npm build: blocked by WSL Node shim issue, "WSL 1 is not supported"
+OHS frontend npm run build: OK
 ```
 
 ## Usage Profile Correction v3/v5
@@ -241,7 +264,7 @@ backend compileall OK
 frontend npm run build OK
 ```
 
-Latest reports:
+Intermediate reports:
 
 ```text
 pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.md
@@ -268,9 +291,9 @@ material_handling_profile_gap 3
 Interpretation:
 
 ```text
-usage_profile5 is accepted as the current runtime baseline.
+usage_profile5 was an accepted intermediate runtime baseline and is now superseded by usage_profile11.
 It intentionally prefers suppressing weak Guide recommendations over filling the screen with domain-mismatched procedures.
-The next repair step is coverage recovery: separate synthetic fixture gaps from real taxonomy/profile gaps, then add missing Guide usage profiles or WorkProcess links structurally.
+The current repair step is coverage recovery from the usage_profile11 NO_TOP 395 queue: add missing Guide usage profiles, visual triggers, or WorkProcess links structurally without broadening status-level risk inference.
 ```
 
 ## Codex Manual Pilot Batch 001

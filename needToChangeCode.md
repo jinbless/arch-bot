@@ -4,7 +4,48 @@
 
 아래 항목들은 `risk:` 중심 위험 지식 계층, `PenaltyRule` 중심 벌칙 모델, `SeverityLevel` 제거, `SHE` 패턴 브릿지화, `Guide/WorkProcess` 중심 조치 구조를 반영한 뒤 남은 후속 작업이다.
 
-## 현재 구현 메모 (2026-05-07)
+## 현재 구현 메모 (2026-05-10, monorepo + usage_profile11)
+
+현재 작업 기준은 root `arch-bot` monorepo snapshot branch다.
+
+```text
+branch: codex/monorepo-snapshot-import
+OHS: root tracked directory
+koshaontology: root tracked directory
+legalize-kr: external dependency, root ignored
+kosha-guides/parsed: tracked, 1,038 Guide JSON
+kosha-guides/manifest: tracked provenance manifest
+pictures-json/reports: local/external report bodies
+```
+
+현재 accepted runtime baseline은 `usage_profile11`이다.
+
+```text
+synthetic Guide v1~v10 total 2,360
+legacy obvious top Guide mismatch 1,145
+current obvious top Guide mismatch 165
+reduction 85.59%
+NO_TOP 395
+v10 SHE recall 100.0%, FN 0, FP 0
+actual response 240 status changed 0
+negative_false_positive 10
+positive_missed 2
+ambiguous_over_promoted 5
+backend compileall OK
+frontend npm run build OK
+```
+
+현재 남은 작업은 status-level risk inference를 넓히는 것이 아니라, `NO_TOP 395`와 `missing_usage_profile`/`industry_boundary_gap`/`workprocess_mismatch` 큐를 Guide usage profile, visual trigger, WorkProcess relevance로 보강하는 것이다. `usage_profile8~10`에서 risk alias/추론을 넓히는 실험은 actual 240 status changed 15 및 v10 FN 1을 만들어 폐기했다.
+
+기준 문서:
+
+```text
+docs/status/evaluation-baseline.md
+pictures-json/reports-manifest.json
+kosha-guides/manifest/guides-manifest.json
+```
+
+## 과거 구현 메모 (2026-05-07)
 
 아래 구조 정리는 `OHS` product 코드에 1차 반영되었다.
 
@@ -43,7 +84,7 @@ v10 product_refactor1 smoke:
 
 이제 이 문서의 항목은 신규 고도화 후보로 본다.
 
-## 현재 구현 메모 (2026-05-09)
+## 과거 구현 메모 (2026-05-09)
 
 온톨로지 설계사상에 맞춘 Guide 데이터 보강, OHS 추천 재구성, Guide domain guard 1차 일반화를 반영했다.
 
@@ -151,20 +192,19 @@ A-G-18 항만하역작업 top procedure 과노출은 ontology_enrichment1에서 
 `A-G-18-2026` port-context guard 적용 후 3건으로 감소했고, domain guard 일반화 후에도 3건을 유지했다.
 남은 3건은 모두 `항만 하역업` 샘플이므로 일반 물류/운반 상황 오노출은 1차 해소됐다.
 `G-116-2014`는 5건에서 0건, `A-G-10-2025`는 14건에서 3건으로 줄었다.
-다음 추천 개선은 LLM 후보와 240 replay 표본을 근거로 Guide domain profile rule을 더 정교화하고, WorkProcess evidence 품질 기준을 확장하는 것이다.
+후속 추천 개선은 실제 240 replay와 synthetic v1~v10 표본을 근거로 Guide domain profile rule과 WorkProcess evidence 품질 기준을 확장하는 방향으로 이어졌다.
 ```
 
 남은 작업:
 
 ```text
-1. WORKPLAN_LLM_DOMAIN_GUARD.md의 30 Guide LLM 파일럿은 외부 API 전송 명시 승인 후 실행
+1. 30 Guide 외부 LLM 파일럿은 optional 비교 실험으로 남김. 기본 기준은 local Codex manual batch 001~035.
 2. 중신뢰 candidate 수동 검토 및 asserted 승격 운영
-3. domain guard 1차 일반화 결과를 LLM 후보와 240 replay 표본으로 추가 조정
-4. GuideInterLink를 1,038개 기준으로 재감사
-5. WorkProcess step 품질 점수와 industry alignment 점수 세분화
+3. GuideInterLink를 1,038개 기준으로 재감사
+4. WorkProcess step 품질 점수와 industry alignment 점수 세분화
 ```
 
-## 현재 구현 메모 (2026-05-10)
+## 과거 구현 메모 (2026-05-10, usage_profile5)
 
 synthetic v1~v10을 Guide 추천 품질의 주평가 데이터로 사용해 Guide usage profile 2차 보강을 완료했다. 이번 보강의 핵심은 keyword 추가가 아니라 “사진/텍스트 문맥에 Guide 고유 사용경계가 있는가”를 더 엄격히 보는 것이다.
 
@@ -219,11 +259,8 @@ pictures-json/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038
 다음 남은 작업:
 
 ```text
-1. NO_TOP 404 중 synthetic_fixture_gap 72를 평가 fixture 수정/제외 대상으로 분리
-2. taxonomy/profile/workprocess gap 332건을 구조 보강 큐로 처리
-3. B-M-11, A-G-9, A-G-14, A-G-18, D-C-7 잔여 top count를 positive 보호 기준으로 샘플 검토
-4. manual candidate DB import preview 이후 candidate table import, asserted mapping update 0 유지
-5. 브라우저 smoke와 WorkProcess step 품질 점수 고도화
+usage_profile5는 중간 baseline이며 현재는 usage_profile11로 대체됐다.
+최신 남은 작업은 NO_TOP 395를 Guide usage profile / visual trigger / WorkProcess relevance 보강 큐로 처리하는 것이다.
 ```
 
 ## 1. `risk:RiskFeature` 계열 분류 품질 고도화
@@ -1082,7 +1119,7 @@ positive_missed <= 2
 ambiguous_over_promoted <= 5
 A-G-18 top procedure <= 3, 잔여는 항만 하역업만 허용
 ```
-## 현재 구현 메모 (2026-05-09, usage_profile1)
+## 과거 구현 메모 (2026-05-09, usage_profile1)
 
 Synthetic v1~v10 2,360건을 Guide 추천 주평가 데이터로 승격했다. 새 평가 스크립트는 다음 파일이다.
 
@@ -1138,7 +1175,7 @@ broad_sr_overreach 1
 
 우선 보강 대상은 `C-18`, `C-C-92`, `A-G-15`, `G-32`, `C-C-16`, `B-E-3`, `A-G-1`, `B-M-32`처럼 현장 사진 문맥 없이 top procedure로 올라오는 Guide다. 단순 keyword 추가가 아니라 `procedure_role`, `negative_boundaries`, `observable_required_cues`, `primary_work_process_ids`를 보강해야 한다.
 
-## 현재 구현 메모 (2026-05-09, usage_profile2)
+## 과거 구현 메모 (2026-05-09, usage_profile2)
 
 usage_profile1 attention queue에서 상위 과노출 Guide 8개를 원본 manual batch와 OHS 런타임 양쪽에서 조정했다.
 

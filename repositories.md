@@ -2,7 +2,7 @@
 
 Latest updated: 2026-05-10
 
-Root `arch-bot` is the monorepo target. The project-owned child repositories were pushed first, then imported into root by snapshot on branch `codex/monorepo-snapshot-import`.
+Root `arch-bot` is the monorepo snapshot branch. The project-owned child repositories were pushed first, then imported into root by snapshot on branch `codex/monorepo-snapshot-import`.
 
 `legalize-kr` is external and remains outside root git.
 

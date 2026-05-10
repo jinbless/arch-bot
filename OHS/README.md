@@ -148,55 +148,64 @@ Synthetic smoke:
 
 ```bash
 cd C:/project/arch-bot/OHS/backend
-python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_domain_guard2
+python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_usage_profile11
 ```
 
 Actual response 240 replay:
 
 ```bash
 cd C:/project/arch-bot/OHS/backend
-python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038
+python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038
 ```
 
-Current baseline:
+Guide recommendation evaluation:
+
+```bash
+cd C:/project/arch-bot/OHS/backend
+python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_usage_profile11
+```
+
+Current accepted baseline:
 
 ```text
+baseline: usage_profile11
 Python compile: OK
 frontend npm run build: OK
-v10 domain_guard2:
+synthetic Guide v1~v10:
+  total samples 2,360
+  legacy obvious top Guide mismatch 1,145
+  current obvious top Guide mismatch 165
+  reduction 85.59%
+  NO_TOP 395
+v10 smoke:
   SHE recall 100.0%
   SHE false negative 0
   SHE false positive 0
   normal suppression 100.0%
-actual response 240 domain_guard2:
+actual response 240:
   status changed 0
   negative_false_positive 10
   positive_missed 2
-  top action changed 195
-  top procedure changed 196
-  A-G-18 top procedure 51 -> 3
-  G-116 top procedure 5 -> 0
-  A-G-10 top procedure 14 -> 3
-  A-G-18 residual 3건은 모두 항만 하역업 샘플
+  ambiguous_over_promoted 5
 ```
 
 ## Current Open Work
 
-1. `WORKPLAN_LLM_DOMAIN_GUARD.md`의 30 Guide LLM 파일럿은 외부 API 전송 명시 승인 후 실행한다.
-2. domain guard 1차 일반화 결과를 LLM 후보와 240 replay 표본으로 추가 조정한다.
-3. 브라우저 자동화로 분석 화면까지 timeout 없이 smoke test한다.
-4. `VisualTrigger`를 SR + Guide + WorkProcess + ChecklistItem 기반으로 더 구체화한다.
+1. `usage_profile11`의 `NO_TOP 395` 큐를 Guide usage profile, visual trigger, WorkProcess relevance 보강으로 줄인다.
+2. `guide_sr_link_candidates` unique key 충돌 후보를 evidence merge/pre-aggregate한 뒤 candidate table import를 dry-run한다.
+3. asserted mapping update는 0으로 유지하고, 중신뢰 후보는 법적 확정 근거처럼 표시하지 않는다.
+4. 브라우저 자동화로 분석 화면까지 timeout 없이 smoke test한다.
 5. WorkProcess step 품질 점수와 industry alignment 점수를 더 세분화한다.
 
 ## Notes
 
-- `OHS`는 루트 `arch-bot`과 별도 git repository다.
+- `OHS`는 root `arch-bot` monorepo snapshot에서 추적되는 일반 디렉토리다.
 - `frontend/node_modules/**`는 vendor 영역이므로 문서 최신화 대상에서 제외한다.
 - 현재 product는 PostgreSQL 물질화 조회를 serving path로 사용한다. OWL reasoner는 런타임 필수 의존성이 아니라 배치 검증/운영 분석 도구로 본다.
 
-### Latest Broad SR Policy Validation (2026-05-09)
+## Runtime Guide Guard Summary
 
-Runtime now reads local serving artifacts instead of koshaontology working files:
+Runtime reads local serving artifacts instead of koshaontology working files:
 
 ```text
 OHS/backend/app/data/guide_domain_profiles.json
@@ -211,120 +220,9 @@ review_status in ('candidate', 'asserted')
 broad SRs are secondary-only and cannot create standard procedures or legacy fallback results by themselves
 ```
 
-Latest validation:
+Guide recommendations consume the 1,038 manual Guide usage profiles exported from Pipe-B. Standard procedure scoring is guarded so broad SRs, broad/generic features, and industry alignment cannot create top Guide procedures alone.
 
-```text
-Python compile / backend compileall: OK
-frontend npm run build: OK
-v10 synthetic: SHE recall 100.0%, FN 0, FP 0
-actual response 240: status changed 0, negative_false_positive 10, positive_missed 2, ambiguous_over_promoted 5
-A-G-18 top procedure 33 -> 3 vs pipeb1038 comparison; residual 3 are all 항만 하역업
-watch Guide top procedure total 57 -> 39 (31.6% reduction)
-```
-
-Reports:
-
-```text
-pictures-json/reports/synthetic_observations_v10_domain_guard_broad_sr_policy_report.md
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard1_vs_pipeb1038_broad_sr_policy.md
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard1_vs_pipeb1038_broad_sr_policy_watch_summary.md
-```
-### Latest Usage Profile Guide Evaluation (2026-05-09)
-
-Guide recommendations now consume the 1,038 manual Guide usage profiles exported from Pipe-B. Standard procedure scoring is guarded so broad SRs, broad/generic features, and industry alignment cannot create top Guide procedures alone.
-
-New Guide-specific evaluator:
-
-```bash
-cd C:/project/arch-bot/OHS/backend
-python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_usage_profile1
-```
-
-Latest validation:
-
-```text
-synthetic Guide v1~v10: 2,360 samples
-legacy obvious top Guide mismatch: 1,149
-current obvious top Guide mismatch: 533
-reduction: 53.61%
-v10 synthetic SHE recall 100.0%, FN 0, FP 0
-actual response 240 status changed 0
-negative_false_positive 10
-positive_missed 2
-ambiguous_over_promoted 5
-backend compileall OK
-frontend npm run build OK
-```
-
-Latest reports:
-
-```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile1_20260509_230048.md
-pictures-json/reports/synthetic_observations_v10_usage_profile1_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile1_vs_pipeb1038.md
-```
-
-### Latest Usage Profile Attention Correction (2026-05-09)
-
-The OHS runtime now evaluates manual Guide profiles before legacy hardcoded domain rules. Legacy rules are fallback only. Exclusive Guides cannot be promoted by feature-only hits, and `management_program` Guides require explicit planning/program context.
-
-Latest validation:
-
-```text
-synthetic Guide v1~v10: 2,360 samples
-legacy obvious top Guide mismatch: 1,150
-current obvious top Guide mismatch: 361
-reduction: 68.61%
-v10 synthetic SHE recall 100.0%, FN 0, FP 0
-actual response 240 status changed 0
-negative_false_positive 10
-positive_missed 2
-ambiguous_over_promoted 5
-backend compileall OK
-frontend npm run build OK
-```
-
-Latest reports:
-
-```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile2_20260509_233015.md
-pictures-json/reports/synthetic_observations_v10_usage_profile2_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile2_vs_pipeb1038.md
-```
-
-### Latest Usage Profile Correction v3/v5 (2026-05-10)
-
-The second structural repair pass tightened Guide matching so industry alignment cannot promote a Guide by itself. `exclusive` and `domain_specific` profiles now need Guide-specific term/context evidence before becoming top standard procedures.
-
-Latest validation:
-
-```text
-synthetic Guide v1~v10: 2,360 samples
-legacy obvious top Guide mismatch: 1,151
-current obvious top Guide mismatch: 220
-reduction: 80.89%
-NO_TOP: 404, including synthetic_fixture_gap 72
-v10 synthetic SHE recall 100.0%, FN 0, FP 0
-actual response 240 status changed 0
-negative_false_positive 10
-positive_missed 2
-ambiguous_over_promoted 5
-backend compileall OK
-frontend npm run build OK
-```
-
-Latest reports:
-
-```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.md
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.md
-pictures-json/reports/synthetic_observations_v10_usage_profile5_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.md
-```
-
-### Latest Usage Profile v11 (2026-05-10)
-
-The current accepted OHS runtime baseline is `usage_profile11`. Guide recommendations now require actionable SHE evidence before SHE can directly create standard procedures/checklist items. Context-only SHE still informs reasoning and status, but it no longer creates top Guide procedures by itself.
+The current accepted OHS runtime baseline is `usage_profile11`. Guide recommendations require actionable SHE evidence before SHE can directly create standard procedures/checklist items. Context-only SHE still informs reasoning and status, but it no longer creates top Guide procedures by itself.
 
 Latest validation:
 
@@ -346,10 +244,10 @@ frontend npm run build OK
 Latest reports:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.md
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.md
-pictures-json/reports/synthetic_observations_v10_usage_profile11_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.md
+docs/status/evaluation-baseline.md
+pictures-json/reports-manifest.json
 ```
+
+Local/external report bodies referenced by the manifest include the `usage_profile11` synthetic Guide, NO_TOP, v10 smoke, and actual 240 replay reports.
 
 Rejected approach: widening hazard/risk text alias inference at status level. It reduced some NO_TOP cases but changed actual 240 status behavior, so remaining Guide coverage should be handled through usage profiles, visual triggers, and WorkProcess relevance.

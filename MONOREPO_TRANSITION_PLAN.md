@@ -52,13 +52,19 @@ External dependency:
 
 ## Import Branch
 
-The import is performed on:
+The import was performed and pushed on:
 
 ```text
 codex/monorepo-snapshot-import
 ```
 
-After verification, this branch is pushed to `jinbless/arch-bot`. Main remains untouched until review/merge.
+Initial snapshot import commit:
+
+```text
+e9dcde3589cc4049973138c50550ddc889caf3a5
+```
+
+GitHub `main` remains pre-merge until the snapshot branch is reviewed and merged.
 
 ## Required Verification
 

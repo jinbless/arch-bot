@@ -1,6 +1,6 @@
 # 프로젝트 정리 로그
 
-최신 갱신일: 2026-05-07
+최신 갱신일: 2026-05-10
 
 ## 현재 정리 기준
 
@@ -8,12 +8,18 @@
 
 원천 데이터, 실행 코드, 온톨로지 파일, 합성 테스트셋, 프론트 의존성은 보존한다.
 
+현재 git 운영 기준은 root `arch-bot` monorepo snapshot branch다. `OHS/`와 `koshaontology/`는 root에서 추적하고, `legalize-kr/`는 외부 의존 repo로 ignore한다.
+
 ## 현재 기준 문서
 
 루트 기준 문서:
 
 - `README.md`
 - `NEXT_SESSION_INSTRUCTIONS.md`
+- `MONOREPO_TRANSITION_PLAN.md`
+- `DATA_GOVERNANCE.md`
+- `repositories.md`
+- `docs/status/evaluation-baseline.md`
 - `온톨로지_통합구조_및_흐름도.md`
 - `온톨로지_법령레이어_상세도.md`
 - `온톨로지_SR레이어_상세도.md`
@@ -40,18 +46,21 @@
 
 - `OHS/frontend/node_modules`
 - `pictures-json/synthetic_observations_v1.jsonl` ~ `synthetic_observations_v10.jsonl`
-- `pictures-json/reports`의 최신 합성 평가 리포트
+- `pictures-json/reports-manifest.json`
+- `docs/status/evaluation-baseline.md`
+- `kosha-guides/parsed/**`
+- `kosha-guides/manifest/**`
 - `koshaontology/ontology/kosha-ontology.owl`
 - `koshaontology/ontology/kosha-ontology.formatted.ttl`
 - `koshaontology/ontology/kosha-instances.ttl`
 - `koshaontology/ontology/kosha-rules.swrl`
-- `legalize-kr`
-- `kosha-guides`
+- `legalize-kr` 로컬 외부 의존 repo
+- `kosha-guides` raw PDF/source corpus는 외부/LFS 후보로 보존하되 root git 직접 추적 대상은 아님
 - `최종보고서_온톨로지 기반 근로감독관 AI 지원시스템 구축 방안 연구_v1.pdf`
 
 ## 최근 product 정리 상태
 
-`OHS`는 레거시 resource/video/category 중심 구조를 제거하고 현재 온톨로지 흐름에 맞춰 정리하는 중이다.
+`OHS`는 레거시 resource/video/category 중심 구조를 제거하고 현재 온톨로지 흐름에 맞춰 정리했다.
 
 현재 product 흐름:
 
@@ -60,7 +69,7 @@
 → 관찰 사실/시각 단서 추출
 → risk:RiskFeature 정규화
 → she:SituationalHazardPattern 매칭
-→ SR / Guide / CI / PenaltyPath 조회
+→ SR / WorkProcess / Guide / ChecklistItem / PenaltyPath 조회
 → 사업주용 조치 중심 결과 화면
 ```
 
@@ -88,17 +97,20 @@ frontend npm run build: OK
 브라우저 자동화: 분석 페이지 상세 확인은 타임아웃 이력 있음
 ```
 
-합성 테스트 smoke:
+현재 accepted baseline:
 
 ```text
-report: pictures-json/reports/synthetic_observations_v10_product_refactor1_report.md
-cases: 330
-SHE recall: 100.0%
-SHE false negative: 0
-SHE false positive: 0
-normal suppression: 100.0%
-confirmed risk recall / precision: 44.4% / 58.5%
-confirmation candidate capture: 100.0%
+baseline: usage_profile11
+synthetic Guide v1~v10 total: 2,360
+legacy obvious top Guide mismatch: 1,145
+current obvious top Guide mismatch: 165
+reduction: 85.59%
+NO_TOP: 395
+v10 SHE recall: 100.0%, FN 0, FP 0
+actual response 240 status changed: 0
+negative_false_positive: 10
+positive_missed: 2
+ambiguous_over_promoted: 5
 ```
 
 ## 문서 최신성 검증 기준

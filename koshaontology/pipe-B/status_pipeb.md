@@ -1,8 +1,8 @@
 # Pipe-B 진행 상태
 
-> 최종 갱신: 2026-05-09
+> 최종 갱신: 2026-05-10
 
-## 현재 기준 참고 (2026-05-09)
+## 현재 기준 참고 (2026-05-10)
 
 Pipe-B는 현재 서비스에서 개선조치 추천의 핵심 원천이다.
 
@@ -12,7 +12,7 @@ ChecklistItem = 즉시 조치, 시각 단서, 검색 색인, 보조 근거
 DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보조
 ```
 
-다른 서버에서 1,038개 전체 Guide 추출 산출물이 미러링되었고, 현재 로컬 PostgreSQL은 해당 산출물 기준으로 clean rebuild 완료 상태다. 이후 추천 품질 개선은 단순 랭킹 재정렬이 아니라 `risk:RiskFeature → she:SituationalHazardPattern → SR → Guide/WorkProcess/ChecklistItem` 흐름에 맞춘 후보/evidence 보강 레이어를 먼저 통과한다.
+다른 서버에서 1,038개 전체 Guide 추출 산출물이 미러링되었고, 현재 로컬 PostgreSQL은 해당 산출물 기준으로 clean rebuild 완료 상태다. root `arch-bot` monorepo snapshot에는 `koshaontology/` source와 `kosha-guides/parsed/**`, `kosha-guides/manifest/**`가 함께 추적된다. 이후 추천 품질 개선은 단순 랭킹 재정렬이 아니라 `risk:RiskFeature → she:SituationalHazardPattern → SR → Guide/WorkProcess/ChecklistItem` 흐름에 맞춘 후보/evidence 보강 레이어를 먼저 통과한다.
 
 ```text
 완료:
@@ -26,9 +26,10 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 8. 1,038개 기준 deterministic enrichment 전체 실행
 9. V16~V34 검증 PASS
 10. Codex manual domain 후보 batch 001~035 생성 완료, batch 001~002 pilot 재점검 및 batch 003~035 source JSON 수동 재판독 완료
+11. OHS `usage_profile11` actionable SHE Guide gate 검증 완료: synthetic Guide mismatch 1,145→165(85.59% 감소), actual 240 status changed 0
 
 다음:
-1. usage_profile5 기준 NO_TOP 404 큐를 fixture gap과 taxonomy/profile/WorkProcess gap으로 나눠 후속 보강
+1. usage_profile11 기준 NO_TOP 395 큐를 taxonomy/profile/WorkProcess gap으로 나눠 후속 보강
 2. manual candidate DB import 전 same-method replace 및 SR 후보 unique key evidence merge/pre-aggregate 구현
 3. asserted mapping update 0 유지한 candidate table import dry-run/적재
 4. 외부 API 전송 명시 승인 시 LLM enrichment 30개 파일럿을 별도 실행하고 manual batch와 비교
@@ -53,7 +54,7 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 | 1 | `step2_build_sr_index.py` | SR 조회 인덱스 | ✅ DONE | 626 SR, 12 카테고리, 45 키워드, MAX_CANDIDATE_SR=50 |
 | 2 | `step3_prepare_ci_batch.py` | CI 배치 준비 | ✅ DONE | `data/ci-batches` 562개 (A=39/B=64/C=62/D=26/E=371) |
 | 3~4 | `step4_extract_entities.py` | CI/DT/WP/ES/DR 추출 | ✅ DONE | `data/ci-output/ci-*.json` 1,038개, 인벤토리 shortCode와 1:1 일치 |
-| 5 | `step6_validate_entities.py` | 추출 결과 검증 | ✅ DONE | 1,038가이드 검증 PASS 1,038 / FAIL 0, Hard 0건, Soft 575건 |
+| 5 | `step6_validate_entities.py` | 추출 결과 검증 | ✅ DONE | 1,038가이드 검증 PASS 1,038 / FAIL 0, Hard 0건, Soft 575건. root manifest `kosha-guides/manifest/guides-manifest.json`도 1,038개 parsed JSON 기준 |
 
 ## Phase 3: DB Integration
 
