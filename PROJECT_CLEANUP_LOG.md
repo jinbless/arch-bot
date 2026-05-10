@@ -115,9 +115,14 @@ ambiguous_over_promoted: 5
 
 ## 문서 최신성 검증 기준
 
-문서 검색 대상:
+Root/docs 감사 검색 대상:
 
 - 루트 `*.md`
+- `docs/**/*.md`
+- `docs/**/*.html`
+
+전체 프로젝트 감사가 필요할 때의 추가 검색 대상:
+
 - `OHS`의 authored `*.md`
 - `koshaontology`의 authored `*.md`
 

@@ -6,7 +6,7 @@ Updated: 2026-05-10
 
 This workstream generalizes the one-off `A-G-18-2026` port-context guard into a reusable Guide domain/profile guard.
 
-The implementation order is:
+The original implementation order was:
 
 ```text
 30 Guide LLM pilot
@@ -153,7 +153,7 @@ If external LLM use is approved later, compare it against the manual baseline ra
 
 ## Domain Guard Acceptance Checks
 
-Current baseline before generalization:
+Historical baseline before generalization:
 
 ```text
 actual response 240, ag18_guard2:
@@ -182,7 +182,7 @@ v10 synthetic SHE FN 0 / FP 0
 - `domain_specific` mismatches are penalized, not excluded.
 - Public API response fields are unchanged.
 
-## Verification Results
+## Historical Domain-Guard Verification Results
 
 Reports:
 

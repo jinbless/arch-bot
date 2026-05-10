@@ -64,11 +64,11 @@ const PIPES = [
     steps:[
       { name:'P1-S0: 가이드 인벤토리', output:'guide-inventory.json', done:true },
       { name:'P1-S1: V2 스키마 설계', output:'guide-text-v2.schema.json', done:true },
-      { name:'P1-S2: 가이드 VLM 파싱', output:'guide-*.json (819)', done:true },
+      { name:'P1-S2: 가이드 VLM 파싱', output:'guide-*.json (1,038)', done:true },
       { name:'P1-S3: 파싱 품질 검증', output:'parsing-report.json', done:true },
       { name:'P2-S1: SR 인덱스 생성', output:'sr-*-index.json', done:true },
-      { name:'P2-S2: CI 배치 준비', output:'ci-batches/ (276)', done:true },
-      { name:'P2-S3~4: CI 추출 (LLM)', output:'ci-output/ (796)', done:true },
+      { name:'P2-S2: CI 배치 준비', output:'ci-batches/ (562)', done:true },
+      { name:'P2-S3~4: CI 추출 (LLM)', output:'ci-output/ (1,038)', done:true },
       { name:'P2-S5: CI 검증 B1~B20', output:'validation-report', done:true },
       { name:'P3-S1: DB 스키마+적재', output:'13 tables', done:true },
       { name:'P3-S2: SR Phase 3 필드', output:'SR 5필드 UPDATE', done:true },
@@ -188,7 +188,7 @@ const PIPE_LAYER_MAP = [
   { pipe:'Pipe-A', step:'Step 8: DB 적재+검증', artifact:'sr_ns_mapping, sr_article_mapping', layers:[2,3,4], classes:['Article','NormStatement','SafetyRequirement','LinkEntity'], purpose:'Article → NS → SR 추적 체인 확정', example:'제42조 → NS-RULE42-0 → SR-FALL-001' },
   { pipe:'Pipe-B', step:'P1-S0~S2: 가이드 인벤토리/파싱', artifact:'guide-inventory.json, guide-*.json', layers:[5], classes:['KoshaGuide','GuideSection','GuideCategory'], purpose:'KOSHA Guide 문서와 장절 구조 확보', example:'D-C-13-2026 비계 작업 가이드' },
   { pipe:'Pipe-B', step:'P2-S3~4: CI/엔티티 추출', artifact:'ci-output/', layers:[5], classes:['ChecklistItem','DomainTerm','WorkProcess','EquipmentSpec','DocumentRequirement'], purpose:'가이드의 실무 점검항목과 용어·공정·사양 추출', example:'비계 조립·해체 시 추락방지망 설치 확인' },
-  { pipe:'Pipe-B', step:'P3-S1: DB 스키마+적재', artifact:'kosha_guides, checklist_items 등 13 tables', layers:[5], classes:['KoshaGuide','ChecklistItem','DomainTerm','WorkProcess','EquipmentSpec','DocumentRequirement'], purpose:'가이드 기반 실무 지식을 질의 가능한 DB로 적재', example:'CI 35,206건, DT 5,772건, WP 6,169건' },
+  { pipe:'Pipe-B', step:'P3-S1: DB 스키마+적재', artifact:'kosha_guides, checklist_items 등 13 tables', layers:[5], classes:['KoshaGuide','ChecklistItem','DomainTerm','WorkProcess','EquipmentSpec','DocumentRequirement'], purpose:'가이드 기반 실무 지식을 질의 가능한 DB로 적재', example:'CI 54,571건, DT 7,728건, WP 9,320건' },
   { pipe:'Pipe-B', step:'P3-S2: SR Phase 3 필드', artifact:'SR 5필드 UPDATE', layers:[4,5], classes:['SafetyRequirement','PPERequirement','CorrectiveAction','IncidentResponse'], purpose:'가이드에서 나온 보호구·조치·대응 정보를 SR에 보강', example:'requires_ppe, has_corrective_action' },
   { pipe:'Pipe-B', step:'P3-S3: 전체 검증', artifact:'ci_sr_mapping, guide_article_mapping', layers:[2,4,5], classes:['ChecklistItem','SafetyRequirement','KoshaGuide','Article','LinkEntity'], purpose:'CI ↔ SR, Guide ↔ Article 연결 보존', example:'CI-DC13-001 basedOn SR-FALL-001' },
   { pipe:'Pipe-C', step:'Step 0: SR 커버리지', artifact:'sr-coverage-report.json', layers:[4,5], classes:['SafetyRequirement','ChecklistItem'], purpose:'SR이 실제 가이드 체크항목으로 얼마나 덮이는지 측정', example:'364/626 SR 커버' },
@@ -550,7 +550,7 @@ function Tab3() {
             <StatusBadge status="COMPLETE"/>
           </div>
           <div className="text-xs text-slate-400 space-y-1">
-            <div>가이드 796/1,038 → CI/DT/WP/ES/DR</div>
+            <div>가이드 1,038/1,038 → CI/DT/WP/ES/DR</div>
             <div>→ V16~V30 ALL PASS</div>
           </div>
           <div className="grid grid-cols-3 gap-2 mt-3">
@@ -605,7 +605,7 @@ function Tab4() {
 
   return (
     <div className="fade-in space-y-6">
-      <SectionTitle>Pipe-B 적재 결과 (796/1,038 가이드)</SectionTitle>
+      <SectionTitle>Pipe-B 적재 결과 (1,038/1,038 가이드)</SectionTitle>
 
       <div className="grid grid-cols-3 gap-4">
         <Card highlight><div className="text-xs text-slate-500">적재 가이드</div><div className="text-2xl font-bold text-green-400 mt-1">{META.guidesCompleted}<span className="text-sm text-slate-500 font-normal"> / {META.guidesInventoried}</span></div><div className="text-xs text-slate-500 mt-1">{Math.round(META.guidesCompleted/META.guidesInventoried*100*10)/10}% 완료</div></Card>

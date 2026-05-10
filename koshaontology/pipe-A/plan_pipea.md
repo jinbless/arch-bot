@@ -334,9 +334,9 @@ koshaontology/
 ### 7.4 향후 작업
 
 - ✅ Phase 2 (SR 파이프라인) — 완료
-- ✅ Pipe B (가이드 → CI) — 코드 완성, 796/1,038 가이드 추출 완료
-- ✅ Pipe C (교차검증) — 코드 완성, Step 0~5 완료 (DB 796가이드 기준, V-C1~V-C10 PASS)
-- ✅ Phase 3 (SR 예약 필드 채움) — 796가이드 기준 완료 (requires_ppe 128, applicable_industry 130 등)
+- ✅ Pipe B (가이드 → CI/WP/ES/DR/DT) — 1,038/1,038 Guide JSON 추출·적재 완료, manual domain 후보 35 batch 생성 완료
+- ✅ Pipe C (교차검증) — 1,038 Guide 기준 후보/evidence audit 추가, legacy 796 기준 basedOn 복원 이력은 historical로만 유지
+- ✅ Phase 3 (SR 예약 필드 채움) — legacy 796 기준 완료 이력 이후 1,038 Guide 기준 재빌드/검증 완료. 현재 추천 기준은 `usage_profile11`
 
 ### 7.5 보류 항목 (Phase 3 이후)
 

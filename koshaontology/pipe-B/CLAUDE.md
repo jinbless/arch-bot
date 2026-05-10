@@ -1,11 +1,13 @@
 # KOSHA 온톨로지 v2 — Pipe-B 마스터 오케스트레이터
 
-> 현재 기준 참고 (2026-05-07): Pipe-B 산출물은 최신 product에서 `Guide/WorkProcess = 표준 개선 절차`, `ChecklistItem = 즉시 조치/보조 단서/검색 색인`으로 사용한다. 아직 미추출 Guide가 남아 있으므로 기존 phase/step 방식으로 전체 JSON 추출을 완료한 뒤 Guide 레이어와 추천 로직을 리빌딩한다.
+> 현재 기준 참고 (2026-05-10): Pipe-B 산출물은 최신 product에서 `Guide/WorkProcess = 표준 개선 절차`, `ChecklistItem = 즉시 조치/보조 단서/검색 색인`으로 사용한다. Guide JSON은 1,038/1,038개 확보되어 root `kosha-guides/parsed/**`와 manifest로 추적된다. 추천 품질 보강은 manual domain 후보 35 batch와 `usage_profile11` runtime 검증을 기준으로 진행한다.
 
 ## 프로젝트 개요
 
-KOSHA 가이드 1,038개 PDF → CI/DT/WP/ES/DR 5종 엔티티 추출 + CI→SR basedOn 링크 확정 + SR Phase 3 예약 필드 채우기.
+KOSHA 가이드 1,038개 parsed JSON → CI/DT/WP/ES/DR 5종 엔티티 추출 + SR 후보/evidence 레이어 + Guide usage profile 보강.
 이 파일은 Pipe B (가이드 → CI) 파이프라인을 관리한다.
+
+> Monorepo 기준(2026-05-10): `koshaontology/`는 root `arch-bot`의 tracked 디렉토리다. raw PDF 원본은 git 직접 추적 대상이 아니며, `../../kosha-guides/parsed/`와 `../../kosha-guides/manifest/`가 root에서 추적되는 Guide 원천이다.
 
 ## 작업 시작 가이드
 
@@ -41,7 +43,7 @@ Pipe B는 Phase 1(Guide Parsing), Phase 2(CI Extraction), Phase 3(DB Integration
 | 9 | `db/schema_pb.sql` + `db/import_pipeb.py` | P3.Step 1~2 | 스크립트 | CI JSON → PostgreSQL (V16~V28) | `db-spec.md` |
 | 10 | `step7_fill_sr_phase3.py` | P3.Step 3 | 스크립트 | DB 쿼리 → SR 예약 필드 UPDATE (5개 함수) | — |
 | 11 | `db/import_pipeb.py --verify-all` | P3.Step 4 | 스크립트 | DB → V16~V30 + V1~V15 회귀 검증 | — |
-| 12 | `step6_faceted_ci_tag.py` | P3.Step 5 | 스크립트 | CI 35,206개 faceted 3축 태깅 (SR 상속 + 고아 독립 태깅) | — |
+| 12 | `step6_faceted_ci_tag.py` | P3.Step 5 | 스크립트 | CI 54,571개 DB baseline faceted 3축 태깅 (SR 상속 + 고아 독립 태깅) | — |
 | 13 | `step7_faceted_entity_tag.py` | P3.Step 6 | 스크립트 | DT/ES/WP faceted 태깅 | — |
 
 > 스크립트 step5는 존재하지 않음 (step4→step6 사이 결번). `step0_validate_parsing.py`는 이름이 step0이지만 P1.Step 3에 해당.
@@ -151,5 +153,6 @@ DR ID:    ^DR-[A-Z0-9]+-[0-9]+$      예: DR-DC13-001
 
 - Pipe-A: `../pipe-A/CLAUDE.md` (NS/SR 파이프라인)
 - 법령 소스: `../../legalize-kr/` (legalize-kr)
-- KOSHA 가이드 PDF: `../../kosha-guides/{A,B,C,D,E}/`
+- KOSHA Guide parsed/manifest: `../../kosha-guides/parsed/`, `../../kosha-guides/manifest/`
+- KOSHA 원본 PDF: 외부/local artifact. root git 직접 추적 대상이 아님
 - Pipe-A DB: `../pipe-A/db/schema_pg.sql` (FK 대상: safety_requirements, articles)

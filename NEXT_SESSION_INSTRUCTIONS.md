@@ -7,7 +7,8 @@
 ## 1. 현재 작업 디렉토리
 
 ```text
-C:\project\arch-bot
+Windows path: C:\project\arch-bot
+WSL path: /mnt/c/project/arch-bot
 ```
 
 현재 기준은 root `arch-bot` monorepo `main` 브랜치다.
@@ -98,14 +99,14 @@ Source/provenance metadata는 별도 layer로 설계한다. `kosha-guides/manife
 백엔드:
 
 ```bash
-cd C:/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/OHS/backend
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
 ```
 
 프론트:
 
 ```bash
-cd C:/project/arch-bot/OHS/frontend
+cd /mnt/c/project/arch-bot/OHS/frontend
 npm run dev -- --host 127.0.0.1 --port 5173
 ```
 
@@ -160,21 +161,21 @@ pictures-json/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb103
 Python 문법 검증:
 
 ```bash
-cd C:/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/OHS/backend
 python -c "import pathlib; [compile(p.read_text(encoding='utf-8'), str(p), 'exec') for p in pathlib.Path('.').rglob('*.py') if '__pycache__' not in p.parts]; print('compile ok')"
 ```
 
 프론트 빌드:
 
 ```bash
-cd C:/project/arch-bot/OHS/frontend
+cd /mnt/c/project/arch-bot/OHS/frontend
 npm run build
 ```
 
 Monorepo import 검증:
 
 ```bash
-cd C:/project/arch-bot
+cd /mnt/c/project/arch-bot
 git ls-files OHS | wc -l
 git ls-files koshaontology | wc -l
 git ls-files kosha-guides/parsed | wc -l

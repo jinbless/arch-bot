@@ -2,7 +2,7 @@
 
 **최종 갱신**: 2026-05-10
 
-## 현재 기준 참고 (2026-05-07)
+## 현재 기준 참고 (2026-05-10)
 
 Pipe-C의 최신 활용 목적은 `Guide/WorkProcess` 중심 개선 절차 추천 품질을 높이는 것이다.
 
@@ -24,16 +24,17 @@ Pipe-A SR/Article
 | 2 | DT 중복 탐지 | ✅ | 도메인 내 327그룹 (1,891건), 교차 도메인 141개, 유사 쌍 50개 |
 | 3 | basedOn null 복원 | ✅ 과거 적용 | 796개 기준 고신뢰 1,123건 DB 적용 이력. 1,038개 기준에서는 신규 후보 레이어로 재감사 |
 | 4 | sr-registry.json | ✅ | 626 SR 통합 레지스트리 (1,270KB) |
-| 5 | GuideInterLink | ✅ | 819개 파싱 가이드 기준 135건 상호참조 (DB 89건 적재) |
+| 5 | GuideInterLink | ✅ legacy | legacy 819개 파싱 가이드 기준 135건 상호참조 (DB 89건 적재). 1,038개 기준 재감사 필요 |
 | 6 | ontology enrichment audit | ✅ | 1,038 Guide 기준 coverage/audit/candidate 리포트 생성 |
 | DB | V-C1~V-C10 | ✅ | **10/10 PASS** |
 
-## DB 현황 (1,038 Guide 기준)
+## DB/Artifact 현황 (1,038 Guide 기준)
 
 - guide_inter_links: 89건 (135건 중 양쪽 가이드 모두 DB 등록된 것만)
 - domain_terms.canonical_id: ALTER 완료 (아직 값 미부여)
 - Pipe-A 회귀: SR 626, NS 1,229, Articles 1,227 보존
-- Pipe-B 회귀: Guide 1,038, CI 54,571, WP 9,320, ES 8,103, DR 3,441, DT 7,728 보존
+- Pipe-B 회귀 DB baseline: Guide 1,038, CI 54,571, WP 9,320, ES 8,103, DR 3,441, DT 7,728 보존
+- 최신 tracked entity JSON 검증값(2026-05-10 `entity-validation-report.json`): CI 54,631, WP 9,316, ES 8,103, DR 3,435, DT 7,726
 - `ci_sr_mapping`: 10,682 rows, distinct SR 131/626
 - `wp_sr_mapping`: 3,599 rows, distinct SR 129/626
 - Guide coverage: CI-SR 연결 없음 380건, WP-SR 연결 없음 437건
@@ -96,9 +97,9 @@ domain_guard2: A-G-18 51건 -> 3건 유지, G-116 5건 -> 0건, A-G-10 14건 -> 
 synthetic observation v1~v10 2,360건을 Guide 추천 전용 평가 데이터로 사용해 Pipe-B manual usage profile과 OHS runtime의 연결 품질을 다시 검증했다.
 
 ```text
-usage_profile2: legacy mismatch 1,150 -> current mismatch 361 (68.61% 감소)
-usage_profile5: legacy mismatch 1,151 -> current mismatch 220 (80.89% 감소)
-usage_profile11: legacy mismatch 1,145 -> current mismatch 165 (85.59% 감소)
+usage_profile2: legacy intermediate, mismatch 1,150 -> 361 (68.61% 감소)
+usage_profile5: legacy intermediate, mismatch 1,151 -> 220 (80.89% 감소)
+usage_profile11: accepted baseline, mismatch 1,145 -> 165 (85.59% 감소)
 actual response 240: status changed 0, negative_false_positive 10, positive_missed 2, ambiguous_over_promoted 5
 v10 SHE smoke: recall 100%, FN 0, FP 0
 ```
@@ -127,8 +128,8 @@ context-only/non-actionable SHE는 finding reasoning에는 남기되 Guide 표�
 ## 미처리
 
 - DT canonical_id 값 부여 미실행 (중복 그룹 327개 중 정본 선정 대기)
-- guide_inter_links 재생성 필요: 기존 819개 파싱 가이드 기준이므로 1,038개 기준 재감사 필요
-- LLM enrichment 30/200/1,038 배치 미실행. 30 Guide pilot은 외부 OpenAI API로 Guide 텍스트가 전송되므로 명시 승인 후 실행
+- guide_inter_links 재생성 필요: 기존 결과는 legacy 819개 파싱 가이드 기준이므로 1,038개 기준 재감사 필요
+- 외부 LLM enrichment 30/200/1,038 배치 미실행. 단, 외부 API 없이 Codex manual batch 001~035 전체 1,038 Guide 후보 생성, semantic audit, `usage_profile11` runtime 검증은 완료
 - candidateSR 저매칭 Guide 549건과 SR 미연결 Guide 380건을 우선 수동/LLM 보강 대상으로 삼아야 함
 - 중신뢰 candidate는 OHS 추천 점수에는 쓰되 법적 asserted 근거처럼 표시하지 않도록 지속 검증 필요
 - Guide domain/industry mismatch 감점 규칙과 actionable SHE Guide gate는 OHS 3차 구조 보강까지 완료. 다음은 usage_profile11 NO_TOP 395 큐를 기준으로 taxonomy/profile/WorkProcess coverage를 보강하고, candidate import 전 WorkProcess coverage를 보강하는 작업

@@ -1,14 +1,14 @@
 # Pipe-C: 교차검증 파이프라인
 
-> 현재 기준 참고 (2026-05-07): Pipe-C는 Pipe-A/B 산출물의 품질 검증과 복원용이다. 최신 product에서는 `SR -> Guide/WorkProcess/ChecklistItem` 추천 품질을 높이는 데 Pipe-C 결과를 사용한다. 전체 Guide JSON 추출 완료 후 faceted 교차검증과 Guide 레이어 리빌딩을 다시 수행한다.
+> 현재 기준 참고 (2026-05-10): Pipe-C는 Pipe-A/B 산출물의 품질 검증과 복원용이다. 최신 product에서는 `SR -> Guide/WorkProcess/ChecklistItem` 추천 품질을 높이는 데 Pipe-C 결과를 사용한다. 전체 Guide JSON 1,038개 기준 clean rebuild와 후보/evidence audit가 완료됐고, OHS accepted baseline은 `usage_profile11`이다.
 
 Pipe-A(법령→SR)와 Pipe-B(가이드→CI)가 독립적으로 생산한 데이터를 교차 비교·검증·통합한다.
 
-## 현황 (2026-04-25)
+## 현황 (2026-05-10)
 
 - **코드**: ✅ 완성 (스크립트 6개 + lib 1개 + DB 2개)
-- **데이터**: Step 0~5 전부 완료, V-C1~V-C10 **10/10 PASS**
-- **DB**: guide_inter_links 89건, domain_terms.canonical_id ALTER 완료
+- **데이터**: legacy Step 0~5 전부 완료, V-C1~V-C10 **10/10 PASS**. 1,038 Guide 기준 ontology enrichment audit 추가 완료
+- **DB/후보 레이어**: guide_inter_links 89건은 legacy 819 parsed Guide 기준 결과다. 현재 추천 경계는 1,038 Guide manual usage profile, candidate/evidence layer, `usage_profile11` 검증을 우선한다.
 
 ## Phase 구조
 

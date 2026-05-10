@@ -4,13 +4,13 @@ Latest updated: 2026-05-10
 
 ## Purpose
 
-This document records the active snapshot-import transition from the previous multi-repo workspace to root `arch-bot` monorepo operations.
+This document records the completed snapshot-import transition from the previous multi-repo workspace to root `arch-bot/main` monorepo operations.
 
 This is a snapshot import, not a history rewrite. The original child GitHub repositories preserve historical commits, and root `arch-bot` records their imported baseline SHAs.
 
 ## Current Repository Boundary
 
-Target root layout:
+Current root layout:
 
 ```text
 arch-bot/
@@ -23,7 +23,7 @@ arch-bot/
 └─ *.md             root governance and design documents
 ```
 
-`OHS/.git` and `koshaontology/.git` are backed up outside root during import. `legalize-kr/.git` remains in place because that repository is external and not project-owned.
+`OHS/.git` and `koshaontology/.git` were moved to the external backup directory during import. `legalize-kr/.git` remains in place because that repository is external and not project-owned.
 
 ## Baseline Commits
 
@@ -52,15 +52,15 @@ External dependency:
 
 ## Import Result
 
-The import was prepared on:
+The import was prepared on the historical working branch:
 
 ```text
 codex/monorepo-snapshot-import
 ```
 
-It was then fast-forward merged and pushed to root `main`.
+It was then fast-forward merged and pushed to root `main`. `main` is now the active monorepo branch; use `git rev-parse HEAD` for the moving current commit.
 
-Current root `main` commit:
+Snapshot import doc-alignment commit:
 
 ```text
 a6552e33f944fd34a4f6eb8737b92366454c778c
@@ -111,6 +111,6 @@ JSON manifests parse: OK
 
 ## Rollback
 
-Before a successful commit, restore `OHS/.git` and `koshaontology/.git` from the external backup directory and switch back to root `main`.
+The pre-merge rollback path was to restore `OHS/.git` and `koshaontology/.git` from the external backup directory. That path is now historical because the import has already been merged to `main`.
 
-After the `main` merge, rollback is a normal Git revert/reset decision in `arch-bot`; child repository histories remain intact on GitHub.
+Current rollback is a normal Git revert/reset decision in `arch-bot`; child repository histories remain intact on GitHub.

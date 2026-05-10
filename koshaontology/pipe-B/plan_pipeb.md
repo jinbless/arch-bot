@@ -113,20 +113,23 @@ Pipe-A Phase 2에서 null로 예약해둔 5개 필드를 KOSHA 가이드 데이�
 
 ## 2. 데이터 현황 분석
 
-### 2.1 KOSHA 가이드 PDF 분포
+### 2.1 KOSHA Guide 기준 분포
+
+> 현재 기준(2026-05-10): 아래 수량은 git에서 직접 추적하는 `kosha-guides/parsed/**` + `kosha-guides/manifest/**` 기준이다. raw PDF 원본은 외부/local artifact 또는 LFS 후보이며 root git 직접 추적 대상이 아니다.
 
 - A (산업안전일반): 124개
 - B (기계/전기안전): 232개
 - C (화학안전): 238개
 - D (건설안전): 73개
 - E (보건위생): 371개
-- **합계: 1,038개**
+- **합계: 1,038개 Guide JSON**
 
-### 2.2 legacy 처리 현황
+### 2.2 현재 처리 현황
 
-- 이미 파싱된 가이드 (텍스트 JSON): 41개 (병합 완료) + 9개 파트 파일 (`kosha-guides/parsed/`)
-- legacy CI 파일: 45개 (3,203 CI) (`shared/output/checklists/`)
-- 미처리 가이드: 242개 (796/1,038 추출 완료, `kosha-guides/{A~E}/`)
+- parsed Guide JSON: 1,038/1,038개 확보 (`../../kosha-guides/parsed/`)
+- Guide manifest: 1,038개 parsed artifact 기준 (`../../kosha-guides/manifest/`)
+- legacy CI 파일: 45개 (3,203 CI)는 historical 참고 자료로만 유지 (`shared/output/checklists/`)
+- 미처리 Guide JSON: 0개. 과거 `796/1,038` 및 `819 parsed` 표현은 legacy 중간 상태다.
 
 ### 2.3 Pipe-A DB 현황 (basedOn 참조 대상)
 

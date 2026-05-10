@@ -7,6 +7,8 @@
 산업안전보건기준에관한규칙(RULE) + KOSHA 가이드 → 온톨로지 기반 그래프DB.
 이 파일은 Pipe A (법령 → NS → SR) 파이프라인을 관리한다.
 
+> Monorepo 기준(2026-05-10): `koshaontology/`는 root `arch-bot`의 tracked 디렉토리다. `legalize-kr/`는 root 밖이 아니라 같은 workspace sibling에 두는 외부 ignored dependency이며, root repo에 import/push하지 않는다.
+
 ## 작업 시작 가이드
 
 1. `status_pipea.md`를 먼저 읽어 현재 진행 상태와 남은 작업을 확인한다.
@@ -149,6 +151,8 @@ penalty-routes.json과 NS의 hasSanction은 형사벌과 과태료를 구분한�
 ```
 
 ## 법령 소스
+
+`legalize-kr/`는 monorepo에 포함되지 않는 외부 ignored dependency다. 아래 경로는 `koshaontology/pipe-A` 기준 상대경로이며, 로컬 실행 시 workspace에 `../../legalize-kr/`가 있어야 한다.
 
 | ID | 법령명 | 경로 |
 |----|--------|------|

@@ -86,16 +86,18 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 | 리포트 | ✅ DONE | `pipe-B/data/ontology-enrichment-report.json` |
 | Codex manual candidates | ✅ 35 batches JSON 생성 / 미적재 | 1,038 Guide 누적, feature 2,083, SR 4,317, visual trigger 2,076, SR 후보 없음 76. batch 001~002 pilot 재점검 및 batch 003~035 source JSON 수동 재판독 완료. 전체 35개 JSON schema validation PASS(errors 0/warnings 0). semantic audit high-risk 0까지 1차 교정 완료, broad SR runtime policy 추가. 인덱스 `pipe-B/data/manual-enrichment-domain-guard-index.json`, `manual-enrichment-domain-guard-index.md` |
 
-## 최종 데이터 (DB 적재 기준)
+## 최종 데이터 (tracked entity JSON 기준)
+
+아래 CI/DT/WP/ES/DR 수량은 `pipe-B/data/entity-validation-report.json`의 2026-05-10 최신 검증값이다. `ci_sr_mapping`/`wp_sr_mapping` 행 수는 마지막 PostgreSQL verify baseline이며, candidate import 전 asserted mapping update는 0으로 유지한다.
 
 | 항목 | 수량 |
 |------|------|
 | 적재 가이드 (kosha_guides) | 1,038/1,038 (100%) |
-| CI (ChecklistItem) | 54,571 |
-| DT (DomainTerm) | 7,728 |
-| WP (WorkProcess) | 9,320 |
+| CI (ChecklistItem) | 54,631 |
+| DT (DomainTerm) | 7,726 |
+| WP (WorkProcess) | 9,316 |
 | ES (EquipmentSpec) | 8,103 |
-| DR (DocumentRequirement) | 3,441 |
+| DR (DocumentRequirement) | 3,435 |
 | ci_sr_mapping (basedOn) | 10,682 |
 | ci_sr_mapping distinct SR | 131/626 |
 | wp_sr_mapping | 3,599 |
@@ -112,7 +114,7 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 3. **스케일 테스트** (04-16): 100가이드 + 14 파일럿 = 111가이드, V16~V30 PASS
 4. **분할 추출** (04-16): guide_splitter + ci_merger 구현, EG1 통합 테스트 PASS
 5. **후속 산출물 정리** (04-20): `pilot-extraction-report.json` 재생성, 문서 수치/배치 수 설명 보강
-6. **전체 적재** (04-25): 796가이드 DB 적재, V16~V30 PASS, SR Phase 3 필드 재계산. wp_ppe.ppe_type VARCHAR(30)→VARCHAR(50) 수정
+6. **legacy 전체 적재** (04-25): 796가이드 DB 적재, V16~V30 PASS, SR Phase 3 필드 재계산. 현재 1,038 Guide 기준 재빌드 이전의 historical checkpoint다. wp_ppe.ppe_type VARCHAR(30)→VARCHAR(50) 수정
 7. **basedOn 복원** (04-25): Pipe-C step3 overlap 5+ 고신뢰 1,123건 DB 적용, ci_sr_mapping 9,164→10,287. SR Phase 3 필드 재계산, V16~V30 PASS
 8. **전체 1,038 미러링 및 재빌드** (05-09): `ci-output` 1,038개와 `ci-batches` 562개 확인, JSON 파싱 에러 0, Layer 5 clean rebuild, V16~V30 15/15 PASS
 9. **OHS 런타임 스키마 동기화** (05-09): `checklist_items`, `domain_terms`, `work_processes`, `equipment_specs`에 facet JSONB 컬럼과 GIN 인덱스 추가
@@ -170,7 +172,7 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 
 ## 미처리
 
-- LLM enrichment 배치 실행 필요: 현재는 경로 구현과 deterministic 전체 실행까지 완료. 30 Guide pilot은 외부 OpenAI API로 Guide 텍스트가 전송되므로 명시 승인 후 실행. 외부 API 없는 대안으로 Codex manual batch 001 JSON은 생성 완료
+- 외부 LLM enrichment 배치: 경로 구현과 deterministic 전체 실행은 완료됐지만 외부 API 전송형 30/200/1,038 배치는 미실행이다. 대신 외부 API 없이 Codex manual batch 001~035 전체 1,038 Guide 후보가 생성·정규화·semantic audit·`usage_profile11` runtime 검증까지 완료됐다.
 - Codex manual batch 001~035는 아직 PostgreSQL candidate table에 import하지 않았음. schema 정규화, semantic correction, usage_profile11 runtime 검증은 완료. 다음 단계는 same-method replace 및 SR 후보 unique key evidence merge/pre-aggregate 후 candidate table import이며, asserted mapping update는 0으로 유지해야 함
 - candidateSR/basedOn 연결 품질은 개선됐지만 아직 낮음: `ci_sr_mapping` distinct SR은 131/626, `wp_sr_mapping` distinct SR은 129/626
 - Guide/WorkProcess 중심 추천 로직은 OHS 3차 구조 보강 완료. synthetic Guide v1~v10 기준 명백 top Guide mismatch는 85.59% 감소했고 actual response 240 status/penalty 경계는 유지됐다. 다음은 NO_TOP 395 큐에서 taxonomy/profile/WorkProcess coverage를 복구하는 작업

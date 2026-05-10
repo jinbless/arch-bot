@@ -4,6 +4,20 @@
 
 현재 목표는 사업주가 사진이나 텍스트를 입력하면 위험요약, 즉시 조치, 표준 개선 절차, 벌칙 3경로, 근거 보기를 제공하는 것이다.
 
+## Repository Boundary
+
+현재 기준은 root `arch-bot`의 `main` 단일 monorepo다. `OHS`는 더 이상 별도 Git repo로 운영하지 않고, root에서 추적되는 product 디렉토리로 관리한다.
+
+```text
+arch-bot/
+  OHS/              root-tracked product code and docs
+  koshaontology/    root-tracked ontology pipeline code and docs
+  legalize-kr/      external ignored dependency, not part of the root repo
+  pictures-json/    tracked synthetic inputs plus local/external report bodies
+```
+
+과거 독립 `OHS` repo와 `codex/monorepo-snapshot-import` 브랜치 언급은 historical migration context로만 해석한다. 현재 작업, 검증, push 기준은 root `arch-bot/main`이다.
+
 ## Current Flow
 
 ```text
@@ -60,6 +74,8 @@ backend/app/services/penalty_path_service.py
 ```text
 backend/app/data/risk_feature_aliases.json
 backend/app/data/risk_feature_catalog.json
+backend/app/data/guide_domain_profiles.json
+backend/app/data/broad_sr_policy.json
 ```
 
 PostgreSQL의 Guide 보강 후보 테이블:
@@ -70,7 +86,9 @@ guide_sr_link_candidates
 guide_visual_trigger_candidates
 ```
 
-레거시 resource/video/category 기반 파일은 product 런타임에서 제거했다.
+`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
+
+legacy resource/video/category 기반 파일은 product 런타임에서 제거했다.
 
 ## Frontend Structure
 
@@ -93,14 +111,14 @@ frontend/src/components/results/ReasoningTracePanel.tsx
 백엔드:
 
 ```bash
-cd C:/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/OHS/backend
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
 ```
 
 프론트:
 
 ```bash
-cd C:/project/arch-bot/OHS/frontend
+cd /mnt/c/project/arch-bot/OHS/frontend
 npm run dev -- --host 127.0.0.1 --port 5173
 ```
 
@@ -133,39 +151,39 @@ http://localhost:8001/api/v1
 Python compile:
 
 ```bash
-cd C:/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/OHS/backend
 python -c "import pathlib; [compile(p.read_text(encoding='utf-8'), str(p), 'exec') for p in pathlib.Path('.').rglob('*.py') if '__pycache__' not in p.parts]; print('compile ok')"
 ```
 
 Frontend build:
 
 ```bash
-cd C:/project/arch-bot/OHS/frontend
+cd /mnt/c/project/arch-bot/OHS/frontend
 npm run build
 ```
 
 Synthetic smoke:
 
 ```bash
-cd C:/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/OHS/backend
 python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_usage_profile11
 ```
 
 Actual response 240 replay:
 
 ```bash
-cd C:/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/OHS/backend
 python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038
 ```
 
 Guide recommendation evaluation:
 
 ```bash
-cd C:/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/OHS/backend
 python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_usage_profile11
 ```
 
-Current accepted baseline:
+Current accepted baseline, updated 2026-05-10:
 
 ```text
 baseline: usage_profile11
@@ -199,13 +217,13 @@ actual response 240:
 
 ## Notes
 
-- `OHS`는 root `arch-bot` monorepo snapshot에서 추적되는 일반 디렉토리다.
+- `OHS`는 root `arch-bot/main` monorepo에서 추적되는 일반 디렉토리다.
 - `frontend/node_modules/**`는 vendor 영역이므로 문서 최신화 대상에서 제외한다.
 - 현재 product는 PostgreSQL 물질화 조회를 serving path로 사용한다. OWL reasoner는 런타임 필수 의존성이 아니라 배치 검증/운영 분석 도구로 본다.
 
 ## Runtime Guide Guard Summary
 
-Runtime reads local serving artifacts instead of koshaontology working files:
+Runtime reads local OHS serving artifacts instead of koshaontology working files:
 
 ```text
 OHS/backend/app/data/guide_domain_profiles.json
@@ -218,6 +236,7 @@ Serving candidate gates:
 confidence >= 0.65
 review_status in ('candidate', 'asserted')
 broad SRs are secondary-only and cannot create standard procedures or legacy fallback results by themselves
+needs_review/rejected candidates are excluded from serving
 ```
 
 Guide recommendations consume the 1,038 manual Guide usage profiles exported from Pipe-B. Standard procedure scoring is guarded so broad SRs, broad/generic features, and industry alignment cannot create top Guide procedures alone.
@@ -227,6 +246,7 @@ The current accepted OHS runtime baseline is `usage_profile11`. Guide recommenda
 Latest validation:
 
 ```text
+baseline: usage_profile11
 synthetic Guide v1~v10: 2,360 samples
 legacy obvious top Guide mismatch: 1,145
 current obvious top Guide mismatch: 165

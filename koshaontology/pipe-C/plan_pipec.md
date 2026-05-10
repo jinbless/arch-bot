@@ -1,14 +1,14 @@
 # Pipe-C 교차검증 계획
 
-> 최종 갱신: 2026-04-25
-> 상태: ✅ 코드 완성, Step 0~5 완료 (DB 796가이드 기준, V-C1~V-C10 PASS).
+> 최종 갱신: 2026-05-10
+> 상태: ✅ 코드 완성, legacy Step 0~5 완료. 1,038 Guide 기준 후보/evidence audit와 OHS `usage_profile11` runtime 검증까지 반영.
 
-> 현재 기준 참고 (2026-05-07): 최신 product 기준에서는 Pipe-C 결과를 `SHE -> SR -> Guide/WorkProcess/CI` 추천 품질 개선에 사용한다. 전체 Guide JSON 추출 완료 후 faceted 교차검증과 Guide 레이어 리빌딩을 다시 수행한다.
+> 현재 기준 참고 (2026-05-10): 최신 product 기준에서는 Pipe-C 결과를 `SHE -> SR -> Guide/WorkProcess/CI` 추천 품질 개선에 사용한다. 전체 Guide JSON 1,038개는 확보됐고, legacy 796 기준 basedOn 복원 결과는 historical audit 자료로만 취급한다. 현재 추천 정본은 Pipe-B manual usage profile과 candidate/evidence layer, accepted baseline `usage_profile11`이다.
 
 ## 목적
 
-Pipe-A(법령→SR 626)와 Pipe-B(가이드→CI)의 데이터를 교차 비교·검증·통합하여 온톨로지 품질을 확정한다.
-DB에 796가이드 기준 CI 35,206건 적재 완료, ci_sr_mapping 9,164건, V-C1~V-C10 PASS.
+Pipe-A(법령→SR 626)와 Pipe-B(가이드→CI/WP/ES/DR/DT)의 데이터를 교차 비교·검증·통합하여 온톨로지 품질을 확정한다.
+legacy 796 Guide 기준 CI 35,206건, ci_sr_mapping 9,164건, V-C1~V-C10 PASS 기록은 과거 기준이다. 현재는 1,038 Guide clean rebuild 이후 후보/evidence audit와 Guide usage profile 기반 runtime 검증을 우선한다.
 
 ## Phase 1: DB 기반 교차검증 (결정론적)
 

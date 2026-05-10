@@ -27,8 +27,9 @@ The original repositories remain the history archive for work before the snapsho
 
 - URL: <https://github.com/jinbless/arch-bot>
 - Main baseline before import: `1565a9d14e76b7e3ceb6753354621f5d043c92de`
-- Current `main`: `a6552e33f944fd34a4f6eb8737b92366454c778c`
-- Import branch used: `codex/monorepo-snapshot-import`
+- Active branch: `main`
+- Snapshot import doc-alignment commit: `a6552e33f944fd34a4f6eb8737b92366454c778c`
+- Historical import branch used: `codex/monorepo-snapshot-import`
 - Snapshot import commit: `e9dcde3589cc4049973138c50550ddc889caf3a5`
 - Role: monorepo root, governance docs, imported OHS/koshaontology source, selected Guide corpus, synthetic inputs, lightweight manifests
 
@@ -46,7 +47,8 @@ The original repositories remain the history archive for work before the snapsho
 ## Local Directory Layout
 
 ```text
-C:\project\arch-bot
+Windows: C:\project\arch-bot
+WSL:     /mnt/c/project/arch-bot
 ├─ OHS/             imported service source
 ├─ koshaontology/   imported ontology/pipeline source
 ├─ legalize-kr/     external source dependency, ignored by root

@@ -8,7 +8,7 @@
 ---
 ## 1. 목적
 
-legalize-kr 프로젝트의 법령 JSON 파일에서 5개 법령의 모든 조문을 추출하여 `data/article-texts.json`을 생성한다.
+외부 ignored dependency인 `legalize-kr/`의 법령 JSON 파일에서 5개 법령의 모든 조문을 추출하여 `data/article-texts.json`을 생성한다.
 
 ## 2. 설계 원칙
 
@@ -21,7 +21,7 @@ legalize-kr 프로젝트의 법령 JSON 파일에서 5개 법령의 모든 조�
 
 - Python 3.12+
 - `pip install jsonschema`
-- `legalize-kr` 프로젝트가 `../../legalize-kr/` 에 위치 (pipe-A 기준 상대경로)
+- `legalize-kr` 외부 dependency가 `../../legalize-kr/` 에 위치 (pipe-A 기준 상대경로, root monorepo에는 import하지 않음)
 - legalize-kr에 다음 법령 JSON이 존재:
   - `kr/산업안전보건기준에관한규칙/고용노동부령.json`
   - `kr/산업안전보건법/법률.json`
