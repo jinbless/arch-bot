@@ -34,13 +34,15 @@ Project-owned repositories are pushed before root documentation is pushed. Exter
 - Push status: excluded from project push targets because this repository is not project-owned
 - Current purpose: external legal source corpus consumed by `koshaontology/pipe-A`
 - Important: do not push from this workspace unless explicitly acting as an authorized maintainer of `legalize-kr`
+- Local note: this workspace may be ahead of upstream because local source snapshots can exist; treat them as local-only unless separately authorized
 
 ## arch-bot
 
 - URL: <https://github.com/jinbless/arch-bot>
 - Role: top-level design docs, current architecture, evaluation summaries, synthetic testsets, coordination notes
 - Branch: `main`
-- Latest pushed baseline: to be recorded after this documentation commit is pushed
+- Monorepo governance baseline: `9741680d0b255ae3a0241688f77036c0cd3b81f8`
+- Push status: pushed and verified against `origin/main` on 2026-05-10
 - Start document: `NEXT_SESSION_INSTRUCTIONS.md`
 - Current purpose: root main article, monorepo transition plan, data governance, synthetic observations, selected accepted report links
 
