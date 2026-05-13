@@ -2,9 +2,9 @@
 
 Latest updated: 2026-05-13
 
-Accepted runtime baseline: `ci_wp_relevance8d_profile_tight2_ci_safe_gate`
+Accepted runtime baseline: `industry_boundary_safe_suppress3`
 
-Previous accepted baseline: `ci_wp_relevance7_profile_tight1`
+Previous accepted baseline: `ci_wp_relevance8d_profile_tight2_ci_safe_gate`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
@@ -104,7 +104,7 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.*
+pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.*
 ```
 
 Summary:
@@ -115,43 +115,73 @@ Stage failure counts:
   stage2: 775
   stage3: 1,288
   stage4: 612
-  stage5: 546
+  stage5: 544
 SHE TP/FN/FP: 1,107 / 909 / 82
 SHE recall: 54.9%
 SR TP/FN/FP: 1,414 / 270 / 211
 SR recall: 84.0%
-Guide mismatch: 87
-Stage 2~5 NO_TOP: 26
-industry_boundary_gap: 70
+Guide mismatch: 73
+Stage 2~5 NO_TOP: 30
+industry_boundary_gap: 56
 workprocess_mismatch: 16
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
-photo_unmatchable_suppressed_count: 13
-followup_only_retained_count: 24
-top_replaced_by_photo_actionable_count: 17
+photo_unmatchable_suppressed_count: 0
+followup_only_retained_count: 23
+top_replaced_by_photo_actionable_count: 0
 CI no_action: 438
-CI context_mismatch: 16
-CI broad_sr_only: 14
+CI context_mismatch: 14
+CI broad_sr_only: 15
 CI needs_review_used: 0
 CI guide_boundary_mismatch: 48
 ```
 
-Comparison against `ci_wp_relevance7_profile_tight1`:
+Comparison against `ci_wp_relevance8d_profile_tight2_ci_safe_gate`:
 
 ```text
 SHE/SR status metrics: unchanged
-Guide mismatch: 110 -> 87
-Stage 2~5 NO_TOP: 24 -> 26
-industry_boundary_gap: 70 -> 70
-workprocess_mismatch: 39 -> 16
+Guide mismatch: 87 -> 73
+Stage 2~5 NO_TOP: 26 -> 30
+industry_boundary_gap: 70 -> 56
+workprocess_mismatch: 16 -> 16
 broad_sr_overreach: 1 -> 1
-CI no_action: 481 -> 438
-CI context_mismatch: 16 -> 16
-CI broad_sr_only: 16 -> 14
-CI guide_boundary_mismatch: 50 -> 48
+CI no_action: 438 -> 438
+CI context_mismatch: 16 -> 14
+CI broad_sr_only: 14 -> 15
+CI guide_boundary_mismatch: 48 -> 48
 photo_unmatchable_top_count: 0 -> 0
-photo_unmatchable_suppressed_count: 16 -> 13
-top_replaced_by_photo_actionable_count: 14 -> 17
+safe-scene industry-boundary overpromotion: 28 -> 14
+```
+
+## Industry Boundary Safe Suppress3
+
+`industry_boundary_safe_suppress3` keeps the `ci_wp_relevance8d_profile_tight2_ci_safe_gate` status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure generation. It suppresses photo-top standard procedures only for explicit non-negated safe/normal/completed/no-entry/office/storage-safe phrases such as `정상 장면`, `작업 완료`, `아직 진입하지 않음`, `접혀 있는 상태로 보관`, `확인서 작성`, `컴퓨터 작업`, and `안전한 사무 환경`.
+
+The first two broader trials were rejected: `safe_suppress1` reduced industry-boundary gaps but raised NO_TOP from 26 to 91 by blocking too many positive safe-control/management scenes; `safe_suppress2` still over-blocked via broad `status_safe` and `보관 중` logic. The accepted `safe_suppress3` keeps the useful safe-scene suppression while limiting NO_TOP increase to 4 cases.
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.*
+pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.*
+pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_report.*
+pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.*
+```
+
+Validation:
+
+```text
+v10 SHE recall: 100.0%
+v10 SHE false negative: 0
+v10 SHE false positive: 0
+actual response 240 status changed: 0
+negative_false_positive: 10
+positive_missed: 2
+ambiguous_over_promoted: 5
+asserted mapping update: 0
+runtime SHE approved update: 0
+legal SR evidence change: 0
+public API shape change: none
 ```
 
 ## CI/WP Relevance8d Profile Tight2 CI Safe Gate

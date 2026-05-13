@@ -138,11 +138,11 @@ Recommended first read order:
 
 ## Current Evaluation Baseline
 
-Accepted runtime baseline: `ci_wp_relevance8d_profile_tight2_ci_safe_gate`.
+Accepted runtime baseline: `industry_boundary_safe_suppress3`.
 
-Previous accepted baseline: `ci_wp_relevance7_profile_tight1`.
+Previous accepted baseline: `ci_wp_relevance8d_profile_tight2_ci_safe_gate`.
 
-This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 Guide/CI/WorkProcess relevance. It tightens selected feature-only overpromotion Guides, reorders primary WorkProcess IDs for concrete photo-actionable Guides, and allows same-top-Guide local CI fallback only when observable violation context is present and non-negated safe-control wording is absent. The next quality work should focus on remaining industry boundary and CI relevance cases rather than broad alias/support expansion.
+This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 standard-procedure generation. It suppresses photo-top standard procedures for explicit non-negated safe/normal/completed/no-entry/office/storage-safe phrases, after rejecting broader suppression trials that blocked too many positive safe-control scenes. The next quality work should focus on remaining wrong Guide boundaries and corpus/follow-up gaps rather than broad alias/support expansion.
 
 Report bodies stay local/external under `pictures-json/reports/**`; root git tracks the manifest and summary instead:
 
@@ -261,6 +261,10 @@ Referenced local report bodies:
 - `pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.md`
 - `pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_report.md`
 - `pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.md`
+- `pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.md`
+- `pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.md`
+- `pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_report.md`
+- `pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.md`
 
 Summary:
 
@@ -268,19 +272,19 @@ Summary:
 synthetic Stage 2~5 v1~v10 total: 2,360
 SHE TP/FN/FP: 1,107 / 909 / 82
 SR TP/FN/FP: 1,414 / 270 / 211
-previous accepted Guide mismatch: 110
-Guide mismatch after ci_wp_relevance8d_profile_tight2_ci_safe_gate: 87
-Stage 2~5 NO_TOP: 26
-industry_boundary_gap: 70
+previous accepted Guide mismatch: 87
+Guide mismatch after industry_boundary_safe_suppress3: 73
+Stage 2~5 NO_TOP: 30
+industry_boundary_gap: 56
 workprocess_mismatch: 16
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
-photo_unmatchable_suppressed_count: 13
-followup_only_retained_count: 24
-top_replaced_by_photo_actionable_count: 17
+photo_unmatchable_suppressed_count: 0
+followup_only_retained_count: 23
+top_replaced_by_photo_actionable_count: 0
 CI no_action: 438
-CI context_mismatch: 16
-CI broad_sr_only: 14
+CI context_mismatch: 14
+CI broad_sr_only: 15
 CI needs_review_used: 0
 CI guide_boundary_mismatch: 48
 v10 SHE recall: 100.0%, FN 0, FP 0
@@ -312,4 +316,4 @@ frontend build: OK
 
 Important implementation note: broadening `hazard_normalizer`/`hazard_rule_engine` with extra text aliases improved some NO_TOP coverage but changed actual 240 status counts, so that approach was rejected. A separate broad `UNSAFE_TERMS` widening experiment reduced NO_TOP only slightly while regressing Guide mismatch. Broad Stage 2/3 support attempts reduced NO_TOP more aggressively but caused Guide overreach; accepted support rows still require specific trigger hits. The rejected v8 trial overmatched broad `방사선`, `허가서`, `용접 흄`, and `용제` wording, while accepted `narrow2` keeps only specific unsafe/context phrases. Early v9 trials overmatched generic `전원을 끄지 않고`, generic medical-waste wording, and `담배꽁초`; accepted `narrow4` keeps only child-context plus unsafe/observable trigger matches. The first v10 trial overmatched high-pressure washing/electrical-panel and safe elevated-welding scenes, so accepted `narrow2` removes that seed and tightens food-slicer, elevated-welding, and silica triggers. Early v11 trials overmatched PPE-only, generic fall-risk, and generic blocked-visibility wording, so accepted `narrow3` requires object-specific triggers. The first v12 trial overmatched safe PPE, high-heat, stair, and electrical-control scenes, so accepted `narrow4` keeps only unsafe/object-specific trigger terms and drops the EV battery seed that moved one case from CI no-action to CI boundary mismatch. Early v13 trials overmatched broad cold-room wording or over-tightened short-token matching; accepted `narrow5` keeps object-specific PPE triggers and only blocks the confirmed `P-55-2012` single-character `황` false match. The first v14 trial overmatched short terms such as `발판 없이`, generic `슬링/인양`, generic `용접 흄`, and generic `보호 장갑 미착용`; accepted `narrow6b` keeps compound/object-specific triggers and rejects stale reflow support rows. Remaining coverage work should update SituationFrame child contexts, Guide usage profiles, visual triggers, SHE/SR review candidates, and WorkProcess relevance, not status-level risk inference.
 
-Earlier `v10fix6`, `domain_guard2`, `usage_profile1/2/5/11`, `situation_frame_support3`, `situation_frame_support7`, `photo_matchability1`, `no_top_support1`, `no_top_support_signal1`, `no_top_support_signal3`, `stage2_no_top_support3`, `stage3_support_alias2`, `stage2_support_usage_gate2b`, `stage2_support_usage_gate3_safe_lock1`, `stage3_domain_support1_tight1`, `stage3_domain_support2_confirmation_gate2`, `stage2_service_support_v7_narrow1`, `stage2_3_support_v8_narrow2`, `stage2_3_support_v9_narrow4`, `stage2_3_support_v10_narrow2`, `stage2_3_support_v11_narrow3`, `stage3_gap_support_v12_narrow4`, `stage2_taxonomy_support_v13_narrow5`, `stage3_sr_gap_support_v14_narrow6b`, `stage2_taxonomy_gap_support_v15_narrow7b`, `stage3_remaining_gap_support_v16c_narrow8c`, `stage3_remaining_gap_support_v17b_narrow9b`, `stage3_remaining_gap_support_v18_narrow10`, `stage3_safe_cue_negation_fix2`, `stage3_remaining_gap_support_v19_dropped_tool`, `stage3_remaining_gap_support_v20_actionable`, `ci_wp_relevance6_x41_profile`, and `ci_wp_relevance7_profile_tight1` results are historical milestones. Treat `ci_wp_relevance8d_profile_tight2_ci_safe_gate` as the current product baseline unless a newer accepted evaluation is recorded in `docs/status/evaluation-baseline.md`.
+Earlier `v10fix6`, `domain_guard2`, `usage_profile1/2/5/11`, `situation_frame_support3`, `situation_frame_support7`, `photo_matchability1`, `no_top_support1`, `no_top_support_signal1`, `no_top_support_signal3`, `stage2_no_top_support3`, `stage3_support_alias2`, `stage2_support_usage_gate2b`, `stage2_support_usage_gate3_safe_lock1`, `stage3_domain_support1_tight1`, `stage3_domain_support2_confirmation_gate2`, `stage2_service_support_v7_narrow1`, `stage2_3_support_v8_narrow2`, `stage2_3_support_v9_narrow4`, `stage2_3_support_v10_narrow2`, `stage2_3_support_v11_narrow3`, `stage3_gap_support_v12_narrow4`, `stage2_taxonomy_support_v13_narrow5`, `stage3_sr_gap_support_v14_narrow6b`, `stage2_taxonomy_gap_support_v15_narrow7b`, `stage3_remaining_gap_support_v16c_narrow8c`, `stage3_remaining_gap_support_v17b_narrow9b`, `stage3_remaining_gap_support_v18_narrow10`, `stage3_safe_cue_negation_fix2`, `stage3_remaining_gap_support_v19_dropped_tool`, `stage3_remaining_gap_support_v20_actionable`, `ci_wp_relevance6_x41_profile`, `ci_wp_relevance7_profile_tight1`, and `ci_wp_relevance8d_profile_tight2_ci_safe_gate` results are historical milestones. Treat `industry_boundary_safe_suppress3` as the current product baseline unless a newer accepted evaluation is recorded in `docs/status/evaluation-baseline.md`.

@@ -1,15 +1,15 @@
 {
   "summary": {
-    "generated_at": "2026-05-13T18:09:23+09:00",
+    "generated_at": "2026-05-14T00:22:10+09:00",
     "schema_version": "reports-manifest-v1",
-    "accepted_baseline": "ci_wp_relevance8d_profile_tight2_ci_safe_gate",
-    "previous_product_baseline": "ci_wp_relevance7_profile_tight1",
+    "accepted_baseline": "industry_boundary_safe_suppress3",
+    "previous_product_baseline": "ci_wp_relevance8d_profile_tight2_ci_safe_gate",
     "report_body_policy": "pictures-json/reports/** remains local/external; this manifest records checksums and accepted baselines.",
-    "report_file_count": 439
+    "report_file_count": 454
   },
   "accepted_baseline": {
-    "name": "ci_wp_relevance8d_profile_tight2_ci_safe_gate",
-    "previous": "ci_wp_relevance7_profile_tight1",
+    "name": "industry_boundary_safe_suppress3",
+    "previous": "ci_wp_relevance8d_profile_tight2_ci_safe_gate",
     "photo_matchability": {
       "guide_count": 1038,
       "classification_counts": {
@@ -231,7 +231,7 @@
         "stage2": 775,
         "stage3": 1288,
         "stage4": 612,
-        "stage5": 546
+        "stage5": 544
       },
       "she_metrics": {
         "expected_positive": 2016,
@@ -248,39 +248,39 @@
         "recall": "84.0%"
       },
       "guide_metrics": {
-        "current_obvious_top_guide_mismatch": 87,
-        "no_top": 26,
-        "industry_boundary_gap": 70,
+        "current_obvious_top_guide_mismatch": 73,
+        "no_top": 30,
+        "industry_boundary_gap": 56,
         "workprocess_mismatch": 16,
         "broad_sr_overreach": 1,
         "photo_unmatchable_top_count": 0,
-        "photo_unmatchable_suppressed_count": 13,
-        "followup_only_retained_count": 24,
-        "top_replaced_by_photo_actionable_count": 17,
+        "photo_unmatchable_suppressed_count": 0,
+        "followup_only_retained_count": 23,
+        "top_replaced_by_photo_actionable_count": 0,
         "top_photo_matchability_counts": {
-          "NO_TOP": 519,
-          "photo_actionable": 1841
+          "NO_TOP": 541,
+          "photo_actionable": 1819
         }
       },
       "ci_metrics": {
         "ci_no_action": 438,
-        "ci_context_mismatch": 16,
-        "ci_broad_sr_only": 14,
+        "ci_context_mismatch": 14,
+        "ci_broad_sr_only": 15,
         "ci_needs_review_used": 0,
         "ci_guide_boundary_mismatch": 48
       },
       "primary_failure_stage_counts": {
-        "ok": 527,
+        "ok": 524,
         "stage2": 775,
         "stage3": 808,
         "stage4": 214,
-        "stage5": 36
+        "stage5": 39
       },
-      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.json",
-      "comparison_note": "Compared against ci_wp_relevance7_profile_tight1. v8d tightens selected Guide usage profiles and adds observable/safe-gated same-top-Guide CI fallback."
+      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.json",
+      "comparison_note": "Compared against ci_wp_relevance8d_profile_tight2_ci_safe_gate. safe_suppress3 narrows standard-procedure generation for explicit safe/normal scenes without changing status/SHE/SR/penalty behavior."
     },
     "synthetic_v10_smoke": {
-      "source_report": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_report.json",
+      "source_report": "pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_report.json",
       "total": 330,
       "by_case_type": {
         "positive": 187,
@@ -293,7 +293,7 @@
       "she_negative_specificity": "100.0%"
     },
     "actual_240_regression": {
-      "source_report": "pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.json",
+      "source_report": "pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.json",
       "total_samples": 240,
       "status_changed_count": 0,
       "actual_status_counts": {
@@ -318,8 +318,8 @@
         "positive_missed": 2,
         "legacy_mismatch": 4
       },
-      "top_action_changed_count": 123,
-      "top_procedure_changed_count": 149
+      "top_action_changed_count": 126,
+      "top_procedure_changed_count": 150
     },
     "no_top_root_cause_audit": {
       "source_report": "pictures-json/reports/stage2_5_no_top_root_cause_ci_wp_relevance7_profile_tight1.json",
@@ -466,7 +466,7 @@
         "status_penalty_she_approval_asserted_mapping_update": 0
       }
     },
-    "runtime_change_note": "ci_wp_relevance8d_profile_tight2_ci_safe_gate keeps the v7 status/penalty/SHE/SR boundary and changes only Stage 5 Guide/WorkProcess/CI relevance. It tightens usage boundaries for selected feature-only overpromotion Guides, reorders primary WorkProcess IDs for concrete photo-actionable Guides, and allows same-top-Guide local CI fallback only when observable violation context is present and non-negated safe-control wording is absent. No SHE approval, asserted mapping, legal SR evidence, or public API shape changes.",
+    "runtime_change_note": "industry_boundary_safe_suppress3 keeps the v8d status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure generation. It blocks photo-top standard procedures for explicit safe/normal scenes such as 정상 장면, 작업 완료, 아직 진입하지 않음, 접혀 있는 상태로 보관, 확인서 작성, 컴퓨터 작업, or 안전한 사무 환경. The first broad safe suppression trials were rejected because they suppressed positive safe-control/management scenes.",
     "safe_lock_fix": {
       "name": "stage2_support_usage_gate3_safe_lock1",
       "changed_file": "OHS/backend/app/services/situation_frame_service.py",
@@ -1036,6 +1036,96 @@
         "v8c observable-signal gate reduced no_action but left slight CI context/boundary regression"
       ],
       "accepted_guard": "local CI fallback requires observable violation context and blocks non-negated safe-control wording such as 완비, 정상, 보관 중, 준비 중, 조립 전."
+    },
+    "industry_boundary_gap_triage": {
+      "source_report": "pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.json",
+      "total_rows": 56,
+      "triage_queue_counts": {
+        "B_wrong_guide_boundary": 26,
+        "C_corpus_or_followup_gap": 16,
+        "D_safe_scene_overpromoted": 14
+      },
+      "priority_counts": {
+        "high": 40,
+        "medium": 16
+      },
+      "top_guide_counts": [
+        [
+          "A-G-9-2025",
+          6
+        ],
+        [
+          "P-76-2011",
+          6
+        ],
+        [
+          "X-62-2013",
+          6
+        ],
+        [
+          "E-G-1-2025",
+          5
+        ],
+        [
+          "H-42-2021",
+          4
+        ],
+        [
+          "D-28-2012",
+          3
+        ],
+        [
+          "G-106-2013",
+          2
+        ],
+        [
+          "B-M-11-2025",
+          2
+        ],
+        [
+          "C-05-2016",
+          1
+        ],
+        [
+          "C-66-2016",
+          1
+        ],
+        [
+          "C-88-2013",
+          1
+        ],
+        [
+          "D-33-2012",
+          1
+        ]
+      ]
+    },
+    "industry_boundary_safe_suppress3": {
+      "name": "industry_boundary_safe_suppress3",
+      "changed_files": [
+        "OHS/backend/app/services/guide_recommendation_service.py",
+        "OHS/backend/scripts/analyze_industry_boundary_gap.py"
+      ],
+      "guide_mismatch_delta_vs_previous": "87 -> 73",
+      "no_top_delta_vs_previous": "26 -> 30",
+      "industry_boundary_delta_vs_previous": "70 -> 56",
+      "workprocess_delta_vs_previous": "16 -> 16",
+      "broad_sr_overreach_delta_vs_previous": "1 -> 1",
+      "ci_no_action_delta_vs_previous": "438 -> 438",
+      "ci_context_mismatch_delta_vs_previous": "16 -> 14",
+      "ci_broad_sr_only_delta_vs_previous": "14 -> 15",
+      "ci_guide_boundary_delta_vs_previous": "48 -> 48",
+      "safe_scene_overpromoted_delta_in_triage": "28 -> 14",
+      "actual_240_status_changed": 0,
+      "v10_she_recall": "100.0%",
+      "v10_she_false_negative": 0,
+      "v10_she_false_positive": 0,
+      "status_penalty_she_approval_asserted_mapping_update": 0,
+      "rejected_trials": [
+        "safe_suppress1 blocked too many positive safe-control scenes and increased NO_TOP 26 -> 91",
+        "safe_suppress2 still used broad status_safe/보관 중 gating and increased NO_TOP 26 -> 45"
+      ],
+      "accepted_guard": "standard procedures are suppressed only for explicit non-negated safe/normal/completed/no-entry/office/storage-safe phrases."
     }
   },
   "reports": [
@@ -1100,6 +1190,27 @@
       "size_bytes": 28263,
       "sha256": "adbb8fc76cdca0039b96560723ab2322996b4786baaba912c76176466199fb45",
       "modified_at": "2026-05-13T18:02:33+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.csv",
+      "size_bytes": 115126,
+      "sha256": "6b71d686ca83fcbcba46931bfbef52cd88890e0330b28c96d54b47387fee5dc7",
+      "modified_at": "2026-05-14T00:21:02+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.json",
+      "size_bytes": 3634136,
+      "sha256": "2c7dca0d727cecdeadde40b25a896fb2cec0fa08b0a6eea5c1da9de13f14ff6e",
+      "modified_at": "2026-05-14T00:21:02+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.md",
+      "size_bytes": 27860,
+      "sha256": "7f68ed1e41f2c0379646093bb130d09730a561b1b71d84d8a7bb05a326e777f9",
+      "modified_at": "2026-05-14T00:21:02+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
@@ -1712,6 +1823,48 @@
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_ci_wp_relevance8d.csv",
+      "size_bytes": 49041,
+      "sha256": "a7dcdbafac4b0a1787a8de51d665dd3101e2e713348c56b3772aa5a3832c3984",
+      "modified_at": "2026-05-14T00:01:14+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_ci_wp_relevance8d.json",
+      "size_bytes": 100181,
+      "sha256": "09025ae82a9bceb8f2de8f8c80f37393a3286e437ab43672d1de1f71610c36ee",
+      "modified_at": "2026-05-14T00:01:14+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_ci_wp_relevance8d.md",
+      "size_bytes": 9023,
+      "sha256": "fa6651fd3346e10f9df89d4128731eae2706234aff1d8439fdf1da2ddaa3a1a0",
+      "modified_at": "2026-05-14T00:01:14+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.csv",
+      "size_bytes": 39584,
+      "sha256": "ba243863267ce2a8a89bf6f4fd12823ef2f3f2115cdb6b7026093b1f7256d71d",
+      "modified_at": "2026-05-14T00:20:12+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.json",
+      "size_bytes": 80501,
+      "sha256": "1fef9d61f016d9a54c15bcc5fdda2a9a53ba1e2565f65379d2f952751d0c2f53",
+      "modified_at": "2026-05-14T00:20:12+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.md",
+      "size_bytes": 8978,
+      "sha256": "187cfa7fde51030aabba895559ebdcaed5655cd19693fd45db20f37595135392",
+      "modified_at": "2026-05-14T00:20:12+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
       "path": "pictures-json/reports/no_top_guide_support_candidates_v1.csv",
       "size_bytes": 21274,
       "sha256": "407ffb5dc80eeb1cc4fb185ce245943e984032a7c8071ecee5af86ae5f61bc24",
@@ -1793,6 +1946,27 @@
       "size_bytes": 22218,
       "sha256": "76432ef67e359468f9c6492b2da8c69ea9bb612a0974b2245098447e9f1d9b1f",
       "modified_at": "2026-05-13T18:01:00+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.csv",
+      "size_bytes": 490383,
+      "sha256": "9980c9e496ce483606e19fd547b663f4def195e8c99675a75179718ab00faa5b",
+      "modified_at": "2026-05-14T00:19:50+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.json",
+      "size_bytes": 24426133,
+      "sha256": "9b25485f04a05674f3658cc7f829b5525a8ec336c9044c3b08b43efc8d27e415",
+      "modified_at": "2026-05-14T00:19:50+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.md",
+      "size_bytes": 21920,
+      "sha256": "368547e3670f5c9ff680b3219729f1f2091ac4b5e446d13f2ea9cb12d67bdc49",
+      "modified_at": "2026-05-14T00:19:50+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
@@ -3525,6 +3699,27 @@
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
+      "path": "pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_cases.csv",
+      "size_bytes": 437496,
+      "sha256": "11c1e4715909ad802f1cdb773d2e36b287e71a8dc8257ef3dc38f03798a5addb",
+      "modified_at": "2026-05-14T00:20:40+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_report.json",
+      "size_bytes": 14557347,
+      "sha256": "9e88c8df25d92366d7d92fb88ee4d27afef54789866f70c2b43af95b7bcd4d7e",
+      "modified_at": "2026-05-14T00:20:40+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_report.md",
+      "size_bytes": 224551,
+      "sha256": "ca5a52f750d015d5b8a75456699d3405977d9315df2d76acbed284f83a8b2be8",
+      "modified_at": "2026-05-14T00:20:40+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
       "path": "pictures-json/reports/synthetic_observations_v10_no_top_support1_cases.csv",
       "size_bytes": 437857,
       "sha256": "a5fcb23774b801ba6308ebd614700b1efe8eb2835c73e188b5216e1e182003fa",
@@ -4113,5 +4308,5 @@
       "storage_policy": "local_external_report_body_not_tracked"
     }
   ],
-  "previous_product_baseline": "ci_wp_relevance7_profile_tight1"
+  "previous_product_baseline": "ci_wp_relevance8d_profile_tight2_ci_safe_gate"
 }

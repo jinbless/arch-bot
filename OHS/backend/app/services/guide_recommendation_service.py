@@ -114,6 +114,25 @@ CONTEXTUAL_CI_SAFE_NEGATORS = (
     "않",
 )
 CONTEXTUAL_CI_GENERIC_OBSERVABLES = {"가동 중", "절단", "잠금장치", "잠금 장치"}
+STANDARD_GUIDE_SAFE_BLOCK_TERMS = (
+    "올바른 장면",
+    "정상 장면",
+    "정상 상태",
+    "정상적으로",
+    "작업 완료",
+    "작업 완료 상태",
+    "아직 진입하지",
+    "진입하지 않았다",
+    "지상 작업",
+    "확인서 작성",
+    "컴퓨터로",
+    "안전한 사무",
+    "접혀",
+    "접혀 있는 상태로 보관",
+    "주변에 사람이 없",
+    "보관 상태",
+    "점검을 완료",
+)
 CONTEXT_REQUIRED_DOMAIN_FAMILIES = {
     "reused_temporary_equipment_performance_scaffold_shoring_inspection",
     "cold_contact_surface_risk_assessment",
@@ -212,6 +231,35 @@ def _contextual_ci_fallback_allowed(
     if safe_cues and (not observable_cues or observable_cues <= CONTEXTUAL_CI_GENERIC_OBSERVABLES):
         return False
     return not _has_non_negated_safe_context(_context_blob(visual_cues, context_text))
+
+
+def _has_non_negated_terms(
+    text: str,
+    terms: tuple[str, ...],
+    *,
+    negators: tuple[str, ...] = CONTEXTUAL_CI_SAFE_NEGATORS,
+    window: int = 16,
+) -> bool:
+    for term in terms:
+        lowered = term.lower()
+        start = text.find(lowered)
+        while start >= 0:
+            span = text[max(0, start - window): min(len(text), start + len(lowered) + window)]
+            if not any(negator.lower() in span for negator in negators):
+                return True
+            start = text.find(lowered, start + len(lowered))
+    return False
+
+
+def _standard_procedure_safe_context_blocked(
+    situation_frame: dict | None,
+    visual_cues: list[str] | None,
+    context_text: str | None,
+) -> bool:
+    return _has_non_negated_terms(
+        _context_blob(visual_cues, context_text),
+        STANDARD_GUIDE_SAFE_BLOCK_TERMS,
+    )
 
 
 def _matches_visual_trigger(candidate: PgGuideVisualTriggerCandidate, context_blob: str) -> bool:
@@ -1022,6 +1070,8 @@ def get_standard_guides(
     }
     support_only_mode = bool(support_matches) and not sr_ids and not she_source_guides
     if not sr_ids and not she_source_guides and not support_matches:
+        return []
+    if _standard_procedure_safe_context_blocked(situation_frame, visual_cues, context_text):
         return []
 
     for guide_code in she_source_guides:
