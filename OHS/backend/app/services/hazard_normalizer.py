@@ -5,6 +5,7 @@
 """
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -90,6 +91,99 @@ TEXT_WORK_CONTEXT_HINTS.update({
     "NIGHT_SOLO_WORK": ["야간 단독", "심야 단독"],
 })
 
+WORK_CONTEXT_CODE_ALIASES = {
+    "ELECTRICITY_WORK": "ELECTRICAL_WORK",
+    "ELECTRIC_WORK": "ELECTRICAL_WORK",
+    "PESTICIDE_APPLICATION": "PESTICIDE_SPRAY",
+    "ORCHARD_LADDER": "LADDER",
+    "TUNNEL_SUPPORT": "EXCAVATION",
+    "SHAFT_HOIST": "CRANE",
+    "COMPACTOR_OPERATION": "MACHINE",
+    "SHREDDER_OPERATION": "MACHINE",
+    "TRUCK_COUPLING": "VEHICLE",
+    "PLANER_JOINTER": "SAWING",
+    "SEWING_MACHINE": "MACHINE",
+    "NEEDLE_BROKEN": "MACHINE",
+    "YARN_WINDING": "MACHINE",
+    "PAPER_CUTTING": "MACHINE",
+    "NEEDLESTICK": "MATERIAL_HANDLING",
+    "PATIENT_TRANSFER": "GENERAL_WORKPLACE",
+    "MEDICAL_WASTE": "MATERIAL_HANDLING",
+    "MEDICATION_HANDLING": "MATERIAL_HANDLING",
+    "DYEING_FINISHING": "CHEMICAL_WORK",
+    "SOLVENT_CLEANING": "CHEMICAL_WORK",
+    "CHEMICAL_MIXING": "CHEMICAL_WORK",
+    "SCALDING_DEHAIRING": "MACHINE",
+    "CONVEYOR_HOOK": "CONVEYOR_BELT",
+    "CARDIO_EQUIPMENT": "MACHINE",
+    "CREMATION_FURNACE": "CHEMICAL_WORK",
+}
+
+WORK_CONTEXT_CODE_ALIAS_RULES = [
+    (("RADIATION_XRAY", "XRAY", "X_RAY", "X-RAY", "PLATE_MAKING", "UV_COATING"), "CHEMICAL_WORK"),
+    (("EQUIPMENT_MAINTENANCE", "CHAMBER_MAINTENANCE"), "MACHINE"),
+    (("COMPOUND_MIXING", "OPEN_MILL", "KNEE_BAR"), "MACHINE"),
+    (("CONFINED", "TANK_ENTRY"), "CONFINED_SPACE"),
+    (("SCAFFOLD",), "SCAFFOLD"),
+    (("EXCAVATION", "TRENCH", "EARTH_RETAINING", "UNDERGROUND_UTILITY"), "EXCAVATION"),
+    (("CRANE",), "CRANE"),
+    (("FORKLIFT",), "FORKLIFT_OPERATION"),
+    (("CONVEYOR",), "CONVEYOR_BELT"),
+    (("LADDER",), "LADDER"),
+    (("ROPE", "HIGH_RISE_WINDOW", "ROOF", "ELEVATED", "DECKING"), "ROPE_ACCESS"),
+    (("WELDING", "HOT_WORK"), "WELDING"),
+    (("ELECTRIC", "ELECTRICAL", "HIGH_VOLTAGE", "ESD", "SOLDER"), "ELECTRICAL_WORK"),
+    (("CHEMICAL", "SOLVENT", "ACID", "ETCH", "HF", "LAB_", "REACTOR", "DISTILLATION", "HAZMAT", "INK", "VULCANIZATION", "COMPOUND"), "CHEMICAL_WORK"),
+    (("SPRAY_PAINT", "PAINT", "SURFACE_FINISHING", "AIRLESS"), "PAINTING"),
+    (("SURFACE_PREP", "GRIND", "SANDING", "POLISH"), "GRINDING"),
+    (("KNIFE",), "FOOD_PREP"),
+    (("LATHE", "MILLING", "PRESS", "STAMPING", "MACHINE", "MOLD", "EXTRUSION", "SAW", "CUTTER", "SLICER", "GRINDER", "AUTOCLAVE", "STERILIZATION", "FOOD_PROCESSING", "DOUGH", "PRINTING", "FOLDING", "GUILLOTINE", "PACKAGING", "COMPACTOR", "SHREDDER", "PLANER", "JOINTER", "SEWING", "YARN", "PAPER_CUTTING"), "MACHINE"),
+    (("FORMWORK", "CONCRETE", "SOIL_COMPACTION", "PUMP_OPERATION"), "CONSTRUCTION_EQUIP"),
+    (("REBAR", "STEEL_ERECTION"), "STEELWORK"),
+    (("PICKING",), "PACKAGE_SORTING"),
+    (("RACKING",), "HIGH_SHELF_WORK"),
+    (("MATERIAL", "HANDLING", "HEAVY", "BOX", "STORAGE", "LOADING", "WASTE", "LANDFILL", "RECYCLING", "BODY_TRANSPORT", "MEDICAL_WASTE", "NEEDLESTICK", "SHARPS"), "MATERIAL_HANDLING"),
+    (("VEHICLE_LIFT", "ENGINE_OVERHAUL", "BRAKE_EXHAUST"), "LIFT_WORK"),
+    (("TIRE_WHEEL",), "TIRE_CHANGE"),
+    (("COLD", "FREEZER", "ICE"), "COLD_STORAGE"),
+    (("WET", "FLOOR", "CLEANING", "RESTROOM", "SANITATION", "FISH", "POOL", "AQUACULTURE"), "WET_FLOOR_WORK"),
+    (("OVEN", "HOT_TRAY", "BAKING", "KITCHEN"), "KITCHEN_COOKING"),
+    (("DISPLAY", "SERVING"), "SERVING_FLOOR"),
+    (("FREE_WEIGHT",), "HEAVY_LIFTING"),
+    (("CARDIO", "CLIMBING", "EXERCISE"), "GENERAL_WORKPLACE"),
+    (("FUNERAL", "EMBALMING", "CREMATION", "DENTAL", "CLEANROOM", "FLORAL", "OUTDOOR_PLAY"), "GENERAL_WORKPLACE"),
+    (("FUEL", "GAS_STATION"), "FUEL_DISPENSING"),
+    (("VENTILATION",), "VENTILATION_POOR"),
+    (("NOISE",), "NOISE_EXPOSURE"),
+    (("PESTICIDE", "FERTILIZER", "GREENHOUSE", "HARVEST", "IRRIGATION", "FARM"), "HARVEST_WORK"),
+]
+
+CONTAINED_ALIAS_MIN_LEN = 2
+CONTAINED_ALIAS_BLOCKLIST = {"위험", "작업", "사고", "부상", "접촉", "기타", "확인"}
+
+STAGE2_V2_AXIS_ALIASES = {
+    "accident_type": {
+        "낙상": "FALL",
+        "고소 추락": "FALL",
+        "사다리 추락": "FALL",
+        "말림": "CRUSH",
+        "회전체 부상": "CRUSH",
+        "손가락 부상": "CRUSH",
+        "절상": "CUT",
+        "칼날 절상": "CUT",
+        "근골격계 장애": "ERGONOMIC",
+        "근골격계 질환": "ERGONOMIC",
+        "근골격계 부상": "ERGONOMIC",
+        "요추 부상": "ERGONOMIC",
+        "고온 화상": "BURN",
+        "증기 화상": "BURN",
+        "열 화상": "BURN",
+        "화학물질 흡입": "CHEMICAL_EXPOSURE",
+        "화학 흡입": "CHEMICAL_EXPOSURE",
+        "화학 증기 흡입": "CHEMICAL_EXPOSURE",
+    }
+}
+
 def _load_aliases() -> dict:
     global _ALIASES
     if _ALIASES is None:
@@ -120,6 +214,30 @@ def _get_valid_codes(axis: str) -> set:
     return codes
 
 
+def _stage2_v2_enabled() -> bool:
+    return os.getenv("OHS_ENABLE_STAGE2_NORMALIZATION_V2", "").lower() in {"1", "true", "yes", "on"}
+
+
+def _resolve_work_context_code_alias(raw_text: str, valid: set[str]) -> Optional[str]:
+    upper = raw_text.upper().strip()
+    mapped = WORK_CONTEXT_CODE_ALIASES.get(upper)
+    if mapped in valid:
+        return mapped
+    for terms, code in WORK_CONTEXT_CODE_ALIAS_RULES:
+        if code in valid and any(term in upper for term in terms):
+            return code
+    return None
+
+
+def _term_matches_raw(term: str, raw_text: str) -> bool:
+    term_text = str(term or "").strip()
+    if len(term_text) < CONTAINED_ALIAS_MIN_LEN or term_text in CONTAINED_ALIAS_BLOCKLIST:
+        return False
+    raw_compact = raw_text.replace(" ", "")
+    term_compact = term_text.replace(" ", "")
+    return bool(term_compact and (term_compact in raw_compact or raw_compact in term_compact))
+
+
 def _resolve_alias_code(raw_code: str, axis: str) -> Optional[str]:
     """GPT가 반환한 코드를 정규화. 유효하면 그대로, alias면 해석, 무효면 None."""
     raw_text = str(raw_code or "").strip()
@@ -131,12 +249,28 @@ def _resolve_alias_code(raw_code: str, axis: str) -> Optional[str]:
     if upper in valid:
         return upper
 
+    if _stage2_v2_enabled():
+        v2_mapped = STAGE2_V2_AXIS_ALIASES.get(axis, {}).get(raw_text)
+        if v2_mapped in valid:
+            return v2_mapped
+
+    if axis == "work_context" and _stage2_v2_enabled():
+        mapped_context = _resolve_work_context_code_alias(raw_text, valid)
+        if mapped_context:
+            return mapped_context
+
     # alias 매핑 (Tier 1): exact first, conservative contained-term fallback second.
     aliases = _load_aliases()
     tier1 = aliases.get("tier1", {}).get(axis, {})
     for code, terms in tier1.items():
         if upper in [str(t).upper() for t in terms] or raw_text in terms:
             return code
+    if _stage2_v2_enabled():
+        for code, terms in tier1.items():
+            if code not in valid:
+                continue
+            if any(_term_matches_raw(str(term), raw_text) for term in terms):
+                return code
 
     return None
 

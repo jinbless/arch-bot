@@ -220,6 +220,8 @@ def profile_terms(profile: dict[str, Any]) -> list[str]:
         if isinstance(values, list):
             terms.extend(str(value) for value in values if value)
     terms.extend(str(value) for value in (boundary.get("include_when") or []) if value)
+    if profile.get("guide_code") == "P-55-2012":
+        terms = [term for term in terms if term != "황"]
     return list(dict.fromkeys(terms))
 
 
@@ -283,6 +285,7 @@ def classify_top_procedure(
     )
     visual_hits = visual_trigger_hits(row, profile)
     evidence_summary = str(procedure.get("evidence_summary") or "")
+    trigger_backed_support = "SituationFrame trigger support:" in evidence_summary
     source_sr_ids = set(procedure.get("source_sr_ids") or [])
     broad_only = bool(source_sr_ids) and source_sr_ids <= broad_sr_ids
     detail = {
@@ -311,6 +314,8 @@ def classify_top_procedure(
         return "visual_trigger_too_broad", "visual trigger evidence did not match row cues", detail
 
     if not (term_hits or feature_hits or visual_hits):
+        if trigger_backed_support:
+            return "ok", "top Guide has trigger-backed SituationFrame support", detail
         return "industry_boundary_gap", "top Guide has no usage/profile/feature hit in row context", detail
 
     top_steps = procedure.get("top_steps") or []

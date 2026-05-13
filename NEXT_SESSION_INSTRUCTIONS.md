@@ -1,6 +1,6 @@
 # 다음 세션 시작 지침
 
-최신 갱신일: 2026-05-10
+최신 갱신일: 2026-05-13
 
 이 문서는 다른 Codex/LLM 세션이 현재 상태를 빠르게 이어받기 위한 시작점이다.
 
@@ -123,14 +123,28 @@ http://127.0.0.1:5173/ohs/
 
 ## 6. 현재 검증 기준선
 
-Accepted baseline: `usage_profile11`
+Accepted runtime baseline: `stage3_remaining_gap_support_v20_actionable`
+
+Previous accepted baseline: `stage3_remaining_gap_support_v19_dropped_tool`
 
 ```text
-synthetic Guide v1~v10 total: 2,360
-legacy obvious top Guide mismatch: 1,145
-current obvious top Guide mismatch: 165
-reduction: 85.59%
-NO_TOP: 395
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 136
+Stage 2~5 NO_TOP: 17
+industry_boundary_gap: 71
+workprocess_mismatch: 64
+broad_sr_overreach: 1
+photo_unmatchable_top_count: 0
+photo_unmatchable_suppressed_count: 0
+followup_only_retained_count: 18
+top_replaced_by_photo_actionable_count: 0
+CI no_action: 484
+CI context_mismatch: 17
+CI broad_sr_only: 16
+CI needs_review_used: 0
+CI guide_boundary_mismatch: 64
 v10 SHE recall: 100.0%
 v10 SHE false negative: 0
 v10 SHE false positive: 0
@@ -140,6 +154,62 @@ positive_missed: 2
 ambiguous_over_promoted: 5
 ```
 
+`stage3_remaining_gap_support_v20_actionable` keeps the v19 status/penalty/SHE/SR boundary. It adds two support-only child contexts, `GREENHOUSE_STRUCTURE_FALL` and `DRY_CLEANING_STEAM_PIPE_HOT_SURFACE`, so greenhouse-frame high-place fall and dry-cleaning steam-pipe hot-surface burn scenes can receive top standard procedures without approving new SHE/SR/legal evidence. The `stage3_safe_cue_negation_fix2` parsing guard remains active: `LOTO 미적용`, `밀착 미흡`, and `동료 정상 착용과 대비` do not become `status_safe`, while safe procedure contexts such as `압력 게이지 0`, `잔압 완전 방출`, and `방열 장갑 착용` block trigger-only Guide support.
+
+SituationFrame support-only artifact:
+
+```text
+classified Stage 3 candidates: 230
+runtime SHE approved update: 0
+asserted mapping update: 0
+child contexts: 178
+Guide support candidates v2 historical: 1
+Guide support candidates v3: 127
+Guide support candidates v4: 139
+Guide support candidates v6: 144
+Guide support candidates v7: 146
+Guide support candidates v8: 152
+Guide support candidates v9: 157
+Guide support candidates v10: 163
+Guide support candidates v11: 168
+Guide support candidates v13: 188
+Guide support candidates v14: 201
+Guide support candidates v15: 206
+Guide support candidates v16c: 212
+Guide support candidates v17b: 220
+Guide support candidates v19: 225
+Guide support candidates v20: 227
+NO_TOP support covered cases: Stage3 support 136, curated Stage2 support 20
+Stage3 profile-alignment aliases: 18 aliases / 7 child contexts / 15 affected support rows
+Stage2 support usage gate: 6 context updates / 2 new support rows / 5 trigger-only rows
+Stage3 domain support v6: 3 new support rows for spray painting / dry-cleaning solvent / pesticide application
+Stage2 service support v7 narrow1: 2 new trigger-backed support-only contexts for display electrical maintenance / floor cleaning machines
+Stage2/3 support v8 narrow2: 6 new trigger-backed support-only contexts for X-ray radiation control / blasting / hot-work permit deviation / shipyard/internal welding / soldering / solvent-waste fire
+Stage2/3 support v9 narrow4: 5 new trigger-backed support-only contexts for sports-facility slip/trip / powered cardio-equipment maintenance / needlestick-sharps disposal / blood-contaminated waste handling / flammable-chemical smoking
+Stage2/3 support v10 narrow2: 6 new trigger-backed support-only contexts for powered food-slicer cleaning / bakery oven-hot-tray burn / small-server electrical overload / elevated welding fall control / automotive tire-wheel service / silica-dust blasting
+Stage2/3 support v11 narrow3: 5 new trigger-backed support-only contexts for sharp glass manual handling / lead-paint grinding dust / ice-pick fragment eye exposure / climbing-wall fall surface / chair-stack manual carry
+Stage3 gap support v12 narrow4: 13 new trigger-backed support-only contexts for SHE-gap-with-SR cases; first broad trial rejected safe PPE/high-heat/stair/electrical overmatches and EV battery CI-boundary regression
+Stage2 taxonomy support v13 narrow5: 7 new trigger-backed support-only contexts for high-pressure waterjet PPE, UV lamp eye PPE, UV coating ozone respirator, formalin contact PPE, cold-room PPE, crematorium hot-surface PPE, and sharp-fragment hand PPE; broad cold-room wording and global short-token tightening trials were rejected
+Stage3 SR gap support v14 narrow6b: 13 new trigger-backed support-only contexts for concrete Stage3 SHE-to-SR gaps; first trial rejected short trigger overmatches (`발판 없이`, generic `슬링/인양`, generic `용접 흄`, generic `보호 장갑 미착용`) and 2 stale reflow/soldering rows were marked rejected/review_only
+Stage3 remaining gap support v16c narrow8c: 6 new trigger-backed support-only contexts for wafer-transfer robot sensor bypass, UV sterilizer PPE, silica-dust respirator misuse, yarn-winding hand entry, harvest squatting ergonomics, and adhesive splash eye/face PPE; EV battery support was held back after one top-Guide regression
+Stage3 remaining gap support v17b narrow9b: 8 new trigger-backed support-only contexts for hair chemical eye exposure, hair-wash neck ergonomics, cashier prolonged standing, pet grooming bite/table fall, binding-machine LOTO, truck-coupling pretrip check, and steam-gun face burn PPE; the broader v17 trial was held back after generic `안전핀` and engine-overhaul waste-support regressions
+Stage3 remaining gap support v18 narrow10: 4 new trigger-backed support-only contexts for industrial washer vibration/crush, garment sharp-object puncture, EV high-voltage battery PPE gap, and cold-room emergency-release failure; existing binding-machine LOTO trigger terms were tightened for actual `기계 미정지` and `용지 걸림 제거` wording
+Stage3 remaining gap support v19 dropped-tool: 1 new support-only context, `MAINTENANCE_HEIGHT_DROPPED_TOOL`, for hospital/building high-place dropped-tool risk routed to `G-60-2012` and `G-44-2011`
+Stage3 remaining gap support v20 actionable: 2 new support-only contexts, `GREENHOUSE_STRUCTURE_FALL` and `DRY_CLEANING_STEAM_PIPE_HOT_SURFACE`, routed to `C-49-2012` and `P-22-2012`; both remaining cases still lack immediate-action CI
+Stage3 safe cue negation fix2: safe words are ignored in negated/contrastive phrases (`LOTO 미적용`, `밀착 미흡`, `동료 정상 착용과 대비`) and safe procedure phrases block trigger-only support (`압력 게이지 0`, `잔압 완전 방출`, `방열 장갑 착용`)
+Stage3 confirmation gate: confirmation_required support can pass usage/domain gates only when trigger-backed, non-broad-SR-backed, and child/profile-aligned
+SituationFrame safe-lock fix: generic `잠금` no longer counts as a safe cue for external-lock/entrapment wording
+frame extraction:
+  child_context_available: 528
+  broad_parent_without_child: 241
+  guide support hit samples: 8
+photo matchability:
+  photo_actionable: 637
+  photo_conditional_followup: 36
+  photo_unmatchable: 365
+  measurement_analysis role overrides: 8
+```
+
 Tracked baseline summary:
 
 ```text
@@ -147,9 +217,117 @@ docs/status/evaluation-baseline.md
 pictures-json/reports-manifest.json
 ```
 
+NO_TOP root-cause audit:
+
+```text
+report: pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v20_actionable.*
+total_no_top: 17
+primary root causes:
+  stage2_taxonomy_or_normalization_gap: 11
+  stage3_she_to_sr_gap: 2
+  synthetic_fixture_or_safe_controlled_positive: 2
+  situation_frame_child_context_gap: 1
+  stage3_she_gap_but_sr_available: 1
+domain buckets:
+  service_healthcare_people_gap: 7
+  other_taxonomy_gap: 4
+  chemical_profile_gap: 3
+  construction_fall_profile_gap: 1
+  machine_profile_gap: 1
+  material_handling_profile_gap: 1
+```
+
 Local/external report bodies:
 
 ```text
+pictures-json/reports/situation_frame_artifact_build.v2.*
+pictures-json/reports/situation_frame_eval_report.v2_child_gate1.*
+pictures-json/reports/guide_photo_matchability_audit_v1.*
+pictures-json/reports/no_top_guide_support_candidates_v1.*
+pictures-json/reports/stage2_no_top_support_candidates_v3.*
+pictures-json/reports/stage3_support_alignment_aliases_v2.*
+pictures-json/reports/stage2_support_usage_gate_artifacts_v2.*
+pictures-json/reports/stage3_domain_support_v6_artifacts_tight1.*
+pictures-json/reports/stage2_3_support_v10_artifacts_narrow2.*
+pictures-json/reports/stage2_taxonomy_gap_support_v15_artifacts_narrow7b.*
+pictures-json/reports/pipeline_quality_v1_v10_stage2_taxonomy_gap_support_v15_narrow7b.*
+pictures-json/reports/actual_response_samples_stage2_taxonomy_gap_support_v15_narrow7b.*
+pictures-json/reports/synthetic_observations_v10_stage2_taxonomy_gap_support_v15_narrow7b_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage2_taxonomy_gap_support_v15_narrow7b.*
+pictures-json/reports/stage3_remaining_gap_support_v16c_artifacts_narrow8c.*
+pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v16c_narrow8c.*
+pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v16c_narrow8c.*
+pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v16c_narrow8c_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v16c_narrow8c.*
+pictures-json/reports/stage3_remaining_gap_support_v17b_artifacts_narrow9b.*
+pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v17b_narrow9b.*
+pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v17b_narrow9b.*
+pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v17b_narrow9b_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v17b_narrow9b.*
+pictures-json/reports/stage3_remaining_gap_support_v18_artifacts_narrow10.*
+pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v18_narrow10.*
+pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v18_narrow10.*
+pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v18_narrow10_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v18_narrow10.*
+pictures-json/reports/stage3_remaining_gap_support_v19_artifacts.*
+pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v19_dropped_tool.*
+pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v19_dropped_tool.*
+pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v19_dropped_tool_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v19_dropped_tool.*
+pictures-json/reports/stage2_taxonomy_gap_triage_stage3_safe_cue_negation_fix2.*
+pictures-json/reports/stage3_sr_gap_support_v14_artifacts_narrow6b.*
+pictures-json/reports/pipeline_quality_v1_v10_stage3_sr_gap_support_v14_narrow6b.*
+pictures-json/reports/actual_response_samples_stage3_sr_gap_support_v14_narrow6b.*
+pictures-json/reports/synthetic_observations_v10_stage3_sr_gap_support_v14_narrow6b_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage3_sr_gap_support_v14_narrow6b.*
+pictures-json/reports/pipeline_quality_v1_v10_stage2_taxonomy_support_v13_narrow5.*
+pictures-json/reports/actual_response_samples_stage2_taxonomy_support_v13_narrow5.*
+pictures-json/reports/synthetic_observations_v10_stage2_taxonomy_support_v13_narrow5_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage2_taxonomy_support_v13_narrow5.*
+pictures-json/reports/stage2_3_support_v9_artifacts_narrow4.*
+pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v9_narrow4.*
+pictures-json/reports/actual_response_samples_stage2_3_support_v9_narrow4.*
+pictures-json/reports/synthetic_observations_v10_stage2_3_support_v9_narrow4_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v9_narrow4.*
+pictures-json/reports/pipeline_quality_v1_v10_stage3_domain_support2_confirmation_gate2.*
+pictures-json/reports/actual_response_samples_stage3_domain_support2_confirmation_gate2.*
+pictures-json/reports/synthetic_observations_v10_stage3_domain_support2_confirmation_gate2_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage3_domain_support2_confirmation_gate2.*
+pictures-json/reports/stage2_3_support_v8_artifacts_narrow2.*
+pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v8_narrow2.*
+pictures-json/reports/actual_response_samples_stage2_3_support_v8_narrow2.*
+pictures-json/reports/synthetic_observations_v10_stage2_3_support_v8_narrow2_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v8_narrow2.*
+pictures-json/reports/stage2_service_support_v7_artifacts_narrow1.*
+pictures-json/reports/pipeline_quality_v1_v10_stage2_service_support_v7_narrow1.*
+pictures-json/reports/actual_response_samples_stage2_service_support_v7_narrow1.*
+pictures-json/reports/synthetic_observations_v10_stage2_service_support_v7_narrow1_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage2_service_support_v7_narrow1.*
+pictures-json/reports/pipeline_quality_v1_v10_stage3_domain_support1_tight1.*
+pictures-json/reports/actual_response_samples_stage3_domain_support1_tight1.*
+pictures-json/reports/synthetic_observations_v10_stage3_domain_support1_tight1_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage3_domain_support1_tight1.*
+pictures-json/reports/pipeline_quality_v1_v10_stage2_support_usage_gate3_safe_lock1.*
+pictures-json/reports/actual_response_samples_stage2_support_usage_gate3_safe_lock1.*
+pictures-json/reports/synthetic_observations_v10_stage2_support_usage_gate3_safe_lock1_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage2_support_usage_gate3_safe_lock1.*
+pictures-json/reports/pipeline_quality_v1_v10_stage2_support_usage_gate2b.*
+pictures-json/reports/actual_response_samples_stage2_support_usage_gate2b.*
+pictures-json/reports/synthetic_observations_v10_stage2_support_usage_gate2b_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage2_support_usage_gate2b.*
+pictures-json/reports/pipeline_quality_v1_v10_stage3_support_alias2.*
+pictures-json/reports/actual_response_samples_stage3_support_alias2.*
+pictures-json/reports/synthetic_observations_v10_stage3_support_alias2_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage3_support_alias2.*
+pictures-json/reports/pipeline_quality_v1_v10_stage2_no_top_support3.*
+pictures-json/reports/actual_response_samples_stage2_no_top_support3.*
+pictures-json/reports/synthetic_observations_v10_stage2_no_top_support3_report.*
+pictures-json/reports/stage2_5_no_top_root_cause_stage2_no_top_support3.*
+pictures-json/reports/pipeline_quality_v1_v10_no_top_support1.*
+pictures-json/reports/stage2_5_no_top_root_cause_photo_matchability1.*
+pictures-json/reports/pipeline_quality_v1_v10_situation_frame_support7.*
+pictures-json/reports/actual_response_samples_situation_frame_support7.*
+pictures-json/reports/synthetic_observations_v10_situation_frame_support7_report.*
 pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.*
 pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.*
 pictures-json/reports/synthetic_observations_v10_usage_profile11_report.*
@@ -194,6 +372,9 @@ kosha-guides/parsed: 1038
 
 1. 새 작업은 root `arch-bot/main`에서 수행한다.
 2. 작업 전 `git status --short --branch`로 clean 상태를 확인한다.
-3. Guide 품질 작업은 `usage_profile11` 기준으로 이어간다.
-4. 다음 구조적 보강 대상은 `NO_TOP 395`, `missing_usage_profile`, `industry_boundary_gap`, `workprocess_mismatch` 큐다.
-5. 단순 keyword 추가가 아니라 Guide usage profile의 `observable_required_cues`, `negative_boundaries`, `procedure_role`, `primary_work_process_ids` 보강으로 처리한다.
+3. Guide 품질 작업은 `stage3_remaining_gap_support_v20_actionable` 기준으로 이어간다.
+4. `she-stage3-new-pattern-candidates-reference-guard1` 230건은 runtime SHE 확정으로 import하지 않는다. `true_new_she`도 첫 사이클에서는 review-only다.
+5. 다음 구조적 보강 대상은 `stage3_remaining_gap_support_v20_actionable` 이후에도 남은 NO_TOP 17건이다. 단, runtime SHE 확정으로 올리지 말고 review-only SHE/SR 후보, SituationFrame child context, Guide support 후보로 먼저 다룬다.
+6. 단순 keyword 추가가 아니라 SituationFrame child context, Guide usage profile의 `observable_required_cues`, `negative_boundaries`, `procedure_role`, `primary_work_process_ids`, WorkProcess relevance 보강으로 처리한다.
+7. parent context는 검색 확장에만 쓰고, parent-only match는 confirmed/status/penalty/direct SR/표준절차 top 후보를 만들 수 없다.
+8. photo_matchability는 표준절차 top lane에만 적용한다. 즉시조치, SHE status, SR evidence, penalty path에는 적용하지 않는다.

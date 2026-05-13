@@ -24,9 +24,11 @@ from typing import Any
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(BACKEND_DIR))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from app.db.database import SessionLocal  # noqa: E402
 from app.services.analysis_pipeline import AnalysisRunInput, analysis_pipeline  # noqa: E402
+from she_shadow_candidates import install_shadow_she_candidates  # noqa: E402
 
 
 DEFAULT_SOURCE_REPORT = (
@@ -42,6 +44,9 @@ DEFAULT_COMPARISON_REPORT = (
     / "actual_response_samples_v1_v10_after_pipeb1038_20260509_072955.json"
 )
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_SHADOW_SHE_CANDIDATES = (
+    PROJECT_ROOT / "koshaontology" / "data" / "she" / "she-stage3-new-pattern-candidates-reference-guard1.jsonl"
+)
 
 OK_BUCKETS = {"legacy_ok", "ambiguous_ok", "negative_ok"}
 
@@ -347,12 +352,30 @@ async def replay_records(
     comparison_records: dict[tuple[Any, Any, Any], dict[str, Any]],
     limit: int | None,
     show_runtime_log: bool,
+    shadow_she_candidates: Path | None,
+    shadow_she_priorities: str,
+    shadow_she_limit: int,
+    shadow_she_use_runtime_match_features: bool,
+    shadow_she_require_visual_trigger: bool,
+    shadow_she_min_visual_score: float,
 ) -> list[dict[str, Any]]:
     # Evaluation should not create product analysis history rows.
     original_persist = analysis_pipeline._persist_response
     analysis_pipeline._persist_response = lambda *args, **kwargs: None
     db = SessionLocal()
+    shadow_stats = None
     try:
+        if shadow_she_candidates:
+            shadow_stats = install_shadow_she_candidates(
+                db,
+                shadow_she_candidates,
+                priorities=shadow_she_priorities,
+                limit=shadow_she_limit,
+                use_runtime_match_features=shadow_she_use_runtime_match_features,
+                require_visual_trigger=shadow_she_require_visual_trigger,
+                min_visual_score=shadow_she_min_visual_score,
+            )
+            print(f"[INFO] installed shadow SHE candidates: {shadow_stats}")
         records = []
         for record in source_records[:limit]:
             if show_runtime_log:
@@ -372,6 +395,8 @@ async def replay_records(
             )
         return records
     finally:
+        if shadow_stats:
+            db.rollback()
         db.close()
         analysis_pipeline._persist_response = original_persist
 
@@ -387,6 +412,41 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--database-note",
         default="current OHS runtime / current PostgreSQL ontology data",
+    )
+    parser.add_argument(
+        "--shadow-she-candidates",
+        type=Path,
+        default=None,
+        const=DEFAULT_SHADOW_SHE_CANDIDATES,
+        nargs="?",
+        help="Temporarily insert review-only SHE candidates into this DB session and rollback after replay.",
+    )
+    parser.add_argument(
+        "--shadow-she-priorities",
+        default="high",
+        help="Comma-separated review priorities to include, or 'all'. Default: high.",
+    )
+    parser.add_argument(
+        "--shadow-she-limit",
+        type=int,
+        default=0,
+        help="Optional first-N shadow candidate limit after priority filtering.",
+    )
+    parser.add_argument(
+        "--shadow-she-use-runtime-match-features",
+        action="store_true",
+        help="Insert candidate runtime_match_features instead of exact ontology features for shadow matching.",
+    )
+    parser.add_argument(
+        "--shadow-she-require-visual-trigger",
+        action="store_true",
+        help="Require candidate visual_triggers to match the observation before a shadow SHE can match.",
+    )
+    parser.add_argument(
+        "--shadow-she-min-visual-score",
+        type=float,
+        default=0.2,
+        help="Minimum visual trigger score when --shadow-she-require-visual-trigger is enabled.",
     )
     return parser.parse_args()
 
@@ -409,6 +469,12 @@ def main() -> None:
             comparison_records,
             args.limit,
             args.show_runtime_log,
+            args.shadow_she_candidates,
+            args.shadow_she_priorities,
+            args.shadow_she_limit,
+            args.shadow_she_use_runtime_match_features,
+            args.shadow_she_require_visual_trigger,
+            args.shadow_she_min_visual_score,
         )
     )
     summary = build_summary(records, source_report, comparison_report, args.database_note)

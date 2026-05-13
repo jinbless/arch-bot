@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+import re
 from typing import Any
 
 from sqlalchemy import func
@@ -26,7 +27,16 @@ from app.services.broad_sr_policy import (
     usable_primary_sr_ids,
 )
 from app.services.guide_domain_profile import evaluate_guide_domain_profile, get_guide_domain_profile
+from app.services.guide_photo_matchability import (
+    PHOTO_ACTIONABLE,
+    PHOTO_CONDITIONAL_FOLLOWUP,
+    PHOTO_UNMATCHABLE,
+    followup_photo_allowed,
+    get_photo_matchability,
+    top_photo_allowed,
+)
 from app.services.industry_context import infer_industry_context, score_industry_alignment
+from app.services.situation_frame_service import load_situation_context_taxonomy, match_guide_support_candidates
 
 
 SERVING_CONFIDENCE = 0.65
@@ -73,6 +83,13 @@ REFERENCE_PROCEDURE_ROLES = {
     "risk_method",
     "document_reference",
     "management_program",
+}
+CONTEXT_REQUIRED_DOMAIN_FAMILIES = {
+    "reused_temporary_equipment_performance_scaffold_shoring_inspection",
+    "cold_contact_surface_risk_assessment",
+}
+CONTEXT_REQUIRED_FAMILY_FEATURE_ALLOW = {
+    "cold_contact_surface_risk_assessment": {"COLD_EXPOSURE"},
 }
 
 
@@ -216,7 +233,37 @@ def _manual_profile_terms(profile: dict | None) -> list[str]:
         if isinstance(values, list):
             terms.extend(str(value) for value in values if value)
     terms.extend(str(value) for value in (boundary.get("include_when") or []) if value)
+    if profile.get("guide_code") == "P-55-2012":
+        terms = [term for term in terms if term != "황"]
     return _unique(terms)
+
+
+def _support_child_profile_aligned(child_context: str | None, profile: dict | None) -> bool:
+    if not child_context or not profile:
+        return False
+    profile_text = " ".join([
+        str(profile.get("domain_family") or ""),
+        str(profile.get("usage_summary") or ""),
+        *(_manual_profile_terms(profile) or []),
+    ]).lower()
+    if not profile_text:
+        return False
+    child = str(child_context).lower()
+    child_forms = _unique([child, child.replace("_", " ")])
+    taxonomy = load_situation_context_taxonomy()
+    aliases = (taxonomy.get("aliases") or {}).get(str(child_context)) or []
+    child_info = (taxonomy.get("child_contexts") or {}).get(str(child_context)) or {}
+    profile_aliases = child_info.get("profile_alignment_aliases") or []
+    child_forms.extend(str(alias).lower() for alias in aliases if len(str(alias)) >= 2)
+    child_forms.extend(str(alias).lower() for alias in profile_aliases if len(str(alias)) >= 2)
+    if any(form and form in profile_text for form in child_forms):
+        return True
+    child_tokens = [
+        token
+        for token in re.split(r"[^a-z0-9가-힣]+", child)
+        if len(token) >= 4
+    ]
+    return any(token in profile_text for token in child_tokens)
 
 
 def _term_hits(text: str, terms: list[str], limit: int = 3) -> list[str]:
@@ -224,7 +271,7 @@ def _term_hits(text: str, terms: list[str], limit: int = 3) -> list[str]:
     lowered_text = (text or "").lower()
     for term in terms:
         lowered = term.lower()
-        if lowered and lowered in lowered_text and term not in hits:
+        if lowered in lowered_text and term not in hits:
             hits.append(term)
         if len(hits) >= limit:
             break
@@ -278,6 +325,39 @@ def _score_usage_profile(
     return score, reasons, bool(term_hits or non_generic_feature_hits or industry_hits)
 
 
+def _support_profile_usage_signal(
+    support_signal: dict[str, Any] | None,
+    profile: dict | None,
+) -> tuple[float, list[str], bool]:
+    """Allow tightly curated Guide support to satisfy the usage gate.
+
+    This is intentionally narrower than normal profile-term matching.  It only
+    applies when a support candidate is trigger-backed, has a non-broad SR, and
+    the SituationFrame child context is aligned with the Guide usage profile.
+    """
+    if not support_signal or not profile:
+        return 0.0, [], False
+    if not support_signal.get("has_trigger_hit"):
+        return 0.0, [], False
+    if not support_signal.get("has_non_broad_support_sr"):
+        return 0.0, [], False
+    if float(support_signal.get("support_score") or 0) < _support_signal_score_threshold(support_signal):
+        return 0.0, [], False
+    child_context = support_signal.get("child_context")
+    if not _support_child_profile_aligned(child_context, profile):
+        return 0.0, [], False
+    return (
+        0.08,
+        [f"usage profile support alignment:{child_context}"],
+        True,
+    )
+
+
+def _support_signal_score_threshold(support_signal: dict[str, Any] | None) -> float:
+    if support_signal and support_signal.get("match_policy") == "confirmation_required":
+        return 0.54
+    return 0.78
+
 
 def _reference_role_context_hit(profile: dict | None, visual_cues: list[str] | None, context_text: str | None) -> bool:
     if not profile:
@@ -294,6 +374,45 @@ def _reference_role_context_hit(profile: dict | None, visual_cues: list[str] | N
         "management_program": ["계획", "계획서", "프로그램", "절차서", "관리방안", "비상대피", "비상조치"],
     }.get(role, [])
     return bool(_term_hits(_context_blob(visual_cues, context_text), role_terms, limit=1))
+
+
+def _ci_reference_role_allowed(
+    profile: dict | None,
+    visual_cues: list[str] | None,
+    context_text: str | None,
+    *,
+    has_she_cue: bool = False,
+) -> bool:
+    if has_she_cue or not profile:
+        return True
+    role = str(profile.get("procedure_role") or "field_control")
+    if role not in REFERENCE_PROCEDURE_ROLES:
+        return True
+    return _reference_role_context_hit(profile, visual_cues, context_text)
+
+
+def _ci_context_bonus(
+    ci: PgChecklistItem,
+    profile: dict | None,
+    visual_cues: list[str] | None,
+    context_text: str | None,
+) -> tuple[float, list[str]]:
+    ci_text = (ci.text or "").lower()
+    if not ci_text:
+        return 0.0, []
+    context = _context_blob(visual_cues, context_text)
+    profile_terms = _manual_profile_terms(profile)
+    context_profile_terms = _term_hits(context, profile_terms, limit=8)
+    ci_profile_hits = _term_hits(ci_text, context_profile_terms, limit=3)
+    ci_visual_hits = _term_hits(ci_text, [cue for cue in (visual_cues or []) if cue], limit=3)
+    bonus = min(0.22, len(ci_profile_hits) * 0.075 + len(ci_visual_hits) * 0.045)
+    reasons = []
+    if ci_profile_hits:
+        reasons.append(f"CI profile term:{','.join(ci_profile_hits[:2])}")
+    if ci_visual_hits:
+        reasons.append(f"CI visual term:{','.join(ci_visual_hits[:2])}")
+    return bonus, reasons
+
 
 def _rank_work_processes(
     work_processes: list[PgWorkProcess],
@@ -332,6 +451,8 @@ def get_immediate_checklist_items(
     visual_cues: list[str] | None = None,
     industry_contexts: list[str] | None = None,
     context_text: str | None = None,
+    preferred_guide_codes: list[str] | None = None,
+    situation_frame: dict | None = None,
 ) -> list[dict]:
     """Return immediate actions with SHE/SR/feature evidence scoring.
 
@@ -458,7 +579,7 @@ def get_immediate_checklist_items(
         evidence_by_ci[identifier].extend(pending_broad_evidence.get(identifier, []))
 
     safe_fallback_sr_ids = fallback_sr_ids(sr_ids)
-    if not ci_rows and safe_fallback_sr_ids:
+    if not ci_rows and safe_fallback_sr_ids and not preferred_guide_codes:
         return hazard_rule_engine.get_checklist_from_srs(db, safe_fallback_sr_ids, limit=limit)
 
     ranked = []
@@ -479,8 +600,10 @@ def get_immediate_checklist_items(
     profile_bits = _guide_candidate_profile_bits(db, source_guides)
 
     results = []
+    result_ids: set[str] = set()
     for score, identifier, ci in ranked:
         guide = guides.get(ci.source_guide)
+        manual_profile = get_guide_domain_profile(ci.source_guide)
         domain_decision = evaluate_guide_domain_profile(
             guide_code=ci.source_guide,
             title=guide.title if guide else None,
@@ -490,7 +613,10 @@ def get_immediate_checklist_items(
             visual_cues=visual_cues,
             context_text=context_text,
         )
-        if domain_decision.exclude:
+        has_she_cue = any("SHE related checklist cue" in item for item in evidence_by_ci.get(identifier, []))
+        if not _ci_reference_role_allowed(manual_profile, visual_cues, context_text, has_she_cue=has_she_cue):
+            continue
+        if domain_decision.exclude or (domain_decision.alignment == "domain_mismatch" and not has_she_cue):
             continue
         results.append({
             "identifier": ci.identifier,
@@ -502,8 +628,63 @@ def get_immediate_checklist_items(
             "relevance_score": round(min(0.99, score / 2.0), 4),
             "evidence_summary": "; ".join(_unique(evidence_by_ci.get(identifier, []))[:3]),
         })
+        result_ids.add(ci.identifier)
         if len(results) >= limit:
             break
+
+    primary_fallback_sr_ids = usable_primary_sr_ids(sr_ids, direct_sr_ids)
+    if len(results) < limit and preferred_guide_codes and primary_fallback_sr_ids:
+        preferred = _unique(preferred_guide_codes)[:2]
+        fallback_rows = (
+            db.query(PgChecklistItem, PgCiSrMapping.sr_id)
+            .join(PgCiSrMapping, PgCiSrMapping.ci_id == PgChecklistItem.identifier)
+            .filter(PgChecklistItem.source_guide.in_(preferred))
+            .filter(PgCiSrMapping.sr_id.in_(primary_fallback_sr_ids))
+            .limit(max(20, (limit - len(results)) * 6))
+            .all()
+        )
+        fallback_scores: dict[str, float] = defaultdict(float)
+        fallback_srs: dict[str, set[str]] = defaultdict(set)
+        fallback_ci: dict[str, PgChecklistItem] = {}
+        fallback_evidence: dict[str, list[str]] = defaultdict(list)
+        preferred_rank = {guide_code: index for index, guide_code in enumerate(preferred)}
+        for ci, sr_id in fallback_rows:
+            if ci.identifier in result_ids:
+                continue
+            manual_profile = get_guide_domain_profile(ci.source_guide)
+            if not _ci_reference_role_allowed(manual_profile, visual_cues, context_text):
+                continue
+            context_bonus, context_evidence = _ci_context_bonus(ci, manual_profile, visual_cues, context_text)
+            fallback_ci[ci.identifier] = ci
+            fallback_srs[ci.identifier].add(sr_id)
+            fallback_scores[ci.identifier] += 0.58 + context_bonus
+            fallback_evidence[ci.identifier].extend(context_evidence)
+        fallback_ranked = sorted(
+            fallback_ci.items(),
+            key=lambda item: (
+                -fallback_scores[item[0]],
+                preferred_rank.get(item[1].source_guide or "", 99),
+                item[1].identifier,
+            ),
+        )
+        for identifier, ci in fallback_ranked:
+            if identifier in result_ids:
+                continue
+            results.append({
+                "identifier": ci.identifier,
+                "text": ci.text,
+                "binding_force": ci.binding_force,
+                "source_guide": ci.source_guide,
+                "source_section": ci.source_section,
+                "source_sr_ids": sorted(fallback_srs.get(identifier, set())),
+                "relevance_score": round(min(0.82, 0.48 + fallback_scores[identifier] * 0.04), 4),
+                "evidence_summary": "; ".join(
+                    ["domain-safe top Guide CI-SR fallback", *_unique(fallback_evidence.get(identifier, []))[:2]]
+                ),
+            })
+            result_ids.add(identifier)
+            if len(results) >= limit:
+                break
     return results
 
 
@@ -517,6 +698,9 @@ def get_standard_guides(
     she_matches: list[Any] | None = None,
     visual_cues: list[str] | None = None,
     context_text: str | None = None,
+    situation_frame: dict | None = None,
+    apply_photo_top_gate: bool = True,
+    allow_support_without_observable_cue: bool = False,
 ) -> list[dict]:
     """Return Guide recommendations centered on WorkProcess steps."""
     industry_contexts = industry_contexts or []
@@ -536,15 +720,55 @@ def get_standard_guides(
     pending_generic_feature_scores: dict[str, float] = defaultdict(float)
     pending_generic_feature_reasons: dict[str, list[str]] = defaultdict(list)
     guide_specific_signals: set[str] = set()
+    usage_profile_signals: set[str] = set()
+    support_signal_by_guide: dict[str, dict[str, Any]] = {}
     context_blob = _context_blob(visual_cues, context_text)
     she_source_guides = _she_source_guides(she_matches)
-    if not sr_ids and not she_source_guides:
+    support_matches = match_guide_support_candidates(
+        situation_frame,
+        visual_cues=visual_cues,
+        context_text=context_text,
+        require_observable_cue=not allow_support_without_observable_cue,
+    )
+    support_guide_codes = {
+        guide_code
+        for support in support_matches
+        for guide_code in (support.get("guide_codes") or [])
+    }
+    support_only_mode = bool(support_matches) and not sr_ids and not she_source_guides
+    if not sr_ids and not she_source_guides and not support_matches:
         return []
 
     for guide_code in she_source_guides:
         guide_scores[guide_code] += 1.0
         guide_reasons[guide_code].append("SHE source guide")
         guide_specific_signals.add(guide_code)
+
+    for support in support_matches:
+        guide_codes = support.get("guide_codes") or []
+        child_context = str(support.get("child_context") or "")
+        support_score = float(support.get("support_score") or support.get("confidence") or 0)
+        trigger_hits = support.get("trigger_hits") or []
+        support_sr_ids = set(support.get("source_sr_ids") or [])
+        has_non_broad_support_sr = bool(support_sr_ids - broad_sr_ids)
+        for guide_code in guide_codes[:8]:
+            guide_scores[guide_code] += min(0.16, support_score * 0.18)
+            if trigger_hits:
+                guide_reasons[guide_code].append(f"SituationFrame trigger support:{child_context}")
+            else:
+                guide_reasons[guide_code].append(f"SituationFrame child support:{child_context}")
+            guide_specific_signals.add(guide_code)
+            current = support_signal_by_guide.get(guide_code)
+            if not current or support_score > float(current.get("support_score") or 0):
+                support_signal_by_guide[guide_code] = {
+                    "child_context": child_context,
+                    "support_score": support_score,
+                    "has_trigger_hit": bool(trigger_hits),
+                    "has_non_broad_support_sr": has_non_broad_support_sr,
+                    "match_policy": support.get("match_policy"),
+                }
+            elif has_non_broad_support_sr:
+                current["has_non_broad_support_sr"] = True
 
     if sr_ids:
         rows = (
@@ -606,6 +830,8 @@ def get_standard_guides(
                 .all()
             )
             for candidate in feature_rows:
+                if support_only_mode and candidate.guide_code not in support_guide_codes:
+                    continue
                 weight = 0.16 if candidate.entity_type == "WP" else 0.08
                 if _guide_specific_feature(candidate.feature_code):
                     guide_scores[candidate.guide_code] += float(candidate.confidence or 0) * weight
@@ -624,6 +850,8 @@ def get_standard_guides(
                 .all()
             )
             for candidate in trigger_rows:
+                if support_only_mode and candidate.guide_code not in support_guide_codes:
+                    continue
                 if not _matches_visual_trigger(candidate, context_blob):
                     continue
                 weight = 0.18 if candidate.entity_type == "WP" else 0.10
@@ -643,11 +871,17 @@ def get_standard_guides(
             industry_contexts=industry_contexts,
         )
         if usage_score <= 0:
+            usage_score, usage_reasons, usage_signal = _support_profile_usage_signal(
+                support_signal_by_guide.get(guide_code),
+                get_guide_domain_profile(guide_code),
+            )
+        if usage_score <= 0:
             continue
         guide_scores[guide_code] += usage_score
         guide_reasons[guide_code].extend(usage_reasons)
         if usage_signal:
             guide_specific_signals.add(guide_code)
+            usage_profile_signals.add(guide_code)
 
     for guide_code, pending_score in pending_generic_feature_scores.items():
         if guide_code not in guide_specific_signals and guide_scores.get(guide_code, 0.0) <= 0:
@@ -737,33 +971,104 @@ def get_standard_guides(
             visual_cues=visual_cues,
             context_text=context_text,
         )
+        domain_overridden_by_support = False
         if domain_decision.exclude or domain_decision.alignment == "domain_mismatch":
+            support_signal = support_signal_by_guide.get(guide_code) or {}
+            trigger_backed_support = bool(
+                support_signal.get("has_trigger_hit")
+                and float(support_signal.get("support_score") or 0) >= _support_signal_score_threshold(support_signal)
+                and support_signal.get("has_non_broad_support_sr")
+                and _support_child_profile_aligned(
+                    support_signal.get("child_context"),
+                    manual_profile,
+                )
+            )
+            if trigger_backed_support:
+                domain_overridden_by_support = True
+                guide_reasons[guide_code].append(
+                    f"support trigger profile-aligned domain override:{support_signal.get('child_context')}"
+                )
+            else:
+                continue
+        if (
+            manual_profile
+            and manual_profile.get("domain_family") in CONTEXT_REQUIRED_DOMAIN_FAMILIES
+            and guide_code not in she_source_guides
+            and guide_code not in support_guide_codes
+            and not _term_hits(_context_blob(visual_cues, context_text), _manual_profile_terms(manual_profile), limit=1)
+            and not (
+                set(feature_codes)
+                & CONTEXT_REQUIRED_FAMILY_FEATURE_ALLOW.get(str(manual_profile.get("domain_family")), set())
+            )
+        ):
+            continue
+        if (
+            manual_profile
+            and str(manual_profile.get("profile_level") or "general") == "general"
+            and guide_code not in she_source_guides
+            and guide_code not in support_guide_codes
+            and guide_code not in usage_profile_signals
+        ):
             continue
         if not _reference_role_context_hit(manual_profile, visual_cues, context_text):
             continue
+        photo_policy = get_photo_matchability(guide_code, manual_profile)
+        photo_matchability = str(photo_policy.get("photo_matchability") or PHOTO_ACTIONABLE)
+        photo_lane = "primary"
+        if apply_photo_top_gate:
+            if top_photo_allowed(guide_code, manual_profile):
+                photo_lane = "primary"
+            elif followup_photo_allowed(
+                guide_code,
+                manual_profile,
+                visual_cues=visual_cues,
+                context_text=context_text,
+            ):
+                photo_lane = "followup"
+            else:
+                guide_reasons[guide_code].append(f"photo_matchability suppressed:{photo_matchability}")
+                continue
         guide_industry = infer_industry_context(text=" ".join(filter(None, [guide.title, guide.sub_category])))
         industry_adjustment, industry_alignment, _ = score_industry_alignment(
             guide_industry.active_industries,
             industry_contexts,
         )
-        if domain_decision.family:
+        if domain_decision.family and not domain_overridden_by_support:
             guide_reasons[guide_code].append(
                 f"{domain_decision.level}:{domain_decision.alignment}:{domain_decision.family}"
             )
         displayed_alignment = (
+            "domain_match"
+            if domain_overridden_by_support
+            else (
             domain_decision.alignment
             if domain_decision.alignment != "general"
             else industry_alignment
+            )
         )
         final_score = min(
             0.99,
             max(0.0, 0.45 + raw_score * 0.12 + industry_adjustment + domain_decision.score_adjustment),
         )
-        ranked_guides.append((final_score, displayed_alignment, guide_code, guide))
+        if apply_photo_top_gate and photo_matchability == PHOTO_CONDITIONAL_FOLLOWUP:
+            final_score = min(final_score, 0.62)
+            guide_reasons[guide_code].append("photo_matchability followup")
+        elif apply_photo_top_gate and photo_matchability == PHOTO_UNMATCHABLE:
+            final_score = min(final_score, 0.56)
+            guide_reasons[guide_code].append("photo_matchability explicit reference followup")
+        ranked_guides.append((final_score, displayed_alignment, guide_code, guide, photo_lane, photo_matchability))
     ranked_guides.sort(key=lambda row: row[0], reverse=True)
+    if apply_photo_top_gate:
+        primary_guides = [row for row in ranked_guides if row[4] == "primary"]
+        followup_guides = [row for row in ranked_guides if row[4] == "followup"]
+        selected_guides = primary_guides[:limit]
+        if selected_guides and len(selected_guides) < limit and followup_guides:
+            selected_guides.extend(followup_guides[:1])
+    else:
+        selected_guides = ranked_guides[:limit]
 
     results = []
-    for final_score, industry_alignment, guide_code, guide in ranked_guides[:limit]:
+    for final_score, industry_alignment, guide_code, guide, _photo_lane, _photo_matchability in selected_guides:
         steps = []
         manual_profile = get_guide_domain_profile(guide_code)
         ranked_work_processes = _rank_work_processes(

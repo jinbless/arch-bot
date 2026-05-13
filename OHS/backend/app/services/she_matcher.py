@@ -818,7 +818,7 @@ def match_she(
     # Step 1: 후보 SHE 검색 — features JSONB의 work_context 또는 accident_type 또는 hazardous_agent 일치
     # PG에서 OR 조건으로 broad 검색 후 in-Python에서 정밀 매칭
     sql = text("""
-        SELECT she_id, name, features, broadness_score, source_sr_ids, visual_triggers
+        SELECT she_id, name, features, broadness_score, source_sr_ids, visual_triggers, notes
         FROM she_catalog
         WHERE status IN ('approved_auto', 'approved_manual')
           AND (superseded_by IS NULL)
@@ -845,15 +845,17 @@ def match_she(
     # Step 2: 정밀 매칭 — 각 SHE의 8 dim 중 일치 dim count
     candidates: list[SHEMatchResult] = []
     for row in rows:
-        she_id, name, features, broadness, source_sr_ids, visual_triggers = row
+        she_id, name, features, broadness, source_sr_ids, visual_triggers, notes = row
         if isinstance(features, str):
-            import json
             features = json.loads(features)
         if isinstance(source_sr_ids, str):
             source_sr_ids = json.loads(source_sr_ids)
         if isinstance(visual_triggers, str):
             visual_triggers = json.loads(visual_triggers)
+        if isinstance(notes, str):
+            notes = json.loads(notes)
         visual_triggers = visual_triggers or []
+        notes = notes or {}
 
         matched_dims = []
         # work_context
@@ -900,6 +902,13 @@ def match_she(
                 continue
         elif min_visual_score > 0 and visual_cues:
             continue
+        match_policy = notes.get("runtime_match_policy") or {}
+        if match_policy.get("require_visual_trigger"):
+            policy_min_visual_score = float(
+                match_policy.get("min_visual_score") or CONFIRMING_VISUAL_SCORE
+            )
+            if visual_score < policy_min_visual_score:
+                continue
 
         if (
             min_agent_only_visual_score > 0

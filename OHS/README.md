@@ -65,6 +65,14 @@ backend/app/services/guide_domain_profile.py
   Guide 고유 업종/작업장 문맥과 사진 문맥의 불일치 평가
   exclusive mismatch는 제외, domain_specific mismatch는 감점
 
+backend/app/services/guide_photo_matchability.py
+  1,038개 Guide가 사진 기반 top 표준절차로 적합한지 평가
+  측정·분석/시험/검진/문서/방법론 Guide는 photo top에서 제외
+
+backend/app/services/situation_frame_service.py
+  Stage 2와 Stage 3 사이의 세부 상황 표현 계층
+  child context는 Guide 보조 점수에만 사용하고 status/penalty에는 직접 쓰지 않음
+
 backend/app/services/penalty_path_service.py
   PenaltyRule 후보를 PenaltyPath 3경로로 그룹화
 ```
@@ -75,7 +83,10 @@ backend/app/services/penalty_path_service.py
 backend/app/data/risk_feature_aliases.json
 backend/app/data/risk_feature_catalog.json
 backend/app/data/guide_domain_profiles.json
+backend/app/data/guide_photo_matchability.v1.json
 backend/app/data/broad_sr_policy.json
+backend/app/data/situation_context_taxonomy.v20.json
+backend/app/data/guide_support_candidates.v20.jsonl
 ```
 
 PostgreSQL의 Guide 보강 후보 테이블:
@@ -166,14 +177,14 @@ Synthetic smoke:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_usage_profile11
+python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_stage3_remaining_gap_support_v20_actionable_report --use-declared-industry
 ```
 
 Actual response 240 replay:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038
+python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_stage3_remaining_gap_support_v20_actionable --database-note "stage3_remaining_gap_support_v20_actionable / no asserted mapping changes"
 ```
 
 Guide recommendation evaluation:
@@ -183,18 +194,142 @@ cd /mnt/c/project/arch-bot/OHS/backend
 python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_usage_profile11
 ```
 
-Current accepted baseline, updated 2026-05-10:
+Stage 2~5 integrated pipeline quality evaluation:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_stage3_remaining_gap_support_v20_actionable --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v19_dropped_tool.json
+```
+
+Current support baseline replay:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_stage3_remaining_gap_support_v20_actionable --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v19_dropped_tool.json
+```
+
+Stage 3 remaining-gap support artifact:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/build_stage3_remaining_gap_support_v20_artifacts.py
+```
+
+Stage 2 support usage-gate artifact:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/build_stage2_support_usage_gate_artifacts.py --report-prefix stage2_support_usage_gate_artifacts_v2
+```
+
+Stage 3 domain support v6 artifact:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/build_stage3_domain_support_v6_artifacts.py --report-prefix stage3_domain_support_v6_artifacts_tight1
+```
+
+Guide photo matchability artifact:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/build_guide_photo_matchability.py
+```
+
+NO_TOP Guide support artifact:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/build_no_top_guide_support_candidates.py --support-output OHS/backend/app/data/guide_support_candidates.v3.jsonl
+```
+
+Stage 3 SHE gap candidate diagnosis:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/analyze_stage3_she_gap_candidates.py --input pictures-json/reports/pipeline_quality_v1_v10_ci_reference_guard1.json --report-prefix stage3_she_gap_candidates_reference_guard1
+```
+
+Stage 3 review-only SHE candidate preview:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/build_stage3_she_candidate_preview.py
+```
+
+SituationFrame artifacts and evaluation:
+
+```bash
+cd /mnt/c/project/arch-bot
+OHS/backend/.venv/bin/python OHS/backend/scripts/build_situation_frame_artifacts.py
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_situation_frame_quality.py --report-prefix situation_frame_eval_report.v2_child_gate1
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_situation_frame_support7
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_situation_frame_support7 --database-note "SituationFrame v2 child-gated support / support7 accepted candidate"
+cd /mnt/c/project/arch-bot/OHS/backend
+.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_situation_frame_support7
+```
+
+Latest Stage 3 candidate preview, generated from `pipeline_quality_v1_v10_ci_reference_guard1`:
 
 ```text
-baseline: usage_profile11
+source gap rows: 250
+review-only SHE draft candidates: 230
+candidate with source SR evidence: 229
+candidate without source SR evidence: 1
+review priority: high 132 / medium 73 / blocked 25
+source SR evidence: medium 144 / weak 85 / missing 1
+runtime import: not applied
+asserted mapping update: 0
+```
+
+Stage 3 shadow import experiments, run 2026-05-11:
+
+```text
+baseline pipeline_quality_v1_v10_ci_reference_guard1:
+  SHE TP/FN/FP 1107/909/82
+  Guide mismatch 162, NO_TOP 312, industry_boundary_gap 90, workprocess_mismatch 71
+  CI no_action 497, broad_sr_only 16, boundary_mismatch 65
+
+shadow high exact features:
+  SHE TP/FN/FP 1109/907/82
+  Guide mismatch 161, industry_boundary_gap 89
+  CI no_action regressed to 509
+
+shadow high runtime_match_features:
+  SHE TP/FN/FP 1108/908/82
+  Guide mismatch 158, industry_boundary_gap 85
+  CI no_action regressed to 518
+  actual 240 failed: status changed 7, ambiguous_over_promoted 7
+
+shadow high runtime_match_features + visual trigger gate:
+  SHE TP/FN/FP 1108/908/82
+  Guide mismatch 159, industry_boundary_gap 86
+  CI no_action 518
+  actual 240 failed: status changed 7, ambiguous_over_promoted 7
+```
+
+Conclusion: the 230 Stage 3 candidates are useful as ontology/review candidates, but they must not be promoted into runtime `approved_*` SHE patterns yet. Broad runtime parent features such as `MACHINE`, `CHEMICAL_WORK`, and `SCAFFOLD` can change status/penalty decisions. Next work should use these candidates as Guide/CI support signals or taxonomy review queues, not as direct finding-status drivers.
+
+SituationFrame support-only v2, accepted 2026-05-11:
+
+```text
+baseline: situation_frame_support7
 Python compile: OK
 frontend npm run build: OK
-synthetic Guide v1~v10:
+synthetic Stage 2~5 v1~v10:
   total samples 2,360
-  legacy obvious top Guide mismatch 1,145
-  current obvious top Guide mismatch 165
-  reduction 85.59%
-  NO_TOP 395
+  SHE TP/FN/FP 1107/909/82
+  SR TP/FN/FP 1414/270/211
+  Guide mismatch 145
+  Stage 2~5 NO_TOP 308
+  industry_boundary_gap 74
+  workprocess_mismatch 70
+  broad_sr_overreach 1
+  CI no_action 497
+  CI context_mismatch 17
+  CI broad_sr_only 16
+  CI needs_review_used 0
+  CI guide_boundary_mismatch 63
 v10 smoke:
   SHE recall 100.0%
   SHE false negative 0
@@ -207,13 +342,43 @@ actual response 240:
   ambiguous_over_promoted 5
 ```
 
+SituationFrame artifact summary:
+
+```text
+classified Stage 3 candidates: 230
+runtime SHE approved update: 0
+asserted mapping update: 0
+child contexts: 86
+Guide support candidates: 1
+support Guide review:
+  accept 1
+  reject 190
+support Guide reject reasons:
+  manual_child_guide_boundary 187
+  domain_excluded 2
+  domain_mismatch 1
+classification labels:
+  taxonomy_gap 230
+  guide_support_only 112
+  ambiguous_confirmation 117
+  true_new_she 60
+  sr_review_needed 98
+frame extraction on synthetic v1~v10:
+  child_context_available 528
+  broad_parent_without_child 241
+  guide support hit samples 8
+```
+
+`situation_frame_support7` is a conservative runtime layer. It keeps child contexts for Guide/CI support only. Parent contexts such as `MACHINE` and `MATERIAL_HANDLING` remain search expansion signals and cannot create confirmed status, penalty exposure, direct SR evidence, or broad-only Guide/CI results.
+
 ## Current Open Work
 
-1. `usage_profile11`의 `NO_TOP 395` 큐를 Guide usage profile, visual trigger, WorkProcess relevance 보강으로 줄인다.
-2. `guide_sr_link_candidates` unique key 충돌 후보를 evidence merge/pre-aggregate한 뒤 candidate table import를 dry-run한다.
-3. asserted mapping update는 0으로 유지하고, 중신뢰 후보는 법적 확정 근거처럼 표시하지 않는다.
-4. 브라우저 자동화로 분석 화면까지 timeout 없이 smoke test한다.
-5. WorkProcess step 품질 점수와 industry alignment 점수를 더 세분화한다.
+1. `stage3_remaining_gap_support_v20_actionable` 이후에도 남은 NO_TOP 17건은 `stage2_taxonomy_or_normalization_gap 11`, `synthetic_fixture_or_safe_controlled_positive 2`, `stage3_she_to_sr_gap 2`, `situation_frame_child_context_gap 1`, `stage3_she_gap_but_sr_available 1` 순서로 처리한다.
+2. `broad_parent_without_child` NO_TOP 잔여와 남은 service-healthcare/chemical/other/machine 큐를 child context taxonomy 후보로 분해한다.
+3. `MACHINE`, `MATERIAL_HANDLING`, `CONSTRUCTION_EQUIP`, `EXCAVATION` 붕괴 케이스를 Guide support 후보로만 확장한다.
+4. `guide_sr_link_candidates` unique key 충돌 후보를 evidence merge/pre-aggregate한 뒤 candidate table import를 dry-run한다.
+5. asserted mapping update는 0으로 유지하고, 중신뢰 후보는 법적 확정 근거처럼 표시하지 않는다.
+6. WorkProcess step 품질 점수와 industry alignment 점수를 더 세분화한다.
 
 ## Notes
 
@@ -228,6 +393,9 @@ Runtime reads local OHS serving artifacts instead of koshaontology working files
 ```text
 OHS/backend/app/data/guide_domain_profiles.json
 OHS/backend/app/data/broad_sr_policy.json
+OHS/backend/app/data/guide_photo_matchability.v1.json
+OHS/backend/app/data/situation_context_taxonomy.v20.json
+OHS/backend/app/data/guide_support_candidates.v20.jsonl
 ```
 
 Serving candidate gates:
@@ -241,17 +409,27 @@ needs_review/rejected candidates are excluded from serving
 
 Guide recommendations consume the 1,038 manual Guide usage profiles exported from Pipe-B. Standard procedure scoring is guarded so broad SRs, broad/generic features, and industry alignment cannot create top Guide procedures alone.
 
-The current accepted OHS runtime baseline is `usage_profile11`. Guide recommendations require actionable SHE evidence before SHE can directly create standard procedures/checklist items. Context-only SHE still informs reasoning and status, but it no longer creates top Guide procedures by itself.
+The current accepted OHS runtime baseline is `stage3_remaining_gap_support_v20_actionable`. Guide recommendations require actionable SHE evidence or conservative SituationFrame child-context support before creating standard procedures/checklist items. Context-only SHE still informs reasoning and status, but it no longer creates top Guide procedures by itself. Photo-top standard procedures are gated by `guide_photo_matchability.v1.json`; measurement/analysis, test, health-screening, risk-method, and document-reference Guides cannot appear as photo-based top procedures. `guide_support_candidates.v20.jsonl` keeps the previously accepted support rows through v19 and adds two narrow support rows for greenhouse-frame fall risk and dry-cleaning exposed steam-pipe burn risk. The safe-cue negation fix remains active, so `LOTO 미적용`, `밀착 미흡`, and `동료 정상 착용과 대비` do not become `status_safe`, while safe procedure contexts such as `압력 게이지 0`, `잔압 완전 방출`, and `방열 장갑 착용` block trigger-only Guide support. `confirmation_required` support may satisfy Guide usage/domain gates only when it is trigger-backed, backed by a non-broad SR, and child-context/profile-aligned. `situation_context_taxonomy.v20.json` has 178 child contexts. This does not change status, penalty, SHE approval, asserted mapping, or legal SR evidence.
 
 Latest validation:
 
 ```text
-baseline: usage_profile11
-synthetic Guide v1~v10: 2,360 samples
-legacy obvious top Guide mismatch: 1,145
-current obvious top Guide mismatch: 165
-reduction: 85.59%
-NO_TOP: 395
+baseline: stage3_remaining_gap_support_v20_actionable
+synthetic Stage 2~5 v1~v10: 2,360 samples
+Guide mismatch: 136
+Stage 2~5 NO_TOP: 17
+industry_boundary_gap: 71
+workprocess_mismatch: 64
+broad_sr_overreach: 1
+photo_unmatchable_top_count: 0
+photo_unmatchable_suppressed_count: 0 (relative to v19 comparison baseline)
+followup_only_retained_count: 18
+top_replaced_by_photo_actionable_count: 0 (relative to v19 comparison baseline)
+CI no_action: 484
+CI context_mismatch: 17
+CI broad_sr_only: 16
+CI needs_review_used: 0
+CI guide_boundary_mismatch: 64
 v10 synthetic SHE recall 100.0%, FN 0, FP 0
 actual response 240 status changed 0
 negative_false_positive 10
@@ -268,6 +446,6 @@ docs/status/evaluation-baseline.md
 pictures-json/reports-manifest.json
 ```
 
-Local/external report bodies referenced by the manifest include the `usage_profile11` synthetic Guide, NO_TOP, v10 smoke, and actual 240 replay reports.
+Local/external report bodies referenced by the manifest include the `usage_profile11` historical baseline, the `situation_frame_support7` artifact set, the `photo_matchability1` audit, previous accepted support reports through `stage3_remaining_gap_support_v19_dropped_tool`, and the current `stage3_remaining_gap_support_v20_actionable` artifact, Stage 2~5, NO_TOP root-cause, v10 smoke, and actual 240 replay reports.
 
-Rejected approach: widening hazard/risk text alias inference at status level. It reduced some NO_TOP cases but changed actual 240 status behavior, so remaining Guide coverage should be handled through usage profiles, visual triggers, and WorkProcess relevance.
+Rejected approaches: widening hazard/risk text alias inference at status level changed actual 240 status behavior. Broadly widening `UNSAFE_TERMS` reduced NO_TOP only slightly but regressed Guide mismatch and industry boundary quality. Trigger-only domain override reduced NO_TOP but reintroduced broad SR overreach. Broad Stage 2/3 support builds reduced NO_TOP further but overmatched electrical/cleaning/painting/radiation/permit/welding/solvent contexts; accepted rows keep only narrow support-only trigger evidence and block safe checklist-style contexts. The accepted v8 narrow2 pass removed broad `방사선`, `허가서`, `용접 흄`, and `용제` triggers from the rejected v8 trial. Early v9 trials removed generic `전원을 끄지 않고`, generic medical-waste wording, and `담배꽁초` after semantic review. The first v10 trial removed high-pressure washing/electrical-panel support and tightened food-slicer, elevated-welding, and silica triggers after semantic review. Early v11 trials overmatched PPE-only, generic fall-risk, and generic blocked-visibility wording, so accepted narrow3 requires object-specific triggers. The first v12 trial overmatched safe PPE, high-heat, stair, and electrical-control scenes; accepted narrow4 keeps only unsafe/object-specific trigger terms and drops the EV battery seed that moved one case from CI no-action to CI boundary mismatch. Early v13 trials overmatched broad cold-room wording or over-tightened short-token matching; accepted narrow5 keeps object-specific PPE/control triggers and only blocks the confirmed `P-55-2012` single-character `황` false match. The first v14 trial overmatched `발판 없이`, generic `슬링/인양`, generic `용접 흄`, and generic `보호 장갑 미착용`; accepted narrow6b keeps compound/object-specific triggers. Stage 3 support aliases are accepted only as profile-alignment hints, not extraction aliases. Remaining Guide coverage should be handled through SituationFrame child contexts, usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess relevance.

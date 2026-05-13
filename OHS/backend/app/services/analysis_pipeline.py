@@ -27,6 +27,7 @@ from app.services import (
     guide_recommendation_service,
     penalty_path_service,
     risk_rule_service,
+    situation_frame_service,
     situation_assessment_service,
     sr_lookup_service,
 )
@@ -54,6 +55,7 @@ class AnalysisKnowledgeContext:
     actionable_matches: list[Any]
     sr_ids: list[str]
     direct_sr_ids: list[str]
+    situation_frame: dict[str, Any]
     checklist_rows: list[dict]
     guide_rows: list[dict]
     penalty_paths: list[PenaltyPath]
@@ -172,6 +174,13 @@ class AnalysisPipeline:
             text=context_text,
             declared=declared_industry_text,
         )
+        situation_frame = situation_frame_service.build_situation_frame(
+            canonical=canonical,
+            normalized=normalized,
+            visual_cues=visual_cues,
+            context_text=" ".join(filter(None, [declared_industry_text, context_text])),
+            industry_contexts=industry_context.active_industries,
+        ).to_dict()
         high_severity_observation = any(
             obs.severity == "HIGH" and obs.confidence >= 0.7 for obs in observations
         )
@@ -222,6 +231,23 @@ class AnalysisPipeline:
         recommendation_matches = actionable_matches
         recommendation_risk_features = risk_features if observable_violation_signal else []
 
+        preliminary_guide_rows = guide_recommendation_service.get_standard_guides(
+            db,
+            sr_ids,
+            direct_sr_ids=direct_sr_ids,
+            limit=6,
+            industry_contexts=industry_context.active_industries,
+            risk_features=recommendation_risk_features,
+            she_matches=recommendation_matches,
+            visual_cues=visual_cues,
+            context_text=" ".join(filter(None, [declared_industry_text, context_text])),
+            situation_frame=situation_frame,
+            apply_photo_top_gate=False,
+            allow_support_without_observable_cue=observable_violation_signal,
+        )
+        preferred_guide_codes = self._unique(
+            [row.get("guide_code") for row in preliminary_guide_rows if row.get("guide_code")]
+        )
         checklist_rows = guide_recommendation_service.get_immediate_checklist_items(
             db,
             sr_ids,
@@ -232,6 +258,8 @@ class AnalysisPipeline:
             visual_cues=visual_cues,
             industry_contexts=industry_context.active_industries,
             context_text=" ".join(filter(None, [declared_industry_text, context_text])),
+            preferred_guide_codes=preferred_guide_codes,
+            situation_frame=situation_frame,
         )
         guide_rows = guide_recommendation_service.get_standard_guides(
             db,
@@ -243,6 +271,8 @@ class AnalysisPipeline:
             she_matches=recommendation_matches,
             visual_cues=visual_cues,
             context_text=" ".join(filter(None, [declared_industry_text, context_text])),
+            situation_frame=situation_frame,
+            allow_support_without_observable_cue=observable_violation_signal,
         )
         penalty_candidates = penalty_path_service.get_penalty_candidates(
             sr_ids,
@@ -269,6 +299,7 @@ class AnalysisPipeline:
             actionable_matches=actionable_matches,
             sr_ids=sr_ids,
             direct_sr_ids=direct_sr_ids,
+            situation_frame=situation_frame,
             checklist_rows=checklist_rows,
             guide_rows=guide_rows,
             penalty_paths=penalty_paths,

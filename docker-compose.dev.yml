@@ -1,0 +1,36 @@
+# Optional dev infrastructure. PostgreSQL is opt-in via the `infra` profile.
+# - Default `make dev-up` does NOT touch this file. The backend connects to the
+#   external PG instance the team already runs (host port 5432, see DATABASE_URL
+#   in .env.dev).
+# - Use `make dev-pg-up` only when you need a fresh isolated dev DB. It binds to
+#   host port 5433 and uses a separate volume so the existing kosha DB is not
+#   overwritten.
+#
+# Backend and frontend are intentionally NOT containerized here. They run on the
+# host so the existing `.venv` (WSL Linux) and `node_modules` are reused without
+# touching them, per project rules.
+
+services:
+  postgres:
+    profiles: ["infra"]
+    image: postgres:16-alpine
+    container_name: arch-bot-dev-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kosha
+      POSTGRES_PASSWORD: 1229
+      POSTGRES_DB: kosha
+    ports:
+      # Host 5433 to avoid colliding with the team's existing kosha PG on 5432.
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - arch-bot-dev-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kosha -d kosha"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  arch-bot-dev-pgdata:
+    name: arch-bot-dev-pgdata
