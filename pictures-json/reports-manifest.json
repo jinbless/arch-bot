@@ -1,15 +1,15 @@
 {
   "summary": {
-    "generated_at": "2026-05-13T11:14:06+09:00",
+    "generated_at": "2026-05-13T18:09:23+09:00",
     "schema_version": "reports-manifest-v1",
-    "accepted_baseline": "ci_wp_relevance7_profile_tight1",
-    "previous_product_baseline": "ci_wp_relevance6_x41_profile",
+    "accepted_baseline": "ci_wp_relevance8d_profile_tight2_ci_safe_gate",
+    "previous_product_baseline": "ci_wp_relevance7_profile_tight1",
     "report_body_policy": "pictures-json/reports/** remains local/external; this manifest records checksums and accepted baselines.",
-    "report_file_count": 430
+    "report_file_count": 439
   },
   "accepted_baseline": {
-    "name": "ci_wp_relevance7_profile_tight1",
-    "previous": "ci_wp_relevance6_x41_profile",
+    "name": "ci_wp_relevance8d_profile_tight2_ci_safe_gate",
+    "previous": "ci_wp_relevance7_profile_tight1",
     "photo_matchability": {
       "guide_count": 1038,
       "classification_counts": {
@@ -231,7 +231,7 @@
         "stage2": 775,
         "stage3": 1288,
         "stage4": 612,
-        "stage5": 614
+        "stage5": 546
       },
       "she_metrics": {
         "expected_positive": 2016,
@@ -248,39 +248,39 @@
         "recall": "84.0%"
       },
       "guide_metrics": {
-        "current_obvious_top_guide_mismatch": 110,
-        "no_top": 24,
+        "current_obvious_top_guide_mismatch": 87,
+        "no_top": 26,
         "industry_boundary_gap": 70,
-        "workprocess_mismatch": 39,
+        "workprocess_mismatch": 16,
         "broad_sr_overreach": 1,
         "photo_unmatchable_top_count": 0,
-        "photo_unmatchable_suppressed_count": 16,
-        "followup_only_retained_count": 18,
-        "top_replaced_by_photo_actionable_count": 14,
+        "photo_unmatchable_suppressed_count": 13,
+        "followup_only_retained_count": 24,
+        "top_replaced_by_photo_actionable_count": 17,
         "top_photo_matchability_counts": {
           "NO_TOP": 519,
           "photo_actionable": 1841
         }
       },
       "ci_metrics": {
-        "ci_no_action": 481,
+        "ci_no_action": 438,
         "ci_context_mismatch": 16,
-        "ci_broad_sr_only": 16,
+        "ci_broad_sr_only": 14,
         "ci_needs_review_used": 0,
-        "ci_guide_boundary_mismatch": 50
+        "ci_guide_boundary_mismatch": 48
       },
       "primary_failure_stage_counts": {
-        "ok": 501,
+        "ok": 527,
         "stage2": 775,
         "stage3": 808,
         "stage4": 214,
-        "stage5": 62
+        "stage5": 36
       },
-      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.json",
-      "comparison_note": "Compared against ci_wp_relevance6_x41_profile. v7 tightens Guide-specific usage boundaries for H-192-2021, O-1-2011, and G-28-2016."
+      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.json",
+      "comparison_note": "Compared against ci_wp_relevance7_profile_tight1. v8d tightens selected Guide usage profiles and adds observable/safe-gated same-top-Guide CI fallback."
     },
     "synthetic_v10_smoke": {
-      "source_report": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance7_profile_tight1_report.json",
+      "source_report": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_report.json",
       "total": 330,
       "by_case_type": {
         "positive": 187,
@@ -293,7 +293,7 @@
       "she_negative_specificity": "100.0%"
     },
     "actual_240_regression": {
-      "source_report": "pictures-json/reports/actual_response_samples_ci_wp_relevance7_profile_tight1.json",
+      "source_report": "pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.json",
       "total_samples": 240,
       "status_changed_count": 0,
       "actual_status_counts": {
@@ -318,7 +318,7 @@
         "positive_missed": 2,
         "legacy_mismatch": 4
       },
-      "top_action_changed_count": 118,
+      "top_action_changed_count": 123,
       "top_procedure_changed_count": 149
     },
     "no_top_root_cause_audit": {
@@ -466,7 +466,7 @@
         "status_penalty_she_approval_asserted_mapping_update": 0
       }
     },
-    "runtime_change_note": "ci_wp_relevance7_profile_tight1 keeps the v20 status/penalty/SHE/SR boundary and changes only Stage 5 recommendation relevance. It tightens H-192-2021, O-1-2011, and G-28-2016 to Guide-specific exclusive usage boundaries so broad heat, welding, or burn features alone cannot promote those Guides. The NO_TOP tail is reviewed by actionability; runtime repair candidates remain 0. No SHE approval, asserted mapping, legal SR evidence, or public API shape changes.",
+    "runtime_change_note": "ci_wp_relevance8d_profile_tight2_ci_safe_gate keeps the v7 status/penalty/SHE/SR boundary and changes only Stage 5 Guide/WorkProcess/CI relevance. It tightens usage boundaries for selected feature-only overpromotion Guides, reorders primary WorkProcess IDs for concrete photo-actionable Guides, and allows same-top-Guide local CI fallback only when observable violation context is present and non-negated safe-control wording is absent. No SHE approval, asserted mapping, legal SR evidence, or public API shape changes.",
     "safe_lock_fix": {
       "name": "stage2_support_usage_gate3_safe_lock1",
       "changed_file": "OHS/backend/app/services/situation_frame_service.py",
@@ -1008,6 +1008,34 @@
       },
       "actual_240_status_changed": 0,
       "v10_she_recall": "100.0%"
+    },
+    "ci_wp_relevance8d_profile_tight2_ci_safe_gate": {
+      "name": "ci_wp_relevance8d_profile_tight2_ci_safe_gate",
+      "changed_files": [
+        "OHS/backend/app/data/guide_domain_profiles.json",
+        "OHS/backend/app/data/guide_photo_matchability.v1.json",
+        "OHS/backend/app/services/guide_recommendation_service.py",
+        "OHS/backend/app/services/analysis_pipeline.py"
+      ],
+      "guide_mismatch_delta_vs_previous": "110 -> 87",
+      "no_top_delta_vs_previous": "24 -> 26",
+      "industry_boundary_delta_vs_previous": "70 -> 70",
+      "workprocess_delta_vs_previous": "39 -> 16",
+      "ci_no_action_delta_vs_previous": "481 -> 438",
+      "ci_context_mismatch_delta_vs_previous": "16 -> 16",
+      "ci_broad_sr_only_delta_vs_previous": "16 -> 14",
+      "ci_guide_boundary_delta_vs_previous": "50 -> 48",
+      "photo_unmatchable_top_count": 0,
+      "actual_240_status_changed": 0,
+      "v10_she_recall": "100.0%",
+      "v10_she_false_negative": 0,
+      "v10_she_false_positive": 0,
+      "status_penalty_she_approval_asserted_mapping_update": 0,
+      "rejected_trials": [
+        "v8b same-top-Guide local CI fallback reduced no_action but overmatched safe/negative contexts",
+        "v8c observable-signal gate reduced no_action but left slight CI context/boundary regression"
+      ],
+      "accepted_guard": "local CI fallback requires observable violation context and blocks non-negated safe-control wording such as 완비, 정상, 보관 중, 준비 중, 조립 전."
     }
   },
   "reports": [
@@ -1051,6 +1079,27 @@
       "size_bytes": 27859,
       "sha256": "7187c7d21b1c44924df7aa4b5d6ae2a23861e5e78c9936002b7d4d6db1af1308",
       "modified_at": "2026-05-13T10:57:22+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.csv",
+      "size_bytes": 114957,
+      "sha256": "b69a4fcc6b93f0b248a0e3357712d24d4cfc9eebedf00cca2305692a5ee009d1",
+      "modified_at": "2026-05-13T18:02:33+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.json",
+      "size_bytes": 3647389,
+      "sha256": "d865cf4c29872355f89cf862957efd17a4c911cb2af11e8eb9fdaffc2e2a8018",
+      "modified_at": "2026-05-13T18:02:33+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.md",
+      "size_bytes": 28263,
+      "sha256": "adbb8fc76cdca0039b96560723ab2322996b4786baaba912c76176466199fb45",
+      "modified_at": "2026-05-13T18:02:33+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
@@ -1723,6 +1772,27 @@
       "size_bytes": 23462,
       "sha256": "284bec2917af1d858291f597cd2cf01a9513ec30a0f4a575c658efaf23345ad3",
       "modified_at": "2026-05-13T10:52:55+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.csv",
+      "size_bytes": 491051,
+      "sha256": "06deeeb1b3e7d79b805f38ec37cd1f7b506c3bdb0f8381e788ef8f6d83b5f485",
+      "modified_at": "2026-05-13T18:01:00+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.json",
+      "size_bytes": 24496112,
+      "sha256": "80c6f8d023dadd117f07879960890ad87adf29d8f8a2615cafe33a4d23a023a5",
+      "modified_at": "2026-05-13T18:01:00+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.md",
+      "size_bytes": 22218,
+      "sha256": "76432ef67e359468f9c6492b2da8c69ea9bb612a0974b2245098447e9f1d9b1f",
+      "modified_at": "2026-05-13T18:01:00+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
@@ -3434,6 +3504,27 @@
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
+      "path": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_cases.csv",
+      "size_bytes": 437496,
+      "sha256": "11c1e4715909ad802f1cdb773d2e36b287e71a8dc8257ef3dc38f03798a5addb",
+      "modified_at": "2026-05-13T18:02:06+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_report.json",
+      "size_bytes": 14557347,
+      "sha256": "a6fe6f7d23158121f8461122173ab16c6a7884a3954ab695462598c1dfe5867a",
+      "modified_at": "2026-05-13T18:02:06+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_report.md",
+      "size_bytes": 224551,
+      "sha256": "7fd472375bcbbefcf263d15569f28f621ea581e6406ea791d2b7c6a7602e408c",
+      "modified_at": "2026-05-13T18:02:06+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
       "path": "pictures-json/reports/synthetic_observations_v10_no_top_support1_cases.csv",
       "size_bytes": 437857,
       "sha256": "a5fcb23774b801ba6308ebd614700b1efe8eb2835c73e188b5216e1e182003fa",
@@ -4022,5 +4113,5 @@
       "storage_policy": "local_external_report_body_not_tracked"
     }
   ],
-  "previous_product_baseline": "stage3_remaining_gap_support_v20_actionable"
+  "previous_product_baseline": "ci_wp_relevance7_profile_tight1"
 }

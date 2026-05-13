@@ -84,6 +84,36 @@ REFERENCE_PROCEDURE_ROLES = {
     "document_reference",
     "management_program",
 }
+CONTEXTUAL_CI_SAFE_BLOCK_TERMS = (
+    "완비",
+    "완전히 설치",
+    "정상",
+    "명확히 분리",
+    "접혀",
+    "보관 중",
+    "준비 중",
+    "조립 전",
+    "체결되어",
+    "컷팅 글러브",
+    "미끄럼 방지",
+    "착용 완비",
+    "차광 커튼",
+    "차광막",
+    "방화포",
+)
+CONTEXTUAL_CI_SAFE_NEGATORS = (
+    "미설치",
+    "미착용",
+    "미체결",
+    "미흡",
+    "부재",
+    "불량",
+    "누락",
+    "없",
+    "없이",
+    "않",
+)
+CONTEXTUAL_CI_GENERIC_OBSERVABLES = {"가동 중", "절단", "잠금장치", "잠금 장치"}
 CONTEXT_REQUIRED_DOMAIN_FAMILIES = {
     "reused_temporary_equipment_performance_scaffold_shoring_inspection",
     "cold_contact_surface_risk_assessment",
@@ -155,6 +185,33 @@ def _guide_specific_feature(feature_code: str | None) -> bool:
 
 def _context_blob(visual_cues: list[str] | None, context_text: str | None) -> str:
     return " ".join([*(visual_cues or []), context_text or ""]).lower()
+
+
+def _has_non_negated_safe_context(text: str) -> bool:
+    for term in CONTEXTUAL_CI_SAFE_BLOCK_TERMS:
+        lowered = term.lower()
+        start = text.find(lowered)
+        while start >= 0:
+            span = text[max(0, start - 16): min(len(text), start + len(lowered) + 16)]
+            if not any(negator.lower() in span for negator in CONTEXTUAL_CI_SAFE_NEGATORS):
+                return True
+            start = text.find(lowered, start + len(lowered))
+    return False
+
+
+def _contextual_ci_fallback_allowed(
+    situation_frame: dict | None,
+    visual_cues: list[str] | None,
+    context_text: str | None,
+) -> bool:
+    frame = situation_frame if isinstance(situation_frame, dict) else {}
+    if frame.get("match_policy") == "status_safe":
+        return False
+    safe_cues = set(frame.get("safe_cues") or [])
+    observable_cues = set(frame.get("observable_cues") or [])
+    if safe_cues and (not observable_cues or observable_cues <= CONTEXTUAL_CI_GENERIC_OBSERVABLES):
+        return False
+    return not _has_non_negated_safe_context(_context_blob(visual_cues, context_text))
 
 
 def _matches_visual_trigger(candidate: PgGuideVisualTriggerCandidate, context_blob: str) -> bool:
@@ -512,6 +569,7 @@ def get_immediate_checklist_items(
     context_text: str | None = None,
     preferred_guide_codes: list[str] | None = None,
     situation_frame: dict | None = None,
+    allow_contextual_ci_fallback: bool = False,
 ) -> list[dict]:
     """Return immediate actions with SHE/SR/feature evidence scoring.
 
@@ -779,18 +837,37 @@ def get_immediate_checklist_items(
         eligible_guides: list[str] = []
         guide_profiles: dict[str, dict | None] = {}
         guide_support: dict[str, dict[str, Any] | None] = {}
+        guide_support_allowed: dict[str, bool] = {}
+        guide_contextual_allowed: dict[str, bool] = {}
         for guide_code in preferred:
             manual_profile = get_guide_domain_profile(guide_code)
             support_signal = support_signal_by_guide.get(guide_code)
             if not _ci_reference_role_allowed(manual_profile, visual_cues, context_text):
                 continue
-            if not _ci_wp_relevance_support_allowed(support_signal):
-                continue
             support_score, _, support_signal_ok = _support_profile_usage_signal(support_signal, manual_profile)
-            if not support_signal_ok or support_score <= 0:
+            usage_score, _, usage_signal_ok = _score_usage_profile(
+                manual_profile,
+                visual_cues=visual_cues,
+                context_text=context_text,
+                feature_codes=feature_codes,
+                industry_contexts=industry_contexts,
+            )
+            if support_signal_ok and support_score > 0 and not _ci_wp_relevance_support_allowed(support_signal):
+                support_signal_ok = False
+                support_score = 0.0
+            support_allowed = support_signal_ok and support_score > 0
+            contextual_allowed = (
+                allow_contextual_ci_fallback
+                and _contextual_ci_fallback_allowed(situation_frame, visual_cues, context_text)
+                and usage_signal_ok
+                and usage_score >= 0.08
+            )
+            if not (support_allowed or contextual_allowed):
                 continue
             guide_profiles[guide_code] = manual_profile
             guide_support[guide_code] = support_signal
+            guide_support_allowed[guide_code] = support_allowed
+            guide_contextual_allowed[guide_code] = contextual_allowed
             eligible_guides.append(guide_code)
 
         if eligible_guides:
@@ -839,13 +916,21 @@ def get_immediate_checklist_items(
                     continue
                 manual_profile = guide_profiles.get(ci.source_guide)
                 support_signal = guide_support.get(ci.source_guide)
+                support_allowed = guide_support_allowed.get(ci.source_guide or "", False)
+                contextual_allowed = guide_contextual_allowed.get(ci.source_guide or "", False)
                 context_bonus, context_evidence = _ci_context_bonus(ci, manual_profile, visual_cues, context_text)
                 support_bonus, support_evidence = _ci_support_bonus(ci, support_signal, manual_profile)
                 section_bonus = 0.10 if _section_matches(
                     ci.source_section,
                     preferred_sections.get(ci.source_guide or "", []),
                 ) else 0.0
-                if support_bonus <= 0:
+                if support_allowed:
+                    if support_bonus <= 0 and context_bonus <= 0:
+                        continue
+                elif contextual_allowed:
+                    if context_bonus <= 0:
+                        continue
+                else:
                     continue
                 binding_bonus = 0.08 if str(ci.binding_force or "").upper() == "MANDATORY" else 0.0
                 local_ci[ci.identifier] = ci

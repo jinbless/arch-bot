@@ -260,6 +260,7 @@ class AnalysisPipeline:
             context_text=" ".join(filter(None, [declared_industry_text, context_text])),
             preferred_guide_codes=preferred_guide_codes,
             situation_frame=situation_frame,
+            allow_contextual_ci_fallback=observable_violation_signal,
         )
         guide_rows = guide_recommendation_service.get_standard_guides(
             db,

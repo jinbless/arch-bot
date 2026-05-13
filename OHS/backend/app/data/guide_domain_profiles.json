@@ -33190,7 +33190,7 @@
       "short_code": "AG11",
       "source_file": "pipe-B/data/ci-output/ci-AG11.json",
       "batch_id": "domain_guard_manual_batch_002",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "welding_fire_blanket",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -33198,7 +33198,13 @@
         "용접불티",
         "비산거리",
         "수직형 용접방화포",
-        "수평형 용접방화포"
+        "수평형 용접방화포",
+        "용접",
+        "용접 불꽃",
+        "불티",
+        "불꽃",
+        "방화포",
+        "비산방지"
       ],
       "negative_context_terms": [
         "문서/장비/작업장 단서 없음",
@@ -33221,7 +33227,13 @@
           "용접불티",
           "비산거리",
           "수직형 용접방화포",
-          "수평형 용접방화포"
+          "수평형 용접방화포",
+          "용접",
+          "용접 불꽃",
+          "불티",
+          "불꽃",
+          "방화포",
+          "비산방지"
         ],
         "exclude_when": [
           "문서/장비/작업장 단서 없음",
@@ -33343,14 +33355,20 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "용접방화포등의 성능 및 설치기준에 관한 기술지원규정 사용경계: welding_fire_blanket / domain_specific",
+      "usage_summary": "용접방화포등의 성능 및 설치기준에 관한 기술지원규정 사용경계: welding_fire_blanket / exclusive",
       "intended_workplaces": [
         "용접방화포",
         "용접·용단",
         "용접불티",
         "비산거리",
         "수직형 용접방화포",
-        "수평형 용접방화포"
+        "수평형 용접방화포",
+        "용접",
+        "용접 불꽃",
+        "불티",
+        "불꽃",
+        "방화포",
+        "비산방지"
       ],
       "intended_tasks": [
         "용접방화포등 설치",
@@ -33361,7 +33379,13 @@
         "용접불티",
         "비산거리",
         "수직형 용접방화포",
-        "수평형 용접방화포"
+        "수평형 용접방화포",
+        "용접",
+        "용접 불꽃",
+        "불티",
+        "불꽃",
+        "방화포",
+        "비산방지"
       ],
       "observable_required_cues": [
         "용접방화포 또는 불티 비산방지덮개",
@@ -33370,7 +33394,13 @@
         "용접불티",
         "비산거리",
         "수직형 용접방화포",
-        "수평형 용접방화포"
+        "수평형 용접방화포",
+        "용접",
+        "용접 불꽃",
+        "불티",
+        "불꽃",
+        "방화포",
+        "비산방지"
       ],
       "negative_boundaries": [
         "문서/장비/작업장 단서 없음",
@@ -33410,7 +33440,7 @@
         "용접방화포 유지관리"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "A-G-12-2026": {
       "guide_code": "A-G-12-2026",
@@ -34568,7 +34598,13 @@
         "중량물",
         "박스형 화물",
         "포대",
-        "R-NLE"
+        "R-NLE",
+        "박스",
+        "카트",
+        "이동식 카트",
+        "2인 협력",
+        "매트",
+        "운반경로"
       ],
       "negative_context_terms": [
         "문서/장비/작업장 단서 없음",
@@ -34593,7 +34629,13 @@
           "중량물",
           "박스형 화물",
           "포대",
-          "R-NLE"
+          "R-NLE",
+          "박스",
+          "카트",
+          "이동식 카트",
+          "2인 협력",
+          "매트",
+          "운반경로"
         ],
         "exclude_when": [
           "문서/장비/작업장 단서 없음",
@@ -34705,7 +34747,13 @@
         "중량물",
         "박스형 화물",
         "포대",
-        "R-NLE"
+        "R-NLE",
+        "박스",
+        "카트",
+        "이동식 카트",
+        "2인 협력",
+        "매트",
+        "운반경로"
       ],
       "intended_tasks": [
         "인력운반작업 위험 분석",
@@ -34719,7 +34767,13 @@
         "들기작업",
         "중량물",
         "박스형 화물",
-        "포대"
+        "포대",
+        "박스",
+        "카트",
+        "이동식 카트",
+        "2인 협력",
+        "매트",
+        "운반경로"
       ],
       "observable_required_cues": [
         "사람이 직접 드는 박스형 화물 또는 포대",
@@ -34729,7 +34783,13 @@
         "중량물",
         "박스형 화물",
         "포대",
-        "R-NLE"
+        "R-NLE",
+        "박스",
+        "카트",
+        "이동식 카트",
+        "2인 협력",
+        "매트",
+        "운반경로"
       ],
       "negative_boundaries": [
         "문서/장비/작업장 단서 없음",
@@ -34738,12 +34798,14 @@
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
-        "WP-AG17-01",
-        "WP-AG17-15",
-        "WP-AG17-16",
+        "WP-AG17-38",
         "WP-AG17-18",
         "WP-AG17-19",
-        "WP-AG17-38"
+        "WP-AG17-17",
+        "WP-AG17-16",
+        "WP-AG17-15",
+        "WP-AG17-02",
+        "WP-AG17-01"
       ],
       "primary_work_process_titles": [
         "인력운반작업 위험 분석",
@@ -34773,7 +34835,7 @@
         "R-NLE(Revised NIOSH Lifting Equation) 평가"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "A-G-18-2026": {
       "guide_code": "A-G-18-2026",
@@ -43986,7 +44048,11 @@
         "도어 잠금장치",
         "인터록",
         "과산화수소",
-        "안전밸브"
+        "안전밸브",
+        "뜨거운 세탁물",
+        "고온 세탁물",
+        "도어 개방",
+        "내용물 취출"
       ],
       "negative_context_terms": [
         "사무실",
@@ -44009,7 +44075,11 @@
           "도어 잠금장치",
           "인터록",
           "과산화수소",
-          "안전밸브"
+          "안전밸브",
+          "뜨거운 세탁물",
+          "고온 세탁물",
+          "도어 개방",
+          "내용물 취출"
         ],
         "exclude_when": [
           "사무실",
@@ -44136,7 +44206,11 @@
         "도어 잠금장치",
         "인터록",
         "과산화수소",
-        "안전밸브"
+        "안전밸브",
+        "뜨거운 세탁물",
+        "고온 세탁물",
+        "도어 개방",
+        "내용물 취출"
       ],
       "intended_tasks": [
         "정기 유지보수 및 검사",
@@ -44150,7 +44224,11 @@
         "도어 잠금장치",
         "인터록",
         "과산화수소",
-        "안전밸브"
+        "안전밸브",
+        "뜨거운 세탁물",
+        "고온 세탁물",
+        "도어 개방",
+        "내용물 취출"
       ],
       "observable_required_cues": [
         "고온 염색기",
@@ -44159,7 +44237,11 @@
         "도어 잠금장치",
         "인터록",
         "과산화수소",
-        "안전밸브"
+        "안전밸브",
+        "뜨거운 세탁물",
+        "고온 세탁물",
+        "도어 개방",
+        "내용물 취출"
       ],
       "negative_boundaries": [
         "사무실",
@@ -44169,12 +44251,12 @@
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
-        "WP-BM15-06",
-        "WP-BM15-05",
-        "WP-BM15-01",
+        "WP-BM15-04",
         "WP-BM15-02",
         "WP-BM15-03",
-        "WP-BM15-04"
+        "WP-BM15-06",
+        "WP-BM15-01",
+        "WP-BM15-05"
       ],
       "primary_work_process_titles": [
         "정기 유지보수 및 검사",
@@ -44204,7 +44286,7 @@
         "도어 잠금 및 염색 사이클 시작 전 점검"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "B-M-16-2026": {
       "guide_code": "B-M-16-2026",
@@ -49130,7 +49212,15 @@
         "회전체",
         "기어",
         "베어링",
-        "컨베이어"
+        "컨베이어",
+        "원심분리기",
+        "로터",
+        "완전 정지",
+        "덮개",
+        "전원 잠금",
+        "산업용 세탁기",
+        "진동",
+        "벽으로 밀어붙임"
       ],
       "negative_context_terms": [
         "급식실",
@@ -49155,7 +49245,15 @@
           "회전체",
           "기어",
           "베어링",
-          "컨베이어"
+          "컨베이어",
+          "원심분리기",
+          "로터",
+          "완전 정지",
+          "덮개",
+          "전원 잠금",
+          "산업용 세탁기",
+          "진동",
+          "벽으로 밀어붙임"
         ],
         "exclude_when": [
           "급식실",
@@ -49282,7 +49380,15 @@
         "회전체",
         "기어",
         "베어링",
-        "컨베이어"
+        "컨베이어",
+        "원심분리기",
+        "로터",
+        "완전 정지",
+        "덮개",
+        "전원 잠금",
+        "산업용 세탁기",
+        "진동",
+        "벽으로 밀어붙임"
       ],
       "intended_tasks": [
         "회전기계 위험요인 식별",
@@ -49296,7 +49402,15 @@
         "회전기계",
         "가드",
         "방호설비",
-        "진동감시"
+        "진동감시",
+        "원심분리기",
+        "로터",
+        "완전 정지",
+        "덮개",
+        "전원 잠금",
+        "산업용 세탁기",
+        "진동",
+        "벽으로 밀어붙임"
       ],
       "observable_required_cues": [
         "회전기계 가드",
@@ -49308,7 +49422,15 @@
         "회전체",
         "기어",
         "베어링",
-        "컨베이어"
+        "컨베이어",
+        "원심분리기",
+        "로터",
+        "완전 정지",
+        "덮개",
+        "전원 잠금",
+        "산업용 세탁기",
+        "진동",
+        "벽으로 밀어붙임"
       ],
       "negative_boundaries": [
         "급식실",
@@ -49317,14 +49439,13 @@
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
-        "WP-BM37-01",
-        "WP-BM37-02",
         "WP-BM37-03",
-        "WP-BM37-18",
-        "WP-BM37-20",
+        "WP-BM37-05",
+        "WP-BM37-01",
+        "WP-BM37-04",
+        "WP-BM37-17",
         "WP-BM37-35",
-        "WP-BM37-43",
-        "WP-BM37-44"
+        "WP-BM37-48"
       ],
       "primary_work_process_titles": [
         "회전기계 위험요인 식별",
@@ -49356,7 +49477,7 @@
         "manufacturing"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "B-M-38-2026": {
       "guide_code": "B-M-38-2026",
@@ -52159,7 +52280,7 @@
       "short_code": "C108",
       "source_file": "pipe-B/data/ci-output/ci-C108.json",
       "batch_id": "domain_guard_manual_batch_021",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "construction_hot_work_welding_cutting_fire_gas_electric_shock",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -52170,7 +52291,12 @@
         "역화방지기",
         "자동전격방지기",
         "불티비산방지포",
-        "용접흄"
+        "용접흄",
+        "용접 불꽃",
+        "가연성",
+        "소화기",
+        "화재감시자",
+        "불티"
       ],
       "negative_context_terms": [
         "항만하역",
@@ -52201,7 +52327,12 @@
           "역화방지기",
           "자동전격방지기",
           "불티비산방지포",
-          "용접흄"
+          "용접흄",
+          "용접 불꽃",
+          "가연성",
+          "소화기",
+          "화재감시자",
+          "불티"
         ],
         "exclude_when": [
           "항만하역",
@@ -52385,7 +52516,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "건설현장 용접용단 안전보건작업 기술지침 사용경계: construction_hot_work_welding_cutting_fire_gas_electric_shock / domain_specific",
+      "usage_summary": "건설현장 용접용단 안전보건작업 기술지침 사용경계: construction_hot_work_welding_cutting_fire_gas_electric_shock / exclusive",
       "intended_workplaces": [
         "construction",
         "chemical_process",
@@ -52397,7 +52528,12 @@
         "역화방지기",
         "자동전격방지기",
         "불티비산방지포",
-        "용접흄"
+        "용접흄",
+        "용접 불꽃",
+        "가연성",
+        "소화기",
+        "화재감시자",
+        "불티"
       ],
       "intended_tasks": [
         "용접·용단 장비 점검 및 가스누출 확인",
@@ -52411,7 +52547,12 @@
         "역화방지기",
         "자동전격방지기",
         "불티비산방지포",
-        "용접흄"
+        "용접흄",
+        "용접 불꽃",
+        "가연성",
+        "소화기",
+        "화재감시자",
+        "불티"
       ],
       "observable_required_cues": [
         "자동전격방지기·용접기 홀더",
@@ -52423,7 +52564,12 @@
         "역화방지기",
         "자동전격방지기",
         "불티비산방지포",
-        "용접흄"
+        "용접흄",
+        "용접 불꽃",
+        "가연성",
+        "소화기",
+        "화재감시자",
+        "불티"
       ],
       "negative_boundaries": [
         "항만하역",
@@ -52433,10 +52579,12 @@
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
+        "WP-C108-01",
+        "WP-C108-02",
         "WP-C108-03",
         "WP-C108-04",
         "WP-C108-06",
-        "WP-C108-01"
+        "WP-C108-05"
       ],
       "primary_work_process_titles": [
         "용접·용단 장비 점검 및 가스누출 확인",
@@ -52464,7 +52612,7 @@
         "chemical_process"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "C-11-2012": {
       "guide_code": "C-11-2012",
@@ -102766,7 +102914,7 @@
       "short_code": "DC2",
       "source_file": "pipe-B/data/ci-output/ci-DC2.json",
       "batch_id": "domain_guard_manual_batch_001",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "bridge_superstructure_construction",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -102906,7 +103054,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "교량 상부공 가설공법의 안전작업에 관한 기술지원규정 사용경계: bridge_superstructure_construction / domain_specific",
+      "usage_summary": "교량 상부공 가설공법의 안전작업에 관한 기술지원규정 사용경계: bridge_superstructure_construction / exclusive",
       "intended_workplaces": [
         "교량 상부공",
         "가설공법",
@@ -102989,7 +103137,7 @@
         "세그먼트 인양"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "D-C-3-2025": {
       "guide_code": "D-C-3-2025",
@@ -124151,7 +124299,7 @@
       "short_code": "EG19",
       "source_file": "pipe-B/data/ci-output/ci-EG19.json",
       "batch_id": "domain_guard_manual_batch_028",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "respiratory_protection_selection_management",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -124367,7 +124515,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "호흡보호구의 선정·사용 및 관리에 관한 기술지원규정 사용경계: respiratory_protection_selection_management / domain_specific",
+      "usage_summary": "호흡보호구의 선정·사용 및 관리에 관한 기술지원규정 사용경계: respiratory_protection_selection_management / exclusive",
       "intended_workplaces": [
         "해당 작업 또는 설비가 확인되는 사업장",
         "보건관리/안전관리 업무",
@@ -124447,7 +124595,7 @@
         "호흡보호구 선정 5단계 - 밀착도 검사 및 최종 선정"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "E-G-2-2025": {
       "guide_code": "E-G-2-2025",
@@ -125603,7 +125751,7 @@
       "short_code": "EG23",
       "source_file": "pipe-B/data/ci-output/ci-EG23.json",
       "batch_id": "domain_guard_manual_batch_028",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "vibration_exposure_control_health_management",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -125789,7 +125937,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "작업자의 진동 제어 및 건강 예방에 관한 기술지원규정 사용경계: vibration_exposure_control_health_management / domain_specific",
+      "usage_summary": "작업자의 진동 제어 및 건강 예방에 관한 기술지원규정 사용경계: vibration_exposure_control_health_management / exclusive / management_program",
       "intended_workplaces": [
         "해당 작업 또는 설비가 확인되는 사업장",
         "보건관리/안전관리 업무",
@@ -125828,7 +125976,7 @@
         "물류센터",
         "일반 통행로"
       ],
-      "procedure_role": "field_control",
+      "procedure_role": "management_program",
       "primary_work_process_ids": [
         "WP-EG23-02",
         "WP-EG23-03",
@@ -125869,7 +126017,7 @@
         "진동 노출원 파악 및 위험성 평가 사전 절차"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "E-G-3-2025": {
       "guide_code": "E-G-3-2025",
@@ -126356,7 +126504,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "근골격계질환 예방을 위한 업종직종별 기술지원규정 사용경계: industry_task_msd_prevention_management / domain_specific",
+      "usage_summary": "근골격계질환 예방을 위한 업종직종별 기술지원규정 사용경계: industry_task_msd_prevention_management / domain_specific / management_program",
       "intended_workplaces": [
         "해당 작업 또는 설비가 확인되는 사업장",
         "보건관리/안전관리 업무",
@@ -126392,7 +126540,7 @@
         "물류센터",
         "일반 통행로"
       ],
-      "procedure_role": "field_control",
+      "procedure_role": "management_program",
       "primary_work_process_ids": [
         "WP-EG4-02",
         "WP-EG4-03",
@@ -126429,7 +126577,7 @@
         "부적절한 자세 개선"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "E-G-5-2025": {
       "guide_code": "E-G-5-2025",
@@ -130612,7 +130760,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "생체시료 채취 및 관리에 관한 기술지원규정 사용경계: biological_sample_collection_management / exclusive",
+      "usage_summary": "생체시료 채취 및 관리에 관한 기술지원규정 사용경계: biological_sample_collection_management / exclusive / measurement_analysis",
       "intended_workplaces": [
         "해당 작업 또는 보건관리 문맥이 확인되는 사업장",
         "생체시료",
@@ -130650,7 +130798,7 @@
         "일반 통행로",
         "무관한 현장 사진"
       ],
-      "procedure_role": "field_control",
+      "procedure_role": "measurement_analysis",
       "primary_work_process_ids": [
         "WP-EM8-06",
         "WP-EM8-08",
@@ -130691,7 +130839,7 @@
         "시료 채취 실시"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "E-T-1-2025": {
       "guide_code": "E-T-1-2025",
@@ -134767,7 +134915,7 @@
       "short_code": "G111",
       "source_file": "pipe-B/data/ci-output/ci-G111.json",
       "batch_id": "domain_guard_manual_batch_003",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "agricultural_machine_whole_body_vibration",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -134904,7 +135052,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "농업용 기계작업 시 전신진동의 위험성 저감에 관한 안전기술지침 사용경계: agricultural_machine_whole_body_vibration / domain_specific",
+      "usage_summary": "농업용 기계작업 시 전신진동의 위험성 저감에 관한 안전기술지침 사용경계: agricultural_machine_whole_body_vibration / exclusive",
       "intended_workplaces": [
         "electrical_maintenance",
         "manufacturing",
@@ -134982,7 +135130,7 @@
         "적합한 농업용 기계 선택"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "G-112-2014": {
       "guide_code": "G-112-2014",
@@ -136624,7 +136772,7 @@
       "short_code": "G133",
       "source_file": "pipe-B/data/ci-output/ci-G133.json",
       "batch_id": "domain_guard_manual_batch_003",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "wire_rope_sling_rigging",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -136763,7 +136911,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "와이어로프 슬링 사용·점검 등에 관한 기술지침 사용경계: wire_rope_sling_rigging / domain_specific",
+      "usage_summary": "와이어로프 슬링 사용·점검 등에 관한 기술지침 사용경계: wire_rope_sling_rigging / exclusive",
       "intended_workplaces": [
         "port_logistics",
         "와이어로프 슬링",
@@ -136834,7 +136982,7 @@
         "사용 전 일상점검"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "G-134-2023": {
       "guide_code": "G-134-2023",
@@ -141259,7 +141407,7 @@
       "short_code": "G55",
       "source_file": "pipe-B/data/ci-output/ci-G55.json",
       "batch_id": "domain_guard_manual_batch_004",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "vehicle_repair_lift_pit_electrical",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -141402,7 +141550,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "차량경정비작업안전에관한기술지침 사용경계: vehicle_repair_lift_pit_electrical / domain_specific",
+      "usage_summary": "차량경정비작업안전에관한기술지침 사용경계: vehicle_repair_lift_pit_electrical / exclusive",
       "intended_workplaces": [
         "chemical_process",
         "electrical_maintenance",
@@ -141477,7 +141625,7 @@
         "리프트를 이용한 차량 승강 작업"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "G-6-2011": {
       "guide_code": "G-6-2011",
@@ -141702,7 +141850,12 @@
         "송풍기",
         "변전실",
         "자동문",
-        "바닥청소"
+        "바닥청소",
+        "젖은 바닥",
+        "미끄럼 방지",
+        "바닥 청소",
+        "물기 제거",
+        "미끄럼 주의"
       ],
       "negative_context_terms": [
         "항만하역",
@@ -141727,7 +141880,12 @@
           "송풍기",
           "변전실",
           "자동문",
-          "바닥청소"
+          "바닥청소",
+          "젖은 바닥",
+          "미끄럼 방지",
+          "바닥 청소",
+          "물기 제거",
+          "미끄럼 주의"
         ],
         "exclude_when": [
           "항만하역",
@@ -141843,7 +142001,12 @@
         "송풍기",
         "변전실",
         "자동문",
-        "바닥청소"
+        "바닥청소",
+        "젖은 바닥",
+        "미끄럼 방지",
+        "바닥 청소",
+        "물기 제거",
+        "미끄럼 주의"
       ],
       "intended_tasks": [
         "맨홀 작업 (계량기 검침 등)",
@@ -141857,7 +142020,12 @@
         "송풍기",
         "변전실",
         "자동문",
-        "바닥청소"
+        "바닥청소",
+        "젖은 바닥",
+        "미끄럼 방지",
+        "바닥 청소",
+        "물기 제거",
+        "미끄럼 주의"
       ],
       "observable_required_cues": [
         "건물 관리·변전실 작업",
@@ -141867,7 +142035,12 @@
         "송풍기",
         "변전실",
         "자동문",
-        "바닥청소"
+        "바닥청소",
+        "젖은 바닥",
+        "미끄럼 방지",
+        "바닥 청소",
+        "물기 제거",
+        "미끄럼 주의"
       ],
       "negative_boundaries": [
         "항만하역",
@@ -141877,11 +142050,12 @@
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
-        "WP-G60-01",
+        "WP-G60-06",
         "WP-G60-02",
         "WP-G60-04",
         "WP-G60-05",
-        "WP-G60-10"
+        "WP-G60-10",
+        "WP-G60-01"
       ],
       "primary_work_process_titles": [
         "맨홀 작업 (계량기 검침 등)",
@@ -141910,7 +142084,7 @@
         "변전실 전기 작업"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "G-64-2011": {
       "guide_code": "G-64-2011",
@@ -170680,7 +170854,7 @@
       "short_code": "H220",
       "source_file": "pipe-B/data/ci-output/ci-H220.json",
       "batch_id": "domain_guard_manual_batch_032",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "emerging_airborne_infectious_disease_prevention_bcp",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -170978,7 +171152,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "사업장 공기매개 신종감염병 예방지침 사용경계: emerging_airborne_infectious_disease_prevention_bcp / domain_specific",
+      "usage_summary": "사업장 공기매개 신종감염병 예방지침 사용경계: emerging_airborne_infectious_disease_prevention_bcp / exclusive / management_program",
       "intended_workplaces": [
         "해당 Guide의 질환·평가·작업환경 문맥이 확인되는 사업장",
         "공기매개 감염병",
@@ -171017,7 +171191,7 @@
         "일반 PPE 사진",
         "해당 질환·업무·작업환경 문맥이 없는 현장 사진"
       ],
-      "procedure_role": "field_control",
+      "procedure_role": "management_program",
       "primary_work_process_ids": [
         "WP-H220-01",
         "WP-H220-02",
@@ -171048,7 +171222,7 @@
         "BIOLOGICAL"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "H-221-2023": {
       "guide_code": "H-221-2023",
@@ -198430,7 +198604,7 @@
       "short_code": "M73",
       "source_file": "pipe-B/data/ci-output/ci-M73.json",
       "batch_id": "domain_guard_manual_batch_012",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "food_beverage_industry_noise_control_bottling_packaging_compressor",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -198580,7 +198754,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "식음료 산업의 소음관리에 관한 기술지침 사용경계: food_beverage_industry_noise_control_bottling_packaging_compressor / domain_specific",
+      "usage_summary": "식음료 산업의 소음관리에 관한 기술지침 사용경계: food_beverage_industry_noise_control_bottling_packaging_compressor / exclusive",
       "intended_workplaces": [
         "manufacturing",
         "food_service",
@@ -198661,7 +198835,7 @@
         "포장, 포장 제거, 자루 넣기 소음제어"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "M-74-2011": {
       "guide_code": "M-74-2011",
@@ -212523,7 +212697,11 @@
           "환기구",
           "분산모델"
         ],
-        "exclude_when": [],
+        "exclude_when": [
+          "밀폐공간 진입",
+          "산소농도 측정만 있음",
+          "송기마스크 착용만 있음"
+        ],
         "runtime_use": "candidate_domain_guard_only"
       },
       "feature_codes": [
@@ -212683,7 +212861,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "산소 및 불활성 기체 대기 벤트 설계에 관한 기술지침 사용경계: oxygen_inert_atmospheric_vent_design_dispersion_exclusion_zone / exclusive",
+      "usage_summary": "산소 및 불활성 기체 대기 벤트 설계에 관한 기술지침 사용경계: oxygen_inert_atmospheric_vent_design_dispersion_exclusion_zone / exclusive / document_reference",
       "intended_workplaces": [
         "산소 및 불활성 기체",
         "대기 벤트",
@@ -212718,8 +212896,12 @@
         "환기구",
         "분산모델"
       ],
-      "negative_boundaries": [],
-      "procedure_role": "field_control",
+      "negative_boundaries": [
+        "밀폐공간 진입",
+        "산소농도 측정만 있음",
+        "송기마스크 착용만 있음"
+      ],
+      "procedure_role": "document_reference",
       "primary_work_process_ids": [
         "WP-P159-01",
         "WP-P159-02"
@@ -212748,7 +212930,7 @@
         "벤트 위치 및 방향 결정"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "P-16-2012": {
       "guide_code": "P-16-2012",
@@ -241077,7 +241259,7 @@
       "short_code": "X10",
       "source_file": "pipe-B/data/ci-output/ci-X10.json",
       "batch_id": "domain_guard_manual_batch_004",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "cold_contact_surface_risk_assessment",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -241106,7 +241288,11 @@
           "동상",
           "열관성"
         ],
-        "exclude_when": [],
+        "exclude_when": [
+          "냉동창고 탈출경로",
+          "저온창고 적재물",
+          "피난통로 막힘"
+        ],
         "runtime_use": "candidate_domain_guard_only"
       },
       "feature_codes": [
@@ -241205,7 +241391,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "저온 접촉면에 대한 인체반응의 리스크평가 지침 사용경계: cold_contact_surface_risk_assessment / domain_specific",
+      "usage_summary": "저온 접촉면에 대한 인체반응의 리스크평가 지침 사용경계: cold_contact_surface_risk_assessment / exclusive / risk_method",
       "intended_workplaces": [
         "chemical_process",
         "저온 접촉면",
@@ -241236,8 +241422,12 @@
         "동상",
         "열관성"
       ],
-      "negative_boundaries": [],
-      "procedure_role": "field_control",
+      "negative_boundaries": [
+        "냉동창고 탈출경로",
+        "저온창고 적재물",
+        "피난통로 막힘"
+      ],
+      "procedure_role": "risk_method",
       "primary_work_process_ids": [
         "WP-X10-07",
         "WP-X10-01",
@@ -241274,7 +241464,7 @@
         "표면온도 측정"
       ],
       "classification_reason": "field_control Guide has observable field/task evidence usable for photo-top procedure ranking.",
-      "review_status": "auto_classified"
+      "review_status": "runtime_tightened"
     },
     "X-12-2012": {
       "guide_code": "X-12-2012",

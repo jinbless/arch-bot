@@ -2,9 +2,9 @@
 
 Latest updated: 2026-05-13
 
-Accepted runtime baseline: `ci_wp_relevance7_profile_tight1`
+Accepted runtime baseline: `ci_wp_relevance8d_profile_tight2_ci_safe_gate`
 
-Previous accepted baseline: `ci_wp_relevance6_x41_profile`
+Previous accepted baseline: `ci_wp_relevance7_profile_tight1`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
@@ -104,7 +104,7 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.*
 ```
 
 Summary:
@@ -115,43 +115,71 @@ Stage failure counts:
   stage2: 775
   stage3: 1,288
   stage4: 612
-  stage5: 614
+  stage5: 546
 SHE TP/FN/FP: 1,107 / 909 / 82
 SHE recall: 54.9%
 SR TP/FN/FP: 1,414 / 270 / 211
 SR recall: 84.0%
-Guide mismatch: 110
-Stage 2~5 NO_TOP: 24
+Guide mismatch: 87
+Stage 2~5 NO_TOP: 26
 industry_boundary_gap: 70
-workprocess_mismatch: 39
+workprocess_mismatch: 16
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
-photo_unmatchable_suppressed_count: 16
-followup_only_retained_count: 18
-top_replaced_by_photo_actionable_count: 14
-CI no_action: 481
+photo_unmatchable_suppressed_count: 13
+followup_only_retained_count: 24
+top_replaced_by_photo_actionable_count: 17
+CI no_action: 438
 CI context_mismatch: 16
-CI broad_sr_only: 16
+CI broad_sr_only: 14
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 50
+CI guide_boundary_mismatch: 48
 ```
 
-Comparison against `ci_wp_relevance6_x41_profile`:
+Comparison against `ci_wp_relevance7_profile_tight1`:
 
 ```text
 SHE/SR status metrics: unchanged
-Guide mismatch: 135 -> 110
-Stage 2~5 NO_TOP: 16 -> 24
-industry_boundary_gap: 71 -> 70
-workprocess_mismatch: 63 -> 39
+Guide mismatch: 110 -> 87
+Stage 2~5 NO_TOP: 24 -> 26
+industry_boundary_gap: 70 -> 70
+workprocess_mismatch: 39 -> 16
 broad_sr_overreach: 1 -> 1
-CI no_action: 483 -> 481
-CI context_mismatch: 17 -> 16
-CI broad_sr_only: 16 -> 16
-CI guide_boundary_mismatch: 51 -> 50
+CI no_action: 481 -> 438
+CI context_mismatch: 16 -> 16
+CI broad_sr_only: 16 -> 14
+CI guide_boundary_mismatch: 50 -> 48
 photo_unmatchable_top_count: 0 -> 0
-photo_unmatchable_suppressed_count: 0 -> 16
-top_replaced_by_photo_actionable_count: 0 -> 14
+photo_unmatchable_suppressed_count: 16 -> 13
+top_replaced_by_photo_actionable_count: 14 -> 17
+```
+
+## CI/WP Relevance8d Profile Tight2 CI Safe Gate
+
+`ci_wp_relevance8d_profile_tight2_ci_safe_gate` keeps the `ci_wp_relevance7_profile_tight1` status/penalty/SHE/SR boundary and changes only Stage 5 Guide/WorkProcess/CI relevance. It tightens selected feature-only overpromotion Guides, reorders primary WorkProcess IDs for concrete photo-actionable Guides, and allows same-top-Guide local CI fallback only when observable violation context is present and non-negated safe-control wording is absent. The accepted guard specifically blocks fallback on safe/normal contexts such as `완비`, `정상`, `보관 중`, `준비 중`, and `조립 전`.
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.*
+pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_report.*
+pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.*
+```
+
+Validation:
+
+```text
+v10 SHE recall: 100.0%
+v10 SHE false negative: 0
+v10 SHE false positive: 0
+actual response 240 status changed: 0
+negative_false_positive: 10
+positive_missed: 2
+ambiguous_over_promoted: 5
+asserted mapping update: 0
+runtime SHE approved update: 0
+legal SR evidence change: 0
+public API shape change: none
 ```
 
 ## CI/WP Relevance7 Profile Tight1
