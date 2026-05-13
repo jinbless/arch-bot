@@ -177,14 +177,14 @@ Synthetic smoke:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_ci_wp_relevance6_x41_profile --use-declared-industry
+python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_ci_wp_relevance7_profile_tight1 --use-declared-industry
 ```
 
 Actual response 240 replay:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_ci_wp_relevance6_x41_profile --database-note "ci_wp_relevance6_x41_profile / no asserted mapping changes"
+python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_ci_wp_relevance7_profile_tight1 --database-note "ci_wp_relevance7_profile_tight1 / no asserted mapping changes"
 ```
 
 Guide recommendation evaluation:
@@ -198,14 +198,14 @@ Stage 2~5 integrated pipeline quality evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_wp_relevance6_x41_profile --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v20_actionable.json
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance6_x41_profile.json
 ```
 
 Current support baseline replay:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_wp_relevance6_x41_profile --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v20_actionable.json
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance6_x41_profile.json
 ```
 
 Stage 3 remaining-gap support artifact:
@@ -373,9 +373,9 @@ frame extraction on synthetic v1~v10:
 
 ## Current Open Work
 
-1. `ci_wp_relevance6_x41_profile` 이후에도 남은 NO_TOP 16건은 v20 root-cause audit의 `stage2_taxonomy_or_normalization_gap 11`, `synthetic_fixture_or_safe_controlled_positive 2`, `stage3_she_to_sr_gap 2`, `situation_frame_child_context_gap 1`, `stage3_she_gap_but_sr_available 1` 큐를 기준으로 재확인한 뒤 처리한다.
-2. `broad_parent_without_child` NO_TOP 잔여와 남은 service-healthcare/chemical/other/machine 큐를 child context taxonomy 후보로 분해한다.
-3. `MACHINE`, `MATERIAL_HANDLING`, `CONSTRUCTION_EQUIP`, `EXCAVATION` 붕괴 케이스를 Guide support 후보로만 확장한다.
+1. `ci_wp_relevance7_profile_tight1` 기준 NO_TOP 24건은 actionability review에서 runtime repair candidate 0으로 분류됐다. 억지로 broad alias/support를 추가하지 말고, exact source Guide가 생기거나 별도 public/customer/animal-safety taxonomy를 만들 때만 재검토한다.
+2. 다음 Guide 품질 작업은 `workprocess_mismatch 39`, `industry_boundary_gap 70`, `CI guide_boundary_mismatch 50`, `CI no_action 481`을 기준으로 처리한다.
+3. `MACHINE`, `MATERIAL_HANDLING`, `CONSTRUCTION_EQUIP`, `EXCAVATION` 붕괴 케이스는 runtime status가 아니라 Guide support/WorkProcess relevance 후보로만 확장한다.
 4. `guide_sr_link_candidates` unique key 충돌 후보를 evidence merge/pre-aggregate한 뒤 candidate table import를 dry-run한다.
 5. asserted mapping update는 0으로 유지하고, 중신뢰 후보는 법적 확정 근거처럼 표시하지 않는다.
 6. WorkProcess step 품질 점수와 industry alignment 점수를 더 세분화한다.
@@ -409,27 +409,28 @@ needs_review/rejected candidates are excluded from serving
 
 Guide recommendations consume the 1,038 manual Guide usage profiles exported from Pipe-B. Standard procedure scoring is guarded so broad SRs, broad/generic features, and industry alignment cannot create top Guide procedures alone.
 
-The current accepted OHS runtime baseline is `ci_wp_relevance6_x41_profile`. Guide recommendations require actionable SHE evidence or conservative SituationFrame child-context support before creating standard procedures/checklist items. Context-only SHE still informs reasoning and status, but it no longer creates top Guide procedures by itself. Photo-top standard procedures are gated by `guide_photo_matchability.v1.json`; measurement/analysis, test, health-screening, risk-method, and document-reference Guides cannot appear as photo-based top procedures. `guide_support_candidates.v20.jsonl` keeps the previously accepted support rows through v19 and adds two narrow support rows for greenhouse-frame fall risk and dry-cleaning exposed steam-pipe burn risk. CI/WP relevance now allows guide-local contextual CI fallback only for `v20_actionable_support` contexts, and `X-41-2011` includes night lone-round / emergency-call usage profile terms. The safe-cue negation fix remains active, so `LOTO 미적용`, `밀착 미흡`, and `동료 정상 착용과 대비` do not become `status_safe`, while safe procedure contexts such as `압력 게이지 0`, `잔압 완전 방출`, and `방열 장갑 착용` block trigger-only Guide support. `confirmation_required` support may satisfy Guide usage/domain gates only when it is trigger-backed, backed by a non-broad SR, and child-context/profile-aligned. `situation_context_taxonomy.v20.json` has 178 child contexts. This does not change status, penalty, SHE approval, asserted mapping, legal SR evidence, or public API shape.
+The current accepted OHS runtime baseline is `ci_wp_relevance7_profile_tight1`. Guide recommendations require actionable SHE evidence or conservative SituationFrame child-context support before creating standard procedures/checklist items. Context-only SHE still informs reasoning and status, but it no longer creates top Guide procedures by itself. Photo-top standard procedures are gated by `guide_photo_matchability.v1.json`; measurement/analysis, test, health-screening, risk-method, and document-reference Guides cannot appear as photo-based top procedures. `guide_support_candidates.v20.jsonl` keeps the previously accepted support rows through v19 and adds two narrow support rows for greenhouse-frame fall risk and dry-cleaning exposed steam-pipe burn risk. CI/WP relevance now also tightens `H-192-2021`, `O-1-2011`, and `G-28-2016` so broad heat, welding, or burn features alone cannot promote smelting, welding-material-selection, or care-facility Guides. The safe-cue negation fix remains active, so `LOTO 미적용`, `밀착 미흡`, and `동료 정상 착용과 대비` do not become `status_safe`, while safe procedure contexts such as `압력 게이지 0`, `잔압 완전 방출`, and `방열 장갑 착용` block trigger-only Guide support. `confirmation_required` support may satisfy Guide usage/domain gates only when it is trigger-backed, backed by a non-broad SR, and child-context/profile-aligned. `situation_context_taxonomy.v20.json` has 178 child contexts. This does not change status, penalty, SHE approval, asserted mapping, legal SR evidence, or public API shape.
 
 Latest validation:
 
 ```text
-baseline: ci_wp_relevance6_x41_profile
+baseline: ci_wp_relevance7_profile_tight1
 synthetic Stage 2~5 v1~v10: 2,360 samples
-Guide mismatch: 135
-Stage 2~5 NO_TOP: 16
-industry_boundary_gap: 71
-workprocess_mismatch: 63
+Guide mismatch: 110
+Stage 2~5 NO_TOP: 24
+industry_boundary_gap: 70
+workprocess_mismatch: 39
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
-photo_unmatchable_suppressed_count: 0 (relative to v19 comparison baseline)
+photo_unmatchable_suppressed_count: 16
 followup_only_retained_count: 18
-top_replaced_by_photo_actionable_count: 0 (relative to v19 comparison baseline)
-CI no_action: 483
-CI context_mismatch: 17
+top_replaced_by_photo_actionable_count: 14
+CI no_action: 481
+CI context_mismatch: 16
 CI broad_sr_only: 16
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 51
+CI guide_boundary_mismatch: 50
+NO_TOP actionability: runtime repair candidates 0 / outside scope 10 / safe-controlled 7 / corpus gap 3 / reject stale support 2 / follow-up only 2
 v10 synthetic SHE recall 100.0%, FN 0, FP 0
 actual response 240 status changed 0
 negative_false_positive 10
@@ -446,6 +447,6 @@ docs/status/evaluation-baseline.md
 pictures-json/reports-manifest.json
 ```
 
-Local/external report bodies referenced by the manifest include the `usage_profile11` historical baseline, the `situation_frame_support7` artifact set, the `photo_matchability1` audit, previous accepted support reports through `stage3_remaining_gap_support_v20_actionable`, and the current `ci_wp_relevance6_x41_profile` Stage 2~5, v10 smoke, and actual 240 replay reports.
+Local/external report bodies referenced by the manifest include the `usage_profile11` historical baseline, the `situation_frame_support7` artifact set, the `photo_matchability1` audit, previous accepted support reports through `stage3_remaining_gap_support_v20_actionable`, and the current `ci_wp_relevance7_profile_tight1` Stage 2~5, NO_TOP actionability, v10 smoke, and actual 240 replay reports.
 
 Rejected approaches: widening hazard/risk text alias inference at status level changed actual 240 status behavior. Broadly widening `UNSAFE_TERMS` reduced NO_TOP only slightly but regressed Guide mismatch and industry boundary quality. Trigger-only domain override reduced NO_TOP but reintroduced broad SR overreach. Broad Stage 2/3 support builds reduced NO_TOP further but overmatched electrical/cleaning/painting/radiation/permit/welding/solvent contexts; accepted rows keep only narrow support-only trigger evidence and block safe checklist-style contexts. The accepted v8 narrow2 pass removed broad `방사선`, `허가서`, `용접 흄`, and `용제` triggers from the rejected v8 trial. Early v9 trials removed generic `전원을 끄지 않고`, generic medical-waste wording, and `담배꽁초` after semantic review. The first v10 trial removed high-pressure washing/electrical-panel support and tightened food-slicer, elevated-welding, and silica triggers after semantic review. Early v11 trials overmatched PPE-only, generic fall-risk, and generic blocked-visibility wording, so accepted narrow3 requires object-specific triggers. The first v12 trial overmatched safe PPE, high-heat, stair, and electrical-control scenes; accepted narrow4 keeps only unsafe/object-specific trigger terms and drops the EV battery seed that moved one case from CI no-action to CI boundary mismatch. Early v13 trials overmatched broad cold-room wording or over-tightened short-token matching; accepted narrow5 keeps object-specific PPE/control triggers and only blocks the confirmed `P-55-2012` single-character `황` false match. The first v14 trial overmatched `발판 없이`, generic `슬링/인양`, generic `용접 흄`, and generic `보호 장갑 미착용`; accepted narrow6b keeps compound/object-specific triggers. Stage 3 support aliases are accepted only as profile-alignment hints, not extraction aliases. Remaining Guide coverage should be handled through SituationFrame child contexts, usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess relevance.

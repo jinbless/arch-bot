@@ -1,15 +1,15 @@
 {
   "summary": {
-    "generated_at": "2026-05-13T10:10:36+09:00",
+    "generated_at": "2026-05-13T11:14:06+09:00",
     "schema_version": "reports-manifest-v1",
-    "accepted_baseline": "ci_wp_relevance6_x41_profile",
-    "previous_product_baseline": "stage3_remaining_gap_support_v20_actionable",
+    "accepted_baseline": "ci_wp_relevance7_profile_tight1",
+    "previous_product_baseline": "ci_wp_relevance6_x41_profile",
     "report_body_policy": "pictures-json/reports/** remains local/external; this manifest records checksums and accepted baselines.",
-    "report_file_count": 415
+    "report_file_count": 430
   },
   "accepted_baseline": {
-    "name": "ci_wp_relevance6_x41_profile",
-    "previous": "stage3_remaining_gap_support_v20_actionable",
+    "name": "ci_wp_relevance7_profile_tight1",
+    "previous": "ci_wp_relevance6_x41_profile",
     "photo_matchability": {
       "guide_count": 1038,
       "classification_counts": {
@@ -231,7 +231,7 @@
         "stage2": 775,
         "stage3": 1288,
         "stage4": 612,
-        "stage5": 631
+        "stage5": 614
       },
       "she_metrics": {
         "expected_positive": 2016,
@@ -248,108 +248,148 @@
         "recall": "84.0%"
       },
       "guide_metrics": {
-        "current_obvious_top_guide_mismatch": 135,
-        "no_top": 16,
-        "industry_boundary_gap": 71,
-        "workprocess_mismatch": 63,
+        "current_obvious_top_guide_mismatch": 110,
+        "no_top": 24,
+        "industry_boundary_gap": 70,
+        "workprocess_mismatch": 39,
         "broad_sr_overreach": 1,
         "photo_unmatchable_top_count": 0,
-        "photo_unmatchable_suppressed_count": 0,
+        "photo_unmatchable_suppressed_count": 16,
         "followup_only_retained_count": 18,
-        "top_replaced_by_photo_actionable_count": 0,
+        "top_replaced_by_photo_actionable_count": 14,
         "top_photo_matchability_counts": {
-          "NO_TOP": 503,
-          "photo_actionable": 1857
+          "NO_TOP": 519,
+          "photo_actionable": 1841
         }
       },
       "ci_metrics": {
-        "ci_no_action": 483,
-        "ci_context_mismatch": 17,
+        "ci_no_action": 481,
+        "ci_context_mismatch": 16,
         "ci_broad_sr_only": 16,
         "ci_needs_review_used": 0,
-        "ci_guide_boundary_mismatch": 51
+        "ci_guide_boundary_mismatch": 50
       },
       "primary_failure_stage_counts": {
-        "ok": 490,
+        "ok": 501,
         "stage2": 775,
         "stage3": 808,
         "stage4": 214,
-        "stage5": 73
+        "stage5": 62
       },
-      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance6_x41_profile.json",
-      "comparison_note": "Photo suppression/replacement counters are relative to the supplied v20 comparison report for this CI/WP relevance run."
+      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.json",
+      "comparison_note": "Compared against ci_wp_relevance6_x41_profile. v7 tightens Guide-specific usage boundaries for H-192-2021, O-1-2011, and G-28-2016."
     },
     "synthetic_v10_smoke": {
+      "source_report": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance7_profile_tight1_report.json",
       "total": 330,
+      "by_case_type": {
+        "positive": 187,
+        "ambiguous": 99,
+        "negative": 44
+      },
       "she_positive_recall": "100.0%",
       "she_false_negative_count": 0,
       "she_false_positive_count": 0,
-      "normal_suppression_rate": "100.0%",
-      "source_report": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance6_x41_profile_report.json"
+      "she_negative_specificity": "100.0%"
     },
     "actual_240_regression": {
+      "source_report": "pictures-json/reports/actual_response_samples_ci_wp_relevance7_profile_tight1.json",
       "total_samples": 240,
       "status_changed_count": 0,
-      "negative_false_positive": 10,
-      "positive_missed": 2,
-      "ambiguous_over_promoted": 5,
-      "top_action_changed": 118,
-      "top_procedure_changed": 149,
-      "penalty_counts": {
+      "actual_status_counts": {
+        "needs_clarification": 60,
+        "not_determined": 89,
+        "confirmed": 50,
+        "suspected": 41
+      },
+      "actual_penalty_counts": {
         "conditional": 96,
         "no_penalty": 94,
         "direct": 50
       },
-      "source_report": "pictures-json/reports/actual_response_samples_ci_wp_relevance6_x41_profile.json"
+      "bucket_counts": {
+        "positive_boundary_demoted": 35,
+        "ambiguous_ok": 57,
+        "negative_ok": 69,
+        "legacy_ok": 40,
+        "negative_false_positive": 10,
+        "ambiguous_over_promoted": 5,
+        "ambiguous_under_matched": 18,
+        "positive_missed": 2,
+        "legacy_mismatch": 4
+      },
+      "top_action_changed_count": 118,
+      "top_procedure_changed_count": 149
     },
     "no_top_root_cause_audit": {
-      "name": "stage2_5_no_top_root_cause_stage3_remaining_gap_support_v20_actionable",
-      "total_no_top": 17,
+      "source_report": "pictures-json/reports/stage2_5_no_top_root_cause_ci_wp_relevance7_profile_tight1.json",
+      "total_no_top": 24,
       "primary_root_cause_counts": {
-        "stage2_taxonomy_or_normalization_gap": 11,
+        "stage2_taxonomy_or_normalization_gap": 14,
+        "situation_frame_child_context_gap": 5,
         "synthetic_fixture_or_safe_controlled_positive": 2,
         "stage3_she_to_sr_gap": 2,
-        "situation_frame_child_context_gap": 1,
         "stage3_she_gap_but_sr_available": 1
       },
       "repair_lane_counts": {
-        "stage2_taxonomy": 11,
+        "stage2_taxonomy": 14,
+        "situation_frame_taxonomy": 5,
         "fixture_review": 2,
         "stage3_she_sr": 2,
-        "situation_frame_taxonomy": 1,
         "stage3_she": 1
       },
       "domain_bucket_counts": {
-        "service_healthcare_people_gap": 7,
+        "service_healthcare_people_gap": 6,
+        "machine_profile_gap": 5,
+        "burn_heat_profile_gap": 4,
         "other_taxonomy_gap": 4,
         "chemical_profile_gap": 3,
         "material_handling_profile_gap": 1,
-        "machine_profile_gap": 1,
         "construction_fall_profile_gap": 1
       },
       "situation_frame": {
         "match_policy_counts": {
-          "guide_support_only": 15,
+          "guide_support_only": 22,
           "status_safe": 2
         },
-        "child_context_available": 2,
-        "broad_parent_without_child": 8,
+        "child_context_available": 4,
+        "broad_parent_without_child": 13,
         "support_hit_cases": 1,
         "top_parent_contexts": [
           {
+            "key": "MACHINE",
+            "count": 5
+          },
+          {
             "key": "CHEMICAL_WORK",
-            "count": 4
+            "count": 5
+          },
+          {
+            "key": "HOT_TOOL",
+            "count": 2
+          },
+          {
+            "key": "OTHER",
+            "count": 1
           },
           {
             "key": "GENERAL_WORKPLACE",
-            "count": 2
+            "count": 1
           },
           {
             "key": "MATERIAL_HANDLING",
             "count": 1
           },
           {
-            "key": "MACHINE",
+            "key": "SERVING_FLOOR",
+            "count": 1
+          },
+          {
+            "key": "WAX_POLISHING",
+            "count": 1
+          },
+          {
+            "key": "DRYER_OPERATION",
             "count": 1
           },
           {
@@ -367,6 +407,14 @@
         ],
         "top_child_contexts": [
           {
+            "key": "DEEP_FRYER",
+            "count": 1
+          },
+          {
+            "key": "AUTOCLAVE_STERILIZATION",
+            "count": 1
+          },
+          {
             "key": "CLEANING_SANITATION",
             "count": 1
           },
@@ -375,169 +423,7 @@
             "count": 1
           }
         ]
-      },
-      "priority_repair_plan": [
-        {
-          "repair_lane": "stage2_taxonomy",
-          "domain_bucket": "service_healthcare_people_gap",
-          "count": 6,
-          "why_it_matters": "Add or re-axis child context taxonomy without broadening status-level inference.",
-          "sample_case_ids": [
-            "SYN-V10-0122",
-            "SYN-V6-0307",
-            "SYN-V6-0311",
-            "SYN-V6-0323",
-            "SYN-V6-0327"
-          ],
-          "sample_feature_codes": [
-            "GENERAL_WORKPLACE",
-            "CHEMICAL_WORK",
-            "HAIR_WASH"
-          ],
-          "sample_child_contexts": [],
-          "sample_parent_contexts": [
-            "GENERAL_WORKPLACE",
-            "CHEMICAL_WORK",
-            "HAIR_WASH"
-          ]
-        },
-        {
-          "repair_lane": "fixture_review",
-          "domain_bucket": "chemical_profile_gap",
-          "count": 2,
-          "why_it_matters": "Check whether the positive fixture actually shows a current unsafe condition.",
-          "sample_case_ids": [
-            "SYN-V10-0283",
-            "SYN-V10-0302"
-          ],
-          "sample_feature_codes": [
-            "CHEMICAL_WORK"
-          ],
-          "sample_child_contexts": [],
-          "sample_parent_contexts": [
-            "CHEMICAL_WORK"
-          ]
-        },
-        {
-          "repair_lane": "stage2_taxonomy",
-          "domain_bucket": "other_taxonomy_gap",
-          "count": 2,
-          "why_it_matters": "Add or re-axis child context taxonomy without broadening status-level inference.",
-          "sample_case_ids": [
-            "SYN-V6-0163",
-            "SYN-V6-0172"
-          ],
-          "sample_feature_codes": [
-            "COLLISION"
-          ],
-          "sample_child_contexts": [],
-          "sample_parent_contexts": []
-        },
-        {
-          "repair_lane": "stage3_she_sr",
-          "domain_bucket": "other_taxonomy_gap",
-          "count": 2,
-          "why_it_matters": "Create review-only SHE/SR candidates or connect existing patterns conservatively.",
-          "sample_case_ids": [
-            "SYN-V7-0081",
-            "SYN-V7-0307"
-          ],
-          "sample_feature_codes": [],
-          "sample_child_contexts": [
-            "CLEANING_SANITATION",
-            "ENGINE_OVERHAUL"
-          ],
-          "sample_parent_contexts": [
-            "WET_FLOOR_WORK",
-            "LIFT_WORK"
-          ]
-        },
-        {
-          "repair_lane": "situation_frame_taxonomy",
-          "domain_bucket": "service_healthcare_people_gap",
-          "count": 1,
-          "why_it_matters": "Split broad parent contexts into observable child contexts.",
-          "sample_case_ids": [
-            "SYN-V10-0037"
-          ],
-          "sample_feature_codes": [
-            "COLLISION",
-            "CRUSH",
-            "GENERAL_WORKPLACE"
-          ],
-          "sample_child_contexts": [],
-          "sample_parent_contexts": [
-            "GENERAL_WORKPLACE"
-          ]
-        },
-        {
-          "repair_lane": "stage3_she",
-          "domain_bucket": "material_handling_profile_gap",
-          "count": 1,
-          "why_it_matters": "Attach Guide support without promoting SHE status when SRs already exist.",
-          "sample_case_ids": [
-            "SYN-V10-0273"
-          ],
-          "sample_feature_codes": [
-            "MATERIAL_HANDLING"
-          ],
-          "sample_child_contexts": [],
-          "sample_parent_contexts": [
-            "MATERIAL_HANDLING"
-          ]
-        },
-        {
-          "repair_lane": "stage2_taxonomy",
-          "domain_bucket": "machine_profile_gap",
-          "count": 1,
-          "why_it_matters": "Add or re-axis child context taxonomy without broadening status-level inference.",
-          "sample_case_ids": [
-            "SYN-V10-0288"
-          ],
-          "sample_feature_codes": [
-            "CRUSH",
-            "ELECTRIC_SHOCK",
-            "ELECTRICITY",
-            "MACHINE"
-          ],
-          "sample_child_contexts": [],
-          "sample_parent_contexts": [
-            "MACHINE"
-          ]
-        },
-        {
-          "repair_lane": "stage2_taxonomy",
-          "domain_bucket": "construction_fall_profile_gap",
-          "count": 1,
-          "why_it_matters": "Add or re-axis child context taxonomy without broadening status-level inference.",
-          "sample_case_ids": [
-            "SYN-V6-0167"
-          ],
-          "sample_feature_codes": [
-            "COLLISION",
-            "FALL"
-          ],
-          "sample_child_contexts": [],
-          "sample_parent_contexts": []
-        },
-        {
-          "repair_lane": "stage2_taxonomy",
-          "domain_bucket": "chemical_profile_gap",
-          "count": 1,
-          "why_it_matters": "Add or re-axis child context taxonomy without broadening status-level inference.",
-          "sample_case_ids": [
-            "SYN-V6-0243"
-          ],
-          "sample_feature_codes": [
-            "CHEMICAL_WORK"
-          ],
-          "sample_child_contexts": [],
-          "sample_parent_contexts": [
-            "CHEMICAL_WORK"
-          ]
-        }
-      ],
-      "source_report": "pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v20_actionable.json"
+      }
     },
     "no_top_guide_support_candidates": {
       "stage3_support_candidate_rows": 127,
@@ -580,7 +466,7 @@
         "status_penalty_she_approval_asserted_mapping_update": 0
       }
     },
-    "runtime_change_note": "ci_wp_relevance6_x41_profile keeps the v20 status/penalty/SHE/SR boundary, adds a narrow guide-local contextual CI fallback for v20_actionable_support contexts, updates X-41-2011 lone-worker usage-profile terms for night lone rounds/emergency-call context, and adjusts CI evaluation so same-top-Guide checklist actions inherit the top procedure boundary. No SHE approval, asserted mapping, legal SR evidence, or public API shape changes.",
+    "runtime_change_note": "ci_wp_relevance7_profile_tight1 keeps the v20 status/penalty/SHE/SR boundary and changes only Stage 5 recommendation relevance. It tightens H-192-2021, O-1-2011, and G-28-2016 to Guide-specific exclusive usage boundaries so broad heat, welding, or burn features alone cannot promote those Guides. The NO_TOP tail is reviewed by actionability; runtime repair candidates remain 0. No SHE approval, asserted mapping, legal SR evidence, or public API shape changes.",
     "safe_lock_fix": {
       "name": "stage2_support_usage_gate3_safe_lock1",
       "changed_file": "OHS/backend/app/services/situation_frame_service.py",
@@ -1064,6 +950,64 @@
         "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance6_x41_profile_report.*",
         "pictures-json/reports/actual_response_samples_ci_wp_relevance6_x41_profile.*"
       ]
+    },
+    "no_top_actionability": {
+      "source_report": "pictures-json/reports/stage2_5_no_top_actionability_ci_wp_relevance7_profile_tight1.json",
+      "total_no_top": 24,
+      "actionability_counts": {
+        "outside_kosha_photo_guide_scope": 10,
+        "safe_controlled_positive": 7,
+        "corpus_gap_no_exact_photo_guide": 3,
+        "reject_existing_support_candidate": 2,
+        "followup_only_document_or_program": 1,
+        "followup_only_or_corpus_gap": 1
+      },
+      "runtime_repair_candidate_count": 0,
+      "status_penalty_she_sr_impact": "none",
+      "runtime_behavior_changed": false
+    },
+    "ci_wp_relevance7_profile_tight1": {
+      "scope": "Stage 5 standard procedure and immediate checklist relevance only",
+      "runtime_she_approved_update": 0,
+      "asserted_mapping_update": 0,
+      "legal_sr_evidence_change": 0,
+      "public_api_shape_change": "none",
+      "runtime_changes": [
+        "H-192-2021, O-1-2011, and G-28-2016 are tightened to Guide-specific exclusive usage boundaries.",
+        "Broad heat, welding, or burn features alone cannot promote smelting, welding-material-selection, or care-facility Guides.",
+        "NO_TOP tail is classified by actionability; runtime repair candidates remain 0."
+      ],
+      "source_reports": [
+        "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.*",
+        "pictures-json/reports/stage2_5_no_top_root_cause_ci_wp_relevance7_profile_tight1.*",
+        "pictures-json/reports/stage2_5_no_top_actionability_ci_wp_relevance7_profile_tight1.*",
+        "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance7_profile_tight1_report.*",
+        "pictures-json/reports/actual_response_samples_ci_wp_relevance7_profile_tight1.*"
+      ],
+      "stage2_5_metrics": {
+        "current_obvious_top_guide_mismatch": 110,
+        "no_top": 24,
+        "industry_boundary_gap": 70,
+        "workprocess_mismatch": 39,
+        "broad_sr_overreach": 1,
+        "photo_unmatchable_top_count": 0,
+        "photo_unmatchable_suppressed_count": 16,
+        "followup_only_retained_count": 18,
+        "top_replaced_by_photo_actionable_count": 14,
+        "top_photo_matchability_counts": {
+          "NO_TOP": 519,
+          "photo_actionable": 1841
+        }
+      },
+      "ci_metrics": {
+        "ci_no_action": 481,
+        "ci_context_mismatch": 16,
+        "ci_broad_sr_only": 16,
+        "ci_needs_review_used": 0,
+        "ci_guide_boundary_mismatch": 50
+      },
+      "actual_240_status_changed": 0,
+      "v10_she_recall": "100.0%"
     }
   },
   "reports": [
@@ -1086,6 +1030,27 @@
       "size_bytes": 27962,
       "sha256": "173266c747ded5790c6df4e046f9334102088a1b9e62c5dcb4c5e449477fc1ac",
       "modified_at": "2026-05-13T10:06:55+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_ci_wp_relevance7_profile_tight1.csv",
+      "size_bytes": 114233,
+      "sha256": "8fd461c9d9793b6073fce07ed2ce3c7e7bb1eaa9506148369fc036d71b3296c5",
+      "modified_at": "2026-05-13T10:57:22+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_ci_wp_relevance7_profile_tight1.json",
+      "size_bytes": 3642557,
+      "sha256": "750b74683f610c2b40262548cad46fc45a9d1045c01226f481c5184133d200c7",
+      "modified_at": "2026-05-13T10:57:22+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_ci_wp_relevance7_profile_tight1.md",
+      "size_bytes": 27859,
+      "sha256": "7187c7d21b1c44924df7aa4b5d6ae2a23861e5e78c9936002b7d4d6db1af1308",
+      "modified_at": "2026-05-13T10:57:22+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
@@ -1737,6 +1702,27 @@
       "size_bytes": 21916,
       "sha256": "d1314b6331ffdc4fd8a88396f494692d91498a5a929f65b56a5ce588bbb44b4b",
       "modified_at": "2026-05-13T10:04:06+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.csv",
+      "size_bytes": 493081,
+      "sha256": "b51b8e79e663ac3c87a23585b14f0479b33cf44e3430e9f08320e84a8e6d51f9",
+      "modified_at": "2026-05-13T10:52:56+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.json",
+      "size_bytes": 24312099,
+      "sha256": "2dce5d005c586acd8e3ca2519dce5b2f59f3bfd3498faaec143d1f3ad4f13fb1",
+      "modified_at": "2026-05-13T10:52:55+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.md",
+      "size_bytes": 23462,
+      "sha256": "284bec2917af1d858291f597cd2cf01a9513ec30a0f4a575c658efaf23345ad3",
+      "modified_at": "2026-05-13T10:52:55+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
@@ -2493,6 +2479,48 @@
       "size_bytes": 2084,
       "sha256": "cea75f496896ac66cb0360d77926e34333d0fa6c30864056c6b07a5c749f92f2",
       "modified_at": "2026-05-12T15:45:50+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_actionability_ci_wp_relevance7_profile_tight1.csv",
+      "size_bytes": 14254,
+      "sha256": "e09881c171e0e7b5cda79bb1217f59163ed47d83c086ec4c2ec4980d6cf5a8f5",
+      "modified_at": "2026-05-13T10:55:18+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_actionability_ci_wp_relevance7_profile_tight1.json",
+      "size_bytes": 32576,
+      "sha256": "5ecef7057b1e809d8cd6bc58d76b13f2467564c6249c238cf2f9f547c3733836",
+      "modified_at": "2026-05-13T10:55:18+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_actionability_ci_wp_relevance7_profile_tight1.md",
+      "size_bytes": 7842,
+      "sha256": "664b666980e76b1ad777466c10347aa831c27a0fe49a4cca2e74a338ad6bb9f4",
+      "modified_at": "2026-05-13T10:55:18+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_root_cause_ci_wp_relevance7_profile_tight1.csv",
+      "size_bytes": 11073,
+      "sha256": "82823a46660aad72202f3e152a0cfbe01d2af695bd1347daefc7e305d26d4f3a",
+      "modified_at": "2026-05-13T10:53:26+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_root_cause_ci_wp_relevance7_profile_tight1.json",
+      "size_bytes": 93226,
+      "sha256": "c8ac60b2227bbfb27008548c16e8ff96e8316f47a1c63a44099c5b544a66d693",
+      "modified_at": "2026-05-13T10:53:26+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_root_cause_ci_wp_relevance7_profile_tight1.md",
+      "size_bytes": 7059,
+      "sha256": "28f1af83e683b2a6e305279f0e22d38010e4f44fccad2f417343dd11e51d76da",
+      "modified_at": "2026-05-13T10:53:26+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {
@@ -3382,6 +3410,27 @@
       "size_bytes": 224568,
       "sha256": "e4969e0a2180e5b9cb3240e52976da2c33fcd260893e07f78136f4fc1d6af9e0",
       "modified_at": "2026-05-13T10:06:30+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance7_profile_tight1_cases.csv",
+      "size_bytes": 437496,
+      "sha256": "11c1e4715909ad802f1cdb773d2e36b287e71a8dc8257ef3dc38f03798a5addb",
+      "modified_at": "2026-05-13T10:59:24+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance7_profile_tight1_report.json",
+      "size_bytes": 14557347,
+      "sha256": "ce3477853a37333443564158bdc4624707d227e2cc4703a758f5f936dd98ff83",
+      "modified_at": "2026-05-13T10:59:24+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_ci_wp_relevance7_profile_tight1_report.md",
+      "size_bytes": 224551,
+      "sha256": "647dee24a94cc80ed7cafb20bc7bc8e45d7c0faed82b7290a1de8b8674dd82b4",
+      "modified_at": "2026-05-13T10:59:24+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     },
     {

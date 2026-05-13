@@ -138460,14 +138460,12 @@
       "short_code": "G28",
       "source_file": "pipe-B/data/ci-output/ci-G28.json",
       "batch_id": "domain_guard_manual_batch_003",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "care_facility_slip_burn_fall",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
         "요양시설",
-        "미끄럼",
         "욕실",
-        "화상",
         "계단"
       ],
       "negative_context_terms": [
@@ -138477,7 +138475,7 @@
         "실험실"
       ],
       "industry_alignment": [
-        "food_service"
+        "요양시설"
       ],
       "confidence": 0.88,
       "evidence": "요양시설의 바닥, 계단, 욕실, 세탁물, 주방설비, 창문·유리 안전 지침",
@@ -138489,9 +138487,7 @@
       "recommendation_boundary": {
         "include_when": [
           "요양시설",
-          "미끄럼",
           "욕실",
-          "화상",
           "계단"
         ],
         "exclude_when": [
@@ -138601,30 +138597,23 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "요양시설의 안전에 관한 기술지침 사용경계: care_facility_slip_burn_fall / domain_specific",
+      "usage_summary": "요양시설의 안전에 관한 기술지침 사용경계: care_facility_slip_burn_fall / exclusive",
       "intended_workplaces": [
-        "food_service",
         "요양시설",
-        "미끄럼",
         "욕실",
-        "화상",
         "계단"
       ],
       "intended_tasks": [
         "욕실 이용자 화상위험 사전 점검",
         "요양시설",
-        "미끄럼",
         "욕실",
-        "화상",
         "계단"
       ],
       "observable_required_cues": [
         "요양시설 욕실·계단",
         "젖은 바닥·안전필름·난간",
         "요양시설",
-        "미끄럼",
         "욕실",
-        "화상",
         "계단"
       ],
       "negative_boundaries": [
@@ -138649,11 +138638,8 @@
         "요양시설 욕실·계단",
         "젖은 바닥·안전필름·난간",
         "요양시설",
-        "미끄럼",
         "욕실",
-        "화상",
         "계단",
-        "food_service",
         "욕실 이용자 화상위험 사전 점검",
         "BURN",
         "WET_FLOOR_WORK",
@@ -164755,7 +164741,7 @@
       "short_code": "H192",
       "source_file": "pipe-B/data/ci-output/ci-H192.json",
       "batch_id": "domain_guard_manual_batch_031",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "smelting_worker_metal_fume_heat_noise",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -164764,9 +164750,7 @@
         "카드뮴",
         "비소",
         "니켈",
-        "황산",
-        "고열",
-        "소음"
+        "황산"
       ],
       "negative_context_terms": [
         "항만하역",
@@ -164805,9 +164789,7 @@
           "카드뮴",
           "비소",
           "니켈",
-          "황산",
-          "고열",
-          "소음"
+          "황산"
         ],
         "exclude_when": [
           "항만하역",
@@ -165073,7 +165055,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "제련작업자의 건강관리 지침 사용경계: smelting_worker_metal_fume_heat_noise / domain_specific",
+      "usage_summary": "제련작업자의 건강관리 지침 사용경계: smelting_worker_metal_fume_heat_noise / exclusive",
       "intended_workplaces": [
         "해당 Guide의 물질·작업·보건관리 문맥이 확인되는 사업장",
         "제련",
@@ -165081,9 +165063,7 @@
         "카드뮴",
         "비소",
         "니켈",
-        "황산",
-        "고열",
-        "소음"
+        "황산"
       ],
       "intended_tasks": [
         "정제 공정(정제련) - 건식 제련",
@@ -165094,9 +165074,7 @@
         "카드뮴",
         "비소",
         "니켈",
-        "황산",
-        "고열",
-        "소음"
+        "황산"
       ],
       "observable_required_cues": [
         "제련로·광석·금속흄",
@@ -165106,9 +165084,7 @@
         "카드뮴",
         "비소",
         "니켈",
-        "황산",
-        "고열",
-        "소음"
+        "황산"
       ],
       "negative_boundaries": [
         "항만하역",
@@ -165143,8 +165119,6 @@
         "비소",
         "니켈",
         "황산",
-        "고열",
-        "소음",
         "정제 공정(정제련) - 건식 제련",
         "용련 공정(조제련)"
       ],
@@ -202294,7 +202268,7 @@
       "short_code": "O1",
       "source_file": "pipe-B/data/ci-output/ci-O1.json",
       "batch_id": "domain_guard_manual_batch_001",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "welding_material_selection",
       "mismatch_policy": "penalize_without_required_context",
       "required_context_terms": [
@@ -202403,7 +202377,7 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "설비보수용 용접재료 선정에 관한 기술지침 사용경계: welding_material_selection / domain_specific",
+      "usage_summary": "설비보수용 용접재료 선정에 관한 기술지침 사용경계: welding_material_selection / exclusive",
       "intended_workplaces": [
         "설비보수",
         "용접재료",
