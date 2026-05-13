@@ -37,6 +37,39 @@ BROAD_FEATURE_CODES = frozenset({
     "ELECTRICITY",
     "ELECTRICAL_WORK",
 })
+WEAK_PROFILE_USAGE_TERMS = frozenset({
+    "chemical",
+    "chemical_process",
+    "construction",
+    "electrical_maintenance",
+    "healthcare",
+    "laboratory",
+    "manufacturing",
+    "화학물질",
+    "화재",
+    "폭발",
+    "가스",
+    "증기",
+    "환기",
+    "방폭",
+    "인화성 액체",
+    "인화성 가스",
+    "인화성",
+    "인화성 물질",
+    "유기용제",
+    "용제",
+    "점화원",
+    "낙하물",
+    "피부",
+    "흡입",
+    "작업계획",
+    "고소 작업",
+    "중량물 인력 작업",
+    "근골격계",
+    "작업환경개선",
+    "의학적 조치",
+    "해당 작업 또는 설비가 확인되는 사업장",
+})
 REFERENCE_PROCEDURE_ROLES = frozenset({
     "measurement_analysis",
     "test_protocol",
@@ -331,7 +364,7 @@ def _evaluate_manual_profile(
         *list(profile.get("negative_boundaries") or []),
     ]
 
-    manual_terms = _unique_terms([
+    manual_terms = _strong_manual_terms([
         *required_terms,
         *include_terms,
         *visual_triggers,
@@ -438,6 +471,14 @@ def _evaluate_manual_profile(
         level=level,
         alignment="general",
     )
+
+
+def _strong_manual_terms(terms: Iterable[str]) -> list[str]:
+    return [
+        term
+        for term in _unique_terms(terms)
+        if term.strip().lower() not in WEAK_PROFILE_USAGE_TERMS
+    ]
 
 def _match_rule(guide_code: str | None, title: str | None, profile_text: str | None) -> GuideDomainRule | None:
     guide_text = _blob([title or "", profile_text or ""])

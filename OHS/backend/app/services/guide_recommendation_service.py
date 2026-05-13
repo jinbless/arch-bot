@@ -76,6 +76,54 @@ BROAD_FEATURE_CODES = {
     "ELECTRICITY",
     "ELECTRICAL_WORK",
 }
+WEAK_PROFILE_USAGE_TERMS = {
+    "chemical",
+    "chemical_process",
+    "construction",
+    "electrical_maintenance",
+    "healthcare",
+    "laboratory",
+    "manufacturing",
+    "화학물질",
+    "화재",
+    "폭발",
+    "가스",
+    "증기",
+    "환기",
+    "방폭",
+    "인화성 액체",
+    "인화성 가스",
+    "인화성",
+    "인화성 물질",
+    "유기용제",
+    "용제",
+    "점화원",
+    "낙하물",
+    "피부",
+    "흡입",
+    "작업계획",
+    "고소 작업",
+    "중량물 인력 작업",
+    "근골격계",
+    "작업환경개선",
+    "의학적 조치",
+    "해당 작업 또는 설비가 확인되는 사업장",
+}
+STRICT_PROFILE_USAGE_GATE_FAMILIES = {
+    "automotive_partial_spray_painting_isocyanate_solvent_booth_explosion",
+    "bulk_oxygen_supply_loX_tank_vaporizer_safety_distance",
+    "chemical_laboratory_storage_hood_gas_cylinder_fire_emergency",
+    "chemical_protective_glove_selection",
+    "construction_rush_work_night_shift_simultaneous_work_fire_fall",
+    "ergonomic_msd_prevention_program",
+    "excavator_operation_quick_coupler_rops_lifting_attachment",
+    "gas_vapor_fire_explosion_design_vent_containment_suppression",
+    "interior_ceiling_wall_board_stud_scaffold_temporary_electric",
+    "ntr_tunnel_pipe_jacking_hydraulic_jack_grouting_inner_excavation",
+    "older_worker_safety_training",
+    "small_workplace_fire_explosion_prevention_extinguisher_detector_esv_flame_arrester",
+    "warehouse_storage_rack_material_handling",
+}
 REFERENCE_PROCEDURE_ROLES = {
     "measurement_analysis",
     "test_protocol",
@@ -345,7 +393,11 @@ def _manual_profile_terms(profile: dict | None) -> list[str]:
     terms.extend(str(value) for value in (boundary.get("include_when") or []) if value)
     if profile.get("guide_code") == "P-55-2012":
         terms = [term for term in terms if term != "황"]
-    return _unique(terms)
+    return _unique([
+        term
+        for term in terms
+        if term.strip().lower() not in WEAK_PROFILE_USAGE_TERMS
+    ])
 
 
 def _support_child_profile_aligned(child_context: str | None, profile: dict | None) -> bool:
@@ -481,6 +533,33 @@ def _support_signal_score_threshold(support_signal: dict[str, Any] | None) -> fl
     if support_signal and support_signal.get("match_policy") == "confirmation_required":
         return 0.54
     return 0.78
+
+
+def _trigger_backed_support_profile_override(
+    support_signal: dict[str, Any] | None,
+    profile: dict | None,
+) -> bool:
+    return bool(
+        support_signal
+        and support_signal.get("has_trigger_hit")
+        and float(support_signal.get("support_score") or 0) >= _support_signal_score_threshold(support_signal)
+        and support_signal.get("has_non_broad_support_sr")
+        and _support_child_profile_aligned(
+            support_signal.get("child_context"),
+            profile,
+        )
+    )
+
+
+def _strict_profile_usage_required(profile: dict | None) -> bool:
+    if not profile:
+        return False
+    family = str(profile.get("domain_family") or "")
+    if family in STRICT_PROFILE_USAGE_GATE_FAMILIES:
+        return True
+    level = str(profile.get("profile_level") or "general")
+    role = str(profile.get("procedure_role") or "field_control")
+    return role in REFERENCE_PROCEDURE_ROLES or level == "exclusive"
 
 
 def _ci_wp_relevance_support_allowed(support_signal: dict[str, Any] | None) -> bool:
@@ -1314,15 +1393,7 @@ def get_standard_guides(
         domain_overridden_by_support = False
         if domain_decision.exclude or domain_decision.alignment == "domain_mismatch":
             support_signal = support_signal_by_guide.get(guide_code) or {}
-            trigger_backed_support = bool(
-                support_signal.get("has_trigger_hit")
-                and float(support_signal.get("support_score") or 0) >= _support_signal_score_threshold(support_signal)
-                and support_signal.get("has_non_broad_support_sr")
-                and _support_child_profile_aligned(
-                    support_signal.get("child_context"),
-                    manual_profile,
-                )
-            )
+            trigger_backed_support = _trigger_backed_support_profile_override(support_signal, manual_profile)
             if trigger_backed_support:
                 domain_overridden_by_support = True
                 guide_reasons[guide_code].append(
@@ -1330,6 +1401,15 @@ def get_standard_guides(
                 )
             else:
                 continue
+        if (
+            _strict_profile_usage_required(manual_profile)
+            and guide_code not in usage_profile_signals
+            and not _trigger_backed_support_profile_override(
+                support_signal_by_guide.get(guide_code),
+                manual_profile,
+            )
+        ):
+            continue
         if (
             manual_profile
             and manual_profile.get("domain_family") in CONTEXT_REQUIRED_DOMAIN_FAMILIES

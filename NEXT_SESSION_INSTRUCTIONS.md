@@ -123,28 +123,28 @@ http://127.0.0.1:5173/ohs/
 
 ## 6. 현재 검증 기준선
 
-Accepted runtime baseline: `industry_boundary_safe_suppress3`
+Accepted runtime baseline: `strict_profile_gate3`
 
-Previous accepted baseline: `ci_wp_relevance8d_profile_tight2_ci_safe_gate`
+Previous accepted baseline: `industry_boundary_safe_suppress3`
 
 ```text
 synthetic Stage 2~5 v1~v10 total: 2,360
 SHE TP/FN/FP: 1,107 / 909 / 82
 SR TP/FN/FP: 1,414 / 270 / 211
-Guide mismatch: 73
-Stage 2~5 NO_TOP: 30
-industry_boundary_gap: 56
-workprocess_mismatch: 16
+Guide mismatch: 43
+Stage 2~5 NO_TOP: 67
+industry_boundary_gap: 21
+workprocess_mismatch: 21
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
 photo_unmatchable_suppressed_count: 0
-followup_only_retained_count: 23
+followup_only_retained_count: 16
 top_replaced_by_photo_actionable_count: 0
-CI no_action: 438
+CI no_action: 480
 CI context_mismatch: 14
-CI broad_sr_only: 15
+CI broad_sr_only: 13
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 48
+CI guide_boundary_mismatch: 31
 v10 SHE recall: 100.0%
 v10 SHE false negative: 0
 v10 SHE false positive: 0
@@ -154,7 +154,7 @@ positive_missed: 2
 ambiguous_over_promoted: 5
 ```
 
-`industry_boundary_safe_suppress3` keeps the v8d status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure generation. It suppresses photo-top standard procedures for explicit non-negated safe/normal/completed/no-entry/office/storage-safe phrases such as `정상 장면`, `작업 완료`, `아직 진입하지 않음`, `접혀 있는 상태로 보관`, `확인서 작성`, `컴퓨터 작업`, and `안전한 사무 환경`. The first broad safe suppression trials were rejected because they blocked too many positive safe-control/management scenes. The `stage3_safe_cue_negation_fix2` parsing guard remains active: `LOTO 미적용`, `밀착 미흡`, and `동료 정상 착용과 대비` do not become `status_safe`, while safe procedure contexts such as `압력 게이지 0`, `잔압 완전 방출`, and `방열 장갑 착용` block trigger-only Guide support.
+`strict_profile_gate3` keeps the previous status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. Broad risk-axis/profile terms such as `화학물질`, `화재`, `폭발`, `고소 작업`, `낙하물`, `피부`, `흡입`, `용제`, and generic domain tags no longer count as strong Guide-specific usage evidence. Strict domain-specific/exclusive Guides require strong profile evidence or trigger-backed SituationFrame support before top standard-procedure promotion.
 
 SituationFrame support-only artifact:
 
@@ -339,6 +339,10 @@ pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.*
 pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.*
 pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_report.*
 pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.*
+pictures-json/reports/pipeline_quality_v1_v10_strict_profile_gate3.*
+pictures-json/reports/industry_boundary_gap_triage_strict_profile_gate3.*
+pictures-json/reports/synthetic_observations_v10_strict_profile_gate3_report.*
+pictures-json/reports/actual_response_samples_strict_profile_gate3.*
 ```
 
 ## 7. 검증 명령
@@ -379,9 +383,9 @@ kosha-guides/parsed: 1038
 
 1. 새 작업은 root `arch-bot/main`에서 수행한다.
 2. 작업 전 `git status --short --branch`로 clean 상태를 확인한다.
-3. Guide 품질 작업은 `industry_boundary_safe_suppress3` 기준으로 이어간다.
+3. Guide 품질 작업은 `strict_profile_gate3` 기준으로 이어간다.
 4. `she-stage3-new-pattern-candidates-reference-guard1` 230건은 runtime SHE 확정으로 import하지 않는다. `true_new_she`도 첫 사이클에서는 review-only다.
-5. NO_TOP 30건은 runtime repair보다 corpus/taxonomy/review boundary 성격이 크다. 억지로 broad alias/support를 추가하지 말고, exact source Guide가 생기거나 별도 public/customer/animal-safety taxonomy를 만들 때만 재검토한다.
-6. 다음 구조적 보강 대상은 잔여 `industry_boundary_gap 56`, `CI no_action 438`, `CI guide_boundary_mismatch 48`, `workprocess_mismatch 16`이다. 특히 triage 기준 `B_wrong_guide_boundary 26`, `C_corpus_or_followup_gap 16`, `D_safe_scene_overpromoted 14`를 순서대로 처리한다.
+5. NO_TOP 67건은 runtime repair보다 corpus/taxonomy/review boundary 성격이 크다. 억지로 broad alias/support를 추가하지 말고, exact source Guide가 생기거나 별도 public/customer/animal-safety taxonomy를 만들 때만 재검토한다.
+6. 다음 구조적 보강 대상은 잔여 `industry_boundary_gap 21`, `CI no_action 480`, `CI guide_boundary_mismatch 31`, `workprocess_mismatch 21`이다. `B_wrong_guide_boundary`는 0건이므로 다음은 `D_safe_scene_overpromoted 14`와 `C_corpus_or_followup_gap 7`을 처리한다.
 7. parent context는 검색 확장에만 쓰고, parent-only match는 confirmed/status/penalty/direct SR/표준절차 top 후보를 만들 수 없다.
 8. photo_matchability는 표준절차 top lane에만 적용한다. 즉시조치, SHE status, SR evidence, penalty path에는 적용하지 않는다.

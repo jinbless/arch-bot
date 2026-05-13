@@ -1,10 +1,10 @@
 # Evaluation Baseline
 
-Latest updated: 2026-05-13
+Latest updated: 2026-05-14
 
-Accepted runtime baseline: `industry_boundary_safe_suppress3`
+Accepted runtime baseline: `strict_profile_gate3`
 
-Previous accepted baseline: `ci_wp_relevance8d_profile_tight2_ci_safe_gate`
+Previous accepted baseline: `industry_boundary_safe_suppress3`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
@@ -104,7 +104,7 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.*
+pictures-json/reports/pipeline_quality_v1_v10_strict_profile_gate3.*
 ```
 
 Summary:
@@ -115,42 +115,73 @@ Stage failure counts:
   stage2: 775
   stage3: 1,288
   stage4: 612
-  stage5: 544
+  stage5: 565
 SHE TP/FN/FP: 1,107 / 909 / 82
 SHE recall: 54.9%
 SR TP/FN/FP: 1,414 / 270 / 211
 SR recall: 84.0%
-Guide mismatch: 73
-Stage 2~5 NO_TOP: 30
-industry_boundary_gap: 56
-workprocess_mismatch: 16
+Guide mismatch: 43
+Stage 2~5 NO_TOP: 67
+industry_boundary_gap: 21
+workprocess_mismatch: 21
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
 photo_unmatchable_suppressed_count: 0
-followup_only_retained_count: 23
+followup_only_retained_count: 16
 top_replaced_by_photo_actionable_count: 0
-CI no_action: 438
+CI no_action: 480
 CI context_mismatch: 14
-CI broad_sr_only: 15
+CI broad_sr_only: 13
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 48
+CI guide_boundary_mismatch: 31
 ```
 
-Comparison against `ci_wp_relevance8d_profile_tight2_ci_safe_gate`:
+Comparison against `industry_boundary_safe_suppress3`:
 
 ```text
 SHE/SR status metrics: unchanged
-Guide mismatch: 87 -> 73
-Stage 2~5 NO_TOP: 26 -> 30
-industry_boundary_gap: 70 -> 56
-workprocess_mismatch: 16 -> 16
+Guide mismatch: 73 -> 43
+Stage 2~5 NO_TOP: 30 -> 67
+industry_boundary_gap: 56 -> 21
+workprocess_mismatch: 16 -> 21
 broad_sr_overreach: 1 -> 1
-CI no_action: 438 -> 438
-CI context_mismatch: 16 -> 14
-CI broad_sr_only: 14 -> 15
-CI guide_boundary_mismatch: 48 -> 48
+CI no_action: 438 -> 480
+CI context_mismatch: 14 -> 14
+CI broad_sr_only: 15 -> 13
+CI guide_boundary_mismatch: 48 -> 31
 photo_unmatchable_top_count: 0 -> 0
-safe-scene industry-boundary overpromotion: 28 -> 14
+B_wrong_guide_boundary: 26 -> 0
+```
+
+## Strict Profile Gate3
+
+`strict_profile_gate3` keeps the `industry_boundary_safe_suppress3` status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. Broad risk-axis/profile terms such as `화학물질`, `화재`, `폭발`, `고소 작업`, `낙하물`, `피부`, `흡입`, `용제`, and generic domain tags such as `construction`, `chemical_process`, `healthcare` are no longer accepted as strong Guide-specific usage evidence. Strict domain-specific/exclusive Guides require a strong profile hit or trigger-backed SituationFrame support before they can appear as top standard procedures.
+
+`strict_profile_gate1` reduced industry-boundary gaps but left `B_wrong_guide_boundary` at 7. `strict_profile_gate2` left it at 1. The accepted `strict_profile_gate3` removes this queue entirely while keeping CI no-action under the current failure gate.
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_strict_profile_gate3.*
+pictures-json/reports/industry_boundary_gap_triage_strict_profile_gate3.*
+pictures-json/reports/synthetic_observations_v10_strict_profile_gate3_report.*
+pictures-json/reports/actual_response_samples_strict_profile_gate3.*
+```
+
+Validation:
+
+```text
+v10 SHE recall: 100.0%
+v10 SHE false negative: 0
+v10 SHE false positive: 0
+actual response 240 status changed: 0
+negative_false_positive: 10
+positive_missed: 2
+ambiguous_over_promoted: 5
+asserted mapping update: 0
+runtime SHE approved update: 0
+legal SR evidence change: 0
+public API shape change: none
 ```
 
 ## Industry Boundary Safe Suppress3
