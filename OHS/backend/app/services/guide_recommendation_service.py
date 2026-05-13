@@ -91,6 +91,11 @@ CONTEXT_REQUIRED_DOMAIN_FAMILIES = {
 CONTEXT_REQUIRED_FAMILY_FEATURE_ALLOW = {
     "cold_contact_surface_risk_assessment": {"COLD_EXPOSURE"},
 }
+CI_WP_RELEVANCE_SUPPORT_CONTEXTS = {
+    "GREENHOUSE_STRUCTURE_FALL",
+    "DRY_CLEANING_STEAM_PIPE_HOT_SURFACE",
+}
+CI_WP_RELEVANCE_SUPPORT_LABELS = {"v20_actionable_support"}
 
 
 def _unique(values: list[str]) -> list[str]:
@@ -278,6 +283,20 @@ def _term_hits(text: str, terms: list[str], limit: int = 3) -> list[str]:
     return hits
 
 
+def _support_context_terms(support_signal: dict[str, Any] | None) -> list[str]:
+    if not support_signal:
+        return []
+    child_context = str(support_signal.get("child_context") or "")
+    taxonomy = load_situation_context_taxonomy()
+    child_info = (taxonomy.get("child_contexts") or {}).get(child_context) or {}
+    terms: list[str] = [child_context, child_context.replace("_", " ")]
+    terms.extend(str(value) for value in (taxonomy.get("aliases") or {}).get(child_context) or [])
+    terms.extend(str(value) for value in child_info.get("aliases") or [])
+    terms.extend(str(value) for value in child_info.get("profile_alignment_aliases") or [])
+    terms.extend(str(value) for value in support_signal.get("trigger_hits") or [])
+    return _unique([term for term in terms if len(str(term).strip()) >= 2])
+
+
 def _score_usage_profile(
     profile: dict | None,
     *,
@@ -359,6 +378,14 @@ def _support_signal_score_threshold(support_signal: dict[str, Any] | None) -> fl
     return 0.78
 
 
+def _ci_wp_relevance_support_allowed(support_signal: dict[str, Any] | None) -> bool:
+    if not support_signal:
+        return False
+    child_context = str(support_signal.get("child_context") or "")
+    labels = {str(label) for label in (support_signal.get("candidate_labels") or [])}
+    return child_context in CI_WP_RELEVANCE_SUPPORT_CONTEXTS or bool(labels & CI_WP_RELEVANCE_SUPPORT_LABELS)
+
+
 def _reference_role_context_hit(profile: dict | None, visual_cues: list[str] | None, context_text: str | None) -> bool:
     if not profile:
         return True
@@ -412,6 +439,38 @@ def _ci_context_bonus(
     if ci_visual_hits:
         reasons.append(f"CI visual term:{','.join(ci_visual_hits[:2])}")
     return bonus, reasons
+
+
+def _ci_support_bonus(
+    ci: PgChecklistItem,
+    support_signal: dict[str, Any] | None,
+    profile: dict | None,
+) -> tuple[float, list[str]]:
+    ci_text = " ".join(filter(None, [ci.text, ci.source_section])).lower()
+    if not ci_text:
+        return 0.0, []
+    terms = _support_context_terms(support_signal)
+    if support_signal and _support_profile_usage_signal(support_signal, profile)[0] > 0:
+        terms.extend(_manual_profile_terms(profile))
+    hits = _term_hits(ci_text, _unique(terms), limit=4)
+    if not hits:
+        return 0.0, []
+    return min(0.28, len(hits) * 0.09), [f"CI support term:{','.join(hits[:2])}"]
+
+
+def _section_matches(section: str | None, candidate_sections: list[str]) -> bool:
+    if not section:
+        return False
+    normalized = str(section).strip()
+    if not normalized:
+        return False
+    for candidate in candidate_sections:
+        other = str(candidate or "").strip()
+        if not other:
+            continue
+        if normalized == other or normalized.startswith(f"{other}.") or other.startswith(f"{normalized}."):
+            return True
+    return False
 
 
 def _rank_work_processes(
@@ -477,6 +536,35 @@ def get_immediate_checklist_items(
     pending_generic_feature_scores: dict[str, float] = defaultdict(float)
     pending_generic_feature_evidence: dict[str, list[str]] = defaultdict(list)
     pending_generic_feature_rows: dict[str, PgChecklistItem] = {}
+    support_signal_by_guide: dict[str, dict[str, Any]] = {}
+    support_matches = match_guide_support_candidates(
+        situation_frame,
+        visual_cues=visual_cues,
+        context_text=context_text,
+        require_observable_cue=True,
+    )
+    for support in support_matches:
+        child_context = str(support.get("child_context") or "")
+        support_score = float(support.get("support_score") or support.get("confidence") or 0)
+        support_sr_ids = set(support.get("source_sr_ids") or [])
+        has_non_broad_support_sr = bool(support_sr_ids - broad_sr_ids)
+        for guide_code in support.get("guide_codes") or []:
+            current = support_signal_by_guide.get(guide_code)
+            if not current or support_score > float(current.get("support_score") or 0):
+                support_signal_by_guide[guide_code] = {
+                    "child_context": child_context,
+                    "support_score": support_score,
+                    "has_trigger_hit": bool(support.get("trigger_hits") or []),
+                    "trigger_hits": list(support.get("trigger_hits") or []),
+                    "has_non_broad_support_sr": has_non_broad_support_sr,
+                    "match_policy": support.get("match_policy"),
+                    "candidate_labels": list(support.get("candidate_labels") or []),
+                }
+            elif has_non_broad_support_sr:
+                current["has_non_broad_support_sr"] = True
+                current["candidate_labels"] = _unique(
+                    [*(current.get("candidate_labels") or []), *(support.get("candidate_labels") or [])]
+                )
 
     if sr_ids:
         rows = (
@@ -685,6 +773,118 @@ def get_immediate_checklist_items(
             result_ids.add(identifier)
             if len(results) >= limit:
                 break
+
+    if len(results) < limit and preferred_guide_codes:
+        preferred = _unique(preferred_guide_codes)[:3]
+        eligible_guides: list[str] = []
+        guide_profiles: dict[str, dict | None] = {}
+        guide_support: dict[str, dict[str, Any] | None] = {}
+        for guide_code in preferred:
+            manual_profile = get_guide_domain_profile(guide_code)
+            support_signal = support_signal_by_guide.get(guide_code)
+            if not _ci_reference_role_allowed(manual_profile, visual_cues, context_text):
+                continue
+            if not _ci_wp_relevance_support_allowed(support_signal):
+                continue
+            support_score, _, support_signal_ok = _support_profile_usage_signal(support_signal, manual_profile)
+            if not support_signal_ok or support_score <= 0:
+                continue
+            guide_profiles[guide_code] = manual_profile
+            guide_support[guide_code] = support_signal
+            eligible_guides.append(guide_code)
+
+        if eligible_guides:
+            wp_rows = (
+                db.query(PgWorkProcess)
+                .filter(PgWorkProcess.source_guide.in_(eligible_guides))
+                .order_by(PgWorkProcess.source_guide, PgWorkProcess.process_order)
+                .all()
+            )
+            wp_by_guide: dict[str, list[PgWorkProcess]] = defaultdict(list)
+            for wp in wp_rows:
+                wp_by_guide[wp.source_guide].append(wp)
+            preferred_sections: dict[str, list[str]] = {}
+            for guide_code in eligible_guides:
+                ranked_wps = _rank_work_processes(
+                    wp_by_guide.get(guide_code, []),
+                    profile=guide_profiles.get(guide_code),
+                    visual_cues=visual_cues,
+                    context_text=context_text,
+                    wp_sr_map=defaultdict(set),
+                )
+                preferred_sections[guide_code] = _unique(
+                    [wp.source_section for wp in ranked_wps[:3] if wp.source_section]
+                )
+
+            local_rows = (
+                db.query(PgChecklistItem)
+                .filter(PgChecklistItem.source_guide.in_(eligible_guides))
+                .limit(max(80, (limit - len(results)) * 30))
+                .all()
+            )
+            local_ci_ids = [ci.identifier for ci in local_rows]
+            local_ci_srs: dict[str, set[str]] = defaultdict(set)
+            if local_ci_ids:
+                for mapping in db.query(PgCiSrMapping).filter(PgCiSrMapping.ci_id.in_(local_ci_ids)).all():
+                    local_ci_srs[mapping.ci_id].add(mapping.sr_id)
+            preferred_rank = {guide_code: index for index, guide_code in enumerate(eligible_guides)}
+            local_scores: dict[str, float] = defaultdict(float)
+            local_reasons: dict[str, list[str]] = defaultdict(list)
+            local_ci: dict[str, PgChecklistItem] = {}
+            for ci in local_rows:
+                if ci.identifier in result_ids:
+                    continue
+                mapped_srs = local_ci_srs.get(ci.identifier, set())
+                if mapped_srs and mapped_srs <= broad_sr_ids:
+                    continue
+                manual_profile = guide_profiles.get(ci.source_guide)
+                support_signal = guide_support.get(ci.source_guide)
+                context_bonus, context_evidence = _ci_context_bonus(ci, manual_profile, visual_cues, context_text)
+                support_bonus, support_evidence = _ci_support_bonus(ci, support_signal, manual_profile)
+                section_bonus = 0.10 if _section_matches(
+                    ci.source_section,
+                    preferred_sections.get(ci.source_guide or "", []),
+                ) else 0.0
+                if support_bonus <= 0:
+                    continue
+                binding_bonus = 0.08 if str(ci.binding_force or "").upper() == "MANDATORY" else 0.0
+                local_ci[ci.identifier] = ci
+                local_scores[ci.identifier] += 0.42 + context_bonus + support_bonus + section_bonus + binding_bonus
+                if mapped_srs:
+                    sr_by_ci[ci.identifier].update(mapped_srs)
+                if context_evidence:
+                    local_reasons[ci.identifier].extend(context_evidence)
+                if support_evidence:
+                    local_reasons[ci.identifier].extend(support_evidence)
+                if section_bonus:
+                    local_reasons[ci.identifier].append("CI section matches ranked WP")
+            local_ranked = sorted(
+                local_ci.items(),
+                key=lambda item: (
+                    -local_scores[item[0]],
+                    preferred_rank.get(item[1].source_guide or "", 99),
+                    0 if str(item[1].binding_force or "").upper() == "MANDATORY" else 1,
+                    item[1].identifier,
+                ),
+            )
+            for identifier, ci in local_ranked:
+                if identifier in result_ids:
+                    continue
+                results.append({
+                    "identifier": ci.identifier,
+                    "text": ci.text,
+                    "binding_force": ci.binding_force,
+                    "source_guide": ci.source_guide,
+                    "source_section": ci.source_section,
+                    "source_sr_ids": sorted(sr_by_ci.get(identifier, set())),
+                    "relevance_score": round(min(0.78, 0.42 + local_scores[identifier] * 0.08), 4),
+                    "evidence_summary": "; ".join(
+                        ["guide-local contextual CI fallback", *_unique(local_reasons.get(identifier, []))[:3]]
+                    ),
+                })
+                result_ids.add(identifier)
+                if len(results) >= limit:
+                    break
     return results
 
 
@@ -764,11 +964,16 @@ def get_standard_guides(
                     "child_context": child_context,
                     "support_score": support_score,
                     "has_trigger_hit": bool(trigger_hits),
+                    "trigger_hits": list(trigger_hits),
                     "has_non_broad_support_sr": has_non_broad_support_sr,
                     "match_policy": support.get("match_policy"),
+                    "candidate_labels": list(support.get("candidate_labels") or []),
                 }
             elif has_non_broad_support_sr:
                 current["has_non_broad_support_sr"] = True
+                current["candidate_labels"] = _unique(
+                    [*(current.get("candidate_labels") or []), *(support.get("candidate_labels") or [])]
+                )
 
     if sr_ids:
         rows = (

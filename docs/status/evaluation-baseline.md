@@ -2,9 +2,9 @@
 
 Latest updated: 2026-05-13
 
-Accepted runtime baseline: `stage3_remaining_gap_support_v20_actionable`
+Accepted runtime baseline: `ci_wp_relevance6_x41_profile`
 
-Previous accepted baseline: `stage3_remaining_gap_support_v19_dropped_tool`
+Previous accepted baseline: `stage3_remaining_gap_support_v20_actionable`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
@@ -104,7 +104,7 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v20_actionable.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance6_x41_profile.*
 ```
 
 Summary:
@@ -115,43 +115,71 @@ Stage failure counts:
   stage2: 775
   stage3: 1,288
   stage4: 612
-  stage5: 636
+  stage5: 631
 SHE TP/FN/FP: 1,107 / 909 / 82
 SHE recall: 54.9%
 SR TP/FN/FP: 1,414 / 270 / 211
 SR recall: 84.0%
-Guide mismatch: 136
-Stage 2~5 NO_TOP: 17
+Guide mismatch: 135
+Stage 2~5 NO_TOP: 16
 industry_boundary_gap: 71
-workprocess_mismatch: 64
+workprocess_mismatch: 63
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
 photo_unmatchable_suppressed_count: 0
 followup_only_retained_count: 18
 top_replaced_by_photo_actionable_count: 0
-CI no_action: 484
+CI no_action: 483
 CI context_mismatch: 17
 CI broad_sr_only: 16
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 64
+CI guide_boundary_mismatch: 51
 ```
 
-Comparison against `stage3_remaining_gap_support_v19_dropped_tool`:
+Comparison against `stage3_remaining_gap_support_v20_actionable`:
 
 ```text
 SHE/SR status metrics: unchanged
-Guide mismatch: 136 -> 136
-Stage 2~5 NO_TOP: 19 -> 17
+Guide mismatch: 136 -> 135
+Stage 2~5 NO_TOP: 17 -> 16
 industry_boundary_gap: 71 -> 71
-workprocess_mismatch: 64 -> 64
+workprocess_mismatch: 64 -> 63
 broad_sr_overreach: 1 -> 1
-CI no_action: 484 -> 484
+CI no_action: 484 -> 483
 CI context_mismatch: 17 -> 17
 CI broad_sr_only: 16 -> 16
-CI guide_boundary_mismatch: 64 -> 64
+CI guide_boundary_mismatch: 64 -> 51
 photo_unmatchable_top_count: 0 -> 0
 photo_unmatchable_suppressed_count: 0 -> 0
 top_replaced_by_photo_actionable_count: 0 -> 0
+```
+
+## CI/WP Relevance6 X41 Profile
+
+`ci_wp_relevance6_x41_profile` keeps the v20 status/penalty/SHE/SR boundary and changes only Stage 5 recommendation relevance. A guide-local contextual CI fallback is allowed only for `v20_actionable_support` contexts, currently `GREENHOUSE_STRUCTURE_FALL` and `DRY_CLEANING_STEAM_PIPE_HOT_SURFACE`; fallback CI rows must contain support-term evidence and cannot be broad-SR-only. `X-41-2011` usage profile now includes night lone-round and emergency-call wording so lone-worker monitoring procedures are not misclassified as arbitrary WorkProcess output. The evaluation harness also treats same-top-Guide checklist actions as inheriting the top procedure boundary before counting `ci_guide_boundary_mismatch`.
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance6_x41_profile.*
+pictures-json/reports/synthetic_observations_v10_ci_wp_relevance6_x41_profile_report.*
+pictures-json/reports/actual_response_samples_ci_wp_relevance6_x41_profile.*
+```
+
+Validation:
+
+```text
+v10 SHE recall: 100.0%
+v10 SHE false negative: 0
+v10 SHE false positive: 0
+actual response 240 status changed: 0
+negative_false_positive: 10
+positive_missed: 2
+ambiguous_over_promoted: 5
+asserted mapping update: 0
+runtime SHE approved update: 0
+legal SR evidence change: 0
+public API shape change: none
 ```
 
 ## Stage3 Remaining Gap Support v20 Actionable

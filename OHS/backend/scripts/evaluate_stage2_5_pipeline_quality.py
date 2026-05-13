@@ -428,6 +428,14 @@ def classify_ci(
     ci_profile_detail: dict[str, Any] = {}
     if action and meta.get("source_guide"):
         has_direct_she_ci_evidence = "SHE related checklist cue" in str(action.get("description") or "")
+        top_procedure_category = "not_evaluated"
+        if same_as_top_procedure and top_procedure:
+            top_procedure_category, _, _ = classify_top_procedure(
+                row=row_with_runtime_features(row, response),
+                procedure=compact_procedure(top_procedure),
+                profiles=profiles,
+                broad_sr_ids=broad_sr_ids,
+            )
         ci_profile_category, ci_profile_reason, ci_profile_detail = classify_top_procedure(
             row=row_with_runtime_features(row, response),
             procedure={
@@ -439,7 +447,11 @@ def classify_ci(
             profiles=profiles,
             broad_sr_ids=broad_sr_ids,
         )
-        if ci_profile_category in OBVIOUS_MISMATCH_CATEGORIES and not has_direct_she_ci_evidence:
+        if (
+            ci_profile_category in OBVIOUS_MISMATCH_CATEGORIES
+            and not has_direct_she_ci_evidence
+            and top_procedure_category not in OK_CATEGORIES
+        ):
             queues.append("ci_guide_boundary_mismatch")
 
     return {
