@@ -447,7 +447,7 @@ backend compileall OK
 frontend npm run build OK
 serving ontology validation PASS
 serving ontology hard violations 0
-serving ontology warnings 16
+serving ontology warnings 13
 ```
 
 Latest reports:

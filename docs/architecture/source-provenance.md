@@ -110,14 +110,14 @@ Current validation result:
 
 ```text
 GuideUsageProfile: 1,038
-photo_actionable / conditional / unmatchable: 637 / 36 / 365
+photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 16
+warnings: 13
 ```
 
-The core Guide A-Box was regenerated from PostgreSQL on 2026-05-14, bringing `kosha-instances.ttl` to 1,038 Guides, 54,631 ChecklistItems, and 9,316 WorkProcesses. The previous stale base-TTL WorkProcess warnings dropped from 1,220 to 0. Remaining warnings are not runtime blockers; they are the next anomaly queue for role/matchability conflicts, one broad-SR overreach attention case, and repeated evaluation failures by Guide.
+The core Guide A-Box was regenerated from PostgreSQL on 2026-05-14, bringing `kosha-instances.ttl` to 1,038 Guides, 54,631 ChecklistItems, and 9,316 WorkProcesses. The previous stale base-TTL WorkProcess warnings dropped from 1,220 to 0. Remaining warnings are not runtime blockers; they are the next anomaly queue for 10 role/matchability conflicts, one broad-SR overreach attention case, and repeated evaluation failures by Guide.
 
 ## Example: C73
 

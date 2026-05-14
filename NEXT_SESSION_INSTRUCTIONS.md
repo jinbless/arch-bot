@@ -170,14 +170,14 @@ shapes: koshaontology/ontology/serving-validation-shapes.ttl
 report: koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*
 alignment report: koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.*
 GuideUsageProfile: 1,038
-photo_actionable / conditional / unmatchable: 637 / 36 / 365
+photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 16
+warnings: 13
 ```
 
-해석: 2026-05-14에 PostgreSQL 기준으로 `kosha-instances.ttl`을 재생성해 base TTL을 1,038 Guide / 9,316 WorkProcess 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐고, 남은 16건은 `photo_actionable_role_conflict`, broad SR attention, 반복 WorkProcess mismatch 검토 큐다. TTL을 직접 고치지 말고 원천 Guide profile, Pipe-B/PG export, 또는 base TTL 생성 경로를 고친 뒤 재생성한다.
+해석: 2026-05-14에 PostgreSQL 기준으로 `kosha-instances.ttl`을 재생성해 base TTL을 1,038 Guide / 9,316 WorkProcess 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐고, 남은 13건은 `photo_actionable_role_conflict`, broad SR attention, 반복 WorkProcess mismatch 검토 큐다. TTL을 직접 고치지 말고 원천 Guide profile, Pipe-B/PG export, 또는 base TTL 생성 경로를 고친 뒤 재생성한다.
 
 SituationFrame support-only artifact:
 
@@ -227,10 +227,10 @@ frame extraction:
   broad_parent_without_child: 241
   guide support hit samples: 8
 photo matchability:
-  photo_actionable: 637
-  photo_conditional_followup: 36
-  photo_unmatchable: 365
-  measurement_analysis role overrides: 8
+  photo_actionable: 631
+  photo_conditional_followup: 39
+  photo_unmatchable: 368
+  non-field role overrides: 10
 ```
 
 Tracked baseline summary:

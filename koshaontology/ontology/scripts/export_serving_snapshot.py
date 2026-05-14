@@ -432,10 +432,9 @@ def build_snapshot_graph() -> Graph:
     photo_profiles = photo_data.get("profiles") or {}
     for guide_code, photo_profile in photo_profiles.items():
         if guide_code in profiles:
-            # guide_domain_profiles.json is the current serving artifact.  The
-            # standalone photo-matchability artifact is retained as provenance
-            # and only fills missing fields, because its embedded row values can
-            # lag behind its summary after later runtime-tightening passes.
+            # Runtime checks guide_photo_matchability.v1.json before falling
+            # back to guide_domain_profiles.json, so the validation snapshot
+            # must reflect the same precedence for photo top/follow-up policy.
             for key in [
                 "photo_matchability",
                 "top_procedure_policy",
@@ -444,7 +443,7 @@ def build_snapshot_graph() -> Graph:
                 "review_status",
                 "evidence_terms",
             ]:
-                if profiles[guide_code].get(key) in (None, "", []):
+                if photo_profile.get(key) not in (None, "", []):
                     profiles[guide_code][key] = photo_profile.get(key)
 
     add_guide_profiles(g, profiles)

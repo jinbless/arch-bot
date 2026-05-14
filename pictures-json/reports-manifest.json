@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generated_at": "2026-05-14T11:50:38+09:00",
+    "generated_at": "2026-05-14T18:57:25+09:00",
     "schema_version": "reports-manifest-v1",
     "accepted_baseline": "corpus_gap_guard1",
     "previous_product_baseline": "safe_scene_phrase_gate2",
     "report_body_policy": "pictures-json/reports/** remains local/external; this manifest records checksums and accepted baselines.",
-    "report_file_count": 499
+    "report_file_count": 505
   },
   "accepted_baseline": {
     "name": "corpus_gap_guard1",
@@ -13,13 +13,14 @@
     "photo_matchability": {
       "guide_count": 1038,
       "classification_counts": {
-        "photo_actionable": 637,
-        "photo_conditional_followup": 36,
-        "photo_unmatchable": 365
+        "photo_actionable": 631,
+        "photo_conditional_followup": 39,
+        "photo_unmatchable": 368
       },
-      "measurement_analysis_role_overrides": 8,
       "policy_scope": "standard_procedures top lane only",
-      "status_penalty_she_sr_impact": "none"
+      "status_penalty_she_sr_impact": "none",
+      "non_field_role_overrides": 10,
+      "summary_note": "Effective runtime row policy after syncing guide_photo_matchability.v1.json into guide_domain_profiles.json."
     },
     "serving_ontology_validation": {
       "baseline": "corpus_gap_guard1",
@@ -33,29 +34,29 @@
       "workprocess_alignment_report_md": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.md",
       "workprocess_alignment_report_csv": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.csv",
       "sha256": {
-        "serving-policy.ttl": "6a1b54ccdbe610ede7810197a2b2c3aa10e29f4477ef3d7ca742c93586aa7e59",
-        "serving-snapshot-corpus_gap_guard1.ttl": "7f98dd698de08beea2412db3be05c158e1e8fc27611a4e9be68d5d2cd12c6d5d",
+        "serving-policy.ttl": "3a44c3d79b10a6b06d0bd182a5bb9c2f3aab9d66ed06bfe589f61dc44aff75b5",
+        "serving-snapshot-corpus_gap_guard1.ttl": "1e5322cc9a9fb610bc2476bf56a6d200bb8d580adfeec221e878f37fb3a8fc49",
         "serving-validation-shapes.ttl": "6da336bf75275fa2b08e38ae5688a3ce1c1d3d29ad67de3c715bd8f3941cb9e7",
-        "serving-validation-report-corpus_gap_guard1.json": "fe5ee01c4a12fe7b481f8e081e11ad099a433bc557c9b27493e4954fd6449b6f",
-        "serving-validation-report-corpus_gap_guard1.md": "cd9854bdea3604e19584ec4b72e31b6826353f323c8b5ce5c6f43b5a77581066",
-        "serving-validation-report-corpus_gap_guard1.csv": "cbda7b016f96800781c464bc90742a3351d42328dc417c756351443d198236ba",
-        "serving-workprocess-alignment-corpus_gap_guard1.json": "7d75322419cd9e432e30232c6226aab7a70d119bf37ac64c206da41775dc9751",
-        "serving-workprocess-alignment-corpus_gap_guard1.md": "c5e935cdb06694dfd5a37f96ca4c6fc7985da1697316e49f5e37a0acb501b7d8",
-        "serving-workprocess-alignment-corpus_gap_guard1.csv": "81f27bd0322c589964706a0ed02f74ce06b50d34ffa00895ca08a4252a8bd423",
+        "serving-validation-report-corpus_gap_guard1.json": "1939253101313947b35f60c1e8cd8ecfd903f02f4149443f0764b90e4cf264ce",
+        "serving-validation-report-corpus_gap_guard1.md": "4474559f743dff67d8ba27831057ab5d87c07001103f38a864c2bbaf28a3780d",
+        "serving-validation-report-corpus_gap_guard1.csv": "a67f6bdc727148669fd7d3d62de57872d928374de7572a7fdb7e3704b59148dc",
+        "serving-workprocess-alignment-corpus_gap_guard1.json": "c75a7bc88a6ff2f4ff0d50909d68c03d2a405c589f61bf4051ae03ae0be07edf",
+        "serving-workprocess-alignment-corpus_gap_guard1.md": "78701756b0958eaa929adb0c3f51c1cf60c478ce28621cc50acd643bcc60b22a",
+        "serving-workprocess-alignment-corpus_gap_guard1.csv": "a614850eb9b223cb9dde5e5d45976327241112a3794c84b9545183cf179e7c94",
         "kosha-instances.ttl": "741c1d0a4dd5f57777ddc5f03e78b2f254317ce58f3f6154ce72d04eeff5a41d"
       },
       "guide_usage_profiles": 1038,
       "photo_matchability_counts": {
-        "photo_actionable": 637,
-        "photo_conditional_followup": 36,
-        "photo_unmatchable": 365
+        "photo_actionable": 631,
+        "photo_conditional_followup": 39,
+        "photo_unmatchable": 368
       },
       "broad_sr_count": 12,
       "evaluation_case_count": 2360,
       "hard_violation_count": 0,
-      "warning_count": 16,
+      "warning_count": 13,
       "rule_counts": {
-        "photo_actionable_role_conflict": 13,
+        "photo_actionable_role_conflict": 10,
         "broad_sr_overreach_attention": 1,
         "repeated_evaluation_failure_by_guide": 2
       },
@@ -70,7 +71,8 @@
         "primary_workprocess_not_in_base_ttl": 0
       },
       "runtime_use": "validation_only_not_request_path",
-      "storage_policy": "tracked_validation_snapshot"
+      "storage_policy": "tracked_validation_snapshot",
+      "warning_interpretation": "Core Guide A-Box was regenerated from PostgreSQL; primary WorkProcess alignment is 4715/4715. Remaining warnings are 10 role/matchability conflicts, one broad-SR attention case, and two repeated WorkProcess mismatch Guides."
     },
     "situation_frame_artifacts": {
       "candidate_count": 230,
@@ -1229,9 +1231,33 @@
         "validation_report": "koshaontology/ontology/serving-validation-report-corpus_gap_guard1.json",
         "workprocess_alignment_report": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.json",
         "hard_violation_count": 0,
-        "warning_count": 16,
-        "warning_interpretation": "Core Guide A-Box was regenerated from PostgreSQL; primary WorkProcess alignment is now 4715/4715, leaving only role/matchability and repeated evaluation warning queues.",
-        "runtime_use": "validation_only_not_request_path"
+        "warning_count": 13,
+        "warning_interpretation": "Core Guide A-Box was regenerated from PostgreSQL; primary WorkProcess alignment is 4715/4715. Remaining warnings are 10 role/matchability conflicts, one broad-SR attention case, and two repeated WorkProcess mismatch Guides.",
+        "runtime_use": "validation_only_not_request_path",
+        "photo_matchability_counts": {
+          "photo_actionable": 631,
+          "photo_conditional_followup": 39,
+          "photo_unmatchable": 368
+        },
+        "rule_counts": {
+          "photo_actionable_role_conflict": 10,
+          "broad_sr_overreach_attention": 1,
+          "repeated_evaluation_failure_by_guide": 2
+        }
+      },
+      "photo_policy_sync1_verification": {
+        "pipeline_report": "pictures-json/reports/pipeline_quality_v1_v10_photo_policy_sync1.json",
+        "actual_240_report": "pictures-json/reports/actual_response_samples_photo_policy_sync1.json",
+        "guide_mismatch": 22,
+        "no_top": 85,
+        "industry_boundary_gap": 1,
+        "workprocess_mismatch": 20,
+        "photo_unmatchable_top_count": 0,
+        "actual_status_changed": 0,
+        "negative_false_positive": 10,
+        "positive_missed": 2,
+        "ambiguous_over_promoted": 5,
+        "runtime_behavior": "unchanged vs corpus_gap_guard1; summary/profile policy fields synced to runtime row policy"
       }
     }
   },
@@ -4727,6 +4753,48 @@
       "size_bytes": 11888,
       "sha256": "a9da725430b556fb177e6ae2ba0aa280629b11beee379f79a0fd475d1a5cec5c",
       "modified_at": "2026-05-14T11:49:19+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_photo_policy_sync1.json",
+      "size_bytes": 23969035,
+      "sha256": "78e4e6a00ee7ebc091f14da0ad1396694bd5ce891600e98236241fa8ef7a2037",
+      "modified_at": "2026-05-14T18:41:55+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_photo_policy_sync1.md",
+      "size_bytes": 22015,
+      "sha256": "b15fa343eeb74f1a839207bcef4bb52aeb3b29df0d217a85f3c8289239630d6c",
+      "modified_at": "2026-05-14T18:41:55+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_photo_policy_sync1.csv",
+      "size_bytes": 488662,
+      "sha256": "6ec7e419f67cf25afc99bc699e3bb39a7d83abca3bbbb7aebb6f2cfe8de7bb5f",
+      "modified_at": "2026-05-14T18:41:55+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_photo_policy_sync1.json",
+      "size_bytes": 3607714,
+      "sha256": "5483eb6d47044e2728fcc0e07bcf5cc9e018dd2c1d77110868a4ac2ce011f445",
+      "modified_at": "2026-05-14T18:43:30+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_photo_policy_sync1.md",
+      "size_bytes": 27660,
+      "sha256": "9054cb1c7b5ded8506ce1488124c42755fe661182e2d532cc5beaf6228bc62b2",
+      "modified_at": "2026-05-14T18:43:30+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_photo_policy_sync1.csv",
+      "size_bytes": 113489,
+      "sha256": "f0ed619ee4beda6ad9e000b6330e81f495c80fdc0d20c2236375778c1dd8dcb5",
+      "modified_at": "2026-05-14T18:43:30+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     }
   ],

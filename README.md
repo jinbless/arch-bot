@@ -262,10 +262,10 @@ actual response 240 status changed: 0
 negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
 v10 SHE smoke: recall 100.0%, FN 0, FP 0
 v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
-serving ontology validation: PASS, hard violations 0, warnings 16
+serving ontology validation: PASS, hard violations 0, warnings 13
 ```
 
-After regenerating `kosha-instances.ttl` from PostgreSQL, core Guide A-Box counts are now aligned with the 1,038 Guide serving baseline: 54,631 ChecklistItems, 9,316 WorkProcesses, 7,726 DomainTerms, 8,103 EquipmentSpecs, and 3,435 DocumentRequirements. The previous `primary_workprocess_not_in_base_ttl` warnings dropped from 1,220 to 0; remaining serving ontology warnings are 16 review items.
+After regenerating `kosha-instances.ttl` from PostgreSQL, core Guide A-Box counts are now aligned with the 1,038 Guide serving baseline: 54,631 ChecklistItems, 9,316 WorkProcesses, 7,726 DomainTerms, 8,103 EquipmentSpecs, and 3,435 DocumentRequirements. The previous `primary_workprocess_not_in_base_ttl` warnings dropped from 1,220 to 0; remaining serving ontology warnings are 13 review items.
 - `pictures-json/reports/synthetic_observations_v10_stage3_domain_support1_tight1_report.md`
 - `pictures-json/reports/stage2_5_no_top_root_cause_stage3_domain_support1_tight1.md`
 - `pictures-json/reports/pipeline_quality_v1_v10_stage2_support_usage_gate2b.md`
@@ -353,7 +353,7 @@ Stage2 taxonomy support v13 narrow5: 7 new support-only contexts for high-pressu
 Stage3 SR gap support v14 narrow6b: 13 new support-only contexts for welding fume PPE, sharp metal edge handling, reflow oven residual heat, FOUP stair carrying, excavator slope/signal, confined tank attendant, ship heavy-lift sling inspection, vehicle exposed wiring, scalding tank fall/burn, binding machine jam/hotmelt, and plate-making chemical/UV PPE
 remaining NO_TOP root cause: stage2_taxonomy 39 / situation_frame_child_context_gap 22 / stage3_she_gap_but_sr_available 10 / situation_frame_child_support_gap 5 / stage3_she_to_sr_gap 4 / fixture_review 3 / guide_usage_profile_context_gap 2
 NO_TOP root-cause audit: total 85; runtime repair should start from taxonomy/SituationFrame/Stage3 queues, not broad alias widening
-Guide photo_matchability: 637 actionable / 36 follow-up / 365 unmatchable
+Guide photo_matchability: 631 actionable / 39 follow-up / 368 unmatchable
 backend compileall: OK
 frontend build: OK
 frontend build: OK

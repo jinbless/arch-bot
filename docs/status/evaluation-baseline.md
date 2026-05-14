@@ -81,10 +81,10 @@ Classification summary:
 
 ```text
 Guide profiles: 1,038
-photo_actionable: 637
-photo_conditional_followup: 36
-photo_unmatchable: 365
-measurement_analysis role overrides: 8 field-action Guides restored to photo_actionable
+photo_actionable: 631
+photo_conditional_followup: 39
+photo_unmatchable: 368
+non-field role overrides: 10 field-action Guides retained as photo_actionable
 asserted mapping update: 0
 SHE/SR/status/penalty impact: none
 ```
@@ -180,19 +180,19 @@ Validation summary:
 
 ```text
 GuideUsageProfile: 1,038
-photo_actionable: 637
-photo_conditional_followup: 36
-photo_unmatchable: 365
+photo_actionable: 631
+photo_conditional_followup: 39
+photo_unmatchable: 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 16
+warnings: 13
 ```
 
 Warning queue:
 
 ```text
-photo_actionable_role_conflict: 13
+photo_actionable_role_conflict: 10
 broad_sr_overreach_attention: 1
 repeated_evaluation_failure_by_guide: 2
 ```
@@ -212,7 +212,7 @@ primary_workprocess_not_in_base_ttl: 1,220 -> 0
 validate_ontology.py: PASS
 ```
 
-Interpretation: the previous 1,220 WorkProcess warnings were a stale base TTL materialization problem. After regenerating the core Guide A-Box from PostgreSQL, all serving profile `primary_work_process_ids` resolve to WorkProcess individuals owned by the same Guide. The remaining 16 warnings are now real review queues: role/matchability conflicts, one broad-SR attention case, and two repeated WorkProcess mismatch Guides.
+Interpretation: the previous 1,220 WorkProcess warnings were a stale base TTL materialization problem. After regenerating the core Guide A-Box from PostgreSQL, all serving profile `primary_work_process_ids` resolve to WorkProcess individuals owned by the same Guide. The remaining 13 warnings are now real review queues: role/matchability conflicts, one broad-SR attention case, and two repeated WorkProcess mismatch Guides.
 
 Comparison against `safe_scene_phrase_gate2`:
 

@@ -35766,8 +35766,8 @@ app:EvalCase_SYN-V9-0330 a app:EvaluationCase ;
     app:workContext "GENERAL_WORKPLACE"^^xsd:string ;
     guide:photoMatchability "NO_TOP"^^xsd:string .
 
-app:ExportRun_corpus_gap_guard1_2026-05-14T09%3A03%3A24%2B00%3A00 a prov:Activity ;
-    prov:endedAtTime "2026-05-14T09:03:24+00:00"^^xsd:dateTime ;
+app:ExportRun_corpus_gap_guard1_2026-05-14T09%3A52%3A32%2B00%3A00 a prov:Activity ;
+    prov:endedAtTime "2026-05-14T09:52:32+00:00"^^xsd:dateTime ;
     prov:generated app:ServingSnapshot_corpus_gap_guard1 .
 
 app:GuideSupportCandidate_NO_TOP-SHE-ASSEMBLYPRESS-7b13b31a3f a app:ServingCandidate ;
@@ -120881,7 +120881,7 @@ app:ServingCandidate_X-9-2012_visual_trigger_002 a app:ServingCandidate ;
 
 app:ServingSnapshot_corpus_gap_guard1 a app:ServingSnapshot ;
     rdfs:comment "Validation-only snapshot generated from OHS serving artifacts. Runtime does not query this graph."@en ;
-    prov:generatedAtTime "2026-05-14T09:03:24+00:00"^^xsd:dateTime ;
+    prov:generatedAtTime "2026-05-14T09:52:32+00:00"^^xsd:dateTime ;
     prov:wasDerivedFrom app:Artifact_OHS%2Fbackend%2Fapp%2Fdata%2Fbroad_sr_policy.json,
         app:Artifact_OHS%2Fbackend%2Fapp%2Fdata%2Fguide_domain_profiles.json,
         app:Artifact_OHS%2Fbackend%2Fapp%2Fdata%2Fguide_photo_matchability.v1.json,
@@ -154579,7 +154579,7 @@ guide:UsageProfile_E-G-23-2026_corpus_gap_guard1 a guide:GuideUsageProfile ;
         app:ServingCandidate_E-G-23-2026_visual_trigger_001,
         app:ServingCandidate_E-G-23-2026_visual_trigger_002 ;
     guide:domainFamily "vibration_exposure_control_health_management"^^xsd:string ;
-    guide:followupPolicy "none"^^xsd:string ;
+    guide:followupPolicy "explicit_context_only"^^xsd:string ;
     guide:intendedTask "건강관리 및 모니터링"^^xsd:string,
         "공학적 대책 적용"^^xsd:string,
         "기계·장비 구매 및 선정"^^xsd:string,
@@ -154610,7 +154610,7 @@ guide:UsageProfile_E-G-23-2026_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "진동"^^xsd:string,
         "진동가속도"^^xsd:string,
         "진동가속도 측정표·방진장갑·좌석 완충장치"^^xsd:string ;
-    guide:photoMatchability "photo_actionable"^^xsd:string ;
+    guide:photoMatchability "photo_conditional_followup"^^xsd:string ;
     guide:primaryWorkProcess guide:WP-EG23-01,
         guide:WP-EG23-02,
         guide:WP-EG23-03,
@@ -154627,7 +154627,7 @@ guide:UsageProfile_E-G-23-2026_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "진동"^^xsd:string,
         "진동가속도"^^xsd:string ;
     guide:reviewStatus "candidate"^^xsd:string ;
-    guide:topProcedurePolicy "allow_photo_top"^^xsd:string ;
+    guide:topProcedurePolicy "suppress_photo_top"^^xsd:string ;
     guide:usageSummary "작업자의 진동 제어 및 건강 예방에 관한 기술지원규정 사용경계: vibration_exposure_control_health_management / exclusive / management_program"^^xsd:string ;
     guide:visualTriggerText "손·팔/전신 진동 노출평가 기록"^^xsd:string,
         "진동가속도 측정표·방진장갑·좌석 완충장치"^^xsd:string .
@@ -154699,7 +154699,7 @@ guide:UsageProfile_E-G-4-2025_corpus_gap_guard1 a guide:GuideUsageProfile ;
         app:ServingCandidate_E-G-4-2025_visual_trigger_001,
         app:ServingCandidate_E-G-4-2025_visual_trigger_002 ;
     guide:domainFamily "industry_task_msd_prevention_management"^^xsd:string ;
-    guide:followupPolicy "none"^^xsd:string ;
+    guide:followupPolicy "explicit_context_only"^^xsd:string ;
     guide:intendedTask "근골격계질환"^^xsd:string,
         "부적절한 자세"^^xsd:string,
         "부적절한 자세 개선"^^xsd:string,
@@ -154727,7 +154727,7 @@ guide:UsageProfile_E-G-4-2025_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "유해요인조사표·입좌식 의자·피로예방매트"^^xsd:string,
         "인체공학적 수공구·방진장갑"^^xsd:string,
         "작업환경개선"^^xsd:string ;
-    guide:photoMatchability "photo_actionable"^^xsd:string ;
+    guide:photoMatchability "photo_conditional_followup"^^xsd:string ;
     guide:primaryWorkProcess guide:WP-EG4-02,
         guide:WP-EG4-03,
         guide:WP-EG4-04,
@@ -154742,7 +154742,7 @@ guide:UsageProfile_E-G-4-2025_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "유해요인조사"^^xsd:string,
         "작업환경개선"^^xsd:string ;
     guide:reviewStatus "candidate"^^xsd:string ;
-    guide:topProcedurePolicy "allow_photo_top"^^xsd:string ;
+    guide:topProcedurePolicy "suppress_photo_top"^^xsd:string ;
     guide:usageSummary "근골격계질환 예방을 위한 업종직종별 기술지원규정 사용경계: industry_task_msd_prevention_management / domain_specific / management_program"^^xsd:string ;
     guide:visualTriggerText "유해요인조사표·입좌식 의자·피로예방매트"^^xsd:string,
         "인체공학적 수공구·방진장갑"^^xsd:string .
@@ -155676,7 +155676,7 @@ guide:UsageProfile_E-M-8-2026_corpus_gap_guard1 a guide:GuideUsageProfile ;
         app:ServingCandidate_E-M-8-2026_visual_trigger_001,
         app:ServingCandidate_E-M-8-2026_visual_trigger_002 ;
     guide:domainFamily "biological_sample_collection_management"^^xsd:string ;
-    guide:followupPolicy "none"^^xsd:string ;
+    guide:followupPolicy "explicit_context_only"^^xsd:string ;
     guide:intendedTask "냉장 이송"^^xsd:string,
         "생체시료"^^xsd:string,
         "소변"^^xsd:string,
@@ -155706,7 +155706,7 @@ guide:UsageProfile_E-M-8-2026_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "소변"^^xsd:string,
         "소변/혈액 검체 용기·냉장 검체박스"^^xsd:string,
         "혈액"^^xsd:string ;
-    guide:photoMatchability "photo_actionable"^^xsd:string ;
+    guide:photoMatchability "photo_unmatchable"^^xsd:string ;
     guide:primaryWorkProcess guide:WP-EM8-06,
         guide:WP-EM8-08,
         guide:WP-EM8-09,
@@ -155723,7 +155723,7 @@ guide:UsageProfile_E-M-8-2026_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "소변"^^xsd:string,
         "혈액"^^xsd:string ;
     guide:reviewStatus "candidate"^^xsd:string ;
-    guide:topProcedurePolicy "allow_photo_top"^^xsd:string ;
+    guide:topProcedurePolicy "suppress_photo_top"^^xsd:string ;
     guide:usageSummary "생체시료 채취 및 관리에 관한 기술지원규정 사용경계: biological_sample_collection_management / exclusive / measurement_analysis"^^xsd:string ;
     guide:visualTriggerText "GC-MS/HPLC 검량선·크레아티닌 보정표"^^xsd:string,
         "소변/혈액 검체 용기·냉장 검체박스"^^xsd:string .
@@ -165304,7 +165304,7 @@ guide:UsageProfile_H-220-2023_corpus_gap_guard1 a guide:GuideUsageProfile ;
         app:ServingCandidate_H-220-2023_visual_trigger_001,
         app:ServingCandidate_H-220-2023_visual_trigger_002 ;
     guide:domainFamily "emerging_airborne_infectious_disease_prevention_bcp"^^xsd:string ;
-    guide:followupPolicy "none"^^xsd:string ;
+    guide:followupPolicy "explicit_context_only"^^xsd:string ;
     guide:intendedTask "BCP"^^xsd:string,
         "공기매개 감염병"^^xsd:string,
         "관심 단계 대응 — 예방체계 마련 및 업무지속 준비"^^xsd:string,
@@ -165335,7 +165335,7 @@ guide:UsageProfile_H-220-2023_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "사회적 거리두기"^^xsd:string,
         "신종감염병"^^xsd:string,
         "신종감염병 방역관리자와 BCP 계획서"^^xsd:string ;
-    guide:photoMatchability "photo_actionable"^^xsd:string ;
+    guide:photoMatchability "photo_conditional_followup"^^xsd:string ;
     guide:primaryWorkProcess guide:WP-H220-01,
         guide:WP-H220-02,
         guide:WP-H220-04 ;
@@ -165349,7 +165349,7 @@ guide:UsageProfile_H-220-2023_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "사회적 거리두기"^^xsd:string,
         "신종감염병"^^xsd:string ;
     guide:reviewStatus "candidate"^^xsd:string ;
-    guide:topProcedurePolicy "allow_photo_top"^^xsd:string ;
+    guide:topProcedurePolicy "suppress_photo_top"^^xsd:string ;
     guide:usageSummary "사업장 공기매개 신종감염병 예방지침 사용경계: emerging_airborne_infectious_disease_prevention_bcp / exclusive / management_program"^^xsd:string ;
     guide:visualTriggerText "공기매개 감염병 보호구·접촉자 관리"^^xsd:string,
         "신종감염병 방역관리자와 BCP 계획서"^^xsd:string .
@@ -175975,7 +175975,7 @@ guide:UsageProfile_P-159-2017_corpus_gap_guard1 a guide:GuideUsageProfile ;
         app:ServingCandidate_P-159-2017_visual_trigger_001,
         app:ServingCandidate_P-159-2017_visual_trigger_002 ;
     guide:domainFamily "oxygen_inert_atmospheric_vent_design_dispersion_exclusion_zone"^^xsd:string ;
-    guide:followupPolicy "none"^^xsd:string ;
+    guide:followupPolicy "explicit_context_only"^^xsd:string ;
     guide:intendedTask "대기 벤트"^^xsd:string,
         "벤트 설계 조건 파악"^^xsd:string,
         "벤트 위치 및 방향 결정"^^xsd:string,
@@ -176007,7 +176007,7 @@ guide:UsageProfile_P-159-2017_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "아르곤"^^xsd:string,
         "질소"^^xsd:string,
         "환기구"^^xsd:string ;
-    guide:photoMatchability "photo_actionable"^^xsd:string ;
+    guide:photoMatchability "photo_unmatchable"^^xsd:string ;
     guide:primaryWorkProcess guide:WP-P159-01,
         guide:WP-P159-02 ;
     guide:procedureRole "document_reference"^^xsd:string ;
@@ -176022,7 +176022,7 @@ guide:UsageProfile_P-159-2017_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "질소"^^xsd:string,
         "환기구"^^xsd:string ;
     guide:reviewStatus "candidate"^^xsd:string ;
-    guide:topProcedurePolicy "allow_photo_top"^^xsd:string ;
+    guide:topProcedurePolicy "suppress_photo_top"^^xsd:string ;
     guide:usageSummary "산소 및 불활성 기체 대기 벤트 설계에 관한 기술지침 사용경계: oxygen_inert_atmospheric_vent_design_dispersion_exclusion_zone / exclusive / document_reference"^^xsd:string ;
     guide:visualTriggerText "대기벤트 3m 이상 배출구"^^xsd:string,
         "산소과잉·산소결핍 분산모델 도면"^^xsd:string .
@@ -182628,7 +182628,7 @@ guide:UsageProfile_X-10-2012_corpus_gap_guard1 a guide:GuideUsageProfile ;
         app:ServingCandidate_X-10-2012_visual_trigger_001,
         app:ServingCandidate_X-10-2012_visual_trigger_002 ;
     guide:domainFamily "cold_contact_surface_risk_assessment"^^xsd:string ;
-    guide:followupPolicy "none"^^xsd:string ;
+    guide:followupPolicy "explicit_context_only"^^xsd:string ;
     guide:intendedTask "동상"^^xsd:string,
         "리스크 수준 평가"^^xsd:string,
         "열관성"^^xsd:string,
@@ -182656,7 +182656,7 @@ guide:UsageProfile_X-10-2012_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "저온 접촉면·표면온도"^^xsd:string,
         "접촉시간"^^xsd:string,
         "표면온도"^^xsd:string ;
-    guide:photoMatchability "photo_actionable"^^xsd:string ;
+    guide:photoMatchability "photo_unmatchable"^^xsd:string ;
     guide:primaryWorkProcess guide:WP-X10-01,
         guide:WP-X10-02,
         guide:WP-X10-04,
@@ -182672,7 +182672,7 @@ guide:UsageProfile_X-10-2012_corpus_gap_guard1 a guide:GuideUsageProfile ;
         "접촉시간"^^xsd:string,
         "표면온도"^^xsd:string ;
     guide:reviewStatus "candidate"^^xsd:string ;
-    guide:topProcedurePolicy "allow_photo_top"^^xsd:string ;
+    guide:topProcedurePolicy "suppress_photo_top"^^xsd:string ;
     guide:usageSummary "저온 접촉면에 대한 인체반응의 리스크평가 지침 사용경계: cold_contact_surface_risk_assessment / exclusive / risk_method"^^xsd:string ;
     guide:visualTriggerText "열전대 측정·동상 임계값 그래프"^^xsd:string,
         "저온 접촉면·표면온도"^^xsd:string .
