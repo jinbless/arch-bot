@@ -177,14 +177,14 @@ Synthetic smoke:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_strict_profile_gate3 --use-declared-industry --penalty-sr-scope she
+python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_safe_scene_phrase_gate2 --use-declared-industry --penalty-sr-scope she
 ```
 
 Actual response 240 replay:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_strict_profile_gate3 --database-note "strict_profile_gate3 / no asserted mapping changes"
+python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_safe_scene_phrase_gate2 --database-note "safe_scene_phrase_gate2 / safe-scene standard procedure suppression only"
 ```
 
 Guide recommendation evaluation:
@@ -198,14 +198,14 @@ Stage 2~5 integrated pipeline quality evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_strict_profile_gate3 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.json
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_safe_scene_phrase_gate2 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_situation_frame_support7.json
 ```
 
 Current support baseline replay:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_strict_profile_gate3 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.json
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_safe_scene_phrase_gate2 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_situation_frame_support7.json
 ```
 
 Stage 3 remaining-gap support artifact:
@@ -373,8 +373,8 @@ frame extraction on synthetic v1~v10:
 
 ## Current Open Work
 
-1. `strict_profile_gate3` 기준 NO_TOP 67건은 broad alias/support로 억지 축소하지 말고, exact source Guide가 생기거나 별도 public/customer/animal-safety taxonomy를 만들 때만 재검토한다.
-2. 다음 Guide 품질 작업은 `industry_boundary_gap 21`, `CI no_action 480`, `CI guide_boundary_mismatch 31`, `workprocess_mismatch 21`을 기준으로 처리한다. `B_wrong_guide_boundary`는 0건이므로 잔여 `D_safe_scene_overpromoted 14`, `C_corpus_or_followup_gap 7`을 우선 본다.
+1. `safe_scene_phrase_gate2` 기준 NO_TOP 78건은 broad alias/support로 억지 축소하지 말고, exact source Guide가 생기거나 별도 public/customer/animal-safety taxonomy를 만들 때만 재검토한다.
+2. 다음 Guide 품질 작업은 `C_corpus_or_followup_gap 7`, `CI no_action 478`, `CI guide_boundary_mismatch 27`, `workprocess_mismatch 21`을 기준으로 처리한다. `B_wrong_guide_boundary`와 `D_safe_scene_overpromoted`는 0건이다.
 3. `MACHINE`, `MATERIAL_HANDLING`, `CONSTRUCTION_EQUIP`, `EXCAVATION` 붕괴 케이스는 runtime status가 아니라 Guide support/WorkProcess relevance 후보로만 확장한다.
 4. `guide_sr_link_candidates` unique key 충돌 후보를 evidence merge/pre-aggregate한 뒤 candidate table import를 dry-run한다.
 5. asserted mapping update는 0으로 유지하고, 중신뢰 후보는 법적 확정 근거처럼 표시하지 않는다.
@@ -409,28 +409,30 @@ needs_review/rejected candidates are excluded from serving
 
 Guide recommendations consume the 1,038 manual Guide usage profiles exported from Pipe-B. Standard procedure scoring is guarded so broad SRs, broad/generic features, and industry alignment cannot create top Guide procedures alone.
 
-The current accepted OHS runtime baseline is `strict_profile_gate3`. Guide recommendations require actionable SHE evidence or conservative SituationFrame child-context support before creating standard procedures/checklist items. Context-only SHE still informs reasoning and status, but it no longer creates top Guide procedures by itself. Photo-top standard procedures are gated by `guide_photo_matchability.v1.json`; measurement/analysis, test, health-screening, risk-method, and document-reference Guides cannot appear as photo-based top procedures. `guide_support_candidates.v20.jsonl` keeps the previously accepted support rows through v19 and adds two narrow support rows for greenhouse-frame fall risk and dry-cleaning exposed steam-pipe burn risk. CI/WP relevance also tightens selected feature-only overpromotion Guides, reorders primary WorkProcess IDs for concrete photo-actionable Guides, and permits same-top-Guide local CI fallback only when observable violation context is present and non-negated safe-control wording is absent. Standard procedure generation suppresses explicit non-negated safe/normal/completed/no-entry/office/storage-safe scenes, and strict domain-specific/exclusive Guides now require strong Guide-specific profile evidence instead of broad risk-axis terms. The safe-cue negation fix remains active, so `LOTO 미적용`, `밀착 미흡`, and `동료 정상 착용과 대비` do not become `status_safe`, while safe procedure contexts such as `압력 게이지 0`, `잔압 완전 방출`, and `방열 장갑 착용` block trigger-only Guide support. `confirmation_required` support may satisfy Guide usage/domain gates only when it is trigger-backed, backed by a non-broad SR, and child-context/profile-aligned. `situation_context_taxonomy.v20.json` has 178 child contexts. This does not change status, penalty, SHE approval, asserted mapping, legal SR evidence, or public API shape.
+The current accepted OHS runtime baseline is `safe_scene_phrase_gate2`. Guide recommendations require actionable SHE evidence or conservative SituationFrame child-context support before creating standard procedures/checklist items. Context-only SHE still informs reasoning and status, but it no longer creates top Guide procedures by itself. Photo-top standard procedures are gated by `guide_photo_matchability.v1.json`; measurement/analysis, test, health-screening, risk-method, and document-reference Guides cannot appear as photo-based top procedures. `guide_support_candidates.v20.jsonl` keeps the previously accepted support rows through v19 and adds two narrow support rows for greenhouse-frame fall risk and dry-cleaning exposed steam-pipe burn risk. CI/WP relevance also tightens selected feature-only overpromotion Guides, reorders primary WorkProcess IDs for concrete photo-actionable Guides, and permits same-top-Guide local CI fallback only when observable violation context is present and non-negated safe-control wording is absent. Standard procedure generation suppresses explicit non-negated safe/normal/completed/no-entry/office/storage-safe scenes, strict domain-specific/exclusive Guides require strong Guide-specific profile evidence instead of broad risk-axis terms, and `safe_scene_phrase_gate2` additionally blocks narrow safe-scene phrases such as `3점 지지`, `보차가 명확히 분리`, `검전기 확인`, `LOTO 태그 부착`, `화재·아크 방지 조치가 완비`, `강제 환기 가동`, `폭발 분위기 연속 감시`, `모두 올바르게 착용`, and explicit absence/planning phrases such as `아직 진입하지`, `진입하지 않았다`, `주변에 사람이 없`, `작업자가 없다`, `인근 화기 작업 없음`. The safe-cue negation fix remains active, so `LOTO 미적용`, `밀착 미흡`, and `동료 정상 착용과 대비` do not become `status_safe`, while safe procedure contexts such as `압력 게이지 0`, `잔압 완전 방출`, and `방열 장갑 착용` block trigger-only Guide support. `confirmation_required` support may satisfy Guide usage/domain gates only when it is trigger-backed, backed by a non-broad SR, and child-context/profile-aligned. `situation_context_taxonomy.v20.json` has 178 child contexts. This does not change status, penalty, SHE approval, asserted mapping, legal SR evidence, or public API shape.
 
 Latest validation:
 
 ```text
-baseline: strict_profile_gate3
+baseline: safe_scene_phrase_gate2
 synthetic Stage 2~5 v1~v10: 2,360 samples
-Guide mismatch: 43
-Stage 2~5 NO_TOP: 67
-industry_boundary_gap: 21
+Guide mismatch: 29
+Stage 2~5 NO_TOP: 78
+industry_boundary_gap: 7
 workprocess_mismatch: 21
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
-photo_unmatchable_suppressed_count: 0
+photo_unmatchable_suppressed_count: 29
 followup_only_retained_count: 16
-top_replaced_by_photo_actionable_count: 0
-CI no_action: 480
-CI context_mismatch: 14
-CI broad_sr_only: 13
+top_replaced_by_photo_actionable_count: 27
+CI no_action: 478
+CI context_mismatch: 11
+CI broad_sr_only: 14
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 31
+CI guide_boundary_mismatch: 27
 B_wrong_guide_boundary: 0
+D_safe_scene_overpromoted: 0
+C_corpus_or_followup_gap: 7
 NO_TOP actionability: runtime repair candidates 0 / outside scope 10 / safe-controlled 7 / corpus gap 3 / reject stale support 2 / follow-up only 2
 v10 synthetic SHE recall 100.0%, FN 0, FP 0
 actual response 240 status changed 0
@@ -448,6 +450,6 @@ docs/status/evaluation-baseline.md
 pictures-json/reports-manifest.json
 ```
 
-Local/external report bodies referenced by the manifest include the `usage_profile11` historical baseline, the `situation_frame_support7` artifact set, the `photo_matchability1` audit, previous accepted support reports through `stage3_remaining_gap_support_v20_actionable`, and the current `strict_profile_gate3` Stage 2~5, industry-boundary triage, v10 smoke, and actual 240 replay reports.
+Local/external report bodies referenced by the manifest include the `usage_profile11` historical baseline, the `situation_frame_support7` artifact set, the `photo_matchability1` audit, previous accepted support reports through `strict_profile_gate3`, and the current `safe_scene_phrase_gate2` Stage 2~5, industry-boundary triage, v10 smoke, and actual 240 replay reports.
 
 Rejected approaches: widening hazard/risk text alias inference at status level changed actual 240 status behavior. Broadly widening `UNSAFE_TERMS` reduced NO_TOP only slightly but regressed Guide mismatch and industry boundary quality. Trigger-only domain override reduced NO_TOP but reintroduced broad SR overreach. Broad Stage 2/3 support builds reduced NO_TOP further but overmatched electrical/cleaning/painting/radiation/permit/welding/solvent contexts; accepted rows keep only narrow support-only trigger evidence and block safe checklist-style contexts. The accepted v8 narrow2 pass removed broad `방사선`, `허가서`, `용접 흄`, and `용제` triggers from the rejected v8 trial. Early v9 trials removed generic `전원을 끄지 않고`, generic medical-waste wording, and `담배꽁초` after semantic review. The first v10 trial removed high-pressure washing/electrical-panel support and tightened food-slicer, elevated-welding, and silica triggers after semantic review. Early v11 trials overmatched PPE-only, generic fall-risk, and generic blocked-visibility wording, so accepted narrow3 requires object-specific triggers. The first v12 trial overmatched safe PPE, high-heat, stair, and electrical-control scenes; accepted narrow4 keeps only unsafe/object-specific trigger terms and drops the EV battery seed that moved one case from CI no-action to CI boundary mismatch. Early v13 trials overmatched broad cold-room wording or over-tightened short-token matching; accepted narrow5 keeps object-specific PPE/control triggers and only blocks the confirmed `P-55-2012` single-character `황` false match. The first v14 trial overmatched `발판 없이`, generic `슬링/인양`, generic `용접 흄`, and generic `보호 장갑 미착용`; accepted narrow6b keeps compound/object-specific triggers. Stage 3 support aliases are accepted only as profile-alignment hints, not extraction aliases. Remaining Guide coverage should be handled through SituationFrame child contexts, usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess relevance.

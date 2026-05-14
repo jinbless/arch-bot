@@ -2,9 +2,9 @@
 
 Latest updated: 2026-05-14
 
-Accepted runtime baseline: `strict_profile_gate3`
+Accepted runtime baseline: `safe_scene_phrase_gate2`
 
-Previous accepted baseline: `industry_boundary_safe_suppress3`
+Previous accepted baseline: `strict_profile_gate3`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
@@ -104,7 +104,7 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_strict_profile_gate3.*
+pictures-json/reports/pipeline_quality_v1_v10_safe_scene_phrase_gate2.*
 ```
 
 Summary:
@@ -115,47 +115,79 @@ Stage failure counts:
   stage2: 775
   stage3: 1,288
   stage4: 612
-  stage5: 565
+  stage5: 564
 SHE TP/FN/FP: 1,107 / 909 / 82
 SHE recall: 54.9%
 SR TP/FN/FP: 1,414 / 270 / 211
 SR recall: 84.0%
-Guide mismatch: 43
-Stage 2~5 NO_TOP: 67
-industry_boundary_gap: 21
+Guide mismatch: 29
+Stage 2~5 NO_TOP: 78
+industry_boundary_gap: 7
 workprocess_mismatch: 21
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
-photo_unmatchable_suppressed_count: 0
+photo_unmatchable_suppressed_count: 29
 followup_only_retained_count: 16
-top_replaced_by_photo_actionable_count: 0
-CI no_action: 480
-CI context_mismatch: 14
-CI broad_sr_only: 13
+top_replaced_by_photo_actionable_count: 27
+CI no_action: 478
+CI context_mismatch: 11
+CI broad_sr_only: 14
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 31
+CI guide_boundary_mismatch: 27
 ```
 
-Comparison against `industry_boundary_safe_suppress3`:
+Comparison against `strict_profile_gate3`:
 
 ```text
 SHE/SR status metrics: unchanged
-Guide mismatch: 73 -> 43
-Stage 2~5 NO_TOP: 30 -> 67
-industry_boundary_gap: 56 -> 21
-workprocess_mismatch: 16 -> 21
+Guide mismatch: 43 -> 29
+Stage 2~5 NO_TOP: 67 -> 78
+industry_boundary_gap: 21 -> 7
+workprocess_mismatch: 21 -> 21
 broad_sr_overreach: 1 -> 1
-CI no_action: 438 -> 480
-CI context_mismatch: 14 -> 14
-CI broad_sr_only: 15 -> 13
-CI guide_boundary_mismatch: 48 -> 31
+CI no_action: 480 -> 478
+CI context_mismatch: 14 -> 11
+CI broad_sr_only: 13 -> 14
+CI guide_boundary_mismatch: 31 -> 27
 photo_unmatchable_top_count: 0 -> 0
-B_wrong_guide_boundary: 26 -> 0
+D_safe_scene_overpromoted: 14 -> 0
+C_corpus_or_followup_gap: 7 -> 7
+```
+
+## Safe Scene Phrase Gate2
+
+`safe_scene_phrase_gate2` keeps the `strict_profile_gate3` status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure generation. It suppresses photo-top standard procedures for narrow, explicit safe-scene phrases such as `3점 지지`, `보차가 명확히 분리`, `검전기 확인`, `LOTO 태그 부착`, `화재·아크 방지 조치가 완비`, `강제 환기 가동`, `폭발 분위기 연속 감시`, `모두 올바르게 착용`, and `손 감지 센서 정상 작동`. Explicit absence/planning phrases such as `아직 진입하지`, `진입하지 않았다`, `주변에 사람이 없`, `작업자가 없다`, and `인근 화기 작업 없음` are handled as safe-scene signals even though they contain negative wording.
+
+The first phrase-gate trial reduced D-safe-scene overpromotion from 14 to 1. Gate2 separates explicit absence/planning phrases from generic negator handling and removes the remaining D row without changing SHE/SR/status/penalty behavior.
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_safe_scene_phrase_gate2.*
+pictures-json/reports/industry_boundary_gap_triage_safe_scene_phrase_gate2.*
+pictures-json/reports/synthetic_observations_v10_safe_scene_phrase_gate2_report.*
+pictures-json/reports/actual_response_samples_safe_scene_phrase_gate2.*
+```
+
+Validation:
+
+```text
+v10 SHE recall: 100.0%
+v10 SHE false negative: 0
+v10 SHE false positive: 0
+actual response 240 status changed: 0
+negative_false_positive: 10
+positive_missed: 2
+ambiguous_over_promoted: 5
+asserted mapping update: 0
+runtime SHE approved update: 0
+legal SR evidence change: 0
+public API shape change: none
 ```
 
 ## Strict Profile Gate3
 
-`strict_profile_gate3` keeps the `industry_boundary_safe_suppress3` status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. Broad risk-axis/profile terms such as `화학물질`, `화재`, `폭발`, `고소 작업`, `낙하물`, `피부`, `흡입`, `용제`, and generic domain tags such as `construction`, `chemical_process`, `healthcare` are no longer accepted as strong Guide-specific usage evidence. Strict domain-specific/exclusive Guides require a strong profile hit or trigger-backed SituationFrame support before they can appear as top standard procedures.
+`strict_profile_gate3` keeps the `industry_boundary_safe_suppress3` status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. Broad risk-axis/profile terms such as `화학물질`, `화재`, `폭발`, `고소 작업`, `낙하물`, `피부`, `흡입`, `용제`, and generic domain tags such as `construction`, `chemical_process`, `healthcare` are no longer accepted as strong Guide-specific usage evidence. Strict domain-specific/exclusive Guides require a strong profile hit or trigger-backed SituationFrame support before they can appear as top standard procedures. It is preserved as the previous accepted baseline.
 
 `strict_profile_gate1` reduced industry-boundary gaps but left `B_wrong_guide_boundary` at 7. `strict_profile_gate2` left it at 1. The accepted `strict_profile_gate3` removes this queue entirely while keeping CI no-action under the current failure gate.
 
