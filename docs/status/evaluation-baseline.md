@@ -186,15 +186,21 @@ photo_unmatchable: 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 13
+warnings: 3
+accepted photo-actionable role overrides: 10
 ```
 
 Warning queue:
 
 ```text
-photo_actionable_role_conflict: 10
 broad_sr_overreach_attention: 1
 repeated_evaluation_failure_by_guide: 2
+```
+
+Accepted override queue:
+
+```text
+photo_actionable_role_conflict accepted by explicit field-action classification evidence: 10
 ```
 
 Core A-Box sync:
@@ -212,7 +218,7 @@ primary_workprocess_not_in_base_ttl: 1,220 -> 0
 validate_ontology.py: PASS
 ```
 
-Interpretation: the previous 1,220 WorkProcess warnings were a stale base TTL materialization problem. After regenerating the core Guide A-Box from PostgreSQL, all serving profile `primary_work_process_ids` resolve to WorkProcess individuals owned by the same Guide. The remaining 13 warnings are now real review queues: role/matchability conflicts, one broad-SR attention case, and two repeated WorkProcess mismatch Guides.
+Interpretation: the previous 1,220 WorkProcess warnings were a stale base TTL materialization problem. After regenerating the core Guide A-Box from PostgreSQL, all serving profile `primary_work_process_ids` resolve to WorkProcess individuals owned by the same Guide. The 10 role/matchability conflicts are now accepted only when the profile carries explicit field-action classification evidence and observable cues. The remaining 3 warnings are real algorithm review queues: one broad-SR attention case and two repeated WorkProcess mismatch Guides.
 
 Comparison against `safe_scene_phrase_gate2`:
 

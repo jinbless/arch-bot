@@ -51,6 +51,7 @@ PHOTO_UNMATCHABLE_ROLES = {
     "risk_method",
     "document_reference",
 }
+ROLE_OVERRIDE_REASON_FRAGMENT = "role overridden by explicit field-action title and WorkProcess evidence"
 
 
 def local_name(uri: Any) -> str:
@@ -132,6 +133,7 @@ def validate_profiles(g: Graph, base: Graph, issues: list[dict[str, Any]]) -> No
         photo_matchability = one(g, profile, GUIDE.photoMatchability)
         top_policy = one(g, profile, GUIDE.topProcedurePolicy)
         procedure_role = one(g, profile, GUIDE.procedureRole)
+        classification_reason = one(g, profile, GUIDE.classificationReason) or ""
         profile_level = one(g, profile, GUIDE.profileLevel)
         required_terms = set(lit_values(g, profile, GUIDE.requiredContextTerm))
         negative_terms = set(lit_values(g, profile, GUIDE.negativeBoundaryTerm))
@@ -171,7 +173,17 @@ def validate_profiles(g: Graph, base: Graph, issues: list[dict[str, Any]]) -> No
                 required_terms=sorted(required_terms),
             )
 
-        if photo_matchability == "photo_actionable" and procedure_role in PHOTO_UNMATCHABLE_ROLES:
+        has_accepted_role_override = (
+            photo_matchability == "photo_actionable"
+            and procedure_role in PHOTO_UNMATCHABLE_ROLES
+            and ROLE_OVERRIDE_REASON_FRAGMENT in classification_reason
+            and bool(observable_cues)
+        )
+        if (
+            photo_matchability == "photo_actionable"
+            and procedure_role in PHOTO_UNMATCHABLE_ROLES
+            and not has_accepted_role_override
+        ):
             add_issue(
                 issues,
                 "warning",
@@ -312,6 +324,14 @@ def summarize(g: Graph, issues: list[dict[str, Any]]) -> dict[str, Any]:
     rule_counts = Counter(issue["rule_id"] for issue in issues)
     profiles = set(g.subjects(RDF.type, GUIDE.GuideUsageProfile))
     photo_counts = Counter(one(g, p, GUIDE.photoMatchability) for p in profiles)
+    accepted_role_override_count = sum(
+        1
+        for p in profiles
+        if one(g, p, GUIDE.photoMatchability) == "photo_actionable"
+        and one(g, p, GUIDE.procedureRole) in PHOTO_UNMATCHABLE_ROLES
+        and ROLE_OVERRIDE_REASON_FRAGMENT in (one(g, p, GUIDE.classificationReason) or "")
+        and bool(lit_values(g, p, GUIDE.observableRequiredCue))
+    )
     broad_srs = [
         subject
         for subject in set(g.subjects(APP.servingRole, None))
@@ -324,6 +344,7 @@ def summarize(g: Graph, issues: list[dict[str, Any]]) -> dict[str, Any]:
         "baseline_id": BASELINE_ID,
         "profile_count": len(profiles),
         "photo_matchability_counts": dict(sorted(photo_counts.items())),
+        "accepted_photo_actionable_role_override_count": accepted_role_override_count,
         "broad_sr_count": len(broad_srs),
         "evaluation_case_count": len(eval_cases),
         "hard_violation_count": severity_counts.get("hard", 0),
@@ -366,6 +387,7 @@ def write_reports(summary: dict[str, Any], issues: list[dict[str, Any]]) -> None
         f"- broad SRs: `{summary['broad_sr_count']}`",
         f"- hard violations: `{summary['hard_violation_count']}`",
         f"- warnings: `{summary['warning_count']}`",
+        f"- accepted photo-actionable role overrides: `{summary['accepted_photo_actionable_role_override_count']}`",
         "",
         "## Photo Matchability Counts",
         "",

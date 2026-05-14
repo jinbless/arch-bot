@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated_at": "2026-05-14T18:57:25+09:00",
+    "generated_at": "2026-05-14T19:57:22+09:00",
     "schema_version": "reports-manifest-v1",
     "accepted_baseline": "corpus_gap_guard1",
     "previous_product_baseline": "safe_scene_phrase_gate2",
@@ -35,13 +35,13 @@
       "workprocess_alignment_report_csv": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.csv",
       "sha256": {
         "serving-policy.ttl": "3a44c3d79b10a6b06d0bd182a5bb9c2f3aab9d66ed06bfe589f61dc44aff75b5",
-        "serving-snapshot-corpus_gap_guard1.ttl": "1e5322cc9a9fb610bc2476bf56a6d200bb8d580adfeec221e878f37fb3a8fc49",
+        "serving-snapshot-corpus_gap_guard1.ttl": "8882a9d507c6d562f6a25239660474c1b9e3a407aef37d9c89ff9b3029d780ca",
         "serving-validation-shapes.ttl": "6da336bf75275fa2b08e38ae5688a3ce1c1d3d29ad67de3c715bd8f3941cb9e7",
-        "serving-validation-report-corpus_gap_guard1.json": "1939253101313947b35f60c1e8cd8ecfd903f02f4149443f0764b90e4cf264ce",
-        "serving-validation-report-corpus_gap_guard1.md": "4474559f743dff67d8ba27831057ab5d87c07001103f38a864c2bbaf28a3780d",
-        "serving-validation-report-corpus_gap_guard1.csv": "a67f6bdc727148669fd7d3d62de57872d928374de7572a7fdb7e3704b59148dc",
-        "serving-workprocess-alignment-corpus_gap_guard1.json": "c75a7bc88a6ff2f4ff0d50909d68c03d2a405c589f61bf4051ae03ae0be07edf",
-        "serving-workprocess-alignment-corpus_gap_guard1.md": "78701756b0958eaa929adb0c3f51c1cf60c478ce28621cc50acd643bcc60b22a",
+        "serving-validation-report-corpus_gap_guard1.json": "ce54d0e19cf364503741fae157c3340c096c6d2dfc4038f811e249c978935aa2",
+        "serving-validation-report-corpus_gap_guard1.md": "71d1ec11dae5b3fd90cde791b0996bfbda180bcb97f5077fcab5fb96c74a3d9d",
+        "serving-validation-report-corpus_gap_guard1.csv": "1ab886fb02e9da11d1842c8ffdead205f984ea8ba4c9ef4448f23df77be9227e",
+        "serving-workprocess-alignment-corpus_gap_guard1.json": "5ce75e5b2f872aaf245faa8665558438ae7a967bb5f555952a4452c1041f5faf",
+        "serving-workprocess-alignment-corpus_gap_guard1.md": "9a9cbe1c51c748257d1158ac1a592f73e50e4d63a769905dc5bc14f0f148fcba",
         "serving-workprocess-alignment-corpus_gap_guard1.csv": "a614850eb9b223cb9dde5e5d45976327241112a3794c84b9545183cf179e7c94",
         "kosha-instances.ttl": "741c1d0a4dd5f57777ddc5f03e78b2f254317ce58f3f6154ce72d04eeff5a41d"
       },
@@ -54,9 +54,8 @@
       "broad_sr_count": 12,
       "evaluation_case_count": 2360,
       "hard_violation_count": 0,
-      "warning_count": 13,
+      "warning_count": 3,
       "rule_counts": {
-        "photo_actionable_role_conflict": 10,
         "broad_sr_overreach_attention": 1,
         "repeated_evaluation_failure_by_guide": 2
       },
@@ -72,7 +71,8 @@
       },
       "runtime_use": "validation_only_not_request_path",
       "storage_policy": "tracked_validation_snapshot",
-      "warning_interpretation": "Core Guide A-Box was regenerated from PostgreSQL; primary WorkProcess alignment is 4715/4715. Remaining warnings are 10 role/matchability conflicts, one broad-SR attention case, and two repeated WorkProcess mismatch Guides."
+      "warning_interpretation": "Core Guide A-Box was regenerated from PostgreSQL; primary WorkProcess alignment is 4715/4715. Ten role/matchability conflicts are accepted only with explicit field-action classification evidence and observable cues. Remaining warnings are one broad-SR attention case and two repeated WorkProcess mismatch Guides.",
+      "accepted_photo_actionable_role_override_count": 10
     },
     "situation_frame_artifacts": {
       "candidate_count": 230,
@@ -1231,8 +1231,8 @@
         "validation_report": "koshaontology/ontology/serving-validation-report-corpus_gap_guard1.json",
         "workprocess_alignment_report": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.json",
         "hard_violation_count": 0,
-        "warning_count": 13,
-        "warning_interpretation": "Core Guide A-Box was regenerated from PostgreSQL; primary WorkProcess alignment is 4715/4715. Remaining warnings are 10 role/matchability conflicts, one broad-SR attention case, and two repeated WorkProcess mismatch Guides.",
+        "warning_count": 3,
+        "warning_interpretation": "Core Guide A-Box was regenerated from PostgreSQL; primary WorkProcess alignment is 4715/4715. Ten role/matchability conflicts are accepted only with explicit field-action classification evidence and observable cues. Remaining warnings are one broad-SR attention case and two repeated WorkProcess mismatch Guides.",
         "runtime_use": "validation_only_not_request_path",
         "photo_matchability_counts": {
           "photo_actionable": 631,
@@ -1240,10 +1240,10 @@
           "photo_unmatchable": 368
         },
         "rule_counts": {
-          "photo_actionable_role_conflict": 10,
           "broad_sr_overreach_attention": 1,
           "repeated_evaluation_failure_by_guide": 2
-        }
+        },
+        "accepted_photo_actionable_role_override_count": 10
       },
       "photo_policy_sync1_verification": {
         "pipeline_report": "pictures-json/reports/pipeline_quality_v1_v10_photo_policy_sync1.json",

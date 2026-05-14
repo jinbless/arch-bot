@@ -262,10 +262,11 @@ actual response 240 status changed: 0
 negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
 v10 SHE smoke: recall 100.0%, FN 0, FP 0
 v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
-serving ontology validation: PASS, hard violations 0, warnings 13
+serving ontology validation: PASS, hard violations 0, warnings 3
+accepted photo-actionable role overrides: 10
 ```
 
-After regenerating `kosha-instances.ttl` from PostgreSQL, core Guide A-Box counts are now aligned with the 1,038 Guide serving baseline: 54,631 ChecklistItems, 9,316 WorkProcesses, 7,726 DomainTerms, 8,103 EquipmentSpecs, and 3,435 DocumentRequirements. The previous `primary_workprocess_not_in_base_ttl` warnings dropped from 1,220 to 0; remaining serving ontology warnings are 13 review items.
+After regenerating `kosha-instances.ttl` from PostgreSQL, core Guide A-Box counts are now aligned with the 1,038 Guide serving baseline: 54,631 ChecklistItems, 9,316 WorkProcesses, 7,726 DomainTerms, 8,103 EquipmentSpecs, and 3,435 DocumentRequirements. The previous `primary_workprocess_not_in_base_ttl` warnings dropped from 1,220 to 0. The 10 field-action role overrides are now accepted by explicit classification evidence, leaving 3 algorithm warning items: one broad-SR attention case and two repeated WorkProcess mismatch Guides.
 - `pictures-json/reports/synthetic_observations_v10_stage3_domain_support1_tight1_report.md`
 - `pictures-json/reports/stage2_5_no_top_root_cause_stage3_domain_support1_tight1.md`
 - `pictures-json/reports/pipeline_quality_v1_v10_stage2_support_usage_gate2b.md`

@@ -447,7 +447,8 @@ backend compileall OK
 frontend npm run build OK
 serving ontology validation PASS
 serving ontology hard violations 0
-serving ontology warnings 13
+serving ontology warnings 3
+accepted photo-actionable role overrides 10
 ```
 
 Latest reports:

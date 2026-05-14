@@ -301,6 +301,7 @@ def add_guide_profiles(g: Graph, profiles: dict[str, Any]) -> None:
         add_optional_literal(g, profile_uri, GUIDE.topProcedurePolicy, profile.get("top_procedure_policy"))
         add_optional_literal(g, profile_uri, GUIDE.followupPolicy, profile.get("followup_policy"))
         add_optional_literal(g, profile_uri, GUIDE.reviewStatus, profile.get("usage_profile_review_status") or profile.get("review_status"))
+        add_optional_literal(g, profile_uri, GUIDE.classificationReason, profile.get("classification_reason"))
         add_optional_literal(g, profile_uri, GUIDE.usageSummary, profile.get("usage_summary"))
         add_optional_literal(g, profile_uri, GUIDE.domainFamily, profile.get("domain_family"))
         add_literal_list(g, profile_uri, GUIDE.requiredContextTerm, profile.get("required_context_terms"))

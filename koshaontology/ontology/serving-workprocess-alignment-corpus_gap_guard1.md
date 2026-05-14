@@ -1,7 +1,7 @@
 # Serving WorkProcess Alignment Audit
 
 - baseline: `corpus_gap_guard1`
-- generated_at: `2026-05-14T09:53:53.965311+00:00`
+- generated_at: `2026-05-14T10:56:19.896571+00:00`
 - profiles: `1038`
 - base TTL Guides: `1038`
 - base TTL WorkProcesses: `9316`

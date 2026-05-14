@@ -63,10 +63,11 @@ photo_actionable / conditional / unmatchable 631 / 39 / 368
 broad SR 12
 evaluation cases 2,360
 hard violations 0
-warnings 13
+warnings 3
+accepted photo-actionable role overrides 10
 ```
 
-2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐다. 남은 13개 warning은 사진 top 적합성/절차 역할 충돌 10건, broad SR attention 1건, 반복 WorkProcess mismatch Guide 2건이다. TTL을 직접 수정하지 말고 Pipe-B/PG/base TTL export 또는 OHS serving artifact를 수정한 뒤 재생성한다.
+2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐다. 이후 `classification_reason` 근거가 있는 사진 top 적합성/절차 역할 충돌 10건은 의도된 field-action override로 수용했고, 남은 warning은 broad SR attention 1건, 반복 WorkProcess mismatch Guide 2건이다. TTL을 직접 수정하지 말고 Pipe-B/PG/base TTL export 또는 OHS serving artifact를 수정한 뒤 재생성한다.
 
 Guide photo matchability v1은 1,038개 Guide usage profile에 사진 기반 top 표준절차 적합성을 부여한 serving policy다.
 

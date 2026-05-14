@@ -174,10 +174,11 @@ photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 13
+warnings: 3
+accepted photo-actionable role overrides: 10
 ```
 
-해석: 2026-05-14에 PostgreSQL 기준으로 `kosha-instances.ttl`을 재생성해 base TTL을 1,038 Guide / 9,316 WorkProcess 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐고, 남은 13건은 `photo_actionable_role_conflict`, broad SR attention, 반복 WorkProcess mismatch 검토 큐다. TTL을 직접 고치지 말고 원천 Guide profile, Pipe-B/PG export, 또는 base TTL 생성 경로를 고친 뒤 재생성한다.
+해석: 2026-05-14에 PostgreSQL 기준으로 `kosha-instances.ttl`을 재생성해 base TTL을 1,038 Guide / 9,316 WorkProcess 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐다. 이후 `classification_reason` 근거가 있는 field-action role override 10건은 의도된 `photo_actionable` 예외로 수용했고, 남은 3건은 broad SR attention 1건과 반복 WorkProcess mismatch Guide 2건이다. TTL을 직접 고치지 말고 원천 Guide profile, Pipe-B/PG export, 또는 base TTL 생성 경로를 고친 뒤 재생성한다.
 
 SituationFrame support-only artifact:
 
