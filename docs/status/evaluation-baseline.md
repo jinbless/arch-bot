@@ -2,9 +2,9 @@
 
 Latest updated: 2026-05-14
 
-Accepted runtime baseline: `safe_scene_phrase_gate2`
+Accepted runtime baseline: `corpus_gap_guard1`
 
-Previous accepted baseline: `strict_profile_gate3`
+Previous accepted baseline: `safe_scene_phrase_gate2`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
@@ -104,7 +104,7 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_safe_scene_phrase_gate2.*
+pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.*
 ```
 
 Summary:
@@ -115,43 +115,120 @@ Stage failure counts:
   stage2: 775
   stage3: 1,288
   stage4: 612
-  stage5: 564
+  stage5: 565
 SHE TP/FN/FP: 1,107 / 909 / 82
 SHE recall: 54.9%
 SR TP/FN/FP: 1,414 / 270 / 211
 SR recall: 84.0%
-Guide mismatch: 29
-Stage 2~5 NO_TOP: 78
-industry_boundary_gap: 7
-workprocess_mismatch: 21
+Guide mismatch: 22
+Stage 2~5 NO_TOP: 85
+industry_boundary_gap: 1
+workprocess_mismatch: 20
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
 photo_unmatchable_suppressed_count: 29
-followup_only_retained_count: 16
+followup_only_retained_count: 15
 top_replaced_by_photo_actionable_count: 27
-CI no_action: 478
+CI no_action: 482
 CI context_mismatch: 11
 CI broad_sr_only: 14
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 27
+CI guide_boundary_mismatch: 26
 ```
 
-Comparison against `strict_profile_gate3`:
+Synthetic SHE smoke by version:
+
+| Version | Samples | positive / ambiguous / negative | SHE recall | SHE FN | SHE FP | negative specificity | confirmed-risk recall | ambiguous over-promoted |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| v1 | 120 | 60 / 40 / 20 | 100.0% | 0 | 28 | 42.9% | 48.3% | 6 |
+| v2 | 100 | 55 / 25 / 20 | 100.0% | 0 | 10 | 66.7% | 60.0% | 5 |
+| v3 | 200 | 120 / 60 / 20 | 100.0% | 0 | 25 | 44.4% | 55.0% | 2 |
+| v4 | 80 | 48 / 24 / 8 | 100.0% | 0 | 0 | 100.0% | 52.1% | 1 |
+| v5 | 210 | 126 / 63 / 21 | 100.0% | 0 | 0 | 100.0% | 66.7% | 1 |
+| v6 | 330 | 198 / 99 / 33 | 100.0% | 0 | 0 | 100.0% | 70.2% | 37 |
+| v7 | 330 | 198 / 99 / 33 | 100.0% | 0 | 1 | 97.1% | 68.7% | 7 |
+| v8 | 330 | 198 / 99 / 33 | 100.0% | 0 | 3 | 91.7% | 68.7% | 17 |
+| v9 | 330 | 187 / 99 / 44 | 100.0% | 0 | 0 | 100.0% | 65.8% | 7 |
+| v10 | 330 | 187 / 99 / 44 | 100.0% | 0 | 0 | 100.0% | 42.8% | 0 |
+| v1~v9 | 2,030 | 1,190 / 608 / 232 | 100.0% | 0 | 67 | 71.1% | 64.8% | 83 |
+| v1~v10 | 2,360 | 1,377 / 707 / 276 | 100.0% | 0 | 67 | 75.7% | 61.8% | 83 |
+
+## Serving Ontology Validation Snapshot
+
+Source artifacts:
+
+```text
+OHS/backend/app/data/guide_domain_profiles.json
+OHS/backend/app/data/guide_photo_matchability.v1.json
+OHS/backend/app/data/broad_sr_policy.json
+OHS/backend/app/data/situation_context_taxonomy.v20.json
+OHS/backend/app/data/guide_support_candidates.v20.jsonl
+pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.json
+```
+
+Generated ontology files:
+
+```text
+koshaontology/ontology/serving-policy.ttl
+koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl
+koshaontology/ontology/serving-validation-shapes.ttl
+koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*
+koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.*
+```
+
+Validation summary:
+
+```text
+GuideUsageProfile: 1,038
+photo_actionable: 637
+photo_conditional_followup: 36
+photo_unmatchable: 365
+broad SRs: 12
+evaluation cases: 2,360
+hard violations: 0
+warnings: 16
+```
+
+Warning queue:
+
+```text
+photo_actionable_role_conflict: 13
+broad_sr_overreach_attention: 1
+repeated_evaluation_failure_by_guide: 2
+```
+
+Core A-Box sync:
+
+```text
+kosha-instances.ttl regenerated from PostgreSQL on 2026-05-14
+KoshaGuide: 1,038
+ChecklistItem: 54,631
+DomainTerm: 7,726
+WorkProcess: 9,316
+EquipmentSpec: 8,103
+DocumentRequirement: 3,435
+serving profile primary WorkProcess links: 4,715 / 4,715 aligned
+primary_workprocess_not_in_base_ttl: 1,220 -> 0
+validate_ontology.py: PASS
+```
+
+Interpretation: the previous 1,220 WorkProcess warnings were a stale base TTL materialization problem. After regenerating the core Guide A-Box from PostgreSQL, all serving profile `primary_work_process_ids` resolve to WorkProcess individuals owned by the same Guide. The remaining 16 warnings are now real review queues: role/matchability conflicts, one broad-SR attention case, and two repeated WorkProcess mismatch Guides.
+
+Comparison against `safe_scene_phrase_gate2`:
 
 ```text
 SHE/SR status metrics: unchanged
-Guide mismatch: 43 -> 29
-Stage 2~5 NO_TOP: 67 -> 78
-industry_boundary_gap: 21 -> 7
-workprocess_mismatch: 21 -> 21
+Guide mismatch: 29 -> 22
+Stage 2~5 NO_TOP: 78 -> 85
+industry_boundary_gap: 7 -> 1
+workprocess_mismatch: 21 -> 20
 broad_sr_overreach: 1 -> 1
-CI no_action: 480 -> 478
-CI context_mismatch: 14 -> 11
-CI broad_sr_only: 13 -> 14
-CI guide_boundary_mismatch: 31 -> 27
+CI no_action: 478 -> 482
+CI context_mismatch: 11 -> 11
+CI broad_sr_only: 14 -> 14
+CI guide_boundary_mismatch: 27 -> 26
 photo_unmatchable_top_count: 0 -> 0
-D_safe_scene_overpromoted: 14 -> 0
-C_corpus_or_followup_gap: 7 -> 7
+C_corpus_or_followup_gap: 7 -> 1
 ```
 
 ## Safe Scene Phrase Gate2
@@ -1073,3 +1150,65 @@ Guide-only attention cases: 560
 ## Operating Note
 
 Broadening status-level risk inference or adding generic text aliases was rejected because it changed actual 240 status boundaries. Broad `UNSAFE_TERMS` widening was also rejected because it reduced NO_TOP only slightly while regressing Guide mismatch and industry boundary quality. Trigger-only domain override was rejected because it reduced NO_TOP but reintroduced broad SR overreach. A broad Stage 2 support attempt also regressed Guide mismatch; accepted support rows are trigger-backed, support-only, and blocked in safe checklist-style contexts. Stage 3 profile-alignment aliases are accepted only because they are not extraction aliases. v14 confirmed the same rule again: short terms like `발판 없이`, `슬링`, `용접 흄`, and `보호 장갑 미착용` overmatch safe or unrelated scenes unless tied to object-specific context. Remaining quality work should use SituationFrame child contexts, Guide usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess relevance. The 230 Stage 3 candidates stay review-controlled; automatic approved SHE promotion and asserted mapping updates remain `0`.
+
+
+## Corpus Gap Guard v1
+
+Accepted runtime baseline: `corpus_gap_guard1`
+
+Previous accepted baseline: `safe_scene_phrase_gate2`
+
+This pass keeps the status/penalty/SHE/SR boundary unchanged and changes only Stage 5 standard-procedure ranking. It preserves `safe_scene_phrase_gate2` safe-scene suppression and adds compound corpus-gap top-procedure guards so lab exit checklist, medication preparation/disposal, and recycling glass-shard walking scenes are not filled by unrelated broad Guides. Rejected follow-up trials tried to force high-pressure gas-cylinder normal transport into the current Guide layer, but they moved cases to other broad Guides; that topic is deferred to WorkProcess/Guide relevance.
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.*
+pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.*
+pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.*
+pictures-json/reports/actual_response_samples_corpus_gap_guard1.*
+```
+
+Summary:
+
+```text
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 22
+NO_TOP: 85
+industry_boundary_gap: 1
+workprocess_mismatch: 20
+broad_sr_overreach: 1
+photo_unmatchable_top_count: 0
+photo_unmatchable_suppressed_count: 29
+followup_only_retained_count: 15
+top_replaced_by_photo_actionable_count: 27
+CI no_action: 482
+CI context_mismatch: 11
+CI broad_sr_only: 14
+CI needs_review_used: 0
+CI guide_boundary_mismatch: 26
+v10 SHE recall: 100.0%, FN 0, FP 0
+actual response 240 status changed: 0
+negative_false_positive: 10
+positive_missed: 2
+ambiguous_over_promoted: 5
+remaining industry_boundary_gap triage: C_corpus_or_followup_gap 1
+backend compileall: OK
+```
+
+NO_TOP root-cause audit for corpus_gap_guard1:
+
+```text
+report: pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.*
+total_no_top: 85
+primary root causes:
+  stage2_taxonomy_or_normalization_gap: 39
+  situation_frame_child_context_gap: 22
+  stage3_she_gap_but_sr_available: 10
+  situation_frame_child_support_gap: 5
+  stage3_she_to_sr_gap: 4
+  synthetic_fixture_or_safe_controlled_positive: 3
+  guide_usage_profile_context_gap: 2
+```

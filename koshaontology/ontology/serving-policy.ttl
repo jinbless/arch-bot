@@ -1,0 +1,100 @@
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+
+app:ServingSnapshot a owl:Class ;
+    rdfs:label "Generated validation snapshot for a serving baseline"@en ;
+    rdfs:comment "Generated from OHS serving artifacts and synthetic reports; do not hand-edit generated snapshots."@en .
+
+app:ValidationRun a owl:Class ;
+    rdfs:label "Serving ontology validation run"@en .
+
+app:allowedRuntimeUse a owl:DatatypeProperty .
+
+app:baselineId a owl:DatatypeProperty .
+
+app:broadSrAttention a owl:DatatypeProperty .
+
+app:broadSrOnlyTop a owl:DatatypeProperty .
+
+app:candidateRequirement a owl:ObjectProperty ;
+    rdfs:domain app:ServingCandidate ;
+    rdfs:range sr:SafetyRequirement .
+
+app:caseType a owl:DatatypeProperty .
+
+app:childContext a owl:DatatypeProperty .
+
+app:failureQueue a owl:DatatypeProperty .
+
+app:guideCategory a owl:DatatypeProperty .
+
+app:legalAsserted a owl:DatatypeProperty .
+
+app:parentContext a owl:DatatypeProperty .
+
+app:photoUnmatchableTop a owl:DatatypeProperty .
+
+app:servingAllowed a owl:DatatypeProperty .
+
+app:servingCandidateFor a owl:ObjectProperty ;
+    rdfs:domain app:ServingCandidate ;
+    rdfs:range guide:KoshaGuide .
+
+app:servingRole a owl:DatatypeProperty .
+
+app:syntheticVersion a owl:DatatypeProperty .
+
+app:topChecklistItem a owl:ObjectProperty ;
+    rdfs:domain app:EvaluationCase ;
+    rdfs:range guide:ChecklistItem .
+
+app:topGuide a owl:ObjectProperty ;
+    rdfs:domain app:EvaluationCase ;
+    rdfs:range guide:KoshaGuide .
+
+app:triggerTerm a owl:DatatypeProperty .
+
+guide:followupPolicy a owl:DatatypeProperty .
+
+guide:hasUsageProfile a owl:ObjectProperty ;
+    rdfs:comment "Validation-only serving profile link. Runtime continues to read OHS JSON artifacts."@en ;
+    rdfs:domain guide:KoshaGuide ;
+    rdfs:range guide:GuideUsageProfile .
+
+guide:negativeBoundaryTerm a owl:DatatypeProperty .
+
+guide:observableRequiredCue a owl:DatatypeProperty .
+
+guide:photoMatchability a owl:DatatypeProperty .
+
+guide:primaryWorkProcess a owl:ObjectProperty ;
+    rdfs:domain guide:GuideUsageProfile ;
+    rdfs:range guide:WorkProcess .
+
+guide:procedureRole a owl:DatatypeProperty .
+
+guide:profileLevel a owl:DatatypeProperty .
+
+guide:profileOfGuide a owl:ObjectProperty ;
+    rdfs:domain guide:GuideUsageProfile ;
+    rdfs:range guide:KoshaGuide .
+
+guide:requiredContextTerm a owl:DatatypeProperty .
+
+guide:reviewStatus a owl:DatatypeProperty .
+
+guide:topProcedurePolicy a owl:DatatypeProperty .
+
+guide:usageSummary a owl:DatatypeProperty .
+
+app:EvaluationCase a owl:Class ;
+    rdfs:label "Synthetic evaluation case materialized for validation"@en .
+
+app:ServingCandidate a owl:Class ;
+    rdfs:label "Recommendation-support candidate used by serving artifacts"@en .
+
+guide:GuideUsageProfile a owl:Class ;
+    rdfs:label "Guide serving usage profile"@en .

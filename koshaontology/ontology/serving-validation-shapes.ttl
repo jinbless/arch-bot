@@ -1,0 +1,68 @@
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+app:GuideUsageProfileShape
+    a sh:NodeShape ;
+    sh:targetClass guide:GuideUsageProfile ;
+    sh:property [
+        sh:path guide:profileOfGuide ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class guide:KoshaGuide ;
+        sh:message "GuideUsageProfile must belong to exactly one KoshaGuide." ;
+    ] ;
+    sh:property [
+        sh:path app:baselineId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "GuideUsageProfile must carry the serving baseline id." ;
+    ] .
+
+app:PhotoUnmatchablePolicyShape
+    a sh:NodeShape ;
+    sh:targetClass guide:GuideUsageProfile ;
+    sh:sparql [
+        sh:message "photo_unmatchable profiles must use suppress_photo_top." ;
+        sh:select """
+            PREFIX guide: <https://cashtoss.info/ontology/guide#>
+            SELECT $this WHERE {
+              $this guide:photoMatchability "photo_unmatchable" .
+              FILTER NOT EXISTS { $this guide:topProcedurePolicy "suppress_photo_top" }
+            }
+        """ ;
+    ] .
+
+app:EvaluationPhotoTopShape
+    a sh:NodeShape ;
+    sh:targetClass app:EvaluationCase ;
+    sh:sparql [
+        sh:message "An evaluation top Guide must not be photo_unmatchable." ;
+        sh:select """
+            PREFIX app: <https://cashtoss.info/ontology/app#>
+            SELECT $this WHERE {
+              $this app:photoUnmatchableTop true .
+            }
+        """ ;
+    ] .
+
+app:ServingCandidateShape
+    a sh:NodeShape ;
+    sh:targetClass app:ServingCandidate ;
+    sh:sparql [
+        sh:message "needs_review/rejected candidates must not be serving-allowed or legal asserted." ;
+        sh:select """
+            PREFIX app: <https://cashtoss.info/ontology/app#>
+            SELECT $this WHERE {
+              $this app:reviewStatus ?status .
+              FILTER(?status IN ("needs_review", "rejected"))
+              {
+                $this app:servingAllowed true .
+              } UNION {
+                $this app:legalAsserted true .
+              }
+            }
+        """ ;
+    ] .

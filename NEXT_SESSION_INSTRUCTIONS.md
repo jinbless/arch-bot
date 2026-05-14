@@ -123,38 +123,61 @@ http://127.0.0.1:5173/ohs/
 
 ## 6. 현재 검증 기준선
 
-Accepted runtime baseline: `safe_scene_phrase_gate2`
+Accepted runtime baseline: `corpus_gap_guard1`
 
-Previous accepted baseline: `strict_profile_gate3`
+Previous accepted baseline: `safe_scene_phrase_gate2`
 
 ```text
 synthetic Stage 2~5 v1~v10 total: 2,360
 SHE TP/FN/FP: 1,107 / 909 / 82
 SR TP/FN/FP: 1,414 / 270 / 211
-Guide mismatch: 29
-Stage 2~5 NO_TOP: 78
-industry_boundary_gap: 7
-workprocess_mismatch: 21
+Guide mismatch: 22
+Stage 2~5 NO_TOP: 85
+industry_boundary_gap: 1
+workprocess_mismatch: 20
 broad_sr_overreach: 1
 photo_unmatchable_top_count: 0
 photo_unmatchable_suppressed_count: 29
-followup_only_retained_count: 16
+followup_only_retained_count: 15
 top_replaced_by_photo_actionable_count: 27
-CI no_action: 478
+CI no_action: 482
 CI context_mismatch: 11
 CI broad_sr_only: 14
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 27
+CI guide_boundary_mismatch: 26
 v10 SHE recall: 100.0%
 v10 SHE false negative: 0
 v10 SHE false positive: 0
+v1~v10 SHE smoke recall: 100.0%
+v1~v10 SHE smoke false negative: 0
+v1~v10 SHE smoke false positive: 67
 actual response 240 status changed: 0
 negative_false_positive: 10
 positive_missed: 2
 ambiguous_over_promoted: 5
 ```
 
-`safe_scene_phrase_gate2` keeps the previous status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. It suppresses safe-scene top procedure overpromotion with narrow phrases such as `3점 지지`, `보차가 명확히 분리`, `검전기 확인`, `LOTO 태그 부착`, `화재·아크 방지 조치가 완비`, `강제 환기 가동`, `폭발 분위기 연속 감시`, `모두 올바르게 착용`, and explicit absence/planning phrases such as `아직 진입하지`, `진입하지 않았다`, `주변에 사람이 없`, `작업자가 없다`, `인근 화기 작업 없음`. `strict_profile_gate3` remains the previous baseline that removed broad profile-term overpromotion.
+`corpus_gap_guard1` keeps the previous status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. It preserves `safe_scene_phrase_gate2` safe-scene blocking and adds compound corpus-gap guards so lab exit checklists, medication preparation/disposal scenes, and recycling glass-shard walking scenes do not get filled by unrelated broad Guides. `safe_scene_phrase_gate2` remains the previous baseline.
+
+Serving ontology validation snapshot:
+
+```text
+export script: koshaontology/ontology/scripts/export_serving_snapshot.py
+validation script: koshaontology/ontology/scripts/validate_serving_snapshot.py
+policy: koshaontology/ontology/serving-policy.ttl
+snapshot: koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl
+shapes: koshaontology/ontology/serving-validation-shapes.ttl
+report: koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*
+alignment report: koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.*
+GuideUsageProfile: 1,038
+photo_actionable / conditional / unmatchable: 637 / 36 / 365
+broad SRs: 12
+evaluation cases: 2,360
+hard violations: 0
+warnings: 16
+```
+
+해석: 2026-05-14에 PostgreSQL 기준으로 `kosha-instances.ttl`을 재생성해 base TTL을 1,038 Guide / 9,316 WorkProcess 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐고, 남은 16건은 `photo_actionable_role_conflict`, broad SR attention, 반복 WorkProcess mismatch 검토 큐다. TTL을 직접 고치지 말고 원천 Guide profile, Pipe-B/PG export, 또는 base TTL 생성 경로를 고친 뒤 재생성한다.
 
 SituationFrame support-only artifact:
 
@@ -347,6 +370,11 @@ pictures-json/reports/pipeline_quality_v1_v10_safe_scene_phrase_gate2.*
 pictures-json/reports/industry_boundary_gap_triage_safe_scene_phrase_gate2.*
 pictures-json/reports/synthetic_observations_v10_safe_scene_phrase_gate2_report.*
 pictures-json/reports/actual_response_samples_safe_scene_phrase_gate2.*
+pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.*
+pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.*
+pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.*
+pictures-json/reports/actual_response_samples_corpus_gap_guard1.*
+pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.*
 ```
 
 ## 7. 검증 명령
@@ -387,9 +415,10 @@ kosha-guides/parsed: 1038
 
 1. 새 작업은 root `arch-bot/main`에서 수행한다.
 2. 작업 전 `git status --short --branch`로 clean 상태를 확인한다.
-3. Guide 품질 작업은 `safe_scene_phrase_gate2` 기준으로 이어간다.
+3. Guide 품질 작업은 `corpus_gap_guard1` 기준으로 이어간다.
 4. `she-stage3-new-pattern-candidates-reference-guard1` 230건은 runtime SHE 확정으로 import하지 않는다. `true_new_she`도 첫 사이클에서는 review-only다.
-5. NO_TOP 78건은 runtime repair보다 corpus/taxonomy/review boundary 성격이 크다. 억지로 broad alias/support를 추가하지 말고, exact source Guide가 생기거나 별도 public/customer/animal-safety taxonomy를 만들 때만 재검토한다.
-6. 다음 구조적 보강 대상은 잔여 `C_corpus_or_followup_gap 7`, `CI no_action 478`, `CI guide_boundary_mismatch 27`, `workprocess_mismatch 21`이다. `B_wrong_guide_boundary`와 `D_safe_scene_overpromoted`는 0건이다.
+5. NO_TOP 85건은 runtime repair보다 corpus/taxonomy/review boundary 성격이 크다. 억지로 broad alias/support를 추가하지 말고, exact source Guide가 생기거나 별도 public/customer/animal-safety taxonomy를 만들 때만 재검토한다.
+6. 다음 구조적 보강 대상은 잔여 `C_corpus_or_followup_gap 1`, `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 20`이다. `B_wrong_guide_boundary`와 `D_safe_scene_overpromoted`는 0건이다.
 7. parent context는 검색 확장에만 쓰고, parent-only match는 confirmed/status/penalty/direct SR/표준절차 top 후보를 만들 수 없다.
 8. photo_matchability는 표준절차 top lane에만 적용한다. 즉시조치, SHE status, SR evidence, penalty path에는 적용하지 않는다.
+9. 온톨로지 검증 경고는 `structure_issue`, `data_issue`, `algorithm_issue`, `corpus_gap`, `review_only`로 나눠 원천 artifact 쪽에서 정리한다.

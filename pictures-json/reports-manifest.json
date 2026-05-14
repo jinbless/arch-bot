@@ -1,15 +1,15 @@
 {
   "summary": {
-    "generated_at": "2026-05-14T09:29:29+09:00",
+    "generated_at": "2026-05-14T11:50:38+09:00",
     "schema_version": "reports-manifest-v1",
-    "accepted_baseline": "safe_scene_phrase_gate2",
-    "previous_product_baseline": "strict_profile_gate3",
+    "accepted_baseline": "corpus_gap_guard1",
+    "previous_product_baseline": "safe_scene_phrase_gate2",
     "report_body_policy": "pictures-json/reports/** remains local/external; this manifest records checksums and accepted baselines.",
-    "report_file_count": 484
+    "report_file_count": 499
   },
   "accepted_baseline": {
-    "name": "safe_scene_phrase_gate2",
-    "previous": "strict_profile_gate3",
+    "name": "corpus_gap_guard1",
+    "previous": "safe_scene_phrase_gate2",
     "photo_matchability": {
       "guide_count": 1038,
       "classification_counts": {
@@ -20,6 +20,57 @@
       "measurement_analysis_role_overrides": 8,
       "policy_scope": "standard_procedures top lane only",
       "status_penalty_she_sr_impact": "none"
+    },
+    "serving_ontology_validation": {
+      "baseline": "corpus_gap_guard1",
+      "policy_ttl": "koshaontology/ontology/serving-policy.ttl",
+      "snapshot_ttl": "koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl",
+      "shapes_ttl": "koshaontology/ontology/serving-validation-shapes.ttl",
+      "validation_report_json": "koshaontology/ontology/serving-validation-report-corpus_gap_guard1.json",
+      "validation_report_md": "koshaontology/ontology/serving-validation-report-corpus_gap_guard1.md",
+      "validation_report_csv": "koshaontology/ontology/serving-validation-report-corpus_gap_guard1.csv",
+      "workprocess_alignment_report_json": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.json",
+      "workprocess_alignment_report_md": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.md",
+      "workprocess_alignment_report_csv": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.csv",
+      "sha256": {
+        "serving-policy.ttl": "6a1b54ccdbe610ede7810197a2b2c3aa10e29f4477ef3d7ca742c93586aa7e59",
+        "serving-snapshot-corpus_gap_guard1.ttl": "7f98dd698de08beea2412db3be05c158e1e8fc27611a4e9be68d5d2cd12c6d5d",
+        "serving-validation-shapes.ttl": "6da336bf75275fa2b08e38ae5688a3ce1c1d3d29ad67de3c715bd8f3941cb9e7",
+        "serving-validation-report-corpus_gap_guard1.json": "fe5ee01c4a12fe7b481f8e081e11ad099a433bc557c9b27493e4954fd6449b6f",
+        "serving-validation-report-corpus_gap_guard1.md": "cd9854bdea3604e19584ec4b72e31b6826353f323c8b5ce5c6f43b5a77581066",
+        "serving-validation-report-corpus_gap_guard1.csv": "cbda7b016f96800781c464bc90742a3351d42328dc417c756351443d198236ba",
+        "serving-workprocess-alignment-corpus_gap_guard1.json": "7d75322419cd9e432e30232c6226aab7a70d119bf37ac64c206da41775dc9751",
+        "serving-workprocess-alignment-corpus_gap_guard1.md": "c5e935cdb06694dfd5a37f96ca4c6fc7985da1697316e49f5e37a0acb501b7d8",
+        "serving-workprocess-alignment-corpus_gap_guard1.csv": "81f27bd0322c589964706a0ed02f74ce06b50d34ffa00895ca08a4252a8bd423",
+        "kosha-instances.ttl": "741c1d0a4dd5f57777ddc5f03e78b2f254317ce58f3f6154ce72d04eeff5a41d"
+      },
+      "guide_usage_profiles": 1038,
+      "photo_matchability_counts": {
+        "photo_actionable": 637,
+        "photo_conditional_followup": 36,
+        "photo_unmatchable": 365
+      },
+      "broad_sr_count": 12,
+      "evaluation_case_count": 2360,
+      "hard_violation_count": 0,
+      "warning_count": 16,
+      "rule_counts": {
+        "photo_actionable_role_conflict": 13,
+        "broad_sr_overreach_attention": 1,
+        "repeated_evaluation_failure_by_guide": 2
+      },
+      "core_abox_sync": {
+        "kosha_guides": 1038,
+        "checklist_items": 54631,
+        "domain_terms": 7726,
+        "work_processes": 9316,
+        "equipment_specs": 8103,
+        "document_requirements": 3435,
+        "primary_workprocess_links_aligned": 4715,
+        "primary_workprocess_not_in_base_ttl": 0
+      },
+      "runtime_use": "validation_only_not_request_path",
+      "storage_policy": "tracked_validation_snapshot"
     },
     "situation_frame_artifacts": {
       "candidate_count": 230,
@@ -231,7 +282,7 @@
         "stage2": 775,
         "stage3": 1288,
         "stage4": 612,
-        "stage5": 564
+        "stage5": 565
       },
       "she_metrics": {
         "expected_positive": 2016,
@@ -248,39 +299,39 @@
         "recall": "84.0%"
       },
       "guide_metrics": {
-        "current_obvious_top_guide_mismatch": 29,
-        "no_top": 78,
-        "industry_boundary_gap": 7,
-        "workprocess_mismatch": 21,
+        "current_obvious_top_guide_mismatch": 22,
+        "no_top": 85,
+        "industry_boundary_gap": 1,
+        "workprocess_mismatch": 20,
         "broad_sr_overreach": 1,
         "photo_unmatchable_top_count": 0,
         "photo_unmatchable_suppressed_count": 29,
-        "followup_only_retained_count": 16,
+        "followup_only_retained_count": 15,
         "top_replaced_by_photo_actionable_count": 27,
         "top_photo_matchability_counts": {
-          "NO_TOP": 628,
-          "photo_actionable": 1732
+          "NO_TOP": 636,
+          "photo_actionable": 1724
         }
       },
       "ci_metrics": {
-        "ci_no_action": 478,
+        "ci_no_action": 482,
         "ci_context_mismatch": 11,
         "ci_broad_sr_only": 14,
         "ci_needs_review_used": 0,
-        "ci_guide_boundary_mismatch": 27
+        "ci_guide_boundary_mismatch": 26
       },
       "primary_failure_stage_counts": {
-        "ok": 514,
+        "ok": 513,
         "stage2": 775,
         "stage3": 808,
         "stage4": 214,
-        "stage5": 49
+        "stage5": 50
       },
-      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_safe_scene_phrase_gate2.json",
-      "comparison_note": "Compared against strict_profile_gate3. safe_scene_phrase_gate2 keeps status/penalty/SHE/SR unchanged and suppresses narrow safe-scene top standard procedure overpromotion; D_safe_scene_overpromoted 14 -> 0."
+      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.json",
+      "comparison_note": "Compared against safe_scene_phrase_gate2. corpus_gap_guard1 keeps status/penalty/SHE/SR unchanged and blocks compound corpus-gap contexts from broad top Guide substitution."
     },
     "synthetic_v10_smoke": {
-      "source_report": "pictures-json/reports/synthetic_observations_v10_safe_scene_phrase_gate2_report.json",
+      "source_report": "pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.json",
       "total": 330,
       "by_case_type": {
         "positive": 187,
@@ -293,7 +344,7 @@
       "she_negative_specificity": "100.0%"
     },
     "actual_240_regression": {
-      "source_report": "pictures-json/reports/actual_response_samples_safe_scene_phrase_gate2.json",
+      "source_report": "pictures-json/reports/actual_response_samples_corpus_gap_guard1.json",
       "total_samples": 240,
       "status_changed_count": 0,
       "actual_status_counts": {
@@ -466,7 +517,7 @@
         "status_penalty_she_approval_asserted_mapping_update": 0
       }
     },
-    "runtime_change_note": "safe_scene_phrase_gate2 keeps the status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. It preserves strict_profile_gate3 broad profile-term suppression and additionally blocks narrow safe-scene and explicit absence/planning phrases from creating photo-top standard procedures.",
+    "runtime_change_note": "corpus_gap_guard1 keeps the status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. It preserves safe_scene_phrase_gate2 safe-scene suppression and additionally blocks compound corpus-gap contexts from creating unrelated broad top procedures.",
     "safe_lock_fix": {
       "name": "stage2_support_usage_gate3_safe_lock1",
       "changed_file": "OHS/backend/app/services/situation_frame_service.py",
@@ -1038,46 +1089,33 @@
       "accepted_guard": "local CI fallback requires observable violation context and blocks non-negated safe-control wording such as 완비, 정상, 보관 중, 준비 중, 조립 전."
     },
     "industry_boundary_gap_triage": {
-      "source_report": "pictures-json/reports/industry_boundary_gap_triage_safe_scene_phrase_gate2.json",
-      "total_rows": 7,
+      "generated_at": "2026-05-14T02:36:34.085013+00:00",
+      "source_report": "pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.json",
+      "total_rows": 1,
       "triage_queue_counts": {
-        "C_corpus_or_followup_gap": 7
+        "C_corpus_or_followup_gap": 1
       },
       "priority_counts": {
-        "medium": 7
+        "medium": 1
       },
       "top_guide_counts": [
         [
-          "B-M-19-2026",
-          2
-        ],
-        [
-          "G-106-2013",
-          2
-        ],
-        [
-          "C-47-2023",
-          1
-        ],
-        [
-          "C-C-29-2026",
-          1
-        ],
-        [
-          "P-36-2012",
+          "P-139-2013",
           1
         ]
       ],
-      "top_action_guide_counts": [
-        [
-          "G-106-2013",
-          2
-        ],
-        [
-          "A-G-6-2025",
-          1
-        ]
-      ]
+      "top_action_guide_counts": [],
+      "queue_by_top_guide": {
+        "P-139-2013": {
+          "C_corpus_or_followup_gap": 1
+        }
+      },
+      "repair_policy": {
+        "A_profile_usage_gap": "enrich usage profile and WorkProcess evidence only when the Guide is actually plausible",
+        "B_wrong_guide_boundary": "tighten negative boundaries or require Guide-specific visual/context cues",
+        "C_corpus_or_followup_gap": "prefer NO_TOP/follow-up/corpus review over broad Guide promotion",
+        "D_safe_scene_overpromoted": "tighten safe/negative suppression before adding more Guide evidence"
+      }
     },
     "industry_boundary_safe_suppress3": {
       "name": "industry_boundary_safe_suppress3",
@@ -1158,6 +1196,43 @@
       "rejected_trials": [
         "safe_scene_phrase_gate1 left D_safe_scene_overpromoted at 1"
       ]
+    },
+    "corpus_gap_guard1": {
+      "name": "corpus_gap_guard1",
+      "previous": "safe_scene_phrase_gate2",
+      "pipeline_report": "pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.json",
+      "industry_boundary_gap_triage_report": "pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.json",
+      "v10_smoke_report": "pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.json",
+      "actual_240_report": "pictures-json/reports/actual_response_samples_corpus_gap_guard1.json",
+      "guide_mismatch_delta_vs_previous": "29 -> 22",
+      "no_top_delta_vs_previous": "78 -> 85",
+      "industry_boundary_gap_delta_vs_previous": "7 -> 1",
+      "workprocess_mismatch_delta_vs_previous": "21 -> 20",
+      "ci_no_action_delta_vs_previous": "478 -> 482",
+      "status_penalty_she_sr_impact": "none",
+      "rejected_followup_trials": [
+        "weak profile term demotion shifted medication/lab/recycling scenes to other unrelated broad Guides",
+        "high-pressure gas cylinder normal-transport profile experiment moved cases to other broad Guides and is deferred to WorkProcess/Guide relevance"
+      ],
+      "no_top_root_cause_report": "pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.json",
+      "no_top_root_cause_counts": {
+        "stage2_taxonomy_or_normalization_gap": 39,
+        "situation_frame_child_context_gap": 22,
+        "stage3_she_gap_but_sr_available": 10,
+        "situation_frame_child_support_gap": 5,
+        "stage3_she_to_sr_gap": 4,
+        "synthetic_fixture_or_safe_controlled_positive": 3,
+        "guide_usage_profile_context_gap": 2
+      },
+      "serving_ontology_validation": {
+        "snapshot_ttl": "koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl",
+        "validation_report": "koshaontology/ontology/serving-validation-report-corpus_gap_guard1.json",
+        "workprocess_alignment_report": "koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.json",
+        "hard_violation_count": 0,
+        "warning_count": 16,
+        "warning_interpretation": "Core Guide A-Box was regenerated from PostgreSQL; primary WorkProcess alignment is now 4715/4715, leaving only role/matchability and repeated evaluation warning queues.",
+        "runtime_use": "validation_only_not_request_path"
+      }
     }
   },
   "reports": [
@@ -4547,6 +4622,111 @@
       "size_bytes": 224568,
       "sha256": "09fe1f7aefa8c0320230742fd2eaaa84c5549d859398c036c877e235a3e13684",
       "modified_at": "2026-05-10T01:14:01+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.csv",
+      "size_bytes": 488662,
+      "sha256": "6ec7e419f67cf25afc99bc699e3bb39a7d83abca3bbbb7aebb6f2cfe8de7bb5f",
+      "modified_at": "2026-05-14T11:35:51+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.json",
+      "size_bytes": 23969011,
+      "sha256": "ea2da8f8aae3b08bc493cab045f6ba5078f5dd9ea32e2eda6d14180ae34b51c1",
+      "modified_at": "2026-05-14T11:35:51+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.md",
+      "size_bytes": 22015,
+      "sha256": "67566fbdd04461f60d85e75912de9e914b654829c60f258354baf0c82fcd9e4f",
+      "modified_at": "2026-05-14T11:35:51+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.csv",
+      "size_bytes": 976,
+      "sha256": "5af6bdd6588b3cff225e8db3badc96b1eaba40b60ac786545c1ba60c23c4845f",
+      "modified_at": "2026-05-14T11:36:34+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.json",
+      "size_bytes": 2310,
+      "sha256": "45ac9bd3c967cea094327b8ba8245591e568bccdc7bafd06708f048a1c1542b1",
+      "modified_at": "2026-05-14T11:36:34+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.md",
+      "size_bytes": 693,
+      "sha256": "46df1e00da83c98ac8624b134656a08553ef9a8abc1ac830c640714d451356f6",
+      "modified_at": "2026-05-14T11:36:34+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_corpus_gap_guard1.csv",
+      "size_bytes": 113489,
+      "sha256": "f0ed619ee4beda6ad9e000b6330e81f495c80fdc0d20c2236375778c1dd8dcb5",
+      "modified_at": "2026-05-14T11:38:18+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_corpus_gap_guard1.json",
+      "size_bytes": 3607710,
+      "sha256": "0e3e18084ab28009f68dd9ac0fb23827fd9651ba0f12f9ec4ca82e68ee0f9320",
+      "modified_at": "2026-05-14T11:38:18+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/actual_response_samples_corpus_gap_guard1.md",
+      "size_bytes": 27656,
+      "sha256": "34ddc052e1f0e430bfb0b86053c82937ccb7bb4864fbde17089f58750bb7eb50",
+      "modified_at": "2026-05-14T11:38:18+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_cases.csv",
+      "size_bytes": 437857,
+      "sha256": "a5fcb23774b801ba6308ebd614700b1efe8eb2835c73e188b5216e1e182003fa",
+      "modified_at": "2026-05-14T11:37:03+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.json",
+      "size_bytes": 61752394,
+      "sha256": "b4e468923ec4cc2119a5c6ef081f7d7a210f452b0317d6ad82d22fbf06ec3655",
+      "modified_at": "2026-05-14T11:37:03+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.md",
+      "size_bytes": 224568,
+      "sha256": "e256604525b1205781f196bfdc095f6f62f0b42f5e321714e5f57681ab2bcca8",
+      "modified_at": "2026-05-14T11:37:03+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.csv",
+      "size_bytes": 39077,
+      "sha256": "b034ff3a8a19b6b37525ca13130034e9746b0a74a1d4009e9b0056c0c9984309",
+      "modified_at": "2026-05-14T11:49:19+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.json",
+      "size_bytes": 302372,
+      "sha256": "62bcea976bb300e3f02735e38b66ad2505579baef6ef283b28e6985bf5740b65",
+      "modified_at": "2026-05-14T11:49:19+09:00",
+      "storage_policy": "local_external_report_body_not_tracked"
+    },
+    {
+      "path": "pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.md",
+      "size_bytes": 11888,
+      "sha256": "a9da725430b556fb177e6ae2ba0aa280629b11beee379f79a0fd475d1a5cec5c",
+      "modified_at": "2026-05-14T11:49:19+09:00",
       "storage_policy": "local_external_report_body_not_tracked"
     }
   ],

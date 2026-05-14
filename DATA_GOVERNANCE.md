@@ -1,6 +1,6 @@
 # Data Governance
 
-Latest updated: 2026-05-10
+Latest updated: 2026-05-14
 
 ## Purpose
 
@@ -22,6 +22,7 @@ The rule is selective tracking. The project should preserve reproducibility with
 | Guide manifest | `kosha-guides/manifest/**` | Track |
 | Raw KOSHA PDFs | `kosha-guides/{A,B,C,D,E}/**/*.pdf` | External or LFS, referenced by manifest |
 | Accepted serving artifacts | `OHS/backend/app/data/*.json`, accepted Pipe-B/C materializations | Track when already part of source baseline |
+| Serving validation ontology snapshots | `koshaontology/ontology/serving-*.ttl`, `koshaontology/ontology/serving-validation-report-*.{json,md,csv}` | Track accepted baseline snapshots and validation reports |
 | Local-only runtime state | `.env`, `.venv`, `node_modules`, `.dev-logs`, cache, temporary logs | Never track |
 
 ## Current Size Signals
@@ -58,6 +59,8 @@ Generated artifacts may be tracked only when they are accepted baselines used by
 Examples:
 
 - `OHS/backend/app/data/guide_domain_profiles.json` is a serving artifact and is tracked.
+- `koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl` is a validation-only snapshot and is tracked because it is the accepted baseline audit artifact.
+- `koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*` is tracked because it records machine-found anomaly queues for the accepted baseline.
 - `koshaontology/pipe-B/data/manual-guide-usage-profiles.json` is a materialized pipeline baseline and is tracked.
 - `koshaontology/pipe-B/data/vlm-parse-errors.jsonl` remains tracked because it was part of the pushed Pipe-B source baseline.
 - ad hoc files such as `tmp-*.json`, VLM parse logs, raw model logs, browser cache, and local scratch files are not tracked.
@@ -74,16 +77,26 @@ docs/status/evaluation-baseline.md
 Current accepted Guide recommendation baseline:
 
 ```text
-usage_profile11
+corpus_gap_guard1
 ```
 
 Referenced local/external report bodies:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.*
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.*
-pictures-json/reports/synthetic_observations_v10_usage_profile11_report.*
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.*
+pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.*
+pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.*
+pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.*
+pictures-json/reports/actual_response_samples_corpus_gap_guard1.*
+pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.*
+```
+
+Validation-only ontology snapshot for the current baseline:
+
+```text
+koshaontology/ontology/serving-policy.ttl
+koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl
+koshaontology/ontology/serving-validation-shapes.ttl
+koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*
 ```
 
 ## Secrets And Local State

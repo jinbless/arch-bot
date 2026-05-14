@@ -217,6 +217,25 @@ STANDARD_GUIDE_EXPLICIT_SAFE_BLOCK_TERMS = (
     "작업자가 없다",
     "인근 화기 작업 없음",
 )
+STANDARD_GUIDE_CORPUS_GAP_BLOCK_GROUPS = (
+    (
+        ("퇴실 체크리스트",),
+        ("흄후드", "가스 밸브", "야간 실험"),
+    ),
+    (
+        ("항정신성 약품", "마약성 진통제"),
+        ("약품 조제", "조제실", "MSDS"),
+    ),
+    (
+        ("만료된 약품", "의약품 폐기"),
+        ("일반 쓰레기봉투", "약품 보관"),
+    ),
+    (
+        ("재활용 선별", "선별장"),
+        ("유리병 파편", "유리 파편"),
+        ("안전화 미착용", "일반 운동화"),
+    ),
+)
 CONTEXT_REQUIRED_DOMAIN_FAMILIES = {
     "reused_temporary_equipment_performance_scaffold_shoring_inspection",
     "cold_contact_surface_risk_assessment",
@@ -341,10 +360,16 @@ def _standard_procedure_safe_context_blocked(
     context_text: str | None,
 ) -> bool:
     text = _context_blob(visual_cues, context_text)
-    return _has_non_negated_terms(text, STANDARD_GUIDE_SAFE_BLOCK_TERMS) or _has_non_negated_terms(
+    safe_blocked = _has_non_negated_terms(text, STANDARD_GUIDE_SAFE_BLOCK_TERMS) or _has_non_negated_terms(
         text,
         STANDARD_GUIDE_EXPLICIT_SAFE_BLOCK_TERMS,
         negators=(),
+    )
+    if safe_blocked:
+        return True
+    return any(
+        all(_has_non_negated_terms(text, tuple(group), negators=()) for group in required_groups)
+        for required_groups in STANDARD_GUIDE_CORPUS_GAP_BLOCK_GROUPS
     )
 
 
