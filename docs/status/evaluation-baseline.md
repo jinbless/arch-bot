@@ -2,11 +2,79 @@
 
 Latest updated: 2026-05-14
 
-Accepted runtime baseline: `corpus_gap_guard1`
+Accepted runtime baseline: `context_safe_gate1`
 
-Previous accepted baseline: `safe_scene_phrase_gate2`
+Previous accepted baseline: `corpus_gap_guard1`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## Context Safe Gate v1
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.*
+pictures-json/reports/synthetic_observations_v10_context_safe_gate1_report.*
+pictures-json/reports/actual_response_samples_context_safe_gate1.*
+koshaontology/ontology/serving-validation-report-context_safe_gate1.*
+koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+```
+
+Summary:
+
+```text
+previous accepted baseline: corpus_gap_guard1
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 22 -> 15
+NO_TOP: 85 -> 85
+industry_boundary_gap: 1 -> 1
+workprocess_mismatch: 20 -> 14
+broad_sr_overreach: 1 -> 0
+photo_unmatchable_top_count: 0 -> 0
+followup_only_retained_count: 15
+CI no_action: 482 -> 482
+CI context_mismatch: 11 -> 12
+CI broad_sr_only: 14 -> 14
+CI needs_review_used: 0 -> 0
+CI guide_boundary_mismatch: 26 -> 26
+v10 SHE recall: 100.0%, FN 0, FP 0
+v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
+actual response 240 status changed: 0
+negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
+serving ontology validation: PASS, hard violations 0, warnings 1
+accepted photo-actionable role overrides: 10
+```
+
+Policy change:
+
+```text
+context-required Guide families added:
+  pipe_support_installation_welding
+  airborne_infectious_disease_workplace_prevention
+safe welding block phrases added:
+  착용 완비 / 차광 커튼 / 차광막 / 국소 배기 가동 / 국소 배기 장치가 가동 / 자동 차광 헬멧
+status/penalty/SHE/SR/legal asserted mapping/public API impact: none
+```
+
+Ontology validation result:
+
+```text
+snapshot: koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
+validation report: koshaontology/ontology/serving-validation-report-context_safe_gate1.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+GuideUsageProfile: 1,038
+photo_actionable / conditional / unmatchable: 631 / 39 / 368
+broad SRs: 12
+evaluation cases: 2,360
+hard violations: 0
+warnings: 1
+remaining warning: G-76-2011 repeated workprocess_mismatch 7 cases
+primary WorkProcess alignment: 4,715 / 4,715 same Guide
+```
+
+Interpretation: `B-M-20-2026`, `H-186-2016`, and `A-G-14-2026` warning queues were resolved without broadening status-level inference. The remaining issue is a narrower `G-76-2011` WorkProcess relevance queue, so the next work should refine Guide/WorkProcess matching rather than add broad aliases.
 
 ## SituationFrame Support v2
 
@@ -104,7 +172,7 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.*
+pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.*
 ```
 
 Summary:
@@ -115,22 +183,20 @@ Stage failure counts:
   stage2: 775
   stage3: 1,288
   stage4: 612
-  stage5: 565
+  stage5: 564
 SHE TP/FN/FP: 1,107 / 909 / 82
 SHE recall: 54.9%
 SR TP/FN/FP: 1,414 / 270 / 211
 SR recall: 84.0%
-Guide mismatch: 22
+Guide mismatch: 15
 Stage 2~5 NO_TOP: 85
 industry_boundary_gap: 1
-workprocess_mismatch: 20
-broad_sr_overreach: 1
+workprocess_mismatch: 14
+broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
-photo_unmatchable_suppressed_count: 29
 followup_only_retained_count: 15
-top_replaced_by_photo_actionable_count: 27
 CI no_action: 482
-CI context_mismatch: 11
+CI context_mismatch: 12
 CI broad_sr_only: 14
 CI needs_review_used: 0
 CI guide_boundary_mismatch: 26
@@ -163,17 +229,17 @@ OHS/backend/app/data/guide_photo_matchability.v1.json
 OHS/backend/app/data/broad_sr_policy.json
 OHS/backend/app/data/situation_context_taxonomy.v20.json
 OHS/backend/app/data/guide_support_candidates.v20.jsonl
-pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.json
+pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.json
 ```
 
 Generated ontology files:
 
 ```text
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl
+koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
-koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*
-koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.*
+koshaontology/ontology/serving-validation-report-context_safe_gate1.*
+koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
 ```
 
 Validation summary:
@@ -186,21 +252,15 @@ photo_unmatchable: 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 3
+warnings: 1
 accepted photo-actionable role overrides: 10
 ```
 
 Warning queue:
 
 ```text
-broad_sr_overreach_attention: 1
-repeated_evaluation_failure_by_guide: 2
-```
-
-Accepted override queue:
-
-```text
-photo_actionable_role_conflict accepted by explicit field-action classification evidence: 10
+repeated_evaluation_failure_by_guide: 1
+remaining Guide: G-76-2011, workprocess_mismatch 7 cases
 ```
 
 Core A-Box sync:
@@ -218,23 +278,21 @@ primary_workprocess_not_in_base_ttl: 1,220 -> 0
 validate_ontology.py: PASS
 ```
 
-Interpretation: the previous 1,220 WorkProcess warnings were a stale base TTL materialization problem. After regenerating the core Guide A-Box from PostgreSQL, all serving profile `primary_work_process_ids` resolve to WorkProcess individuals owned by the same Guide. The 10 role/matchability conflicts are now accepted only when the profile carries explicit field-action classification evidence and observable cues. The remaining 3 warnings are real algorithm review queues: one broad-SR attention case and two repeated WorkProcess mismatch Guides.
+Interpretation: the previous 1,220 WorkProcess warnings were a stale base TTL materialization problem and remain resolved. `context_safe_gate1` also resolved the prior broad-SR attention warning and the two repeated mismatch warnings for `B-M-20-2026` and `H-186-2016`. The remaining warning is a real algorithm review queue for `G-76-2011` WorkProcess relevance.
 
-Comparison against `safe_scene_phrase_gate2`:
+Comparison against `corpus_gap_guard1`:
 
 ```text
 SHE/SR status metrics: unchanged
-Guide mismatch: 29 -> 22
-Stage 2~5 NO_TOP: 78 -> 85
-industry_boundary_gap: 7 -> 1
-workprocess_mismatch: 21 -> 20
-broad_sr_overreach: 1 -> 1
-CI no_action: 478 -> 482
-CI context_mismatch: 11 -> 11
+Guide mismatch: 22 -> 15
+Stage 2~5 NO_TOP: 85 -> 85
+industry_boundary_gap: 1 -> 1
+workprocess_mismatch: 20 -> 14
+broad_sr_overreach: 1 -> 0
+CI no_action: 482 -> 482
+CI context_mismatch: 11 -> 12
 CI broad_sr_only: 14 -> 14
-CI guide_boundary_mismatch: 27 -> 26
-photo_unmatchable_top_count: 0 -> 0
-C_corpus_or_followup_gap: 7 -> 1
+CI guide_boundary_mismatch: 26 -> 26
 ```
 
 ## Safe Scene Phrase Gate2

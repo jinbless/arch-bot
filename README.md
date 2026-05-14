@@ -51,12 +51,12 @@ The ontology design now includes a source/provenance and serving-validation laye
 
 Current serving validation snapshot:
 
-- baseline: `corpus_gap_guard1`
-- export: `koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl`
+- baseline: `context_safe_gate1`
+- export: `koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl`
 - policy ontology: `koshaontology/ontology/serving-policy.ttl`
 - validation shapes: `koshaontology/ontology/serving-validation-shapes.ttl`
-- validation report: `koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*`
-- WorkProcess alignment report: `koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.*`
+- validation report: `koshaontology/ontology/serving-validation-report-context_safe_gate1.*`
+- WorkProcess alignment report: `koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*`
 
 The snapshot is regenerated from OHS serving artifacts and evaluation reports. Do not hand-edit generated TTL to fix data; fix the source JSON/PG/export script, then regenerate.
 
@@ -149,166 +149,24 @@ Recommended first read order:
 
 ## Current Evaluation Baseline
 
-Accepted runtime baseline: `corpus_gap_guard1`.
+Accepted runtime baseline: `context_safe_gate1`.
 
-Previous accepted baseline: `safe_scene_phrase_gate2`.
+Previous accepted baseline: `corpus_gap_guard1`.
 
-This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 standard-procedure ranking. It preserves `safe_scene_phrase_gate2` safe-scene suppression and adds a narrow corpus-gap top-procedure guard for compound unsupported contexts such as lab exit checklists, medication preparation/disposal scenes, and recycling glass-shard walking scenes, so broad Guides do not fill missing exact Guide coverage.
+This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 standard-procedure ranking. It adds two context-required Guide families and safe welding suppression phrases so broad welding/biological/SR support cannot create unrelated top procedures in controlled scenes.
 
 Report bodies stay local/external under `pictures-json/reports/**`; root git tracks the manifest and summary instead:
 
 - `pictures-json/reports-manifest.json`
 - `docs/status/evaluation-baseline.md`
 
-Referenced local report bodies:
+Referenced current local report bodies:
 
-- `pictures-json/reports/situation_frame_artifact_build.v2.md`
-- `pictures-json/reports/situation_frame_eval_report.v2_child_gate1.md`
-- `pictures-json/reports/guide_photo_matchability_audit_v1.md`
-- `pictures-json/reports/no_top_guide_support_candidates_v1.md`
-- `pictures-json/reports/stage2_no_top_support_candidates_v3.md`
-- `pictures-json/reports/stage3_support_alignment_aliases_v2.md`
-- `pictures-json/reports/stage2_support_usage_gate_artifacts_v2.md`
-- `pictures-json/reports/stage2_taxonomy_gap_support_v15_artifacts_narrow7b.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_taxonomy_gap_support_v15_narrow7b.md`
-- `pictures-json/reports/actual_response_samples_stage2_taxonomy_gap_support_v15_narrow7b.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_taxonomy_gap_support_v15_narrow7b_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_taxonomy_gap_support_v15_narrow7b.md`
-- `pictures-json/reports/stage3_remaining_gap_support_v16c_artifacts_narrow8c.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v16c_narrow8c.md`
-- `pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v16c_narrow8c.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v16c_narrow8c_report.md`
-- `pictures-json/reports/stage3_remaining_gap_support_v17b_artifacts_narrow9b.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v17b_narrow9b.md`
-- `pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v17b_narrow9b.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v17b_narrow9b_report.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_safe_cue_negation_fix2.md`
-- `pictures-json/reports/actual_response_samples_stage3_safe_cue_negation_fix2.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_safe_cue_negation_fix2_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage3_safe_cue_negation_fix2.md`
-- `pictures-json/reports/stage3_remaining_gap_support_v19_artifacts.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v19_dropped_tool.md`
-- `pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v19_dropped_tool.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v19_dropped_tool_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v19_dropped_tool.md`
-- `pictures-json/reports/stage3_remaining_gap_support_v20_artifacts.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v20_actionable.md`
-- `pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v20_actionable.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v20_actionable_report_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v20_actionable.md`
-- `pictures-json/reports/stage2_taxonomy_gap_triage_stage3_safe_cue_negation_fix2.md`
-- `pictures-json/reports/stage3_remaining_gap_support_v18_artifacts_narrow10.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v18_narrow10.md`
-- `pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v18_narrow10.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v18_narrow10_report.md`
-- `pictures-json/reports/stage3_sr_gap_support_v14_artifacts_narrow6b.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_sr_gap_support_v14_narrow6b.md`
-- `pictures-json/reports/actual_response_samples_stage3_sr_gap_support_v14_narrow6b.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_sr_gap_support_v14_narrow6b_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage3_sr_gap_support_v14_narrow6b.md`
-- `pictures-json/reports/stage2_taxonomy_support_v13_artifacts_narrow5.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_taxonomy_support_v13_narrow5.md`
-- `pictures-json/reports/actual_response_samples_stage2_taxonomy_support_v13_narrow5.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_taxonomy_support_v13_narrow5_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_taxonomy_support_v13_narrow5.md`
-- `pictures-json/reports/stage3_gap_support_v12_artifacts_narrow4.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_gap_support_v12_narrow4.md`
-- `pictures-json/reports/actual_response_samples_stage3_gap_support_v12_narrow4.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_gap_support_v12_narrow4_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage3_gap_support_v12_narrow4.md`
-- `pictures-json/reports/stage2_3_support_v11_artifacts_stage2_narrow3.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v11_narrow3.md`
-- `pictures-json/reports/actual_response_samples_stage2_3_support_v11_narrow3.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_3_support_v11_narrow3_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v11_narrow3.md`
-- `pictures-json/reports/stage2_3_support_v10_artifacts_narrow2.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v10_narrow2.md`
-- `pictures-json/reports/actual_response_samples_stage2_3_support_v10_narrow2.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_3_support_v10_narrow2_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v10_narrow2.md`
-- `pictures-json/reports/stage2_3_support_v9_artifacts_narrow4.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v9_narrow4.md`
-- `pictures-json/reports/actual_response_samples_stage2_3_support_v9_narrow4.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_3_support_v9_narrow4_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v9_narrow4.md`
-- `pictures-json/reports/stage2_3_support_v8_artifacts_narrow2.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v8_narrow2.md`
-- `pictures-json/reports/actual_response_samples_stage2_3_support_v8_narrow2.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_3_support_v8_narrow2_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v8_narrow2.md`
-- `pictures-json/reports/stage2_service_support_v7_artifacts_narrow1.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_service_support_v7_narrow1.md`
-- `pictures-json/reports/actual_response_samples_stage2_service_support_v7_narrow1.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_service_support_v7_narrow1_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_service_support_v7_narrow1.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_domain_support2_confirmation_gate2.md`
-- `pictures-json/reports/actual_response_samples_stage3_domain_support2_confirmation_gate2.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_domain_support2_confirmation_gate2_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage3_domain_support2_confirmation_gate2.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_domain_support1_tight1.md`
-- `pictures-json/reports/actual_response_samples_stage3_domain_support1_tight1.md`
-
-Current accepted metrics:
-
-```text
-synthetic Stage 2~5 v1~v10: 2,360 samples
-Guide mismatch: 22
-Stage 2~5 NO_TOP: 85
-industry_boundary_gap: 1
-workprocess_mismatch: 20
-photo_unmatchable_top_count: 0
-CI needs_review_used: 0
-actual response 240 status changed: 0
-negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
-v10 SHE smoke: recall 100.0%, FN 0, FP 0
-v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
-serving ontology validation: PASS, hard violations 0, warnings 3
-accepted photo-actionable role overrides: 10
-```
-
-After regenerating `kosha-instances.ttl` from PostgreSQL, core Guide A-Box counts are now aligned with the 1,038 Guide serving baseline: 54,631 ChecklistItems, 9,316 WorkProcesses, 7,726 DomainTerms, 8,103 EquipmentSpecs, and 3,435 DocumentRequirements. The previous `primary_workprocess_not_in_base_ttl` warnings dropped from 1,220 to 0. The 10 field-action role overrides are now accepted by explicit classification evidence, leaving 3 algorithm warning items: one broad-SR attention case and two repeated WorkProcess mismatch Guides.
-- `pictures-json/reports/synthetic_observations_v10_stage3_domain_support1_tight1_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage3_domain_support1_tight1.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_support_usage_gate2b.md`
-- `pictures-json/reports/actual_response_samples_stage2_support_usage_gate2b.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_support_usage_gate2b_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_support_usage_gate2b.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage3_support_alias2.md`
-- `pictures-json/reports/actual_response_samples_stage3_support_alias2.md`
-- `pictures-json/reports/synthetic_observations_v10_stage3_support_alias2_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage3_support_alias2.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_stage2_no_top_support3.md`
-- `pictures-json/reports/actual_response_samples_stage2_no_top_support3.md`
-- `pictures-json/reports/synthetic_observations_v10_stage2_no_top_support3_report.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_stage2_no_top_support3.md`
-- `pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.md`
-- `pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.md`
-- `pictures-json/reports/synthetic_observations_v10_usage_profile11_report.md`
-- `pictures-json/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.md`
-- `pictures-json/reports/stage2_5_no_top_actionability_ci_wp_relevance7_profile_tight1.md`
-- `pictures-json/reports/synthetic_observations_v10_ci_wp_relevance7_profile_tight1_report.md`
-- `pictures-json/reports/actual_response_samples_ci_wp_relevance7_profile_tight1.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.md`
-- `pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_report.md`
-- `pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.md`
-- `pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.md`
-- `pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_report.md`
-- `pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_strict_profile_gate3.md`
-- `pictures-json/reports/industry_boundary_gap_triage_strict_profile_gate3.md`
-- `pictures-json/reports/synthetic_observations_v10_strict_profile_gate3_report.md`
-- `pictures-json/reports/actual_response_samples_strict_profile_gate3.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_safe_scene_phrase_gate2.md`
-- `pictures-json/reports/industry_boundary_gap_triage_safe_scene_phrase_gate2.md`
-- `pictures-json/reports/synthetic_observations_v10_safe_scene_phrase_gate2_report.md`
-- `pictures-json/reports/actual_response_samples_safe_scene_phrase_gate2.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.md`
-- `pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.md`
-- `pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.md`
-- `pictures-json/reports/actual_response_samples_corpus_gap_guard1.md`
-- `pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.md`
+- `pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.md`
+- `pictures-json/reports/synthetic_observations_v10_context_safe_gate1_report.md`
+- `pictures-json/reports/actual_response_samples_context_safe_gate1.md`
+- `koshaontology/ontology/serving-validation-report-context_safe_gate1.*`
+- `koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*`
 
 Summary:
 
@@ -316,50 +174,42 @@ Summary:
 synthetic Stage 2~5 v1~v10 total: 2,360
 SHE TP/FN/FP: 1,107 / 909 / 82
 SR TP/FN/FP: 1,414 / 270 / 211
-previous accepted Guide mismatch: 29
-Guide mismatch after corpus_gap_guard1: 22
+Guide mismatch: 15
 Stage 2~5 NO_TOP: 85
 industry_boundary_gap: 1
-workprocess_mismatch: 20
-broad_sr_overreach: 1
+workprocess_mismatch: 14
+broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
-photo_unmatchable_suppressed_count: 29
 followup_only_retained_count: 15
-top_replaced_by_photo_actionable_count: 27
 CI no_action: 482
-CI context_mismatch: 11
+CI context_mismatch: 12
 CI broad_sr_only: 14
 CI needs_review_used: 0
 CI guide_boundary_mismatch: 26
 v10 SHE recall: 100.0%, FN 0, FP 0
+v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
 actual response 240 status changed: 0
 negative_false_positive: 10
 positive_missed: 2
 ambiguous_over_promoted: 5
-remaining industry_boundary_gap triage: C_corpus_or_followup_gap 1
-SituationFrame classified candidates: 230
-SituationFrame child contexts: 178
-Guide support candidates v20: 227
-NO_TOP support covered cases: Stage3 support 136, curated Stage2 support 20
-Stage3 profile-alignment aliases: 18 aliases / 7 child contexts / 15 affected support rows
-Stage2 support usage gate: 6 context updates / 2 new support rows / 5 trigger-only rows
-Stage3 domain support v6: 3 new support rows for spray painting / dry-cleaning solvent / pesticide application
-Stage2 service support v7 narrow1: 2 new support-only contexts for display electrical maintenance and floor cleaning machines
-Stage2/3 support v8 narrow2: 6 new support-only contexts for X-ray, blasting, hot-work permit deviation, shipyard/internal welding, soldering, and solvent-waste fire
-Stage2/3 support v9 narrow4: 5 new support-only contexts for sports-facility slip/trip, powered cardio-equipment maintenance, needlestick/sharps disposal, blood-contaminated waste handling, and flammable-chemical smoking
-Stage2/3 support v10 narrow2: 6 new support-only contexts for powered food-slicer cleaning, bakery oven/hot-tray burn, small-server electrical overload, elevated welding fall control, automotive tire-wheel service, and silica-dust blasting
-Stage2/3 support v11 narrow3: 5 new support-only contexts for sharp glass manual handling, lead-paint grinding dust, ice-pick fragment eye exposure, climbing-wall fall surface, and chair-stack manual carry
-Stage3 gap support v12 narrow4: 13 new support-only contexts for laser PPE gap, high-pressure wash/electrical panel, process dust respirator gap, underground live cable excavation, acid etching, cold-storage electrical panel moisture, air-impact fragment eye exposure, heat stress, compressed-air hose whip, icy cold-storage floor, box carrying on stairs, high-temperature dyeing, and steam iron burn/trip
-Stage2 taxonomy support v13 narrow5: 7 new support-only contexts for high-pressure waterjet PPE, UV lamp eye PPE, UV coating ozone respirator, formalin contact PPE, cold-room PPE, crematorium hot-surface PPE, and sharp-fragment hand PPE
-Stage3 SR gap support v14 narrow6b: 13 new support-only contexts for welding fume PPE, sharp metal edge handling, reflow oven residual heat, FOUP stair carrying, excavator slope/signal, confined tank attendant, ship heavy-lift sling inspection, vehicle exposed wiring, scalding tank fall/burn, binding machine jam/hotmelt, and plate-making chemical/UV PPE
-remaining NO_TOP root cause: stage2_taxonomy 39 / situation_frame_child_context_gap 22 / stage3_she_gap_but_sr_available 10 / situation_frame_child_support_gap 5 / stage3_she_to_sr_gap 4 / fixture_review 3 / guide_usage_profile_context_gap 2
-NO_TOP root-cause audit: total 85; runtime repair should start from taxonomy/SituationFrame/Stage3 queues, not broad alias widening
-Guide photo_matchability: 631 actionable / 39 follow-up / 368 unmatchable
-backend compileall: OK
-frontend build: OK
-frontend build: OK
+serving ontology validation: PASS, hard violations 0, warnings 1
+accepted photo-actionable role overrides: 10
 ```
 
-Important implementation note: broadening `hazard_normalizer`/`hazard_rule_engine` with extra text aliases improved some NO_TOP coverage but changed actual 240 status counts, so that approach was rejected. A separate broad `UNSAFE_TERMS` widening experiment reduced NO_TOP only slightly while regressing Guide mismatch. Broad Stage 2/3 support attempts reduced NO_TOP more aggressively but caused Guide overreach; accepted support rows still require specific trigger hits. The rejected v8 trial overmatched broad `방사선`, `허가서`, `용접 흄`, and `용제` wording, while accepted `narrow2` keeps only specific unsafe/context phrases. Early v9 trials overmatched generic `전원을 끄지 않고`, generic medical-waste wording, and `담배꽁초`; accepted `narrow4` keeps only child-context plus unsafe/observable trigger matches. The first v10 trial overmatched high-pressure washing/electrical-panel and safe elevated-welding scenes, so accepted `narrow2` removes that seed and tightens food-slicer, elevated-welding, and silica triggers. Early v11 trials overmatched PPE-only, generic fall-risk, and generic blocked-visibility wording, so accepted `narrow3` requires object-specific triggers. The first v12 trial overmatched safe PPE, high-heat, stair, and electrical-control scenes, so accepted `narrow4` keeps only unsafe/object-specific trigger terms and drops the EV battery seed that moved one case from CI no-action to CI boundary mismatch. Early v13 trials overmatched broad cold-room wording or over-tightened short-token matching; accepted `narrow5` keeps object-specific PPE triggers and only blocks the confirmed `P-55-2012` single-character `황` false match. The first v14 trial overmatched short terms such as `발판 없이`, generic `슬링/인양`, generic `용접 흄`, and generic `보호 장갑 미착용`; accepted `narrow6b` keeps compound/object-specific triggers and rejects stale reflow support rows. Remaining coverage work should update SituationFrame child contexts, Guide usage profiles, visual triggers, SHE/SR review candidates, and WorkProcess relevance, not status-level risk inference.
+Serving validation snapshot:
 
-Earlier `v10fix6`, `domain_guard2`, `usage_profile1/2/5/11`, `situation_frame_support3`, `situation_frame_support7`, `photo_matchability1`, `no_top_support1`, `no_top_support_signal1`, `no_top_support_signal3`, `stage2_no_top_support3`, `stage3_support_alias2`, `stage2_support_usage_gate2b`, `stage2_support_usage_gate3_safe_lock1`, `stage3_domain_support1_tight1`, `stage3_domain_support2_confirmation_gate2`, `stage2_service_support_v7_narrow1`, `stage2_3_support_v8_narrow2`, `stage2_3_support_v9_narrow4`, `stage2_3_support_v10_narrow2`, `stage2_3_support_v11_narrow3`, `stage3_gap_support_v12_narrow4`, `stage2_taxonomy_support_v13_narrow5`, `stage3_sr_gap_support_v14_narrow6b`, `stage2_taxonomy_gap_support_v15_narrow7b`, `stage3_remaining_gap_support_v16c_narrow8c`, `stage3_remaining_gap_support_v17b_narrow9b`, `stage3_remaining_gap_support_v18_narrow10`, `stage3_safe_cue_negation_fix2`, `stage3_remaining_gap_support_v19_dropped_tool`, `stage3_remaining_gap_support_v20_actionable`, `ci_wp_relevance6_x41_profile`, `ci_wp_relevance7_profile_tight1`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `industry_boundary_safe_suppress3`, `strict_profile_gate3`, and `safe_scene_phrase_gate2` results are historical milestones. Treat `corpus_gap_guard1` as the current product baseline unless a newer accepted evaluation is recorded in `docs/status/evaluation-baseline.md`.
+```text
+snapshot: koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
+validation report: koshaontology/ontology/serving-validation-report-context_safe_gate1.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+GuideUsageProfile: 1,038
+photo_actionable / conditional / unmatchable: 631 / 39 / 368
+broad SRs: 12
+evaluation cases: 2,360
+hard violations: 0
+warnings: 1
+remaining warning: G-76-2011 repeated workprocess_mismatch 7 cases
+primary WorkProcess alignment: 4,715 / 4,715 same Guide
+```
+
+Implementation note: `context_safe_gate1` adds context-required gates for `pipe_support_installation_welding` and `airborne_infectious_disease_workplace_prevention`, and adds safe welding block terms such as `차광 커튼`, `차광막`, `국소 배기 가동`, `국소 배기 장치가 가동`, `자동 차광 헬멧`, and `착용 완비`. It does not change public API shape, SHE approval, SR/legal asserted mappings, status, or penalty behavior.

@@ -201,6 +201,12 @@ STANDARD_GUIDE_SAFE_BLOCK_TERMS = (
     "폭발 분위기 연속 감시",
     "집진기 필터 상태를 점검",
     "교체 완료 후",
+    "착용 완비",
+    "차광 커튼",
+    "차광막",
+    "국소 배기 가동",
+    "국소 배기 장치가 가동",
+    "자동 차광 헬멧",
     "모두 올바르게 착용",
     "작업발판도 안전",
     "손 감지 센서",
@@ -237,8 +243,10 @@ STANDARD_GUIDE_CORPUS_GAP_BLOCK_GROUPS = (
     ),
 )
 CONTEXT_REQUIRED_DOMAIN_FAMILIES = {
+    "airborne_infectious_disease_workplace_prevention",
     "reused_temporary_equipment_performance_scaffold_shoring_inspection",
     "cold_contact_surface_risk_assessment",
+    "pipe_support_installation_welding",
 }
 CONTEXT_REQUIRED_FAMILY_FEATURE_ALLOW = {
     "cold_contact_surface_risk_assessment": {"COLD_EXPOSURE"},

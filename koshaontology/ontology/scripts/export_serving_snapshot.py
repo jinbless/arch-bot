@@ -18,7 +18,7 @@ from urllib.parse import quote
 from rdflib import Graph, Literal, Namespace, RDF, RDFS, OWL, XSD
 
 
-BASELINE_ID = "corpus_gap_guard1"
+BASELINE_ID = "context_safe_gate1"
 
 ROOT = Path(__file__).resolve().parents[3]
 ONTOLOGY_DIR = Path(__file__).resolve().parents[1]
@@ -30,10 +30,10 @@ PHOTO_MATCHABILITY_PATH = OHS_DATA_DIR / "guide_photo_matchability.v1.json"
 BROAD_SR_POLICY_PATH = OHS_DATA_DIR / "broad_sr_policy.json"
 SITUATION_TAXONOMY_PATH = OHS_DATA_DIR / "situation_context_taxonomy.v20.json"
 GUIDE_SUPPORT_PATH = OHS_DATA_DIR / "guide_support_candidates.v20.jsonl"
-PIPELINE_REPORT_PATH = REPORTS_DIR / "pipeline_quality_v1_v10_corpus_gap_guard1.json"
+PIPELINE_REPORT_PATH = REPORTS_DIR / "pipeline_quality_v1_v10_context_safe_gate1.json"
 
 POLICY_TTL_PATH = ONTOLOGY_DIR / "serving-policy.ttl"
-SNAPSHOT_TTL_PATH = ONTOLOGY_DIR / "serving-snapshot-corpus_gap_guard1.ttl"
+SNAPSHOT_TTL_PATH = ONTOLOGY_DIR / "serving-snapshot-context_safe_gate1.ttl"
 SHAPES_TTL_PATH = ONTOLOGY_DIR / "serving-validation-shapes.ttl"
 
 CORE = Namespace("https://cashtoss.info/ontology#")

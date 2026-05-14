@@ -43,7 +43,7 @@ koshaontology/ontology/source-provenance.ttl
 koshaontology/ontology/source-catalog.ttl
 koshaontology/ontology/source-shapes.ttl
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl
+koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
 ```
 
@@ -76,7 +76,7 @@ parser/script/human  -> prov:Agent
 
 ## Serving Snapshot
 
-The accepted runtime baseline is `corpus_gap_guard1`. Runtime still reads PostgreSQL and OHS JSON artifacts, but the following files are exported for machine validation:
+The accepted runtime baseline is `context_safe_gate1`. Runtime still reads PostgreSQL and OHS JSON artifacts, but the following files are exported for machine validation:
 
 ```text
 OHS/backend/app/data/guide_domain_profiles.json
@@ -84,26 +84,26 @@ OHS/backend/app/data/guide_photo_matchability.v1.json
 OHS/backend/app/data/broad_sr_policy.json
 OHS/backend/app/data/situation_context_taxonomy.v20.json
 OHS/backend/app/data/guide_support_candidates.v20.jsonl
-pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.json
+pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.json
 ```
 
 The export script writes:
 
 ```text
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl
+koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
 ```
 
 The validator writes:
 
 ```text
-koshaontology/ontology/serving-validation-report-corpus_gap_guard1.json
-koshaontology/ontology/serving-validation-report-corpus_gap_guard1.md
-koshaontology/ontology/serving-validation-report-corpus_gap_guard1.csv
-koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.json
-koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.md
-koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.csv
+koshaontology/ontology/serving-validation-report-context_safe_gate1.json
+koshaontology/ontology/serving-validation-report-context_safe_gate1.md
+koshaontology/ontology/serving-validation-report-context_safe_gate1.csv
+koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.json
+koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.md
+koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.csv
 ```
 
 Current validation result:
@@ -114,11 +114,11 @@ photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 3
+warnings: 1
 accepted photo-actionable role overrides: 10
 ```
 
-The core Guide A-Box was regenerated from PostgreSQL on 2026-05-14, bringing `kosha-instances.ttl` to 1,038 Guides, 54,631 ChecklistItems, and 9,316 WorkProcesses. The previous stale base-TTL WorkProcess warnings dropped from 1,220 to 0. The 10 role/matchability conflicts are now accepted only when the profile carries explicit field-action classification evidence and observable cues. Remaining warnings are not runtime blockers; they are the next anomaly queue for one broad-SR overreach attention case and repeated evaluation failures by Guide.
+The core Guide A-Box was regenerated from PostgreSQL on 2026-05-14, bringing `kosha-instances.ttl` to 1,038 Guides, 54,631 ChecklistItems, and 9,316 WorkProcesses. The previous stale base-TTL WorkProcess warnings dropped from 1,220 to 0. The 10 role/matchability conflicts are now accepted only when the profile carries explicit field-action classification evidence and observable cues. The remaining warning is not a runtime blocker; it is the next anomaly queue for `G-76-2011`, which appears in 7 repeated WorkProcess mismatch evaluation cases.
 
 ## Example: C73
 
@@ -150,4 +150,4 @@ Start with these checks:
 
 The OHS recommendation score must not use provenance directly. Provenance is for audit, debug, rebuild, and explanation of data lineage.
 
-The serving snapshot follows the same rule. OHS does not query `serving-snapshot-corpus_gap_guard1.ttl` in the request path; the snapshot is regenerated from serving artifacts and reports whenever a new accepted baseline is created.
+The serving snapshot follows the same rule. OHS does not query `serving-snapshot-context_safe_gate1.ttl` in the request path; the snapshot is regenerated from serving artifacts and reports whenever a new accepted baseline is created.

@@ -4,7 +4,7 @@
 
 아래 항목들은 `risk:` 중심 위험 지식 계층, `PenaltyRule` 중심 벌칙 모델, `SeverityLevel` 제거, `SHE` 패턴 브릿지화, `Guide/WorkProcess` 중심 조치 구조를 반영한 뒤 남은 후속 작업이다.
 
-## 현재 구현 메모 (2026-05-14, monorepo + corpus_gap_guard1)
+## 현재 구현 메모 (2026-05-14, monorepo + context_safe_gate1)
 
 현재 작업 기준은 root `arch-bot/main` monorepo다.
 
@@ -18,23 +18,21 @@ kosha-guides/manifest: tracked provenance manifest
 pictures-json/reports: local/external report bodies
 ```
 
-현재 accepted runtime baseline은 `corpus_gap_guard1`이다. `safe_scene_phrase_gate2`, `strict_profile_gate3`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `ci_wp_relevance7_profile_tight1`, `ci_wp_relevance6_x41_profile`, `stage3_remaining_gap_support_v20_actionable`, `stage3_remaining_gap_support_v19_dropped_tool`, `stage3_safe_cue_negation_fix2`, `stage3_remaining_gap_support_v18_narrow10`, `stage3_remaining_gap_support_v17b_narrow9b`, `stage3_remaining_gap_support_v16c_narrow8c`, `stage2_taxonomy_gap_support_v15_narrow7b`, `stage3_sr_gap_support_v14_narrow6b`, `stage2_taxonomy_support_v13_narrow5`, `stage3_gap_support_v12_narrow4`, `stage2_3_support_v11_narrow3`, `stage2_3_support_v10_narrow2`, `stage2_3_support_v9_narrow4`, `stage2_3_support_v8_narrow2`, `stage2_service_support_v7_narrow1`, `stage3_domain_support2_confirmation_gate2`, `stage3_domain_support1_tight1`, `stage2_support_usage_gate3_safe_lock1`, `stage2_support_usage_gate2b`, `stage3_support_alias2`, `stage2_no_top_support3`, `no_top_support_signal3`, `no_top_support_signal1`, `no_top_support1`, `photo_matchability1`, `situation_frame_support7`, `usage_profile11`은 이전 product baseline으로 보존한다.
+현재 accepted runtime baseline은 `context_safe_gate1`이다. 직전 product baseline은 `corpus_gap_guard1`이며, 그 이전 `safe_scene_phrase_gate2`, `strict_profile_gate3`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `stage3_remaining_gap_support_v20_actionable`, `photo_matchability1`, `situation_frame_support7`, `usage_profile11` 등은 historical milestone으로 보존한다.
 
 ```text
 synthetic Stage 2~5 v1~v10 total 2,360
 SHE TP/FN/FP 1,107 / 909 / 82
 SR TP/FN/FP 1,414 / 270 / 211
-Guide mismatch 22
+Guide mismatch 15
 Stage 2~5 NO_TOP 85
 industry_boundary_gap 1
-workprocess_mismatch 20
-broad_sr_overreach 1
+workprocess_mismatch 14
+broad_sr_overreach 0
 photo_unmatchable_top_count 0
-photo_unmatchable_suppressed_count 29
 followup_only_retained_count 15
-top_replaced_by_photo_actionable_count 27
 CI no_action 482
-CI context_mismatch 11
+CI context_mismatch 12
 CI broad_sr_only 14
 CI needs_review_used 0
 CI guide_boundary_mismatch 26
@@ -44,30 +42,29 @@ actual response 240 status changed 0
 negative_false_positive 10
 positive_missed 2
 ambiguous_over_promoted 5
-backend compileall OK
-frontend npm run build OK
 ```
 
-`corpus_gap_guard1`은 OHS serving 기준으로 고정했고, 같은 기준을 온톨로지 검증 스냅샷으로 내보낸다. 이 스냅샷은 런타임 대체가 아니라 이상한 연결을 찾는 검증 계층이다.
+`context_safe_gate1`은 OHS serving 기준으로 고정했고, 같은 기준을 온톨로지 검증 스냅샷으로 내보낸다. 이 스냅샷은 런타임 대체가 아니라 이상한 연결을 찾는 검증 계층이다.
 
 ```text
 export script: koshaontology/ontology/scripts/export_serving_snapshot.py
 validation script: koshaontology/ontology/scripts/validate_serving_snapshot.py
 policy TTL: koshaontology/ontology/serving-policy.ttl
-snapshot TTL: koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl
+snapshot TTL: koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
 SHACL shapes: koshaontology/ontology/serving-validation-shapes.ttl
-validation report: koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*
-alignment report: koshaontology/ontology/serving-workprocess-alignment-corpus_gap_guard1.*
+validation report: koshaontology/ontology/serving-validation-report-context_safe_gate1.*
+alignment report: koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
 GuideUsageProfile 1,038
 photo_actionable / conditional / unmatchable 631 / 39 / 368
 broad SR 12
 evaluation cases 2,360
 hard violations 0
-warnings 3
+warnings 1
 accepted photo-actionable role overrides 10
+primary WorkProcess links aligned 4,715 / 4,715
 ```
 
-2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐다. 이후 `classification_reason` 근거가 있는 사진 top 적합성/절차 역할 충돌 10건은 의도된 field-action override로 수용했고, 남은 warning은 broad SR attention 1건, 반복 WorkProcess mismatch Guide 2건이다. TTL을 직접 수정하지 말고 Pipe-B/PG/base TTL export 또는 OHS serving artifact를 수정한 뒤 재생성한다.
+2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소된 상태를 유지한다. `context_safe_gate1`은 이전 broad SR attention 1건과 `B-M-20-2026`/`H-186-2016` 반복 WorkProcess mismatch 경고를 해소했다. 남은 warning은 `G-76-2011`이 7개 synthetic case에서 `workprocess_mismatch`로 반복되는 알고리즘 큐다. TTL을 직접 수정하지 말고 OHS serving artifact, Pipe-B/PG export, 또는 Guide profile 쪽을 수정한 뒤 재생성한다.
 
 Guide photo matchability v1은 1,038개 Guide usage profile에 사진 기반 top 표준절차 적합성을 부여한 serving policy다.
 
@@ -80,151 +77,18 @@ asserted mapping update 0
 SHE/SR/status/penalty impact 0
 ```
 
-SituationFrame 보강은 Stage 2와 Stage 3 사이에 세부 상황 표현을 추가한 첫 안전 통과 버전이다.
+`context_safe_gate1` 추가 정책:
 
 ```text
-classified Stage 3 candidates 230
-runtime SHE approved update 0
-asserted mapping update 0
-child contexts 178
-Guide support candidates v2 historical 1
-Guide support candidates v4 139
-Guide support candidates v5 141
-Guide support candidates v6 144
-Guide support candidates v7 146
-Guide support candidates v8 152
-Guide support candidates v9 157
-Guide support candidates v10 163
-Guide support candidates v11 168
-Guide support candidates v12 181
-Guide support candidates v13 188
-Guide support candidates v14 201
-Guide support candidates v16c 212
-Guide support candidates v17b 220
-Guide support candidates v19 225
-Guide support candidates v20 227
-child_context_available 528
-broad_parent_without_child 241
-Guide support hit samples 8
-profile-alignment aliases 18
-Stage2 support usage gate 6 context updates / 2 new support rows / 5 trigger-only rows
-safe-lock fix generic 잠금 safe-cue 제거
-Stage3 domain support v6: spray painting / dry-cleaning solvent / pesticide application support-only rows 3개 추가
-Stage3 confirmation gate: confirmation_required support는 trigger-backed + non-broad SR + child/profile alignment가 있을 때만 Guide usage/domain gate를 통과
-Stage2 service support v7 narrow1: display electrical maintenance / floor cleaning machine support-only rows 2개 추가
-Stage2/3 support v8 narrow2: X-ray radiation control / blasting / hot-work permit deviation / shipyard/internal welding / soldering / solvent-waste fire support-only rows 6개 추가
-Stage2/3 support v9 narrow4: sports-facility slip/trip / powered cardio-equipment maintenance / needlestick-sharps disposal / blood-contaminated waste handling / flammable-chemical smoking support-only rows 5개 추가
-Stage2/3 support v10 narrow2: powered food-slicer cleaning / bakery oven-hot-tray burn / small-server electrical overload / elevated welding fall control / automotive tire-wheel service / silica-dust blasting support-only rows 6개 추가
-Stage2/3 support v11 narrow3: sharp glass manual handling / lead-paint grinding dust / ice-pick fragment eye exposure / climbing-wall fall surface / chair-stack manual carry support-only rows 5개 추가
-Stage3 gap support v12 narrow4: SHE-gap-with-SR support-only rows 13개 추가
-Stage2 taxonomy support v13 narrow5: high-pressure waterjet PPE / UV lamp eye PPE / UV coating ozone respirator / formalin contact PPE / cold-room PPE / crematorium hot-surface PPE / sharp-fragment hand PPE support-only rows 7개 추가
-Stage3 SR gap support v14 narrow6b: indoor welding fume respirator / sharp metal edge handling / reflow oven residual heat / FOUP stair carrying / excavator slope signaler / confined tank attendant / ship heavy-lift sling inspection / vehicle exposed wiring / scalding tank fall-burn / binding machine jam-hotmelt / plate-making chemical-UV PPE support-only rows 13개 추가, stale soldering/reflow rows 2개 rejected/review_only 처리
-Stage2 taxonomy gap support v15 narrow7b: night/lone-worker care monitoring / client aggression emergency response / chemical cleaner PPE-ventilation / lab eyewash-shower inspection / glutaraldehyde disinfection PPE-ventilation support-only rows 5개 추가
+context-required families:
+  pipe_support_installation_welding
+  airborne_infectious_disease_workplace_prevention
+safe welding block terms:
+  착용 완비 / 차광 커튼 / 차광막 / 국소 배기 가동 / 국소 배기 장치가 가동 / 자동 차광 헬멧
+public API / SHE approval / asserted mapping / legal SR evidence / status / penalty impact: none
 ```
 
-NO_TOP support v1은 `stage2_5_no_top_root_cause_photo_matchability1`의 Stage3/SHE-SR 공백을 표준절차 추천 보조 신호로만 연결한 안전 통과 버전이다.
-
-```text
-script: OHS/backend/scripts/build_no_top_guide_support_candidates.py
-artifact: OHS/backend/app/data/guide_support_candidates.v3.jsonl
-preview artifact: OHS/backend/app/data/guide_support_candidates.v3.preview.jsonl
-report: pictures-json/reports/no_top_guide_support_candidates_v1.*
-input NO_TOP Stage3 rows 213
-support candidate rows 127
-covered NO_TOP cases 136
-distinct child contexts 71
-distinct Guide codes 69
-runtime use guide_support_only
-status/penalty/SHE approval/asserted mapping update 0
-parent-only match blocked
-generic term-only match blocked
-```
-
-`stage2_support_usage_gate3_safe_lock1`는 `stage2_support_usage_gate2b`의 status/penalty/SHE/SR 경계를 그대로 유지하면서 SituationFrame safe-cue 판정을 좁힌다. 일반 `잠금`은 더 이상 safe cue가 아니며, `잠금표지`, `잠금 표지`, `LOTO`, `lockout`, `tagout`, `잠근 뒤`, `전원 잠금`처럼 실제 lockout 제어를 뜻하는 표현만 safe cue로 남긴다. `stage3_safe_cue_negation_fix2`는 이를 한 번 더 좁혀 `LOTO 미적용`, `밀착 미흡`, `동료 정상 착용과 대비` 같은 부정/대비 문맥을 `status_safe`로 오인하지 않게 하고, `압력 게이지 0`, `잔압 완전 방출`, `방열 장갑 착용` 같은 안전 절차 문맥에서는 trigger-only support를 막는다. `stage3_remaining_gap_support_v20_actionable`은 이 경계를 유지하면서 비닐하우스 골조 고소작업 추락 위험과 드라이클리닝 스팀 배관 고온부 노출 위험만 좁게 보강했다. `ci_wp_relevance6_x41_profile`은 같은 경계를 유지하면서 새로 표준절차만 생긴 v20 케이스의 CI 연결과 X-41 단독작업 WorkProcess 경계를 보강했다. `ci_wp_relevance7_profile_tight1`은 broad heat/welding/burn feature만으로 `H-192-2021`, `O-1-2011`, `G-28-2016`이 top Guide가 되지 않도록 Guide-specific usage boundary를 좁혔다. `ci_wp_relevance8d_profile_tight2_ci_safe_gate`는 같은 경계를 유지하면서 일부 feature-only 과승격 Guide의 usage profile, primary WorkProcess 순서, same-top-Guide CI fallback을 보강했고, `완비`, `정상`, `보관 중`, `준비 중`, `조립 전` 같은 non-negated safe-control 문맥에서는 local CI fallback을 차단한다. `industry_boundary_safe_suppress3`는 status/penalty/SHE/SR 경계를 그대로 유지하면서 사진상 조치가 아니라 정상/완료/미진입/사무/보관/점검완료 문맥인 경우 표준절차 top 생성을 좁게 차단했다. `strict_profile_gate3`는 여기에 더해 `화학물질`, `화재`, `폭발`, `고소 작업`, `낙하물`, `피부`, `흡입`, `용제`, `construction` 같은 넓은 profile term을 강한 Guide 사용증거에서 제외한다. `safe_scene_phrase_gate2`는 여기에 좁은 안전 장면 문구와 명시적 미진입/작업자 없음 문구를 추가해 `D_safe_scene_overpromoted`를 14 -> 0으로 줄였다. 현재 남은 작업은 status-level risk inference를 넓히는 것이 아니라, `C_corpus_or_followup_gap 1`, `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 20`을 WorkProcess/CI relevance와 Guide usage profile로 보강하는 것이다. NO_TOP 85건은 무리한 broad alias/support로 줄이지 않는다. `photo_unmatchable` 정책과 safe-scene 표준절차 억제는 표준절차 top lane에만 적용하며 즉시조치, SHE status, SR evidence, penalty path에는 적용하지 않는다. `usage_profile8~10`에서 risk alias/추론을 넓히는 실험, Stage 3 후보를 runtime SHE로 직접 올리는 shadow 실험, broad `UNSAFE_TERMS` 확장 실험, trigger-only domain override 실험, broad Stage 2 support usage gate 실험, broad safe-scene suppression 실험은 실제 품질/회귀 문제로 폐기했다.
-
-`stage2_support_usage_gate3_safe_lock1`는 `stage2_support_usage_gate2b` 대비 Guide mismatch 140 -> 139, NO_TOP 159 -> 154, workprocess_mismatch 66 -> 65, CI no_action 494 -> 492로 개선됐고 industry_boundary_gap 13, broad_sr_overreach 1, actual 240 status changed 0을 유지했다. gate3의 safe-lock 수정은 표준절차 추천 보조 신호로만 작동하고, status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_domain_support1_tight1`는 `stage2_support_usage_gate3_safe_lock1` 대비 Guide mismatch 139 -> 138, NO_TOP 154 -> 146, industry_boundary_gap 13 -> 72로 개선됐고 workprocess_mismatch 65, broad_sr_overreach 1, actual 240 status changed 0을 유지했다. CI no_action은 492 -> 494로 2건 늘었지만 현재 실패 기준 이내이며, 신규 rows는 표준절차 추천 보조 신호로만 작동한다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_domain_support2_confirmation_gate2`는 `stage3_domain_support1_tight1` 대비 Guide mismatch 138, industry_boundary_gap 12, workprocess_mismatch 65, broad_sr_overreach 1, CI no_action 494, actual 240 status changed 0을 유지하면서 NO_TOP 146 -> 137로 줄였다. 이 변경은 `confirmation_required` SituationFrame support도 trigger-backed + non-broad SR + child/profile alignment 조건을 만족하면 Guide usage/domain gate를 통과하도록 한 것이다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage2_service_support_v7_narrow1`은 `stage3_domain_support2_confirmation_gate2` 대비 Guide mismatch 138, industry_boundary_gap 12, workprocess_mismatch 65, broad_sr_overreach 1, actual 240 status changed 0을 유지하면서 NO_TOP 137 -> 130, CI no_action 494 -> 491로 줄였다. 첫 v7 시도는 `형광등`, `청소기`, `출입 통제` 같은 넓은 트리거로 safe/무관 장면을 과매칭했기 때문에 폐기했고, accepted narrow1은 display electrical maintenance와 floor cleaning machine 두 context만 trigger-backed support-only로 남긴다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage2_3_support_v8_narrow2`는 `stage2_service_support_v7_narrow1` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 Guide mismatch 138 -> 137, NO_TOP 130 -> 119, industry_boundary_gap 12 -> 71, CI no_action 491 -> 490으로 줄였다. 첫 v8 시도는 `방사선`, `허가서`, `용접 흄`, `용제` 같은 넓은 트리거가 안전/비관련 케이스를 과매칭했기 때문에 폐기했고, accepted narrow2는 X-ray radiation control, blasting, hot-work permit deviation, shipyard/internal welding, soldering, solvent-waste fire 6개 context를 좁은 trigger-backed support-only row로 남긴다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage2_3_support_v9_narrow4`는 `stage2_3_support_v8_narrow2` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 Guide mismatch 137, industry_boundary_gap 11, workprocess_mismatch 65, CI no_action 490을 유지하고 NO_TOP 119 -> 111로 줄였다. 첫 v9 시도들은 generic `전원을 끄지 않고`, generic medical-waste wording, `담배꽁초`를 과매칭했기 때문에 폐기했고, accepted narrow4는 sports-facility slip/trip, powered cardio-equipment maintenance, needlestick/sharps disposal, blood-contaminated waste handling, flammable-chemical smoking 5개 context를 child-context + unsafe/observable trigger-backed support-only row로 남긴다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage2_3_support_v10_narrow2`는 `stage2_3_support_v9_narrow4` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 Guide mismatch 137, industry_boundary_gap 11, workprocess_mismatch 65를 유지하고 NO_TOP 111 -> 100, CI no_action 490 -> 489로 줄였다. 첫 v10 시도는 high-pressure washing/electrical-panel seed와 safe elevated-welding 장면을 과매칭했기 때문에 폐기했고, accepted narrow2는 food-slicer, elevated-welding, silica triggers를 더 좁혔다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage2_3_support_v11_narrow3`는 `stage2_3_support_v10_narrow2` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 Guide mismatch 137, industry_boundary_gap 11, workprocess_mismatch 65, CI no_action 489를 유지하고 NO_TOP 100 -> 94로 줄였다. 초기 v11 시도는 PPE-only, generic fall-risk, generic blocked-visibility wording을 과매칭했기 때문에 폐기했고, accepted narrow3는 object-specific trigger만 남겼다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_gap_support_v12_narrow4`는 `stage2_3_support_v11_narrow3` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 Guide mismatch 137 -> 136, NO_TOP 94 -> 74, workprocess_mismatch 65 -> 64, CI no_action 489 -> 487로 줄였다. industry_boundary_gap 11, broad_sr_overreach 1, CI guide_boundary_mismatch 64는 유지했다. 첫 v12 trial은 safe PPE, safe high-heat, safe stair/visibility, safe electrical-control wording을 과매칭했고, EV battery seed는 CI boundary mismatch를 1건 늘려 제외했다. accepted narrow4는 unsafe/object-specific trigger만 남겼다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage2_taxonomy_support_v13_narrow5`는 `stage3_gap_support_v12_narrow4` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 74 -> 64로 줄였다. Guide mismatch 136, industry_boundary_gap 11, workprocess_mismatch 64, CI no_action 487, CI guide_boundary_mismatch 64는 유지했다. trial1은 broad cold-room wording을 과매칭했고, narrow2/3은 전역 short-token matching 제한으로 Guide 품질을 회귀시켜 폐기했다. accepted narrow5는 object-specific PPE/control trigger만 남기고 `P-55-2012`의 단독 `황` term이 `상황`에 매칭되는 false match만 국소 차단한다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_sr_gap_support_v14_narrow6b`는 `stage2_taxonomy_support_v13_narrow5` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 64 -> 52로 줄였다. Guide mismatch 136, industry_boundary_gap 11, workprocess_mismatch 64, CI no_action 487, CI guide_boundary_mismatch 64는 유지했다. 첫 v14 trial은 `발판 없이`, generic `슬링/인양`, generic `용접 흄`, generic `보호 장갑 미착용`이 safe/비관련 장면을 과매칭해 폐기했고, accepted narrow6b는 compound/object-specific trigger만 남겼다. `SOLDERING_ASSEMBLY` stale row 2건은 explosives/explosion-proof electrical Guide를 가리켜 rejected/review_only로 내렸다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage2_taxonomy_gap_support_v15_narrow7b`는 `stage3_sr_gap_support_v14_narrow6b` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 52 -> 42로 줄였다. Guide mismatch 136, industry_boundary_gap 11, workprocess_mismatch 64, CI no_action 487, CI guide_boundary_mismatch 64는 유지했다. 첫 v15 trial은 generic PPE wording(`방진마스크`, `니트릴 장갑`, `고글`)이 safe/비관련 장면을 A-G-12로 과매칭해 폐기했고, accepted narrow7b는 물질·작업명 중심 child alias만 남겼다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_remaining_gap_support_v16c_narrow8c`는 `stage2_taxonomy_gap_support_v15_narrow7b` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 42 -> 37로 줄였다. Guide mismatch 136, industry_boundary_gap 11, workprocess_mismatch 64, CI no_action 487, CI guide_boundary_mismatch 64는 유지했다. 추가 support row는 웨이퍼 이송 로봇 센서 우회, UV 살균등 보호구, 실리카 분진 방진마스크 오착용, 실 권선기 가동 중 손 삽입, 농작업 장시간 쪼그림, 접착제 비산 6개다. EV battery row는 NO_TOP 1건을 줄였지만 기존 EV positive 케이스의 top Guide를 전기작업에서 용접방화포 Guide로 회귀시켜 보류했다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_remaining_gap_support_v17b_narrow9b`는 `stage3_remaining_gap_support_v16c_narrow8c` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 37 -> 27로 줄였다. Guide mismatch 136, industry_boundary_gap 11, workprocess_mismatch 64, CI no_action 487, CI guide_boundary_mismatch 64는 유지했다. 추가 support row는 미용 화학물질 눈 노출, 샴푸대 목 부담, 계산원 장시간 기립, 반려동물 미용 물림/테이블 추락, 제본기 LOTO, 화물차 연결 사전점검, 스팀건 안면 화상 PPE 8개다. 초기 v17 trial은 generic `안전핀`이 안전한 랙 점검 장면을 과매칭했고 engine-overhaul 폐유 row가 생활폐기물 Guide로 약하게 연결되어 보류했다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_remaining_gap_support_v18_narrow10`은 `stage3_remaining_gap_support_v17b_narrow9b` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 27 -> 23, CI no_action 487 -> 484로 줄였다. Guide mismatch 136, industry_boundary_gap 11, workprocess_mismatch 64, broad_sr_overreach 1, CI guide_boundary_mismatch 64는 유지했다. 추가 support row는 산업용 세탁기 진동 압착, 의류 브로치 찔림, EV 고전압 배터리 절연/PPE, 냉장창고 비상탈출 레버 4개이며, 기존 제본기 LOTO row의 실제 문구(`기계 미정지`, `용지 걸림 제거`)를 보강했다. 단, 산업용 세탁기 1건은 `NO_TOP`에서 `workprocess_mismatch`로 이동했으므로 WorkProcess 품질 후속 큐로 남긴다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_safe_cue_negation_fix2`는 `stage3_remaining_gap_support_v18_narrow10` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 23 -> 20으로 줄였다. Guide mismatch는 136 -> 137, workprocess_mismatch는 64 -> 65, CI no_action은 484 -> 486으로 소폭 늘었지만 실패 기준 이내이고 actual 240 status changed 0, v10 SHE recall 100%, FN 0, FP 0은 유지했다. 변경은 `situation_frame_service.py`의 safe-cue/trigger-only gate에 한정된다.
-
-`stage3_remaining_gap_support_v19_dropped_tool`은 `stage3_safe_cue_negation_fix2` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 20 -> 19, Guide mismatch 137 -> 136, workprocess_mismatch 65 -> 64, CI no_action 486 -> 484로 줄였다. 추가 support row는 병원/건물 시설관리 고소 작업 중 공구 낙하 위험을 `G-60-2012 건물 관리 작업`과 `G-44-2011 수공구 사용`으로만 연결하는 `MAINTENANCE_HEIGHT_DROPPED_TOOL` 1개다. 기존 D-C-13 외벽도장 Guide 과연결을 피하기 위한 좁은 child context이며, status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`stage3_remaining_gap_support_v20_actionable`은 `stage3_remaining_gap_support_v19_dropped_tool` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 NO_TOP 19 -> 17로 줄였다. Guide mismatch 136, industry_boundary_gap 11, workprocess_mismatch 64, CI no_action 484, CI guide_boundary_mismatch 64, actual 240 status changed 0, v10 SHE recall 100%, FN 0, FP 0은 유지했다. 추가 support row는 `GREENHOUSE_STRUCTURE_FALL`과 `DRY_CLEANING_STEAM_PIPE_HOT_SURFACE` 2개이며, 각각 `SYN-V8-0022`를 `C-49-2012 안전대 사용지침`, `SYN-V8-0167`을 `P-22-2012 드라이크리닝 공정의 안전관리 기술지침`으로 연결한다. status/penalty/SHE approval/asserted mapping update는 모두 0이다.
-
-`ci_wp_relevance6_x41_profile`은 `stage3_remaining_gap_support_v20_actionable` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 Stage 5 relevance만 보강했다. `v20_actionable_support` 두 컨텍스트에 한해 Guide-local contextual CI fallback을 허용하고, fallback CI는 support-term evidence와 non-broad SR 조건을 통과해야 한다. `X-41-2011`은 야간 단독 순찰·비상 호출 시스템 맥락을 usage profile에 추가해 단독작업 모니터링 WorkProcess가 임의 절차로 오판되지 않게 했다. Stage 2~5 지표는 Guide mismatch 136 -> 135, NO_TOP 17 -> 16, workprocess_mismatch 64 -> 63, CI no_action 484 -> 483, CI guide_boundary_mismatch 64 -> 51로 개선됐다. actual 240 status changed 0, negative_false_positive 10, positive_missed 2, ambiguous_over_promoted 5, v10 SHE recall 100%, FN 0, FP 0은 유지했다. status/penalty/SHE approval/asserted mapping/legal SR evidence/public API shape 변화는 모두 0이다.
-
-`ci_wp_relevance7_profile_tight1`은 `ci_wp_relevance6_x41_profile` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 broad feature 과승격 Guide 3건의 사용경계를 좁혔다. `H-192-2021`은 제련작업자의 건강관리 문맥, `O-1-2011`은 설비보수용 용접재료 선정 문맥, `G-28-2016`은 요양시설 안전 문맥을 요구하도록 `exclusive` profile로 강화했다. Stage 2~5 지표는 Guide mismatch 135 -> 110, industry_boundary_gap 11 -> 70, workprocess_mismatch 63 -> 39, CI no_action 483 -> 481, CI guide_boundary_mismatch 51 -> 50으로 개선됐다. NO_TOP은 16 -> 24로 늘었지만 actionability review 결과 runtime repair candidate는 0이며, 추가 NO_TOP은 outside KOSHA photo-guide scope, safe-controlled positive, exact photo Guide corpus gap, stale support rejection, follow-up only case로 분류됐다. actual 240 status changed 0, negative_false_positive 10, positive_missed 2, ambiguous_over_promoted 5, v10 SHE recall 100%, FN 0, FP 0은 유지했다. status/penalty/SHE approval/asserted mapping/legal SR evidence/public API shape 변화는 모두 0이다.
-
-`ci_wp_relevance8d_profile_tight2_ci_safe_gate`는 `ci_wp_relevance7_profile_tight1` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 Stage 5 Guide/WorkProcess/CI relevance만 보강했다. 선택된 feature-only overpromotion Guide를 `exclusive` 또는 follow-up 역할로 조정하고, `A-G-17-2026`, `B-M-37-2026`, `G-60-2012`, `B-M-15-2026`, `C-108-2017` 등은 사진 문맥에 맞는 primary WorkProcess를 우선하도록 정렬했다. same-top-Guide local CI fallback은 observable violation context가 있고 non-negated safe-control wording이 없을 때만 허용한다. Stage 2~5 지표는 Guide mismatch 110 -> 87, workprocess_mismatch 39 -> 16, CI no_action 481 -> 438, CI broad_sr_only 16 -> 14, CI guide_boundary_mismatch 50 -> 48로 개선됐고, industry_boundary_gap 10, CI context_mismatch 16은 유지했다. NO_TOP은 24 -> 26으로 2건 증가했다. actual 240 status changed 0, negative_false_positive 10, positive_missed 2, ambiguous_over_promoted 5, v10 SHE recall 100%, FN 0, FP 0은 유지했다. status/penalty/SHE approval/asserted mapping/legal SR evidence/public API shape 변화는 모두 0이다.
-
-`industry_boundary_safe_suppress3`는 `ci_wp_relevance8d_profile_tight2_ci_safe_gate` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 현장 사진상 위험조치가 아니라 명백한 정상/완료/미진입/사무/보관/점검완료 장면에서 표준절차 top 생성을 좁게 차단했다. 첫 `safe_suppress1`은 Guide mismatch와 industry_boundary_gap은 크게 줄였지만 NO_TOP을 26 -> 91로 악화시켜 폐기했고, `safe_suppress2`도 NO_TOP 45로 과억제였기 때문에 폐기했다. accepted `safe_suppress3`는 Guide mismatch 87 -> 73, industry_boundary_gap 10 -> 56, CI context_mismatch 16 -> 14로 줄였고 NO_TOP은 26 -> 30으로 제한됐다. workprocess_mismatch 16, CI no_action 438, CI guide_boundary_mismatch 48은 유지했고 CI broad_sr_only은 14 -> 15로 1건 늘어 후속 큐에 남겼다. actual 240 status changed 0, negative_false_positive 10, positive_missed 2, ambiguous_over_promoted 5, v10 SHE recall 100%, FN 0, FP 0은 유지했다. 남은 industry_boundary_gap 56은 `B_wrong_guide_boundary` 26, `C_corpus_or_followup_gap` 16, `D_safe_scene_overpromoted` 14로 분해해 처리한다.
-
-`strict_profile_gate3`는 `industry_boundary_safe_suppress3` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 Stage 5의 Guide-specific usage gate만 강화했다. `화학물질`, `화재`, `폭발`, `고소 작업`, `낙하물`, `피부`, `흡입`, `용제`, `construction`, `chemical_process`, `healthcare`처럼 위험축 또는 broad domain을 설명하는 단어는 더 이상 strict Guide의 강한 사용경계 증거가 아니다. Stage 2~5 지표는 Guide mismatch 73 -> 43, industry_boundary_gap 56 -> 21, CI guide_boundary_mismatch 48 -> 31, CI broad_sr_only 15 -> 13으로 개선됐고, `B_wrong_guide_boundary`는 26 -> 0이 됐다. NO_TOP은 30 -> 67, CI no_action은 438 -> 480, workprocess_mismatch는 16 -> 21로 늘었지만 현재 실패 기준 안이며, actual 240 status changed 0, v10 SHE recall 100%, FN 0, FP 0은 유지했다. 이 시점의 잔여 큐였던 `D_safe_scene_overpromoted 14`는 `safe_scene_phrase_gate2`에서 0으로 줄었고, `C_corpus_or_followup_gap 7`은 남아 있다.
-
-
-`corpus_gap_guard1`은 `safe_scene_phrase_gate2` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 실험실 퇴실 체크리스트, 약품 조제/MSDS, 만료 약품 폐기, 재활용 선별장 유리파편 통행처럼 exact photo-actionable Guide가 부족한 복합 문맥에서 broad Guide가 top 표준절차로 대체되는 것을 막는다. Stage 2~5 지표는 Guide mismatch 29 -> 22, industry_boundary_gap 7 -> 1, workprocess_mismatch 21 -> 20으로 개선됐다. NO_TOP은 78 -> 85, CI no_action은 478 -> 482로 늘었지만 status/penalty/SHE/SR 경계는 유지했고, actual 240 status changed 0, v10 SHE recall 100%, FN 0, FP 0을 통과했다. 고압가스 실린더 정상 운반을 현 Guide layer에서 억지 보정한 후속 trial은 다른 broad Guide로 이동해 기각했고, WorkProcess/Guide relevance 큐로 넘긴다.
-
-`safe_scene_phrase_gate2`는 `strict_profile_gate3` 대비 status/penalty/SHE/SR 경계를 그대로 유지하면서 안전/정상/보호조치 완료 장면의 표준절차 top 과노출만 추가로 막았다. `3점 지지`, `보차가 명확히 분리`, `검전기 확인`, `LOTO 태그 부착`, `화재·아크 방지 조치가 완비`, `강제 환기 가동`, `폭발 분위기 연속 감시`, `모두 올바르게 착용`, `손 감지 센서 정상 작동` 같은 좁은 문구와 `아직 진입하지`, `진입하지 않았다`, `주변에 사람이 없`, `작업자가 없다`, `인근 화기 작업 없음` 같은 명시적 안전 부정 문구를 표준절차 top gate에만 사용한다. Stage 2~5 지표는 Guide mismatch 43 -> 29, industry_boundary_gap 21 -> 7, CI guide_boundary_mismatch 31 -> 27, CI context_mismatch 14 -> 11, CI no_action 480 -> 478로 개선됐다. NO_TOP은 67 -> 78, CI broad_sr_only는 13 -> 14로 늘었지만 실패 기준 이내이며, `D_safe_scene_overpromoted`는 14 -> 0이 됐다. actual 240 status changed 0, v10 SHE recall 100%, FN 0, FP 0은 유지했다. 다음 큐는 `C_corpus_or_followup_gap 7`과 CI/WorkProcess relevance 정밀화다.
-
-v20 NO_TOP 17 root-cause audit 결과 (`ci_wp_relevance6_x41_profile` 이후 현재 NO_TOP은 16):
-
-```text
-report: pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v20_actionable.*
-primary_root_cause:
-  stage2_taxonomy_or_normalization_gap 11
-  synthetic_fixture_or_safe_controlled_positive 2
-  stage3_she_to_sr_gap 2
-  situation_frame_child_context_gap 1
-  stage3_she_gap_but_sr_available 1
-domain_bucket:
-  service_healthcare_people_gap 7
-  other_taxonomy_gap 4
-  chemical_profile_gap 3
-  material_handling_profile_gap 1
-  machine_profile_gap 1
-  construction_fall_profile_gap 1
-situation_frame:
-  child_context_available 2
-  broad_parent_without_child 8
-  support_hit_cases 1
-```
-
-해석: v14는 SHE가 있어도 SR/Guide 경로로 닿지 않던 `stage3_she_to_sr_gap`을 22건에서 10건으로 줄였다. v16c는 Stage 3/SR 잔여 일부를 19건에서 14건으로 줄였고, v17b는 서비스/보건·화학 일부와 제본기·화물차 연결 같은 남은 support gap을 줄여 NO_TOP을 27건까지 낮췄다. v18은 의미가 분명한 4건만 추가해 NO_TOP을 23건까지 낮췄다. `stage3_safe_cue_negation_fix2`는 부정/대비 문맥을 `status_safe`로 오인하지 않게 해 NO_TOP을 20건까지 낮췄고, `stage3_remaining_gap_support_v19_dropped_tool`은 병원/건물 고소작업 공구낙하 장면을 `G-60/G-44`로 좁게 연결해 NO_TOP을 19건까지 낮췄다. `stage3_remaining_gap_support_v20_actionable`은 비닐하우스 골조 추락과 드라이클리닝 스팀파이프 화상 장면만 추가해 NO_TOP을 17건까지 낮췄고, `ci_wp_relevance6_x41_profile`은 같은 경계를 유지한 채 CI/WP relevance를 보강해 NO_TOP 16, CI no_action 483, CI guide_boundary_mismatch 51까지 낮췄다. `ci_wp_relevance7_profile_tight1`은 NO_TOP을 억지로 줄이는 대신 broad heat/welding/burn 과승격을 걷어내 Guide mismatch 110, workprocess_mismatch 39, CI no_action 481, CI guide_boundary_mismatch 50으로 품질을 올렸다. `ci_wp_relevance8d_profile_tight2_ci_safe_gate`는 WorkProcess/CI relevance를 추가 보강해 Guide mismatch 87, workprocess_mismatch 16, CI no_action 438, CI guide_boundary_mismatch 48로 낮췄다. `industry_boundary_safe_suppress3`는 정상/완료/미진입/사무/보관/점검완료 장면의 표준절차 과노출만 좁게 막아 Guide mismatch 73, industry_boundary_gap 56으로 낮췄다. `strict_profile_gate3`는 broad profile term 기반의 strict Guide 과승격을 제거해 Guide mismatch 43, industry_boundary_gap 21, `B_wrong_guide_boundary` 0까지 낮췄다. `safe_scene_phrase_gate2`는 안전 장면 문구를 좁게 추가해 Guide mismatch 22, industry_boundary_gap 1, `D_safe_scene_overpromoted` 0까지 낮췄다. 현재 보강 초점은 status-level inference가 아니라 남은 `C_corpus_or_followup_gap`, CI relevance, WorkProcess relevance의 정밀화다.
-
-기준 문서:
-
-```text
-docs/status/evaluation-baseline.md
-pictures-json/reports-manifest.json
-kosha-guides/manifest/guides-manifest.json
-```
+다음 보강 후보는 status-level risk inference 확장이 아니라 `G-76-2011 workprocess_mismatch 7`, `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 14`, `NO_TOP 85`를 WorkProcess/CI relevance와 Guide usage profile로 정리하는 것이다.
 
 ## 과거 구현 메모 (2026-05-07)
 
