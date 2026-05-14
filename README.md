@@ -51,12 +51,12 @@ The ontology design now includes a source/provenance and serving-validation laye
 
 Current serving validation snapshot:
 
-- baseline: `context_safe_gate1`
-- export: `koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl`
+- baseline: `no_forced_hotwork_gate1`
+- export: `koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl`
 - policy ontology: `koshaontology/ontology/serving-policy.ttl`
 - validation shapes: `koshaontology/ontology/serving-validation-shapes.ttl`
-- validation report: `koshaontology/ontology/serving-validation-report-context_safe_gate1.*`
-- WorkProcess alignment report: `koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*`
+- validation report: `koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*`
+- WorkProcess alignment report: `koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*`
 
 The snapshot is regenerated from OHS serving artifacts and evaluation reports. Do not hand-edit generated TTL to fix data; fix the source JSON/PG/export script, then regenerate.
 
@@ -149,11 +149,11 @@ Recommended first read order:
 
 ## Current Evaluation Baseline
 
-Accepted runtime baseline: `context_safe_gate1`.
+Accepted runtime baseline: `no_forced_hotwork_gate1`.
 
-Previous accepted baseline: `corpus_gap_guard1`.
+Previous accepted baseline: `context_safe_gate1`.
 
-This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 standard-procedure ranking. It adds two context-required Guide families and safe welding suppression phrases so broad welding/biological/SR support cannot create unrelated top procedures in controlled scenes.
+This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 standard-procedure ranking. It accepts that a photo may have no scene-relevant KOSHA Guide: hot-work/air-jacket Guides now require their own tank, drum, air-jacket, hose, manifold, or hot-work context terms instead of filling chemical/lab scenes through generic `WELDING` evidence.
 
 Report bodies stay local/external under `pictures-json/reports/**`; root git tracks the manifest and summary instead:
 
@@ -162,11 +162,11 @@ Report bodies stay local/external under `pictures-json/reports/**`; root git tra
 
 Referenced current local report bodies:
 
-- `pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.md`
-- `pictures-json/reports/synthetic_observations_v10_context_safe_gate1_report.md`
-- `pictures-json/reports/actual_response_samples_context_safe_gate1.md`
-- `koshaontology/ontology/serving-validation-report-context_safe_gate1.*`
-- `koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*`
+- `pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.md`
+- `pictures-json/reports/synthetic_observations_v10_no_forced_hotwork_gate1_report.md`
+- `pictures-json/reports/actual_response_samples_no_forced_hotwork_gate1.md`
+- `koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*`
+- `koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*`
 
 Summary:
 
@@ -174,10 +174,10 @@ Summary:
 synthetic Stage 2~5 v1~v10 total: 2,360
 SHE TP/FN/FP: 1,107 / 909 / 82
 SR TP/FN/FP: 1,414 / 270 / 211
-Guide mismatch: 15
-Stage 2~5 NO_TOP: 85
+Guide mismatch: 8
+Stage 2~5 NO_TOP: 90
 industry_boundary_gap: 1
-workprocess_mismatch: 14
+workprocess_mismatch: 7
 broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
 followup_only_retained_count: 15
@@ -192,24 +192,23 @@ actual response 240 status changed: 0
 negative_false_positive: 10
 positive_missed: 2
 ambiguous_over_promoted: 5
-serving ontology validation: PASS, hard violations 0, warnings 1
+serving ontology validation: PASS, hard violations 0, warnings 0
 accepted photo-actionable role overrides: 10
 ```
 
 Serving validation snapshot:
 
 ```text
-snapshot: koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
-validation report: koshaontology/ontology/serving-validation-report-context_safe_gate1.*
-WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+snapshot: koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
+validation report: koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
 GuideUsageProfile: 1,038
 photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 1
-remaining warning: G-76-2011 repeated workprocess_mismatch 7 cases
+warnings: 0
 primary WorkProcess alignment: 4,715 / 4,715 same Guide
 ```
 
-Implementation note: `context_safe_gate1` adds context-required gates for `pipe_support_installation_welding` and `airborne_infectious_disease_workplace_prevention`, and adds safe welding block terms such as `차광 커튼`, `차광막`, `국소 배기 가동`, `국소 배기 장치가 가동`, `자동 차광 헬멧`, and `착용 완비`. It does not change public API shape, SHE approval, SR/legal asserted mappings, status, or penalty behavior.
+Implementation note: `no_forced_hotwork_gate1` keeps the `context_safe_gate1` gates and adds context-required treatment for `air_jacket_gas_manifold_welding_support` and `small_tank_drum_hot_work`. If a scene does not show the required Guide-specific context, the runtime may leave `standard_procedures` empty rather than substitute a broad hot-work Guide. Public API shape, SHE approval, SR/legal asserted mappings, status, and penalty behavior are unchanged.

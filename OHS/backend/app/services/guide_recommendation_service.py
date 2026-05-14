@@ -243,10 +243,12 @@ STANDARD_GUIDE_CORPUS_GAP_BLOCK_GROUPS = (
     ),
 )
 CONTEXT_REQUIRED_DOMAIN_FAMILIES = {
+    "air_jacket_gas_manifold_welding_support",
     "airborne_infectious_disease_workplace_prevention",
     "reused_temporary_equipment_performance_scaffold_shoring_inspection",
     "cold_contact_surface_risk_assessment",
     "pipe_support_installation_welding",
+    "small_tank_drum_hot_work",
 }
 CONTEXT_REQUIRED_FAMILY_FEATURE_ALLOW = {
     "cold_contact_surface_risk_assessment": {"COLD_EXPOSURE"},

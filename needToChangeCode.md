@@ -4,7 +4,7 @@
 
 아래 항목들은 `risk:` 중심 위험 지식 계층, `PenaltyRule` 중심 벌칙 모델, `SeverityLevel` 제거, `SHE` 패턴 브릿지화, `Guide/WorkProcess` 중심 조치 구조를 반영한 뒤 남은 후속 작업이다.
 
-## 현재 구현 메모 (2026-05-14, monorepo + context_safe_gate1)
+## 현재 구현 메모 (2026-05-14, monorepo + no_forced_hotwork_gate1)
 
 현재 작업 기준은 root `arch-bot/main` monorepo다.
 
@@ -18,16 +18,16 @@ kosha-guides/manifest: tracked provenance manifest
 pictures-json/reports: local/external report bodies
 ```
 
-현재 accepted runtime baseline은 `context_safe_gate1`이다. 직전 product baseline은 `corpus_gap_guard1`이며, 그 이전 `safe_scene_phrase_gate2`, `strict_profile_gate3`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `stage3_remaining_gap_support_v20_actionable`, `photo_matchability1`, `situation_frame_support7`, `usage_profile11` 등은 historical milestone으로 보존한다.
+현재 accepted runtime baseline은 `no_forced_hotwork_gate1`이다. 직전 product baseline은 `context_safe_gate1`이며, 그 이전 `corpus_gap_guard1`, `safe_scene_phrase_gate2`, `strict_profile_gate3`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `stage3_remaining_gap_support_v20_actionable`, `photo_matchability1`, `situation_frame_support7`, `usage_profile11` 등은 historical milestone으로 보존한다.
 
 ```text
 synthetic Stage 2~5 v1~v10 total 2,360
 SHE TP/FN/FP 1,107 / 909 / 82
 SR TP/FN/FP 1,414 / 270 / 211
-Guide mismatch 15
-Stage 2~5 NO_TOP 85
+Guide mismatch 8
+Stage 2~5 NO_TOP 90
 industry_boundary_gap 1
-workprocess_mismatch 14
+workprocess_mismatch 7
 broad_sr_overreach 0
 photo_unmatchable_top_count 0
 followup_only_retained_count 15
@@ -44,27 +44,27 @@ positive_missed 2
 ambiguous_over_promoted 5
 ```
 
-`context_safe_gate1`은 OHS serving 기준으로 고정했고, 같은 기준을 온톨로지 검증 스냅샷으로 내보낸다. 이 스냅샷은 런타임 대체가 아니라 이상한 연결을 찾는 검증 계층이다.
+`no_forced_hotwork_gate1`은 OHS serving 기준으로 고정했고, 같은 기준을 온톨로지 검증 스냅샷으로 내보낸다. 이 스냅샷은 런타임 대체가 아니라 이상한 연결을 찾는 검증 계층이다.
 
 ```text
 export script: koshaontology/ontology/scripts/export_serving_snapshot.py
 validation script: koshaontology/ontology/scripts/validate_serving_snapshot.py
 policy TTL: koshaontology/ontology/serving-policy.ttl
-snapshot TTL: koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
+snapshot TTL: koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
 SHACL shapes: koshaontology/ontology/serving-validation-shapes.ttl
-validation report: koshaontology/ontology/serving-validation-report-context_safe_gate1.*
-alignment report: koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+validation report: koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
+alignment report: koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
 GuideUsageProfile 1,038
 photo_actionable / conditional / unmatchable 631 / 39 / 368
 broad SR 12
 evaluation cases 2,360
 hard violations 0
-warnings 1
+warnings 0
 accepted photo-actionable role overrides 10
 primary WorkProcess links aligned 4,715 / 4,715
 ```
 
-2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소된 상태를 유지한다. `context_safe_gate1`은 이전 broad SR attention 1건과 `B-M-20-2026`/`H-186-2016` 반복 WorkProcess mismatch 경고를 해소했다. 남은 warning은 `G-76-2011`이 7개 synthetic case에서 `workprocess_mismatch`로 반복되는 알고리즘 큐다. TTL을 직접 수정하지 말고 OHS serving artifact, Pipe-B/PG export, 또는 Guide profile 쪽을 수정한 뒤 재생성한다.
+2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소된 상태를 유지한다. `no_forced_hotwork_gate1`은 `G-76-2011` 반복 WorkProcess mismatch warning까지 해소해 ontology hard violation/warning이 모두 0건이다.
 
 Guide photo matchability v1은 1,038개 Guide usage profile에 사진 기반 top 표준절차 적합성을 부여한 serving policy다.
 
@@ -77,18 +77,18 @@ asserted mapping update 0
 SHE/SR/status/penalty impact 0
 ```
 
-`context_safe_gate1` 추가 정책:
+`no_forced_hotwork_gate1` 추가 정책:
 
 ```text
-context-required families:
-  pipe_support_installation_welding
-  airborne_infectious_disease_workplace_prevention
-safe welding block terms:
-  착용 완비 / 차광 커튼 / 차광막 / 국소 배기 가동 / 국소 배기 장치가 가동 / 자동 차광 헬멧
+context-required families added on top of context_safe_gate1:
+  air_jacket_gas_manifold_welding_support
+  small_tank_drum_hot_work
+principle:
+  현장 사진에 맞는 Guide가 없으면 broad hot-work Guide를 억지로 올리지 않고 NO_TOP으로 남길 수 있다.
 public API / SHE approval / asserted mapping / legal SR evidence / status / penalty impact: none
 ```
 
-다음 보강 후보는 status-level risk inference 확장이 아니라 `G-76-2011 workprocess_mismatch 7`, `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 14`, `NO_TOP 85`를 WorkProcess/CI relevance와 Guide usage profile로 정리하는 것이다.
+다음 보강 후보는 status-level risk inference 확장이 아니라 `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 7`, `NO_TOP 90`을 WorkProcess/CI relevance와 Guide usage profile로 정리하는 것이다. 단, NO_TOP은 모두 오류가 아니며 현장 관련 Guide 부재는 정답 상태로 인정한다.
 
 ## 과거 구현 메모 (2026-05-07)
 

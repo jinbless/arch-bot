@@ -177,28 +177,28 @@ Synthetic smoke:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_context_safe_gate1 --use-declared-industry --penalty-sr-scope she
+.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_no_forced_hotwork_gate1 --use-declared-industry --penalty-sr-scope she
 ```
 
 Actual response 240 replay:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_context_safe_gate1 --database-note "context_safe_gate1 / serving baseline"
+.venv/bin/python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_no_forced_hotwork_gate1 --database-note "no_forced_hotwork_gate1 / serving baseline"
 ```
 
 Guide recommendation evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_context_safe_gate1
+.venv/bin/python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_no_forced_hotwork_gate1
 ```
 
 Stage 2~5 integrated pipeline quality evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_context_safe_gate1 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.json
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_no_forced_hotwork_gate1 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.json
 ```
 
 Serving ontology snapshot export and validation:
@@ -374,9 +374,9 @@ frame extraction on synthetic v1~v10:
 
 ## Current Open Work
 
-1. `context_safe_gate1` 기준의 남은 ontology warning은 `G-76-2011` 반복 WorkProcess mismatch 7건이다. 다음 알고리즘 작업은 이 Guide가 용접/화학 broad 신호만으로 떠오르는 케이스를 WorkProcess relevance나 Guide usage profile로 분리하는 것이다.
-2. `NO_TOP 85`는 broad alias/support로 억지 축소하지 않는다. exact source Guide, SituationFrame child context, Stage 3 SHE/SR review queue가 생길 때만 줄인다.
-3. `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 14`는 즉시조치/WorkProcess relevance 작업의 다음 큐다.
+1. `no_forced_hotwork_gate1` 기준 ontology hard violation/warning은 0건이다. 다음 작업은 consistency repair가 아니라 품질 개선이다.
+2. 현장 사진에 맞는 KOSHA Guide가 없을 수 있다는 전제를 유지한다. `NO_TOP 90`은 전부 나쁜 것이 아니며, broad/hot-work Guide로 빈칸을 메우지 않는다.
+3. 다음 구조적 보강 대상은 `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 7`, `NO_TOP 90`이다.
 4. UI/UX와 개발서버 확인은 알고리즘 artifact, ontology TTL, evaluation baseline, reports manifest를 건드리지 않는 범위에서 진행한다.
 
 ## Notes
@@ -395,7 +395,7 @@ OHS/backend/app/data/situation_context_taxonomy.v20.json
 OHS/backend/app/data/guide_support_candidates.v20.jsonl
 ```
 
-The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
+The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
 
 Serving candidate gates:
 
@@ -405,19 +405,20 @@ review_status in ('candidate', 'asserted')
 broad SRs are secondary-only and cannot create standard procedures or legacy fallback results by themselves
 needs_review/rejected candidates are excluded from serving
 photo_unmatchable Guides cannot be photo-based top standard procedures
+scene-specific Guide families require their own required context terms; missing Guide coverage may remain NO_TOP
 ```
 
-The current accepted OHS runtime baseline is `context_safe_gate1`. It keeps `corpus_gap_guard1` status/penalty/SHE/SR behavior and only tightens Stage 5 standard-procedure selection. It adds context-required gates for `pipe_support_installation_welding` and `airborne_infectious_disease_workplace_prevention`, and safe welding suppression phrases such as `차광 커튼`, `차광막`, `국소 배기 가동`, `국소 배기 장치가 가동`, `자동 차광 헬멧`, and `착용 완비`. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
+The current accepted OHS runtime baseline is `no_forced_hotwork_gate1`. It keeps `context_safe_gate1` status/penalty/SHE/SR behavior and only tightens Stage 5 standard-procedure selection. It adds context-required treatment for `air_jacket_gas_manifold_welding_support` and `small_tank_drum_hot_work`, so generic `WELDING` evidence alone cannot substitute air-jacket, tank, drum, or hot-work Guides into chemical/lab scenes. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
 
 Latest validation:
 
 ```text
-baseline: context_safe_gate1
+baseline: no_forced_hotwork_gate1
 synthetic Stage 2~5 v1~v10: 2,360 samples
-Guide mismatch: 15
-Stage 2~5 NO_TOP: 85
+Guide mismatch: 8
+Stage 2~5 NO_TOP: 90
 industry_boundary_gap: 1
-workprocess_mismatch: 14
+workprocess_mismatch: 7
 broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
 followup_only_retained_count: 15
@@ -434,8 +435,7 @@ positive_missed 2
 ambiguous_over_promoted 5
 serving ontology validation PASS
 serving ontology hard violations 0
-serving ontology warnings 1
-remaining warning: G-76-2011 repeated workprocess_mismatch 7 cases
+serving ontology warnings 0
 accepted photo-actionable role overrides 10
 ```
 
@@ -444,10 +444,10 @@ Latest tracked summaries:
 ```text
 docs/status/evaluation-baseline.md
 pictures-json/reports-manifest.json
-koshaontology/ontology/serving-validation-report-context_safe_gate1.*
-koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
+koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
 ```
 
-Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `context_safe_gate1` Stage 2~5, v10 smoke, and actual 240 replay reports.
+Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `no_forced_hotwork_gate1` Stage 2~5, v10 smoke, and actual 240 replay reports.
 
 Rejected approaches remain the same: do not broaden status-level hazard/risk text aliases or generic `UNSAFE_TERMS` to chase NO_TOP. Use SituationFrame child contexts, Guide usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess/CI relevance instead.

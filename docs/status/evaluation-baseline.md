@@ -2,11 +2,78 @@
 
 Latest updated: 2026-05-14
 
-Accepted runtime baseline: `context_safe_gate1`
+Accepted runtime baseline: `no_forced_hotwork_gate1`
 
-Previous accepted baseline: `corpus_gap_guard1`
+Previous accepted baseline: `context_safe_gate1`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## No Forced Hotwork Gate v1
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.*
+pictures-json/reports/synthetic_observations_v10_no_forced_hotwork_gate1_report.*
+pictures-json/reports/actual_response_samples_no_forced_hotwork_gate1.*
+koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
+koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+```
+
+Summary:
+
+```text
+previous accepted baseline: context_safe_gate1
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 15 -> 8
+NO_TOP: 85 -> 90
+industry_boundary_gap: 1 -> 1
+workprocess_mismatch: 14 -> 7
+broad_sr_overreach: 0 -> 0
+photo_unmatchable_top_count: 0 -> 0
+followup_only_retained_count: 15
+CI no_action: 482 -> 482
+CI context_mismatch: 12 -> 12
+CI broad_sr_only: 14 -> 14
+CI needs_review_used: 0 -> 0
+CI guide_boundary_mismatch: 26 -> 26
+v10 SHE recall: 100.0%, FN 0, FP 0
+v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
+actual response 240 status changed: 0
+negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
+serving ontology validation: PASS, hard violations 0, warnings 0
+accepted photo-actionable role overrides: 10
+```
+
+Policy change:
+
+```text
+context-required Guide families added on top of context_safe_gate1:
+  air_jacket_gas_manifold_welding_support
+  small_tank_drum_hot_work
+principle:
+  현장 사진에 맞는 Guide가 없으면 broad hot-work Guide를 억지로 올리지 않고 NO_TOP으로 남길 수 있다.
+status/penalty/SHE/SR/legal asserted mapping/public API impact: none
+```
+
+Ontology validation result:
+
+```text
+snapshot: koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
+validation report: koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+GuideUsageProfile: 1,038
+photo_actionable / conditional / unmatchable: 631 / 39 / 368
+broad SRs: 12
+evaluation cases: 2,360
+hard violations: 0
+warnings: 0
+primary WorkProcess alignment: 4,715 / 4,715 same Guide
+```
+
+Interpretation: `G-76-2011` no longer appears as a repeated WorkProcess mismatch warning. Some chemical/lab cases now correctly remain `NO_TOP` when the current Guide corpus lacks a scene-specific procedure.
 
 ## Context Safe Gate v1
 
@@ -172,7 +239,7 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.*
+pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.*
 ```
 
 Summary:
@@ -188,10 +255,10 @@ SHE TP/FN/FP: 1,107 / 909 / 82
 SHE recall: 54.9%
 SR TP/FN/FP: 1,414 / 270 / 211
 SR recall: 84.0%
-Guide mismatch: 15
-Stage 2~5 NO_TOP: 85
+Guide mismatch: 8
+Stage 2~5 NO_TOP: 90
 industry_boundary_gap: 1
-workprocess_mismatch: 14
+workprocess_mismatch: 7
 broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
 followup_only_retained_count: 15
@@ -229,17 +296,17 @@ OHS/backend/app/data/guide_photo_matchability.v1.json
 OHS/backend/app/data/broad_sr_policy.json
 OHS/backend/app/data/situation_context_taxonomy.v20.json
 OHS/backend/app/data/guide_support_candidates.v20.jsonl
-pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.json
+pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.json
 ```
 
 Generated ontology files:
 
 ```text
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
+koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
-koshaontology/ontology/serving-validation-report-context_safe_gate1.*
-koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
+koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
 ```
 
 Validation summary:
@@ -252,15 +319,14 @@ photo_unmatchable: 368
 broad SRs: 12
 evaluation cases: 2,360
 hard violations: 0
-warnings: 1
+warnings: 0
 accepted photo-actionable role overrides: 10
 ```
 
 Warning queue:
 
 ```text
-repeated_evaluation_failure_by_guide: 1
-remaining Guide: G-76-2011, workprocess_mismatch 7 cases
+none
 ```
 
 Core A-Box sync:
@@ -278,19 +344,19 @@ primary_workprocess_not_in_base_ttl: 1,220 -> 0
 validate_ontology.py: PASS
 ```
 
-Interpretation: the previous 1,220 WorkProcess warnings were a stale base TTL materialization problem and remain resolved. `context_safe_gate1` also resolved the prior broad-SR attention warning and the two repeated mismatch warnings for `B-M-20-2026` and `H-186-2016`. The remaining warning is a real algorithm review queue for `G-76-2011` WorkProcess relevance.
+Interpretation: serving data and validation snapshot are aligned. Current validation has no hard violations or warnings. Remaining work is quality improvement: improve CI/WorkProcess relevance and handle NO_TOP as corpus/taxonomy/review gaps instead of forcing broad Guide substitution.
 
-Comparison against `corpus_gap_guard1`:
+Comparison against `context_safe_gate1`:
 
 ```text
 SHE/SR status metrics: unchanged
-Guide mismatch: 22 -> 15
-Stage 2~5 NO_TOP: 85 -> 85
+Guide mismatch: 15 -> 8
+Stage 2~5 NO_TOP: 85 -> 90
 industry_boundary_gap: 1 -> 1
-workprocess_mismatch: 20 -> 14
-broad_sr_overreach: 1 -> 0
+workprocess_mismatch: 14 -> 7
+broad_sr_overreach: 0 -> 0
 CI no_action: 482 -> 482
-CI context_mismatch: 11 -> 12
+CI context_mismatch: 12 -> 12
 CI broad_sr_only: 14 -> 14
 CI guide_boundary_mismatch: 26 -> 26
 ```
