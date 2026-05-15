@@ -8,7 +8,7 @@
 
 `haz:`, `agent:`, `ctx:`는 별도 독립 레이어가 아니라 `risk:RiskFeature` 아래의 하위 분류 어휘다. 즉 `risk:`가 위험 지식의 공통 추상 계층이고, `haz/agent/ctx`는 그 아래에서 사고유형, 유해인자, 작업맥락을 구체화하는 네임스페이스다.
 
-`ci_preferred_guide_ci1` 기준 OHS 서빙에서는 SR을 `direct SR`과 `broad secondary SR`로 구분한다. broad SR은 검색 확장과 보조 점수에는 사용할 수 있지만, 단독으로 top Guide/CI나 법적 확정 근거를 만들 수 없다.
+`ci_unrelated_action_filter1` 기준 OHS 서빙에서는 SR을 `direct SR`과 `broad secondary SR`로 구분한다. broad SR은 검색 확장과 보조 점수에는 사용할 수 있지만, 단독으로 top Guide/CI나 법적 확정 근거를 만들 수 없다.
 
 ```mermaid
 ---
@@ -180,7 +180,7 @@ guide:CI-A1-014 a guide:ChecklistItem ;
 - `sr:hasRequirementType`, `sr:hasBindingForce`는 `owl:FunctionalProperty`지만 현재 OWL에는 `domain/range`가 직접 선언되어 있지 않다. 실제 데이터에서는 `SafetyRequirement`뿐 아니라 `ChecklistItem`에도 쓰이므로, domain을 SR로 고정하면 체크리스트까지 SR로 추론되는 문제가 생길 수 있다.
 - `guide:basedOnSR`는 실제 데이터가 있는 직접 관계다. 반대로 `sr:hasChecklistItem`은 `guide:basedOnSR`의 inverse 관계로 정의되어 있으며, 현재 명시 트리플은 없다.
 - `sr:guidedBy`는 `sr:hasChecklistItem -> guide:isChecklistItemOf`를 통해 가이드까지 이어지는 property chain 관계다. 현재 명시 트리플은 없고, 추론 또는 서비스 로직에서 활용할 수 있는 보조 관계로 보는 것이 맞다.
-- `app:servingRole "broad_secondary_only"`는 core SR ontology의 법적 의미가 아니라 `serving-snapshot-ci_preferred_guide_ci1.ttl`의 검증용 정책 주석이다. 현재 broad SR은 12개이며, 단독 top Guide/CI 생성 금지 규칙은 `serving-validation-shapes.ttl`과 `validate_serving_snapshot.py`에서 검사한다.
+- `app:servingRole "broad_secondary_only"`는 core SR ontology의 법적 의미가 아니라 `serving-snapshot-ci_unrelated_action_filter1.ttl`의 검증용 정책 주석이다. 현재 broad SR은 12개이며, 단독 top Guide/CI 생성 금지 규칙은 `serving-validation-shapes.ttl`과 `validate_serving_snapshot.py`에서 검사한다.
 
 ## 사용 방식
 

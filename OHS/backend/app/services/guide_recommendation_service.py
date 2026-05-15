@@ -337,6 +337,30 @@ def _prioritize_preferred_guide_ci_results(
     return [preferred_row, *results[:best_index], *results[best_index + 1:]]
 
 
+def _filter_unrelated_preferred_guide_ci_results(
+    results: list[dict[str, Any]],
+    preferred_guide_codes: list[str] | None,
+) -> list[dict[str, Any]]:
+    """Suppress generic immediate actions from unrelated Guides.
+
+    If a standard-procedure Guide has already been selected, a top immediate
+    action from a different Guide is often worse than no immediate action unless
+    it came from a direct SHE checklist cue. This only affects action display;
+    status, SHE, SR, Guide, and penalty paths are unchanged.
+    """
+    if not results or not preferred_guide_codes:
+        return results
+
+    preferred = set(_unique(preferred_guide_codes))
+    filtered: list[dict[str, Any]] = []
+    for row in results:
+        source_guide = str(row.get("source_guide") or "")
+        evidence = str(row.get("evidence_summary") or "")
+        if source_guide in preferred or "SHE related checklist cue" in evidence:
+            filtered.append(row)
+    return filtered
+
+
 def _risk_feature_codes(risk_features: list[Any] | None) -> dict[str, set[str]]:
     result = {"accident_type": set(), "hazardous_agent": set(), "work_context": set()}
     for feature in risk_features or []:
@@ -1296,7 +1320,8 @@ def get_immediate_checklist_items(
                 result_ids.add(identifier)
                 if len(results) >= limit:
                     break
-    return _prioritize_preferred_guide_ci_results(results, preferred_guide_codes)
+    prioritized = _prioritize_preferred_guide_ci_results(results, preferred_guide_codes)
+    return _filter_unrelated_preferred_guide_ci_results(prioritized, preferred_guide_codes)
 
 
 def get_standard_guides(

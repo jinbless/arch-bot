@@ -2,11 +2,68 @@
 
 Latest updated: 2026-05-15
 
-Accepted runtime baseline: `ci_preferred_guide_ci1`
+Accepted runtime baseline: `ci_unrelated_action_filter1`
 
-Previous accepted baseline: `ci_candidate_promotion_v1`
+Previous accepted baseline: `ci_preferred_guide_ci1`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## CI Unrelated Action Filter 1
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.*
+pictures-json/reports/synthetic_observations_v10_ci_unrelated_action_filter1_report_report.*
+pictures-json/reports/actual_response_samples_ci_unrelated_action_filter1.*
+pictures-json/reports/ci_boundary_mismatch_triage_ci_unrelated_action_filter1.*
+koshaontology/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl
+koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*
+koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*
+```
+
+Summary:
+
+```text
+previous accepted baseline: ci_preferred_guide_ci1
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 5 -> 5
+NO_TOP: 88 -> 88
+industry_boundary_gap: 0 -> 0
+workprocess_mismatch: 5 -> 5
+broad_sr_overreach: 0 -> 0
+photo_unmatchable_top_count: 0 -> 0
+followup_only_retained_count: 16
+CI no_action: 491 -> 494
+CI context_mismatch: 0 -> 0
+CI broad_sr_only: 0 -> 0
+CI needs_review_used: 0 -> 0
+CI guide_boundary_mismatch: 8 -> 2
+v10 SHE recall: 100.0%, FN 0, FP 0
+v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
+actual response 240 status changed: 0
+negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
+serving ontology validation: PASS, hard violations 0, warnings 0
+primary WorkProcess alignment: 4,715 / 4,715 same Guide
+```
+
+Interpretation: this pass keeps status/penalty/SHE/SR, Guide top selection, NO_TOP, WorkProcess, photo policy, and ontology validation stable. It only changes immediate-action filtering after preferred top-Guide CI ordering: direct SHE checklist cues stay eligible, selected top-Guide CIs stay eligible, and generic CIs from unrelated Guides are suppressed. This reduces `CI guide_boundary_mismatch` from 8 to 2, with a small `CI no_action` increase from 491 to 494. The stricter primary-Guide-only trial was rejected because it reduced mismatch to 0 but regressed CI no_action to 551.
+
+Residual `CI guide_boundary_mismatch` triage:
+
+```text
+total: 2
+top Guide source_ci_ids present: 0
+top Guide source_ci_ids absent: 2
+top_guide_local_ci_gap: 1
+guide_or_source_gap: 1
+remaining top Guides: E-13, C-54
+remaining top action source Guides: H-115, H-117
+```
+
+Interpretation: the remaining 2 cases are source/profile/taxonomy review tails, not broad alias candidates. Do not solve them by allowing unrelated generic CI fallback.
 
 ## CI Preferred Guide CI1
 

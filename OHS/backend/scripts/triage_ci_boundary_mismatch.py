@@ -147,6 +147,20 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _display_path(path: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return str(resolved.relative_to(PROJECT_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _infer_baseline(path: Path) -> str:
+    name = path.stem
+    prefix = "pipeline_quality_v1_v10_"
+    return name[len(prefix):] if name.startswith(prefix) else name
+
+
 def _ci_texts(db: Any, ci_ids: list[str], limit: int = 8) -> list[dict[str, str]]:
     if not ci_ids:
         return []
@@ -243,8 +257,8 @@ def summarize_rows(rows: list[dict[str, Any]], pipeline: dict[str, Any], pipelin
     source_ci_absent = [row for row in rows if row["top_guide_source_ci_count"] == 0]
     return {
         "generated_at": _now(),
-        "baseline": "ci_candidate_promotion_v1",
-        "source_pipeline_report": str(pipeline_report.relative_to(PROJECT_ROOT)),
+        "baseline": _infer_baseline(pipeline_report),
+        "source_pipeline_report": _display_path(pipeline_report),
         "source_pipeline_created_at_utc": pipeline.get("created_at_utc"),
         "total_ci_guide_boundary_mismatch": len(rows),
         "triage_group_counts": dict(triage_counts.most_common()),
