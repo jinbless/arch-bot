@@ -410,7 +410,18 @@ def classify_ci(
         queues.append("ci_no_action")
     if row.get("case_type") == "negative" and action:
         queues.append("ci_context_mismatch")
-    if ci_sr_ids and ci_sr_ids <= broad_sr_ids:
+    action_evidence = str((action or {}).get("description") or "")
+    has_contextual_ci_evidence = any(
+        marker in action_evidence
+        for marker in (
+            "SHE related checklist cue",
+            "CI context term:",
+            "CI support term:",
+            "guide-local contextual CI fallback",
+            "domain-safe top Guide CI-SR fallback",
+        )
+    )
+    if ci_sr_ids and ci_sr_ids <= broad_sr_ids and not has_contextual_ci_evidence:
         queues.append("ci_broad_sr_only")
     if has_needs_review_candidate and not has_serving_candidate and not has_asserted_runtime_sr:
         queues.append("ci_needs_review_used")

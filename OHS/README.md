@@ -85,19 +85,20 @@ backend/app/data/risk_feature_catalog.json
 backend/app/data/guide_domain_profiles.json
 backend/app/data/guide_photo_matchability.v1.json
 backend/app/data/broad_sr_policy.json
-backend/app/data/situation_context_taxonomy.v20.json
-backend/app/data/guide_support_candidates.v20.jsonl
+backend/app/data/situation_context_taxonomy.v21.json
+backend/app/data/guide_support_candidates.v21.jsonl
 ```
 
 PostgreSQL의 Guide 보강 후보 테이블:
 
 ```text
+guide_usage_profiles
 guide_entity_feature_candidates
 guide_sr_link_candidates
 guide_visual_trigger_candidates
 ```
 
-`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
+`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. 현재 `ci_broad_sr_guard4` 기준 이 파일은 `guide_usage_profiles` PostgreSQL 테이블에도 1,038행으로 동기화되어 있으며, 런타임은 JSON artifact를 읽고 PG 동기화본은 감사/ontology export 정합성 확인에 쓴다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
 
 legacy resource/video/category 기반 파일은 product 런타임에서 제거했다.
 
@@ -177,28 +178,28 @@ Synthetic smoke:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_no_forced_hotwork_gate1 --use-declared-industry --penalty-sr-scope she
+.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_ci_broad_sr_guard4 --use-declared-industry --penalty-sr-scope she
 ```
 
 Actual response 240 replay:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_no_forced_hotwork_gate1 --database-note "no_forced_hotwork_gate1 / serving baseline"
+.venv/bin/python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_ci_broad_sr_guard4 --database-note "ci_broad_sr_guard4 / serving baseline"
 ```
 
 Guide recommendation evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_no_forced_hotwork_gate1
+.venv/bin/python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_ci_broad_sr_guard4
 ```
 
 Stage 2~5 integrated pipeline quality evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_no_forced_hotwork_gate1 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.json
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_broad_sr_guard4 --progress-every 250 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance_guard1.json
 ```
 
 Serving ontology snapshot export and validation:
@@ -207,6 +208,13 @@ Serving ontology snapshot export and validation:
 cd /mnt/c/project/arch-bot
 OHS/backend/.venv/bin/python koshaontology/ontology/scripts/export_serving_snapshot.py
 OHS/backend/.venv/bin/python koshaontology/ontology/scripts/validate_serving_snapshot.py
+```
+
+Guide usage profile PG sync:
+
+```bash
+cd /mnt/c/project/arch-bot/OHS/backend
+.venv/bin/python scripts/import_guide_usage_profiles_to_pg.py --report-prefix pg_guide_usage_profiles_sync_ci_broad_sr_guard4
 ```
 
 Stage 3 remaining-gap support artifact:
@@ -374,10 +382,11 @@ frame extraction on synthetic v1~v10:
 
 ## Current Open Work
 
-1. `no_forced_hotwork_gate1` 기준 ontology hard violation/warning은 0건이다. 다음 작업은 consistency repair가 아니라 품질 개선이다.
-2. 현장 사진에 맞는 KOSHA Guide가 없을 수 있다는 전제를 유지한다. `NO_TOP 90`은 전부 나쁜 것이 아니며, broad/hot-work Guide로 빈칸을 메우지 않는다.
-3. 다음 구조적 보강 대상은 `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 7`, `NO_TOP 90`이다.
-4. UI/UX와 개발서버 확인은 알고리즘 artifact, ontology TTL, evaluation baseline, reports manifest를 건드리지 않는 범위에서 진행한다.
+1. `ci_broad_sr_guard4` 기준 ontology hard violation/warning은 0건이다. 다음 작업은 consistency repair가 아니라 품질 개선이다.
+2. 현장 사진에 맞는 KOSHA Guide가 없을 수 있다는 전제를 유지한다. `NO_TOP 88`은 전부 나쁜 것이 아니며, broad/hot-work Guide로 빈칸을 메우지 않는다.
+3. NO_TOP actionability는 `accepted empty top 31`, `source/taxonomy review 57`, `runtime repair candidate 0`으로 분리됐다. 즉시 보정 대상은 소진됐다.
+4. 다음 구조적 보강 대상은 `CI no_action 492`, `CI guide_boundary_mismatch 22`이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다.
+5. UI/UX와 개발서버 확인은 알고리즘 artifact, ontology TTL, evaluation baseline, reports manifest를 건드리지 않는 범위에서 진행한다.
 
 ## Notes
 
@@ -391,11 +400,11 @@ Runtime reads local OHS serving artifacts instead of koshaontology working files
 OHS/backend/app/data/guide_domain_profiles.json
 OHS/backend/app/data/broad_sr_policy.json
 OHS/backend/app/data/guide_photo_matchability.v1.json
-OHS/backend/app/data/situation_context_taxonomy.v20.json
-OHS/backend/app/data/guide_support_candidates.v20.jsonl
+OHS/backend/app/data/situation_context_taxonomy.v21.json
+OHS/backend/app/data/guide_support_candidates.v21.jsonl
 ```
 
-The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
+The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
 
 Serving candidate gates:
 
@@ -408,25 +417,26 @@ photo_unmatchable Guides cannot be photo-based top standard procedures
 scene-specific Guide families require their own required context terms; missing Guide coverage may remain NO_TOP
 ```
 
-The current accepted OHS runtime baseline is `no_forced_hotwork_gate1`. It keeps `context_safe_gate1` status/penalty/SHE/SR behavior and only tightens Stage 5 standard-procedure selection. It adds context-required treatment for `air_jacket_gas_manifold_welding_support` and `small_tank_drum_hot_work`, so generic `WELDING` evidence alone cannot substitute air-jacket, tank, drum, or hot-work Guides into chemical/lab scenes. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
+The current accepted OHS runtime baseline is `ci_broad_sr_guard4`. It keeps `ci_wp_relevance_guard1` status/penalty/SHE/SR and Guide/WorkProcess behavior, then changes only immediate-action CI ranking/evaluation. Pure broad-SR-only ChecklistItems cannot become top actions; broad-mapped ChecklistItems are retained only when Guide-local contextual/support evidence is present. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
 
 Latest validation:
 
 ```text
-baseline: no_forced_hotwork_gate1
+baseline: ci_broad_sr_guard4
 synthetic Stage 2~5 v1~v10: 2,360 samples
-Guide mismatch: 8
-Stage 2~5 NO_TOP: 90
-industry_boundary_gap: 1
-workprocess_mismatch: 7
+Guide mismatch: 5
+Stage 2~5 NO_TOP: 88
+NO_TOP actionability accepted empty top 31 / source-taxonomy review 57 / runtime repair candidates 0
+industry_boundary_gap: 0
+workprocess_mismatch: 5
 broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
-followup_only_retained_count: 15
-CI no_action: 482
-CI context_mismatch: 12
-CI broad_sr_only: 14
+followup_only_retained_count: 16
+CI no_action: 492
+CI context_mismatch: 0
+CI broad_sr_only: 0
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 26
+CI guide_boundary_mismatch: 22
 v10 synthetic SHE recall 100.0%, FN 0, FP 0
 v1~v10 synthetic SHE smoke recall 100.0%, FN 0, FP 67
 actual response 240 status changed 0
@@ -437,17 +447,23 @@ serving ontology validation PASS
 serving ontology hard violations 0
 serving ontology warnings 0
 accepted photo-actionable role overrides 10
+PG guide_usage_profiles sync PASS
+PG guide_usage_profiles rows 1,038
+PG primary WorkProcess check missing 0 / cross-guide 0
 ```
 
-Latest tracked summaries:
+Latest tracked summaries and local report references:
 
 ```text
 docs/status/evaluation-baseline.md
 pictures-json/reports-manifest.json
-koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
-koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.*
+pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.*
+pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
+koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
+koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 ```
 
-Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `no_forced_hotwork_gate1` Stage 2~5, v10 smoke, and actual 240 replay reports.
+Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `ci_broad_sr_guard4` Stage 2~5, NO_TOP actionability, v10 smoke, and actual 240 replay reports.
 
 Rejected approaches remain the same: do not broaden status-level hazard/risk text aliases or generic `UNSAFE_TERMS` to chase NO_TOP. Use SituationFrame child contexts, Guide usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess/CI relevance instead.

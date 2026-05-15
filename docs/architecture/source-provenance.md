@@ -43,7 +43,7 @@ koshaontology/ontology/source-provenance.ttl
 koshaontology/ontology/source-catalog.ttl
 koshaontology/ontology/source-shapes.ttl
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
+koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
 ```
 
@@ -76,34 +76,35 @@ parser/script/human  -> prov:Agent
 
 ## Serving Snapshot
 
-The accepted runtime baseline is `no_forced_hotwork_gate1`. Runtime still reads PostgreSQL and OHS JSON artifacts, but the following files are exported for machine validation:
+The accepted runtime baseline is `ci_broad_sr_guard4`. Runtime still reads PostgreSQL and OHS JSON artifacts, but the following files are exported for machine validation:
 
 ```text
 OHS/backend/app/data/guide_domain_profiles.json
 OHS/backend/app/data/guide_photo_matchability.v1.json
 OHS/backend/app/data/broad_sr_policy.json
-OHS/backend/app/data/situation_context_taxonomy.v20.json
-OHS/backend/app/data/guide_support_candidates.v20.jsonl
-pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.json
+OHS/backend/app/data/situation_context_taxonomy.v21.json
+OHS/backend/app/data/guide_support_candidates.v21.jsonl
+pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.json
+pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json
 ```
 
 The export script writes:
 
 ```text
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
+koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
 ```
 
 The validator writes:
 
 ```text
-koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.json
-koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.md
-koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.csv
-koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.json
-koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.md
-koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.csv
+koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.json
+koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.md
+koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.csv
+koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.json
+koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.md
+koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.csv
 ```
 
 Current validation result:
@@ -116,9 +117,11 @@ evaluation cases: 2,360
 hard violations: 0
 warnings: 0
 accepted photo-actionable role overrides: 10
+guide_usage_profiles PG sync: PASS, 1,038 rows
+PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-The core Guide A-Box was regenerated from PostgreSQL on 2026-05-14, bringing `kosha-instances.ttl` to 1,038 Guides, 54,631 ChecklistItems, and 9,316 WorkProcesses. The previous stale base-TTL WorkProcess warnings dropped from 1,220 to 0. The 10 role/matchability conflicts are now accepted only when the profile carries explicit field-action classification evidence and observable cues. The previous `G-76-2011` warning queue is resolved. Current hard violations and warnings are both 0; remaining work is quality improvement, not ontology consistency repair.
+The core Guide A-Box was regenerated from PostgreSQL on 2026-05-14, bringing `kosha-instances.ttl` to 1,038 Guides, 54,631 ChecklistItems, and 9,316 WorkProcesses. On 2026-05-15, `guide_domain_profiles.json` was also synchronized into PostgreSQL `guide_usage_profiles` for the `ci_broad_sr_guard4` baseline: 1,038 rows, missing Guide 0, missing primary WorkProcess 0, cross-guide primary WorkProcess 0. The previous stale base-TTL WorkProcess warnings dropped from 1,220 to 0. The 10 role/matchability conflicts are now accepted only when the profile carries explicit field-action classification evidence and observable cues. The previous `G-76-2011` warning queue is resolved. Current hard violations and warnings are both 0; remaining work is quality improvement, not ontology consistency repair.
 
 ## Example: C73
 
@@ -150,4 +153,4 @@ Start with these checks:
 
 The OHS recommendation score must not use provenance directly. Provenance is for audit, debug, rebuild, and explanation of data lineage.
 
-The serving snapshot follows the same rule. OHS does not query `serving-snapshot-no_forced_hotwork_gate1.ttl` in the request path; the snapshot is regenerated from serving artifacts and reports whenever a new accepted baseline is created.
+The serving snapshot follows the same rule. OHS does not query `serving-snapshot-ci_broad_sr_guard4.ttl` in the request path; the snapshot is regenerated from serving artifacts and reports whenever a new accepted baseline is created.

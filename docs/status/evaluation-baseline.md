@@ -1,12 +1,106 @@
 # Evaluation Baseline
 
-Latest updated: 2026-05-14
+Latest updated: 2026-05-15
 
-Accepted runtime baseline: `no_forced_hotwork_gate1`
+Accepted runtime baseline: `ci_broad_sr_guard4`
 
-Previous accepted baseline: `context_safe_gate1`
+Previous accepted baseline: `ci_wp_relevance_guard1`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## CI Broad SR Guard v4
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.*
+pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.*
+pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.*
+pictures-json/reports/synthetic_observations_v10_ci_broad_sr_guard4_report.*
+pictures-json/reports/actual_response_samples_ci_broad_sr_guard4.*
+pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
+koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
+koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
+```
+
+Summary:
+
+```text
+previous accepted baseline: ci_wp_relevance_guard1
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 5 -> 5
+NO_TOP: 88 -> 88
+industry_boundary_gap: 0 -> 0
+workprocess_mismatch: 5 -> 5
+broad_sr_overreach: 0 -> 0
+photo_unmatchable_top_count: 0 -> 0
+followup_only_retained_count: 16
+CI no_action: 497 -> 492
+CI context_mismatch: 0 -> 0
+CI broad_sr_only: 13 -> 0
+CI needs_review_used: 0 -> 0
+CI guide_boundary_mismatch: 23 -> 22
+v10 SHE recall: 100.0%, FN 0, FP 0
+v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
+actual response 240 status changed: 0
+negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
+serving ontology validation: PASS, hard violations 0, warnings 0
+accepted photo-actionable role overrides: 10
+PG guide_usage_profiles sync: PASS, 1,038 rows
+PG primary WorkProcess check: missing 0 / cross-guide 0
+```
+
+Policy change:
+
+```text
+active artifacts:
+  OHS/backend/app/data/situation_context_taxonomy.v21.json
+  OHS/backend/app/data/guide_support_candidates.v21.jsonl
+runtime gate:
+  immediate-action CI is suppressed for explicit normal/completed/stored/education scenes
+  broad SRs and needs_review candidates remain blocked from serving
+profile boundary tightened:
+  G-91 patient-transfer hoist is exclusive and no longer matches general lifting/crane scenes
+  C-C-85 inert-gas purging excludes public indoor CO2 ventilation scenes
+  G-44 hand-tool and M-51 noise-control require their own usage terms
+status/penalty/SHE/SR/legal asserted mapping/public API impact: none
+```
+
+NO_TOP actionability:
+
+```text
+total NO_TOP: 88
+accepted empty top: 31
+source/taxonomy review: 57
+runtime repair candidate: 0
+manual review: 0
+```
+
+Ontology validation result:
+
+```text
+snapshot: koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
+validation report: koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
+GuideUsageProfile: 1,038
+photo_actionable / conditional / unmatchable: 631 / 39 / 368
+broad SRs: 12
+evaluation cases: 2,360
+hard violations: 0
+warnings: 0
+primary WorkProcess alignment: 4,715 / 4,715 same Guide
+PG guide_usage_profiles sync: PASS, 1,038 rows
+PG photo_actionable / conditional / unmatchable: 631 / 39 / 368
+PG primary WorkProcess check: missing 0 / cross-guide 0
+```
+
+Interpretation: this pass accepts that some photos still have no scene-relevant KOSHA top Guide. NO_TOP stays at 88 and runtime repair candidates remain 0. Guide mismatch, industry boundary, WorkProcess mismatch, and ontology validation stay stable; CI broad-only, no_action, and boundary queues improve while v10 smoke and actual 240 status behavior remain stable. The next quality target is remaining CI no_action, CI guide-boundary mismatch, and generic CI overreach.
+
+## NO TOP Serving Bridge v4
+
+Historical accepted baseline before `ci_wp_relevance_guard1`.
 
 ## No Forced Hotwork Gate v1
 
@@ -240,6 +334,8 @@ Source report:
 
 ```text
 pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.*
+pictures-json/reports/stage2_5_no_top_root_cause_no_forced_hotwork_gate1.*
+pictures-json/reports/stage2_5_no_top_actionability_no_forced_hotwork_gate1.*
 ```
 
 Summary:
@@ -269,6 +365,29 @@ CI needs_review_used: 0
 CI guide_boundary_mismatch: 26
 ```
 
+NO_TOP actionability audit:
+
+```text
+total NO_TOP reviewed: 90
+accepted empty top: 29
+source/taxonomy review: 54
+runtime repair candidates: 7
+manual review required: 0
+
+actionability groups:
+  source_or_taxonomy_review 54
+  accepted_empty_top 29
+  runtime_repair_candidate 7
+
+runtime repair candidate types:
+  situation_frame_support_repair_candidate 5
+  guide_usage_profile_repair_candidate 2
+runtime repair candidate case ids:
+  SYN-V10-0023, SYN-V2-0073, SYN-V3-0061, SYN-V5-0001, SYN-V9-0128, SYN-V9-0181, SYN-V9-0216
+```
+
+Interpretation: `NO_TOP` is not automatically a failure. For 29 cases, the safer product behavior is to leave `standard_procedures` empty because the scene is safe-controlled, outside the KOSHA photo-top scope, follow-up/document-only, or known wrong-support territory. For 54 cases, the next step is source/taxonomy review rather than a scoring tweak. Only 7 cases are immediate runtime repair candidates, and those must be handled through Guide usage profile or SituationFrame support evidence.
+
 Synthetic SHE smoke by version:
 
 | Version | Samples | positive / ambiguous / negative | SHE recall | SHE FN | SHE FP | negative specificity | confirmed-risk recall | ambiguous over-promoted |
@@ -294,19 +413,20 @@ Source artifacts:
 OHS/backend/app/data/guide_domain_profiles.json
 OHS/backend/app/data/guide_photo_matchability.v1.json
 OHS/backend/app/data/broad_sr_policy.json
-OHS/backend/app/data/situation_context_taxonomy.v20.json
-OHS/backend/app/data/guide_support_candidates.v20.jsonl
-pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.json
+OHS/backend/app/data/situation_context_taxonomy.v21.json
+OHS/backend/app/data/guide_support_candidates.v21.jsonl
+pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.json
+pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json
 ```
 
 Generated ontology files:
 
 ```text
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
+koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
-koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
-koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
+koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 ```
 
 Validation summary:
@@ -341,176 +461,7 @@ EquipmentSpec: 8,103
 DocumentRequirement: 3,435
 serving profile primary WorkProcess links: 4,715 / 4,715 aligned
 primary_workprocess_not_in_base_ttl: 1,220 -> 0
-validate_ontology.py: PASS
-```
-
-Interpretation: serving data and validation snapshot are aligned. Current validation has no hard violations or warnings. Remaining work is quality improvement: improve CI/WorkProcess relevance and handle NO_TOP as corpus/taxonomy/review gaps instead of forcing broad Guide substitution.
-
-Comparison against `context_safe_gate1`:
-
-```text
-SHE/SR status metrics: unchanged
-Guide mismatch: 15 -> 8
-Stage 2~5 NO_TOP: 85 -> 90
-industry_boundary_gap: 1 -> 1
-workprocess_mismatch: 14 -> 7
-broad_sr_overreach: 0 -> 0
-CI no_action: 482 -> 482
-CI context_mismatch: 12 -> 12
-CI broad_sr_only: 14 -> 14
-CI guide_boundary_mismatch: 26 -> 26
-```
-
-## Safe Scene Phrase Gate2
-
-`safe_scene_phrase_gate2` keeps the `strict_profile_gate3` status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure generation. It suppresses photo-top standard procedures for narrow, explicit safe-scene phrases such as `3점 지지`, `보차가 명확히 분리`, `검전기 확인`, `LOTO 태그 부착`, `화재·아크 방지 조치가 완비`, `강제 환기 가동`, `폭발 분위기 연속 감시`, `모두 올바르게 착용`, and `손 감지 센서 정상 작동`. Explicit absence/planning phrases such as `아직 진입하지`, `진입하지 않았다`, `주변에 사람이 없`, `작업자가 없다`, and `인근 화기 작업 없음` are handled as safe-scene signals even though they contain negative wording.
-
-The first phrase-gate trial reduced D-safe-scene overpromotion from 14 to 1. Gate2 separates explicit absence/planning phrases from generic negator handling and removes the remaining D row without changing SHE/SR/status/penalty behavior.
-
-Source reports:
-
-```text
-pictures-json/reports/pipeline_quality_v1_v10_safe_scene_phrase_gate2.*
-pictures-json/reports/industry_boundary_gap_triage_safe_scene_phrase_gate2.*
-pictures-json/reports/synthetic_observations_v10_safe_scene_phrase_gate2_report.*
-pictures-json/reports/actual_response_samples_safe_scene_phrase_gate2.*
-```
-
-Validation:
-
-```text
-v10 SHE recall: 100.0%
-v10 SHE false negative: 0
-v10 SHE false positive: 0
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-ambiguous_over_promoted: 5
-asserted mapping update: 0
-runtime SHE approved update: 0
-legal SR evidence change: 0
-public API shape change: none
-```
-
-## Strict Profile Gate3
-
-`strict_profile_gate3` keeps the `industry_boundary_safe_suppress3` status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure ranking. Broad risk-axis/profile terms such as `화학물질`, `화재`, `폭발`, `고소 작업`, `낙하물`, `피부`, `흡입`, `용제`, and generic domain tags such as `construction`, `chemical_process`, `healthcare` are no longer accepted as strong Guide-specific usage evidence. Strict domain-specific/exclusive Guides require a strong profile hit or trigger-backed SituationFrame support before they can appear as top standard procedures. It is preserved as the previous accepted baseline.
-
-`strict_profile_gate1` reduced industry-boundary gaps but left `B_wrong_guide_boundary` at 7. `strict_profile_gate2` left it at 1. The accepted `strict_profile_gate3` removes this queue entirely while keeping CI no-action under the current failure gate.
-
-Source reports:
-
-```text
-pictures-json/reports/pipeline_quality_v1_v10_strict_profile_gate3.*
-pictures-json/reports/industry_boundary_gap_triage_strict_profile_gate3.*
-pictures-json/reports/synthetic_observations_v10_strict_profile_gate3_report.*
-pictures-json/reports/actual_response_samples_strict_profile_gate3.*
-```
-
-Validation:
-
-```text
-v10 SHE recall: 100.0%
-v10 SHE false negative: 0
-v10 SHE false positive: 0
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-ambiguous_over_promoted: 5
-asserted mapping update: 0
-runtime SHE approved update: 0
-legal SR evidence change: 0
-public API shape change: none
-```
-
-## Industry Boundary Safe Suppress3
-
-`industry_boundary_safe_suppress3` keeps the `ci_wp_relevance8d_profile_tight2_ci_safe_gate` status/penalty/SHE/SR boundary and changes only Stage 5 standard-procedure generation. It suppresses photo-top standard procedures only for explicit non-negated safe/normal/completed/no-entry/office/storage-safe phrases such as `정상 장면`, `작업 완료`, `아직 진입하지 않음`, `접혀 있는 상태로 보관`, `확인서 작성`, `컴퓨터 작업`, and `안전한 사무 환경`.
-
-The first two broader trials were rejected: `safe_suppress1` reduced industry-boundary gaps but raised NO_TOP from 26 to 91 by blocking too many positive safe-control/management scenes; `safe_suppress2` still over-blocked via broad `status_safe` and `보관 중` logic. The accepted `safe_suppress3` keeps the useful safe-scene suppression while limiting NO_TOP increase to 4 cases.
-
-Source reports:
-
-```text
-pictures-json/reports/pipeline_quality_v1_v10_industry_boundary_safe_suppress3.*
-pictures-json/reports/industry_boundary_gap_triage_safe_suppress3.*
-pictures-json/reports/synthetic_observations_v10_industry_boundary_safe_suppress3_report.*
-pictures-json/reports/actual_response_samples_industry_boundary_safe_suppress3.*
-```
-
-Validation:
-
-```text
-v10 SHE recall: 100.0%
-v10 SHE false negative: 0
-v10 SHE false positive: 0
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-ambiguous_over_promoted: 5
-asserted mapping update: 0
-runtime SHE approved update: 0
-legal SR evidence change: 0
-public API shape change: none
-```
-
-## CI/WP Relevance8d Profile Tight2 CI Safe Gate
-
-`ci_wp_relevance8d_profile_tight2_ci_safe_gate` keeps the `ci_wp_relevance7_profile_tight1` status/penalty/SHE/SR boundary and changes only Stage 5 Guide/WorkProcess/CI relevance. It tightens selected feature-only overpromotion Guides, reorders primary WorkProcess IDs for concrete photo-actionable Guides, and allows same-top-Guide local CI fallback only when observable violation context is present and non-negated safe-control wording is absent. The accepted guard specifically blocks fallback on safe/normal contexts such as `완비`, `정상`, `보관 중`, `준비 중`, and `조립 전`.
-
-Source reports:
-
-```text
-pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.*
-pictures-json/reports/synthetic_observations_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate_report.*
-pictures-json/reports/actual_response_samples_ci_wp_relevance8d_profile_tight2_ci_safe_gate.*
-```
-
-Validation:
-
-```text
-v10 SHE recall: 100.0%
-v10 SHE false negative: 0
-v10 SHE false positive: 0
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-ambiguous_over_promoted: 5
-asserted mapping update: 0
-runtime SHE approved update: 0
-legal SR evidence change: 0
-public API shape change: none
-```
-
-## CI/WP Relevance7 Profile Tight1
-
-`ci_wp_relevance7_profile_tight1` keeps the v20 status/penalty/SHE/SR boundary and changes only Stage 5 recommendation relevance. It tightens three over-broad photo-top Guide usage profiles: `H-192-2021` (제련작업자 건강관리), `O-1-2011` (설비보수용 용접재료 선정), and `G-28-2016` (요양시설 안전). These Guides now require their own observable/domain terms instead of being promoted by broad heat, welding, or burn features. The NO_TOP increase is intentional: the added NO_TOP cases are safe-controlled positives, out-of-scope public/customer/animal safety cases, corpus gaps without an exact photo-actionable Guide, or previously wrong support-candidate links.
-
-Source reports:
-
-```text
-pictures-json/reports/pipeline_quality_v1_v10_ci_wp_relevance7_profile_tight1.*
-pictures-json/reports/stage2_5_no_top_root_cause_ci_wp_relevance7_profile_tight1.*
-pictures-json/reports/stage2_5_no_top_actionability_ci_wp_relevance7_profile_tight1.*
-pictures-json/reports/synthetic_observations_v10_ci_wp_relevance7_profile_tight1_report.*
-pictures-json/reports/actual_response_samples_ci_wp_relevance7_profile_tight1.*
-```
-
-Validation:
-
-```text
-v10 SHE recall: 100.0%
-v10 SHE false negative: 0
-v10 SHE false positive: 0
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
-ambiguous_over_promoted: 5
-NO_TOP actionability: runtime repair candidates 0 / outside scope 10 / safe-controlled 7 / corpus gap 3 / reject stale support 2 / follow-up only 2
-asserted mapping update: 0
-runtime SHE approved update: 0
-legal SR evidence change: 0
-public API shape change: none
+guide_usage_profiles PG sync: 1,038 / 1,038, missing Guide 0, missing primary WorkProcess 0, cross-guide primary WorkProcess 0
 ```
 
 ## Stage3 Remaining Gap Support v20 Actionable

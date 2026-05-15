@@ -121,6 +121,33 @@ class PgWpSrMapping(Base):
     sr_id = Column(String(30), primary_key=True)
 
 
+class PgGuideUsageProfile(Base):
+    __tablename__ = "guide_usage_profiles"
+    __table_args__ = {"extend_existing": True}
+
+    guide_code = Column(String(20), primary_key=True)
+    baseline_id = Column(String(80), nullable=False, default="unknown")
+    profile_level = Column(String(20), nullable=False, default="general")
+    domain_family = Column(Text)
+    usage_summary = Column(Text, nullable=False)
+    intended_workplaces = Column(JSONB, nullable=False, default=list)
+    intended_tasks = Column(JSONB, nullable=False, default=list)
+    observable_required_cues = Column(JSONB, nullable=False, default=list)
+    negative_boundaries = Column(JSONB, nullable=False, default=list)
+    procedure_role = Column(String(40), nullable=False, default="field_control")
+    photo_matchability = Column(String(40), nullable=False, default="photo_actionable")
+    top_procedure_policy = Column(String(40), nullable=False, default="allow_photo_top")
+    followup_policy = Column(String(40), nullable=False, default="none")
+    primary_work_process_ids = Column(JSONB, nullable=False, default=list)
+    classification_reason = Column(Text)
+    evidence = Column(Text, nullable=False)
+    source_fields = Column(JSONB, nullable=False, default=list)
+    method = Column(String(40), nullable=False)
+    review_status = Column(String(20), nullable=False, default="candidate")
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
 class PgGuideEntityFeatureCandidate(Base):
     __tablename__ = "guide_entity_feature_candidates"
     __table_args__ = {"extend_existing": True}

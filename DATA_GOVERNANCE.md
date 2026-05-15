@@ -1,6 +1,6 @@
 # Data Governance
 
-Latest updated: 2026-05-14
+Latest updated: 2026-05-15
 
 ## Purpose
 
@@ -59,8 +59,8 @@ Generated artifacts may be tracked only when they are accepted baselines used by
 Examples:
 
 - `OHS/backend/app/data/guide_domain_profiles.json` is a serving artifact and is tracked.
-- `koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl` is a validation-only snapshot and is tracked because it is the accepted baseline audit artifact.
-- `koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*` is tracked because it records machine-found anomaly queues for the accepted baseline.
+- `koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl` is a validation-only snapshot and is tracked because it is the accepted baseline audit artifact.
+- `koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*` is tracked because it records machine-found anomaly queues for the accepted baseline.
 - `koshaontology/pipe-B/data/manual-guide-usage-profiles.json` is a materialized pipeline baseline and is tracked.
 - `koshaontology/pipe-B/data/vlm-parse-errors.jsonl` remains tracked because it was part of the pushed Pipe-B source baseline.
 - ad hoc files such as `tmp-*.json`, VLM parse logs, raw model logs, browser cache, and local scratch files are not tracked.
@@ -77,26 +77,28 @@ docs/status/evaluation-baseline.md
 Current accepted Guide recommendation baseline:
 
 ```text
-corpus_gap_guard1
+ci_broad_sr_guard4
 ```
 
 Referenced local/external report bodies:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.*
-pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.*
-pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.*
-pictures-json/reports/actual_response_samples_corpus_gap_guard1.*
-pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.*
+pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.*
+pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.*
+pictures-json/reports/synthetic_observations_v10_ci_broad_sr_guard4_report.*
+pictures-json/reports/actual_response_samples_ci_broad_sr_guard4.*
+pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
 ```
 
 Validation-only ontology snapshot for the current baseline:
 
 ```text
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-corpus_gap_guard1.ttl
+koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
-koshaontology/ontology/serving-validation-report-corpus_gap_guard1.*
+koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
+koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 ```
 
 ## Secrets And Local State

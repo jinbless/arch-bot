@@ -118,11 +118,14 @@ STRICT_PROFILE_USAGE_GATE_FAMILIES = {
     "ergonomic_msd_prevention_program",
     "excavator_operation_quick_coupler_rops_lifting_attachment",
     "gas_vapor_fire_explosion_design_vent_containment_suppression",
+    "hand_tool_use_safety",
     "interior_ceiling_wall_board_stud_scaffold_temporary_electric",
     "ntr_tunnel_pipe_jacking_hydraulic_jack_grouting_inner_excavation",
     "older_worker_safety_training",
+    "patient_transfer_hoist_sling",
     "small_workplace_fire_explosion_prevention_extinguisher_detector_esv_flame_arrester",
     "warehouse_storage_rack_material_handling",
+    "workplace_noise_control_engineering_program",
 }
 REFERENCE_PROCEDURE_ROLES = {
     "measurement_analysis",
@@ -162,6 +165,23 @@ CONTEXTUAL_CI_SAFE_NEGATORS = (
     "않",
 )
 CONTEXTUAL_CI_GENERIC_OBSERVABLES = {"가동 중", "절단", "잠금장치", "잠금 장치"}
+IMMEDIATE_ACTION_SAFE_BLOCK_TERMS = (
+    "정상 콘센트",
+    "건조한 실내 환경",
+    "2인 1조",
+    "광전 센서 기능",
+    "양손 인터록",
+    "칼날 고정 상태를 점검",
+    "내절단장갑",
+    "차광 커튼이 완전히 설치",
+    "보조자가 사다리를 잡아",
+    "적정 높이",
+    "붐이 접혀",
+    "차량 점검 중",
+    "실내 교육 환경",
+    "안전 교육에서",
+    "강사가 설명",
+)
 STANDARD_GUIDE_SAFE_BLOCK_TERMS = (
     "올바른 장면",
     "정상 장면",
@@ -381,6 +401,43 @@ def _standard_procedure_safe_context_blocked(
         all(_has_non_negated_terms(text, tuple(group), negators=()) for group in required_groups)
         for required_groups in STANDARD_GUIDE_CORPUS_GAP_BLOCK_GROUPS
     )
+
+
+def _immediate_action_safe_context_blocked(
+    situation_frame: dict | None,
+    visual_cues: list[str] | None,
+    context_text: str | None,
+) -> bool:
+    text = _context_blob(visual_cues, context_text)
+    if _standard_procedure_safe_context_blocked(situation_frame, visual_cues, context_text):
+        return True
+    return _has_non_negated_terms(text, IMMEDIATE_ACTION_SAFE_BLOCK_TERMS)
+
+
+def _standard_procedure_safe_block_support_override(
+    support_matches: list[dict[str, Any]],
+    broad_sr_ids: set[str],
+) -> bool:
+    """Allow a curated support candidate to bridge an otherwise safe scene.
+
+    This is intentionally narrower than the normal SituationFrame support path:
+    it is for active high-risk work where the photo already shows some controls
+    in place, but a standard procedure is still useful as a control checklist.
+    It must not reopen broad SR or generic parent-context recommendations.
+    """
+    for support in support_matches:
+        labels = {str(label) for label in (support.get("candidate_labels") or [])}
+        if "safe_control_standard_procedure_bridge" not in labels:
+            continue
+        source_sr_ids = {str(sr_id) for sr_id in (support.get("source_sr_ids") or [])}
+        if not (source_sr_ids - broad_sr_ids):
+            continue
+        if not support.get("trigger_hits"):
+            continue
+        if float(support.get("support_score") or 0) < _support_signal_score_threshold(support):
+            continue
+        return True
+    return False
 
 
 def _matches_visual_trigger(candidate: PgGuideVisualTriggerCandidate, context_blob: str) -> bool:
@@ -624,6 +681,11 @@ def _trigger_backed_support_profile_override(
     )
 
 
+def _support_domain_score_adjustment_override(support_signal: dict[str, Any] | None) -> bool:
+    labels = {str(label) for label in ((support_signal or {}).get("candidate_labels") or [])}
+    return "safe_control_standard_procedure_bridge" in labels
+
+
 def _strict_profile_usage_required(profile: dict | None) -> bool:
     if not profile:
         return False
@@ -777,6 +839,8 @@ def get_immediate_checklist_items(
     improve recall but keep their confidence/evidence separate.
     """
     if not sr_ids and not she_matches and not risk_features:
+        return []
+    if _immediate_action_safe_context_blocked(situation_frame, visual_cues, context_text):
         return []
 
     scores: dict[str, float] = defaultdict(float)
@@ -944,6 +1008,11 @@ def get_immediate_checklist_items(
         else {}
     )
     profile_bits = _guide_candidate_profile_bits(db, source_guides)
+    ranked_ci_ids = [identifier for _, identifier, _ in ranked]
+    db_sr_by_ci: dict[str, set[str]] = defaultdict(set)
+    if ranked_ci_ids:
+        for mapping in db.query(PgCiSrMapping).filter(PgCiSrMapping.ci_id.in_(ranked_ci_ids)).all():
+            db_sr_by_ci[mapping.ci_id].add(mapping.sr_id)
 
     results = []
     result_ids: set[str] = set()
@@ -964,13 +1033,17 @@ def get_immediate_checklist_items(
             continue
         if domain_decision.exclude or (domain_decision.alignment == "domain_mismatch" and not has_she_cue):
             continue
+        ci_source_srs = sr_by_ci.get(identifier, set())
+        ci_catalog_srs = db_sr_by_ci.get(identifier, set())
+        if ci_catalog_srs and ci_catalog_srs <= broad_sr_ids:
+            continue
         results.append({
             "identifier": ci.identifier,
             "text": ci.text,
             "binding_force": ci.binding_force,
             "source_guide": ci.source_guide,
             "source_section": ci.source_section,
-            "source_sr_ids": sorted(sr_by_ci.get(identifier, set())),
+            "source_sr_ids": sorted(ci_source_srs),
             "relevance_score": round(min(0.99, score / 2.0), 4),
             "evidence_summary": "; ".join(_unique(evidence_by_ci.get(identifier, []))[:3]),
         })
@@ -1112,14 +1185,14 @@ def get_immediate_checklist_items(
                 if ci.identifier in result_ids:
                     continue
                 mapped_srs = local_ci_srs.get(ci.identifier, set())
-                if mapped_srs and mapped_srs <= broad_sr_ids:
-                    continue
                 manual_profile = guide_profiles.get(ci.source_guide)
                 support_signal = guide_support.get(ci.source_guide)
                 support_allowed = guide_support_allowed.get(ci.source_guide or "", False)
                 contextual_allowed = guide_contextual_allowed.get(ci.source_guide or "", False)
                 context_bonus, context_evidence = _ci_context_bonus(ci, manual_profile, visual_cues, context_text)
                 support_bonus, support_evidence = _ci_support_bonus(ci, support_signal, manual_profile)
+                if mapped_srs and mapped_srs <= broad_sr_ids and context_bonus <= 0 and support_bonus <= 0:
+                    continue
                 section_bonus = 0.10 if _section_matches(
                     ci.source_section,
                     preferred_sections.get(ci.source_guide or "", []),
@@ -1221,12 +1294,21 @@ def get_standard_guides(
         for guide_code in (support.get("guide_codes") or [])
     }
     support_only_mode = bool(support_matches) and not sr_ids and not she_source_guides
+    safe_block_support_override = False
     if not sr_ids and not she_source_guides and not support_matches:
         return []
     if _standard_procedure_safe_context_blocked(situation_frame, visual_cues, context_text):
-        return []
+        safe_block_support_override = _standard_procedure_safe_block_support_override(
+            support_matches,
+            broad_sr_ids,
+        )
+        if not safe_block_support_override:
+            return []
+        support_only_mode = True
 
     for guide_code in she_source_guides:
+        if support_only_mode and guide_code not in support_guide_codes:
+            continue
         guide_scores[guide_code] += 1.0
         guide_reasons[guide_code].append("SHE source guide")
         guide_specific_signals.add(guide_code)
@@ -1271,6 +1353,8 @@ def get_standard_guides(
             .all()
         )
         for wp, sr_id in rows:
+            if support_only_mode and wp.source_guide not in support_guide_codes:
+                continue
             if _is_broad_secondary(sr_id, broad_sr_ids, direct_sr_set):
                 pending_broad_scores[wp.source_guide] += 0.35 * broad_multiplier
                 pending_broad_reasons[wp.source_guide].append("broad asserted WP-SR")
@@ -1294,6 +1378,8 @@ def get_standard_guides(
                 .all()
             )
             for candidate in candidate_rows:
+                if support_only_mode and candidate.guide_code not in support_guide_codes:
+                    continue
                 weight = 0.34 if candidate.entity_type == "WP" else 0.18
                 if _is_broad_secondary(candidate.sr_id, broad_sr_ids, direct_sr_set):
                     pending_broad_scores[candidate.guide_code] += (
@@ -1401,6 +1487,8 @@ def get_standard_guides(
         ):
             guide_code = row.get("guide_code")
             if not guide_code:
+                continue
+            if support_only_mode and guide_code not in support_guide_codes:
                 continue
             guide_scores[guide_code] += float(row.get("relevance_score", 0) or 0) * 0.4
             guide_reasons[guide_code].append("CI-SR fallback")
@@ -1539,9 +1627,15 @@ def get_standard_guides(
             else industry_alignment
             )
         )
+        domain_score_adjustment = (
+            0.0
+            if domain_overridden_by_support
+            and _support_domain_score_adjustment_override(support_signal_by_guide.get(guide_code))
+            else domain_decision.score_adjustment
+        )
         final_score = min(
             0.99,
-            max(0.0, 0.45 + raw_score * 0.12 + industry_adjustment + domain_decision.score_adjustment),
+            max(0.0, 0.45 + raw_score * 0.12 + industry_adjustment + domain_score_adjustment),
         )
         if apply_photo_top_gate and photo_matchability == PHOTO_CONDITIONAL_FOLLOWUP:
             final_score = min(final_score, 0.62)

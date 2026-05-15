@@ -39702,7 +39702,14 @@
         "사무실",
         "급식실",
         "항만하역만 있음",
-        "일반 운전작업"
+        "일반 운전작업",
+        "PC방",
+        "노래방",
+        "지하 PC방",
+        "환기 팬",
+        "고객",
+        "공기 중 CO2",
+        "환기 불량"
       ],
       "industry_alignment": [
         "chemical_process",
@@ -39876,7 +39883,14 @@
         "사무실",
         "급식실",
         "항만하역만 있음",
-        "일반 운전작업"
+        "일반 운전작업",
+        "PC방",
+        "노래방",
+        "지하 PC방",
+        "환기 팬",
+        "고객",
+        "공기 중 CO2",
+        "환기 불량"
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
@@ -42460,7 +42474,14 @@
         "사무실",
         "급식실",
         "항만하역만 있음",
-        "일반 운전작업"
+        "일반 운전작업",
+        "PC방",
+        "노래방",
+        "지하 PC방",
+        "환기 팬",
+        "고객",
+        "공기 중 CO2",
+        "환기 불량"
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
@@ -43605,7 +43626,12 @@
       "negative_context_terms": [
         "보건검진",
         "실험실 분석",
-        "급식실"
+        "급식실",
+        "제판",
+        "현상액",
+        "현상 탱크",
+        "침전물",
+        "화학 자극"
       ],
       "industry_alignment": [
         "manufacturing"
@@ -43776,7 +43802,12 @@
       "negative_boundaries": [
         "보건검진",
         "실험실 분석",
-        "급식실"
+        "급식실",
+        "제판",
+        "현상액",
+        "현상 탱크",
+        "침전물",
+        "화학 자극"
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
@@ -43995,7 +44026,12 @@
       "negative_boundaries": [
         "보건검진",
         "실험실 분석",
-        "급식실"
+        "급식실",
+        "제판",
+        "현상액",
+        "현상 탱크",
+        "침전물",
+        "화학 자극"
       ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
@@ -145118,17 +145154,33 @@
       "short_code": "G91",
       "source_file": "pipe-B/data/ci-output/ci-G91.json",
       "batch_id": "domain_guard_manual_batch_004",
-      "profile_level": "domain_specific",
+      "profile_level": "exclusive",
       "domain_family": "patient_transfer_hoist_sling",
-      "mismatch_policy": "penalize_without_required_context",
+      "mismatch_policy": "exclude_without_required_context",
       "required_context_terms": [
         "환자이송용 호이스트",
+        "환자이송 호이스트",
+        "환자 리프트",
+        "전동 환자 리프트",
+        "목욕 리프트",
+        "이동식 목욕 리프트",
+        "환자 목욕",
+        "재활 보조",
         "슬링",
         "하네스",
         "이동경로",
         "한계중량"
       ],
-      "negative_context_terms": [],
+      "negative_context_terms": [
+        "콘크리트",
+        "펌프카",
+        "붐대",
+        "선박",
+        "조선",
+        "선박 블록",
+        "블록 인양",
+        "크레인"
+      ],
       "industry_alignment": [],
       "confidence": 0.9,
       "evidence": "장애인 및 환자 이송용 호이스트, 슬링, 하네스, 이동경로, 안전점검 지침",
@@ -145139,13 +145191,29 @@
       ],
       "recommendation_boundary": {
         "include_when": [
-          "환자이송용 호이스트",
-          "슬링",
-          "하네스",
-          "이동경로",
-          "한계중량"
+        "환자이송용 호이스트",
+        "환자이송 호이스트",
+        "환자 리프트",
+        "전동 환자 리프트",
+        "목욕 리프트",
+        "이동식 목욕 리프트",
+        "환자 목욕",
+        "재활 보조",
+        "슬링",
+        "하네스",
+        "이동경로",
+        "한계중량"
+      ],
+        "exclude_when": [
+          "콘크리트",
+          "펌프카",
+          "붐대",
+          "선박",
+          "조선",
+          "선박 블록",
+          "블록 인양",
+          "크레인"
         ],
-        "exclude_when": [],
         "runtime_use": "candidate_domain_guard_only"
       },
       "feature_codes": [
@@ -145155,7 +145223,9 @@
       "sr_ids": [],
       "visual_triggers": [
         "침상 옆 슬링·바퀴 고정장치",
-        "환자이송 호이스트"
+        "환자이송 호이스트",
+        "목욕 리프트",
+        "전동 환자 리프트"
       ],
       "serving_feature_candidates": [
         {
@@ -145218,9 +145288,14 @@
           "review_status": "candidate"
         }
       ],
-      "usage_summary": "장애인 및 환자이송용 호이스트 이용에 관한 안전지침 사용경계: patient_transfer_hoist_sling / domain_specific",
+      "usage_summary": "장애인 및 환자이송용 호이스트 이용에 관한 안전지침 사용경계: patient_transfer_hoist_sling / exclusive",
       "intended_workplaces": [
         "환자이송용 호이스트",
+        "환자이송 호이스트",
+        "환자 리프트",
+        "전동 환자 리프트",
+        "목욕 리프트",
+        "이동식 목욕 리프트",
         "슬링",
         "하네스",
         "이동경로",
@@ -145232,6 +145307,13 @@
         "호이스트 이동",
         "안전점검 및 보관",
         "환자이송용 호이스트",
+        "환자이송 호이스트",
+        "환자 리프트",
+        "전동 환자 리프트",
+        "목욕 리프트",
+        "이동식 목욕 리프트",
+        "환자 목욕",
+        "재활 보조",
         "슬링",
         "하네스",
         "이동경로",
@@ -145241,12 +145323,27 @@
         "환자이송 호이스트",
         "침상 옆 슬링·바퀴 고정장치",
         "환자이송용 호이스트",
+        "환자 리프트",
+        "전동 환자 리프트",
+        "목욕 리프트",
+        "이동식 목욕 리프트",
+        "환자 목욕",
+        "재활 보조",
         "슬링",
         "하네스",
         "이동경로",
         "한계중량"
       ],
-      "negative_boundaries": [],
+      "negative_boundaries": [
+        "콘크리트",
+        "펌프카",
+        "붐대",
+        "선박",
+        "조선",
+        "선박 블록",
+        "블록 인양",
+        "크레인"
+      ],
       "procedure_role": "field_control",
       "primary_work_process_ids": [
         "WP-G91-01",

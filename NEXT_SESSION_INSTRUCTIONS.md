@@ -1,6 +1,6 @@
 # 다음 세션 시작 지침
 
-최신 갱신일: 2026-05-14
+최신 갱신일: 2026-05-15
 
 이 문서는 다른 Codex/LLM 세션이 현재 상태를 빠르게 이어받기 위한 시작점이다.
 
@@ -123,11 +123,11 @@ http://127.0.0.1:5173/ohs/
 
 ## 6. 현재 검증 기준선
 
-Accepted runtime baseline: `no_forced_hotwork_gate1`
+Accepted runtime baseline: `ci_broad_sr_guard4`.
 
-Previous accepted baseline: `context_safe_gate1`
+Previous accepted baseline: `ci_wp_relevance_guard1`.
 
-This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 standard-procedure ranking. It accepts that a photo may have no scene-relevant KOSHA Guide: hot-work/air-jacket Guides now require their own tank, drum, air-jacket, hose, manifold, or hot-work context terms instead of filling chemical/lab scenes through generic `WELDING` evidence.
+This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 Guide/WorkProcess/CI relevance. It preserves the `ci_wp_relevance_guard1` Guide/WorkProcess gates, then tightens immediate-action CI ranking so pure broad-SR-only checklist items cannot become top actions unless they have Guide-local contextual/support evidence.
 
 Report bodies stay local/external under `pictures-json/reports/**`; root git tracks the manifest and summary instead:
 
@@ -136,11 +136,14 @@ Report bodies stay local/external under `pictures-json/reports/**`; root git tra
 
 Referenced current local report bodies:
 
-- `pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.md`
-- `pictures-json/reports/synthetic_observations_v10_no_forced_hotwork_gate1_report.md`
-- `pictures-json/reports/actual_response_samples_no_forced_hotwork_gate1.md`
-- `koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*`
-- `koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*`
+- `pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.md`
+- `pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.md`
+- `pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.md`
+- `pictures-json/reports/synthetic_observations_v10_ci_broad_sr_guard4_report.md`
+- `pictures-json/reports/actual_response_samples_ci_broad_sr_guard4.md`
+- `pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.md`
+- `koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*`
+- `koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*`
 
 Summary:
 
@@ -148,18 +151,19 @@ Summary:
 synthetic Stage 2~5 v1~v10 total: 2,360
 SHE TP/FN/FP: 1,107 / 909 / 82
 SR TP/FN/FP: 1,414 / 270 / 211
-Guide mismatch: 8
-Stage 2~5 NO_TOP: 90
-industry_boundary_gap: 1
-workprocess_mismatch: 7
+Guide mismatch: 5
+Stage 2~5 NO_TOP: 88
+NO_TOP actionability: accepted empty top 31 / source-taxonomy review 57 / runtime repair candidates 0
+industry_boundary_gap: 0
+workprocess_mismatch: 5
 broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
-followup_only_retained_count: 15
-CI no_action: 482
-CI context_mismatch: 12
-CI broad_sr_only: 14
+followup_only_retained_count: 16
+CI no_action: 492
+CI context_mismatch: 0
+CI broad_sr_only: 0
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 26
+CI guide_boundary_mismatch: 22
 v10 SHE recall: 100.0%, FN 0, FP 0
 v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
 actual response 240 status changed: 0
@@ -173,9 +177,9 @@ accepted photo-actionable role overrides: 10
 Serving validation snapshot:
 
 ```text
-snapshot: koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
-validation report: koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
-WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+snapshot: koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
+validation report: koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 GuideUsageProfile: 1,038
 photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
@@ -183,9 +187,13 @@ evaluation cases: 2,360
 hard violations: 0
 warnings: 0
 primary WorkProcess alignment: 4,715 / 4,715 same Guide
+PG guide_usage_profiles sync: PASS, 1,038 rows
+PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-Implementation note: `no_forced_hotwork_gate1` keeps the `context_safe_gate1` gates and adds context-required treatment for `air_jacket_gas_manifold_welding_support` and `small_tank_drum_hot_work`. If a scene does not show the required Guide-specific context, the runtime may leave `standard_procedures` empty rather than substitute a broad hot-work Guide. Public API shape, SHE approval, SR/legal asserted mappings, status, and penalty behavior are unchanged.
+Implementation note: `ci_broad_sr_guard4` keeps the `ci_wp_relevance_guard1` status/penalty/SHE/SR and Guide/WorkProcess boundary. It changes only immediate-action CI ranking/evaluation: pure broad-SR-only CI cannot be top, while broad-mapped CI may remain only when it has Guide-local contextual/support evidence. CI broad_sr_only improves `13 -> 0`, CI no_action improves `497 -> 492`, and CI guide-boundary mismatch improves `23 -> 22`.
+
+NO_TOP interpretation: `NO_TOP` is not automatically a defect. Current audit splits 88 cases into 31 accepted empty-top cases and 57 source/taxonomy review cases. Runtime repair candidates are 0; do not reduce the remaining 88 with broad aliases or generic Guide fallback.
 
 ## 7. 검증 명령
 
@@ -225,10 +233,10 @@ kosha-guides/parsed: 1038
 
 1. 새 작업은 root `arch-bot/main`에서 수행한다.
 2. 작업 전 `git status --short --branch`로 clean 상태를 확인한다.
-3. Guide 품질 작업은 `no_forced_hotwork_gate1` 기준으로 이어간다.
+3. Guide 품질 작업은 `ci_broad_sr_guard4` 기준으로 이어간다.
 4. `she-stage3-new-pattern-candidates-reference-guard1` 230건은 runtime SHE 확정으로 import하지 않는다. `true_new_she`도 첫 사이클에서는 review-only다.
-5. NO_TOP 85건은 runtime repair보다 corpus/taxonomy/review boundary 성격이 크다. 억지로 broad alias/support를 추가하지 말고, exact source Guide가 생기거나 별도 public/customer/animal-safety taxonomy를 만들 때만 재검토한다.
-6. 다음 구조적 보강 대상은 `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 7`, `NO_TOP 90`이다. 현장에 맞는 Guide가 없으면 억지 top Guide를 만들지 않는다. `B_wrong_guide_boundary`와 `D_safe_scene_overpromoted`는 0건이다.
+5. NO_TOP 88건은 `accepted empty top 31`, `source/taxonomy review 57`, `runtime repair candidate 0`으로 분리됐다. 억지로 broad alias/support를 추가하지 않는다.
+6. 다음 구조적 보강 대상은 `CI no_action 492`, `CI guide_boundary_mismatch 22`이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다. 현장에 맞는 Guide가 없으면 억지 top Guide를 만들지 않는다. `B_wrong_guide_boundary`와 `D_safe_scene_overpromoted`는 0건이다.
 7. parent context는 검색 확장에만 쓰고, parent-only match는 confirmed/status/penalty/direct SR/표준절차 top 후보를 만들 수 없다.
 8. photo_matchability는 표준절차 top lane에만 적용한다. 즉시조치, SHE status, SR evidence, penalty path에는 적용하지 않는다.
 9. 온톨로지 검증 경고는 `structure_issue`, `data_issue`, `algorithm_issue`, `corpus_gap`, `review_only`로 나눠 원천 artifact 쪽에서 정리한다.

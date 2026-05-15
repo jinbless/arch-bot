@@ -4,7 +4,7 @@
 
 아래 항목들은 `risk:` 중심 위험 지식 계층, `PenaltyRule` 중심 벌칙 모델, `SeverityLevel` 제거, `SHE` 패턴 브릿지화, `Guide/WorkProcess` 중심 조치 구조를 반영한 뒤 남은 후속 작업이다.
 
-## 현재 구현 메모 (2026-05-14, monorepo + no_forced_hotwork_gate1)
+## 현재 구현 메모 (2026-05-15, monorepo + ci_broad_sr_guard4)
 
 현재 작업 기준은 root `arch-bot/main` monorepo다.
 
@@ -18,24 +18,25 @@ kosha-guides/manifest: tracked provenance manifest
 pictures-json/reports: local/external report bodies
 ```
 
-현재 accepted runtime baseline은 `no_forced_hotwork_gate1`이다. 직전 product baseline은 `context_safe_gate1`이며, 그 이전 `corpus_gap_guard1`, `safe_scene_phrase_gate2`, `strict_profile_gate3`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `stage3_remaining_gap_support_v20_actionable`, `photo_matchability1`, `situation_frame_support7`, `usage_profile11` 등은 historical milestone으로 보존한다.
+현재 accepted runtime baseline은 `ci_broad_sr_guard4`이다. 직전 product baseline은 `ci_wp_relevance_guard1`이며, 그 이전 `no_top_serving_bridge4`, `no_top_runtime_repair1_safe_gate3`, `no_forced_hotwork_gate1`, `context_safe_gate1`, `corpus_gap_guard1`, `safe_scene_phrase_gate2`, `strict_profile_gate3`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `stage3_remaining_gap_support_v20_actionable`, `photo_matchability1`, `situation_frame_support7`, `usage_profile11` 등은 historical milestone으로 보존한다.
 
 ```text
 synthetic Stage 2~5 v1~v10 total 2,360
 SHE TP/FN/FP 1,107 / 909 / 82
 SR TP/FN/FP 1,414 / 270 / 211
-Guide mismatch 8
-Stage 2~5 NO_TOP 90
-industry_boundary_gap 1
-workprocess_mismatch 7
+Guide mismatch 5
+Stage 2~5 NO_TOP 88
+NO_TOP actionability accepted empty top 31 / source-taxonomy review 57 / runtime repair candidates 0
+industry_boundary_gap 0
+workprocess_mismatch 5
 broad_sr_overreach 0
 photo_unmatchable_top_count 0
-followup_only_retained_count 15
-CI no_action 482
-CI context_mismatch 12
-CI broad_sr_only 14
+followup_only_retained_count 16
+CI no_action 492
+CI context_mismatch 0
+CI broad_sr_only 0
 CI needs_review_used 0
-CI guide_boundary_mismatch 26
+CI guide_boundary_mismatch 22
 v10 SHE recall 100.0%, FN 0, FP 0
 v1~v10 SHE smoke recall 100.0%, FN 0, FP 67
 actual response 240 status changed 0
@@ -44,16 +45,21 @@ positive_missed 2
 ambiguous_over_promoted 5
 ```
 
-`no_forced_hotwork_gate1`은 OHS serving 기준으로 고정했고, 같은 기준을 온톨로지 검증 스냅샷으로 내보낸다. 이 스냅샷은 런타임 대체가 아니라 이상한 연결을 찾는 검증 계층이다.
+`ci_broad_sr_guard4`는 OHS serving 기준으로 고정했고, 같은 기준을 온톨로지 검증 스냅샷으로 내보낸다. 이 스냅샷은 런타임 대체가 아니라 이상한 연결을 찾는 검증 계층이다.
 
 ```text
+active runtime artifacts:
+  OHS/backend/app/data/situation_context_taxonomy.v21.json
+  OHS/backend/app/data/guide_support_candidates.v21.jsonl
+PG sync script: OHS/backend/scripts/import_guide_usage_profiles_to_pg.py
+PG sync report: pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
 export script: koshaontology/ontology/scripts/export_serving_snapshot.py
 validation script: koshaontology/ontology/scripts/validate_serving_snapshot.py
 policy TTL: koshaontology/ontology/serving-policy.ttl
-snapshot TTL: koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
+snapshot TTL: koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
 SHACL shapes: koshaontology/ontology/serving-validation-shapes.ttl
-validation report: koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
-alignment report: koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+validation report: koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
+alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 GuideUsageProfile 1,038
 photo_actionable / conditional / unmatchable 631 / 39 / 368
 broad SR 12
@@ -62,9 +68,10 @@ hard violations 0
 warnings 0
 accepted photo-actionable role overrides 10
 primary WorkProcess links aligned 4,715 / 4,715
+guide_usage_profiles PG sync PASS, rows 1,038, missing Guide 0, missing primary WP 0, cross-guide primary WP 0
 ```
 
-2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소된 상태를 유지한다. `no_forced_hotwork_gate1`은 `G-76-2011` 반복 WorkProcess mismatch warning까지 해소해 ontology hard violation/warning이 모두 0건이다.
+2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 2026-05-15에는 `guide_domain_profiles.json`의 1,038개 사용경계를 `guide_usage_profiles` PostgreSQL 테이블에 `ci_broad_sr_guard4` 기준으로 upsert했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소된 상태를 유지한다. `ci_broad_sr_guard4`도 ontology hard violation/warning이 모두 0건이다.
 
 Guide photo matchability v1은 1,038개 Guide usage profile에 사진 기반 top 표준절차 적합성을 부여한 serving policy다.
 
@@ -77,18 +84,32 @@ asserted mapping update 0
 SHE/SR/status/penalty impact 0
 ```
 
-`no_forced_hotwork_gate1` 추가 정책:
+`ci_broad_sr_guard4` 추가 정책:
 
 ```text
-context-required families added on top of context_safe_gate1:
-  air_jacket_gas_manifold_welding_support
-  small_tank_drum_hot_work
+v21 guide_support_only support retained:
+  confined-space permit absence
+  PERC/PCE dry-cleaning solvent leak
+safe-control standard procedure bridge retained:
+  port container-crane signal context
+  emergency-light electrical maintenance
+immediate-action safe context gate:
+  normal/completed/stored/education scenes do not receive CI recommendations
+profile boundary tightened:
+  patient-transfer hoist, inert-gas purging, hand-tool, and noise-control Guides require their own usage context
+CI broad-SR guard:
+  pure broad-SR-only ChecklistItems cannot become top immediate actions
+  broad-mapped ChecklistItems are retained only when Guide-local contextual/support evidence is present
+blocked/narrowed:
+  generic ventilation/PPE/control-complete terms remain blocked as child aliases
+  standalone industry term 드라이클리닝 without machine/PERC/PCE evidence
+  safe-control bridge requires reviewed label, trigger hits, and non-broad SRs
 principle:
-  현장 사진에 맞는 Guide가 없으면 broad hot-work Guide를 억지로 올리지 않고 NO_TOP으로 남길 수 있다.
+  현장 사진에 맞는 Guide가 없으면 broad Guide를 억지로 올리지 않고 NO_TOP으로 남길 수 있다.
 public API / SHE approval / asserted mapping / legal SR evidence / status / penalty impact: none
 ```
 
-다음 보강 후보는 status-level risk inference 확장이 아니라 `CI no_action 482`, `CI guide_boundary_mismatch 26`, `workprocess_mismatch 7`, `NO_TOP 90`을 WorkProcess/CI relevance와 Guide usage profile로 정리하는 것이다. 단, NO_TOP은 모두 오류가 아니며 현장 관련 Guide 부재는 정답 상태로 인정한다.
+다음 보강 후보는 status-level risk inference 확장이 아니라 `CI no_action 492`, `CI guide_boundary_mismatch 22`를 WorkProcess/CI relevance 중심으로 정리하는 것이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다. 단, NO_TOP은 모두 오류가 아니며 현장 관련 Guide 부재는 정답 상태로 인정한다. 현재 NO_TOP 88건 중 31건은 accepted empty top, 57건은 source/taxonomy review, runtime repair candidate는 0건이다.
 
 ## 과거 구현 메모 (2026-05-07)
 

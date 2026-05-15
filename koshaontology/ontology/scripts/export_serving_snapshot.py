@@ -18,7 +18,7 @@ from urllib.parse import quote
 from rdflib import Graph, Literal, Namespace, RDF, RDFS, OWL, XSD
 
 
-BASELINE_ID = "no_forced_hotwork_gate1"
+BASELINE_ID = "ci_broad_sr_guard4"
 
 ROOT = Path(__file__).resolve().parents[3]
 ONTOLOGY_DIR = Path(__file__).resolve().parents[1]
@@ -28,12 +28,13 @@ REPORTS_DIR = ROOT / "pictures-json" / "reports"
 GUIDE_PROFILES_PATH = OHS_DATA_DIR / "guide_domain_profiles.json"
 PHOTO_MATCHABILITY_PATH = OHS_DATA_DIR / "guide_photo_matchability.v1.json"
 BROAD_SR_POLICY_PATH = OHS_DATA_DIR / "broad_sr_policy.json"
-SITUATION_TAXONOMY_PATH = OHS_DATA_DIR / "situation_context_taxonomy.v20.json"
-GUIDE_SUPPORT_PATH = OHS_DATA_DIR / "guide_support_candidates.v20.jsonl"
-PIPELINE_REPORT_PATH = REPORTS_DIR / "pipeline_quality_v1_v10_no_forced_hotwork_gate1.json"
+SITUATION_TAXONOMY_PATH = OHS_DATA_DIR / "situation_context_taxonomy.v21.json"
+GUIDE_SUPPORT_PATH = OHS_DATA_DIR / "guide_support_candidates.v21.jsonl"
+PIPELINE_REPORT_PATH = REPORTS_DIR / "pipeline_quality_v1_v10_ci_broad_sr_guard4.json"
+PG_GUIDE_USAGE_SYNC_REPORT_PATH = REPORTS_DIR / "pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json"
 
 POLICY_TTL_PATH = ONTOLOGY_DIR / "serving-policy.ttl"
-SNAPSHOT_TTL_PATH = ONTOLOGY_DIR / "serving-snapshot-no_forced_hotwork_gate1.ttl"
+SNAPSHOT_TTL_PATH = ONTOLOGY_DIR / "serving-snapshot-ci_broad_sr_guard4.ttl"
 SHAPES_TTL_PATH = ONTOLOGY_DIR / "serving-validation-shapes.ttl"
 
 CORE = Namespace("https://cashtoss.info/ontology#")
@@ -245,6 +246,7 @@ def add_artifacts(g: Graph, snapshot_uri) -> None:
         SITUATION_TAXONOMY_PATH,
         GUIDE_SUPPORT_PATH,
         PIPELINE_REPORT_PATH,
+        PG_GUIDE_USAGE_SYNC_REPORT_PATH,
     ]
     for path in artifact_paths:
         rel = path.relative_to(ROOT)

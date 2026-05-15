@@ -19,10 +19,10 @@ from typing import Any
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 SITUATION_CONTEXT_TAXONOMY_PATH = Path(
-    os.getenv("OHS_SITUATION_CONTEXT_TAXONOMY_PATH", str(DATA_DIR / "situation_context_taxonomy.v20.json"))
+    os.getenv("OHS_SITUATION_CONTEXT_TAXONOMY_PATH", str(DATA_DIR / "situation_context_taxonomy.v21.json"))
 )
 GUIDE_SUPPORT_CANDIDATES_PATH = Path(
-    os.getenv("OHS_GUIDE_SUPPORT_CANDIDATES_PATH", str(DATA_DIR / "guide_support_candidates.v20.jsonl"))
+    os.getenv("OHS_GUIDE_SUPPORT_CANDIDATES_PATH", str(DATA_DIR / "guide_support_candidates.v21.jsonl"))
 )
 
 TOKEN_RE = re.compile(r"[A-Za-z0-9가-힣]{2,}")
@@ -49,6 +49,24 @@ SAFE_TRIGGER_ONLY_BLOCK_TERMS = (
     "이상 없음을 기록",
     "점검을 완료",
     "정상 작동",
+    "현재 상태 유지",
+    "현 상태 유지",
+    "절차 완비",
+    "3대 요건 충족",
+    "가스 측정 완료",
+    "측정 완료",
+    "측정기로 확인",
+    "허가서 게시",
+    "작업 허가서 게시",
+    "감시자 배치",
+    "외부 감시자",
+    "감시인 배치",
+    "환기 팬",
+    "환기 실시",
+    "창문 개방 환기",
+    "방독마스크 착용",
+    "방독 마스크 착용",
+    "PPE 완비",
     "압력 게이지 0",
     "잔압 완전 방출",
     "방열 장갑 착용",

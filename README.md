@@ -51,12 +51,12 @@ The ontology design now includes a source/provenance and serving-validation laye
 
 Current serving validation snapshot:
 
-- baseline: `no_forced_hotwork_gate1`
-- export: `koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl`
+- baseline: `ci_broad_sr_guard4`
+- export: `koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl`
 - policy ontology: `koshaontology/ontology/serving-policy.ttl`
 - validation shapes: `koshaontology/ontology/serving-validation-shapes.ttl`
-- validation report: `koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*`
-- WorkProcess alignment report: `koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*`
+- validation report: `koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*`
+- WorkProcess alignment report: `koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*`
 
 The snapshot is regenerated from OHS serving artifacts and evaluation reports. Do not hand-edit generated TTL to fix data; fix the source JSON/PG/export script, then regenerate.
 
@@ -149,11 +149,11 @@ Recommended first read order:
 
 ## Current Evaluation Baseline
 
-Accepted runtime baseline: `no_forced_hotwork_gate1`.
+Accepted runtime baseline: `ci_broad_sr_guard4`.
 
-Previous accepted baseline: `context_safe_gate1`.
+Previous accepted baseline: `ci_wp_relevance_guard1`.
 
-This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 standard-procedure ranking. It accepts that a photo may have no scene-relevant KOSHA Guide: hot-work/air-jacket Guides now require their own tank, drum, air-jacket, hose, manifold, or hot-work context terms instead of filling chemical/lab scenes through generic `WELDING` evidence.
+This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 Guide/WorkProcess/CI relevance. It preserves the `ci_wp_relevance_guard1` Guide/WorkProcess gates, then tightens immediate-action CI ranking so pure broad-SR-only checklist items cannot become top actions unless they have Guide-local contextual/support evidence.
 
 Report bodies stay local/external under `pictures-json/reports/**`; root git tracks the manifest and summary instead:
 
@@ -162,11 +162,14 @@ Report bodies stay local/external under `pictures-json/reports/**`; root git tra
 
 Referenced current local report bodies:
 
-- `pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.md`
-- `pictures-json/reports/synthetic_observations_v10_no_forced_hotwork_gate1_report.md`
-- `pictures-json/reports/actual_response_samples_no_forced_hotwork_gate1.md`
-- `koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*`
-- `koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*`
+- `pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.md`
+- `pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.md`
+- `pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.md`
+- `pictures-json/reports/synthetic_observations_v10_ci_broad_sr_guard4_report.md`
+- `pictures-json/reports/actual_response_samples_ci_broad_sr_guard4.md`
+- `pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.md`
+- `koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*`
+- `koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*`
 
 Summary:
 
@@ -174,18 +177,19 @@ Summary:
 synthetic Stage 2~5 v1~v10 total: 2,360
 SHE TP/FN/FP: 1,107 / 909 / 82
 SR TP/FN/FP: 1,414 / 270 / 211
-Guide mismatch: 8
-Stage 2~5 NO_TOP: 90
-industry_boundary_gap: 1
-workprocess_mismatch: 7
+Guide mismatch: 5
+Stage 2~5 NO_TOP: 88
+NO_TOP actionability: accepted empty top 31 / source-taxonomy review 57 / runtime repair candidates 0
+industry_boundary_gap: 0
+workprocess_mismatch: 5
 broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
-followup_only_retained_count: 15
-CI no_action: 482
-CI context_mismatch: 12
-CI broad_sr_only: 14
+followup_only_retained_count: 16
+CI no_action: 492
+CI context_mismatch: 0
+CI broad_sr_only: 0
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 26
+CI guide_boundary_mismatch: 22
 v10 SHE recall: 100.0%, FN 0, FP 0
 v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
 actual response 240 status changed: 0
@@ -199,9 +203,9 @@ accepted photo-actionable role overrides: 10
 Serving validation snapshot:
 
 ```text
-snapshot: koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
-validation report: koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
-WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+snapshot: koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
+validation report: koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 GuideUsageProfile: 1,038
 photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
@@ -209,6 +213,10 @@ evaluation cases: 2,360
 hard violations: 0
 warnings: 0
 primary WorkProcess alignment: 4,715 / 4,715 same Guide
+PG guide_usage_profiles sync: PASS, 1,038 rows
+PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-Implementation note: `no_forced_hotwork_gate1` keeps the `context_safe_gate1` gates and adds context-required treatment for `air_jacket_gas_manifold_welding_support` and `small_tank_drum_hot_work`. If a scene does not show the required Guide-specific context, the runtime may leave `standard_procedures` empty rather than substitute a broad hot-work Guide. Public API shape, SHE approval, SR/legal asserted mappings, status, and penalty behavior are unchanged.
+Implementation note: `ci_broad_sr_guard4` keeps the `ci_wp_relevance_guard1` status/penalty/SHE/SR and Guide/WorkProcess boundary. It changes only immediate-action CI ranking/evaluation: pure broad-SR-only CI cannot be top, while broad-mapped CI may remain only when it has Guide-local contextual/support evidence. CI broad_sr_only improves `13 -> 0`, CI no_action improves `497 -> 492`, and CI guide-boundary mismatch improves `23 -> 22`.
+
+NO_TOP interpretation: `NO_TOP` is not automatically a defect. Current audit splits 88 cases into 31 accepted empty-top cases and 57 source/taxonomy review cases. Runtime repair candidates are 0; do not reduce the remaining 88 with broad aliases or generic Guide fallback.

@@ -105,6 +105,7 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 | guide_entity_feature_candidates | 66,105 |
 | guide_sr_link_candidates | 382,510 |
 | guide_visual_trigger_candidates | 12,071 |
+| guide_usage_profiles | 1,038 (`ci_broad_sr_guard4` PG sync PASS) |
 | 파싱 리포트 | 과거 430개 기준 리포트가 남아 있어 최신화 필요 |
 
 ## 보완 이력
@@ -173,9 +174,9 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 ## 미처리
 
 - 외부 LLM enrichment 배치: 경로 구현과 deterministic 전체 실행은 완료됐지만 외부 API 전송형 30/200/1,038 배치는 미실행이다. 대신 외부 API 없이 Codex manual batch 001~035 전체 1,038 Guide 후보가 생성·정규화·semantic audit·`usage_profile11` runtime 검증까지 완료됐다.
-- Codex manual batch 001~035는 아직 PostgreSQL candidate table에 import하지 않았음. schema 정규화, semantic correction, usage_profile11 runtime 검증은 완료. 다음 단계는 same-method replace 및 SR 후보 unique key evidence merge/pre-aggregate 후 candidate table import이며, asserted mapping update는 0으로 유지해야 함
+- Codex manual batch 001~035의 feature/SR/visual 후보는 아직 PostgreSQL candidate table에 import하지 않았음. 다만 Guide 사용경계 `guide_usage_profiles`는 `guide_domain_profiles.json` 기준 1,038행을 PostgreSQL에 `ci_broad_sr_guard4` baseline으로 동기화 완료했다. 다음 candidate import 단계에서는 same-method replace 및 SR 후보 unique key evidence merge/pre-aggregate 후 진행하며, asserted mapping update는 0으로 유지해야 함
 - candidateSR/basedOn 연결 품질은 개선됐지만 아직 낮음: `ci_sr_mapping` distinct SR은 131/626, `wp_sr_mapping` distinct SR은 129/626
-- Guide/WorkProcess 중심 추천 로직은 OHS 3차 구조 보강 완료. synthetic Guide v1~v10 기준 명백 top Guide mismatch는 85.59% 감소했고 actual response 240 status/penalty 경계는 유지됐다. 다음은 NO_TOP 395 큐에서 taxonomy/profile/WorkProcess coverage를 복구하는 작업
+- Guide/WorkProcess/CI 중심 추천 로직은 OHS `ci_broad_sr_guard4` 기준까지 보강 완료. synthetic Stage 2~5 v1~v10 기준 Guide mismatch 5, NO_TOP 88, industry_boundary_gap 0, workprocess_mismatch 5, CI broad_sr_only 0이며 actual response 240 status/penalty 경계는 유지됐다. 다음은 남은 CI no_action 492, CI guide_boundary_mismatch 22, source/taxonomy review NO_TOP 57을 구조적으로 줄이는 작업
 - 파싱 품질 리포트 최신화 필요: `parsing-report.json`은 430개 기준 과거 리포트
 - DT/ES/WP faceted 커버리지 추가 향상 필요 (DT 59%, ES 35%, WP 55%)
 

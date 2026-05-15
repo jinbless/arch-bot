@@ -201,6 +201,7 @@ CREATE TABLE IF NOT EXISTS guide_visual_trigger_candidates (
 -- 법적 asserted 근거가 아니라 Guide-specific signal과 domain guard에만 사용한다.
 CREATE TABLE IF NOT EXISTS guide_usage_profiles (
     guide_code                 VARCHAR(20) PRIMARY KEY REFERENCES kosha_guides(guide_code),
+    baseline_id                VARCHAR(80) NOT NULL DEFAULT 'unknown',
     profile_level              VARCHAR(20) NOT NULL DEFAULT 'general',
     domain_family              TEXT,
     usage_summary              TEXT NOT NULL CHECK(length(usage_summary) > 0),
@@ -209,13 +210,31 @@ CREATE TABLE IF NOT EXISTS guide_usage_profiles (
     observable_required_cues   JSONB NOT NULL DEFAULT '[]'::jsonb,
     negative_boundaries        JSONB NOT NULL DEFAULT '[]'::jsonb,
     procedure_role             VARCHAR(40) NOT NULL DEFAULT 'field_control',
+    photo_matchability         VARCHAR(40) NOT NULL DEFAULT 'photo_actionable'
+                                CHECK(photo_matchability IN (
+                                    'photo_actionable',
+                                    'photo_conditional_followup',
+                                    'photo_unmatchable'
+                                )),
+    top_procedure_policy       VARCHAR(40) NOT NULL DEFAULT 'allow_photo_top'
+                                CHECK(top_procedure_policy IN (
+                                    'allow_photo_top',
+                                    'suppress_photo_top'
+                                )),
+    followup_policy            VARCHAR(40) NOT NULL DEFAULT 'none'
+                                CHECK(followup_policy IN (
+                                    'none',
+                                    'explicit_context_only'
+                                )),
     primary_work_process_ids   JSONB NOT NULL DEFAULT '[]'::jsonb,
+    classification_reason      TEXT,
     evidence                   TEXT NOT NULL CHECK(length(evidence) > 0),
     source_fields              JSONB NOT NULL DEFAULT '[]'::jsonb,
     method                     VARCHAR(40) NOT NULL,
     review_status              VARCHAR(20) NOT NULL DEFAULT 'candidate'
                               CHECK(review_status IN ('candidate','asserted','rejected','needs_review')),
-    created_at                 TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_at                 TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at                 TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- 가이드 인용 조문 매핑
@@ -259,3 +278,5 @@ CREATE INDEX IF NOT EXISTS idx_gvtc_status ON guide_visual_trigger_candidates(re
 CREATE INDEX IF NOT EXISTS idx_gup_role ON guide_usage_profiles(procedure_role);
 CREATE INDEX IF NOT EXISTS idx_gup_status ON guide_usage_profiles(review_status);
 CREATE INDEX IF NOT EXISTS idx_gup_profile ON guide_usage_profiles(profile_level);
+CREATE INDEX IF NOT EXISTS idx_gup_baseline ON guide_usage_profiles(baseline_id);
+CREATE INDEX IF NOT EXISTS idx_gup_photo ON guide_usage_profiles(photo_matchability, top_procedure_policy);
