@@ -123,11 +123,11 @@ http://127.0.0.1:5173/ohs/
 
 ## 6. 현재 검증 기준선
 
-Accepted runtime baseline: `ci_candidate_promotion_v1`.
+Accepted runtime baseline: `ci_preferred_guide_ci1`.
 
-Previous accepted baseline: `ci_broad_sr_guard4`.
+Previous accepted baseline: `ci_candidate_promotion_v1`.
 
-This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only a narrow Stage 5 immediate-action CI candidate subset. It promotes 17 reviewed `ci_candidate_review_v1` CI/SR rows to serving `candidate`, keeps 25 rows as `needs_review`, and still does not write asserted legal mappings or `ci_sr_mapping`.
+This pass keeps the risk/SHE/SR/status/penalty boundary stable and changes only Stage 5 immediate-action ordering. When the selected top standard-procedure Guide already has a context-matched local CI candidate, that CI is preferred over generic CI rows from unrelated Guides. It still does not write asserted legal mappings or `ci_sr_mapping`.
 
 Report bodies stay local/external under `pictures-json/reports/**`; root git tracks the manifest and summary instead:
 
@@ -136,15 +136,16 @@ Report bodies stay local/external under `pictures-json/reports/**`; root git tra
 
 Referenced current local report bodies:
 
-- `pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.md`
+- `pictures-json/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.md`
 - `pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.md`
 - `pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.md`
-- `pictures-json/reports/synthetic_observations_v10_ci_candidate_promotion_v1_report_report.md`
-- `pictures-json/reports/actual_response_samples_ci_candidate_promotion_v1.md`
+- `pictures-json/reports/synthetic_observations_v10_ci_preferred_guide_ci1_report_report.md`
+- `pictures-json/reports/actual_response_samples_ci_preferred_guide_ci1.md`
+- `pictures-json/reports/ci_boundary_mismatch_triage_ci_candidate_promotion_v1.md`
 - `pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.md`
 - `pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.md`
-- `koshaontology/ontology/serving-validation-report-ci_candidate_promotion_v1.*`
-- `koshaontology/ontology/serving-workprocess-alignment-ci_candidate_promotion_v1.*`
+- `koshaontology/ontology/serving-validation-report-ci_preferred_guide_ci1.*`
+- `koshaontology/ontology/serving-workprocess-alignment-ci_preferred_guide_ci1.*`
 
 Summary:
 
@@ -164,7 +165,7 @@ CI no_action: 491
 CI context_mismatch: 0
 CI broad_sr_only: 0
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 20
+CI guide_boundary_mismatch: 8
 v10 SHE recall: 100.0%, FN 0, FP 0
 v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
 actual response 240 status changed: 0
@@ -178,9 +179,9 @@ accepted photo-actionable role overrides: 10
 Serving validation snapshot:
 
 ```text
-snapshot: koshaontology/ontology/serving-snapshot-ci_candidate_promotion_v1.ttl
-validation report: koshaontology/ontology/serving-validation-report-ci_candidate_promotion_v1.*
-WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_candidate_promotion_v1.*
+snapshot: koshaontology/ontology/serving-snapshot-ci_preferred_guide_ci1.ttl
+validation report: koshaontology/ontology/serving-validation-report-ci_preferred_guide_ci1.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_preferred_guide_ci1.*
 GuideUsageProfile: 1,038
 photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
@@ -192,7 +193,7 @@ PG guide_usage_profiles sync: PASS, 1,038 rows
 PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-Implementation note: `ci_candidate_promotion_v1` keeps the `ci_broad_sr_guard4` status/penalty/SHE/SR and Guide/WorkProcess boundary. It changes only review-gated CI/SR candidates: 17 rows become serving candidates, 25 remain `needs_review`, `asserted=false` stays fixed, and `ci_sr_mapping` is unchanged. CI no_action improves `492 -> 491`; CI guide-boundary mismatch improves `21 -> 20`; broad-SR-only and needs-review leaks remain `0`.
+Implementation note: `ci_preferred_guide_ci1` keeps the `ci_candidate_promotion_v1` status/penalty/SHE/SR and Guide/WorkProcess boundary. It changes only immediate-action ordering after candidate generation: direct SHE checklist cues keep priority, but otherwise a context-matched CI from the selected top Guide can move ahead of generic CI rows from unrelated Guides. CI no_action remains `491`; CI guide-boundary mismatch improves `20 -> 8`; broad-SR-only and needs-review leaks remain `0`.
 
 NO_TOP interpretation: `NO_TOP` is not automatically a defect. Current audit splits 88 cases into 31 accepted empty-top cases and 57 source/taxonomy review cases. Runtime repair candidates are 0; do not reduce the remaining 88 with broad aliases or generic Guide fallback.
 
@@ -234,10 +235,10 @@ kosha-guides/parsed: 1038
 
 1. 새 작업은 root `arch-bot/main`에서 수행한다.
 2. 작업 전 `git status --short --branch`로 clean 상태를 확인한다.
-3. Guide 품질 작업은 `ci_candidate_promotion_v1` 기준으로 이어간다.
+3. Guide 품질 작업은 `ci_preferred_guide_ci1` 기준으로 이어간다.
 4. `she-stage3-new-pattern-candidates-reference-guard1` 230건은 runtime SHE 확정으로 import하지 않는다. `true_new_she`도 첫 사이클에서는 review-only다.
 5. NO_TOP 88건은 `accepted empty top 31`, `source/taxonomy review 57`, `runtime repair candidate 0`으로 분리됐다. 억지로 broad alias/support를 추가하지 않는다.
-6. 다음 구조적 보강 대상은 `CI no_action 491`, `CI guide_boundary_mismatch 20`이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다. 현장에 맞는 Guide가 없으면 억지 top Guide를 만들지 않는다. `B_wrong_guide_boundary`와 `D_safe_scene_overpromoted`는 0건이다.
+6. 다음 구조적 보강 대상은 `CI no_action 491`, `CI guide_boundary_mismatch 8`이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다. 현장에 맞는 Guide가 없으면 억지 top Guide를 만들지 않는다. `B_wrong_guide_boundary`와 `D_safe_scene_overpromoted`는 0건이다.
 7. parent context는 검색 확장에만 쓰고, parent-only match는 confirmed/status/penalty/direct SR/표준절차 top 후보를 만들 수 없다.
 8. photo_matchability는 표준절차 top lane에만 적용한다. 즉시조치, SHE status, SR evidence, penalty path에는 적용하지 않는다.
 9. 온톨로지 검증 경고는 `structure_issue`, `data_issue`, `algorithm_issue`, `corpus_gap`, `review_only`로 나눠 원천 artifact 쪽에서 정리한다.

@@ -17,17 +17,17 @@ ROOT = Path(__file__).resolve().parents[3]
 ONTOLOGY_DIR = Path(__file__).resolve().parents[1]
 
 POLICY_TTL_PATH = ONTOLOGY_DIR / "serving-policy.ttl"
-SNAPSHOT_TTL_PATH = ONTOLOGY_DIR / "serving-snapshot-ci_candidate_promotion_v1.ttl"
+SNAPSHOT_TTL_PATH = ONTOLOGY_DIR / "serving-snapshot-ci_preferred_guide_ci1.ttl"
 BASE_INSTANCES_PATH = ONTOLOGY_DIR / "kosha-instances.ttl"
 
-REPORT_JSON_PATH = ONTOLOGY_DIR / "serving-validation-report-ci_candidate_promotion_v1.json"
-REPORT_MD_PATH = ONTOLOGY_DIR / "serving-validation-report-ci_candidate_promotion_v1.md"
-REPORT_CSV_PATH = ONTOLOGY_DIR / "serving-validation-report-ci_candidate_promotion_v1.csv"
+REPORT_JSON_PATH = ONTOLOGY_DIR / "serving-validation-report-ci_preferred_guide_ci1.json"
+REPORT_MD_PATH = ONTOLOGY_DIR / "serving-validation-report-ci_preferred_guide_ci1.md"
+REPORT_CSV_PATH = ONTOLOGY_DIR / "serving-validation-report-ci_preferred_guide_ci1.csv"
 
 GUIDE = Namespace("https://cashtoss.info/ontology/guide#")
 APP = Namespace("https://cashtoss.info/ontology/app#")
 
-BASELINE_ID = "ci_candidate_promotion_v1"
+BASELINE_ID = "ci_preferred_guide_ci1"
 GENERIC_REQUIRED_TERMS = {
     "화학물질",
     "화재",

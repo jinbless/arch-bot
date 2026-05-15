@@ -19,15 +19,15 @@ from typing import Any
 from rdflib import Graph, Namespace, RDF
 
 
-BASELINE_ID = "ci_candidate_promotion_v1"
+BASELINE_ID = "ci_preferred_guide_ci1"
 
 ROOT = Path(__file__).resolve().parents[3]
 ONTOLOGY_DIR = Path(__file__).resolve().parents[1]
 PROFILE_PATH = ROOT / "OHS" / "backend" / "app" / "data" / "guide_domain_profiles.json"
 BASE_TTL_PATH = ONTOLOGY_DIR / "kosha-instances.ttl"
-REPORT_JSON_PATH = ONTOLOGY_DIR / "serving-workprocess-alignment-ci_candidate_promotion_v1.json"
-REPORT_MD_PATH = ONTOLOGY_DIR / "serving-workprocess-alignment-ci_candidate_promotion_v1.md"
-REPORT_CSV_PATH = ONTOLOGY_DIR / "serving-workprocess-alignment-ci_candidate_promotion_v1.csv"
+REPORT_JSON_PATH = ONTOLOGY_DIR / "serving-workprocess-alignment-ci_preferred_guide_ci1.json"
+REPORT_MD_PATH = ONTOLOGY_DIR / "serving-workprocess-alignment-ci_preferred_guide_ci1.md"
+REPORT_CSV_PATH = ONTOLOGY_DIR / "serving-workprocess-alignment-ci_preferred_guide_ci1.csv"
 
 GUIDE = Namespace("https://cashtoss.info/ontology/guide#")
 

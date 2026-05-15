@@ -2,11 +2,54 @@
 
 Latest updated: 2026-05-15
 
-Accepted runtime baseline: `ci_candidate_promotion_v1`
+Accepted runtime baseline: `ci_preferred_guide_ci1`
 
-Previous accepted baseline: `ci_broad_sr_guard4`
+Previous accepted baseline: `ci_candidate_promotion_v1`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## CI Preferred Guide CI1
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.*
+pictures-json/reports/synthetic_observations_v10_ci_preferred_guide_ci1_report_report.*
+pictures-json/reports/actual_response_samples_ci_preferred_guide_ci1.*
+pictures-json/reports/ci_boundary_mismatch_triage_ci_candidate_promotion_v1.*
+koshaontology/ontology/serving-snapshot-ci_preferred_guide_ci1.ttl
+koshaontology/ontology/serving-validation-report-ci_preferred_guide_ci1.*
+koshaontology/ontology/serving-workprocess-alignment-ci_preferred_guide_ci1.*
+```
+
+Summary:
+
+```text
+previous accepted baseline: ci_candidate_promotion_v1
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 5 -> 5
+NO_TOP: 88 -> 88
+industry_boundary_gap: 0 -> 0
+workprocess_mismatch: 5 -> 5
+broad_sr_overreach: 0 -> 0
+photo_unmatchable_top_count: 0 -> 0
+followup_only_retained_count: 16
+CI no_action: 491 -> 491
+CI context_mismatch: 0 -> 0
+CI broad_sr_only: 0 -> 0
+CI needs_review_used: 0 -> 0
+CI guide_boundary_mismatch: 20 -> 8
+v10 SHE recall: 100.0%, FN 0, FP 0
+v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
+actual response 240 status changed: 0
+negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
+serving ontology validation: PASS, hard violations 0, warnings 0
+primary WorkProcess alignment: 4,715 / 4,715 same Guide
+```
+
+Interpretation: this pass keeps status/penalty/SHE/SR, Guide top selection, NO_TOP, WorkProcess, photo policy, and ontology validation stable. It only changes immediate-action ordering: when the top standard-procedure Guide already has context-matched local CI candidates, those CIs are preferred over generic CI rows from unrelated Guides. This reduces `CI guide_boundary_mismatch` from 20 to 8 without increasing `CI no_action` or allowing broad-SR/needs-review leaks.
 
 ## CI Candidate Promotion v1
 
@@ -17,6 +60,7 @@ pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.*
 pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.*
 pictures-json/reports/synthetic_observations_v10_ci_candidate_promotion_v1_report_report.*
 pictures-json/reports/actual_response_samples_ci_candidate_promotion_v1.*
+pictures-json/reports/ci_boundary_mismatch_triage_ci_candidate_promotion_v1.*
 koshaontology/ontology/serving-snapshot-ci_candidate_promotion_v1.ttl
 koshaontology/ontology/serving-validation-report-ci_candidate_promotion_v1.*
 koshaontology/ontology/serving-workprocess-alignment-ci_candidate_promotion_v1.*
@@ -56,6 +100,22 @@ primary WorkProcess alignment: 4,715 / 4,715 same Guide
 ```
 
 Interpretation: this pass accepts the smallest safe part of the CI no-action mapping review queue. It promotes only direct, reviewed CI/SR pairs such as conveyor guarding, hot-work fire prevention, winter ice slip control, dry-cleaning ventilation, and ergonomic standing-work controls. Broad/generic PPE, near-analogy SRs, and weak corpus-gap rows remain `needs_review`. The runtime still blocks `needs_review/rejected` candidates, broad SR-only top actions, and asserted legal mapping changes.
+
+Residual `CI guide_boundary_mismatch` triage:
+
+```text
+total: 20
+top Guide source_ci_ids present: 6
+top Guide source_ci_ids absent: 14
+top_guide_local_ci_gap: 6
+preferred_guide_ci_rank_gap: 5
+source_or_taxonomy_gap: 4
+ambiguous_or_source_gap: 3
+guide_or_source_gap: 2
+top action source Guide category: industry_boundary_gap 19, broad_sr_overreach 1
+```
+
+Interpretation: the remaining 20 cases are not broad alias candidates. In all 20, the top standard-procedure Guide is currently evaluated as acceptable, but the first immediate-action CI comes from a different Guide. The next safe repair is therefore CI/WorkProcess relevance, not risk-feature alias expansion: first prefer existing top-Guide `source_ci_ids` where they already exist, then review local CI support for Guides such as `B-M-36`, `D-C-7`, `G-11`, `A-G-18`, `G-67`, `E-13`, and `P-76`.
 
 ## CI Broad SR Guard v4
 

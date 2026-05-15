@@ -98,7 +98,7 @@ guide_sr_link_candidates
 guide_visual_trigger_candidates
 ```
 
-`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. 현재 Guide profile 자체는 `ci_broad_sr_guard4` 기준으로 `guide_usage_profiles` PostgreSQL 테이블에도 1,038행 동기화되어 있고, 최신 서빙 기준 `ci_candidate_promotion_v1`은 그 위에서 review-only CI/SR 후보 17행만 serving `candidate`로 승격한 상태다. 런타임은 JSON artifact와 PG 후보 테이블을 읽고, PG 동기화본은 감사/ontology export 정합성 확인에 쓴다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
+`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. 현재 Guide profile 자체는 `ci_broad_sr_guard4` 기준으로 `guide_usage_profiles` PostgreSQL 테이블에도 1,038행 동기화되어 있고, 최신 서빙 기준 `ci_preferred_guide_ci1`은 그 위에서 review-only CI/SR 후보 17행만 serving `candidate`로 승격한 뒤 즉시조치 정렬을 보정한 상태다. 런타임은 JSON artifact와 PG 후보 테이블을 읽고, PG 동기화본은 감사/ontology export 정합성 확인에 쓴다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
 
 legacy resource/video/category 기반 파일은 product 런타임에서 제거했다.
 
@@ -178,14 +178,14 @@ Synthetic smoke:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_ci_candidate_promotion_v1_report
+.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_ci_preferred_guide_ci1_report
 ```
 
 Actual response 240 replay:
 
 ```bash
 cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_ci_candidate_promotion_v1 --database-note "ci_candidate_promotion_v1"
+.venv/bin/python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_ci_preferred_guide_ci1 --database-note "ci_preferred_guide_ci1"
 ```
 
 Guide recommendation evaluation:
@@ -199,7 +199,7 @@ Stage 2~5 integrated pipeline quality evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_candidate_promotion_v1 --progress-every 500 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.json
+OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_preferred_guide_ci1 --progress-every 500 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.json
 ```
 
 Serving ontology snapshot export and validation:
@@ -382,10 +382,10 @@ frame extraction on synthetic v1~v10:
 
 ## Current Open Work
 
-1. `ci_candidate_promotion_v1` 기준 ontology hard violation/warning은 0건이다. 다음 작업은 consistency repair가 아니라 품질 개선이다.
+1. `ci_preferred_guide_ci1` 기준 ontology hard violation/warning은 0건이다. 다음 작업은 consistency repair가 아니라 품질 개선이다.
 2. 현장 사진에 맞는 KOSHA Guide가 없을 수 있다는 전제를 유지한다. `NO_TOP 88`은 전부 나쁜 것이 아니며, broad/hot-work Guide로 빈칸을 메우지 않는다.
 3. NO_TOP actionability는 `accepted empty top 31`, `source/taxonomy review 57`, `runtime repair candidate 0`으로 분리됐다. 즉시 보정 대상은 소진됐다.
-4. 다음 구조적 보강 대상은 `CI no_action 491`, `CI guide_boundary_mismatch 20`이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다.
+4. 다음 구조적 보강 대상은 `CI no_action 491`, `CI guide_boundary_mismatch 8`이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다.
 5. UI/UX와 개발서버 확인은 알고리즘 artifact, ontology TTL, evaluation baseline, reports manifest를 건드리지 않는 범위에서 진행한다.
 
 ## Notes
@@ -404,7 +404,7 @@ OHS/backend/app/data/situation_context_taxonomy.v21.json
 OHS/backend/app/data/guide_support_candidates.v21.jsonl
 ```
 
-The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-ci_candidate_promotion_v1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
+The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-ci_preferred_guide_ci1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
 
 Serving candidate gates:
 
@@ -417,12 +417,12 @@ photo_unmatchable Guides cannot be photo-based top standard procedures
 scene-specific Guide families require their own required context terms; missing Guide coverage may remain NO_TOP
 ```
 
-The current accepted OHS runtime baseline is `ci_candidate_promotion_v1`. It keeps `ci_broad_sr_guard4` status/penalty/SHE/SR and Guide/WorkProcess behavior, then changes only a narrow immediate-action CI candidate subset. `ci_candidate_review_v1` has 42 review rows; 17 direct CI/SR pairs are serving `candidate`, 25 remain `needs_review`, `asserted=false` stays fixed, and `ci_sr_mapping` is unchanged. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
+The current accepted OHS runtime baseline is `ci_preferred_guide_ci1`. It keeps `ci_candidate_promotion_v1` status/penalty/SHE/SR and Guide/WorkProcess behavior, then changes only immediate-action ordering. Direct SHE checklist cues keep priority, but otherwise a context-matched CI from the selected top Guide can move ahead of generic CI rows from unrelated Guides. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
 
 Latest validation:
 
 ```text
-baseline: ci_candidate_promotion_v1
+baseline: ci_preferred_guide_ci1
 synthetic Stage 2~5 v1~v10: 2,360 samples
 Guide mismatch: 5
 Stage 2~5 NO_TOP: 88
@@ -436,7 +436,7 @@ CI no_action: 491
 CI context_mismatch: 0
 CI broad_sr_only: 0
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 20
+CI guide_boundary_mismatch: 8
 v10 synthetic SHE recall 100.0%, FN 0, FP 0
 v1~v10 synthetic SHE smoke recall 100.0%, FN 0, FP 67
 actual response 240 status changed 0
@@ -467,13 +467,15 @@ pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.*
 pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
 pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.*
 pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.*
-pictures-json/reports/synthetic_observations_v10_ci_candidate_promotion_v1_report_report.*
-pictures-json/reports/actual_response_samples_ci_candidate_promotion_v1.*
-koshaontology/ontology/serving-validation-report-ci_candidate_promotion_v1.*
-koshaontology/ontology/serving-workprocess-alignment-ci_candidate_promotion_v1.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.*
+pictures-json/reports/synthetic_observations_v10_ci_preferred_guide_ci1_report_report.*
+pictures-json/reports/actual_response_samples_ci_preferred_guide_ci1.*
+pictures-json/reports/ci_boundary_mismatch_triage_ci_candidate_promotion_v1.*
+koshaontology/ontology/serving-validation-report-ci_preferred_guide_ci1.*
+koshaontology/ontology/serving-workprocess-alignment-ci_preferred_guide_ci1.*
 ```
 
-Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `ci_candidate_promotion_v1` Stage 2~5, v10 smoke, actual 240 replay, ontology validation, WorkProcess alignment, and the preceding `ci_broad_sr_guard4` CI no-action triage / mapping review / review-only import reports.
+Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `ci_preferred_guide_ci1` Stage 2~5, v10 smoke, actual 240 replay, ontology validation, WorkProcess alignment, and the preceding `ci_broad_sr_guard4` CI no-action triage / mapping review / review-only import reports.
 
 CI no-action triage (`ci_no_action_triage_ci_broad_sr_guard4`) splits the 492 no-action cases as follows:
 
@@ -503,5 +505,7 @@ The review seeds were imported into `guide_sr_link_candidates` as method `ci_can
 Post-import Stage 2~5 validation (`pipeline_quality_v1_v10_ci_candidate_review_v1`) confirmed no serving contamination: total 2,360, Guide mismatch 5, NO_TOP 88, industry boundary gap 0, WorkProcess mismatch 5, CI no_action 492, CI broad_sr_only 0, CI needs_review_used 0, and CI guide_boundary_mismatch 21.
 
 Candidate promotion validation (`ci_candidate_promotion_v1`) promoted only 17 of the 42 review rows to serving `candidate` and kept 25 as `needs_review`. Stage 2~5 v1~v10 stayed stable: Guide mismatch 5, NO_TOP 88, industry boundary gap 0, WorkProcess mismatch 5, CI broad_sr_only 0, CI needs_review_used 0. CI no_action improved 492→491 and CI guide_boundary_mismatch improved 21→20. Actual response 240 stayed status changed 0 with negative_false_positive 10, positive_missed 2, ambiguous_over_promoted 5. v10 SHE smoke stayed recall 100%, FN 0, FP 0. The new ontology snapshot `serving-snapshot-ci_candidate_promotion_v1.ttl` validates with hard 0 / warning 0.
+
+Preferred top-Guide CI ordering (`ci_preferred_guide_ci1`) keeps the same status/penalty/SHE/SR and Guide top behavior, then reorders immediate actions so a context-matched local CI from the selected top Guide can outrank unrelated generic CIs. Stage 2~5 v1~v10 remains stable and CI guide-boundary mismatch improves 20→8 with CI no_action still 491. Actual response 240 status changed remains 0, v10 SHE smoke remains recall 100%, FN 0, FP 0, and `serving-snapshot-ci_preferred_guide_ci1.ttl` validates with hard 0 / warning 0.
 
 Rejected approaches remain the same: do not broaden status-level hazard/risk text aliases or generic `UNSAFE_TERMS` to chase NO_TOP. Use SituationFrame child contexts, Guide usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess/CI relevance instead.

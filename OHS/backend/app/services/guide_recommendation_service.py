@@ -284,6 +284,59 @@ def _unique(values: list[str]) -> list[str]:
     return list(dict.fromkeys(v for v in values if v))
 
 
+def _prioritize_preferred_guide_ci_results(
+    results: list[dict[str, Any]],
+    preferred_guide_codes: list[str] | None,
+) -> list[dict[str, Any]]:
+    """Keep immediate-action CI aligned with the selected standard procedure.
+
+    The first pass can surface a high-scoring but generic CI from a different
+    Guide. If a later fallback already found a context-matched CI from the top
+    Guide, move that CI to the front. Direct SHE checklist cues keep priority.
+    """
+    if len(results) < 2 or not preferred_guide_codes:
+        return results
+
+    preferred_rank = {guide_code: index for index, guide_code in enumerate(_unique(preferred_guide_codes))}
+    if not preferred_rank:
+        return results
+
+    top = results[0]
+    top_guide = str(top.get("source_guide") or "")
+    top_evidence = str(top.get("evidence_summary") or "")
+    if top_guide in preferred_rank or "SHE related checklist cue" in top_evidence:
+        return results
+
+    eligible_markers = (
+        "guide-local contextual CI fallback",
+        "domain-safe top Guide CI-SR fallback",
+        "CI section matches ranked WP",
+        "support cue",
+        "context cue",
+    )
+    candidate_indexes: list[int] = []
+    for index, row in enumerate(results[1:], start=1):
+        source_guide = str(row.get("source_guide") or "")
+        if source_guide not in preferred_rank:
+            continue
+        evidence = str(row.get("evidence_summary") or "")
+        if any(marker in evidence for marker in eligible_markers) or row.get("source_sr_ids"):
+            candidate_indexes.append(index)
+
+    if not candidate_indexes:
+        return results
+
+    best_index = min(
+        candidate_indexes,
+        key=lambda index: (
+            preferred_rank.get(str(results[index].get("source_guide") or ""), 99),
+            index,
+        ),
+    )
+    preferred_row = results[best_index]
+    return [preferred_row, *results[:best_index], *results[best_index + 1:]]
+
+
 def _risk_feature_codes(risk_features: list[Any] | None) -> dict[str, set[str]]:
     result = {"accident_type": set(), "hazardous_agent": set(), "work_context": set()}
     for feature in risk_features or []:
@@ -1243,7 +1296,7 @@ def get_immediate_checklist_items(
                 result_ids.add(identifier)
                 if len(results) >= limit:
                     break
-    return results
+    return _prioritize_preferred_guide_ci_results(results, preferred_guide_codes)
 
 
 def get_standard_guides(
