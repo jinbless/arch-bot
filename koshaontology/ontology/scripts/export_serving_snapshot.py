@@ -18,7 +18,7 @@ from urllib.parse import quote
 from rdflib import Graph, Literal, Namespace, RDF, RDFS, OWL, XSD
 
 
-BASELINE_ID = "ci_broad_sr_guard4"
+BASELINE_ID = "ci_candidate_promotion_v1"
 
 ROOT = Path(__file__).resolve().parents[3]
 ONTOLOGY_DIR = Path(__file__).resolve().parents[1]
@@ -30,11 +30,12 @@ PHOTO_MATCHABILITY_PATH = OHS_DATA_DIR / "guide_photo_matchability.v1.json"
 BROAD_SR_POLICY_PATH = OHS_DATA_DIR / "broad_sr_policy.json"
 SITUATION_TAXONOMY_PATH = OHS_DATA_DIR / "situation_context_taxonomy.v21.json"
 GUIDE_SUPPORT_PATH = OHS_DATA_DIR / "guide_support_candidates.v21.jsonl"
-PIPELINE_REPORT_PATH = REPORTS_DIR / "pipeline_quality_v1_v10_ci_broad_sr_guard4.json"
+PIPELINE_REPORT_PATH = REPORTS_DIR / "pipeline_quality_v1_v10_ci_candidate_promotion_v1.json"
 PG_GUIDE_USAGE_SYNC_REPORT_PATH = REPORTS_DIR / "pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json"
+CI_CANDIDATE_PROMOTION_REPORT_PATH = REPORTS_DIR / "ci_sr_candidate_promotion_ci_broad_sr_guard4.json"
 
 POLICY_TTL_PATH = ONTOLOGY_DIR / "serving-policy.ttl"
-SNAPSHOT_TTL_PATH = ONTOLOGY_DIR / "serving-snapshot-ci_broad_sr_guard4.ttl"
+SNAPSHOT_TTL_PATH = ONTOLOGY_DIR / "serving-snapshot-ci_candidate_promotion_v1.ttl"
 SHAPES_TTL_PATH = ONTOLOGY_DIR / "serving-validation-shapes.ttl"
 
 CORE = Namespace("https://cashtoss.info/ontology#")
@@ -124,6 +125,7 @@ def build_policy_graph() -> Graph:
         APP.topGuide: (APP.EvaluationCase, GUIDE.KoshaGuide),
         APP.topChecklistItem: (APP.EvaluationCase, GUIDE.ChecklistItem),
         APP.servingCandidateFor: (APP.ServingCandidate, GUIDE.KoshaGuide),
+        APP.candidateChecklistItem: (APP.ServingCandidate, GUIDE.ChecklistItem),
         APP.candidateRequirement: (APP.ServingCandidate, SR.SafetyRequirement),
     }
     for uri, (domain, range_) in object_properties.items():
@@ -247,6 +249,7 @@ def add_artifacts(g: Graph, snapshot_uri) -> None:
         GUIDE_SUPPORT_PATH,
         PIPELINE_REPORT_PATH,
         PG_GUIDE_USAGE_SYNC_REPORT_PATH,
+        CI_CANDIDATE_PROMOTION_REPORT_PATH,
     ]
     for path in artifact_paths:
         rel = path.relative_to(ROOT)
@@ -355,6 +358,33 @@ def add_support_candidates(g: Graph, rows: list[dict[str, Any]]) -> None:
             g.add((node, APP.candidateRequirement, SR[safe_id(sr_id)]))
 
 
+def add_ci_candidate_promotion_rows(g: Graph, rows: list[dict[str, Any]]) -> None:
+    allowed_statuses = {"candidate", "asserted"}
+    for row in rows:
+        ci_id = row.get("entity_id")
+        sr_id = row.get("sr_id")
+        guide_code = row.get("guide_code")
+        if not ci_id or not sr_id:
+            continue
+        node = APP[f"ServingCandidate_ci_candidate_review_v1_{safe_id(ci_id)}_{safe_id(sr_id)}"]
+        review_status = str(row.get("current_review_status") or row.get("target_review_status") or "unknown")
+        g.add((node, RDF.type, APP.ServingCandidate))
+        g.add((node, APP.baselineId, Literal(BASELINE_ID, datatype=XSD.string)))
+        g.add((node, APP.candidateScope, Literal("ci_sr_link_candidate", datatype=XSD.string)))
+        g.add((node, APP.reviewStatus, Literal(review_status, datatype=XSD.string)))
+        g.add((node, APP.servingAllowed, Literal(review_status in allowed_statuses, datatype=XSD.boolean)))
+        g.add((node, APP.legalAsserted, Literal(False, datatype=XSD.boolean)))
+        add_optional_literal(g, node, APP.method, "ci_candidate_review_v1")
+        add_optional_literal(g, node, APP.evidence, row.get("evidence"))
+        add_optional_literal(g, node, APP.confidence, row.get("confidence"), XSD.decimal)
+        add_optional_literal(g, node, APP.promotionDecision, row.get("decision"))
+        add_optional_literal(g, node, APP.promotionReason, row.get("reason"))
+        if guide_code:
+            g.add((node, APP.servingCandidateFor, GUIDE[safe_id(guide_code)]))
+        g.add((node, APP.candidateChecklistItem, GUIDE[safe_id(ci_id)]))
+        g.add((node, APP.candidateRequirement, SR[safe_id(sr_id)]))
+
+
 def top_guide_from_record(record: dict[str, Any]) -> str | None:
     stage5 = record.get("stage5_guide_ci") or {}
     top = stage5.get("top_procedure") or {}
@@ -430,6 +460,7 @@ def build_snapshot_graph() -> Graph:
     broad_policy = load_json(BROAD_SR_POLICY_PATH)
     support_rows = load_jsonl(GUIDE_SUPPORT_PATH)
     pipeline_report = load_json(PIPELINE_REPORT_PATH)
+    ci_candidate_promotion_report = load_json(CI_CANDIDATE_PROMOTION_REPORT_PATH)
 
     profiles = dict(guide_data.get("profiles") or {})
     photo_profiles = photo_data.get("profiles") or {}
@@ -452,6 +483,7 @@ def build_snapshot_graph() -> Graph:
     add_guide_profiles(g, profiles)
     add_broad_sr_policy(g, broad_policy)
     add_support_candidates(g, support_rows)
+    add_ci_candidate_promotion_rows(g, ci_candidate_promotion_report.get("rows") or [])
     add_evaluation_cases(g, pipeline_report.get("records") or [])
 
     summary = pipeline_report.get("summary") or {}

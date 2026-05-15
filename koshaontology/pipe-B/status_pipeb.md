@@ -80,7 +80,7 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 |------|------|------|
 | 후보 테이블 | ✅ DONE | `guide_entity_feature_candidates`, `guide_sr_link_candidates`, `guide_visual_trigger_candidates` |
 | 공통 taxonomy | ✅ DONE | OHS `risk_feature_catalog.json`, `risk_feature_aliases.json` 사용 |
-| deterministic 전체 실행 | ✅ DONE | 84,201 entity 처리, feature 후보 66,105, SR 후보 382,510, visual trigger 후보 DB 기준 12,071 |
+| deterministic 전체 실행 | ✅ DONE | 84,201 entity 처리. 현재 PG 후보 기준 feature 68,181, SR 386,619, visual trigger 14,313 |
 | asserted 반영 | ✅ DONE | 신규 물리 insert 14건. `confidence >= 0.88`, 비LLM 증거 2개 이상 기준만 적용 |
 | LLM 경로 | ✅ 구현 / 승인 대기 | strict JSON schema, evidence span 필수, candidate table 선저장. 30 Guide pilot은 외부 API 전송 승인 후 실행 |
 | 리포트 | ✅ DONE | `pipe-B/data/ontology-enrichment-report.json` |
@@ -98,14 +98,14 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 | WP (WorkProcess) | 9,316 |
 | ES (EquipmentSpec) | 8,103 |
 | DR (DocumentRequirement) | 3,435 |
-| ci_sr_mapping (basedOn) | 10,682 |
-| ci_sr_mapping distinct SR | 131/626 |
-| wp_sr_mapping | 3,599 |
+| ci_sr_mapping (basedOn) | 10,735 |
+| ci_sr_mapping distinct SR | 134/626 |
+| wp_sr_mapping | 3,618 |
 | wp_sr_mapping distinct SR | 129/626 |
-| guide_entity_feature_candidates | 66,105 |
-| guide_sr_link_candidates | 382,510 |
-| guide_visual_trigger_candidates | 12,071 |
-| guide_usage_profiles | 1,038 (`ci_broad_sr_guard4` PG sync PASS) |
+| guide_entity_feature_candidates | 68,181 |
+| guide_sr_link_candidates | 386,619 |
+| guide_visual_trigger_candidates | 14,313 |
+| guide_usage_profiles | 1,038 (`ci_broad_sr_guard4` PG sync PASS; current serving baseline `ci_candidate_promotion_v1`) |
 | 파싱 리포트 | 과거 430개 기준 리포트가 남아 있어 최신화 필요 |
 
 ## 보완 이력
@@ -174,9 +174,9 @@ DomainTerm / EquipmentSpec / DocumentRequirement = 설명 보강과 근거 보�
 ## 미처리
 
 - 외부 LLM enrichment 배치: 경로 구현과 deterministic 전체 실행은 완료됐지만 외부 API 전송형 30/200/1,038 배치는 미실행이다. 대신 외부 API 없이 Codex manual batch 001~035 전체 1,038 Guide 후보가 생성·정규화·semantic audit·`usage_profile11` runtime 검증까지 완료됐다.
-- Codex manual batch 001~035의 feature/SR/visual 후보는 아직 PostgreSQL candidate table에 import하지 않았음. 다만 Guide 사용경계 `guide_usage_profiles`는 `guide_domain_profiles.json` 기준 1,038행을 PostgreSQL에 `ci_broad_sr_guard4` baseline으로 동기화 완료했다. 다음 candidate import 단계에서는 same-method replace 및 SR 후보 unique key evidence merge/pre-aggregate 후 진행하며, asserted mapping update는 0으로 유지해야 함
-- candidateSR/basedOn 연결 품질은 개선됐지만 아직 낮음: `ci_sr_mapping` distinct SR은 131/626, `wp_sr_mapping` distinct SR은 129/626
-- Guide/WorkProcess/CI 중심 추천 로직은 OHS `ci_broad_sr_guard4` 기준까지 보강 완료. synthetic Stage 2~5 v1~v10 기준 Guide mismatch 5, NO_TOP 88, industry_boundary_gap 0, workprocess_mismatch 5, CI broad_sr_only 0이며 actual response 240 status/penalty 경계는 유지됐다. 다음은 남은 CI no_action 492, CI guide_boundary_mismatch 22, source/taxonomy review NO_TOP 57을 구조적으로 줄이는 작업
+- Codex manual batch 001~035의 feature/SR/visual 후보 전체 import는 아직 미실행이다. 다만 Guide 사용경계 `guide_usage_profiles`는 `guide_domain_profiles.json` 기준 1,038행을 PostgreSQL에 `ci_broad_sr_guard4` baseline으로 동기화 완료했고, CI no-action 의미 검토에서 좁힌 16건은 `guide_sr_link_candidates`에 method `ci_candidate_review_v1`로 42개 후보(`asserted=false`)를 적재했다. 2026-05-15에 이 중 17행만 serving `candidate`로 승격했고 25행은 `needs_review`로 유지했다. `ci_sr_mapping` 본 테이블 반영은 0이다. 다음 대량 candidate import 단계에서도 same-method replace 및 SR 후보 unique key evidence merge/pre-aggregate 후 진행하며, asserted mapping update는 0으로 유지해야 함
+- candidateSR/basedOn 연결 품질은 개선됐지만 아직 낮음: `ci_sr_mapping` distinct SR은 134/626, `wp_sr_mapping` distinct SR은 129/626
+- Guide/WorkProcess/CI 중심 추천 로직은 OHS `ci_candidate_promotion_v1` 기준까지 보강 완료. synthetic Stage 2~5 v1~v10 기준 Guide mismatch 5, NO_TOP 88, industry_boundary_gap 0, workprocess_mismatch 5, CI broad_sr_only 0, CI no_action 491, CI guide_boundary_mismatch 20이며 actual response 240 status/penalty 경계는 유지됐다. 다음은 남은 CI no_action 491, CI guide_boundary_mismatch 20, source/taxonomy review NO_TOP 57을 구조적으로 줄이는 작업
 - 파싱 품질 리포트 최신화 필요: `parsing-report.json`은 430개 기준 과거 리포트
 - DT/ES/WP faceted 커버리지 추가 향상 필요 (DT 59%, ES 35%, WP 55%)
 

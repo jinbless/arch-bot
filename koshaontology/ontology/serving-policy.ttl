@@ -19,6 +19,10 @@ app:broadSrAttention a owl:DatatypeProperty .
 
 app:broadSrOnlyTop a owl:DatatypeProperty .
 
+app:candidateChecklistItem a owl:ObjectProperty ;
+    rdfs:domain app:ServingCandidate ;
+    rdfs:range guide:ChecklistItem .
+
 app:candidateRequirement a owl:ObjectProperty ;
     rdfs:domain app:ServingCandidate ;
     rdfs:range sr:SafetyRequirement .

@@ -2,11 +2,60 @@
 
 Latest updated: 2026-05-15
 
-Accepted runtime baseline: `ci_broad_sr_guard4`
+Accepted runtime baseline: `ci_candidate_promotion_v1`
 
-Previous accepted baseline: `ci_wp_relevance_guard1`
+Previous accepted baseline: `ci_broad_sr_guard4`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## CI Candidate Promotion v1
+
+Source reports:
+
+```text
+pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.*
+pictures-json/reports/synthetic_observations_v10_ci_candidate_promotion_v1_report_report.*
+pictures-json/reports/actual_response_samples_ci_candidate_promotion_v1.*
+koshaontology/ontology/serving-snapshot-ci_candidate_promotion_v1.ttl
+koshaontology/ontology/serving-validation-report-ci_candidate_promotion_v1.*
+koshaontology/ontology/serving-workprocess-alignment-ci_candidate_promotion_v1.*
+```
+
+Summary:
+
+```text
+previous accepted baseline: ci_broad_sr_guard4
+candidate review method: ci_candidate_review_v1
+review rows: 42
+serving candidate rows: 17
+kept needs_review rows: 25
+asserted mapping update: 0
+ci_sr_mapping update: 0
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 5 -> 5
+NO_TOP: 88 -> 88
+industry_boundary_gap: 0 -> 0
+workprocess_mismatch: 5 -> 5
+broad_sr_overreach: 0 -> 0
+photo_unmatchable_top_count: 0 -> 0
+followup_only_retained_count: 16
+CI no_action: 492 -> 491
+CI context_mismatch: 0 -> 0
+CI broad_sr_only: 0 -> 0
+CI needs_review_used: 0 -> 0
+CI guide_boundary_mismatch: 21 -> 20
+v10 SHE recall: 100.0%, FN 0, FP 0
+v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
+actual response 240 status changed: 0
+negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
+serving ontology validation: PASS, hard violations 0, warnings 0
+primary WorkProcess alignment: 4,715 / 4,715 same Guide
+```
+
+Interpretation: this pass accepts the smallest safe part of the CI no-action mapping review queue. It promotes only direct, reviewed CI/SR pairs such as conveyor guarding, hot-work fire prevention, winter ice slip control, dry-cleaning ventilation, and ergonomic standing-work controls. Broad/generic PPE, near-analogy SRs, and weak corpus-gap rows remain `needs_review`. The runtime still blocks `needs_review/rejected` candidates, broad SR-only top actions, and asserted legal mapping changes.
 
 ## CI Broad SR Guard v4
 
@@ -19,6 +68,11 @@ pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.*
 pictures-json/reports/synthetic_observations_v10_ci_broad_sr_guard4_report.*
 pictures-json/reports/actual_response_samples_ci_broad_sr_guard4.*
 pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
+pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.*
+pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.*
+pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.*
+pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
 koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
 koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 ```
@@ -97,6 +151,89 @@ PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
 Interpretation: this pass accepts that some photos still have no scene-relevant KOSHA top Guide. NO_TOP stays at 88 and runtime repair candidates remain 0. Guide mismatch, industry boundary, WorkProcess mismatch, and ontology validation stay stable; CI broad-only, no_action, and boundary queues improve while v10 smoke and actual 240 status behavior remain stable. The next quality target is remaining CI no_action, CI guide-boundary mismatch, and generic CI overreach.
+
+CI no-action triage:
+
+```text
+source report: pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.*
+total CI no_action: 492
+upstream_stage2_3_review: 357
+ci_mapping_review: 63
+source_or_taxonomy_review: 45
+accepted_empty_top: 24
+runtime_repair_candidate: 3
+
+triage categories:
+  upstream_she_not_actionable_no_sr: 194
+  upstream_she_not_actionable_with_sr: 163
+  no_top_source_or_taxonomy_review: 45
+  top_guide_ci_sr_mapping_gap: 36
+  top_guide_ci_has_no_sr_mapping: 27
+  no_top_accepted_empty_top: 24
+  top_guide_ci_relevance_gate_gap: 3
+```
+
+Semantic review of the 63 `ci_mapping_review` rows:
+
+```text
+source report: pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.*
+guide_selection_mismatch: 21
+corpus_gap_or_near_analogy: 21
+true_ci_mapping_candidate: 16
+safe_or_followup_no_immediate: 5
+```
+
+Interpretation: `CI no_action 492` is mostly not a direct CI ranking bug. The immediate runtime repair tail is only 3 cases (`E-31`, `A-G-18`), while the apparent 63-case CI mapping queue shrinks to 16 true CI-SR/candidate mapping candidates after semantic review. The other 47 should be handled as Guide selection/profile issues, source/taxonomy gaps, or accepted safe/follow-up no-action scenes. The largest bucket, 357 cases, still belongs upstream in Stage 2/3 because SHE is not actionable enough to create immediate actions.
+
+CI/SR mapping candidate review for the 16 true candidates:
+
+```text
+source report: pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.*
+review cases: 16
+manual-seeded CI candidates: 16
+best candidate still needs mapping review: 16
+top Guides: A-G-12 7, B-M-37 2, A-G-11/A-G-6/C-113/D-28/E-G-1/G-11/P-22 1 each
+```
+
+Interpretation: the 16 rows now have concrete ChecklistItem review seeds, but they are not asserted PG mappings. Examples include `CI-AG6-006` for knife/cutting, `CI-BM37-140` for conveyor guarding/emergency stop, `CI-C113-130` for icy surfaces, and `CI-P22-027` for dry-cleaning ventilation. Any PG update should import these as candidate/review rows first or apply a tightly reviewed `ci_sr_mapping` patch, then rerun v1~v10 and actual 240.
+
+PG review-only candidate import:
+
+```text
+source report: pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.*
+table: guide_sr_link_candidates
+method: ci_candidate_review_v1
+mode: apply
+raw candidate rows: 62
+pre-aggregated rows inserted: 42
+distinct CI / SR: 19 / 19
+review_status: needs_review
+asserted: false
+serving-eligible rows: 0
+missing Guide/CI/SR refs: 0
+ci_sr_mapping inserts: 0
+```
+
+Interpretation: the review candidates now exist in PostgreSQL for ontology/audit review, but they cannot affect OHS runtime because `needs_review` is excluded from serving gates. The next step is not to rerank immediately; it is to review these 42 candidate rows, promote only validated rows to a serving-eligible candidate or asserted mapping policy if justified, and then rerun synthetic v1~v10 plus actual 240.
+
+Post-import Stage 2~5 validation:
+
+```text
+source report: pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
+total: 2,360
+SHE: TP 1,107 / FN 909 / FP 82
+SR: TP 1,414 / FN 270 / FP 211
+Guide mismatch: 5
+NO_TOP: 88
+industry boundary gap: 0
+WorkProcess mismatch: 5
+CI no_action: 492
+CI broad_sr_only: 0
+CI needs_review_used: 0
+CI guide_boundary_mismatch: 21
+```
+
+Interpretation: PG now contains review-only CI/SR candidates, but the runtime-facing evaluation remains stable. The candidate import did not create `ci_needs_review_used` leakage.
 
 ## NO TOP Serving Bridge v4
 
