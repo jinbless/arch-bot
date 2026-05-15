@@ -54,6 +54,20 @@ def _load_profiles(path: Path) -> dict[str, dict[str, Any]]:
     return profiles if isinstance(profiles, dict) else {}
 
 
+def _display_path(path: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return str(resolved.relative_to(PROJECT_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _infer_baseline(path: Path) -> str:
+    name = path.stem
+    prefix = "pipeline_quality_v1_v10_"
+    return name[len(prefix):] if name.startswith(prefix) else name
+
+
 def _guide_ci_stats(db: Any, guide_code: str | None, response_sr_ids: set[str], broad_sr_ids: set[str]) -> dict[str, Any]:
     if not guide_code:
         return {
@@ -256,7 +270,7 @@ def build_rows(args: argparse.Namespace) -> tuple[dict[str, Any], list[dict[str,
                 }
             )
 
-    summary = summarize_rows(rows, pipeline)
+    summary = summarize_rows(rows, pipeline, args)
     return summary, rows
 
 
@@ -264,7 +278,7 @@ def _top(counter: Counter, limit: int = 20) -> list[dict[str, Any]]:
     return [{"key": key, "count": count} for key, count in counter.most_common(limit)]
 
 
-def summarize_rows(rows: list[dict[str, Any]], pipeline: dict[str, Any]) -> dict[str, Any]:
+def summarize_rows(rows: list[dict[str, Any]], pipeline: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     category_counts = Counter(row["triage_category"] for row in rows)
     repair_group_counts = Counter(row["repair_group"] for row in rows)
     runtime_repair_rows = [row for row in rows if row["repair_group"] == "runtime_repair_candidate"]
@@ -274,10 +288,10 @@ def summarize_rows(rows: list[dict[str, Any]], pipeline: dict[str, Any]) -> dict
     accepted_empty_rows = [row for row in rows if row["repair_group"] == "accepted_empty_top"]
     return {
         "generated_at": _now(),
-        "source_pipeline_report": str(DEFAULT_PIPELINE_REPORT.relative_to(PROJECT_ROOT)),
-        "source_no_top_actionability_report": str(DEFAULT_NO_TOP_ACTIONABILITY.relative_to(PROJECT_ROOT)),
+        "source_pipeline_report": _display_path(args.pipeline_report),
+        "source_no_top_actionability_report": _display_path(args.no_top_actionability),
         "source_pipeline_created_at_utc": pipeline.get("created_at_utc"),
-        "baseline": "ci_broad_sr_guard4",
+        "baseline": _infer_baseline(args.pipeline_report),
         "total_ci_no_action": len(rows),
         "triage_category_counts": dict(category_counts.most_common()),
         "repair_group_counts": dict(repair_group_counts.most_common()),

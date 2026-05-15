@@ -25,9 +25,9 @@ sys.path.insert(0, str(BACKEND_DIR))
 
 from app.db.database import SessionLocal  # noqa: E402
 
-DEFAULT_REVIEW_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "ci_sr_mapping_candidate_review_ci_broad_sr_guard4.json"
+DEFAULT_REVIEW_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "ci_sr_mapping_candidate_review_ci_unrelated_action_filter1.json"
 DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
-DEFAULT_PREFIX = "pg_ci_sr_link_candidates_ci_broad_sr_guard4"
+DEFAULT_PREFIX = "pg_ci_sr_link_candidates_ci_unrelated_action_filter1"
 DEFAULT_METHOD = "ci_candidate_review_v1"
 
 CASE_SR_IDS: dict[str, list[str]] = {
@@ -49,6 +49,23 @@ CASE_SR_IDS: dict[str, list[str]] = {
     "SYN-V5-0001": ["SR-CHEMICAL-002", "SR-CHEMICAL-025", "SR-CHEMICAL-026"],
 }
 
+CASE_CI_SR_IDS: dict[str, dict[str, list[str]]] = {
+    "SYN-V5-0158": {
+        "CI-D28-006": ["SR-FIRE_EXPLOSION-019"],
+        "CI-D28-008": ["SR-FIRE_EXPLOSION-019"],
+    },
+    "SYN-V9-0056": {
+        "CI-AG1-001": ["SR-WORKPLACE-011"],
+        "CI-AG1-002": ["SR-WORKPLACE-011"],
+        "CI-AG1-007": ["SR-WORKPLACE-011"],
+        "CI-AG1-051": ["SR-WORKPLACE-007", "SR-WORKPLACE-011"],
+    },
+    "SYN-V9-0057": {
+        "CI-G67-008": ["SR-WORKPLACE-018"],
+        "CI-G67-009": ["SR-WORKPLACE-007"],
+    },
+}
+
 
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -56,6 +73,24 @@ def _now() -> str:
 
 def _load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(PROJECT_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _infer_baseline(path: Path) -> str:
+    name = path.stem
+    for prefix in (
+        "ci_sr_mapping_candidate_review_",
+        "pg_ci_sr_link_candidates_",
+    ):
+        if name.startswith(prefix):
+            return name[len(prefix) :]
+    return name
 
 
 def _manual_ci_candidates(row: dict[str, Any]) -> list[dict[str, Any]]:
@@ -77,18 +112,24 @@ def _manual_ci_candidates(row: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _build_candidate_rows(review_report: Path, method: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     data = _load_json(review_report)
+    review_summary = data.get("summary") or {}
+    baseline = review_summary.get("baseline") or _infer_baseline(review_report)
     source_rows = data.get("rows") or []
     raw_rows: list[dict[str, Any]] = []
     missing_sr_map: list[str] = []
 
     for row in source_rows:
         case_id = str(row.get("case_id"))
-        sr_ids = CASE_SR_IDS.get(case_id)
-        if not sr_ids:
+        case_ci_sr_ids = CASE_CI_SR_IDS.get(case_id) or {}
+        case_sr_ids = CASE_SR_IDS.get(case_id)
+        if not case_ci_sr_ids and not case_sr_ids:
             missing_sr_map.append(case_id)
             continue
         for ci in _manual_ci_candidates(row):
             ci_id = str(ci.get("ci_id"))
+            sr_ids = case_ci_sr_ids.get(ci_id) or case_sr_ids or []
+            if not sr_ids:
+                continue
             for sr_id in sr_ids:
                 raw_rows.append(
                     {
@@ -102,8 +143,8 @@ def _build_candidate_rows(review_report: Path, method: str) -> tuple[dict[str, A
                             f"CI={ci_id}: {ci.get('text') or row.get('best_ci_text') or ''}"
                         ).strip(),
                         "source_fields": {
-                            "baseline": "ci_broad_sr_guard4",
-                            "source_report": str(review_report.relative_to(PROJECT_ROOT)),
+                            "baseline": baseline,
+                            "source_report": _display_path(review_report),
                             "case_id": case_id,
                             "industry_context": row.get("industry_context"),
                             "work_context": row.get("work_context"),
@@ -148,8 +189,8 @@ def _build_candidate_rows(review_report: Path, method: str) -> tuple[dict[str, A
 
     summary = {
         "generated_at": _now(),
-        "baseline": "ci_broad_sr_guard4",
-        "source_review_report": str(review_report.relative_to(PROJECT_ROOT)),
+        "baseline": baseline,
+        "source_review_report": _display_path(review_report),
         "method": method,
         "review_status": "needs_review",
         "asserted": False,

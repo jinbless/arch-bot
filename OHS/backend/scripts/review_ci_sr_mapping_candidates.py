@@ -24,10 +24,10 @@ sys.path.insert(0, str(BACKEND_DIR))
 from app.db.database import SessionLocal  # noqa: E402
 from app.db.models import PgChecklistItem, PgCiSrMapping, PgSafetyRequirement  # noqa: E402
 
-DEFAULT_SEMANTIC_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "ci_mapping_review_semantic_ci_broad_sr_guard4.json"
-DEFAULT_PIPELINE_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_ci_broad_sr_guard4.json"
+DEFAULT_SEMANTIC_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "ci_mapping_review_semantic_ci_unrelated_action_filter1.json"
+DEFAULT_PIPELINE_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_ci_unrelated_action_filter1.json"
 DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
-DEFAULT_PREFIX = "ci_sr_mapping_candidate_review_ci_broad_sr_guard4"
+DEFAULT_PREFIX = "ci_sr_mapping_candidate_review_ci_unrelated_action_filter1"
 
 TOKEN_RE = re.compile(r"[가-힣A-Za-z0-9_]{2,}")
 STOP_TOKENS = {
@@ -67,9 +67,12 @@ MANUAL_CI_CANDIDATES: dict[str, list[str]] = {
     "SYN-V5-0116": ["CI-BM37-140"],
     "SYN-V9-0146": ["CI-C113-130"],
     "SYN-V3-0133": ["CI-D28-006", "CI-D28-007"],
+    "SYN-V5-0158": ["CI-D28-006", "CI-D28-008"],
     "SYN-V4-0058": ["CI-EG1-038", "CI-EG1-043", "CI-EG1-059"],
     "SYN-V5-0047": ["CI-G11-002", "CI-G11-013", "CI-G11-015"],
     "SYN-V5-0001": ["CI-P22-027", "CI-P22-003", "CI-P22-037"],
+    "SYN-V9-0056": ["CI-AG1-001", "CI-AG1-002", "CI-AG1-007", "CI-AG1-036", "CI-AG1-051"],
+    "SYN-V9-0057": ["CI-G67-008", "CI-G67-009", "CI-G67-026", "CI-G67-027", "CI-G67-036"],
 }
 
 
@@ -79,6 +82,25 @@ def _now() -> str:
 
 def _load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(PROJECT_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _infer_baseline(path: Path) -> str:
+    name = path.stem
+    for prefix in (
+        "ci_mapping_review_semantic_",
+        "pipeline_quality_v1_v10_",
+        "ci_sr_mapping_candidate_review_",
+    ):
+        if name.startswith(prefix):
+            return name[len(prefix) :]
+    return name
 
 
 def _tokens(text: str | None) -> Counter[str]:
@@ -169,6 +191,7 @@ def _sr_titles(db: Any, sr_ids: list[str]) -> dict[str, str]:
 
 
 def _review_rows(args: argparse.Namespace) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    semantic_data = _load_json(args.semantic_report)
     semantic_rows = _load_true_mapping_rows(args.semantic_report)
     pipeline_by_case = _load_pipeline_records(args.pipeline_report)
     output_rows: list[dict[str, Any]] = []
@@ -274,11 +297,13 @@ def _review_rows(args: argparse.Namespace) -> tuple[dict[str, Any], list[dict[st
                 }
             )
 
+    semantic_summary = semantic_data.get("summary") or {}
+    baseline = semantic_summary.get("baseline") or _infer_baseline(args.semantic_report)
     summary = {
         "generated_at": _now(),
-        "baseline": "ci_broad_sr_guard4",
-        "source_semantic_report": str(args.semantic_report.relative_to(PROJECT_ROOT)),
-        "source_pipeline_report": str(args.pipeline_report.relative_to(PROJECT_ROOT)),
+        "baseline": baseline,
+        "source_semantic_report": _display_path(args.semantic_report),
+        "source_pipeline_report": _display_path(args.pipeline_report),
         "review_case_count": len(output_rows),
         "cases_with_ci_candidates": sum(1 for row in output_rows if row["top_ci_candidates"]),
         "manual_seeded_case_count": sum(1 for row in output_rows if row.get("best_ci_selection_method") == "manual_review_seed"),

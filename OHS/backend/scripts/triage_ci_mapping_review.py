@@ -218,6 +218,11 @@ CASE_REVIEW: dict[str, dict[str, str]] = {
         "next_action": "ci_sr_mapping_candidate_review",
         "review_reason": "고양이 얼굴 할큄과 보안경/PPE Guide는 보호구 CI 후보로 볼 수 있다.",
     },
+    "SYN-V5-0068": {
+        "semantic_category": "corpus_gap_or_near_analogy",
+        "next_action": "source_or_taxonomy_review",
+        "review_reason": "펫샵 고양이 교상은 동물 취급/교상 gap이다. 동물원 Guide는 가까운 비유지만 업종·작업장 경계가 커서 CI를 직접 확장하기엔 이르다.",
+    },
     "SYN-V5-0081": {
         "semantic_category": "corpus_gap_or_near_analogy",
         "next_action": "source_or_taxonomy_review",
@@ -247,6 +252,11 @@ CASE_REVIEW: dict[str, dict[str, str]] = {
         "semantic_category": "guide_selection_mismatch",
         "next_action": "guide_profile_or_scoring_review",
         "review_reason": "질산암모늄과 가솔린 혼재 보관인데 내화구조 Guide가 top이다.",
+    },
+    "SYN-V5-0158": {
+        "semantic_category": "true_ci_mapping_candidate",
+        "next_action": "ci_sr_mapping_candidate_review",
+        "review_reason": "소화기 압력·점검 라벨 불량과 소규모사업장 화재·폭발 방지 Guide는 직접적인 후보다. 소화기 교체/점검 CI-SR 후보 검토가 필요하다.",
     },
     "SYN-V6-0186": {
         "semantic_category": "guide_selection_mismatch",
@@ -323,6 +333,16 @@ CASE_REVIEW: dict[str, dict[str, str]] = {
         "next_action": "guide_profile_or_scoring_review",
         "review_reason": "방청 도료 분무 유기용제 노출인데 배관 비파괴검사/열처리 Guide가 top이다.",
     },
+    "SYN-V9-0056": {
+        "semantic_category": "true_ci_mapping_candidate",
+        "next_action": "ci_sr_mapping_candidate_review",
+        "review_reason": "고층 옥상 가장자리 안테나 설치와 추락방호망/추락방지 Guide는 가까운 현장조치 후보다. 안전대 체결·방호망·난간 CI-SR 후보 검토가 필요하다.",
+    },
+    "SYN-V9-0057": {
+        "semantic_category": "true_ci_mapping_candidate",
+        "next_action": "ci_sr_mapping_candidate_review",
+        "review_reason": "창문 밖 외벽 장비 점검과 건물 외벽 작업 Guide는 가까운 현장조치 후보다. 창문 밖 작업 금지, 안전대·고소작업차 사용 CI-SR 후보 검토가 필요하다.",
+    },
     "SYN-V9-0146": {
         "semantic_category": "true_ci_mapping_candidate",
         "next_action": "ci_sr_mapping_candidate_review",
@@ -353,6 +373,21 @@ def _top(counter: Counter[str], limit: int = 20) -> list[dict[str, Any]]:
     return [{"key": key, "count": count} for key, count in counter.most_common(limit)]
 
 
+def _display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(PROJECT_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _infer_baseline(path: Path) -> str:
+    name = path.stem
+    prefix = "ci_no_action_triage_"
+    if name.startswith(prefix):
+        return name[len(prefix) :]
+    return name
+
+
 def _build_rows(source_report: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     data = _load_json(source_report)
     source_rows = [
@@ -367,7 +402,11 @@ def _build_rows(source_report: Path) -> tuple[dict[str, Any], list[dict[str, Any
         review = CASE_REVIEW.get(case_id)
         if not review:
             missing.append(case_id)
-            continue
+            review = {
+                "semantic_category": "needs_manual_review",
+                "next_action": "manual_semantic_review",
+                "review_reason": "현재 CASE_REVIEW에 없는 신규 CI mapping-review 행이다. 자동으로 CI-SR 매핑 후보로 승격하지 말고 수동 의미검토가 필요하다.",
+            }
         rows.append(
             {
                 **row,
@@ -382,11 +421,6 @@ def _build_rows(source_report: Path) -> tuple[dict[str, Any], list[dict[str, Any
         )
 
     unexpected = sorted(set(CASE_REVIEW) - {str(row.get("case_id")) for row in source_rows})
-    if missing or unexpected:
-        raise RuntimeError(
-            "CASE_REVIEW coverage mismatch: "
-            f"missing={missing}, unexpected={unexpected}"
-        )
 
     category_counts = Counter(row["semantic_category"] for row in rows)
     next_action_counts = Counter(row["next_action"] for row in rows)
@@ -394,26 +428,35 @@ def _build_rows(source_report: Path) -> tuple[dict[str, Any], list[dict[str, Any
     wrong_guide_rows = [row for row in rows if row["semantic_category"] == "guide_selection_mismatch"]
     corpus_gap_rows = [row for row in rows if row["semantic_category"] == "corpus_gap_or_near_analogy"]
     safe_rows = [row for row in rows if row["semantic_category"] == "safe_or_followup_no_immediate"]
+    manual_rows = [row for row in rows if row["semantic_category"] == "needs_manual_review"]
 
     source_summary = data.get("summary") or {}
+    baseline = source_summary.get("baseline") or _infer_baseline(source_report)
     summary: dict[str, Any] = {
         "generated_at": _now(),
-        "baseline": source_summary.get("baseline") or "ci_broad_sr_guard4",
-        "source_report": str(source_report.relative_to(PROJECT_ROOT)),
+        "baseline": baseline,
+        "source_report": _display_path(source_report),
         "source_ci_mapping_review_count": len(source_rows),
+        "reviewed_case_count": len(source_rows) - len(missing),
+        "missing_review_case_count": len(missing),
+        "missing_review_case_ids": sorted(missing),
+        "retired_review_case_count": len(unexpected),
+        "retired_review_case_ids": unexpected,
         "semantic_category_counts": dict(category_counts.most_common()),
         "next_action_counts": dict(next_action_counts.most_common()),
         "true_ci_mapping_candidate_count": len(true_ci_rows),
         "guide_selection_mismatch_count": len(wrong_guide_rows),
         "corpus_gap_or_near_analogy_count": len(corpus_gap_rows),
         "safe_or_followup_no_immediate_count": len(safe_rows),
+        "needs_manual_review_count": len(manual_rows),
         "top_guides_true_ci_mapping_candidates": _top(Counter(row.get("top_guide") for row in true_ci_rows if row.get("top_guide"))),
         "top_guides_guide_selection_mismatch": _top(Counter(row.get("top_guide") for row in wrong_guide_rows if row.get("top_guide"))),
         "industries_true_ci_mapping_candidates": _top(Counter(row.get("industry_context") for row in true_ci_rows if row.get("industry_context"))),
         "industries_corpus_gap_or_near_analogy": _top(Counter(row.get("industry_context") for row in corpus_gap_rows if row.get("industry_context"))),
         "interpretation": (
-            "Only a minority of the 63 CI mapping-review rows are safe candidates for CI-SR/candidate mapping work. "
-            "Most rows are Guide selection mismatch, source/taxonomy corpus gap, or safe/follow-up scenes where no immediate action is acceptable."
+            f"Only {len(true_ci_rows)} of {len(source_rows)} CI mapping-review rows are safe candidates for CI-SR/candidate mapping work. "
+            "Most rows are Guide selection mismatch, source/taxonomy corpus gap, or safe/follow-up scenes where no immediate action is acceptable. "
+            "Rows without explicit semantic review are kept as needs_manual_review and are not treated as mapping candidates."
         ),
     }
     return summary, rows
@@ -433,6 +476,8 @@ def _write_reports(summary: dict[str, Any], rows: list[dict[str, Any]], output_d
         f"- generated_at: `{summary['generated_at']}`",
         f"- source report: `{summary['source_report']}`",
         f"- source CI mapping-review rows: `{summary['source_ci_mapping_review_count']}`",
+        f"- reviewed rows: `{summary['reviewed_case_count']}`",
+        f"- needs manual review: `{summary['missing_review_case_count']}`",
         "",
         "## Semantic Categories",
         "",
@@ -451,6 +496,7 @@ def _write_reports(summary: dict[str, Any], rows: list[dict[str, Any]], output_d
             f"- Guide selection/profile mismatch: `{summary['guide_selection_mismatch_count']}`",
             f"- corpus gap or near analogy: `{summary['corpus_gap_or_near_analogy_count']}`",
             f"- safe/follow-up no immediate action: `{summary['safe_or_followup_no_immediate_count']}`",
+            f"- needs manual review: `{summary['needs_manual_review_count']}`",
             "",
             summary["interpretation"],
             "",
@@ -467,6 +513,13 @@ def _write_reports(summary: dict[str, Any], rows: list[dict[str, Any]], output_d
         md_lines.append(
             f"- `{row['case_id']}` `{row['semantic_category']}` top Guide `{row['top_guide']}`: {row['review_reason']}"
         )
+    manual_rows = [row for row in rows if row["semantic_category"] == "needs_manual_review"]
+    if manual_rows:
+        md_lines.extend(["", "## Manual Review Required", ""])
+        for row in manual_rows:
+            md_lines.append(
+                f"- `{row['case_id']}` `{row.get('industry_context')}` top Guide `{row.get('top_guide')}`: {row['review_reason']}"
+            )
     md_lines.extend(
         [
             "",
