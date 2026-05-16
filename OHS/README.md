@@ -98,7 +98,7 @@ guide_sr_link_candidates
 guide_visual_trigger_candidates
 ```
 
-`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. 현재 Guide profile 자체는 `ci_broad_sr_guard4` 기준으로 `guide_usage_profiles` PostgreSQL 테이블에도 1,038행 동기화되어 있고, 최신 서빙 기준 `ci_unrelated_action_filter1`은 그 위에서 review-only CI/SR 후보 50행 중 17행만 serving `candidate`로 승격하고 33행은 `needs_review`로 유지한 뒤, unrelated Guide의 generic CI를 최종 필터링한 상태다. 런타임은 JSON artifact와 PG 후보 테이블을 읽고, PG 동기화본은 감사/ontology export 정합성 확인에 쓴다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
+`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. 현재 Guide profile 자체는 `ci_broad_sr_guard4` 기준으로 `guide_usage_profiles` PostgreSQL 테이블에도 1,038행 동기화되어 있고, 최신 서빙 기준 `ci_cross_guide_broad_only_guard1`은 그 위에서 review-only CI/SR 후보 50행 중 17행만 serving `candidate`로 승격하고 33행은 `needs_review`로 유지한 뒤, non-primary Guide의 broad-SR-only 즉시조치를 최종 필터링한 상태다. 런타임은 JSON artifact와 PG 후보 테이블을 읽고, PG 동기화본은 감사/ontology export 정합성 확인에 쓴다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
 
 legacy resource/video/category 기반 파일은 product 런타임에서 제거했다.
 
@@ -382,10 +382,10 @@ frame extraction on synthetic v1~v10:
 
 ## Current Open Work
 
-1. `ci_unrelated_action_filter1` 기준 ontology hard violation/warning은 0건이다. 다음 작업은 consistency repair가 아니라 품질 개선이다.
+1. `ci_cross_guide_broad_only_guard1` 기준 ontology hard violation/warning은 0건이다. 다음 작업은 consistency repair가 아니라 품질 개선이다.
 2. 현장 사진에 맞는 KOSHA Guide가 없을 수 있다는 전제를 유지한다. `NO_TOP 88`은 전부 나쁜 것이 아니며, broad/hot-work Guide로 빈칸을 메우지 않는다.
 3. NO_TOP actionability는 `accepted empty top 31`, `source/taxonomy review 57`, `runtime repair candidate 0`으로 분리됐다. 즉시 보정 대상은 소진됐다.
-4. 다음 구조적 보강 대상은 `CI no_action 494`, `CI guide_boundary_mismatch 2`의 남은 꼬리다. `CI broad_sr_only`는 13건에서 0건으로 해소했다.
+4. 다음 구조적 보강 대상은 `CI no_action 495`, `CI guide_boundary_mismatch 1`의 남은 꼬리다. `CI broad_sr_only`는 13건에서 0건으로 해소했다.
 5. UI/UX와 개발서버 확인은 알고리즘 artifact, ontology TTL, evaluation baseline, reports manifest를 건드리지 않는 범위에서 진행한다.
 
 ## Notes
@@ -404,7 +404,7 @@ OHS/backend/app/data/situation_context_taxonomy.v21.json
 OHS/backend/app/data/guide_support_candidates.v21.jsonl
 ```
 
-The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
+The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
 
 Serving candidate gates:
 
@@ -417,12 +417,12 @@ photo_unmatchable Guides cannot be photo-based top standard procedures
 scene-specific Guide families require their own required context terms; missing Guide coverage may remain NO_TOP
 ```
 
-The current accepted OHS runtime baseline is `ci_unrelated_action_filter1`. It keeps `ci_preferred_guide_ci1` status/penalty/SHE/SR, Guide/WorkProcess, and top standard-procedure behavior, then changes only final immediate-action filtering. Direct SHE checklist cues and selected top-Guide CIs remain eligible, while generic CIs from unrelated Guides are suppressed. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
+The current accepted OHS runtime baseline is `ci_cross_guide_broad_only_guard1`. It keeps `ci_unrelated_action_filter1` status/penalty/SHE/SR, Guide/WorkProcess, top standard-procedure, and photo-policy behavior, then changes only final immediate-action filtering. Direct SHE checklist cues and selected top-Guide CIs remain eligible, while non-primary Guide CIs whose only SR evidence is broad secondary SR are suppressed. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
 
 Latest validation:
 
 ```text
-baseline: ci_unrelated_action_filter1
+baseline: ci_cross_guide_broad_only_guard1
 synthetic Stage 2~5 v1~v10: 2,360 samples
 Guide mismatch: 5
 Stage 2~5 NO_TOP: 88
@@ -432,11 +432,11 @@ workprocess_mismatch: 5
 broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
 followup_only_retained_count: 16
-CI no_action: 494
+CI no_action: 495
 CI context_mismatch: 0
 CI broad_sr_only: 0
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 2
+CI guide_boundary_mismatch: 1
 v10 synthetic SHE recall 100.0%, FN 0, FP 0
 v1~v10 synthetic SHE smoke recall 100.0%, FN 0, FP 67
 actual response 240 status changed 0
@@ -468,20 +468,22 @@ pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
 pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.*
 pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.*
 pictures-json/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.*
-pictures-json/reports/synthetic_observations_v10_ci_unrelated_action_filter1_report_report.*
-pictures-json/reports/actual_response_samples_ci_unrelated_action_filter1.*
-pictures-json/reports/ci_boundary_mismatch_triage_ci_unrelated_action_filter1.*
-pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.*
-pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.*
-pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.*
-pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.*
-koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*
-koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.*
+pictures-json/reports/synthetic_observations_v10_ci_cross_guide_broad_only_guard1_report_report.*
+pictures-json/reports/actual_response_samples_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/ci_boundary_mismatch_triage_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/stage2_5_no_top_root_cause_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/stage2_5_no_top_actionability_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/ci_no_action_triage_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/ci_mapping_review_semantic_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/ci_sr_mapping_candidate_review_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/pg_ci_sr_link_candidates_ci_cross_guide_broad_only_guard1_apply.*
+pictures-json/reports/ci_sr_candidate_promotion_ci_cross_guide_broad_only_guard1.*
+koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*
+koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*
 ```
 
-Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `ci_unrelated_action_filter1` Stage 2~5, v10 smoke, actual 240 replay, ontology validation, WorkProcess alignment, and the preceding `ci_broad_sr_guard4` CI no-action triage / mapping review / review-only import reports.
+Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `ci_cross_guide_broad_only_guard1` Stage 2~5, v10 smoke, actual 240 replay, ontology validation, WorkProcess alignment, and CI no-action / mapping review / review-only import reports.
 
 CI no-action triage (`ci_no_action_triage_ci_broad_sr_guard4`) splits the 492 no-action cases as follows:
 
@@ -517,5 +519,7 @@ Preferred top-Guide CI ordering (`ci_preferred_guide_ci1`) keeps the same status
 Unrelated action filter (`ci_unrelated_action_filter1`) keeps the same status/penalty/SHE/SR, Guide top, WorkProcess, and photo policy behavior, then suppresses generic immediate-action CIs from unrelated Guides unless they are tied to the selected top Guide or direct SHE checklist-cue evidence. Stage 2~5 v1~v10 remains stable and CI guide-boundary mismatch improves 8→2; CI no_action changes 491→494. Actual response 240 status changed remains 0, v10 SHE smoke remains recall 100%, FN 0, FP 0, and `serving-snapshot-ci_unrelated_action_filter1.ttl` validates with hard 0 / warning 0. A stricter primary-Guide-only trial was rejected because it reduced mismatch to 0 but regressed CI no_action to 551.
 
 2026-05-16 PG candidate refresh keeps the same accepted serving metrics but updates the review queue for `ci_unrelated_action_filter1`: CI no-action triage is 494 total, with 356 upstream Stage 2/3 rows, 67 CI mapping-review rows, 45 source/taxonomy rows, 23 accepted empty-top rows, and 3 runtime repair candidates. Semantic review narrows those 67 rows to 19 true CI/SR mapping candidates. They were imported into `guide_sr_link_candidates` as 50 `ci_candidate_review_v1` rows; 17 are serving `candidate`, 33 remain `needs_review`, all are `asserted=false`, and `ci_sr_mapping` inserts remain 0. `pipeline_quality_v1_v10_ci_candidate_review_current_pg` confirms Guide mismatch 5, NO_TOP 88, CI no_action 494, CI guide-boundary mismatch 2, and CI needs_review_used 0.
+
+Cross-Guide broad-only action guard (`ci_cross_guide_broad_only_guard1`) keeps the same status/penalty/SHE/SR, Guide top, WorkProcess, and photo-policy behavior. It suppresses only non-primary Guide immediate-action CIs whose `source_sr_ids` are entirely broad secondary SRs. Stage 2~5 v1~v10 keeps Guide mismatch 5, NO_TOP 88, industry boundary gap 0, WorkProcess mismatch 5, and CI needs_review_used 0; CI guide-boundary mismatch improves 2→1 while CI no_action changes 494→495. Actual response 240 status changed remains 0, v10 SHE smoke remains recall 100%, FN 0, FP 0, and `serving-snapshot-ci_cross_guide_broad_only_guard1.ttl` validates with hard 0 / warning 0.
 
 Rejected approaches remain the same: do not broaden status-level hazard/risk text aliases or generic `UNSAFE_TERMS` to chase NO_TOP. Use SituationFrame child contexts, Guide usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess/CI relevance instead.

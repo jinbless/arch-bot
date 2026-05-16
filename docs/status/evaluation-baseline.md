@@ -2,11 +2,93 @@
 
 Latest updated: 2026-05-16
 
-Accepted runtime baseline: `ci_unrelated_action_filter1`
+Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
-Previous accepted baseline: `ci_preferred_guide_ci1`
+Previous accepted baseline: `ci_unrelated_action_filter1`
 
 The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## CI Cross Guide Broad Only Guard 1
+
+Source reports:
+
+```text
+pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.*
+pictures-json/reports/synthetic_observations_v10_ci_cross_guide_broad_only_guard1_report_report.*
+pictures-json/reports/actual_response_samples_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/ci_boundary_mismatch_triage_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/stage2_5_no_top_root_cause_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/stage2_5_no_top_actionability_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/ci_no_action_triage_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/ci_mapping_review_semantic_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/ci_sr_mapping_candidate_review_ci_cross_guide_broad_only_guard1.*
+pictures-json/reports/pg_ci_sr_link_candidates_ci_cross_guide_broad_only_guard1_apply.*
+pictures-json/reports/ci_sr_candidate_promotion_ci_cross_guide_broad_only_guard1.*
+koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
+koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*
+koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*
+```
+
+Summary:
+
+```text
+previous accepted baseline: ci_unrelated_action_filter1
+synthetic Stage 2~5 v1~v10 total: 2,360
+SHE TP/FN/FP: 1,107 / 909 / 82
+SR TP/FN/FP: 1,414 / 270 / 211
+Guide mismatch: 5 -> 5
+NO_TOP: 88 -> 88
+NO_TOP actionability: accepted empty top 31 / source-taxonomy review 57 / runtime repair candidates 0
+industry_boundary_gap: 0 -> 0
+workprocess_mismatch: 5 -> 5
+broad_sr_overreach: 0 -> 0
+photo_unmatchable_top_count: 0 -> 0
+followup_only_retained_count: 16
+CI no_action: 494 -> 495
+CI context_mismatch: 0 -> 0
+CI broad_sr_only: 0 -> 0
+CI needs_review_used: 0 -> 0
+CI guide_boundary_mismatch: 2 -> 1
+v10 SHE recall: 100.0%, FN 0, FP 0
+v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
+actual response 240 status changed: 0
+negative_false_positive / positive_missed / ambiguous_over_promoted: 10 / 2 / 5
+serving ontology validation: PASS, hard violations 0, warnings 0
+primary WorkProcess alignment: 4,715 / 4,715 same Guide
+```
+
+Interpretation: this pass keeps status/penalty/SHE/SR, Guide top selection, NO_TOP, WorkProcess, photo policy, and ontology validation stable. It only adds a narrow final immediate-action gate: if an immediate-action CI comes from a non-primary standard-procedure Guide and its only SR evidence is broad secondary SR, suppress it. This removes the H-117 broad-SR cross-Guide action in the manhole/confined-space case and lets the C-54 local CI surface instead. The remaining mismatch is `SYN-V5-0201`, where gas-station vapor exposure still borrows an H-115 hydrogen-cyanide tank purge CI; treat it as source/profile/taxonomy review, not a broad alias target.
+
+PG candidate review refresh on 2026-05-16:
+
+```text
+CI no_action triage total: 495
+upstream_stage2_3_review: 356
+ci_mapping_review: 68
+source_or_taxonomy_review: 45
+accepted_empty_top: 23
+runtime_repair_candidate: 3
+
+semantic CI mapping review:
+  source rows: 68
+  reviewed rows: 67
+  missing manual review: SYN-V5-0203
+  true_ci_mapping_candidate: 19
+  guide_selection_mismatch: 21
+  corpus_gap_or_near_analogy: 22
+  safe_or_followup_no_immediate: 5
+  needs_manual_review: 1
+
+guide_sr_link_candidates method ci_candidate_review_v1:
+  imported review rows: 50
+  serving candidate rows: 17
+  needs_review rows: 33
+  asserted rows: 0
+  ci_sr_mapping inserts: 0
+```
+
+Interpretation: the additional CI no-action case is not automatically promoted. It is `SYN-V5-0203`, a gas-station enclosed car-wash exhaust/vapor case that now needs manual semantic review before any CI/SR candidate work. The safe candidate set remains 19 cases and 50 review rows; 17 narrow rows are serving `candidate`, 33 remain `needs_review`.
 
 ## CI Unrelated Action Filter 1
 

@@ -28,9 +28,9 @@ from app.db.database import SessionLocal  # noqa: E402
 from app.services.broad_sr_policy import get_broad_sr_ids  # noqa: E402
 
 DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
-DEFAULT_PREFIX = "ci_sr_candidate_promotion_ci_broad_sr_guard4"
+DEFAULT_PREFIX = "ci_sr_candidate_promotion_ci_cross_guide_broad_only_guard1"
 DEFAULT_METHOD = "ci_candidate_review_v1"
-BASELINE = "ci_broad_sr_guard4"
+BASELINE = "ci_cross_guide_broad_only_guard1"
 
 PROMOTE_PAIRS: dict[tuple[str, str], str] = {
     ("CI-AG11-014", "SR-FIRE_EXPLOSION-009"): "hot-work fire prevention is directly tied to welding blanket CI text",

@@ -43,7 +43,7 @@ koshaontology/ontology/source-provenance.ttl
 koshaontology/ontology/source-catalog.ttl
 koshaontology/ontology/source-shapes.ttl
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl
+koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
 ```
 
@@ -76,7 +76,7 @@ parser/script/human  -> prov:Agent
 
 ## Serving Snapshot
 
-The accepted runtime baseline is `ci_unrelated_action_filter1`. Runtime still reads PostgreSQL and OHS JSON artifacts, but the following files are exported for machine validation:
+The accepted runtime baseline is `ci_cross_guide_broad_only_guard1`. Runtime still reads PostgreSQL and OHS JSON artifacts, but the following files are exported for machine validation:
 
 ```text
 OHS/backend/app/data/guide_domain_profiles.json
@@ -84,7 +84,7 @@ OHS/backend/app/data/guide_photo_matchability.v1.json
 OHS/backend/app/data/broad_sr_policy.json
 OHS/backend/app/data/situation_context_taxonomy.v21.json
 OHS/backend/app/data/guide_support_candidates.v21.jsonl
-pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.json
+pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.json
 pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json
 pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.json
 ```
@@ -93,19 +93,19 @@ The export script writes:
 
 ```text
 koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl
+koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
 koshaontology/ontology/serving-validation-shapes.ttl
 ```
 
 The validator writes:
 
 ```text
-koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.json
-koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.md
-koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.csv
-koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.json
-koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.md
-koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.csv
+koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.json
+koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.md
+koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.csv
+koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.json
+koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.md
+koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.csv
 ```
 
 Current validation result:
@@ -122,7 +122,7 @@ guide_usage_profiles PG sync: PASS, 1,038 rows
 PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-The core Guide A-Box was regenerated from PostgreSQL on 2026-05-14, bringing `kosha-instances.ttl` to 1,038 Guides, 54,631 ChecklistItems, and 9,316 WorkProcesses. On 2026-05-15, `guide_domain_profiles.json` was also synchronized into PostgreSQL `guide_usage_profiles` for the `ci_broad_sr_guard4` baseline: 1,038 rows, missing Guide 0, missing primary WorkProcess 0, cross-guide primary WorkProcess 0. The `ci_candidate_promotion_v1` baseline materializes `ci_candidate_review_v1` promotion status: 17 rows are serving `candidate`, 25 remain `needs_review`, and asserted mapping updates remain 0. `ci_preferred_guide_ci1` then changes only immediate-action ordering, and the latest `ci_unrelated_action_filter1` suppresses unrelated generic CI actions while keeping status/penalty/SHE/SR and top Guide behavior stable. The previous stale base-TTL WorkProcess warnings dropped from 1,220 to 0. The 10 role/matchability conflicts are now accepted only when the profile carries explicit field-action classification evidence and observable cues. Current hard violations and warnings are both 0; remaining work is quality improvement, not ontology consistency repair.
+The core Guide A-Box was regenerated from PostgreSQL on 2026-05-14, bringing `kosha-instances.ttl` to 1,038 Guides, 54,631 ChecklistItems, and 9,316 WorkProcesses. On 2026-05-15, `guide_domain_profiles.json` was also synchronized into PostgreSQL `guide_usage_profiles` for the `ci_broad_sr_guard4` baseline: 1,038 rows, missing Guide 0, missing primary WorkProcess 0, cross-guide primary WorkProcess 0. The latest `ci_candidate_review_v1` materialization has 50 review rows: 17 are serving `candidate`, 33 remain `needs_review`, and asserted mapping updates remain 0. `ci_preferred_guide_ci1` changed only immediate-action ordering, `ci_unrelated_action_filter1` suppressed unrelated generic CI actions, and `ci_cross_guide_broad_only_guard1` now also suppresses non-primary Guide immediate actions whose only SR evidence is broad secondary SR. The previous stale base-TTL WorkProcess warnings dropped from 1,220 to 0. The 10 role/matchability conflicts are now accepted only when the profile carries explicit field-action classification evidence and observable cues. Current hard violations and warnings are both 0; remaining work is quality improvement, not ontology consistency repair.
 
 ## Example: C73
 
@@ -154,4 +154,4 @@ Start with these checks:
 
 The OHS recommendation score must not use provenance directly. Provenance is for audit, debug, rebuild, and explanation of data lineage.
 
-The serving snapshot follows the same rule. OHS does not query `serving-snapshot-ci_unrelated_action_filter1.ttl` in the request path; the snapshot is regenerated from serving artifacts and reports whenever a new accepted baseline is created.
+The serving snapshot follows the same rule. OHS does not query `serving-snapshot-ci_cross_guide_broad_only_guard1.ttl` in the request path; the snapshot is regenerated from serving artifacts and reports whenever a new accepted baseline is created.

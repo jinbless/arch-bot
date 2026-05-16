@@ -351,13 +351,22 @@ def _filter_unrelated_preferred_guide_ci_results(
     if not results or not preferred_guide_codes:
         return results
 
-    preferred = set(_unique(preferred_guide_codes))
+    preferred_order = _unique(preferred_guide_codes)
+    preferred = set(preferred_order)
+    primary_guide = preferred_order[0] if preferred_order else ""
+    broad_sr_ids = get_broad_sr_ids()
     filtered: list[dict[str, Any]] = []
     for row in results:
         source_guide = str(row.get("source_guide") or "")
         evidence = str(row.get("evidence_summary") or "")
-        if source_guide in preferred or "SHE related checklist cue" in evidence:
-            filtered.append(row)
+        has_she_cue = "SHE related checklist cue" in evidence
+        if source_guide not in preferred and not has_she_cue:
+            continue
+        if source_guide in preferred and source_guide != primary_guide and not has_she_cue:
+            source_sr_ids = {str(sr_id) for sr_id in (row.get("source_sr_ids") or []) if sr_id}
+            if source_sr_ids and source_sr_ids <= broad_sr_ids:
+                continue
+        filtered.append(row)
     return filtered
 
 

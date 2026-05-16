@@ -51,12 +51,12 @@ The ontology design now includes a source/provenance and serving-validation laye
 
 Current serving validation snapshot:
 
-- baseline: `ci_unrelated_action_filter1`
-- export: `koshaontology/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl`
+- baseline: `ci_cross_guide_broad_only_guard1`
+- export: `koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl`
 - policy ontology: `koshaontology/ontology/serving-policy.ttl`
 - validation shapes: `koshaontology/ontology/serving-validation-shapes.ttl`
-- validation report: `koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*`
-- WorkProcess alignment report: `koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*`
+- validation report: `koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*`
+- WorkProcess alignment report: `koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*`
 
 The snapshot is regenerated from OHS serving artifacts and evaluation reports. Do not hand-edit generated TTL to fix data; fix the source JSON/PG/export script, then regenerate.
 
@@ -149,11 +149,11 @@ Recommended first read order:
 
 ## Current Evaluation Baseline
 
-Accepted runtime baseline: `ci_unrelated_action_filter1`.
+Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`.
 
-Previous accepted baseline: `ci_preferred_guide_ci1`.
+Previous accepted baseline: `ci_unrelated_action_filter1`.
 
-This pass keeps the risk/SHE/SR/status/penalty boundary stable and keeps the top standard-procedure Guide boundary stable. It changes only Stage 5 immediate-action filtering: generic CI rows from unrelated Guides are suppressed when selected top-Guide CI or direct SHE checklist-cue evidence exists. It does not write asserted legal mappings or `ci_sr_mapping`.
+This pass keeps the risk/SHE/SR/status/penalty boundary stable and keeps the top standard-procedure Guide boundary stable. It changes only Stage 5 immediate-action filtering: a non-primary standard-procedure Guide cannot supply an immediate-action CI when its only SR evidence is broad secondary SR. It does not write asserted legal mappings or `ci_sr_mapping`.
 
 Report bodies stay local/external under `pictures-json/reports/**`; root git tracks the manifest and summary instead:
 
@@ -162,21 +162,23 @@ Report bodies stay local/external under `pictures-json/reports/**`; root git tra
 
 Referenced current local report bodies:
 
-- `pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.md`
+- `pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.md`
 - `pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.md`
 - `pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.md`
-- `pictures-json/reports/synthetic_observations_v10_ci_unrelated_action_filter1_report_report.md`
-- `pictures-json/reports/actual_response_samples_ci_unrelated_action_filter1.md`
-- `pictures-json/reports/ci_boundary_mismatch_triage_ci_unrelated_action_filter1.md`
+- `pictures-json/reports/synthetic_observations_v10_ci_cross_guide_broad_only_guard1_report_report.md`
+- `pictures-json/reports/actual_response_samples_ci_cross_guide_broad_only_guard1.md`
+- `pictures-json/reports/ci_boundary_mismatch_triage_ci_cross_guide_broad_only_guard1.md`
+- `pictures-json/reports/stage2_5_no_top_root_cause_ci_cross_guide_broad_only_guard1.md`
+- `pictures-json/reports/stage2_5_no_top_actionability_ci_cross_guide_broad_only_guard1.md`
 - `pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.md`
 - `pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.md`
-- `pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.md`
-- `pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.md`
-- `pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.md`
-- `pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.md`
-- `pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.md`
-- `koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*`
-- `koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*`
+- `pictures-json/reports/ci_no_action_triage_ci_cross_guide_broad_only_guard1.md`
+- `pictures-json/reports/ci_mapping_review_semantic_ci_cross_guide_broad_only_guard1.md`
+- `pictures-json/reports/ci_sr_mapping_candidate_review_ci_cross_guide_broad_only_guard1.md`
+- `pictures-json/reports/pg_ci_sr_link_candidates_ci_cross_guide_broad_only_guard1_apply.md`
+- `pictures-json/reports/ci_sr_candidate_promotion_ci_cross_guide_broad_only_guard1.md`
+- `koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*`
+- `koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*`
 
 Summary:
 
@@ -192,11 +194,11 @@ workprocess_mismatch: 5
 broad_sr_overreach: 0
 photo_unmatchable_top_count: 0
 followup_only_retained_count: 16
-CI no_action: 494
+CI no_action: 495
 CI context_mismatch: 0
 CI broad_sr_only: 0
 CI needs_review_used: 0
-CI guide_boundary_mismatch: 2
+CI guide_boundary_mismatch: 1
 v10 SHE recall: 100.0%, FN 0, FP 0
 v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
 actual response 240 status changed: 0
@@ -210,9 +212,9 @@ accepted photo-actionable role overrides: 10
 Serving validation snapshot:
 
 ```text
-snapshot: koshaontology/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl
-validation report: koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*
-WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*
+snapshot: koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
+validation report: koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*
+WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*
 GuideUsageProfile: 1,038
 photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
@@ -224,8 +226,8 @@ PG guide_usage_profiles sync: PASS, 1,038 rows
 PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-Implementation note: `ci_unrelated_action_filter1` keeps the `ci_preferred_guide_ci1` status/penalty/SHE/SR, Guide/WorkProcess, and top standard-procedure boundary. It changes only final immediate-action filtering after preferred top-Guide CI ordering: direct SHE checklist cues remain eligible, selected top-Guide CIs remain eligible, and generic CIs from unrelated Guides are suppressed. CI guide-boundary mismatch improves `8 -> 2`; CI no_action changes `491 -> 494`; CI broad_sr_only and needs_review leaks remain `0`. A stricter primary-Guide-only trial was rejected because it reduced mismatch to `0` but regressed CI no_action to `551`.
+Implementation note: `ci_cross_guide_broad_only_guard1` keeps the `ci_unrelated_action_filter1` status/penalty/SHE/SR, Guide/WorkProcess, top standard-procedure, and photo policy behavior. It adds one narrow final immediate-action rule: if a non-primary standard-procedure Guide supplies a CI using only broad secondary SR evidence, suppress that CI. CI guide-boundary mismatch improves `2 -> 1`; CI no_action changes `494 -> 495`; CI broad_sr_only and needs_review leaks remain `0`.
 
-NO_TOP interpretation: `NO_TOP` is not automatically a defect. Current audit splits 88 cases into 31 accepted empty-top cases and 57 source/taxonomy review cases. Runtime repair candidates are 0; do not reduce the remaining 88 with broad aliases or generic Guide fallback. The remaining CI guide-boundary mismatch tail is now 2 cases and should be handled as source/profile/taxonomy review, not broad action fallback.
+NO_TOP interpretation: `NO_TOP` is not automatically a defect. Current audit splits 88 cases into 31 accepted empty-top cases and 57 source/taxonomy review cases. Runtime repair candidates are 0; do not reduce the remaining 88 with broad aliases or generic Guide fallback. The remaining CI guide-boundary mismatch tail is now 1 case and should be handled as source/profile/taxonomy review, not broad action fallback.
 
-PG candidate review refresh on 2026-05-16: `ci_candidate_review_v1` now has 50 review rows in `guide_sr_link_candidates`; 17 are serving `candidate`, 33 remain `needs_review`, all are `asserted=false`, and `ci_sr_mapping` inserts remain 0. Verification report `pipeline_quality_v1_v10_ci_candidate_review_current_pg` preserves the accepted metrics exactly: Guide mismatch 5, NO_TOP 88, CI no_action 494, CI guide-boundary mismatch 2, CI needs_review_used 0.
+PG candidate review refresh on 2026-05-16: `ci_candidate_review_v1` still has 50 review rows in `guide_sr_link_candidates`; 17 are serving `candidate`, 33 remain `needs_review`, all are `asserted=false`, and `ci_sr_mapping` inserts remain 0. Verification report `pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg` confirms Guide mismatch 5, NO_TOP 88, CI no_action 495, CI guide-boundary mismatch 1, CI needs_review_used 0.
