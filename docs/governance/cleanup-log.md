@@ -4,6 +4,33 @@
 
 ---
 
+## 2026-05-16 (Phase 2 최종 audit): 전 영역 옛 경로 reference 일괄 갱신
+
+코드/설정/데이터/문서 전 영역에서 옛 경로 reference를 새 구조로 일괄 치환 (D 옵션 audit fix).
+
+영역별 patched 파일 수 (총 1,532):
+- `.json`: 1,452 (guides-manifest 1,917 hits, ci-batches 1,430+, reports-manifest 929, pilot/scale-test/rerun-guides, broad_sr_policy, guide_domain_profiles 등)
+- `.py`: 60 (docstring/comment + `export_manual_domain_serving_artifacts.py` hardcoded path 3건)
+- `.md`: 10 (pipe-B/agent-prompts 18, plan_pipeb 11 등)
+- `.ttl`: 8 (`serving-snapshot-*.ttl` source metadata 57 hits)
+- `.txt`: 1
+
+주요 fix:
+- `guides-manifest.json`의 `source_pdf_path` "kosha-guides/E/..." → "data-team/01-parsing/kosha-guides/rawPDF/E/..." (사용자 raw PDF 이동 반영)
+- `export_manual_domain_serving_artifacts.py` input/output path 갱신
+- `serving-snapshot-*.ttl` 8개의 source metadata
+
+최종 audit 결과:
+- 옛 경로(OHS|koshaontology|kosha-guides|pictures-json) 잔여: **0건** (history 문서 제외)
+- Python compile: serving-team(114) + data-team(72) + ontology-team(8) = **194 files / 0 errors**
+- broken markdown link: **205 OK / 0 broken**
+- 자동 생성 산출물 (serving-validation-report 48, manual-enrichment 84): 옛 경로 0건
+- history 문서 (cleanup-log.md, monorepo-transition.md)는 의도된 보존
+
+`docs/governance/cleanup-log.md`와 `docs/governance/monorepo-transition.md` 두 문서만 옛 경로 보존 (변경 이력 기록 목적).
+
+---
+
 ## 2026-05-16 (Phase 2 잔여 정리): root local untracked 자산 정리
 
 Phase 2 commit/push 이후 root local에 남아 있던 옛 디렉토리(git untracked)를 정리.
