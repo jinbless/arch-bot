@@ -20,30 +20,7 @@ data-team/05-enrichment/eval-data/reports: local/external report bodies
 
 현재 accepted runtime baseline은 `ci_cross_guide_broad_only_guard1`이다. 직전 product baseline은 `ci_unrelated_action_filter1`이며, 그 이전 `ci_preferred_guide_ci1`, `ci_candidate_promotion_v1`, `ci_broad_sr_guard4`, `ci_wp_relevance_guard1`, `no_top_serving_bridge4`, `no_top_runtime_repair1_safe_gate3`, `no_forced_hotwork_gate1`, `context_safe_gate1`, `corpus_gap_guard1`, `safe_scene_phrase_gate2`, `strict_profile_gate3`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `stage3_remaining_gap_support_v20_actionable`, `photo_matchability1`, `situation_frame_support7`, `usage_profile11` 등은 historical milestone으로 보존한다.
 
-```text
-synthetic Stage 2~5 v1~v10 total 2,360
-SHE TP/FN/FP 1,107 / 909 / 82
-SR TP/FN/FP 1,414 / 270 / 211
-Guide mismatch 5
-Stage 2~5 NO_TOP 88
-NO_TOP actionability accepted empty top 31 / source-taxonomy review 57 / runtime repair candidates 0
-industry_boundary_gap 0
-workprocess_mismatch 5
-broad_sr_overreach 0
-photo_unmatchable_top_count 0
-followup_only_retained_count 16
-CI no_action 495
-CI context_mismatch 0
-CI broad_sr_only 0
-CI needs_review_used 0
-CI guide_boundary_mismatch 1
-v10 SHE recall 100.0%, FN 0, FP 0
-v1~v10 SHE smoke recall 100.0%, FN 0, FP 67
-actual response 240 status changed 0
-negative_false_positive 10
-positive_missed 2
-ambiguous_over_promoted 5
-```
+전체 baseline 메트릭은 [../status/evaluation-baseline.md](../status/evaluation-baseline.md) 정본을 참조한다 (이 문서에 중복 보관하지 않음).
 
 `ci_cross_guide_broad_only_guard1`은 OHS serving 기준으로 고정했고, 같은 기준을 온톨로지 검증 스냅샷으로 내보낸다. 이 스냅샷은 런타임 대체가 아니라 이상한 연결을 찾는 검증 계층이다.
 

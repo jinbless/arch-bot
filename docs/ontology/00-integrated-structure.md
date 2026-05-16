@@ -532,26 +532,12 @@ ReasoningTracePanel
 
 현재 검증 기준은 다음과 같다.
 
+전체 검증 메트릭은 [../status/evaluation-baseline.md](../status/evaluation-baseline.md) 정본을 참조한다 (이 통합 구조도 문서에는 중복 보관하지 않음).
+
 ```text
 accepted baseline: ci_cross_guide_broad_only_guard1
 Python compile: OK
 frontend npm run build: OK
-synthetic Guide v1~v10 total: 2,360
-Stage 2~5 SHE TP/FN/FP: 1,107 / 909 / 82
-Stage 2~5 SR TP/FN/FP: 1,414 / 270 / 211
-current obvious top Guide mismatch: 5
-NO_TOP: 88
-industry_boundary_gap: 0
-workprocess_mismatch: 5
-photo_unmatchable_top_count: 0
-CI needs_review_used: 0
-CI no_action: 495
-CI guide_boundary_mismatch: 1
-v10 SHE recall: 100.0%, FN 0, FP 0
-v1~v10 SHE smoke: recall 100.0%, FN 0, FP 67
-actual response 240 status changed: 0
-negative_false_positive: 10
-positive_missed: 2
 ambiguous_over_promoted: 5
 serving snapshot validation: PASS, hard violation 0, warnings 0
 accepted photo-actionable role overrides: 10

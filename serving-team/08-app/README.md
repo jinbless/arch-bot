@@ -419,7 +419,7 @@ scene-specific Guide families require their own required context terms; missing 
 
 The current accepted OHS runtime baseline is `ci_cross_guide_broad_only_guard1`. It keeps `ci_unrelated_action_filter1` status/penalty/SHE/SR, Guide/WorkProcess, top standard-procedure, and photo-policy behavior, then changes only final immediate-action filtering. Direct SHE checklist cues and selected top-Guide CIs remain eligible, while non-primary Guide CIs whose only SR evidence is broad secondary SR are suppressed. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
 
-**전체 메트릭 / historical baseline 진행 / PG candidate refresh / Rejected approaches는 [docs/status/evaluation-baseline.md](../docs/status/evaluation-baseline.md) 정본을 참조한다.** 이 문서에는 중복 보관하지 않는다.
+**전체 메트릭 / historical baseline 진행 / PG candidate refresh / Rejected approaches는 [docs/status/evaluation-baseline.md](../../docs/status/evaluation-baseline.md) 정본을 참조한다.** 이 문서에는 중복 보관하지 않는다.
 
 핵심 요약:
 
@@ -435,4 +435,4 @@ PG guide_usage_profiles sync: PASS, 1,038 rows
 PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-참고 리포트 본문은 `data-team/05-enrichment/eval-data/reports/**`에 로컬/외부로 보관되며, root git은 [data-team/05-enrichment/eval-data/reports-manifest.json](../data-team/05-enrichment/eval-data/reports-manifest.json)과 위 정본만 추적한다.
+참고 리포트 본문은 `data-team/05-enrichment/eval-data/reports/**`에 로컬/외부로 보관되며, root git은 [data-team/05-enrichment/eval-data/reports-manifest.json](../../data-team/05-enrichment/eval-data/reports-manifest.json)과 위 정본만 추적한다.
