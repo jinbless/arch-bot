@@ -68,7 +68,7 @@ SR 검증 결과 (2026-04-12 재생성 후)
 ## 5. 재현 방법
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 
 python3 scripts/step6_validate_sr.py
 

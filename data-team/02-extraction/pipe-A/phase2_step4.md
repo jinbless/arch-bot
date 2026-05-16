@@ -65,7 +65,7 @@
 ## 5. 재현 방법
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 
 # 전체 재생성 시 (기존 출력 삭제 필요)
 # LLM 에이전트에 다음을 전달:

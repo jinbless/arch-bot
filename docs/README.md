@@ -38,14 +38,14 @@ docs:
 
 하위 프로젝트:
 
-- [OHS/README.md](../OHS/README.md) — OHS 서비스 운영
-- [koshaontology/pipe-A/CLAUDE.md](../koshaontology/pipe-A/CLAUDE.md), [status_pipea.md](../koshaontology/pipe-A/status_pipea.md), [plan_pipea.md](../koshaontology/pipe-A/plan_pipea.md)
-- [koshaontology/pipe-B/CLAUDE.md](../koshaontology/pipe-B/CLAUDE.md), [status_pipeb.md](../koshaontology/pipe-B/status_pipeb.md), [plan_pipeb.md](../koshaontology/pipe-B/plan_pipeb.md)
-- [koshaontology/pipe-C/CLAUDE.md](../koshaontology/pipe-C/CLAUDE.md), [status_pipec.md](../koshaontology/pipe-C/status_pipec.md), [plan_pipec.md](../koshaontology/pipe-C/plan_pipec.md)
+- [serving-team/08-app/README.md](../serving-team/08-app/README.md) — OHS 서비스 운영
+- [data-team/02-extraction/pipe-A/CLAUDE.md](../data-team/02-extraction/pipe-A/CLAUDE.md), [status_pipea.md](../data-team/02-extraction/pipe-A/status_pipea.md), [plan_pipea.md](../data-team/02-extraction/pipe-A/plan_pipea.md)
+- [data-team/02-extraction/pipe-B/CLAUDE.md](../data-team/02-extraction/pipe-B/CLAUDE.md), [status_pipeb.md](../data-team/02-extraction/pipe-B/status_pipeb.md), [plan_pipeb.md](../data-team/02-extraction/pipe-B/plan_pipeb.md)
+- [data-team/03-validation/pipe-C/CLAUDE.md](../data-team/03-validation/pipe-C/CLAUDE.md), [status_pipec.md](../data-team/03-validation/pipe-C/status_pipec.md), [plan_pipec.md](../data-team/03-validation/pipe-C/plan_pipec.md)
 
 ## 문서 정책
 
 - baseline 메트릭의 **정본은 [status/evaluation-baseline.md](status/evaluation-baseline.md) 한 곳**. 다른 곳에는 링크만 둔다.
 - 활성 워크플랜은 `workplans/`, 다주제 후보 큐는 `backlog/`로 분리한다. 백로그 항목이 안정화되면 별도 워크플랜으로 승격.
 - 정리 이력은 [governance/cleanup-log.md](governance/cleanup-log.md)에 append-only로 기록한다.
-- 자동 생성 산출물 (`koshaontology/ontology/serving-validation-report-*.md`, `koshaontology/pipe-B/data/manual-enrichment-*.md`)은 손대지 말고 생성 스크립트를 수정한다.
+- 자동 생성 산출물 (`ontology-team/06-reasoning/ontology/serving-validation-report-*.md`, `data-team/02-extraction/pipe-B/data/manual-enrichment-*.md`)은 손대지 말고 생성 스크립트를 수정한다.

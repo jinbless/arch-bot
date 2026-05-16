@@ -11,7 +11,7 @@ Pipe-A PostgreSQL DB에서 3종 역인덱스를 자동 생성하여 CI→SR base
 ## 실행
 
 ```bash
-cd koshaontology/pipe-B
+cd data-team/02-extraction/pipe-B
 python3 scripts/step2_build_sr_index.py
 ```
 

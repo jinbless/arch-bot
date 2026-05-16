@@ -4,7 +4,79 @@
 
 ---
 
-## 2026-05-16: 모노레포 문서/디렉토리 구조 1차 정리
+## 2026-05-16 (Phase 2): 팀별 디렉토리 재배치
+
+### 변경 요약
+
+9단계 작업 모델 + 3팀 분담에 맞춰 모노레포 디렉토리를 팀 중심으로 재배치.
+
+```text
+arch-bot/
+├── data-team/                  데이터팀 (1~5단계, 향후 private kosha-data-pipeline repo)
+│   ├── 01-parsing/             (구) kosha-guides
+│   ├── 02-extraction/          (구) koshaontology/pipe-A, pipe-B
+│   ├── 03-validation/          (구) koshaontology/pipe-C
+│   ├── 04-ontology-export/     (Phase B에서 ontology/scripts/export_* 이동 예정)
+│   └── 05-enrichment/          (구) pictures-json + koshaontology/{data,db,scripts}/she
+│
+├── ontology-team/              온톨로지팀 (6단계, 향후 public kosha-ontology-reasoning repo, 오픈소스)
+│   └── 06-reasoning/           (구) koshaontology/ontology + dashboard 시각화
+│
+├── serving-team/               서빙팀 (7~8단계, 향후 private kosha-ohs repo)
+│   ├── 07-materialization/     (Phase B에서 import_*_to_pg.py 이동 예정)
+│   └── 08-app/                 (구) OHS 통째
+│
+└── shared/                     팀 공유 reference (구 koshaontology/config/hazard-taxonomy-unified.json)
+```
+
+### 주요 이동 (commit `cb0a63b`, 3,639 files changed)
+
+- `kosha-guides` → `data-team/01-parsing/kosha-guides`
+- `koshaontology/pipe-A,B,C` → `data-team/02-extraction/pipe-A,B` + `03-validation/pipe-C`
+- `koshaontology/ontology` → `ontology-team/06-reasoning/ontology`
+- `koshaontology/{scripts,data,db}/she` → `data-team/05-enrichment/she-*`
+- `koshaontology/scripts/dashboard-*` + `kosha-ontology-dashboard.html` → `ontology-team/06-reasoning/visualization`
+- `koshaontology/config/hazard-taxonomy-unified.json` → `shared/reference`
+- `pictures-json` → `data-team/05-enrichment/eval-data`
+- `OHS/{backend,frontend,docker-compose,package*,playwright,scripts,data,etc}` → `serving-team/08-app/`
+
+### 외부 의존 경로 수정
+
+- `Makefile`: `BACKEND_DIR`/`FRONTEND_DIR` 새 경로
+- `pipe-A scripts/config`: `../../legalize-kr/` → `../../../legalize-kr/`
+- `pipe-B docs`: `../../kosha-guides/` → `../../01-parsing/kosha-guides/`
+- `.gitignore`: 모든 경로 새 구조로 통합 (`OHS/.gitignore`, `koshaontology/.gitignore` 흡수)
+
+### 잔여 정리
+
+- `OHS/202167904_1280.jpg` 삭제 (미사용 sample)
+- 빈 디렉토리(`koshaontology/`, `OHS/`) 제거
+- `OHS/.env.example` → `serving-team/08-app/.env.example`
+
+### commit 2 (이번 PR)
+
+- 신규: `data-team/README.md`, `ontology-team/README.md`, `serving-team/README.md`, `shared/README.md`
+- 신규: `docs/architecture/README.md`, `team-structure.md`, `stage-mapping.md`, `inter-stage-interfaces.md`, `repo-split-plan.md`, `open-source-readiness.md`
+- 갱신: 루트 `README.md`, `CLAUDE.md` (3팀 + 9단계 매핑)
+- 갱신: `docs/`, `serving-team/08-app/README.md` 등의 옛 경로 일괄 치환 (29 files)
+
+### 5번 영역 남은 작업 (별도 PR)
+
+5번 작업이 활발히 진행 중이므로 이번에는 큰 묶음만 이동. 다음을 다음 PR로 분리:
+- `serving-team/08-app/backend/scripts/{build_*,evaluate_*,analyze_*,triage_*,review_*,...}` → `data-team/05-enrichment/{llm-scripts,evaluation-scripts}/`
+- `serving-team/08-app/backend/app/data/*.json` → `data-team/05-enrichment/runtime-artifacts/` (backend가 import path 수정 동반)
+- `serving-team/08-app/backend/scripts/import_*_to_pg.py` → `serving-team/07-materialization/pg-sync-scripts/`
+- `ontology-team/06-reasoning/ontology/scripts/export_*` → `data-team/04-ontology-export/`
+
+### 검증
+
+- ✅ `serving-team/08-app/backend` Python compile OK
+- ✅ git mv는 모두 R(rename)로 history 보존
+- ✅ leakage 0건 (`.env`, `node_modules`, `reports/`, raw PDF)
+
+---
+
+## 2026-05-16 (Phase 1): 모노레포 문서/디렉토리 구조 1차 정리
 
 ### 변경 요약
 

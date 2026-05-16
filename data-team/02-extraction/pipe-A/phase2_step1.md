@@ -50,7 +50,7 @@ Phase 3 예약 (모두 nullable):
 ## 2. 재현 방법
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 
 # section 추출 + 카테고리 분류 템플릿 생성
 python3 scripts/extract_sections.py

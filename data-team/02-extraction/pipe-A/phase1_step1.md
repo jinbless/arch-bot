@@ -40,7 +40,7 @@
 ## 4. 실행 방법
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 python3 scripts/step1_extract_penalties.py
 ```
 
@@ -83,7 +83,7 @@ PostgreSQL 3개 테이블:
 
 ### 6.3 실행 방법
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 python3 db/import_and_verify.py --clean
 ```
 

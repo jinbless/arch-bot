@@ -76,7 +76,7 @@ python3 scripts/step5_prepare_sr_batch.py --all --batch-size 20
 ## 6. 재현 방법
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 
 # 기존 배치 삭제 후 재생성
 rm -f data/safety-requirements/sr-batch-*-input.json

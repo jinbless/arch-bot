@@ -18,11 +18,11 @@
 8. [../architecture/source-provenance.md](../architecture/source-provenance.md)
 9. [../workplans/llm-domain-guard.md](../workplans/llm-domain-guard.md)
 10. [../ontology/00-integrated-structure.md](../ontology/00-integrated-structure.md)
-11. [../../OHS/README.md](../../OHS/README.md)
+11. [../../serving-team/08-app/README.md](../../serving-team/08-app/README.md)
 12. [../backlog/refactor-candidates.md](../backlog/refactor-candidates.md)
-13. [../../koshaontology/pipe-A/status_pipea.md](../../koshaontology/pipe-A/status_pipea.md)
-14. [../../koshaontology/pipe-B/status_pipeb.md](../../koshaontology/pipe-B/status_pipeb.md)
-15. [../../koshaontology/pipe-C/status_pipec.md](../../koshaontology/pipe-C/status_pipec.md)
+13. [../../data-team/02-extraction/pipe-A/status_pipea.md](../../data-team/02-extraction/pipe-A/status_pipea.md)
+14. [../../data-team/02-extraction/pipe-B/status_pipeb.md](../../data-team/02-extraction/pipe-B/status_pipeb.md)
+15. [../../data-team/03-validation/pipe-C/status_pipec.md](../../data-team/03-validation/pipe-C/status_pipec.md)
 
 레이어별 세부 구조 (`../ontology/`):
 
@@ -39,14 +39,14 @@
 백엔드:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
 ```
 
 프론트:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/frontend
+cd /mnt/c/project/arch-bot/serving-team/08-app/frontend
 npm run dev -- --host 127.0.0.1 --port 5173
 ```
 
@@ -84,14 +84,14 @@ actual response 240 status changed: 0
 Python 문법 검증:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
 python -c "import pathlib; [compile(p.read_text(encoding='utf-8'), str(p), 'exec') for p in pathlib.Path('.').rglob('*.py') if '__pycache__' not in p.parts]; print('compile ok')"
 ```
 
 프론트 빌드:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/frontend
+cd /mnt/c/project/arch-bot/serving-team/08-app/frontend
 npm run build
 ```
 
@@ -101,8 +101,8 @@ Monorepo import 검증:
 cd /mnt/c/project/arch-bot
 git ls-files OHS | wc -l
 git ls-files koshaontology | wc -l
-git ls-files kosha-guides/parsed | wc -l
-git ls-files | rg '\.env|node_modules|\.venv|\.dev-logs|pictures-json/reports/|kosha-guides/.+\.pdf'
+git ls-files data-team/01-parsing/kosha-guides/parsed | wc -l
+git ls-files | rg '\.env|node_modules|\.venv|\.dev-logs|data-team/05-enrichment/eval-data/reports/|data-team/01-parsing/kosha-guides/.+\.pdf'
 ```
 
 기대 count:
@@ -110,7 +110,7 @@ git ls-files | rg '\.env|node_modules|\.venv|\.dev-logs|pictures-json/reports/|k
 ```text
 OHS: 161
 koshaontology: 2268
-kosha-guides/parsed: 1038
+data-team/01-parsing/kosha-guides/parsed: 1038
 ```
 
 ## 5. 바로 이어서 할 일

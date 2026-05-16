@@ -4,7 +4,7 @@
 > 재현문서: phase1_step0.md ~ phase1_step4.md (Phase 1), phase2_step1.md ~ phase2_step6.md (Phase 2)
 > 진행상태: status_pipea.md
 
-> 현재 기준 참고 (2026-05-07): 이 문서는 Pipe-A 구축 당시의 설계 계획서다. 최신 product 기준에서는 `PenaltyRoute`/`penaltyForArticle` 모델을 폐기하고 `PenaltyRule` + `violatedArticle` + `penaltyArticle` + `PenaltyPath` 구조를 사용한다. 또한 SR 위험 연결은 `risk:RiskFeature`와 `sr:addressesFeature`를 물질화하는 구조로 확장되었다. 최신 상태는 `status_pipea.md`, `../../docs/ontology/00-integrated-structure.md`, `OHS/README.md`를 함께 본다.
+> 현재 기준 참고 (2026-05-07): 이 문서는 Pipe-A 구축 당시의 설계 계획서다. 최신 product 기준에서는 `PenaltyRoute`/`penaltyForArticle` 모델을 폐기하고 `PenaltyRule` + `violatedArticle` + `penaltyArticle` + `PenaltyPath` 구조를 사용한다. 또한 SR 위험 연결은 `risk:RiskFeature`와 `sr:addressesFeature`를 물질화하는 구조로 확장되었다. 최신 상태는 `status_pipea.md`, `../../docs/ontology/00-integrated-structure.md`, `serving-team/08-app/README.md`를 함께 본다.
 
 ---
 
@@ -142,7 +142,7 @@ penalty-routes.json과 NS의 hasSanction은 형사벌과 과태료를 구분한�
 ### 실행 방법
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 
 # Step 0: 조문 추출 (5개 법령, 1,227조문)
 python3 scripts/step0_extract_articles.py

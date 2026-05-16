@@ -11,7 +11,7 @@ CI 출력 스키마를 확정하고, 분야별 배치 입력 JSON을 생성한�
 ## 실행
 
 ```bash
-cd koshaontology/pipe-B
+cd data-team/02-extraction/pipe-B
 # 특정 도메인
 python3 scripts/step3_prepare_ci_batch.py --domain D --batch-size 5
 # 전체

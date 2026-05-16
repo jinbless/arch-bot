@@ -14,7 +14,7 @@ guide-text JSON을 읽고, CI/DT/WP/ES/DR 5종 엔티티를 추출하여 `ci-fil
 
 ## 출력
 
-가이드별 1개 파일: `koshaontology/pipe-B/data/ci-output/ci-{shortCode}.json`
+가이드별 1개 파일: `data-team/02-extraction/pipe-B/data/ci-output/ci-{shortCode}.json`
 
 ## 5종 엔티티 추출 규칙
 
@@ -152,8 +152,8 @@ guide-text JSON을 읽고, CI/DT/WP/ES/DR 5종 엔티티를 추출하여 `ci-fil
 python3 -c "
 import json
 from jsonschema import validate
-schema = json.load(open('koshaontology/pipe-B/schemas/ci-file.schema.json'))
-doc = json.load(open('koshaontology/pipe-B/data/ci-output/ci-{shortCode}.json'))
+schema = json.load(open('data-team/02-extraction/pipe-B/schemas/ci-file.schema.json'))
+doc = json.load(open('data-team/02-extraction/pipe-B/data/ci-output/ci-{shortCode}.json'))
 validate(doc, schema)
 print('PASS')
 "

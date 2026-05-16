@@ -21,7 +21,7 @@ The original repositories remain the history archive for work before the snapsho
 |---|---|---|---|
 | `legalize-kr/` | <https://github.com/legalize-kr/legalize-kr> | `732764e9e8e116bbc40eb5278207e3a08b31297e` | ignored; do not push or import |
 
-`legalize-kr` is consumed by `koshaontology/pipe-A` through the local sibling path. Do not push it from this project workspace unless separately authorized as an upstream maintainer.
+`legalize-kr` is consumed by `data-team/02-extraction/pipe-A` through the local sibling path. Do not push it from this project workspace unless separately authorized as an upstream maintainer.
 
 ## Root Repository
 
@@ -37,12 +37,12 @@ The original repositories remain the history archive for work before the snapsho
 
 | Directory | Root policy |
 |---|---|
-| `kosha-guides/parsed/**` | tracked, 1,038 parsed Guide JSON files |
-| `kosha-guides/manifest/**` | tracked, parsed Guide provenance manifest |
-| `kosha-guides/{A,B,C,D,E}/**` | ignored raw PDF/source corpus |
-| `pictures-json/synthetic_observations_v*.jsonl` | tracked synthetic evaluation inputs |
-| `pictures-json/reports/**` | ignored local/external report bodies |
-| `pictures-json/reports-manifest.json` | tracked report provenance and accepted baseline summary |
+| `data-team/01-parsing/kosha-guides/parsed/**` | tracked, 1,038 parsed Guide JSON files |
+| `data-team/01-parsing/kosha-guides/manifest/**` | tracked, parsed Guide provenance manifest |
+| `data-team/01-parsing/kosha-guides/{A,B,C,D,E}/**` | ignored raw PDF/source corpus |
+| `data-team/05-enrichment/eval-data/synthetic_observations_v*.jsonl` | tracked synthetic evaluation inputs |
+| `data-team/05-enrichment/eval-data/reports/**` | ignored local/external report bodies |
+| `data-team/05-enrichment/eval-data/reports-manifest.json` | tracked report provenance and accepted baseline summary |
 
 ## Local Directory Layout
 
@@ -52,8 +52,8 @@ WSL:     /mnt/c/project/arch-bot
 ├─ OHS/             imported service source
 ├─ koshaontology/   imported ontology/pipeline source
 ├─ legalize-kr/     external source dependency, ignored by root
-├─ kosha-guides/    parsed corpus and manifest tracked; raw PDFs ignored
-├─ pictures-json/   synthetic inputs tracked; report bodies external
+├─ data-team/01-parsing/kosha-guides/    parsed corpus and manifest tracked; raw PDFs ignored
+├─ data-team/05-enrichment/eval-data/   synthetic inputs tracked; report bodies external
 ├─ docs/            architecture/status/workplan documents
 └─ *.md             root governance and design documents
 ```

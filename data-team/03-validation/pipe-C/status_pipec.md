@@ -107,14 +107,14 @@ v10 SHE smoke: recall 100%, FN 0, FP 0
 신규 리포트:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.md
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.md
-pictures-json/reports/synthetic_observations_v10_usage_profile5_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.md
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.md
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.md
-pictures-json/reports/synthetic_observations_v10_usage_profile11_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile5_report.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile11_report.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.md
 ```
 
 Pipe-C 관점의 해석:

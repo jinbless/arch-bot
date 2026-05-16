@@ -6,28 +6,28 @@ Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
 Previous accepted baseline: `ci_unrelated_action_filter1`
 
-The full report bodies under `pictures-json/reports/**` are local/external artifacts. Root git tracks `pictures-json/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are local/external artifacts. Root git tracks `data-team/05-enrichment/eval-data/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
 ## CI Cross Guide Broad Only Guard 1
 
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.*
-pictures-json/reports/synthetic_observations_v10_ci_cross_guide_broad_only_guard1_report_report.*
-pictures-json/reports/actual_response_samples_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/ci_boundary_mismatch_triage_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/stage2_5_no_top_root_cause_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/stage2_5_no_top_actionability_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/ci_no_action_triage_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/ci_mapping_review_semantic_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/ci_sr_mapping_candidate_review_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/pg_ci_sr_link_candidates_ci_cross_guide_broad_only_guard1_apply.*
-pictures-json/reports/ci_sr_candidate_promotion_ci_cross_guide_broad_only_guard1.*
-koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
-koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*
-koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_ci_cross_guide_broad_only_guard1_report_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/ci_boundary_mismatch_triage_ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_actionability_ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/ci_no_action_triage_ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/ci_mapping_review_semantic_ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/ci_sr_mapping_candidate_review_ci_cross_guide_broad_only_guard1.*
+data-team/05-enrichment/eval-data/reports/pg_ci_sr_link_candidates_ci_cross_guide_broad_only_guard1_apply.*
+data-team/05-enrichment/eval-data/reports/ci_sr_candidate_promotion_ci_cross_guide_broad_only_guard1.*
+ontology-team/06-reasoning/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*
 ```
 
 Summary:
@@ -95,19 +95,19 @@ Interpretation: the additional CI no-action case is not automatically promoted. 
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.*
-pictures-json/reports/synthetic_observations_v10_ci_unrelated_action_filter1_report_report.*
-pictures-json/reports/actual_response_samples_ci_unrelated_action_filter1.*
-pictures-json/reports/ci_boundary_mismatch_triage_ci_unrelated_action_filter1.*
-pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.*
-pictures-json/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.*
-pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.*
-pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.*
-pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.*
-koshaontology/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl
-koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*
-koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_ci_unrelated_action_filter1_report_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_ci_unrelated_action_filter1.*
+data-team/05-enrichment/eval-data/reports/ci_boundary_mismatch_triage_ci_unrelated_action_filter1.*
+data-team/05-enrichment/eval-data/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.*
+data-team/05-enrichment/eval-data/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.*
+data-team/05-enrichment/eval-data/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.*
+data-team/05-enrichment/eval-data/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.*
+data-team/05-enrichment/eval-data/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.*
+ontology-team/06-reasoning/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_unrelated_action_filter1.*
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*
 ```
 
 Summary:
@@ -157,12 +157,12 @@ PG candidate review refresh on 2026-05-16:
 
 ```text
 source reports:
-  pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.*
-  pictures-json/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.*
-  pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.*
-  pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.*
-  pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.*
-  pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.*
+  data-team/05-enrichment/eval-data/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.*
+  data-team/05-enrichment/eval-data/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.*
+  data-team/05-enrichment/eval-data/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.*
+  data-team/05-enrichment/eval-data/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.*
+  data-team/05-enrichment/eval-data/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.*
+  data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.*
 
 CI no_action triage total: 494
 upstream_stage2_3_review: 356
@@ -193,13 +193,13 @@ Interpretation: this refresh updates PostgreSQL review material only. The 17 nar
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.*
-pictures-json/reports/synthetic_observations_v10_ci_preferred_guide_ci1_report_report.*
-pictures-json/reports/actual_response_samples_ci_preferred_guide_ci1.*
-pictures-json/reports/ci_boundary_mismatch_triage_ci_candidate_promotion_v1.*
-koshaontology/ontology/serving-snapshot-ci_preferred_guide_ci1.ttl
-koshaontology/ontology/serving-validation-report-ci_preferred_guide_ci1.*
-koshaontology/ontology/serving-workprocess-alignment-ci_preferred_guide_ci1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_ci_preferred_guide_ci1_report_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_ci_preferred_guide_ci1.*
+data-team/05-enrichment/eval-data/reports/ci_boundary_mismatch_triage_ci_candidate_promotion_v1.*
+ontology-team/06-reasoning/ontology/serving-snapshot-ci_preferred_guide_ci1.ttl
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_preferred_guide_ci1.*
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_preferred_guide_ci1.*
 ```
 
 Summary:
@@ -236,14 +236,14 @@ Interpretation: this pass keeps status/penalty/SHE/SR, Guide top selection, NO_T
 Source reports:
 
 ```text
-pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.*
-pictures-json/reports/synthetic_observations_v10_ci_candidate_promotion_v1_report_report.*
-pictures-json/reports/actual_response_samples_ci_candidate_promotion_v1.*
-pictures-json/reports/ci_boundary_mismatch_triage_ci_candidate_promotion_v1.*
-koshaontology/ontology/serving-snapshot-ci_candidate_promotion_v1.ttl
-koshaontology/ontology/serving-validation-report-ci_candidate_promotion_v1.*
-koshaontology/ontology/serving-workprocess-alignment-ci_candidate_promotion_v1.*
+data-team/05-enrichment/eval-data/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_ci_candidate_promotion_v1_report_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_ci_candidate_promotion_v1.*
+data-team/05-enrichment/eval-data/reports/ci_boundary_mismatch_triage_ci_candidate_promotion_v1.*
+ontology-team/06-reasoning/ontology/serving-snapshot-ci_candidate_promotion_v1.ttl
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_candidate_promotion_v1.*
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_candidate_promotion_v1.*
 ```
 
 Summary:
@@ -302,19 +302,19 @@ Interpretation: the remaining 20 cases are not broad alias candidates. In all 20
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.*
-pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.*
-pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.*
-pictures-json/reports/synthetic_observations_v10_ci_broad_sr_guard4_report.*
-pictures-json/reports/actual_response_samples_ci_broad_sr_guard4.*
-pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
-pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.*
-pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.*
-pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.*
-pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
-koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
-koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_ci_broad_sr_guard4_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/ci_no_action_triage_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_broad_sr_guard4.*
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 ```
 
 Summary:
@@ -350,8 +350,8 @@ Policy change:
 
 ```text
 active artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v21.json
-  OHS/backend/app/data/guide_support_candidates.v21.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v21.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v21.jsonl
 runtime gate:
   immediate-action CI is suppressed for explicit normal/completed/stored/education scenes
   broad SRs and needs_review candidates remain blocked from serving
@@ -375,9 +375,9 @@ manual review: 0
 Ontology validation result:
 
 ```text
-snapshot: koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
-validation report: koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
-WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
+snapshot: ontology-team/06-reasoning/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
+validation report: ontology-team/06-reasoning/ontology/serving-validation-report-ci_broad_sr_guard4.*
+WorkProcess alignment report: ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 GuideUsageProfile: 1,038
 photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
@@ -395,7 +395,7 @@ Interpretation: this pass accepts that some photos still have no scene-relevant 
 CI no-action triage:
 
 ```text
-source report: pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.*
+source report: data-team/05-enrichment/eval-data/reports/ci_no_action_triage_ci_broad_sr_guard4.*
 total CI no_action: 492
 upstream_stage2_3_review: 357
 ci_mapping_review: 63
@@ -416,7 +416,7 @@ triage categories:
 Semantic review of the 63 `ci_mapping_review` rows:
 
 ```text
-source report: pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.*
+source report: data-team/05-enrichment/eval-data/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.*
 guide_selection_mismatch: 21
 corpus_gap_or_near_analogy: 21
 true_ci_mapping_candidate: 16
@@ -428,7 +428,7 @@ Interpretation: `CI no_action 492` is mostly not a direct CI ranking bug. The im
 CI/SR mapping candidate review for the 16 true candidates:
 
 ```text
-source report: pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.*
+source report: data-team/05-enrichment/eval-data/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.*
 review cases: 16
 manual-seeded CI candidates: 16
 best candidate still needs mapping review: 16
@@ -440,7 +440,7 @@ Interpretation: the 16 rows now have concrete ChecklistItem review seeds, but th
 PG review-only candidate import:
 
 ```text
-source report: pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.*
+source report: data-team/05-enrichment/eval-data/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.*
 table: guide_sr_link_candidates
 method: ci_candidate_review_v1
 mode: apply
@@ -459,7 +459,7 @@ Interpretation: the review candidates now exist in PostgreSQL for ontology/audit
 Post-import Stage 2~5 validation:
 
 ```text
-source report: pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
+source report: data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
 total: 2,360
 SHE: TP 1,107 / FN 909 / FP 82
 SR: TP 1,414 / FN 270 / FP 211
@@ -484,11 +484,11 @@ Historical accepted baseline before `ci_wp_relevance_guard1`.
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.*
-pictures-json/reports/synthetic_observations_v10_no_forced_hotwork_gate1_report.*
-pictures-json/reports/actual_response_samples_no_forced_hotwork_gate1.*
-koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
-koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_no_forced_hotwork_gate1_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_no_forced_hotwork_gate1.*
+ontology-team/06-reasoning/ontology/serving-validation-report-no_forced_hotwork_gate1.*
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
 ```
 
 Summary:
@@ -532,9 +532,9 @@ status/penalty/SHE/SR/legal asserted mapping/public API impact: none
 Ontology validation result:
 
 ```text
-snapshot: koshaontology/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
-validation report: koshaontology/ontology/serving-validation-report-no_forced_hotwork_gate1.*
-WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
+snapshot: ontology-team/06-reasoning/ontology/serving-snapshot-no_forced_hotwork_gate1.ttl
+validation report: ontology-team/06-reasoning/ontology/serving-validation-report-no_forced_hotwork_gate1.*
+WorkProcess alignment report: ontology-team/06-reasoning/ontology/serving-workprocess-alignment-no_forced_hotwork_gate1.*
 GuideUsageProfile: 1,038
 photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
@@ -551,11 +551,11 @@ Interpretation: `G-76-2011` no longer appears as a repeated WorkProcess mismatch
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_context_safe_gate1.*
-pictures-json/reports/synthetic_observations_v10_context_safe_gate1_report.*
-pictures-json/reports/actual_response_samples_context_safe_gate1.*
-koshaontology/ontology/serving-validation-report-context_safe_gate1.*
-koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_context_safe_gate1.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_context_safe_gate1_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_context_safe_gate1.*
+ontology-team/06-reasoning/ontology/serving-validation-report-context_safe_gate1.*
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-context_safe_gate1.*
 ```
 
 Summary:
@@ -599,9 +599,9 @@ status/penalty/SHE/SR/legal asserted mapping/public API impact: none
 Ontology validation result:
 
 ```text
-snapshot: koshaontology/ontology/serving-snapshot-context_safe_gate1.ttl
-validation report: koshaontology/ontology/serving-validation-report-context_safe_gate1.*
-WorkProcess alignment report: koshaontology/ontology/serving-workprocess-alignment-context_safe_gate1.*
+snapshot: ontology-team/06-reasoning/ontology/serving-snapshot-context_safe_gate1.ttl
+validation report: ontology-team/06-reasoning/ontology/serving-validation-report-context_safe_gate1.*
+WorkProcess alignment report: ontology-team/06-reasoning/ontology/serving-workprocess-alignment-context_safe_gate1.*
 GuideUsageProfile: 1,038
 photo_actionable / conditional / unmatchable: 631 / 39 / 368
 broad SRs: 12
@@ -619,11 +619,11 @@ Interpretation: `B-M-20-2026`, `H-186-2016`, and `A-G-14-2026` warning queues we
 Source reports:
 
 ```text
-pictures-json/reports/situation_frame_artifact_build.v2.*
-pictures-json/reports/situation_frame_eval_report.v2_child_gate1.*
-pictures-json/reports/pipeline_quality_v1_v10_situation_frame_support7.*
-pictures-json/reports/actual_response_samples_situation_frame_support7.*
-pictures-json/reports/synthetic_observations_v10_situation_frame_support7_report.*
+data-team/05-enrichment/eval-data/reports/situation_frame_artifact_build.v2.*
+data-team/05-enrichment/eval-data/reports/situation_frame_eval_report.v2_child_gate1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_situation_frame_support7.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_situation_frame_support7.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_situation_frame_support7_report.*
 ```
 
 Artifact build summary:
@@ -670,17 +670,17 @@ Guide support hit samples: 8
 Source reports:
 
 ```text
-pictures-json/reports/guide_photo_matchability_audit_v1.*
-pictures-json/reports/pipeline_quality_v1_v10_photo_matchability1.*
-pictures-json/reports/actual_response_samples_photo_matchability1.*
-pictures-json/reports/synthetic_observations_v10_photo_matchability1_report.*
+data-team/05-enrichment/eval-data/reports/guide_photo_matchability_audit_v1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_photo_matchability1.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_photo_matchability1.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_photo_matchability1_report.*
 ```
 
 Artifact:
 
 ```text
-OHS/backend/app/data/guide_photo_matchability.v1.json
-OHS/backend/app/data/guide_domain_profiles.json
+serving-team/08-app/backend/app/data/guide_photo_matchability.v1.json
+serving-team/08-app/backend/app/data/guide_domain_profiles.json
 ```
 
 Classification summary:
@@ -710,9 +710,9 @@ not applied to: immediate_actions, SHE status, SR evidence, penalty path
 Source report:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.*
-pictures-json/reports/stage2_5_no_top_root_cause_no_forced_hotwork_gate1.*
-pictures-json/reports/stage2_5_no_top_actionability_no_forced_hotwork_gate1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_no_forced_hotwork_gate1.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_no_forced_hotwork_gate1.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_actionability_no_forced_hotwork_gate1.*
 ```
 
 Summary:
@@ -787,23 +787,23 @@ Synthetic SHE smoke by version:
 Source artifacts:
 
 ```text
-OHS/backend/app/data/guide_domain_profiles.json
-OHS/backend/app/data/guide_photo_matchability.v1.json
-OHS/backend/app/data/broad_sr_policy.json
-OHS/backend/app/data/situation_context_taxonomy.v21.json
-OHS/backend/app/data/guide_support_candidates.v21.jsonl
-pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.json
-pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json
+serving-team/08-app/backend/app/data/guide_domain_profiles.json
+serving-team/08-app/backend/app/data/guide_photo_matchability.v1.json
+serving-team/08-app/backend/app/data/broad_sr_policy.json
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v21.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v21.jsonl
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.json
+data-team/05-enrichment/eval-data/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json
 ```
 
 Generated ontology files:
 
 ```text
-koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
-koshaontology/ontology/serving-validation-shapes.ttl
-koshaontology/ontology/serving-validation-report-ci_broad_sr_guard4.*
-koshaontology/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
+ontology-team/06-reasoning/ontology/serving-policy.ttl
+ontology-team/06-reasoning/ontology/serving-snapshot-ci_broad_sr_guard4.ttl
+ontology-team/06-reasoning/ontology/serving-validation-shapes.ttl
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_broad_sr_guard4.*
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_broad_sr_guard4.*
 ```
 
 Validation summary:
@@ -848,19 +848,19 @@ guide_usage_profiles PG sync: 1,038 / 1,038, missing Guide 0, missing primary Wo
 Source reports:
 
 ```text
-pictures-json/reports/stage3_remaining_gap_support_v20_artifacts.*
-pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v20_actionable.*
-pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v20_actionable_report_report.*
-pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v20_actionable.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v20_actionable.*
+data-team/05-enrichment/eval-data/reports/stage3_remaining_gap_support_v20_artifacts.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v20_actionable.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_remaining_gap_support_v20_actionable_report_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_remaining_gap_support_v20_actionable.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v20_actionable.*
 ```
 
 Runtime artifacts:
 
 ```text
-OHS/backend/app/data/situation_context_taxonomy.v20.json
-OHS/backend/app/data/guide_support_candidates.v20.jsonl
-OHS/backend/app/services/situation_frame_service.py
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v20.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v20.jsonl
+serving-team/08-app/backend/app/services/situation_frame_service.py
 ```
 
 Remaining `NO_TOP` root-cause audit:
@@ -881,19 +881,19 @@ stage3_she_gap_but_sr_available: 1
 Source reports:
 
 ```text
-pictures-json/reports/stage3_remaining_gap_support_v19_artifacts.*
-pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v19_dropped_tool.*
-pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v19_dropped_tool_report.*
-pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v19_dropped_tool.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v19_dropped_tool.*
+data-team/05-enrichment/eval-data/reports/stage3_remaining_gap_support_v19_artifacts.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v19_dropped_tool.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_remaining_gap_support_v19_dropped_tool_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_remaining_gap_support_v19_dropped_tool.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v19_dropped_tool.*
 ```
 
 Runtime artifacts:
 
 ```text
-OHS/backend/app/data/situation_context_taxonomy.v19.json
-OHS/backend/app/data/guide_support_candidates.v19.jsonl
-OHS/backend/app/services/situation_frame_service.py
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v19.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v19.jsonl
+serving-team/08-app/backend/app/services/situation_frame_service.py
 ```
 
 ## Stage3 Safe Cue Negation Fix2
@@ -905,16 +905,16 @@ Resolved NO_TOP cases include silica-dust respirator misuse, binding-machine jam
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_stage3_safe_cue_negation_fix2.*
-pictures-json/reports/synthetic_observations_v10_stage3_safe_cue_negation_fix2_report.*
-pictures-json/reports/actual_response_samples_stage3_safe_cue_negation_fix2.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_safe_cue_negation_fix2.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_safe_cue_negation_fix2.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_safe_cue_negation_fix2_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_safe_cue_negation_fix2.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_safe_cue_negation_fix2.*
 ```
 
 Runtime code:
 
 ```text
-OHS/backend/app/services/situation_frame_service.py
+serving-team/08-app/backend/app/services/situation_frame_service.py
 ```
 
 ## Stage3 Remaining Gap Support v18 Narrow10
@@ -924,18 +924,18 @@ OHS/backend/app/services/situation_frame_service.py
 Source reports:
 
 ```text
-pictures-json/reports/stage3_remaining_gap_support_v18_artifacts_narrow10.*
-pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v18_narrow10.*
-pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v18_narrow10_report.*
-pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v18_narrow10.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v18_narrow10.*
+data-team/05-enrichment/eval-data/reports/stage3_remaining_gap_support_v18_artifacts_narrow10.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v18_narrow10.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_remaining_gap_support_v18_narrow10_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_remaining_gap_support_v18_narrow10.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v18_narrow10.*
 ```
 
 Runtime artifacts:
 
 ```text
-OHS/backend/app/data/situation_context_taxonomy.v18.json
-OHS/backend/app/data/guide_support_candidates.v18.jsonl
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v18.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v18.jsonl
 ```
 
 ## Stage3 Remaining Gap Support v17b Narrow9b
@@ -945,18 +945,18 @@ OHS/backend/app/data/guide_support_candidates.v18.jsonl
 Source reports:
 
 ```text
-pictures-json/reports/stage3_remaining_gap_support_v17b_artifacts_narrow9b.*
-pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v17b_narrow9b.*
-pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v17b_narrow9b_report.*
-pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v17b_narrow9b.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v17b_narrow9b.*
+data-team/05-enrichment/eval-data/reports/stage3_remaining_gap_support_v17b_artifacts_narrow9b.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v17b_narrow9b.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_remaining_gap_support_v17b_narrow9b_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_remaining_gap_support_v17b_narrow9b.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v17b_narrow9b.*
 ```
 
 Runtime artifacts:
 
 ```text
-OHS/backend/app/data/situation_context_taxonomy.v17b.json
-OHS/backend/app/data/guide_support_candidates.v17b.jsonl
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v17b.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v17b.jsonl
 ```
 
 ## Stage3 Remaining Gap Support v16c Narrow8c
@@ -966,17 +966,17 @@ OHS/backend/app/data/guide_support_candidates.v17b.jsonl
 Source reports:
 
 ```text
-pictures-json/reports/stage3_remaining_gap_support_v16c_artifacts_narrow8c.*
-pictures-json/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v16c_narrow8c.*
-pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v16c_narrow8c_report.*
-pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v16c_narrow8c.*
+data-team/05-enrichment/eval-data/reports/stage3_remaining_gap_support_v16c_artifacts_narrow8c.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_remaining_gap_support_v16c_narrow8c.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_remaining_gap_support_v16c_narrow8c_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_remaining_gap_support_v16c_narrow8c.*
 ```
 
 Runtime artifacts:
 
 ```text
-OHS/backend/app/data/situation_context_taxonomy.v16c.json
-OHS/backend/app/data/guide_support_candidates.v16c.jsonl
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v16c.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v16c.jsonl
 ```
 
 ## Stage2 Taxonomy Gap Support v15 Narrow7b
@@ -986,19 +986,19 @@ OHS/backend/app/data/guide_support_candidates.v16c.jsonl
 Source reports:
 
 ```text
-pictures-json/reports/stage2_taxonomy_gap_support_v15_artifacts_narrow7b.*
-pictures-json/reports/pipeline_quality_v1_v10_stage2_taxonomy_gap_support_v15_narrow7b.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage2_taxonomy_gap_support_v15_narrow7b.*
-pictures-json/reports/synthetic_observations_v10_stage2_taxonomy_gap_support_v15_narrow7b_report.*
-pictures-json/reports/actual_response_samples_stage2_taxonomy_gap_support_v15_narrow7b.*
+data-team/05-enrichment/eval-data/reports/stage2_taxonomy_gap_support_v15_artifacts_narrow7b.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage2_taxonomy_gap_support_v15_narrow7b.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_taxonomy_gap_support_v15_narrow7b.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage2_taxonomy_gap_support_v15_narrow7b_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage2_taxonomy_gap_support_v15_narrow7b.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v15.json
-  OHS/backend/app/data/guide_support_candidates.v15.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v15.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v15.jsonl
 runtime artifacts at v14 acceptance:
   situation_context_taxonomy.v15.json
   guide_support_candidates.v15.jsonl
@@ -1024,19 +1024,19 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage3_sr_gap_support_v14_artifacts_narrow6b.*
-pictures-json/reports/pipeline_quality_v1_v10_stage3_sr_gap_support_v14_narrow6b.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_sr_gap_support_v14_narrow6b.*
-pictures-json/reports/synthetic_observations_v10_stage3_sr_gap_support_v14_narrow6b_report.*
-pictures-json/reports/actual_response_samples_stage3_sr_gap_support_v14_narrow6b.*
+data-team/05-enrichment/eval-data/reports/stage3_sr_gap_support_v14_artifacts_narrow6b.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_sr_gap_support_v14_narrow6b.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_sr_gap_support_v14_narrow6b.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_sr_gap_support_v14_narrow6b_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_sr_gap_support_v14_narrow6b.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v14.json
-  OHS/backend/app/data/guide_support_candidates.v14.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v14.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v14.jsonl
 default runtime artifacts:
   situation_context_taxonomy.v14.json
   guide_support_candidates.v14.jsonl
@@ -1077,19 +1077,19 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage2_taxonomy_support_v13_artifacts_narrow5.*
-pictures-json/reports/pipeline_quality_v1_v10_stage2_taxonomy_support_v13_narrow5.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage2_taxonomy_support_v13_narrow5.*
-pictures-json/reports/synthetic_observations_v10_stage2_taxonomy_support_v13_narrow5_report.*
-pictures-json/reports/actual_response_samples_stage2_taxonomy_support_v13_narrow5.*
+data-team/05-enrichment/eval-data/reports/stage2_taxonomy_support_v13_artifacts_narrow5.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage2_taxonomy_support_v13_narrow5.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_taxonomy_support_v13_narrow5.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage2_taxonomy_support_v13_narrow5_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage2_taxonomy_support_v13_narrow5.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v13.json
-  OHS/backend/app/data/guide_support_candidates.v13.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v13.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v13.jsonl
 then-default runtime artifacts:
   situation_context_taxonomy.v13.json
   guide_support_candidates.v13.jsonl
@@ -1115,19 +1115,19 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage3_gap_support_v12_artifacts_narrow4.*
-pictures-json/reports/pipeline_quality_v1_v10_stage3_gap_support_v12_narrow4.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_gap_support_v12_narrow4.*
-pictures-json/reports/synthetic_observations_v10_stage3_gap_support_v12_narrow4_report.*
-pictures-json/reports/actual_response_samples_stage3_gap_support_v12_narrow4.*
+data-team/05-enrichment/eval-data/reports/stage3_gap_support_v12_artifacts_narrow4.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_gap_support_v12_narrow4.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_gap_support_v12_narrow4.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_gap_support_v12_narrow4_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_gap_support_v12_narrow4.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v12.json
-  OHS/backend/app/data/guide_support_candidates.v12.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v12.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v12.jsonl
 default runtime artifacts:
   situation_context_taxonomy.v12.json
   guide_support_candidates.v12.jsonl
@@ -1153,19 +1153,19 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage2_3_support_v11_artifacts_stage2_narrow3.*
-pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v11_narrow3.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v11_narrow3.*
-pictures-json/reports/synthetic_observations_v10_stage2_3_support_v11_narrow3_report.*
-pictures-json/reports/actual_response_samples_stage2_3_support_v11_narrow3.*
+data-team/05-enrichment/eval-data/reports/stage2_3_support_v11_artifacts_stage2_narrow3.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage2_3_support_v11_narrow3.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_3_support_v11_narrow3.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage2_3_support_v11_narrow3_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage2_3_support_v11_narrow3.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v11.json
-  OHS/backend/app/data/guide_support_candidates.v11.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v11.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v11.jsonl
 default runtime artifacts:
   situation_context_taxonomy.v11.json
   guide_support_candidates.v11.jsonl
@@ -1188,19 +1188,19 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage2_3_support_v10_artifacts_narrow2.*
-pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v10_narrow2.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v10_narrow2.*
-pictures-json/reports/synthetic_observations_v10_stage2_3_support_v10_narrow2_report.*
-pictures-json/reports/actual_response_samples_stage2_3_support_v10_narrow2.*
+data-team/05-enrichment/eval-data/reports/stage2_3_support_v10_artifacts_narrow2.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage2_3_support_v10_narrow2.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_3_support_v10_narrow2.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage2_3_support_v10_narrow2_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage2_3_support_v10_narrow2.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v10.json
-  OHS/backend/app/data/guide_support_candidates.v10.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v10.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v10.jsonl
 default runtime artifacts:
   situation_context_taxonomy.v10.json
   guide_support_candidates.v10.jsonl
@@ -1223,19 +1223,19 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage2_3_support_v9_artifacts_narrow4.*
-pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v9_narrow4.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v9_narrow4.*
-pictures-json/reports/synthetic_observations_v10_stage2_3_support_v9_narrow4_report.*
-pictures-json/reports/actual_response_samples_stage2_3_support_v9_narrow4.*
+data-team/05-enrichment/eval-data/reports/stage2_3_support_v9_artifacts_narrow4.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage2_3_support_v9_narrow4.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_3_support_v9_narrow4.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage2_3_support_v9_narrow4_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage2_3_support_v9_narrow4.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v9.json
-  OHS/backend/app/data/guide_support_candidates.v9.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v9.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v9.jsonl
 default runtime artifacts:
   situation_context_taxonomy.v9.json
   guide_support_candidates.v9.jsonl
@@ -1258,19 +1258,19 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage2_3_support_v8_artifacts_narrow2.*
-pictures-json/reports/pipeline_quality_v1_v10_stage2_3_support_v8_narrow2.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage2_3_support_v8_narrow2.*
-pictures-json/reports/synthetic_observations_v10_stage2_3_support_v10_narrow2_report.*
-pictures-json/reports/actual_response_samples_stage2_3_support_v10_narrow2.*
+data-team/05-enrichment/eval-data/reports/stage2_3_support_v8_artifacts_narrow2.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage2_3_support_v8_narrow2.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_3_support_v8_narrow2.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage2_3_support_v10_narrow2_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage2_3_support_v10_narrow2.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v8.json
-  OHS/backend/app/data/guide_support_candidates.v8.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v8.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v8.jsonl
 default runtime artifacts:
   situation_context_taxonomy.v8.json
   guide_support_candidates.v8.jsonl
@@ -1293,19 +1293,19 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage2_service_support_v7_artifacts_narrow1.*
-pictures-json/reports/pipeline_quality_v1_v10_stage2_service_support_v7_narrow1.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage2_service_support_v7_narrow1.*
-pictures-json/reports/synthetic_observations_v10_stage2_service_support_v7_narrow1_report.*
-pictures-json/reports/actual_response_samples_stage2_service_support_v7_narrow1.*
+data-team/05-enrichment/eval-data/reports/stage2_service_support_v7_artifacts_narrow1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage2_service_support_v7_narrow1.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_service_support_v7_narrow1.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage2_service_support_v7_narrow1_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage2_service_support_v7_narrow1.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v7.json
-  OHS/backend/app/data/guide_support_candidates.v7.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v7.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v7.jsonl
 then-default runtime artifacts:
   situation_context_taxonomy.v7.json
   guide_support_candidates.v7.jsonl
@@ -1327,18 +1327,18 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_stage3_domain_support2_confirmation_gate2.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_domain_support2_confirmation_gate2.*
-pictures-json/reports/synthetic_observations_v10_stage3_domain_support2_confirmation_gate2_report.*
-pictures-json/reports/actual_response_samples_stage3_domain_support2_confirmation_gate2.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_domain_support2_confirmation_gate2.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_domain_support2_confirmation_gate2.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_domain_support2_confirmation_gate2_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_domain_support2_confirmation_gate2.*
 ```
 
 Patch summary:
 
 ```text
 changed files:
-  OHS/backend/app/services/situation_frame_service.py
-  OHS/backend/app/services/guide_recommendation_service.py
+  serving-team/08-app/backend/app/services/situation_frame_service.py
+  serving-team/08-app/backend/app/services/guide_recommendation_service.py
 policy: confirmation_required support can pass Guide usage/domain gates only when trigger-backed, non-broad-SR-backed, and child/profile-aligned
 default support threshold: 0.78
 confirmation_required support threshold: 0.54
@@ -1356,17 +1356,17 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage3_domain_support_v6_artifacts_tight1.*
-pictures-json/reports/pipeline_quality_v1_v10_stage3_domain_support1_tight1.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage3_domain_support1_tight1.*
+data-team/05-enrichment/eval-data/reports/stage3_domain_support_v6_artifacts_tight1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage3_domain_support1_tight1.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_domain_support1_tight1.*
 ```
 
 Patch summary:
 
 ```text
 generated artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v6.json
-  OHS/backend/app/data/guide_support_candidates.v6.jsonl
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v6.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v6.jsonl
 default runtime artifacts:
   situation_context_taxonomy.v6.json
   guide_support_candidates.v6.jsonl
@@ -1382,14 +1382,14 @@ status/penalty/SHE approval update: 0
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_stage2_support_usage_gate3_safe_lock1.*
-pictures-json/reports/stage2_5_no_top_root_cause_stage2_support_usage_gate3_safe_lock1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_stage2_support_usage_gate3_safe_lock1.*
+data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_support_usage_gate3_safe_lock1.*
 ```
 
 Patch summary:
 
 ```text
-changed file: OHS/backend/app/services/situation_frame_service.py
+changed file: serving-team/08-app/backend/app/services/situation_frame_service.py
 safe-cue change: generic `잠금` removed from SAFE_TERMS
 lockout control cue remains: 잠금표지, 잠금 표지, LOTO, lockout, tagout, 잠근 뒤, 전원 잠금
 resolved missing_usage_profile cases: 5
@@ -1403,9 +1403,9 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage2_support_usage_gate_artifacts_v2.*
-OHS/backend/app/data/situation_context_taxonomy.v5.json
-OHS/backend/app/data/guide_support_candidates.v5.jsonl
+data-team/05-enrichment/eval-data/reports/stage2_support_usage_gate_artifacts_v2.*
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v5.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v5.jsonl
 ```
 
 Artifact summary:
@@ -1436,9 +1436,9 @@ gate2b keeps only narrow support rows that passed v1~v10, v10 smoke, and actual 
 Source reports:
 
 ```text
-pictures-json/reports/stage2_no_top_support_candidates_v3.*
-OHS/backend/app/data/situation_context_taxonomy.v3.json
-OHS/backend/app/data/guide_support_candidates.v4.jsonl
+data-team/05-enrichment/eval-data/reports/stage2_no_top_support_candidates_v3.*
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v3.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v4.jsonl
 ```
 
 Artifact summary:
@@ -1459,9 +1459,9 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/stage3_support_alignment_aliases_v2.*
-OHS/backend/app/data/situation_context_taxonomy.v4.json
-OHS/backend/app/data/guide_support_candidates.v4.jsonl
+data-team/05-enrichment/eval-data/reports/stage3_support_alignment_aliases_v2.*
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v4.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v4.jsonl
 ```
 
 Artifact summary:
@@ -1483,9 +1483,9 @@ status/penalty/SHE approval/asserted mapping update: 0
 Source reports:
 
 ```text
-pictures-json/reports/no_top_guide_support_candidates_v1.*
-OHS/backend/app/data/guide_support_candidates.v3.jsonl
-OHS/backend/app/data/guide_support_candidates.v3.preview.jsonl
+data-team/05-enrichment/eval-data/reports/no_top_guide_support_candidates_v1.*
+serving-team/08-app/backend/app/data/guide_support_candidates.v3.jsonl
+serving-team/08-app/backend/app/data/guide_support_candidates.v3.preview.jsonl
 ```
 
 Artifact summary:
@@ -1506,7 +1506,7 @@ generic term-only match: blocked
 NO_TOP root-cause audit:
 
 ```text
-report: pictures-json/reports/stage2_5_no_top_root_cause_stage2_taxonomy_support_v13_narrow5.*
+report: data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage2_taxonomy_support_v13_narrow5.*
 total_no_top: 64
 primary_root_cause:
   stage2_taxonomy_or_normalization_gap: 20
@@ -1533,7 +1533,7 @@ situation_frame:
 Current NO_TOP root-cause audit:
 
 ```text
-report: pictures-json/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v19_dropped_tool.*
+report: data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_stage3_remaining_gap_support_v19_dropped_tool.*
 total_no_top: 19
 primary root causes:
   stage2_taxonomy_or_normalization_gap: 11
@@ -1555,7 +1555,7 @@ domain buckets:
 Source report:
 
 ```text
-pictures-json/reports/synthetic_observations_v10_stage3_remaining_gap_support_v18_narrow10_report.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_stage3_remaining_gap_support_v18_narrow10_report.*
 ```
 
 Summary:
@@ -1573,7 +1573,7 @@ normal suppression: 100.0%
 Source report:
 
 ```text
-pictures-json/reports/actual_response_samples_stage3_remaining_gap_support_v18_narrow10.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_stage3_remaining_gap_support_v18_narrow10.*
 ```
 
 Summary:
@@ -1621,10 +1621,10 @@ This pass keeps the status/penalty/SHE/SR boundary unchanged and changes only St
 Source reports:
 
 ```text
-pictures-json/reports/pipeline_quality_v1_v10_corpus_gap_guard1.*
-pictures-json/reports/industry_boundary_gap_triage_corpus_gap_guard1.*
-pictures-json/reports/synthetic_observations_v10_corpus_gap_guard1_report.*
-pictures-json/reports/actual_response_samples_corpus_gap_guard1.*
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_corpus_gap_guard1.*
+data-team/05-enrichment/eval-data/reports/industry_boundary_gap_triage_corpus_gap_guard1.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_corpus_gap_guard1_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_corpus_gap_guard1.*
 ```
 
 Summary:
@@ -1659,7 +1659,7 @@ backend compileall: OK
 NO_TOP root-cause audit for corpus_gap_guard1:
 
 ```text
-report: pictures-json/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.*
+report: data-team/05-enrichment/eval-data/reports/stage2_5_no_top_root_cause_corpus_gap_guard1.*
 total_no_top: 85
 primary root causes:
   stage2_taxonomy_or_normalization_gap: 39

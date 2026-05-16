@@ -15,5 +15,5 @@
 ## 관련 자료
 
 - 시스템 아키텍처 / PROV-O 출처 레이어 — [../architecture/source-provenance.md](../architecture/source-provenance.md)
-- 온톨로지 정의 파일 (TTL/OWL/SWRL) — `../../koshaontology/ontology/`
-- 파이프라인별 작업 가이드 — `../../koshaontology/pipe-A,B,C/CLAUDE.md`
+- 온톨로지 정의 파일 (TTL/OWL/SWRL) — `../../ontology-team/06-reasoning/ontology/`
+- 파이프라인별 작업 가이드 — `../../data-team/02-extraction/pipe-A,B,C/CLAUDE.md`

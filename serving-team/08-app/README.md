@@ -13,7 +13,7 @@ arch-bot/
   OHS/              root-tracked product code and docs
   koshaontology/    root-tracked ontology pipeline code and docs
   legalize-kr/      external ignored dependency, not part of the root repo
-  pictures-json/    tracked synthetic inputs plus local/external report bodies
+  data-team/05-enrichment/eval-data/    tracked synthetic inputs plus local/external report bodies
 ```
 
 과거 독립 `OHS` repo와 `codex/monorepo-snapshot-import` 브랜치 언급은 historical migration context로만 해석한다. 현재 작업, 검증, push 기준은 root `arch-bot/main`이다.
@@ -123,14 +123,14 @@ frontend/src/components/results/ReasoningTracePanel.tsx
 백엔드:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
 ```
 
 프론트:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/frontend
+cd /mnt/c/project/arch-bot/serving-team/08-app/frontend
 npm run dev -- --host 127.0.0.1 --port 5173
 ```
 
@@ -163,35 +163,35 @@ http://localhost:8001/api/v1
 Python compile:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
 python -c "import pathlib; [compile(p.read_text(encoding='utf-8'), str(p), 'exec') for p in pathlib.Path('.').rglob('*.py') if '__pycache__' not in p.parts]; print('compile ok')"
 ```
 
 Frontend build:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/frontend
+cd /mnt/c/project/arch-bot/serving-team/08-app/frontend
 npm run build
 ```
 
 Synthetic smoke:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_ci_unrelated_action_filter1_report
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
+.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../data-team/05-enrichment/eval-data/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_ci_unrelated_action_filter1_report
 ```
 
 Actual response 240 replay:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
 .venv/bin/python scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_ci_unrelated_action_filter1 --database-note "ci_unrelated_action_filter1"
 ```
 
 Guide recommendation evaluation:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
 .venv/bin/python scripts/evaluate_synthetic_guide_recommendations.py --report-prefix synthetic_guide_recommendations_v1_v10_ci_broad_sr_guard4
 ```
 
@@ -199,21 +199,21 @@ Stage 2~5 integrated pipeline quality evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_unrelated_action_filter1 --progress-every 500 --photo-baseline-report pictures-json/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.json
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_ci_unrelated_action_filter1 --progress-every 500 --photo-baseline-report data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.json
 ```
 
 Serving ontology snapshot export and validation:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python koshaontology/ontology/scripts/export_serving_snapshot.py
-OHS/backend/.venv/bin/python koshaontology/ontology/scripts/validate_serving_snapshot.py
+serving-team/08-app/backend/.venv/bin/python ontology-team/06-reasoning/ontology/scripts/export_serving_snapshot.py
+serving-team/08-app/backend/.venv/bin/python ontology-team/06-reasoning/ontology/scripts/validate_serving_snapshot.py
 ```
 
 Guide usage profile PG sync:
 
 ```bash
-cd /mnt/c/project/arch-bot/OHS/backend
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
 .venv/bin/python scripts/import_guide_usage_profiles_to_pg.py --report-prefix pg_guide_usage_profiles_sync_ci_broad_sr_guard4
 ```
 
@@ -221,61 +221,61 @@ Stage 3 remaining-gap support artifact:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/build_stage3_remaining_gap_support_v20_artifacts.py
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/build_stage3_remaining_gap_support_v20_artifacts.py
 ```
 
 Stage 2 support usage-gate artifact:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/build_stage2_support_usage_gate_artifacts.py --report-prefix stage2_support_usage_gate_artifacts_v2
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/build_stage2_support_usage_gate_artifacts.py --report-prefix stage2_support_usage_gate_artifacts_v2
 ```
 
 Stage 3 domain support v6 artifact:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/build_stage3_domain_support_v6_artifacts.py --report-prefix stage3_domain_support_v6_artifacts_tight1
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/build_stage3_domain_support_v6_artifacts.py --report-prefix stage3_domain_support_v6_artifacts_tight1
 ```
 
 Guide photo matchability artifact:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/build_guide_photo_matchability.py
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/build_guide_photo_matchability.py
 ```
 
 NO_TOP Guide support artifact:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/build_no_top_guide_support_candidates.py --support-output OHS/backend/app/data/guide_support_candidates.v3.jsonl
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/build_no_top_guide_support_candidates.py --support-output serving-team/08-app/backend/app/data/guide_support_candidates.v3.jsonl
 ```
 
 Stage 3 SHE gap candidate diagnosis:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/analyze_stage3_she_gap_candidates.py --input pictures-json/reports/pipeline_quality_v1_v10_ci_reference_guard1.json --report-prefix stage3_she_gap_candidates_reference_guard1
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/analyze_stage3_she_gap_candidates.py --input data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_reference_guard1.json --report-prefix stage3_she_gap_candidates_reference_guard1
 ```
 
 Stage 3 review-only SHE candidate preview:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/build_stage3_she_candidate_preview.py
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/build_stage3_she_candidate_preview.py
 ```
 
 SituationFrame artifacts and evaluation:
 
 ```bash
 cd /mnt/c/project/arch-bot
-OHS/backend/.venv/bin/python OHS/backend/scripts/build_situation_frame_artifacts.py
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_situation_frame_quality.py --report-prefix situation_frame_eval_report.v2_child_gate1
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_situation_frame_support7
-OHS/backend/.venv/bin/python OHS/backend/scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_situation_frame_support7 --database-note "SituationFrame v2 child-gated support / support7 accepted candidate"
-cd /mnt/c/project/arch-bot/OHS/backend
-.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../pictures-json/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_situation_frame_support7
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/build_situation_frame_artifacts.py
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/evaluate_situation_frame_quality.py --report-prefix situation_frame_eval_report.v2_child_gate1
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/evaluate_stage2_5_pipeline_quality.py --report-prefix pipeline_quality_v1_v10_situation_frame_support7
+serving-team/08-app/backend/.venv/bin/python serving-team/08-app/backend/scripts/evaluate_actual_response_samples.py --report-prefix actual_response_samples_situation_frame_support7 --database-note "SituationFrame v2 child-gated support / support7 accepted candidate"
+cd /mnt/c/project/arch-bot/serving-team/08-app/backend
+.venv/bin/python scripts/evaluate_synthetic_observations.py --input ../../data-team/05-enrichment/eval-data/synthetic_observations_v10.jsonl --report-prefix synthetic_observations_v10_situation_frame_support7
 ```
 
 Latest Stage 3 candidate preview, generated from `pipeline_quality_v1_v10_ci_reference_guard1`:
@@ -390,21 +390,21 @@ frame extraction on synthetic v1~v10:
 
 ## Notes
 
-`OHS` is now tracked inside the root `arch-bot` monorepo. Keep using `/mnt/c/project/arch-bot/OHS` as the working path. Do not edit `frontend/node_modules/**` or historical `pictures-json/reports/**` bodies.
+`OHS` is now tracked inside the root `arch-bot` monorepo. Keep using `/mnt/c/project/arch-bot/OHS` as the working path. Do not edit `frontend/node_modules/**` or historical `data-team/05-enrichment/eval-data/reports/**` bodies.
 
 ## Runtime Guide Guard Summary
 
 Runtime reads local OHS serving artifacts instead of koshaontology working files:
 
 ```text
-OHS/backend/app/data/guide_domain_profiles.json
-OHS/backend/app/data/broad_sr_policy.json
-OHS/backend/app/data/guide_photo_matchability.v1.json
-OHS/backend/app/data/situation_context_taxonomy.v21.json
-OHS/backend/app/data/guide_support_candidates.v21.jsonl
+serving-team/08-app/backend/app/data/guide_domain_profiles.json
+serving-team/08-app/backend/app/data/broad_sr_policy.json
+serving-team/08-app/backend/app/data/guide_photo_matchability.v1.json
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v21.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v21.jsonl
 ```
 
-The same serving baseline is exported to `koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
+The same serving baseline is exported to `ontology-team/06-reasoning/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl` only for validation and anomaly discovery. OHS does not query that TTL in the request path; fixes should be made in OHS artifacts, PG/export scripts, or Pipe-B profile generation and then regenerated.
 
 Serving candidate gates:
 
@@ -435,4 +435,4 @@ PG guide_usage_profiles sync: PASS, 1,038 rows
 PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-참고 리포트 본문은 `pictures-json/reports/**`에 로컬/외부로 보관되며, root git은 [pictures-json/reports-manifest.json](../pictures-json/reports-manifest.json)과 위 정본만 추적한다.
+참고 리포트 본문은 `data-team/05-enrichment/eval-data/reports/**`에 로컬/외부로 보관되며, root git은 [data-team/05-enrichment/eval-data/reports-manifest.json](../data-team/05-enrichment/eval-data/reports-manifest.json)과 위 정본만 추적한다.

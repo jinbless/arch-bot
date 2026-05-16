@@ -22,7 +22,7 @@ LLM output must not be treated as legal asserted evidence. It may improve candid
 - Root monorepo snapshot: `/mnt/c/project/arch-bot`
   - This workplan lives at `docs/workplans/llm-domain-guard.md`.
   - `OHS/` and `koshaontology/` are ordinary root-tracked directories on `main`.
-  - New report bodies may be generated locally under `pictures-json/reports/`, but root git tracks `pictures-json/reports-manifest.json` and `docs/status/evaluation-baseline.md` instead of historical report bodies.
+  - New report bodies may be generated locally under `data-team/05-enrichment/eval-data/reports/`, but root git tracks `data-team/05-enrichment/eval-data/reports-manifest.json` and `docs/status/evaluation-baseline.md` instead of historical report bodies.
 
 - OHS source: `/mnt/c/project/arch-bot/OHS`
   - Runtime recommendation logic, backend/frontend checks, and actual/synthetic replay scripts.
@@ -56,7 +56,7 @@ Current baseline index:
 
 ```text
 docs/status/evaluation-baseline.md
-pictures-json/reports-manifest.json
+data-team/05-enrichment/eval-data/reports-manifest.json
 ```
 
 ## 30 Guide LLM Pilot Set
@@ -102,9 +102,9 @@ Run from `/mnt/c/project/arch-bot/koshaontology`.
 
 ```bash
 set -a
-. ../OHS/backend/.env
+. ../serving-team/08-app/backend/.env
 set +a
-../OHS/backend/.venv/bin/python pipe-B/scripts/step8_ontology_enrichment.py \
+../serving-team/08-app/backend/.venv/bin/python pipe-B/scripts/step8_ontology_enrichment.py \
   --use-llm \
   --llm-model gpt-4.1-mini \
   --report pipe-B/data/ontology-enrichment-llm-domain-guard-pilot-report.json \
@@ -187,12 +187,12 @@ v10 synthetic SHE FN 0 / FP 0
 Reports:
 
 ```text
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.json
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.md
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.csv
-pictures-json/reports/synthetic_observations_v10_domain_guard2_report.json
-pictures-json/reports/synthetic_observations_v10_domain_guard2_report.md
-pictures-json/reports/synthetic_observations_v10_domain_guard2_cases.csv
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.json
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_domain_guard2_report.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_domain_guard2_report.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_domain_guard2_cases.csv
 ```
 
 Actual response 240 replay:
@@ -267,10 +267,10 @@ frontend npm run build OK
 Intermediate reports:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.md
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.md
-pictures-json/reports/synthetic_observations_v10_usage_profile5_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile5_report.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.md
 ```
 
 NO_TOP queue split:
@@ -303,8 +303,8 @@ External API use is still pending approval, so the first 30 Guide pilot was comp
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-001.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-001.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-001.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-001.md
 ```
 
 Counts:
@@ -333,8 +333,8 @@ Batch 002 continues in inventory order, excluding the 30 watch Guides already co
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-002.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-002.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-002.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-002.md
 ```
 
 Counts:
@@ -362,18 +362,18 @@ The full 1,038 Guide candidate draft set has now been generated locally.
 Outputs:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-001.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-001.json
 ...
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-035.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-index.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-index.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-035.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-index.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-index.md
 ```
 
 Helper scripts:
 
 ```text
-koshaontology/pipe-B/scripts/build_codex_manual_domain_batches.py
-koshaontology/pipe-B/scripts/build_codex_manual_domain_index.py
+data-team/02-extraction/pipe-B/scripts/build_codex_manual_domain_batches.py
+data-team/02-extraction/pipe-B/scripts/build_codex_manual_domain_index.py
 ```
 
 Counts:
@@ -418,10 +418,10 @@ git diff whitespace check PASS
 Semantic audit:
 
 ```text
-report koshaontology/pipe-B/data/manual-enrichment-domain-guard-semantic-audit.json
-report koshaontology/pipe-B/data/manual-enrichment-domain-guard-semantic-audit.md
-correction report koshaontology/pipe-B/data/manual-enrichment-domain-guard-semantic-corrections.json
-broad SR policy koshaontology/pipe-B/data/manual-enrichment-domain-guard-broad-sr-policy.json
+report data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-semantic-audit.json
+report data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-semantic-audit.md
+correction report data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-semantic-corrections.json
+broad SR policy data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-broad-sr-policy.json
 guides with any review flag 739
 high-risk guides 0
 medium flags 1,288
@@ -457,10 +457,10 @@ Pilot batches 001-002 have been rechecked and normalized to the same candidate-o
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-001.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-001.md
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-002.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-002.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-001.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-001.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-002.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-002.md
 ```
 
 Counts after recheck:
@@ -489,8 +489,8 @@ Batch 003 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-003.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-003.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-003.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-003.md
 ```
 
 Counts:
@@ -520,8 +520,8 @@ Batch 004 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-004.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-004.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-004.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-004.md
 ```
 
 Counts:
@@ -552,8 +552,8 @@ Batch 005 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-005.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-005.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-005.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-005.md
 ```
 
 Counts:
@@ -585,8 +585,8 @@ Batch 006 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-006.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-006.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-006.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-006.md
 ```
 
 Counts:
@@ -617,8 +617,8 @@ Batch 007 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-007.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-007.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-007.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-007.md
 ```
 
 Counts:
@@ -653,8 +653,8 @@ Batch 008 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-008.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-008.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-008.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-008.md
 ```
 
 Counts:
@@ -690,8 +690,8 @@ Batch 009 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-009.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-009.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-009.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-009.md
 ```
 
 Counts:
@@ -727,8 +727,8 @@ Batch 010 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-010.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-010.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-010.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-010.md
 ```
 
 Counts:
@@ -764,8 +764,8 @@ Batch 011 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-011.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-011.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-011.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-011.md
 ```
 
 Counts:
@@ -801,8 +801,8 @@ Batch 012 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-012.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-012.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-012.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-012.md
 ```
 
 Counts:
@@ -838,8 +838,8 @@ Batch 013 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-013.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-013.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-013.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-013.md
 ```
 
 Counts:
@@ -875,8 +875,8 @@ Batch 014 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-014.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-014.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-014.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-014.md
 ```
 
 Counts:
@@ -911,8 +911,8 @@ Batch 015 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-015.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-015.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-015.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-015.md
 ```
 
 Counts:
@@ -948,8 +948,8 @@ Batch 016 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-016.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-016.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-016.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-016.md
 ```
 
 Counts:
@@ -985,8 +985,8 @@ Batch 017 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-017.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-017.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-017.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-017.md
 ```
 
 Counts:
@@ -1023,8 +1023,8 @@ Batch 018 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-018.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-018.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-018.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-018.md
 ```
 
 Counts:
@@ -1059,8 +1059,8 @@ Batch 019 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-019.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-019.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-019.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-019.md
 ```
 
 Counts:
@@ -1095,8 +1095,8 @@ Batch 020 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-020.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-020.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-020.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-020.md
 ```
 
 Counts:
@@ -1130,8 +1130,8 @@ Batch 021 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-021.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-021.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-021.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-021.md
 ```
 
 Counts:
@@ -1165,8 +1165,8 @@ Batch 022 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-022.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-022.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-022.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-022.md
 ```
 
 Counts:
@@ -1200,8 +1200,8 @@ Batch 023 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-023.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-023.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-023.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-023.md
 ```
 
 Counts:
@@ -1235,8 +1235,8 @@ Batch 024 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-024.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-024.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-024.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-024.md
 ```
 
 Counts:
@@ -1270,8 +1270,8 @@ Batch 025 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-025.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-025.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-025.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-025.md
 ```
 
 Counts:
@@ -1306,8 +1306,8 @@ Batch 026 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-026.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-026.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-026.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-026.md
 ```
 
 Counts:
@@ -1341,8 +1341,8 @@ Batch 027 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-027.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-027.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-027.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-027.md
 ```
 
 Counts:
@@ -1377,8 +1377,8 @@ Batch 028 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-028.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-028.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-028.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-028.md
 ```
 
 Counts:
@@ -1414,8 +1414,8 @@ Batch 029 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-029.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-029.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-029.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-029.md
 ```
 
 Counts:
@@ -1451,8 +1451,8 @@ Batch 030 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-030.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-030.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-030.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-030.md
 ```
 
 Counts:
@@ -1488,8 +1488,8 @@ Batch 031 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-031.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-031.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-031.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-031.md
 ```
 
 Counts:
@@ -1527,8 +1527,8 @@ Batch 032 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-032.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-032.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-032.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-032.md
 ```
 
 Counts:
@@ -1565,8 +1565,8 @@ Batch 033 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-033.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-033.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-033.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-033.md
 ```
 
 Counts:
@@ -1602,8 +1602,8 @@ Batch 034 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-034.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-034.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-034.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-034.md
 ```
 
 Counts:
@@ -1638,8 +1638,8 @@ Batch 035 has been upgraded from generated draft to source-JSON manual review.
 Output:
 
 ```text
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-035.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-035.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-035.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-035.md
 ```
 
 Counts:
@@ -1684,15 +1684,15 @@ Implemented the bridge between the 1,038 manual domain-guard batches and OHS ser
 Outputs:
 
 ```text
-koshaontology/pipe-B/scripts/build_manual_domain_import_preview.py
-koshaontology/pipe-B/scripts/export_manual_domain_serving_artifacts.py
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-import-preview.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-import-preview.md
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-review-queues.json
-koshaontology/pipe-B/data/manual-enrichment-domain-guard-review-queues.md
-OHS/backend/app/data/guide_domain_profiles.json
-OHS/backend/app/data/broad_sr_policy.json
-OHS/backend/app/services/broad_sr_policy.py
+data-team/02-extraction/pipe-B/scripts/build_manual_domain_import_preview.py
+data-team/02-extraction/pipe-B/scripts/export_manual_domain_serving_artifacts.py
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-import-preview.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-import-preview.md
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-review-queues.json
+data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-review-queues.md
+serving-team/08-app/backend/app/data/guide_domain_profiles.json
+serving-team/08-app/backend/app/data/broad_sr_policy.json
+serving-team/08-app/backend/app/services/broad_sr_policy.py
 ```
 
 Import preview summary:
@@ -1728,10 +1728,10 @@ OHS runtime changes:
 
 ```text
 review_status serving gate: candidate/asserted only
-broad SR policy artifact loaded from OHS/backend/app/data/broad_sr_policy.json
+broad SR policy artifact loaded from serving-team/08-app/backend/app/data/broad_sr_policy.json
 broad SR cannot create standard procedure/fallback by itself
 get_standard_guides() and get_immediate_checklist_items() now receive direct_sr_ids
-Guide domain profile evaluation reads OHS/backend/app/data/guide_domain_profiles.json
+Guide domain profile evaluation reads serving-team/08-app/backend/app/data/guide_domain_profiles.json
 legacy hardcoded watch rules remain as fallback/override
 ```
 
@@ -1750,25 +1750,25 @@ watch Guide top procedure total: 57 -> 39 (31.6% reduction)
 New reports:
 
 ```text
-pictures-json/reports/synthetic_observations_v10_domain_guard_broad_sr_policy_report.md
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard1_vs_pipeb1038_broad_sr_policy.md
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard1_vs_pipeb1038_broad_sr_policy_watch_summary.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_domain_guard_broad_sr_policy_report.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_domain_guard1_vs_pipeb1038_broad_sr_policy.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_domain_guard1_vs_pipeb1038_broad_sr_policy_watch_summary.md
 ```
 ## Synthetic v1~v10 Guide Recommendation Usage Profile Evaluation (2026-05-09)
 
 This pass made `synthetic_observations_v1~v10.jsonl` the main Guide recommendation quality set. The old SHE/SR synthetic evaluator remains unchanged; the new Guide-specific evaluator is:
 
 ```text
-OHS/backend/scripts/evaluate_synthetic_guide_recommendations.py
+serving-team/08-app/backend/scripts/evaluate_synthetic_guide_recommendations.py
 ```
 
 New Pipe-B/OHS materialization:
 
 ```text
-koshaontology/pipe-B/scripts/build_manual_guide_usage_profiles.py
-koshaontology/pipe-B/data/manual-guide-usage-profiles.json
-koshaontology/pipe-B/data/manual-guide-usage-profiles.md
-OHS/backend/app/data/guide_domain_profiles.json
+data-team/02-extraction/pipe-B/scripts/build_manual_guide_usage_profiles.py
+data-team/02-extraction/pipe-B/data/manual-guide-usage-profiles.json
+data-team/02-extraction/pipe-B/data/manual-guide-usage-profiles.md
+serving-team/08-app/backend/app/data/guide_domain_profiles.json
 ```
 
 `guide_domain_profiles.json` now carries recommendation-boundary fields for 1,038 Guides:
@@ -1801,9 +1801,9 @@ Runtime changes:
 Synthetic Guide evaluation report:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile1_20260509_230048.json
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile1_20260509_230048.md
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile1_20260509_230048.csv
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile1_20260509_230048.json
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile1_20260509_230048.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile1_20260509_230048.csv
 ```
 
 Result:
@@ -1823,8 +1823,8 @@ current failure queues:
 Regression reports:
 
 ```text
-pictures-json/reports/synthetic_observations_v10_usage_profile1_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile1_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile1_report.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile1_vs_pipeb1038.md
 ```
 
 Regression result:
@@ -1856,11 +1856,11 @@ Implemented a first structural correction pass against the usage_profile1 attent
 Changed files/scripts:
 
 ```text
-koshaontology/pipe-B/scripts/apply_usage_profile_attention_corrections.py
-koshaontology/pipe-B/scripts/build_manual_guide_usage_profiles.py
-OHS/backend/app/services/guide_domain_profile.py
-OHS/backend/app/services/guide_recommendation_service.py
-OHS/backend/app/data/guide_domain_profiles.json
+data-team/02-extraction/pipe-B/scripts/apply_usage_profile_attention_corrections.py
+data-team/02-extraction/pipe-B/scripts/build_manual_guide_usage_profiles.py
+serving-team/08-app/backend/app/services/guide_domain_profile.py
+serving-team/08-app/backend/app/services/guide_recommendation_service.py
+serving-team/08-app/backend/app/data/guide_domain_profiles.json
 ```
 
 Corrected 8 high-impact Guide boundaries in the source manual batches:
@@ -1907,9 +1907,9 @@ frontend npm run build OK
 New reports:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile2_20260509_233015.md
-pictures-json/reports/synthetic_observations_v10_usage_profile2_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile2_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile2_20260509_233015.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile2_report.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile2_vs_pipeb1038.md
 ```
 
 Next structural queue:
@@ -1973,10 +1973,10 @@ frontend npm run build OK
 Accepted reports:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.md
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.md
-pictures-json/reports/synthetic_observations_v10_usage_profile11_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile11_report.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.md
 ```
 
 Rejected intermediate attempts:

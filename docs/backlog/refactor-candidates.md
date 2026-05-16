@@ -13,9 +13,9 @@ branch: main
 OHS: root tracked directory
 koshaontology: root tracked directory
 legalize-kr: external dependency, root ignored
-kosha-guides/parsed: tracked, 1,038 Guide JSON
-kosha-guides/manifest: tracked provenance manifest
-pictures-json/reports: local/external report bodies
+data-team/01-parsing/kosha-guides/parsed: tracked, 1,038 Guide JSON
+data-team/01-parsing/kosha-guides/manifest: tracked provenance manifest
+data-team/05-enrichment/eval-data/reports: local/external report bodies
 ```
 
 현재 accepted runtime baseline은 `ci_cross_guide_broad_only_guard1`이다. 직전 product baseline은 `ci_unrelated_action_filter1`이며, 그 이전 `ci_preferred_guide_ci1`, `ci_candidate_promotion_v1`, `ci_broad_sr_guard4`, `ci_wp_relevance_guard1`, `no_top_serving_bridge4`, `no_top_runtime_repair1_safe_gate3`, `no_forced_hotwork_gate1`, `context_safe_gate1`, `corpus_gap_guard1`, `safe_scene_phrase_gate2`, `strict_profile_gate3`, `ci_wp_relevance8d_profile_tight2_ci_safe_gate`, `stage3_remaining_gap_support_v20_actionable`, `photo_matchability1`, `situation_frame_support7`, `usage_profile11` 등은 historical milestone으로 보존한다.
@@ -49,17 +49,17 @@ ambiguous_over_promoted 5
 
 ```text
 active runtime artifacts:
-  OHS/backend/app/data/situation_context_taxonomy.v21.json
-  OHS/backend/app/data/guide_support_candidates.v21.jsonl
-PG sync script: OHS/backend/scripts/import_guide_usage_profiles_to_pg.py
-PG sync report: pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
-export script: koshaontology/ontology/scripts/export_serving_snapshot.py
-validation script: koshaontology/ontology/scripts/validate_serving_snapshot.py
-policy TTL: koshaontology/ontology/serving-policy.ttl
-snapshot TTL: koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
-SHACL shapes: koshaontology/ontology/serving-validation-shapes.ttl
-validation report: koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*
-alignment report: koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*
+  serving-team/08-app/backend/app/data/situation_context_taxonomy.v21.json
+  serving-team/08-app/backend/app/data/guide_support_candidates.v21.jsonl
+PG sync script: serving-team/08-app/backend/scripts/import_guide_usage_profiles_to_pg.py
+PG sync report: data-team/05-enrichment/eval-data/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
+export script: ontology-team/06-reasoning/ontology/scripts/export_serving_snapshot.py
+validation script: ontology-team/06-reasoning/ontology/scripts/validate_serving_snapshot.py
+policy TTL: ontology-team/06-reasoning/ontology/serving-policy.ttl
+snapshot TTL: ontology-team/06-reasoning/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
+SHACL shapes: ontology-team/06-reasoning/ontology/serving-validation-shapes.ttl
+validation report: ontology-team/06-reasoning/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*
+alignment report: ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*
 GuideUsageProfile 1,038
 photo_actionable / conditional / unmatchable 631 / 39 / 368
 broad SR 12
@@ -189,14 +189,14 @@ public API / SHE approval / asserted mapping / legal SR evidence / status / pena
 반영된 주요 파일:
 
 ```text
-OHS/backend/app/services/analysis_pipeline.py
-OHS/backend/app/services/risk_rule_service.py
-OHS/backend/app/services/sr_lookup_service.py
-OHS/backend/app/services/guide_recommendation_service.py
-OHS/backend/app/services/penalty_path_service.py
-OHS/backend/app/services/she_match_models.py
-OHS/frontend/src/components/results/*
-OHS/frontend/src/hooks/useRunAnalysis.ts
+serving-team/08-app/backend/app/services/analysis_pipeline.py
+serving-team/08-app/backend/app/services/risk_rule_service.py
+serving-team/08-app/backend/app/services/sr_lookup_service.py
+serving-team/08-app/backend/app/services/guide_recommendation_service.py
+serving-team/08-app/backend/app/services/penalty_path_service.py
+serving-team/08-app/backend/app/services/she_match_models.py
+serving-team/08-app/frontend/src/components/results/*
+serving-team/08-app/frontend/src/hooks/useRunAnalysis.ts
 ```
 
 검증 상태:
@@ -226,24 +226,24 @@ risk:RiskFeature
 반영된 주요 변경:
 
 ```text
-koshaontology/pipe-B/db/schema_pb.sql
+data-team/02-extraction/pipe-B/db/schema_pb.sql
   guide_entity_feature_candidates
   guide_sr_link_candidates
   guide_visual_trigger_candidates
 
-koshaontology/pipe-B/scripts/step8_ontology_enrichment.py
+data-team/02-extraction/pipe-B/scripts/step8_ontology_enrichment.py
   OHS risk_feature_catalog / aliases 기반 후보 생성
   LLM strict JSON schema 경로 구현
   고신뢰 후보만 기존 mapping table에 asserted 반영
 
-koshaontology/pipe-C/scripts/step6_ontology_enrichment_audit.py
+data-team/03-validation/pipe-C/scripts/step6_ontology_enrichment_audit.py
   1,038 Guide 기준 coverage/audit 리포트 생성
 
-OHS/backend/app/services/guide_recommendation_service.py
+serving-team/08-app/backend/app/services/guide_recommendation_service.py
   SR-only 추천에서 risk feature / SHE / visual cue / industry context 기반 추천으로 확장
   standard_procedures를 WorkProcess steps 중심으로 구성
 
-OHS/backend/app/services/guide_domain_profile.py
+serving-team/08-app/backend/app/services/guide_domain_profile.py
   Guide 고유 업종/작업장 문맥과 사진 문맥 불일치를 평가
   exclusive mismatch는 제외, domain_specific mismatch는 감점
 ```
@@ -289,27 +289,27 @@ actual response 240 replay:
 복원한 재실행 스크립트:
 
 ```text
-OHS/backend/scripts/evaluate_actual_response_samples.py
+serving-team/08-app/backend/scripts/evaluate_actual_response_samples.py
 ```
 
 신규 리포트:
 
 ```text
-pictures-json/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.json
-pictures-json/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.md
-pictures-json/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.csv
-pictures-json/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.json
-pictures-json/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.md
-pictures-json/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.csv
-pictures-json/reports/synthetic_observations_v10_ag18_guard2_report.json
-pictures-json/reports/synthetic_observations_v10_ag18_guard2_report.md
-pictures-json/reports/synthetic_observations_v10_ag18_guard2_cases.csv
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.json
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.md
-pictures-json/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.csv
-pictures-json/reports/synthetic_observations_v10_domain_guard2_report.json
-pictures-json/reports/synthetic_observations_v10_domain_guard2_report.md
-pictures-json/reports/synthetic_observations_v10_domain_guard2_cases.csv
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.json
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_ontology_enrichment1_vs_pipeb1038.csv
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.json
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_ag18_guard2_vs_pipeb1038.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_ag18_guard2_report.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_ag18_guard2_report.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_ag18_guard2_cases.csv
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.json
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_domain_guard2_vs_pipeb1038.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_domain_guard2_report.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_domain_guard2_report.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_domain_guard2_cases.csv
 ```
 
 비판적 관찰:
@@ -339,21 +339,21 @@ synthetic v1~v10을 Guide 추천 품질의 주평가 데이터로 사용해 Guid
 반영된 주요 변경:
 
 ```text
-OHS/backend/app/services/guide_domain_profile.py
+serving-team/08-app/backend/app/services/guide_domain_profile.py
   exclusive Guide는 Guide-specific term/context hit 없이 domain_match 불가
   industry alignment는 보조 신호로만 사용
   domain_specific Guide도 industry-only match를 통과시키지 않음
 
-OHS/backend/app/services/guide_recommendation_service.py
+serving-team/08-app/backend/app/services/guide_recommendation_service.py
   exclusive profile 점수도 term/context hit를 요구
 
-OHS/backend/scripts/evaluate_synthetic_guide_recommendations.py
+serving-team/08-app/backend/scripts/evaluate_synthetic_guide_recommendations.py
   management_program/reference 성격 Guide 판정 보강
 
-OHS/backend/scripts/analyze_synthetic_no_top_queue.py
+serving-team/08-app/backend/scripts/analyze_synthetic_no_top_queue.py
   NO_TOP/missing_usage_profile 큐를 fixture gap과 taxonomy/profile gap으로 분리
 
-koshaontology/pipe-B/scripts/apply_usage_profile_attention_corrections_v3.py
+data-team/02-extraction/pipe-B/scripts/apply_usage_profile_attention_corrections_v3.py
   A-G-12, A-G-9, C-70, H-100, A-R-2, H-187, A-G-14,
   E-G-22, H-116, M-62, D-C-7 사용경계 보강
 ```
@@ -378,10 +378,10 @@ frontend npm run build OK
 신규 리포트:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.*
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.*
-pictures-json/reports/synthetic_observations_v10_usage_profile5_report.*
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.*
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile5_20260510_000306.*
+data-team/05-enrichment/eval-data/reports/synthetic_guide_no_top_queue_usage_profile5_20260510_000435.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile5_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile5_vs_pipeb1038.*
 ```
 
 다음 남은 작업:
@@ -477,7 +477,7 @@ SeriousAccident → 중대재해 요건 충족 시
 
 `app:InspectionCase`, `app:VisualObservation`, `app:VisualCue`, `app:SituationMatch`, `app:HazardFinding`, `app:CorrectiveAction`, `app:PenaltyExposure`, `app:AssessmentReport` 스키마는 추가했다.
 
-진단 스크립트(`OHS/backend/scripts/diagnose_image.py`)에서는 실제 사진 분석 결과를 `diagnose_*.app.ttl`로 물질화하는 테스트 구현을 추가했다.
+진단 스크립트(`serving-team/08-app/backend/scripts/diagnose_image.py`)에서는 실제 사진 분석 결과를 `diagnose_*.app.ttl`로 물질화하는 테스트 구현을 추가했다.
 
 하지만 실제 서비스 API/DB 저장 흐름에서 이 요약 구조를 지속적으로 저장하는 구현은 아직 별도 작업이다.
 
@@ -509,7 +509,7 @@ RDF/app 레이어:
 
 ### 배경
 
-`pictures-json/synthetic_observations_v1~v7.jsonl` 전체를 기준으로 SHE 매칭 품질을 계속 측정한다.
+`data-team/05-enrichment/eval-data/synthetic_observations_v1~v7.jsonl` 전체를 기준으로 SHE 매칭 품질을 계속 측정한다.
 
 2026-05-05 FN 보정 기준선(`riskv2_fnfix6`)의 전체 혼동행렬은 다음과 같았다.
 
@@ -540,10 +540,10 @@ v7: recall 95.9%,  FP 1,  specificity 97.1%
 생성된 집계 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v1_v7_fpfix7_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v7_fpfix7_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v7_fpfix7_fp_cases.csv
-pictures-json/reports/synthetic_observations_v1_v7_fpfix7_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v7_fpfix7_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v7_fpfix7_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v7_fpfix7_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v7_fpfix7_fn_cases.csv
 ```
 
 ### 현재 적용한 FP 억제 방향
@@ -639,10 +639,10 @@ TP +30 / FN -30 / FP +1 / TN -1
 생성된 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v1_v8_v8corefix2_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v8_v8corefix2_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v8_v8corefix2_fn_cases.csv
-pictures-json/reports/synthetic_observations_v8_v8corefix2_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v8_v8corefix2_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v8_v8corefix2_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v8_v8corefix2_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v8_v8corefix2_fp_cases.csv
 ```
 
 이후 남은 FN 27건을 보정했다.
@@ -679,10 +679,10 @@ TP +27 / FN -27 / FP +4 / TN -4
 생성된 최신 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v1_v8_fnfix4_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v8_fnfix4_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v8_fnfix4_fn_cases.csv
-pictures-json/reports/synthetic_observations_v1_v8_fnfix4_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v8_fnfix4_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v8_fnfix4_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v8_fnfix4_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v8_fnfix4_fp_cases.csv
 ```
 
 현재 FN은 0건이다. 다만 recall을 100%까지 올리면서 FP가 65건에서 69건으로 4건 증가했다. 다음 품질 개선은 FN 보정보다 FP 억제와 `확정 / 후보 / 확인필요` UX 분리에 집중한다.
@@ -710,11 +710,11 @@ v9의 FP 24건은 대부분 negative 케이스이며, 공통 패턴은 다음과
 생성된 v9 초기 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v9_fnfix4_report.md
-pictures-json/reports/synthetic_observations_v9_fnfix4_report.json
-pictures-json/reports/synthetic_observations_v1_v9_fnfix4_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v9_fnfix4_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v9_fnfix4_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v9_fnfix4_report.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v9_fnfix4_report.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_fnfix4_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_fnfix4_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_fnfix4_fp_cases.csv
 ```
 
 v9 기준 다음 억제 후보:
@@ -761,12 +761,12 @@ v1~v9 누적: FP 93 -> 69, TN 207 -> 231, FN 0 유지
 생성된 최신 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v9_safectx2_report.md
-pictures-json/reports/synthetic_observations_v9_safectx2_report.json
-pictures-json/reports/synthetic_observations_v1_v9_safectx2_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v9_safectx2_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v9_safectx2_fp_cases.csv
-pictures-json/reports/synthetic_observations_v1_v9_safectx2_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v9_safectx2_report.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v9_safectx2_report.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_safectx2_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_safectx2_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_safectx2_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_safectx2_fn_cases.csv
 ```
 
 이후 `obsgate3`에서 관찰 가능한 위반 신호 게이트를 보강했다.
@@ -815,10 +815,10 @@ negative 케이스가 위험으로 올라온 명백한 오탐은 현재 집계 �
 생성된 최신 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v1_v9_obsgate3_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v9_obsgate3_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v9_obsgate3_fp_cases.csv
-pictures-json/reports/synthetic_observations_v1_v9_obsgate3_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_obsgate3_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_obsgate3_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_obsgate3_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_obsgate3_fn_cases.csv
 ```
 
 이후 `splitmetrics1`에서 평가 지표를 분리했다.
@@ -872,10 +872,10 @@ candidate_false_positive 0
 생성된 분리 지표 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v1_v9_splitmetrics1_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v9_splitmetrics1_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v9_splitmetrics1_fp_cases.csv
-pictures-json/reports/synthetic_observations_v1_v9_splitmetrics1_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_splitmetrics1_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_splitmetrics1_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_splitmetrics1_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_splitmetrics1_fn_cases.csv
 ```
 
 이후 `confirmdemote1`에서 확인필요 후보의 `confirmed` 과승격을 줄였다.
@@ -933,10 +933,10 @@ normal suppression: 100.0% 유지
 생성된 최신 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v1_v9_confirmdemote1_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v9_confirmdemote1_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v9_confirmdemote1_fp_cases.csv
-pictures-json/reports/synthetic_observations_v1_v9_confirmdemote1_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_confirmdemote1_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_confirmdemote1_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_confirmdemote1_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v9_confirmdemote1_fn_cases.csv
 ```
 
 2026-05-06 v10 테스트셋을 추가 평가했다.
@@ -1034,13 +1034,13 @@ SYN-V10-0055: 일반 물걸레 청소 장면이 CHEMICAL_WORK 후보로 올라�
 생성된 최신 v10 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v10_confirmdemote1_report.md
-pictures-json/reports/synthetic_observations_v10_confirmdemote1_report.json
-pictures-json/reports/synthetic_observations_v10_confirmdemote1_cases.csv
-pictures-json/reports/synthetic_observations_v1_v10_confirmdemote1_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v10_confirmdemote1_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v10_confirmdemote1_fp_cases.csv
-pictures-json/reports/synthetic_observations_v1_v10_confirmdemote1_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_confirmdemote1_report.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_confirmdemote1_report.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_confirmdemote1_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v10_confirmdemote1_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v10_confirmdemote1_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v10_confirmdemote1_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v10_confirmdemote1_fn_cases.csv
 ```
 
 2026-05-06 `v10fix6`에서 v10 FN/FP 보정을 우선 적용했다.
@@ -1110,10 +1110,10 @@ candidate_false_positive 0
 생성된 최신 v1~v10 집계 리포트:
 
 ```text
-pictures-json/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.md
-pictures-json/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.json
-pictures-json/reports/synthetic_observations_v1_v10_v10fix6_fp_cases.csv
-pictures-json/reports/synthetic_observations_v1_v10_v10fix6_fn_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v10_v10fix6_confusion_matrix.json
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v10_v10fix6_fp_cases.csv
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v1_v10_v10fix6_fn_cases.csv
 ```
 
 ### 후속 작업
@@ -1252,16 +1252,16 @@ A-G-18 top procedure <= 3, 잔여는 항만 하역업만 허용
 Synthetic v1~v10 2,360건을 Guide 추천 주평가 데이터로 승격했다. 새 평가 스크립트는 다음 파일이다.
 
 ```text
-OHS/backend/scripts/evaluate_synthetic_guide_recommendations.py
+serving-team/08-app/backend/scripts/evaluate_synthetic_guide_recommendations.py
 ```
 
 Guide 사용경계 보강 산출물:
 
 ```text
-koshaontology/pipe-B/scripts/build_manual_guide_usage_profiles.py
-koshaontology/pipe-B/data/manual-guide-usage-profiles.json
-koshaontology/pipe-B/data/manual-guide-usage-profiles.md
-OHS/backend/app/data/guide_domain_profiles.json
+data-team/02-extraction/pipe-B/scripts/build_manual_guide_usage_profiles.py
+data-team/02-extraction/pipe-B/data/manual-guide-usage-profiles.json
+data-team/02-extraction/pipe-B/data/manual-guide-usage-profiles.md
+serving-team/08-app/backend/app/data/guide_domain_profiles.json
 ```
 
 OHS 추천 로직은 이제 다음을 적용한다.
@@ -1309,7 +1309,7 @@ usage_profile1 attention queue에서 상위 과노출 Guide 8개를 원본 manua
 
 ```text
 추가 스크립트:
-koshaontology/pipe-B/scripts/apply_usage_profile_attention_corrections.py
+data-team/02-extraction/pipe-B/scripts/apply_usage_profile_attention_corrections.py
 
 주요 runtime 변경:
 manual profile 우선, hardcoded watch rule은 fallback
@@ -1337,9 +1337,9 @@ frontend npm run build OK
 새 리포트:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile2_20260509_233015.md
-pictures-json/reports/synthetic_observations_v10_usage_profile2_report.md
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile2_vs_pipeb1038.md
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile2_20260509_233015.md
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile2_report.md
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile2_vs_pipeb1038.md
 ```
 
 다음 코드 작업:
@@ -1359,7 +1359,7 @@ usage_profile5 이후 남은 과추천 원인은 risk 정규화 부족이 아니
 수정:
 
 ```text
-OHS/backend/app/services/analysis_pipeline.py
+serving-team/08-app/backend/app/services/analysis_pipeline.py
 ```
 
 핵심 변경:
@@ -1373,8 +1373,8 @@ finding_status, penalty_path, SHE reasoning 경계는 유지
 평가 하네스 정정:
 
 ```text
-OHS/backend/scripts/evaluate_synthetic_guide_recommendations.py
-OHS/backend/scripts/analyze_synthetic_no_top_queue.py
+serving-team/08-app/backend/scripts/evaluate_synthetic_guide_recommendations.py
+serving-team/08-app/backend/scripts/analyze_synthetic_no_top_queue.py
 ```
 
 정정 내용:
@@ -1405,10 +1405,10 @@ frontend build OK
 신규 리포트:
 
 ```text
-pictures-json/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.*
-pictures-json/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.*
-pictures-json/reports/synthetic_observations_v10_usage_profile11_report.*
-pictures-json/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.*
+data-team/05-enrichment/eval-data/reports/synthetic_guide_recommendations_v1_v10_usage_profile11_20260510_011317.*
+data-team/05-enrichment/eval-data/reports/synthetic_guide_no_top_queue_usage_profile11_20260510_011333.*
+data-team/05-enrichment/eval-data/reports/synthetic_observations_v10_usage_profile11_report.*
+data-team/05-enrichment/eval-data/reports/actual_response_samples_v1_v10_usage_profile11_vs_pipeb1038.*
 ```
 
 주의:

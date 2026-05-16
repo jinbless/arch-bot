@@ -10,12 +10,12 @@ KOSHA 가이드 PDF 전수 목록을 생성하여 shortCode 기반 식별 체계
 
 ## 입력
 
-- `kosha-guides/{A,B,C,D,E}/` — 1,038개 PDF 파일
+- `data-team/01-parsing/kosha-guides/{A,B,C,D,E}/` — 1,038개 PDF 파일
 
 ## 실행
 
 ```bash
-cd koshaontology/pipe-B
+cd data-team/02-extraction/pipe-B
 python3 scripts/step0_build_inventory.py
 ```
 

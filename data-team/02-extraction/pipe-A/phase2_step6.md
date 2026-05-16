@@ -118,7 +118,7 @@ CREATE INDEX idx_sr_art_art ON sr_article_mapping(law_type, article_code);
 ## 7. 적재 결과 (2026-04-12)
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 python3 db/import_and_verify.py --clean
 ```
 
@@ -140,7 +140,7 @@ python3 db/import_and_verify.py --clean
 ## 8. 재현 방법
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 
 # 전체 적재 (Phase 1 + Phase 2, 기존 테이블 DROP 후 재생성)
 python3 db/import_and_verify.py --clean

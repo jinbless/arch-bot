@@ -39,12 +39,12 @@ Use W3C standards:
 Keep this layer separate from the main domain ontology:
 
 ```text
-koshaontology/ontology/source-provenance.ttl
-koshaontology/ontology/source-catalog.ttl
-koshaontology/ontology/source-shapes.ttl
-koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
-koshaontology/ontology/serving-validation-shapes.ttl
+ontology-team/06-reasoning/ontology/source-provenance.ttl
+ontology-team/06-reasoning/ontology/source-catalog.ttl
+ontology-team/06-reasoning/ontology/source-shapes.ttl
+ontology-team/06-reasoning/ontology/serving-policy.ttl
+ontology-team/06-reasoning/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
+ontology-team/06-reasoning/ontology/serving-validation-shapes.ttl
 ```
 
 The main ontology stays focused on legal/risk/guide semantics.
@@ -79,33 +79,33 @@ parser/script/human  -> prov:Agent
 The accepted runtime baseline is `ci_cross_guide_broad_only_guard1`. Runtime still reads PostgreSQL and OHS JSON artifacts, but the following files are exported for machine validation:
 
 ```text
-OHS/backend/app/data/guide_domain_profiles.json
-OHS/backend/app/data/guide_photo_matchability.v1.json
-OHS/backend/app/data/broad_sr_policy.json
-OHS/backend/app/data/situation_context_taxonomy.v21.json
-OHS/backend/app/data/guide_support_candidates.v21.jsonl
-pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.json
-pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json
-pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.json
+serving-team/08-app/backend/app/data/guide_domain_profiles.json
+serving-team/08-app/backend/app/data/guide_photo_matchability.v1.json
+serving-team/08-app/backend/app/data/broad_sr_policy.json
+serving-team/08-app/backend/app/data/situation_context_taxonomy.v21.json
+serving-team/08-app/backend/app/data/guide_support_candidates.v21.jsonl
+data-team/05-enrichment/eval-data/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.json
+data-team/05-enrichment/eval-data/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.json
+data-team/05-enrichment/eval-data/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.json
 ```
 
 The export script writes:
 
 ```text
-koshaontology/ontology/serving-policy.ttl
-koshaontology/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
-koshaontology/ontology/serving-validation-shapes.ttl
+ontology-team/06-reasoning/ontology/serving-policy.ttl
+ontology-team/06-reasoning/ontology/serving-snapshot-ci_cross_guide_broad_only_guard1.ttl
+ontology-team/06-reasoning/ontology/serving-validation-shapes.ttl
 ```
 
 The validator writes:
 
 ```text
-koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.json
-koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.md
-koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.csv
-koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.json
-koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.md
-koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.csv
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.json
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.md
+ontology-team/06-reasoning/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.csv
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.json
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.md
+ontology-team/06-reasoning/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.csv
 ```
 
 Current validation result:

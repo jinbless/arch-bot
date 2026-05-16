@@ -1,6 +1,6 @@
 # Phase 1 Step 4: NS 검증 + DB 적재
 
-> 현재 기준 참고 (2026-05-07): 이 문서는 과거 실행 재현 문서다. 최신 product 기준은 루트 `README.md`, `../../docs/ontology/00-integrated-structure.md`, `OHS/README.md`, 그리고 이 Pipe의 `status_pipea.md`를 우선 확인한다.
+> 현재 기준 참고 (2026-05-07): 이 문서는 과거 실행 재현 문서다. 최신 product 기준은 루트 `README.md`, `../../docs/ontology/00-integrated-structure.md`, `serving-team/08-app/README.md`, 그리고 이 Pipe의 `status_pipea.md`를 우선 확인한다.
 
 > 최종 업데이트: 2026-04-11
 > 검증 스크립트: `scripts/step4_validate_ns.py`
@@ -58,7 +58,7 @@ Step 3에서 LLM이 생성한 NS 파일을 13개 규칙으로 검증하고, Post
 ## 4. 검증 실행
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 python3 scripts/step4_validate_ns.py
 ```
 
