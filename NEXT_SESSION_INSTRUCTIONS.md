@@ -144,6 +144,11 @@ Referenced current local report bodies:
 - `pictures-json/reports/ci_boundary_mismatch_triage_ci_unrelated_action_filter1.md`
 - `pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.md`
 - `pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.md`
+- `pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.md`
+- `pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.md`
+- `pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.md`
+- `pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.md`
+- `pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.md`
 - `koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*`
 - `koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*`
 
@@ -196,6 +201,8 @@ PG primary WorkProcess check: missing 0 / cross-guide 0
 Implementation note: `ci_unrelated_action_filter1` keeps the `ci_preferred_guide_ci1` status/penalty/SHE/SR, Guide/WorkProcess, and top standard-procedure boundary. It changes only final immediate-action filtering after preferred top-Guide CI ordering: direct SHE checklist cues remain eligible, selected top-Guide CIs remain eligible, and generic CIs from unrelated Guides are suppressed. CI guide-boundary mismatch improves `8 -> 2`; CI no_action changes `491 -> 494`; CI broad_sr_only and needs_review leaks remain `0`. A stricter primary-Guide-only trial was rejected because it reduced mismatch to `0` but regressed CI no_action to `551`.
 
 NO_TOP interpretation: `NO_TOP` is not automatically a defect. Current audit splits 88 cases into 31 accepted empty-top cases and 57 source/taxonomy review cases. Runtime repair candidates are 0; do not reduce the remaining 88 with broad aliases or generic Guide fallback. The remaining CI guide-boundary mismatch tail is now 2 cases and should be handled as source/profile/taxonomy review, not broad action fallback.
+
+PG candidate review refresh on 2026-05-16: `ci_candidate_review_v1` now has 50 review rows in `guide_sr_link_candidates`; 17 are serving `candidate`, 33 remain `needs_review`, all are `asserted=false`, and `ci_sr_mapping` inserts remain 0. Verification report `pipeline_quality_v1_v10_ci_candidate_review_current_pg` preserves the accepted metrics exactly: Guide mismatch 5, NO_TOP 88, CI no_action 494, CI guide-boundary mismatch 2, CI needs_review_used 0.
 
 ## 7. 검증 명령
 

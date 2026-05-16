@@ -1,6 +1,6 @@
 # Evaluation Baseline
 
-Latest updated: 2026-05-15
+Latest updated: 2026-05-16
 
 Accepted runtime baseline: `ci_unrelated_action_filter1`
 
@@ -17,6 +17,12 @@ pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.*
 pictures-json/reports/synthetic_observations_v10_ci_unrelated_action_filter1_report_report.*
 pictures-json/reports/actual_response_samples_ci_unrelated_action_filter1.*
 pictures-json/reports/ci_boundary_mismatch_triage_ci_unrelated_action_filter1.*
+pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.*
+pictures-json/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.*
+pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.*
+pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.*
+pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.*
 koshaontology/ontology/serving-snapshot-ci_unrelated_action_filter1.ttl
 koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*
 koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*
@@ -64,6 +70,41 @@ remaining top action source Guides: H-115, H-117
 ```
 
 Interpretation: the remaining 2 cases are source/profile/taxonomy review tails, not broad alias candidates. Do not solve them by allowing unrelated generic CI fallback.
+
+PG candidate review refresh on 2026-05-16:
+
+```text
+source reports:
+  pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.*
+  pictures-json/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.*
+  pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.*
+  pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.*
+  pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.*
+  pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.*
+
+CI no_action triage total: 494
+upstream_stage2_3_review: 356
+ci_mapping_review: 67
+source_or_taxonomy_review: 45
+accepted_empty_top: 23
+runtime_repair_candidate: 3
+
+semantic CI mapping review:
+  source rows: 67
+  true_ci_mapping_candidate: 19
+  guide_selection_mismatch: 21
+  corpus_gap_or_near_analogy: 22
+  safe_or_followup_no_immediate: 5
+
+guide_sr_link_candidates method ci_candidate_review_v1:
+  imported review rows: 50
+  serving candidate rows: 17
+  needs_review rows: 33
+  asserted rows: 0
+  ci_sr_mapping inserts: 0
+```
+
+Interpretation: this refresh updates PostgreSQL review material only. The 17 narrowly promoted serving candidates remain the same policy class, while the extra 8 rows stay `needs_review` and cannot serve. Verification report `pipeline_quality_v1_v10_ci_candidate_review_current_pg` exactly preserves the accepted `ci_unrelated_action_filter1` metrics: Guide mismatch 5, NO_TOP 88, CI no_action 494, CI guide-boundary mismatch 2, CI needs_review_used 0.
 
 ## CI Preferred Guide CI1
 

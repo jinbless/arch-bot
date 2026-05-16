@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generated_at": "2026-05-15T23:40:59+09:00",
+    "generated_at": "2026-05-16T12:10:00+09:00",
     "schema_version": "reports-manifest-v1",
     "accepted_baseline": "ci_unrelated_action_filter1",
     "previous_product_baseline": "ci_preferred_guide_ci1",
     "report_body_policy": "pictures-json/reports/** remains local/external; this manifest records checksums and accepted baselines.",
-    "report_file_count": 655
+    "report_file_count": 2341
   },
   "accepted_baseline": {
     "name": "ci_unrelated_action_filter1",
@@ -1508,85 +1508,85 @@
       }
     },
     "ci_no_action_triage": {
-      "baseline": "ci_broad_sr_guard4",
+      "baseline": "ci_unrelated_action_filter1",
       "script": "OHS/backend/scripts/triage_ci_no_action.py",
-      "source_pipeline_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.json",
-      "source_no_top_actionability_report": "pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.json",
-      "total_ci_no_action": 492,
+      "source_pipeline_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.json",
+      "source_no_top_actionability_report": "pictures-json/reports/stage2_5_no_top_actionability_ci_wp_relevance_guard1.json",
+      "total_ci_no_action": 494,
       "triage_category_counts": {
         "upstream_she_not_actionable_no_sr": 194,
-        "upstream_she_not_actionable_with_sr": 163,
+        "upstream_she_not_actionable_with_sr": 162,
         "no_top_source_or_taxonomy_review": 45,
-        "top_guide_ci_sr_mapping_gap": 36,
-        "top_guide_ci_has_no_sr_mapping": 27,
-        "no_top_accepted_empty_top": 24,
+        "top_guide_ci_sr_mapping_gap": 39,
+        "top_guide_ci_has_no_sr_mapping": 28,
+        "no_top_accepted_empty_top": 23,
         "top_guide_ci_relevance_gate_gap": 3
       },
       "repair_group_counts": {
-        "upstream_stage2_3_review": 357,
-        "ci_mapping_review": 63,
+        "upstream_stage2_3_review": 356,
+        "ci_mapping_review": 67,
         "source_or_taxonomy_review": 45,
-        "accepted_empty_top": 24,
+        "accepted_empty_top": 23,
         "runtime_repair_candidate": 3
       },
       "ci_layer_direct_repair_candidates": 3,
-      "ci_mapping_or_candidate_review_candidates": 63,
-      "upstream_stage2_3_review_count": 357,
+      "ci_mapping_or_candidate_review_candidates": 67,
+      "upstream_stage2_3_review_count": 356,
       "no_top_source_or_taxonomy_review_count": 45,
-      "accepted_empty_top_count": 24,
+      "accepted_empty_top_count": 23,
       "reports": [
-        "pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.json",
-        "pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.md",
-        "pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.csv"
+        "pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.json",
+        "pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.md",
+        "pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.csv"
       ],
       "sha256": {
-        "ci_no_action_triage_ci_broad_sr_guard4.json": "5b410f29af1a03678db64bd9d6b267112db487b8842181dd485ca1994f0cb75d",
-        "ci_no_action_triage_ci_broad_sr_guard4.md": "9057b99eba7402ba0f80bbaa1ebdb0e5eace1e6949a9472718a10acf41f8b7c6",
-        "ci_no_action_triage_ci_broad_sr_guard4.csv": "616207fa8a72d5cfb62bf8287f5f56f85fc0dcd66d0e49e655c67ef0def7fae2"
+        "ci_no_action_triage_ci_unrelated_action_filter1_current.json": "d93e6fb1164c1c2e5ac22674b1ba3b5717376e3d12455dcb0680e68fbf090972",
+        "ci_no_action_triage_ci_unrelated_action_filter1_current.md": "081602bbf681b8217f0215a0c9ac19481319f556ee2b43dbbaa04b0982700cce",
+        "ci_no_action_triage_ci_unrelated_action_filter1_current.csv": "e8eee4799fe17c11dc19e24825c8731a6bceede4ee9a95254b75f25c063b64da"
       }
     },
     "ci_mapping_review_semantic_triage": {
-      "baseline": "ci_broad_sr_guard4",
+      "baseline": "ci_unrelated_action_filter1",
       "script": "OHS/backend/scripts/triage_ci_mapping_review.py",
-      "source_report": "pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.json",
-      "source_ci_mapping_review_count": 63,
+      "source_report": "pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1.json",
+      "source_ci_mapping_review_count": 67,
       "semantic_category_counts": {
+        "corpus_gap_or_near_analogy": 22,
         "guide_selection_mismatch": 21,
-        "corpus_gap_or_near_analogy": 21,
-        "true_ci_mapping_candidate": 16,
+        "true_ci_mapping_candidate": 19,
         "safe_or_followup_no_immediate": 5
       },
       "next_action_counts": {
+        "source_or_taxonomy_review": 22,
         "guide_profile_or_scoring_review": 21,
-        "source_or_taxonomy_review": 21,
-        "ci_sr_mapping_candidate_review": 16,
+        "ci_sr_mapping_candidate_review": 19,
         "keep_no_action": 5
       },
-      "true_ci_mapping_candidate_count": 16,
+      "true_ci_mapping_candidate_count": 19,
       "guide_selection_mismatch_count": 21,
-      "corpus_gap_or_near_analogy_count": 21,
+      "corpus_gap_or_near_analogy_count": 22,
       "safe_or_followup_no_immediate_count": 5,
-      "interpretation": "Only a minority of the 63 CI mapping-review rows are safe candidates for CI-SR/candidate mapping work. Most rows are Guide selection mismatch, source/taxonomy corpus gap, or safe/follow-up scenes where no immediate action is acceptable.",
+      "interpretation": "Only 19 of 67 CI mapping-review rows are safe candidates for CI-SR/candidate mapping work. Most rows are Guide selection mismatch, source/taxonomy corpus gap, or safe/follow-up scenes where no immediate action is acceptable. Rows without explicit semantic review are kept as needs_manual_review and are not treated as mapping candidates.",
       "reports": [
-        "pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.json",
-        "pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.md",
-        "pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.csv"
+        "pictures-json/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.json",
+        "pictures-json/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.md",
+        "pictures-json/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.csv"
       ],
       "sha256": {
-        "ci_mapping_review_semantic_ci_broad_sr_guard4.json": "c2102bf9f254d6d2a40c4a3d07e61683658d1c65f62d2ab800a61a4be7147eb7",
-        "ci_mapping_review_semantic_ci_broad_sr_guard4.md": "94b2a8e5146c6a91bd6a4949d0f06e8fd4631d4f9155793476fb135f29d4148b",
-        "ci_mapping_review_semantic_ci_broad_sr_guard4.csv": "9f0d9bf4e331072c5cd712845135b90c41ce984ca2d6fe6d42f1e154e3ffdb98"
+        "ci_mapping_review_semantic_ci_unrelated_action_filter1.json": "d70400826d4973dc9e7fa3ff16184c4c6eda9a897e82df13e3e06c800aec2795",
+        "ci_mapping_review_semantic_ci_unrelated_action_filter1.md": "da2ae59513fb95db7f424ff454c586c7e45460872a6f65d083273b3b030db6c4",
+        "ci_mapping_review_semantic_ci_unrelated_action_filter1.csv": "233ad9e5537eca810e38a612b45e9594984686e1ead887db7a38ef9428338f6f"
       }
     },
     "ci_sr_mapping_candidate_review": {
-      "baseline": "ci_broad_sr_guard4",
+      "baseline": "ci_unrelated_action_filter1",
       "script": "OHS/backend/scripts/review_ci_sr_mapping_candidates.py",
-      "source_semantic_report": "pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.json",
-      "source_pipeline_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_broad_sr_guard4.json",
-      "review_case_count": 16,
-      "cases_with_ci_candidates": 16,
-      "manual_seeded_case_count": 16,
-      "best_candidate_needs_mapping_review": 16,
+      "source_semantic_report": "pictures-json/reports/ci_mapping_review_semantic_ci_unrelated_action_filter1.json",
+      "source_pipeline_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.json",
+      "review_case_count": 19,
+      "cases_with_ci_candidates": 19,
+      "manual_seeded_case_count": 19,
+      "best_candidate_needs_mapping_review": 19,
       "top_guides": [
         {
           "key": "A-G-12-2026",
@@ -1595,6 +1595,14 @@
         {
           "key": "B-M-37-2026",
           "count": 2
+        },
+        {
+          "key": "D-28-2012",
+          "count": 2
+        },
+        {
+          "key": "A-G-1-2025",
+          "count": 1
         },
         {
           "key": "A-G-11-2025",
@@ -1609,15 +1617,15 @@
           "count": 1
         },
         {
-          "key": "D-28-2012",
-          "count": 1
-        },
-        {
           "key": "E-G-1-2025",
           "count": 1
         },
         {
           "key": "G-11-2017",
+          "count": 1
+        },
+        {
+          "key": "G-67-2011",
           "count": 1
         },
         {
@@ -1627,55 +1635,55 @@
       ],
       "interpretation": "These rows are candidate review material for CI/SR mapping or candidate-table enrichment. They are not asserted mappings and should be manually checked before any PG import.",
       "reports": [
-        "pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.json",
-        "pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.md",
-        "pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.csv"
+        "pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.json",
+        "pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.md",
+        "pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.csv"
       ],
       "sha256": {
-        "ci_sr_mapping_candidate_review_ci_broad_sr_guard4.json": "1d3ee6b031c836a09dc1fcdb6749280ee627590eb5b9463422b41eca7abfb020",
-        "ci_sr_mapping_candidate_review_ci_broad_sr_guard4.md": "573d37a9d7711428a4a0ad9c1bf9279ddecdac24d894a93b63818ed3ae27c0ce",
-        "ci_sr_mapping_candidate_review_ci_broad_sr_guard4.csv": "1b03747df99e4629a34ba84e5eeb805dff2c64795fd16365aa5461ce7705a777"
+        "ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.json": "97a3a2326074981037e5cb36fc009a48bb83a79c8a36ab9cf0d0e0c9282c3085",
+        "ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.md": "83fd9759f01f62e244f5820632f1d53b8e1358dc92bf5b6664ee7f8ce4b9ce6d",
+        "ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.csv": "b68bfda05adfae62d4e1a3a475cac3e872f702e54ffba52abf113622d499b725"
       }
     },
     "pg_ci_sr_link_candidate_import": {
-      "baseline": "ci_broad_sr_guard4",
+      "baseline": "ci_unrelated_action_filter1",
       "script": "OHS/backend/scripts/import_ci_sr_link_candidates.py",
-      "source_review_report": "pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.json",
+      "source_review_report": "pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.json",
       "method": "ci_candidate_review_v1",
       "mode": "apply",
       "review_status": "needs_review",
       "asserted": false,
-      "source_case_count": 16,
-      "raw_candidate_row_count": 62,
-      "candidate_row_count": 42,
-      "distinct_ci_count": 19,
-      "distinct_sr_count": 19,
+      "source_case_count": 19,
+      "raw_candidate_row_count": 71,
+      "candidate_row_count": 50,
+      "distinct_ci_count": 26,
+      "distinct_sr_count": 22,
       "missing_refs": {
         "missing_guides": [],
         "missing_cis": [],
         "missing_srs": []
       },
       "import_result": {
-        "deleted_existing_rows": 0,
-        "inserted_rows": 42
+        "deleted_existing_rows": 42,
+        "inserted_rows": 50
       },
       "serving_eligible_rows": 0,
       "policy": "review-only candidate import; no ci_sr_mapping insert; asserted=false; serving-ineligible needs_review",
       "reports": [
-        "pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.json",
-        "pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.md",
-        "pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.csv"
+        "pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.json",
+        "pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.md",
+        "pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.csv"
       ],
       "sha256": {
-        "pg_ci_sr_link_candidates_ci_broad_sr_guard4.json": "51f5d080f2343e4aea124edbfa1dc168849b830e003304630823d3889e55ac48",
-        "pg_ci_sr_link_candidates_ci_broad_sr_guard4.md": "4387d5c4a4b813b932b28aedadfd40d5005f3dc7db7efd21db002b4e4def1622",
-        "pg_ci_sr_link_candidates_ci_broad_sr_guard4.csv": "ae684f7094d2d07d10af3f3f0c324df1ac75885c820c8436f67cec2d89c1f0b6"
+        "pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.json": "06f2faa22798899186b1daf1eeaa46def2c1adc714ba266f735d1014095ba8d5",
+        "pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.md": "7de23f1cbe08bbadbf75e3f18a5de4544bac9da97c6a60e7a43b364c242b498e",
+        "pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.csv": "2165bddbba1bc856ce13d01a17c4252acd1e3071c02adae86c8bcf66ee788ed7"
       }
     },
     "pg_candidate_import_validation": {
-      "baseline": "ci_candidate_review_v1",
-      "previous": "ci_broad_sr_guard4",
-      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.json",
+      "baseline": "ci_unrelated_action_filter1_current_pg",
+      "previous": "ci_unrelated_action_filter1",
+      "source_report": "pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.json",
       "total_samples": 2360,
       "she_metrics": {
         "expected_positive": 2016,
@@ -1702,27 +1710,27 @@
         "followup_only_retained_count": 16,
         "top_replaced_by_photo_actionable_count": 0,
         "top_photo_matchability_counts": {
-          "NO_TOP": 642,
-          "photo_actionable": 1718
+          "NO_TOP": 643,
+          "photo_actionable": 1717
         }
       },
       "ci_metrics": {
-        "ci_no_action": 492,
+        "ci_no_action": 494,
         "ci_context_mismatch": 0,
         "ci_broad_sr_only": 0,
         "ci_needs_review_used": 0,
-        "ci_guide_boundary_mismatch": 21
+        "ci_guide_boundary_mismatch": 2
       },
-      "comparison_note": "Validation after importing ci_candidate_review_v1 needs_review candidates into guide_sr_link_candidates. Runtime behavior remains unchanged; ci_needs_review_used stays 0 and no serving-eligible rows were imported.",
+      "comparison_note": "Validation after refreshing ci_candidate_review_v1 rows to 50 total, promoting the same 17 serving candidates, and keeping 33 rows needs_review. Accepted ci_unrelated_action_filter1 metrics remain unchanged.",
       "reports": [
-        "pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.json",
-        "pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.md",
-        "pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.csv"
+        "pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.json",
+        "pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.md",
+        "pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.csv"
       ],
       "sha256": {
-        "pipeline_quality_v1_v10_ci_candidate_review_v1.json": "fad61969e37ad5d21bbafb92f14f04a28cf31a0d5b40d74a35f069b9c20f87e2",
-        "pipeline_quality_v1_v10_ci_candidate_review_v1.md": "a727535450b07c299e39def12e2cfd45a920c2c0d77bf96627db7833496fc089",
-        "pipeline_quality_v1_v10_ci_candidate_review_v1.csv": "938cc544ad9656b30ea2a895352559932da3a77cb790a9d977da30747f860ca9"
+        "pipeline_quality_v1_v10_ci_candidate_review_current_pg.json": "54c6fd5a2e8787b69bb66add71da9df5c72a2a6ba671997124412d4beaaa2031",
+        "pipeline_quality_v1_v10_ci_candidate_review_current_pg.md": "e7acb68408e051c398c7c33e6e6583b69e4f9f8bffc4cbdbe925e6cd483822d6",
+        "pipeline_quality_v1_v10_ci_candidate_review_current_pg.csv": "d6aafe0cc2081dda955d729d8c26bf3e36101ca0e3d9c1d1101b8166ae90c228"
       }
     },
     "ci_candidate_promotion_v1": {
@@ -1862,7 +1870,7 @@
       "ci_guide_boundary_mismatch": 2,
       "ci_broad_sr_only": 0,
       "ci_needs_review_used": 0,
-      "comparison_note": "CI guide-boundary mismatch improves 8 -> 2; CI no_action changes 491 -> 494. Stricter primary-guide-only trial rejected because it reduced mismatch to 0 but regressed CI no_action to 551. v10/actual/ontology checks remain stable."
+      "comparison_note": "CI guide-boundary mismatch remains 2 and CI no_action remains 494 after the 2026-05-16 PG candidate review refresh; ci_needs_review_used remains 0 because the additional rows stay needs_review."
     },
     "v10_smoke": {
       "source_report": "pictures-json/reports/synthetic_observations_v10_ci_unrelated_action_filter1_report_report.json",
@@ -1885,6 +1893,26 @@
         "H-115",
         "H-117"
       ]
+    },
+    "ci_candidate_review_current_pg": {
+      "accepted_serving_metrics_unchanged": true,
+      "candidate_method": "ci_candidate_review_v1",
+      "candidate_rows": 50,
+      "promoted_serving_candidate_rows": 17,
+      "kept_needs_review_rows": 33,
+      "asserted_update": 0,
+      "ci_sr_mapping_update": 0,
+      "promotion_report": "pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.json",
+      "reports": [
+        "pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.json",
+        "pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.md",
+        "pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.csv"
+      ],
+      "sha256": {
+        "ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.json": "c93b16a75178ad9bc7d7170e8975eb9a67d5593e18dd95f47cf9b7d1bd6bc719",
+        "ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.md": "d8e057c05dd1d5c198000bf1b0b0a88e3dae7985847fce86ab7a6c7c2e82c0a4",
+        "ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.csv": "850662ea085792ec1f94e2f6958263d81a3ddfbda03081318c3b27537d0c599b"
+      }
     }
   },
   "reports": [

@@ -4,7 +4,7 @@
 
 아래 항목들은 `risk:` 중심 위험 지식 계층, `PenaltyRule` 중심 벌칙 모델, `SeverityLevel` 제거, `SHE` 패턴 브릿지화, `Guide/WorkProcess` 중심 조치 구조를 반영한 뒤 남은 후속 작업이다.
 
-## 현재 구현 메모 (2026-05-15, monorepo + ci_unrelated_action_filter1)
+## 현재 구현 메모 (2026-05-16, monorepo + ci_unrelated_action_filter1)
 
 현재 작업 기준은 root `arch-bot/main` monorepo다.
 
@@ -71,7 +71,7 @@ primary WorkProcess links aligned 4,715 / 4,715
 guide_usage_profiles PG sync PASS, rows 1,038, missing Guide 0, missing primary WP 0, cross-guide primary WP 0
 ```
 
-2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 2026-05-15에는 `guide_domain_profiles.json`의 1,038개 사용경계를 `guide_usage_profiles` PostgreSQL 테이블에 `ci_broad_sr_guard4` 기준으로 upsert했다. 이후 `ci_candidate_review_v1` 후보 42행 중 17행만 serving `candidate`로 승격했고 25행은 `needs_review`로 유지했다. `ci_preferred_guide_ci1`에서는 즉시조치 정렬을 보정했고, `ci_unrelated_action_filter1`에서는 그 위에서 unrelated Guide의 generic CI를 최종 필터링했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소된 상태를 유지한다. `ci_unrelated_action_filter1`도 ontology hard violation/warning이 모두 0건이다.
+2026-05-14에 `kosha-instances.ttl`을 PostgreSQL에서 재생성해 core Guide A-Box를 1,038 Guide / 9,316 WorkProcess / 54,631 ChecklistItem 기준으로 동기화했다. 2026-05-15에는 `guide_domain_profiles.json`의 1,038개 사용경계를 `guide_usage_profiles` PostgreSQL 테이블에 `ci_broad_sr_guard4` 기준으로 upsert했다. 이후 `ci_candidate_review_v1` 후보 42행 중 17행만 serving `candidate`로 승격했고 25행은 `needs_review`로 유지했다. 2026-05-16에는 `ci_unrelated_action_filter1` 기준으로 CI no-action과 CI mapping review를 다시 산출해 review-only 후보를 50행으로 갱신했고, 기존 정책상 직접성이 높은 17행만 serving `candidate`로 재승격했으며 33행은 `needs_review`로 유지했다. `ci_preferred_guide_ci1`에서는 즉시조치 정렬을 보정했고, `ci_unrelated_action_filter1`에서는 그 위에서 unrelated Guide의 generic CI를 최종 필터링했다. 이전 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소된 상태를 유지한다. `ci_unrelated_action_filter1`도 ontology hard violation/warning이 모두 0건이다.
 
 Guide photo matchability v1은 1,038개 Guide usage profile에 사진 기반 top 표준절차 적합성을 부여한 serving policy다.
 
@@ -101,38 +101,40 @@ CI broad-SR guard:
   pure broad-SR-only ChecklistItems cannot become top immediate actions
   broad-mapped ChecklistItems are retained only when Guide-local contextual/support evidence is present
 CI no-action triage:
-  total 492
-  upstream_stage2_3_review 357
-  ci_mapping_review 63
+  total 494
+  upstream_stage2_3_review 356
+  ci_mapping_review 67
   source_or_taxonomy_review 45
-  accepted_empty_top 24
+  accepted_empty_top 23
   runtime_repair_candidate 3
 CI mapping-review semantic triage:
   guide_selection_mismatch 21
-  corpus_gap_or_near_analogy 21
-  true_ci_mapping_candidate 16
+  corpus_gap_or_near_analogy 22
+  true_ci_mapping_candidate 19
   safe_or_followup_no_immediate 5
 CI/SR mapping candidate review:
-  review cases 16
-  manual-seeded CI candidates 16
+  review cases 19
+  manual-seeded CI candidates 19
   PG ci_sr_mapping inserts 0
   example seeds: CI-AG6-006, CI-BM37-140, CI-C113-130, CI-P22-027
 PG review-only candidate import:
   table guide_sr_link_candidates
   method ci_candidate_review_v1
-  inserted needs_review rows 42
-  distinct CI/SR 19/19
+  imported review rows 50
+  distinct CI/SR 26/22
+  serving candidate rows 17
+  needs_review rows 33
   asserted false
-  serving eligible rows 0
+  ci_sr_mapping inserts 0
 Post-import validation:
-  pipeline_quality_v1_v10_ci_candidate_review_v1
+  pipeline_quality_v1_v10_ci_candidate_review_current_pg
   Guide mismatch 5 / NO_TOP 88
-  CI no_action 492
+  CI no_action 494
   CI broad_sr_only 0
   CI needs_review_used 0
-  CI guide_boundary_mismatch 21
+  CI guide_boundary_mismatch 2
 CI candidate promotion:
-  promoted serving candidate rows 17 / kept needs_review rows 25
+  promoted serving candidate rows 17 / kept needs_review rows 33
   asserted false / ci_sr_mapping inserts 0
   pipeline_quality_v1_v10_ci_candidate_promotion_v1
   CI no_action 491
@@ -159,7 +161,7 @@ principle:
 public API / SHE approval / asserted mapping / legal SR evidence / status / penalty impact: none
 ```
 
-다음 보강 후보는 status-level risk inference 확장이 아니라 `CI no_action 494`, `CI guide_boundary_mismatch 2`의 남은 꼬리를 WorkProcess/CI relevance와 source/profile/taxonomy review 중심으로 정리하는 것이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다. 단, NO_TOP은 모두 오류가 아니며 현장 관련 Guide 부재는 정답 상태로 인정한다. 현재 NO_TOP 88건 중 31건은 accepted empty top, 57건은 source/taxonomy review, runtime repair candidate는 0건이다. 또한 `ci_mapping_review 63`도 전부 CI 매핑 대상이 아니며, 의미 검토 후 실제 CI-SR/candidate mapping 후보는 16건으로 좁혀졌다. 이 16건은 `ci_sr_mapping_candidate_review_ci_broad_sr_guard4`에서 구체 CI 후보까지 뽑았고, `guide_sr_link_candidates`에 `ci_candidate_review_v1` method로 42개 후보를 넣었다. 그중 직접성이 높은 17행만 serving `candidate`로 승격했고, 나머지 25행은 계속 `needs_review`이다. 아직 `ci_sr_mapping` 본 테이블에는 반영하지 않았고 asserted 반영도 0이다.
+다음 보강 후보는 status-level risk inference 확장이 아니라 `CI no_action 494`, `CI guide_boundary_mismatch 2`의 남은 꼬리를 WorkProcess/CI relevance와 source/profile/taxonomy review 중심으로 정리하는 것이다. `CI broad_sr_only`는 13건에서 0건으로 해소했다. 단, NO_TOP은 모두 오류가 아니며 현장 관련 Guide 부재는 정답 상태로 인정한다. 현재 NO_TOP 88건 중 31건은 accepted empty top, 57건은 source/taxonomy review, runtime repair candidate는 0건이다. 또한 `ci_mapping_review 67`도 전부 CI 매핑 대상이 아니며, 의미 검토 후 실제 CI-SR/candidate mapping 후보는 19건으로 좁혀졌다. 이 19건은 `ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current`에서 구체 CI 후보까지 뽑았고, `guide_sr_link_candidates`에 `ci_candidate_review_v1` method로 50개 후보를 넣었다. 그중 직접성이 높은 17행만 serving `candidate`로 승격했고, 나머지 33행은 계속 `needs_review`이다. 아직 `ci_sr_mapping` 본 테이블에는 반영하지 않았고 asserted 반영도 0이다.
 
 ## 과거 구현 메모 (2026-05-07)
 

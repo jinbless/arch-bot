@@ -98,7 +98,7 @@ guide_sr_link_candidates
 guide_visual_trigger_candidates
 ```
 
-`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. 현재 Guide profile 자체는 `ci_broad_sr_guard4` 기준으로 `guide_usage_profiles` PostgreSQL 테이블에도 1,038행 동기화되어 있고, 최신 서빙 기준 `ci_unrelated_action_filter1`은 그 위에서 review-only CI/SR 후보 17행만 serving `candidate`로 승격하고 즉시조치 정렬을 보정한 뒤, unrelated Guide의 generic CI를 최종 필터링한 상태다. 런타임은 JSON artifact와 PG 후보 테이블을 읽고, PG 동기화본은 감사/ontology export 정합성 확인에 쓴다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
+`guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. 현재 Guide profile 자체는 `ci_broad_sr_guard4` 기준으로 `guide_usage_profiles` PostgreSQL 테이블에도 1,038행 동기화되어 있고, 최신 서빙 기준 `ci_unrelated_action_filter1`은 그 위에서 review-only CI/SR 후보 50행 중 17행만 serving `candidate`로 승격하고 33행은 `needs_review`로 유지한 뒤, unrelated Guide의 generic CI를 최종 필터링한 상태다. 런타임은 JSON artifact와 PG 후보 테이블을 읽고, PG 동기화본은 감사/ontology export 정합성 확인에 쓴다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
 
 legacy resource/video/category 기반 파일은 product 런타임에서 제거했다.
 
@@ -472,6 +472,11 @@ pictures-json/reports/pipeline_quality_v1_v10_ci_unrelated_action_filter1.*
 pictures-json/reports/synthetic_observations_v10_ci_unrelated_action_filter1_report_report.*
 pictures-json/reports/actual_response_samples_ci_unrelated_action_filter1.*
 pictures-json/reports/ci_boundary_mismatch_triage_ci_unrelated_action_filter1.*
+pictures-json/reports/ci_no_action_triage_ci_unrelated_action_filter1_current.*
+pictures-json/reports/ci_sr_mapping_candidate_review_ci_unrelated_action_filter1_current.*
+pictures-json/reports/pg_ci_sr_link_candidates_ci_unrelated_action_filter1_current_apply.*
+pictures-json/reports/ci_sr_candidate_promotion_ci_unrelated_action_filter1_current.*
+pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_current_pg.*
 koshaontology/ontology/serving-validation-report-ci_unrelated_action_filter1.*
 koshaontology/ontology/serving-workprocess-alignment-ci_unrelated_action_filter1.*
 ```
@@ -510,5 +515,7 @@ Candidate promotion validation (`ci_candidate_promotion_v1`) promoted only 17 of
 Preferred top-Guide CI ordering (`ci_preferred_guide_ci1`) keeps the same status/penalty/SHE/SR and Guide top behavior, then reorders immediate actions so a context-matched local CI from the selected top Guide can outrank unrelated generic CIs. Stage 2~5 v1~v10 remains stable and CI guide-boundary mismatch improves 20→8 with CI no_action still 491. Actual response 240 status changed remains 0, v10 SHE smoke remains recall 100%, FN 0, FP 0, and `serving-snapshot-ci_preferred_guide_ci1.ttl` validates with hard 0 / warning 0.
 
 Unrelated action filter (`ci_unrelated_action_filter1`) keeps the same status/penalty/SHE/SR, Guide top, WorkProcess, and photo policy behavior, then suppresses generic immediate-action CIs from unrelated Guides unless they are tied to the selected top Guide or direct SHE checklist-cue evidence. Stage 2~5 v1~v10 remains stable and CI guide-boundary mismatch improves 8→2; CI no_action changes 491→494. Actual response 240 status changed remains 0, v10 SHE smoke remains recall 100%, FN 0, FP 0, and `serving-snapshot-ci_unrelated_action_filter1.ttl` validates with hard 0 / warning 0. A stricter primary-Guide-only trial was rejected because it reduced mismatch to 0 but regressed CI no_action to 551.
+
+2026-05-16 PG candidate refresh keeps the same accepted serving metrics but updates the review queue for `ci_unrelated_action_filter1`: CI no-action triage is 494 total, with 356 upstream Stage 2/3 rows, 67 CI mapping-review rows, 45 source/taxonomy rows, 23 accepted empty-top rows, and 3 runtime repair candidates. Semantic review narrows those 67 rows to 19 true CI/SR mapping candidates. They were imported into `guide_sr_link_candidates` as 50 `ci_candidate_review_v1` rows; 17 are serving `candidate`, 33 remain `needs_review`, all are `asserted=false`, and `ci_sr_mapping` inserts remain 0. `pipeline_quality_v1_v10_ci_candidate_review_current_pg` confirms Guide mismatch 5, NO_TOP 88, CI no_action 494, CI guide-boundary mismatch 2, and CI needs_review_used 0.
 
 Rejected approaches remain the same: do not broaden status-level hazard/risk text aliases or generic `UNSAFE_TERMS` to chase NO_TOP. Use SituationFrame child contexts, Guide usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess/CI relevance instead.
