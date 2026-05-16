@@ -1,16 +1,26 @@
-# Status Documents
+# Status
 
-This directory is the root-level index for status summaries.
+현재 검증 메트릭과 다음 세션 시작 지침을 보관한다.
 
-Current root status summary:
+## 파일
 
-- `evaluation-baseline.md`: accepted `usage_profile11` metrics and report-body policy
+| 파일 | 용도 |
+|---|---|
+| [evaluation-baseline.md](evaluation-baseline.md) | **평가 baseline 정본** — 현재 accepted 메트릭 + historical baseline + PG candidate refresh + Rejected approaches |
+| [current-session.md](current-session.md) | 다음 세션 시작 지침 — 먼저 읽을 문서·OHS 실행·검증 명령·다음 작업 큐 |
 
-Detailed pipeline status remains in the owning source directory:
+## 정책
 
-- `koshaontology/pipe-A/status_pipea.md`
-- `koshaontology/pipe-B/status_pipeb.md`
-- `koshaontology/pipe-C/status_pipec.md`
-- `OHS/README.md`
+- **baseline 메트릭은 [evaluation-baseline.md](evaluation-baseline.md) 한 곳만 정본이다.**
+- 다른 모든 문서(루트 README, current-session, OHS/README 등)는 5~10줄 요약 + 정본 링크만 둔다.
+- baseline 갱신 시 이 파일만 수정하면 된다.
+- 보고서 본문은 `pictures-json/reports/**`에 로컬/외부로 보관, root git은 `pictures-json/reports-manifest.json`과 이 문서만 추적.
 
-Root status documents should summarize and link. They should not replace pipeline-local operational details or duplicate historical report bodies from `pictures-json/reports/**`.
+## 파이프라인별 상세 status
+
+각 파이프라인의 운영 상세는 해당 디렉토리에 둔다:
+
+- [../../koshaontology/pipe-A/status_pipea.md](../../koshaontology/pipe-A/status_pipea.md)
+- [../../koshaontology/pipe-B/status_pipeb.md](../../koshaontology/pipe-B/status_pipeb.md)
+- [../../koshaontology/pipe-C/status_pipec.md](../../koshaontology/pipe-C/status_pipec.md)
+- [../../OHS/README.md](../../OHS/README.md)

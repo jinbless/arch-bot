@@ -12,7 +12,7 @@ The rule is selective tracking. The project should preserve reproducibility with
 
 | Class | Examples | Policy |
 |---|---|---|
-| Root coordination docs | `README.md`, `NEXT_SESSION_INSTRUCTIONS.md`, `MONOREPO_TRANSITION_PLAN.md` | Track |
+| Root coordination docs | `README.md`, `CLAUDE.md`, `docs/README.md`, `docs/status/current-session.md`, `docs/governance/monorepo-transition.md` | Track |
 | Project source | `OHS/**`, `koshaontology/**` | Track snapshot from pushed child baselines |
 | External dependency | `legalize-kr/**` | Do not track in root |
 | Synthetic evaluation inputs | `pictures-json/synthetic_observations_v1.jsonl` through `v10` | Track |

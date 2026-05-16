@@ -419,107 +419,20 @@ scene-specific Guide families require their own required context terms; missing 
 
 The current accepted OHS runtime baseline is `ci_cross_guide_broad_only_guard1`. It keeps `ci_unrelated_action_filter1` status/penalty/SHE/SR, Guide/WorkProcess, top standard-procedure, and photo-policy behavior, then changes only final immediate-action filtering. Direct SHE checklist cues and selected top-Guide CIs remain eligible, while non-primary Guide CIs whose only SR evidence is broad secondary SR are suppressed. This does not change public API shape, SHE approval, asserted mappings, legal SR evidence, status, or penalty behavior.
 
-Latest validation:
+**전체 메트릭 / historical baseline 진행 / PG candidate refresh / Rejected approaches는 [docs/status/evaluation-baseline.md](../docs/status/evaluation-baseline.md) 정본을 참조한다.** 이 문서에는 중복 보관하지 않는다.
+
+핵심 요약:
 
 ```text
 baseline: ci_cross_guide_broad_only_guard1
 synthetic Stage 2~5 v1~v10: 2,360 samples
-Guide mismatch: 5
-Stage 2~5 NO_TOP: 88
-NO_TOP actionability accepted empty top 31 / source-taxonomy review 57 / runtime repair candidates 0
-industry_boundary_gap: 0
-workprocess_mismatch: 5
-broad_sr_overreach: 0
-photo_unmatchable_top_count: 0
-followup_only_retained_count: 16
-CI no_action: 495
-CI context_mismatch: 0
-CI broad_sr_only: 0
-CI needs_review_used: 0
-CI guide_boundary_mismatch: 1
-v10 synthetic SHE recall 100.0%, FN 0, FP 0
-v1~v10 synthetic SHE smoke recall 100.0%, FN 0, FP 67
-actual response 240 status changed 0
-negative_false_positive 10
-positive_missed 2
-ambiguous_over_promoted 5
-serving ontology validation PASS
-serving ontology hard violations 0
-serving ontology warnings 0
-accepted photo-actionable role overrides 10
-PG guide_usage_profiles sync PASS
-PG guide_usage_profiles rows 1,038
-PG primary WorkProcess check missing 0 / cross-guide 0
+Guide mismatch: 5   NO_TOP: 88
+CI no_action: 495   CI guide_boundary_mismatch: 1
+CI broad_sr_only: 0   CI needs_review_used: 0
+serving ontology validation: PASS (hard 0, warning 0)
+actual response 240 status changed: 0
+PG guide_usage_profiles sync: PASS, 1,038 rows
+PG primary WorkProcess check: missing 0 / cross-guide 0
 ```
 
-Latest tracked summaries and local report references:
-
-```text
-docs/status/evaluation-baseline.md
-pictures-json/reports-manifest.json
-pictures-json/reports/stage2_5_no_top_root_cause_ci_broad_sr_guard4.*
-pictures-json/reports/stage2_5_no_top_actionability_ci_broad_sr_guard4.*
-pictures-json/reports/pg_guide_usage_profiles_sync_ci_broad_sr_guard4.*
-pictures-json/reports/ci_no_action_triage_ci_broad_sr_guard4.*
-pictures-json/reports/ci_mapping_review_semantic_ci_broad_sr_guard4.*
-pictures-json/reports/ci_sr_mapping_candidate_review_ci_broad_sr_guard4.*
-pictures-json/reports/pg_ci_sr_link_candidates_ci_broad_sr_guard4.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_review_v1.*
-pictures-json/reports/ci_sr_candidate_promotion_ci_broad_sr_guard4.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_candidate_promotion_v1.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_preferred_guide_ci1.*
-pictures-json/reports/pipeline_quality_v1_v10_ci_cross_guide_broad_only_guard1_pg.*
-pictures-json/reports/synthetic_observations_v10_ci_cross_guide_broad_only_guard1_report_report.*
-pictures-json/reports/actual_response_samples_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/ci_boundary_mismatch_triage_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/stage2_5_no_top_root_cause_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/stage2_5_no_top_actionability_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/ci_no_action_triage_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/ci_mapping_review_semantic_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/ci_sr_mapping_candidate_review_ci_cross_guide_broad_only_guard1.*
-pictures-json/reports/pg_ci_sr_link_candidates_ci_cross_guide_broad_only_guard1_apply.*
-pictures-json/reports/ci_sr_candidate_promotion_ci_cross_guide_broad_only_guard1.*
-koshaontology/ontology/serving-validation-report-ci_cross_guide_broad_only_guard1.*
-koshaontology/ontology/serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.*
-```
-
-Local/external report bodies referenced by the manifest include the historical `usage_profile11` and support-pass reports, plus the current `ci_cross_guide_broad_only_guard1` Stage 2~5, v10 smoke, actual 240 replay, ontology validation, WorkProcess alignment, and CI no-action / mapping review / review-only import reports.
-
-CI no-action triage (`ci_no_action_triage_ci_broad_sr_guard4`) splits the 492 no-action cases as follows:
-
-```text
-upstream_stage2_3_review 357
-ci_mapping_review 63
-source_or_taxonomy_review 45
-accepted_empty_top 24
-runtime_repair_candidate 3
-```
-
-Semantic review of the 63 `ci_mapping_review` cases (`ci_mapping_review_semantic_ci_broad_sr_guard4`) shows that only 16 are safe CI-SR/candidate mapping candidates:
-
-```text
-guide_selection_mismatch 21
-corpus_gap_or_near_analogy 21
-true_ci_mapping_candidate 16
-safe_or_followup_no_immediate 5
-```
-
-The direct runtime tail is small. The next CI work should start with the 16 true CI mapping candidates, while the 42 Guide/corpus-gap rows should be handled through Guide profile/scoring, source/taxonomy review, or accepted no-action policy instead of adding broad CI mappings.
-
-The 16 true candidates were also converted into a CI/SR mapping review table (`ci_sr_mapping_candidate_review_ci_broad_sr_guard4`). This table seeds plausible ChecklistItems such as `CI-AG6-006` for knife/cutting, `CI-BM37-140` for conveyor guarding/emergency stop, `CI-C113-130` for icy walking surfaces, and `CI-P22-027` for dry-cleaning ventilation. It is still review material only; no `ci_sr_mapping` rows were inserted.
-
-The review seeds were imported into `guide_sr_link_candidates` as method `ci_candidate_review_v1`: 42 rows, 19 distinct CI, 19 distinct SR, all `review_status=needs_review` and `asserted=false`. Serving-eligible rows from this method are 0 because `needs_review` candidates are excluded from OHS runtime gates.
-
-Post-import Stage 2~5 validation (`pipeline_quality_v1_v10_ci_candidate_review_v1`) confirmed no serving contamination: total 2,360, Guide mismatch 5, NO_TOP 88, industry boundary gap 0, WorkProcess mismatch 5, CI no_action 492, CI broad_sr_only 0, CI needs_review_used 0, and CI guide_boundary_mismatch 21.
-
-Candidate promotion validation (`ci_candidate_promotion_v1`) promoted only 17 of the 42 review rows to serving `candidate` and kept 25 as `needs_review`. Stage 2~5 v1~v10 stayed stable: Guide mismatch 5, NO_TOP 88, industry boundary gap 0, WorkProcess mismatch 5, CI broad_sr_only 0, CI needs_review_used 0. CI no_action improved 492→491 and CI guide_boundary_mismatch improved 21→20. Actual response 240 stayed status changed 0 with negative_false_positive 10, positive_missed 2, ambiguous_over_promoted 5. v10 SHE smoke stayed recall 100%, FN 0, FP 0. The new ontology snapshot `serving-snapshot-ci_candidate_promotion_v1.ttl` validates with hard 0 / warning 0.
-
-Preferred top-Guide CI ordering (`ci_preferred_guide_ci1`) keeps the same status/penalty/SHE/SR and Guide top behavior, then reorders immediate actions so a context-matched local CI from the selected top Guide can outrank unrelated generic CIs. Stage 2~5 v1~v10 remains stable and CI guide-boundary mismatch improves 20→8 with CI no_action still 491. Actual response 240 status changed remains 0, v10 SHE smoke remains recall 100%, FN 0, FP 0, and `serving-snapshot-ci_preferred_guide_ci1.ttl` validates with hard 0 / warning 0.
-
-Unrelated action filter (`ci_unrelated_action_filter1`) keeps the same status/penalty/SHE/SR, Guide top, WorkProcess, and photo policy behavior, then suppresses generic immediate-action CIs from unrelated Guides unless they are tied to the selected top Guide or direct SHE checklist-cue evidence. Stage 2~5 v1~v10 remains stable and CI guide-boundary mismatch improves 8→2; CI no_action changes 491→494. Actual response 240 status changed remains 0, v10 SHE smoke remains recall 100%, FN 0, FP 0, and `serving-snapshot-ci_unrelated_action_filter1.ttl` validates with hard 0 / warning 0. A stricter primary-Guide-only trial was rejected because it reduced mismatch to 0 but regressed CI no_action to 551.
-
-2026-05-16 PG candidate refresh keeps the same accepted serving metrics but updates the review queue for `ci_unrelated_action_filter1`: CI no-action triage is 494 total, with 356 upstream Stage 2/3 rows, 67 CI mapping-review rows, 45 source/taxonomy rows, 23 accepted empty-top rows, and 3 runtime repair candidates. Semantic review narrows those 67 rows to 19 true CI/SR mapping candidates. They were imported into `guide_sr_link_candidates` as 50 `ci_candidate_review_v1` rows; 17 are serving `candidate`, 33 remain `needs_review`, all are `asserted=false`, and `ci_sr_mapping` inserts remain 0. `pipeline_quality_v1_v10_ci_candidate_review_current_pg` confirms Guide mismatch 5, NO_TOP 88, CI no_action 494, CI guide-boundary mismatch 2, and CI needs_review_used 0.
-
-Cross-Guide broad-only action guard (`ci_cross_guide_broad_only_guard1`) keeps the same status/penalty/SHE/SR, Guide top, WorkProcess, and photo-policy behavior. It suppresses only non-primary Guide immediate-action CIs whose `source_sr_ids` are entirely broad secondary SRs. Stage 2~5 v1~v10 keeps Guide mismatch 5, NO_TOP 88, industry boundary gap 0, WorkProcess mismatch 5, and CI needs_review_used 0; CI guide-boundary mismatch improves 2→1 while CI no_action changes 494→495. Actual response 240 status changed remains 0, v10 SHE smoke remains recall 100%, FN 0, FP 0, and `serving-snapshot-ci_cross_guide_broad_only_guard1.ttl` validates with hard 0 / warning 0.
-
-Rejected approaches remain the same: do not broaden status-level hazard/risk text aliases or generic `UNSAFE_TERMS` to chase NO_TOP. Use SituationFrame child contexts, Guide usage profiles, visual triggers, review-only SHE/SR support candidates, and WorkProcess/CI relevance instead.
+참고 리포트 본문은 `pictures-json/reports/**`에 로컬/외부로 보관되며, root git은 [pictures-json/reports-manifest.json](../pictures-json/reports-manifest.json)과 위 정본만 추적한다.
