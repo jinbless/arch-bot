@@ -4,6 +4,42 @@
 
 ---
 
+## 2026-05-16 (Phase 2 잔여 정리): root local untracked 자산 정리
+
+Phase 2 commit/push 이후 root local에 남아 있던 옛 디렉토리(git untracked)를 정리.
+
+- 사용자 직접: `kosha-guides/` raw PDF (A,B,C,D,E) → `data-team/01-parsing/kosha-guides/rawPDF/` 이동
+- `OHS/.env` (OpenAI API key 포함) → `serving-team/08-app/.env` (OS mv)
+- `OHS/backend/.env` → `serving-team/08-app/backend/.env` (OS mv)
+- `OHS/` 통째 `rm -rf` — `.agents`, `.codex`, `.dev-logs`, `node_modules`, 빈 backend/frontend, .venv 등 (모두 ignored 자산, 재생성 가능)
+- `koshaontology/` 통째 `rm -rf` — git mv 이후 남은 빈 폴더들
+- `pictures-json/` 통째 `mv` → `data-team/05-enrichment/eval-data/` (51개 generator/validator script + 11GB reports/)
+- `pictures-json/` 디렉토리 `rmdir` (빈 후)
+
+이후 root local:
+
+```text
+arch-bot/
+├── CLAUDE.md, README.md, Makefile, dev.{sh,ps1}, docker-compose.dev.yml
+├── .env.dev, .env.dev.example, .gitignore
+├── data-team/   (1~5단계)
+├── ontology-team/   (6단계)
+├── serving-team/    (7~8단계)
+├── shared/
+├── docs/
+└── legalize-kr/   (외부, ignored)
+```
+
+generator scripts는 `.gitignore`의 `data-team/05-enrichment/eval-data/_*` 패턴으로 ignored 유지. `data-team/01-parsing/kosha-guides/rawPDF/`는 `kosha-guides/*` 전반 ignored 정책으로 자동 ignored.
+
+서비스 운영 시 venv/node_modules 재생성 필요:
+```bash
+make dev-setup    # backend .venv 생성 + pip install
+cd serving-team/08-app/frontend && npm ci   # node_modules 재생성
+```
+
+---
+
 ## 2026-05-16 (Phase 2): 팀별 디렉토리 재배치
 
 ### 변경 요약
