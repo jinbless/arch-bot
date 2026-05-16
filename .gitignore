@@ -6,35 +6,82 @@
 legalize-kr/
 
 # KOSHA source corpus policy: track parsed JSON and manifests only.
-kosha-guides/*
-!kosha-guides/parsed/
-!kosha-guides/parsed/**
-!kosha-guides/manifest/
-!kosha-guides/manifest/**
-kosha-guides/parsed/.split-chunks/
+data-team/01-parsing/kosha-guides/*
+!data-team/01-parsing/kosha-guides/parsed/
+!data-team/01-parsing/kosha-guides/parsed/**
+!data-team/01-parsing/kosha-guides/manifest/
+!data-team/01-parsing/kosha-guides/manifest/**
+data-team/01-parsing/kosha-guides/parsed/.split-chunks/
 
 # Local/user Pipe-B scratch files.
-koshaontology/pipe-B/data/tmp-*.json
-koshaontology/pipe-B/data/vlm-parse-log.jsonl
+data-team/02-extraction/pipe-B/data/tmp-*.json
+data-team/02-extraction/pipe-B/data/vlm-parse-log.jsonl
+data-team/02-extraction/pipe-B/data/ci-output/.split-parts/
+data-team/02-extraction/pipe-B/data/ci-output/*-raw-response.txt
+
+# Synthetic observation generator scratch files
+data-team/05-enrichment/eval-data/_*
+
+# Historical report bodies (kept local/external, not tracked).
+data-team/05-enrichment/eval-data/reports/*
+
+# Serving-team app local state.
+serving-team/08-app/.env
+serving-team/08-app/uploads/
+serving-team/08-app/temp/
+serving-team/08-app/guide/
+serving-team/08-app/ohs_articles/
+serving-team/08-app/backend/data/
+serving-team/08-app/backend/.env
 
 # Python / build caches
 __pycache__/
 *.pyc
 *.pyo
+*.py[cod]
+*$py.class
+*.so
 *.tmp
 *.bak
 *.old
 *.orig
+.Python
+env/
+venv/
+.venv/
+ENV/
 
-# Synthetic observation generator scratch files
-pictures-json/_*
+# Database
+*.db
+*.sqlite3
 
-# Keep synthetic testsets, but do not track historical report bodies.
-pictures-json/reports/*
+# Node
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
 
-# Dev launcher artifacts (background PIDs, logs, env overrides).
-.dev-logs/
+# Test
+.coverage
+htmlcov/
+.pytest_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
 .env
 .env.dev
 .env.local
+
+# Dev launcher artifacts (background PIDs, logs, env overrides).
+.dev-logs/
 *.pid

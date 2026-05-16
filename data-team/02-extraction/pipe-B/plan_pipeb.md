@@ -126,8 +126,8 @@ Pipe-A Phase 2에서 null로 예약해둔 5개 필드를 KOSHA 가이드 데이�
 
 ### 2.2 현재 처리 현황
 
-- parsed Guide JSON: 1,038/1,038개 확보 (`../../kosha-guides/parsed/`)
-- Guide manifest: 1,038개 parsed artifact 기준 (`../../kosha-guides/manifest/`)
+- parsed Guide JSON: 1,038/1,038개 확보 (`../../01-parsing/kosha-guides/parsed/`)
+- Guide manifest: 1,038개 parsed artifact 기준 (`../../01-parsing/kosha-guides/manifest/`)
 - legacy CI 파일: 45개 (3,203 CI)는 historical 참고 자료로만 유지 (`shared/output/checklists/`)
 - 미처리 Guide JSON: 0개. 과거 `796/1,038` 및 `819 parsed` 표현은 legacy 중간 상태다.
 

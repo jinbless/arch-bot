@@ -33,7 +33,7 @@ python3 scripts/step1_parse_pdf_vlm.py --domain {도메인} --model sonnet
 도메인은 A/B/C/D/E 중 하나. 전체 도메인을 순차 실행하려면 A부터 E까지 반복해.
 옵션: --guide {shortCode} (단일 가이드), --max-guides 10, --force (기존 덮어쓰기)
 
-완료 후 ../../kosha-guides/parsed/ 디렉토리에 guide-{shortCode}.json 파일이 생성되었는지 확인해.
+완료 후 ../../01-parsing/kosha-guides/parsed/ 디렉토리에 guide-{shortCode}.json 파일이 생성되었는지 확인해.
 ```
 
 ---

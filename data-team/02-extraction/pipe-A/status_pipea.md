@@ -53,7 +53,7 @@ law:Article
 
 ### Step 0 (조문 추출) — PASS
 - 1,227조문 추출 (RULE 674, OSHA 175, SADA 16, DECREE 119, ENFORCE 243)
-- `law-sources.json` 경로 `../../legalize-kr/...`로 수정 후 정상 동작
+- `law-sources.json` 경로 `../../../legalize-kr/...`로 수정 후 정상 동작
 - 결정론성 확인 (데이터 해시 동일)
 
 ### Step 1 (벌칙 경로) — PASS

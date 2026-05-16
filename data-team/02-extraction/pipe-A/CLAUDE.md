@@ -152,15 +152,15 @@ penalty-routes.json과 NS의 hasSanction은 형사벌과 과태료를 구분한�
 
 ## 법령 소스
 
-`legalize-kr/`는 monorepo에 포함되지 않는 외부 ignored dependency다. 아래 경로는 `koshaontology/pipe-A` 기준 상대경로이며, 로컬 실행 시 workspace에 `../../legalize-kr/`가 있어야 한다.
+`legalize-kr/`는 monorepo에 포함되지 않는 외부 ignored dependency다. 아래 경로는 `koshaontology/pipe-A` 기준 상대경로이며, 로컬 실행 시 workspace에 `../../../legalize-kr/`가 있어야 한다.
 
 | ID | 법령명 | 경로 |
 |----|--------|------|
-| RULE | 산업안전보건기준에 관한 규칙 | `../../legalize-kr/kr/산업안전보건기준에관한규칙/고용노동부령.json` |
-| OSHA | 산업안전보건법 | `../../legalize-kr/kr/산업안전보건법/법률.json` |
-| SADA | 중대재해 처벌 등에 관한 법률 | `../../legalize-kr/kr/중대재해처벌등에관한법률/법률.json` |
-| DECREE | 산업안전보건법 시행령 | `../../legalize-kr/kr/산업안전보건법/시행령.json` |
-| ENFORCE | 산업안전보건법 시행규칙 | `../../legalize-kr/kr/산업안전보건법/시행규칙(고용노동부령).json` |
+| RULE | 산업안전보건기준에 관한 규칙 | `../../../legalize-kr/kr/산업안전보건기준에관한규칙/고용노동부령.json` |
+| OSHA | 산업안전보건법 | `../../../legalize-kr/kr/산업안전보건법/법률.json` |
+| SADA | 중대재해 처벌 등에 관한 법률 | `../../../legalize-kr/kr/중대재해처벌등에관한법률/법률.json` |
+| DECREE | 산업안전보건법 시행령 | `../../../legalize-kr/kr/산업안전보건법/시행령.json` |
+| ENFORCE | 산업안전보건법 시행규칙 | `../../../legalize-kr/kr/산업안전보건법/시행규칙(고용노동부령).json` |
 
 ## 하류 파이프라인 의존 (2026-04-17 추가)
 

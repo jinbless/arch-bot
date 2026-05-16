@@ -7,7 +7,7 @@
 KOSHA 가이드 1,038개 parsed JSON → CI/DT/WP/ES/DR 5종 엔티티 추출 + SR 후보/evidence 레이어 + Guide usage profile 보강.
 이 파일은 Pipe B (가이드 → CI) 파이프라인을 관리한다.
 
-> Monorepo 기준(2026-05-10): `koshaontology/`는 root `arch-bot`의 tracked 디렉토리다. raw PDF 원본은 git 직접 추적 대상이 아니며, `../../kosha-guides/parsed/`와 `../../kosha-guides/manifest/`가 root에서 추적되는 Guide 원천이다.
+> Monorepo 기준(2026-05-10): `koshaontology/`는 root `arch-bot`의 tracked 디렉토리다. raw PDF 원본은 git 직접 추적 대상이 아니며, `../../01-parsing/kosha-guides/parsed/`와 `../../01-parsing/kosha-guides/manifest/`가 root에서 추적되는 Guide 원천이다.
 
 ## 작업 시작 가이드
 
@@ -153,6 +153,6 @@ DR ID:    ^DR-[A-Z0-9]+-[0-9]+$      예: DR-DC13-001
 
 - Pipe-A: `../pipe-A/CLAUDE.md` (NS/SR 파이프라인)
 - 법령 소스: `../../legalize-kr/` (legalize-kr)
-- KOSHA Guide parsed/manifest: `../../kosha-guides/parsed/`, `../../kosha-guides/manifest/`
+- KOSHA Guide parsed/manifest: `../../01-parsing/kosha-guides/parsed/`, `../../01-parsing/kosha-guides/manifest/`
 - KOSHA 원본 PDF: 외부/local artifact. root git 직접 추적 대상이 아님
 - Pipe-A DB: `../pipe-A/db/schema_pg.sql` (FK 대상: safety_requirements, articles)

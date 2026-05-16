@@ -1,7 +1,7 @@
 # arch-bot dev launcher.
 #
 # Backend (FastAPI/uvicorn 8001) + Frontend (Vite 5173) run on the host using
-# the existing OHS/backend/.venv (WSL Linux) and OHS/frontend/node_modules. PG
+# the existing serving-team/08-app/backend/.venv (WSL Linux) and serving-team/08-app/frontend/node_modules. PG
 # is treated as an external dependency by default — `make dev-up` only health
 # checks it. Use `make dev-pg-up` only when you need an isolated dev DB on
 # host port 5433 (separate volume; the team's existing 5432 kosha DB is never
@@ -12,8 +12,8 @@ SHELL := /usr/bin/env bash
 
 ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 LOG_DIR := $(ROOT)/.dev-logs
-BACKEND_DIR := $(ROOT)/OHS/backend
-FRONTEND_DIR := $(ROOT)/OHS/frontend
+BACKEND_DIR := $(ROOT)/serving-team/08-app/backend
+FRONTEND_DIR := $(ROOT)/serving-team/08-app/frontend
 ENV_FILE := $(ROOT)/.env.dev
 
 # Defaults if .env.dev is absent.
@@ -40,7 +40,7 @@ help:
 	@echo ""
 	@echo "One-time setup:"
 	@echo "  cp .env.dev.example .env.dev      # then edit if needed"
-	@echo "  make dev-setup                    # install backend deps into OHS/backend/.venv"
+	@echo "  make dev-setup                    # install backend deps into serving-team/08-app/backend/.venv"
 	@echo "                                    # (frontend node_modules is preserved as-is)"
 	@echo ""
 	@echo "Daily:"
@@ -60,7 +60,7 @@ help:
 	@echo "  Frontend      : http://$(FRONTEND_HOST):$(FRONTEND_PORT)/ohs/"
 
 dev-setup:
-	@echo "[setup] backend deps -> OHS/backend/.venv"
+	@echo "[setup] backend deps -> serving-team/08-app/backend/.venv"
 	@if [ ! -x '$(VENV_PY)' ]; then \
 	  echo "[setup] creating venv at $(BACKEND_DIR)/.venv"; \
 	  python3 -m venv '$(BACKEND_DIR)/.venv'; \
