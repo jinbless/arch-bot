@@ -3,7 +3,7 @@
 fix_parsed_schema.py — v1 파싱 결과를 v2 스키마에 맞게 자동 보정.
 
 용도: guide-text-v2.schema.json 검증 실패한 파싱 JSON을 자동 수정.
-입력: kosha-guides/parsed/guide-{shortCode}.json
+입력: data-team/01-parsing/kosha-guides/parsed/guide-{shortCode}.json
 출력: 같은 파일 덮어쓰기 (--dry-run 시 변경 내역만 출력)
 
 보정 규칙:

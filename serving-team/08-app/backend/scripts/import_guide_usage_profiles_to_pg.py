@@ -29,7 +29,7 @@ from app.db.models import PgGuideUsageProfile  # noqa: E402
 
 
 DEFAULT_PROFILE_PATH = BACKEND_DIR / "app" / "data" / "guide_domain_profiles.json"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_BASELINE_ID = "ci_broad_sr_guard4"
 DEFAULT_METHOD = "ci_broad_sr_guard4_pg_sync"
 

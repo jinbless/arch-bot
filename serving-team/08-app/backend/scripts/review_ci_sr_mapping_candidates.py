@@ -24,9 +24,9 @@ sys.path.insert(0, str(BACKEND_DIR))
 from app.db.database import SessionLocal  # noqa: E402
 from app.db.models import PgChecklistItem, PgCiSrMapping, PgSafetyRequirement  # noqa: E402
 
-DEFAULT_SEMANTIC_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "ci_mapping_review_semantic_ci_unrelated_action_filter1.json"
-DEFAULT_PIPELINE_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_ci_unrelated_action_filter1.json"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_SEMANTIC_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "ci_mapping_review_semantic_ci_unrelated_action_filter1.json"
+DEFAULT_PIPELINE_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "pipeline_quality_v1_v10_ci_unrelated_action_filter1.json"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "ci_sr_mapping_candidate_review_ci_unrelated_action_filter1"
 
 TOKEN_RE = re.compile(r"[가-힣A-Za-z0-9_]{2,}")

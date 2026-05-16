@@ -27,7 +27,7 @@ from typing import Any
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-REPORTS_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+REPORTS_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_SOURCE_REPORT = (
     REPORTS_DIR / "pipeline_quality_v1_v10_ci_wp_relevance8d_profile_tight2_ci_safe_gate.json"
 )

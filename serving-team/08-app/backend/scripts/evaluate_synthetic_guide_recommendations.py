@@ -29,8 +29,8 @@ from app.services import hazard_rule_engine  # noqa: E402
 from app.services.analysis_pipeline import AnalysisRunInput, analysis_pipeline  # noqa: E402
 from app.services.broad_sr_policy import get_broad_sr_ids  # noqa: E402
 
-DEFAULT_INPUT_GLOB = PROJECT_ROOT / "pictures-json" / "synthetic_observations_v*.jsonl"
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_INPUT_GLOB = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "synthetic_observations_v*.jsonl"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 GUIDE_PROFILES_PATH = BACKEND_DIR / "app" / "data" / "guide_domain_profiles.json"
 
 GENERIC_FEATURE_CODES = {

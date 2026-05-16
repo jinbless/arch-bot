@@ -61,7 +61,7 @@ Pipe A는 Phase 1(NS 파이프라인)과 Phase 2(SR 파이프라인)로 구성�
 ### Phase 1: NS 파이프라인
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 
 # Step 0: 조문 추출
 python3 scripts/step0_extract_articles.py
@@ -85,7 +85,7 @@ python3 db/import_and_verify.py --clean
 ### Phase 2: SR 파이프라인
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 
 # Step 1: SR 스키마 + 카테고리 매핑 (수동 설계 — phase2_step1.md 참조)
 
@@ -152,7 +152,7 @@ penalty-routes.json과 NS의 hasSanction은 형사벌과 과태료를 구분한�
 
 ## 법령 소스
 
-`legalize-kr/`는 monorepo에 포함되지 않는 외부 ignored dependency다. 아래 경로는 `koshaontology/pipe-A` 기준 상대경로이며, 로컬 실행 시 workspace에 `../../../legalize-kr/`가 있어야 한다.
+`legalize-kr/`는 monorepo에 포함되지 않는 외부 ignored dependency다. 아래 경로는 `data-team/02-extraction/pipe-A` 기준 상대경로이며, 로컬 실행 시 workspace에 `../../../legalize-kr/`가 있어야 한다.
 
 | ID | 법령명 | 경로 |
 |----|--------|------|

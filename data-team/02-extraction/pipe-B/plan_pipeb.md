@@ -11,7 +11,7 @@
 
 ## Context
 
-**Pipe-A 완료** (koshaontology/pipe-A가 정규 시스템):
+**Pipe-A 완료** (data-team/02-extraction/pipe-A가 정규 시스템):
 - Phase 1: 5개 법령 1,227조문 → 656 벌칙경로 → 1,229 NormStatements
 - Phase 2: 1,229 NS → 626 SafetyRequirements (48배치, 43카테고리)
 - DB: PostgreSQL — articles 1,227행, penalty_routes 656행, norm_statements 1,229행, safety_requirements 626행, sr_ns_mapping 1,020행, sr_article_mapping 626행
@@ -115,7 +115,7 @@ Pipe-A Phase 2에서 null로 예약해둔 5개 필드를 KOSHA 가이드 데이�
 
 ### 2.1 KOSHA Guide 기준 분포
 
-> 현재 기준(2026-05-10): 아래 수량은 git에서 직접 추적하는 `kosha-guides/parsed/**` + `kosha-guides/manifest/**` 기준이다. raw PDF 원본은 외부/local artifact 또는 LFS 후보이며 root git 직접 추적 대상이 아니다.
+> 현재 기준(2026-05-10): 아래 수량은 git에서 직접 추적하는 `data-team/01-parsing/kosha-guides/parsed/**` + `data-team/01-parsing/kosha-guides/manifest/**` 기준이다. raw PDF 원본은 외부/local artifact 또는 LFS 후보이며 root git 직접 추적 대상이 아니다.
 
 - A (산업안전일반): 124개
 - B (기계/전기안전): 232개
@@ -126,8 +126,8 @@ Pipe-A Phase 2에서 null로 예약해둔 5개 필드를 KOSHA 가이드 데이�
 
 ### 2.2 현재 처리 현황
 
-- parsed Guide JSON: 1,038/1,038개 확보 (`../../01-parsing/kosha-guides/parsed/`)
-- Guide manifest: 1,038개 parsed artifact 기준 (`../../01-parsing/kosha-guides/manifest/`)
+- parsed Guide JSON: 1,038/1,038개 확보 (`../../01-parsing/data-team/01-parsing/kosha-guides/parsed/`)
+- Guide manifest: 1,038개 parsed artifact 기준 (`../../01-parsing/data-team/01-parsing/kosha-guides/manifest/`)
 - legacy CI 파일: 45개 (3,203 CI)는 historical 참고 자료로만 유지 (`shared/output/checklists/`)
 - 미처리 Guide JSON: 0개. 과거 `796/1,038` 및 `819 parsed` 표현은 legacy 중간 상태다.
 
@@ -280,8 +280,8 @@ CI ID: ^CI-[A-Z0-9]+-[0-9]+$
   "wpCount": 4,
   "esCount": 2,
   "drCount": 0,
-  "pdfPath": "kosha-guides/A/A-G-4-2025 이동식 사다리의 사용에 관한 기술지원규정.pdf",
-  "parsedJsonPath": "kosha-guides/parsed/guide-AG4.json",
+  "pdfPath": "data-team/01-parsing/kosha-guides/rawPDF/A/A-G-4-2025 이동식 사다리의 사용에 관한 기술지원규정.pdf",
+  "parsedJsonPath": "data-team/01-parsing/kosha-guides/parsed/guide-AG4.json",
   "processedAt": "2026-04-15T00:00:00Z"
 }
 ```
@@ -374,7 +374,7 @@ CI ID: ^CI-[A-Z0-9]+-[0-9]+$
 **유형**: LLM 필수 (PDF 내용 추출은 결정론적 스크립트로 불가)
 **스크립트**: `step1_parse_pdf_vlm.py` + `agents/step1-vlm-parse-prompt.md` (claude CLI 에이전트 기반 VLM)
 
-**산출물**: `kosha-guides/parsed/guide-{shortCode}.json` (가이드 1,038개)
+**산출물**: `data-team/01-parsing/kosha-guides/parsed/guide-{shortCode}.json` (가이드 1,038개)
 
 **처리 전략 — 3단계 우선순위**:
 
@@ -520,7 +520,7 @@ CI ID: ^CI-[A-Z0-9]+-[0-9]+$
       "guideCode": "D-C-13-2026",
       "shortCode": "DC13",
       "title": "외벽도장보수공사 안전작업지침",
-      "textJsonPath": "kosha-guides/parsed/guide-DC13.json",
+      "textJsonPath": "data-team/01-parsing/kosha-guides/parsed/guide-DC13.json",
       "citedArticles": ["제42조", "제44조", "제57조", "제63조"],
       "candidateSR": [
         {"id": "SR-FALL-001", "title": "높이 2m 이상 작업 시 추락방지 조치", "referencesArticle": ["제42조", "제44조"]},
@@ -1079,11 +1079,11 @@ Pipe-B Phase 3: CI → DB+SR   (Step 1~4, LLM 1회 — SR Phase 3만)
 
 ## 11. 수정 대상 파일 목록
 
-### 신규 생성 (koshaontology/pipe-B/)
+### 신규 생성 (data-team/02-extraction/pipe-B/)
 
 **디렉토리 구조**:
 ```
-koshaontology/pipe-B/
+data-team/02-extraction/pipe-B/
 ├── agents/
 │   ├── step1-vlm-parse-prompt.md     VLM PDF 파싱 에이전트 프롬프트
 │   └── step4-entity-extraction.md    CI/DT/WP/ES/DR 추출 에이전트
@@ -1126,14 +1126,14 @@ koshaontology/pipe-B/
 
 **재현 문서**: `koshaontology/phase1_step0.md` ~ `phase1_step3.md`, `phase2_step1.md` ~ `phase2_step5.md`, `phase3_step1.md` ~ `phase3_step4.md`
 
-### 수정 (koshaontology/pipe-A/)
+### 수정 (data-team/02-extraction/pipe-A/)
 
 - `pipe-A/db/schema_pg.sql` — Pipe-B 테이블 포함 또는 별도 `pipe-B/db/schema_pb.sql`에서 실행
 - `pipe-A/db/import_and_verify.py` — V16~V30 검증 추가 (또는 별도 `pipe-B/db/import_pipeb.py`)
 
 ### 수정 (koshaontology/)
 
-- `koshaontology/pipe-A/CLAUDE.md` — Pipe-A 오케스트레이터 (Pipe-B 참조 시)
+- `data-team/02-extraction/pipe-A/CLAUDE.md` — Pipe-A 오케스트레이터 (Pipe-B 참조 시)
 - `koshaontology/plan_pipeb.md` — 이 문서
 - `koshaontology/status_pipeb.md` — 진행 상태 (신규)
 

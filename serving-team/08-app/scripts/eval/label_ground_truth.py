@@ -14,11 +14,11 @@ UI:
   - 하단: progress bar + labeler_notes
 
 실행:
-  pip install -r OHS/requirements-eval.txt  # streamlit, rapidfuzz 설치
-  streamlit run OHS/scripts/eval/label_ground_truth.py
+  pip install -r serving-team/08-app/requirements-eval.txt  # streamlit, rapidfuzz 설치
+  streamlit run serving-team/08-app/scripts/eval/label_ground_truth.py
 
 출력:
-  OHS/data/eval/gold-truth-v1.jsonl
+  serving-team/08-app/data/eval/gold-truth-v1.jsonl
   - description + correct_srs[] + correct_cis[] + correct_guides[] + labeler_notes + timestamp
 """
 from __future__ import annotations

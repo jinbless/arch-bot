@@ -30,11 +30,11 @@ from build_stage2_3_support_v8_artifacts import (
 DEFAULT_BASE_TAXONOMY = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v8.json"
 DEFAULT_BASE_SUPPORT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v8.jsonl"
 DEFAULT_NO_TOP_REPORT = (
-    PROJECT_ROOT / "pictures-json" / "reports" / "stage2_5_no_top_root_cause_stage2_3_support_v8_narrow2.json"
+    PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "stage2_5_no_top_root_cause_stage2_3_support_v8_narrow2.json"
 )
 DEFAULT_TAXONOMY_OUTPUT = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v9.json"
 DEFAULT_SUPPORT_OUTPUT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v9.jsonl"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_REPORT_PREFIX = "stage2_3_support_v9_artifacts_narrow4"
 
 

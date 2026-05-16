@@ -28,11 +28,11 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_BASE_TAXONOMY = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v4.json"
 DEFAULT_BASE_SUPPORT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v4.jsonl"
 DEFAULT_NO_TOP_REPORT = (
-    PROJECT_ROOT / "pictures-json" / "reports" / "stage2_5_no_top_root_cause_stage3_support_alias2.json"
+    PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "stage2_5_no_top_root_cause_stage3_support_alias2.json"
 )
 DEFAULT_TAXONOMY_OUTPUT = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v5.json"
 DEFAULT_SUPPORT_OUTPUT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v5.jsonl"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_REPORT_PREFIX = "stage2_support_usage_gate_artifacts_v1"
 
 

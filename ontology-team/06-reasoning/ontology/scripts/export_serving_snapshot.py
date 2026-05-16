@@ -23,7 +23,7 @@ BASELINE_ID = "ci_cross_guide_broad_only_guard1"
 ROOT = Path(__file__).resolve().parents[3]
 ONTOLOGY_DIR = Path(__file__).resolve().parents[1]
 OHS_DATA_DIR = ROOT / "OHS" / "backend" / "app" / "data"
-REPORTS_DIR = ROOT / "pictures-json" / "reports"
+REPORTS_DIR = ROOT / "data-team/05-enrichment/eval-data" / "reports"
 
 GUIDE_PROFILES_PATH = OHS_DATA_DIR / "guide_domain_profiles.json"
 PHOTO_MATCHABILITY_PATH = OHS_DATA_DIR / "guide_photo_matchability.v1.json"

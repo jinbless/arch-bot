@@ -25,9 +25,9 @@ from app.db.models import PgChecklistItem  # noqa: E402
 
 
 DEFAULT_PIPELINE_REPORT = (
-    PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_ci_candidate_promotion_v1.json"
+    PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "pipeline_quality_v1_v10_ci_candidate_promotion_v1.json"
 )
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "ci_boundary_mismatch_triage_ci_candidate_promotion_v1"
 
 

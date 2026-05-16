@@ -24,12 +24,12 @@ from app.db.models import PgChecklistItem, PgCiSrMapping  # noqa: E402
 from app.services.broad_sr_policy import get_broad_sr_ids  # noqa: E402
 
 
-DEFAULT_PIPELINE_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_ci_broad_sr_guard4.json"
+DEFAULT_PIPELINE_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "pipeline_quality_v1_v10_ci_broad_sr_guard4.json"
 DEFAULT_NO_TOP_ACTIONABILITY = (
-    PROJECT_ROOT / "pictures-json" / "reports" / "stage2_5_no_top_actionability_ci_broad_sr_guard4.json"
+    PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "stage2_5_no_top_actionability_ci_broad_sr_guard4.json"
 )
 DEFAULT_PROFILES = BACKEND_DIR / "app" / "data" / "guide_domain_profiles.json"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "ci_no_action_triage_ci_broad_sr_guard4"
 
 

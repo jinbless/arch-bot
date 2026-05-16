@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Export manual domain-guard batches as OHS serving artifacts.
 
-OHS runtime intentionally reads local data files under OHS/backend/app/data,
+OHS runtime intentionally reads local data files under serving-team/08-app/backend/app/data,
 not koshaontology working files.  This script packages the reviewed manual
 Guide boundary profiles and the broad-SR policy into that serving location.
 """
@@ -158,7 +158,7 @@ def build_profiles() -> dict[str, Any]:
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "method": "codex_manual_domain_profiles",
-        "source": "koshaontology/pipe-B/data/manual-enrichment-domain-guard-batch-001..035.json",
+        "source": "data-team/02-extraction/pipe-B/data/manual-enrichment-domain-guard-batch-001..035.json",
         "serving_policy": {
             "min_confidence": SERVING_CONFIDENCE,
             "review_status_in": sorted(SERVING_STATUSES),
@@ -183,7 +183,7 @@ def build_broad_policy() -> dict[str, Any]:
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "method": "codex_manual_broad_sr_policy_export",
-        "source": f"koshaontology/pipe-B/data/{BROAD_SR_SOURCE.name}",
+        "source": f"data-team/02-extraction/pipe-B/data/{BROAD_SR_SOURCE.name}",
         "policy_version": source.get("policy_version"),
         "purpose": source.get("purpose"),
         "broad_sr_ids": broad_ids,

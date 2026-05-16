@@ -19,7 +19,7 @@ from typing import Any
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = BACKEND_DIR.parents[1]
-REPORTS_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+REPORTS_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 
 DEFAULT_BASE_TAXONOMY = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v19.json"
 DEFAULT_BASE_SUPPORT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v19.jsonl"

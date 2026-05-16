@@ -33,7 +33,7 @@ from app.services.guide_photo_matchability import (  # noqa: E402
 
 DEFAULT_PROFILES_PATH = BACKEND_DIR / "app" / "data" / "guide_domain_profiles.json"
 DEFAULT_ARTIFACT_PATH = BACKEND_DIR / "app" / "data" / "guide_photo_matchability.v1.json"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_BASELINE_REPORT = DEFAULT_REPORT_DIR / "pipeline_quality_v1_v10_situation_frame_support7.json"
 
 FIELD_CONTROL_EVIDENCE_KEYS = (

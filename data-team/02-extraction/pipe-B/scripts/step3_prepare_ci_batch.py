@@ -312,7 +312,7 @@ def main():
                     "guideCode": g["guideCode"],
                     "shortCode": sc,
                     "title": g["title"],
-                    "textJsonPath": f"kosha-guides/parsed/guide-{sc}.json",
+                    "textJsonPath": f"data-team/01-parsing/kosha-guides/parsed/guide-{sc}.json",
                     "citedArticles": cited,
                     "candidateSR": candidate_sr,
                     "preAssignedIdRange": pre_assigned,

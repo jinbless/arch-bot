@@ -33,17 +33,17 @@ from she_shadow_candidates import install_shadow_she_candidates  # noqa: E402
 
 DEFAULT_SOURCE_REPORT = (
     PROJECT_ROOT
-    / "pictures-json"
+    / "data-team/05-enrichment/eval-data"
     / "reports"
     / "actual_response_samples_v1_v10_by_industry_safe_negative_20260507_234209.json"
 )
 DEFAULT_COMPARISON_REPORT = (
     PROJECT_ROOT
-    / "pictures-json"
+    / "data-team/05-enrichment/eval-data"
     / "reports"
     / "actual_response_samples_v1_v10_after_pipeb1038_20260509_072955.json"
 )
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_SHADOW_SHE_CANDIDATES = (
     PROJECT_ROOT / "koshaontology" / "data" / "she" / "she-stage3-new-pattern-candidates-reference-guard1.jsonl"
 )

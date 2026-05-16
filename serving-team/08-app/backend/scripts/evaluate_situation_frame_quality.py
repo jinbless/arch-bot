@@ -26,10 +26,10 @@ from app.services.industry_context import infer_industry_context  # noqa: E402
 from evaluate_synthetic_guide_recommendations import load_synthetic_rows, synthetic_to_llm_result  # noqa: E402
 
 
-DEFAULT_INPUT_GLOB = PROJECT_ROOT / "pictures-json" / "synthetic_observations_v*.jsonl"
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_INPUT_GLOB = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "synthetic_observations_v*.jsonl"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "situation_frame_eval_report.v1"
-DEFAULT_BASELINE = PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_ci_reference_guard1.json"
+DEFAULT_BASELINE = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "pipeline_quality_v1_v10_ci_reference_guard1.json"
 BROAD_PARENT_CONTEXTS = {"MACHINE", "OTHER", "MATERIAL_HANDLING", "CONSTRUCTION_EQUIP", "EXCAVATION"}
 
 

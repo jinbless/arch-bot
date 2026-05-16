@@ -12,7 +12,7 @@
 ## 정책
 
 - **baseline 메트릭은 [evaluation-baseline.md](evaluation-baseline.md) 한 곳만 정본이다.**
-- 다른 모든 문서(루트 README, current-session, OHS/README 등)는 5~10줄 요약 + 정본 링크만 둔다.
+- 다른 모든 문서(루트 README, current-session, serving-team/08-app/README 등)는 5~10줄 요약 + 정본 링크만 둔다.
 - baseline 갱신 시 이 파일만 수정하면 된다.
 - 보고서 본문은 `data-team/05-enrichment/eval-data/reports/**`에 로컬/외부로 보관, root git은 `data-team/05-enrichment/eval-data/reports-manifest.json`과 이 문서만 추적.
 

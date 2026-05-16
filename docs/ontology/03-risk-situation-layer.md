@@ -252,7 +252,7 @@ flowchart TB
 
 ## 핵심 TTL 예시
 
-아래 예시는 현재 `koshaontology/data/she/she-instances-v1.ttl`에 있는 실제 패턴 중 하나다.
+아래 예시는 현재 `data-team/05-enrichment/she-data/she-instances-v1.ttl`에 있는 실제 패턴 중 하나다.
 
 ```ttl
 she:SHE-PRESSMACHINE-a1470e38ba a she:SituationalHazardPattern ;
@@ -355,7 +355,7 @@ bootstrap_she_from_synthetic.build_candidate()
 → load_she_to_fuseki.fetch_active_she_from_pg()
 → load_she_to_fuseki.she_to_ttl_block()
 → load_she_to_fuseki.build_full_ttl()
-→ koshaontology/data/she/she-instances-v1.ttl
+→ data-team/05-enrichment/she-data/she-instances-v1.ttl
 ```
 
 `VisualCue`는 함수나 저장소가 아니라 LLM 관찰 결과에서 나온 실행 데이터다. 현재 서비스 코드에서는 `app:VisualCue` 객체를 DB에서 다시 읽는 방식이 아니라, `free_hazards.visual_evidence`와 `description`을 `visual_cues` 리스트로 만들어 `match_she()`에 전달한다. `match_she()`는 PostgreSQL `she_catalog.features` JSONB에서 `work_context`, `hazardous_agent`, `accident_type`를 broad filter로 찾고, Python에서 `matched_dims`, `visual_score`, `industry_alignment`, `match_status`를 계산한다. 이후 `she_sr_mapping`과 `she_ci_mapping`을 따라 SR과 체크리스트를 붙인다.

@@ -26,7 +26,7 @@ DEFAULT_BASE_TAXONOMY = BACKEND_DIR / "app" / "data" / "situation_context_taxono
 DEFAULT_SUPPORT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v4.jsonl"
 DEFAULT_PROFILES = BACKEND_DIR / "app" / "data" / "guide_domain_profiles.json"
 DEFAULT_TAXONOMY_OUTPUT = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v4.json"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_REPORT_PREFIX = "stage3_support_alignment_aliases_v1"
 
 

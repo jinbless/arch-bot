@@ -6,7 +6,7 @@
 
 ```text
 [1. Parsing]
-  └─ files: kosha-guides/parsed/*.json, kosha-guides/manifest/guides-manifest.json
+  └─ files: data-team/01-parsing/kosha-guides/parsed/*.json, data-team/01-parsing/kosha-guides/manifest/guides-manifest.json
      │
      ▼
 [2. Extraction]

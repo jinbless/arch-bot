@@ -17,8 +17,8 @@ from pathlib import Path
 from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_SOURCE_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "ci_no_action_triage_ci_broad_sr_guard4.json"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_SOURCE_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "ci_no_action_triage_ci_broad_sr_guard4.json"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "ci_mapping_review_semantic_ci_broad_sr_guard4"
 
 

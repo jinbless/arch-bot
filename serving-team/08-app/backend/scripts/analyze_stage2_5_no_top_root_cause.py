@@ -28,9 +28,9 @@ from app.services.guide_photo_matchability import PHOTO_ACTIONABLE, get_photo_ma
 from app.services.situation_frame_service import build_situation_frame, match_guide_support_candidates  # noqa: E402
 
 
-DEFAULT_SOURCE_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_photo_matchability1.json"
-DEFAULT_PREVIOUS_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_situation_frame_support7.json"
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_SOURCE_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "pipeline_quality_v1_v10_photo_matchability1.json"
+DEFAULT_PREVIOUS_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "pipeline_quality_v1_v10_situation_frame_support7.json"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PROFILE_PATH = BACKEND_DIR / "app" / "data" / "guide_domain_profiles.json"
 
 GENERIC_FEATURE_CODES = {

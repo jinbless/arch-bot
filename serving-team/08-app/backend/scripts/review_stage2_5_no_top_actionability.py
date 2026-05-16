@@ -20,11 +20,11 @@ from typing import Any
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_INPUT = (
     PROJECT_ROOT
-    / "pictures-json"
+    / "data-team/05-enrichment/eval-data"
     / "reports"
     / "stage2_5_no_top_root_cause_no_forced_hotwork_gate1.json"
 )
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "stage2_5_no_top_actionability_no_forced_hotwork_gate1"
 
 

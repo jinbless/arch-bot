@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 def _load_env_keys() -> None:
-    """OPENAI_API_KEY, ANTHROPIC_API_KEY 환경변수 로드 (없으면 OHS/.env 또는 OHS/backend/.env에서)."""
+    """OPENAI_API_KEY, ANTHROPIC_API_KEY 환경변수 로드 (없으면 serving-team/08-app/.env 또는 serving-team/08-app/backend/.env에서)."""
     if not os.environ.get("OPENAI_API_KEY"):
         for env_file in [ROOT / "OHS" / ".env", ROOT / "OHS" / "backend" / ".env"]:
             if env_file.exists():

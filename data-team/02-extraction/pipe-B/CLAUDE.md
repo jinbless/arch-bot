@@ -1,13 +1,13 @@
 # KOSHA 온톨로지 v2 — Pipe-B 마스터 오케스트레이터
 
-> 현재 기준 참고 (2026-05-10): Pipe-B 산출물은 최신 product에서 `Guide/WorkProcess = 표준 개선 절차`, `ChecklistItem = 즉시 조치/보조 단서/검색 색인`으로 사용한다. Guide JSON은 1,038/1,038개 확보되어 root `kosha-guides/parsed/**`와 manifest로 추적된다. 추천 품질 보강은 manual domain 후보 35 batch와 `usage_profile11` runtime 검증을 기준으로 진행한다.
+> 현재 기준 참고 (2026-05-10): Pipe-B 산출물은 최신 product에서 `Guide/WorkProcess = 표준 개선 절차`, `ChecklistItem = 즉시 조치/보조 단서/검색 색인`으로 사용한다. Guide JSON은 1,038/1,038개 확보되어 root `data-team/01-parsing/kosha-guides/parsed/**`와 manifest로 추적된다. 추천 품질 보강은 manual domain 후보 35 batch와 `usage_profile11` runtime 검증을 기준으로 진행한다.
 
 ## 프로젝트 개요
 
 KOSHA 가이드 1,038개 parsed JSON → CI/DT/WP/ES/DR 5종 엔티티 추출 + SR 후보/evidence 레이어 + Guide usage profile 보강.
 이 파일은 Pipe B (가이드 → CI) 파이프라인을 관리한다.
 
-> Monorepo 기준(2026-05-10): `koshaontology/`는 root `arch-bot`의 tracked 디렉토리다. raw PDF 원본은 git 직접 추적 대상이 아니며, `../../01-parsing/kosha-guides/parsed/`와 `../../01-parsing/kosha-guides/manifest/`가 root에서 추적되는 Guide 원천이다.
+> Monorepo 기준(2026-05-10): `koshaontology/`는 root `arch-bot`의 tracked 디렉토리다. raw PDF 원본은 git 직접 추적 대상이 아니며, `../../01-parsing/data-team/01-parsing/kosha-guides/parsed/`와 `../../01-parsing/data-team/01-parsing/kosha-guides/manifest/`가 root에서 추적되는 Guide 원천이다.
 
 ## 작업 시작 가이드
 
@@ -55,7 +55,7 @@ Pipe B는 Phase 1(Guide Parsing), Phase 2(CI Extraction), Phase 3(DB Integration
 ### Phase 1: Guide Parsing
 
 ```bash
-cd koshaontology/pipe-B
+cd data-team/02-extraction/pipe-B
 
 # Step 0: 가이드 인벤토리 생성
 python3 scripts/step0_build_inventory.py
@@ -73,7 +73,7 @@ python3 scripts/step0_validate_parsing.py
 ### Phase 2: CI Extraction
 
 ```bash
-cd koshaontology/pipe-B
+cd data-team/02-extraction/pipe-B
 
 # Step 1: SR 조회 인덱스 생성
 python3 scripts/step2_build_sr_index.py
@@ -93,7 +93,7 @@ python3 scripts/step6_validate_entities.py
 ### Phase 3: DB Integration
 
 ```bash
-cd koshaontology/pipe-B
+cd data-team/02-extraction/pipe-B
 
 # Step 1: DB 스키마 확장
 psql -f db/schema_pb.sql
@@ -153,6 +153,6 @@ DR ID:    ^DR-[A-Z0-9]+-[0-9]+$      예: DR-DC13-001
 
 - Pipe-A: `../pipe-A/CLAUDE.md` (NS/SR 파이프라인)
 - 법령 소스: `../../legalize-kr/` (legalize-kr)
-- KOSHA Guide parsed/manifest: `../../01-parsing/kosha-guides/parsed/`, `../../01-parsing/kosha-guides/manifest/`
+- KOSHA Guide parsed/manifest: `../../01-parsing/data-team/01-parsing/kosha-guides/parsed/`, `../../01-parsing/data-team/01-parsing/kosha-guides/manifest/`
 - KOSHA 원본 PDF: 외부/local artifact. root git 직접 추적 대상이 아님
 - Pipe-A DB: `../pipe-A/db/schema_pg.sql` (FK 대상: safety_requirements, articles)

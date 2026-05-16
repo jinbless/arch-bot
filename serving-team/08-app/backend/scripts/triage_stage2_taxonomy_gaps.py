@@ -17,7 +17,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-REPORTS_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+REPORTS_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_SOURCE = REPORTS_DIR / "stage2_5_no_top_root_cause_stage3_safe_cue_negation_fix2.json"
 DEFAULT_PREFIX = REPORTS_DIR / "stage2_taxonomy_gap_triage_stage3_safe_cue_negation_fix2"
 

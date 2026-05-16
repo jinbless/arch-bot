@@ -25,8 +25,8 @@ sys.path.insert(0, str(BACKEND_DIR))
 
 from app.db.database import SessionLocal  # noqa: E402
 
-DEFAULT_REVIEW_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "ci_sr_mapping_candidate_review_ci_unrelated_action_filter1.json"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REVIEW_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "ci_sr_mapping_candidate_review_ci_unrelated_action_filter1.json"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "pg_ci_sr_link_candidates_ci_unrelated_action_filter1"
 DEFAULT_METHOD = "ci_candidate_review_v1"
 

@@ -32,7 +32,7 @@ DEFAULT_INPUT = PROJECT_ROOT / "koshaontology" / "data" / "she" / "she-stage3-ne
 DEFAULT_TAXONOMY_OUTPUT = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v2.json"
 DEFAULT_CLASSIFICATION_OUTPUT = PROJECT_ROOT / "koshaontology" / "data" / "she" / "she_stage3_candidate_classification.v2.jsonl"
 DEFAULT_SUPPORT_OUTPUT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v2.jsonl"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_REPORT_PREFIX = "situation_frame_artifact_build.v2"
 CATALOG_PATH = BACKEND_DIR / "app" / "data" / "risk_feature_catalog.json"
 

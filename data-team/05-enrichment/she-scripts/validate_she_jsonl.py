@@ -15,10 +15,10 @@ Python validator로 다음 검사:
   → she-rejected-v1.jsonl로 이동 (통계 분석용)
 
 Usage:
-  PYTHONUTF8=1 python koshaontology/scripts/she/validate_she_jsonl.py \
-      --input koshaontology/data/she/she-draft-v1.jsonl \
-      --output-approved koshaontology/data/she/she-approved-v1.jsonl \
-      --output-rejected koshaontology/data/she/she-rejected-v1.jsonl
+  PYTHONUTF8=1 python data-team/05-enrichment/she-scripts/validate_she_jsonl.py \
+      --input data-team/05-enrichment/she-data/she-draft-v1.jsonl \
+      --output-approved data-team/05-enrichment/she-data/she-approved-v1.jsonl \
+      --output-rejected data-team/05-enrichment/she-data/she-rejected-v1.jsonl
 """
 from __future__ import annotations
 

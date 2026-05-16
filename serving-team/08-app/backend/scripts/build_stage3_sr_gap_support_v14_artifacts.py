@@ -33,13 +33,13 @@ DEFAULT_BASE_TAXONOMY = BACKEND_DIR / "app" / "data" / "situation_context_taxono
 DEFAULT_BASE_SUPPORT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v13.jsonl"
 DEFAULT_NO_TOP_REPORT = (
     PROJECT_ROOT
-    / "pictures-json"
+    / "data-team/05-enrichment/eval-data"
     / "reports"
     / "stage2_5_no_top_root_cause_stage2_taxonomy_support_v13_narrow5.json"
 )
 DEFAULT_TAXONOMY_OUTPUT = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v14.json"
 DEFAULT_SUPPORT_OUTPUT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v14.jsonl"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_REPORT_PREFIX = "stage3_sr_gap_support_v14_artifacts_narrow6"
 
 

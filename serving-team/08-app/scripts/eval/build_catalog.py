@@ -11,7 +11,7 @@
   S7 Paragraph cluster     → pilot v2 SR (paragraphKey 단위)
 
 Output:
-  OHS/data/eval/catalog-v1.jsonl  (한 줄에 한 Bundle 객체)
+  serving-team/08-app/data/eval/catalog-v1.jsonl  (한 줄에 한 Bundle 객체)
 
 Bundle schema:
   {
@@ -25,7 +25,7 @@ Bundle schema:
   }
 
 실행:
-  PYTHONUTF8=1 python OHS/scripts/eval/build_catalog.py
+  PYTHONUTF8=1 python serving-team/08-app/scripts/eval/build_catalog.py
 """
 from __future__ import annotations
 

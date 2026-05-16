@@ -6,11 +6,11 @@ scenario_id와 description만 읽고, pipe-A safety-requirements 결과 JSON의
 626개 SR 중 사진 설명에 직접 근거가 있는 SR identifier를 제안한다.
 
 실행:
-  PYTHONUTF8=1 python OHS/scripts/eval/review_sr_from_description.py
+  PYTHONUTF8=1 python serving-team/08-app/scripts/eval/review_sr_from_description.py
 
 출력:
-  OHS/data/eval/scenario-sr-description-reviewed-v1.jsonl
-  OHS/data/eval/scenario-sr-description-reviewed-v1.md
+  serving-team/08-app/data/eval/scenario-sr-description-reviewed-v1.jsonl
+  serving-team/08-app/data/eval/scenario-sr-description-reviewed-v1.md
 """
 from __future__ import annotations
 

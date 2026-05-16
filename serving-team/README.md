@@ -18,7 +18,7 @@
 ## 다른 팀과의 인터페이스
 
 - **← 온톨로지팀 (6단계)**: [ontology-team/06-reasoning/](../ontology-team/06-reasoning/)이 보정한 TBox/ABox TTL을 7단계가 PG로 재물질화
-- **← 데이터팀 (5단계)**: 현재 5단계 LLM enrichment의 runtime artifacts (`OHS/backend/app/data/*.json`)를 직접 import. 6단계 완성 시 이 경로 폐지.
+- **← 데이터팀 (5단계)**: 현재 5단계 LLM enrichment의 runtime artifacts (`serving-team/08-app/backend/app/data/*.json`)를 직접 import. 6단계 완성 시 이 경로 폐지.
 
 ## 운영 가이드
 

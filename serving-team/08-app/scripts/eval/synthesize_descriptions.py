@@ -15,8 +15,8 @@ GPT-4o가 사진을 봤을 때 출력할 한국어 description 을 합성.
 caching: scenario.description 이미 있으면 skip (중간 실패 후 재실행 가능)
 
 실행:
-  PYTHONUTF8=1 python OHS/scripts/eval/synthesize_descriptions.py
-  PYTHONUTF8=1 python OHS/scripts/eval/synthesize_descriptions.py --batch 5
+  PYTHONUTF8=1 python serving-team/08-app/scripts/eval/synthesize_descriptions.py
+  PYTHONUTF8=1 python serving-team/08-app/scripts/eval/synthesize_descriptions.py --batch 5
 """
 from __future__ import annotations
 

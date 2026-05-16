@@ -12,8 +12,8 @@ PG `she_catalog` (status='approved_auto', active만) → TTL → Fuseki SPARQL U
   risk:hasFeature 물질화 트리플로 추상 feature 검색 지원
 
 Usage:
-  PYTHONUTF8=1 python koshaontology/scripts/she/load_she_to_fuseki.py
-  PYTHONUTF8=1 python koshaontology/scripts/she/load_she_to_fuseki.py --endpoint http://localhost:3030/kosha
+  PYTHONUTF8=1 python data-team/05-enrichment/she-scripts/load_she_to_fuseki.py
+  PYTHONUTF8=1 python data-team/05-enrichment/she-scripts/load_she_to_fuseki.py --endpoint http://localhost:3030/kosha
 """
 from __future__ import annotations
 

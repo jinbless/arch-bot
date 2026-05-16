@@ -27,7 +27,7 @@ sys.path.insert(0, str(BACKEND_DIR))
 from app.db.database import SessionLocal  # noqa: E402
 from app.services.broad_sr_policy import get_broad_sr_ids  # noqa: E402
 
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "ci_sr_candidate_promotion_ci_cross_guide_broad_only_guard1"
 DEFAULT_METHOD = "ci_candidate_review_v1"
 BASELINE = "ci_cross_guide_broad_only_guard1"

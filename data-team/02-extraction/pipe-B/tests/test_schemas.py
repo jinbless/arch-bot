@@ -79,7 +79,7 @@ def test_minimal_guide_text_passes():
             "shortCode": "AG4",
             "title": "테스트",
             "totalPages": 1,
-            "pdfPath": "kosha-guides/A/test.pdf",
+            "pdfPath": "data-team/01-parsing/kosha-guides/rawPDF/A/test.pdf",
             "parsedAt": "2026-04-12T00:00:00Z",
             "parsedBy": "step2-text-extraction v2.0",
             "tocSections": [
@@ -191,7 +191,7 @@ def test_guide_text_missing_sections_fails():
             "shortCode": "AG4",
             "title": "테스트",
             "totalPages": 1,
-            "pdfPath": "kosha-guides/A/test.pdf",
+            "pdfPath": "data-team/01-parsing/kosha-guides/rawPDF/A/test.pdf",
             "parsedAt": "2026-04-12T00:00:00Z",
             "parsedBy": "test",
             "tocSections": [
@@ -211,7 +211,7 @@ def test_guide_text_empty_toc_fails():
             "shortCode": "AG4",
             "title": "테스트",
             "totalPages": 1,
-            "pdfPath": "kosha-guides/A/test.pdf",
+            "pdfPath": "data-team/01-parsing/kosha-guides/rawPDF/A/test.pdf",
             "parsedAt": "2026-04-12T00:00:00Z",
             "parsedBy": "test",
             "tocSections": [],
@@ -230,7 +230,7 @@ def test_guide_text_extra_field_fails():
             "shortCode": "AG4",
             "title": "테스트",
             "totalPages": 1,
-            "pdfPath": "kosha-guides/A/test.pdf",
+            "pdfPath": "data-team/01-parsing/kosha-guides/rawPDF/A/test.pdf",
             "parsedAt": "2026-04-12T00:00:00Z",
             "parsedBy": "test",
             "tocSections": [

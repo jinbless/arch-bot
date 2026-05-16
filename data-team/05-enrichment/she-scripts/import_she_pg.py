@@ -10,9 +10,9 @@ Outputs (PG kosha database):
   - she_ci_mapping (SHE × CI, sr-registry의 linkedCI 자동 follow)
 
 Usage:
-  PYTHONUTF8=1 python koshaontology/scripts/she/import_she_pg.py \
-      --schema koshaontology/db/she/schema_she.sql \
-      --input koshaontology/data/she/she-approved-v1.jsonl
+  PYTHONUTF8=1 python data-team/05-enrichment/she-scripts/import_she_pg.py \
+      --schema data-team/05-enrichment/she-db/schema_she.sql \
+      --input data-team/05-enrichment/she-data/she-approved-v1.jsonl
 """
 from __future__ import annotations
 

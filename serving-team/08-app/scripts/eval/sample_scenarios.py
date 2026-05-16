@@ -13,8 +13,8 @@
 출력 size: --target 옵션 (default 100, 500까지 확장 가능)
 
 실행:
-  PYTHONUTF8=1 python OHS/scripts/eval/sample_scenarios.py --target 100
-  PYTHONUTF8=1 python OHS/scripts/eval/sample_scenarios.py --target 500
+  PYTHONUTF8=1 python serving-team/08-app/scripts/eval/sample_scenarios.py --target 100
+  PYTHONUTF8=1 python serving-team/08-app/scripts/eval/sample_scenarios.py --target 500
 """
 from __future__ import annotations
 

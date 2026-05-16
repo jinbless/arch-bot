@@ -1,6 +1,6 @@
 # Phase 1 Step 0: 조문 추출
 
-> 현재 기준 참고 (2026-05-07): 이 문서는 과거 실행 재현 문서다. 최신 product 기준은 루트 `README.md`, `../../docs/ontology/00-integrated-structure.md`, `OHS/README.md`, 그리고 이 Pipe의 `status_pipea.md`를 우선 확인한다.
+> 현재 기준 참고 (2026-05-07): 이 문서는 과거 실행 재현 문서다. 최신 product 기준은 루트 `README.md`, `../../docs/ontology/00-integrated-structure.md`, `serving-team/08-app/README.md`, 그리고 이 Pipe의 `status_pipea.md`를 우선 확인한다.
 
 > 최종 업데이트: 2026-04-11
 > 스크립트: `scripts/step0_extract_articles.py`
@@ -54,7 +54,7 @@
 ## 5. 실행 방법
 
 ```bash
-cd koshaontology/pipe-A
+cd data-team/02-extraction/pipe-A
 python3 scripts/step0_extract_articles.py
 ```
 

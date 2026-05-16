@@ -8,9 +8,9 @@ Day 2 production: 626 SR 전체 (예상 비용 ~$15 with gpt-4o).
 
 Usage:
   Dry-run (10 SR):
-    PYTHONUTF8=1 python koshaontology/scripts/she/invert_sr_to_she.py --dry-run
+    PYTHONUTF8=1 python data-team/05-enrichment/she-scripts/invert_sr_to_she.py --dry-run
   Production (626 SR):
-    PYTHONUTF8=1 python koshaontology/scripts/she/invert_sr_to_she.py --all
+    PYTHONUTF8=1 python data-team/05-enrichment/she-scripts/invert_sr_to_she.py --all
 """
 from __future__ import annotations
 

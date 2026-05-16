@@ -45,13 +45,13 @@ from evaluate_synthetic_observations import (  # noqa: E402
 )
 
 
-DEFAULT_GAP_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "stage3_she_gap_candidates_reference_guard1.json"
-DEFAULT_SYNTHETIC_GLOB = PROJECT_ROOT / "pictures-json" / "synthetic_observations_v*.jsonl"
+DEFAULT_GAP_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "stage3_she_gap_candidates_reference_guard1.json"
+DEFAULT_SYNTHETIC_GLOB = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "synthetic_observations_v*.jsonl"
 DEFAULT_CANDIDATE_OUTPUT = (
     PROJECT_ROOT / "koshaontology" / "data" / "she" / "she-stage3-new-pattern-candidates-reference-guard1.jsonl"
 )
 DEFAULT_REPORT_PREFIX = "stage3_she_new_pattern_candidate_preview_reference_guard1"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_CLASSES = ("new_she_pattern_needed",)
 
 ADDITIONAL_CONTEXT_FAMILY_HINTS = {

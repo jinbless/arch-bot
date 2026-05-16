@@ -26,7 +26,7 @@ law:Article
 
 ## 1. 실행 환경
 
-- 디렉토리: `koshaontology/pipe-A/`
+- 디렉토리: `data-team/02-extraction/pipe-A/`
 - legalize-kr 소스 커밋: `d8c121b2`
 
 ---

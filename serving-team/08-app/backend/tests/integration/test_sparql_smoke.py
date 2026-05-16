@@ -4,9 +4,9 @@ Purpose: predicate/IRI 수정 후 각 쿼리가 실제 데이터에 대해 응�
 SR Recall 0% 원인을 격리 — 쿼리 자체 동작 vs OHS 통합 측 문제.
 
 실행:
-  PYTHONUTF8=1 python -m pytest OHS/backend/tests/integration/test_sparql_smoke.py -v
+  PYTHONUTF8=1 python -m pytest serving-team/08-app/backend/tests/integration/test_sparql_smoke.py -v
 또는 직접 실행:
-  PYTHONUTF8=1 python OHS/backend/tests/integration/test_sparql_smoke.py
+  PYTHONUTF8=1 python serving-team/08-app/backend/tests/integration/test_sparql_smoke.py
 """
 from __future__ import annotations
 

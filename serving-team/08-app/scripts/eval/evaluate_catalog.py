@@ -20,12 +20,12 @@ Metrics (2026-04-27 사용자 통찰 반영 — CI는 Guide 종속 단위):
                                         Guide 평가가 의미 단위. legacy로만 유지)
 
 Output:
-  OHS/data/eval/baseline-v1.report.md
-  OHS/data/eval/baseline-v1.report.json (raw per-scenario)
+  serving-team/08-app/data/eval/baseline-v1.report.md
+  serving-team/08-app/data/eval/baseline-v1.report.json (raw per-scenario)
 
 실행:
-  PYTHONUTF8=1 PYTHONPATH=OHS/backend python OHS/scripts/eval/evaluate_catalog.py
-  PYTHONUTF8=1 PYTHONPATH=OHS/backend python OHS/scripts/eval/evaluate_catalog.py --limit 10
+  PYTHONUTF8=1 PYTHONPATH=serving-team/08-app/backend python serving-team/08-app/scripts/eval/evaluate_catalog.py
+  PYTHONUTF8=1 PYTHONPATH=serving-team/08-app/backend python serving-team/08-app/scripts/eval/evaluate_catalog.py --limit 10
 """
 from __future__ import annotations
 
@@ -52,7 +52,7 @@ INPUT = OHS_DIR / "data" / "eval" / "scenarios-v1.jsonl"
 OUTPUT_REPORT_MD = OHS_DIR / "data" / "eval" / "baseline-v1.report.md"
 OUTPUT_REPORT_JSON = OHS_DIR / "data" / "eval" / "baseline-v1.report.json"
 
-# Add OHS/backend to PYTHONPATH so app module imports work
+# Add serving-team/08-app/backend to PYTHONPATH so app module imports work
 sys.path.insert(0, str(OHS_DIR / "backend"))
 
 # Ensure OPENAI_API_KEY is in env (analysis_service uses openai_client which reads from settings)

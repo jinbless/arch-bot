@@ -21,11 +21,11 @@ from typing import Any
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
-DEFAULT_NO_TOP_REPORT = PROJECT_ROOT / "pictures-json" / "reports" / "stage2_5_no_top_root_cause_photo_matchability1.json"
+DEFAULT_NO_TOP_REPORT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "stage2_5_no_top_root_cause_photo_matchability1.json"
 DEFAULT_STAGE3_CANDIDATES = PROJECT_ROOT / "koshaontology" / "data" / "she" / "she-stage3-new-pattern-candidates-reference-guard1.jsonl"
 DEFAULT_PROFILES = BACKEND_DIR / "app" / "data" / "guide_domain_profiles.json"
 DEFAULT_SUPPORT_OUTPUT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v3.preview.jsonl"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_REPORT_PREFIX = "no_top_guide_support_candidates_v1"
 
 STAGE3_ROOT_CAUSES = {

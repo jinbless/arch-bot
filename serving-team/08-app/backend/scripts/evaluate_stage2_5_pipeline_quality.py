@@ -62,8 +62,8 @@ from evaluate_synthetic_observations import (  # noqa: E402
 )
 from she_shadow_candidates import install_shadow_she_candidates  # noqa: E402
 
-DEFAULT_INPUT_GLOB = PROJECT_ROOT / "pictures-json" / "synthetic_observations_v*.jsonl"
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_INPUT_GLOB = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "synthetic_observations_v*.jsonl"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "pipeline_quality_v1_v10_usage_profile11"
 DEFAULT_PHOTO_BASELINE_REPORT = DEFAULT_OUTPUT_DIR / "pipeline_quality_v1_v10_situation_frame_support7.json"
 DEFAULT_SHADOW_SHE_CANDIDATES = (

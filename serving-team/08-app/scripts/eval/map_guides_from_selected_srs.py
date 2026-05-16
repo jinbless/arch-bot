@@ -2,14 +2,14 @@
 """Map selected SR identifiers to KOSHA Guides using guide filenames only.
 
 Inputs:
-  - OHS/data/eval/scenario-sr-description-reviewed-v1.jsonl
-  - koshaontology/pipe-B/data/guide-inventory.json
+  - serving-team/08-app/data/eval/scenario-sr-description-reviewed-v1.jsonl
+  - data-team/02-extraction/pipe-B/data/guide-inventory.json
 
 The matcher only inspects each guide pdfPath basename. It does not read Guide
 PDF/JSON bodies and does not use any scenario catalog labels.
 
 Output:
-  OHS/data/eval/scenario-sr-description-reviewed-v2.jsonl
+  serving-team/08-app/data/eval/scenario-sr-description-reviewed-v2.jsonl
 """
 from __future__ import annotations
 

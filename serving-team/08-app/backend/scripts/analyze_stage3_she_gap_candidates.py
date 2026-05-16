@@ -31,8 +31,8 @@ sys.path.insert(0, str(BACKEND_DIR))
 from app.db.database import SessionLocal  # noqa: E402
 
 
-DEFAULT_INPUT = PROJECT_ROOT / "pictures-json" / "reports" / "pipeline_quality_v1_v10_ci_reference_guard1.json"
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_INPUT = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports" / "pipeline_quality_v1_v10_ci_reference_guard1.json"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_PREFIX = "stage3_she_gap_candidates_reference_guard1"
 APPROVED_SHE_STATUSES = ("approved_auto", "approved_manual")
 

@@ -111,7 +111,7 @@ def import_guides(conn, ci_files: list[dict]) -> int:
                 guide_info.get("title", meta.get("guideCode", "")),
                 domain,
                 guide_info.get("pdfPath"),
-                f"kosha-guides/parsed/guide-{sc}.json",
+                f"data-team/01-parsing/kosha-guides/parsed/guide-{sc}.json",
                 len(data.get("checklistItems", [])),
                 len(data.get("domainTerms", [])),
                 len(data.get("workProcesses", [])),

@@ -1887,13 +1887,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--input",
         type=Path,
-        default=PROJECT_ROOT / "pictures-json" / "synthetic_observations_v1.jsonl",
+        default=PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "synthetic_observations_v1.jsonl",
         help="합성 관찰사실 JSONL 경로",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=PROJECT_ROOT / "pictures-json" / "reports",
+        default=PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports",
         help="평가 리포트 출력 디렉터리",
     )
     parser.add_argument("--top-n", type=int, default=5)

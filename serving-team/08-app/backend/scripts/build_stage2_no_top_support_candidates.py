@@ -25,7 +25,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 DEFAULT_NO_TOP_REPORT = (
     PROJECT_ROOT
-    / "pictures-json"
+    / "data-team/05-enrichment/eval-data"
     / "reports"
     / "stage2_5_no_top_root_cause_no_top_support_signal3.json"
 )
@@ -34,7 +34,7 @@ DEFAULT_BASE_TAXONOMY = BACKEND_DIR / "app" / "data" / "situation_context_taxono
 DEFAULT_BASE_SUPPORT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v3.jsonl"
 DEFAULT_TAXONOMY_OUTPUT = BACKEND_DIR / "app" / "data" / "situation_context_taxonomy.v3.json"
 DEFAULT_SUPPORT_OUTPUT = BACKEND_DIR / "app" / "data" / "guide_support_candidates.v4.jsonl"
-DEFAULT_REPORT_DIR = PROJECT_ROOT / "pictures-json" / "reports"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "reports"
 DEFAULT_REPORT_PREFIX = "stage2_no_top_support_candidates_v1"
 
 ROOT_CAUSES = {

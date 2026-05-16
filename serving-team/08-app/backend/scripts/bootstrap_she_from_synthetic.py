@@ -298,7 +298,7 @@ def upsert_pg(db, rows: list[dict[str, Any]]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=Path, default=PROJECT_ROOT / "pictures-json" / "synthetic_observations_v2.jsonl")
+    parser.add_argument("--input", type=Path, default=PROJECT_ROOT / "data-team/05-enrichment/eval-data" / "synthetic_observations_v2.jsonl")
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "koshaontology" / "data" / "she" / "she-synthetic-v2-bootstrap.jsonl")
     parser.add_argument("--source-model", default="synthetic/bootstrap")
     parser.add_argument("--sr-limit", type=int, default=20)
