@@ -313,7 +313,7 @@ flowchart TB
       DisplayGroup["표시 그룹<br/>immediate_action / standard_procedure / legal_basis"]
       ActionPlan["조치 계획<br/>(app:CorrectiveActionPlan)"]
       PenaltyExposure["벌칙 노출<br/>(app:PenaltyExposure)"]
-      ClarificationQuestion["추가 확인 질문<br/>(app:ClarificationQuestion)"]
+      ClarificationQuestion["추가 확인 질문<br/>(app:ClarificationQuestion)<br/>data-use, schema 누락"]
       AssessmentReport["사업주 안내 결과<br/>(app:AssessmentReport)"]
       ResultScreen["최종 안내 화면"]
     end
@@ -465,7 +465,7 @@ flowchart LR
     SHEPattern["위험상황 패턴<br/>(she:SituationalHazardPattern)"]
     SR["안전요구사항<br/>(sr:SafetyRequirement)"]
     Guide["KOSHA Guide<br/>(guide:KoshaGuide)"]
-    Question["추가 확인 질문<br/>(app:ClarificationQuestion)"]
+    Question["추가 확인 질문<br/>(app:ClarificationQuestion)<br/>data-use, schema 누락"]
 
     Photo --> Inferred
     Feature --> Inferred
