@@ -1,0 +1,61 @@
+# KOSHA 22대 사고유형 간 disjointness axioms (보수적, 명확히 mutually-exclusive만)
+#
+# 출처: KOSHA 공식 사고유형 22대 분류 (한국산업안전보건공단_산업중분류별_발생형태별_사고재해자수_20241231.csv)
+# 작성 원칙:
+# - 22대 모든 pair (231쌍)에 disjoint 두면 too strong: FALL ⊥ COLLAPSE는 부정확 (붕괴로 인한 추락 가능)
+# - 명백히 다른 physical/medical mechanism인 쌍만 선별
+# - catalog v4에 실제 존재하는 코드만 대상
+#
+# 이 axioms는 Openllet OWL DL reasoner가 KB consistency 검사 시 사용.
+# 같은 instance가 두 disjoint class에 속하면 모순 → 자동 detect.
+#
+# Generated: 2026-05-17 (Phase 3 ontology validation track)
+
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# === 명확히 mutually-exclusive ===
+
+# DROWNING ⊥ FIRE/BURN/EXPLOSION (불 vs 물, 환경 자체가 다름)
+# 단, DROWNING은 catalog에 없으므로 BURN ⊥ ELECTRIC_SHOCK 등으로 적용
+haz:BURN owl:disjointWith haz:ELECTRIC_SHOCK ;
+    rdfs:comment "화상(열/화학)과 감전은 다른 mechanism. 한 instance가 둘 다 primary일 수 없음."@ko .
+
+haz:ELECTRIC_SHOCK owl:disjointWith haz:CHEMICAL_EXPOSURE ;
+    rdfs:comment "감전(전기적 손상)과 화학물질 노출은 다른 mechanism."@ko .
+
+# CRUSH ⊥ ELECTRIC_SHOCK (기계적 vs 전기적, 다른 인과)
+haz:CRUSH owl:disjointWith haz:ELECTRIC_SHOCK ;
+    rdfs:comment "끼임(기계적 압착)과 감전(전기)은 mechanism이 다름."@ko .
+
+# CUT ⊥ ELECTRIC_SHOCK (날카로운 물체 vs 전기)
+haz:CUT owl:disjointWith haz:ELECTRIC_SHOCK ;
+    rdfs:comment "절단·베임과 감전은 mechanism 다름."@ko .
+
+# EXPLOSION ⊥ ERGONOMIC (사건성 vs 누적성)
+haz:EXPLOSION owl:disjointWith haz:ERGONOMIC ;
+    rdfs:comment "폭발(순간적 사건)과 근골격계(누적적 손상)는 시간적·mechanism 다름."@ko .
+
+# TRAFFIC_ACCIDENT ⊥ ERGONOMIC (외부 충격 vs 자세성)
+haz:TRAFFIC_ACCIDENT owl:disjointWith haz:ERGONOMIC ;
+    rdfs:comment "교통사고와 근골격계는 mechanism 다름."@ko .
+
+# VIOLENCE ⊥ COLLAPSE (의도적 vs 구조적)
+haz:VIOLENCE owl:disjointWith haz:COLLAPSE ;
+    rdfs:comment "폭력행위(의도적)와 구조물 붕괴(비의도적)는 origin이 다름."@ko .
+
+# 화재(BURN) ⊥ FOOD_CONTAMINATION
+haz:BURN owl:disjointWith haz:FOOD_CONTAMINATION ;
+    rdfs:comment "화상(열/화학)과 식품 오염은 다른 mechanism."@ko .
+
+# ERGONOMIC ⊥ ELECTRIC_SHOCK
+haz:ERGONOMIC owl:disjointWith haz:ELECTRIC_SHOCK ;
+    rdfs:comment "근골격계와 감전은 다른 mechanism."@ko .
+
+# 비고:
+# - FALL과 COLLAPSE: NOT disjoint (붕괴로 인한 추락 발생 가능)
+# - FALL과 STRUCK_BY: NOT disjoint (낙하물 맞고 추락)
+# - CRUSH와 FALL: NOT disjoint (압착 후 추락)
+# - BURN과 EXPLOSION: NOT disjoint (폭발로 인한 화상)
+# - 위 9개 pair만 명확히 disjoint
