@@ -32,7 +32,9 @@
         "물체낙하",
         "중량물 낙하",
         "시신 낙하",
-        "화학 용기 낙하"
+        "화학 용기 낙하",
+        "낙하",
+        "낙하물 충격"
       ],
       "CRUSH": [
         "끼임",
@@ -67,7 +69,8 @@
         "근골격계",
         "근골격",
         "요통",
-        "허리통증"
+        "허리통증",
+        "근골격계 부상"
       ],
       "BURN": [
         "화상",
@@ -79,14 +82,16 @@
         "화학 화상",
         "증기 화상",
         "피부 화상",
-        "연료 화재"
+        "연료 화재",
+        "열 화상"
       ],
       "ELECTRIC_SHOCK": [
         "감전",
         "전기 충격",
         "ARC_FLASH",
         "피복 손상 감전",
-        "아동 감전"
+        "아동 감전",
+        "전기 쇼크"
       ],
       "EXPLOSION": [
         "폭발",
@@ -140,7 +145,8 @@
         "동상",
         "한냉 질환",
         "저체온증",
-        "저온 화상"
+        "저온 화상",
+        "한냉 장해"
       ],
       "FOOD_CONTAMINATION": [
         "식품 오염"
@@ -153,7 +159,417 @@
       "CONFINED_SPACE_ASPHYXIA": [
         "밀폐 공간 질식",
         "밀폐공간 질식",
-        "산소결핍 질식"
+        "산소결핍 질식",
+        "밀폐 공간 산소 결핍 질식"
+      ],
+      "LACERATION": [
+        "베임",
+        "절상"
+      ],
+      "VIOLENCE": [
+        "폭력"
+      ],
+      "GAS_POISONING": [
+        "가스 중독"
+      ],
+      "ROTATING_PART_INJURY": [
+        "회전체 부상"
+      ],
+      "HIGH_PRESSURE_RELEASE": [
+        "고압 분출"
+      ],
+      "EXTREME_COLD_BURN": [
+        "극저온 화상"
+      ],
+      "ANIMAL_BITE": [
+        "교상"
+      ],
+      "USER_FALL": [
+        "이용자 낙상"
+      ],
+      "STRUCK_BY_SHARP_OBJECT": [
+        "날에 의한 부상"
+      ],
+      "OVERLOAD_FIRE": [
+        "과부하 화재"
+      ],
+      "CHEMICAL_RESIDUAL_INHALATION": [
+        "화학 잔류 흡입"
+      ],
+      "SKIN_CONTACT": [
+        "피부 접촉"
+      ],
+      "HIGH_PRESSURE_GAS_LEAKAGE": [
+        "고압 가스 누출"
+      ],
+      "FINGER_AMPUTATION": [
+        "손가락 절단"
+      ],
+      "CHEMICAL_SKIN_IRRITATION": [
+        "피부 화학 자극"
+      ],
+      "INHALATION_OF_CHEMICAL_DUST": [
+        "약품 분진 흡입"
+      ],
+      "SCAFFOLD_COLLAPSE": [
+        "비계 붕괴"
+      ],
+      "COLD_BURN": [
+        "저온 화상"
+      ],
+      "FALLING_CHEMICAL_CONTAINER": [
+        "화학 용기 낙하"
+      ],
+      "GAS_LEAK": [
+        "가스 누출"
+      ],
+      "NARCOTIC_DERMAL_ABSORPTION": [
+        "마약 성분 피부 흡수"
+      ],
+      "RESIDUAL_CLEANER_EXPOSURE": [
+        "잔류 세정제 노출"
+      ],
+      "GAS_LEAK_AT_NIGHT": [
+        "야간 가스 누출"
+      ],
+      "SKIN_EYE_CONTACT_CHEMICAL_INJURY": [
+        "피부·눈 접촉 화학 부상"
+      ],
+      "PESTICIDE_INHALATION_POISONING": [
+        "농약 흡입 중독"
+      ],
+      "PESTICIDE_EYE_CONTACT": [
+        "농약 눈 접촉"
+      ],
+      "PTO_ENTANGLEMENT": [
+        "PTO 회전 말림 사고"
+      ],
+      "TRACTOR_TIPOVER": [
+        "농기계 전복"
+      ],
+      "THRESHER_BLADE_CUT": [
+        "탈곡 날 절단"
+      ],
+      "ENTANGLEMENT": [
+        "신체 말림"
+      ],
+      "PRUNING_SHEAR_LACERATION": [
+        "전지가위 절상"
+      ],
+      "COMPRESSION_INJURY": [
+        "압상"
+      ],
+      "SOIL_COLLAPSE": [
+        "토사 붕괴"
+      ],
+      "HANDCART_OVERTURN": [
+        "리어카 전복"
+      ],
+      "INFECTION": [
+        "감염"
+      ],
+      "TOXIC_GAS_INHALATION": [
+        "독성 가스 흡입",
+        "유독 가스 흡입"
+      ],
+      "FERTILIZER_DUST_INHALATION": [
+        "비료 분진 흡입"
+      ],
+      "LOAD_COLLAPSE": [
+        "적재물 붕괴"
+      ],
+      "CHEMICAL_VAPOR_INHALATION": [
+        "화학 증기 흡입"
+      ],
+      "CHEMICAL_INHALATION": [
+        "화학 흡입",
+        "화학물질 흡입",
+        "약품 흡입"
+      ],
+      "SKIN_IRRITATION": [
+        "피부 자극"
+      ],
+      "FIRE_FROM_OUTLET_OVERLOAD": [
+        "콘센트 과부하 화재"
+      ],
+      "PUNCTURE": [
+        "찔림"
+      ],
+      "CHEMICAL_BURN": [
+        "화학 화상",
+        "피부 부식"
+      ],
+      "FALL_FROM_HEIGHT": [
+        "고소 추락"
+      ],
+      "ELECTRICAL_ACCIDENT_DUE_TO_POWER_INSTABILITY": [
+        "전원 불안정으로 인한 전기 사고"
+      ],
+      "CHLORINE_GAS_INHALATION_POISONING": [
+        "염소 가스 흡입 중독"
+      ],
+      "CHAIR_TIPOVER_FALL": [
+        "의자 전도 추락"
+      ],
+      "CHEMICAL_DETERGENT_INHALATION": [
+        "화학 세제 흡입"
+      ],
+      "ARC_BURN": [
+        "아크 화상"
+      ],
+      "PATIENT_FALL": [
+        "환자 낙상"
+      ],
+      "STAIR_TRIP": [
+        "계단 전도"
+      ],
+      "IGNITION_OF_FLAMMABLE_GAS": [
+        "인화성 가스 점화"
+      ],
+      "FIRE_AND_EXPLOSION": [
+        "화재·폭발"
+      ],
+      "GRADUAL_MINOR_FUEL_LEAKAGE": [
+        "소량 연료 점진적 누출"
+      ],
+      "FUEL_TANK_FIRE": [
+        "연료통 화재"
+      ],
+      "FUEL_VAPOR_IGNITION_BY_STATIC_DISCHARGE": [
+        "정전기 방전으로 인한 연료 증기 점화"
+      ],
+      "FUEL_IGNITION_EXPLOSION": [
+        "연료 점화 폭발"
+      ],
+      "TRASH_BIN_FIRE": [
+        "쓰레기통 화재"
+      ],
+      "FUEL_GAS_EXPLOSION": [
+        "연료 가스 폭발"
+      ],
+      "HYDROCARBON_VAPOR_INHALATION_POISONING": [
+        "탄화수소 증기 흡입 중독"
+      ],
+      "FUEL_LEAK_VAPOR_INHALATION": [
+        "연료 누출 증기 흡입"
+      ],
+      "CHEMICAL_VAPOR_INHALATION_UNCONSCIOUSNESS": [
+        "화학 증기 흡입 의식 불명"
+      ],
+      "HIGH_TEMPERATURE_BURN": [
+        "고온 화상"
+      ],
+      "RESIDUAL_HEAT_BURN": [
+        "잔열 화상"
+      ],
+      "TRAY_CONTACT_INJURY": [
+        "트레이 접촉 부상"
+      ],
+      "ROTATING_HOOK_ENTANGLEMENT": [
+        "회전 훅 말림"
+      ],
+      "FOOT_CRUSH_INJURY": [
+        "발 압상"
+      ],
+      "CUTTING_BLADE_CONTACT_WHILE_OPERATING": [
+        "가동 중 칼날 절단"
+      ],
+      "CUT_DUE_TO_GLOVE_FAILURE": [
+        "장갑 성능 저하로 인한 절상"
+      ],
+      "DUST_EXPLOSION": [
+        "분진 폭발"
+      ],
+      "STEAM_BURN": [
+        "증기 화상"
+      ],
+      "BURN_FROM_FALLING_HOT_CONTENTS": [
+        "고온 내용물 낙하 화상"
+      ],
+      "FINGER_INJURY": [
+        "손가락 부상"
+      ],
+      "HOT_OBJECT_MULTIPLE_FALLING": [
+        "고온 트레이 다수 낙하"
+      ],
+      "CART_TIPOVER": [
+        "카트 전복"
+      ],
+      "HAND_BURN": [
+        "왼손 맨손 화상"
+      ],
+      "BURN_FROM_ACCIDENTAL_CUSTOMER_CONTACT": [
+        "고객 우발적 접촉 화상"
+      ],
+      "FALL_FROM_LOSS_OF_BALANCE": [
+        "균형 상실 추락"
+      ],
+      "TOXIC_GAS_POISONING": [
+        "유해 가스 중독",
+        "유해가스 중독"
+      ],
+      "GLASS_LACERATION": [
+        "유리 절상"
+      ],
+      "CHEMICAL_EXPLOSION": [
+        "화학 폭발"
+      ],
+      "CHEMICAL_VAPOR_EXPOSURE": [
+        "화학 증기 노출"
+      ],
+      "PALM_LACERATION": [
+        "손바닥 열상"
+      ],
+      "GONDOLA_OVERTURN_FALL": [
+        "곤돌라 전복 추락"
+      ],
+      "SKIN_BURN": [
+        "피부 화상"
+      ],
+      "FALL_FROM_ANKER_FAILURE": [
+        "앵커 파손으로 인한 추락"
+      ],
+      "FALL_ON_GROUND": [
+        "추락 시 지면 충돌"
+      ],
+      "SCRATCH": [
+        "할큄"
+      ],
+      "FALL_DUE_TO_STRONG_WIND": [
+        "강풍으로 인한 추락"
+      ],
+      "LOSS_OF_BALANCE": [
+        "균형 상실"
+      ],
+      "CHLORAMINE_GAS_INHALATION_POISONING": [
+        "클로라민 가스 흡입 중독"
+      ],
+      "CHEMICAL_EYE_AND_AIRWAY_INJURY": [
+        "눈·기도 화학 손상"
+      ],
+      "CHEMICAL_BURN_FROM_STRONG_ACID": [
+        "강산 화학 화상"
+      ],
+      "CYTOTOXIC_EXPOSURE": [
+        "세포독성 노출"
+      ],
+      "PESTICIDE_ABSORPTION_THROUGH_SKIN": [
+        "잔류 농약 피부 흡수"
+      ],
+      "CHEMICAL_ACCIDENT_DUE_TO_IMPROPER_DETERGENT_USE": [
+        "잘못된 세제 사용 화학 사고"
+      ],
+      "FALL_FROM_LADDER": [
+        "사다리 추락"
+      ],
+      "FIRE_SPREAD": [
+        "화재 확산"
+      ],
+      "CAUGHT_IN_CONFINED_SPACE": [
+        "밀폐 공간 끼임"
+      ],
+      "DETERGENT_INHALATION_POISONING": [
+        "세제 흡입 중독"
+      ],
+      "FUEL_FIRE": [
+        "연료 화재"
+      ],
+      "MACHINE_COLLISION_INJURY": [
+        "기계 충돌 부상"
+      ],
+      "BLADE_LACERATION": [
+        "칼날 절상"
+      ],
+      "MACHINE_FALLING_COLLISION_INJURY": [
+        "기계 낙하 충돌 부상"
+      ],
+      "ELECTRIC_SHOCK_DUE_TO_INSULATION_DAMAGE": [
+        "피복 손상 감전"
+      ],
+      "ROPE_BREAK_FALL": [
+        "로프 파단 추락"
+      ],
+      "FALL_FROM_KNOT_SLIP": [
+        "매듭 이탈 추락"
+      ],
+      "FALL_FROM_ROPE_FRICTION_BREAKAGE": [
+        "로프 마찰 파단 추락"
+      ],
+      "CHEMICAL_ABSORPTION_THROUGH_SKIN": [
+        "피부 화학 흡수",
+        "화학물질 피부 흡수"
+      ],
+      "CHEMICAL_BURN_FROM_STRONG_ACID_TO_EYE": [
+        "강산 눈 화학 화상"
+      ],
+      "CHILD_CHEMICAL_EXPOSURE": [
+        "아동 화학 노출"
+      ],
+      "CHEMICAL_INGESTION": [
+        "화학 물질 경구 섭취"
+      ],
+      "CHILD_ELECTRIC_SHOCK": [
+        "아동 감전"
+      ],
+      "KNIFE_SLIP_CUT": [
+        "칼 미끄러짐"
+      ],
+      "SKIN_PENETRATION": [
+        "피부 침투"
+      ],
+      "EYE_CHEMICAL_INJURY": [
+        "눈 화학 손상"
+      ],
+      "STRUCK_BY_ICE_FRAGMENT": [
+        "얼음 파편 충격"
+      ],
+      "CRUSHED_BY_MACHINE_OR_OBJECT": [
+        "작업자 압사"
+      ],
+      "CHEMICAL_SKIN_BURN": [
+        "화학물질 피부 화상"
+      ],
+      "LANDFILL_SLOPE_COLLAPSE": [
+        "매립지 사면 붕괴"
+      ],
+      "HEAVY_EQUIPMENT_OVERTURN": [
+        "중장비 전복"
+      ],
+      "CHEMICAL_REACTION_EXPLOSION": [
+        "화학 반응 폭발"
+      ],
+      "CHEMICAL_IRRITATION": [
+        "화학 자극"
+      ],
+      "DRIVER_ENTANGLEMENT": [
+        "드라이버 말림"
+      ],
+      "MERCURY_POISONING": [
+        "수은 중독"
+      ],
+      "HOT_STEAM_BURN": [
+        "고온 증기 화상"
+      ],
+      "PRESSURE_VESSEL_EXPLOSION": [
+        "압력 용기 폭발"
+      ],
+      "SHELF_COLLAPSE": [
+        "선반 붕괴"
+      ],
+      "SHARP_OBJECT_INJURY": [
+        "예리물 상해"
+      ],
+      "CHILD_CUT": [
+        "아동 절단"
+      ],
+      "CHILD_STABBING": [
+        "아동 찔림"
+      ],
+      "FALLING_FROM_WIRES": [
+        "전선 당김 낙하"
+      ],
+      "TV_FALLING": [
+        "TV 낙하"
       ]
     },
     "hazardous_agent": {
@@ -179,7 +595,9 @@
         "혼합 금지 물질",
         "코팅제 증기",
         "왁스 증기",
-        "고농도 소독제"
+        "고농도 소독제",
+        "유해 화학물질",
+        "화학물질 노출"
       ],
       "DUST": [
         "분진",
@@ -285,7 +703,8 @@
         "고열 챔버",
         "저온 바닥",
         "발열 멀티탭",
-        "고온 기름"
+        "고온 기름",
+        "열"
       ],
       "BIOLOGICAL": [
         "감염",
@@ -297,7 +716,8 @@
         "병원체 노출",
         "생물학적",
         "의료 폐기물",
-        "혈액 노출"
+        "혈액 노출",
+        "생물학적 위험"
       ],
       "STATIC_ELECTRICITY": [
         "정전기",
@@ -310,17 +730,21 @@
       ],
       "GASOLINE_VAPOR": [
         "휘발유 증기",
-        "휘발유 유증기"
+        "휘발유 유증기",
+        "가솔린"
       ],
       "TOBACCO_SMOKE": [
         "담배 연기",
         "흡연 연기",
-        "간접흡연"
+        "간접흡연",
+        "흡연"
       ],
       "ULTRAVIOLET_RADIATION": [
         "자외선",
         "UV",
-        "자외선 노출"
+        "자외선 노출",
+        "UV 광선",
+        "UV 누출"
       ],
       "ASBESTOS_DUST": [
         "석면 분진",
@@ -346,7 +770,116 @@
         "방사선",
         "방사선 반복 노출",
         "X선 노출",
-        "radiation"
+        "radiation",
+        "X선"
+      ],
+      "COLD_FLOOR": [
+        "저온 바닥"
+      ],
+      "DISTRIBUTION_BOARD": [
+        "분전반"
+      ],
+      "OXYGEN_DEFICIENCY": [
+        "산소 결핍"
+      ],
+      "HIGH_HEAT": [
+        "고열"
+      ],
+      "WET_FLOOR": [
+        "습윤 바닥"
+      ],
+      "PROLONGED_EXPOSURE_TO_COLD_ENVIRONMENT": [
+        "저온 환경 장기 노출"
+      ],
+      "RESIDUAL_ROTATION": [
+        "잔류 회전"
+      ],
+      "HOT_WATER": [
+        "고온 온수"
+      ],
+      "HOT_SURFACE": [
+        "고열 표면"
+      ],
+      "HOT_EQUIPMENT": [
+        "고온 기구"
+      ],
+      "ELECTRICAL_OVERLOAD": [
+        "전기 과부하"
+      ],
+      "HOT_TRAY": [
+        "고온 트레이"
+      ],
+      "HOT_PARTS": [
+        "고온 부품"
+      ],
+      "BLOODBORNE_PATHOGEN": [
+        "혈액 매개 감염"
+      ],
+      "HEAVY_OBJECT": [
+        "중량물"
+      ],
+      "HIGH_TEMPERATURE_ENVIRONMENT": [
+        "고온 환경"
+      ],
+      "HIGH_TEMPERATURE_STEAM": [
+        "고온 증기"
+      ],
+      "UV_LAMP_RESIDUAL_HEAT": [
+        "UV 램프 잔열"
+      ],
+      "DENTAL_X_RAY": [
+        "치과 방사선"
+      ],
+      "DENTAL_XRAY_REPEATED_EXPOSURE": [
+        "치과 X선 반복 노출"
+      ],
+      "SCATTERED_RADIATION": [
+        "산란 방사선"
+      ],
+      "RADIATION_EXPOSURE_DURING_PREGNANCY": [
+        "임신 중 방사선 노출"
+      ],
+      "REPEATED_RADIATION_EXPOSURE": [
+        "방사선 반복 노출"
+      ],
+      "KARAOKE_ROOM_NOISE": [
+        "노래방 고소음"
+      ],
+      "EARPHONE_NOISE": [
+        "이어폰 소음"
+      ],
+      "NOISE_105_DB": [
+        "합산 105dB 소음"
+      ],
+      "KARAOKE_NOISE": [
+        "노래방 소음"
+      ],
+      "GASOLINE_MICRO_LEAKAGE": [
+        "휘발유 미세 누출"
+      ],
+      "SMALL_QUANTITY_GASOLINE": [
+        "소량 휘발유"
+      ],
+      "PROLONGED_COLD_EXPOSURE": [
+        "저온 장기 노출"
+      ],
+      "RADIANT_HEAT": [
+        "고온 복사열"
+      ],
+      "EXTREME_COLD_SURFACE": [
+        "극저온 표면"
+      ],
+      "CRYOGENIC_AGENT": [
+        "극저온"
+      ],
+      "ELECTRICITY_WATER_CONTACT": [
+        "전기 물 접촉"
+      ],
+      "EXTREME_COLD_ENVIRONMENT": [
+        "극저온 환경"
+      ],
+      "REPEATED_EXTREME_COLD_EXPOSURE": [
+        "극저온 반복 노출"
       ]
     },
     "work_context": {
@@ -939,6 +1472,12 @@
       "applied_at": "2026-05-17T03:42:28.311606+00:00",
       "aliases_added": 35,
       "duplicates_skipped": 0
+    }
+  ],
+  "_phase3b_audit": [
+    {
+      "applied_at": "2026-05-17T09:28:22.333712+00:00",
+      "aliases_added": 193
     }
   ]
 }
