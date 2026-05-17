@@ -121,11 +121,11 @@ def main() -> int:
             g.add((a_iri, OWL.disjointWith, b_iri))
             added_vetted += 1
         else:
-            # Soft: use annotation pattern via blank node
-            disjoint_node = BNode()
-            g.add((disjoint_node, RDF.type, OWL.AllDisjointClasses))
-            g.add((disjoint_node, OWL.members, BNode()))  # placeholder
-            # Simpler: use disjointWith but annotate with level
+            # Soft: disjointWith pair + level annotation (rdfs:comment)
+            # 과거에 owl:AllDisjointClasses + owl:members BNode placeholder를
+            # 동시에 emit하던 dead code가 있었으나 빈 rdf:List를 만들어
+            # Openllet에서 "Invalid _list structure" WARNING의 원인이었음.
+            # disjointWith pair-form만으로 동일 의미를 표현하므로 제거.
             g.add((a_iri, OWL.disjointWith, b_iri))
             g.add((a_iri, RDFS.comment, Literal(f"disjoint:candidate {b_name} conf={confidence:.2f}", lang="ko")))
             added_candidate += 1
