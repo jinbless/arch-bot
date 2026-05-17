@@ -4,6 +4,11 @@
 > 코드를 EN으로 변환. 본 commit은 prep 도구 + 워크플랜만 포함, 실행은
 > 다음 세션.
 
+> **✅ 완료됨 (2026-05-17, commit `5ee9639` Phase 3D)** — synthetic v1~v10 EN enum
+> transform 적용 + `replay_baseline_v3.json` 새 baseline 생성. 후속 작업으로
+> `commit 2ea800d` C cleanup (KB incompat KO→EN 2,232 entries 100% translated)도
+> 완료. 본 문서는 historical reference로 보존.
+
 ## 배경
 
 F.1-light / F.2-light에서 발견:

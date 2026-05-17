@@ -1,12 +1,71 @@
 # Evaluation Baseline
 
-Latest updated: 2026-05-16
+Latest updated: 2026-05-17 (F.3.3 Gate 3 regression PASS — 8 candidate axiom production-safe)
 
 Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
 Previous accepted baseline: `ci_unrelated_action_filter1`
 
 The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are local/external artifacts. Root git tracks `data-team/05-enrichment/eval-data/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## F.3.3 Gate 3 Regression — 2026-05-17 (F.3.2 first batch 영향 측정)
+
+Plan agent의 4-Gate 중 Gate 3 (counter-example regression). F.3.2 sprint에서 KB
+머지된 8 candidate disjoint axiom이 production 회귀를 일으키지 않는지 측정.
+
+Input:
+- Baseline: `data-team/05-enrichment/runtime-artifacts/replay_baseline_v3.json` (Phase 3D 후)
+- Current run: `data-team/05-enrichment/runtime-artifacts/replay_post_f32.json`
+- 평가 corpus: 2,360 synthetic observations (v1~v10 EN transform 후)
+- KB 상태: 2,232 vetted + 8 F.3.2 candidate = **2,240** incompat
+
+Result (regression_gate.py tolerance 0.02):
+
+| metric | baseline_v3 | post-F.3.2 | delta | verdict |
+|---|---|---|---|---|
+| she_accuracy | 0.5771 | 0.5758 | -0.0013 | ok (noise) |
+| sr_accuracy | 0.7581 | 0.7581 | 0.0000 | ok |
+| penalty_accuracy | 0.1835 | 0.1835 | 0.0000 | ok |
+| overall_accuracy | 0.1377 | 0.1377 | 0.0000 | ok |
+| false_positive_rate | 0.8696 | 0.8696 | 0.0000 | ok |
+| false_negative_rate | 0.0625 | 0.0625 | 0.0000 | ok |
+| valid / total | n/a | 2,360 / 2,360 | — | 0 errored ✅ |
+
+**PASS** — 8 candidate 모두 Gate 3 통과. asymmetric trust 본래 의도대로
+`promote_incompatibilities.py`가 50회 사용 후 자동 vetted 승격 유지.
+
+Hot-fix 노트 (commit `a841a0b` → main `d0b2262`): 첫 replay에서 1,700/2,360 errored
+발견 — A 변경 (commit `ebe1011`)의 `raw_vision_features=dict(...)`가 list 입력에
+`ValueError: dictionary update sequence element #0 has length 4; 2 is required`
+발생. `list` 타입으로 수정 후 0 errored 회복.
+
+보고서: [f33-gate3-regression-2026-05-17.md](f33-gate3-regression-2026-05-17.md).
+
+## Phase 3 reasoning catch (누적, 2026-05-17)
+
+ontology reasoning이 LLM 환각/과대추정 **1,902건 자동 차단**. 자세히는
+[reasoning-catch-effectiveness-2026-05-17.md](reasoning-catch-effectiveness-2026-05-17.md).
+
+| catch 메커니즘 | 차단 건수 |
+|---|---|
+| Ensemble disagreement (Phase 3A HUMAN queue) | 228 |
+| Freq threshold (1007 NEW → 170) | 837 |
+| Catalog validation mapping | 813 |
+| SHACL enum validation (Phase 3 Step 2) | 24 |
+| Disjoint axioms (preventive) | ∞ |
+| **합계** | **1,902** |
+
+## F.3.0 reject reason distribution (2026-05-17)
+
+`docs/status/f30-reject-reason-classification-2026-05-17.md` 정본.
+
+2,525 excluded entries 5 카테고리:
+- domain_mismatch 1,136 (44.99%) — KB axiom 작동 중
+- axiom_missing 920 (36.44%) — F.3.2 input pool (210 unique pair)
+- ambiguous 466 (18.46%)
+- data_quality 3 (0.12%)
+- normalizer_gap 0 (별도 신호 채널 필요)
+- **F.3 recommendation: PROCEED_F3** (≥5% 임계의 7배)
 
 ## CI Cross Guide Broad Only Guard 1
 

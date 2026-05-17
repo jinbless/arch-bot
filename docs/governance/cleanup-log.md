@@ -4,6 +4,87 @@
 
 ---
 
+## 2026-05-17 (Phase 3 + F.3 first batch + Hot-fix): 자율 axiom learning loop 첫 정식 단계
+
+같은 날 후반에 Phase 3 (catalog v4 + SHE pattern + reasoning catch 측정) 마무리 후
+Phase F.3 자율 axiom learning loop 첫 sprint 진행. 사용자 설계의 "runtime 4번 →
+build-time loop" 환류 구조의 첫 정식 단계.
+
+### 작업 요약
+
+**Phase 3 (commit `35345db` ~ `52ea7e7`)**:
+- Phase 3A: synthetic KO codes hybrid ensemble 검증 (1,914 codes)
+- Phase 3B: catalog v4 (+170 신규 codes + 169 sub + 193 aliases)
+- Phase 3D: synthetic v1~v10 EN enum transform + `replay_baseline_v3.json`
+- Phase 3C: direct LLM SHE pattern 생성 (498 신규, validation 후 누적 1,616)
+- Phase 3G: integrity sweep (SHACL/Openllet/SPARQL/PG 검증 통과)
+- Phase 3 validation: reasoning이 LLM 환각/과대추정 **1,902건 차단** 정량화
+- 8 real-test-photo 라이브: 평균 사진당 1건 부적절 추천을 reasoning이 reject
+- 보고: `docs/status/reasoning-catch-effectiveness-2026-05-17.md`
+
+**Phase F.3 first batch (commit `8ff40d7` ~ `eb7843f`)**:
+- F.3.0 reject reason classifier — analysis_log 2,525 entries 5 카테고리 분류 →
+  `axiom_missing 36.44%` (920건, 210 unique pair) → PROCEED_F3 결정
+- A Runtime 4번 채널 hook — `analysis_log.jsonl`에 3 신규 필드 (normalizer_unknown_codes,
+  she_match_count, raw_vision_features) 추가. 향후 F.3.5 cron 환류 input pool
+- C cleanup — `guide_domain_incompatibilities.json` 2,232 entries 100% KO→EN 변환
+  (mining 정확도 normalize)
+- B F.3.2 mine_missing_axioms — 49 LLM verify → 8 accepted candidate axiom KB 머지
+  (incompatible_count 2,232 → 2,240)
+- Hot-fix (commit `a841a0b` → main `d0b2262`): A의 `raw_vision_features` dict→list
+  타입 수정 (첫 replay에서 1,700/2,360 errored 발견·수정·검증)
+- F.3.3 Gate 3 regression PASS (commit `eb7843f`): 2,360 valid, 0 errored, vs
+  baseline_v3 모든 metric delta 0 또는 -0.0013 (노이즈) → 8 candidate
+  production-safe 검증
+- 보고: `docs/status/f30-reject-reason-classification-2026-05-17.md`,
+  `docs/status/f33-gate3-regression-2026-05-17.md`
+
+### 신규 산출물
+
+**Data team scripts (`data-team/05-enrichment/llm-scripts/`)**:
+- `classify_reject_reasons.py` — F.3.0 분류기 (regex + pair-check + optional LLM 2nd pass)
+- `mine_missing_axioms.py` — F.3.2 miner (axiom_missing pair → LLM verify → candidate 머지)
+- `translate_incompat_industries.py` — C cleanup (KO→EN)
+
+**Backend (`serving-team/08-app/backend/`)**:
+- 수정 `app/services/analysis_pipeline.py` — AnalysisKnowledgeContext + _append_analysis_log
+  에 3 신규 필드 + raw_vision_features 타입 fix
+
+**Runtime artifacts**:
+- `reject_reason_classified.jsonl` (2,525 entries)
+- `reject_reason_distribution.json`, `reject_reason_sample_100.jsonl`
+- `replay_post_f32.json` (2,360 cases, F.3.3 Gate 3 input)
+- `guide_domain_incompatibilities.json` (2,232 → 2,240, EN-normalized)
+- `incompatibility_audit.jsonl` (+49 F.3.2 verify entries)
+
+**Docs**:
+- 신규 `docs/status/f30-reject-reason-classification-2026-05-17.md`
+- 신규 `docs/status/f33-gate3-regression-2026-05-17.md`
+- 수정 `docs/status/current-session.md`, `docs/README.md`,
+  `docs/architecture/4-layer-architecture.md`,
+  `docs/architecture/ontology-learning-layer.md`,
+  `docs/status/evaluation-baseline.md`,
+  `docs/workplans/llm-accelerated-ontology-engineering.md`,
+  `docs/status/README.md`, `docs/governance/data-governance.md`,
+  `data-team/05-enrichment/README.md`, root `README.md`
+
+### main 진척
+
+`52ea7e7 → 5b10980` (8 commits 추가, push 완료).
+
+### 알려진 한계 / 다음 우선순위
+
+- A hook `_apply_llm_rerank` early-return 시 미실행 (LLM_RERANK_MODE=off 또는
+  knowledge.guide_rows 비어있을 때) — 별도 항상-실행 hook 후보
+- "편의점" KO industry가 `industry_ko_to_en_map.json` (84 entry)에서 빠짐 — 확장 후보
+- 8 candidate axiom은 `level=candidate`이고, 50회 사용 후 `promote_incompatibilities.py`로
+  vetted 자동 승격 (Gate 3 PASS라 즉시 수동 승격도 가능)
+- F.3.0 LLM 2nd pass 미실행 (ambiguous 466건 ~$1 비용으로 회수 가능)
+- **다음 우선순위: F.1 Normalizer auto-registration (1주)** — Layer 1 alias 자율 등재.
+  8 real-test-photo의 75% Normalizer miss 해소가 목표
+
+---
+
 ## 2026-05-17 (Phase E-prep + Layer 4 설계): LLM-Accelerated Ontology Engineering
 
 두 세션(2026-05-16~17)에 걸쳐 LLM-Accelerated 정석 ontology engineering 완료. 사용자 통찰(BFO+LKIF 2-layer, closed vocabulary 기각, Layer 4 별도 필요성) 반영.

@@ -1,6 +1,6 @@
 # Data Governance
 
-Latest updated: 2026-05-15
+Latest updated: 2026-05-17 (F.3 first batch artifacts tracked)
 
 ## Purpose
 
@@ -63,6 +63,10 @@ Examples:
 - `ontology-team/06-reasoning/ontology/serving-validation-report-ci_broad_sr_guard4.*` is tracked because it records machine-found anomaly queues for the accepted baseline.
 - `data-team/02-extraction/pipe-B/data/manual-guide-usage-profiles.json` is a materialized pipeline baseline and is tracked.
 - `data-team/02-extraction/pipe-B/data/vlm-parse-errors.jsonl` remains tracked because it was part of the pushed Pipe-B source baseline.
+- `data-team/05-enrichment/runtime-artifacts/reject_reason_classified.jsonl`, `reject_reason_distribution.json`, `reject_reason_sample_100.jsonl` are F.3.0 audit artifacts and are tracked (mining input for F.3.2 and downstream).
+- `data-team/05-enrichment/runtime-artifacts/replay_post_f32.json` is the F.3.3 Gate 3 regression artifact for the F.3.2 first axiom batch and is tracked (proves production safety).
+- `data-team/05-enrichment/runtime-artifacts/incompatibility_audit.jsonl` is the cumulative LLM verify audit (Phase A.2 / C.2 / F.3.2) and is tracked.
+- `data-team/05-enrichment/runtime-artifacts/*.bak.*` (e.g. `guide_domain_incompatibilities.json.bak.partC` after C cleanup) are pre-mutation backups and are not tracked.
 - ad hoc files such as `tmp-*.json`, VLM parse logs, raw model logs, browser cache, and local scratch files are not tracked.
 
 ## Report Policy

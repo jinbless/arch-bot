@@ -101,9 +101,9 @@
 **7단계 (목표) — 추가 재물질화 대상**:
 | PG 테이블 | 재물질화 내용 | 현재 → 7단계 |
 |---|---|---|
-| `she_patterns` | reasoner 추론 신규 패턴 | 수백 → 수천 |
+| `she_patterns` | reasoner 추론 신규 패턴 | 1,616 (Phase 3 validation 후) → 수천 |
 | `guide_usage_profiles` | 현재 `guide_domain_profiles.json` | JSON lookup → PG SELECT |
-| `guide_domain_incompatibilities` (신규) | LLM-mined KB (vetted 2,232) | JSON → PG SELECT |
+| `guide_domain_incompatibilities` (신규) | LLM-mined KB (2,232 vetted + 8 F.3.2 candidate = **2,240**) | JSON → PG SELECT |
 | `ci_sr_mapping` | reasoner 도출 매핑 확장 | 수동 → 자동 추론 |
 | `penalty_rules` + `penalty_conditions` | deontic chain | 수동 → 자동 도출 |
 
@@ -146,6 +146,12 @@
 8. 응답 JSON 반환
    ↓
 9. Layer 4 hook: analysis_log.jsonl append (자율 학습 데이터 누적)
+   - 기본 필드: scene_hash, industry, candidate_count, filter_keep/gray/drop, excluded[]
+   - **A 신규 필드 (2026-05-17, commit `ebe1011` + hot-fix `a841a0b`)**:
+     `normalizer_unknown_codes` (Layer 1 매핑 실패 raw text),
+     `she_match_count` (Layer 2 SHE matcher 매치 수, 0이면 새 SHE 패턴 후보),
+     `raw_vision_features` (Layer 0 Vision LLM 원본 출력)
+   - 한계: `LLM_RERANK_MODE=off` 또는 `knowledge.guide_rows` 비어있는 early-return 시 hook 미실행 (별도 후속)
 ```
 
 ## 진화 path
@@ -153,10 +159,13 @@
 상세: [llm-dependency-evolution.md](llm-dependency-evolution.md)
 
 ```
-[현재] Layer 0-3 + Layer 4 일부 (Phase C incompatibility)
-    ─ LLM 의존 hybrid
-[Phase E.2] Layer 2 완성 (Openllet 실제 통합)
-[Phase F+] Layer 4 본격 (vocabulary + TBox + rule 자율 학습)
+[현재 (2026-05-17)]
+    Layer 0-3 + Phase E.2 (Openllet 통합 완료) + Phase 3 (1,616 SHE, reasoning 1,902건 차단)
+    + Layer 4 일부 (Phase C incompatibility + F.3.0 분류 + F.3.2 first batch 8 candidate + A hook)
+    ─ LLM 의존 hybrid → Layer 4 본격 진입 중
+[Phase F.1] Layer 1 Normalizer auto-registration (다음 우선순위, 1주)
+[Phase F.3 본격] Layer 4 closed loop (F.3.1 reasoner channel + F.3.4 compile + F.3.5 cron)
+[Phase G/7단계] PG materialize (reasoner 결과 → 서빙 ms 응답)
 [Phase J] OBO Foundry 등재 (오픈소스, 국제 표준)
 ```
 

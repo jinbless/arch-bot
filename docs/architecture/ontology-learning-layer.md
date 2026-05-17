@@ -6,7 +6,7 @@
 
 ## 왜 Layer 4가 필요한가
 
-**Layer 1-3은 추론기**, Layer 4는 **학습기**. 별도 component:
+**Layer 1-3은 추론기**, Layer 4는 **학습기**. 별도 component (현재 analysis_log 누적 2,536+건, F.3.0/F.3.2 first batch 완료):
 
 - **OWL DL reasoner** = deductive (TBox + ABox → 결론 도출)
 - **Ontology Learning** = inductive (데이터 → 새 vocabulary/class/rule 발견)
@@ -146,20 +146,37 @@ asymmetric trust → TBox candidate class 등재
 
 ### Module 4.4 — Axiom Discovery (Task D) ★ 학계 미답
 
-**대상**: SWRL rules + SHACL shapes 자동 생성
+**대상**: SWRL rules + SHACL shapes + DisjointClasses axioms 자동 생성
 
 **학계 reference**:
 - LLMs4OL Task 6 (Axiom Discovery): 학계 empirical 검증 부재
 - **우리 Phase E.3**: 22 SWRL + 26 SHACL 자동 생성 — 학계 미답 영역 첫 구현
+- **우리 Phase F.3.2 first batch** (2026-05-17, commit `9219c7c`): F.3.0 분류 결과의
+  axiom_missing pair (freq ≥ 5) → LLM verify → 8 candidate disjoint axiom KB 머지
+  (`mine_missing_axioms.py`). incompatible_count 2,232 → 2,240. F.3.3 Gate 3
+  regression PASS (commit `eb7843f`).
 
-**개선 (Phase F.3)**:
+**진행 (2026-05-17)**:
+- F.3.0 `classify_reject_reasons.py` — analysis_log 2,525 entries 5 카테고리 분류 →
+  axiom_missing 36.44% (920건, 210 unique pair) → F.3 PROCEED 결정
+- F.3.2 `mine_missing_axioms.py` — 49 LLM verify → 8 accepted (16% rate)
+- F.3.3 Gate 3 — 2,360 synthetic replay PASS (delta -0.0013 노이즈 수준)
+- 4-Gate 검증: Gate 1 embedding pre-filter (mine 단계), Gate 2 LLM verify ✅,
+  Gate 3 regression ✅, Gate 4 asymmetric trust (`level=candidate`, 50회 후 자동 승격)
+
+**개선 (Phase F.3+)**:
+- F.3.1 Reasoner reject channel (pyshacl in-process, shadow mode)
+- F.3.2 Disjoint-only → SWRL/SHACL 후보 generalize
+- F.3.4 KB compilation hook (TTL regenerate + Fuseki reload)
+- F.3.5 Cron + drift detection (`Makefile learn-axioms`)
 - OOPS! Pitfall Scanner 통합 (Lippolis 4-dim eval)
-- Ensemble verification (multi-LLM)
-- LinkML schema 기반 SHACL 자동 export
+- Ensemble verification (multi-LLM, 현재 single-LLM)
 
 **구현**:
 - 기존: `build_swrl_rules.py`, `build_shacl_shapes.py`, `fix_shacl_shapes.py`
-- 추가: `validate_axioms_oops.py` (OOPS! 통합)
+- 신규 (2026-05-17): `classify_reject_reasons.py`, `mine_missing_axioms.py`,
+  `translate_incompat_industries.py` (KO→EN cleanup, F.3 mining 정확도 prerequisite)
+- 추가 예정: `validate_axioms_oops.py` (OOPS! 통합), `reasoner_validator.py` (F.3.1)
 
 ### Module 4.5 — CQ Reverse Engineering
 
@@ -202,12 +219,20 @@ asymmetric trust → TBox candidate class 등재
 - Maintenance phase는 학계 최약점 (Documentation 2.4%만 다룸)
 
 **우리 현재 운영**:
-- Phase C analysis_log.jsonl 영구 누적 (현재 2,528건)
+- Phase C analysis_log.jsonl 영구 누적 (현재 2,536+건)
 - Phase C.2 cron mining (100건 누적 시)
 - Phase C.3 asymmetric trust promotion
+- **A Runtime 4번 채널 hook (2026-05-17, commit `ebe1011` + hot-fix `a841a0b`)** —
+  analysis_log 각 entry에 3 신규 필드 (`normalizer_unknown_codes`, `she_match_count`,
+  `raw_vision_features`). F.3.5 환류 input pool로 "매칭 안 된 새 SHE 후보" 식별 가능.
+- **F.3.0 reject reason classifier (2026-05-17, commit `8ff40d7`)** — analysis_log를
+  5 카테고리로 분류해 mining 신호 분기 (domain_mismatch / axiom_missing /
+  normalizer_gap / data_quality / ambiguous)
 
 **개선**:
-- cron 자동화 + audit log + drift detection
+- A hook always-on (현재 `_apply_llm_rerank` early-return 시 미실행 — 별도 hook 필요)
+- F.3.5 cron 자동화 (`Makefile learn-axioms` chain: F.3.0 → 3.2 → 3.3 → 3.4 → replay)
+- audit log + drift detection (주간 false_negative_rate 비교, +2pp 초과 시 알림)
 - 사용자 explicit feedback UI (Phase H)
 
 ## 학계 reference 5/5 합의 (Layer 4 필수 구성)
@@ -254,16 +279,21 @@ asymmetric trust → TBox candidate class 등재
 
 ## Phase F+ 로드맵 (Module별)
 
-| Phase | Module | 작업 |
-|---|---|---|
-| F.1 | 4.1 | Vocabulary auto-registration cron + 4-gate |
-| F.2 | 4.2 | TBox class learning (LLM4OL Task B + Ontogenia) |
-| F.3 | 4.4 | SWRL/SHACL Discovery 자동화 + ensemble |
-| F.4 | 4.5 | CQ Reverse + Photo persist + SPARQL coverage 회복 |
-| F.5 | 4.6 | GraphRAG (Salovsky Dual Memory) |
-| F.6 | 4.7 | Continual Adaptation (cron + drift detection) |
-| F.7 | (전체) | Small model fine-tune (Aggarwal Dolphin-Mistral-7B) |
-| F.8 | (전체) | OBO Foundry/IOF 등재 + LegalRuleML |
+| Phase | Module | 작업 | 상태 |
+|---|---|---|---|
+| F.1 | 4.1 | Vocabulary auto-registration cron + 4-gate | ⏳ (A hook으로 input pool 준비 완료) |
+| F.2 | 4.2 | TBox class learning (LLM4OL Task B + Ontogenia) | ⏳ |
+| **F.3.0** | **4.7** | **Reject reason classifier** | ✅ 완료 (2026-05-17, `8ff40d7`) |
+| **F.3.2** | **4.4** | **Missing-axiom miner (Disjoint-only first batch)** | ✅ 완료 (2026-05-17, `9219c7c`, 8 candidate) |
+| **F.3.3** | **4.4** | **Gate 3 regression PASS** | ✅ 완료 (2026-05-17, `eb7843f`) |
+| F.3.1 | 4.4 | Reasoner reject channel (pyshacl shadow) | ⏳ |
+| F.3.4 | 4.4 | KB compilation hook (TTL + Fuseki reload) | ⏳ |
+| F.3.5 | 4.7 | Cron + drift detection (`Makefile learn-axioms`) | ⏳ |
+| F.4 | 4.5 | CQ Reverse + Photo persist + SPARQL coverage 회복 | ⏳ |
+| F.5 | 4.6 | GraphRAG (Salovsky Dual Memory) | ⏳ |
+| F.6 | 4.7 | Continual Adaptation 확장 | ⏳ |
+| F.7 | (전체) | Small model fine-tune (Aggarwal Dolphin-Mistral-7B) | ⏳ |
+| F.8 | (전체) | OBO Foundry/IOF 등재 + LegalRuleML | ⏳ |
 
 ## 즉시 적용 권장 (ROI 큼)
 

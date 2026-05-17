@@ -4,6 +4,13 @@ LLM으로 서빙에 부족한 온톨로지 레이어를 보강하는 단계.
 
 **중요**: 5번은 **임시 단계**입니다. 6단계(공리/OWL/SHACL/리즈너)가 안정화되면 자연 폐지됩니다.
 
+**현재 진행 상태 (2026-05-17)**:
+- Phase E.2 완료 — Fuseki Java가 v2 ontology + disjoint + SHACL + 172 subClassOf 로드 (commit `3520cab`)
+- Phase 3 완료 — catalog v4 (1,914 codes), 498 SHE patterns 생성/검증, reasoning이 LLM 환각 1,902건 차단
+- **Phase F.3 first batch 완료** — F.3.0 reject reason 분류 (axiom_missing 36.44%) + F.3.2 mine_missing_axioms (49 verify → 8 accepted) + F.3.3 Gate 3 regression PASS
+- 신규 LLM 스크립트: `llm-scripts/{classify_reject_reasons.py, mine_missing_axioms.py, translate_incompat_industries.py}` (이번 sprint 추가)
+- Layer 4 (Ontology Learning, cross-cutting) 7-module 정밀 설계 정착 — 상세 [`docs/architecture/ontology-learning-layer.md`](../../docs/architecture/ontology-learning-layer.md)
+
 ## 현재 디렉토리 구성
 
 | 하위 | 내용 |

@@ -1,6 +1,6 @@
 # arch-bot 문서 색인
 
-최신 갱신일: 2026-05-16
+최신 갱신일: 2026-05-17 (F.3 first batch + Hot-fix + Gate 3 regression PASS, main `5b10980`)
 
 이 디렉토리는 `arch-bot` 모노레포의 모든 문서의 단일 진입점이다.
 루트에는 `README.md`(짧은 진입)와 `CLAUDE.md`(Claude Code 자동 로드 메타)만 두고, 모든 콘텐츠는 여기 산하에 둔다.
@@ -28,13 +28,19 @@ docs:
 
 3. [status/current-session.md](status/current-session.md) — 다음 세션 시작 지침
 4. [status/evaluation-baseline.md](status/evaluation-baseline.md) — 현재 baseline 정본
-5. [governance/monorepo-transition.md](governance/monorepo-transition.md) — 모노레포 전환 이력
-6. [governance/data-governance.md](governance/data-governance.md) — 데이터 추적/제외 정책
-7. [governance/repositories.md](governance/repositories.md) — 레포 매핑 + 외부 의존
-8. [architecture/source-provenance.md](architecture/source-provenance.md) — 출처/근거 레이어 설계
-9. [workplans/llm-domain-guard.md](workplans/llm-domain-guard.md) — 활성 워크플랜
-10. [ontology/README.md](ontology/README.md) → [00-integrated-structure.md](ontology/00-integrated-structure.md) → 01~05 레이어
-11. [backlog/refactor-candidates.md](backlog/refactor-candidates.md) — 리팩토링 후보 큐
+5. [status/reasoning-catch-effectiveness-2026-05-17.md](status/reasoning-catch-effectiveness-2026-05-17.md) — Phase 3 reasoning이 LLM 환각 1,902건 차단 보고
+6. [status/f30-reject-reason-classification-2026-05-17.md](status/f30-reject-reason-classification-2026-05-17.md) — F.3.0 reject reason 5 카테고리 분류 (axiom_missing 36.44%)
+7. [status/f33-gate3-regression-2026-05-17.md](status/f33-gate3-regression-2026-05-17.md) — F.3.3 Gate 3 PASS (8 candidate axiom production-safe)
+8. [workplans/llm-accelerated-ontology-engineering.md](workplans/llm-accelerated-ontology-engineering.md) ⭐ — **메인 plan** (Phase 0~F.3 진행 통합)
+9. [governance/monorepo-transition.md](governance/monorepo-transition.md) — 모노레포 전환 이력
+10. [governance/data-governance.md](governance/data-governance.md) — 데이터 추적/제외 정책
+11. [governance/repositories.md](governance/repositories.md) — 레포 매핑 + 외부 의존
+12. [architecture/source-provenance.md](architecture/source-provenance.md) — 출처/근거 레이어 설계
+13. [architecture/4-layer-architecture.md](architecture/4-layer-architecture.md) — Layer 0-4 전체 구조
+14. [architecture/ontology-learning-layer.md](architecture/ontology-learning-layer.md) — Layer 4 7-module 정밀 설계
+15. [workplans/llm-domain-guard.md](workplans/llm-domain-guard.md) — 활성 워크플랜
+16. [ontology/README.md](ontology/README.md) → [00-integrated-structure.md](ontology/00-integrated-structure.md) → 01~05 레이어
+17. [backlog/refactor-candidates.md](backlog/refactor-candidates.md) — 리팩토링 후보 큐
 
 하위 프로젝트:
 

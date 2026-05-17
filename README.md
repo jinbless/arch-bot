@@ -87,17 +87,21 @@ make dev-down       # 정지
 
 ## Current Status
 
-- **Accepted runtime baseline**: `ci_cross_guide_broad_only_guard1` (2026-05-16)
+- **Accepted runtime baseline**: `ci_cross_guide_broad_only_guard1` (2026-05-17 F.3.3 regression verified)
 - **Previous accepted baseline**: `ci_unrelated_action_filter1`
+- **KB incompatibility 누적**: 2,232 vetted + 8 F.3.2 candidate = **2,240**
+- **Phase F.3 first batch 완료** — F.3.0 분류 (axiom_missing 36.44%) + F.3.2 (49 verify → 8 accepted) + F.3.3 Gate 3 PASS
 - **메트릭/historical baseline/PG candidate refresh 전체**: [docs/status/evaluation-baseline.md](docs/status/evaluation-baseline.md) 정본 참조
 
 핵심 요약:
 
 ```text
-synthetic Stage 2~5 v1~v10: 2,360 cases
+synthetic Stage 2~5 v1~v10: 2,360 cases (post-F.3.2 0 errored)
+she_accuracy (post-F.3.2 vs baseline_v3): 0.5758 (delta -0.0013 noise) — regression PASS
 Guide mismatch: 5   NO_TOP: 88   CI no_action: 495
 serving ontology validation: PASS (hard 0, warning 0)
 actual response 240 status changed: 0
+F.3 reasoning catch (Phase 3 누적): 1,902건 LLM 환각/과대추정 자동 차단
 ```
 
 ## Next Session

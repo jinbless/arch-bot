@@ -8,6 +8,10 @@
 |---|---|
 | [evaluation-baseline.md](evaluation-baseline.md) | **평가 baseline 정본** — 현재 accepted 메트릭 + historical baseline + PG candidate refresh + Rejected approaches |
 | [current-session.md](current-session.md) | 다음 세션 시작 지침 — 먼저 읽을 문서·OHS 실행·검증 명령·다음 작업 큐 |
+| [reasoning-catch-effectiveness-2026-05-17.md](reasoning-catch-effectiveness-2026-05-17.md) | Phase 3 마무리 — ontology reasoning이 LLM 환각/과대 추정 1,902건을 정량적으로 차단한 보고 |
+| [f30-reject-reason-classification-2026-05-17.md](f30-reject-reason-classification-2026-05-17.md) | F.3.0 — 2,525 reject reason 5 카테고리 분류 (axiom_missing 36.44% → PROCEED F.3) |
+| [f33-gate3-regression-2026-05-17.md](f33-gate3-regression-2026-05-17.md) | F.3.3 — 2,360 synthetic Gate 3 regression PASS (8 candidate axiom production-safe) |
+| [phase3-baseline-shift.md](phase3-baseline-shift.md) | Phase 3D 후 synthetic 변환으로 인한 baseline_v3 shift 분석 |
 
 ## 정책
 
