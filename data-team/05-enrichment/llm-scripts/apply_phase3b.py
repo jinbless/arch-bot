@@ -303,39 +303,65 @@ def main():
     ttl_text = "\n".join(ttl_lines) + "\n"
 
     # === Build Phase 3D mapping (synthetic_ko_to_en_final.json) ===
-    # For each KO code (across all audited): decide final mapping
-    final_mappings: dict[str, dict[str, str]] = defaultdict(dict)  # axis_synth → ko → en_code
-    drop_list: dict[str, list[str]] = defaultdict(list)  # axis_synth → [ko_codes]
-    reloc_map: dict[str, dict[str, dict]] = defaultdict(dict)  # axis_synth → ko → {target_axis, target_code}
+    # CRITICAL: only emit mapping if target_code is actually in catalog v4
+    # (existing OR newly added in this Phase 3B run). Otherwise synthetic will
+    # contain codes that Normalizer can't recognize → matching failures.
+    AXIS_SYNTH_TO_CATALOG = {
+        "accident_types": "accident_type",
+        "hazardous_agents": "hazardous_agent",
+        "work_contexts": "work_context",
+        "ppe_states": "ppe_state",
+        "ppe_missing": "ppe_missing",
+        "environmental": "environmental",
+    }
+    # Catalog v4 codes = existing + newly added
+    catalog_v4_codes: dict[str, set[str]] = {}
+    for axis in VALID_CATALOG_AXES:
+        catalog_v4_codes[axis] = set(existing_catalog_codes.get(axis, set())) | set(unique_new_by_axis.get(axis, {}).keys())
+
+    final_mappings: dict[str, dict[str, str]] = defaultdict(dict)
+    drop_list: dict[str, list[str]] = defaultdict(list)
+    reloc_map: dict[str, dict[str, dict]] = defaultdict(dict)
+    catalog_miss_drops = 0
     for r in results:
         c = r["consensus"]
         cat = c["category"]
         axis_synth = r["axis_synth"]
+        axis_cat = AXIS_SYNTH_TO_CATALOG.get(axis_synth, axis_synth)
         ko = r["ko_code"]
         target_code = normalize_en_code(c.get("canonical_label_en", ""))
 
-        if c["status"] == "HUMAN" and r["freq"] < HUMAN_REVIEW_MIN_FREQ:
-            drop_list[axis_synth].append(ko)
-            continue
         if c["status"] == "HUMAN":
-            # leave for human; for now treat as DROP (will be revised)
             drop_list[axis_synth].append(ko)
             continue
 
         if cat == "NOT_A_CODE":
             drop_list[axis_synth].append(ko)
-        elif cat in ("EXISTING_EQUIV", "NEW_CODE_NEEDED", "SUB_CLASS_OF"):
-            if target_code:
+            continue
+
+        if cat in ("EXISTING_EQUIV", "NEW_CODE_NEEDED", "SUB_CLASS_OF"):
+            if not target_code:
+                drop_list[axis_synth].append(ko)
+                continue
+            # Verify target exists in catalog v4 (after this Phase 3B run)
+            if axis_cat in VALID_CATALOG_AXES and target_code in catalog_v4_codes.get(axis_cat, set()):
                 final_mappings[axis_synth][ko] = target_code
             else:
                 drop_list[axis_synth].append(ko)
-        elif cat == "WRONG_AXIS":
-            target_axis = c.get("correct_axis", "")
-            if target_axis in VALID_CATALOG_AXES and target_code:
-                # synthetic axis_synth → KO maps to (target_axis, target_code)
+                catalog_miss_drops += 1
+            continue
+
+        if cat == "WRONG_AXIS":
+            target_axis = c.get("correct_axis", "").strip()
+            if target_axis not in VALID_CATALOG_AXES or not target_code:
+                drop_list[axis_synth].append(ko)
+                continue
+            if target_code in catalog_v4_codes.get(target_axis, set()):
                 reloc_map[axis_synth][ko] = {"target_axis": target_axis, "target_code": target_code}
             else:
                 drop_list[axis_synth].append(ko)
+                catalog_miss_drops += 1
+    print(f"  catalog_miss_drops (target not in v4): {catalog_miss_drops}")
 
     final_mapping_payload = {
         "version": "1.0",
