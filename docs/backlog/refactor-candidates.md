@@ -4,7 +4,17 @@
 
 아래 항목들은 `risk:` 중심 위험 지식 계층, `PenaltyRule` 중심 벌칙 모델, `SeverityLevel` 제거, `SHE` 패턴 브릿지화, `Guide/WorkProcess` 중심 조치 구조를 반영한 뒤 남은 후속 작업이다.
 
-## 현재 구현 메모 (2026-05-16, monorepo + ci_cross_guide_broad_only_guard1)
+## F.3 후속 신규 후보 (2026-05-17)
+
+F.3.0/A/C/B/F.3.3 sprint 마무리 시점에 식별된 작은 정리 후보들. 모두 빠르게 처리 가능 (수십 분 ~ 1-2시간):
+
+- **A hook always-on** — `serving-team/08-app/backend/app/services/analysis_pipeline.py`의 `_apply_llm_rerank`가 `LLM_RERANK_MODE=off` 또는 `knowledge.guide_rows` 비어있는 early-return 시 `_append_analysis_log` hook이 실행 안 됨. F.3.5 환류 input pool 누락 위험. 별도 항상-실행 hook 또는 `_apply_llm_rerank` 리팩토링 검토.
+- **`industry_ko_to_en_map.json` 확장** — F.3.2 첫 batch에서 "편의점" KO industry가 84-entry mapping에 빠진 게 발견됨 (LLM verify 통과로 KB에 unmapped KO entry 진입). 추가 KO industry 식별 + 매핑 보강.
+- **F.3.0 LLM 2nd pass 실행** — ambiguous 466건 (18.46%)을 gpt-5.4-nano로 회수 가능 (~$1, ~30분). axiom_missing 비율이 36% → 45%+로 상승 가능. F.3.2 다음 batch 전 권장.
+- **F.3.2 8 candidate vetted 즉시 승격** — Gate 3 PASS라 즉시 vetted 승격 가능 (대신 50회 사용 자연 승격을 기다리는 보수적 선택도 가능). 사용자 결정 필요.
+- **F.3.0 ambiguous regex 보강** — sample manual 검증에서 ambiguous 14개 중 대부분이 사실상 domain mismatch (regex 일반 표현 미수용). regex 추가로 LLM 2nd pass 없이도 회수 가능.
+
+## 현재 구현 메모 (2026-05-17, monorepo + ci_cross_guide_broad_only_guard1 + F.3 first batch)
 
 현재 작업 기준은 root `arch-bot/main` monorepo다.
 

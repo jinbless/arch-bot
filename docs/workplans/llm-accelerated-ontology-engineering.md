@@ -4,18 +4,26 @@
 > 임시 plan 파일(`.claude/plans/workplan-...md`)에서 정식 git 추적 문서로 이전됨.
 > 향후 모든 Phase 결정의 기준.
 
-## Status (2026-05-17)
+## Status (2026-05-17 후반 갱신)
 
 | Phase | 상태 | 비고 |
 |---|---|---|
 | Phase 0 (Synthetic Replay 인프라) | ✅ 완료 | `replay_synthetic_observations.py` + `regression_gate.py` |
 | Phase B (Runtime LLM rerank) | ✅ 완료 + 검증 | positive avg_procedures −26.4% |
 | Phase A (Domain pair mining) | ✅ 완료 | 2,232 incompatibility (vetted 0 + candidate 2,201 + self_refine 31) |
-| Phase C (Self-refine loop) | ✅ 작동 검증 | analysis_log 2,528건 + 31개 자율 채택 |
+| Phase C (Self-refine loop) | ✅ 작동 검증 | analysis_log 2,536+건 + 자율 채택 |
 | Catalog/alias 확장 | ✅ 완료 | 187개 신규 alias + 66개 신규 work_context, she_accuracy +4.9%p |
 | Phase E-prep (6 step) | ✅ 완료 | BFO+LKIF 2-layer, 22 SWRL, 26 SHACL, OntoClean 13→1 |
-| Phase E.2 (Openllet 실제 통합) | ⏳ 다음 | Fuseki Java 수정 + container rebuild |
-| Phase F+ | ⏳ Plan만 | Layer 4 ontology learning 본격 구현 |
+| Phase E.2 (Openllet 실제 통합) | ✅ 완료 | Fuseki Java가 v2 + disjoint + SHACL + 172 subClassOf 로드 (commit `3520cab`) |
+| Phase 3 (catalog v4 + SHE 1,616 + reasoning catch) | ✅ 완료 | reasoning이 LLM 환각 1,902건 차단 (보고: `reasoning-catch-effectiveness-2026-05-17.md`) |
+| **F.3.0 (Reject reason classifier)** | ✅ 완료 | `axiom_missing 36.44%` (920건/210 pair), commit `8ff40d7` |
+| **A (Runtime 4번 채널 hook + Hot-fix)** | ✅ 완료 | analysis_log 3 신규 필드, commit `ebe1011` + hot-fix `a841a0b` |
+| **C (KB incompat KO→EN cleanup)** | ✅ 완료 | 2,232 entries 100% translated, commit `2ea800d` |
+| **F.3.2 (Missing-axiom miner first batch)** | ✅ 완료 | 49 verify → 8 accepted candidate (KB 2,232→2,240), commit `9219c7c` |
+| **F.3.3 (Gate 3 regression)** | ✅ PASS | 2,360 valid 0 errored, vs baseline_v3 delta 0/-0.0013, commit `eb7843f` |
+| F.3.1/F.3.4/F.3.5 (Reasoner channel + Compile + Cron) | ⏳ 다음 | Layer 4.4 closed loop 완성 |
+| F.1 (Vocabulary auto-registration) | ⏳ 다음 우선순위 | 1주, Module 4.1 |
+| F.2/F.4-F.8 | ⏳ Plan만 | Layer 4 모듈별 확장 |
 
 ## Context
 
@@ -123,7 +131,7 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 - `scripts/merge_replay_partials.py` (신규)
 - `scripts/test_real_photos.py` (신규)
 
-### Data team scripts (`data-team/05-enrichment/llm-scripts/`, 13개 신규)
+### Data team scripts (`data-team/05-enrichment/llm-scripts/`)
 - `build_competency_questions.py`
 - `build_layer_mapping.py`
 - `build_disjoint_axioms.py`
@@ -140,12 +148,20 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 - `ontoclean_validator.py`
 - `promote_incompatibilities.py`
 - `regenerate_sparql_queries.py`
+- **`classify_reject_reasons.py` (F.3.0, 2026-05-17)**
+- **`translate_incompat_industries.py` (C cleanup, 2026-05-17)**
+- **`mine_missing_axioms.py` (F.3.2, 2026-05-17)**
 
 ### Runtime artifacts (`data-team/05-enrichment/runtime-artifacts/`)
 - 모든 산출 JSON (CQ, layer assignment, disjoint, SHACL, OntoClean 등)
-- `analysis_log.jsonl` (2,528 entries)
+- `analysis_log.jsonl` (2,536+ entries, A 신규 3 필드 포함)
 - `guide_domain_embeddings.npz` (3.75MB)
-- `replay_baseline.json` / `replay_baseline_v2.json` / `replay_active_b.json` / `replay_active_v2.json`
+- `replay_baseline.json` / `replay_baseline_v2.json` / `replay_baseline_v3.json` / `replay_active_b.json` / `replay_active_v2.json`
+- **`reject_reason_classified.jsonl` (F.3.0, 2,525 entries)**
+- **`reject_reason_distribution.json` / `reject_reason_sample_100.jsonl` (F.3.0)**
+- **`replay_post_f32.json` (F.3.3 Gate 3 input, 2,360 cases, 0 errored)**
+- **`guide_domain_incompatibilities.json` (2,232 vetted + 8 F.3.2 candidate = 2,240, EN-normalized)**
+- **`incompatibility_audit.jsonl` (+49 F.3.2 verify entries)**
 
 ### Frontend (`serving-team/08-app/frontend/`)
 - `src/components/results/SourceBadge.tsx` (신규, 10개 source type)
@@ -156,17 +172,22 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 
 ## Phase F+ 로드맵 (Layer 4 본격 구현)
 
-| Phase | 작업 | 학계 reference | 시간/비용 |
-|---|---|---|---|
-| **E.2** (다음 우선순위) | Fuseki Java 수정 + Openllet 정식 통합 | LLMs4Life Pellet | 1시간 |
-| **F.1** | Vocabulary auto-registration (Module 4.1) | SPIRES IDSpaces/ValueSets | 3-5일 |
-| **F.2** | TBox class learning (Module 4.2) | Two-way CoT + Ontogenia | 1주 |
-| **F.3** | SWRL/SHACL Discovery 자동화 (Module 4.4) | Tsaneva ensemble 96.7% | 1주 |
-| **F.4** | CQ Reverse + SPARQL 회복 (Module 4.5) | RETROFIT-CQ 75% | 1주 + Photo persist |
-| **F.5** | GraphRAG 통합 (Module 4.6) | Salovsky Dual Memory | 2주 |
-| **F.6** | Maintenance phase (Module 4.7) | SLR challenges #4 #5 | 영구 cron |
-| **F.7** | Small model fine-tune | Aggarwal Dolphin-Mistral-7B | 2-3주 |
-| **F.8** | OBO Foundry/IOF 등재 + LegalRuleML | SLR Lifecycle | 1-3개월 |
+| Phase | 작업 | 학계 reference | 시간/비용 | 상태 |
+|---|---|---|---|---|
+| ~~E.2~~ | Fuseki Java 수정 + Openllet 정식 통합 | LLMs4Life Pellet | 1시간 | ✅ 완료 (`3520cab`) |
+| **F.3.0** | Reject reason classifier (5 카테고리) | Tsaneva ensemble | 3-4h | ✅ 완료 (`8ff40d7`) |
+| **F.3.2** | Missing-axiom miner (Disjoint-only first batch) | 4-Gate | 1-2일 | ✅ 완료 (`9219c7c`, 8 candidate) |
+| **F.3.3** | Gate 3 regression (counter-example) | 4-Gate | 수십 분 | ✅ PASS (`eb7843f`) |
+| **F.1** (다음 우선순위) | Vocabulary auto-registration (Module 4.1) | SPIRES IDSpaces/ValueSets | 1주 | ⏳ |
+| F.3.1 | Reasoner reject channel (pyshacl shadow) | LLMs4Life Pellet | 1-2일 | ⏳ |
+| F.3.4 | KB compilation hook (TTL + Fuseki reload) | — | 3-4h | ⏳ |
+| F.3.5 | Cron + drift detection (`Makefile learn-axioms`) | SLR challenges | 1일 | ⏳ |
+| F.2 | TBox class learning (Module 4.2) | Two-way CoT + Ontogenia | 1주 | ⏳ |
+| F.4 | CQ Reverse + SPARQL 회복 (Module 4.5) | RETROFIT-CQ 75% | 1주 + Photo persist | ⏳ |
+| F.5 | GraphRAG 통합 (Module 4.6) | Salovsky Dual Memory | 2주 | ⏳ |
+| F.6 | Maintenance phase (Module 4.7) | SLR challenges #4 #5 | 영구 cron | ⏳ |
+| F.7 | Small model fine-tune | Aggarwal Dolphin-Mistral-7B | 2-3주 | ⏳ |
+| F.8 | OBO Foundry/IOF 등재 + LegalRuleML | SLR Lifecycle | 1-3개월 | ⏳ |
 
 ## 즉시 적용 권장 3가지 (ROI 큼)
 

@@ -8,8 +8,9 @@
 
 | 워크플랜 | 상태 | 현재 baseline |
 |---|---|---|
-| **[llm-accelerated-ontology-engineering.md](llm-accelerated-ontology-engineering.md)** ⭐ | **활성 (메인, 2026-05-17~)** | Phase E-prep 완료 / Phase E.2 또는 F.1 진입 대기 |
-| [llm-domain-guard.md](llm-domain-guard.md) | 보존 (선행) | `ci_cross_guide_broad_only_guard1` (2026-05-16) |
+| **[llm-accelerated-ontology-engineering.md](llm-accelerated-ontology-engineering.md)** ⭐ | **활성 (메인, 2026-05-17~)** | Phase 0/B/A/C + E-prep + E.2 + Phase 3 + **F.3 first batch 완료** (F.3.0/A/C/B/F.3.3). 다음: F.1 (Normalizer auto-registration, 1주) |
+| [llm-domain-guard.md](llm-domain-guard.md) | 보존 (선행) | `ci_cross_guide_broad_only_guard1` (2026-05-17 F.3.3 verified) |
+| [part3-synthetic-en-cleanup.md](part3-synthetic-en-cleanup.md) | ✅ 완료 (2026-05-17) | Phase 3D synthetic transform + C cleanup으로 마무리 |
 
 **`llm-accelerated-ontology-engineering`** (현재 메인): Phase 0/B/A/C + Phase E-prep + Layer 4 ontology learning 정밀 설계. NeOn + OntoClean + LLM 가속. BFO + LKIF-Core 2-layer. 학계 9 paper reference 기반.
 

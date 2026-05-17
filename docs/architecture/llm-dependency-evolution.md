@@ -10,13 +10,13 @@
         ↓
 text → Normalizer (alias dict) → canonical code
         ↓
-SHE 매칭 (PG, 수백 패턴) ← 1차
+SHE 매칭 (PG, 1,616 패턴) ← 1차
         ↓
 보완 1: llm_enrichment.json substring 매칭 (5번)  ← 사전 LLM 빌드
         ↓
 보완 2: Phase B embedding + LLM rerank             ← runtime LLM
         ↓
-보완 3: Phase A LLM-mined incompatibility KB        ← LLM mined
+보완 3: Phase A LLM-mined incompatibility KB (2,232 vetted + 8 F.3.2 candidate = 2,240)        ← LLM mined
 ```
 
 **성능을 좌우하는 핵심 변수 = SHE 데이터 풍부도**
@@ -105,12 +105,12 @@ runtime LLM 호출 거의 0 (vision만)
 ```
 
 **Layer 4 학습 시점 LLM 호출 (영구)**:
-- Module 4.1: vocabulary auto-registration
+- Module 4.1: vocabulary auto-registration (Phase F.1, A hook로 input pool 확보 완료)
 - Module 4.2: TBox class learning
-- Module 4.3: Relation mining (Phase A.2 + Phase C.2 영구화)
-- Module 4.4: SWRL/SHACL Discovery
+- Module 4.3: Relation mining (Phase A.2 + Phase C.2 + **F.3.2 first batch 8 candidate** 영구화)
+- Module 4.4: SWRL/SHACL Discovery (Phase E.3 첫 구현, F.3+ 확장 예정)
 - Module 4.5: CQ generation
-- Module 4.7: Continual adaptation
+- Module 4.7: Continual adaptation (**F.3.0 reject reason classifier로 환류 신호 확보**)
 
 **비용 전략**:
 - Runtime LLM (사진당) → ~$0 (vision만, ~$0.005/사진)
