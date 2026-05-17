@@ -71,6 +71,9 @@ REPO_ROOT = find_root()
 LIGHT_PROPOSALS_PATH = (
     REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "f1_light_proposals.json"
 )
+LIGHT_PROPOSALS_RECOVERED_PATH = (
+    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "f1_light_proposals_recovered.json"
+)
 ANALYSIS_LOG_PATH = (
     REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "analysis_log.jsonl"
 )
@@ -118,6 +121,9 @@ PENDING_AXIS_PATH = (
 
 
 def load_light_proposals() -> dict[str, Any]:
+    """Prefer recovered file (recover_catalog_mismatch.py 산출) if exists, else raw."""
+    if LIGHT_PROPOSALS_RECOVERED_PATH.is_file():
+        return json.loads(LIGHT_PROPOSALS_RECOVERED_PATH.read_text(encoding="utf-8"))
     if not LIGHT_PROPOSALS_PATH.is_file():
         return {"stats": {}, "proposals": {}}
     return json.loads(LIGHT_PROPOSALS_PATH.read_text(encoding="utf-8"))
