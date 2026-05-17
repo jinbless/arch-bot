@@ -8,9 +8,12 @@
 
 | 워크플랜 | 상태 | 현재 baseline |
 |---|---|---|
-| [llm-domain-guard.md](llm-domain-guard.md) | 활성 | `ci_cross_guide_broad_only_guard1` (2026-05-16) |
+| **[llm-accelerated-ontology-engineering.md](llm-accelerated-ontology-engineering.md)** ⭐ | **활성 (메인, 2026-05-17~)** | Phase E-prep 완료 / Phase E.2 또는 F.1 진입 대기 |
+| [llm-domain-guard.md](llm-domain-guard.md) | 보존 (선행) | `ci_cross_guide_broad_only_guard1` (2026-05-16) |
 
-`llm-domain-guard`는 `A-G-18-2026` 항만 컨텍스트 가드를 재사용 가능한 Guide domain/profile guard로 일반화한 워크스트림이다. `usage_profile11` → `ci_broad_sr_guard4` → ... → `ci_cross_guide_broad_only_guard1`로 이어지는 baseline 진행이 모두 이 워크플랜의 연속선상에 있다.
+**`llm-accelerated-ontology-engineering`** (현재 메인): Phase 0/B/A/C + Phase E-prep + Layer 4 ontology learning 정밀 설계. NeOn + OntoClean + LLM 가속. BFO + LKIF-Core 2-layer. 학계 9 paper reference 기반.
+
+`llm-domain-guard`는 `A-G-18-2026` 항만 컨텍스트 가드를 재사용 가능한 Guide domain/profile guard로 일반화한 선행 워크스트림. baseline `ci_cross_guide_broad_only_guard1`까지 진행됨. 현재 메인 워크플랜이 이를 흡수·확장.
 
 ## 평가 기준선 정본
 

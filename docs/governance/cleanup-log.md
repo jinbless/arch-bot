@@ -4,6 +4,92 @@
 
 ---
 
+## 2026-05-17 (Phase E-prep + Layer 4 설계): LLM-Accelerated Ontology Engineering
+
+두 세션(2026-05-16~17)에 걸쳐 LLM-Accelerated 정석 ontology engineering 완료. 사용자 통찰(BFO+LKIF 2-layer, closed vocabulary 기각, Layer 4 별도 필요성) 반영.
+
+### 작업 요약
+
+**Phase 0/B/A/C** (LLM 자율 도메인 보강):
+- baseline_v2: she_accuracy 55.81% → **60.72%** (+4.9%p), overall 13.31% → **15.25%**
+- active_v2: positive avg_procedures 3.07 → **2.26** (−26.4%)
+- 8 real-test-photo: **4/5 over-promote 차단**
+- 자율 학습: analysis_log 2,528건 + 31개 신규 incompatibility 자율 채택
+
+**Catalog/alias 확장**: +187개 alias + 66개 work_context 신규 (Normalizer mismatch 해소)
+
+**Phase E-prep** (NeOn + OntoClean + LLM 가속):
+- Step 1: 50 CQ + 55 class layer + 7 reuse scorecard
+- Step 2: kosha-ontology-v2.owl (BFO + LKIF imports + 64 subClassOf)
+- Step 3: 2,192 disjoint axioms + 22 SWRL (R-9~R-30) + 26 SHACL shapes
+- Step 4: OntoClean 13 violations → **1** (92% 자동 수정)
+- Step 5: 50 SPARQL + Fuseki coverage 측정
+- Local consistency: SHACL Conforms: True ✅, 967k triples parse PASS
+
+**Layer 4 (Ontology Learning) 정밀 설계** — 학계 9 paper 분석 기반:
+- 7 module (Term/Taxonomy/Relation/Axiom/CQ/GraphRAG/Continual)
+- 우리 차별점: LKIF-Core × BFO + 한국어 + asymmetric trust + Task C SOTA + Task D 미답
+
+### 신규 산출물
+
+**Ontology files** (`ontology-team/06-reasoning/ontology/`):
+- kosha-ontology-v2.owl + .formatted.ttl
+- kosha-disjoint-axioms.ttl
+- kosha-rules-v2.swrl
+- serving-validation-shapes-v2.ttl (결함 — v3 사용)
+- serving-validation-shapes-v3.ttl (SHACL Conforms: True)
+- kosha-ontology-v3-restructure-patch.ttl
+
+**Backend** (`serving-team/08-app/backend/`):
+- 신규 services: guide_embedding_filter.py, llm_validator_cache.py
+- 신규 prompts: guide_validator_prompt.py
+- 신규 models: ExcludedCandidate (analysis.py)
+- 신규 scripts: replay_synthetic_observations.py, regression_gate.py, merge_replay_partials.py, test_real_photos.py
+- 수정: analysis_pipeline.py (_apply_llm_rerank, _append_analysis_log), guide_domain_profile.py (dynamic KB), openai_client.py (validate_guide_relevance)
+- 데이터 확장: risk_feature_aliases.json (+187), risk_feature_catalog.json (+66)
+
+**Data team** (`data-team/05-enrichment/llm-scripts/`, 16개 신규):
+- build_competency_questions.py, build_layer_mapping.py
+- build_disjoint_axioms.py, build_swrl_rules.py, build_shacl_shapes.py
+- build_guide_domain_embeddings.py, build_guide_llm_domains.py
+- extend_normalizer_aliases.py, fix_shacl_shapes.py
+- local_consistency_check.py, mine_domain_incompatibilities.py
+- mine_overpromote_patterns.py, ontoclean_auto_fix.py, ontoclean_validator.py
+- promote_incompatibilities.py, regenerate_sparql_queries.py
+
+**Runtime artifacts** (`data-team/05-enrichment/runtime-artifacts/`, 20+ JSON)
+
+**Frontend** (`serving-team/08-app/frontend/`):
+- 신규: SourceBadge.tsx (10 source types)
+- 수정: 5개 panel (badge 표시)
+
+**Reference articles** (`ontology-team/reference-article/`, 사용자 추가): 9개 PDF
+
+**문서** (`docs/`):
+- 신규 `workplans/llm-accelerated-ontology-engineering.md` (정식 plan)
+- 신규 `architecture/4-layer-architecture.md`
+- 신규 `architecture/ontology-learning-layer.md` (Layer 4)
+- 신규 `architecture/llm-dependency-evolution.md`
+- 신규 `governance/ontology-learning-references.md` (9 paper 요약)
+- 수정 `status/current-session.md` (다음 세션 진입점)
+- 수정 `CLAUDE.md` (Layer 4 + 신규 문서 진입점)
+
+### 미커밋 상태 (다음 세션 commit 안내)
+
+총 50+ 파일 신규/수정. 사용자 의사 확인 후 staged commit 권장.
+
+### 보안 조치 (2026-05-17 완료)
+
+- 이전 채팅에 노출된 5개 OpenAI API 키 모두 사용자가 OpenAI 대시보드에서 회수 완료.
+- 새 키 발급 시 `serving-team/08-app/backend/.env`의 `OPENAI_API_KEY` 갱신.
+
+### 다음 작업 우선순위
+
+1. **Phase E.2** (Openllet 정식 통합, ~1시간) 또는 **Phase F.1** (Vocabulary auto-registration, 3-5일)
+2. Phase F+ 8단계 로드맵 진입
+
+---
+
 ## 2026-05-16 (Phase 2 최종 audit): 전 영역 옛 경로 reference 일괄 갱신
 
 코드/설정/데이터/문서 전 영역에서 옛 경로 reference를 새 구조로 일괄 치환 (D 옵션 audit fix).

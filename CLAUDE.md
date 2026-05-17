@@ -118,11 +118,16 @@ she:ContextFeature / she:SituationalHazardEvent
 
 | 목적 | 경로 |
 |---|---|
+| **🚀 현재 메인 plan (2026-05-17~)** | **[docs/workplans/llm-accelerated-ontology-engineering.md](docs/workplans/llm-accelerated-ontology-engineering.md)** ⭐ |
+| 현재 세션 상태 + 다음 세션 진입 | [docs/status/current-session.md](docs/status/current-session.md) |
+| 4-Layer Architecture | [docs/architecture/4-layer-architecture.md](docs/architecture/4-layer-architecture.md) |
+| Layer 4 (Ontology Learning) 상세 | [docs/architecture/ontology-learning-layer.md](docs/architecture/ontology-learning-layer.md) |
+| LLM 의존 단계적 폐지 path | [docs/architecture/llm-dependency-evolution.md](docs/architecture/llm-dependency-evolution.md) |
+| 학계 9 paper references | [docs/governance/ontology-learning-references.md](docs/governance/ontology-learning-references.md) |
 | 모든 문서 색인 | [docs/README.md](docs/README.md) |
-| 현재 baseline / 다음 작업 큐 | [docs/status/current-session.md](docs/status/current-session.md) |
 | 평가 baseline 정본 | [docs/status/evaluation-baseline.md](docs/status/evaluation-baseline.md) |
 | 운영/거버넌스 정책 | [docs/governance/](docs/governance/) |
-| 시스템 아키텍처 (팀 분담 / repo 분리 / 오픈소스 준비) | [docs/architecture/](docs/architecture/) |
+| 시스템 아키텍처 | [docs/architecture/](docs/architecture/) |
 | 온톨로지 구조 한글 설계 | [docs/ontology/](docs/ontology/) |
 | 활성 워크플랜 | [docs/workplans/](docs/workplans/) |
 | 리팩토링 백로그 | [docs/backlog/](docs/backlog/) |
@@ -130,10 +135,31 @@ she:ContextFeature / she:SituationalHazardEvent
 | 데이터팀 / 온톨로지팀 / 서빙팀 README | [data-team/README.md](data-team/README.md) / [ontology-team/README.md](ontology-team/README.md) / [serving-team/README.md](serving-team/README.md) |
 | 파이프라인별 작업 가이드 | [pipe-A](data-team/02-extraction/pipe-A/CLAUDE.md) / [pipe-B](data-team/02-extraction/pipe-B/CLAUDE.md) / [pipe-C](data-team/03-validation/pipe-C/CLAUDE.md) |
 
+## 핵심 아키텍처 — 4-Layer + Cross-cutting Layer 4
+
+> 자세히: [docs/architecture/4-layer-architecture.md](docs/architecture/4-layer-architecture.md)
+
+```
+Layer 0: Vision LLM       (gpt-4.1, 영구 잔존)
+Layer 1: Normalizer       (alias + catalog)
+Layer 2: Semantic Reasoning (SHE + OWL DL + SWRL/SHACL)
+Layer 3: PG Materialization (cache, ms 응답)
+────────────────────────────────────────────────
+★ Layer 4: Ontology Learning (cross-cutting) ★
+   학습기 — Layer 1-3 데이터를 학습 대상으로
+   7 module: Term Extraction / Taxonomy / Relation / Axiom / CQ / GraphRAG / Continual
+```
+
+**LLM 의존 단계적 폐지** (자세히: [docs/architecture/llm-dependency-evolution.md](docs/architecture/llm-dependency-evolution.md)):
+- Vision LLM (gpt-4.1) → **영구 유지**
+- Phase B LLM rerank → 점진 폐지 (OWL DisjointClasses + SHACL 대체)
+- 5번 LLM enrichment json → 폐지 (OWL TBox + SWRL 정형화)
+- Phase C self-refine → 유지 (Layer 4.7 영구 학습 루프)
+
 ## 새 작업 시작 전 체크
 
 ```bash
 git status --short --branch    # clean 상태 확인
 ```
 
-추가 컨텍스트가 필요하면 [docs/status/current-session.md](docs/status/current-session.md)부터 읽는다.
+**다음 세션 진입 순서**: [docs/status/current-session.md](docs/status/current-session.md) → [docs/workplans/llm-accelerated-ontology-engineering.md](docs/workplans/llm-accelerated-ontology-engineering.md) → 필요 시 architecture/ 문서.
