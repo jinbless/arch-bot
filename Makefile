@@ -33,7 +33,9 @@ endif
 VENV_PY := $(BACKEND_DIR)/.venv/bin/python
 
 .PHONY: help dev-setup dev-up dev-down dev-restart dev-check dev-status dev-logs \
-        dev-pg-up dev-pg-down dev-pg-status
+        dev-pg-up dev-pg-down dev-pg-status \
+        f1-mine f1-mine-gate2 f1-mine-log f1-promote f1-status \
+        f1-eval f1-regression f1-recover f1-help
 
 help:
 	@echo "arch-bot dev launcher"
@@ -180,3 +182,69 @@ dev-pg-down:
 
 dev-pg-status:
 	@docker ps -a --filter name=arch-bot-dev-postgres --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}' || true
+
+
+# ---------------------------------------------------------------------------
+# Phase F.1 — Normalizer alias auto-registration (Layer 4 Module 4.1)
+# 자세히: docs/dev-notes/F.1-auto-register-aliases.md
+#
+# 모든 target은 ARGS='--flag --flag2' 로 추가 옵션 전달 가능.
+# 예: make f1-mine ARGS='--gate2 --min-confidence 0.7'
+# ---------------------------------------------------------------------------
+
+F1_SCRIPTS := $(ROOT)/data-team/05-enrichment/llm-scripts
+F1_RUNTIME := $(ROOT)/data-team/05-enrichment/runtime-artifacts
+F1_BASELINE := $(F1_RUNTIME)/replay_baseline_v3.json
+
+f1-help:
+	@echo "Phase F.1 — Normalizer alias auto-registration"
+	@echo ""
+	@echo "Mining (input → 4-Gate verification):"
+	@echo "  make f1-mine                          dry-run (light + log, default)"
+	@echo "  make f1-mine-gate2                    --gate2 (LLM verify, ~\$$0.05)"
+	@echo "  make f1-mine-log                      --skip-light (log-only)"
+	@echo "  make f1-mine ARGS='--apply --gate2'   apply candidate file write"
+	@echo ""
+	@echo "Promotion (candidate → vetted main):"
+	@echo "  make f1-status                        list current candidates"
+	@echo "  make f1-promote                       dry-run --auto (uses >= 5)"
+	@echo "  make f1-promote ARGS='--apply --by-confidence --min-conf 0.85'"
+	@echo "  make f1-promote ARGS='--apply --rollback CODE1 CODE2'"
+	@echo ""
+	@echo "Verification:"
+	@echo "  make f1-regression                    2,360 synthetic replay + Gate 3"
+	@echo "  make f1-eval                          8 real-test-photo ON/OFF (~\$$0.40 + 8min)"
+	@echo ""
+	@echo "Catalog recovery (F.1 후속, 1회성):"
+	@echo "  make f1-recover ARGS='--skip-sonnet'  Stage 1+2 only (free)"
+	@echo "  make f1-recover                       full 3-stage (Sonnet 4.6, ~\$$5)"
+
+f1-mine:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/auto_register_aliases.py' $(ARGS)
+
+f1-mine-gate2:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/auto_register_aliases.py' --gate2 $(ARGS)
+
+f1-mine-log:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/auto_register_aliases.py' --skip-light --min-freq 1 --gate2 $(ARGS)
+
+f1-promote:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/promote_aliases.py' $(ARGS)
+
+f1-status:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/promote_aliases.py' --list
+
+f1-eval:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' LLM_RERANK_MODE=shadow \
+	  '$(VENV_PY)' '$(F1_SCRIPTS)/eval_real_photos_day6.py'
+
+f1-regression:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' \
+	  '$(VENV_PY)' -u scripts/replay_synthetic_observations.py --output /tmp/replay_f1.json
+	@'$(VENV_PY)' '$(BACKEND_DIR)/scripts/regression_gate.py' /tmp/replay_f1.json --baseline '$(F1_BASELINE)'
+
+f1-recover:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  '$(VENV_PY)' '$(F1_SCRIPTS)/recover_catalog_mismatch.py' $(ARGS)
