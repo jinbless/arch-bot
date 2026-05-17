@@ -4,7 +4,7 @@ import json
 import logging
 import os
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -63,6 +63,9 @@ class AnalysisKnowledgeContext:
     penalty_paths: list[PenaltyPath]
     finding_status: str
     penalty_exposure_status: str
+    # Runtime 4번 채널 — F.3.5 자율 학습 환류 input pool (analysis_log 확장 hook).
+    normalizer_unknown_codes: list[str] = field(default_factory=list)
+    raw_vision_features: dict = field(default_factory=dict)
 
 
 class AnalysisPipeline:
@@ -316,6 +319,8 @@ class AnalysisPipeline:
             penalty_paths=penalty_paths,
             finding_status=finding_status,
             penalty_exposure_status=self._penalty_exposure_status(penalty_paths),
+            normalizer_unknown_codes=list(normalized.get("unknown_codes") or []),
+            raw_vision_features=dict(result.get("risk_feature_candidates") or {}),
         )
 
     def _build_observations(self, result: dict) -> list[VisualObservation]:
@@ -752,6 +757,9 @@ class AnalysisPipeline:
                 candidate_codes=candidate_codes,
                 filter_result=filter_result,
                 excluded=excluded,
+                normalizer_unknown_codes=list(knowledge.normalizer_unknown_codes),
+                she_match_count=len(knowledge.she_matches),
+                raw_vision_features=knowledge.raw_vision_features,
             )
         except Exception as exc:
             logger.warning("analysis_log append failed: %s", exc)
@@ -777,10 +785,18 @@ class AnalysisPipeline:
         candidate_codes: list[str],
         filter_result: Any,
         excluded: list[ExcludedCandidate],
+        normalizer_unknown_codes: list[str] | None = None,
+        she_match_count: int = 0,
+        raw_vision_features: dict | None = None,
     ) -> None:
         """Phase C.1 — append per-analysis log for self-refine mining.
 
         env LLM_RERANK_MODE=shadow|active 일 때만 기록. off에서는 skip.
+
+        Runtime 4번 채널 (F.3.5 environment) — 자율 학습 환류 input pool:
+          normalizer_unknown_codes : Layer 1 alias 미등재 새 어휘 후보
+          she_match_count          : Layer 2 SHE matcher 매치 수 (0이면 새 SHE 패턴 후보)
+          raw_vision_features      : Layer 0 Vision LLM 원본 출력 (정규화 전)
         """
         if mode not in ("shadow", "active"):
             return
@@ -813,6 +829,9 @@ class AnalysisPipeline:
                 }
                 for e in excluded
             ],
+            "normalizer_unknown_codes": list(normalizer_unknown_codes or []),
+            "she_match_count": she_match_count,
+            "raw_vision_features": raw_vision_features or {},
         }
         with log_path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
