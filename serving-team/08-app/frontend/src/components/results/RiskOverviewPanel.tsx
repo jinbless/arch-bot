@@ -1,11 +1,15 @@
 import React from 'react';
 import type { AnalysisResponse } from '../../types/analysis';
 import { severityColors, situationStatusColors, situationStatusLabels } from './resultLabels';
+import SourceBadge from './SourceBadge';
 
 const RiskOverviewPanel: React.FC<{ analysis: AnalysisResponse }> = ({ analysis }) => (
   <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div className="bg-white rounded-xl border p-4">
-      <h2 className="text-lg font-bold text-gray-900 mb-3">발견된 위험 요약</h2>
+      <div className="flex items-start justify-between gap-2 mb-3">
+        <h2 className="text-lg font-bold text-gray-900">발견된 위험 요약</h2>
+        <SourceBadge source="gpt" extra="LLM Vision" />
+      </div>
       {analysis.observations.length ? (
         <div className="space-y-3">
           {analysis.observations.map((observation) => (
@@ -24,6 +28,15 @@ const RiskOverviewPanel: React.FC<{ analysis: AnalysisResponse }> = ({ analysis 
               <p className="text-xs text-gray-500 mt-1">
                 신뢰도 {Math.round(observation.confidence * 100)}%
               </p>
+              {observation.visual_cues?.length ? (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {observation.visual_cues.slice(0, 4).map((cue, i) => (
+                    <span key={i} className="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-100">
+                      {cue.text}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
           ))}
         </div>
@@ -33,7 +46,10 @@ const RiskOverviewPanel: React.FC<{ analysis: AnalysisResponse }> = ({ analysis 
     </div>
 
     <div className="bg-white rounded-xl border p-4">
-      <h2 className="text-lg font-bold text-gray-900 mb-3">정규화된 위험 특징</h2>
+      <div className="flex items-start justify-between gap-2 mb-3">
+        <h2 className="text-lg font-bold text-gray-900">정규화된 위험 특징</h2>
+        <SourceBadge source="normalized" extra="risk_feature_*.json" />
+      </div>
       {analysis.risk_features.length ? (
         <div className="flex flex-wrap gap-2">
           {analysis.risk_features.map((feature) => (
@@ -50,7 +66,10 @@ const RiskOverviewPanel: React.FC<{ analysis: AnalysisResponse }> = ({ analysis 
         <p className="text-sm text-gray-400">정규화된 위험 특징이 없습니다.</p>
       )}
       <div className="mt-4 border-t border-gray-100 pt-3">
-        <h3 className="text-sm font-semibold text-gray-800 mb-2">위험상황 패턴</h3>
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <h3 className="text-sm font-semibold text-gray-800">위험상황 패턴</h3>
+          <SourceBadge source="she" extra="PG she_patterns" />
+        </div>
         {analysis.situation_matches.length ? (
           <div className="space-y-2">
             {analysis.situation_matches.slice(0, 4).map((match) => (
@@ -73,6 +92,7 @@ const RiskOverviewPanel: React.FC<{ analysis: AnalysisResponse }> = ({ analysis 
                     {match.visual_trigger_hits.slice(0, 3).join(', ')}
                   </p>
                 )}
+                <p className="text-[10px] text-gray-400 mt-1 font-mono">{match.pattern_id}</p>
               </div>
             ))}
           </div>

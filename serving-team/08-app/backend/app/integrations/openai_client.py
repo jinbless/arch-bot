@@ -1,4 +1,5 @@
 import json
+import os
 from typing import Optional
 
 import httpx
@@ -10,6 +11,14 @@ from app.integrations.prompts.analysis_prompts import (
     SYSTEM_PROMPT,
     TEXT_ANALYSIS_PROMPT,
 )
+from app.integrations.prompts.guide_validator_prompt import (
+    RESPONSE_SCHEMA as VALIDATOR_RESPONSE_SCHEMA,
+    SYSTEM_PROMPT as VALIDATOR_SYSTEM_PROMPT,
+    build_user_prompt as build_validator_user_prompt,
+)
+
+
+RERANK_MODEL = os.environ.get("LLM_RERANK_MODEL", "gpt-5.4-nano")
 
 
 ONTOLOGY_OBSERVATION_SCHEMA = {
@@ -145,6 +154,45 @@ class OpenAIClient:
             ],
             response_format={"type": "json_schema", "json_schema": ONTOLOGY_OBSERVATION_SCHEMA},
             max_tokens=4096,
+        )
+        return json.loads(response.choices[0].message.content or "{}")
+
+    async def validate_guide_relevance(
+        self,
+        *,
+        visual_observations: list[str],
+        visual_cues: list[str],
+        industry_context: str,
+        guide_code: str,
+        guide_title: str,
+        domain_family: str,
+        required_context_terms: list[str],
+        work_processes: list[str],
+    ) -> dict:
+        """Phase B.2 — 후보 Guide 도메인 적합성 LLM 검증.
+
+        반환: {verdict: "accept|reject", reason: str, confidence: float}
+        모델: env LLM_RERANK_MODEL (default gpt-5.4-mini).
+        호출자(guide_recommendation_service)가 캐싱/배치 책임.
+        """
+        user_prompt = build_validator_user_prompt(
+            visual_observations=visual_observations,
+            visual_cues=visual_cues,
+            industry_context=industry_context,
+            guide_code=guide_code,
+            guide_title=guide_title,
+            domain_family=domain_family,
+            required_context_terms=required_context_terms,
+            work_processes=work_processes,
+        )
+        response = await self.client.chat.completions.create(
+            model=RERANK_MODEL,
+            messages=[
+                {"role": "developer", "content": VALIDATOR_SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+            response_format={"type": "json_schema", "json_schema": VALIDATOR_RESPONSE_SCHEMA},
+            max_completion_tokens=512,
         )
         return json.loads(response.choices[0].message.content or "{}")
 

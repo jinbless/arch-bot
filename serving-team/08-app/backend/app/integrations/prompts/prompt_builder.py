@@ -18,7 +18,8 @@ _FEATURE_GUIDE = """Output policy:
   - work_context: scaffold, ladder, machinery, vehicle, forklift, fuel dispensing, cleaning, confined space
 - Do not choose law articles, penalties, KOSHA guide numbers, or final violation status.
 - If something is uncertain, say it is uncertain instead of inventing detail.
-- Write Korean text in user-facing fields when the input is Korean."""
+- All user-facing text values (visual_observations, visual_cues, risk descriptions, recommendations, reasoning text, etc.) MUST be written in Korean (한국어). JSON field names and enum codes stay in English (e.g. accident_type, FALL, SCAFFOLD).
+- Even if the user input is short or mixed-language, respond in Korean."""
 
 
 @lru_cache(maxsize=1)

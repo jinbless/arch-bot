@@ -22,6 +22,21 @@ class TextAnalysisRequest(BaseModel):
     industry_sector: Optional[str] = None
 
 
+class ExcludedCandidate(BaseModel):
+    """Phase B.2 — LLM rerank reject 결과.
+
+    embedding pre-filter의 drop 또는 LLM validator의 reject로 제외된 candidate.
+    debug/observability 용도.
+    """
+    guide_code: str
+    title: Optional[str] = None
+    verdict: str  # "reject" | "drop"
+    reason: str = ""
+    confidence: float = 0.0
+    similarity: Optional[float] = None
+    source: str = "embedding"  # "embedding" | "llm"
+
+
 class AnalysisResponse(BaseModel):
     analysis_id: str
     analysis_type: str
@@ -37,6 +52,7 @@ class AnalysisResponse(BaseModel):
     reasoning_trace: ReasoningTrace = ReasoningTrace()
     finding_status: str = "not_determined"
     penalty_exposure_status: str = "no_penalty"
+    excluded_candidates: List[ExcludedCandidate] = []
     analyzed_at: datetime
 
     class Config:

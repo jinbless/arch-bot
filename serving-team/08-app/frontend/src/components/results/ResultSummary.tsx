@@ -4,6 +4,7 @@ import { ko } from 'date-fns/locale';
 import { AnalysisResponse } from '../../types/analysis';
 import RiskLevelBadge from '../common/RiskLevelBadge';
 import { findingStatusLabels } from './resultLabels';
+import SourceBadge from './SourceBadge';
 
 interface ResultSummaryProps {
   analysis: AnalysisResponse;
@@ -28,7 +29,11 @@ const ResultSummary: React.FC<ResultSummaryProps> = ({ analysis }) => {
         <RiskLevelBadge level={analysis.overall_risk_level} size="lg" />
       </div>
 
-      <p className="text-gray-700 leading-relaxed mb-4">{analysis.summary}</p>
+      <p className="text-gray-700 leading-relaxed mb-2">{analysis.summary}</p>
+      <p className="text-[10px] text-gray-400 mb-4 flex items-center gap-1">
+        <SourceBadge source="gpt" />
+        <span>위 요약은 LLM이 생성. 아래 통계는 backend가 PG/SHE/정규화 결과 집계.</span>
+      </p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4 border-t border-gray-200">
         <SummaryMetric label="관찰 사실" value={analysis.observations.length} />
@@ -43,6 +48,22 @@ const ResultSummary: React.FC<ResultSummaryProps> = ({ analysis }) => {
           value={PENALTY_LABELS[analysis.penalty_exposure_status] || analysis.penalty_exposure_status}
           compact
         />
+      </div>
+
+      <div className="mt-4 pt-3 border-t border-gray-200">
+        <p className="text-[11px] text-gray-500 mb-2 font-semibold">데이터 출처 범례 (각 패널에 표시)</p>
+        <div className="flex flex-wrap gap-2">
+          <SourceBadge source="gpt" />
+          <SourceBadge source="normalized" />
+          <SourceBadge source="she" />
+          <SourceBadge source="pg_asserted" />
+          <SourceBadge source="pg_candidate" />
+          <SourceBadge source="pg_guide" />
+          <SourceBadge source="pg_penalty" />
+          <SourceBadge source="llm_enrich" />
+          <SourceBadge source="mixed" />
+        </div>
+        <p className="text-[10px] text-gray-400 mt-2">badge에 hover하면 정확한 source 위치(PG table / runtime artifact) 설명이 나옵니다.</p>
       </div>
     </section>
   );

@@ -1,14 +1,18 @@
 import React from 'react';
 import type { PenaltyPath } from '../../types/analysis';
 import { noticeLabels } from './resultLabels';
+import SourceBadge from './SourceBadge';
 
 const PenaltyPathPanel: React.FC<{ paths: PenaltyPath[] }> = ({ paths }) => (
   <section className="bg-white rounded-xl border border-red-200 p-4">
-    <div className="mb-3">
-      <h2 className="text-lg font-bold text-gray-900">벌칙 3경로 안내</h2>
-      <p className="text-sm text-gray-500">
-        사진만으로 법적 책임 주체나 사고 결과를 확정하지 않고, 가능한 벌칙 경로를 조건별로 안내합니다.
-      </p>
+    <div className="mb-3 flex items-start justify-between gap-2">
+      <div>
+        <h2 className="text-lg font-bold text-gray-900">벌칙 3경로 안내</h2>
+        <p className="text-sm text-gray-500">
+          사진만으로 법적 책임 주체나 사고 결과를 확정하지 않고, 가능한 벌칙 경로를 조건별로 안내합니다.
+        </p>
+      </div>
+      <SourceBadge source="pg_penalty" extra="PG penalty_rules" />
     </div>
     {paths.length ? (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -42,7 +46,12 @@ const PenaltyPathPanel: React.FC<{ paths: PenaltyPath[] }> = ({ paths }) => (
         ))}
       </div>
     ) : (
-      <p className="text-sm text-gray-400">연결된 벌칙 안내 경로가 없습니다.</p>
+      <div className="rounded-lg bg-gray-50 p-3 text-xs text-gray-500">
+        <p>연결된 벌칙 안내 경로가 없습니다.</p>
+        <p className="mt-1 text-gray-400">
+          이 SR들에 대한 <code className="bg-white px-1 rounded">penalty_rules</code> 매핑이 PG에 없거나, 현재 정책상 미포함입니다.
+        </p>
+      </div>
     )}
   </section>
 );

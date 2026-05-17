@@ -1,15 +1,17 @@
 from __future__ import annotations
 
 import json
+import logging
+import os
 import uuid
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Optional
 
 from sqlalchemy.orm import Session
 
 from app.db import crud
-from app.models.analysis import AnalysisResponse
+from app.models.analysis import AnalysisResponse, ExcludedCandidate
 from app.models.hazard import (
     CorrectiveAction,
     Finding,
@@ -91,6 +93,13 @@ class AnalysisPipeline:
             declared_industry_text=run_input.declared_industry_text,
         )
 
+        excluded_candidates = await self._apply_llm_rerank(
+            knowledge=knowledge,
+            observations=observations,
+            visual_cues=visual_cues or [context_text],
+            declared_industry_text=run_input.declared_industry_text,
+        )
+
         situation_matches = self._build_situation_matches(knowledge.she_matches)
         article_ids = sr_lookup_service.article_ids_for_srs(db, knowledge.sr_ids)
         findings = self._build_findings(
@@ -138,6 +147,7 @@ class AnalysisPipeline:
             reasoning_trace=reasoning_trace,
             finding_status=knowledge.finding_status,
             penalty_exposure_status=knowledge.penalty_exposure_status,
+            excluded_candidates=excluded_candidates,
             analyzed_at=analyzed_at,
         )
 
@@ -577,6 +587,235 @@ class AnalysisPipeline:
         if status == "suspected":
             return "medium"
         return "low"
+
+    async def _apply_llm_rerank(
+        self,
+        knowledge: AnalysisKnowledgeContext,
+        observations: list[VisualObservation],
+        visual_cues: list[str],
+        declared_industry_text: Optional[str],
+    ) -> list[ExcludedCandidate]:
+        """Phase B — Embedding pre-filter + LLM rerank.
+
+        env LLM_RERANK_MODE:
+          off    : passthrough (0 비용, default)
+          shadow : drop/reject 로그만, 실제 제거 안 함
+          active : drop/reject candidate 실제 제거
+        """
+        mode = os.environ.get("LLM_RERANK_MODE", "off").lower()
+        if mode not in ("shadow", "active"):
+            return []
+        if not knowledge.guide_rows:
+            return []
+
+        from app.integrations.openai_client import openai_client
+        from app.services.guide_domain_profile import get_guide_domain_profile
+        from app.services.guide_embedding_filter import (
+            GuideEmbeddingFilter,
+            build_scene_text,
+        )
+        from app.services.llm_validator_cache import (
+            LlmValidatorCache,
+            ValidatorVerdict,
+            make_scene_hash,
+        )
+
+        embedding_filter = GuideEmbeddingFilter.instance()
+        cache = LlmValidatorCache.instance()
+
+        visual_obs_texts = [o.text for o in observations if o.text]
+        industry = declared_industry_text or (
+            knowledge.industry_contexts[0] if knowledge.industry_contexts else ""
+        )
+        canonical = knowledge.canonical or {}
+        canonical_features = (
+            list(canonical.get("accident_types") or [])
+            + list(canonical.get("work_contexts") or [])
+            + list(canonical.get("hazardous_agents") or [])
+        )
+        scene_text = build_scene_text(
+            visual_observations=visual_obs_texts,
+            visual_cues=visual_cues,
+            canonical_features=canonical_features,
+            industry_contexts=knowledge.industry_contexts,
+        )
+        candidate_codes = [row.get("guide_code") for row in knowledge.guide_rows if row.get("guide_code")]
+        if not candidate_codes:
+            return []
+
+        filter_result = embedding_filter.filter_candidates(scene_text, candidate_codes)
+        excluded: list[ExcludedCandidate] = []
+
+        for guide_code in filter_result.drop:
+            guide_row = next(
+                (r for r in knowledge.guide_rows if r.get("guide_code") == guide_code),
+                None,
+            )
+            if guide_row is None:
+                continue
+            sim = filter_result.similarities.get(guide_code, 0.0)
+            excluded.append(
+                ExcludedCandidate(
+                    guide_code=guide_code,
+                    title=guide_row.get("title"),
+                    verdict="reject",
+                    reason=f"embedding similarity {sim:.3f} < 0.25 (도메인 명백히 무관)",
+                    confidence=round(1.0 - max(0.0, sim), 4),
+                    similarity=sim,
+                    source="embedding",
+                )
+            )
+
+        scene_hash = make_scene_hash(visual_obs_texts, visual_cues, industry)
+        logger = logging.getLogger(__name__)
+        llm_call_count = 0
+        llm_cache_hit_count = 0
+
+        for guide_code in filter_result.gray:
+            guide_row = next(
+                (r for r in knowledge.guide_rows if r.get("guide_code") == guide_code),
+                None,
+            )
+            if guide_row is None:
+                continue
+            cached = cache.get(scene_hash, guide_code)
+            verdict_obj: Optional[ValidatorVerdict] = cached
+            if cached is not None:
+                llm_cache_hit_count += 1
+            else:
+                profile = get_guide_domain_profile(guide_code) or {}
+                work_processes = [
+                    step.get("title", "")
+                    for step in (guide_row.get("work_process_steps") or [])[:5]
+                    if step.get("title")
+                ]
+                try:
+                    llm_response = await openai_client.validate_guide_relevance(
+                        visual_observations=visual_obs_texts,
+                        visual_cues=visual_cues,
+                        industry_context=industry,
+                        guide_code=guide_code,
+                        guide_title=str(guide_row.get("title") or ""),
+                        domain_family=str(profile.get("domain_family") or ""),
+                        required_context_terms=list(
+                            profile.get("required_context_terms") or []
+                        ),
+                        work_processes=work_processes,
+                    )
+                    verdict_obj = ValidatorVerdict(
+                        verdict=str(llm_response.get("verdict", "accept")),
+                        reason=str(llm_response.get("reason", "")),
+                        confidence=float(llm_response.get("confidence", 0.0)),
+                        ts=datetime.now(timezone.utc).isoformat(),
+                    )
+                    cache.put(scene_hash, guide_code, verdict_obj)
+                    llm_call_count += 1
+                except Exception as exc:
+                    logger.warning(
+                        "LLM validate_guide_relevance failed for %s: %s",
+                        guide_code,
+                        exc,
+                    )
+                    continue
+
+            if verdict_obj.is_reject:
+                sim = filter_result.similarities.get(guide_code, 0.0)
+                excluded.append(
+                    ExcludedCandidate(
+                        guide_code=guide_code,
+                        title=guide_row.get("title"),
+                        verdict="reject",
+                        reason=verdict_obj.reason,
+                        confidence=verdict_obj.confidence,
+                        similarity=sim,
+                        source="llm",
+                    )
+                )
+
+        try:
+            cache.flush()
+        except Exception as exc:
+            logger.warning("LlmValidatorCache.flush failed: %s", exc)
+
+        if mode == "active" and excluded:
+            excluded_set = {e.guide_code for e in excluded}
+            knowledge.guide_rows = [
+                r for r in knowledge.guide_rows if r.get("guide_code") not in excluded_set
+            ]
+
+        try:
+            self._append_analysis_log(
+                scene_hash=scene_hash,
+                mode=mode,
+                industry=industry,
+                visual_obs=visual_obs_texts,
+                candidate_codes=candidate_codes,
+                filter_result=filter_result,
+                excluded=excluded,
+            )
+        except Exception as exc:
+            logger.warning("analysis_log append failed: %s", exc)
+
+        logger.info(
+            "LLM rerank mode=%s drop=%d gray=%d (llm_calls=%d cache_hits=%d) excluded=%d",
+            mode,
+            len(filter_result.drop),
+            len(filter_result.gray),
+            llm_call_count,
+            llm_cache_hit_count,
+            len(excluded),
+        )
+        return excluded
+
+    def _append_analysis_log(
+        self,
+        *,
+        scene_hash: str,
+        mode: str,
+        industry: str,
+        visual_obs: list[str],
+        candidate_codes: list[str],
+        filter_result: Any,
+        excluded: list[ExcludedCandidate],
+    ) -> None:
+        """Phase C.1 — append per-analysis log for self-refine mining.
+
+        env LLM_RERANK_MODE=shadow|active 일 때만 기록. off에서는 skip.
+        """
+        if mode not in ("shadow", "active"):
+            return
+        from pathlib import Path
+
+        backend_app = Path(__file__).resolve().parents[1]
+        for ancestor in backend_app.parents:
+            artifacts_dir = ancestor / "data-team" / "05-enrichment" / "runtime-artifacts"
+            if artifacts_dir.exists():
+                log_path = artifacts_dir / "analysis_log.jsonl"
+                break
+        else:
+            return
+        entry = {
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "mode": mode,
+            "scene_hash": scene_hash,
+            "industry": industry,
+            "visual_obs_count": len(visual_obs),
+            "candidate_count": len(candidate_codes),
+            "filter_keep": len(filter_result.keep),
+            "filter_gray": len(filter_result.gray),
+            "filter_drop": len(filter_result.drop),
+            "excluded": [
+                {
+                    "guide_code": e.guide_code,
+                    "source": e.source,
+                    "reason": e.reason[:100],
+                    "similarity": e.similarity,
+                }
+                for e in excluded
+            ],
+        }
+        with log_path.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
     def _penalty_exposure_status(self, penalty_paths: list[PenaltyPath]) -> str:
         if any(path.notice_level == "photo_based" for path in penalty_paths):

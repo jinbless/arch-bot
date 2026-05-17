@@ -247,20 +247,136 @@ def evaluate_guide_domain_profile(
     industries = set(industry_contexts or [])
     features = set(risk_feature_codes or [])
 
+    manual_decision = None
     if profile:
         manual_decision = _evaluate_manual_profile(profile, context_blob, industries, features)
         if manual_decision and manual_decision.alignment != "general":
-            return manual_decision
+            return _apply_dynamic_incompatibility(manual_decision, guide_code, industries)
 
     if rule:
         rule_decision = _evaluate_rule(rule, context_blob, industries, features)
         if rule_decision.exclude or rule_decision.alignment != "general":
-            return rule_decision
+            return _apply_dynamic_incompatibility(rule_decision, guide_code, industries)
 
     if profile and manual_decision:
-        return manual_decision
+        return _apply_dynamic_incompatibility(manual_decision, guide_code, industries)
 
-    return GuideDomainDecision()
+    return _apply_dynamic_incompatibility(GuideDomainDecision(), guide_code, industries)
+
+
+def _apply_dynamic_incompatibility(
+    decision: GuideDomainDecision,
+    guide_code: str | None,
+    industries: set[str],
+) -> GuideDomainDecision:
+    """Phase A.4 — LLM-mined incompatibility KB 기반 추가 mismatch penalty.
+
+    기존 decision 위에 동적 KB lookup으로 penalty 합산.
+    exclude=True 또는 industries 없는 경우 그대로 둠.
+    """
+    if decision.exclude or not guide_code or not industries:
+        return decision
+    penalty, reason = _check_dynamic_incompatibility(guide_code, industries)
+    if penalty >= 0.0:
+        return decision
+    new_evidence = list(decision.evidence)
+    if reason:
+        new_evidence.append(reason)
+    return GuideDomainDecision(
+        family=decision.family or "dynamic_kb",
+        level=decision.level if decision.level != "general" else "dynamic",
+        alignment="domain_mismatch" if decision.alignment == "general" else decision.alignment,
+        score_adjustment=decision.score_adjustment + penalty,
+        exclude=False,
+        evidence=new_evidence,
+    )
+
+
+def _check_dynamic_incompatibility(
+    guide_code: str | None,
+    industries: set[str],
+) -> tuple[float, str | None]:
+    """LLM-mined incompatibility lookup.
+
+    Returns:
+        (score_adjustment, reason)
+        - 0.0 if no incompatibility found
+        - -0.05 if candidate level
+        - -0.18 if vetted level
+    """
+    if not guide_code or not industries:
+        return 0.0, None
+    primary = _load_guide_llm_domains().get(guide_code)
+    if not primary:
+        return 0.0, None
+    incompat_for_primary = _load_dynamic_incompatibilities().get(primary)
+    if not incompat_for_primary:
+        return 0.0, None
+    for industry in industries:
+        for other, level, _reason in incompat_for_primary:
+            if other == industry:
+                penalty = -0.18 if level == "vetted" else -0.05
+                return penalty, f"dynamic_incompat:{primary}↔{industry}({level})"
+    return 0.0, None
+
+
+def _runtime_artifact(filename: str) -> Path | None:
+    """Walk up from DATA_DIR to locate data-team/05-enrichment/runtime-artifacts/<filename>."""
+    for ancestor in DATA_DIR.resolve().parents:
+        candidate = (
+            ancestor / "data-team" / "05-enrichment" / "runtime-artifacts" / filename
+        )
+        if candidate.exists():
+            return candidate
+    return None
+
+
+@lru_cache(maxsize=1)
+def _load_dynamic_incompatibilities() -> dict[str, set[tuple[str, str, str]]]:
+    """guide_domain_incompatibilities.json → {domain: {(other, level, reason), ...}}.
+
+    Asymmetric trust: confidence ≥ 0.7 + incompatible=True만 채택.
+    """
+    path = _runtime_artifact("guide_domain_incompatibilities.json")
+    if path is None:
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    by_domain: dict[str, set[tuple[str, str, str]]] = {}
+    for entry in payload.get("incompatibilities") or []:
+        if not entry.get("incompatible"):
+            continue
+        if float(entry.get("confidence") or 0.0) < 0.7:
+            continue
+        a = str(entry.get("domain_a") or "").strip()
+        b = str(entry.get("domain_b") or "").strip()
+        if not a or not b or a == b:
+            continue
+        level = str(entry.get("level") or "candidate").strip()
+        reason = str(entry.get("reason") or "")[:80]
+        by_domain.setdefault(a, set()).add((b, level, reason))
+        by_domain.setdefault(b, set()).add((a, level, reason))
+    return by_domain
+
+
+@lru_cache(maxsize=1)
+def _load_guide_llm_domains() -> dict[str, str]:
+    """guide_code → primary_domain (LLM-classified)."""
+    path = _runtime_artifact("guide_llm_domains.json")
+    if path is None:
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    result: dict[str, str] = {}
+    for code, info in (payload.get("classifications") or {}).items():
+        primary = (info or {}).get("primary_domain")
+        if primary:
+            result[str(code)] = str(primary)
+    return result
 
 
 def _evaluate_rule(

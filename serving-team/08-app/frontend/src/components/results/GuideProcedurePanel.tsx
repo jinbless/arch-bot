@@ -1,48 +1,61 @@
 import React from 'react';
 import type { StandardProcedure } from '../../types/analysis';
+import SourceBadge, { inferProcedureSource } from './SourceBadge';
 
 const GuideProcedurePanel: React.FC<{ procedures: StandardProcedure[] }> = ({ procedures }) => (
   <section className="bg-white rounded-xl border border-green-200 p-4">
-    <div className="mb-3">
-      <h2 className="text-lg font-bold text-gray-900">표준 개선 절차</h2>
-      <p className="text-sm text-gray-500">
-        KOSHA Guide와 작업 프로세스를 기준으로 정리한 개선 흐름입니다.
-      </p>
+    <div className="mb-3 flex items-start justify-between gap-2">
+      <div>
+        <h2 className="text-lg font-bold text-gray-900">표준 개선 절차</h2>
+        <p className="text-sm text-gray-500">
+          KOSHA Guide와 작업 프로세스를 기준으로 정리한 개선 흐름입니다.
+        </p>
+      </div>
+      <SourceBadge source="pg_guide" extra="PG kosha_guides" />
     </div>
     {procedures.length ? (
       <div className="space-y-2">
-        {procedures.map((procedure, index) => (
-          <div key={procedure.procedure_id} className="rounded-lg bg-green-50 px-3 py-2">
-            <div className="text-sm font-medium text-gray-900">
-              {index + 1}. {procedure.title}
-            </div>
-            {procedure.description && (
-              <div className="text-xs text-gray-500 mt-1">{procedure.description}</div>
-            )}
-            {procedure.steps?.length ? (
-              <ol className="mt-2 space-y-1 border-l border-green-200 pl-2">
-                {procedure.steps.slice(0, 5).map((step) => (
-                  <li key={step.step_id} className="py-1">
-                    <div className="text-xs font-medium text-gray-800">
-                      {step.order}. {step.title}
-                    </div>
-                    {step.safety_measures && (
-                      <div className="mt-0.5 text-xs text-gray-500">{step.safety_measures}</div>
-                    )}
-                    {step.source_section && (
-                      <div className="mt-0.5 text-[11px] text-green-700">섹션 {step.source_section}</div>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            ) : null}
-            {typeof procedure.confidence === 'number' && (
-              <div className="text-xs text-green-700 mt-1">
-                관련도 {Math.round(procedure.confidence * 100)}%
+        {procedures.map((procedure, index) => {
+          const src = inferProcedureSource(procedure.evidence_summary);
+          return (
+            <div key={procedure.procedure_id} className="rounded-lg bg-green-50 px-3 py-2">
+              <div className="flex items-start justify-between gap-2">
+                <div className="text-sm font-medium text-gray-900 flex-1">
+                  {index + 1}. {procedure.title}
+                </div>
+                <SourceBadge source={src} />
               </div>
-            )}
-          </div>
-        ))}
+              {procedure.description && (
+                <div className="text-xs text-gray-500 mt-1">{procedure.description}</div>
+              )}
+              {procedure.steps?.length ? (
+                <ol className="mt-2 space-y-1 border-l border-green-200 pl-2">
+                  {procedure.steps.slice(0, 5).map((step) => (
+                    <li key={step.step_id} className="py-1">
+                      <div className="text-xs font-medium text-gray-800">
+                        {step.order}. {step.title}
+                      </div>
+                      {step.safety_measures && (
+                        <div className="mt-0.5 text-xs text-gray-500">{step.safety_measures}</div>
+                      )}
+                      {step.source_section && (
+                        <div className="mt-0.5 text-[11px] text-green-700">섹션 {step.source_section}</div>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              ) : null}
+              <div className="flex items-center gap-3 mt-1">
+                {typeof procedure.confidence === 'number' && (
+                  <span className="text-xs text-green-700">관련도 {Math.round(procedure.confidence * 100)}%</span>
+                )}
+                {procedure.evidence_summary && (
+                  <span className="text-[10px] text-gray-400" title={procedure.evidence_summary}>근거: {procedure.evidence_summary.slice(0, 60)}{procedure.evidence_summary.length > 60 ? '...' : ''}</span>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     ) : (
       <p className="text-sm text-gray-400">연결된 표준 개선 절차가 없습니다.</p>
