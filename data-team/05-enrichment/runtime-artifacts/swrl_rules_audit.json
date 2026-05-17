@@ -1,0 +1,313 @@
+{
+  "generated_at": "2026-05-16T16:25:52.642904+00:00",
+  "model": "gpt-5.4-nano",
+  "category_counts": {
+    "alethic_inference": 5,
+    "bridge_inference": 5,
+    "deontic_inference": 5,
+    "violation_chain": 4,
+    "penalty_chain": 3
+  },
+  "rules": [
+    {
+      "id": "R-09",
+      "name_ko": "사진 관찰로부터 시각 관찰 도출(VisualObservationFromPhoto)",
+      "category": "alethic_inference",
+      "head": "observedIn(?obs, ?p)",
+      "body": [
+        "Photo(?p)",
+        "hasVisualCue(?p, ?cue)",
+        "VisualObservation(?obs)"
+      ],
+      "comment_ko": "업로드된 사진에 포함된 시각 단서로부터 관찰 객체(VisualObservation)를 생성/연결하는 기초 연계 규칙. (도메인 데이터에 따라 hasVisualCue/VisualObservation의 사용 방식을 맞추어 구현)"
+    },
+    {
+      "id": "R-10",
+      "name_ko": "시각 관찰에서 위험 특징 식별(RiskFeatureFromVisualObservation)",
+      "category": "alethic_inference",
+      "head": "risk:hasRiskFeature(?obs, ?rf)",
+      "body": [
+        "VisualObservation(?obs)",
+        "observesVisualCue(?obs, ?cue)",
+        "risk:RiskFeature(?rf)",
+        "risk:indicatesByCue(?rf, ?cue)"
+      ],
+      "comment_ko": "VisualObservation에 나타난 단서(cue)를 근거로 위험 특징(RiskFeature)을 도출한다."
+    },
+    {
+      "id": "R-11",
+      "name_ko": "위험 특징으로부터 위험 유형(Hazard) 추정(HazardFromRiskFeature)",
+      "category": "alethic_inference",
+      "head": "haz:hasHazard(?rf, ?hazd)",
+      "body": [
+        "risk:RiskFeature(?rf)",
+        "haz:Hazard(?hazd)",
+        "risk:correspondsToHazard(?rf, ?hazd)"
+      ],
+      "comment_ko": "위험 특징이 어떤 유해/위험 유형(hazard)에 대응되는지 매핑한다."
+    },
+    {
+      "id": "R-12",
+      "name_ko": "장비/스펙 기반 위험 특징 정합성 연결(RiskFeatureAlignedWithEquipmentSpec)",
+      "category": "alethic_inference",
+      "head": "risk:appliesToEquipment(?rf, ?eq)",
+      "body": [
+        "risk:RiskFeature(?rf)",
+        "Equipment(?eq)",
+        "EquipmentSpec(?spec)",
+        "equipmentHasSpec(?eq, ?spec)",
+        "risk:compatibleWithSpec(?rf, ?spec)"
+      ],
+      "comment_ko": "위험 특징이 특정 장비 스펙/구성에 대해 성립함을 연결한다."
+    },
+    {
+      "id": "R-13",
+      "name_ko": "작업 프로세스-상황 매칭으로 위험 상황 단계 추정(TemporalStageFromSituationMatch)",
+      "category": "alethic_inference",
+      "head": "app:hasTemporalStage(?sm, ?ts)",
+      "body": [
+        "app:SituationMatch(?sm)",
+        "WorkProcess(?wp)",
+        "app:matchesProcess(?sm, ?wp)",
+        "app:temporalStageForProcess(?wp, ?ts)"
+      ],
+      "comment_ko": "사진/상황 매칭 결과(SituationMatch)에서 작업 프로세스에 해당하는 시간 단계(TemporalStage)를 추정한다."
+    },
+    {
+      "id": "R-14",
+      "name_ko": "위험 특징 관찰이 위험을 관찰로 연결(ObservedInHazard)",
+      "category": "bridge_inference",
+      "head": "Bridge:observedIn(?rfObs, ?hazd)",
+      "body": [
+        "VisualObservation(?vobs)",
+        "risk:hasRiskFeature(?vobs, ?rf)",
+        "haz:Hazard(?hazd)",
+        "haz:hasHazard(?rf, ?hazd)",
+        "Bridge:observedIn(?rfObs, ?hazd)"
+      ],
+      "comment_ko": "VisualObservation→RiskFeature→Hazard 흐름에서, 해당 위험이 관찰되었음을 bridge로 연결(개념적 연결). 실제 구현 시 observedIn 주체 인자를 온톨로지에 맞추어 정렬 필요."
+    },
+    {
+      "id": "R-15",
+      "name_ko": "위험 특징에서 적용 가능한 SR 선택(AppliesSRFromHazard)",
+      "category": "bridge_inference",
+      "head": "Bridge:appliesTo(?sr, ?hazd)",
+      "body": [
+        "risk:RiskFeature(?rf)",
+        "haz:Hazard(?hazd)",
+        "haz:hasHazard(?rf, ?hazd)",
+        "sr:SafetyRequirement(?sr)",
+        "sr:addressesHazard(?sr, ?hazd)"
+      ],
+      "comment_ko": "관찰된 위험 유형(hazard)에 대해 위험을 다루는 안전요건(SR)을 연결한다."
+    },
+    {
+      "id": "R-16",
+      "name_ko": "관찰 기반으로 SR 적용 문맥(ObservedIn) 연결(ObservedContextForSR)",
+      "category": "bridge_inference",
+      "head": "Bridge:observedIn(?sr, ?ctx)",
+      "body": [
+        "sr:SafetyRequirement(?sr)",
+        "core:observedIn(?obs, ?ctx)",
+        "VisualObservation(?obs)",
+        "risk:hasRiskFeature(?obs, ?rf)",
+        "haz:hasHazard(?rf, ?hazd)",
+        "sr:addressesHazard(?sr, ?hazd)"
+      ],
+      "comment_ko": "같은 관찰 문맥(ctx)에서 특정 hazard가 관찰되었고, 그 hazard를 다루는 SR을 해당 문맥에 적용되도록 bridge한다."
+    },
+    {
+      "id": "R-17",
+      "name_ko": "장비/작업 매칭으로 SR 적용 대상 장비 확정(EquipmentScopeForSR)",
+      "category": "bridge_inference",
+      "head": "Bridge:appliesTo(?sr, ?eq)",
+      "body": [
+        "sr:SafetyRequirement(?sr)",
+        "Equipment(?eq)",
+        "risk:appliesToEquipment(?rf, ?eq)",
+        "risk:RiskFeature(?rf)",
+        "VisualObservation(?vobs)",
+        "risk:hasRiskFeature(?vobs, ?rf)",
+        "sr:appliesToEquipment(?sr, ?eq)"
+      ],
+      "comment_ko": "관찰된 위험 특징이 특정 장비에 대응되고, SR이 해당 장비에 적용됨을 확정한다."
+    },
+    {
+      "id": "R-18",
+      "name_ko": "HazardFinding의 판정 상태가 SR 적용 조건에 반영(StatusConditionToSR)",
+      "category": "bridge_inference",
+      "head": "Bridge:appliesTo(?sr, ?cond)",
+      "body": [
+        "app:HazardFinding(?hf)",
+        "app:FindingStatus(?hf)",
+        "app:hasFindingStatus(?hf, ?st)",
+        "sr:SafetyRequirement(?sr)",
+        "sr:requiresFindingStatus(?sr, ?st)",
+        "Bridge:appliesTo(?sr, ?cond)"
+      ],
+      "comment_ko": "HazardFinding의 판정 상태가 SR의 적용 조건(문맥 cond)에 반영되도록 연결한다(메타데이터 cond를 만드는 방식은 데이터 구조에 맞춰 조정)."
+    },
+    {
+      "id": "R-19",
+      "name_ko": "SR에 대응되는 적용 법조문 추론(ArticleLinkForSR)",
+      "category": "deontic_inference",
+      "head": "law:appliesArticle(?sr, ?art)",
+      "body": [
+        "sr:SafetyRequirement(?sr)",
+        "sr:basedOnArticle(?sr, ?art)"
+      ],
+      "comment_ko": "이미 sr:basedOnArticle이 존재하는 경우, 명시적 링크를 강화(정규화)한다. (온톨로지에서 property명 상이 시 head/body 속성만 치환)"
+    },
+    {
+      "id": "R-20",
+      "name_ko": "법조문 기반 SR의 의무 모달리티 확정(ObligationModalityForSR)",
+      "category": "deontic_inference",
+      "head": "core:hasModality(?ns, core:Obligation)",
+      "body": [
+        "sr:SafetyRequirement(?sr)",
+        "law:NormStatement(?ns)",
+        "law:groundedBySR(?ns, ?sr)"
+      ],
+      "comment_ko": "NormStatement(ns)가 SR로부터 도출되며, 그 모달리티를 의무(Obligation)로 연결한다."
+    },
+    {
+      "id": "R-21",
+      "name_ko": "NormStatement의 주어진 안전요건(SR)에서 제재 규칙 후보 연결(PenaltyCandidate)",
+      "category": "deontic_inference",
+      "head": "pen:penalizesNorm(?penRule, ?ns)",
+      "body": [
+        "pen:PenaltyRule(?penRule)",
+        "law:NormStatement(?ns)",
+        "pen:appliesToNormStatement(?penRule, ?ns)"
+      ],
+      "comment_ko": "PenaltyRule이 어떤 NormStatement에 적용되는지 연결(명시 관계가 없을 경우 펜 규칙 지식모델에 따라 보강)."
+    },
+    {
+      "id": "R-22",
+      "name_ko": "NormStatement가 특정 법(Article) 소속임을 연결(InDeonticByArticle)",
+      "category": "deontic_inference",
+      "head": "law:hasArticle(?ns, ?art)",
+      "body": [
+        "law:NormStatement(?ns)",
+        "sr:SafetyRequirement(?sr)",
+        "sr:basedOnArticle(?sr, ?art)",
+        "law:groundedBySR(?ns, ?sr)"
+      ],
+      "comment_ko": "NormStatement가 근거하는 SR을 통해 Article 소속을 확정한다."
+    },
+    {
+      "id": "R-23",
+      "name_ko": "SR 적용 위반에서 의무 위반으로 연결되는 NormStatement 준비(BridgeToViolationPrereq)",
+      "category": "deontic_inference",
+      "head": "violatesObligation:?ns",
+      "body": [
+        "law:NormStatement(?ns)",
+        "core:hasModality(?ns, core:Obligation)",
+        "sr:SafetyRequirement(?sr)",
+        "law:groundedBySR(?ns, ?sr)"
+      ],
+      "comment_ko": "위반 체인 단계에서 사용될 수 있도록, 의무 모달리티의 NormStatement를 위반 후보로 표지(실제 property/개체는 사용 온톨로지에 맞추어 수정 필요)."
+    },
+    {
+      "id": "R-24",
+      "name_ko": "SR 위반 추론: 관찰된 hazard에 대한 SR이 적용되나 준수 징표 부재(ViolationSRFromNoncompliance)",
+      "category": "violation_chain",
+      "head": "core:hasViolation(?obs, ?sr)",
+      "body": [
+        "VisualObservation(?obs)",
+        "Bridge:appliesTo(?sr, ?hazd)",
+        "haz:hasHazard(?rf, ?hazd)",
+        "risk:hasRiskFeature(?obs, ?rf)",
+        "sr:SafetyRequirement(?sr)",
+        "app:Noncompliance(?nc)",
+        "app:indicatesNoncompliance(?nc, ?obs)"
+      ],
+      "comment_ko": "관찰에서 비준수 정황(Noncompliance)이 확인되고, 그 hazard에 적용되는 SR이 존재하면 SR 위반으로 연결. (Noncompliance 관련 클래스/속성은 데이터에 맞게 조정)"
+    },
+    {
+      "id": "R-25",
+      "name_ko": "SR 위반 → 위반된 NormStatement 도출(ViolationNSFromViolatedSR)",
+      "category": "violation_chain",
+      "head": "Bridge:violatesObligation(?agent, ?ns)",
+      "body": [
+        "core:hasViolation(?obs, ?sr)",
+        "law:NormStatement(?ns)",
+        "law:groundedBySR(?ns, ?sr)",
+        "agent:Worker(?agent)"
+      ],
+      "comment_ko": "SR 위반을 근거로 그 SR을 근거로 하는 NormStatement를 ‘의무 위반’ 대상으로 연결한다."
+    },
+    {
+      "id": "R-26",
+      "name_ko": "위험 특징/관찰 기반으로 직접 위반 연결(ViolationFromRiskFeature)",
+      "category": "violation_chain",
+      "head": "core:hasViolation(?ctx, ?ns)",
+      "body": [
+        "VisualObservation(?obs)",
+        "Bridge:observedIn(?sr, ?ctx)",
+        "risk:hasRiskFeature(?obs, ?rf)",
+        "haz:hasHazard(?rf, ?hazd)",
+        "sr:SafetyRequirement(?sr)",
+        "sr:addressesHazard(?sr, ?hazd)",
+        "law:NormStatement(?ns)",
+        "law:groundedBySR(?ns, ?sr)",
+        "app:Noncompliance(?nc)",
+        "app:indicatesNoncompliance(?nc, ?obs)"
+      ],
+      "comment_ko": "관찰된 위험 특징과 적용되는 SR을 거쳐 NormStatement 위반을 문맥(ctx) 단위로 연결한다."
+    },
+    {
+      "id": "R-27",
+      "name_ko": "준수/면제 관계가 없는 의무 NormStatement만 위반으로 확정(ExcludeExempted)",
+      "category": "violation_chain",
+      "head": "Bridge:violatesObligation(?agent, ?ns)",
+      "body": [
+        "Bridge:violatesObligation(?agent, ?ns)",
+        "core:hasModality(?ns, core:Obligation)",
+        "law:NormStatement(?exNs)",
+        "core:hasModality(?exNs, core:Exemption)",
+        "law:modifies(?exNs, ?ns)"
+      ],
+      "comment_ko": "면제(exemption)가 의무를 modifies 하는 경우 위반 확정이 억제되어야 하는 논리이나, SWRL은 일반적으로 부정 조건을 표현하기 어렵다. 본 규칙은 ‘면제 후보 존재’ 시 위반 플래그를 유지/조정해야 하는 형태로 구현(엔진/데이터 모델에 따라 별도 규칙 분리 권장)."
+    },
+    {
+      "id": "R-28",
+      "name_ko": "위반된 NormStatement에 대한 제재 규칙 활성화(PenaltyRuleFromNS)",
+      "category": "penalty_chain",
+      "head": "pen:appliesPenaltyRule(?ctx, ?penRule)",
+      "body": [
+        "Bridge:violatesObligation(?agent, ?ns)",
+        "pen:PenaltyRule(?penRule)",
+        "pen:penalizesNorm(?penRule, ?ns)",
+        "app:PenaltyExposure(?ctx)"
+      ],
+      "comment_ko": "의무 위반이 확인된 NormStatement에 연결된 제재 규칙을 제재 노출 문맥에 적용한다."
+    },
+    {
+      "id": "R-29",
+      "name_ko": "제재 심각도에 따른 제재 레벨 라벨링(HighSeverityPenaltyToExposure)",
+      "category": "penalty_chain",
+      "head": "app:hasPenaltyLevel(?ctx, app:HighSeverity)",
+      "body": [
+        "app:PenaltyExposure(?ctx)",
+        "pen:PenaltyRule(?penRule)",
+        "pen:appliesToExposure(?penRule, ?ctx)",
+        "pen:severityScore(?penRule, ?score)",
+        "swrlb:greaterThanOrEqual(?score, 5)"
+      ],
+      "comment_ko": "제재 심각도 점수 5 이상이면 해당 제재 노출(ctx)을 HighSeverity로 라벨링한다."
+    },
+    {
+      "id": "R-30",
+      "name_ko": "제재 규칙으로부터 실제 제재 항목(제재 결과) 도출(PenaltyResultFromPenaltyRule)",
+      "category": "penalty_chain",
+      "head": "app:hasPenaltyResult(?ctx, ?pr)",
+      "body": [
+        "pen:PenaltyRule(?penRule)",
+        "pen:resultsIn(?penRule, ?pr)",
+        "pen:appliesPenaltyRule(?ctx, ?penRule)"
+      ],
+      "comment_ko": "PenaltyRule이 어떤 제재 결과(pr)로 귀결되는지 연결한다."
+    }
+  ]
+}

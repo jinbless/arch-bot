@@ -1,0 +1,457 @@
+{
+  "generated_at": "2026-05-16T16:23:45.239719+00:00",
+  "base_ontology": "ontology-team/06-reasoning/ontology/kosha-ontology.owl",
+  "output_owl": "ontology-team/06-reasoning/ontology/kosha-ontology-v2.owl",
+  "output_ttl": "ontology-team/06-reasoning/ontology/kosha-ontology-v2.formatted.ttl",
+  "imports": [
+    "http://purl.obolibrary.org/obo/bfo.owl",
+    "http://www.estrellaproject.org/lkif-core/lkif-core.owl",
+    "http://purl.obolibrary.org/obo/ro.owl",
+    "http://www.w3.org/ns/prov-o-20130430",
+    "http://www.w3.org/ns/sosa/"
+  ],
+  "added_subClassOf_bfo": 29,
+  "added_subClassOf_lkif": 35,
+  "audit": [
+    {
+      "iri": "https://cashtoss.info/ontology#BindingForce",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "bfo_target": null,
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#DutyHolder",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Role",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Role"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#Modality",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "bfo_target": null,
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#ProtectedPerson",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Role",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Role"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#RegulatoryAuthority",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Role",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Role"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#SubjectRole",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Role",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Role"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#ActionRecommendation",
+      "layer": "AB_bridge",
+      "bfo_super": "Process",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000015",
+      "lkif_super": "Obligation",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Obligation"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#AssessmentReport",
+      "layer": "AB_bridge",
+      "bfo_super": "Occurrent",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000003",
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#CorrectiveAction",
+      "layer": "AB_bridge",
+      "bfo_super": "Process",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000015",
+      "lkif_super": "Obligation",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Obligation"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#CorrectiveActionPlan",
+      "layer": "AB_bridge",
+      "bfo_super": "Process",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000015",
+      "lkif_super": "Obligation",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Obligation"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#FindingStatus",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#HazardFinding",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Norm",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#InspectionCase",
+      "layer": "A_alethic",
+      "bfo_super": "Occurrent",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000003",
+      "lkif_super": "Norm",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#PenaltyExposure",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Penalty",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Penalty"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#PenaltyExposureStatus",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Penalty",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Penalty"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#SituationMatch",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#UploadedPhoto",
+      "layer": "A_alethic",
+      "bfo_super": "Continuant",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000002",
+      "lkif_super": "LegalDocument",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#VisualCue",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Norm",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#VisualObservation",
+      "layer": "A_alethic",
+      "bfo_super": "Occurrent",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000003",
+      "lkif_super": "Norm",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#ChecklistItem",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#DocumentRequirement",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Obligation",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Obligation"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#DomainTerm",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "NormStatement",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#NormStatement"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#EquipmentSpec",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "LegalDocument",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#KoshaGuide",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "LegalDocument",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#LegalDocument"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#WorkProcess",
+      "layer": "A_alethic",
+      "bfo_super": "Process",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000015",
+      "lkif_super": "Norm",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Article",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Chapter",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "LegalDocument",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#LegalDocument"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#LawType",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "LegalDocument",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#LegalDocument"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#LegalEntity",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Role",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Role"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#LegalStructure",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "LegalDocument",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#LegalDocument"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#NormStatement",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Part",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "LegalDocument",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#LegalDocument"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Section",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "LegalDocument",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#LegalDocument"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Subsection",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "LegalDocument",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#LegalDocument"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#AccidentOutcome",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "bfo_target": null,
+      "lkif_super": "NormStatement",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#NormStatement"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#AdministrativeFine",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "bfo_target": null,
+      "lkif_super": "Prohibition",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Prohibition"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#CriminalSanction",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "bfo_target": null,
+      "lkif_super": "Prohibition",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Prohibition"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#PenaltyCondition",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Obligation",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Obligation"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#PenaltyRule",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#SanctionType",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "LegalDocument",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#LegalDocument"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk#RiskFeature",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk#RiskPattern",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/agent#HazardousAgent",
+      "layer": "A_alethic",
+      "bfo_super": "Object",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000030",
+      "lkif_super": "Object",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#AgentState",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#EnvironmentalFactor",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#PPEState",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#TemporalStage",
+      "layer": "A_alethic",
+      "bfo_super": "Occurrent",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000003",
+      "lkif_super": "Occurrent",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#WorkActivity",
+      "layer": "A_alethic",
+      "bfo_super": "Process",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000015",
+      "lkif_super": "Process",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#WorkContext",
+      "layer": "A_alethic",
+      "bfo_super": "Process",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000015",
+      "lkif_super": "Process",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/hazard#AccidentType",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/hazard#Hazard",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/situation#VisualTrigger",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "bfo_target": "http://purl.obolibrary.org/obo/BFO_0000019",
+      "lkif_super": "Quality",
+      "lkif_target": null
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/sr#RequirementType",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Norm",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Norm"
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/sr#SafetyRequirement",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "bfo_target": null,
+      "lkif_super": "Obligation",
+      "lkif_target": "http://www.estrellaproject.org/lkif-core/lkif-core#Obligation"
+    }
+  ]
+}

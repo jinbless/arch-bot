@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-05-16T16:14:18.705904+00:00",
+  "model": "gpt-5.4-nano",
+  "scores": [
+    {
+      "ontology": "BFO 2.0",
+      "iri": "http://purl.obolibrary.org/obo/bfo.owl",
+      "scope": "Upper-level ontology for continuants/occurrents (upper taxonomy and general categories).",
+      "fit_score_0_10": 8.5,
+      "covered_layers": [
+        "A_alethic"
+      ],
+      "recommended": true,
+      "rationale": "KOSHA는 Hazard, AccidentOutcome, WorkActivity, TemporalStage 등 '사실/존재/사건(알레틱)'을 다루므로 상위 분류 체계를 안정적으로 제공. KOSHA의 문서/검사/보고 등은 Occurrent 관점에서 정리하기 유리. 다만 deontic(의무/금지) 표현 자체는 BFO가 직접 제공하지 않음."
+    },
+    {
+      "ontology": "LKIF-Core",
+      "iri": "http://www.estrellaproject.org/lkif-core/lkif-core.owl",
+      "scope": "Legal deontic constructs: obligation/permission/prohibition and related legal concepts.",
+      "fit_score_0_10": 9.0,
+      "covered_layers": [
+        "B_deontic"
+      ],
+      "recommended": true,
+      "rationale": "KOSHA의 SafetyRequirement, NormStatement, ActionRecommendation, PenaltyRule/Condition/Exposure, LawType/Article/Section 구조와 결합 시 '규범의 모달리티(의무/금지/허용)'를 표준적으로 표현 가능. 다만 KOSHA의 세부 도메인(예: 작업·위험·보호구 상태) 의미까지 전부 흡수하기보다는 규범/법적 진술 레이어에 중심적으로 적용하는 것이 적합."
+    },
+    {
+      "ontology": "RO Relation Ontology",
+      "iri": "http://purl.obolibrary.org/obo/ro.owl",
+      "scope": "Generic standardized relations (e.g., has_part, located_in, role-related patterns).",
+      "fit_score_0_10": 7.5,
+      "covered_layers": [
+        "A_alethic",
+        "B_deontic",
+        "bridge"
+      ],
+      "recommended": true,
+      "rationale": "KOSHA의 Article/Chapter/Section-Part-Subsection 계층, ChecklistItem- FindingStatus- HazardFinding 관계, 문서/증거/검사 케이스의 연결 등에서 '관계 표준화' 효과가 큼. 알레틱/브릿지 모두에 활용 가능하며, deontic에서도 NormStatement에 대한 연결(예: subject/duty 대상 연결) 같은 구조화에 유리."
+    },
+    {
+      "ontology": "PROV-O",
+      "iri": "http://www.w3.org/ns/prov",
+      "scope": "Provenance, derivation, activity/agent/entities, attribution, generation/usage lineage.",
+      "fit_score_0_10": 8.0,
+      "covered_layers": [
+        "bridge"
+      ],
+      "recommended": true,
+      "rationale": "KOSHA의 AssessmentReport, InspectionCase, UploadedPhoto, FindingStatus(상태 이력) 등에서 '누가/언제/무엇을 근거로'가 중요. PROV-O로 문서 생성/검사 활동/사진 관측의 계보를 구조화하면 감사추적성과 상호운용성이 좋아짐. 다만 순수 deontic/알레틱의 핵심 분류를 대체하기보다는 증거/행위/문서 흐름에 브릿지로 적용이 적합."
+    },
+    {
+      "ontology": "OccO Occupation Ontology",
+      "iri": "https://github.com/Occupation-Ontology/OccO",
+      "scope": "Occupation/SOC mapping for job roles.",
+      "fit_score_0_10": 3.5,
+      "covered_layers": [
+        "bridge"
+      ],
+      "recommended": false,
+      "rationale": "KOSHA 클래스에는 SubjectRole, DutyHolder 등이 있으나, 특정 직무 분류(occupation taxonomy)가 현재 핵심 스키마에 직접 대응된다고 보기 어려움. 작업/작업활동(WorkActivity)이나 위험요인 도메인에 직무가 강하게 연결된다면 재검토 가능하지만, 현재 제공된 클래스 요약만으로는 우선 적용 우선순위가 낮음."
+    },
+    {
+      "ontology": "ENVO Environment Ontology",
+      "iri": "http://purl.obolibrary.org/obo/envo.owl",
+      "scope": "Environmental entities and features (broad environmental/workplace environment concepts).",
+      "fit_score_0_10": 4.5,
+      "covered_layers": [
+        "A_alethic"
+      ],
+      "recommended": false,
+      "rationale": "KOSHA의 EnvironmentalFactor가 있으나, ENVO는 일반 환경/지형/생태학적 개념이 중심이라 산업안전 '작업장 환경'을 바로 커버한다고 확정하기 어렵다. 다만 온도/공간/공정 환경 등 세부 하위가 명확하고 매핑 가능하면 향후 특정 하위영역에서 부분적 재사용은 고려 가능."
+    },
+    {
+      "ontology": "SSN/SOSA",
+      "iri": "https://www.w3.org/ns/sosa/",
+      "scope": "Sensor observations, stimuli, observations-of features, systems.",
+      "fit_score_0_10": 6.5,
+      "covered_layers": [
+        "bridge"
+      ],
+      "recommended": true,
+      "rationale": "KOSHA에 UploadedPhoto, VisualObservation/Trigger/Cue 등이 있어 '관측(Observation) 결과' 모델링이 필요할 수 있음. SSN/SOSA로 사진(관측)→ 관측대상(시각적 단서/상태)→ 관측행위/시간/품질 등을 구조화하면 증거 모델링에 도움이 됨. 단, KOSHA가 이미 자체적인 Visual* 패턴을 강하게 정의한다면 SSN/SOSA는 증거-관측 표현 레이어에서 보완적으로(브릿지) 사용하는 쪽이 적절."
+    },
+    {
+      "ontology": "RO Relation Ontology (relations within KOSHA hierarchy)",
+      "iri": "http://purl.obolibrary.org/obo/ro.owl",
+      "scope": "Relation standardization specifically for KOSHA document/partonomy and situational matching connections.",
+      "fit_score_0_10": 7.5,
+      "covered_layers": [
+        "bridge"
+      ],
+      "recommended": true,
+      "rationale": "Article/Chapter/Section/Subsection/Part와 같은 '부분-전체/포함' 및 상황 매칭(SituationMatch) 등의 연결에서 표준 relation을 적용하면 확장/질의가 쉬워짐. (단, 동일 온톨로지 중복 점수는 개념 재사용 관점의 보강 설명을 위한 것임.)"
+    }
+  ],
+  "decision_summary": "우선 재사용 권장: BFO 2.0(A_alethic), LKIF-Core(B_deontic), RO(관계 표준화; A/B/bridge), PROV-O(bridge), SSN/SOSA(bridge, 사진/시각관측 증거에 한정). 보류/낮은 적합: OccO(직무 분류가 현재 핵심 축인지 불명), ENVO(산업안전 작업장 환경 개념과의 직접 매핑 근거 부족)."
+}

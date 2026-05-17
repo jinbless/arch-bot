@@ -1,0 +1,425 @@
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix she: <https://cashtoss.info/ontology/risk/situation#> .
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+app:GuideUsageProfileShape
+    a sh:NodeShape ;
+    sh:targetClass guide:GuideUsageProfile ;
+    sh:property [
+        sh:path guide:profileOfGuide ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class guide:KoshaGuide ;
+        sh:message "GuideUsageProfile must belong to exactly one KoshaGuide." ;
+    ] ;
+    sh:property [
+        sh:path app:baselineId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "GuideUsageProfile must carry the serving baseline id." ;
+    ] .
+
+app:PhotoUnmatchablePolicyShape
+    a sh:NodeShape ;
+    sh:targetClass guide:GuideUsageProfile ;
+    sh:sparql [
+        sh:message "photo_unmatchable profiles must use suppress_photo_top." ;
+        sh:select """
+            PREFIX guide: <https://cashtoss.info/ontology/guide#>
+            SELECT $this WHERE {
+              $this guide:photoMatchability "photo_unmatchable" .
+              FILTER NOT EXISTS { $this guide:topProcedurePolicy "suppress_photo_top" }
+            }
+        """ ;
+    ] .
+
+app:EvaluationPhotoTopShape
+    a sh:NodeShape ;
+    sh:targetClass app:EvaluationCase ;
+    sh:sparql [
+        sh:message "An evaluation top Guide must not be photo_unmatchable." ;
+        sh:select """
+            PREFIX app: <https://cashtoss.info/ontology/app#>
+            SELECT $this WHERE {
+              $this app:photoUnmatchableTop true .
+            }
+        """ ;
+    ] .
+
+app:ServingCandidateShape
+    a sh:NodeShape ;
+    sh:targetClass app:ServingCandidate ;
+    sh:sparql [
+        sh:message "needs_review/rejected candidates must not be serving-allowed or legal asserted." ;
+        sh:select """
+            PREFIX app: <https://cashtoss.info/ontology/app#>
+            SELECT $this WHERE {
+              $this app:reviewStatus ?status .
+              FILTER(?status IN ("needs_review", "rejected"))
+              {
+                $this app:servingAllowed true .
+              } UNION {
+                $this app:legalAsserted true .
+              }
+            }
+        """ ;
+    ] .
+
+# --- v2 신규 shapes (Phase E Step 3c 자동 생성) ---
+
+# core:HazardFindingTypeShape (alethic_validation) — (CQ) 특정 분석 건에서 확인된 위험 판단(HazardFinding)의 위험 유형(Hazard)을 정확히 1개로 강제.
+core:core:HazardFindingTypeShape
+    a sh:NodeShape ;
+    sh:targetClass core:HazardFinding ;
+sh:property [
+  sh:path core:hazardType ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:class core:Hazard ;
+  sh:message "HazardFinding must have exactly one core:hazardType (a core:Hazard)." ;
+] .
+    .
+
+# core:VisualCueCountShape (alethic_validation) — (CQ) 업로드된 사진에서 위험을 시사하는 시각 단서(VisualCue) 존재성 검증.
+core:core:VisualCueCountShape
+    a sh:NodeShape ;
+    sh:targetClass core:VisualObservation ;
+sh:property [
+  sh:path core:visualCues ;
+  sh:minCount 1 ;
+  sh:message "VisualObservation must include at least one core:visualCues (VisualCue) indicating risk-relevant visual evidence." ;
+] .
+    .
+
+# core:VisualObservationRiskItemsShape (alethic_validation) — (CQ) 관찰 사실(VisualObservation)에 기록된 위험 관련 항목이 1개 이상 존재하는지 검증.
+core:core:VisualObservationRiskItemsShape
+    a sh:NodeShape ;
+    sh:targetClass core:VisualObservation ;
+sh:property [
+  sh:path core:riskRelatedItem ;
+  sh:minCount 1 ;
+  sh:message "VisualObservation must record at least one risk-related item (risk evidence) as core:riskRelatedItem." ;
+] .
+    .
+
+# core:RiskFeatureOrPatternShape (alethic_validation) — (CQ) 사진 기반 위험 특징(RiskFeature) 또는 위험 패턴이 식별되었는지 검증.
+core:core:RiskFeatureOrPatternShape
+    a sh:NodeShape ;
+    sh:targetClass core:RiskFeature ;
+sh:property [
+  sh:path core:featureOrPattern ;
+  sh:minCount 1 ;
+  sh:message "RiskFeature must be linked to at least one identifiable risk feature/pattern (core:featureOrPattern)." ;
+] .
+    .
+
+# core:AgentStateFromPhotoShape (alethic_validation) — (CQ) 사진에 근거해 작업자 상태로 기록된 내용이 문자열로 1개 존재해야 함.
+core:core:AgentStateFromPhotoShape
+    a sh:NodeShape ;
+    sh:targetClass core:AgentState ;
+sh:property [
+  sh:path core:agentStateText ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:datatype xsd:string ;
+  sh:message "AgentState captured from photo must have exactly one literal description (core:agentStateText)." ;
+] .
+    .
+
+# core:PPEStateRecordedShape (alethic_validation) — (CQ) 분석 건에서 보호구 상태(PPEState)로 기록된 항목이 PPE 타입과 상태값을 모두 갖추었는지 검증.
+core:core:PPEStateRecordedShape
+    a sh:NodeShape ;
+    sh:targetClass core:PPEState ;
+sh:property [
+  sh:path core:ppeType ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:class core:PPE ;
+  sh:message "PPEState must specify exactly one core:ppeType (a core:PPE)." ;
+] ;
+sh:property [
+  sh:path core:ppeCondition ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "PPEState must specify core:ppeCondition (e.g., worn/not worn)" ;
+] .
+    .
+
+# core:HazardousAgentFromPhotoShape (alethic_validation) — (CQ) 사진에서 식별된 유해 인자(HazardousAgent)가 위험 유형(Hazard)에 매핑되었는지 검증.
+core:core:HazardousAgentFromPhotoShape
+    a sh:NodeShape ;
+    sh:targetClass core:HazardousAgent ;
+sh:property [
+  sh:path core:hazardousAgentType ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:class core:Hazard ;
+  sh:message "HazardousAgent must be associated with exactly one hazardous agent type (as core:Hazard)." ;
+] .
+    .
+
+# law:ArticleModalityRequiredShape (deontic_validation) — (Deontic) 법령(Article)에 Modality 필수.
+core:law:ArticleModalityRequiredShape
+    a sh:NodeShape ;
+    sh:targetClass law:Article ;
+sh:property [
+  sh:path law:modality ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "law:Article must have exactly one law:modality (obligation/prohibition/permission)." ;
+] .
+    .
+
+# law:NormStatementMustHaveModalityShape (deontic_validation) — (Deontic) 법령 문장(NormStatement)의 Modality 존재/단일성 강제.
+core:law:NormStatementMustHaveModalityShape
+    a sh:NodeShape ;
+    sh:targetClass law:NormStatement ;
+sh:property [
+  sh:path law:modality ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "law:NormStatement must have exactly one law:modality." ;
+] .
+    .
+
+# sr:SafetyRequirementHasNormStatementShape (deontic_validation) — 안전요구사항이 어떤 규범 명세(NormStatement)에서 도출됐는지 1개로 강제.
+core:sr:SafetyRequirementHasNormStatementShape
+    a sh:NodeShape ;
+    sh:targetClass sr:SafetyRequirement ;
+sh:property [
+  sh:path sr:basedOn ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:class law:NormStatement ;
+  sh:message "SafetyRequirement must be based on exactly one law:NormStatement." ;
+] .
+    .
+
+# pen:PenaltyRuleModalityAndRuleTypeShape (deontic_validation) — 벌칙 규칙의 효과(modality)와 규칙 유형을 필수로 검증.
+core:pen:PenaltyRuleModalityAndRuleTypeShape
+    a sh:NodeShape ;
+    sh:targetClass pen:PenaltyRule ;
+sh:property [
+  sh:path pen:ruleType ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "PenaltyRule must specify exactly one pen:ruleType." ;
+] ;
+sh:property [
+  sh:path pen:modality ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "PenaltyRule must specify pen:modality (aligned with the deontic effect)." ;
+] .
+    .
+
+# law:NormStatementTextRequiredShape (deontic_validation) — 규범 명세 문장의 텍스트 필수(식별/추적성).
+core:law:NormStatementTextRequiredShape
+    a sh:NodeShape ;
+    sh:targetClass law:NormStatement ;
+sh:property [
+  sh:path law:normText ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:datatype xsd:string ;
+  sh:message "NormStatement must carry exactly one literal text (law:normText)." ;
+] .
+    .
+
+# sr:SafetyRequirementSeverityRequiredShape (deontic_validation) — 안전요구사항의 심각도/등급이 없으면 deontic 비교 및 매칭 불가.
+core:sr:SafetyRequirementSeverityRequiredShape
+    a sh:NodeShape ;
+    sh:targetClass sr:SafetyRequirement ;
+sh:property [
+  sh:path sr:severityLevel ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "SafetyRequirement must include exactly one sr:severityLevel." ;
+] .
+    .
+
+# pen:PenaltyRulePenaltyAmountRequiredShape (deontic_validation) — 벌칙 금액의 수치 값 필수.
+core:pen:PenaltyRulePenaltyAmountRequiredShape
+    a sh:NodeShape ;
+    sh:targetClass pen:PenaltyRule ;
+sh:property [
+  sh:path pen:penaltyAmount ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:datatype xsd:decimal ;
+  sh:message "PenaltyRule must have exactly one numeric pen:penaltyAmount." ;
+] .
+    .
+
+# core:HazardFindingToHazardBridgeShape (bridge_validation) — 알레틱(HazardFinding)→하자드(코어) 연결을 강제하고 증거 참조 존재.
+core:core:HazardFindingToHazardBridgeShape
+    a sh:NodeShape ;
+    sh:targetClass core:HazardFinding ;
+sh:property [
+  sh:path core:hazardType ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:class core:Hazard ;
+  sh:message "HazardFinding must bridge to exactly one core:Hazard via core:hazardType." ;
+] ;
+sh:property [
+  sh:path core:hasEvidence ;
+  sh:minCount 1 ;
+  sh:message "HazardFinding must reference at least one alethic evidence (core:hasEvidence) for deontic application." ;
+] .
+    .
+
+# core:SituationMatchToTemporalStageBridgeShape (bridge_validation) — (CQ) 사진 기반 상황 매칭의 시간 단계(TemporalStage) 연결을 강제.
+core:core:SituationMatchToTemporalStageBridgeShape
+    a sh:NodeShape ;
+    sh:targetClass core:SituationMatch ;
+sh:property [
+  sh:path core:temporalStage ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "SituationMatch must bridge to exactly one core:temporalStage (estimated time step)." ;
+] .
+    .
+
+# core:WorkActivityToInspectionCaseBridgeShape (bridge_validation) — (CQ) 분석 건의 작업 활동(WorkActivity) 매칭이 어떤 InspectionCase에서 수행되었는지 연결.
+core:core:WorkActivityToInspectionCaseBridgeShape
+    a sh:NodeShape ;
+    sh:targetClass core:WorkActivity ;
+sh:property [
+  sh:path core:matchedIn ;
+  sh:minCount 1 ;
+  sh:message "WorkActivity must be bridged to the core:InspectionCase (core:matchedIn)." ;
+] .
+    .
+
+# core:HazardMatchToSafetyRequirementBridgeShape (bridge_validation) — 하자드(알레틱)→안전요구사항(데온틱) 연결을 강제(적용 대상 도출).
+core:core:HazardMatchToSafetyRequirementBridgeShape
+    a sh:NodeShape ;
+    sh:targetClass core:Hazard ;
+sh:property [
+  sh:path core:requiresSafetyRequirement ;
+  sh:minCount 1 ;
+  sh:message "core:Hazard must be connected to at least one sr:SafetyRequirement via core:requiresSafetyRequirement." ;
+] ;
+sh:property [
+  sh:path core:requiresSafetyRequirement ;
+  sh:class sr:SafetyRequirement ;
+  sh:message "core:requiresSafetyRequirement values must be instances of sr:SafetyRequirement." ;
+] .
+    .
+
+# sr:SafetyRequirementToModalityArticleBridgeShape (bridge_validation) — 안전요구사항이 연결된 NormStatement의 modality가 전제되어야 함(레이어 연결).
+core:sr:SafetyRequirementToModalityArticleBridgeShape
+    a sh:NodeShape ;
+    sh:targetClass sr:SafetyRequirement ;
+sh:property [
+  sh:path sr:basedOn ;
+  sh:class law:NormStatement ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "SafetyRequirement must bridge to exactly one NormStatement (sr:basedOn)." ;
+] ;
+sh:property [
+  sh:path sr:basedOn ;
+  sh:message "The bridged NormStatement must carry modality in deontic layer (validated by Article/NormStatement modality shapes)." ;
+] .
+    .
+
+# core:PPEStateToSafetyRequirementBridgeShape (bridge_validation) — (CQ) 보호구 상태가 어떤 안전요구사항(의무/금지 등)과 연결되는지 강제.
+core:core:PPEStateToSafetyRequirementBridgeShape
+    a sh:NodeShape ;
+    sh:targetClass core:PPEState ;
+sh:property [
+  sh:path core:imposes ;
+  sh:minCount 1 ;
+  sh:class sr:SafetyRequirement ;
+  sh:message "PPEState must be bridged to at least one SafetyRequirement via core:imposes." ;
+] .
+    .
+
+# core:PhotoSituationMatchTemporalStageCardinalityShape (cardinality) — (CQ) 시간 단계(TemporalStage) 단일성(1..1) 카드inality.
+core:core:PhotoSituationMatchTemporalStageCardinalityShape
+    a sh:NodeShape ;
+    sh:targetClass core:SituationMatch ;
+sh:property [
+  sh:path core:temporalStage ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "SituationMatch must have exactly one core:temporalStage (estimated time step)." ;
+] .
+    .
+
+# core:WorkActivityMatchCardinalityShape (cardinality) — (CQ) 분석 건의 작업 활동 매칭은 정확히 1개로 강제.
+core:core:WorkActivityMatchCardinalityShape
+    a sh:NodeShape ;
+    sh:targetClass core:InspectionCase ;
+sh:property [
+  sh:path core:workActivity ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "InspectionCase must match exactly one core:WorkActivity." ;
+] .
+    .
+
+# core:AccidentTypeJudgementCardinalityShape (cardinality) — (CQ) 사고 유형(AccidentType) 판정 단일성(1..1) 강제.
+core:core:AccidentTypeJudgementCardinalityShape
+    a sh:NodeShape ;
+    sh:targetClass core:HazardFinding ;
+sh:property [
+  sh:path core:accidentType ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "HazardFinding must specify exactly one core:accidentType." ;
+] .
+    .
+
+# domain:HazardFindingHazardTypeDomainRangeShape (domain_constraint) — (domain_constraint) hazardType의 range 위반(코어:Hazard 아닌 값 연결) 탐지.
+core:domain:HazardFindingHazardTypeDomainRangeShape
+    a sh:NodeShape ;
+    sh:targetClass core:HazardFinding ;
+sh:property [
+  sh:path core:hazardType ;
+  sh:class core:Hazard ;
+  sh:message "Domain/Range violation: core:hazardType must point to an instance of core:Hazard." ;
+] .
+    .
+
+# domain:AgentStateAgentStateTextDatatypeShape (domain_constraint) — (domain_constraint) AgentStateText의 datatype 위반 탐지.
+core:domain:AgentStateAgentStateTextDatatypeShape
+    a sh:NodeShape ;
+    sh:targetClass core:AgentState ;
+sh:property [
+  sh:path core:agentStateText ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "Domain/Range violation: core:agentStateText must be an xsd:string." ;
+] .
+    .
+
+# domain:PPEStatePPEConditionValueShape (domain_constraint) — (domain_constraint) PPEState ppeCondition 값 형식/범위 위반 탐지.
+core:domain:PPEStatePPEConditionValueShape
+    a sh:NodeShape ;
+    sh:targetClass core:PPEState ;
+sh:property [
+  sh:path core:ppeCondition ;
+  sh:nodeKind sh:LiteralOrIRI ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:message "Domain/Range violation: core:ppeCondition must be a single value (literal or IRI) with a valid PPE condition representation." ;
+] .
+    .

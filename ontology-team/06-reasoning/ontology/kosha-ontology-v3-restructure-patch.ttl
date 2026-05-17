@@ -1,0 +1,11 @@
+# kosha-ontology-v3 restructure patch (Phase E Step 4b)
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+
+# fix for 2 target=https://cashtoss.info/ontology/penalty#CriminalSanction
+https://cashtoss.info/ontology/penalty#CriminalSanction rdfs:subClassOf https://cashtoss.info/ontology/penalty#CriminalSanctionType .
+
+# fix for 5 target=https://cashtoss.info/ontology/risk/agent#HazardousAgent
+https://cashtoss.info/ontology/risk/agent#HazardousAgent rdfs:subClassOf https://cashtoss.info/ontology/risk#HazardousAgentFeature .
+https://cashtoss.info/ontology/risk#HazardousAgentFeature rdfs:subClassOf https://cashtoss.info/ontology/risk#RiskFeature .

@@ -1,0 +1,397 @@
+{
+  "generated_at": "2026-05-16T16:13:36.059238+00:00",
+  "model": "gpt-5.4-nano",
+  "class_count": 55,
+  "layer_counts": {
+    "B_deontic": 26,
+    "AB_bridge": 9,
+    "A_alethic": 20
+  },
+  "assignments": [
+    {
+      "iri": "https://cashtoss.info/ontology#BindingForce",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "lkif_super": "Norm",
+      "rationale": "구속력은 법규범에 내재된 규범적 구속 정도(규범의 성격/효력)로, 현실 사건이라기보다 규범 영역의 품질(=효력/강제성)로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#DutyHolder",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Role",
+      "rationale": "의무이행주체는 규범에서 요구되는 역할(법적 지위/역할)로서 LKIF의 Role에 해당."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#Modality",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "lkif_super": "Norm",
+      "rationale": "모달리티(의무/금지/허가 등 가능·필요 양태)는 규범적 성격을 나타내는 속성으로 B_deontic에 배치."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#ProtectedPerson",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Role",
+      "rationale": "보호대상은 규범이 보호하려는 주체의 역할로, LKIF-Core Role로 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#RegulatoryAuthority",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Role",
+      "rationale": "규제기관은 법 적용/집행 관련 주체로서 규범적 역할(권한 주체)이므로 Role로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology#SubjectRole",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Role",
+      "rationale": "‘의무 주체’라는 범주 자체가 규범에서의 역할(SubjectRole)이므로 LKIF Role로 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#ActionRecommendation",
+      "layer": "AB_bridge",
+      "bfo_super": "Process",
+      "lkif_super": "Obligation",
+      "rationale": "조치 추천 항목은 검사/판정 결과에서 도출되는 실행 지침(현실의 행위/조치 과정)이며, 동시에 준수·이행을 요구하는 규범적 성격(의무/권고)에 연결될 수 있어 브리지로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#AssessmentReport",
+      "layer": "AB_bridge",
+      "bfo_super": "Occurrent",
+      "lkif_super": "Norm",
+      "rationale": "사업주 안내 결과(보고/평가 수행)로서 특정 Occurrent(평가 행위·생산물)이며, 해당 보고 내용이 규범 준수 여부를 판정/연계한다는 점에서 규범 영역과 연결되는 브리지 성격."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#CorrectiveAction",
+      "layer": "AB_bridge",
+      "bfo_super": "Process",
+      "lkif_super": "Obligation",
+      "rationale": "개선 조치는 위반/위험에 대응해 실제로 수행되는 조치(과정)이고, 법·규범 관점에서는 시정의 이행(의무/요구)으로 연결되므로 AB."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#CorrectiveActionPlan",
+      "layer": "AB_bridge",
+      "bfo_super": "Process",
+      "lkif_super": "Obligation",
+      "rationale": "조치 계획은 실행될 과정의 계획(미래 지향의 과정)이며, 규범상 시정 이행 의무와 연결되기 쉬워 브리지로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#FindingStatus",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "lkif_super": "Norm",
+      "rationale": "판정 상태는 검사 결과의 상태(품질/상태)로, 규범 위반 여부 및 후속 의무(시정/제재)와 연결되는 표현이므로 브리지로 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#HazardFinding",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Norm",
+      "rationale": "위험 판단(해저드 파인딩)은 현실의 관찰/평가로 드러난 위험 속성(품질)이며, 그 자체는 규범이 아니라 알레틱 관찰/판정 결과로 보는 것이 자연스러움."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#InspectionCase",
+      "layer": "A_alethic",
+      "bfo_super": "Occurrent",
+      "lkif_super": "Norm",
+      "rationale": "분석 건(inspection case)은 특정 검사/평가가 수행된 사건(Occurrent)으로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#PenaltyExposure",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "lkif_super": "Penalty",
+      "rationale": "벌칙 노출은 현실에서의 위반 상황이 초래하는 제재 위험의 정도(품질/상태)이며, 법적 제재(벌칙)와 직접 연결되므로 AB."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#PenaltyExposureStatus",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "lkif_super": "Penalty",
+      "rationale": "벌칙 노출 상태는 제재 위험의 현재 판정 값/등급(품질)으로서 Penalty 영역의 법적 제재와 연결."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#SituationMatch",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "lkif_super": "Norm",
+      "rationale": "상황 매칭은 특정 사실/사례가 규범의 적용 요건에 부합하는 정도(매칭 품질)로, 규범 적용(해석/적용)과 연결되는 브리지."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#UploadedPhoto",
+      "layer": "A_alethic",
+      "bfo_super": "Continuant",
+      "lkif_super": "LegalDocument",
+      "rationale": "업로드 사진은 디지털/기록 객체로서 연속체(컨티넌트)이며, 관찰 사실의 근거가 되지만 ‘법 문서’ 자체는 아니므로 알레틱 우선."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#VisualCue",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Norm",
+      "rationale": "시각 단서는 사진/관찰에서 추출된 특징(품질/단서)으로 현실 알레틱 영역에 배치."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/app#VisualObservation",
+      "layer": "A_alethic",
+      "bfo_super": "Occurrent",
+      "lkif_super": "Norm",
+      "rationale": "관찰 사실은 관찰 행위/기술된 관찰 이벤트(Occurrent)로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#ChecklistItem",
+      "layer": "AB_bridge",
+      "bfo_super": "Quality",
+      "lkif_super": "Norm",
+      "rationale": "점검항목은 실제 점검에서 확인하는 체크 요소(실행 맥락의 항목/준거 품질)이며, 보통 법·기준에 근거한 준수/검증 기준(규범)과 연결되므로 브리지로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#DocumentRequirement",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Obligation",
+      "rationale": "문서 제출/작성 등 규범적 요구사항(의무)을 표현하는 문서 요구는 법령 규범 영역의 의무(Obligation)로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#DomainTerm",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "NormStatement",
+      "rationale": "도메인 용어는 규범 해석을 위한 정의/해석 규칙 형태로 쓰이므로(용어 정의/지시) 규범 진술문(NormStatement) 쪽에 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#EquipmentSpec",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "LegalDocument",
+      "rationale": "장비 규격은 현실의 장비에 적용되는 속성/기준으로서 Quality에 해당(예: 허용치, 성능 기준). 다만 규격이 법/가이드 문서로부터 오면 그 문서(legal document) 성격을 참조할 수 있으나, 핵심은 현실 기준치의 기술이므로 Layer A로 배치."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#KoshaGuide",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "LegalDocument",
+      "rationale": "KOSHA 가이드는 법령 문서가 아니라도 ‘규범적 지침/문서’로서 LKIF의 LegalDocument 계열에 해당."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/guide#WorkProcess",
+      "layer": "A_alethic",
+      "bfo_super": "Process",
+      "lkif_super": "Norm",
+      "rationale": "작업 프로세스는 현실에서 일어나는 공정/절차이므로 BFO Occurrent의 Process로 분류. 해당 프로세스가 규범에 의해 규율될 수는 있으나(참조), 클래스 자체는 현실 공정이므로 Layer A."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Article",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Norm",
+      "rationale": "조문(Article)은 법령의 규범 단위를 구성하며, 개별 Norm에 대응."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Chapter",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "LegalDocument",
+      "rationale": "장(Chapter)은 법령 문서의 구조적 단위로서 LegalDocument/법령 구조를 상위로 둔 구성요소."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#LawType",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "LegalDocument",
+      "rationale": "법령 유형은 문서 메타분류에 해당하므로 법령 문서 계열(LegalDocument)로 매핑하고, 현실 세계 객체라기보다 분류 역할을 수행."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#LegalEntity",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Role",
+      "rationale": "법령 엔티티는 법령 주체/대상 등 역할(어떤 주체가 규범에 포함되는지)로 해석될 여지가 커서 LKIF의 Role 쪽에 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#LegalStructure",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "LegalDocument",
+      "rationale": "법령 구조는 법령 문서의 조직/계층을 나타내는 메타 구조이므로 LegalDocument 계열로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#NormStatement",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Norm",
+      "rationale": "규범 진술문은 LKIF의 Norm(규범)으로 직접 매핑되는 핵심 규범 클래스."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Part",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "LegalDocument",
+      "rationale": "편(Part)은 법령 문서 구조의 상위 단위로 LegalDocument 계열로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Section",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "LegalDocument",
+      "rationale": "절(Section)은 법령 문서의 계층 단위이므로 LegalDocument 계열(문서 구조)로 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/law#Subsection",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "LegalDocument",
+      "rationale": "관(Subsection)은 법령 조항의 하위 계층 단위로서 문서 구조/법령 문서 계열에 대응."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#AccidentOutcome",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "lkif_super": "NormStatement",
+      "rationale": "사고 결과는 제재가 연동되는 조건/사실 유형으로서 규범 진술(또는 조건을 기술하는 규범적 요소)로 다루는 편이 자연스러워 NormStatement에 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#AdministrativeFine",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "lkif_super": "Prohibition",
+      "rationale": "과태료는 제재(처벌) 유형으로서 규범적 제재 성격을 갖는다. LKIF의 제재/금지 계열을 Prohibition으로 근사 매핑(벌칙을 ‘부과되는 규범적 불이익’으로 취급)."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#CriminalSanction",
+      "layer": "B_deontic",
+      "bfo_super": "Quality",
+      "lkif_super": "Prohibition",
+      "rationale": "형사벌도 제재 유형이므로 규범적 불이익(금지/처벌) 성격을 Prohibition 계열로 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#PenaltyCondition",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Obligation",
+      "rationale": "벌칙 선택 조건은 ‘어떤 조건에서 제재가 적용되는가’라는 규범 조건 요소이므로 Obligation의 조건/적용 조건을 표현하는 구조로 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#PenaltyRule",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Norm",
+      "rationale": "벌칙 적용 규칙은 제재를 어떻게 적용하는지에 대한 규범(규칙) 자체이므로 Norm으로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/penalty#SanctionType",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "LegalDocument",
+      "rationale": "제재 유형은 처분/제재의 분류(메타)로서 규범적 결과를 범주화하는 요소이며, 문서/규범 체계에서 쓰이는 메타 카테고리로 LegalDocument 계열로 근사 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk#RiskFeature",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "위험의 ‘특징’은 관찰·평가되는 속성(현상/대상에 나타나는 특징)으로 현실세계의 품질(quality)로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk#RiskPattern",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "위험의 ‘패턴’은 여러 위험 특징의 조합으로 나타나는 양상/구조로, 현실세계에서 관찰되는 속성(quality)으로 모델링."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/agent#HazardousAgent",
+      "layer": "A_alethic",
+      "bfo_super": "Object",
+      "lkif_super": "Object",
+      "rationale": "‘유해 인자’는 현실세계에서 위해를 유발하는 존재(물질/원인 개체)로 보아 BFO Continuant 상의 Object로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#AgentState",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "작업자 상태(agent_state)는 작업자에게 나타나는 상태/조건(예: 인지, 자세, 피로 등)로 품질(quality)로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#EnvironmentalFactor",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "환경 요인(environmental)은 작업 장소에 존재하는 조건/상태로서 관찰 가능한 속성(quality)에 해당."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#PPEState",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "보호구 상태(ppe_state)는 PPE의 착용/미착용, 정상/미비 등 조건을 나타내는 속성(quality)으로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#TemporalStage",
+      "layer": "A_alethic",
+      "bfo_super": "Occurrent",
+      "lkif_super": "Occurrent",
+      "rationale": "시간 단계(temporal_stage)는 사건/과정에 대응되는 시간적 구간 또는 단계로 현실세계의 Occurrent로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#WorkActivity",
+      "layer": "A_alethic",
+      "bfo_super": "Process",
+      "lkif_super": "Process",
+      "rationale": "작업 활동(work_activity)은 수행되는 행위/절차로서 현실세계의 process로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/context#WorkContext",
+      "layer": "A_alethic",
+      "bfo_super": "Process",
+      "lkif_super": "Process",
+      "rationale": "작업 맥락(work_context)은 작업 활동을 둘러싼 조건들의 묶음이지만, 모델링상 ‘맥락’을 특정 시간/상황 내에서의 구체적 상황으로 보고 process/occurrent 성격을 부여."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/hazard#AccidentType",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "사고 유형(accident type)은 실제 사고가 갖는 범주/특성으로 위험 발생 결과의 구체적 양상(분류 가능한 품질)로 모델링."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/hazard#Hazard",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "‘위험 유형(위해 요소)’(Hazard)은 특정 위해의 종류/속성을 나타내므로 현실세계의 quality로 매핑."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "위험상황 패턴은 특정 상황에서 나타나는 위험 패턴의 조건화된 형태로, 관찰되는 양상(quality)으로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/risk/situation#VisualTrigger",
+      "layer": "A_alethic",
+      "bfo_super": "Quality",
+      "lkif_super": "Quality",
+      "rationale": "시각 트리거(visual trigger)는 관찰로 인지되는 징후/조건(예: 표식, 이상 징후)으로 quality(관찰 가능한 상태)로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/sr#RequirementType",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Norm",
+      "rationale": "요구사항 유형(requirement type)은 규범 체계에서 요구사항의 범주/종류로, 법·규범(규범 성격의 Norm)으로 분류."
+    },
+    {
+      "iri": "https://cashtoss.info/ontology/sr#SafetyRequirement",
+      "layer": "B_deontic",
+      "bfo_super": "Role",
+      "lkif_super": "Obligation",
+      "rationale": "안전요구사항(safety requirement)은 준수 의무를 수반하는 규범 표현에 가깝고, LKIF-Core의 Obligation(의무)로 매핑."
+    }
+  ]
+}

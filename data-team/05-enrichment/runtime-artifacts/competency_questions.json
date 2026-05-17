@@ -1,0 +1,600 @@
+{
+  "generated_at": "2026-05-16T16:14:07.238424+00:00",
+  "model": "gpt-5.4-nano",
+  "type_counts": {
+    "alethic": 20,
+    "deontic": 20,
+    "bridge": 10
+  },
+  "questions": [
+    {
+      "id": "CQ-01",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "업로드된 사진에서 추락 위험을 직접적으로 시사하는 시각 단서(VisualCue)는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#UploadedPhoto",
+        "https://cashtoss.info/ontology/app#VisualCue"
+      ],
+      "complexity": "basic"
+    },
+    {
+      "id": "CQ-02",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "업로드된 사진에 관찰 사실(VisualObservation)로 기록된 위험 관련 항목은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#UploadedPhoto",
+        "https://cashtoss.info/ontology/app#VisualObservation"
+      ],
+      "complexity": "basic"
+    },
+    {
+      "id": "CQ-03",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "특정 분석 건(InspectionCase)에서 확인된 위험 판단(HazardFinding)의 위험 유형(Hazard)은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#InspectionCase",
+        "https://cashtoss.info/ontology/app#HazardFinding",
+        "https://cashtoss.info/ontology/risk/hazard#Hazard"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-04",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "분석 건의 작업 활동(WorkActivity)은 무엇으로 매칭되었는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#InspectionCase",
+        "https://cashtoss.info/ontology/risk/context#WorkActivity",
+        "https://cashtoss.info/ontology/app#SituationMatch"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-05",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "사진 기반 상황 매칭(SituationMatch)에서 시간 단계(TemporalStage)는 무엇으로 추정되었는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#SituationMatch",
+        "https://cashtoss.info/ontology/risk/context#TemporalStage"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-06",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "사진에 근거해 작업자 상태(AgentState)로 기록된 내용은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/risk/context#AgentState",
+        "https://cashtoss.info/ontology/app#SituationMatch"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-07",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "사진 기반 위험 특징(RiskFeature) 또는 위험 패턴(RiskPattern)으로 식별된 항목은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#InspectionCase",
+        "https://cashtoss.info/ontology/risk#RiskFeature",
+        "https://cashtoss.info/ontology/risk#RiskPattern"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-08",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "분석 건에서 보호구 상태(PPEState)로 기록된 사항은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#InspectionCase",
+        "https://cashtoss.info/ontology/risk/context#PPEState"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-09",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "사진에서 식별된 유해 인자(HazardousAgent)는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#VisualObservation",
+        "https://cashtoss.info/ontology/risk/agent#HazardousAgent"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-10",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "분석 건에서 환경 요인(EnvironmentalFactor)으로 기록된 항목은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#InspectionCase",
+        "https://cashtoss.info/ontology/risk/context#EnvironmentalFactor"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-11",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "분석 건에서 사고 유형(AccidentType)은 무엇으로 판정되었는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#InspectionCase",
+        "https://cashtoss.info/ontology/risk/hazard#AccidentType"
+      ],
+      "complexity": "basic"
+    },
+    {
+      "id": "CQ-12",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "위험 상황 패턴(SituationalHazardPattern)으로 매칭된 결과는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#SituationMatch",
+        "https://cashtoss.info/ontology/risk/situation#SituationalHazardPattern"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-13",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "업로드 사진의 관찰 범위에서 안전난간/안전대 관련 결여가 관찰(VisualObservation)되었는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#VisualObservation",
+        "https://cashtoss.info/ontology/risk/hazard#Hazard"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-14",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "업로드 사진의 관찰 범위에서 발판/개구부 결함이 관찰되었는가? 관찰된 결과는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#VisualObservation",
+        "https://cashtoss.info/ontology/risk#RiskFeature"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-15",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "분석 건의 위험 판단(HazardFinding) 판정 상태(FindingStatus)는 무엇인가(예: 확정/보류 등)?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#HazardFinding",
+        "https://cashtoss.info/ontology/app#FindingStatus"
+      ],
+      "complexity": "basic"
+    },
+    {
+      "id": "CQ-16",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "해당 분석 건에서 작업자 추락 위험이 ‘명확’하게 판단된 근거(VisualCue/VisualObservation)는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#HazardFinding",
+        "https://cashtoss.info/ontology/app#VisualCue",
+        "https://cashtoss.info/ontology/app#VisualObservation"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-17",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "사진에 나타난 안전모 미착용 관련 관찰 사실(VisualObservation)은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#VisualObservation",
+        "https://cashtoss.info/ontology/risk/context#PPEState"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-18",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "분석 건에서 안전난간 부재가 위험 유형(Hazard)으로 어떻게 매핑되었는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#HazardFinding",
+        "https://cashtoss.info/ontology/risk/hazard#Hazard",
+        "https://cashtoss.info/ontology/app#SituationMatch"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-19",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "분석 건의 위험 판단에 연결된 위험 특징(RiskFeature) 목록은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#HazardFinding",
+        "https://cashtoss.info/ontology/risk#RiskFeature"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-20",
+      "type": "alethic",
+      "category": "hazard_detection",
+      "question_ko": "사진의 시각 트리거(VisualTrigger)는 어떤 입력 단서를 통해 위험 패턴으로 이어졌는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/risk/situation#VisualTrigger",
+        "https://cashtoss.info/ontology/app#SituationMatch",
+        "https://cashtoss.info/ontology/risk#RiskPattern"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-21",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "사업주는 추락재해를 예방하기 위해 어떤 안전요구사항(SafetyRequirement)을 이행해야 하는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology#DutyHolder",
+        "https://cashtoss.info/ontology/guide#WorkProcess"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-22",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "어떤 의무이행주체(DutyHolder)가 어떤 안전요구사항을 부담하는가? (해당 분석 건 기준)",
+      "expected_classes": [
+        "https://cashtoss.info/ontology#DutyHolder",
+        "https://cashtoss.info/ontology#SubjectRole",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/app#InspectionCase"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-23",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "안전요구사항이 근거하는 조문(Article)은 무엇이며, 그 조문은 어떤 법령(LawType/Law entity) 소속인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/law#Article",
+        "https://cashtoss.info/ontology/law#LawType",
+        "https://cashtoss.info/ontology/law#LegalEntity"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-24",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "특정 위험 유형(Hazard)을 다루는 안전요구사항 중 ‘구속력(BindingForce)’이 있는 것은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/risk/hazard#Hazard",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology#BindingForce"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-25",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "해당 위험과 관련된 KOSHA 가이드(KoshaGuide) 체크리스트 항목(ChecklistItem) 중, 문서 요구사항(DocumentRequirement)이 포함된 것은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/guide#KoshaGuide",
+        "https://cashtoss.info/ontology/guide#ChecklistItem",
+        "https://cashtoss.info/ontology/guide#DocumentRequirement"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-26",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "보호대상(ProtectedPerson)을 보호하기 위해 적용되는 안전요구사항은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology#ProtectedPerson",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-27",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "점검 결과에 따라 개선조치(CorrectiveAction)가 요구된다면, 요구되는 조치 계획(CorrectiveActionPlan) 항목은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#CorrectiveAction",
+        "https://cashtoss.info/ontology/app#CorrectiveActionPlan",
+        "https://cashtoss.info/ontology/app#AssessmentReport"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-28",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "조치 추천(ActionRecommendation) 항목은 어떤 기준(AssessmentReport/HazardFinding/WorkContext)으로 제시되는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#ActionRecommendation",
+        "https://cashtoss.info/ontology/app#AssessmentReport",
+        "https://cashtoss.info/ontology/app#HazardFinding",
+        "https://cashtoss.info/ontology/risk/context#WorkContext"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-29",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "안전요구사항이 적용되는 작업 프로세스(WorkProcess) 단계는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/guide#WorkProcess"
+      ],
+      "complexity": "basic"
+    },
+    {
+      "id": "CQ-30",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "해당 위험 상황에서 PPEState가 특정 조건을 만족해야 한다면, 요구되는 보호구 상태 조건은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/risk/context#PPEState",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-31",
+      "type": "deontic",
+      "category": "penalty_chain",
+      "question_ko": "벌칙 노출(PenaltyExposure)이 ‘DIRECT’인 경우, 어떤 제재 유형(SanctionType)의 적용이 가능해지는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#PenaltyExposure",
+        "https://cashtoss.info/ontology/app#PenaltyExposureStatus",
+        "https://cashtoss.info/ontology/penalty#SanctionType"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-32",
+      "type": "deontic",
+      "category": "penalty_chain",
+      "question_ko": "해당 분석 건에서 사고 결과(AccidentOutcome)에 근거해 적용될 수 있는 형사벌(CriminalSanction) 또는 과태료(AdministrativeFine)는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/penalty#AccidentOutcome",
+        "https://cashtoss.info/ontology/penalty#CriminalSanction",
+        "https://cashtoss.info/ontology/penalty#AdministrativeFine",
+        "https://cashtoss.info/ontology/app#PenaltyExposure"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-33",
+      "type": "deontic",
+      "category": "penalty_chain",
+      "question_ko": "벌칙이 적용될 때의 벌칙 선택 조건(PenaltyCondition)은 무엇이며, 해당 분석 건은 그 조건을 충족하는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/penalty#PenaltyCondition",
+        "https://cashtoss.info/ontology/app#InspectionCase",
+        "https://cashtoss.info/ontology/app#PenaltyExposureStatus"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-34",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "해당 조치가 면제되는 경우(Exemption 모달리티)에는 어떤 조건이 면책 사유(exemptedBy)로 연결되는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/law#NormStatement",
+        "https://cashtoss.info/ontology#Modality",
+        "https://cashtoss.info/ontology#BindingForce"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-35",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "동일 조문(Article)에 근거하여 공동 적용되는 안전요구사항(SafetyRequirement) 쌍은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/law#Article"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-36",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "같은 위험 유형을 다루되 같은 조문에 근거하지 않은 안전요구사항들 사이에는 어떤 관계(dependency)가 추론되는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/risk/hazard#Hazard"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-37",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "장비 규격(EquipmentSpec)이 안전요구사항을 만족시키기 위한 핵심 조건으로 제시되는 경우, 해당 규격 항목은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/guide#EquipmentSpec",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-38",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "규제기관(RegulatoryAuthority)이 특정 안전요구사항을 집행하기 위해 참조하는 조문(Article)은 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology#RegulatoryAuthority",
+        "https://cashtoss.info/ontology/law#Article",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-39",
+      "type": "deontic",
+      "category": "norm_application",
+      "question_ko": "점검항목(ChecklistItem)별로 요구되는 후속 문서(DocumentRequirement)는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/guide#ChecklistItem",
+        "https://cashtoss.info/ontology/guide#DocumentRequirement",
+        "https://cashtoss.info/ontology/app#AssessmentReport"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-40",
+      "type": "deontic",
+      "category": "penalty_chain",
+      "question_ko": "제재의 심각도(severity)가 기준값 이상이면(highSeverity) 어떤 벌칙 적용 시나리오로 연결되는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/penalty#SanctionType",
+        "https://cashtoss.info/ontology/app#PenaltyExposure",
+        "https://cashtoss.info/ontology/penalty#PenaltyRule"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-41",
+      "type": "bridge",
+      "category": "violation_link",
+      "question_ko": "업로드된 사진의 상황이 어떤 법령 의무(SafetyRequirement/SR)를 위반하는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#UploadedPhoto",
+        "https://cashtoss.info/ontology/app#SituationMatch",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/law#Article"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-42",
+      "type": "bridge",
+      "category": "violation_link",
+      "question_ko": "특정 분석 건의 위험 판단(HazardFinding)이 특정 안전요구사항을 어떤 근거(조문/위험 의존성)로 연결하는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#HazardFinding",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/risk/hazard#Hazard",
+        "https://cashtoss.info/ontology/law#Article"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-43",
+      "type": "bridge",
+      "category": "violation_link",
+      "question_ko": "사진에서 관찰된 PPEState 불충족이 어떤 안전요구사항 위반으로 이어지는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/risk/context#PPEState",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/app#VisualObservation",
+        "https://cashtoss.info/ontology/app#HazardFinding"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-44",
+      "type": "bridge",
+      "category": "violation_link",
+      "question_ko": "작업 활동(WorkActivity)과 상황 매칭(SituationMatch) 결과가 어떤 점검항목(ChecklistItem)과 매핑되는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/risk/context#WorkActivity",
+        "https://cashtoss.info/ontology/app#SituationMatch",
+        "https://cashtoss.info/ontology/guide#ChecklistItem"
+      ],
+      "complexity": "intermediate"
+    },
+    {
+      "id": "CQ-45",
+      "type": "bridge",
+      "category": "penalty_chain",
+      "question_ko": "위험 유형(Hazard)과 판정 상태(FindingStatus)가 주어질 때, 해당 분석 건의 벌칙 노출(PenaltyExposureStatus)은 어떻게 추정되는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#HazardFinding",
+        "https://cashtoss.info/ontology/app#FindingStatus",
+        "https://cashtoss.info/ontology/app#PenaltyExposureStatus"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-46",
+      "type": "bridge",
+      "category": "penalty_chain",
+      "question_ko": "안전요구사항 위반(또는 미이행)이 확인된 경우, 그 위반이 어떤 제재 유형(SanctionType)과 연결되는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/penalty#SanctionType",
+        "https://cashtoss.info/ontology/app#PenaltyExposure"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-47",
+      "type": "bridge",
+      "category": "penalty_chain",
+      "question_ko": "행정 처분이 가능한 경우, 어떤 벌칙 선택 조건(PenaltyCondition)과 사고 결과(AccidentOutcome)가 연결되어 과태료(AdministrativeFine)로 이어지는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/penalty#PenaltyCondition",
+        "https://cashtoss.info/ontology/penalty#AccidentOutcome",
+        "https://cashtoss.info/ontology/penalty#AdministrativeFine",
+        "https://cashtoss.info/ontology/app#PenaltyExposure"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-48",
+      "type": "bridge",
+      "category": "penalty_chain",
+      "question_ko": "해당 사건에서 고위험(highSeverity) 제재로 분류되는 근거(심각도 점수/제재 규칙)는 무엇이며, 그 결과 벌칙 노출로 어떻게 연결되는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/penalty#SanctionType",
+        "https://cashtoss.info/ontology/app#PenaltyExposureStatus",
+        "https://cashtoss.info/ontology/penalty#PenaltyRule"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-49",
+      "type": "bridge",
+      "category": "violation_link",
+      "question_ko": "조치 계획(CorrectiveActionPlan)이 필요한 원인이 되는 위험 패턴(RiskPattern)과 법령 근거(Article)는 무엇인가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology/app#CorrectiveActionPlan",
+        "https://cashtoss.info/ontology/risk#RiskPattern",
+        "https://cashtoss.info/ontology/law#Article"
+      ],
+      "complexity": "advanced"
+    },
+    {
+      "id": "CQ-50",
+      "type": "bridge",
+      "category": "violation_link",
+      "question_ko": "규제기관(RegulatoryAuthority)이 해당 분석 건에서 요구하는 개선조치(CorrectiveAction)는 어떤 안전요구사항(SafetyRequirement) 위반에 대응하는가?",
+      "expected_classes": [
+        "https://cashtoss.info/ontology#RegulatoryAuthority",
+        "https://cashtoss.info/ontology/app#CorrectiveAction",
+        "https://cashtoss.info/ontology/sr#SafetyRequirement",
+        "https://cashtoss.info/ontology/app#InspectionCase"
+      ],
+      "complexity": "advanced"
+    }
+  ]
+}

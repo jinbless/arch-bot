@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-05-16T16:56:19.510285+00:00",
+  "model": "gpt-5.4-nano",
+  "violations_before": 1,
+  "violations_after": 1,
+  "fix_counts": {
+    "LABEL_CORRECTION": 1
+  },
+  "fixes": [
+    {
+      "violation_id": "1",
+      "fix_type": "LABEL_CORRECTION",
+      "target_class": "https://cashtoss.info/ontology#RegulatoryAuthority",
+      "field_to_update": "identity",
+      "new_value": "+I",
+      "old_value": "+I",
+      "rationale": "RegulatoryAuthority는 ‘기관(조직)이 규제 권한을 갖는다는 정체성’으로 설계된 개념이므로 +I 유지가 타당하며, 문제는 상위 SubjectRole의 메타-프로퍼티 라벨(-I)이 RegulatoryAuthority의 정체성 상속과 충돌하는 데서 발생합니다. 따라서 RegulatoryAuthority를 -I로 내릴 필요는 없고, 상위 라벨을 +I로 보정하는 것이 가장 적절합니다.",
+      "restructure_axiom": ""
+    }
+  ]
+}
