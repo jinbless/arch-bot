@@ -1,0 +1,109 @@
+Mode: LLM_RERANK_MODE=active
+Photos: 8
+
+[1/8] 고소대작업
+[Layer0/SHE] matched 5 SHE: [('SHE-SCAFFOLD-d9e631f851', 'candidate', 0.5558333333333334, ['work_context', 'accident_type'], 'match'), ('SHE-SCAFFOLD-2bbadcfb40', 'candidate', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-SCAFFOLD-4655e4d0bc', 'candidate', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-SCAFFOLD-059e02d839', 'candidate', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-SCAFFOLD-616ef02a93', 'candidate', 0.5183333333333333, ['work_context', 'accident_type'], 'match')]
+[PenaltyCondition] instances TTL not found: /mnt/c/project/arch-bot/.claude/worktrees/phase3a-audit/serving-team/koshaontology/ontology/kosha-instances.ttl
+  elapsed: 13.8s
+  risk: medium
+  procedures (6):
+    - C-22-2011: C-22-2011: 사장교 교량공사 안전보건 작업지침
+    - C-74-2015: C-74-2015: 건설공사의 고소작업대 안전보건작업지침
+    - X-44-2016: X-44-2016: 고소작업대 작업의 리스크 확인지침
+    - D-C-13-2026: D-C-13-2026: 외벽도장보수공사에 안전작업에 관한 기술지원규정
+    - C-21-2011: C-21-2011: 현수교 교량공사 안전보건 작업지침
+  immediate_actions: 10
+
+[2/8] 안전대길이
+[Layer0/SHE] matched 5 SHE: [('SHE-SCAFFOLD-d9e631f851', 'confirmed', 0.5558333333333334, ['work_context', 'accident_type'], 'match'), ('SHE-SCAFFOLD-fd4aa47f54', 'confirmed', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-SCAFFOLD-4655e4d0bc', 'confirmed', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-SCAFFOLD-059e02d839', 'confirmed', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-LADDER-59fb092156', 'confirmed', 0.5183333333333333, ['work_context', 'accident_type'], 'match')]
+  elapsed: 8.6s
+  risk: high
+  procedures (5):
+    - A-G-2-2025: A-G-2-2025: 작업장 내 통로(경사로, 계단, 발판사다리) 선정 및 설치에 관한 기술지원규정
+    - C-11-2012: C-11-2012: 가설계단  설치 및 사용 안전보건작업 지침
+    - C-21-2011: C-21-2011: 현수교 교량공사 안전보건 작업지침
+    - C-49-2012: C-49-2012: 안전대 사용지침
+    - C-22-2011: C-22-2011: 사장교 교량공사 안전보건 작업지침
+  immediate_actions: 10
+  excluded (1):
+    × A-G-20-2026 (llm): 그레이팅 설치 등에 관한 기술지원규정 — 사진은 철골 고소작업 중 난간/추락방호 미설치로 추락위험이 있는 상황인데, 후보 Guide는 그레이팅(바닥재) 설치/체결에 관한 기술지원규정으로
+
+[3/8] 영세제조업
+[Normalizer] 매핑 불가 코드: ['machinery (work_context)']
+[Layer0/SHE] matched 1 SHE: [('SHE-BOXHANDLING-edfd63e2bd', 'candidate', 0.47333333333333333, ['work_context', 'accident_type'], 'match')]
+  elapsed: 13.2s
+  risk: medium
+  procedures (4):
+    - A-G-10-2025: A-G-10-2025: 급식실 시설에 관한 기술지원규정
+    - B-6-2011: B-6-2011: 부선 안전작업 기술지침
+    - A-G-2-2025: A-G-2-2025: 작업장 내 통로(경사로, 계단, 발판사다리) 선정 및 설치에 관한 기술지원규정
+    - A-G-17-2026: A-G-17-2026: 인력운반작업에 관한 기술지원규정
+  immediate_actions: 3
+  excluded (2):
+    × A-G-20-2026 (llm): 그레이팅 설치 등에 관한 기술지원규정 — 사진은 대형 기계 주변에서 작업하며 안전망 일부 설치 및 작업대 정리 미흡, 주변 물건 방치 등의 일반 작업장 안전 정황이 중심입니다. 후보 G
+    × A-G-4-2025 (llm): 이동식 사다리의 사용에 관한 기술지원규정 — 사진은 대형 기계 주변에서 작업 중이고 안전망 일부 설치, 작업대 정리 미흡 등 ‘기계 주변 안전’ 맥락이 중심이며, 이동식 사다리(사다리 설치
+
+[4/8] 음식점주방
+[Normalizer] 매핑 불가 코드: ['cooking (work_context)']
+[Layer0/SHE] matched 2 SHE: [('SHE-ELECTRICALWORK-97d8742a17', 'confirmed', 0.45583333333333337, ['hazardous_agent', 'accident_type'], 'mismatch'), ('SHE-WELDING-471287a18e', 'candidate', 0.4183333333333333, ['hazardous_agent', 'accident_type'], 'mismatch')]
+  elapsed: 6.6s
+  risk: medium
+  procedures (0):
+  immediate_actions: 3
+
+[5/8] 지게차
+[Normalizer] 매핑 불가 코드: ['FORKLIFT (work_context)']
+[Layer0/SHE] matched 5 SHE: [('SHE-VEHICLE-113ca1d01c', 'confirmed', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-FORKLIFTOPERATION-08fdb0f198', 'confirmed', 0.4433333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-FORKLIFTOPERATION-04197bb344', 'confirmed', 0.4433333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-FORKLIFTOPERATION-0720978144', 'confirmed', 0.4433333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-FORKLIFTOPERATION-8c70f80e18', 'confirmed', 0.4058333333333333, ['work_context', 'accident_type'], 'match')]
+  elapsed: 9.1s
+  risk: high
+  procedures (6):
+    - B-M-11-2025: B-M-11-2025: 지게차의 안전작업에 관한 기술지원규정
+    - M-153-2012: M-153-2012: 가공목재 및 판재의 적재에 관한 안전기술지침
+    - A-G-9-2025: A-G-9-2025: 창고 작업 시 안전에 관한 기술지원규정
+    - B-M-35-2026: B-M-35-2026: 파렛트 안전에 관한 기술지원규정
+    - G-100-2013: G-100-2013: 지게차 운전자의 안전교육훈련에 관한 기술지침
+  immediate_actions: 10
+
+[6/8] 포크레인주변작업자
+[Normalizer] 매핑 불가 코드: ['falling object (accident_type)', 'machinery (work_context)']
+[Layer0/SHE] matched 0 SHE: []
+  elapsed: 12.0s
+  risk: medium
+  procedures (4):
+    - D-C-4-2025: D-C-4-2025: 굴착기 안전보건작업 기술지원규정
+    - D-C-11-2026: D-C-11-2026: 굴착 및 토공 안전작업에 관한 기술지원규정
+    - C-93-2013: C-93-2013: 우물통기초의 안전보건작업지침
+    - C-77-2013: C-77-2013: 현수교 주탑시공 안전보건작업지침
+  immediate_actions: 10
+  excluded (2):
+    × M-93-2011 (llm): 스태커에 관한 기술지침 — 사진은 굴착기(버켓) 작동 중 작업자가 버켓/하부 통행하는 상황으로, 후보 Guide의 스태커(팔레트 스태커·포크·정격하중 등) 기술지침과 작업
+    × B-M-12-2025 (llm): 크레인 달기기구 및 줄걸이 작업용 와이어로프의 작업에 관한 기술지원규정 — 사진은 굴착기 버켓/작동 중 장비 하부로 작업자가 접근하는 상황으로, 줄걸이·달기기구·와이어로프(크레인 리깅) 작업과 직접적인 산업/작업 맥락이
+
+[7/8] 프레스
+[Normalizer] 매핑 불가 코드: ['MACHINERY (work_context)']
+[Layer0/SHE] matched 5 SHE: [('SHE-PRESSMACHINE-a1470e38ba', 'confirmed', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-PRESSMACHINE-791b52a737', 'candidate', 0.5183333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-PRESSMACHINE-9c64867939', 'candidate', 0.4808333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-PRESSMACHINE-c16b3b9f2e', 'candidate', 0.4808333333333333, ['work_context', 'accident_type'], 'match'), ('SHE-PRESSMACHINE-16303b67d2', 'candidate', 0.4433333333333333, ['work_context', 'accident_type'], 'match')]
+  elapsed: 10.7s
+  risk: high
+  procedures (4):
+    - B-M-36-2026: B-M-36-2026: 프레스 위험방지에 관한 기술지원규정
+    - B-M-37-2026: B-M-37-2026: 회전기계 등의 끼임·절단재해 예방을 위한 기술지원규정
+    - A-G-4-2025: A-G-4-2025: 이동식 사다리의 사용에 관한 기술지원규정
+    - G-11-2017: G-11-2017: 넘어짐 방지를 위한 위험관리 기술지침
+  immediate_actions: 3
+  excluded (2):
+    × E-85-2017 (llm): 전기설비 설치상의 안전에 관한 기술지침 — 사진은 기계 내부/바닥의 금속 찌꺼기와 노출된 이동부 안전덮개 미설치 등 기계·설비 위험(기계방호/청결관리)에 초점이 있습니다. 후보 Guide
+    × A-G-20-2026 (llm): 그레이팅 설치 등에 관한 기술지원규정 — 사진은 금속 찌꺼기/파편, 오염, 노출된 제어 배선, 기계 이동부 안전덮개 미설치 등 “기계 위험(가동부 방호/정리정돈)” 맥락입니다. 후보 G
+
+[8/8] 최근대전화재바닥에기름
+[Normalizer] 매핑 불가 코드: ['ELECTRIC SHOCK (accident_type)', 'MACHINERY (work_context)']
+[Layer0/SHE] matched 0 SHE: []
+  elapsed: 8.9s
+  risk: medium
+  procedures (2):
+    - M-59-2012: M-59-2012: 서비스업종에서의 넘어짐 위험성 평가에 관한 기술지침
+    - G-11-2017: G-11-2017: 넘어짐 방지를 위한 위험관리 기술지침
+  immediate_actions: 5
+  excluded (1):
+    × B-E-22-2026 (llm): 전선의 종류, 식별 등에 관한 기술지원규정 — 사진은 바닥에 액체가 고여 미끄러움/누유 및 기계 주변 오염, 노출된 전선·케이블 존재가 관찰되나, 전선의 종류·식별(중성선/보호도체/접지도체 
+
+Saved: /mnt/c/project/arch-bot/data-team/05-enrichment/runtime-artifacts/real_photo_results_active.json
