@@ -32,12 +32,13 @@ ENV:
   python auto_register_aliases.py                              # dry-run (stats 표시)
   python auto_register_aliases.py --min-freq 3                 # log min_freq 조정
   python auto_register_aliases.py --gate1                      # Gate 1만 실행 + cache 빌드
+  python auto_register_aliases.py --gate2                      # Gate 1 + Gate 2 (LLM verify + axis-flip)
   python auto_register_aliases.py --apply                      # 4-Gate 실행 + write (Day 5+)
   python auto_register_aliases.py --apply --min-confidence 0.7 # threshold 조정
   python auto_register_aliases.py --skip-light                 # light proposals 무시
   python auto_register_aliases.py --skip-log                   # analysis_log 무시
 
-상태: Day 1+2+3 — scaffold + 후보 추출/dedup + Gate 1 embedding. Gate 3/4는 Day 5에서.
+상태: Day 1+2+3+4 — scaffold + 후보 추출/dedup + Gate 1 embedding + Gate 2 LLM verify. Gate 3/4는 Day 5에서.
 """
 from __future__ import annotations
 
@@ -101,6 +102,14 @@ EMBEDDING_CACHE_PATH = (
 EMBEDDING_MODEL = "text-embedding-3-small"
 EMBEDDING_CUTOFF = 0.7  # Gate 1 threshold (R5: Korean pair에서 0.65~0.75 재조정 검토)
 EMBED_BATCH = 100  # OpenAI embeddings batch size
+
+LLM_VERIFY_MODEL = os.environ.get("LLM_RERANK_MODEL", "gpt-5.4-nano")  # F.3.2와 일치
+LLM_VERIFY_CONFIDENCE = 0.8  # Gate 2 accept threshold
+LLM_VERIFY_CONCURRENCY = 4
+
+PENDING_AXIS_PATH = (
+    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "pending_axis_corrections.jsonl"
+)
 
 
 # ---------------------------------------------------------------------------
@@ -456,6 +465,186 @@ async def gate1_embedding(
 
 
 # ---------------------------------------------------------------------------
+# Day 4: Gate 2 (LLM verify + axis disambiguation)
+# ---------------------------------------------------------------------------
+
+
+GATE2_SYSTEM_PROMPT = """\
+당신은 KOSHA 산업안전 위험 카탈로그 분류자입니다.
+주어진 한국어 표현이 어느 axis/code의 직접 동의어(alias)인지 판정합니다.
+
+원칙:
+1. 직접 동의어 또는 명백한 변형만 alias로 인정. 관련 표현(원인/조치/맥락)은 alias 아님.
+   - 예: code FALL(추락)의 alias = "낙상", "추락" OK. "안전난간 없음"은 원인이므로 NO.
+2. 제안된 axis가 틀릴 수 있음. 실제 axis가 다르면 correct_axis 필드에 정정.
+   - 예: "용접 흄"이 work_context로 제안되었으나 실제로는 hazardous_agent.
+3. 확신이 낮으면 is_alias=false. 억지로 만들지 않음.
+4. axis는 {accident_type, hazardous_agent, work_context, ppe_state, environmental} 중 하나.
+"""
+
+GATE2_USER_TEMPLATE = """\
+표현: "{text}"
+제안된 axis: {proposed_axis} ({axis_label})
+제안된 code: {proposed_code} ({code_label})
+제안 출처: {source} (light=synthetic-corpus mining, log=production miss)
+{extra_context}
+
+판정 항목:
+- is_alias: 어떤 catalog code의 직접 동의어인가?
+- correct_axis: 실제 axis (제안된 axis와 다를 수 있음)
+- correct_code: 실제 code (제안된 code와 다를 수 있음)
+- confidence: 0.0-1.0
+- reason: 1-2 문장 (한국어)
+"""
+
+GATE2_RESPONSE_SCHEMA = {
+    "name": "alias_verify",
+    "strict": True,
+    "schema": {
+        "type": "object",
+        "properties": {
+            "is_alias": {"type": "boolean"},
+            "correct_axis": {"type": "string"},
+            "correct_code": {"type": "string"},
+            "confidence": {"type": "number"},
+            "reason": {"type": "string"},
+        },
+        "required": ["is_alias", "correct_axis", "correct_code", "confidence", "reason"],
+        "additionalProperties": False,
+    },
+}
+
+
+def _axis_label(catalog: dict, axis: str) -> str:
+    return catalog.get("axes", {}).get(axis, {}).get("label", axis)
+
+
+def _code_label(catalog: dict, axis: str, code: str) -> str:
+    return (
+        catalog.get("axes", {})
+        .get(axis, {})
+        .get("codes", {})
+        .get(code, {})
+        .get("label", code)
+    )
+
+
+async def verify_alias(client, candidate: dict, catalog: dict) -> dict:
+    """Single LLM verify call. Returns {is_alias, correct_axis, correct_code, confidence, reason, error}."""
+    axis = candidate["failed_axis"]
+    proposed_code = candidate.get("proposed_enum") or candidate.get("proposed_code") or "?"
+    extra = ""
+    if candidate["source"] == "light":
+        extra = f"light이 부여한 confidence: {candidate.get('confidence', 0.0):.2f}"
+        reasoning = candidate.get("reasoning") or ""
+        if reasoning:
+            extra += f"\nlight reasoning: {reasoning[:150]}"
+    elif candidate["source"] == "log":
+        extra = (
+            f"production miss frequency: {candidate.get('freq', 0)}\n"
+            f"Gate 1 best similarity: {candidate.get('gate1_similarity', 0.0):.3f}"
+        )
+
+    user_prompt = GATE2_USER_TEMPLATE.format(
+        text=candidate["text"],
+        proposed_axis=axis,
+        axis_label=_axis_label(catalog, axis),
+        proposed_code=proposed_code,
+        code_label=_code_label(catalog, axis, proposed_code),
+        source=candidate["source"],
+        extra_context=extra,
+    )
+    try:
+        r = await client.chat.completions.create(
+            model=LLM_VERIFY_MODEL,
+            messages=[
+                {"role": "system", "content": GATE2_SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+            response_format={"type": "json_schema", "json_schema": GATE2_RESPONSE_SCHEMA},
+            max_completion_tokens=400,
+        )
+        return json.loads(r.choices[0].message.content or "{}")
+    except Exception as exc:
+        return {
+            "error": str(exc),
+            "is_alias": False,
+            "correct_axis": axis,
+            "correct_code": proposed_code,
+            "confidence": 0.0,
+            "reason": f"LLM error: {exc}",
+        }
+
+
+async def gate2_llm_verify(
+    client, candidates: list[dict], catalog: dict
+) -> list[dict]:
+    """Run Gate 2 LLM verify on all candidates. Returns enriched list with gate2_* fields.
+
+    Concurrency limited via semaphore. Each candidate gets:
+      gate2_is_alias, gate2_correct_axis, gate2_correct_code, gate2_confidence,
+      gate2_reason, gate2_axis_flipped, gate2_pass.
+
+    Pass criteria:
+      is_alias && confidence >= 0.8 && correct_axis == proposed_axis.
+    """
+    if not candidates:
+        return []
+    sem = asyncio.Semaphore(LLM_VERIFY_CONCURRENCY)
+
+    async def _work(c: dict) -> dict:
+        async with sem:
+            verdict = await verify_alias(client, c, catalog)
+        proposed_axis = c["failed_axis"]
+        is_alias = bool(verdict.get("is_alias"))
+        conf = float(verdict.get("confidence", 0.0))
+        correct_axis = (verdict.get("correct_axis") or "").strip() or proposed_axis
+        correct_code = (verdict.get("correct_code") or "").strip()
+        axis_flipped = is_alias and correct_axis != proposed_axis
+        passed = is_alias and conf >= LLM_VERIFY_CONFIDENCE and not axis_flipped
+        return {
+            **c,
+            "gate2_is_alias": is_alias,
+            "gate2_correct_axis": correct_axis,
+            "gate2_correct_code": correct_code,
+            "gate2_confidence": round(conf, 3),
+            "gate2_reason": (verdict.get("reason") or "")[:200],
+            "gate2_axis_flipped": axis_flipped,
+            "gate2_pass": passed,
+            "gate2_error": verdict.get("error"),
+        }
+
+    return await asyncio.gather(*[_work(c) for c in candidates])
+
+
+def write_axis_corrections(gated2: list[dict]) -> int:
+    """Append axis-flipped candidates to pending_axis_corrections.jsonl for next-run requeue (R3).
+
+    Returns count written.
+    """
+    flipped = [g for g in gated2 if g.get("gate2_axis_flipped")]
+    if not flipped:
+        return 0
+    PENDING_AXIS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now(timezone.utc).isoformat()
+    with PENDING_AXIS_PATH.open("a", encoding="utf-8") as f:
+        for g in flipped:
+            row = {
+                "ts": ts,
+                "text": g["text"],
+                "from_axis": g["failed_axis"],
+                "to_axis": g["gate2_correct_axis"],
+                "from_code": g.get("proposed_enum") or g.get("proposed_code"),
+                "to_code": g["gate2_correct_code"],
+                "gate2_confidence": g["gate2_confidence"],
+                "gate2_reason": g["gate2_reason"],
+                "source": g["source"],
+            }
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+    return len(flipped)
+
+
+# ---------------------------------------------------------------------------
 # Reporting (dry-run + Gate 1 summary)
 # ---------------------------------------------------------------------------
 
@@ -624,6 +813,82 @@ def print_gate1_summary(gated: list[dict], cutoff: float) -> None:
     print("=" * 70)
 
 
+def print_gate2_summary(gated2: list[dict], axis_flipped_written: int) -> None:
+    print()
+    print("=" * 70)
+    print(f"Gate 2 (LLM verify + axis disambiguation, {LLM_VERIFY_MODEL}, conf>={LLM_VERIFY_CONFIDENCE})")
+    print("=" * 70)
+    if not gated2:
+        print("  (no candidates to verify)")
+        return
+
+    n_total = len(gated2)
+    n_pass = sum(1 for g in gated2 if g["gate2_pass"])
+    n_alias_no = sum(1 for g in gated2 if not g["gate2_is_alias"])
+    n_low_conf = sum(
+        1 for g in gated2 if g["gate2_is_alias"] and g["gate2_confidence"] < LLM_VERIFY_CONFIDENCE
+    )
+    n_flipped = sum(1 for g in gated2 if g["gate2_axis_flipped"])
+    n_errors = sum(1 for g in gated2 if g.get("gate2_error"))
+
+    print(f"  total verified           : {n_total}")
+    print(f"  Gate 2 pass              : {n_pass} ({n_pass/n_total*100:.1f}%)")
+    print(f"  rejected (not alias)     : {n_alias_no}")
+    print(f"  rejected (low confidence): {n_low_conf}")
+    print(f"  axis-flipped (R3 requeue): {n_flipped}  → pending_axis_corrections.jsonl +{axis_flipped_written}")
+    if n_errors:
+        print(f"  LLM errors               : {n_errors}")
+
+    passes = [g for g in gated2 if g["gate2_pass"]]
+    passes.sort(key=lambda x: -x["gate2_confidence"])
+    if passes:
+        print()
+        print(f"  PASS samples (top {min(10, len(passes))}):")
+        for g in passes[:10]:
+            print(
+                f"    conf={g['gate2_confidence']:.2f}  axis={g['failed_axis']:18s}  "
+                f"code={g.get('proposed_enum') or '?':24s}  text={g['text']!r}"
+            )
+
+    flipped = [g for g in gated2 if g["gate2_axis_flipped"]]
+    if flipped:
+        print()
+        print(f"  AXIS-FLIP samples (top {min(5, len(flipped))}):")
+        for g in flipped[:5]:
+            print(
+                f"    text={g['text']!r}  {g['failed_axis']} → {g['gate2_correct_axis']} "
+                f"(code: {g.get('proposed_enum') or '?'} → {g['gate2_correct_code']})"
+            )
+            print(f"      reason: {g['gate2_reason']}")
+
+    not_alias = [g for g in gated2 if not g["gate2_is_alias"]]
+    if not_alias:
+        print()
+        print(f"  NOT-ALIAS REJECT (top {min(5, len(not_alias))}):")
+        for g in not_alias[:5]:
+            print(
+                f"    text={g['text']!r}  "
+                f"({g['failed_axis']}/{g.get('proposed_enum') or '?'})  conf={g['gate2_confidence']:.2f}"
+            )
+            print(f"      reason: {g['gate2_reason']}")
+
+    rejects_low = [
+        g for g in gated2
+        if g["gate2_is_alias"] and g["gate2_confidence"] < LLM_VERIFY_CONFIDENCE and not g["gate2_axis_flipped"]
+    ]
+    if rejects_low:
+        print()
+        print(f"  LOW-CONFIDENCE REJECT (top {min(5, len(rejects_low))}):")
+        for g in rejects_low[:5]:
+            print(
+                f"    conf={g['gate2_confidence']:.2f}  text={g['text']!r}  "
+                f"({g['failed_axis']}/{g.get('proposed_enum') or '?'})"
+            )
+            print(f"      reason: {g['gate2_reason']}")
+
+    print("=" * 70)
+
+
 # ---------------------------------------------------------------------------
 # Apply (Day 5+)
 # ---------------------------------------------------------------------------
@@ -653,6 +918,11 @@ def parse_args() -> argparse.Namespace:
         help="run Gate 1 embedding similarity check on dedup candidate pool (Day 3)",
     )
     parser.add_argument(
+        "--gate2",
+        action="store_true",
+        help="run Gate 2 LLM verify (axis disambiguation) on Gate-1-passed candidates (Day 4)",
+    )
+    parser.add_argument(
         "--min-confidence",
         type=float,
         default=0.8,
@@ -679,8 +949,11 @@ def parse_args() -> argparse.Namespace:
         help="cap candidate pool to top N (by freq) for cheap iteration (0=no cap)",
     )
     args = parser.parse_args()
-    if not args.apply and not args.gate1:
+    if not args.apply and not args.gate1 and not args.gate2:
         args.dry_run = True
+    if args.gate2 and not args.gate1:
+        # Gate 2 needs Gate 1 to have assigned proposed_enum (for log candidates)
+        args.gate1 = True
     return args
 
 
@@ -749,7 +1022,8 @@ async def main_async(args: argparse.Namespace) -> int:
 
     client = AsyncOpenAI(api_key=api_key)
 
-    if args.gate1 or args.apply:
+    gated: list[dict] = []
+    if args.gate1 or args.gate2 or args.apply:
         print(
             f"\n[Gate 1] embedding {len(final_cands)} candidates "
             f"+ ensuring existing alias embeddings cached..."
@@ -763,6 +1037,20 @@ async def main_async(args: argparse.Namespace) -> int:
             f"({cache_size_after - cache_size_before} newly embedded)"
         )
         print_gate1_summary(gated, args.cutoff)
+
+    if args.gate2 or args.apply:
+        # Only verify candidates that passed Gate 1 (cost optimization)
+        gate1_passed = [g for g in gated if g["gate1_pass"]]
+        print(
+            f"\n[Gate 2] LLM verify (axis disambiguation) on {len(gate1_passed)} "
+            f"Gate-1-passed candidates..."
+        )
+        if not gate1_passed:
+            print("  (no Gate-1-passed candidates to verify)")
+        else:
+            gated2 = await gate2_llm_verify(client, gate1_passed, catalog)
+            flipped_n = write_axis_corrections(gated2)
+            print_gate2_summary(gated2, flipped_n)
 
     if args.apply:
         return apply_pipeline(args)
