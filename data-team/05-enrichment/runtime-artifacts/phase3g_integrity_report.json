@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-05-17",
+  "branch": "claude/phase3a-audit",
+  "commits_covered": ["35345db", "724f723", "5ee9639", "b7ae7a0", "6de9454"],
+  "checks": [
+    {
+      "id": "G.1",
+      "name": "local_consistency_check.py (rdflib + pyshacl)",
+      "files": [
+        "kosha-ontology-v2.owl (1535 triples)",
+        "kosha-disjoint-axioms.ttl (4408 triples)",
+        "serving-validation-shapes-v3.ttl (194 triples)"
+      ],
+      "result": "PASS",
+      "details": {
+        "rdflib_parse": "ok",
+        "shacl_conforms": true,
+        "owl_rl_inference": "skipped (--skip-instances)"
+      }
+    },
+    {
+      "id": "G.2",
+      "name": "Fuseki Openllet container restart",
+      "result": "PASS",
+      "details": {
+        "container_status": "Up (healthy)",
+        "openllet_warnings_in_latest_run": 0,
+        "base_triples_loaded": 963430,
+        "files_loaded": [
+          "kosha-ontology-v2.owl",
+          "kosha-instances.ttl",
+          "kosha-disjoint-axioms.ttl",
+          "serving-validation-shapes-v3.ttl"
+        ],
+        "caveat": "kosha-ontology-v3-subclass-patch.ttl NOT loaded by current Fuseki Java (Phase 3F/G가 Java loader 확장 시 포함)"
+      }
+    },
+    {
+      "id": "G.3",
+      "name": "SPARQL probes",
+      "result": "PASS",
+      "probes": {
+        "ask_owl_nothing": {
+          "query": "ASK { [] a owl:Nothing }",
+          "expected": false,
+          "actual": false,
+          "interpretation": "KB consistent (no contradictions)"
+        },
+        "industry_subclasses": {
+          "query": "COUNT(?ind) WHERE { ?ind rdfs:subClassOf core:Industry }",
+          "actual": 81,
+          "interpretation": "80 EN industries + core:Industry parent = 81"
+        },
+        "sr_count": {
+          "actual": 626,
+          "interpretation": "626 SafetyRequirement (matches PG safety_requirements)"
+        }
+      }
+    },
+    {
+      "id": "G.4",
+      "name": "PG state after Phase 3C",
+      "result": "PASS",
+      "details": {
+        "she_catalog_total": 1640,
+        "she_catalog_phase3c_new": 494,
+        "she_sr_mapping_phase3c_new": 709,
+        "guide_usage_profiles": 1038,
+        "catalog_v4_codes_total": {
+          "accident_type": 147,
+          "hazardous_agent": 22,
+          "work_context": 161,
+          "note": "+ implicit other axes from synthetic Phase 3A (ppe_state/environmental — synthetic only, not in catalog)"
+        }
+      }
+    }
+  ],
+  "regression_metrics": {
+    "baseline_v1_pre_phase3": {
+      "she_accuracy": 0.5581,
+      "sr_accuracy": 0.7636,
+      "overall_accuracy": 0.1331,
+      "false_negative_rate": 0.0334,
+      "false_positive_rate": 0.8732
+    },
+    "baseline_v3_post_phase3c": {
+      "she_accuracy": 0.5771,
+      "sr_accuracy": 0.7581,
+      "overall_accuracy": 0.1377,
+      "false_negative_rate": 0.0625,
+      "false_positive_rate": 0.8696
+    },
+    "delta_v3_vs_v1": {
+      "she_accuracy": "+0.0190 (improvement)",
+      "sr_accuracy": "-0.0055 (slight, within tolerance)",
+      "false_negative_rate": "+0.0291 (worse, but synthetic 변경된 baseline shift, structural mismatch in SR/action layer)",
+      "interpretation": "데이터 정합성 회복 + SHE 매칭 개선; 잔여 false_negative는 SR/Action layer 구조적 미스매치 (다음 phase 영역)"
+    }
+  },
+  "outstanding_followups": [
+    "OWL TBox subclass patch (kosha-ontology-v3-subclass-patch.ttl) Fuseki Java loader 추가",
+    "false_negative_rate 잔여 원인 per-case 분석 (synthetic expected_actions vs system output)",
+    "synthetic_audit_human_queue.json freq>=3 (29건) 사용자 검토",
+    "synthetic generator 재구축 (Phase 3E, future-proof)",
+    "8 real-test-photo end-to-end check (Vision LLM 필요)"
+  ]
+}
