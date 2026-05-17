@@ -108,10 +108,13 @@
 - **8 candidate axiom 수동 vetted 승격**: F.3.3 Gate 3 PASS 확인 — 50회 자동 대기 불필요, `promote_incompatibilities.py` 즉시 실행 가능 (30분)
 - **F.3.0 LLM 2nd pass** (~$1): ambiguous 466건 LLM 재분류 → axiom_missing 추가 회수 (1h)
 
-### 3순위 (학계/품질):
-1. OntoGPT 통합 (`pip install ontogpt`)
-2. Two-way CoT prompt 전환 (기존 LLM-scripts)
-3. OOPS! Pitfall Scanner + LinkML schema 검증
+### 3순위 (학계/품질 — 도메인 적합성 우선 평가 후 채택):
+1. Two-way CoT prompt 전환 (기존 LLM-scripts)
+2. OOPS! Pitfall Scanner + LinkML schema 검증
+
+**비채택** (도메인 부적합 — 2026-05-17 결정):
+- **OntoGPT 통합** — F.1 alias mining에 자체 LLM verify(`mine_missing_axioms.py` 패턴)로 충분, 추가 가치 없음
+- **OntoClean 메타-validation** — 170 atomic codes / 498 SHE patterns에 비용 비대칭. BFO+LKIF 62-class TBox 통합(Phase E-prep)에서만 유효했으며 이미 13→1 완료. F.1은 taxonomy 변경 없는 alias 등재 작업이므로 적용 영역 외
 
 ## 🔧 OHS 실행 (시연용)
 
