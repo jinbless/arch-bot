@@ -59,9 +59,19 @@ def load_mapping() -> dict:
     return json.loads(MAPPING_PATH.read_text(encoding="utf-8"))
 
 
-def transform_codes(codes: list, axis_mapping: dict[str, str], drop_set: set[str]) -> tuple[list, dict]:
+def transform_codes(codes: list, axis_mapping: dict[str, str], drop_set: set[str],
+                     reloc_mapping: dict[str, dict]) -> tuple[list, dict, dict[str, list[str]]]:
+    """Returns (new_codes_for_this_axis, stats, codes_to_relocate_other_axis).
+    codes_to_relocate_other_axis = {target_axis_synth: [target_codes...]}
+    """
     new_codes = []
-    stats = {"translated": 0, "dropped": 0, "untouched_en": 0, "unmapped_ko": 0}
+    relocated: dict[str, list[str]] = {}
+    stats = {"translated": 0, "dropped": 0, "untouched_en": 0, "unmapped_ko": 0, "relocated": 0}
+    AXIS_SYNTH_INVERSE = {
+        "accident_type": "accident_types",
+        "hazardous_agent": "hazardous_agents",
+        "work_context": "work_contexts",
+    }
     for c in codes:
         if not isinstance(c, str):
             new_codes.append(c)
@@ -71,6 +81,15 @@ def transform_codes(codes: list, axis_mapping: dict[str, str], drop_set: set[str
             if c in drop_set:
                 stats["dropped"] += 1
                 continue
+            if c in reloc_mapping:
+                tgt = reloc_mapping[c]
+                tgt_axis_singular = tgt.get("target_axis", "")
+                tgt_axis_synth = AXIS_SYNTH_INVERSE.get(tgt_axis_singular, tgt_axis_singular)
+                tgt_code = tgt.get("target_code", "")
+                if tgt_axis_synth and tgt_code:
+                    relocated.setdefault(tgt_axis_synth, []).append(tgt_code)
+                    stats["relocated"] += 1
+                continue  # don't keep in current axis
             if c in axis_mapping:
                 new_codes.append(axis_mapping[c])
                 stats["translated"] += 1
@@ -80,7 +99,7 @@ def transform_codes(codes: list, axis_mapping: dict[str, str], drop_set: set[str
         else:
             new_codes.append(c)
             stats["untouched_en"] += 1
-    return new_codes, stats
+    return new_codes, stats, relocated
 
 
 def main():
@@ -93,9 +112,16 @@ def main():
 
     mapping_data = load_mapping()
     mappings = mapping_data.get("mappings", {})
-    drop_set = set(mapping_data.get("drop_list", []))
+    # drop_list 호환: flat list 또는 per-axis dict 모두 지원
+    raw_drop = mapping_data.get("drop_list", [])
+    if isinstance(raw_drop, list):
+        drop_per_axis: dict[str, set[str]] = {ax: set(raw_drop) for ax in AXIS_KEYS}
+    else:
+        drop_per_axis = {ax: set(raw_drop.get(ax, [])) for ax in AXIS_KEYS}
+    reloc_per_axis: dict[str, dict] = mapping_data.get("reloc", {})  # axis_synth -> ko -> {target_axis, target_code}
     print(f"loaded mapping: {sum(len(v) for v in mappings.values())} total entries across {len(mappings)} axes")
-    print(f"drop_list: {len(drop_set)}")
+    print(f"drop_list: {sum(len(v) for v in drop_per_axis.values())} (per-axis)")
+    print(f"reloc: {sum(len(v) for v in reloc_per_axis.values())} (per-axis)")
 
     global_stats: dict[str, int] = defaultdict(int)
     file_summaries = []
@@ -113,14 +139,26 @@ def main():
                 out_lines.append(line)
                 continue
             exp = r.get("expected_features", {})
+            # First pass: transform each axis, collect reloc targets
+            all_reloc: dict[str, list[str]] = {}
             for axis in AXIS_KEYS:
                 if axis in exp and isinstance(exp[axis], list):
                     axis_map = mappings.get(axis, {})
-                    new_codes, stats = transform_codes(exp[axis], axis_map, drop_set)
+                    axis_reloc = reloc_per_axis.get(axis, {})
+                    new_codes, stats, relocated = transform_codes(exp[axis], axis_map, drop_per_axis.get(axis, set()), axis_reloc)
                     exp[axis] = new_codes
+                    for tgt_axis, tgt_codes in relocated.items():
+                        all_reloc.setdefault(tgt_axis, []).extend(tgt_codes)
                     for k, v in stats.items():
                         file_stat[f"{axis}.{k}"] += v
                         global_stats[k] += v
+            # Second pass: apply reloc into target axes
+            for tgt_axis, tgt_codes in all_reloc.items():
+                if tgt_axis not in exp:
+                    exp[tgt_axis] = []
+                for tc in tgt_codes:
+                    if tc not in exp[tgt_axis]:
+                        exp[tgt_axis].append(tc)
             out_lines.append(json.dumps(r, ensure_ascii=False))
 
         file_summaries.append({"file": fp.name, "stats": dict(file_stat)})
