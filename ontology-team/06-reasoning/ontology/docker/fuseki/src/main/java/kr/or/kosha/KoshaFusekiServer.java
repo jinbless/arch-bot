@@ -36,12 +36,20 @@ public class KoshaFusekiServer {
         if (reasonerMode == null) reasonerMode = "none";
         reasonerMode = reasonerMode.toLowerCase().trim();
 
-        String owlFile = ontologyDir + "/kosha-ontology.owl";
-        String ttlFile = ontologyDir + "/kosha-instances.ttl";
+        // Phase E.2: v2 ontology + disjoint axioms + SHACL shapes로 전환.
+        // SWRL 파일은 의사코드라 제외 (Phase F.3에서 실행 가능 형식 변환 예정).
+        String[][] sources = {
+            {"/kosha-ontology-v2.owl",            "RDF/XML", "OWL v2 (BFO+LKIF)"},
+            {"/kosha-instances.ttl",              "TURTLE",  "Instances (ABox)"},
+            {"/kosha-disjoint-axioms.ttl",        "TURTLE",  "Disjoint axioms"},
+            {"/serving-validation-shapes-v3.ttl", "TURTLE",  "SHACL shapes v3"},
+        };
 
         System.out.println("=== KOSHA Fuseki Server ===");
-        System.out.println("OWL: " + owlFile);
-        System.out.println("TTL: " + ttlFile);
+        System.out.println("Ontology dir: " + ontologyDir);
+        for (String[] src : sources) {
+            System.out.println("  - " + src[2] + ": " + ontologyDir + src[0] + " [" + src[1] + "]");
+        }
         System.out.println("Port: " + port);
         System.out.println("Reasoner: " + reasonerMode);
 
@@ -49,18 +57,20 @@ public class KoshaFusekiServer {
         System.out.println("\n[1/3] Loading base model...");
         Model base = ModelFactory.createDefaultModel();
 
-        if (new File(owlFile).exists()) {
-            base.read(owlFile);
-            System.out.println("  OWL loaded: " + owlFile);
-        } else {
-            System.out.println("  WARNING: OWL file not found: " + owlFile);
-        }
-
-        if (new File(ttlFile).exists()) {
-            base.read(ttlFile, "TURTLE");
-            System.out.println("  TTL loaded: " + ttlFile);
-        } else {
-            System.out.println("  WARNING: TTL file not found: " + ttlFile);
+        long lastSize = 0;
+        for (String[] src : sources) {
+            String path = ontologyDir + src[0];
+            String fmt = src[1];
+            String label = src[2];
+            if (new File(path).exists()) {
+                base.read(path, fmt);
+                long now = base.size();
+                long delta = now - lastSize;
+                System.out.printf("  %s loaded: %s  (+%d triples, total %d)%n", label, path, delta, now);
+                lastSize = now;
+            } else {
+                System.out.println("  WARNING: " + label + " not found: " + path);
+            }
         }
 
         long baseTriples = base.size();
