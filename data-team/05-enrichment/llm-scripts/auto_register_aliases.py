@@ -322,8 +322,13 @@ def dedupe_candidates(
 
 
 def _code_cache_key(axis: str, code: str, aliases: set[str] | list[str]) -> str:
-    """Stable hash of (axis, code, sorted aliases) for per-code cache invalidation."""
-    payload = "|".join([axis, code] + sorted(aliases))
+    """Stable hash of (axis, code, sorted aliases + code_self).
+
+    Day 6.5 enhancement: code 문자열도 embed targets에 포함하여
+    cross-lingual 매칭 (영어 unknown vs 영문 code) 가능하게 함.
+    """
+    targets = sorted(set(list(aliases) + [code]))  # code as self-target
+    payload = "|".join([axis, code] + targets)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
 
 
@@ -372,20 +377,21 @@ async def _populate_existing_embeddings(
     Cache schema: {key: {"axis": str, "code": str, "aliases": {alias_str: vector}}}
     Per-code sha256 key invalidates when alias set changes (R1).
     """
-    work: list[tuple[str, str, str]] = []  # (key, axis, code, alias) - flatten
-    work_keys: list[tuple[str, str, str]] = []
+    work: list[tuple[str, str, str, str]] = []  # (key, axis, code, text_to_embed)
     for axis, code_map in existing.items():
         for code, aliases in code_map.items():
-            if not aliases:
+            # Day 6.5: include code string itself as embed target (cross-lingual support)
+            targets = list(aliases) + [code]
+            if not targets:
                 continue
-            key = _code_cache_key(axis, code, aliases)
+            key = _code_cache_key(axis, code, aliases)  # uses aliases+code internally
             entry = cache.get(key)
             if entry is None:
                 cache[key] = {"axis": axis, "code": code, "aliases": {}}
                 entry = cache[key]
-            for a in aliases:
-                if a not in entry["aliases"]:
-                    work.append((key, axis, code, a))
+            for t in targets:
+                if t not in entry["aliases"]:
+                    work.append((key, axis, code, t))
     if not work:
         return cache
     # Batch
