@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 _ALIASES = None
 _TAXONOMY = None
+_CANDIDATE_ALIASES = None
 
 TEXT_WORK_CONTEXT_HINTS = {
     "ELECTRICAL_WORK": [
@@ -202,6 +203,26 @@ def _load_taxonomy() -> dict:
     return _TAXONOMY
 
 
+def _load_candidate_aliases() -> dict:
+    """Phase F.1 — load risk_feature_aliases_candidates.json (level=candidate aliases).
+
+    Cascade step 4.5: tier1 vetted 직후, contained-term fallback 직전 조회.
+    파일 미존재 시 빈 dict 반환 → cascade 영향 0 (R2 no-op invariant).
+    """
+    global _CANDIDATE_ALIASES
+    if _CANDIDATE_ALIASES is None:
+        path = Path(__file__).parent.parent / "data" / "risk_feature_aliases_candidates.json"
+        if path.is_file():
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    _CANDIDATE_ALIASES = json.load(f)
+            except Exception:
+                _CANDIDATE_ALIASES = {"tier1": {}}
+        else:
+            _CANDIDATE_ALIASES = {"tier1": {}}
+    return _CANDIDATE_ALIASES
+
+
 def _get_valid_codes(axis: str) -> set:
     """축별 유효 코드 세트 (sub 포함)."""
     tax = _load_taxonomy()
@@ -265,6 +286,17 @@ def _resolve_alias_code(raw_code: str, axis: str) -> Optional[str]:
     for code, terms in tier1.items():
         if upper in [str(t).upper() for t in terms] or raw_text in terms:
             return code
+
+    # Step 4.5 (Phase F.1) — candidate aliases (level=candidate, asymmetric trust).
+    # tier1 vetted 다음, contained-term fallback 직전. 매칭 시에도 candidate 그대로 사용.
+    # 파일 미존재 또는 빈 dict 시 no-op (R2: delta 0 invariant).
+    cand_tier1 = _load_candidate_aliases().get("tier1", {}).get(axis, {})
+    for code, terms in cand_tier1.items():
+        if code not in valid:
+            continue
+        if upper in [str(t).upper() for t in terms] or raw_text in terms:
+            return code
+
     if _stage2_v2_enabled():
         for code, terms in tier1.items():
             if code not in valid:

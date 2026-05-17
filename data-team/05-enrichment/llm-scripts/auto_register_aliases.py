@@ -896,14 +896,155 @@ def print_gate2_summary(gated2: list[dict], axis_flipped_written: int) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Apply (Day 5+)
+# Day 5: Apply (Gate 4 — candidate file atomic write + meta sidecar + audit)
 # ---------------------------------------------------------------------------
 
 
-def apply_pipeline(args: argparse.Namespace) -> int:
-    print("--apply is not yet implemented (Day 5 work).", file=sys.stderr)
-    print("Currently available: --gate1 (Day 3) to validate embedding similarity.", file=sys.stderr)
-    return 2
+CANDIDATE_FILE_PATH = (
+    REPO_ROOT
+    / "serving-team"
+    / "08-app"
+    / "backend"
+    / "app"
+    / "data"
+    / "risk_feature_aliases_candidates.json"
+)
+
+
+def load_existing_candidate_file() -> dict:
+    if not CANDIDATE_FILE_PATH.is_file():
+        return {
+            "version": "F.1-candidate-1.0",
+            "description": "Phase F.1 자율 등재 candidate aliases. Gate 3 regression PASS 후 promote_aliases.py로 vetted 승격.",
+            "tier1": {},
+        }
+    try:
+        return json.loads(CANDIDATE_FILE_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {"version": "F.1-candidate-1.0", "tier1": {}}
+
+
+def write_candidate_file_atomic(data: dict) -> None:
+    """Atomic write to risk_feature_aliases_candidates.json (R6)."""
+    CANDIDATE_FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    tmp = CANDIDATE_FILE_PATH.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp.replace(CANDIDATE_FILE_PATH)
+
+
+def append_candidate_meta(gated2_passing: list[dict]) -> int:
+    """Append to alias_candidate_meta.jsonl (Day 7 promote_aliases.py 입력)."""
+    if not gated2_passing:
+        return 0
+    META_PATH.parent.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now(timezone.utc).isoformat()
+    with META_PATH.open("a", encoding="utf-8") as f:
+        for g in gated2_passing:
+            row = {
+                "ts": ts,
+                "alias": g["text"],
+                "axis": g["failed_axis"],
+                "code": g.get("proposed_enum") or g.get("proposed_code"),
+                "source": g["source"],
+                "uses": 0,
+                "last_used_at": None,
+                "gate1_similarity": g.get("gate1_similarity"),
+                "gate2_confidence": g.get("gate2_confidence"),
+                "_origin_freq": g.get("freq"),
+            }
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+    return len(gated2_passing)
+
+
+def append_alias_audit(all_gated2: list[dict]) -> int:
+    """Append accepted+rejected to alias_audit.jsonl (Gate 1/2/4 결과 trail)."""
+    if not all_gated2:
+        return 0
+    AUDIT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now(timezone.utc).isoformat()
+    with AUDIT_PATH.open("a", encoding="utf-8") as f:
+        for g in all_gated2:
+            row = {
+                "ts": ts,
+                "alias": g["text"],
+                "axis": g["failed_axis"],
+                "code": g.get("proposed_enum") or g.get("proposed_code"),
+                "source": g["source"],
+                "gate1_similarity": g.get("gate1_similarity"),
+                "gate1_pass": g.get("gate1_pass"),
+                "gate2_is_alias": g.get("gate2_is_alias"),
+                "gate2_confidence": g.get("gate2_confidence"),
+                "gate2_pass": g.get("gate2_pass"),
+                "gate2_axis_flipped": g.get("gate2_axis_flipped"),
+                "gate2_reason": g.get("gate2_reason"),
+                "verdict": "accepted" if g.get("gate2_pass") else "rejected",
+            }
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+    return len(all_gated2)
+
+
+def merge_candidates_into_file(passing: list[dict]) -> tuple[dict, int, int]:
+    """Merge Gate-2-passed candidates into existing candidate file.
+
+    Returns (new_data, added_count, duplicate_count).
+    """
+    data = load_existing_candidate_file()
+    tier1 = data.setdefault("tier1", {})
+    added = 0
+    duplicate = 0
+    for g in passing:
+        axis = g["failed_axis"]
+        code = g.get("proposed_enum") or g.get("proposed_code")
+        text = g["text"]
+        if not (axis and code and text):
+            continue
+        axis_codes = tier1.setdefault(axis, {})
+        aliases = axis_codes.setdefault(code, [])
+        if text in aliases:
+            duplicate += 1
+            continue
+        aliases.append(text)
+        added += 1
+    data["_last_updated_at"] = datetime.now(timezone.utc).isoformat()
+    data["_total_aliases"] = sum(
+        sum(len(v) for v in code_map.values()) for code_map in tier1.values()
+    )
+    return data, added, duplicate
+
+
+def apply_pipeline(args: argparse.Namespace, gated2_all: list[dict]) -> int:
+    """Gate 4 (candidate file write) — atomic. Called after Gate 1+2 PASS.
+
+    Note: Gate 3 (regression) is invoked externally — caller must run
+    replay_synthetic_observations.py + regression_gate.py BEFORE accepting batch.
+    --apply는 그 hard-stop 통과를 전제로 동작.
+    """
+    passing = [g for g in gated2_all if g.get("gate2_pass")]
+    if not passing:
+        print("\n[--apply] No Gate-2-passed candidates to write. Done.")
+        return 0
+
+    print(f"\n[--apply] Writing {len(passing)} candidate aliases to {CANDIDATE_FILE_PATH.name}...")
+    data, added, duplicate = merge_candidates_into_file(passing)
+    write_candidate_file_atomic(data)
+    meta_n = append_candidate_meta(passing)
+    audit_n = append_alias_audit(gated2_all)
+
+    print(f"  added            : {added}")
+    print(f"  duplicate skip   : {duplicate}")
+    print(f"  total in file    : {data.get('_total_aliases', 0)}")
+    print(f"  meta sidecar +{meta_n}, audit +{audit_n}")
+    print(f"\n  Candidate file: {CANDIDATE_FILE_PATH.relative_to(REPO_ROOT)}")
+    print(f"  Meta sidecar  : {META_PATH.relative_to(REPO_ROOT)}")
+    print(f"  Audit         : {AUDIT_PATH.relative_to(REPO_ROOT)}")
+    print()
+    print("  ⚠️  Gate 3 (regression replay) MUST be run separately to verify production-safety:")
+    print(f"     cd serving-team/08-app/backend")
+    print(f"     .venv/bin/python -u scripts/replay_synthetic_observations.py --output /tmp/replay_f1.json")
+    print(f"     .venv/bin/python scripts/regression_gate.py /tmp/replay_f1.json \\")
+    print(f"       --baseline /mnt/c/project/arch-bot/data-team/05-enrichment/runtime-artifacts/replay_baseline_v3.json")
+    print(f"     FAIL 시 rollback: rm {CANDIDATE_FILE_PATH.name}")
+    return 0
 
 
 # ---------------------------------------------------------------------------
@@ -1044,6 +1185,7 @@ async def main_async(args: argparse.Namespace) -> int:
         )
         print_gate1_summary(gated, args.cutoff)
 
+    gated2_all: list[dict] = []
     if args.gate2 or args.apply:
         # Only verify candidates that passed Gate 1 (cost optimization)
         gate1_passed = [g for g in gated if g["gate1_pass"]]
@@ -1054,12 +1196,12 @@ async def main_async(args: argparse.Namespace) -> int:
         if not gate1_passed:
             print("  (no Gate-1-passed candidates to verify)")
         else:
-            gated2 = await gate2_llm_verify(client, gate1_passed, catalog)
-            flipped_n = write_axis_corrections(gated2)
-            print_gate2_summary(gated2, flipped_n)
+            gated2_all = await gate2_llm_verify(client, gate1_passed, catalog)
+            flipped_n = write_axis_corrections(gated2_all)
+            print_gate2_summary(gated2_all, flipped_n)
 
     if args.apply:
-        return apply_pipeline(args)
+        return apply_pipeline(args, gated2_all)
 
     return 0
 
