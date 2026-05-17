@@ -1,6 +1,6 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-17 (오후 늦게)** — F.3.0/A/C/B merge (main `11e46c6`) + **A hot-fix** (main `d0b2262`, raw_vision_features list dict 오류 수정. 1,700/2,360 errored → 0 검증)
+최신 갱신일: **2026-05-17 (밤)** — F.3 first batch (`11e46c6`) + A hot-fix (`d0b2262`) + **F.3.3 Gate 3 regression PASS** (`eb7843f` → merge `5b10980`) + **14-docs sweep** (`af26e13` → merge `f5bde60`, 메인 HEAD)
 
 이 문서는 다른 Claude/Codex/LLM 세션이 현재 상태를 빠르게 이어받기 위한 시작점이다.
 
@@ -26,7 +26,7 @@
 
 ## 📍 현재 상태 한 문장 요약
 
-> "Phase 0/B/A/C + E-prep + E.2 (Openllet 통합) + Phase 3 (reasoning catch 1,902건) + **F.3 자율 axiom learning loop 첫 정식 단계 완료** (F.3.0 분류·F.3.2 8 candidate axiom·Runtime 4번 채널 hook·KB KO→EN). 다음: F.1 (Normalizer auto-registration, 1주) 또는 F.3.3 본격 (Gate 3 + 편의점 mapping + hook always-on)."
+> "Phase 0/B/A/C + E-prep + E.2 (Openllet 통합) + Phase 3 (reasoning catch 1,902건) + **F.3 first batch + F.3.3 Gate 3 PASS (8 candidate production-safe) + 14-docs sweep 모두 완료**. 다음: **F.1 Normalizer auto-registration (1주, 별도 plan)**."
 
 ## 🎯 핵심 성과 (2026-05-16 ~ 17)
 
@@ -59,6 +59,8 @@
 - **F.3.2 first batch (commit `9219c7c`)**: 49 LLM verify → **8 accepted candidate axiom** (incompatible_count 2,232 → 2,240)
 - **Merge `11e46c6`** + GitHub push 완료
 - **A hot-fix (commit `a841a0b` → main `d0b2262`)**: `raw_vision_features` 타입을 `dict` → `list`로 수정. ebe1011에서 dict() 변환 시 `risk_feature_candidates`(array)를 받아 `ValueError: dictionary update sequence element #0 has length 4; 2 is required` 발생. 2,360 synthetic replay에서 1,700 errored 원인. 3-case quick test로 0 errored 검증 후 push.
+- **F.3.3 Gate 3 regression PASS (commit `eb7843f` → main `5b10980`)**: 2,360 synthetic replay 전체 valid, 0 errored. she_accuracy delta `-0.0013` (노이즈 범위), 모든 metric 회귀 없음. 8 candidate axiom **production-safe 검증 완료** — 수동 vetted 승격 가능 (50회 대기 불필요). 보고서 `docs/status/f33-gate3-regression-2026-05-17.md`.
+- **14-docs sweep (commit `af26e13` → main `f5bde60`, HEAD)**: F.3 first batch + hot-fix + F.3.3을 14개 docs 전 영역(README/architecture/status/workplans/governance/backlog) 반영. 메타 일관성(current-session ↔ evaluation-baseline ↔ workplans) cross-check 완료.
 
 ### 학계 reference 통합 — 완료
 - 9 paper 분석 (`ontology-team/reference-article/`)
@@ -67,12 +69,15 @@
 
 ## 📦 신규 산출물 (오늘 후반 — main에 push 완료)
 
-오늘 후반 (F.3 sprint) 4 commits + merge:
+오늘 후반 (F.3 sprint + F.3.3 + sweep) commits + merge:
 - `classify_reject_reasons.py` + 산출 jsonl/json + sample_100 (F.3.0)
-- `analysis_pipeline.py` 수정 (Runtime 4번 hook 3 필드, A)
+- `analysis_pipeline.py` 수정 (Runtime 4번 hook 3 필드, A) + hot-fix (`raw_vision_features` list)
 - `translate_incompat_industries.py` + KB 변환 (C)
 - `mine_missing_axioms.py` + 8 candidate (B)
-- `docs/status/f30-reject-reason-classification-2026-05-17.md` (보고서)
+- `data-team/05-enrichment/runtime-artifacts/replay_post_f32.json` (F.3.3 replay)
+- `docs/status/f30-reject-reason-classification-2026-05-17.md` (F.3.0 보고서)
+- `docs/status/f33-gate3-regression-2026-05-17.md` (F.3.3 PASS 보고서)
+- `docs/` 전반 14 docs sweep (`af26e13`): README/architecture/status/workplans/governance/backlog
 
 오늘 오후~저녁 (Phase 3 sprint) 18 commits — 자세히는 git log main 참조.
 
@@ -99,8 +104,9 @@
 
 ### 2순위 (작은 quick win — F.3 후속 정리):
 - **편의점 등 KO unmapped 보강**: `industry_ko_to_en_map.json` 확장 (5분)
-- **A hook always-on**: `_apply_llm_rerank` early-return 시도 hook 호출 또는 별도 hook (1-2h)
-- **F.3.3 Gate 3 regression**: 2,360 synthetic replay로 8 candidate axiom의 false_negative 영향 측정 → vetted promotion 결정 (수십 분)
+- **A hook always-on**: `_apply_llm_rerank` early-return 경로 hook 호출 또는 별도 hook (1-2h)
+- **8 candidate axiom 수동 vetted 승격**: F.3.3 Gate 3 PASS 확인 — 50회 자동 대기 불필요, `promote_incompatibilities.py` 즉시 실행 가능 (30분)
+- **F.3.0 LLM 2nd pass** (~$1): ambiguous 466건 LLM 재분류 → axiom_missing 추가 회수 (1h)
 
 ### 3순위 (학계/품질):
 1. OntoGPT 통합 (`pip install ontogpt`)
