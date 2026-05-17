@@ -270,6 +270,13 @@ def _resolve_alias_code(raw_code: str, axis: str) -> Optional[str]:
     if upper in valid:
         return upper
 
+    # Phase F.1 Day 6.5 — Vision LLM이 'FALLING OBJECT' 같이 공백 들어간 영어 변형 생성하는
+    # 패턴 대응. catalog UPPER_SNAKE_CASE 규약에 맞춰 공백→underscore 정규화.
+    # 9 production miss 중 'FALLING OBJECT', 'falling object' 등 instant 해결.
+    upper_normalized = upper.replace(" ", "_").replace("-", "_")
+    if upper_normalized != upper and upper_normalized in valid:
+        return upper_normalized
+
     if _stage2_v2_enabled():
         v2_mapped = STAGE2_V2_AXIS_ALIASES.get(axis, {}).get(raw_text)
         if v2_mapped in valid:
