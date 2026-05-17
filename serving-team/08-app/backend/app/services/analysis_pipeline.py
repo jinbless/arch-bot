@@ -65,7 +65,7 @@ class AnalysisKnowledgeContext:
     penalty_exposure_status: str
     # Runtime 4번 채널 — F.3.5 자율 학습 환류 input pool (analysis_log 확장 hook).
     normalizer_unknown_codes: list[str] = field(default_factory=list)
-    raw_vision_features: dict = field(default_factory=dict)
+    raw_vision_features: list = field(default_factory=list)
 
 
 class AnalysisPipeline:
@@ -320,7 +320,7 @@ class AnalysisPipeline:
             finding_status=finding_status,
             penalty_exposure_status=self._penalty_exposure_status(penalty_paths),
             normalizer_unknown_codes=list(normalized.get("unknown_codes") or []),
-            raw_vision_features=dict(result.get("risk_feature_candidates") or {}),
+            raw_vision_features=list(result.get("risk_feature_candidates") or []),
         )
 
     def _build_observations(self, result: dict) -> list[VisualObservation]:
