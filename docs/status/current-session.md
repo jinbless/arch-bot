@@ -1,6 +1,6 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-17** (Phase E-prep + Layer 4 설계 완료 세션)
+최신 갱신일: **2026-05-17 (오후 늦게)** — F.3.0/A/C/B merge (main `11e46c6`) + **A hot-fix** (main `d0b2262`, raw_vision_features list dict 오류 수정. 1,700/2,360 errored → 0 검증)
 
 이 문서는 다른 Claude/Codex/LLM 세션이 현재 상태를 빠르게 이어받기 위한 시작점이다.
 
@@ -26,9 +26,9 @@
 
 ## 📍 현재 상태 한 문장 요약
 
-> "Phase 0/B/A/C + Phase E-prep 완료. Layer 4 (Ontology Learning) 7-module 학계 reference 기반 정밀 설계 완료. backend 코드 운영 중 (baseline_v2 + LLM rerank). 다음: Phase E.2 (Openllet 정식 통합) 또는 Phase F.1 (vocabulary auto-registration)."
+> "Phase 0/B/A/C + E-prep + E.2 (Openllet 통합) + Phase 3 (reasoning catch 1,902건) + **F.3 자율 axiom learning loop 첫 정식 단계 완료** (F.3.0 분류·F.3.2 8 candidate axiom·Runtime 4번 채널 hook·KB KO→EN). 다음: F.1 (Normalizer auto-registration, 1주) 또는 F.3.3 본격 (Gate 3 + 편의점 mapping + hook always-on)."
 
-## 🎯 이번 두 세션 (2026-05-16~17) 핵심 성과
+## 🎯 핵심 성과 (2026-05-16 ~ 17)
 
 ### Phase 0/B/A/C (LLM 자율 도메인 보강) — 완료
 - **baseline_v2**: she_accuracy 55.81% → **60.72%** (+4.9%p), overall 13.31% → **15.25%** (+1.94%p)
@@ -36,55 +36,73 @@
 - **8 real-test-photo**: 4/5 over-promote 차단 확인 (지게차/영세제조/포크레인/음식점)
 - **Phase C 자율 학습**: 2,528 analysis_log + 31개 신규 incompatibility 자율 채택
 
-### Phase E-prep (LLM-Accelerated 정석 ontology engineering) — 완료
+### Phase E-prep + E.2 (Openllet 통합) — 완료
 - **Step 1**: 50 CQ + 55 class layer (B 26/A 20/Bridge 9) + 7 reuse scorecard
 - **Step 2**: kosha-ontology-v2.owl (BFO + LKIF imports + 64 subClassOf)
 - **Step 3**: kosha-disjoint-axioms.ttl (84 industries, 2,192 disjoint) + 22 SWRL + 26 SHACL
-- **Step 4**: OntoClean 13 violations → **1** (92% 자동 수정, 5 iteration)
-- **Step 5**: 40 SPARQL queries (2% coverage, Photo persist 후 회복 예정)
-- **Verification**: SHACL Conforms: True ✅ (v3, 194 triples), rdflib parse PASS
+- **Step 4**: OntoClean 13 violations → **1** (92% 자동 수정)
+- **E.2**: Fuseki Java가 v2 ontology + disjoint + SHACL + 172 subClassOf 로드 (commit `3520cab`)
+- **Verification**: SHACL Conforms: True ✅, Openllet inference 정상
+
+### Phase 3 (catalog v4 + SHE patterns + reasoning catch) — 완료
+- **Phase 3A audit**: 1,914 synthetic codes hybrid ensemble 검증
+- **Phase 3B catalog v4**: +170 신규 codes + 169 sub + 193 aliases
+- **Phase 3C direct LLM SHE patterns**: 498 신규 → validation 후 누적 **1,616** PG she_patterns
+- **Phase 3D**: synthetic v1~v10 EN enum transform + baseline_v3
+- **Phase 3 validation**: ontology reasoning이 LLM 환각/과대추정 **1,902건 catch** (보고서 `docs/status/reasoning-catch-effectiveness-2026-05-17.md`)
+- **8 real-test-photo 라이브**: 평균 사진당 1건 부적절 추천을 reasoning이 사용자 앞에서 reject
+
+### Phase F.3 자율 axiom learning loop — 첫 정식 단계 완료 ⭐
+- **F.3.0 (commit `8ff40d7`)**: 2,525 excluded entries 5 카테고리 분류 — `axiom_missing 36.44%` (920건, **210 unique pair**) → PROCEED_F3
+- **F.3.5-prep (commit `ebe1011`)**: `analysis_log.jsonl`에 Runtime 4번 환류 채널 3 신규 필드 (`normalizer_unknown_codes`, `she_match_count`, `raw_vision_features`)
+- **C cleanup (commit `2ea800d`)**: `guide_domain_incompatibilities.json` 2,232 entries 100% KO→EN translated (mining 정확도 normalize)
+- **F.3.2 first batch (commit `9219c7c`)**: 49 LLM verify → **8 accepted candidate axiom** (incompatible_count 2,232 → 2,240)
+- **Merge `11e46c6`** + GitHub push 완료
+- **A hot-fix (commit `a841a0b` → main `d0b2262`)**: `raw_vision_features` 타입을 `dict` → `list`로 수정. ebe1011에서 dict() 변환 시 `risk_feature_candidates`(array)를 받아 `ValueError: dictionary update sequence element #0 has length 4; 2 is required` 발생. 2,360 synthetic replay에서 1,700 errored 원인. 3-case quick test로 0 errored 검증 후 push.
 
 ### 학계 reference 통합 — 완료
 - 9 paper 분석 (`ontology-team/reference-article/`)
 - Layer 4 = 7 module 정밀 구성
 - 우리 차별점: deontic 도메인 + 한국어 + asymmetric trust + Task C SOTA + Task D 학계 미답
 
-## 📦 신규 산출물 (이번 세션, 미커밋 상태)
+## 📦 신규 산출물 (오늘 후반 — main에 push 완료)
 
-전체 목록: [../workplans/llm-accelerated-ontology-engineering.md](../workplans/llm-accelerated-ontology-engineering.md) "신규 산출물" 섹션
+오늘 후반 (F.3 sprint) 4 commits + merge:
+- `classify_reject_reasons.py` + 산출 jsonl/json + sample_100 (F.3.0)
+- `analysis_pipeline.py` 수정 (Runtime 4번 hook 3 필드, A)
+- `translate_incompat_industries.py` + KB 변환 (C)
+- `mine_missing_axioms.py` + 8 candidate (B)
+- `docs/status/f30-reject-reason-classification-2026-05-17.md` (보고서)
 
-요약:
-- Ontology files: 7개 (kosha-ontology-v2.owl, disjoint-axioms.ttl, rules-v2.swrl, shapes-v3.ttl 등)
-- Backend code: 5개 신규 + 8개 수정
-- Data team scripts: 16개 신규 (`data-team/05-enrichment/llm-scripts/`)
-- Runtime artifacts: 20+ JSON (CQ, layer, disjoint, OntoClean 등)
-- Frontend: 1개 신규 (SourceBadge.tsx) + 5개 panel 수정
-- Reference articles: 9 PDF (사용자 추가)
-- Docs: 5개 신규 (이 세션 마무리 단계에서 추가)
+오늘 오후~저녁 (Phase 3 sprint) 18 commits — 자세히는 git log main 참조.
+
+전체 산출물 history: [../workplans/llm-accelerated-ontology-engineering.md](../workplans/llm-accelerated-ontology-engineering.md)
 
 ## ⚠️ 다음 세션 시작 시 주의사항
 
-1. **신규 산출물 50+ 미커밋** — 사용자 의사 확인 후 commit
-2. **plan 임시 파일** (`.claude/plans/workplan-llm-domain-guard-vs-needtochang-lucky-lemon.md`)은 정식 문서로 이전됨. 무시 가능. 단 참고용으로 보존
-3. **worktree**: 현재 작업이 `.claude/worktrees/strange-rosalind-601a61/`에서 진행됨. 정식 commit은 root `arch-bot/main`으로
-4. **API 키**: 이전 세션에 노출된 5개 키는 사용자가 OpenAI 대시보드에서 회수 완료(2026-05-17). backend가 동작하려면 새 키를 `serving-team/08-app/backend/.env`에 두어야 함
+1. **현재 작업 worktree**: `.claude/worktrees/trusting-chandrasekhar-7b2041/` (claude/trusting-chandrasekhar-7b2041 branch). main에 머지·push 완료, 정리 시 worktree 제거 가능
+2. **API 키**: `serving-team/08-app/backend/.env`에 OPENAI_API_KEY 설정됨 (sk-proj-A5... prefix, len 164). 정상 작동 확인 (F.3.2 49 verify 성공)
+3. **8 candidate axiom 'level=candidate' 상태**: `promote_incompatibilities.py`가 50회 사용 후 vetted 자동 승격 — 또는 F.3.3 Gate 3 regression 통과 시 수동 즉시 승격
+4. **편의점 KO unmapped 발견** (B에서): `industry_ko_to_en_map.json` 84 entry에 빠진 산업명. mapping 확장 후보
+5. **A hook 한계**: `LLM_RERANK_MODE=off` 또는 `knowledge.guide_rows` 비어있는 early-return 시 hook 미실행. 별도 항상-실행 hook 후보
+6. **stash@{0}**: `WIP on main: ca55ac6` (이전 세션 8 real-test-photo PNG/JPG untracked). 무관함, 보존
 
 ## 🛣️ 다음 작업 우선순위
 
-### 1순위 (선택 A): Phase E.2 — Openllet 정식 통합 (~1시간)
-- Fuseki Java 코드 수정 (`ontology-team/06-reasoning/ontology/docker/fuseki/src/main/java/kr/or/kosha/KoshaFusekiServer.java`)
-- 현재 `kosha-ontology.owl` (v1) hardcoded → v2 load + 추가 .ttl/.swrl import
-- container rebuild + Openllet consistency check
-- 효과: 진짜 OWL DL reasoner 통합 (6단계 본격 진입)
-
-### 1순위 (선택 B): Phase F.1 — Vocabulary auto-registration (3-5일)
+### 1순위: Phase F.1 — Vocabulary auto-registration (1주)
 - Module 4.1 — Layer 1 alias 사전 자율 등재
 - 코드: 신규 `data-team/05-enrichment/llm-scripts/auto_register_aliases.py`
-- 패턴: Phase C.2 (`mine_overpromote_patterns.py`) 재사용
+- 패턴: `mine_overpromote_patterns.py` + `mine_missing_axioms.py` (F.3.2 첫 batch) 재사용
 - 4-Gate 검증 (embedding + multi-LLM + counter-example + asymmetric trust)
-- 효과: "매핑 불가 코드" 자율 해소, long-tail 도메인 자동 적응
+- 입력: A에서 추가한 `analysis_log.jsonl[normalizer_unknown_codes]` 필드 mining
+- 효과: 8 real-test-photo의 6/8(75%) Normalizer miss 자율 해소
 
-### 2순위 (선택): 즉시 적용 권장 3가지
+### 2순위 (작은 quick win — F.3 후속 정리):
+- **편의점 등 KO unmapped 보강**: `industry_ko_to_en_map.json` 확장 (5분)
+- **A hook always-on**: `_apply_llm_rerank` early-return 시도 hook 호출 또는 별도 hook (1-2h)
+- **F.3.3 Gate 3 regression**: 2,360 synthetic replay로 8 candidate axiom의 false_negative 영향 측정 → vetted promotion 결정 (수십 분)
+
+### 3순위 (학계/품질):
 1. OntoGPT 통합 (`pip install ontogpt`)
 2. Two-way CoT prompt 전환 (기존 LLM-scripts)
 3. OOPS! Pitfall Scanner + LinkML schema 검증
