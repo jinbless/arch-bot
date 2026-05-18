@@ -36,7 +36,9 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         dev-pg-up dev-pg-down dev-pg-status \
         f1-mine f1-mine-gate2 f1-mine-log f1-promote f1-status \
         f1-eval f1-regression f1-recover f1-help \
-        f2-help f2-patch-v32 f2-patch-v33 f2-enrich-sonnet f2-link-v31
+        f2-help f2-patch-v32 f2-patch-v33 f2-enrich-sonnet f2-link-v31 \
+        f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
+        f3-drift-check f3-weekly-cycle
 
 help:
 	@echo "arch-bot dev launcher"
@@ -290,3 +292,63 @@ f2-link-v31:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' \
 	  '$(VENV_PY)' '$(F1_SCRIPTS)/link_v31_codes_to_she.py' $(ARGS)
+
+
+# ---------------------------------------------------------------------------
+# Phase F.3 — Axiom Discovery + Reasoner Shadow + Drift Detection (Module 4.4)
+# Tier 2 sprints T2.A/B/C/D 통합 운영 인터페이스.
+# 자세히: docs/workplans/llm-accelerated-ontology-engineering.md (Tier 2)
+# ---------------------------------------------------------------------------
+
+f3-help:
+	@echo "Phase F.3 — Axiom Discovery / Reasoner Shadow / Drift"
+	@echo ""
+	@echo "T2.A — Reasoner shadow channel (F.3.1):"
+	@echo "  make f3-shadow-validator              offline batch (analysis_log → shadow_reasoner_log)"
+	@echo "  make f3-shadow-validator ARGS='--pyshacl --limit 50'   pyshacl cross-check"
+	@echo ""
+	@echo "T2.D — F.3.2 candidates → vetted (1-by-1 + Gate 3 wrap):"
+	@echo "  make f3-promote-candidates            dry-run (8 candidates listed)"
+	@echo "  make f3-promote-candidates ARGS='--apply'              실제 promote + regression"
+	@echo "  make f3-promote-candidates ARGS='--apply --only-index 1,3'   특정 candidate만"
+	@echo ""
+	@echo "T2.B — KB compile (F.3.4):"
+	@echo "  make f3-compile-kb                    candidate → kb-candidates.ttl (SHACL sh:Info)"
+	@echo "  make f3-compile-kb ARGS='--scope vetted'               vetted scope 검증"
+	@echo "  Fuseki reload: 별도 Java rebuild + container restart 필요 (~30 min)"
+	@echo ""
+	@echo "T2.C — Drift detection (F.3.5):"
+	@echo "  make f3-drift-check                   가장 최근 replay_results_*.json 비교"
+	@echo "  make f3-drift-check ARGS='--current /tmp/replay.json'  명시적 입력"
+	@echo "  make f3-drift-check ARGS='--json'     CI/slack 통합용 JSON output"
+	@echo ""
+	@echo "Weekly cron-able (no LLM cost):"
+	@echo "  make f3-weekly-cycle                  shadow → compile → replay → drift check"
+
+f3-shadow-validator:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/pyshacl_shadow_validator.py' $(ARGS)
+
+f3-promote-candidates:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' \
+	  '$(VENV_PY)' '$(F1_SCRIPTS)/promote_f32_per_candidate.py' $(ARGS)
+
+f3-compile-kb:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/compile_kb_to_ttl.py' $(ARGS)
+
+f3-drift-check:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/f3_drift_check.py' $(ARGS)
+
+f3-weekly-cycle:
+	@echo "[f3-weekly] 1/4 shadow validator (offline batch)"
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/pyshacl_shadow_validator.py'
+	@echo "[f3-weekly] 2/4 compile KB to TTL (kb-candidates.ttl)"
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/compile_kb_to_ttl.py'
+	@echo "[f3-weekly] 3/4 replay synthetic"
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' \
+	  '$(VENV_PY)' -u scripts/replay_synthetic_observations.py \
+	    --output '$(F1_RUNTIME)/replay_results_weekly.json'
+	@echo "[f3-weekly] 4/4 drift check vs baseline_v3"
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/f3_drift_check.py' \
+	  --current '$(F1_RUNTIME)/replay_results_weekly.json'
