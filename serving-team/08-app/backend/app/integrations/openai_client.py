@@ -66,7 +66,7 @@ ONTOLOGY_OBSERVATION_SCHEMA = {
                     "properties": {
                         "axis": {
                             "type": "string",
-                            "enum": ["accident_type", "hazardous_agent", "work_context"],
+                            "enum": ["accident_type", "hazardous_agent", "work_context", "ppe_state", "environmental"],
                         },
                         "text": {"type": "string"},
                         "evidence": {"type": ["string", "null"]},
