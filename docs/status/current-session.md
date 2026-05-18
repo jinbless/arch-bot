@@ -1,6 +1,6 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-17 (밤)** — F.3 first batch (`11e46c6`) + A hot-fix (`d0b2262`) + **F.3.3 Gate 3 regression PASS** (`eb7843f` → merge `5b10980`) + **14-docs sweep** (`af26e13` → merge `f5bde60`, 메인 HEAD)
+최신 갱신일: **2026-05-18** — F.3 first batch + **F.1 sprint (Day 1-7) 완료** (5 vetted aliases, closed loop) + **F.2 sprint (Day 1-7) 완료** (catalog v3.1→v3.3 5 axes × 481 codes, 790 SHE enriched, 79 pending review). 메인 HEAD `bb2632d` 이후 commits.
 
 이 문서는 다른 Claude/Codex/LLM 세션이 현재 상태를 빠르게 이어받기 위한 시작점이다.
 
@@ -26,7 +26,7 @@
 
 ## 📍 현재 상태 한 문장 요약
 
-> "Phase 0/B/A/C + E-prep + E.2 (Openllet 통합) + Phase 3 (reasoning catch 1,902건) + **F.3 first batch + F.3.3 Gate 3 PASS (8 candidate production-safe) + 14-docs sweep 모두 완료**. 다음: **F.1 Normalizer auto-registration (1주, 별도 plan)**."
+> "Phase 0/B/A/C + E-prep + E.2 + Phase 3 + F.3 first batch + **F.1 sprint 완료** (Normalizer alias auto-registration closed loop, 5 vetted, Gate 3 PASS) + **F.2 sprint 완료** (Taxonomy Discovery: catalog 5 axes × 481 codes, 790 SHE 5-dim enriched, 79 v3.1-link pending review, Gate 3 PASS). 다음: F.3 closing (F.3.1/3.4/3.5) 또는 promote_she_review 또는 closed vocabulary prompt."
 
 ## 🎯 핵심 성과 (2026-05-16 ~ 17)
 
@@ -94,19 +94,35 @@
 
 ## 🛣️ 다음 작업 우선순위
 
-### 1순위: Phase F.1 — Vocabulary auto-registration (1주)
-- Module 4.1 — Layer 1 alias 사전 자율 등재
-- 코드: 신규 `data-team/05-enrichment/llm-scripts/auto_register_aliases.py`
-- 패턴: `mine_overpromote_patterns.py` + `mine_missing_axioms.py` (F.3.2 첫 batch) 재사용
-- 4-Gate 검증 (embedding + multi-LLM + counter-example + asymmetric trust)
-- 입력: A에서 추가한 `analysis_log.jsonl[normalizer_unknown_codes]` 필드 mining
-- 효과: 8 real-test-photo의 6/8(75%) Normalizer miss 자율 해소
+### ✅ 완료: Phase F.1 — Vocabulary auto-registration (Day 1-7, 2026-05-18)
+- 5 vetted aliases (FALL_FROM_HEIGHT, FINGER_AMPUTATION 등) + 1 candidate
+- 4-Gate closed loop: embedding + LLM verify + regression + asymmetric trust
+- Runbook: [docs/dev-notes/F.1-auto-register-aliases.md](../dev-notes/F.1-auto-register-aliases.md)
+- Makefile: `make f1-help` 참고
 
-### 2순위 (작은 quick win — F.3 후속 정리):
-- **편의점 등 KO unmapped 보강**: `industry_ko_to_en_map.json` 확장 (5분)
-- **A hook always-on**: `_apply_llm_rerank` early-return 경로 hook 호출 또는 별도 hook (1-2h)
-- **8 candidate axiom 수동 vetted 승격**: F.3.3 Gate 3 PASS 확인 — 50회 자동 대기 불필요, `promote_incompatibilities.py` 즉시 실행 가능 (30분)
-- **F.3.0 LLM 2nd pass** (~$1): ambiguous 466건 LLM 재분류 → axiom_missing 추가 회수 (1h)
+### ✅ 완료: Phase F.2 — Taxonomy Discovery (Day 1-7, 2026-05-18)
+- catalog v3.1 (404 codes, 3 axes) → **v3.3 (481 codes, 5 axes)**
+- 신규 axis: ppe_state (50 codes), environmental (18 codes)
+- 790 SHE OTHER → specific (Sonnet 4.6, Gate 3 PASS)
+- 79 v3.1-link SHE (status=pending_review, 수동 승격 대기)
+- Runbook: [../dev-notes/F.2-taxonomy-discovery.md](../dev-notes/F.2-taxonomy-discovery.md)
+- Makefile: `make f2-help` 참고
+
+### 다음 작업 우선순위 (F.1/F.2 완료 후):
+
+**1순위: F.3 closing** (1-2주, 정식 plan)
+- F.3.1 pyshacl reasoner reject channel
+- F.3.4 KB compile + Fuseki reload (Fuseki blocker 해결 필요)
+- F.3.5 cron + drift detection
+- 8 candidate axiom production deploy
+
+**2순위 (작은 작업, 각 30분~2h)**:
+- **promote_she_review.py**: F.2 Day 5의 77 pending_review SHE 신중 승격 (5-10건씩 + Gate 3)
+- **편의점 등 KO unmapped 보강**: `industry_ko_to_en_map.json` 확장
+- **A hook always-on**: `_apply_llm_rerank` early-return 경로 hook
+- **closed vocabulary prompt** PoC: Layer 0 Vision LLM에 catalog enum 명시 ('MACHINERY'/'cooking' production miss 직접 해결)
+- **8 candidate axiom 수동 vetted 승격**: `promote_incompatibilities.py` 즉시 실행 가능
+- **alias_embedding_cache.json LFS 마이그레이션**: 50.92MB GitHub 권장 초과
 
 ### 3순위 (학계/품질 — 도메인 적합성 우선 평가 후 채택):
 1. Two-way CoT prompt 전환 (기존 LLM-scripts)
