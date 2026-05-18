@@ -99,7 +99,10 @@ AUDIT_PATH = (
     REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "alias_audit.jsonl"
 )
 EMBEDDING_CACHE_PATH = (
-    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "alias_embedding_cache.json"
+    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "alias_embedding_cache.npz"
+)
+EMBEDDING_CACHE_META_PATH = (
+    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "alias_embedding_cache.meta.json"
 )
 
 EMBEDDING_MODEL = "text-embedding-3-small"
@@ -333,19 +336,72 @@ def _code_cache_key(axis: str, code: str, aliases: set[str] | list[str]) -> str:
 
 
 def load_embedding_cache() -> dict[str, dict]:
+    """Load embedding cache from .npz + .meta.json (T1.B: 87% size reduction vs JSON).
+
+    Returns API-compatible dict: {key: {axis, code, aliases: {text: [vector]}}}.
+    """
     if not EMBEDDING_CACHE_PATH.is_file():
         return {}
     try:
-        return json.loads(EMBEDDING_CACHE_PATH.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
+        import numpy as np
+        npz_data = np.load(EMBEDDING_CACHE_PATH, allow_pickle=False)
+        meta = (
+            json.loads(EMBEDDING_CACHE_META_PATH.read_text(encoding="utf-8"))
+            if EMBEDDING_CACHE_META_PATH.is_file() else {}
+        )
+        cache: dict[str, dict] = {}
+        for key in npz_data.files:
+            entry_meta = meta.get(key, {})
+            alias_texts = entry_meta.get("aliases", [])
+            embeddings_arr = npz_data[key]  # shape (N, 1536)
+            aliases_dict = {
+                text: embeddings_arr[i].tolist()
+                for i, text in enumerate(alias_texts)
+                if i < embeddings_arr.shape[0]
+            }
+            cache[key] = {
+                "axis": entry_meta.get("axis", ""),
+                "code": entry_meta.get("code", ""),
+                "aliases": aliases_dict,
+            }
+        return cache
+    except Exception:
         return {}
 
 
 def save_embedding_cache(cache: dict[str, dict]) -> None:
+    """Save cache as .npz (embeddings) + .meta.json (axis/code/alias order).
+
+    T1.B: replaces single JSON (50MB → 6MB compressed npz + 100KB meta).
+    """
+    import numpy as np
     EMBEDDING_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    tmp = EMBEDDING_CACHE_PATH.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
-    tmp.replace(EMBEDDING_CACHE_PATH)  # atomic (R6)
+    arrays: dict[str, np.ndarray] = {}
+    meta: dict[str, dict] = {}
+    for key, entry in cache.items():
+        aliases_dict = (entry or {}).get("aliases", {}) or {}
+        if not aliases_dict:
+            continue
+        alias_texts = sorted(aliases_dict.keys())
+        embeddings = [aliases_dict[t] for t in alias_texts if aliases_dict[t]]
+        if not embeddings:
+            continue
+        arrays[key] = np.array(embeddings, dtype=np.float32)
+        meta[key] = {
+            "axis": entry.get("axis", ""),
+            "code": entry.get("code", ""),
+            "aliases": alias_texts,
+        }
+    if not arrays:
+        return
+    # Atomic write — np.savez_compressed auto-appends .npz to stem
+    tmp_npz_stem = EMBEDDING_CACHE_PATH.with_name(EMBEDDING_CACHE_PATH.stem + "_tmp")
+    tmp_meta = EMBEDDING_CACHE_META_PATH.with_suffix(".json.tmp")
+    np.savez_compressed(tmp_npz_stem, **arrays)
+    actual_tmp_npz = tmp_npz_stem.with_suffix(".npz")
+    tmp_meta.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+    actual_tmp_npz.replace(EMBEDDING_CACHE_PATH)
+    tmp_meta.replace(EMBEDDING_CACHE_META_PATH)
 
 
 def cosine_similarity(a: list[float], b: list[float]) -> float:

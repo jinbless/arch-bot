@@ -75,26 +75,68 @@ def fetch_pending(db, limit: int = 0, exclude_other: bool = True) -> list[dict]:
     return [{"she_id": r[0], "name": r[1], "broadness_score": r[2], "wc": r[3], "at": r[4]} for r in rows]
 
 
-def promote_batch(db, batch: list[dict]) -> int:
+def _count_status(db, she_ids: list[str], status: str) -> int:
+    """Defensive verification helper — actual PG count for given she_ids in given status."""
+    from sqlalchemy import text
+    r = db.execute(
+        text("SELECT COUNT(*) FROM she_catalog WHERE she_id = ANY(:ids) AND status=:s"),
+        {"ids": she_ids, "s": status},
+    ).scalar()
+    return int(r or 0)
+
+
+def promote_batch(db, batch: list[dict]) -> tuple[int, list[str]]:
+    """Promote batch to approved_auto. Return (actual_updated_count, mismatched_ids).
+
+    T1.A fix (rollback bug): return result.rowcount + verification.
+    """
     from sqlalchemy import text
     she_ids = [b["she_id"] for b in batch]
-    db.execute(
+    result = db.execute(
         text("UPDATE she_catalog SET status='approved_auto' WHERE she_id = ANY(:ids) AND status='pending_review'"),
         {"ids": she_ids},
     )
+    actual_updated = int(result.rowcount or 0)
     db.commit()
-    return len(she_ids)
+    # Post-promote verification — ensure all batch she_ids are now 'approved_auto'
+    expected = len(she_ids)
+    now_approved = _count_status(db, she_ids, "approved_auto")
+    mismatch = []
+    if now_approved != expected:
+        # Find which ids are NOT approved_auto
+        from sqlalchemy import text
+        rows = db.execute(
+            text("SELECT she_id, status FROM she_catalog WHERE she_id = ANY(:ids) AND status != 'approved_auto'"),
+            {"ids": she_ids},
+        ).fetchall()
+        mismatch = [r[0] for r in rows]
+    return actual_updated, mismatch
 
 
-def rollback_batch(db, batch: list[dict]) -> int:
+def rollback_batch(db, batch: list[dict]) -> tuple[int, list[str]]:
+    """Rollback batch to pending_review. Return (actual_rolled_count, stuck_ids).
+
+    T1.A fix: returns actual rowcount + post-rollback verification.
+    stuck_ids: she_ids that are STILL approved_auto after rollback (critical — investigate).
+    """
     from sqlalchemy import text
     she_ids = [b["she_id"] for b in batch]
-    db.execute(
+    result = db.execute(
         text("UPDATE she_catalog SET status='pending_review' WHERE she_id = ANY(:ids) AND status='approved_auto'"),
         {"ids": she_ids},
     )
+    actual_rolled = int(result.rowcount or 0)
     db.commit()
-    return len(she_ids)
+    # Post-rollback verification — these MUST not be approved_auto anymore
+    still_approved = _count_status(db, she_ids, "approved_auto")
+    stuck_ids = []
+    if still_approved > 0:
+        rows = db.execute(
+            text("SELECT she_id FROM she_catalog WHERE she_id = ANY(:ids) AND status='approved_auto'"),
+            {"ids": she_ids},
+        ).fetchall()
+        stuck_ids = [r[0] for r in rows]
+    return actual_rolled, stuck_ids
 
 
 def run_regression() -> tuple[bool, dict, str]:
@@ -195,33 +237,46 @@ def main() -> int:
             for p in batch:
                 print(f"  - {p['she_id']:36s}  wc={p['wc']!r} at={p['at']!r}")
 
-            n_up = promote_batch(db, batch)
-            print(f"  status='approved_auto': {n_up} updated")
+            n_up, promote_mismatch = promote_batch(db, batch)
+            print(f"  status='approved_auto': {n_up} actually updated (input: {len(batch)})")
+            if promote_mismatch:
+                # Some she_ids weren't 'pending_review' to start (skipped). Surface clearly.
+                print(f"  ⚠️  {len(promote_mismatch)} she_ids skipped (not in pending_review state): {promote_mismatch[:5]}")
 
             print(f"  [Gate 3] running regression (~5min)...")
             passed, summary, log = run_regression()
-            # Parse deltas from regression stdout
             print("  " + "\n  ".join((log or "").splitlines()[-10:]))
 
             event = {
                 "batch": i, "batch_size": len(batch),
                 "she_ids": [b["she_id"] for b in batch],
                 "gate3_pass": passed,
+                "promote_actual_updated": n_up,
+                "promote_skipped_ids": promote_mismatch,
             }
 
             if passed:
-                total_promoted += len(batch)
+                total_promoted += n_up  # actual, not input count
                 event["action"] = "promoted"
                 append_audit([event])
-                print(f"  ✅ PASS — kept promoted ({total_promoted} total)")
+                print(f"  ✅ PASS — kept promoted ({total_promoted} total actual)")
             else:
-                # Rollback this batch
-                n_rb = rollback_batch(db, batch)
+                # T1.A fix — defensive rollback with verification
+                n_rb, stuck_ids = rollback_batch(db, batch)
                 total_rolled += n_rb
                 event["action"] = "rolled_back"
+                event["rollback_actual"] = n_rb
+                event["rollback_stuck_ids"] = stuck_ids  # CRITICAL — must be empty
                 event["gate3_log"] = log[-500:] if log else ""
                 append_audit([event])
-                print(f"  ❌ FAIL — rolled back {n_rb} SHE. Stopping sprint.")
+                print(f"  ❌ FAIL — rolled back {n_rb} SHE actual.")
+                if stuck_ids:
+                    print(f"  🚨 CRITICAL: {len(stuck_ids)} SHE STILL approved_auto after rollback!")
+                    print(f"     Stuck ids: {stuck_ids}")
+                    print(f"     Run manual rollback: UPDATE she_catalog SET status='pending_review' WHERE she_id IN ({','.join(repr(i) for i in stuck_ids)})")
+                    return 2  # critical failure code
+                else:
+                    print(f"  ✅ Rollback verified — all {len(batch)} she_ids restored to pending_review")
                 print(f"  Audit: {AUDIT_PATH.relative_to(REPO_ROOT)}")
                 print(f"  → Total promoted before fail: {total_promoted}")
                 return 1

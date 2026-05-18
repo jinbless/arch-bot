@@ -223,6 +223,31 @@ def _load_candidate_aliases() -> dict:
     return _CANDIDATE_ALIASES
 
 
+def _log_alias_usage(axis: str, code: str, alias: str) -> None:
+    """T1.C — Log candidate alias usage to enable promote_aliases.py --auto mode.
+
+    Append per-match to alias_candidate_meta.jsonl. promote_aliases aggregates
+    rows to compute meta.uses count + last_used_at timestamp.
+    Best-effort: failures don't break normalizer.
+    """
+    try:
+        from datetime import datetime, timezone
+        backend_app = Path(__file__).resolve().parents[1]
+        for ancestor in backend_app.parents:
+            artifacts_dir = ancestor / "data-team" / "05-enrichment" / "runtime-artifacts"
+            if artifacts_dir.exists():
+                meta_path = artifacts_dir / "alias_candidate_meta.jsonl"
+                break
+        else:
+            return
+        ts = datetime.now(timezone.utc).isoformat()
+        row = {"ts": ts, "action": "used", "alias": alias, "axis": axis, "code": code}
+        with meta_path.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+    except Exception:
+        pass  # best-effort, don't break normalizer
+
+
 def _get_valid_codes(axis: str) -> set:
     """축별 유효 코드 세트 (sub 포함)."""
     tax = _load_taxonomy()
@@ -301,7 +326,18 @@ def _resolve_alias_code(raw_code: str, axis: str) -> Optional[str]:
     for code, terms in cand_tier1.items():
         if code not in valid:
             continue
-        if upper in [str(t).upper() for t in terms] or raw_text in terms:
+        matched_alias = None
+        if upper in [str(t).upper() for t in terms]:
+            # Find exact alias that matched (preserving original casing for audit)
+            for t in terms:
+                if str(t).upper() == upper:
+                    matched_alias = t
+                    break
+        elif raw_text in terms:
+            matched_alias = raw_text
+        if matched_alias is not None:
+            # T1.C — usage tracking for promote_aliases.py --auto (uses >= N rule)
+            _log_alias_usage(axis, code, matched_alias)
             return code
 
     if _stage2_v2_enabled():
