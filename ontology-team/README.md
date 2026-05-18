@@ -15,6 +15,27 @@
 - 부정확한 매핑/관계를 찾아내고, 6번 완성 시 5번(LLM enrichment)을 자연스럽게 대체
 - 시각화 도구 ([06-reasoning/visualization/](06-reasoning/visualization/)) 운영
 
+## 최근 변경 (2026-05-18 저녁, main `b237e78`)
+
+신규 ontology file:
+- **`06-reasoning/ontology/kb-candidates.ttl`** (T2.B) — F.3.2 candidate axiom의 SHACL NodeShape, sh:Info severity (shadow validation, 실제 reject 안 함). 2,192 NodeShapes (industry × industry incompatibility 페어), 80 industries, 17,778 triples. `data-team/05-enrichment/llm-scripts/compile_kb_to_ttl.py` 에서 자동 생성.
+
+Fuseki container 변경:
+- **`KoshaFusekiServer.java`** sources array에 `/kb-candidates.ttl` 추가 (Java code edit, T2.B sprint)
+- Docker image rebuild: `docker-fuseki:latest` sha256 `08837972`
+- Container recreate: `docker compose up -d --force-recreate fuseki`
+- 로드 triples 변화: 963,791 (이전) → **981,409** (+17,618 from kb-candidates)
+- SPARQL 검증: `SELECT (COUNT(?s) AS ?n) WHERE { ?s a sh:NodeShape }` → **2,216 NodeShapes** (kb-candidates 2,192 + serving-validation-shapes-v3 24)
+
+운영 가이드:
+- 신규 TTL 추가 시 동일 패턴 (Java sources 수정 → docker rebuild → container recreate)
+- Java v2 read-only blocker (allowUpdate=false) 해결됨 (rebuild 기반 적용)
+- Openllet 추론 적용 (REASONER_MODE=openllet), kb-candidates는 추가 inferred triples 0 (현재 SHACL shapes만, instance 매칭은 SHACL validator 에서)
+
+향후 정리 후보:
+- vetted 8 F.3.2 axioms는 `kosha-disjoint-axioms.ttl` (OWL DisjointClasses hard reject)에 자동 포함됨 (`build_disjoint_axioms.py` 재실행 시)
+- Phase G PG materialization 후 SHACL shapes는 PG에 미러 가능 (Tier 3 후속 3C)
+
 ## 다른 팀과의 인터페이스
 
 - **← 데이터팀 (4단계)**: [data-team/04-ontology-export/](../data-team/04-ontology-export/)가 export한 TBox/ABox TTL을 입력으로 받음

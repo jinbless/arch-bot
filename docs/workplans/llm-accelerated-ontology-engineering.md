@@ -4,7 +4,7 @@
 > 임시 plan 파일(`.claude/plans/workplan-...md`)에서 정식 git 추적 문서로 이전됨.
 > 향후 모든 Phase 결정의 기준.
 
-## Status (2026-05-17 후반 갱신)
+## Status (2026-05-18 저녁 갱신 — Tier 1-3.A 완료)
 
 | Phase | 상태 | 비고 |
 |---|---|---|
@@ -21,9 +21,16 @@
 | **C (KB incompat KO→EN cleanup)** | ✅ 완료 | 2,232 entries 100% translated, commit `2ea800d` |
 | **F.3.2 (Missing-axiom miner first batch)** | ✅ 완료 | 49 verify → 8 accepted candidate (KB 2,232→2,240), commit `9219c7c` |
 | **F.3.3 (Gate 3 regression)** | ✅ PASS | 2,360 valid 0 errored, vs baseline_v3 delta 0/-0.0013, commit `eb7843f` |
-| F.3.1/F.3.4/F.3.5 (Reasoner channel + Compile + Cron) | ⏳ 다음 | Layer 4.4 closed loop 완성 |
-| F.1 (Vocabulary auto-registration) | ⏳ 다음 우선순위 | 1주, Module 4.1 |
-| F.2/F.4-F.8 | ⏳ Plan만 | Layer 4 모듈별 확장 |
+| F.1 (Vocabulary auto-registration, Module 4.1) | ✅ 완료 | 5 vetted aliases, closed loop. Runbook: `dev-notes/F.1-auto-register-aliases.md` |
+| F.2 (Taxonomy Discovery, Module 4.2) | ✅ 완료 | catalog v3.3 481 codes × 5 axes, 790 SHE enriched. Runbook: `dev-notes/F.2-taxonomy-discovery.md` |
+| **Tier 1 재포함** (T1.A/B/C, 2026-05-18 저녁) | ✅ 완료 | `b66fa36` 누락 발견 + 재commit `93c49fe`. T1.A rollback fix + T1.B npz code + T1.C usage tracking |
+| **T2.A F.3.1 pyshacl reasoner shadow** | ✅ 완료 | `pyshacl_shadow_validator.py` + `shadow_reasoner.py` + analysis_log.reasoner_rejects, commit `93c49fe` |
+| **T2.B F.3.4 KB compile + Fuseki reload** | ✅ 완료 | `compile_kb_to_ttl.py` → kb-candidates.ttl 2192 shapes + Java edit + docker rebuild + container restart + **SPARQL 2216 NodeShapes 검증**, commit `ac98d4c` → main `325ad37` |
+| **T2.C F.3.5 cron + drift detection** | ✅ 완료 | `f3_drift_check.py` + Makefile `f3-weekly-cycle`, commit `78886b3` |
+| **T2.D F.3.2 vetted promotion** | ✅ 완료 | 8/8 PASS 1-by-1 + Gate 3 wrap (예상 5-6 대비 100%), commit `ac98d4c` |
+| **Tier 3.A Closed Vocab Schema Enum** | ✅ 완료 | `ONTOLOGY_OBSERVATION_SCHEMA.risk_feature_candidates.text` 529 codes enum, free-creates 76→4 (-94.7%), commit `b237e78` |
+| F.4 (CQ Reverse, Module 4.5) | ⏳ 후속 | 3-4주, Photo persist ORM 선행 필요 |
+| F.5-F.8 / Phase G | ⏳ 후속 | Tier 3 후속 path (3B/3C) 또는 Tier 4 (F.5 GraphRAG, Phase J OBO Foundry) |
 
 ## Context
 
@@ -115,14 +122,16 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 - `serving-validation-shapes-v2.ttl` (v2 결함, v3 사용 권장)
 - `serving-validation-shapes-v3.ttl` — SHACL Conforms: True
 - `kosha-ontology-v3-restructure-patch.ttl` — OntoClean patch
+- **`kb-candidates.ttl` (T2.B 신규, 2026-05-18)** — F.3.2 SHACL shapes (sh:Info severity), 2192 NodeShapes, 80 industries. Fuseki 로드 +17,618 triples (총 981,409).
+- **`docker/fuseki/src/main/java/kr/or/kosha/KoshaFusekiServer.java` (T2.B 수정)** — sources array에 `kb-candidates.ttl` 추가. docker image rebuild (`docker-fuseki:latest` sha256 `08837972`).
 
 ### Backend code (`serving-team/08-app/backend/`)
 - `app/services/guide_embedding_filter.py` (신규)
 - `app/services/llm_validator_cache.py` (신규)
 - `app/integrations/prompts/guide_validator_prompt.py` (신규)
-- `app/services/analysis_pipeline.py` (수정: `_apply_llm_rerank`, `_append_analysis_log`)
+- `app/services/analysis_pipeline.py` (수정: `_apply_llm_rerank`, `_append_analysis_log` + **T2.A `reasoner_rejects` kwarg + `_log_skipped_analysis`** (Quick Win Task 2 A hook always-on + T2.A))
 - `app/services/guide_domain_profile.py` (수정: dynamic incompat KB layer)
-- `app/integrations/openai_client.py` (수정: `validate_guide_relevance`)
+- `app/integrations/openai_client.py` (수정: `validate_guide_relevance` + **T3.A `_load_catalog_codes()` + ONTOLOGY_OBSERVATION_SCHEMA.risk_feature_candidates.text enum 529 codes**)
 - `app/models/analysis.py` (수정: `ExcludedCandidate`)
 - `app/data/risk_feature_aliases.json` (확장 +187)
 - `app/data/risk_feature_catalog.json` (확장 +66 work_context)
@@ -130,6 +139,8 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 - `scripts/regression_gate.py` (신규)
 - `scripts/merge_replay_partials.py` (신규)
 - `scripts/test_real_photos.py` (신규)
+- **`app/services/shadow_reasoner.py` (T2.A 신규, 2026-05-18)** — serving runtime KB axiom shadow validate (lazy module cache, ~50μs/photo)
+- **`app/services/hazard_normalizer.py` (T1.C 수정, 2026-05-18)** — step 4.5 `_log_alias_usage()` candidate match 시 meta.jsonl append
 
 ### Data team scripts (`data-team/05-enrichment/llm-scripts/`)
 - `build_competency_questions.py`
@@ -151,17 +162,28 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 - **`classify_reject_reasons.py` (F.3.0, 2026-05-17)**
 - **`translate_incompat_industries.py` (C cleanup, 2026-05-17)**
 - **`mine_missing_axioms.py` (F.3.2, 2026-05-17)**
+- **`pyshacl_shadow_validator.py` (T2.A F.3.1, 2026-05-18)** — offline batch + pyshacl cross-check
+- **`compile_kb_to_ttl.py` (T2.B F.3.4, 2026-05-18)** — candidate axiom → kb-candidates.ttl (SHACL sh:Info)
+- **`f3_drift_check.py` (T2.C F.3.5, 2026-05-18)** — 6 metric drift 모니터
+- **`promote_f32_per_candidate.py` (T2.D, 2026-05-18)** — 1-by-1 + Gate 3 wrap (8/8 PASS)
+- **`_migrate_embedding_cache_to_npz.py` (T1.B 1회성, 2026-05-18)** — JSON → npz 95MB → 12MB
 
 ### Runtime artifacts (`data-team/05-enrichment/runtime-artifacts/`)
 - 모든 산출 JSON (CQ, layer assignment, disjoint, SHACL, OntoClean 등)
-- `analysis_log.jsonl` (2,536+ entries, A 신규 3 필드 포함)
+- `analysis_log.jsonl` (2,536+ entries, A 신규 3 필드 포함 + **T2.A `reasoner_rejects` 필드**)
 - `guide_domain_embeddings.npz` (3.75MB)
 - `replay_baseline.json` / `replay_baseline_v2.json` / `replay_baseline_v3.json` / `replay_active_b.json` / `replay_active_v2.json`
 - **`reject_reason_classified.jsonl` (F.3.0, 2,525 entries)**
 - **`reject_reason_distribution.json` / `reject_reason_sample_100.jsonl` (F.3.0)**
 - **`replay_post_f32.json` (F.3.3 Gate 3 input, 2,360 cases, 0 errored)**
-- **`guide_domain_incompatibilities.json` (2,232 vetted + 8 F.3.2 candidate = 2,240, EN-normalized)**
-- **`incompatibility_audit.jsonl` (+49 F.3.2 verify entries)**
+- **`guide_domain_incompatibilities.json` (T2.D 후: 2,232 vetted + **8 F.3.2 vetted (T2.D 100% PASS)** = 2,240, EN-normalized)**
+- **`incompatibility_audit.jsonl` (+49 F.3.2 verify entries + **T2.D per_candidate_promote_pass 8 entries**)**
+- **`shadow_reasoner_log.jsonl` (T2.A 신규)** — offline batch CLI 산출, 2580 rows → 859 reasoner_rejects
+- **`f32_per_candidate_promotion_results.json` (T2.D 신규)** — 8/8 PASS summary
+- **`f3_drift_log.jsonl` (T2.C 신규)** — drift check 시계열 (cron weekly)
+- **`kb_candidates_compile_audit.json` (T2.B 신규)** — kb-candidates.ttl compile audit
+- **`alias_embedding_cache.npz` / `.meta.json` (T1.B 신규)** — JSON 50.9MB → npz 6.4MB (87.3% 축소)
+- **`catalog_label_embedding_cache.npz` / `.meta.json` (T1.B 신규)** — JSON 44.3MB → npz 5.2MB (88.1% 축소)
 
 ### Frontend (`serving-team/08-app/frontend/`)
 - `src/components/results/SourceBadge.tsx` (신규, 10개 source type)
@@ -178,16 +200,19 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 | **F.3.0** | Reject reason classifier (5 카테고리) | Tsaneva ensemble | 3-4h | ✅ 완료 (`8ff40d7`) |
 | **F.3.2** | Missing-axiom miner (Disjoint-only first batch) | 4-Gate | 1-2일 | ✅ 완료 (`9219c7c`, 8 candidate) |
 | **F.3.3** | Gate 3 regression (counter-example) | 4-Gate | 수십 분 | ✅ PASS (`eb7843f`) |
-| **F.1** (다음 우선순위) | Vocabulary auto-registration (Module 4.1) | SPIRES IDSpaces/ValueSets | 1주 | ⏳ |
-| F.3.1 | Reasoner reject channel (pyshacl shadow) | LLMs4Life Pellet | 1-2일 | ⏳ |
-| F.3.4 | KB compilation hook (TTL + Fuseki reload) | — | 3-4h | ⏳ |
-| F.3.5 | Cron + drift detection (`Makefile learn-axioms`) | SLR challenges | 1일 | ⏳ |
-| F.2 | TBox class learning (Module 4.2) | Two-way CoT + Ontogenia | 1주 | ⏳ |
-| F.4 | CQ Reverse + SPARQL 회복 (Module 4.5) | RETROFIT-CQ 75% | 1주 + Photo persist | ⏳ |
-| F.5 | GraphRAG 통합 (Module 4.6) | Salovsky Dual Memory | 2주 | ⏳ |
-| F.6 | Maintenance phase (Module 4.7) | SLR challenges #4 #5 | 영구 cron | ⏳ |
-| F.7 | Small model fine-tune | Aggarwal Dolphin-Mistral-7B | 2-3주 | ⏳ |
-| F.8 | OBO Foundry/IOF 등재 + LegalRuleML | SLR Lifecycle | 1-3개월 | ⏳ |
+| **F.1** | Vocabulary auto-registration (Module 4.1) | SPIRES IDSpaces/ValueSets | 1주 | ✅ 완료 (5 vetted, closed loop) |
+| **F.2** | TBox class learning (Module 4.2, Taxonomy Discovery) | Two-way CoT + Ontogenia | 1주 | ✅ 완료 (catalog v3.3, 481 codes × 5 axes) |
+| **T2.A F.3.1** | Reasoner reject channel (pyshacl shadow) | LLMs4Life Pellet | 1-2일 | ✅ 완료 (`93c49fe`, pyshacl + shadow_reasoner) |
+| **T2.B F.3.4** | KB compilation hook (TTL + Fuseki reload) | — | 1일 | ✅ 완료 (`ac98d4c` → `325ad37`, kb-candidates.ttl 2192 shapes, SPARQL 2216 NodeShapes 검증) |
+| **T2.C F.3.5** | Cron + drift detection (`Makefile f3-weekly-cycle`) | SLR challenges | 1일 | ✅ 완료 (`78886b3`, f3_drift_check.py) |
+| **T2.D** | F.3.2 vetted promotion (1-by-1 + Gate 3 wrap) | 4-Gate | 1일 | ✅ 완료 (`ac98d4c`, 8/8 PASS) |
+| **Tier 3.A** | Closed Vocab Schema Enum (Layer 0 catalog enforce) | LLMs4OL TaskA | 1주 | ✅ 완료 (`b237e78`, 76→4 free-creates -94.7%) |
+| F.4 | CQ Reverse + SPARQL 회복 (Module 4.5) | RETROFIT-CQ 75% | 1주 + Photo persist | ⏳ Tier 3 후속 (3B) |
+| F.5 | GraphRAG 통합 (Module 4.6) | Salovsky Dual Memory | 2주 | ⏳ Tier 4 |
+| F.6 | Maintenance phase (Module 4.7) | SLR challenges #4 #5 | 영구 cron | ⏳ Tier 4 |
+| F.7 | Small model fine-tune | Aggarwal Dolphin-Mistral-7B | 2-3주 | ⏳ Tier 4 |
+| F.8 (Phase J) | OBO Foundry/IOF 등재 + LegalRuleML | SLR Lifecycle | 1-3개월 | ⏳ Tier 4 |
+| **Phase G** | 7단계 PG 재물질화 (Tier 3 후속 3C) | — | 3-4주 | ⏳ Tier 3 후속 (3C) |
 
 ## 즉시 적용 권장 3가지 (ROI 큼)
 
@@ -212,7 +237,7 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 |---|---|
 | `she_patterns` | reasoner 추론 신규 패턴 (수백 → 수천) |
 | `guide_usage_profiles` | 현재 `guide_domain_profiles.json` → table |
-| `guide_domain_incompatibilities` (신규) | LLM-mined KB (vetted 2,232) → table |
+| `guide_domain_incompatibilities` (신규) | LLM-mined KB (vetted 2,232 + **8 F.3.2 T2.D vetted = 2,240**) → table. **kb-candidates.ttl** 2192 SHACL shapes (sh:Info) 별도 layer |
 | `ci_sr_mapping` | reasoner 도출 정식 매핑 |
 | `penalty_rules` / `penalty_conditions` | deontic chain 추론 |
 
@@ -244,7 +269,10 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 
 ## 미해결 / 다음 세션 주의사항
 
-1. **commit 안내** — 이번 세션 신규 산출물 50+ 파일이 미커밋 상태. 사용자 의사 확인 후 staged commit
+1. **이번 세션 모든 산출물 main 머지 완료** (Tier 1 재포함 `93c49fe` + T2.B/C/D `78886b3`/`ac98d4c` → main `325ad37` + Tier 3.A `b237e78`). 추가 commit 불필요.
 2. **plan 임시 파일** (`.claude/plans/workplan-...md`)은 무시 가능 (이 정식 문서로 이전 완료)
-3. **Phase E.2 (Openllet 정식 통합)이 진짜 6단계 본격 진입** — Fuseki Java 수정 필요
+3. **Phase E.2 (Openllet 정식 통합) 완료** (commit `3520cab`). **T2.B에서 kb-candidates.ttl 추가** + Fuseki container restart + SPARQL 검증 완료 (2216 NodeShapes).
 4. **API 키 — 새 키 필요 시 `serving-team/08-app/backend/.env`에 갱신** (이전 5개 키는 사용자가 2026-05-17 회수 완료)
+5. **T3.A 잔존 4 free-creates** (THF, CO, MOBILE_EQUIPMENT, WAREHOUSE): OpenAI strict mode enum의 edge-case (~99.6% 강제력). 별도 분석 또는 normalizer hard reject 후보.
+6. **Fuseki Java v2 read-only blocker 해결됨**: T2.B `KoshaFusekiServer.java` sources array에 신규 TTL 추가 → docker rebuild → container recreate 패턴 정립. 다음 TTL 추가 시 동일.
+7. **T2.D 1차 unicode bug** (Windows cp949): 처리됨 (모든 ✓✗→— → ASCII). 후속 sprint 스크립트 작성 시 동일 가이드 (PYTHONIOENCODING=utf-8 + python -u 또는 ASCII-only print).
