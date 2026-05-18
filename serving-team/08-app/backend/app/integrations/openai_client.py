@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 from typing import Optional
 
 import httpx
@@ -19,6 +20,43 @@ from app.integrations.prompts.guide_validator_prompt import (
 
 
 RERANK_MODEL = os.environ.get("LLM_RERANK_MODEL", "gpt-5.4-nano")
+
+
+def _load_catalog_codes() -> list[str]:
+    """Tier 3.A — risk_feature_catalog 전체 코드를 단일 enum으로 수집.
+
+    schema enum constraint용. 532개 코드 (accident_type 161 + hazardous_agent 99
+    + work_context 204 + ppe_state 50 + environmental 18). axis-text 페어링은
+    LLM 신뢰 (axis enum + text enum으로 search space 좁힘).
+
+    Catalog 갱신 시 자동 반영 (모듈 import 시 1회 로드).
+    재시작 없이 catalog 변경 적용하려면 backend restart 필요 (캐시 module-level).
+    """
+    catalog_path = (
+        Path(__file__).resolve().parents[1] / "data" / "risk_feature_catalog.json"
+    )
+    if not catalog_path.exists():
+        return []
+    try:
+        data = json.loads(catalog_path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    codes: set[str] = set()
+    axes = data.get("axes", {})
+    for axis_name, axis_info in axes.items():
+        if isinstance(axis_info, dict):
+            axis_codes = axis_info.get("codes", {}) or {}
+            if isinstance(axis_codes, dict):
+                codes.update(axis_codes.keys())
+            elif isinstance(axis_codes, list):
+                codes.update(axis_codes)
+        elif isinstance(axis_info, list):
+            codes.update(axis_info)
+    return sorted(codes)
+
+
+# Module-level cache (computed once at import; backend restart for updates)
+_ALL_CATALOG_CODES = _load_catalog_codes()
 
 
 ONTOLOGY_OBSERVATION_SCHEMA = {
@@ -60,7 +98,8 @@ ONTOLOGY_OBSERVATION_SCHEMA = {
             },
             "risk_feature_candidates": {
                 "type": "array",
-                "description": "Candidate terms for risk:RiskFeature normalization.",
+                "description": "Candidate terms for risk:RiskFeature normalization. "
+                "text는 catalog enum (532 codes) 강제. axis-text 페어링은 LLM 신뢰.",
                 "items": {
                     "type": "object",
                     "properties": {
@@ -68,7 +107,14 @@ ONTOLOGY_OBSERVATION_SCHEMA = {
                             "type": "string",
                             "enum": ["accident_type", "hazardous_agent", "work_context", "ppe_state", "environmental"],
                         },
-                        "text": {"type": "string"},
+                        # Tier 3.A — text는 catalog code enum 강제 (Hybrid Day 3
+                        # partial 효과 → 본격 schema-level enum). free-create 차단:
+                        # MACHINERY / ELEVATED_WORK / STEEL_STRUCTURE 등 cooking 방지.
+                        "text": (
+                            {"type": "string", "enum": _ALL_CATALOG_CODES}
+                            if _ALL_CATALOG_CODES
+                            else {"type": "string"}
+                        ),
                         "evidence": {"type": ["string", "null"]},
                         "confidence": {"type": "number"},
                     },
