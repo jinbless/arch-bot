@@ -39,14 +39,16 @@ public class KoshaFusekiServer {
         // Phase E.2: v2 ontology + disjoint + SHACL shapes로 전환.
         // Phase 3C 추가: subclass patch (Phase 3B의 169 sub 관계).
         // Phase 3 (이번 단계) 추가: 22대 사고유형 disjointness (별도 axioms TTL).
+        // T2.B (F.3.4) 추가: F.3.2 candidate axiom SHACL shapes (sh:Info severity).
         // SWRL 파일은 의사코드라 제외 (Phase F.3에서 실행 가능 형식 변환 예정).
         String[][] sources = {
             {"/kosha-ontology-v2.owl",                   "RDF/XML", "OWL v2 (BFO+LKIF)"},
             {"/kosha-instances.ttl",                     "TURTLE",  "Instances (ABox)"},
-            {"/kosha-disjoint-axioms.ttl",               "TURTLE",  "Industry disjoint axioms"},
+            {"/kosha-disjoint-axioms.ttl",               "TURTLE",  "Industry disjoint axioms (vetted)"},
             {"/serving-validation-shapes-v3.ttl",        "TURTLE",  "SHACL shapes v3"},
             {"/kosha-ontology-v3-subclass-patch.ttl",    "TURTLE",  "Phase 3C subclass hierarchy"},
             {"/kosha-accident22-disjoint.ttl",           "TURTLE",  "KOSHA 22대 사고유형 disjoint"},
+            {"/kb-candidates.ttl",                       "TURTLE",  "F.3.2 candidate axioms (SHACL sh:Info)"},
         };
 
         System.out.println("=== KOSHA Fuseki Server ===");

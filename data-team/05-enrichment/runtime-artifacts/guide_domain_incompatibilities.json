@@ -20300,10 +20300,14 @@
       "incompatible": true,
       "confidence": 0.86,
       "reason": "BUTCHER_MEAT_RETAIL 사진 작업은 정육점 작업대에서 지육을 절단하며 핏물로 인한 미끄럼/자세 위험이 핵심입니다. 반면 CONSTRUCTION 가이드 문맥(그레이팅 설치·체결, 외부비/이동식 사다리 선정 등)은 건설 공정/설비 시공·부속물 설치에 관한 위험요소 중심이라 해당 사진의 핵심 위험(절단 작업 중 핏물, 작업대 주변 미끄럼)이 직접 연결되지 않습니다. 따라서 같은 현장/사진에 동시 적용되는 가이드 페어로 보기 어렵고, 유사 매칭을 차단할 필요가 있습니다.",
-      "level": "candidate",
+      "level": "vetted",
       "source": "f32_axiom_miner",
       "freq_when_added": 35,
-      "added_at": "2026-05-17T13:18:39.708038+00:00"
+      "added_at": "2026-05-17T13:18:39.708038+00:00",
+      "promoted_at": "2026-05-18T07:18:38.255741+00:00",
+      "promotion_reason": "f32_per_candidate_promote_t2d_gate3_wrap",
+      "rollback_at": "2026-05-18T07:09:11.541652+00:00",
+      "rollback_reason": "gate3_regression_fail"
     },
     {
       "domain_a": "CONSTRUCTION",
@@ -20311,10 +20315,14 @@
       "incompatible": true,
       "confidence": 0.86,
       "reason": "사진(강관비계 작업발판 결손/외측 방호망 설치 등)은 건설 가시설·추락방호(비계/작업발판 안전) 맥락입니다. 반면 METAL_MACHINING의 후보 Guide는 철강제품(강관·형강 등) ‘적재’ 안전기술로, 적용 대상과 작업 단계가 자재 적재/보관 중심입니다. 동일 사진/현장에서 비계 추락사고 위험을 다루는 안전지침과 자재 적재 안전지침이 직접적으로 함께 매칭될 필요가 낮고, 같은 목적(추락 방지 vs 적재/운반 안전)으로 동시에 적용되는 구성도 아닙니다. 따라서 해당 페어는 실무적으로 동시 적용 불가로 보는 disjoint 성격이 강해 incompatible로 판정합니다.",
-      "level": "candidate",
+      "level": "vetted",
       "source": "f32_axiom_miner",
       "freq_when_added": 22,
-      "added_at": "2026-05-17T13:18:39.708038+00:00"
+      "added_at": "2026-05-17T13:18:39.708038+00:00",
+      "promoted_at": "2026-05-18T07:25:23.528418+00:00",
+      "promotion_reason": "f32_per_candidate_promote_t2d_gate3_wrap",
+      "rollback_at": "2026-05-18T07:18:25.406368+00:00",
+      "rollback_reason": "t2d_crash_cleanup_unicode_bug"
     },
     {
       "domain_a": "MANUFACTURING",
@@ -20322,10 +20330,12 @@
       "incompatible": true,
       "confidence": 0.72,
       "reason": "사진 산업(MANUFACTURING)에서의 안전관리 이슈(통로 걸림 위험, 활선 전선 연결 시 절연장갑 미착용 등 작업자 보호구·감전 예방)는 현장 작업자 안전수칙/보호구 적용(ESD·감전·작업자 PPE) 중심입니다. 반면 ELECTRICAL_CONSTRUCTION 가이드 후보는 전선의 종류·식별(도체/중성선/접지도체 구분 등) 또는 시험·측정 절차(검전기/전압감지기 등)로 전기 공정의 기술지원/시험 중심 성격이 강해, 동일 사진(활선 연결 중 보호구 미착용, 통로 장애물로 인한 걸림 위험)에서 핵심 가이드가 서로 갈라져 동시 적용(동일 안전관리 위반을 ‘전선 식별/시험 절차’로 해석) 가능성이 낮습니다. 따라서 향후 MANUFACTURING×ELECTRICAL_CONSTRUCTION 매칭을 차단할 정도로 성격이 충돌합니다.",
-      "level": "candidate",
+      "level": "vetted",
       "source": "f32_axiom_miner",
       "freq_when_added": 11,
-      "added_at": "2026-05-17T13:18:39.708038+00:00"
+      "added_at": "2026-05-17T13:18:39.708038+00:00",
+      "promoted_at": "2026-05-18T07:32:11.537565+00:00",
+      "promotion_reason": "f32_per_candidate_promote_t2d_gate3_wrap"
     },
     {
       "domain_a": "BUTCHER_MEAT_RETAIL",
@@ -20333,10 +20343,12 @@
       "incompatible": true,
       "confidence": 0.82,
       "reason": "산업이 BUTCHER_MEAT_RETAIL(정육/절단·분해·정비 등 생물·절단 위험 작업)인 반면, 제시된 Guide LANDSCAPING_GREENSPACE는 예초기/전정 등 ‘식생 관리’용 절단 장비의 사용·운전·작업범위/안전덮개 중심 절차로 귀결됩니다. 샘플 reject 사유처럼 사진은 정육용 칼/분쇄기 칼날 등 도축·도살/정육 공정(생물·절단 위험, 방검/보호구 등) 성격이 강하고, 해당 Guide의 핵심 안전 포인트(예초기 칼날·안전덮개·작업반경)는 적용 대상/위험원이 달라 동일 현장에 동시 적용되는 교육·작업절차로 보기 어렵습니다. 따라서 향후 매칭 차단이 타당합니다.",
-      "level": "candidate",
+      "level": "vetted",
       "source": "f32_axiom_miner",
       "freq_when_added": 10,
-      "added_at": "2026-05-17T13:18:39.708038+00:00"
+      "added_at": "2026-05-17T13:18:39.708038+00:00",
+      "promoted_at": "2026-05-18T07:38:58.577868+00:00",
+      "promotion_reason": "f32_per_candidate_promote_t2d_gate3_wrap"
     },
     {
       "domain_a": "GAS_PIPING_INSTALLATION",
@@ -20344,10 +20356,12 @@
       "incompatible": true,
       "confidence": 0.84,
       "reason": "GAS_PIPING_INSTALLATION 현장 점검·누출 확인/점화·배관 접속부 작업 및 방청 도료 분무 같은 활동은 공정 안전/시공·운전 유지보수 맥락의 ‘작업 수행’에 해당합니다. 반면 CHEMICAL_INDUSTRY의 해당 Guide(P&ID 작성·도면/문서(계측기/배관 기호화 포함) 관리/기술지원)는 ‘공정설계·문서화’ 중심의 업무로, 같은 사진/현장에 동시 적용되는 일반적 작업 범위로 보기 어렵습니다. 따라서 실제로는 동일 현장 작업 장면에서 함께 매칭되기보다 서로 다른 업무 유형으로 분리되는 경우가 많아 incompatible로 판정합니다.",
-      "level": "candidate",
+      "level": "vetted",
       "source": "f32_axiom_miner",
       "freq_when_added": 9,
-      "added_at": "2026-05-17T13:18:39.708038+00:00"
+      "added_at": "2026-05-17T13:18:39.708038+00:00",
+      "promoted_at": "2026-05-18T07:46:33.757023+00:00",
+      "promotion_reason": "f32_per_candidate_promote_t2d_gate3_wrap"
     },
     {
       "domain_a": "편의점",
@@ -20355,10 +20369,12 @@
       "incompatible": true,
       "confidence": 0.78,
       "reason": "편의점(사진) 사유는 비상구 앞 적치로 인한 피난통로·출입 방해 및 선반/진열대 상단 적재로 인한 낙하 등 ‘대피·통로 확보’ 관점의 안전관리 이슈입니다. 반면 METAL_MACHINING 가이드는 철강/금속 자재의 보관·취급(하역/들어올리기/보관시스템) 또는 공작기계의 절삭점/선반 방호 같은 ‘금속가공 공정/설비 방호’ 기술지침 성격이 강해, 동일 사진 현장에 대해 같은 적용 대상(관리항목·기술조치)이 되기 어렵습니다. 다만 ‘선반’이라는 단어가 겹치나, 사진은 편의점 진열/보관 선반으로 보이고 후보 가이드는 기계 선반 방호로 해석되어 서로 적용 범위가 달라 동시 적용 가능성이 낮습니다.",
-      "level": "candidate",
+      "level": "vetted",
       "source": "f32_axiom_miner",
       "freq_when_added": 8,
-      "added_at": "2026-05-17T13:18:39.708038+00:00"
+      "added_at": "2026-05-17T13:18:39.708038+00:00",
+      "promoted_at": "2026-05-18T07:54:40.335995+00:00",
+      "promotion_reason": "f32_per_candidate_promote_t2d_gate3_wrap"
     },
     {
       "domain_a": "GAS_PIPING_INSTALLATION",
@@ -20366,10 +20382,12 @@
       "incompatible": true,
       "confidence": 0.74,
       "reason": "GAS_PIPING_INSTALLATION(도시가스/LPG 배관 지하 피트·맨홀·밸브실 등에서의 가스 배관 관련 작업)은 밀폐공간/가스 누출 위험, 환기·가스감지·감시자 등 ‘가스 작업 안전’ 맥락이 핵심입니다. 반면 CONSTRUCTION 가이드는 통상 그레이팅 설치·고정/체결, 구조물 시공 등 ‘일반 건설/구조 시공’ 중심으로 적용 범위가 달라, 동일 장면에서 동시에 적용할 안전관리 항목(구조물 체결 vs 가스감지/환기·밀폐공간 대응)이 직접적으로 겹치지 않습니다. 따라서 같은 사진/현장에 동시 적용 불가로 보는 disjoint 경향이 있어, 향후 매칭 차단이 타당합니다.",
-      "level": "candidate",
+      "level": "vetted",
       "source": "f32_axiom_miner",
       "freq_when_added": 8,
-      "added_at": "2026-05-17T13:18:39.708038+00:00"
+      "added_at": "2026-05-17T13:18:39.708038+00:00",
+      "promoted_at": "2026-05-18T08:02:51.420105+00:00",
+      "promotion_reason": "f32_per_candidate_promote_t2d_gate3_wrap"
     },
     {
       "domain_a": "FIRE_PROTECTION_INSTALLATION",
@@ -20377,10 +20395,12 @@
       "incompatible": true,
       "confidence": 0.74,
       "reason": "FIRE_PROTECTION_INSTALLATION(지하 소방 펌프실/스프링클러 배관 수리, 환기·감시 등 작업안전 중심) 사진 맥락은 소화설비 배관·설비의 정비/운전·안전관리와 관련됩니다. 반면 CHEMICAL_INDUSTRY 가이드는 제시된 사유처럼 소화약제/화학물질(방청제·소화용 약제 계량·혼합 등) 또는 화약/폭죽 계열 취급·저장 등 ‘화학물질의 취급·관리’에 초점이 있어, 동일 사진/현장에서 동시에 적용되는 같은 유형의 작업안전 지침으로 보기 어렵습니다(물질/업무 범위가 상이). 따라서 해당 페어는 동시 적용 가능성이 낮아 incompatible로 판정합니다.",
-      "level": "candidate",
+      "level": "vetted",
       "source": "f32_axiom_miner",
       "freq_when_added": 8,
-      "added_at": "2026-05-17T13:18:39.708038+00:00"
+      "added_at": "2026-05-17T13:18:39.708038+00:00",
+      "promoted_at": "2026-05-18T08:11:01.379013+00:00",
+      "promotion_reason": "f32_per_candidate_promote_t2d_gate3_wrap"
     }
   ],
   "all_verdicts_count": 3054,

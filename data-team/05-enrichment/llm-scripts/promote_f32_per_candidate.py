@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""T2.D — 8 F.3.2 candidates 1-by-1 vetted 승격 + Gate 3 regression wrap.
+"""T2.D -- 8 F.3.2 candidates 1-by-1 vetted 승격 + Gate 3 regression wrap.
 
-기존 promote_f32_first_batch.py는 8 candidates batch 승격만 지원 → Quick Win
-Task 1에서 1회 시도 시 she_accuracy -7.07%p (Gate 3 FAIL) → 전량 rollback.
+기존 promote_f32_first_batch.py는 8 candidates batch 승격만 지원 -> Quick Win
+Task 1에서 1회 시도 시 she_accuracy -7.07%p (Gate 3 FAIL) -> 전량 rollback.
 원인 분석: vetted state penalty -0.18 vs candidate -0.05 (3.6x stronger).
 
 해결: 1-by-1 promote with Gate 3 wrap.
-- 각 candidate 단독 promote → replay → regression_gate
+- 각 candidate 단독 promote -> replay -> regression_gate
 - FAIL 시 자동 rollback (해당 candidate만)
 - PASS 시 vetted 유지, 다음 candidate 진행
 - 예상: 8 중 5-6 PASS, 2-3 FAIL (penalty 가중 효과 누적)
@@ -23,7 +23,7 @@ Task 1에서 1회 시도 시 she_accuracy -7.07%p (Gate 3 FAIL) → 전량 rollb
   python promote_f32_per_candidate.py --apply --only-index 1,3,5
 
 산출:
-- KB 갱신: f32 candidates 일부 → vetted
+- KB 갱신: f32 candidates 일부 -> vetted
 - audit log: incompatibility_audit.jsonl (action=per_candidate_promote / per_candidate_rollback)
 - summary log: f32_per_candidate_promotion_results.json
 """
@@ -93,13 +93,13 @@ def append_audit(rows: list[dict]) -> None:
 
 
 def run_replay(out_path: Path) -> int:
-    """Run full synthetic replay → out_path. Returns exit code."""
+    """Run full synthetic replay -> out_path. Returns exit code."""
     cmd = [
         sys.executable,
         str(REPLAY_SCRIPT),
         "--output", str(out_path),
     ]
-    print(f"  → running replay (full synthetic)...")
+    print(f"  -> running replay (full synthetic)...")
     proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8",
                           errors="replace", cwd=str(REPLAY_SCRIPT.parent.parent))
     if proc.returncode != 0:
@@ -117,7 +117,7 @@ def run_regression(current_path: Path, baseline: Path, tolerance: float) -> tupl
         "--baseline", str(baseline),
         "--tolerance", str(tolerance),
     ]
-    print(f"  → running regression_gate (baseline={baseline.name}, tol={tolerance})...")
+    print(f"  -> running regression_gate (baseline={baseline.name}, tol={tolerance})...")
     proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8",
                           errors="replace", cwd=str(REGRESSION_SCRIPT.parent.parent))
     return proc.returncode, proc.stdout + "\n" + proc.stderr
@@ -196,7 +196,7 @@ def main() -> int:
 
     if not args.apply:
         print(f"\n[dry-run] {len(target_indices)} candidates would be tested 1-by-1.")
-        print(f"  Each: promote → replay → regression_gate (tolerance={args.tolerance})")
+        print(f"  Each: promote -> replay -> regression_gate (tolerance={args.tolerance})")
         print(f"  Failure: auto-rollback. Re-run with --apply to commit.")
         return 0
 
@@ -228,7 +228,7 @@ def main() -> int:
                 replay_out = tmpdir_path / f"replay_t2d_idx{idx}.json"
                 replay_rc = run_replay(replay_out)
                 if replay_rc != 0:
-                    print(f"  ! replay failed → rollback")
+                    print(f"  ! replay failed -> rollback")
                     rollback_one_in_memory(data, cand, ts)
                     update_header_counts(data)
                     save_kb(data)
@@ -252,7 +252,7 @@ def main() -> int:
                 gate_rc, gate_out = run_regression(replay_out, args.baseline, args.tolerance)
 
                 if gate_rc == 0:
-                    print(f"  ✓ Gate 3 PASS — keep as vetted")
+                    print(f"  [PASS] Gate 3 PASS -- keep as vetted")
                     successes += 1
                     results.append({
                         "index": idx + 1,
@@ -268,7 +268,7 @@ def main() -> int:
                         "confidence": cand.get("confidence"),
                     })
                 else:
-                    print(f"  ✗ Gate 3 FAIL (exit {gate_rc}) → rollback")
+                    print(f"  [FAIL] Gate 3 FAIL (exit {gate_rc}) -> rollback")
                     rollback_one_in_memory(data, cand, ts)
                     update_header_counts(data)
                     save_kb(data)
@@ -291,7 +291,7 @@ def main() -> int:
 
             except Exception as exc:
                 # Defensive rollback
-                print(f"  ! exception → rollback ({exc})", file=sys.stderr)
+                print(f"  ! exception -> rollback ({exc})", file=sys.stderr)
                 try:
                     rollback_one_in_memory(data, cand, ts)
                     update_header_counts(data)
