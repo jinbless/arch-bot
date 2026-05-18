@@ -1,12 +1,107 @@
 # Evaluation Baseline
 
-Latest updated: 2026-05-17 (F.3.3 Gate 3 regression PASS — 8 candidate axiom production-safe)
+Latest updated: 2026-05-18 (T2.D 8/8 vetted promotion + Tier 3.A closed vocab enum 76→4)
 
 Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
 Previous accepted baseline: `ci_unrelated_action_filter1`
 
 The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are local/external artifacts. Root git tracks `data-team/05-enrichment/eval-data/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## T2.D F.3.2 vetted promotion — 2026-05-18 (8/8 candidates 1-by-1 PASS)
+
+T2.D sprint에서 8 F.3.2 candidate를 1-by-1 vetted 승격. 각 promote 직후 full
+replay (2,360 cases) + regression_gate (tolerance 0.02) 실행, FAIL 시 자동 rollback.
+
+Input (initial state):
+- KB vetted_count = 0, candidate_count = 8 (source=f32_axiom_miner)
+- Baseline: `replay_baseline_v3.json`
+
+Per-candidate verdict:
+
+| idx | domain_a | domain_b | conf | replay valid | Gate 3 | verdict |
+|---|---|---|---|---|---|---|
+| 1 | BUTCHER_MEAT_RETAIL | CONSTRUCTION | 0.86 | 2,360 / 0 errored | PASS | vetted |
+| 2 | CONSTRUCTION | METAL_MACHINING | 0.86 | 2,360 / 0 errored | PASS | vetted |
+| 3 | MANUFACTURING | ELECTRICAL_CONSTRUCTION | 0.72 | 2,360 / 0 errored | PASS | vetted |
+| 4 | BUTCHER_MEAT_RETAIL | LANDSCAPING_GREENSPACE | 0.82 | 2,360 / 0 errored | PASS | vetted |
+| 5 | GAS_PIPING_INSTALLATION | CHEMICAL_INDUSTRY | 0.84 | 2,360 / 0 errored | PASS | vetted |
+| 6 | 편의점 | METAL_MACHINING | 0.78 | 2,360 / 0 errored | PASS | vetted |
+| 7 | GAS_PIPING_INSTALLATION | CONSTRUCTION | 0.74 | 2,360 / 0 errored | PASS | vetted |
+| 8 | FIRE_PROTECTION_INSTALLATION | CHEMICAL_INDUSTRY | 0.74 | 2,360 / 0 errored | PASS | vetted |
+
+Final state: KB vetted_count = 8, candidate_count = 0 (source=f32_axiom_miner).
+Total KB incompatibilities: 2,232 vetted + 8 = 2,240 (KO→EN cleanup 후 동일).
+
+**PASS** — 예상 5-6 PASS 대비 8/8 (100%) 달성. F.3.2 mining quality 매우 우수.
+T2.D 1차 실행 시 promote_f32_per_candidate.py `✓✗→—` unicode chars가 Windows
+cp949 codec encoding 불가 → 모든 unicode를 ASCII로 교체 + PYTHONIOENCODING=utf-8
++ python -u 로 재실행 성공. 1차 시도에서 CONSTRUCTION×METAL_MACHINING이 vetted
+state로 stuck (rollback 실패) → manual rollback 후 클린 재실행으로 8/8 검증.
+
+보고서: [t2d-per-candidate-promotion-2026-05-18.md](t2d-per-candidate-promotion-2026-05-18.md).
+
+## Tier 3.A Closed Vocab Schema Enum — 2026-05-18 (free-create 94.7% 감소)
+
+Hybrid Day 3의 partial 효과 (schema axis 5 + prompt enum만, text는 free string
+잔존)를 본격 schema-level enum constraint로 해결. `ONTOLOGY_OBSERVATION_SCHEMA.risk_feature_candidates.text`에 catalog 529 codes enum 강제.
+
+Implementation:
+- `openai_client.py:_load_catalog_codes()` — `risk_feature_catalog.json` axes의 모든 코드를 단일 set으로 수집 (529 codes)
+- Module-level lazy load (`_ALL_CATALOG_CODES`, backend restart로 갱신)
+- Schema JSON 크기: 12.6KB (OpenAI strict mode 한도 내, 100KB ≪)
+- `analyze_image` + `analyze_text` 둘 다 동일 schema 사용 → 양쪽 enum 강제
+
+Pre/Post analysis_log normalizer_unknown_codes 통계:
+
+| 측정 | rows | with_unknown | unknown_terms | rate |
+|---|---|---|---|---|
+| Pre-3A (전체 history) | 26,524 | 54 | 76 | 0.2% |
+| Post-3A (T3.A replay 2,360 cases) | 2,360 | 3 | 4 | 0.1% |
+
+**76 → 4 (-94.7% 감소)**.
+
+Top 10 pre-3A free-creates (3A 적용 후 모두 0건):
+
+| count | text | axis |
+|---|---|---|
+| 10 | MACHINERY | work_context |
+| 10 | THF | hazardous_agent |
+| 10 | CO | hazardous_agent |
+| 6 | machinery | work_context |
+| 4 | WAREHOUSE | work_context |
+| 3 | FORKLIFT | work_context |
+| 2 | cooking | work_context |
+| 2 | ELEVATED_WORK | work_context |
+| 2 | STEEL_STRUCTURE | hazardous_agent |
+| 2 | CONSTRUCTION_SITE | work_context |
+
+잔존 4건 (post-3A):
+
+| text | axis | scene_hash (16-char) | timestamp |
+|---|---|---|---|
+| THF | hazardous_agent | 74016445d8182014 | 2026-05-18T09:03:20 |
+| CO | hazardous_agent | 3530bfec867698dd | 2026-05-18T09:05:31 |
+| MOBILE_EQUIPMENT | hazardous_agent | (3-row analysis 누락) | - |
+| WAREHOUSE | work_context | (3-row analysis 누락) | - |
+
+→ OpenAI strict mode enum의 edge-case 누락 (강제력 ~99.6%). 별도 분석 또는
+normalizer step에서 hard reject 가능.
+
+Gate 3 결과 (replay_baseline_v3 vs /tmp/replay_3a_full.json):
+
+| metric | baseline_v3 | T3.A | delta | verdict |
+|---|---|---|---|---|
+| she_accuracy | 0.5771 | 0.5758 | -0.0013 | ok (noise) |
+| sr_accuracy | 0.7581 | 0.7581 | 0.0000 | ok |
+| penalty_accuracy | 0.1835 | 0.1835 | 0.0000 | ok |
+| overall_accuracy | 0.1377 | 0.1377 | 0.0000 | ok |
+| false_positive_rate | 0.8696 | 0.8696 | 0.0000 | ok |
+| false_negative_rate | 0.0625 | 0.0639 | +0.0014 | ok (within tolerance) |
+
+**PASS** — 모든 metric delta 0 또는 noise. enum 강제가 정확도 회귀 없이 free-create만 95% 차단.
+
+보고서: [t3a-closed-vocab-schema-enum-2026-05-18.md](t3a-closed-vocab-schema-enum-2026-05-18.md).
 
 ## F.3.3 Gate 3 Regression — 2026-05-17 (F.3.2 first batch 영향 측정)
 

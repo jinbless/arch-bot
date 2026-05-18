@@ -55,10 +55,10 @@ reasoner 추론 결과를 PG로 적재
 
 | LLM 종류 | 6단계 안정화 후 | 이유 |
 |---|---|---|
-| **Vision LLM** (gpt-4.1) | 🔵 **영구 유지** | reasoner 영역 밖 (AI 인식) |
-| **Phase B LLM rerank** (gpt-5.4-nano, 회색영역) | 🟡 **점진 폐지** | OWL DisjointClasses + SHACL이 같은 일 deterministic 수행 |
-| **5번 LLM enrichment** (`guide_domain_profiles.json` lookup) | 🟢 **폐지** | OWL TBox + SWRL이 같은 일 정형화 |
-| **Phase C self-refine** (자동 신규 페어 mining) | 🟡 **유지** | 새 도메인/사진 추가 시 자율 학습 가치 영구 (Layer 4.7) |
+| **Vision LLM** (gpt-4.1) | 🔵 **영구 유지** | reasoner 영역 밖 (AI 인식). Tier 3.A (2026-05-18) 이후 schema enum 강제로 자율도 줄어들었지만 영상 인식은 LLM 영역 |
+| **Phase B LLM rerank** (gpt-5.4-nano, 회색영역) | 🟡 **점진 폐지** | OWL DisjointClasses + SHACL이 같은 일 deterministic 수행. **T2.A shadow_reasoner runtime (2026-05-18, `93c49fe`)이 같은 일을 deterministic하게 수행하기 시작 — 점진 폐지 한 걸음 진전** |
+| **5번 LLM enrichment** (`guide_domain_profiles.json` lookup) | 🟢 **폐지** | OWL TBox + SWRL이 같은 일 정형화. **T2.B kb-candidates.ttl (2026-05-18, `ac98d4c`)에 vetted 8 axiom + candidate 2192 axiom이 OWL/SHACL TTL로 정형화됨 — Fuseki에 적용 완료** |
+| **Phase C self-refine** (자동 신규 페어 mining) | 🟡 **유지** | 새 도메인/사진 추가 시 자율 학습 가치 영구 (Layer 4.7). **T2.C f3_drift_check + Makefile f3-weekly-cycle (2026-05-18, `78886b3`)이 cron-able 운영 패턴 정립** |
 
 ## 7단계 PG 재물질화 — 구체적 대상
 
@@ -66,7 +66,7 @@ reasoner 추론 결과를 PG로 적재
 |---|---|
 | `she_patterns` | 수백 개 → **수천 개+** (reasoner 추론 신규 패턴) |
 | `guide_usage_profiles` | JSON lookup → **PG SELECT** |
-| `guide_domain_incompatibilities` (신규) | JSON → **PG SELECT** |
+| `guide_domain_incompatibilities` (신규) | JSON (vetted 2,232 + **8 T2.D vetted = 2,240** + candidate 2,192 별도 layer) → **PG SELECT**. T2.B `kb-candidates.ttl` 2,192 SHACL shapes (sh:Info)는 별도 shadow layer로 Fuseki에 적용됨 (SPARQL 검증). |
 | `ci_sr_mapping` | 일부만 → **추론 확장** |
 | `penalty_rules` / `penalty_conditions` | 수동 정의 → **자동 도출** (deontic chain) |
 | `she_visual_triggers` | 일부 → **확장** |

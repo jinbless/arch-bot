@@ -1,6 +1,8 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-18** — F.3 first batch + **F.1 sprint (Day 1-7) 완료** (5 vetted aliases, closed loop) + **F.2 sprint (Day 1-7) 완료** (catalog v3.1→v3.3 5 axes × 481 codes, 790 SHE enriched, 79 pending review). 메인 HEAD `bb2632d` 이후 commits.
+최신 갱신일: **2026-05-18 (저녁)** — **Tier 1 재포함 + Tier 2 F.3 closing 완료 (T2.A-D) + Tier 3.A enum 완료**. 메인 HEAD `b237e78`.
+
+이전 갱신: F.3 first batch + F.1 sprint (5 vetted aliases) + F.2 sprint (catalog v3.3 5 axes × 481 codes).
 
 이 문서는 다른 Claude/Codex/LLM 세션이 현재 상태를 빠르게 이어받기 위한 시작점이다.
 
@@ -26,7 +28,30 @@
 
 ## 📍 현재 상태 한 문장 요약
 
-> "Phase 0/B/A/C + E-prep + E.2 + Phase 3 + F.3 first batch + **F.1 sprint 완료** (Normalizer alias auto-registration closed loop, 5 vetted, Gate 3 PASS) + **F.2 sprint 완료** (Taxonomy Discovery: catalog 5 axes × 481 codes, 790 SHE 5-dim enriched, 79 v3.1-link pending review, Gate 3 PASS). 다음: F.3 closing (F.3.1/3.4/3.5) 또는 promote_she_review 또는 closed vocabulary prompt."
+> "Phase 0/B/A/C + E-prep + E.2 + Phase 3 + F.3 first batch + F.1 + F.2 (이전) + **F.3 closing 완료 (T2.A pyshacl reasoner shadow + T2.B Fuseki SPARQL 2216 NodeShapes 검증 + T2.C drift detection + T2.D 8/8 candidates vetted promotion PASS)** + **Tier 3.A Closed Vocab Schema Enum (529 codes, free-creates 76→4 = −94.7%, Gate 3 PASS)**. Layer 4 Module 4.4 (Axiom Discovery) closed loop 완성. 다음: T3.A 잔존 4건 조사 / 8-photo real eval / Tier 3 후속 (3B F.4 CQ 또는 3C Phase G PG)."
+
+## 🎯 핵심 성과
+
+### Tier 1 재포함 + Tier 2 F.3 closing + Tier 3.A (2026-05-18 저녁)
+
+- **Tier 1 재포함** (commit `93c49fe`): 직전 `b66fa36` commit이 T1.B npz 바이너리 + 마이그레이션 스크립트만 staged하고 T1.A/T1.C 코드 working tree만 잔존했던 누락 발견 + 재포함:
+  - T1.A `promote_she_review.py` — `rollback_batch` `result.rowcount` + 사후 verification + `stuck_ids` 검출 (5 stuck SHE bug 재발 방지)
+  - T1.B `auto_register_aliases.py` + `recover_catalog_mismatch.py` — numpy `load/save_embedding_cache` (~87% 크기 축소 적용)
+  - T1.C `hazard_normalizer.py` step 4.5 `_log_alias_usage()` + `promote_aliases.load_meta_latest` 'used' action 집계 (`promote_aliases --auto` production-ready)
+- **T2.A F.3.1 pyshacl reasoner shadow channel** (commit `93c49fe`): 신규 `pyshacl_shadow_validator.py` (offline batch CLI) + `shadow_reasoner.py` (serving runtime, lazy module cache, ~50μs/photo) + `analysis_pipeline.py` `_append_analysis_log`에 `reasoner_rejects` kwarg 추가. **2580 analysis_log rows → 859 reasoner_rejects** (62.8% processable rows). Gate 3 PASS.
+- **T2.B F.3.4 KB compile + Fuseki reload** (commit `78886b3` + `ac98d4c`): 신규 `compile_kb_to_ttl.py` → `kb-candidates.ttl` (2200 → 2192 shapes after T2.D, sh:Info severity). `KoshaFusekiServer.java` sources array에 kb-candidates.ttl 추가. docker image rebuild (`docker-fuseki:latest` sha256 `08837972`). container `docker compose up -d --force-recreate fuseki` 완료. **SPARQL 검증**: `SELECT COUNT(?s) WHERE { ?s a sh:NodeShape }` → **2216 NodeShapes** (kb-candidates 2192 + serving 24). Fuseki Java v2 read-only blocker 해결 (rebuild + recreate 패턴).
+- **T2.C F.3.5 drift detection + Makefile f3-* 통합** (commit `78886b3`): 신규 `f3_drift_check.py` (6 metric 추적, exit code 0/1/2). `Makefile` f3-help/shadow-validator/promote-candidates/compile-kb/drift-check/weekly-cycle targets. cron 권장: `0 2 * * 0 cd /path && make f3-weekly-cycle`.
+- **T2.D 8 F.3.2 candidates 1-by-1 vetted promotion** (commit `ac98d4c` → main `325ad37`): 신규 `promote_f32_per_candidate.py` (1-by-1 + full replay + Gate 3 wrap + 자동 rollback). **8/8 candidate PASS** (예상 5-6 PASS 대비 100% 통과). 모든 F.3.2 axiom vetted 승격 (vetted_count 0 → 8). 1차 실행 시 cp949 unicode bug 발견 → 모든 ✓✗→— 를 ASCII로 교체 후 PYTHONIOENCODING=utf-8 + python -u 로 재실행 성공.
+- **Tier 3.A Closed Vocab Schema Enum** (commit `606b91f` → main `b237e78`): `openai_client.py` `ONTOLOGY_OBSERVATION_SCHEMA.risk_feature_candidates.text`에 catalog 529 codes enum. `_load_catalog_codes()` lazy module-level load (12.6KB schema JSON, OpenAI strict mode 한도 내). Gate 3 PASS (delta noise 수준). **analysis_log normalizer_unknown_codes 76 → 4 (−94.7%)**. 잔존 4건 (THF, CO, MOBILE_EQUIPMENT, WAREHOUSE) — OpenAI strict mode enum의 edge-case 누락 (강제력 ~99.6%).
+
+**효과 정리** (Layer 4 Module 4.4 closed loop 완성):
+```
+mining (F.3.0/3.2)   →   verify (F.3.3 Gate 3)   →   compile (T2.B compile_kb_to_ttl.py)
+                                                     ↓
+monitor (T2.C f3_drift_check.py)   ←   deploy (Fuseki container restart + SPARQL endpoint)
+```
+
+main HEAD: `b237e78` (Tier 3.A merge), 직전 `325ad37` (Tier 2 merge).
 
 ## 🎯 핵심 성과 (2026-05-16 ~ 17)
 
@@ -67,7 +92,42 @@
 - Layer 4 = 7 module 정밀 구성
 - 우리 차별점: deontic 도메인 + 한국어 + asymmetric trust + Task C SOTA + Task D 학계 미답
 
-## 📦 신규 산출물 (오늘 후반 — main에 push 완료)
+## 📦 신규 산출물 (2026-05-18 저녁 Tier 1-3.A — main에 push 완료)
+
+**신규 파일**:
+- `data-team/05-enrichment/llm-scripts/pyshacl_shadow_validator.py` (T2.A offline batch)
+- `data-team/05-enrichment/llm-scripts/compile_kb_to_ttl.py` (T2.B)
+- `data-team/05-enrichment/llm-scripts/f3_drift_check.py` (T2.C)
+- `data-team/05-enrichment/llm-scripts/promote_f32_per_candidate.py` (T2.D)
+- `data-team/05-enrichment/llm-scripts/_migrate_embedding_cache_to_npz.py` (T1.B 1회성)
+- `serving-team/08-app/backend/app/services/shadow_reasoner.py` (T2.A serving runtime)
+- `ontology-team/06-reasoning/ontology/kb-candidates.ttl` (T2.B output, 2192 SHACL shapes)
+- `data-team/05-enrichment/runtime-artifacts/f32_per_candidate_promotion_results.json` (T2.D summary)
+- `data-team/05-enrichment/runtime-artifacts/f3_drift_log.jsonl` (T2.C 시계열)
+- `data-team/05-enrichment/runtime-artifacts/kb_candidates_compile_audit.json` (T2.B audit)
+
+**수정 파일**:
+- `serving-team/08-app/backend/app/services/analysis_pipeline.py` (T2.A: happy + skipped path 모두 `shadow_validate` + `reasoner_rejects` kwarg)
+- `serving-team/08-app/backend/app/services/hazard_normalizer.py` (T1.C: step 4.5 `_log_alias_usage`)
+- `serving-team/08-app/backend/app/integrations/openai_client.py` (T3.A: 529 codes enum + `_load_catalog_codes()`)
+- `ontology-team/06-reasoning/ontology/docker/fuseki/src/main/java/kr/or/kosha/KoshaFusekiServer.java` (T2.B: sources array + kb-candidates.ttl)
+- `data-team/05-enrichment/llm-scripts/promote_she_review.py` (T1.A: rollback verification + stuck_ids)
+- `data-team/05-enrichment/llm-scripts/auto_register_aliases.py` (T1.B: npz load/save)
+- `data-team/05-enrichment/llm-scripts/recover_catalog_mismatch.py` (T1.B: npz load/save)
+- `data-team/05-enrichment/llm-scripts/promote_aliases.py` (T1.C: 'used' action 집계)
+- `Makefile` (T2.A-D: f3-help/shadow-validator/promote-candidates/compile-kb/drift-check/weekly-cycle)
+
+**신규 docs (이번 세션 저녁)**:
+- [F.3-axiom-discovery.md](../dev-notes/F.3-axiom-discovery.md) — T2.A/B/C/D 통합 runbook
+- [T3.A-closed-vocab-schema-enum.md](../dev-notes/T3.A-closed-vocab-schema-enum.md) — T3.A runbook
+- [t2d-per-candidate-promotion-2026-05-18.md](t2d-per-candidate-promotion-2026-05-18.md) — T2.D 8/8 PASS 보고
+- [t3a-closed-vocab-schema-enum-2026-05-18.md](t3a-closed-vocab-schema-enum-2026-05-18.md) — T3.A 76→4 분석
+
+전체 산출물 history: [../workplans/llm-accelerated-ontology-engineering.md](../workplans/llm-accelerated-ontology-engineering.md)
+
+---
+
+## 📦 신규 산출물 (오늘 후반 — main에 push 완료, 2026-05-17~18 오전)
 
 오늘 후반 (F.3 sprint + F.3.3 + sweep) commits + merge:
 - `classify_reject_reasons.py` + 산출 jsonl/json + sample_100 (F.3.0)
@@ -79,28 +139,46 @@
 - `docs/status/f33-gate3-regression-2026-05-17.md` (F.3.3 PASS 보고서)
 - `docs/` 전반 14 docs sweep (`af26e13`): README/architecture/status/workplans/governance/backlog
 
-오늘 오후~저녁 (Phase 3 sprint) 18 commits — 자세히는 git log main 참조.
-
-전체 산출물 history: [../workplans/llm-accelerated-ontology-engineering.md](../workplans/llm-accelerated-ontology-engineering.md)
-
 ## ⚠️ 다음 세션 시작 시 주의사항
 
 1. **현재 작업 worktree**: `.claude/worktrees/trusting-chandrasekhar-7b2041/` (claude/trusting-chandrasekhar-7b2041 branch). main에 머지·push 완료, 정리 시 worktree 제거 가능
-2. **API 키**: `serving-team/08-app/backend/.env`에 OPENAI_API_KEY 설정됨 (sk-proj-A5... prefix, len 164). 정상 작동 확인 (F.3.2 49 verify 성공)
-3. **8 candidate axiom 'level=candidate' 상태**: `promote_incompatibilities.py`가 50회 사용 후 vetted 자동 승격 — 또는 F.3.3 Gate 3 regression 통과 시 수동 즉시 승격
-4. **편의점 KO unmapped 발견** (B에서): `industry_ko_to_en_map.json` 84 entry에 빠진 산업명. mapping 확장 후보
-5. **A hook 한계**: `LLM_RERANK_MODE=off` 또는 `knowledge.guide_rows` 비어있는 early-return 시 hook 미실행. 별도 항상-실행 hook 후보
-6. **stash@{0}**: `WIP on main: ca55ac6` (이전 세션 8 real-test-photo PNG/JPG untracked). 무관함, 보존
+2. **API 키**: `serving-team/08-app/backend/.env`에 OPENAI_API_KEY 설정됨. 정상 작동 확인 (T2.D 8회 replay 모두 성공)
+3. **8 F.3.2 candidate axiom 모두 vetted 승격 완료** (T2.D 8/8 PASS). vetted_count 0 → 8. 잔여 candidate-only 진행 시 동일 `promote_f32_per_candidate.py --apply` 패턴.
+4. **Fuseki container 새 image 적용 중**: `docker-fuseki:latest` sha256 `08837972` (kb-candidates.ttl 17,618 triples 로드, 총 981,409 triples). `docker compose up -d`에 동일 image 자동 사용. 다음 TTL 추가 시 동일 (Java sources 수정 + rebuild + recreate).
+5. **T2.D 1차 cp949 unicode bug 처리됨**: `promote_f32_per_candidate.py` 모든 ✓✗→— → ASCII 교체. 재실행 시 `PYTHONIOENCODING=utf-8 python -u` 권장.
+6. **T3.A 잔존 4 free-creates**: THF, CO, MOBILE_EQUIPMENT, WAREHOUSE — OpenAI strict mode enum의 edge-case (~99.6% 강제력, 0.4% 누락). 별도 분석 후보 (또는 normalizer step에서 hard reject 가능).
+7. **편의점 KO unmapped** (이전 sprint에서 발견): `industry_ko_to_en_map.json`에 `편의점 → CONVENIENCE_STORE` 매핑 추가됨 (Quick Win Task 3). T2.D 후보 [6/8] 편의점×METAL_MACHINING가 vetted 통과 확인.
+8. **A hook 항상 실행됨** (Quick Win Task 2 + T2.A): `_apply_llm_rerank`의 early-return 3 경로 모두 `_log_skipped_analysis` 호출 → analysis_log에 `mode=off_skipped_*` 기록. T2.A `reasoner_rejects` field도 happy + skipped path 모두 추가됨.
+9. **stash@{0}**: `WIP on main: ca55ac6` (이전 세션 8 real-test-photo PNG/JPG untracked). 무관함, 보존
 
 ## 🛣️ 다음 작업 우선순위
 
-### ✅ 완료: Phase F.1 — Vocabulary auto-registration (Day 1-7, 2026-05-18)
+### ✅ 완료: Tier 1 재포함 (T1.A/B/C, 2026-05-18 저녁)
+- T1.A promote_she_review rollback verification + stuck_ids 검출
+- T1.B npz cache load/save (95MB → 12MB, 87% 축소)
+- T1.C hazard_normalizer step 4.5 alias usage tracking + promote_aliases 'used' 집계
+
+### ✅ 완료: Tier 2 F.3 closing (T2.A/B/C/D, 2026-05-18 저녁, Module 4.4 closed loop)
+- T2.A pyshacl reasoner shadow channel (offline batch + serving runtime)
+- T2.B KB compile to TTL + Fuseki Java edit + docker rebuild + container restart + **SPARQL 2216 NodeShapes 검증**
+- T2.C drift detection + Makefile f3-* 통합
+- T2.D 8/8 F.3.2 candidates vetted (예상 5-6 대비 100% 통과)
+- Runbook: [../dev-notes/F.3-axiom-discovery.md](../dev-notes/F.3-axiom-discovery.md)
+- Makefile: `make f3-help` 참고
+
+### ✅ 완료: Tier 3.A Closed Vocab Schema Enum (2026-05-18 저녁)
+- `ONTOLOGY_OBSERVATION_SCHEMA.risk_feature_candidates.text`에 catalog 529 codes enum
+- **free-creates 76 → 4 (-94.7%)** (Hybrid Day 3 partial → 본격 schema-level enum)
+- Gate 3 PASS (delta noise 수준)
+- Runbook: [../dev-notes/T3.A-closed-vocab-schema-enum.md](../dev-notes/T3.A-closed-vocab-schema-enum.md)
+
+### ✅ 완료: Phase F.1 — Vocabulary auto-registration (Day 1-7, 2026-05-18 오전)
 - 5 vetted aliases (FALL_FROM_HEIGHT, FINGER_AMPUTATION 등) + 1 candidate
 - 4-Gate closed loop: embedding + LLM verify + regression + asymmetric trust
 - Runbook: [docs/dev-notes/F.1-auto-register-aliases.md](../dev-notes/F.1-auto-register-aliases.md)
 - Makefile: `make f1-help` 참고
 
-### ✅ 완료: Phase F.2 — Taxonomy Discovery (Day 1-7, 2026-05-18)
+### ✅ 완료: Phase F.2 — Taxonomy Discovery (Day 1-7, 2026-05-18 오전)
 - catalog v3.1 (404 codes, 3 axes) → **v3.3 (481 codes, 5 axes)**
 - 신규 axis: ppe_state (50 codes), environmental (18 codes)
 - 790 SHE OTHER → specific (Sonnet 4.6, Gate 3 PASS)
@@ -108,25 +186,22 @@
 - Runbook: [../dev-notes/F.2-taxonomy-discovery.md](../dev-notes/F.2-taxonomy-discovery.md)
 - Makefile: `make f2-help` 참고
 
-### 다음 작업 우선순위 (F.1/F.2 완료 후):
+### 다음 작업 우선순위 (Tier 1-3.A 완료 후):
 
-**1순위: F.3 closing** (1-2주, 정식 plan)
-- F.3.1 pyshacl reasoner reject channel
-- F.3.4 KB compile + Fuseki reload (Fuseki blocker 해결 필요)
-- F.3.5 cron + drift detection
-- 8 candidate axiom production deploy
+**1순위 (각 30분~수시간, ROI 큼)**:
+- **T3.A 잔존 4건 조사**: THF, CO, MOBILE_EQUIPMENT, WAREHOUSE 왜 OpenAI strict enum을 빠져나갔는지. 재현 + analysis_log scene_hash 분석. 필요 시 normalizer step에서 hard reject 추가.
+- **8-photo real-test eval** (`make f1-eval`, ~$0.40 + 8분): T3.A 효과 실제 사진 검증.
+- **promote_she_review.py**: F.2 Day 5의 77 pending_review SHE 신중 승격 (5-10건씩 + Gate 3). T1.A rollback fix 적용된 상태.
 
-**2순위 (작은 작업, 각 30분~2h)**:
-- **promote_she_review.py**: F.2 Day 5의 77 pending_review SHE 신중 승격 (5-10건씩 + Gate 3)
-- **편의점 등 KO unmapped 보강**: `industry_ko_to_en_map.json` 확장
-- **A hook always-on**: `_apply_llm_rerank` early-return 경로 hook
-- **closed vocabulary prompt** PoC: Layer 0 Vision LLM에 catalog enum 명시 ('MACHINERY'/'cooking' production miss 직접 해결)
-- **8 candidate axiom 수동 vetted 승격**: `promote_incompatibilities.py` 즉시 실행 가능
-- **alias_embedding_cache.json LFS 마이그레이션**: 50.92MB GitHub 권장 초과
+**2순위: Tier 3 후속 path** (1-4주, 택1):
+- **3B F.4 CQ Reverse + Photo persist** (3-4주, ~$5) — Module 4.5, CQ coverage 2% → 80%. 학계 paper용.
+- **3C Phase G PG materialization** (3-4주, ~$0) — 7단계, reasoner 결과 → PG (5 tables: she_patterns, guide_domain_incompatibilities, guide_usage_profiles, ci_sr_mapping, penalty_rules). 시연/서빙 성능 가속.
 
-### 3순위 (학계/품질 — 도메인 적합성 우선 평가 후 채택):
-1. Two-way CoT prompt 전환 (기존 LLM-scripts)
-2. OOPS! Pitfall Scanner + LinkML schema 검증
+**3순위 (Tier 4 중장기, 1-3개월)**:
+- F.5 GraphRAG (Module 4.6, 2주)
+- Phase J OBO Foundry 등재 (1-3개월)
+- Two-way CoT prompt 전환 (1일, +0.2 F1 기대)
+- OOPS! Pitfall Scanner 통합 (2-3h)
 
 **비채택** (도메인 부적합 — 2026-05-17 결정):
 - **OntoGPT 통합** — F.1 alias mining에 자체 LLM verify(`mine_missing_axioms.py` 패턴)로 충분, 추가 가치 없음

@@ -164,19 +164,29 @@ asymmetric trust → TBox candidate class 등재
 - 4-Gate 검증: Gate 1 embedding pre-filter (mine 단계), Gate 2 LLM verify ✅,
   Gate 3 regression ✅, Gate 4 asymmetric trust (`level=candidate`, 50회 후 자동 승격)
 
-**개선 (Phase F.3+)**:
-- F.3.1 Reasoner reject channel (pyshacl in-process, shadow mode)
-- F.3.2 Disjoint-only → SWRL/SHACL 후보 generalize
-- F.3.4 KB compilation hook (TTL regenerate + Fuseki reload)
-- F.3.5 Cron + drift detection (`Makefile learn-axioms`)
-- OOPS! Pitfall Scanner 통합 (Lippolis 4-dim eval)
-- Ensemble verification (multi-LLM, 현재 single-LLM)
+**Tier 2 F.3 closing 완료 (2026-05-18 저녁, main `b237e78`)** — Layer 4.4 closed loop:
 
-**구현**:
+```
+mining (F.3.0/3.2)   →   verify (F.3.3 Gate 3)   →   compile (T2.B compile_kb_to_ttl.py → kb-candidates.ttl)
+                                                     ↓
+monitor (T2.C f3_drift_check.py)   ←   deploy (Fuseki container restart + SPARQL endpoint)
+```
+
+- **T2.A F.3.1** (`93c49fe`): pyshacl reasoner shadow channel (offline `pyshacl_shadow_validator.py` + serving `shadow_reasoner.py`). 2,580 analysis_log rows → 859 reasoner_rejects. `analysis_log[reasoner_rejects]` 신규 필드 (Layer 2.5 shadow channel).
+- **T2.B F.3.4** (`ac98d4c` → `325ad37`): `compile_kb_to_ttl.py` → `kb-candidates.ttl` (2,192 SHACL NodeShape, sh:Info severity). Fuseki Java sources array 수정 + docker rebuild + container recreate. SPARQL `COUNT(?s a sh:NodeShape)` → **2,216 NodeShapes** 검증 완료.
+- **T2.C F.3.5** (`78886b3`): `f3_drift_check.py` (6 metric drift, exit 0/1/2) + Makefile `f3-weekly-cycle` (cron-able). `f3_drift_log.jsonl` 시계열.
+- **T2.D F.3.2 vetted promotion** (`ac98d4c`): `promote_f32_per_candidate.py` (1-by-1 + full replay + Gate 3 wrap + 자동 rollback). **8/8 PASS** (예상 5-6 대비 100%). F.3.2 mining quality 검증.
+
+**개선 후속**:
+- OOPS! Pitfall Scanner 통합 (Lippolis 4-dim eval) — Tier 4
+- Ensemble verification (multi-LLM, 현재 single-LLM) — Tier 4
+- Phase G PG materialization — `guide_domain_incompatibilities` JSON → table (Tier 3 후속 3C)
+
+**구현 (전체)**:
 - 기존: `build_swrl_rules.py`, `build_shacl_shapes.py`, `fix_shacl_shapes.py`
-- 신규 (2026-05-17): `classify_reject_reasons.py`, `mine_missing_axioms.py`,
-  `translate_incompat_industries.py` (KO→EN cleanup, F.3 mining 정확도 prerequisite)
-- 추가 예정: `validate_axioms_oops.py` (OOPS! 통합), `reasoner_validator.py` (F.3.1)
+- F.3 2026-05-17: `classify_reject_reasons.py`, `mine_missing_axioms.py`, `translate_incompat_industries.py`
+- **Tier 2 2026-05-18 저녁**: `pyshacl_shadow_validator.py`, `compile_kb_to_ttl.py`, `f3_drift_check.py`, `promote_f32_per_candidate.py`, `shadow_reasoner.py` (serving runtime)
+- Runbook: [docs/dev-notes/F.3-axiom-discovery.md](../dev-notes/F.3-axiom-discovery.md)
 
 ### Module 4.5 — CQ Reverse Engineering
 
@@ -281,19 +291,22 @@ asymmetric trust → TBox candidate class 등재
 
 | Phase | Module | 작업 | 상태 |
 |---|---|---|---|
-| F.1 | 4.1 | Vocabulary auto-registration cron + 4-gate | ⏳ (A hook으로 input pool 준비 완료) |
-| F.2 | 4.2 | TBox class learning (LLM4OL Task B + Ontogenia) | ⏳ |
+| F.1 | 4.1 | Vocabulary auto-registration cron + 4-gate | ✅ 완료 (5 vetted, closed loop) |
+| F.2 | 4.2 | TBox class learning (Taxonomy Discovery) | ✅ 완료 (catalog v3.3, 481 codes × 5 axes) |
 | **F.3.0** | **4.7** | **Reject reason classifier** | ✅ 완료 (2026-05-17, `8ff40d7`) |
 | **F.3.2** | **4.4** | **Missing-axiom miner (Disjoint-only first batch)** | ✅ 완료 (2026-05-17, `9219c7c`, 8 candidate) |
 | **F.3.3** | **4.4** | **Gate 3 regression PASS** | ✅ 완료 (2026-05-17, `eb7843f`) |
-| F.3.1 | 4.4 | Reasoner reject channel (pyshacl shadow) | ⏳ |
-| F.3.4 | 4.4 | KB compilation hook (TTL + Fuseki reload) | ⏳ |
-| F.3.5 | 4.7 | Cron + drift detection (`Makefile learn-axioms`) | ⏳ |
-| F.4 | 4.5 | CQ Reverse + Photo persist + SPARQL coverage 회복 | ⏳ |
-| F.5 | 4.6 | GraphRAG (Salovsky Dual Memory) | ⏳ |
-| F.6 | 4.7 | Continual Adaptation 확장 | ⏳ |
-| F.7 | (전체) | Small model fine-tune (Aggarwal Dolphin-Mistral-7B) | ⏳ |
-| F.8 | (전체) | OBO Foundry/IOF 등재 + LegalRuleML | ⏳ |
+| **T2.A F.3.1** | **4.4** | **Reasoner shadow channel (pyshacl + serving runtime)** | ✅ 완료 (2026-05-18, `93c49fe`, analysis_log.reasoner_rejects 859/2580) |
+| **T2.B F.3.4** | **4.4** | **KB compilation + Fuseki reload (kb-candidates.ttl)** | ✅ 완료 (2026-05-18, `ac98d4c` → `325ad37`, SPARQL 2216 NodeShapes 검증) |
+| **T2.C F.3.5** | **4.7** | **Drift detection + Makefile f3-weekly-cycle** | ✅ 완료 (2026-05-18, `78886b3`) |
+| **T2.D** | **4.4** | **F.3.2 8 candidates 1-by-1 vetted promotion** | ✅ 완료 (2026-05-18, `ac98d4c`, 8/8 PASS) |
+| **Tier 3.A** | **4.1/4.2** | **Closed Vocab Schema Enum (Layer 0 catalog enforce)** | ✅ 완료 (2026-05-18, `b237e78`, 76→4 -94.7%) |
+| F.4 | 4.5 | CQ Reverse + Photo persist + SPARQL coverage 회복 | ⏳ Tier 3 후속 (3B) |
+| F.5 | 4.6 | GraphRAG (Salovsky Dual Memory) | ⏳ Tier 4 |
+| F.6 | 4.7 | Continual Adaptation 확장 | ⏳ Tier 4 |
+| F.7 | (전체) | Small model fine-tune (Aggarwal Dolphin-Mistral-7B) | ⏳ Tier 4 |
+| F.8 (Phase J) | (전체) | OBO Foundry/IOF 등재 + LegalRuleML | ⏳ Tier 4 |
+| **Phase G** | (7단계) | PG materialization (5 tables) | ⏳ Tier 3 후속 (3C) |
 
 ## 즉시 적용 권장 (ROI 큼)
 
