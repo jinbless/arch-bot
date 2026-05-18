@@ -606,11 +606,17 @@ class AnalysisPipeline:
           off    : passthrough (0 비용, default)
           shadow : drop/reject 로그만, 실제 제거 안 함
           active : drop/reject candidate 실제 제거
+
+        Quick win Task 2: A hook always-on — early-return 경로에도 analysis_log 기록.
+        F.1 mining 입력(normalizer_unknown_codes, raw_vision_features 등)이 mode=off 또는
+        guide_rows 빈 시에도 capture됨. 기존: shadow/active 시에만 기록.
         """
         mode = os.environ.get("LLM_RERANK_MODE", "off").lower()
         if mode not in ("shadow", "active"):
+            self._log_skipped_analysis(knowledge, observations, declared_industry_text, mode, "mode_off")
             return []
         if not knowledge.guide_rows:
+            self._log_skipped_analysis(knowledge, observations, declared_industry_text, mode, "empty_guide_rows")
             return []
 
         from app.integrations.openai_client import openai_client
@@ -646,6 +652,7 @@ class AnalysisPipeline:
         )
         candidate_codes = [row.get("guide_code") for row in knowledge.guide_rows if row.get("guide_code")]
         if not candidate_codes:
+            self._log_skipped_analysis(knowledge, observations, declared_industry_text, mode, "empty_candidate_codes")
             return []
 
         filter_result = embedding_filter.filter_candidates(scene_text, candidate_codes)
@@ -775,6 +782,51 @@ class AnalysisPipeline:
         )
         return excluded
 
+    def _log_skipped_analysis(
+        self,
+        knowledge: AnalysisKnowledgeContext,
+        observations: list[VisualObservation],
+        declared_industry_text: Optional[str],
+        mode: str,
+        skip_reason: str,
+    ) -> None:
+        """Quick win Task 2 — A hook always-on.
+
+        _apply_llm_rerank early-return 경로에서도 F.1 mining 입력을 capture한다.
+        기존: shadow/active 모드에서만 _append_analysis_log 발동 → mode=off 시 데이터 손실.
+        해결: 각 early-return 직전에 이 메서드 호출 → analysis_log.jsonl에 항상 기록.
+
+        skip_reason: 'mode_off' / 'empty_guide_rows' / 'empty_candidate_codes'
+        """
+        from app.services.llm_validator_cache import make_scene_hash
+
+        visual_obs_texts = [o.text for o in observations if o.text]
+        visual_cues = [cue.text for obs in observations for cue in obs.visual_cues]
+        industry = declared_industry_text or (
+            knowledge.industry_contexts[0] if knowledge.industry_contexts else ""
+        )
+        scene_hash = make_scene_hash(visual_obs_texts, visual_cues, industry)
+
+        # rerank-specific fields는 비움 (early-return이므로 not applicable)
+        try:
+            self._append_analysis_log(
+                scene_hash=scene_hash,
+                mode=f"{mode}_skipped_{skip_reason}",
+                industry=industry,
+                visual_obs=visual_obs_texts,
+                candidate_codes=[],
+                filter_result=None,
+                excluded=[],
+                normalizer_unknown_codes=list(knowledge.normalizer_unknown_codes),
+                she_match_count=len(knowledge.she_matches),
+                raw_vision_features=knowledge.raw_vision_features,
+            )
+        except Exception as exc:
+            logging.getLogger(__name__).warning(
+                "analysis_log skipped-path append failed: %s", exc
+            )
+
+
     def _append_analysis_log(
         self,
         *,
@@ -791,14 +843,16 @@ class AnalysisPipeline:
     ) -> None:
         """Phase C.1 — append per-analysis log for self-refine mining.
 
-        env LLM_RERANK_MODE=shadow|active 일 때만 기록. off에서는 skip.
+        Quick win Task 2 (A hook always-on): mode='off_skipped_*' / 'shadow_skipped_*'
+        / 'active_skipped_*' 도 기록. filter_result=None 시 0 처리.
 
         Runtime 4번 채널 (F.3.5 environment) — 자율 학습 환류 input pool:
           normalizer_unknown_codes : Layer 1 alias 미등재 새 어휘 후보
           she_match_count          : Layer 2 SHE matcher 매치 수 (0이면 새 SHE 패턴 후보)
           raw_vision_features      : Layer 0 Vision LLM 원본 출력 (정규화 전)
         """
-        if mode not in ("shadow", "active"):
+        valid_mode_prefixes = ("shadow", "active", "off_skipped", "shadow_skipped", "active_skipped")
+        if not any(mode.startswith(p) for p in valid_mode_prefixes):
             return
         from pathlib import Path
 
@@ -810,6 +864,10 @@ class AnalysisPipeline:
                 break
         else:
             return
+        # filter_result는 early-return 경로(_log_skipped_analysis)에서 None
+        filter_keep = len(filter_result.keep) if filter_result else 0
+        filter_gray = len(filter_result.gray) if filter_result else 0
+        filter_drop = len(filter_result.drop) if filter_result else 0
         entry = {
             "ts": datetime.now(timezone.utc).isoformat(),
             "mode": mode,
@@ -817,9 +875,9 @@ class AnalysisPipeline:
             "industry": industry,
             "visual_obs_count": len(visual_obs),
             "candidate_count": len(candidate_codes),
-            "filter_keep": len(filter_result.keep),
-            "filter_gray": len(filter_result.gray),
-            "filter_drop": len(filter_result.drop),
+            "filter_keep": filter_keep,
+            "filter_gray": filter_gray,
+            "filter_drop": filter_drop,
             "excluded": [
                 {
                     "guide_code": e.guide_code,
