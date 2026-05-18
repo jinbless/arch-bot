@@ -71,8 +71,15 @@ def write_json_atomic(path: Path, data: dict) -> None:
 
 
 def load_meta_latest() -> dict[tuple[str, str, str], dict]:
-    """Latest meta per (axis, code, alias) — uses, last_used_at, gate2_conf 등."""
+    """Latest meta per (axis, code, alias) — uses, last_used_at, gate2_conf 등.
+
+    T1.C 통합: action='used' 행 (normalizer step 4.5 match log)을 count로 집계.
+    - 'used' 외 actions (original meta, promoted, ...): 최신 timestamp 우선
+    - 'used': count + last_used_at 별도 집계
+    """
     latest: dict[tuple[str, str, str], dict] = {}
+    used_count: dict[tuple[str, str, str], int] = {}
+    last_used_at: dict[tuple[str, str, str], str] = {}
     if not META_PATH.is_file():
         return latest
     with META_PATH.open(encoding="utf-8") as f:
@@ -85,10 +92,31 @@ def load_meta_latest() -> dict[tuple[str, str, str], dict]:
             except json.JSONDecodeError:
                 continue
             key = (r.get("axis", ""), r.get("code", ""), r.get("alias", ""))
+            action = r.get("action") or ""
+            if action == "used":
+                # T1.C — usage tracking (normalizer step 4.5)
+                used_count[key] = used_count.get(key, 0) + 1
+                ts = r.get("ts", "")
+                if ts and ts > last_used_at.get(key, ""):
+                    last_used_at[key] = ts
+                continue  # don't overwrite meta with bare "used" rows
+            # Non-'used' actions (initial meta, promoted, etc.) — most recent wins
             existing = latest.get(key)
-            # Most recent timestamp wins
             if existing is None or r.get("ts", "") > existing.get("ts", ""):
                 latest[key] = r
+    # Inject computed uses + last_used_at into meta
+    for key, count in used_count.items():
+        if key in latest:
+            latest[key]["uses"] = count
+            latest[key]["last_used_at"] = last_used_at.get(key)
+        else:
+            # uses recorded but no original meta — placeholder
+            axis, code, alias = key
+            latest[key] = {
+                "alias": alias, "axis": axis, "code": code,
+                "uses": count, "last_used_at": last_used_at.get(key),
+                "_no_original_meta": True,
+            }
     return latest
 
 

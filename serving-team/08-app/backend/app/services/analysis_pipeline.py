@@ -755,6 +755,14 @@ class AnalysisPipeline:
                 r for r in knowledge.guide_rows if r.get("guide_code") not in excluded_set
             ]
 
+        # T2.A: shadow-validate via F.3.2 axioms (best-effort, never blocks)
+        from app.services import shadow_reasoner
+        try:
+            reasoner_rejects = shadow_reasoner.shadow_validate(industry, candidate_codes)
+        except Exception as exc:
+            logger.warning("shadow_reasoner.shadow_validate failed: %s", exc)
+            reasoner_rejects = []
+
         try:
             self._append_analysis_log(
                 scene_hash=scene_hash,
@@ -767,6 +775,7 @@ class AnalysisPipeline:
                 normalizer_unknown_codes=list(knowledge.normalizer_unknown_codes),
                 she_match_count=len(knowledge.she_matches),
                 raw_vision_features=knowledge.raw_vision_features,
+                reasoner_rejects=reasoner_rejects,
             )
         except Exception as exc:
             logger.warning("analysis_log append failed: %s", exc)
@@ -807,6 +816,30 @@ class AnalysisPipeline:
         )
         scene_hash = make_scene_hash(visual_obs_texts, visual_cues, industry)
 
+        # T2.A: shadow-validate via F.3.2 axioms even for skipped paths
+        # (mode=off: most analyses go through here in non-shadow envs).
+        # Use guide_rows.guide_code as candidate_codes input.
+        candidate_codes_skipped: list[str] = []
+        try:
+            candidate_codes_skipped = [
+                r.get("guide_code")
+                for r in (knowledge.guide_rows or [])
+                if r.get("guide_code")
+            ]
+        except Exception:
+            candidate_codes_skipped = []
+
+        from app.services import shadow_reasoner
+        try:
+            reasoner_rejects = shadow_reasoner.shadow_validate(
+                industry, candidate_codes_skipped
+            )
+        except Exception as exc:
+            logging.getLogger(__name__).warning(
+                "shadow_reasoner skipped-path failed: %s", exc
+            )
+            reasoner_rejects = []
+
         # rerank-specific fields는 비움 (early-return이므로 not applicable)
         try:
             self._append_analysis_log(
@@ -820,6 +853,7 @@ class AnalysisPipeline:
                 normalizer_unknown_codes=list(knowledge.normalizer_unknown_codes),
                 she_match_count=len(knowledge.she_matches),
                 raw_vision_features=knowledge.raw_vision_features,
+                reasoner_rejects=reasoner_rejects,
             )
         except Exception as exc:
             logging.getLogger(__name__).warning(
@@ -840,16 +874,22 @@ class AnalysisPipeline:
         normalizer_unknown_codes: list[str] | None = None,
         she_match_count: int = 0,
         raw_vision_features: dict | None = None,
+        reasoner_rejects: list[dict] | None = None,
     ) -> None:
         """Phase C.1 — append per-analysis log for self-refine mining.
 
         Quick win Task 2 (A hook always-on): mode='off_skipped_*' / 'shadow_skipped_*'
         / 'active_skipped_*' 도 기록. filter_result=None 시 0 처리.
 
+        T2.A (F.3.1 reasoner shadow channel): reasoner_rejects — F.3.2 axiom이
+        도출했을 추가 reject 목록. shadow log만, 실제 reject 안 함. None 또는 빈
+        list 시 entry에서 생략.
+
         Runtime 4번 채널 (F.3.5 environment) — 자율 학습 환류 input pool:
           normalizer_unknown_codes : Layer 1 alias 미등재 새 어휘 후보
           she_match_count          : Layer 2 SHE matcher 매치 수 (0이면 새 SHE 패턴 후보)
           raw_vision_features      : Layer 0 Vision LLM 원본 출력 (정규화 전)
+          reasoner_rejects         : Layer 2.5 KB axiom shadow rejections (T2.A)
         """
         valid_mode_prefixes = ("shadow", "active", "off_skipped", "shadow_skipped", "active_skipped")
         if not any(mode.startswith(p) for p in valid_mode_prefixes):
@@ -891,6 +931,9 @@ class AnalysisPipeline:
             "she_match_count": she_match_count,
             "raw_vision_features": raw_vision_features or {},
         }
+        # T2.A: write reasoner_rejects only when non-empty list (avoid noise)
+        if reasoner_rejects:
+            entry["reasoner_rejects"] = list(reasoner_rejects)
         with log_path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 

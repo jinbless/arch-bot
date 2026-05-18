@@ -22,6 +22,11 @@ data-team/02-extraction/pipe-B/data/ci-output/*-raw-response.txt
 # Synthetic observation generator scratch files
 data-team/05-enrichment/eval-data/_*
 
+# T1.B (LFS migration): old large embedding cache JSON files (npz format replaces).
+# Auto-regenerable from .npz, do not commit (50MB+ each).
+data-team/05-enrichment/runtime-artifacts/alias_embedding_cache.json
+data-team/05-enrichment/runtime-artifacts/catalog_label_embedding_cache.json
+
 # Historical report bodies (kept local/external, not tracked).
 data-team/05-enrichment/eval-data/reports/*
 

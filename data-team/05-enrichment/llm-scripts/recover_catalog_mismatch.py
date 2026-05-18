@@ -56,8 +56,9 @@ LIGHT_PATH = RUNTIME / "f1_light_proposals.json"
 RECOVERED_PATH = RUNTIME / "f1_light_proposals_recovered.json"
 AUDIT_PATH = RUNTIME / "catalog_mismatch_audit.jsonl"
 NEW_SUBCODE_PATH = RUNTIME / "new_subcode_candidates.jsonl"
-EMBEDDING_CACHE_PATH = RUNTIME / "alias_embedding_cache.json"
-RECOVERY_EMBED_CACHE = RUNTIME / "catalog_label_embedding_cache.json"
+EMBEDDING_CACHE_PATH = RUNTIME / "alias_embedding_cache.npz"
+RECOVERY_EMBED_CACHE = RUNTIME / "catalog_label_embedding_cache.npz"
+RECOVERY_EMBED_META = RUNTIME / "catalog_label_embedding_cache.meta.json"
 CATALOG_PATH = REPO_ROOT / "serving-team" / "08-app" / "backend" / "app" / "data" / "risk_feature_catalog.json"
 ALIAS_PATH = REPO_ROOT / "serving-team" / "08-app" / "backend" / "app" / "data" / "risk_feature_aliases.json"
 
@@ -255,19 +256,71 @@ def _label_cache_key(catalog: dict) -> str:
 
 
 def load_label_cache() -> dict:
+    """Load catalog label embedding cache from .npz + .meta.json (T1.B)."""
     if not RECOVERY_EMBED_CACHE.is_file():
         return {}
     try:
-        return json.loads(RECOVERY_EMBED_CACHE.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
+        import numpy as np
+        npz_data = np.load(RECOVERY_EMBED_CACHE, allow_pickle=False)
+        meta = (
+            json.loads(RECOVERY_EMBED_META.read_text(encoding="utf-8"))
+            if RECOVERY_EMBED_META.is_file() else {}
+        )
+        cache: dict = {}
+        for sub_key in npz_data.files:
+            entry_meta = meta.get(sub_key, {})
+            cache_key = entry_meta.get("cache_key", "")
+            axis = entry_meta.get("axis", "")
+            labels = entry_meta.get("labels", [])
+            embeddings_arr = npz_data[sub_key]
+            # Rebuild original schema: cache[cache_key]["axes"][axis][label] = {code, emb}
+            cache.setdefault(cache_key, {}).setdefault("axes", {}).setdefault(axis, {})
+            for i, label_info in enumerate(labels):
+                if i >= embeddings_arr.shape[0]:
+                    continue
+                cache[cache_key]["axes"][axis][label_info["label"]] = {
+                    "code": label_info["code"],
+                    "emb": embeddings_arr[i].tolist(),
+                }
+        return cache
+    except Exception:
         return {}
 
 
 def save_label_cache(cache: dict) -> None:
+    """Save catalog label cache as .npz + .meta.json (T1.B)."""
+    import numpy as np
     RECOVERY_EMBED_CACHE.parent.mkdir(parents=True, exist_ok=True)
-    tmp = RECOVERY_EMBED_CACHE.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
-    tmp.replace(RECOVERY_EMBED_CACHE)
+    arrays: dict[str, np.ndarray] = {}
+    meta: dict[str, dict] = {}
+    for cache_key, root in cache.items():
+        axes = (root or {}).get("axes", {}) or {}
+        for axis_name, label_map in axes.items():
+            if not isinstance(label_map, dict) or not label_map:
+                continue
+            sub_key = f"{cache_key}__{axis_name}"
+            labels = sorted(label_map.keys())
+            embeddings = []
+            meta_labels = []
+            for label in labels:
+                info = label_map[label]
+                emb = info.get("emb")
+                if not emb:
+                    continue
+                embeddings.append(emb)
+                meta_labels.append({"label": label, "code": info.get("code", "")})
+            if embeddings:
+                arrays[sub_key] = np.array(embeddings, dtype=np.float32)
+                meta[sub_key] = {"cache_key": cache_key, "axis": axis_name, "labels": meta_labels}
+    if not arrays:
+        return
+    tmp_npz_stem = RECOVERY_EMBED_CACHE.with_name(RECOVERY_EMBED_CACHE.stem + "_tmp")
+    tmp_meta = RECOVERY_EMBED_META.with_suffix(".json.tmp")
+    np.savez_compressed(tmp_npz_stem, **arrays)
+    actual_tmp_npz = tmp_npz_stem.with_suffix(".npz")
+    tmp_meta.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+    actual_tmp_npz.replace(RECOVERY_EMBED_CACHE)
+    tmp_meta.replace(RECOVERY_EMBED_META)
 
 
 def cosine(a: list[float], b: list[float]) -> float:
