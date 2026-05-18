@@ -35,7 +35,8 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
 .PHONY: help dev-setup dev-up dev-down dev-restart dev-check dev-status dev-logs \
         dev-pg-up dev-pg-down dev-pg-status \
         f1-mine f1-mine-gate2 f1-mine-log f1-promote f1-status \
-        f1-eval f1-regression f1-recover f1-help
+        f1-eval f1-regression f1-recover f1-help \
+        f2-help f2-patch-v32 f2-patch-v33 f2-enrich-sonnet f2-link-v31
 
 help:
 	@echo "arch-bot dev launcher"
@@ -248,3 +249,44 @@ f1-regression:
 f1-recover:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  '$(VENV_PY)' '$(F1_SCRIPTS)/recover_catalog_mismatch.py' $(ARGS)
+
+
+# ---------------------------------------------------------------------------
+# Phase F.2 — Taxonomy Discovery (Module 4.2)
+# 자세히: docs/dev-notes/F.2-taxonomy-discovery.md
+# ARGS='--flag --flag2' 추가 옵션 전달.
+# ---------------------------------------------------------------------------
+
+f2-help:
+	@echo "Phase F.2 — Taxonomy Discovery"
+	@echo ""
+	@echo "Catalog patches (1회성):"
+	@echo "  make f2-patch-v32                     v3.1 → v3.2 (+25 codes + 2 axes ppe/env)"
+	@echo "  make f2-patch-v33                     v3.2 → v3.3 (+52 codes matcher + synthetic)"
+	@echo ""
+	@echo "SHE enrichment (Sonnet 4.6):"
+	@echo "  make f2-enrich-sonnet                 dry-run (cost preview)"
+	@echo "  make f2-enrich-sonnet ARGS='--apply'  ~\$$6 → 790 SHE OTHER 교체"
+	@echo ""
+	@echo "v3.1 codes → SHE (pending_review):"
+	@echo "  make f2-link-v31                      dry-run"
+	@echo "  make f2-link-v31 ARGS='--apply'       ~\$$2 → 77 new SHE pending"
+	@echo ""
+	@echo "검증: make f1-regression / make f1-eval (F.1 target 공유)"
+	@echo "Runbook: docs/dev-notes/F.2-taxonomy-discovery.md"
+
+f2-patch-v32:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/patch_catalog_v3_2.py' $(ARGS)
+
+f2-patch-v33:
+	@'$(VENV_PY)' '$(F1_SCRIPTS)/patch_catalog_v3_3.py' $(ARGS)
+
+f2-enrich-sonnet:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' \
+	  '$(VENV_PY)' '$(F1_SCRIPTS)/enrich_she_with_sonnet.py' $(ARGS)
+
+f2-link-v31:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' \
+	  '$(VENV_PY)' '$(F1_SCRIPTS)/link_v31_codes_to_she.py' $(ARGS)
