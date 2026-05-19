@@ -3,8 +3,62 @@ import type { AnalysisResponse } from '../../types/analysis';
 import { severityColors, situationStatusColors, situationStatusLabels } from './resultLabels';
 import SourceBadge from './SourceBadge';
 
+const HAZARD_RISK_COLORS: Record<string, string> = {
+  high: 'bg-red-50 text-red-700 border-red-200',
+  medium: 'bg-amber-50 text-amber-700 border-amber-200',
+  low: 'bg-sky-50 text-sky-700 border-sky-200',
+};
+
 const RiskOverviewPanel: React.FC<{ analysis: AnalysisResponse }> = ({ analysis }) => (
-  <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+  <section className="space-y-4">
+    {/* ⭐ Hazard-Direct Pivot Phase 4 Day 2 — 자연어 hazards[] 직관적 표시 */}
+    {analysis.hazards && analysis.hazards.length > 0 ? (
+      <div className="bg-white rounded-xl border p-4">
+        <div className="flex items-start justify-between gap-2 mb-3">
+          <h2 className="text-lg font-bold text-gray-900">식별된 위험요소</h2>
+          <SourceBadge source="gpt" extra="GPT-4.1 hazards-direct" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {analysis.hazards.map((hz, i) => (
+            <div key={`${hz.name}-${i}`} className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-sm font-semibold text-gray-900">{hz.name}</p>
+                <span
+                  className={`text-[11px] px-2 py-0.5 rounded-full border whitespace-nowrap ${
+                    HAZARD_RISK_COLORS[hz.risk_level] || 'bg-gray-100 text-gray-600 border-gray-200'
+                  }`}
+                >
+                  {hz.risk_level.toUpperCase()}
+                </span>
+              </div>
+              {hz.location && (
+                <p className="text-xs text-gray-500 mt-1">📍 {hz.location}</p>
+              )}
+              {hz.description && (
+                <p className="text-xs text-gray-700 mt-1">{hz.description}</p>
+              )}
+              {hz.preventive_measures.length > 0 && (
+                <ul className="mt-2 space-y-0.5">
+                  {hz.preventive_measures.slice(0, 4).map((pm, j) => (
+                    <li key={j} className="text-[11px] text-gray-600 pl-3 relative">
+                      <span className="absolute left-0 top-1">·</span>
+                      {pm}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {hz.mapped_codes.length > 0 && (
+                <p className="text-[10px] text-gray-400 mt-2 font-mono">
+                  {hz.mapped_codes.join(', ')}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    ) : null}
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div className="bg-white rounded-xl border p-4">
       <div className="flex items-start justify-between gap-2 mb-3">
         <h2 className="text-lg font-bold text-gray-900">발견된 위험 요약</h2>
@@ -100,6 +154,7 @@ const RiskOverviewPanel: React.FC<{ analysis: AnalysisResponse }> = ({ analysis 
           <p className="text-sm text-gray-400">연결된 위험상황 패턴이 없습니다.</p>
         )}
       </div>
+    </div>
     </div>
   </section>
 );

@@ -4,6 +4,7 @@ import { analysisApi } from '../api/analysisApi';
 import Loading from '../components/common/Loading';
 import ErrorMessage from '../components/common/ErrorMessage';
 import GuideProcedurePanel from '../components/results/GuideProcedurePanel';
+import HazardGuideRelationsPanel from '../components/results/HazardGuideRelationsPanel';
 import ImmediateActionsPanel from '../components/results/ImmediateActionsPanel';
 import PenaltyPathPanel from '../components/results/PenaltyPathPanel';
 import ReasoningTracePanel from '../components/results/ReasoningTracePanel';
@@ -74,6 +75,8 @@ const ResultPage: React.FC = () => {
 
       <ResultSummary analysis={analysis} />
       <RiskOverviewPanel analysis={analysis} />
+      {/* ⭐ Hazard-Direct Pivot Phase 4 Day 2 — hazard별 Guide 매핑 (자연어 → ontology) */}
+      <HazardGuideRelationsPanel analysis={analysis} />
       <ImmediateActionsPanel
         items={analysis.immediate_actions}
         findingStatus={analysis.finding_status}

@@ -104,6 +104,38 @@ export interface ReasoningTrace {
   penalty_rules: string[];
 }
 
+// ⭐ Hazard-Direct Pivot Phase 4 Day 2 — 자연어 hazards + hazard-별 Guide 매핑
+export interface HazardItem {
+  name: string;
+  risk_level: 'high' | 'medium' | 'low' | string;
+  location: string;
+  description: string;
+  preventive_measures: string[];
+  mapped_codes: string[]; // ["accident_type.FALL_FROM_HEIGHT", ...]
+}
+
+export interface GuideRef {
+  guide_code: string;
+  title: string;
+  classification?: string | null;
+  relevance_score: number;
+  mapping_type: string;
+  ci_hit_count: number;
+  industry_alignment?: string | null;
+  top_procedure_title?: string | null;
+}
+
+export interface HazardGuideRelation {
+  hazard_name: string;
+  risk_level: 'high' | 'medium' | 'low' | string;
+  location: string;
+  description: string;
+  preventive_measures: string[];
+  mapped_codes: string[];
+  guides: GuideRef[];
+  matched_sr_count: number;
+}
+
 export interface AnalysisResponse {
   analysis_id: string;
   analysis_type: 'image' | 'text';
@@ -119,6 +151,9 @@ export interface AnalysisResponse {
   reasoning_trace: ReasoningTrace;
   finding_status: string;
   penalty_exposure_status: string;
+  // ⭐ Hazard-Direct Pivot 신규 필드 (default = [])
+  hazards?: HazardItem[];
+  hazard_guide_relations?: HazardGuideRelation[];
   analyzed_at: string;
 }
 
