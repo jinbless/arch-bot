@@ -99,11 +99,11 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
   <rdf:Description rdf:about="https://cashtoss.info/ontology/law#modifies">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:label xml:lang="ko">수정 대상</rdfs:label>
     <rdfs:range rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
     <rdfs:domain rdf:resource="https://cashtoss.info/ontology/law#NormStatement"/>
+    <rdfs:comment xml:lang="en">Phase G Tier 4: AsymmetricProperty annotation removed to fix Openllet 'FunInv' conversion failure (inverseOf law:modifiedBy + AsymmetricProperty 충돌). Semantic loss minimal — modifications are unidirectional by data convention.</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="https://cashtoss.info/ontology/penalty#hasCondition">
     <rdfs:range rdf:resource="https://cashtoss.info/ontology/penalty#PenaltyCondition"/>
