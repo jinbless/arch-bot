@@ -40,7 +40,7 @@
 | **Tier 4 #3 SWRL Pellet 실행기 통합** | ✅ 완료 ⭐ | R-1 exemptedBy: **107 inferred** + R-3 HighSeverityPenalty: **3,579 inferred** (severityScore ≥ 5와 100% 일치), commit `448a8d0` |
 | **T4 #1 후속 sprint (77 SHE manual review + matcher refactor plan)** | ✅ 완료 | approve 57 / modify 19 / defer 1, batch 1 promote -10.17%p VETOED → matcher 자체 로직 문제 입증. patch proposal 19/19 PG-only. 7-day sprint plan: `she-matcher-broadness-refactor.md`. feat commit `a26c888`, merge `1bfd6b8` |
 | **moellab.info/ohs 위험요소 비교 분석** | ✅ 완료 ⭐ | 8 사진 / 37 hazards 합리적, GPT 직접 출력 정확. **architecture pivot 후보 식별**: hazard-direct (Vision LLM → catalog → 우리 Guide → procedure). feat commit `833dcd7`, merge `3502eff` |
-| **hazard-direct architecture pivot** | ✅ **sprint plan 작성 완료** | [`hazard-direct-architecture-pivot.md`](hazard-direct-architecture-pivot.md) — 3주, 5 Phase. 결정 완료: seed=Sonnet 4.6 자동+vetted / SHE matcher=후행. Phase 1 즉시 시작 가능 |
+| **hazard-direct architecture pivot** | ✅ **완료 (단일 세션 완주)** ⭐ | [`hazard-direct-architecture-pivot.md`](hazard-direct-architecture-pivot.md) — Phase 1-5 일괄 구현. **Phase 5 8 photo 실호출: 25/25 (100%) catalog 매핑** (AC-2 ≥85% PASS), 25 hazard_guide_relations, 14 penalty paths (Phase G.3 보존), legacy 48 procedures 병행 (호환성 OK). Commits `acd2303` → `5256573` (5 commits). [eval JSON](../../data-team/05-enrichment/runtime-artifacts/hazard_direct_8photo_eval.json) |
 | **SHE matcher broadness-aware refactor** | ⏳ 후행 별도 sprint (사용자 결정) | hazard-direct sprint 종료 후 별도 진행. plan: [`she-matcher-broadness-refactor.md`](she-matcher-broadness-refactor.md) |
 | F.4 (CQ Reverse, Module 4.5) | ⏳ 후속 (Tier 4 중장기) | 3-4주, Photo persist ORM 선행 필요 |
 | F.5-F.8 (GraphRAG / Maintenance / fine-tune / OBO) | ⏳ 후속 (Tier 4 중장기) | Phase J OBO 별도 plan 예정 |
