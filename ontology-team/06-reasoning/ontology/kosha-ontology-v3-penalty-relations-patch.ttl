@@ -1,0 +1,68 @@
+# Phase G Sprint G.3 — penalty relation properties patch
+# Generated: 2026-05-18
+#
+# Purpose: 기존 penalty:PenaltyRule, penalty:CriminalSanction, penalty:AdministrativeFine core classes
+# (kosha-ontology-v2.owl)을 보완하는 relation/datatype properties 정의.
+# PG penalty_routes (656 rows) + sr_article_mapping과 매핑되는 정형 ontology layer.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+
+
+### Object Properties (relation participants)
+
+penalty:appliesTo a owl:ObjectProperty ;
+    rdfs:label "applies to"@en , "적용 대상"@ko ;
+    rdfs:domain penalty:PenaltyRule ;
+    rdfs:range law:Article ;
+    rdfs:comment "penalty rule이 적용되는 법령 조문 (예: 산업안전보건법 제3조). PG: penalty_routes.article_code FK."@ko .
+
+penalty:appliesToViaSr a owl:ObjectProperty ;
+    rdfs:label "applies to SR"@en , "SR 통한 적용"@ko ;
+    rdfs:domain penalty:PenaltyRule ;
+    rdfs:range sr:SafetyRequirement ;
+    rdfs:comment "penalty rule이 SR을 거쳐 간접 적용. PG: sr_article_mapping join penalty_routes."@ko .
+
+penalty:penaltyType a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "penalty type"@en , "벌칙 종류"@ko ;
+    rdfs:domain penalty:PenaltyRule ;
+    rdfs:range penalty:SanctionType ;
+    rdfs:comment "값: penalty:CriminalSanction | penalty:AdministrativeFine. 기존 v2.owl에 정의됨."@ko .
+
+
+### Datatype Properties (quantitative metadata)
+
+penalty:maxFine a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "max fine"@en , "최대 벌금/과태료"@ko ;
+    rdfs:domain penalty:PenaltyRule ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "최대 벌금 또는 과태료 금액 (원 단위). 'X천만원' / 'X백만원' parsing 결과. NULL 가능 (text only)."@ko .
+
+penalty:maxPrisonYears a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "max prison years"@en , "최대 징역 연수"@ko ;
+    rdfs:domain penalty:CriminalSanction ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "최대 징역 연수 (criminal sanction에만 해당). 'X년 이하 징역' parsing 결과. NULL 가능."@ko .
+
+penalty:fineDescription a owl:DatatypeProperty ;
+    rdfs:label "fine description"@en , "벌금 설명"@ko ;
+    rdfs:domain penalty:PenaltyRule ;
+    rdfs:range xsd:string ;
+    rdfs:comment "원본 한국어 텍스트 (예: '5년 이하 징역 또는 5천만원 이하 벌금'). PG: penalty_routes.criminal_employer_penalty / admin_max_fine."@ko .
+
+
+### Note on existing v2.owl classes
+
+# 기존 v2.owl에 이미 정의된 classes (재정의하지 않음):
+# - penalty:PenaltyRule (Norm sub) — kosha-ontology-v2.owl:L1396
+# - penalty:SanctionType — L1728+
+# - penalty:CriminalSanction (SanctionType sub) — L1515
+# - penalty:AdministrativeFine (SanctionType + lkif-core:Prohibition sub) — L7
+# - penalty:hasPenaltyRule (NormStatement → PenaltyRule) — L637
+#
+# 본 patch는 위 classes에 대한 relation/quantitative properties 추가만 담당.
