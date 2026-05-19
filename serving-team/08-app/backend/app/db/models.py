@@ -254,6 +254,33 @@ class OhsHazardCodeGap(Base):
     promoted_at = Column(DateTime(timezone=True))
 
 
+class PgGuideDomainIncompatibility(Base):
+    """Phase G Sprint G.1 — guide_domain_incompatibilities materialized table.
+
+    Ontology TBox: core:Incompatibility class + 5 metadata properties
+    (kosha-ontology-v3-incompat-patch.ttl).
+
+    Source JSON: data-team/05-enrichment/runtime-artifacts/guide_domain_incompatibilities.json
+    적재: serving-team/07-materialization/pg-sync-scripts/import_domain_incompatibilities_to_pg.py
+    Runtime 사용: app/services/shadow_reasoner.py (PG SELECT, JSON fallback 유지)
+    """
+    __tablename__ = "guide_domain_incompatibilities"
+    __table_args__ = {"extend_existing": True}
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    domain_a = Column(String(100), nullable=False)            # industry EN code
+    domain_b = Column(String(100), nullable=False)
+    level = Column(String(20), nullable=False)                # 'vetted' | 'candidate'
+    confidence = Column(Numeric(4, 3))                        # 0.000 ~ 1.000
+    source = Column(String(50))                               # 'f32_axiom_miner' | 'manual' | ...
+    reason = Column(Text)
+    promoted_at = Column(DateTime(timezone=True))
+    rollback_at = Column(DateTime(timezone=True))
+    rollback_reason = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
 AnalysisRecord = OhsAnalysisRecord
 KoshaGuide = PgKoshaGuide
 NormStatement = PgNormStatement

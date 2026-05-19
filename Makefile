@@ -38,7 +38,8 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f1-eval f1-regression f1-recover f1-help \
         f2-help f2-patch-v32 f2-patch-v33 f2-enrich-sonnet f2-link-v31 \
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
-        f3-drift-check f3-weekly-cycle
+        f3-drift-check f3-weekly-cycle \
+        phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify
 
 help:
 	@echo "arch-bot dev launcher"
@@ -352,3 +353,51 @@ f3-weekly-cycle:
 	@echo "[f3-weekly] 4/4 drift check vs baseline_v3"
 	@'$(VENV_PY)' '$(F1_SCRIPTS)/f3_drift_check.py' \
 	  --current '$(F1_RUNTIME)/replay_results_weekly.json'
+
+
+# ---------------------------------------------------------------------------
+# Phase G — 7단계 PG 재물질화 (Tier 3 옵션 3C)
+# 사용자 구조 step 4: "온톨로지화된 KB → PG 적재 → 실 서비스 자동 반영"
+# Sprint G.1: guide_domain_incompatibilities | G.2: guide_usage_profiles |
+#             G.3: penalty_rules | G.4: she_patterns reasoner-derived
+# 자세히: docs/dev-notes/phase-g.*-pg.md
+# ---------------------------------------------------------------------------
+
+PHASE_G_DIR := $(ROOT)/serving-team/07-materialization
+
+phase-g-help:
+	@echo "Phase G — 7단계 PG 재물질화"
+	@echo ""
+	@echo "Sprint G.1 — guide_domain_incompatibilities (완료, ontology backing: core:Incompatibility):"
+	@echo "  make phase-g1-schema                  PG DDL 적용 (1회)"
+	@echo "  make phase-g1-import                  JSON → PG UPSERT (dry-run)"
+	@echo "  make phase-g1-import ARGS='--apply'   실제 적재"
+	@echo "  make phase-g1-verify                  sample query equality + Gate 3"
+	@echo ""
+	@echo "검증 통합:"
+	@echo "  make phase-g-verify                   모든 sprint G.* sample equality"
+	@echo ""
+	@echo "Sprint G.2-4 (예정): phase-g2/3/4-{schema,import,verify}"
+
+phase-g1-schema:
+	@cd '$(BACKEND_DIR)' && DATABASE_URL='$(DATABASE_URL)' \
+	  '$(VENV_PY)' -c "import os; from sqlalchemy import create_engine; \
+	    e = create_engine(os.environ['DATABASE_URL']); \
+	    ddl = open('$(PHASE_G_DIR)/pg-sync-scripts/schema_guide_domain_incompatibilities.sql', encoding='utf-8').read(); \
+	    conn = e.raw_connection(); cur = conn.cursor(); cur.execute(ddl); conn.commit(); conn.close(); \
+	    print('Schema applied')"
+
+phase-g1-import:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_domain_incompatibilities_to_pg.py' $(ARGS)
+
+phase-g1-verify:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/validation-scripts/sample_query_equality.py' --sprint g1
+
+phase-g-verify:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/validation-scripts/sample_query_equality.py' --sprint all
