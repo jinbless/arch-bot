@@ -1,0 +1,86 @@
+# Phase G Sprint G.1 — Incompatibility n-ary class patch
+# Generated: 2026-05-18
+#
+# Purpose: 기존 owl:disjointWith binary relation (kosha-disjoint-axioms.ttl, 2,232 페어)을
+# 보완하기 위한 n-ary representation. metadata (confidence, level, source, reason)를 OWL
+# 레벨에서 표현하여 SHACL shape (kb-candidates.ttl) 및 PG schema (guide_domain_incompatibilities)
+# 와 정합 가능하게 한다.
+#
+# Phase G.1: 본 patch + PG materialization → shadow_reasoner.py가 PG ORM query 사용
+# Phase G 후: ontology (이 patch) = source of truth, PG materialized table = surface representation
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix industry: <https://cashtoss.info/ontology/industry#> .
+
+
+### Class definitions
+
+core:Incompatibility a owl:Class ;
+    rdfs:label "산업 간 부적합성 관계"@ko , "Industry Incompatibility Relation"@en ;
+    rdfs:comment "두 산업 도메인 간 mutual exclusion을 metadata와 함께 표현하는 n-ary relation. owl:disjointWith는 binary이고 metadata 부착 불가하므로 별도 class로 정의. vetted level은 hard reject (hard penalty -0.18), candidate level은 soft warning (soft penalty -0.05). source는 mining provenance (f32_axiom_miner / manual / ...)."@ko ;
+    rdfs:subClassOf core:Relation .
+    # Note: core:Relation은 향후 ontology가 BFO Continuant/Occurrent에 명시적 매핑할 때 정의.
+    # 현재는 owl:Thing의 sub로 충분하나 forward-compatible하게 Relation을 placeholder로 사용.
+
+
+### Object Properties (relation participants)
+
+core:incompatibleDomainA a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "도메인 A"@ko ;
+    rdfs:domain core:Incompatibility ;
+    rdfs:range industry:Industry ;
+    rdfs:comment "Incompatibility relation의 첫 번째 산업 (대칭이지만 alphabetic order로 정렬 권장)"@ko .
+
+core:incompatibleDomainB a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "도메인 B"@ko ;
+    rdfs:domain core:Incompatibility ;
+    rdfs:range industry:Industry ;
+    rdfs:comment "Incompatibility relation의 두 번째 산업"@ko .
+
+
+### Datatype Properties (metadata)
+
+core:axiomConfidence a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "axiom confidence"@en , "공리 신뢰도"@ko ;
+    rdfs:domain core:Incompatibility ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "LLM mining 또는 검증 단계의 confidence score (0.0 ~ 1.0). F.3.2 mining 기본값 ≥ 0.7."@ko .
+
+core:axiomLevel a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "axiom level"@en , "공리 단계"@ko ;
+    rdfs:domain core:Incompatibility ;
+    rdfs:range xsd:string ;
+    rdfs:comment "asymmetric trust level. 'vetted' (hard reject, penalty -0.18) 또는 'candidate' (soft warning, penalty -0.05). T2.D 8/8 vetted promotion 이후 모든 f32_axiom_miner 결과는 vetted."@ko .
+
+core:axiomSource a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "axiom source"@en , "공리 출처"@ko ;
+    rdfs:domain core:Incompatibility ;
+    rdfs:range xsd:string ;
+    rdfs:comment "mining provenance. 예: 'f32_axiom_miner' (F.3.2 LLM mining), 'manual' (수동 등재), 'self_refine' (Phase C 자율 채택)."@ko .
+
+core:axiomReason a owl:DatatypeProperty ;
+    rdfs:label "axiom reason"@en , "공리 근거"@ko ;
+    rdfs:domain core:Incompatibility ;
+    rdfs:range xsd:string ;
+    rdfs:comment "LLM verify 단계에서 도출된 자연어 근거 (선택). 300자 이내."@ko .
+
+core:axiomPromotedAt a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "promoted at"@en , "vetted 승격 시각"@ko ;
+    rdfs:domain core:Incompatibility ;
+    rdfs:range xsd:dateTime ;
+    rdfs:comment "candidate → vetted level 전환 시각 (T2.D promote_f32_per_candidate.py 또는 동등 절차의 timestamp)."@ko .
+
+
+### Note on relationship to existing owl:disjointWith
+
+# 기존 kosha-disjoint-axioms.ttl의 owl:disjointWith pair는 본 Incompatibility class의
+# instance와 의미적으로 일치한다 (axiomLevel='vetted'). 단:
+# - owl:disjointWith는 OWL DL reasoner가 직접 사용 (Pellet 등)
+# - core:Incompatibility는 SPARQL query 가능 + metadata 표현
+# 두 representation은 sprint G.1 import script에서 동시 적재 (PG: guide_domain_incompatibilities table,
+# Fuseki: 본 TTL + 기존 disjoint TTL 둘 다 load).
+# 향후 (Phase G 후): 본 class만 source of truth로 유지, disjoint-axioms.ttl은 자동 derived layer로 변환 검토.

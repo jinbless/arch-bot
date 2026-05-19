@@ -1,11 +1,16 @@
 """T2.A — F.3.1 reasoner shadow channel (runtime side).
 
-F.3.2가 mining한 incompatibility axiom (`guide_domain_incompatibilities.json`)을
-런타임에 빠르게 shadow-evaluate한다. 실제 reject 안 함 — analysis_log.jsonl의
-`reasoner_rejects` field로 logging만.
+F.3.2가 mining한 incompatibility axiom을 런타임에 빠르게 shadow-evaluate한다.
+실제 reject 안 함 — analysis_log.jsonl의 `reasoner_rejects` field로 logging만.
+
+Phase G.1 (2026-05-18 저녁): axiom 데이터 source 우선순위 변경.
+  1. PG `guide_domain_incompatibilities` table (primary, ontology-backed)
+  2. JSON `guide_domain_incompatibilities.json` (fallback, PG unavailable 시)
 
 전체 axiom 인덱스 + industry_ko→en map + guide_code→primary_domain은
 프로세스 lifetime 동안 1회만 load (lazy module-level cache).
+PG ↔ JSON 결과 일치 보장: import_domain_incompatibilities_to_pg.py가
+idempotent UPSERT로 PG state ≈ JSON state 유지.
 
 빠른 dict lookup 위주 (~50μs/photo). pyshacl 동등성은 offline script
 `pyshacl_shadow_validator.py --pyshacl` 에서 검증.
@@ -38,14 +43,55 @@ def _find_artifacts_dir() -> Path | None:
     return None
 
 
-def _load_axioms(artifacts_dir: Path) -> dict[tuple[str, str], dict]:
+def _load_axioms_from_pg() -> dict[tuple[str, str], dict] | None:
+    """Phase G.1: PG primary source. Returns None if PG unavailable (fallback to JSON)."""
+    try:
+        from app.db.database import SessionLocal
+        from app.db.models import PgGuideDomainIncompatibility
+        from sqlalchemy import select
+    except Exception as exc:
+        logger.warning("shadow_reasoner: PG ORM import fail (fallback to JSON): %s", exc)
+        return None
+    try:
+        with SessionLocal() as session:
+            stmt = select(
+                PgGuideDomainIncompatibility.domain_a,
+                PgGuideDomainIncompatibility.domain_b,
+                PgGuideDomainIncompatibility.confidence,
+                PgGuideDomainIncompatibility.level,
+            )
+            rows = session.execute(stmt).fetchall()
+    except Exception as exc:
+        logger.warning("shadow_reasoner: PG query fail (fallback to JSON): %s", exc)
+        return None
+    if not rows:
+        # Empty table = PG up but no data; fall back to JSON for safety
+        logger.warning("shadow_reasoner: PG table empty, fallback to JSON")
+        return None
+    index: dict[tuple[str, str], dict] = {}
+    for r in rows:
+        a, b, conf, level = r
+        if not a or not b:
+            continue
+        meta = {
+            "confidence": float(conf) if conf is not None else 0.0,
+            "level": level or "candidate",
+        }
+        index[(a, b)] = meta
+        index[(b, a)] = meta  # symmetric
+    logger.info("shadow_reasoner: loaded %d axiom pairs from PG", len(index) // 2)
+    return index
+
+
+def _load_axioms_from_json(artifacts_dir: Path) -> dict[tuple[str, str], dict]:
+    """Fallback when PG unavailable. Original JSON dict lookup path."""
     path = artifacts_dir / "guide_domain_incompatibilities.json"
     if not path.exists():
         return {}
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except Exception as exc:
-        logger.warning("shadow_reasoner: load axioms fail: %s", exc)
+        logger.warning("shadow_reasoner: load axioms JSON fail: %s", exc)
         return {}
     raw = data.get("incompatibilities", [])
     index: dict[tuple[str, str], dict] = {}
@@ -64,6 +110,15 @@ def _load_axioms(artifacts_dir: Path) -> dict[tuple[str, str], dict]:
         index[(a, b)] = meta
         index[(b, a)] = meta
     return index
+
+
+def _load_axioms(artifacts_dir: Path) -> dict[tuple[str, str], dict]:
+    """Phase G.1: PG primary, JSON fallback. Logs source used."""
+    pg_index = _load_axioms_from_pg()
+    if pg_index is not None:
+        return pg_index
+    logger.info("shadow_reasoner: using JSON fallback for axioms")
+    return _load_axioms_from_json(artifacts_dir)
 
 
 def _load_industry_map(artifacts_dir: Path) -> dict[str, str]:
