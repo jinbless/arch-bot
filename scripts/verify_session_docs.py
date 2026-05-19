@@ -101,6 +101,8 @@ NEW_DOCS = [
     "docs/dev-notes/t4-77-she-manual-review-results.md",
     "docs/workplans/she-matcher-broadness-refactor.md",
     "docs/dev-notes/moellab-vs-devserver-comparison.md",
+    # Hazard-direct pivot sprint plan (정본 등록)
+    "docs/workplans/hazard-direct-architecture-pivot.md",
 ]
 
 # 핵심 metric (모든 관련 doc에서 동일 값 명시)
@@ -140,6 +142,8 @@ COMPLETION_MARKERS = [
     # T4 #1 후속 + moellab 비교 (본 sweep 추가)
     ("T4 #1 후속", r"T4\s*#?1\s*후속.*✅"),
     ("moellab 비교", r"moellab.*✅"),
+    # Hazard-direct pivot (sprint plan 작성 완료 마커)
+    ("hazard-direct pivot plan", r"hazard-direct.*✅"),
 ]
 
 
