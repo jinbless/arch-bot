@@ -95,6 +95,59 @@ def test_g1_shadow_reasoner() -> tuple[int, int, list[dict]]:
     return passed, len(samples), mismatches
 
 
+def test_g2_guide_profile() -> tuple[int, int, list[dict]]:
+    """G.2: guide_domain_profile 동등성 — PG vs JSON.
+
+    Returns: (passed, total, mismatches)
+    """
+    from app.services import guide_domain_profile as gdp
+
+    samples = [
+        "A-1-2018", "A-104-2018", "B-1-2018", "B-M-32-2026", "X-61-2013",
+        "A-G-4-2025", "A-G-20-2026", "A-101-2018", "A-102-2018", "A-103-2018",
+    ]
+    passed = 0
+    mismatches = []
+
+    for code in samples:
+        # PG result
+        gdp._load_manual_profiles.cache_clear()
+        pg_profile = gdp.get_guide_domain_profile(code)
+
+        # JSON fallback: monkey-patch
+        gdp._load_manual_profiles.cache_clear()
+        original_pg = gdp._load_profiles_from_pg
+        try:
+            gdp._load_profiles_from_pg = lambda: None
+            json_profile = gdp.get_guide_domain_profile(code)
+        finally:
+            gdp._load_profiles_from_pg = original_pg
+            gdp._load_manual_profiles.cache_clear()
+
+        # Compare core fields (profile_level + domain_family + procedure_role)
+        if not pg_profile and not json_profile:
+            passed += 1
+            print(f"  [PASS] {code}: both None (no profile)")
+            continue
+        if not pg_profile or not json_profile:
+            mismatches.append({"code": code, "pg": bool(pg_profile), "json": bool(json_profile)})
+            print(f"  [FAIL] {code}: PG={bool(pg_profile)} JSON={bool(json_profile)}")
+            continue
+
+        core_fields = ["profile_level", "domain_family", "procedure_role", "photo_matchability"]
+        diff_fields = [f for f in core_fields if pg_profile.get(f) != json_profile.get(f)]
+        if not diff_fields:
+            passed += 1
+            print(f"  [PASS] {code}: profile_level={pg_profile.get('profile_level')} (core fields match)")
+        else:
+            mismatches.append({"code": code, "diff_fields": diff_fields,
+                               "pg_values": {f: pg_profile.get(f) for f in diff_fields},
+                               "json_values": {f: json_profile.get(f) for f in diff_fields}})
+            print(f"  [FAIL] {code}: diff in {diff_fields}")
+
+    return passed, len(samples), mismatches
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--sprint", choices=("g1", "g2", "g3", "g4", "all"), default="g1")
@@ -114,9 +167,18 @@ def main() -> int:
         all_mismatches.extend(m)
         print(f"  → {p}/{t} PASS")
 
-    # G.2-4 placeholders (future sprints)
-    if args.sprint in ("g2", "g3", "g4", "all"):
-        print(f"\n--- G.{args.sprint[1]}: (not yet implemented) ---")
+    if args.sprint in ("g2", "all"):
+        print(f"\n--- G.2: guide_domain_profile (PG vs JSON) ---")
+        p, t, m = test_g2_guide_profile()
+        total_passed += p
+        total_count += t
+        all_mismatches.extend(m)
+        print(f"  → {p}/{t} PASS")
+
+    # G.3-4 placeholders (future sprints)
+    if args.sprint in ("g3", "g4", "all"):
+        if args.sprint != "all":
+            print(f"\n--- G.{args.sprint[1]}: (not yet implemented) ---")
 
     print(f"\n=== Summary: {total_passed}/{total_count} PASS ===")
     if all_mismatches:

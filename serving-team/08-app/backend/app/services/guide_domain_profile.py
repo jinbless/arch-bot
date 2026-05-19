@@ -426,8 +426,53 @@ def _evaluate_rule(
     )
 
 
+def _load_profiles_from_pg() -> dict[str, dict] | None:
+    """Phase G.2: PG primary source. Returns None if PG unavailable.
+
+    Returns: {guide_code: profile_dict} matching JSON structure for drop-in compat.
+    """
+    try:
+        from app.db.database import SessionLocal
+        from app.db.models import PgGuideUsageProfile
+    except Exception:
+        return None
+    try:
+        with SessionLocal() as session:
+            rows = session.query(PgGuideUsageProfile).all()
+    except Exception:
+        return None
+    if not rows:
+        return None
+    out: dict[str, dict] = {}
+    for r in rows:
+        out[r.guide_code] = {
+            "guide_code": r.guide_code,
+            "profile_level": r.profile_level,
+            "domain_family": r.domain_family,
+            "usage_summary": r.usage_summary,
+            "intended_workplaces": r.intended_workplaces or [],
+            "intended_tasks": r.intended_tasks or [],
+            "observable_required_cues": r.observable_required_cues or [],
+            "negative_boundaries": r.negative_boundaries or [],
+            "procedure_role": r.procedure_role,
+            "photo_matchability": r.photo_matchability,
+            "top_procedure_policy": r.top_procedure_policy,
+            "followup_policy": r.followup_policy,
+            "primary_work_process_ids": r.primary_work_process_ids or [],
+            "evidence": r.evidence,
+            "method": r.method,
+            "review_status": r.review_status,
+        }
+    return out
+
+
 @lru_cache(maxsize=1)
 def _load_manual_profiles() -> dict[str, dict]:
+    """Phase G.2: PG primary, JSON fallback."""
+    pg = _load_profiles_from_pg()
+    if pg is not None:
+        return pg
+    # Fallback to JSON
     if not GUIDE_DOMAIN_PROFILES_PATH.exists():
         return {}
     try:
