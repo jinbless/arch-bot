@@ -56,6 +56,11 @@ SESSION_COMMITS = {
     "1bacd44": "T4 #4 Pellet reporting",
     "70d2862": "T4 #1-3 + SWRL Pellet",
     "448a8d0": "Merge — T4 #1-4",
+    # T4 #1 후속 + moellab 비교 (2026-05-19, 본 sweep 추가)
+    "a26c888": "feat(T4 #1 후속) — 77 SHE manual review + matcher refactor sprint plan",
+    "1bfd6b8": "Merge — T4 #1 후속",
+    "833dcd7": "docs(analysis) — moellab.info/ohs 위험요소 비교 + .gitignore 갱신",
+    "3502eff": "Merge — moellab 위험요소 비교 분석",
 }
 
 # 신규 scripts (이번 세션 산출, 최소 1개 doc에서 참조 필수)
@@ -72,6 +77,9 @@ NEW_SCRIPTS = [
     "import_penalty_to_pg",
     "sample_query_equality",
     "bench_shadow_reasoner",
+    # T4 #1 후속 (본 sweep 추가)
+    "patch_she_visual_triggers",
+    "she_review_ui",
 ]
 
 # 신규 docs (이번 세션 산출, 링크 유효성 검증 대상)
@@ -89,6 +97,10 @@ NEW_DOCS = [
     "docs/dev-notes/t4-administrative-fine-scope-decision.md",
     "docs/dev-notes/t4-77-she-matcher-integration-decision.md",
     "docs/dev-notes/t4-swrl-pellet-integration.md",
+    # T4 #1 후속 + moellab 비교 (본 sweep 추가)
+    "docs/dev-notes/t4-77-she-manual-review-results.md",
+    "docs/workplans/she-matcher-broadness-refactor.md",
+    "docs/dev-notes/moellab-vs-devserver-comparison.md",
 ]
 
 # 핵심 metric (모든 관련 doc에서 동일 값 명시)
@@ -105,6 +117,10 @@ METRIC_EXPECTATIONS = [
     ("SWRL R-1 inferred count", r"\b107\b.*(?:exemptedBy|inferred|R-1)|R-1.*\b107\b", 2, "107 exemptedBy 명시"),
     ("guide_domain_incompat PG rows", r"2[,.]?016\s+rows?", 2, "2,016 PG rows"),
     ("penalty_rule_index PG rows", r"4[,.]?076", 2, "4,076 rules"),
+    # T4 #1 후속 + moellab 비교 (본 sweep 추가)
+    ("T4 #1 후속 VETOED 수치", r"-10\.17\s*%p?|0\.1017", 2, "Step 2 Batch 1 she_accuracy -10.17%p"),
+    ("approve/modify/defer 분포", r"approve\s*57|modify\s*19|defer\s*1", 2, "manual review 결과 분포"),
+    ("moellab hazards 합계", r"37[\s/]+hazards?|37\s*위험요소", 2, "8 사진 × 평균 4.6 = 37"),
 ]
 
 # 완료 마커 (workplan에서)
@@ -121,6 +137,9 @@ COMPLETION_MARKERS = [
     ("Phase G.3", r"Phase\s*G\.3.*✅"),
     ("Phase G.4", r"Phase\s*G\.4.*✅"),
     ("Tier 4 #3 SWRL", r"(?:T(?:ier)?\s*4\s*#?3|Tier\s*4\s*fix).*✅"),
+    # T4 #1 후속 + moellab 비교 (본 sweep 추가)
+    ("T4 #1 후속", r"T4\s*#?1\s*후속.*✅"),
+    ("moellab 비교", r"moellab.*✅"),
 ]
 
 
