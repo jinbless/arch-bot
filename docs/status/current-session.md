@@ -1,6 +1,6 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-19** — **Phase G PG materialization (G.1-4) 완료 + Tier 4 SWRL Pellet 실행 검증 완료**. 메인 HEAD `448a8d0`, origin/main 동기화 완료.
+최신 갱신일: **2026-05-19** — **Phase G PG materialization (G.1-4) + Tier 4 SWRL Pellet + T4 #1 후속 (manual review + matcher refactor plan) + moellab.info/ohs 위험요소 비교 분석**. 메인 HEAD `3502eff`, origin/main 동기화 완료.
 
 이전 갱신:
 - 2026-05-18 (저녁): Tier 1 재포함 + Tier 2 F.3 closing (T2.A-D) + Tier 3.A enum
@@ -30,7 +30,7 @@
 
 ## 📍 현재 상태 한 문장 요약
 
-> "Phase 0/B/A/C + E-prep + E.2 + Phase 3 + F.3 first batch + F.1 + F.2 (이전) + Tier 1-3.A + **Phase G PG materialization (G.1: guide_domain_incompatibilities 2,016 rows + G.2: guide_usage_profiles 1,038 PG primary + G.3: penalty_rule_index 4,076 rows → penalty_accuracy +27.16%p ⭐ + G.4: she_patterns_reasoner_derived view)** + **Tier 4 후속 (AsymmetricProperty 패치로 Openllet 정상화 + SWRL Pellet 실행기 통합 → R-1: 107 + R-3: 3,579 inferred ⭐ + Pellet reporting 명시화)**. 사용자 구조 step 4 (온톨로지화된 KB → PG → 실 서비스 자동 반영) 본격 입증. 다음: SHE matcher broadness-aware refactor (T4 #1 후속) / OSHA admin penalty Pipe-A 확장 (T4 #2 후속) / R-4~R-30 SWRL 변환 / Phase J OBO Foundry (별도 plan)."
+> "Phase 0/B/A/C + E-prep + E.2 + Phase 3 + F.3 first batch + F.1 + F.2 (이전) + Tier 1-3.A + **Phase G PG materialization (G.1: guide_domain_incompatibilities 2,016 rows + G.2: guide_usage_profiles 1,038 PG primary + G.3: penalty_rule_index 4,076 rows → penalty_accuracy +27.16%p ⭐ + G.4: she_patterns_reasoner_derived view)** + **Tier 4 후속 (AsymmetricProperty 패치로 Openllet 정상화 + SWRL Pellet 실행기 통합 → R-1: 107 + R-3: 3,579 inferred ⭐ + Pellet reporting 명시화)** + **T4 #1 후속 sprint (approve 57 / modify 19 / defer 1, batch promote -10.17%p VETOED → matcher refactor sprint plan 작성) + moellab.info/ohs 위험요소 비교 (37/37 합리적, architecture pivot 후보 식별: hazard-direct)**. 사용자 구조 step 4 본격 입증. 다음 1순위: hazard-direct architecture pivot (sprint plan 작성 TBD)."
 
 ## 🎯 핵심 성과
 
@@ -57,7 +57,31 @@ Vision LLM (T3.A enum) → normalizer → PG (G.1-3 materialized) → 답변
                                                               + SHACL shapes (T2.B)
 ```
 
-main HEAD: `448a8d0`. origin/main 동기화 완료.
+main HEAD: `3502eff` (T4 #1 후속 + moellab 비교 후). origin/main 동기화 완료.
+
+### T4 #1 후속 sprint + moellab 위험요소 비교 (2026-05-19)
+
+**T4 #1 후속 sprint** (commits `a26c888` → main `1bfd6b8`) — 77 pending_review SHE matcher 통합의 별도 sprint 전 단계 1차 정리:
+- 77 SHE manual review (사용자 1차 분류, single-file HTML UI 도구):
+  - **approve 57 / modify 19 / defer 1 / reject 0** (사용자가 패턴 폐기할 만큼 비현실적인 것은 없다 판정)
+  - modify 19 → 5개 테마 자동 분류 (PPE 과도 8 + 사진불가 3 + 좁은조건 4 + 비현실 3 + 도메인불일치 1)
+- Step 2 approve 57 batch promote 재시도: **Batch 1 (5 SHE) → she_accuracy -10.17%p VETOED, rollback 자동**. 5회 audit history 모두 동일 패턴 (-7~-10%p) → **matcher 자체 로직 문제 입증**
+- Step 3 patch proposal 자동 생성 (19/19 PG-only patch, ontology 영향 없음)
+- 다음 sprint plan: [`she-matcher-broadness-refactor.md`](../workplans/she-matcher-broadness-refactor.md) — 7-day plan (broadness-aware ranking + PPE state weakening + `approved_derived` 신규 + SHACL shape + PG→TTL export)
+- Runbook: [t4-77-she-manual-review-results.md](../dev-notes/t4-77-she-manual-review-results.md)
+
+**moellab.info/ohs 위험요소 비교 분석** (commit `833dcd7` → main `3502eff`) — 우리 프로젝트의 초안과 dev server 비교:
+- 비교 범위: GPT 직접 출력 `hazards[]` 만 (외부 시스템 부속 legal_reference / related_guides / checklist / resources 제외)
+- 8개 사진 / **37 hazards 식별 모두 합리적** (false positive 없음, 자연어 카테고리 직관적: "끼임/협착", "전도/미끄럼", "추락" 등)
+- `preventive_measures` 평균 3-4개 / hazard, 사진 context 반영
+- **architecture pivot 후보 식별** ⭐:
+  - Vision LLM HAZARD_DIRECT_SCHEMA → hazards[] 그대로 표시 (moellab 스타일)
+  - hazard.name → catalog 529 codes 매핑 (T1.C alias 활용)
+  - 우리 ontology reasoning으로 Guide 추천 (moellab title_match 한계 회피)
+  - Guide procedure + GPT preventive 병기 (사용자 화면)
+  - SHE matcher 회귀 부담 본질적 감소 (Step 2 -10.17%p 우회)
+- 다음 sprint plan: `docs/workplans/hazard-direct-architecture-pivot.md` (TBD, 별도 plan)
+- Runbook: [moellab-vs-devserver-comparison.md](../dev-notes/moellab-vs-devserver-comparison.md)
 
 ### Tier 1 재포함 + Tier 2 F.3 closing + Tier 3.A (2026-05-18 저녁)
 
@@ -155,6 +179,28 @@ main HEAD: `b237e78` (Tier 3.A merge), 직전 `325ad37` (Tier 2 merge).
 - [t4-administrative-fine-scope-decision.md](../dev-notes/t4-administrative-fine-scope-decision.md)
 - [t4-77-she-matcher-integration-decision.md](../dev-notes/t4-77-she-matcher-integration-decision.md)
 - [t4-swrl-pellet-integration.md](../dev-notes/t4-swrl-pellet-integration.md)
+
+전체 산출물 history: [../workplans/llm-accelerated-ontology-engineering.md](../workplans/llm-accelerated-ontology-engineering.md)
+
+---
+
+## 📦 신규 산출물 (2026-05-19 T4 #1 후속 + moellab 비교 — origin/main push 완료)
+
+**T4 #1 후속 산출 (commit `a26c888` → main `1bfd6b8`)**:
+- 신규 dev-note: [t4-77-she-manual-review-results.md](../dev-notes/t4-77-she-manual-review-results.md)
+- 신규 sprint plan: [she-matcher-broadness-refactor.md](../workplans/she-matcher-broadness-refactor.md) (7-day, hazard-direct pivot 후 보조 track으로 통합 또는 후행)
+- 신규 script 2개:
+  - `data-team/05-enrichment/llm-scripts/patch_she_visual_triggers.py` (Step 3 patch proposal 생성)
+  - `data-team/05-enrichment/runtime-artifacts/she_review_ui.html` (94KB single-file 검토 UI)
+- 신규 정본 자산:
+  - `data-team/05-enrichment/runtime-artifacts/pending_review_she_REVIEWED.json` (77/77 사용자 검토 결과)
+  - `data-team/05-enrichment/runtime-artifacts/pending_review_she_PATCH_PROPOSAL.json` (19/19 자동 patch)
+- 수정: `data-team/05-enrichment/llm-scripts/promote_she_review.py` (`--only-from-review-json` 옵션)
+
+**moellab 비교 산출 (commit `833dcd7` → main `3502eff`)**:
+- 신규 dev-note: [moellab-vs-devserver-comparison.md](../dev-notes/moellab-vs-devserver-comparison.md)
+- 보조 (git 미추적, 다음 세션 재현 자산): `.compare_moellab/*.json` (8개 사진 raw API 응답)
+- 수정 1개: `.gitignore` (외부 raw 캡처 + manual review 보조 파일 + auto-gen logs 추가)
 
 전체 산출물 history: [../workplans/llm-accelerated-ontology-engineering.md](../workplans/llm-accelerated-ontology-engineering.md)
 
@@ -272,13 +318,26 @@ main HEAD: `b237e78` (Tier 3.A merge), 직전 `325ad37` (Tier 2 merge).
 - Runbook: [../dev-notes/F.2-taxonomy-discovery.md](../dev-notes/F.2-taxonomy-discovery.md)
 - Makefile: `make f2-help` 참고
 
-### 다음 작업 우선순위 (Phase G + Tier 4 완료 후):
+### 다음 작업 우선순위 (T4 #1 후속 + moellab 비교 완료 후):
 
-**1순위: T4 후속 sprints** (Phase G로 입증된 architecture 보강):
-- **SHE matcher broadness-aware refactor** (T4 #1 후속, 1-2주): 77 pending_review SHE를 안전하게 통합 가능한 matcher 로직 (status='approved_derived' + broadness weight). 검토 자료: `data-team/05-enrichment/runtime-artifacts/pending_review_she_for_manual_review.json` (77 SHE 8-axis features + visual_triggers), 매처 코드: `serving-team/08-app/backend/app/services/she_matcher.py` (1,062 lines).
-- **OSHA admin penalty Pipe-A 확장** (T4 #2 후속, 4-6h): 제175조 administrative fines (6단계, 5천만원~300만원) 추출. `step1_extract_penalties.py` 확장. 결과 → penalty_rule_index에 sanction_type='AdministrativeFine' rows 추가.
+**1순위: hazard-direct architecture pivot** ⭐ (moellab 비교 결과 기반, 별도 sprint plan 작성 필요):
+- 핵심 가설: Vision LLM이 위험요소(hazards) 자연어로 직접 출력 → 우리 ontology로 Guide 추천 → SHE matcher 의존도 본질 감소
+- moellab(우리 초안)의 GPT 직접 hazard 식별이 8/8 사진 / 37/37 합리적 (Step 2 SHE matcher -10.17%p VETOED와 대조)
+- Phase 1: HAZARD_DIRECT_SCHEMA + GPT prompt 갱신 (~3일)
+- Phase 2: hazard.name → catalog 529 codes alias 매핑 (T1.C 확장, ~1주)
+- Phase 3: hazards-based Guide 추천 layer (기존 SHE-based와 병행, ~1주)
+- Phase 4: 응답 schema 확장 (자연어 hazards + 기존 layer 동시 노출, ~3일)
+- Phase 5: A/B 검증 + Gate 3 + 정본 문서 갱신 (~3일)
+- 본 sprint plan 작성 (`docs/workplans/hazard-direct-architecture-pivot.md`) 자체가 다음 세션 우선 작업
 
-**2순위: SWRL 확장 + 학계 작업**:
+**2순위: SHE matcher broadness-aware refactor** (T4 #1 후속, 보조 track):
+- [she-matcher-broadness-refactor.md](../workplans/she-matcher-broadness-refactor.md) (7-day plan)
+- hazard-direct pivot의 Phase 3 보조 track으로 통합 또는 후행 (SHE matcher 의존도는 본질적으로 감소하지만 fallback으로 유지)
+
+**3순위: OSHA admin penalty Pipe-A 확장** (T4 #2 후속, 4-6h):
+- 제175조 administrative fines (6단계, 5천만원~300만원) 추출. `step1_extract_penalties.py` 확장. 결과 → penalty_rule_index에 sanction_type='AdministrativeFine' rows 추가.
+
+**4순위: SWRL 확장 + 학계 작업**:
 - **R-4~R-30 SWRL OWL 변환** (1-2주): `kosha-rules-v2.swrl` 의사코드 30개 모두 OWL/RDF SWRL serialization으로 변환 (T4 #3 패턴 답습). 각 rule fired triple count 검증.
 - **8-photo real-test eval** (`make f1-eval`, ~$0.40 + 8분): Phase G + T4 효과 실제 사진 검증.
 
