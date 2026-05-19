@@ -91,9 +91,20 @@ public class KoshaFusekiServer {
                 Reasoner reasoner = PelletReasonerFactory.theInstance().create();
                 InfModel infModel = ModelFactory.createInfModel(reasoner, base);
                 infModel.prepare();
+                // Tier 4 #4: Pellet lazy materialization 회피 — getDeductionsModel()로
+                // 추론 결과 명시적 카운트. 이전엔 infModel.size() == baseTriples 반환
+                // (Pellet은 SPARQL query 시 on-demand inference만 수행).
                 long totalTriples = infModel.size();
+                long inferredCount;
+                try {
+                    Model deductions = infModel.getDeductionsModel();
+                    inferredCount = (deductions != null) ? deductions.size() : (totalTriples - baseTriples);
+                } catch (Exception e) {
+                    inferredCount = totalTriples - baseTriples;
+                }
                 System.out.println("  Total triples (base + inferred): " + totalTriples);
-                System.out.println("  Inferred triples: " + (totalTriples - baseTriples));
+                System.out.println("  Inferred triples: " + inferredCount
+                    + " (Pellet lazy materialization; SPARQL queries trigger on-demand inference)");
                 servingModel = infModel;
                 break;
             }
@@ -102,8 +113,15 @@ public class KoshaFusekiServer {
                 InfModel infModel = ModelFactory.createInfModel(reasoner, base);
                 infModel.prepare();
                 long totalTriples = infModel.size();
+                long inferredCount;
+                try {
+                    Model deductions = infModel.getDeductionsModel();
+                    inferredCount = (deductions != null) ? deductions.size() : (totalTriples - baseTriples);
+                } catch (Exception e) {
+                    inferredCount = totalTriples - baseTriples;
+                }
                 System.out.println("  Total triples (base + inferred): " + totalTriples);
-                System.out.println("  Inferred triples: " + (totalTriples - baseTriples));
+                System.out.println("  Inferred triples: " + inferredCount);
                 servingModel = infModel;
                 break;
             }
