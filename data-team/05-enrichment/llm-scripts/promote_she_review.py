@@ -150,6 +150,8 @@ def run_regression() -> tuple[bool, dict, str]:
             cwd=str(BACKEND_DIR),
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=600,
         )
         if r1.returncode != 0:
@@ -160,6 +162,8 @@ def run_regression() -> tuple[bool, dict, str]:
             [str(VENV_PY), str(REGRESSION_SCRIPT), out_path, "--baseline", str(BASELINE_PATH)],
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=120,
         )
         passed = (r2.returncode == 0)

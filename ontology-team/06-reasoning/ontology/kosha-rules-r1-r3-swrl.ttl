@@ -1,0 +1,90 @@
+# Phase T4 #3 — SWRL rules in OWL/RDF serialization (Pellet executable)
+# Conversion of kosha-rules-v2.swrl pseudo-code rules R-1, R-3 to SWRL syntax.
+# Pellet/Openllet은 본 형식 native 지원.
+#
+# Note: R-2 (coApplicable)는 `run_inference.py` SPARQL CONSTRUCT로 이미 적용 중.
+# R-4~R-30은 별도 sprint에서 점진 변환 예정.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
+
+
+### R-1: Exemption 추론 (exemptedBy)
+# EXEMPTION 모달리티 NS가 OBLIGATION NS를 modifies → exemptedBy 관계 추론
+
+kr:R1_ExemptedByRule a swrl:Imp ;
+    rdfs:label "R-1: exemptedBy 추론"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate law:NormStatement ;
+          swrl:argument1 kr:x_ns1 ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:hasModality ;
+          swrl:argument1 kr:x_ns1 ;
+          swrl:argument2 core:Obligation ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate law:NormStatement ;
+          swrl:argument1 kr:x_ns2 ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:hasModality ;
+          swrl:argument1 kr:x_ns2 ;
+          swrl:argument2 core:Exemption ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:modifies ;
+          swrl:argument1 kr:x_ns2 ;
+          swrl:argument2 kr:x_ns1 ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate core:exemptedBy ;
+          swrl:argument1 kr:x_ns1 ;
+          swrl:argument2 kr:x_ns2 ]
+    ) .
+
+
+### R-3: High-severity sanction 분류 (highSeverityPenalty)
+# severityScore ≥ 5 인 sanction은 highSeverity 분류
+
+kr:R3_HighSeverityRule a swrl:Imp ;
+    rdfs:label "R-3: highSeverityPenalty 분류"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate penalty:SanctionType ;
+          swrl:argument1 kr:x_san ]
+        [ a swrl:DatavaluedPropertyAtom ;
+          swrl:propertyPredicate penalty:severityScore ;
+          swrl:argument1 kr:x_san ;
+          swrl:argument2 kr:x_score ]
+        [ a swrl:BuiltinAtom ;
+          swrl:builtin swrlb:greaterThanOrEqual ;
+          swrl:arguments ( kr:x_score 5 ) ]
+    ) ;
+    swrl:head (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate penalty:HighSeverityPenalty ;
+          swrl:argument1 kr:x_san ]
+    ) .
+
+
+### SWRL Variable declarations
+
+kr:x_ns1 a swrl:Variable .
+kr:x_ns2 a swrl:Variable .
+kr:x_san a swrl:Variable .
+kr:x_score a swrl:Variable .
+
+
+### Target class definition (R-3 head)
+
+penalty:HighSeverityPenalty a owl:Class ;
+    rdfs:label "High Severity Penalty"@en, "고위험 제재"@ko ;
+    rdfs:subClassOf penalty:SanctionType ;
+    rdfs:comment "severityScore ≥ 5 인 sanction. SWRL R-3 추론으로 자동 분류."@ko .
