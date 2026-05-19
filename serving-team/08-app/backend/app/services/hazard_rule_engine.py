@@ -612,11 +612,59 @@ def _penalty_rule_to_dict(graph: Graph, pr_uri: URIRef) -> dict:
     }
 
 
+def _load_penalty_index_from_pg() -> dict | None:
+    """Phase G.3: PG primary source. Returns None if PG unavailable (fallback to TTL)."""
+    try:
+        from app.db.database import SessionLocal
+        from app.db.models import PgPenaltyRuleIndex
+    except Exception:
+        return None
+    try:
+        with SessionLocal() as session:
+            rows = session.query(PgPenaltyRuleIndex).all()
+    except Exception as exc:
+        logger.warning("[PenaltyCondition] PG query fail (fallback to TTL): %s", exc)
+        return None
+    if not rows:
+        return None
+
+    sr_to_candidates: dict[str, list[dict]] = defaultdict(list)
+    for r in rows:
+        candidate = {
+            "penalty_rule_id": r.penalty_rule_id,
+            "condition_label": _condition_label(r.subject_role, r.accident_outcome),
+            "subject_role": r.subject_role,
+            "accident_outcome": r.accident_outcome,
+            "violated_norm_id": r.violated_norm_id,
+            "violated_article_id": r.violated_article_id,
+            "delegated_from_article_id": r.delegated_from_article_id,
+            "penalty_article_id": r.penalty_article_id,
+            "sanction_type": r.sanction_type,
+            "penalty_description": r.penalty_description,
+            "severity_score": r.severity_score,
+            "basis_text": r.basis_text,
+        }
+        sr_to_candidates[r.sr_id].append(candidate)
+    logger.info(
+        "[PenaltyCondition] loaded %s SR penalty mappings from PG (%d total rules)",
+        len(sr_to_candidates), len(rows),
+    )
+    return {"sr_to_candidates": dict(sr_to_candidates)}
+
+
 def _load_penalty_index() -> dict:
+    """Phase G.3: PG primary, TTL fallback."""
     global _PENALTY_INDEX
     if _PENALTY_INDEX is not None:
         return _PENALTY_INDEX
 
+    # Try PG first
+    pg_index = _load_penalty_index_from_pg()
+    if pg_index is not None:
+        _PENALTY_INDEX = pg_index
+        return _PENALTY_INDEX
+
+    # Fallback to TTL parse
     instances_path = _ontology_instances_path()
     if not instances_path.exists():
         logger.warning("[PenaltyCondition] instances TTL not found: %s", instances_path)
@@ -637,7 +685,7 @@ def _load_penalty_index() -> dict:
 
     _PENALTY_INDEX = {"sr_to_candidates": dict(sr_to_candidates)}
     logger.info(
-        "[PenaltyCondition] loaded %s SR penalty mappings from %s",
+        "[PenaltyCondition] loaded %s SR penalty mappings from TTL %s (fallback)",
         len(sr_to_candidates),
         instances_path,
     )

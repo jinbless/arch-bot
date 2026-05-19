@@ -254,6 +254,52 @@ class OhsHazardCodeGap(Base):
     promoted_at = Column(DateTime(timezone=True))
 
 
+class PgPenaltyRuleIndex(Base):
+    """Phase G Sprint G.3 — penalty_rule_index materialized from kosha-instances.ttl.
+
+    Ontology TBox: penalty:PenaltyRule + appliesTo/penaltyType/maxFine
+    Source: ontology-team/06-reasoning/ontology/kosha-instances.ttl (TTL ABox)
+    적재: import_penalty_to_pg.py (rdflib parse → PG UPSERT)
+    Runtime: hazard_rule_engine._load_penalty_index PG SELECT 전환
+    """
+    __tablename__ = "penalty_rule_index"
+    __table_args__ = {"extend_existing": True}
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    sr_id = Column(String(30), nullable=False, index=True)
+    penalty_rule_id = Column(String(50), nullable=False, index=True)
+    article_code = Column(String(20))
+    sanction_type = Column(String(40))
+    penalty_description = Column(Text)
+    severity_score = Column(Integer)
+    subject_role = Column(String(50))
+    accident_outcome = Column(String(50))
+    violated_norm_id = Column(String(50))
+    violated_article_id = Column(String(20))
+    delegated_from_article_id = Column(String(20))
+    penalty_article_id = Column(String(20))
+    basis_text = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
+class PgPenaltyRoute(Base):
+    """Phase G Sprint G.3 — penalty_routes (이미 PG에 존재, ORM 추가).
+
+    Source: data-team/02-extraction/pipe-A/db/schema_pg.sql (Pipe-A 적재)
+    Ontology TBox: penalty:PenaltyRule + appliesTo/penaltyType/maxFine
+    Runtime 사용: app/services/hazard_rule_engine.py:_load_penalty_index (G.3 PG 전환)
+    """
+    __tablename__ = "penalty_routes"
+    __table_args__ = {"extend_existing": True}
+
+    article_code = Column(String(20), primary_key=True)
+    has_penalty = Column(Boolean)
+    criminal_employer_penalty = Column(Text)
+    admin_max_fine = Column(Text)
+    admin_fine_table_ref = Column(Text)
+
+
 class PgGuideDomainIncompatibility(Base):
     """Phase G Sprint G.1 — guide_domain_incompatibilities materialized table.
 
