@@ -11,7 +11,13 @@ from typing import Any, Optional
 from sqlalchemy.orm import Session
 
 from app.db import crud
-from app.models.analysis import AnalysisResponse, ExcludedCandidate
+from app.models.analysis import (
+    AnalysisResponse,
+    ExcludedCandidate,
+    GuideRef,
+    HazardGuideRelation,
+    HazardItem,
+)
 from app.models.hazard import (
     CorrectiveAction,
     Finding,
@@ -33,9 +39,20 @@ from app.services import (
     situation_assessment_service,
     sr_lookup_service,
 )
-from app.services.hazard_normalizer import normalize_risk_feature_candidates
+from app.services.hazard_normalizer import (
+    normalize_hazards_array,
+    normalize_risk_feature_candidates,
+)
+from app.services.hazard_to_guide_service import match_hazards_to_guides
 from app.services.industry_context import infer_industry_context
 from app.utils.taxonomy import get_feature_label
+
+
+# ⭐ Hazard-Direct Pivot Phase 3 Day 3 — A/B mode.
+# off=기존 SHE-based path만 (control)
+# parallel=두 path 모두 (결과 union, default for 검증)
+# primary=hazard-direct 우선 (SHE fallback)
+HAZARD_DIRECT_MODE = os.environ.get("HAZARD_DIRECT_MODE", "parallel").lower()
 
 
 @dataclass
@@ -66,6 +83,11 @@ class AnalysisKnowledgeContext:
     # Runtime 4번 채널 — F.3.5 자율 학습 환류 input pool (analysis_log 확장 hook).
     normalizer_unknown_codes: list[str] = field(default_factory=list)
     raw_vision_features: list = field(default_factory=list)
+    # ⭐ Hazard-Direct Pivot Phase 3 Day 3 — hazard-direct path 산출
+    hazards_payload: list[dict] = field(default_factory=list)  # raw hazards[] from GPT
+    hazard_guide_relations: list[dict] = field(default_factory=list)
+    hazard_canonical: dict = field(default_factory=dict)  # normalize_hazards_array 결과
+    hazard_direct_mode: str = "off"
 
 
 class AnalysisPipeline:
@@ -151,6 +173,14 @@ class AnalysisPipeline:
             finding_status=knowledge.finding_status,
             penalty_exposure_status=knowledge.penalty_exposure_status,
             excluded_candidates=excluded_candidates,
+            # ⭐ Hazard-Direct Pivot 신규 응답 필드
+            hazards=self._build_hazard_items(
+                knowledge.hazards_payload,
+                knowledge.hazard_canonical,
+            ),
+            hazard_guide_relations=self._build_hazard_guide_relations(
+                knowledge.hazard_guide_relations,
+            ),
             analyzed_at=analyzed_at,
         )
 
@@ -304,6 +334,33 @@ class AnalysisPipeline:
             finding_status=finding_status,
         )
 
+        # ⭐ Hazard-Direct Pivot Phase 3 Day 3 — hazards[] path 병행 실행.
+        # mode=off 일 때만 skip. parallel(default)/primary 모두 hazards[] 산출 채움.
+        hazards_payload: list[dict] = list(result.get("hazards") or [])
+        hazard_canonical: dict = {}
+        hazard_guide_relations: list[dict] = []
+        if HAZARD_DIRECT_MODE != "off" and hazards_payload:
+            try:
+                hazard_canonical = normalize_hazards_array(
+                    hazards_payload,
+                    context_text=context_text,
+                )
+                hazard_guide_relations, hazard_sr_ids = match_hazards_to_guides(
+                    db=db,
+                    hazards=hazards_payload,
+                    canonical=hazard_canonical,
+                    industry_contexts=industry_context.active_industries,
+                )
+                # primary mode: hazard-direct가 SR ids를 우선 (penalty path는 본 sprint 비변경, fallback 보존)
+                if HAZARD_DIRECT_MODE == "primary" and hazard_sr_ids:
+                    logging.getLogger(__name__).info(
+                        f"[HazardDirect-Primary] {len(hazard_sr_ids)} SR ids from hazard-direct path"
+                    )
+            except Exception as e:  # noqa: BLE001
+                logging.getLogger(__name__).warning(
+                    f"[HazardDirect] error in pipeline, fallback to legacy path: {e}"
+                )
+
         return AnalysisKnowledgeContext(
             canonical=canonical,
             risk_features=risk_features,
@@ -321,6 +378,10 @@ class AnalysisPipeline:
             penalty_exposure_status=self._penalty_exposure_status(penalty_paths),
             normalizer_unknown_codes=list(normalized.get("unknown_codes") or []),
             raw_vision_features=list(result.get("risk_feature_candidates") or []),
+            hazards_payload=hazards_payload,
+            hazard_guide_relations=hazard_guide_relations,
+            hazard_canonical=hazard_canonical,
+            hazard_direct_mode=HAZARD_DIRECT_MODE,
         )
 
     def _build_observations(self, result: dict) -> list[VisualObservation]:
@@ -440,6 +501,69 @@ class AnalysisPipeline:
                 )
             )
         return actions[:10]
+
+    def _build_hazard_items(
+        self,
+        hazards_payload: list[dict],
+        hazard_canonical: dict,
+    ) -> list[HazardItem]:
+        """⭐ Hazard-Direct Pivot — GPT hazards[] → Pydantic HazardItem 변환.
+
+        mapped_codes는 normalize_hazards_array의 hazard_name_to_codes 활용 (audit).
+        """
+        name_to_codes: dict[str, list[str]] = (hazard_canonical or {}).get("hazard_name_to_codes", {}) or {}
+        items: list[HazardItem] = []
+        for h in hazards_payload or []:
+            name = (h.get("name") or "").strip()
+            if not name:
+                continue
+            items.append(
+                HazardItem(
+                    name=name,
+                    risk_level=str(h.get("risk_level") or "medium").lower(),
+                    location=str(h.get("location") or ""),
+                    description=str(h.get("description") or ""),
+                    preventive_measures=list(h.get("preventive_measures") or []),
+                    mapped_codes=list(name_to_codes.get(name) or []),
+                )
+            )
+        return items
+
+    def _build_hazard_guide_relations(
+        self,
+        relations_raw: list[dict],
+    ) -> list[HazardGuideRelation]:
+        """⭐ Hazard-Direct Pivot — match_hazards_to_guides dict → Pydantic 변환."""
+        out: list[HazardGuideRelation] = []
+        for r in relations_raw or []:
+            guides_raw = r.get("guides") or []
+            guides = [
+                GuideRef(
+                    guide_code=str(g.get("guide_code") or ""),
+                    title=str(g.get("title") or ""),
+                    classification=g.get("classification"),
+                    relevance_score=float(g.get("relevance_score") or 0.0),
+                    mapping_type=str(g.get("mapping_type") or "sr_ci_link"),
+                    ci_hit_count=int(g.get("ci_hit_count") or 0),
+                    industry_alignment=g.get("industry_alignment"),
+                    top_procedure_title=g.get("top_procedure_title"),
+                )
+                for g in guides_raw
+                if g.get("guide_code")
+            ]
+            out.append(
+                HazardGuideRelation(
+                    hazard_name=str(r.get("hazard_name") or ""),
+                    risk_level=str(r.get("risk_level") or "medium").lower(),
+                    location=str(r.get("location") or ""),
+                    description=str(r.get("description") or ""),
+                    preventive_measures=list(r.get("preventive_measures") or []),
+                    mapped_codes=list(r.get("mapped_codes") or []),
+                    guides=guides,
+                    matched_sr_count=int(r.get("matched_sr_count") or 0),
+                )
+            )
+        return out
 
     def _build_standard_procedures(self, guide_rows: list[dict]) -> list[StandardProcedure]:
         procedures = []
