@@ -1,0 +1,1042 @@
+{
+  "generated_at": "2026-05-19",
+  "source_reviewed": "pending_review_she_REVIEWED.json",
+  "total_modify": 19,
+  "theme_counts": {
+    "D": 3,
+    "A": 8,
+    "B": 3,
+    "C": 4,
+    "E": 1
+  },
+  "apply_safety_note": "Theme E/Z는 manual_required=true; Theme D는 warning 있음 — 적용 전 검토",
+  "patches": [
+    {
+      "she_id": "SHE-BREADSLICER-d9856258a4",
+      "theme": "D",
+      "user_note": "슬라이서 주변에 어지럽게 놓인 청소 도구들이 없을 가능성이 더 높지 않아?",
+      "before": {
+        "visual_triggers": [
+          "보호 덮개가 제거된 채 노출된 빵 절단 칼날",
+          "맨손으로 슬라이서 내부를 닦는 작업자",
+          "칼날 주변에 흩어진 빵 부스러기와 잔여물",
+          "절단 방지 장갑 미착용 상태의 손",
+          "슬라이서 주변에 어지럽게 놓인 청소 도구들"
+        ],
+        "features": {
+          "ppe_state": "CUT_RESISTANT_GLOVE_ABSENT",
+          "agent_state": "SHARP_EDGE",
+          "work_context": "BREAD_SLICER",
+          "accident_type": "BLADE_LACERATION",
+          "environmental": "CLUTTERED",
+          "work_activity": "CLEANING",
+          "temporal_stage": "AFTER_WORK",
+          "hazardous_agent": "UNGUARDED_BLADE"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "슬라이서 주변에 어지럽게 놓인 청소 도구들"
+          ],
+          "reason": "비현실적 시나리오 단서"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "보호 덮개가 제거된 채 노출된 빵 절단 칼날",
+          "맨손으로 슬라이서 내부를 닦는 작업자",
+          "칼날 주변에 흩어진 빵 부스러기와 잔여물",
+          "절단 방지 장갑 미착용 상태의 손"
+        ],
+        "features": {
+          "ppe_state": "CUT_RESISTANT_GLOVE_ABSENT",
+          "agent_state": "SHARP_EDGE",
+          "work_context": "BREAD_SLICER",
+          "accident_type": "BLADE_LACERATION",
+          "environmental": "CLUTTERED",
+          "work_activity": "CLEANING",
+          "temporal_stage": "AFTER_WORK",
+          "hazardous_agent": "UNGUARDED_BLADE"
+        }
+      },
+      "manual_required": false,
+      "warning": "Theme D: 자동 patch 적용 전 사용자 한 번 더 확인 권장"
+    },
+    {
+      "she_id": "SHE-CLEANINGWET-6e366c5575",
+      "theme": "A",
+      "user_note": "아마도 일반 음식점 사진을것 같은데, 음식점에서 안전화를 신지는 않아.",
+      "before": {
+        "visual_triggers": [
+          "바닥에 흩어진 유리 파편",
+          "깨진 유리병 또는 컵 잔해",
+          "안전화 미착용 맨발 또는 일반 신발",
+          "젖은 바닥 표면 및 물기",
+          "청소 도구(빗자루·쓰레받기) 주변 유리 조각"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOE_ABSENT",
+          "agent_state": "SHARP_EDGE",
+          "work_context": "CLEANING_WET",
+          "accident_type": "CUT",
+          "environmental": "WET_SURFACE",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "GLASS_FRAGMENT_ON_FLOOR"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "안전화 미착용 맨발 또는 일반 신발"
+          ],
+          "reason": "PPE 부재 단서는 일반 환경에서 false positive 유발"
+        },
+        {
+          "kind": "set_feature",
+          "field": "ppe_state",
+          "from": "SAFETY_SHOE_ABSENT",
+          "to": "UNKNOWN",
+          "reason": "PPE absence를 hard signal에서 제거"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "바닥에 흩어진 유리 파편",
+          "깨진 유리병 또는 컵 잔해",
+          "젖은 바닥 표면 및 물기",
+          "청소 도구(빗자루·쓰레받기) 주변 유리 조각"
+        ],
+        "features": {
+          "ppe_state": "UNKNOWN",
+          "agent_state": "SHARP_EDGE",
+          "work_context": "CLEANING_WET",
+          "accident_type": "CUT",
+          "environmental": "WET_SURFACE",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "GLASS_FRAGMENT_ON_FLOOR"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-DISPLAYSETUP-c34c9b3805",
+      "theme": "B",
+      "user_note": "손가락 또는 손바닥 부위의 찰과·절상 흔적은 사진으로 발견하기 쉽지 않아",
+      "before": {
+        "visual_triggers": [
+          "맨손으로 나사·볼트를 조이는 작업자",
+          "절삭 방지 장갑 미착용 상태",
+          "날카로운 나사 끝부분이 노출된 조립 부품",
+          "공구 및 부품이 어지럽게 흩어진 작업대",
+          "손가락 또는 손바닥 부위의 찰과·절상 흔적"
+        ],
+        "features": {
+          "ppe_state": "CUT_RESISTANT_GLOVE_ABSENT",
+          "agent_state": "SHARP_EDGE",
+          "work_context": "DISPLAY_SETUP",
+          "accident_type": "CUT",
+          "environmental": "CLUTTERED",
+          "work_activity": "ASSEMBLY",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "SHARP_FASTENER"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "손가락 또는 손바닥 부위의 찰과·절상 흔적"
+          ],
+          "reason": "Vision LLM 시점에서 촬영 불가능한 단서"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "맨손으로 나사·볼트를 조이는 작업자",
+          "절삭 방지 장갑 미착용 상태",
+          "날카로운 나사 끝부분이 노출된 조립 부품",
+          "공구 및 부품이 어지럽게 흩어진 작업대"
+        ],
+        "features": {
+          "ppe_state": "CUT_RESISTANT_GLOVE_ABSENT",
+          "agent_state": "SHARP_EDGE",
+          "work_context": "DISPLAY_SETUP",
+          "accident_type": "CUT",
+          "environmental": "CLUTTERED",
+          "work_activity": "ASSEMBLY",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "SHARP_FASTENER"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-BOXHANDLING-8a9f239d9a",
+      "theme": "B",
+      "user_note": "발 위로 낙하하는 순간은 사진으로 찍을 수가 없어. 차라리 옮기는 박스가 위태로워 보이는게 좋을것 같다.",
+      "before": {
+        "visual_triggers": [
+          "무거운 박스를 양손으로 들어올리는 작업자",
+          "안전화 미착용 상태의 발(운동화 또는 슬리퍼)",
+          "바닥에 어지럽게 쌓인 박스 및 자재",
+          "좁고 혼잡한 창고 통로",
+          "박스가 발 위로 낙하하는 순간"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOES_MISSING",
+          "agent_state": "MOVING_PART",
+          "work_context": "BOX_HANDLING",
+          "accident_type": "FRACTURE",
+          "environmental": "CLUTTERED",
+          "work_activity": "LIFTING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "박스가 발 위로 낙하하는 순간"
+          ],
+          "reason": "Vision LLM 시점에서 촬영 불가능한 단서"
+        },
+        {
+          "kind": "suggest_add_trigger",
+          "item": "옮기는 박스가 위태롭게 기울어져 보이는 상태",
+          "reason": "사용자 제안 — 낙하 순간 대신 사진 가능한 단서"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "무거운 박스를 양손으로 들어올리는 작업자",
+          "안전화 미착용 상태의 발(운동화 또는 슬리퍼)",
+          "바닥에 어지럽게 쌓인 박스 및 자재",
+          "좁고 혼잡한 창고 통로"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOES_MISSING",
+          "agent_state": "MOVING_PART",
+          "work_context": "BOX_HANDLING",
+          "accident_type": "FRACTURE",
+          "environmental": "CLUTTERED",
+          "work_activity": "LIFTING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-CHEMICALCLEANI-0d81697d9b",
+      "theme": "D",
+      "user_note": "맨손으로 농축 알칼리 세정제 용기를 직접 잡고 있는 작업자는 없을것 같애. 맨손으로 잡으면 손이 즉시 녹잖아",
+      "before": {
+        "visual_triggers": [
+          "맨손으로 농축 알칼리 세정제 용기를 직접 잡고 있는 작업자",
+          "보호 장갑 미착용 상태의 손과 팔뚝",
+          "라벨에 고농도 알칼리(NaOH) 경고 표시가 있는 세정제 통",
+          "환기구 없는 밀폐된 실내 청소 공간",
+          "바닥에 흘러내린 알칼리 세정액 흔적"
+        ],
+        "features": {
+          "ppe_state": "CHEMICAL_GLOVE_ABSENT",
+          "agent_state": "OTHER",
+          "work_context": "CHEMICAL_CLEANING",
+          "accident_type": "CHEMICAL_BURN",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "CONCENTRATED_ALKALI"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "맨손으로 농축 알칼리 세정제 용기를 직접 잡고 있는 작업자"
+          ],
+          "reason": "비현실적 시나리오 단서"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "보호 장갑 미착용 상태의 손과 팔뚝",
+          "라벨에 고농도 알칼리(NaOH) 경고 표시가 있는 세정제 통",
+          "환기구 없는 밀폐된 실내 청소 공간",
+          "바닥에 흘러내린 알칼리 세정액 흔적"
+        ],
+        "features": {
+          "ppe_state": "CHEMICAL_GLOVE_ABSENT",
+          "agent_state": "OTHER",
+          "work_context": "CHEMICAL_CLEANING",
+          "accident_type": "CHEMICAL_BURN",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "CONCENTRATED_ALKALI"
+        }
+      },
+      "manual_required": false,
+      "warning": "Theme D: 자동 patch 적용 전 사용자 한 번 더 확인 권장"
+    },
+    {
+      "she_id": "SHE-CLEANINGWET-532fa157a6",
+      "theme": "D",
+      "user_note": "아동이 뛰는건 너무 과한데",
+      "before": {
+        "visual_triggers": [
+          "바닥에 고인 물 또는 세척수 흔적",
+          "미끄럼 주의 표지판 부재",
+          "아동이 뛰거나 이동 중인 모습",
+          "청소 중 물걸레 또는 물통 방치",
+          "일반 고무창 신발(미끄럼 방지 미적용)"
+        ],
+        "features": {
+          "ppe_state": "REGULAR_SHOES",
+          "agent_state": "OTHER",
+          "work_context": "CLEANING_WET",
+          "accident_type": "CHILD_SLIP_AND_FALL",
+          "environmental": "WET_SURFACE",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "COLD_FLOOR"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "아동이 뛰거나 이동 중인 모습"
+          ],
+          "reason": "비현실적 시나리오 단서"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "바닥에 고인 물 또는 세척수 흔적",
+          "미끄럼 주의 표지판 부재",
+          "청소 중 물걸레 또는 물통 방치",
+          "일반 고무창 신발(미끄럼 방지 미적용)"
+        ],
+        "features": {
+          "ppe_state": "REGULAR_SHOES",
+          "agent_state": "OTHER",
+          "work_context": "CLEANING_WET",
+          "accident_type": "CHILD_SLIP_AND_FALL",
+          "environmental": "WET_SURFACE",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "COLD_FLOOR"
+        }
+      },
+      "manual_required": false,
+      "warning": "Theme D: 자동 patch 적용 전 사용자 한 번 더 확인 권장"
+    },
+    {
+      "she_id": "SHE-COMPRESSIONDEV-e7351932ea",
+      "theme": "C",
+      "user_note": "좁은 기계실이 아니어도 위험한 상황이 아닐까?",
+      "before": {
+        "visual_triggers": [
+          "압축기 재기동 스위치 조작 중인 작업자",
+          "LOTO(잠금·태그아웃) 미적용 상태의 제어판",
+          "잔압이 남아있는 압력 게이지 눈금",
+          "좁은 기계실 내부의 압축 장치",
+          "안전 잠금장치 없이 열린 점검 패널"
+        ],
+        "features": {
+          "ppe_state": "LOTO",
+          "agent_state": "MOVING_PART",
+          "work_context": "COMPRESSION_DEVICE_RESTART",
+          "accident_type": "COMPRESSION_INJURY",
+          "environmental": "CONFINED_SPACE",
+          "work_activity": "MAINTENANCE",
+          "temporal_stage": "BEFORE_WORK",
+          "hazardous_agent": "AIRLESS_RESIDUAL_PRESSURE"
+        }
+      },
+      "actions": [
+        {
+          "kind": "generalize_feature",
+          "field": "environmental",
+          "from": "CONFINED_SPACE",
+          "to": "NARROW_OR_OPEN_SPACE",
+          "reason": "좁은 기계실 외 공간도 위험"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "압축기 재기동 스위치 조작 중인 작업자",
+          "LOTO(잠금·태그아웃) 미적용 상태의 제어판",
+          "잔압이 남아있는 압력 게이지 눈금",
+          "좁은 기계실 내부의 압축 장치",
+          "안전 잠금장치 없이 열린 점검 패널"
+        ],
+        "features": {
+          "ppe_state": "LOTO",
+          "agent_state": "MOVING_PART",
+          "work_context": "COMPRESSION_DEVICE_RESTART",
+          "accident_type": "COMPRESSION_INJURY",
+          "environmental": "NARROW_OR_OPEN_SPACE",
+          "work_activity": "MAINTENANCE",
+          "temporal_stage": "BEFORE_WORK",
+          "hazardous_agent": "AIRLESS_RESIDUAL_PRESSURE"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-CONFINEDCOATIN-da85e838ef",
+      "theme": "C",
+      "user_note": "납 도려가 아니고 다른 종류의 도료라도 문제가 되는 상황이다. 그리고 작업복에 회백색이 아닌 다른 색의 분진이 부착될 수 있다.",
+      "before": {
+        "visual_triggers": [
+          "작업자가 방진마스크 없이 구도장 면을 그라인더로 연마 중",
+          "벽면 및 바닥에 납 함유 구도료 박리 분진이 퇴적된 상태",
+          "밀폐된 실내 공간에 환기 설비 미가동 또는 부재",
+          "작업복에 회백색 분진이 다량 부착된 모습",
+          "경고 표지 없이 납 도료 제거 작업 진행 중인 현장"
+        ],
+        "features": {
+          "ppe_state": "RESPIRATOR_ABSENT",
+          "agent_state": "OTHER",
+          "work_context": "CONFINED_COATING",
+          "accident_type": "CHEMICAL_INHALATION",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "MAINTENANCE",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "LEAD_PAINT_DUST"
+        }
+      },
+      "actions": [
+        {
+          "kind": "generalize_feature",
+          "field": "hazardous_agent",
+          "from": "LEAD_PAINT_DUST",
+          "to": "TOXIC_PAINT_DUST",
+          "reason": "납 외 도료/색상 일반화"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "작업자가 방진마스크 없이 구도장 면을 그라인더로 연마 중",
+          "벽면 및 바닥에 납 함유 구도료 박리 분진이 퇴적된 상태",
+          "밀폐된 실내 공간에 환기 설비 미가동 또는 부재",
+          "작업복에 회백색 분진이 다량 부착된 모습",
+          "경고 표지 없이 납 도료 제거 작업 진행 중인 현장"
+        ],
+        "features": {
+          "ppe_state": "RESPIRATOR_ABSENT",
+          "agent_state": "OTHER",
+          "work_context": "CONFINED_COATING",
+          "accident_type": "CHEMICAL_INHALATION",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "MAINTENANCE",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "TOXIC_PAINT_DUST"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-CONFINEDCOATIN-fc99086394",
+      "theme": "C",
+      "user_note": "아크릴레이트만 문제가 되는게 아니고, 다른 물질도 문제가 되지 않아?",
+      "before": {
+        "visual_triggers": [
+          "맨손으로 아크릴레이트 수지 도료 용기를 직접 잡고 있는 작업자",
+          "손등 및 손목 부위에 수지 액체가 묻어 있는 흔적",
+          "밀폐된 도장 부스 내 환기 팬 미가동 상태",
+          "화학용 내화학 장갑이 작업대 위에 벗겨진 채 방치됨",
+          "아크릴레이트 수지 경고 라벨이 부착된 개봉된 도료 캔"
+        ],
+        "features": {
+          "ppe_state": "CHEMICAL_GLOVE_ABSENT",
+          "agent_state": "FLAMMABLE_EXPOSED",
+          "work_context": "CONFINED_COATING",
+          "accident_type": "CHEMICAL_SKIN_IRRITATION",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "ACRYLATE_RESIN_SKIN_CONTACT"
+        }
+      },
+      "actions": [
+        {
+          "kind": "generalize_feature",
+          "field": "hazardous_agent",
+          "from": "ACRYLATE_VAPOR",
+          "to": "TOXIC_CHEMICAL_VAPOR",
+          "reason": "아크릴레이트 외 화학물질 일반화"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "맨손으로 아크릴레이트 수지 도료 용기를 직접 잡고 있는 작업자",
+          "손등 및 손목 부위에 수지 액체가 묻어 있는 흔적",
+          "밀폐된 도장 부스 내 환기 팬 미가동 상태",
+          "화학용 내화학 장갑이 작업대 위에 벗겨진 채 방치됨",
+          "아크릴레이트 수지 경고 라벨이 부착된 개봉된 도료 캔"
+        ],
+        "features": {
+          "ppe_state": "CHEMICAL_GLOVE_ABSENT",
+          "agent_state": "FLAMMABLE_EXPOSED",
+          "work_context": "CONFINED_COATING",
+          "accident_type": "CHEMICAL_SKIN_IRRITATION",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "TOXIC_CHEMICAL_VAPOR"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-CONFINEDSPACE-b6fbefaf2c",
+      "theme": "B",
+      "user_note": "이건 실제 사고가 난 이후잖아. 사고가 났는데 우리 서비스로 사진을 찍을리가 없잖아",
+      "before": {
+        "visual_triggers": [
+          "밀폐 공간 내 쓰러진 작업자",
+          "산소 농도 측정기 미착용 또는 부재",
+          "방호 마스크(호흡기) 미착용 상태",
+          "환기 설비 미가동 또는 부재",
+          "구조 요청 신호 또는 비상 연락 장비"
+        ],
+        "features": {
+          "ppe_state": "RESPIRATOR_ABSENT",
+          "agent_state": "FLAMMABLE_EXPOSED",
+          "work_context": "CONFINED_SPACE",
+          "accident_type": "MEDICAL_EMERGENCY",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "OTHER",
+          "temporal_stage": "EMERGENCY",
+          "hazardous_agent": "BIOGAS_METHANE"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "밀폐 공간 내 쓰러진 작업자"
+          ],
+          "reason": "Vision LLM 시점에서 촬영 불가능한 단서"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "산소 농도 측정기 미착용 또는 부재",
+          "방호 마스크(호흡기) 미착용 상태",
+          "환기 설비 미가동 또는 부재",
+          "구조 요청 신호 또는 비상 연락 장비"
+        ],
+        "features": {
+          "ppe_state": "RESPIRATOR_ABSENT",
+          "agent_state": "FLAMMABLE_EXPOSED",
+          "work_context": "CONFINED_SPACE",
+          "accident_type": "MEDICAL_EMERGENCY",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "OTHER",
+          "temporal_stage": "EMERGENCY",
+          "hazardous_agent": "BIOGAS_METHANE"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-DENTALPROCEDUR-798a8c199d",
+      "theme": "E",
+      "user_note": "치과 진료실이 다른 상황하고 안 맞아, 방치된 아말감 캡슐도 상황이 안맞아보여",
+      "before": {
+        "visual_triggers": [
+          "치과 진료실 내 아말감 충전 작업 중인 치과의사",
+          "방치된 아말감 캡슐 및 잔여 아말감 조각",
+          "환기구 미작동 또는 부재한 밀폐된 진료실",
+          "호흡기 보호구(마스크/방독면) 미착용 상태의 의료진",
+          "수은 증기 경고 표지 없는 작업대"
+        ],
+        "features": {
+          "ppe_state": "RESPIRATOR_ABSENT",
+          "agent_state": "OTHER",
+          "work_context": "DENTAL_PROCEDURE",
+          "accident_type": "CHEMICAL_VAPOR_INHALATION",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "OTHER",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "MERCURY_AMALGAM_VAPOR"
+        }
+      },
+      "actions": [],
+      "after": {
+        "visual_triggers": [
+          "치과 진료실 내 아말감 충전 작업 중인 치과의사",
+          "방치된 아말감 캡슐 및 잔여 아말감 조각",
+          "환기구 미작동 또는 부재한 밀폐된 진료실",
+          "호흡기 보호구(마스크/방독면) 미착용 상태의 의료진",
+          "수은 증기 경고 표지 없는 작업대"
+        ],
+        "features": {
+          "ppe_state": "RESPIRATOR_ABSENT",
+          "agent_state": "OTHER",
+          "work_context": "DENTAL_PROCEDURE",
+          "accident_type": "CHEMICAL_VAPOR_INHALATION",
+          "environmental": "POOR_INDOOR_AIR_QUALITY",
+          "work_activity": "OTHER",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "MERCURY_AMALGAM_VAPOR"
+        }
+      },
+      "manual_required": true,
+      "warning": "Theme E: features 부정합 — 자동 patch 안 함. matcher refactor sprint에서 별도 처리 or reject 결정"
+    },
+    {
+      "she_id": "SHE-DISPLAYSETUP-3fe2f9e37b",
+      "theme": "A",
+      "user_note": "일반적인 물건 적재 창고같은데 여기서도 안전모를 착용하는건 너무 과한데",
+      "before": {
+        "visual_triggers": [
+          "고정 장치 없이 세워진 진열장",
+          "진열장 하단 고임목 부재",
+          "과적된 상품으로 무게 중심이 높은 선반",
+          "좁은 통로에 밀집된 진열대",
+          "안전모 미착용 작업자"
+        ],
+        "features": {
+          "ppe_state": "HELMET_MISSING",
+          "agent_state": "MOVING_PART",
+          "work_context": "DISPLAY_SETUP",
+          "accident_type": "COLLISION",
+          "environmental": "CLUTTERED",
+          "work_activity": "OTHER",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "UNSTABLE_DISPLAY_SHELF"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "안전모 미착용 작업자"
+          ],
+          "reason": "PPE 부재 단서는 일반 환경에서 false positive 유발"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "고정 장치 없이 세워진 진열장",
+          "진열장 하단 고임목 부재",
+          "과적된 상품으로 무게 중심이 높은 선반",
+          "좁은 통로에 밀집된 진열대"
+        ],
+        "features": {
+          "ppe_state": "HELMET_MISSING",
+          "agent_state": "MOVING_PART",
+          "work_context": "DISPLAY_SETUP",
+          "accident_type": "COLLISION",
+          "environmental": "CLUTTERED",
+          "work_activity": "OTHER",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "UNSTABLE_DISPLAY_SHELF"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-INTERLOCKBYPAS-ac30fa32ae",
+      "theme": "C",
+      "user_note": "바닥에 어지럽게 놓은 공구 및 전선이 없어도 위험한 상황이다.",
+      "before": {
+        "visual_triggers": [
+          "인터록 스위치에 테이프·케이블타이로 고정된 흔적",
+          "제어반 도어가 열린 채 작업 중인 작업자",
+          "LOTO 잠금장치 미부착 상태의 차단기",
+          "경고 표지판이 제거되거나 뒤집혀 있는 패널",
+          "바닥에 어지럽게 놓인 공구 및 전선"
+        ],
+        "features": {
+          "ppe_state": "LOTO",
+          "agent_state": "LIVE_VOLTAGE",
+          "work_context": "INTERLOCK_BYPASS",
+          "accident_type": "ELECTRIC_SHOCK",
+          "environmental": "CLUTTERED",
+          "work_activity": "MAINTENANCE",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "ELECTRICITY"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_environment_constraint",
+          "reason": "환경 단서(공구·전선) 제거; 인터록 우회 자체로 위험"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "인터록 스위치에 테이프·케이블타이로 고정된 흔적",
+          "제어반 도어가 열린 채 작업 중인 작업자",
+          "LOTO 잠금장치 미부착 상태의 차단기",
+          "경고 표지판이 제거되거나 뒤집혀 있는 패널",
+          "바닥에 어지럽게 놓인 공구 및 전선"
+        ],
+        "features": {
+          "ppe_state": "LOTO",
+          "agent_state": "LIVE_VOLTAGE",
+          "work_context": "INTERLOCK_BYPASS",
+          "accident_type": "ELECTRIC_SHOCK",
+          "environmental": "CLUTTERED",
+          "work_activity": "MAINTENANCE",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "ELECTRICITY"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-OBSTRUCTEDVIEW-efc8823aad",
+      "theme": "A",
+      "user_note": "안전화 여부와 관계없이, 일반 운동화여도 위험한 상황이다.",
+      "before": {
+        "visual_triggers": [
+          "전방 시야를 완전히 가리는 대형 박스 또는 적재물",
+          "좁고 어수선한 통로에 놓인 장애물(팔레트, 카트 등)",
+          "작업자가 양손으로 무거운 화물을 들고 이동 중인 자세",
+          "바닥에 흩어진 자재 또는 돌출된 구조물",
+          "안전화 착용 여부 확인 가능한 작업자 하체"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOES_WORN",
+          "agent_state": "MOVING_PART",
+          "work_context": "OBSTRUCTED_VIEW_CARRYING",
+          "accident_type": "COLLISION",
+          "environmental": "CLUTTERED",
+          "work_activity": "LIFTING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "안전화 착용 여부 확인 가능한 작업자 하체"
+          ],
+          "reason": "PPE 부재 단서는 일반 환경에서 false positive 유발"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "전방 시야를 완전히 가리는 대형 박스 또는 적재물",
+          "좁고 어수선한 통로에 놓인 장애물(팔레트, 카트 등)",
+          "작업자가 양손으로 무거운 화물을 들고 이동 중인 자세",
+          "바닥에 흩어진 자재 또는 돌출된 구조물"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOES_WORN",
+          "agent_state": "MOVING_PART",
+          "work_context": "OBSTRUCTED_VIEW_CARRYING",
+          "accident_type": "COLLISION",
+          "environmental": "CLUTTERED",
+          "work_activity": "LIFTING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-OVERLOADEDHAND-1470df6a97",
+      "theme": "A",
+      "user_note": "안전화 미착용 여부가 핵심적인 문제가 아니다.",
+      "before": {
+        "visual_triggers": [
+          "손수레 위에 불안정하게 쌓인 박스 더미",
+          "허리 보호대 미착용 작업자",
+          "통로를 가로막는 적재물 및 장애물",
+          "손수레 바퀴가 한쪽으로 기울어진 상태",
+          "안전화 미착용 또는 일반 운동화 착용"
+        ],
+        "features": {
+          "ppe_state": "BACK_BELT_ABSENT",
+          "agent_state": "MOVING_PART",
+          "work_context": "OVERLOADED_HANDCART",
+          "accident_type": "CART_TIPOVER",
+          "environmental": "CLUTTERED",
+          "work_activity": "LIFTING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "안전화 미착용 또는 일반 운동화 착용"
+          ],
+          "reason": "PPE 부재 단서는 일반 환경에서 false positive 유발"
+        },
+        {
+          "kind": "set_feature",
+          "field": "ppe_state",
+          "from": "BACK_BELT_ABSENT",
+          "to": "UNKNOWN",
+          "reason": "PPE absence를 hard signal에서 제거"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "손수레 위에 불안정하게 쌓인 박스 더미",
+          "허리 보호대 미착용 작업자",
+          "통로를 가로막는 적재물 및 장애물",
+          "손수레 바퀴가 한쪽으로 기울어진 상태"
+        ],
+        "features": {
+          "ppe_state": "UNKNOWN",
+          "agent_state": "MOVING_PART",
+          "work_context": "OVERLOADED_HANDCART",
+          "accident_type": "CART_TIPOVER",
+          "environmental": "CLUTTERED",
+          "work_activity": "LIFTING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-POWERRACKSAFET-716a8131d7",
+      "theme": "A",
+      "user_note": "웨이트 짐의 상황인것 같은데 여기서 맨발은 위험하지만 안전화까지는 현실성이 없고 운동화정도여도 괜찮다.",
+      "before": {
+        "visual_triggers": [
+          "파워랙 안전핀 미삽입 또는 한쪽만 체결된 상태",
+          "바벨 봉이 J-훅에만 걸쳐 있고 안전핀 없이 불안정하게 놓인 모습",
+          "무거운 중량 원판(20kg 이상)이 바벨에 장착된 상태",
+          "운동화 또는 맨발로 파워랙 앞에 서 있는 작업자",
+          "랙 주변 바닥에 원판·덤벨 등 기구가 어지럽게 방치된 환경"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOES_MISSING",
+          "agent_state": "MOVING_PART",
+          "work_context": "POWER_RACK_SAFETY_PIN",
+          "accident_type": "CRUSH",
+          "environmental": "CLUTTERED",
+          "work_activity": "LIFTING",
+          "temporal_stage": "BEFORE_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "actions": [],
+      "after": {
+        "visual_triggers": [
+          "파워랙 안전핀 미삽입 또는 한쪽만 체결된 상태",
+          "바벨 봉이 J-훅에만 걸쳐 있고 안전핀 없이 불안정하게 놓인 모습",
+          "무거운 중량 원판(20kg 이상)이 바벨에 장착된 상태",
+          "운동화 또는 맨발로 파워랙 앞에 서 있는 작업자",
+          "랙 주변 바닥에 원판·덤벨 등 기구가 어지럽게 방치된 환경"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOES_MISSING",
+          "agent_state": "MOVING_PART",
+          "work_context": "POWER_RACK_SAFETY_PIN",
+          "accident_type": "CRUSH",
+          "environmental": "CLUTTERED",
+          "work_activity": "LIFTING",
+          "temporal_stage": "BEFORE_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-SLOPERAMP-eb718815af",
+      "theme": "A",
+      "user_note": "안전화 착용을 요구하는건 현실성 없는 너무 과한 상황이다.",
+      "before": {
+        "visual_triggers": [
+          "경사로 바닥의 물기 또는 이물질 흔적",
+          "핸드트럭/카트에 적재된 무거운 화물",
+          "미끄럼 방지 패드 미설치 또는 훼손된 경사로 표면",
+          "안전화 미착용 작업자(일반 운동화 또는 슬리퍼)",
+          "경사로 양측 안전 손잡이 부재 또는 파손"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOE_ABSENT",
+          "agent_state": "MOVING_PART",
+          "work_context": "SLOPE_RAMP",
+          "accident_type": "OTHER",
+          "environmental": "WET_SURFACE",
+          "work_activity": "OTHER",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "안전화 미착용 작업자(일반 운동화 또는 슬리퍼)"
+          ],
+          "reason": "PPE 부재 단서는 일반 환경에서 false positive 유발"
+        },
+        {
+          "kind": "set_feature",
+          "field": "ppe_state",
+          "from": "SAFETY_SHOE_ABSENT",
+          "to": "UNKNOWN",
+          "reason": "PPE absence를 hard signal에서 제거"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "경사로 바닥의 물기 또는 이물질 흔적",
+          "핸드트럭/카트에 적재된 무거운 화물",
+          "미끄럼 방지 패드 미설치 또는 훼손된 경사로 표면",
+          "경사로 양측 안전 손잡이 부재 또는 파손"
+        ],
+        "features": {
+          "ppe_state": "UNKNOWN",
+          "agent_state": "MOVING_PART",
+          "work_context": "SLOPE_RAMP",
+          "accident_type": "OTHER",
+          "environmental": "WET_SURFACE",
+          "work_activity": "OTHER",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-STAIRCARRYING-483a6abc08",
+      "theme": "A",
+      "user_note": "안전화 착용을 요구하는건 현실성 없는 너무 과한 상황이다.",
+      "before": {
+        "visual_triggers": [
+          "좁은 계단에서 두 명의 작업자가 무거운 물체를 함께 들고 이동 중",
+          "안전화 미착용 또는 일반 신발 착용 상태",
+          "허리 보호대(백벨트) 미착용",
+          "계단 난간이 없거나 한쪽 손으로만 잡을 수 없는 상황",
+          "계단 폭이 좁아 운반 물체가 벽면에 닿을 위험"
+        ],
+        "features": {
+          "ppe_state": "BACK_BELT_ABSENT",
+          "agent_state": "MOVING_PART",
+          "work_context": "STAIR_CARRYING",
+          "accident_type": "FALL",
+          "environmental": "NARROW_SPACE",
+          "work_activity": "LIFTING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "안전화 미착용 또는 일반 신발 착용 상태"
+          ],
+          "reason": "PPE 부재 단서는 일반 환경에서 false positive 유발"
+        },
+        {
+          "kind": "set_feature",
+          "field": "ppe_state",
+          "from": "BACK_BELT_ABSENT",
+          "to": "UNKNOWN",
+          "reason": "PPE absence를 hard signal에서 제거"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "좁은 계단에서 두 명의 작업자가 무거운 물체를 함께 들고 이동 중",
+          "허리 보호대(백벨트) 미착용",
+          "계단 난간이 없거나 한쪽 손으로만 잡을 수 없는 상황",
+          "계단 폭이 좁아 운반 물체가 벽면에 닿을 위험"
+        ],
+        "features": {
+          "ppe_state": "UNKNOWN",
+          "agent_state": "MOVING_PART",
+          "work_context": "STAIR_CARRYING",
+          "accident_type": "FALL",
+          "environmental": "NARROW_SPACE",
+          "work_activity": "LIFTING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    },
+    {
+      "she_id": "SHE-WALKWAYOBSTRUC-757ef5872e",
+      "theme": "A",
+      "user_note": "안전화 착용을 요구하는건 현실성 없는 너무 과한 상황이다.",
+      "before": {
+        "visual_triggers": [
+          "통로 중앙에 적재된 박스 또는 자재",
+          "바닥에 방치된 청소 장비(청소카트, 호스)",
+          "안전화 미착용 작업자 발 노출",
+          "좁아진 통행 폭(1m 미만)",
+          "어수선하게 쌓인 물건으로 시야 차단"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOES_MISSING",
+          "agent_state": "OTHER",
+          "work_context": "WALKWAY_OBSTRUCTION",
+          "accident_type": "OTHER",
+          "environmental": "CLUTTERED",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "actions": [
+        {
+          "kind": "remove_triggers",
+          "items": [
+            "안전화 미착용 작업자 발 노출"
+          ],
+          "reason": "PPE 부재 단서는 일반 환경에서 false positive 유발"
+        }
+      ],
+      "after": {
+        "visual_triggers": [
+          "통로 중앙에 적재된 박스 또는 자재",
+          "바닥에 방치된 청소 장비(청소카트, 호스)",
+          "좁아진 통행 폭(1m 미만)",
+          "어수선하게 쌓인 물건으로 시야 차단"
+        ],
+        "features": {
+          "ppe_state": "SAFETY_SHOES_MISSING",
+          "agent_state": "OTHER",
+          "work_context": "WALKWAY_OBSTRUCTION",
+          "accident_type": "OTHER",
+          "environmental": "CLUTTERED",
+          "work_activity": "CLEANING",
+          "temporal_stage": "DURING_WORK",
+          "hazardous_agent": "HEAVY_OBJECT"
+        }
+      },
+      "manual_required": false,
+      "warning": ""
+    }
+  ]
+}

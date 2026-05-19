@@ -55,12 +55,20 @@ REGRESSION_SCRIPT = BACKEND_DIR / "scripts" / "regression_gate.py"
 VENV_PY = sys.executable
 
 
-def fetch_pending(db, limit: int = 0, exclude_other: bool = True) -> list[dict]:
-    """exclude_other=True: skip SHE with wc='OTHER' or at='OTHER' (catch-all → matcher 위험)."""
+def fetch_pending(db, limit: int = 0, exclude_other: bool = True, she_ids_filter: list[str] | None = None) -> list[dict]:
+    """exclude_other=True: skip SHE with wc='OTHER' or at='OTHER' (catch-all → matcher 위험).
+
+    she_ids_filter: if provided, restrict to these she_ids (intersected with pending_review).
+    Manual review use case (T4 #1 후속, 2026-05-19): approve only manually-vetted 57.
+    """
     from sqlalchemy import text
     where = "status='pending_review'"
     if exclude_other:
         where += " AND features->>'work_context' != 'OTHER' AND features->>'accident_type' != 'OTHER'"
+    params: dict = {}
+    if she_ids_filter is not None:
+        where += " AND she_id = ANY(:ids)"
+        params["ids"] = list(she_ids_filter)
     sql = f"""
         SELECT she_id, name, broadness_score,
                features->>'work_context' AS wc,
@@ -71,7 +79,7 @@ def fetch_pending(db, limit: int = 0, exclude_other: bool = True) -> list[dict]:
     """
     if limit:
         sql += f" LIMIT {limit}"
-    rows = db.execute(text(sql)).fetchall()
+    rows = db.execute(text(sql), params).fetchall()
     return [{"she_id": r[0], "name": r[1], "broadness_score": r[2], "wc": r[3], "at": r[4]} for r in rows]
 
 
@@ -189,14 +197,24 @@ def main() -> int:
     parser.add_argument("--batch-size", type=int, default=5)
     parser.add_argument("--max-batches", type=int, default=0, help="0 = no cap")
     parser.add_argument("--include-other", action="store_true", help="include SHE with wc='OTHER' or at='OTHER' (catch-all 위험)")
+    parser.add_argument("--only-from-review-json", type=str, default=None,
+                        help="path to pending_review_she_REVIEWED.json; restrict promote to rows with decision='approve'")
     args = parser.parse_args()
     if not (args.list or args.dry_run or args.apply):
         args.dry_run = True
 
+    # Manual review filter (T4 #1 후속): restrict to approve-only she_ids
+    she_ids_filter = None
+    if args.only_from_review_json:
+        review = json.loads(Path(args.only_from_review_json).read_text(encoding="utf-8"))
+        approved = [r["she_id"] for r in review.get("rows", []) if r.get("decision") == "approve"]
+        she_ids_filter = approved
+        print(f"[manual-review filter] approve she_ids: {len(approved)} (from {args.only_from_review_json})")
+
     from app.db.database import SessionLocal
     db = SessionLocal()
     try:
-        pending = fetch_pending(db, exclude_other=not args.include_other)
+        pending = fetch_pending(db, exclude_other=not args.include_other, she_ids_filter=she_ids_filter)
         n = len(pending)
         filter_note = " (wc/at='OTHER' 제외)" if not args.include_other else " (전체)"
         print(f"pending_review SHE{filter_note}: {n}")
