@@ -1634,11 +1634,11 @@
     rdfs:domain <https://cashtoss.info/ontology/law#NormStatement> ;
     rdfs:range <https://cashtoss.info/ontology/law#Article> .
 
-<https://cashtoss.info/ontology/law#modifies> a owl:AsymmetricProperty,
-        owl:ObjectProperty ;
+<https://cashtoss.info/ontology/law#modifies> a owl:ObjectProperty ;
     rdfs:label "수정 대상"@ko ;
     rdfs:domain <https://cashtoss.info/ontology/law#NormStatement> ;
-    rdfs:range <https://cashtoss.info/ontology/law#NormStatement> .
+    rdfs:range <https://cashtoss.info/ontology/law#NormStatement> ;
+    rdfs:comment "Phase G Tier 4: AsymmetricProperty annotation removed to fix Openllet 'FunInv' conversion failure (inverseOf law:modifiedBy + AsymmetricProperty 충돌). Semantic loss minimal — modifications are unidirectional by data convention."@en .
 
 <https://cashtoss.info/ontology/risk#RiskPattern> a owl:Class ;
     rdfs:label "위험 패턴"@ko ;

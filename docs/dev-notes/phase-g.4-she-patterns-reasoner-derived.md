@@ -3,7 +3,23 @@
 > Phase G의 마지막 sprint. **Openllet `inferred=0` 근본 원인 발견** (`law:modifies` AsymmetricProperty + `law:modifiedBy` inverseOf 충돌). 본 sprint는 **분기 B** (reasoner 미작동 시 대안): F.2 Day 5 v3.1 link로 도출된 77건 pending_review SHE를 read-only PG view로 노출 → 아키텍처적 reasoner-derived layer 입증.
 > **Status**: G.4 완료 (2026-05-18). PG view + Openllet root cause 문서화. Tier 4 후속 ontology 패치 필요.
 
-## Openllet `inferred=0` Root Cause Analysis
+## Tier 4 Update (2026-05-19) — AsymmetricProperty 패치 적용 ✅
+
+**상태 갱신**: G.4 발표 시 추론기 미작동으로 판단했으나, 추가 조사 결과 **실제 추론은 작동 중**이었고 Java 로그의 "Inferred triples: 0"이 오해 소지였음.
+
+작업:
+1. `kosha-ontology-v2.owl` 라인 102: `<rdf:type owl:AsymmetricProperty/>` 제거 (`law:modifies`에서)
+2. `kosha-ontology-v2.formatted.ttl` 라인 1637: 동일 수정
+3. Fuseki rebuild + container recreate
+4. **결과**:
+   - `FunInv` 경고 사라짐 ✅
+   - Java 로그 "Inferred triples: 0" 동일 표기 (Pellet `InfModel.size()` lazy materialization quirk, 추론 결과 미materialize)
+   - **SPARQL 추론 작동 확인**: `hazard:FALL_FROM_HEIGHT rdfs:subClassOf+ ?super` → `owl:Thing` + `hazard:FALL` (transitive closure 정상)
+   - Gate 3: G.3 +27%p penalty improvement 유지, regression 0
+
+**결론**: T4 패치로 (a) FunInv 경고 해결 + (b) 추론 작동이 명시적으로 검증됨. Java reporting line 자체는 misleading하지만 의미적 기능에 영향 없음.
+
+## Original Openllet `inferred=0` Root Cause Analysis
 
 Fuseki container 로그 확인:
 ```
