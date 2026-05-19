@@ -56,9 +56,9 @@ reasoner 추론 결과를 PG로 적재
 | LLM 종류 | 6단계 안정화 후 | 이유 |
 |---|---|---|
 | **Vision LLM** (gpt-4.1) | 🔵 **영구 유지** | reasoner 영역 밖 (AI 인식). Tier 3.A (2026-05-18) 이후 schema enum 강제로 자율도 줄어들었지만 영상 인식은 LLM 영역 |
-| **Phase B LLM rerank** (gpt-5.4-nano, 회색영역) | 🟡 **점진 폐지** | OWL DisjointClasses + SHACL이 같은 일 deterministic 수행. **T2.A shadow_reasoner runtime (2026-05-18, `93c49fe`)이 같은 일을 deterministic하게 수행하기 시작 — 점진 폐지 한 걸음 진전** |
-| **5번 LLM enrichment** (`guide_domain_profiles.json` lookup) | 🟢 **폐지** | OWL TBox + SWRL이 같은 일 정형화. **T2.B kb-candidates.ttl (2026-05-18, `ac98d4c`)에 vetted 8 axiom + candidate 2192 axiom이 OWL/SHACL TTL로 정형화됨 — Fuseki에 적용 완료** |
-| **Phase C self-refine** (자동 신규 페어 mining) | 🟡 **유지** | 새 도메인/사진 추가 시 자율 학습 가치 영구 (Layer 4.7). **T2.C f3_drift_check + Makefile f3-weekly-cycle (2026-05-18, `78886b3`)이 cron-able 운영 패턴 정립** |
+| **Phase B LLM rerank** (gpt-5.4-nano, 회색영역) | 🟡 **점진 폐지** | OWL DisjointClasses + SHACL이 같은 일 deterministic 수행. **T2.A shadow_reasoner runtime (2026-05-18) → G.1 PG primary 전환 (2026-05-19, `d6b4589`)** — 2,016 PG rows 실서비스 적용. |
+| **5번 LLM enrichment** (`guide_domain_profiles.json` lookup) | 🟢 **폐지 중 (Phase G.2)** | **Phase G.2 (`2f7ef92`): guide_domain_profiles.json → PG `guide_usage_profiles` (1,038 rows) + `guide:GuideUsageProfile` 신규 OWL class.** Backend `guide_domain_profile.py` PG primary. JSON은 fallback only. |
+| **Phase C self-refine** (자동 신규 페어 mining) | 🟡 **유지** | 새 도메인/사진 추가 시 자율 학습 가치 영구 (Layer 4.7). T2.C f3_drift_check + Makefile f3-weekly-cycle (`78886b3`) cron-able 패턴 정립. **Phase G + T4 #3 SWRL (2026-05-19, `448a8d0`): Pellet reasoner-derived facts 검증 (R-1: 107 + R-3: 3,579 inferred) ⭐** — 추가 rule fired triples 자동 추론 가능. |
 
 ## 7단계 PG 재물질화 — 구체적 대상
 
@@ -66,7 +66,10 @@ reasoner 추론 결과를 PG로 적재
 |---|---|
 | `she_patterns` | 수백 개 → **수천 개+** (reasoner 추론 신규 패턴) |
 | `guide_usage_profiles` | JSON lookup → **PG SELECT** |
-| `guide_domain_incompatibilities` (신규) | JSON (vetted 2,232 + **8 T2.D vetted = 2,240** + candidate 2,192 별도 layer) → **PG SELECT**. T2.B `kb-candidates.ttl` 2,192 SHACL shapes (sh:Info)는 별도 shadow layer로 Fuseki에 적용됨 (SPARQL 검증). |
+| `guide_domain_incompatibilities` ✅ (G.1 완료) | JSON → **PG 2,016 rows materialized** (Phase G.1, `d6b4589`). shadow_reasoner.py PG primary + JSON fallback. ontology `core:Incompatibility` n-ary class (kosha-ontology-v3-incompat-patch.ttl). |
+| `guide_usage_profiles` ✅ (G.2 완료) | 기존 PG 1,038 rows + ontology 신규 class `guide:GuideUsageProfile` (G.2, `2f7ef92`). guide_domain_profile.py PG primary. |
+| `penalty_rule_index` ✅ (G.3 완료) ⭐ | kosha-instances.ttl → PG 4,076 SR→PenaltyRule mappings (Phase G.3, `8ddc2c7`). hazard_rule_engine._load_penalty_index PG primary. **penalty_accuracy +27.16%p, overall +18.81%p**. |
+| `she_patterns_reasoner_derived` ✅ (G.4 완료) | PG view (77 pending_review SHE 노출, F.2 v3.1 link derived). Read-only. Future matcher integration 별도 sprint. |
 | `ci_sr_mapping` | 일부만 → **추론 확장** |
 | `penalty_rules` / `penalty_conditions` | 수동 정의 → **자동 도출** (deontic chain) |
 | `she_visual_triggers` | 일부 → **확장** |

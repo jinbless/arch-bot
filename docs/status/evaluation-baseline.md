@@ -1,12 +1,57 @@
 # Evaluation Baseline
 
-Latest updated: 2026-05-18 (T2.D 8/8 vetted promotion + Tier 3.A closed vocab enum 76→4)
+Latest updated: 2026-05-19 — **Phase G PG materialization (penalty_accuracy +27.16%p ⭐) + Tier 4 SWRL Pellet (R-1: 107 + R-3: 3,579 inferred ⭐)**.
 
 Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
 Previous accepted baseline: `ci_unrelated_action_filter1`
 
 The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are local/external artifacts. Root git tracks `data-team/05-enrichment/eval-data/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## Phase G.3 penalty_rule_index PG materialization — 2026-05-19 (penalty_accuracy +27.16%p ⭐)
+
+Phase G Sprint G.3에서 신규 PG table `penalty_rule_index` 도입 + `hazard_rule_engine._load_penalty_index()` PG primary 전환. TTL parse 우회 + 더 완전한 mapping으로 인한 metric 대폭 개선.
+
+Input:
+- Source: `ontology-team/06-reasoning/ontology/kosha-instances.ttl` (TTL ABox, 1.06M lines)
+- Target: PG `penalty_rule_index` (14 cols + 4 indexes, ORM `PgPenaltyRuleIndex`)
+- 적재 script: `import_penalty_to_pg.py` (rdflib parse → UPSERT)
+- Result: **4,076 unique (sr_id, penalty_rule_id) pairs** (100% CriminalSanction; AdministrativeFine는 design intent로 0건)
+
+Gate 3 결과 (vs `replay_baseline_v3.json`):
+
+| metric | baseline_v3 | Phase G.3 PG | delta | verdict |
+|---|---|---|---|---|
+| she_accuracy | 0.5771 | 0.5758 | -0.0013 | ok (noise) |
+| sr_accuracy | 0.7581 | 0.7581 | 0.0000 | ok |
+| **penalty_accuracy** | **0.1835** | **0.4551** | **+0.2716 (+27.16%p) ⭐** | ok |
+| **overall_accuracy** | **0.1377** | **0.3258** | **+0.1881 (+18.81%p) ⭐** | ok |
+| false_positive_rate | 0.8696 | 0.8696 | 0.0000 | ok |
+| false_negative_rate | 0.0625 | 0.0436 | -0.0189 | ok (개선) |
+
+**효과 설명**: 기존 backend는 `_load_penalty_index()`가 `kosha-instances.ttl` parse (시작 시간 ~25초, lazy materialization으로 일부 사실 누락). PG 전환 후 4,076 mappings 모두 즉시 query 가능 → backend가 정확한 SR→penalty 경로 더 많이 발견.
+
+Phase G.3 runbook: [phase-g.3-penalty-rule-index-pg.md](../dev-notes/phase-g.3-penalty-rule-index-pg.md).
+
+## Tier 4 #3 SWRL Pellet 실행 검증 — 2026-05-19 (R-1: 107 + R-3: 3,579 inferred ⭐)
+
+기존 `kosha-rules-v2.swrl` (22+8 pseudo-code rules, 의사코드 문서)를 OWL/RDF SWRL serialization으로 변환 (`kosha-rules-r1-r3-swrl.ttl`, R-1 + R-3 우선). Pellet/Openllet native SWRL 실행 검증.
+
+Input:
+- `kosha-rules-r1-r3-swrl.ttl` (+76 triples, R-1 ExemptedByRule + R-3 HighSeverityRule)
+- KoshaFusekiServer.java sources에 추가 → docker rebuild → container recreate
+- Fuseki 부팅 시 자동 로드 (총 981,485 triples, 이전 981,409 + 76)
+
+SPARQL 검증 결과:
+
+| SWRL Rule | 추론 결과 | Sanity check |
+|---|---|---|
+| **R-1 exemptedBy** | `?s core:exemptedBy ?o` → **107 inferred triples** | NormStatement modifies + Exemption modality 매칭 |
+| **R-3 HighSeverityPenalty** | `?s a penalty:HighSeverityPenalty` → **3,579 inferred** | `severityScore >= 5` count도 정확히 **3,579** (Pellet swrlb:greaterThanOrEqual 100% 정확) |
+
+**의미**: Pellet의 SWRL built-in support 입증. 의사코드 문서가 실제 추론 가능 facts로 변환됨. 후속 sprint에서 R-2~R-30 일괄 변환 가능.
+
+Tier 4 #3 runbook: [t4-swrl-pellet-integration.md](../dev-notes/t4-swrl-pellet-integration.md).
 
 ## T2.D F.3.2 vetted promotion — 2026-05-18 (8/8 candidates 1-by-1 PASS)
 

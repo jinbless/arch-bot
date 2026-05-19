@@ -35,50 +35,92 @@ def _find_root() -> Path:
 REPO = _find_root()
 DOCS_DIR = REPO / "docs"
 
-# Session commits (Tier 1 재포함 + T2.A/B/C/D + T3.A)
+# Session commits (Tier 1 재포함 + T2.A-D + T3.A + Phase G.1-4 + Tier 4 후속)
 SESSION_COMMITS = {
+    # 이전 sweep (985b46f / 673de43까지)
     "93c49fe": "T1.A/T1.C 재포함 + T2.A pyshacl reasoner shadow",
     "78886b3": "T2.B/C/D scripts + Makefile f3-*",
     "ac98d4c": "T2.D 8/8 PASS + T2.B Java edit",
     "606b91f": "T3.A schema enum 529 codes",
     "325ad37": "Merge — Tier 2",
     "b237e78": "Merge — Tier 3.A",
+    # Phase G + Tier 4 (이번 sweep 추가)
+    "b9de6f0": "Phase G.1 PG materialization",
+    "d6b4589": "Merge — Phase G.1",
+    "2f7ef92": "Phase G.2 GuideUsageProfile + PG",
+    "8ddc2c7": "Phase G.3 penalty_rule_index PG (+27.16%p)",
+    "434f35f": "Phase G.4 reasoner-derived view + Openllet 분석",
+    "5ee1709": "Merge — Phase G.2-4",
+    "03f6afe": "T4 AsymmetricProperty 패치",
+    "5edae0b": "Merge — T4 fix",
+    "1bacd44": "T4 #4 Pellet reporting",
+    "70d2862": "T4 #1-3 + SWRL Pellet",
+    "448a8d0": "Merge — T4 #1-4",
 }
 
 # 신규 scripts (이번 세션 산출, 최소 1개 doc에서 참조 필수)
 NEW_SCRIPTS = [
+    # Tier 1-3.A
     "pyshacl_shadow_validator",
     "shadow_reasoner",
     "compile_kb_to_ttl",
     "f3_drift_check",
     "promote_f32_per_candidate",
     "_migrate_embedding_cache_to_npz",
+    # Phase G + T4
+    "import_domain_incompatibilities_to_pg",
+    "import_penalty_to_pg",
+    "sample_query_equality",
+    "bench_shadow_reasoner",
 ]
 
 # 신규 docs (이번 세션 산출, 링크 유효성 검증 대상)
 NEW_DOCS = [
+    # Tier 1-3.A
     "docs/dev-notes/F.3-axiom-discovery.md",
     "docs/dev-notes/T3.A-closed-vocab-schema-enum.md",
     "docs/status/t2d-per-candidate-promotion-2026-05-18.md",
     "docs/status/t3a-closed-vocab-schema-enum-2026-05-18.md",
+    # Phase G + T4
+    "docs/dev-notes/phase-g.1-domain-incompatibilities-pg.md",
+    "docs/dev-notes/phase-g.2-guide-usage-profiles-pg.md",
+    "docs/dev-notes/phase-g.3-penalty-rule-index-pg.md",
+    "docs/dev-notes/phase-g.4-she-patterns-reasoner-derived.md",
+    "docs/dev-notes/t4-administrative-fine-scope-decision.md",
+    "docs/dev-notes/t4-77-she-matcher-integration-decision.md",
+    "docs/dev-notes/t4-swrl-pellet-integration.md",
 ]
 
 # 핵심 metric (모든 관련 doc에서 동일 값 명시)
 METRIC_EXPECTATIONS = [
     # (metric_name, regex, min_occurrences, expected_text)
+    # Tier 1-3.A
     ("T3.A free-create 감소율", r"76\s*[→\-]\s*4|94\.7\s*%", 3, "76→4 또는 94.7% 명시"),
     ("T2.D PASS 수", r"8\s*/\s*8\s*PASS|8/8\s+candidates?", 3, "8/8 PASS 명시"),
     ("Fuseki SPARQL NodeShapes", r"2[,.]?216\s+(?:Node)?[Ss]hapes?", 2, "2216 NodeShapes 명시"),
     ("kb-candidates.ttl shapes", r"2[,.]?192\s+(?:SHACL\s+)?(?:Node)?[Ss]hapes?", 2, "2192 shapes 명시"),
+    # Phase G + T4
+    ("Phase G.3 penalty_accuracy 개선", r"\+?27\.16\s*%p?|0\.2716", 3, "+27.16%p 또는 0.2716 명시"),
+    ("SWRL R-3 inferred count", r"3[,.]?579", 3, "3,579 HighSeverityPenalty"),
+    ("SWRL R-1 inferred count", r"\b107\b.*(?:exemptedBy|inferred|R-1)|R-1.*\b107\b", 2, "107 exemptedBy 명시"),
+    ("guide_domain_incompat PG rows", r"2[,.]?016\s+rows?", 2, "2,016 PG rows"),
+    ("penalty_rule_index PG rows", r"4[,.]?076", 2, "4,076 rules"),
 ]
 
 # 완료 마커 (workplan에서)
 COMPLETION_MARKERS = [
+    # Tier 1-3.A
     ("F.3.1", r"F\.3\.1.*✅"),
     ("F.3.4", r"F\.3\.4.*✅"),
     ("F.3.5", r"F\.3\.5.*✅"),
     ("Tier 3.A", r"Tier\s*3\.A.*✅"),
     ("T2.D", r"T2\.D.*(?:✅|8/8)"),
+    # Phase G + T4
+    ("Phase G.1", r"Phase\s*G\.1.*✅"),
+    ("Phase G.2", r"Phase\s*G\.2.*✅"),
+    ("Phase G.3", r"Phase\s*G\.3.*✅"),
+    ("Phase G.4", r"Phase\s*G\.4.*✅"),
+    ("Tier 4 #3 SWRL", r"(?:T(?:ier)?\s*4\s*#?3|Tier\s*4\s*fix).*✅"),
 ]
 
 
@@ -217,8 +259,9 @@ def check_latest_updated() -> tuple[int, list[str]]:
     findings: list[str] = []
     severity = 0
     targets = [
-        ("docs/status/current-session.md", r"최신\s*갱신일.*2026-05-18"),
-        ("docs/status/evaluation-baseline.md", r"Latest\s+updated.*2026-05-18"),
+        # 검증 대상: 최신 sweep 기준 (Phase G + T4) 또는 직전 sweep (Tier 1-3.A) 모두 PASS
+        ("docs/status/current-session.md", r"최신\s*갱신일.*2026-05-(18|19)"),
+        ("docs/status/evaluation-baseline.md", r"Latest\s+updated.*2026-05-(18|19)"),
     ]
     for rel, pattern in targets:
         f = REPO / rel
