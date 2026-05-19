@@ -164,6 +164,14 @@ asymmetric trust → TBox candidate class 등재
 - 4-Gate 검증: Gate 1 embedding pre-filter (mine 단계), Gate 2 LLM verify ✅,
   Gate 3 regression ✅, Gate 4 asymmetric trust (`level=candidate`, 50회 후 자동 승격)
 
+**Phase G + Tier 4 후속 완료 (2026-05-19, main `448a8d0`)** — Layer 4.4 **reasoner-derived facts 실제 입증**:
+
+- **Phase G.3** (`8ddc2c7`): kosha-instances.ttl → PG `penalty_rule_index` (4,076 rules) → backend PG SELECT. **penalty_accuracy +27.16%p ⭐** (TTL parse 우회 + 완전 mapping)
+- **Tier 4 AsymmetricProperty 패치** (`5edae0b`): `law:modifies`의 `owl:AsymmetricProperty` 제거로 Openllet `FunInv` 경고 해소 + SPARQL 추론 정상 검증 (`hazard:FALL_FROM_HEIGHT rdfs:subClassOf+ ?super` → `owl:Thing` + `hazard:FALL`)
+- **Tier 4 #3 SWRL Pellet** (`448a8d0`) ⭐: `kosha-rules-r1-r3-swrl.ttl` (OWL/RDF SWRL) → Pellet native 실행 → **R-1 exemptedBy 107 inferred + R-3 HighSeverityPenalty 3,579 inferred** (severityScore >= 5 100% 일치, swrlb:greaterThanOrEqual built-in 정확)
+
+→ Layer 4 Module 4.4 = **mining → verify → compile → reason → PG → 서비스** 전체 흐름 실제 동작 검증 완료.
+
 **Tier 2 F.3 closing 완료 (2026-05-18 저녁, main `b237e78`)** — Layer 4.4 closed loop:
 
 ```
@@ -301,12 +309,20 @@ monitor (T2.C f3_drift_check.py)   ←   deploy (Fuseki container restart + SPAR
 | **T2.C F.3.5** | **4.7** | **Drift detection + Makefile f3-weekly-cycle** | ✅ 완료 (2026-05-18, `78886b3`) |
 | **T2.D** | **4.4** | **F.3.2 8 candidates 1-by-1 vetted promotion** | ✅ 완료 (2026-05-18, `ac98d4c`, 8/8 PASS) |
 | **Tier 3.A** | **4.1/4.2** | **Closed Vocab Schema Enum (Layer 0 catalog enforce)** | ✅ 완료 (2026-05-18, `b237e78`, 76→4 -94.7%) |
-| F.4 | 4.5 | CQ Reverse + Photo persist + SPARQL coverage 회복 | ⏳ Tier 3 후속 (3B) |
-| F.5 | 4.6 | GraphRAG (Salovsky Dual Memory) | ⏳ Tier 4 |
-| F.6 | 4.7 | Continual Adaptation 확장 | ⏳ Tier 4 |
-| F.7 | (전체) | Small model fine-tune (Aggarwal Dolphin-Mistral-7B) | ⏳ Tier 4 |
-| F.8 (Phase J) | (전체) | OBO Foundry/IOF 등재 + LegalRuleML | ⏳ Tier 4 |
-| **Phase G** | (7단계) | PG materialization (5 tables) | ⏳ Tier 3 후속 (3C) |
+| **Phase G.1** | **4.3/4.4** | **guide_domain_incompatibilities PG (2,016 rows) + core:Incompatibility ontology** | ✅ 완료 (2026-05-19, `d6b4589`) |
+| **Phase G.2** | **4.2/4.3** | **guide_usage_profiles PG + guide:GuideUsageProfile ontology (가장 큰 갭 해결)** | ✅ 완료 (2026-05-19, `2f7ef92`) |
+| **Phase G.3** | **(7단계)** | **penalty_rule_index PG (4,076 rules) — penalty_accuracy +27.16%p ⭐** | ✅ 완료 (2026-05-19, `8ddc2c7`) |
+| **Phase G.4** | **4.4/4.7** | **she_patterns_reasoner_derived view + Openllet 분석** | ✅ 완료 (2026-05-19, `434f35f`) |
+| **Tier 4 fix** | **4.4** | **AsymmetricProperty 패치 → Openllet SPARQL 추론 정상 검증** | ✅ 완료 (2026-05-19, `5edae0b`) |
+| **Tier 4 #3** | **4.4** | **SWRL Pellet 실행기 통합 (R-1: 107 + R-3: 3,579 inferred ⭐)** | ✅ 완료 (2026-05-19, `448a8d0`) |
+| F.4 | 4.5 | CQ Reverse + Photo persist + SPARQL coverage 회복 | ⏳ Tier 4 중장기 |
+| F.5 | 4.6 | GraphRAG (Salovsky Dual Memory) | ⏳ Tier 4 중장기 |
+| F.6 | 4.7 | Continual Adaptation 확장 | ⏳ Tier 4 중장기 |
+| F.7 | (전체) | Small model fine-tune (Aggarwal Dolphin-Mistral-7B) | ⏳ Tier 4 중장기 |
+| F.8 (Phase J) | (전체) | OBO Foundry/IOF 등재 + LegalRuleML | ⏳ 별도 plan (사용자 명시) |
+| **R-4~R-30 SWRL 변환** | 4.4 | 의사코드 → OWL/RDF SWRL serialization 일괄 | ⏳ T4 #3 후속 |
+| **SHE matcher broadness-aware refactor** | 4.4 | 77 pending_review SHE 통합 가능 | ⏳ T4 #1 후속 |
+| **OSHA admin penalty Pipe-A 확장** | (Pipe-A) | 제175조 administrative fines 추출 | ⏳ T4 #2 후속 |
 
 ## 즉시 적용 권장 (ROI 큼)
 

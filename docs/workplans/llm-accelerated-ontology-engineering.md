@@ -4,7 +4,7 @@
 > 임시 plan 파일(`.claude/plans/workplan-...md`)에서 정식 git 추적 문서로 이전됨.
 > 향후 모든 Phase 결정의 기준.
 
-## Status (2026-05-18 저녁 갱신 — Tier 1-3.A 완료)
+## Status (2026-05-19 갱신 — Phase G + Tier 4 완료, origin/main 동기화 `448a8d0`)
 
 | Phase | 상태 | 비고 |
 |---|---|---|
@@ -29,8 +29,17 @@
 | **T2.C F.3.5 cron + drift detection** | ✅ 완료 | `f3_drift_check.py` + Makefile `f3-weekly-cycle`, commit `78886b3` |
 | **T2.D F.3.2 vetted promotion** | ✅ 완료 | 8/8 PASS 1-by-1 + Gate 3 wrap (예상 5-6 대비 100%), commit `ac98d4c` |
 | **Tier 3.A Closed Vocab Schema Enum** | ✅ 완료 | `ONTOLOGY_OBSERVATION_SCHEMA.risk_feature_candidates.text` 529 codes enum, free-creates 76→4 (-94.7%), commit `b237e78` |
-| F.4 (CQ Reverse, Module 4.5) | ⏳ 후속 | 3-4주, Photo persist ORM 선행 필요 |
-| F.5-F.8 / Phase G | ⏳ 후속 | Tier 3 후속 path (3B/3C) 또는 Tier 4 (F.5 GraphRAG, Phase J OBO Foundry) |
+| **Phase G.1 PG materialization** | ✅ 완료 | `core:Incompatibility` ontology + `guide_domain_incompatibilities` PG (2,016 rows), feat commit `b9de6f0`, merge `d6b4589` |
+| **Phase G.2 GuideUsageProfile ontology + PG** | ✅ 완료 | ontology 가장 큰 갭 해결, 14 properties, commit `2f7ef92` |
+| **Phase G.3 penalty_rule_index PG** | ✅ 완료 ⭐ | 4,076 rules, **penalty_accuracy +27.16%p, overall +18.81%p**, commit `8ddc2c7` |
+| **Phase G.4 reasoner-derived view + Openllet 분석** | ✅ 완료 | `she_patterns_reasoner_derived` view (77 SHE) + Openllet `inferred=0` root cause, commit `434f35f` |
+| **Tier 4 AsymmetricProperty 패치** | ✅ 완료 | `law:modifies` owl:AsymmetricProperty 제거 → FunInv 경고 해소 + SPARQL 추론 검증, fix commit `03f6afe`, merge `5edae0b` |
+| **Tier 4 #4 Pellet reporting 명시화** | ✅ 완료 | `KoshaFusekiServer.java` `getDeductionsModel()` + lazy materialization 안내, commit `1bacd44` |
+| **Tier 4 #2 AdministrativeFine TTL enrichment** | 🟡 Skip | Design intent (RULE은 OSHA 38/39 위임으로 criminal-only). OSHA 175조 admin은 별도 Pipe-A 확장 후보 |
+| **Tier 4 #1 77 SHE matcher 통합** | 🟡 별도 sprint 이관 | 5 SHE batch → -7.07%p VETOED. matcher refactor 필요. rollback 정상 |
+| **Tier 4 #3 SWRL Pellet 실행기 통합** | ✅ 완료 ⭐ | R-1 exemptedBy: **107 inferred** + R-3 HighSeverityPenalty: **3,579 inferred** (severityScore ≥ 5와 100% 일치), commit `448a8d0` |
+| F.4 (CQ Reverse, Module 4.5) | ⏳ 후속 (Tier 4 중장기) | 3-4주, Photo persist ORM 선행 필요 |
+| F.5-F.8 (GraphRAG / Maintenance / fine-tune / OBO) | ⏳ 후속 (Tier 4 중장기) | Phase J OBO 별도 plan 예정 |
 
 ## Context
 
@@ -168,6 +177,41 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 - **`promote_f32_per_candidate.py` (T2.D, 2026-05-18)** — 1-by-1 + Gate 3 wrap (8/8 PASS)
 - **`_migrate_embedding_cache_to_npz.py` (T1.B 1회성, 2026-05-18)** — JSON → npz 95MB → 12MB
 
+### Phase G + Tier 4 산출 (2026-05-19)
+**PG sync scripts (`serving-team/07-materialization/pg-sync-scripts/`)**:
+- `schema_guide_domain_incompatibilities.sql` + `import_domain_incompatibilities_to_pg.py` (G.1, 2,016 rows)
+- `schema_penalty_rule_index.sql` + `import_penalty_to_pg.py` (G.3, 4,076 rules from TTL)
+- `schema_she_patterns_reasoner_derived.sql` (G.4 view, 77 SHE)
+
+**Validation/bench scripts**:
+- `serving-team/07-materialization/validation-scripts/sample_query_equality.py` (G.1 + G.2 sample equality)
+- `serving-team/08-app/backend/scripts/bench_shadow_reasoner.py` (G.1 latency bench)
+
+**Ontology TBox patches (`ontology-team/06-reasoning/ontology/`)**:
+- `kosha-ontology-v3-incompat-patch.ttl` (G.1, `core:Incompatibility` n-ary class)
+- `kosha-ontology-v3-guide-profile-patch.ttl` (G.2, `guide:GuideUsageProfile` class 신규)
+- `kosha-ontology-v3-penalty-relations-patch.ttl` (G.3, penalty relation properties)
+- `kosha-rules-r1-r3-swrl.ttl` (T4 #3, R-1 + R-3 SWRL OWL serialization)
+
+**Ontology v2 수정**: `kosha-ontology-v2.owl` + `.formatted.ttl` — `law:modifies`의 `owl:AsymmetricProperty` 제거 (T4 AsymmetricProperty 패치, FunInv 경고 해소).
+
+**Fuseki Java 수정**: `KoshaFusekiServer.java` sources array에 kb-candidates.ttl + kosha-rules-r1-r3-swrl.ttl 추가, Pellet `getDeductionsModel()` 명시 호출.
+
+**Backend code (PG primary 전환)**:
+- `app/services/shadow_reasoner.py` (G.1, JSON fallback 유지)
+- `app/services/guide_domain_profile.py` (G.2)
+- `app/services/hazard_rule_engine.py` (G.3 `_load_penalty_index_from_pg()`)
+
+**Backend ORM** (`app/db/models.py`): `PgGuideDomainIncompatibility`, `PgPenaltyRoute`, `PgPenaltyRuleIndex` (3 신규 classes).
+
+**Runbook + 결정 문서** (`docs/dev-notes/`):
+- `phase-g.{1,2,3,4}-*.md` (4 runbooks)
+- `t4-administrative-fine-scope-decision.md` (T4 #2 skip 결정)
+- `t4-77-she-matcher-integration-decision.md` (T4 #1 별도 sprint 이관)
+- `t4-swrl-pellet-integration.md` (T4 #3 SWRL 통합)
+
+**Manual review 자산**: `data-team/05-enrichment/runtime-artifacts/pending_review_she_for_manual_review.json` (77 SHE 8-axis + visual_triggers, T4 #1 후속용)
+
 ### Runtime artifacts (`data-team/05-enrichment/runtime-artifacts/`)
 - 모든 산출 JSON (CQ, layer assignment, disjoint, SHACL, OntoClean 등)
 - `analysis_log.jsonl` (2,536+ entries, A 신규 3 필드 포함 + **T2.A `reasoner_rejects` 필드**)
@@ -207,12 +251,21 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 | **T2.C F.3.5** | Cron + drift detection (`Makefile f3-weekly-cycle`) | SLR challenges | 1일 | ✅ 완료 (`78886b3`, f3_drift_check.py) |
 | **T2.D** | F.3.2 vetted promotion (1-by-1 + Gate 3 wrap) | 4-Gate | 1일 | ✅ 완료 (`ac98d4c`, 8/8 PASS) |
 | **Tier 3.A** | Closed Vocab Schema Enum (Layer 0 catalog enforce) | LLMs4OL TaskA | 1주 | ✅ 완료 (`b237e78`, 76→4 free-creates -94.7%) |
-| F.4 | CQ Reverse + SPARQL 회복 (Module 4.5) | RETROFIT-CQ 75% | 1주 + Photo persist | ⏳ Tier 3 후속 (3B) |
-| F.5 | GraphRAG 통합 (Module 4.6) | Salovsky Dual Memory | 2주 | ⏳ Tier 4 |
-| F.6 | Maintenance phase (Module 4.7) | SLR challenges #4 #5 | 영구 cron | ⏳ Tier 4 |
-| F.7 | Small model fine-tune | Aggarwal Dolphin-Mistral-7B | 2-3주 | ⏳ Tier 4 |
-| F.8 (Phase J) | OBO Foundry/IOF 등재 + LegalRuleML | SLR Lifecycle | 1-3개월 | ⏳ Tier 4 |
-| **Phase G** | 7단계 PG 재물질화 (Tier 3 후속 3C) | — | 3-4주 | ⏳ Tier 3 후속 (3C) |
+| **Phase G.1** | guide_domain_incompatibilities PG + `core:Incompatibility` ontology | — | 1주 | ✅ 완료 (`d6b4589`, 2,016 rows) |
+| **Phase G.2** | guide_usage_profiles PG + `guide:GuideUsageProfile` ontology (가장 큰 갭) | — | 1주 | ✅ 완료 (`2f7ef92`) |
+| **Phase G.3** | penalty_rule_index PG + penalty relations ontology | — | 1주 | ✅ 완료 ⭐ (`8ddc2c7`, +27.16%p) |
+| **Phase G.4** | she_patterns_reasoner_derived view + Openllet 분석 | — | 1주 | ✅ 완료 (`434f35f`) |
+| **Tier 4 fix** | AsymmetricProperty 패치 (Openllet `inferred=0` 근본 해결) | — | 0.5일 | ✅ 완료 (`5edae0b`) |
+| **Tier 4 #4** | Pellet inferred count reporting 명시화 | — | 0.5일 | ✅ 완료 (`1bacd44`) |
+| **Tier 4 #3** | SWRL Pellet 실행기 통합 (R-1 + R-3) | LLMs4Life Pellet SWRL | 1일 | ✅ 완료 ⭐ (`448a8d0`, R-1: 107 + R-3: 3,579 inferred) |
+| F.4 | CQ Reverse + SPARQL 회복 (Module 4.5) | RETROFIT-CQ 75% | 1주 + Photo persist | ⏳ 후속 (Tier 4 중장기) |
+| F.5 | GraphRAG 통합 (Module 4.6) | Salovsky Dual Memory | 2주 | ⏳ Tier 4 중장기 |
+| F.6 | Maintenance phase (Module 4.7) | SLR challenges #4 #5 | 영구 cron | ⏳ Tier 4 중장기 |
+| F.7 | Small model fine-tune | Aggarwal Dolphin-Mistral-7B | 2-3주 | ⏳ Tier 4 중장기 |
+| F.8 (Phase J) | OBO Foundry/IOF 등재 + LegalRuleML | SLR Lifecycle | 1-3개월 | ⏳ 별도 plan (사용자 명시) |
+| **R-4~R-30 SWRL 변환** | 의사코드 → OWL/RDF SWRL serialization 일괄 변환 | — | 1-2주 | ⏳ T4 후속 |
+| **SHE matcher broadness-aware refactor** | 77 pending_review SHE 통합 가능 | — | 1-2주 | ⏳ T4 #1 후속 |
+| **OSHA admin penalty Pipe-A 확장** | 제175조 administrative fines (6단계) 추출 | — | 4-6h | ⏳ T4 #2 후속 |
 
 ## 즉시 적용 권장 3가지 (ROI 큼)
 
@@ -237,7 +290,10 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 |---|---|
 | `she_patterns` | reasoner 추론 신규 패턴 (수백 → 수천) |
 | `guide_usage_profiles` | 현재 `guide_domain_profiles.json` → table |
-| `guide_domain_incompatibilities` (신규) | LLM-mined KB (vetted 2,232 + **8 F.3.2 T2.D vetted = 2,240**) → table. **kb-candidates.ttl** 2192 SHACL shapes (sh:Info) 별도 layer |
+| `guide_domain_incompatibilities` ✅ (G.1 완료) | LLM-mined KB (vetted 2,232 + 8 F.3.2 T2.D vetted = 2,240) → **PG 2,016 rows materialized** (Phase G.1, `d6b4589`). shadow_reasoner PG primary. kb-candidates.ttl 2,192 SHACL shapes (sh:Info) 병행 layer |
+| `guide_usage_profiles` ✅ (G.2 완료) | 기존 PG 1,038 rows + `guide:GuideUsageProfile` OWL class 신규 정의 (ontology 가장 큰 갭 해결). guide_domain_profile.py PG primary |
+| `penalty_rule_index` ✅ (G.3 완료) ⭐ | kosha-instances.ttl → PG 4,076 SR→PenaltyRule mappings. hazard_rule_engine PG primary. **penalty_accuracy +27.16%p** |
+| `she_patterns_reasoner_derived` ✅ (G.4 완료) | view (77 pending_review SHE 노출, F.2 v3.1 link derived). Future matcher integration 의사결정 별도 sprint |
 | `ci_sr_mapping` | reasoner 도출 정식 매핑 |
 | `penalty_rules` / `penalty_conditions` | deontic chain 추론 |
 
@@ -269,7 +325,7 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 
 ## 미해결 / 다음 세션 주의사항
 
-1. **이번 세션 모든 산출물 main 머지 완료** (Tier 1 재포함 `93c49fe` + T2.B/C/D `78886b3`/`ac98d4c` → main `325ad37` + Tier 3.A `b237e78`). 추가 commit 불필요.
+1. **이번 세션 모든 산출물 origin/main push 완료** (Phase G.1-4 `d6b4589`/`5ee1709` + T4 fix `5edae0b` + T4 #1-4 `448a8d0`). 19 commits ahead of previous origin/main, 모두 push 완료. main HEAD = `448a8d0`.
 2. **plan 임시 파일** (`.claude/plans/workplan-...md`)은 무시 가능 (이 정식 문서로 이전 완료)
 3. **Phase E.2 (Openllet 정식 통합) 완료** (commit `3520cab`). **T2.B에서 kb-candidates.ttl 추가** + Fuseki container restart + SPARQL 검증 완료 (2216 NodeShapes).
 4. **API 키 — 새 키 필요 시 `serving-team/08-app/backend/.env`에 갱신** (이전 5개 키는 사용자가 2026-05-17 회수 완료)

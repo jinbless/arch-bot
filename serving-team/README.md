@@ -26,7 +26,32 @@
 - 백엔드 서비스 구조: `08-app/backend/app/services/` (analysis_pipeline, hazard_normalizer, she_matcher, sr_lookup_service, guide_recommendation_service, penalty_path_service, **shadow_reasoner** 등)
 - 프런트 결과 패널: `08-app/frontend/src/components/results/` (RiskOverview / ImmediateActions / GuideProcedure / PenaltyPath / ReasoningTrace)
 
-## 최근 변경 (2026-05-18 저녁, main `b237e78`)
+## 최근 변경 (2026-05-19, origin/main `448a8d0`)
+
+**Phase G PG materialization 본격 적용** — 사용자 구조 step 4 "온톨로지화된 KB → PG 적재 → 실 서비스 자동 반영" 입증.
+
+**Backend services PG primary 전환** (3 services + 1 신규):
+- `app/services/shadow_reasoner.py` (Phase G.1, `d6b4589`): `guide_domain_incompatibilities` PG primary + JSON fallback (lazy module cache 유지)
+- `app/services/guide_domain_profile.py` (Phase G.2, `2f7ef92`): `guide_usage_profiles` PG primary + JSON fallback
+- `app/services/hazard_rule_engine.py:_load_penalty_index` (Phase G.3, `8ddc2c7`): TTL parse 우회 → PG `penalty_rule_index` (4,076 rules). **penalty_accuracy +27.16%p, overall +18.81%p**
+- `app/services/openai_client.py` (이전 Tier 3.A): catalog 529 codes enum
+
+**Backend ORM 신규** (`app/db/models.py`): `PgGuideDomainIncompatibility`, `PgPenaltyRoute`, `PgPenaltyRuleIndex`.
+
+**Fuseki + Ontology 변경**:
+- Fuseki container 신규 image (kb-candidates.ttl + kosha-rules-r1-r3-swrl.ttl 추가, 총 981,485 triples)
+- SWRL Pellet 실행기 검증: R-1 exemptedBy 107 inferred + R-3 HighSeverityPenalty 3,579 inferred ⭐
+
+**PG materialization 현황**:
+
+| PG table | rows | Phase G sprint | Backend service |
+|---|---|---|---|
+| `guide_domain_incompatibilities` | 2,016 | G.1 (`d6b4589`) | shadow_reasoner |
+| `guide_usage_profiles` | 1,038 (기존) | G.2 (`2f7ef92`) | guide_domain_profile |
+| `penalty_rule_index` | 4,076 | G.3 (`8ddc2c7`) | hazard_rule_engine._load_penalty_index |
+| `she_patterns_reasoner_derived` (view) | 77 | G.4 (`434f35f`) | (Future matcher integration) |
+
+## 이전 변경 (2026-05-18 저녁, main `b237e78`)
 
 신규 module:
 - **`app/services/shadow_reasoner.py`** (T2.A) — Layer 2.5 KB axiom shadow validate. lazy module cache (axioms + industry_ko→en + guide→domain), ~50μs/photo, best-effort never raises. F.3.2 vetted/candidate axiom으로 분석된 candidate guide의 shadow reject 후보 산출.
