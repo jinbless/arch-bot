@@ -320,15 +320,16 @@ main HEAD: `b237e78` (Tier 3.A merge), 직전 `325ad37` (Tier 2 merge).
 
 ### 다음 작업 우선순위 (T4 #1 후속 + moellab 비교 완료 후):
 
-**1순위: hazard-direct architecture pivot** ⭐ (moellab 비교 결과 기반, 별도 sprint plan 작성 필요):
+**1순위: hazard-direct architecture pivot** ⭐ (sprint plan 작성 완료, Phase 1 즉시 시작 가능):
+- 📄 **Plan: [docs/workplans/hazard-direct-architecture-pivot.md](../workplans/hazard-direct-architecture-pivot.md)** (3주, 5 Phase × 평균 5일)
 - 핵심 가설: Vision LLM이 위험요소(hazards) 자연어로 직접 출력 → 우리 ontology로 Guide 추천 → SHE matcher 의존도 본질 감소
 - moellab(우리 초안)의 GPT 직접 hazard 식별이 8/8 사진 / 37/37 합리적 (Step 2 SHE matcher -10.17%p VETOED와 대조)
 - Phase 1: HAZARD_DIRECT_SCHEMA + GPT prompt 갱신 (~3일)
-- Phase 2: hazard.name → catalog 529 codes alias 매핑 (T1.C 확장, ~1주)
-- Phase 3: hazards-based Guide 추천 layer (기존 SHE-based와 병행, ~1주)
-- Phase 4: 응답 schema 확장 (자연어 hazards + 기존 layer 동시 노출, ~3일)
-- Phase 5: A/B 검증 + Gate 3 + 정본 문서 갱신 (~3일)
-- 본 sprint plan 작성 (`docs/workplans/hazard-direct-architecture-pivot.md`) 자체가 다음 세션 우선 작업
+- Phase 2: hazard.name → catalog 529 codes alias 매핑 (T1.C 확장 + Sonnet 4.6 seed, ~1주, ~$0.20)
+- Phase 3: hazards-based Guide 추천 layer + A/B 검증 (parallel/primary/off mode, ~1주)
+- Phase 4: 응답 schema 확장 + Frontend `RiskOverviewPanel`/`HazardGuideRelationsPanel` (~3일)
+- Phase 5: Gate 3 통합 + 정본 문서 + Architectural debt 3가지 해소 (~3일)
+- 결정 완료: seed = Sonnet 4.6 자동 + 사용자 vetted / SHE matcher refactor = 후행 별도 sprint
 
 **2순위: SHE matcher broadness-aware refactor** (T4 #1 후속, 보조 track):
 - [she-matcher-broadness-refactor.md](../workplans/she-matcher-broadness-refactor.md) (7-day plan)
