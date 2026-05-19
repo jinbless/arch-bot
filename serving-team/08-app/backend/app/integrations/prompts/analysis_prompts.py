@@ -10,9 +10,31 @@ Additional context: {additional_context}
 Return only what is visible or strongly implied by visible evidence:
 - visual_observations: factual observations (한국어로 작성)
 - visual_cues: short matching cues such as missing guardrail, exposed cable, wet floor (한국어로 작성)
-- risk_feature_candidates: candidate accident type, hazardous agent, or work context (영문 enum 코드 그대로: FALL, SCAFFOLD 등)
+- hazards: 사진에서 직접 식별되는 위험요소 (자연어 카테고리, ⭐ Hazard-Direct pivot Phase 1)
+- risk_feature_candidates: candidate accident type, hazardous agent, or work context (영문 enum 코드 그대로: FALL, SCAFFOLD 등) — hazards[]와 병행 출력
 
-모든 user-facing 텍스트(observations, cues, descriptions)는 반드시 한국어로 작성. JSON 필드명과 enum 코드는 영어 유지.
+## hazards[] 작성 지침 (한국어 자연어)
+
+각 hazard 항목은 다음 요소를 포함:
+- name: 자연어 카테고리. 가급적 표준 라벨 사용:
+  '끼임/협착', '전도/미끄럼', '추락', '낙하물', '충돌', '감전',
+  '유해물질', '화재/폭발', '화상', '인간공학', '기계적위험',
+  '소음/진동', '온도극단', '폐쇄공간/질식'
+  (사진에 다른 명확한 위험이 보이면 자유 자연어 가능)
+- risk_level: high|medium|low (사진 단서 강도 + 노출 빈도 기반)
+- location: 사진 어디서 보이는지 (예: '컨베이어 벨트 우측', '작업자 발 밑')
+- description: 위험 상황 한 줄 설명 (한국어)
+- preventive_measures: 사진 context 기반 예방조치 권고 3-4개 (한국어)
+
+규칙:
+- 사진에 명확한 단서가 있을 때만 hazard 추가 (가설 금지)
+- 같은 사진에서 보통 3-5개 hazard 식별 (8 real-test-photo 평균 4.6)
+- preventive_measures는 PPE / 작업절차 / 환경통제 / 점검 등 다각도
+- name은 위험 발생 양상 자체 (사고형). PPE state 부족이나 환경 자체는 위험요소가 아님
+  (예: '안전모 미착용' → '낙하물' 또는 '추락' name; '안전모 미착용'은 description/preventive_measures에 기재)
+
+모든 user-facing 텍스트(observations, cues, hazards, descriptions, preventive_measures)는 반드시 한국어로 작성.
+JSON 필드명과 risk_feature_candidates enum 코드는 영어 유지.
 Do not choose legal articles, penalties, KOSHA guide numbers, or final violations."""
 
 TEXT_ANALYSIS_PROMPT = """Analyze the workplace description as an observation extractor.
@@ -24,7 +46,24 @@ Industry sector: {industry_sector}
 Return only observable facts and risk feature candidates:
 - visual_observations (한국어로 작성)
 - visual_cues (한국어로 작성)
-- risk_feature_candidates (영문 enum 코드 그대로)
+- hazards: 텍스트에서 식별되는 위험요소 (자연어 카테고리, ⭐ Hazard-Direct pivot Phase 1)
+- risk_feature_candidates (영문 enum 코드 그대로) — hazards[]와 병행 출력
+
+## hazards[] 작성 지침 (한국어 자연어)
+
+각 hazard 항목은 다음 요소를 포함:
+- name: 자연어 카테고리. 가급적 표준 라벨 사용:
+  '끼임/협착', '전도/미끄럼', '추락', '낙하물', '충돌', '감전',
+  '유해물질', '화재/폭발', '화상', '인간공학', '기계적위험',
+  '소음/진동', '온도극단', '폐쇄공간/질식'
+- risk_level: high|medium|low
+- location: 텍스트에 명시된 위치 (없으면 '미상')
+- description: 위험 상황 한 줄 설명 (한국어)
+- preventive_measures: context 기반 예방조치 권고 3-4개 (한국어)
+
+규칙:
+- 텍스트에 명확한 단서가 있을 때만 hazard 추가
+- preventive_measures는 PPE / 작업절차 / 환경통제 / 점검 등 다각도
 
 모든 user-facing 텍스트는 반드시 한국어로 작성. JSON 필드명과 enum 코드는 영어 유지.
 Do not choose legal articles, penalties, KOSHA guide numbers, or final violations."""

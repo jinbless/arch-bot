@@ -37,6 +37,47 @@ class ExcludedCandidate(BaseModel):
     source: str = "embedding"  # "embedding" | "llm"
 
 
+# ===== Hazard-Direct Pivot Phase 4 Day 1 ===== #
+# GPT가 자연어로 직접 출력한 hazards[] + hazard별 Guide 매핑.
+
+class HazardItem(BaseModel):
+    """⭐ Hazard-Direct Pivot — GPT 자연어 hazard 카테고리.
+
+    moellab 스타일 직관적 출력. preventive_measures는 사진 context 기반
+    권고 (법령 판단 아님). mapped_codes는 normalize_hazards_array의 audit.
+    """
+    name: str
+    risk_level: str = "medium"  # "high" | "medium" | "low"
+    location: str = ""
+    description: str = ""
+    preventive_measures: List[str] = []
+    mapped_codes: List[str] = []  # ["accident_type.FALL_FROM_HEIGHT", ...]
+
+
+class GuideRef(BaseModel):
+    """Hazard-Direct Pivot — hazard별 Guide 요약 (HazardGuideRelation 안)."""
+    guide_code: str
+    title: str
+    classification: Optional[str] = None
+    relevance_score: float = 0.0
+    mapping_type: str = "sr_ci_link"
+    ci_hit_count: int = 0
+    industry_alignment: Optional[str] = None
+    top_procedure_title: Optional[str] = None
+
+
+class HazardGuideRelation(BaseModel):
+    """⭐ Hazard-Direct Pivot — hazard별 관련 Guide 묶음."""
+    hazard_name: str
+    risk_level: str = "medium"
+    location: str = ""
+    description: str = ""
+    preventive_measures: List[str] = []
+    mapped_codes: List[str] = []
+    guides: List[GuideRef] = []
+    matched_sr_count: int = 0
+
+
 class AnalysisResponse(BaseModel):
     analysis_id: str
     analysis_type: str
@@ -53,6 +94,9 @@ class AnalysisResponse(BaseModel):
     finding_status: str = "not_determined"
     penalty_exposure_status: str = "no_penalty"
     excluded_candidates: List[ExcludedCandidate] = []
+    # ⭐ Hazard-Direct Pivot 신규 필드 (호환 default = []) — Phase 4 Day 1
+    hazards: List[HazardItem] = []
+    hazard_guide_relations: List[HazardGuideRelation] = []
     analyzed_at: datetime
 
     class Config:

@@ -483,3 +483,89 @@ def normalize_faceted_hazards(
         logger.info(f"[Normalizer] Alias 해석: {result['alias_resolved']}")
 
     return result
+
+
+# ===== Hazard-Direct Pivot Phase 2 Day 3-4 ===== #
+# GPT hazards[].name (자연어) → canonical (3축) 정규화.
+# hazard_name_seed.json + risk_feature_aliases.json tier1 재사용.
+
+
+def normalize_hazards_array(
+    hazards: list[dict],
+    context_text: str = "",
+) -> dict:
+    """⭐ Hazard-Direct Pivot — GPT hazards[].name 자연어 → canonical + unknown.
+
+    각 hazard 항목 ({name, risk_level, location, description, preventive_measures})에 대해:
+    1. hazard.name → _resolve_alias_code()로 axis별 매핑 (accident_type → hazardous_agent → work_context 순)
+    2. 매핑 성공: faceted dict의 해당 field에 누적
+    3. 매핑 실패: unknown_hazards에 보존 (closed loop F.1 Gate 1-2 후보)
+
+    이후 normalize_faceted_hazards()를 호출해 기존 canonical 결과 + tier2 context-conditional 부가 alias까지 통합.
+
+    Returns:
+        normalize_faceted_hazards() 결과 + 다음 신규 필드:
+          - hazard_name_to_codes: {hazard.name: ["axis.code", ...]}  (audit)
+          - unknown_hazards: [{name, risk_level, location, description}, ...]
+          - hazard_mapping_rate: float (0-1, hazards 중 매핑 성공 비율)
+    """
+    faceted: dict = {
+        "accident_types": [],
+        "hazardous_agents": [],
+        "work_contexts": [],
+        "forced_fit_notes": [],
+    }
+    unknown_hazards: list[dict] = []
+    hazard_to_codes: dict[str, list[str]] = {}
+    axis_field_map = {
+        "accident_type": "accident_types",
+        "hazardous_agent": "hazardous_agents",
+        "work_context": "work_contexts",
+    }
+    total = 0
+    matched = 0
+
+    for h in hazards or []:
+        name = (h.get("name") or "").strip()
+        if not name:
+            continue
+        total += 1
+        matched_axis = None
+        matched_code = None
+        for axis in ("accident_type", "hazardous_agent", "work_context"):
+            code = _resolve_alias_code(name, axis)
+            if code:
+                matched_axis = axis
+                matched_code = code
+                break
+        if matched_code:
+            matched += 1
+            field = axis_field_map[matched_axis]  # type: ignore[index]
+            if matched_code not in faceted[field]:
+                faceted[field].append(matched_code)
+            hazard_to_codes.setdefault(name, []).append(f"{matched_axis}.{matched_code}")
+        else:
+            unknown_hazards.append({
+                "name": name,
+                "risk_level": h.get("risk_level", ""),
+                "location": h.get("location", ""),
+                "description": h.get("description", ""),
+            })
+
+    canonical = normalize_faceted_hazards(faceted, context_text=context_text)
+    canonical["hazard_name_to_codes"] = hazard_to_codes
+    canonical["unknown_hazards"] = unknown_hazards
+    canonical["hazard_mapping_rate"] = (matched / total) if total > 0 else 0.0
+    canonical["hazard_total"] = total
+    canonical["hazard_matched"] = matched
+
+    if unknown_hazards:
+        logger.warning(
+            f"[HazardDirect] 매핑 불가 hazard.name: {[h['name'] for h in unknown_hazards]}"
+        )
+    if hazard_to_codes:
+        logger.info(
+            f"[HazardDirect] {matched}/{total} hazard mapped: {hazard_to_codes}"
+        )
+
+    return canonical

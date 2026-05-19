@@ -96,10 +96,65 @@ ONTOLOGY_OBSERVATION_SCHEMA = {
                     "additionalProperties": False,
                 },
             },
+            # ⭐ Hazard-Direct Pivot Phase 1 (2026-05-19) — hazards[] 신규 필드.
+            # GPT가 자연어 카테고리로 위험요소를 직접 식별 (moellab 스타일).
+            # 후속 hazard_normalizer.normalize_hazards_array()가 hazard.name → catalog
+            # code 매핑 (T1.C alias + F.1 Gate 1-2 closed loop 재사용). 기존
+            # risk_feature_candidates는 호환성/fallback으로 유지.
+            "hazards": {
+                "type": "array",
+                "description": (
+                    "Photo에서 직접 식별된 위험요소 자연어 카테고리. "
+                    "moellab 스타일 (예: '끼임/협착', '전도/미끄럼', '추락', '낙하물', "
+                    "'충돌', '감전', '유해물질', '화재/폭발', '화상', '인간공학'). "
+                    "preventive_measures는 사진 context 기반 권고 (법령 판단 금지)."
+                ),
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": (
+                                "자연어 hazard 카테고리. 가급적 다음 표준 라벨에서 선택: "
+                                "'끼임/협착', '전도/미끄럼', '추락', '낙하물', '충돌', "
+                                "'감전', '유해물질', '화재/폭발', '화상', '인간공학', "
+                                "'기계적위험', '소음/진동', '온도극단', '폐쇄공간/질식'. "
+                                "사진에 명확한 다른 위험이 보이면 자유 자연어 가능."
+                            ),
+                        },
+                        "risk_level": {
+                            "type": "string",
+                            "enum": ["high", "medium", "low"],
+                        },
+                        "location": {
+                            "type": "string",
+                            "description": "사진 어디서 보이는지 (예: '컨베이어 벨트 우측', '작업자 발 밑', '천장 전선').",
+                        },
+                        "description": {
+                            "type": "string",
+                            "description": "위험 상황 한 줄 설명 (한국어).",
+                        },
+                        "preventive_measures": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "사진 context 기반 예방조치 권고 (한국어, 법령 판단 금지).",
+                        },
+                    },
+                    "required": [
+                        "name",
+                        "risk_level",
+                        "location",
+                        "description",
+                        "preventive_measures",
+                    ],
+                    "additionalProperties": False,
+                },
+            },
             "risk_feature_candidates": {
                 "type": "array",
                 "description": "Candidate terms for risk:RiskFeature normalization. "
-                "text는 catalog enum (532 codes) 강제. axis-text 페어링은 LLM 신뢰.",
+                "text는 catalog enum (532 codes) 강제. axis-text 페어링은 LLM 신뢰. "
+                "hazard-direct pivot 후 hazards[]와 병행 (호환성/fallback).",
                 "items": {
                     "type": "object",
                     "properties": {
@@ -131,6 +186,7 @@ ONTOLOGY_OBSERVATION_SCHEMA = {
         "required": [
             "visual_observations",
             "visual_cues",
+            "hazards",
             "risk_feature_candidates",
             "overall_assessment",
             "immediate_actions",

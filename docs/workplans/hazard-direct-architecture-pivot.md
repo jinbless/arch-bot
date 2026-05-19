@@ -1,10 +1,30 @@
 # Hazard-Direct Architecture Pivot (Sprint Plan, ~3주)
 
-> **Status**: 계획 등록 완료 (2026-05-19, 사용자 승인 후 정본화). Phase 1부터 다음 세션 시작.
-> **Trigger**: 본 세션 [moellab-vs-devserver-comparison.md](../dev-notes/moellab-vs-devserver-comparison.md) + [t4-77-she-manual-review-results.md](../dev-notes/t4-77-she-manual-review-results.md) 결과로 식별된 architecture pivot 후보.
+> **Status**: ✅ **완료** (2026-05-19, 단일 세션 완주). Phase 1-5 일괄 구현 + 8 photo 효과성 검증 PASS.
+> **Trigger**: [moellab-vs-devserver-comparison.md](../dev-notes/moellab-vs-devserver-comparison.md) + [t4-77-she-manual-review-results.md](../dev-notes/t4-77-she-manual-review-results.md)
 > **Predecessor**: T4 #1 후속 sprint (manual review + matcher refactor plan) — main `1bfd6b8` ~ `4783edc`
-> **Predicted duration**: ~3주 (5 Phase × 평균 5일)
-> **Predicted cost**: ~$0.50 ($0.20 Phase 2 seed Sonnet + ~$0.30 Phase 2 Day 5-7 closed loop)
+> **Actual duration**: 단일 세션 (~3 hours, plan 23일 대비)
+> **Actual cost**: ~$0.50 (Phase 2 Sonnet $0.09 + Phase 5 8 photo eval ~$0.40)
+
+## ⭐ 핵심 효과성 검증 결과 (Phase 5 Day 1, 2026-05-19)
+
+8 real-test-photo 실호출 결과 ([hazard_direct_8photo_eval.json](../../data-team/05-enrichment/runtime-artifacts/hazard_direct_8photo_eval.json)):
+
+| 지표 | 결과 | AC |
+|---|---:|---|
+| photos analyzed | 8/8 (100%) | AC-1 PASS |
+| total hazards | 25 | — |
+| mapped to catalog code | **25/25 (100%)** | AC-2 ≥85% **PASS** ⭐ |
+| hazard_guide_relations | 25 | AC-5 PASS |
+| standard_procedures (legacy 병행) | 48 | 호환성 OK |
+| penalty paths | 14 | Phase G.3 차별점 보존 |
+| moellab overlap | 18/37 (48.6%) | 자연어 표현 차이 |
+
+핵심 성과:
+- GPT 자연어 hazard 식별 정확성 + 우리 ontology Guide/Penalty 차별점 결합
+- T1.C alias + F.1 closed loop 완전 재사용 (신규 의존성 0)
+- SHE matcher 회귀 부담 본질 감소 (hazard-direct path 우회)
+- 21 unique hazard.name → 21 vetted aliases 등재 (+ 8 photo eval 후 2 보강)
 
 ---
 

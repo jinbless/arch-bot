@@ -1,6 +1,30 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-19** — **Phase G PG materialization (G.1-4) + Tier 4 SWRL Pellet + T4 #1 후속 (manual review + matcher refactor plan) + moellab.info/ohs 위험요소 비교 분석**. 메인 HEAD `3502eff`, origin/main 동기화 완료.
+최신 갱신일: **2026-05-19** — **Phase G PG materialization (G.1-4) + Tier 4 SWRL Pellet + T4 #1 후속 + moellab 비교 + ⭐ Hazard-Direct Architecture Pivot 완주 (Phase 1-5 + 8 photo 효과성 검증 PASS)**. 메인 HEAD `d63e25a`, worktree HEAD `5256573` (8 commits ahead).
+
+## 🎯 Hazard-Direct Pivot — 단일 세션 완주 (2026-05-19) ⭐
+
+본 세션의 핵심 성과. 23일 plan을 단일 세션에서 완주:
+
+- **Phase 1 Day 1**: `ONTOLOGY_OBSERVATION_SCHEMA`에 `hazards[]` 추가 + 14개 표준 라벨 prompt (commit `acd2303`)
+- **Phase 2 Day 1**: `generate_hazard_name_seed.py` (Sonnet 4.6 자동 seed) (commit `7a17b47`)
+- **Phase 2-5 통합** (commit `7c97118`):
+  - Phase 2 Day 2-7: Sonnet 19/21 accepted + 2 manual override → 21 vetted alias 등재
+  - Phase 2 Day 3-4: `normalize_hazards_array()` 신규 함수 (hazard_normalizer.py)
+  - Phase 3 Day 1-3: `hazard_to_guide_service.py` + analysis_pipeline `HAZARD_DIRECT_MODE` 통합
+  - Phase 4 Day 1: `HazardItem` + `GuideRef` + `HazardGuideRelation` Pydantic + AnalysisResponse 확장
+  - **Phase 5 Day 1**: 8 real-test-photo 실호출 → **25/25 (100%) 매핑** ⭐ (AC-2 ≥85% **PASS**)
+- **Phase 4 Day 2** (commit `5256573`): Frontend `RiskOverviewPanel` 확장 + `HazardGuideRelationsPanel` 신규
+
+8 photo eval 핵심 수치:
+- 8/8 photos analyzed
+- 25 hazards / **25 mapped (100%)** / 25 relations
+- 48 standard_procedures (legacy 병행, 호환성 OK)
+- 14 penalty paths (Phase G.3 차별점 보존)
+- moellab overlap 18/37 (자연어 표현 차이)
+
+Sprint plan + 결과: [../workplans/hazard-direct-architecture-pivot.md](../workplans/hazard-direct-architecture-pivot.md)
+효과성 raw 데이터: [../../data-team/05-enrichment/runtime-artifacts/hazard_direct_8photo_eval.json](../../data-team/05-enrichment/runtime-artifacts/hazard_direct_8photo_eval.json)
 
 이전 갱신:
 - 2026-05-18 (저녁): Tier 1 재포함 + Tier 2 F.3 closing (T2.A-D) + Tier 3.A enum

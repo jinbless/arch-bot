@@ -1,0 +1,279 @@
+{
+  "generated_at": "2026-05-19T08:01:16.850385+00:00",
+  "model": "claude-sonnet-4-6",
+  "min_confidence": 0.8,
+  "source_photos": 8,
+  "unique_names": 21,
+  "total_occurrences": 37,
+  "accepted": 21,
+  "rejected": 0,
+  "mappings": [
+    {
+      "name": "낙하물",
+      "frequency": 4,
+      "axis": "accident_type",
+      "code": "FALLING_OBJECT",
+      "confidence": 0.97,
+      "reasoning": "'낙하물'은 위에서 물체가 떨어지는 사고 유형으로, accident_type 축의 FALLING_OBJECT(낙하물)와 의미가 정확히 일치함. 직접적인 한-영 대응이 명확함.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "끼임/협착",
+      "frequency": 3,
+      "axis": "accident_type",
+      "code": "ENTANGLEMENT",
+      "confidence": 0.95,
+      "reasoning": "'끼임/협착'은 신체 부위나 의복이 기계·장비에 끼이거나 협착되는 사고 유형으로, accident_type의 ENTANGLEMENT(끼임/말림)와 직접 대응됨. 8장 중 3회 등장으로 빈도도 높아 신뢰도 높음.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "감전",
+      "frequency": 3,
+      "axis": "accident_type",
+      "code": "ELECTRIC_SHOCK",
+      "confidence": 0.97,
+      "reasoning": "'감전'은 전기충격(Electric Shock)을 의미하는 한국어 표준 산업안전 용어로, accident_type 축의 ELECTRIC_SHOCK 코드와 정확히 일치함.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "추락",
+      "frequency": 2,
+      "axis": "accident_type",
+      "code": "FALL_FROM_HEIGHT",
+      "confidence": 0.9,
+      "reasoning": "'추락'은 한국 산업안전 용어로 높은 곳에서 떨어지는 사고를 의미하며, accident_type 축의 FALL_FROM_HEIGHT가 가장 직접적으로 대응됨. FALL, FALL_ON_GROUND 등도 후보이나 '추락'은 통상 고소작업에서의 낙하를 지칭하므로 FALL_FROM_HEIGHT가 최적.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "절단",
+      "frequency": 2,
+      "axis": "accident_type",
+      "code": "CUT",
+      "confidence": 0.92,
+      "reasoning": "'절단'은 신체 일부가 날카로운 도구나 기계에 의해 잘리는 사고 유형으로, accident_type의 CUT 코드와 직접 대응됨. BLADE_LACERATION이나 FINGER_AMPUTATION도 고려 가능하나, '절단'이라는 일반적 표현에는 CUT이 가장 포괄적으로 적합함.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "중량물 취급",
+      "frequency": 1,
+      "axis": "hazardous_agent",
+      "code": "HEAVY_OBJECT",
+      "confidence": 0.92,
+      "reasoning": "'중량물 취급'은 무거운 물체(heavy object)를 다루는 행위 자체가 위험 요인이므로 hazardous_agent 축의 HEAVY_OBJECT에 명확히 대응됨. accident_type의 ERGONOMIC도 후보이나, HEAVY_OBJECT가 더 직접적으로 중량물 자체를 지칭함.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "인간공학적 위험(부적절 자세)",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "ERGONOMIC",
+      "confidence": 0.92,
+      "reasoning": "'인간공학적 위험(부적절 자세)'은 ergonomic 위험으로, accident_type 축의 ERGONOMIC 코드와 명확히 일치. 부적절한 자세로 인한 근골격계 위험을 직접적으로 포괄하는 코드임.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "중량물",
+      "frequency": 1,
+      "axis": "hazardous_agent",
+      "code": "HEAVY_OBJECT",
+      "confidence": 0.92,
+      "reasoning": "'중량물'은 무거운 물체(heavy object)를 직접 지칭하는 자연어로, hazardous_agent 축의 HEAVY_OBJECT 코드와 명확히 일치함. 사고 유형이 아닌 위험 요인(물질/객체) 자체를 가리키므로 hazardous_agent 축이 적합.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "근골격계 부담작업",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "ERGONOMIC",
+      "confidence": 0.92,
+      "reasoning": "'근골격계 부담작업'은 반복적·부적절한 자세 등으로 인한 근골격계 손상 위험을 의미하며, accident_type의 ERGONOMIC 코드와 직접적으로 대응됨. ERGONOMIC은 인간공학적(근골격계) 부담 작업을 의미하는 코드로 명확히 일치.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "화재/폭발",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "FIRE_AND_EXPLOSION",
+      "confidence": 0.95,
+      "reasoning": "'화재/폭발'은 불(화재)과 폭발을 동시에 지칭하는 복합 사고유형으로, accident_type 축의 FIRE_AND_EXPLOSION 코드와 명확히 1:1 대응됨.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "화상",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "BURN",
+      "confidence": 0.95,
+      "reasoning": "'화상'은 한국어로 열, 불꽃, 화학물질 등에 의한 신체 손상을 의미하며, accident_type의 BURN 코드와 직접적으로 일치함. BURN은 가장 일반적인 화상 사고 유형을 나타냄.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "유해물질(세정제 등 화학물질)",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "CHEMICAL_EXPOSURE",
+      "confidence": 0.87,
+      "reasoning": "'유해물질(세정제 등 화학물질)'은 세정제를 포함한 화학물질에 의한 노출 사고를 지칭하며, accident_type의 CHEMICAL_EXPOSURE가 가장 포괄적으로 일치함. CHEMICAL_ACCIDENT_DUE_TO_IMPROPER_DETERGENT_USE도 후보이나 부적절한 사용이라는 특정 맥락이 명시되지 않아 CHEMICAL_EXPOSURE가 더 적합.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "인간공학적 위험",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "ERGONOMIC",
+      "confidence": 0.95,
+      "reasoning": "'인간공학적 위험'은 영어로 'Ergonomic hazard'에 해당하며, accident_type 축에 ERGONOMIC 코드가 명확히 존재함. 직접 대응되는 코드로 고신뢰 매핑 가능.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "충돌(지게차 등)",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "COLLISION",
+      "confidence": 0.95,
+      "reasoning": "'충돌(지게차 등)'은 지게차 등 차량/장비와의 충돌 사고를 의미하며, accident_type의 COLLISION 코드와 명확히 일치함. 지게차는 대표적인 충돌 위험 장비로, 추가 맥락(지게차 등)도 COLLISION의 전형적 사례임.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "중량물 취급(근골격계)",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "ERGONOMIC",
+      "confidence": 0.92,
+      "reasoning": "'중량물 취급(근골격계)'는 무거운 물건을 다루면서 발생하는 근골격계 부담 사고를 의미하며, accident_type의 ERGONOMIC 코드가 인간공학적/근골격계 위험을 포괄하는 코드로 가장 적합하게 대응됨. hazardous_agent의 HEAVY_OBJECT도 고려했으나, '근골격계'라는 결과(outcome) 측면이 명시되어 있어 사고형 분류가 더 적절.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "인간공학적 위험(불량자세)",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "ERGONOMIC",
+      "confidence": 0.92,
+      "reasoning": "'인간공학적 위험(불량자세)'는 인간공학적 위험(ERGONOMIC)에 해당하며, accident_type 축의 ERGONOMIC 코드와 명확히 일치. 불량자세는 인간공학적 위험의 대표적 사례.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "충돌",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "COLLISION",
+      "confidence": 0.97,
+      "reasoning": "'충돌'은 영어로 'COLLISION'이며, accident_type 축에 COLLISION 코드가 명확히 존재함. 직접적인 1:1 대응.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "절단/베임",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "CUT",
+      "confidence": 0.92,
+      "reasoning": "'절단/베임'은 날카로운 물체에 의한 절단(cut) 또는 베임(laceration) 사고를 의미하며, accident_type의 CUT 코드와 직접적으로 대응됨. BLADE_LACERATION도 유사하나 CUT이 더 포괄적으로 일치함.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "유해물질(유증기/냉각수/윤활유 노출)",
+      "frequency": 1,
+      "axis": "accident_type",
+      "code": "CHEMICAL_VAPOR_EXPOSURE",
+      "confidence": 0.88,
+      "reasoning": "'유해물질(유증기/냉각수/윤활유 노출)'은 유증기(vapor), 냉각수, 윤활유 등 화학적 유해물질에 노출되는 사고유형으로, accident_type의 CHEMICAL_VAPOR_EXPOSURE가 유증기 노출을 포괄하며 가장 적합. CHEMICAL_EXPOSURE도 후보이나 유증기가 명시되어 vapor 특화 코드가 더 정밀하게 일치.",
+      "validation": "ok",
+      "vetted": true
+    },
+    {
+      "name": "전도/미끄럼",
+      "frequency": 7,
+      "axis": "accident_type",
+      "code": "FALL_ON_GROUND",
+      "confidence": 0.85,
+      "reasoning": "SLIP_AND_FALL이 catalog vocab에 없어 가장 가까운 FALL_ON_GROUND로 매핑 (수동 보정).",
+      "validation": "manual_override",
+      "vetted": true
+    },
+    {
+      "name": "유해물질",
+      "frequency": 2,
+      "axis": "accident_type",
+      "code": "CHEMICAL_EXPOSURE",
+      "confidence": 0.85,
+      "reasoning": "일반적 유해물질 → 화학물질 노출로 매핑. 세부 분류는 hazardous_agent 자식 단계.",
+      "validation": "manual_override",
+      "vetted": true
+    }
+  ],
+  "unmappable": [],
+  "per_photo_names": {
+    "고소대작업": [
+      "추락",
+      "낙하물",
+      "중량물 취급",
+      "인간공학적 위험(부적절 자세)"
+    ],
+    "안전대길이": [
+      "추락",
+      "낙하물",
+      "전도/미끄럼",
+      "중량물"
+    ],
+    "영세제조업": [
+      "끼임/협착",
+      "절단",
+      "전도/미끄럼",
+      "유해물질",
+      "감전",
+      "근골격계 부담작업"
+    ],
+    "음식점주방": [
+      "화재/폭발",
+      "절단",
+      "전도/미끄럼",
+      "화상",
+      "유해물질(세정제 등 화학물질)",
+      "인간공학적 위험"
+    ],
+    "지게차": [
+      "충돌(지게차 등)",
+      "낙하물",
+      "전도/미끄럼",
+      "중량물 취급(근골격계)",
+      "인간공학적 위험(불량자세)"
+    ],
+    "최근대전화재바닥에기름": [
+      "전도/미끄럼",
+      "유해물질",
+      "감전"
+    ],
+    "포크레인주변작업자": [
+      "낙하물",
+      "충돌",
+      "끼임/협착",
+      "전도/미끄럼"
+    ],
+    "프레스": [
+      "끼임/협착",
+      "절단/베임",
+      "전도/미끄럼",
+      "감전",
+      "유해물질(유증기/냉각수/윤활유 노출)"
+    ]
+  },
+  "note": "Phase 2 Day 2 자동 vetted: confidence ≥0.85 + 2 manual overrides (전도/미끄럼, 유해물질)"
+}

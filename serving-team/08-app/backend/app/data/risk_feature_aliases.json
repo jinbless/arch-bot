@@ -24,7 +24,8 @@
       "COLLISION": [
         "충돌",
         "부딪힘",
-        "접촉사고"
+        "접촉사고",
+        "충돌(지게차 등)"
       ],
       "FALLING_OBJECT": [
         "낙하물",
@@ -55,7 +56,8 @@
         "손가락 절단",
         "찰과상",
         "할큄",
-        "칼날 절상"
+        "칼날 절상",
+        "절단/베임"
       ],
       "COLLAPSE": [
         "붕괴",
@@ -70,7 +72,13 @@
         "근골격",
         "요통",
         "허리통증",
-        "근골격계 부상"
+        "근골격계 부상",
+        "인간공학적 위험(부적절 자세)",
+        "근골격계 부담작업",
+        "인간공학적 위험",
+        "중량물 취급(근골격계)",
+        "인간공학적 위험(불량자세)",
+        "인간공학"
       ],
       "BURN": [
         "화상",
@@ -138,7 +146,9 @@
         "야간 가스 누출",
         "농약 중독",
         "피부·눈 접촉 화학 부상",
-        "농약 흡입 중독"
+        "농약 흡입 중독",
+        "유해물질(세정제 등 화학물질)",
+        "유해물질"
       ],
       "COLD_EXPOSURE": [
         "저온 노출",
@@ -252,7 +262,9 @@
         "탈곡 날 절단"
       ],
       "ENTANGLEMENT": [
-        "신체 말림"
+        "신체 말림",
+        "끼임/협착",
+        "기계적위험"
       ],
       "PRUNING_SHEAR_LACERATION": [
         "전지가위 절상"
@@ -302,7 +314,8 @@
       ],
       "FALL_FROM_HEIGHT": [
         "고소 추락",
-        "고소추락"
+        "고소추락",
+        "추락"
       ],
       "ELECTRICAL_ACCIDENT_DUE_TO_POWER_INSTABILITY": [
         "전원 불안정으로 인한 전기 사고"
@@ -329,7 +342,8 @@
         "인화성 가스 점화"
       ],
       "FIRE_AND_EXPLOSION": [
-        "화재·폭발"
+        "화재·폭발",
+        "화재/폭발"
       ],
       "GRADUAL_MINOR_FUEL_LEAKAGE": [
         "소량 연료 점진적 누출"
@@ -417,7 +431,8 @@
         "화학 폭발"
       ],
       "CHEMICAL_VAPOR_EXPOSURE": [
-        "화학 증기 노출"
+        "화학 증기 노출",
+        "유해물질(유증기/냉각수/윤활유 노출)"
       ],
       "PALM_LACERATION": [
         "손바닥 열상"
@@ -432,7 +447,8 @@
         "앵커 파손으로 인한 추락"
       ],
       "FALL_ON_GROUND": [
-        "추락 시 지면 충돌"
+        "추락 시 지면 충돌",
+        "전도/미끄럼"
       ],
       "SCRATCH": [
         "할큄"
@@ -820,7 +836,8 @@
         "혈액 매개 감염"
       ],
       "HEAVY_OBJECT": [
-        "중량물"
+        "중량물",
+        "중량물 취급"
       ],
       "HIGH_TEMPERATURE_ENVIRONMENT": [
         "고온 환경"
@@ -1489,5 +1506,59 @@
       "aliases_added": 0
     }
   ],
-  "_last_updated_at": "2026-05-17T15:46:00.144045+00:00"
+  "_last_updated_at": "2026-05-19T08:19:20.498562+00:00",
+  "_hazard_direct_phase2_audit": [
+    {
+      "applied_at": "2026-05-19T08:03:29.014479+00:00",
+      "aliases_added": 15,
+      "duplicates_skipped": 6,
+      "source": "hazard-direct Phase 2 Day 2: hazard_name_seed.json (Sonnet 4.6 auto + 2 manual override)",
+      "mappings_summary": {
+        "accident_type": {
+          "ENTANGLEMENT": [
+            "끼임/협착"
+          ],
+          "FALL_FROM_HEIGHT": [
+            "추락"
+          ],
+          "ERGONOMIC": [
+            "인간공학적 위험(부적절 자세)",
+            "근골격계 부담작업",
+            "인간공학적 위험",
+            "중량물 취급(근골격계)",
+            "인간공학적 위험(불량자세)"
+          ],
+          "FIRE_AND_EXPLOSION": [
+            "화재/폭발"
+          ],
+          "CHEMICAL_EXPOSURE": [
+            "유해물질(세정제 등 화학물질)",
+            "유해물질"
+          ],
+          "COLLISION": [
+            "충돌(지게차 등)"
+          ],
+          "CUT": [
+            "절단/베임"
+          ],
+          "CHEMICAL_VAPOR_EXPOSURE": [
+            "유해물질(유증기/냉각수/윤활유 노출)"
+          ],
+          "FALL_ON_GROUND": [
+            "전도/미끄럼"
+          ]
+        },
+        "hazardous_agent": {
+          "HEAVY_OBJECT": [
+            "중량물 취급"
+          ]
+        }
+      }
+    },
+    {
+      "applied_at": "2026-05-19T08:19:20.498562+00:00",
+      "aliases_added": 2,
+      "source": "hazard-direct Phase 5 Day 1 8-photo eval (mapping rate 80->100% 보강): 기계적위험->ENTANGLEMENT, 인간공학->ERGONOMIC"
+    }
+  ]
 }
