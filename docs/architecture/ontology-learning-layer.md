@@ -77,6 +77,7 @@
 **우리 입력 source**:
 - `[Normalizer] 매핑 불가 코드` 로그
 - 새 synthetic_observations에서 발견된 미지 코드
+- ⭐ Hazard-Direct `hazards[].name` 자연어 (2026-05-19) — `normalize_hazards_array`의 `unknown_hazards` + `generate_hazard_name_seed.py`(Sonnet 4.6 seed). 21 자연어 hazard alias 등재 (8 photo 25/25 100% 매핑)
 
 **처리 flow**:
 ```

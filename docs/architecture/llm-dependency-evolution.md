@@ -23,6 +23,8 @@ SHE 매칭 (PG, 1,616 패턴) ← 1차
 - SHE 부족 → enrichment json → Phase B LLM rerank → Phase A KB 순차 보완
 - 각 보완 layer가 LLM 호출 추가 + 비용/지연 증가
 
+**⭐ Hazard-Direct Pivot (2026-05-19)** — Vision LLM이 `hazards[]`를 자연어로 직접 출력 → catalog code 매핑 → ontology Guide 추천으로 직결. SHE matcher chain을 우회해 "SHE 데이터 풍부도" 의존을 본질적으로 감소시킨다 (8 real-test-photo 25/25 100% 매핑 검증). 기존 SHE-based path는 fallback으로 병행 유지 (`HAZARD_DIRECT_MODE`).
+
 ## 목표 시스템 = declarative reasoning (6-7단계, LLM runtime 0)
 
 ```
@@ -55,7 +57,7 @@ reasoner 추론 결과를 PG로 적재
 
 | LLM 종류 | 6단계 안정화 후 | 이유 |
 |---|---|---|
-| **Vision LLM** (gpt-4.1) | 🔵 **영구 유지** | reasoner 영역 밖 (AI 인식). Tier 3.A (2026-05-18) 이후 schema enum 강제로 자율도 줄어들었지만 영상 인식은 LLM 영역 |
+| **Vision LLM** (gpt-4.1) | 🔵 **영구 유지** | reasoner 영역 밖 (AI 인식). Tier 3.A (2026-05-18) schema enum + ⭐ Hazard-Direct Pivot (2026-05-19) `hazards[]` 자연어 직접 출력 추가 — Vision 출력이 catalog 매핑 → ontology Guide 추천으로 직결 (SHE matcher 의존 본질 감소) |
 | **Phase B LLM rerank** (gpt-5.4-nano, 회색영역) | 🟡 **점진 폐지** | OWL DisjointClasses + SHACL이 같은 일 deterministic 수행. **T2.A shadow_reasoner runtime (2026-05-18) → G.1 PG primary 전환 (2026-05-19, `d6b4589`)** — 2,016 PG rows 실서비스 적용. |
 | **5번 LLM enrichment** (`guide_domain_profiles.json` lookup) | 🟢 **폐지 중 (Phase G.2)** | **Phase G.2 (`2f7ef92`): guide_domain_profiles.json → PG `guide_usage_profiles` (1,038 rows) + `guide:GuideUsageProfile` 신규 OWL class.** Backend `guide_domain_profile.py` PG primary. JSON은 fallback only. |
 | **Phase C self-refine** (자동 신규 페어 mining) | 🟡 **유지** | 새 도메인/사진 추가 시 자율 학습 가치 영구 (Layer 4.7). T2.C f3_drift_check + Makefile f3-weekly-cycle (`78886b3`) cron-able 패턴 정립. **Phase G + T4 #3 SWRL (2026-05-19, `448a8d0`): Pellet reasoner-derived facts 검증 (R-1: 107 + R-3: 3,579 inferred) ⭐** — 추가 rule fired triples 자동 추론 가능. |

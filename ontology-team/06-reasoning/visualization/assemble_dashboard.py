@@ -4,10 +4,11 @@
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-DATA_JS = ROOT / "scripts" / "dashboard-data.js"
-TEMPLATE = ROOT / "scripts" / "dashboard-template.html"
-OUTPUT = ROOT / "kosha-ontology-dashboard.html"
+# monorepo 재구성 (2026-05-16) 후 dashboard 파일은 visualization/ 산하에 위치.
+HERE = Path(__file__).resolve().parent  # ontology-team/06-reasoning/visualization
+DATA_JS = HERE / "dashboard-data.js"
+TEMPLATE = HERE / "dashboard-template.html"
+OUTPUT = HERE / "dashboard.html"
 
 
 def main():

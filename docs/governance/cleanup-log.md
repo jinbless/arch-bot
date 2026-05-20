@@ -4,6 +4,38 @@
 
 ---
 
+## 2026-05-20 (Tier 1-3.A → Phase G → Tier 4 → Hazard-Direct Pivot): 4개 연속 sprint 일괄 기록
+
+2026-05-18 저녁부터 2026-05-19까지 대형 sprint 4건이 연속 진행됐고, 2026-05-20에 문서
+전수 검증을 수행했다. 본 항목은 누락 방지를 위해 일괄 기록한다 (각 sprint 상세는 해당
+`docs/dev-notes/` runbook 참고).
+
+### Tier 1-3.A (2026-05-18 저녁, main `b237e78`)
+- T1.A/B/C 재포함 + T2.A-D F.3 closing (pyshacl shadow / KB compile / drift / 8-candidate vetted) + T3.A closed-vocab schema enum (free-create 76→4, -94.7%)
+- Runbook: `docs/dev-notes/F.3-axiom-discovery.md`, `T3.A-closed-vocab-schema-enum.md`
+
+### Phase G — PG 재물질화 (2026-05-19, main `5ee1709`)
+- G.1 `guide_domain_incompatibilities` PG (`core:Incompatibility`) / G.2 `guide_usage_profiles` + `guide:GuideUsageProfile` 신규 OWL class / G.3 `penalty_rule_index` 4,076 rows (**penalty_accuracy +27.16%p**) / G.4 `she_patterns_reasoner_derived` view
+- Runbook: `docs/dev-notes/phase-g.{1,2,3,4}-*.md`
+
+### Tier 4 — Openllet/SWRL (2026-05-19, main `448a8d0`)
+- AsymmetricProperty 패치 (`law:modifies`) + Pellet reporting 명시화 + SWRL R-1/R-3 실행기 통합 (R-1: 107 + R-3: 3,579 inferred)
+- Runbook: `docs/dev-notes/t4-*.md`
+
+### T4 #1 후속 + moellab 비교 (2026-05-19, main `3502eff`)
+- 77 SHE manual review (approve 57 / modify 19 / defer 1, batch promote -10.17%p VETOED) + moellab.info/ohs 위험요소 비교 (8 사진 37 hazards)
+- Runbook: `docs/dev-notes/t4-77-she-manual-review-results.md`, `moellab-vs-devserver-comparison.md`
+
+### Hazard-Direct Architecture Pivot (2026-05-19, main `164de5a`)
+- Vision LLM `hazards[]` 자연어 직접 출력 → catalog code 매핑 → ontology Guide 추천. Phase 1-5 단일 세션 완주
+- 8 real-test-photo 검증: **25/25 (100%) catalog 매핑 PASS** (AC-2 ≥85%)
+- Runbook: `docs/dev-notes/hazard-direct-phase{1,2}-*.md`, `docs/workplans/hazard-direct-architecture-pivot.md`
+
+### 문서 전수 검증 (2026-05-20)
+- 프로젝트 문서 ~75개 C1-C5 검증 + `docs/status/document-inventory.md` 신규 정본 + stale 문서 일괄 갱신 (docs/README, cleanup-log, status/workplans/architecture README, 4-layer/ontology-learning/llm-dependency, verify_session_docs.py)
+
+---
+
 ## 2026-05-17 (Phase 3 + F.3 first batch + Hot-fix): 자율 axiom learning loop 첫 정식 단계
 
 같은 날 후반에 Phase 3 (catalog v4 + SHE pattern + reasoning catch 측정) 마무리 후

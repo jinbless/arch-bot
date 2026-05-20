@@ -23,10 +23,25 @@
 ## 운영 가이드
 
 - 서비스 실행/검증: [08-app/README.md](08-app/README.md)
-- 백엔드 서비스 구조: `08-app/backend/app/services/` (analysis_pipeline, hazard_normalizer, she_matcher, sr_lookup_service, guide_recommendation_service, penalty_path_service, **shadow_reasoner** 등)
-- 프런트 결과 패널: `08-app/frontend/src/components/results/` (RiskOverview / ImmediateActions / GuideProcedure / PenaltyPath / ReasoningTrace)
+- 백엔드 서비스 구조: `08-app/backend/app/services/` (analysis_pipeline, hazard_normalizer, **hazard_to_guide_service**, she_matcher, sr_lookup_service, guide_recommendation_service, penalty_path_service, shadow_reasoner 등)
+- 프런트 결과 패널: `08-app/frontend/src/components/results/` (RiskOverview / **HazardGuideRelations** / ImmediateActions / GuideProcedure / PenaltyPath / ReasoningTrace)
 
-## 최근 변경 (2026-05-19, origin/main `448a8d0`)
+## 최근 변경 (2026-05-19, origin/main `164de5a`) — Hazard-Direct Architecture Pivot
+
+Vision LLM이 `hazards[]`를 자연어로 직접 출력 → catalog code 매핑 → ontology Guide 추천하는 신규 path. SHE matcher chain 우회, 기존 SHE-based path는 fallback 병행 (`HAZARD_DIRECT_MODE=off|parallel|primary`).
+
+**신규 service**:
+- `app/services/hazard_to_guide_service.py` — `match_hazards_to_guides()`: hazard별 SR → Guide grouping (hazard_rule_engine 재사용)
+
+**수정 service/model**:
+- `app/services/hazard_normalizer.py` — `normalize_hazards_array()` 신규 함수 (`hazards[].name` → canonical 3축)
+- `app/services/analysis_pipeline.py` — `HAZARD_DIRECT_MODE` 분기 + hazards/hazard_guide_relations 응답 조립
+- `app/models/analysis.py` — `HazardItem` / `GuideRef` / `HazardGuideRelation` Pydantic + `AnalysisResponse` 확장
+- `app/integrations/openai_client.py` — `ONTOLOGY_OBSERVATION_SCHEMA`에 `hazards[]` 필드 + 14 표준 라벨 prompt
+
+**검증**: 8 real-test-photo 실호출 → **25/25 (100%) catalog 매핑 PASS** (AC-2 ≥85%), 25 hazard_guide_relations, 14 penalty paths. Runbook: `docs/workplans/hazard-direct-architecture-pivot.md`.
+
+## 이전 변경 (2026-05-19, main `448a8d0`) — Phase G PG materialization
 
 **Phase G PG materialization 본격 적용** — 사용자 구조 step 4 "온톨로지화된 KB → PG 적재 → 실 서비스 자동 반영" 입증.
 
