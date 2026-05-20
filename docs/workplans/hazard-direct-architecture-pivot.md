@@ -26,6 +26,10 @@
 - SHE matcher 회귀 부담 본질 감소 (hazard-direct path 우회)
 - 21 unique hazard.name → 21 vetted aliases 등재 (+ 8 photo eval 후 2 보강)
 
+**실행 자산**:
+- 실호출 스크립트: `data-team/05-enrichment/llm-scripts/eval_hazard_direct_8photo.py` (8 real-test-photo → `hazard_direct_8photo_eval.json`)
+- Commits: `acd2303` (Phase 1) → `7a17b47` (Phase 2 seed) → `7c97118` (Phase 2-5) → `5256573` (Phase 4 frontend) → `9454797` (docs) → merge `164de5a`. Sprint plan 정본 등록: `80b8f4d` → merge `d63e25a`.
+
 ---
 
 ## Context

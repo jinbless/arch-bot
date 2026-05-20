@@ -39,21 +39,25 @@
 - 출력 스키마: `ONTOLOGY_OBSERVATION_SCHEMA`
   - `visual_observations`: 사진 관찰사실 (한국어 text + severity)
   - `visual_cues`: 짧은 시각 단서 (SHE 매칭용)
-  - `risk_feature_candidates`: axis(accident_type/hazardous_agent/work_context)별 후보 코드
+  - `hazards`: ⭐ 자연어 위험요소 카테고리 (Hazard-Direct Pivot, 2026-05-19) — name/risk_level/location/description/preventive_measures
+  - `risk_feature_candidates`: axis(accident_type/hazardous_agent/work_context/ppe_state/environmental)별 후보 코드
 
 **특성**:
 - 영구 잔존 (현실세계 인식은 reasoner로 대체 불가)
-- prompt에 enum 코드 전체 명시 안 함 (현재 설계 — Phase F.7에서 closed vocabulary 옵션 검토)
+- `risk_feature_candidates.text`는 catalog 529 enum 강제 (Tier 3.A, 2026-05-18 — free-create 76→4)
+- `hazards[].name`은 자연어 (moellab 스타일). 후속 Layer 1에서 catalog code로 alias 매핑
 
 ## Layer 1 — Normalizer
 
 **역할**: Layer 0의 free-form text → catalog의 canonical enum code
 
 **구현**:
-- 코드: `serving-team/08-app/backend/app/services/hazard_normalizer.py:_resolve_alias_code`
+- 코드: `serving-team/08-app/backend/app/services/hazard_normalizer.py`
+  - `_resolve_alias_code` — `risk_feature_candidates` axis별 코드 정규화
+  - `normalize_hazards_array` — ⭐ Hazard-Direct `hazards[].name` 자연어 → canonical 3축 (2026-05-19)
 - 데이터:
-  - `app/data/risk_feature_catalog.json` — 178 canonical enum codes (이번 세션 +66 work_context)
-  - `app/data/risk_feature_aliases.json` — tier1 alias dictionary (이번 세션 +187개)
+  - `app/data/risk_feature_catalog.json` — catalog v3.3, 529 canonical enum codes (5 axes)
+  - `app/data/risk_feature_aliases.json` — tier1 alias dictionary (Hazard-Direct에서 자연어 hazard alias 21건 추가)
 
 **매칭 우선순위**:
 1. 직접 enum match (영문 code)
@@ -98,18 +102,18 @@
 - `kosha_guides`, `work_processes`, `she_patterns`, `safety_requirements`, `ci_sr_mapping`, `penalty_rules`, `penalty_conditions`
 - 이미 운영 중
 
-**7단계 (목표) — 추가 재물질화 대상**:
-| PG 테이블 | 재물질화 내용 | 현재 → 7단계 |
+**Phase G 완료 (2026-05-19) — PG 재물질화 3 table + 1 view**:
+| PG 객체 | 재물질화 내용 | 상태 |
 |---|---|---|
-| `she_patterns` | reasoner 추론 신규 패턴 | 1,616 (Phase 3 validation 후) → 수천 |
-| `guide_usage_profiles` | 현재 `guide_domain_profiles.json` | JSON lookup → PG SELECT |
-| `guide_domain_incompatibilities` (신규) | LLM-mined KB (2,232 vetted + 8 F.3.2 candidate = **2,240**) | JSON → PG SELECT |
-| `ci_sr_mapping` | reasoner 도출 매핑 확장 | 수동 → 자동 추론 |
-| `penalty_rules` + `penalty_conditions` | deontic chain | 수동 → 자동 도출 |
+| `guide_domain_incompatibilities` | LLM-mined KB → PG (G.1) | ✅ 2,016 rows, `core:Incompatibility` ontology backed |
+| `guide_usage_profiles` | `guide_domain_profiles.json` → PG (G.2) | ✅ 1,038 rows, `guide:GuideUsageProfile` 신규 OWL class |
+| `penalty_rule_index` | kosha-instances.ttl → PG (G.3) | ✅ 4,076 SR→PenaltyRule mappings, **penalty_accuracy +27.16%p** |
+| `she_patterns_reasoner_derived` (view) | 77 F.2 v3.1 link SHE 노출 (G.4) | ✅ read-only architectural layer |
 
-**적재 패턴** (기존):
-- `serving-team/08-app/backend/scripts/import_guide_usage_profiles_to_pg.py` 패턴 확장
-- 새 import 스크립트: `import_domain_incompatibilities_to_pg.py`, `import_reasoner_outputs_to_pg.py`
+모두 **PG primary + JSON/TTL fallback** 패턴. 기존 `kosha_guides`/`safety_requirements`/`ci_sr_mapping`/`penalty_rules` 등은 이미 운영 중.
+
+**적재 패턴**:
+- import 스크립트: `import_domain_incompatibilities_to_pg.py`, `import_penalty_to_pg.py`
 
 ## Layer 4 — Ontology Learning (cross-cutting)
 
@@ -131,19 +135,23 @@
 ```
 1. 사용자 사진 업로드
    ↓
-2. Layer 0: Vision LLM → JSON
+2. Layer 0: Vision LLM → JSON (hazards[] + risk_feature_candidates[])
    ↓
-3. Layer 1: Normalizer → canonical code
+3. Layer 1: Normalizer
+   ├─ risk_feature_candidates → canonical (기존 path)
+   └─ ⭐ hazards[].name → normalize_hazards_array → canonical (Hazard-Direct path)
    ↓
-4. Layer 2: SHE matcher → matched SHE patterns
+4. Layer 2:
+   ├─ SHE matcher → matched SHE patterns (기존 path)
+   └─ ⭐ hazard_to_guide_service → hazard별 SR → Guide grouping (Hazard-Direct path)
    ↓
-5. Layer 3: PG SELECT (SR/Guide/Penalty)
+5. Layer 3: PG SELECT (SR/Guide/Penalty) — 양쪽 path 공통
    ↓
 6. Phase B (Layer 2 보강): embedding pre-filter + LLM rerank (회색영역만)
    ↓
 7. Phase A.4 (Layer 2 보강): dynamic incompatibility KB lookup
    ↓
-8. 응답 JSON 반환
+8. 응답 JSON 반환 (standard_procedures + ⭐ hazards[] + hazard_guide_relations[])
    ↓
 9. Layer 4 hook: analysis_log.jsonl append (자율 학습 데이터 누적)
    - 기본 필드: scene_hash, industry, candidate_count, filter_keep/gray/drop, excluded[]
@@ -159,13 +167,12 @@
 상세: [llm-dependency-evolution.md](llm-dependency-evolution.md)
 
 ```
-[현재 (2026-05-17)]
-    Layer 0-3 + Phase E.2 (Openllet 통합 완료) + Phase 3 (1,616 SHE, reasoning 1,902건 차단)
-    + Layer 4 일부 (Phase C incompatibility + F.3.0 분류 + F.3.2 first batch 8 candidate + A hook)
-    ─ LLM 의존 hybrid → Layer 4 본격 진입 중
-[Phase F.1] Layer 1 Normalizer auto-registration (다음 우선순위, 1주)
-[Phase F.3 본격] Layer 4 closed loop (F.3.1 reasoner channel + F.3.4 compile + F.3.5 cron)
-[Phase G/7단계] PG materialize (reasoner 결과 → 서빙 ms 응답)
+[현재 (2026-05-19, main `164de5a`)]
+    Layer 0-3 + Phase E.2 (Openllet) + Phase 3 + F.1/F.2/F.3 + Tier 1-3.A
+    + Phase G (PG materialization 3 table + 1 view) + Tier 4 (SWRL Pellet R-1/R-3 실행기)
+    + ⭐ Hazard-Direct Pivot (hazards[] 자연어 직접 출력 → catalog 매핑 → ontology Guide 추천)
+[완료] Phase F.1 Normalizer auto-registration + F.3 closed loop + Phase G/7단계 PG materialize
+[후행] SHE matcher broadness-aware refactor (별도 sprint, she-matcher-broadness-refactor.md)
 [Phase J] OBO Foundry 등재 (오픈소스, 국제 표준)
 ```
 
