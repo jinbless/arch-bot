@@ -10,10 +10,13 @@ from pathlib import Path
 
 import psycopg2
 
-ROOT = Path(__file__).resolve().parent.parent
-PIPE_A = ROOT / "pipe-A" / "data"
-PIPE_B = ROOT / "pipe-B" / "data"
-PIPE_C = ROOT / "pipe-C" / "data"
+ROOT = Path(__file__).resolve().parent.parent  # ontology-team/06-reasoning
+# monorepo 재구성 (2026-05-16) 후 pipe 데이터는 data-team 산하로 이동.
+# parents: [0]visualization [1]06-reasoning [2]ontology-team [3]repo root
+REPO_ROOT = Path(__file__).resolve().parents[3]
+PIPE_A = REPO_ROOT / "data-team" / "02-extraction" / "pipe-A" / "data"
+PIPE_B = REPO_ROOT / "data-team" / "02-extraction" / "pipe-B" / "data"
+PIPE_C = REPO_ROOT / "data-team" / "03-validation" / "pipe-C" / "data"
 PG_CONNINFO = "dbname=kosha user=kosha password=1229 host=localhost"
 
 
@@ -441,7 +444,7 @@ def main():
         "PIPEC_DATA": pipec,
     }
 
-    out_path = ROOT / "scripts" / "dashboard-data.js"
+    out_path = Path(__file__).resolve().parent / "dashboard-data.js"
     with open(out_path, "w", encoding="utf-8") as f:
         for key, val in output.items():
             f.write(f"const {key} = {json.dumps(val, ensure_ascii=False, separators=(',', ':'))};\n\n")
