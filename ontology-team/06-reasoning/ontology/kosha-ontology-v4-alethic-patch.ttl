@@ -1,0 +1,132 @@
+# Phase B (Axiom 100% Sprint) — Tier 2 alethic chain missing TBox properties.
+#
+# R-9~R-13 정형화 prerequisite. Plan B (docs/workplans/ontology-axiom-100pct.md) 명시 9 properties
+# + 의존 missing class/property (Equipment, equipmentHasSpec) 추가.
+#
+# Predecessor: kosha-ontology-v4-deps-patch.ttl (Phase A, core:dependsOn).
+#
+# 추가 항목 (Class 1 + ObjectProperty 10):
+#   - guide:Equipment                       — class (R-12 body, 기존 EquipmentSpec과 짝)
+#   - guide:equipmentHasSpec                — Equipment ↔ EquipmentSpec (R-12 body)
+#   - risk:hasRiskFeature                   — VisualObservation → RiskFeature (R-10 head)
+#   - risk:correspondsToHazard              — RiskFeature → Hazard (R-11 body)
+#   - risk:indicatesByCue                   — RiskFeature → VisualCue (R-10 body)
+#   - risk:appliesToEquipment               — RiskFeature → Equipment (R-12 head)
+#   - risk:compatibleWithSpec               — RiskFeature → EquipmentSpec (R-12 body)
+#   - haz:hasHazard                         — RiskFeature → Hazard (R-11 head)
+#   - app:matchesProcess                    — SituationMatch → WorkProcess (R-13 body)
+#   - app:temporalStageForProcess           — WorkProcess → TemporalStage (R-13 body)
+#   - app:hasTemporalStage                  — SituationMatch → TemporalStage (R-13 head)
+#
+# Note: risk/situation#hasTemporalStage (kosha-ontology-v2.formatted.ttl L1352) 이미 존재.
+# domain은 SituationalHazardPattern이며, app:hasTemporalStage(domain SituationMatch)와 별개.
+# 같은 local name이지만 namespace + domain 다름.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+
+
+### Class additions
+
+# guide:Equipment — 작업 장비. EquipmentSpec과 짝 (BFO_0000040 object subClass).
+# R-12에서 RiskFeature와 spec 매칭 chain의 anchor.
+guide:Equipment a owl:Class ;
+    rdfs:label "장비"@ko ;
+    rdfs:comment "EquipmentSpec과 짝을 이루는 작업 장비 클래스 (R-12 chain anchor)."@ko ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+
+### ObjectProperty additions
+
+# guide:equipmentHasSpec — Equipment → EquipmentSpec (R-12 body)
+guide:equipmentHasSpec a owl:ObjectProperty ;
+    rdfs:label "장비 스펙 보유"@ko ;
+    rdfs:comment "Equipment가 가지는 EquipmentSpec (R-12 body)."@ko ;
+    rdfs:domain guide:Equipment ;
+    rdfs:range guide:EquipmentSpec .
+
+
+# risk:hasRiskFeature — VisualObservation → RiskFeature (R-10 head, R-14/R-16/R-26 body)
+risk:hasRiskFeature a owl:ObjectProperty ;
+    rdfs:label "위험 특징 보유"@ko ;
+    rdfs:comment "VisualObservation이 RiskFeature를 갖는 관계 (R-10 결과). 후속 bridge/violation chain의 진입점."@ko ;
+    rdfs:domain app:VisualObservation ;
+    rdfs:range risk:RiskFeature .
+
+
+# risk:correspondsToHazard — RiskFeature → Hazard (R-11 body)
+risk:correspondsToHazard a owl:ObjectProperty ;
+    rdfs:label "위험 유형 대응"@ko ;
+    rdfs:comment "RiskFeature가 특정 Hazard에 정성적으로 대응됨 (R-11 body). haz:hasHazard의 reasoning 근거."@ko ;
+    rdfs:domain risk:RiskFeature ;
+    rdfs:range haz:Hazard .
+
+
+# risk:indicatesByCue — RiskFeature → VisualCue (R-10 body)
+risk:indicatesByCue a owl:ObjectProperty ;
+    rdfs:label "시각 단서로 지시"@ko ;
+    rdfs:comment "RiskFeature가 어떤 VisualCue에 의해 지시됨 (R-10 body). app:mappedTo(VisualCue→RiskFeature)의 역방향 모델링이지만 SWRL pattern matching 편의로 별도 property 유지."@ko ;
+    rdfs:domain risk:RiskFeature ;
+    rdfs:range app:VisualCue .
+
+
+# risk:appliesToEquipment — RiskFeature → Equipment (R-12 head, R-17 body)
+risk:appliesToEquipment a owl:ObjectProperty ;
+    rdfs:label "장비 적용"@ko ;
+    rdfs:comment "RiskFeature가 특정 Equipment에 적용됨 (R-12 결과)."@ko ;
+    rdfs:domain risk:RiskFeature ;
+    rdfs:range guide:Equipment .
+
+
+# risk:compatibleWithSpec — RiskFeature → EquipmentSpec (R-12 body)
+risk:compatibleWithSpec a owl:ObjectProperty ;
+    rdfs:label "스펙 호환"@ko ;
+    rdfs:comment "RiskFeature가 EquipmentSpec과 호환됨 (R-12 body)."@ko ;
+    rdfs:domain risk:RiskFeature ;
+    rdfs:range guide:EquipmentSpec .
+
+
+# haz:hasHazard — RiskFeature → Hazard (R-11 head, R-14/R-15/R-16/R-26 body)
+# Note: risk:correspondsToHazard와 같은 range이나 의미적 분리:
+#   - risk:correspondsToHazard: 정성적 대응 (mapping, static)
+#   - haz:hasHazard: 추론된 hazard link (R-11 결과, dynamic)
+# 둘 다 유지함으로써 R-11이 inference의 명시적 결과를 추가 (audit trail).
+haz:hasHazard a owl:ObjectProperty ;
+    rdfs:label "위험 유형"@ko ;
+    rdfs:comment "RiskFeature가 도출한 Hazard (R-11 결과). 의미적으로 risk:correspondsToHazard의 inference output."@ko ;
+    rdfs:domain risk:RiskFeature ;
+    rdfs:range haz:Hazard .
+
+
+# app:matchesProcess — SituationMatch → WorkProcess (R-13 body)
+app:matchesProcess a owl:ObjectProperty ;
+    rdfs:label "프로세스 매칭"@ko ;
+    rdfs:comment "SituationMatch가 특정 WorkProcess에 매칭됨 (R-13 body)."@ko ;
+    rdfs:domain app:SituationMatch ;
+    rdfs:range guide:WorkProcess .
+
+
+# app:temporalStageForProcess — WorkProcess → TemporalStage (R-13 body)
+app:temporalStageForProcess a owl:ObjectProperty ;
+    rdfs:label "프로세스 시간 단계"@ko ;
+    rdfs:comment "WorkProcess가 가지는 TemporalStage (R-13 body). risk/situation#hasTemporalStage(SituationalHazardPattern→TemporalStage)와 다름."@ko ;
+    rdfs:domain guide:WorkProcess ;
+    rdfs:range ctx:TemporalStage .
+
+
+# app:hasTemporalStage — SituationMatch → TemporalStage (R-13 head)
+# 주의: risk/situation#hasTemporalStage 이미 존재 (domain SituationalHazardPattern).
+# 본 property는 별개 namespace + domain. local name 충돌 없음 (full IRI 다름).
+app:hasTemporalStage a owl:ObjectProperty ;
+    rdfs:label "시간 단계 보유 (상황 매칭)"@ko ;
+    rdfs:comment "SituationMatch가 가지는 TemporalStage (R-13 결과)."@ko ;
+    rdfs:domain app:SituationMatch ;
+    rdfs:range ctx:TemporalStage .

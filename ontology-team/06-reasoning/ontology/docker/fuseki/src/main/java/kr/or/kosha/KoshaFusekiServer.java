@@ -52,6 +52,8 @@ public class KoshaFusekiServer {
             {"/kosha-rules-r1-r3-swrl.ttl",              "TURTLE",  "T4 #3 SWRL rules R-1/R-3 (OWL serialization)"},
             {"/kosha-ontology-v4-deps-patch.ttl",        "TURTLE",  "Axiom 100% Phase A: core:dependsOn property"},
             {"/kosha-rules-r2-r4-swrl.ttl",              "TURTLE",  "Axiom 100% Phase A: SWRL rules R-2 (coApplicable) + R-4 (dependsOn)"},
+            {"/kosha-ontology-v4-alethic-patch.ttl",     "TURTLE",  "Axiom 100% Phase B: alethic chain TBox (guide:Equipment + 10 properties)"},
+            {"/kosha-rules-r9-r13-swrl.ttl",             "TURTLE",  "Axiom 100% Phase B: SWRL rules R-10/R-11/R-12/R-13 (R-9 SKIP, 사유 ttl 참조)"},
         };
 
         System.out.println("=== KOSHA Fuseki Server ===");

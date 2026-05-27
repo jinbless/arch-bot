@@ -1,6 +1,6 @@
 # Ontology Axiom 100% 정석화 Sprint Plan
 
-> **Status**: ✅ Phase A 완료 (2026-05-19) — SWRL R-2/R-4 정형 OK + ABox 정합성 이슈 식별 (별도 sprint 후보). Phase B 다음 세션 진입.
+> **Status**: ✅ Phase A (2026-05-19) + Phase B (2026-05-27) 완료. SWRL formal rule 2 → 6 (R-2/R-4 + R-10/R-11/R-12/R-13). R-9는 의사코드 결함으로 정형 SKIP (사유 [axiom-100pct-phase-b.md](../dev-notes/axiom-100pct-phase-b.md) 참조). Phase C 다음 세션 진입.
 > **Trigger**: 직전 hazard-direct pivot 완주 후 정석 OWL DL 평가 → 현재 정석 점수 ~75-80%. SWRL formal rule 2/30, Restriction 6개, hazard-direct OWL 미격상, F.3.2 candidate 2,184 잔여, AsymmetricProperty 0.
 > **Predecessor**: hazard-direct pivot (commit `164de5a`), 문서 전수 검증 (commit `6d3f431`)
 > **Predicted duration**: ~4-6주 (10 Phase, hazard-direct pivot보다 큼)
@@ -109,34 +109,44 @@
 
 ---
 
-### Phase B — Tier 2 SWRL alethic chain (R-9~R-13)
+### Phase B — Tier 2 SWRL alethic chain (R-9~R-13) ✅ 완료 (2026-05-27)
 
-#### Day 1: TBox 확장 (`kosha-ontology-v4-alethic-patch.ttl`)
+- ✅ **TBox 확장**: `kosha-ontology-v4-alethic-patch.ttl` (+54 triples)
+  - 신규 Class 1: `guide:Equipment`
+  - 신규 ObjectProperty 10 (plan 9 + 보조 `guide:equipmentHasSpec`)
+- ✅ **SWRL TTL**: `kosha-rules-r9-r13-swrl.ttl` (+136 triples)
+  - R-10: VisualObservation × hasVisualCue × indicatesByCue → hasRiskFeature
+  - R-11: RiskFeature × correspondsToHazard → hasHazard
+  - R-12: RiskFeature × Equipment × equipmentHasSpec × compatibleWithSpec → appliesToEquipment
+  - R-13: SituationMatch × WorkProcess × matchesProcess × temporalStageForProcess → hasTemporalStage
+- ⚠️ **R-9 정형 SKIP** — 의사코드 결함 3가지:
+  1. `Photo` 클래스 TBox 미정의 (사진은 PG에 저장, ontology ABox에 photo URI 미등록 설계)
+  2. `app:hasVisualCue` domain은 `VisualObservation`, 의사코드의 `?p`가 Photo면 domain violation
+  3. SWRL head는 individual 생성 불가 — R-9는 VisualObservation 신규 생성 의도
+  - 대안: Phase E의 R-27 SHACL fallback 패턴과 함께 재검토 (SHACL CONSTRUCT 또는 SPARQL UPDATE)
+- ✅ **Fuseki Java**: `KoshaFusekiServer.java` sources +2 entries
+- ✅ **Docker rebuild** + container recreate, 총 981,761 base triples 로드 (Pellet prepare ~17분)
+- ✅ **SPARQL 검증** (Pellet inferred 포함):
+  - R-10 `hasRiskFeature`: **0 inferred** (VisualObservation 0, hasVisualCue 0, indicatesByCue 0)
+  - R-11 `hasHazard`: **0 inferred** (correspondsToHazard 0)
+  - R-12 `appliesToEquipment`: **0 inferred** (Equipment 0, equipmentHasSpec 0, compatibleWithSpec 0)
+  - R-13 `hasTemporalStage`: **0 inferred** (SituationMatch 0, matchesProcess 0)
+  - ABox RiskFeature catalog 179개 존재 (3-axis taxonomy vocabulary) — fire 가능 input은 없음
 
-Missing properties to add:
-- `risk:hasRiskFeature` (Photo/Obs → RiskFeature)
-- `risk:correspondsToHazard` (RiskFeature → Hazard)
-- `risk:indicatesByCue` (RiskFeature → VisualCue)
-- `risk:appliesToEquipment` (RiskFeature → Equipment)
-- `risk:compatibleWithSpec` (RiskFeature → EquipmentSpec)
-- `haz:hasHazard` (RiskFeature → Hazard)
-- `app:matchesProcess` (SituationMatch → WorkProcess)
-- `app:temporalStageForProcess` (WorkProcess → TemporalStage)
-- `app:hasTemporalStage` (SituationMatch → TemporalStage)
+#### ⚠️ Phase B ABox 정합성 (Phase A 연장선)
 
-#### Day 2-3: SWRL TTL `kosha-rules-r9-r13-swrl.ttl`
+Phase B SWRL formal serialization은 정석 점수 향상에 기여 (SWRL 2 → 6),
+하지만 **실제 inference fire는 ABox enrichment를 별도 sprint로 진행해야 한다**:
+- R-10 fire 조건: VisualObservation × app:hasVisualCue × VisualCue + RiskFeature × risk:indicatesByCue × VisualCue 모두 ABox에 존재
+- R-11/R-12/R-13 동일 — 본 patch는 TBox property를 정의할 뿐, ABox triple 자동 생성 ❌
 
-- R-09: Photo + hasVisualCue → observedIn(VisualObservation)
-- R-10: VisualObservation + observesVisualCue + indicatesByCue → hasRiskFeature
-- R-11: RiskFeature + correspondsToHazard → hasHazard
-- R-12: RiskFeature + Equipment + compatibleWithSpec → appliesToEquipment
-- R-13: SituationMatch + WorkProcess + temporalStageForProcess → hasTemporalStage
+Phase K (Article instance unification)와 같은 ABox enrichment sprint 후보.
 
-#### Day 4: 검증
-- Fuseki rebuild + SPARQL inferred count
-- Pellet consistency
-
-#### Day 5: 문서 + commit
+#### Acceptance 평가
+- ✅ SWRL R-10/R-11/R-12/R-13 OWL/RDF serialization 완료 (Pellet load OK)
+- ✅ R-9 정형 SKIP + 사유 명시 (의사코드 결함 인정)
+- ⚠️ Inferred count는 ABox 정합성에 의존 (별도 sprint 트래킹)
+- **결론**: orthodox score SWRL slot 6/30 → 다음 Phase C (R-14~R-18 bridge chain) 진입
 
 ---
 
