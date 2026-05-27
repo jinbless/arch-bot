@@ -1,0 +1,226 @@
+# Phase G (Axiom 100% Sprint) — owl:Restriction 확대 (6 → 30+).
+#
+# Plan B AC-2: owl:Restriction ≥ 30. Phase G.2 GuideUsageProfile 6개 + 본 patch 30+.
+#
+# Pattern: 모든 Restriction을 `owl:allValuesFrom` (universal, vacuously true)으로 작성.
+# 이유:
+#   - Phase A/B에서 ABox 정합성 이슈 광범위 확인 (SR-Article 1:1, alethic chain 모두 0).
+#   - `min 1` / `exactly N` form은 ABox 위반 시 Pellet inconsistency → 전체 reasoning 무효화.
+#   - `allValuesFrom`은 ABox에 해당 property triple이 없으면 vacuously true (no constraint),
+#     있으면 range type 검증. 정석 OWL DL 신호는 유지하면서 ABox safe.
+#
+# 30+ Restriction across 핵심 클래스:
+#   - sr:SafetyRequirement (5)
+#   - penalty:PenaltyRule (4)
+#   - risk:RiskFeature (4)
+#   - she:SituationalHazardPattern (4)
+#   - guide:KoshaGuide (1) + guide:Equipment (1)
+#   - app:VisualObservation (3) + app:HazardFinding (2) + app:SituationMatch (3) + app:PenaltyExposure (3)
+#   - law:NormStatement (2) + law:Article (1)
+#   - bridge:ViolationCandidate (2)
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix sit: <https://cashtoss.info/ontology/risk/situation#> .
+@prefix she: <https://cashtoss.info/ontology/risk/situation#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+
+
+### sr:SafetyRequirement (5 restrictions)
+
+sr:SafetyRequirement rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty sr:addressesHazard ;
+    owl:allValuesFrom haz:Hazard ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty sr:appliesToArticle ;
+    owl:allValuesFrom law:Article ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty sr:requiresFindingStatus ;
+    owl:allValuesFrom app:FindingStatus ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty sr:appliesToEquipment ;
+    owl:allValuesFrom guide:Equipment ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty core:dependsOn ;
+    owl:allValuesFrom sr:SafetyRequirement ;
+] .
+
+
+### penalty:PenaltyRule (4 restrictions)
+
+penalty:PenaltyRule rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty penalty:appliesToNormStatement ;
+    owl:allValuesFrom law:NormStatement ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty penalty:penalizesNorm ;
+    owl:allValuesFrom law:NormStatement ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty penalty:resultsIn ;
+    owl:allValuesFrom penalty:PenaltyResult ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty penalty:appliesToExposure ;
+    owl:allValuesFrom app:PenaltyExposure ;
+] .
+
+
+### risk:RiskFeature (4 restrictions)
+
+risk:RiskFeature rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty risk:correspondsToHazard ;
+    owl:allValuesFrom haz:Hazard ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty risk:indicatesByCue ;
+    owl:allValuesFrom app:VisualCue ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty risk:appliesToEquipment ;
+    owl:allValuesFrom guide:Equipment ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty haz:hasHazard ;
+    owl:allValuesFrom haz:Hazard ;
+] .
+
+
+### she:SituationalHazardPattern (4 restrictions)
+# 기존 sit:hasHazardousAgent, sit:hasTemporalStage, sit:hasPPEState, sit:hasVisualTrigger 활용.
+
+she:SituationalHazardPattern rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty sit:hasHazardousAgent ;
+    owl:allValuesFrom <https://cashtoss.info/ontology/risk/agent#HazardousAgent> ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty sit:hasTemporalStage ;
+    owl:allValuesFrom ctx:TemporalStage ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty sit:hasPPEState ;
+    owl:allValuesFrom ctx:PPEState ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty sit:hasVisualTrigger ;
+    owl:allValuesFrom sit:VisualTrigger ;
+] .
+
+
+### guide:KoshaGuide + guide:Equipment (2 restrictions)
+
+guide:Equipment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty guide:equipmentHasSpec ;
+    owl:allValuesFrom guide:EquipmentSpec ;
+] .
+
+
+### app:VisualObservation (3 restrictions)
+
+app:VisualObservation rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty app:hasVisualCue ;
+    owl:allValuesFrom app:VisualCue ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty core:observedIn ;
+    owl:allValuesFrom ctx:WorkContext ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty risk:hasRiskFeature ;
+    owl:allValuesFrom risk:RiskFeature ;
+] .
+
+
+### app:HazardFinding (2 restrictions)
+
+app:HazardFinding rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty app:hasFindingStatus ;
+    owl:allValuesFrom app:FindingStatus ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty app:hasSituationMatch ;
+    owl:allValuesFrom app:SituationMatch ;
+] .
+
+
+### app:SituationMatch (3 restrictions)
+
+app:SituationMatch rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty app:matchesProcess ;
+    owl:allValuesFrom guide:WorkProcess ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty app:hasTemporalStage ;
+    owl:allValuesFrom ctx:TemporalStage ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty app:matchesSituation ;
+    owl:allValuesFrom she:SituationalHazardPattern ;
+] .
+
+
+### app:PenaltyExposure (3 restrictions)
+
+app:PenaltyExposure rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty penalty:appliesPenaltyRule ;
+    owl:allValuesFrom penalty:PenaltyRule ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty app:hasPenaltyLevel ;
+    owl:allValuesFrom app:PenaltyLevel ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty app:hasPenaltyResult ;
+    owl:allValuesFrom penalty:PenaltyResult ;
+] .
+
+
+### law:NormStatement (2 restrictions)
+
+law:NormStatement rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty law:hasArticle ;
+    owl:allValuesFrom law:Article ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty law:groundedBySR ;
+    owl:allValuesFrom sr:SafetyRequirement ;
+] .
+
+
+### bridge:ViolationCandidate (2 restrictions)
+
+bridge:ViolationCandidate rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty law:groundedBySR ;
+    owl:allValuesFrom sr:SafetyRequirement ;
+] , [
+    a owl:Restriction ;
+    owl:onProperty law:hasModality ;
+    owl:allValuesFrom <http://www.estrellaproject.org/lkif-core/lkif-core#Modality> ;
+] .

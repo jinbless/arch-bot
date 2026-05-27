@@ -1,0 +1,162 @@
+# Phase E (Axiom 100% Sprint) — Tier 5 SWRL violation chain.
+#
+# kosha-rules-v2.swrl pseudo-code (L155-165) → OWL/RDF SWRL.
+# Phase A~D pattern 답습 (DL-safe).
+#
+# 정형 대상 (3개): R-24, R-25, R-26
+# R-27은 SHACL로 분리 (negation as failure 표현 — SWRL 한계, plan E).
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
+
+
+### R-24: SR 위반 (관찰 + 비준수 + SR 적용)
+# body: VO(?obs) ∧ bridge:appliesTo(?sr,?hazd) ∧ hasHazard(?rf,?hazd) ∧
+#       hasRiskFeature(?obs,?rf) ∧ SR(?sr) ∧ Noncompliance(?nc) ∧
+#       indicatesNoncompliance(?nc,?obs)
+# head: core:hasViolation(?obs, ?sr)
+
+kr:R24_HasViolationSRRule a swrl:Imp ;
+    rdfs:label "R-24: core:hasViolation (VO→SR via noncompliance)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate app:VisualObservation ;
+          swrl:argument1 kr:x_obs ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate app:Noncompliance ;
+          swrl:argument1 kr:x_nc ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate risk:hasRiskFeature ;
+          swrl:argument1 kr:x_obs ;
+          swrl:argument2 kr:x_rf ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate haz:hasHazard ;
+          swrl:argument1 kr:x_rf ;
+          swrl:argument2 kr:x_hazd ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate bridge:appliesTo ;
+          swrl:argument1 kr:x_sr ;
+          swrl:argument2 kr:x_hazd ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate app:indicatesNoncompliance ;
+          swrl:argument1 kr:x_nc ;
+          swrl:argument2 kr:x_obs ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate core:hasViolation ;
+          swrl:argument1 kr:x_obs ;
+          swrl:argument2 kr:x_sr ]
+    ) .
+
+
+### R-25: SR 위반 → Worker가 의무 NS 위반
+# body: hasViolation(?obs,?sr) ∧ NormStatement(?ns) ∧ groundedBySR(?ns,?sr) ∧ Worker(?agent)
+# head: bridge:violatesObligation(?agent, ?ns)
+
+kr:R25_ViolatesObligationRule a swrl:Imp ;
+    rdfs:label "R-25: bridge:violatesObligation (Worker × Obligation NS via SR violation)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate law:NormStatement ;
+          swrl:argument1 kr:x_ns ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate agent:Worker ;
+          swrl:argument1 kr:x_agent ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate core:hasViolation ;
+          swrl:argument1 kr:x_obs ;
+          swrl:argument2 kr:x_sr ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:groundedBySR ;
+          swrl:argument1 kr:x_ns ;
+          swrl:argument2 kr:x_sr ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate bridge:violatesObligation ;
+          swrl:argument1 kr:x_agent ;
+          swrl:argument2 kr:x_ns ]
+    ) .
+
+
+### R-26: 관찰 ↔ Ctx ↔ NS chain (R-24의 ctx 차원 확장)
+# body: VO(?obs) ∧ bridge:observedIn(?sr,?ctx) ∧ hasRiskFeature(?obs,?rf) ∧
+#       hasHazard(?rf,?hazd) ∧ SR(?sr) ∧ addressesHazard(?sr,?hazd) ∧
+#       NormStatement(?ns) ∧ groundedBySR(?ns,?sr) ∧ Noncompliance(?nc) ∧
+#       indicatesNoncompliance(?nc,?obs)
+# head: core:hasViolation(?ctx, ?ns)
+
+kr:R26_HasViolationCtxNSRule a swrl:Imp ;
+    rdfs:label "R-26: core:hasViolation (Ctx→NS via full chain)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate app:VisualObservation ;
+          swrl:argument1 kr:x_obs ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate law:NormStatement ;
+          swrl:argument1 kr:x_ns ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate app:Noncompliance ;
+          swrl:argument1 kr:x_nc ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate risk:hasRiskFeature ;
+          swrl:argument1 kr:x_obs ;
+          swrl:argument2 kr:x_rf ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate haz:hasHazard ;
+          swrl:argument1 kr:x_rf ;
+          swrl:argument2 kr:x_hazd ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:addressesHazard ;
+          swrl:argument1 kr:x_sr ;
+          swrl:argument2 kr:x_hazd ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate bridge:observedIn ;
+          swrl:argument1 kr:x_sr ;
+          swrl:argument2 kr:x_ctx ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:groundedBySR ;
+          swrl:argument1 kr:x_ns ;
+          swrl:argument2 kr:x_sr ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate app:indicatesNoncompliance ;
+          swrl:argument1 kr:x_nc ;
+          swrl:argument2 kr:x_obs ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate core:hasViolation ;
+          swrl:argument1 kr:x_ctx ;
+          swrl:argument2 kr:x_ns ]
+    ) .
+
+
+### SWRL Variable declarations
+
+kr:x_obs a swrl:Variable .
+kr:x_sr a swrl:Variable .
+kr:x_rf a swrl:Variable .
+kr:x_hazd a swrl:Variable .
+kr:x_nc a swrl:Variable .
+kr:x_ns a swrl:Variable .
+kr:x_agent a swrl:Variable .
+kr:x_ctx a swrl:Variable .

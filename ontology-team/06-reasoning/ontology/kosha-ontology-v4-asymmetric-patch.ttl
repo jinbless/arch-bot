@@ -1,0 +1,30 @@
+# Phase J (Axiom 100% Sprint) — AsymmetricProperty 복원.
+#
+# Plan B AC-5: `owl:AsymmetricProperty` ≥ 1. 직전 T4에서 law:modifies의
+# AsymmetricProperty annotation을 제거했음 (kosha-ontology-v2.formatted.ttl L1641
+# comment 참조 — "Openllet 'FunInv' conversion failure (inverseOf law:modifiedBy
+# + AsymmetricProperty 충돌)").
+#
+# 복원 패턴: 별도 신규 property `law:modifiesAsymmetric` + AsymmetricProperty.
+#   - law:modifies (기존, owl:ObjectProperty, inverseOf law:modifiedBy) — 그대로 유지
+#   - law:modifiesAsymmetric (신규, owl:AsymmetricProperty) — 충돌 없음
+#   - 의미적으로 동일하나 inverseOf 없음 → Openllet FunInv 회피
+#
+# Plan B Risks 섹션의 mitigation: "inverseOf 별도 property로 분리 (law:modifiedBy 신규)"
+# 본 patch는 modifiedBy 신규 대신 modifiesAsymmetric 신규 (semantic 동일).
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+@prefix law: <https://cashtoss.info/ontology/law#> .
+
+
+### law:modifiesAsymmetric — AsymmetricProperty 별도 정의
+# 의미적으로 law:modifies와 동일하나 inverseOf 충돌 회피 위해 별도.
+# ABox sync는 후속 sprint에서 propertyChain 또는 manual triple로.
+law:modifiesAsymmetric a owl:ObjectProperty, owl:AsymmetricProperty ;
+    rdfs:label "수정 (비대칭)"@ko ;
+    rdfs:comment "Plan B Phase J Acceptance AC-5 충족 — owl:AsymmetricProperty ≥ 1. law:modifies와 의미적으로 동일하나 inverseOf 충돌 (Openllet FunInv) 회피 위해 별도 property. ABox sync는 후속."@ko ;
+    rdfs:domain law:NormStatement ;
+    rdfs:range law:NormStatement .

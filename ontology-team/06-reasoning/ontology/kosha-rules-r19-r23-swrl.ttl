@@ -1,0 +1,173 @@
+# Phase D (Axiom 100% Sprint) — Tier 4 SWRL deontic chain.
+#
+# kosha-rules-v2.swrl pseudo-code (L135-153) → OWL/RDF SWRL.
+# Phase A/B/C pattern 답습 (DL-safe).
+#
+# 정형 대상 (5개): R-19, R-20, R-21, R-22, R-23 (보정)
+#
+# 의사코드 결함 보정:
+#   - R-19/R-22의 `sr:basedOnArticle`: TBox 미정의 → sr:appliesToArticle로 대체 (의미 동일).
+#   - R-23 원본: head `violatesObligation:?ns` 단일 atom 형태 아님 (syntax 결함) →
+#     ClassAtom `bridge:ViolationCandidate(?ns)`로 보정 (assertion 형태).
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+@prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
+
+
+### R-19: SR → Article 명시 (sr:appliesToArticle → law:appliesArticle)
+# Audit trail enrichment — 동일 propertyChain의 명시 alias.
+# body: SafetyRequirement(?sr) ∧ sr:appliesToArticle(?sr, ?art)
+# head: law:appliesArticle(?sr, ?art)
+#
+# Note: 의사코드 sr:basedOnArticle을 sr:appliesToArticle로 대체.
+
+kr:R19_AppliesArticleRule a swrl:Imp ;
+    rdfs:label "R-19: law:appliesArticle (SR→Article alias)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:appliesToArticle ;
+          swrl:argument1 kr:x_sr ;
+          swrl:argument2 kr:x_art ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:appliesArticle ;
+          swrl:argument1 kr:x_sr ;
+          swrl:argument2 kr:x_art ]
+    ) .
+
+
+### R-20: SR-grounded NS → Obligation modality
+# body: SafetyRequirement(?sr) ∧ NormStatement(?ns) ∧ groundedBySR(?ns,?sr)
+# head: hasModality(?ns, core:Obligation)
+#
+# Note: law:hasModality(SR-grounded NS는 의무 modality로 fact)
+
+kr:R20_ObligationModalityRule a swrl:Imp ;
+    rdfs:label "R-20: law:hasModality (SR-grounded NS → Obligation)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate law:NormStatement ;
+          swrl:argument1 kr:x_ns ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:groundedBySR ;
+          swrl:argument1 kr:x_ns ;
+          swrl:argument2 kr:x_sr ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:hasModality ;
+          swrl:argument1 kr:x_ns ;
+          swrl:argument2 core:Obligation ]
+    ) .
+
+
+### R-21: PenaltyRule → NS (appliesToNormStatement → penalizesNorm alias)
+# body: PenaltyRule(?pr) ∧ NormStatement(?ns) ∧ appliesToNormStatement(?pr,?ns)
+# head: penalizesNorm(?pr, ?ns)
+
+kr:R21_PenalizesNormRule a swrl:Imp ;
+    rdfs:label "R-21: penalty:penalizesNorm (appliesToNormStatement alias)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate penalty:PenaltyRule ;
+          swrl:argument1 kr:x_pr ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate law:NormStatement ;
+          swrl:argument1 kr:x_ns ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate penalty:appliesToNormStatement ;
+          swrl:argument1 kr:x_pr ;
+          swrl:argument2 kr:x_ns ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate penalty:penalizesNorm ;
+          swrl:argument1 kr:x_pr ;
+          swrl:argument2 kr:x_ns ]
+    ) .
+
+
+### R-22: NS → Article via SR chain
+# body: NormStatement(?ns) ∧ SafetyRequirement(?sr) ∧ groundedBySR(?ns,?sr) ∧
+#       sr:appliesToArticle(?sr, ?art)
+# head: law:hasArticle(?ns, ?art)
+
+kr:R22_NSHasArticleRule a swrl:Imp ;
+    rdfs:label "R-22: law:hasArticle (NS→Article via SR)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate law:NormStatement ;
+          swrl:argument1 kr:x_ns ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:groundedBySR ;
+          swrl:argument1 kr:x_ns ;
+          swrl:argument2 kr:x_sr ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:appliesToArticle ;
+          swrl:argument1 kr:x_sr ;
+          swrl:argument2 kr:x_art ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:hasArticle ;
+          swrl:argument1 kr:x_ns ;
+          swrl:argument2 kr:x_art ]
+    ) .
+
+
+### R-23: Obligation NS + SR-grounded → ViolationCandidate (보정)
+# 원본 head `violatesObligation:?ns`은 SWRL atom 형태 아님 → ClassAtom로 보정.
+# body: NormStatement(?ns) ∧ hasModality(?ns, core:Obligation) ∧
+#       SafetyRequirement(?sr) ∧ groundedBySR(?ns, ?sr)
+# head: ClassAtom bridge:ViolationCandidate(?ns)
+
+kr:R23_ViolationCandidateRule a swrl:Imp ;
+    rdfs:label "R-23: bridge:ViolationCandidate (Obligation NS + SR-grounded, 보정)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate law:NormStatement ;
+          swrl:argument1 kr:x_ns ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:hasModality ;
+          swrl:argument1 kr:x_ns ;
+          swrl:argument2 core:Obligation ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate law:groundedBySR ;
+          swrl:argument1 kr:x_ns ;
+          swrl:argument2 kr:x_sr ]
+    ) ;
+    swrl:head (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate bridge:ViolationCandidate ;
+          swrl:argument1 kr:x_ns ]
+    ) .
+
+
+### SWRL Variable declarations
+
+kr:x_sr a swrl:Variable .
+kr:x_art a swrl:Variable .
+kr:x_ns a swrl:Variable .
+kr:x_pr a swrl:Variable .

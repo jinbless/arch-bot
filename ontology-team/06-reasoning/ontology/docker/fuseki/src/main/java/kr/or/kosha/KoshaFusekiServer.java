@@ -54,6 +54,19 @@ public class KoshaFusekiServer {
             {"/kosha-rules-r2-r4-swrl.ttl",              "TURTLE",  "Axiom 100% Phase A: SWRL rules R-2 (coApplicable) + R-4 (dependsOn)"},
             {"/kosha-ontology-v4-alethic-patch.ttl",     "TURTLE",  "Axiom 100% Phase B: alethic chain TBox (guide:Equipment + 10 properties)"},
             {"/kosha-rules-r9-r13-swrl.ttl",             "TURTLE",  "Axiom 100% Phase B: SWRL rules R-10/R-11/R-12/R-13 (R-9 SKIP, 사유 ttl 참조)"},
+            {"/kosha-ontology-v4-bridge-patch.ttl",      "TURTLE",  "Axiom 100% Phase C: bridge:* namespace TBox (7 properties + 1 class)"},
+            {"/kosha-rules-r14-r18-swrl.ttl",            "TURTLE",  "Axiom 100% Phase C: SWRL rules R-14~R-18 (bridge chain)"},
+            {"/kosha-ontology-v4-deontic-patch.ttl",     "TURTLE",  "Axiom 100% Phase D: deontic chain TBox (6 properties + 1 class)"},
+            {"/kosha-rules-r19-r23-swrl.ttl",            "TURTLE",  "Axiom 100% Phase D: SWRL rules R-19~R-23 (deontic chain)"},
+            {"/kosha-ontology-v4-violation-patch.ttl",   "TURTLE",  "Axiom 100% Phase E: violation chain TBox (2 properties + 1 class)"},
+            {"/kosha-rules-r24-r26-swrl.ttl",            "TURTLE",  "Axiom 100% Phase E: SWRL rules R-24~R-26 (violation chain)"},
+            {"/kosha-r27-shacl-exempted.ttl",            "TURTLE",  "Axiom 100% Phase E: R-27 SHACL fallback (negation as failure)"},
+            {"/kosha-ontology-v4-penalty-extra-patch.ttl","TURTLE", "Axiom 100% Phase F: penalty chain TBox (5 properties + 2 classes + 1 NamedIndividual)"},
+            {"/kosha-rules-r28-r30-swrl.ttl",            "TURTLE",  "Axiom 100% Phase F: SWRL rules R-28~R-30 (penalty chain)"},
+            {"/kosha-ontology-v4-restrictions-patch.ttl","TURTLE",  "Axiom 100% Phase G: owl:Restriction 33+ (allValuesFrom, ABox safe)"},
+            {"/kosha-ontology-v4-hazard-direct-patch.ttl","TURTLE", "Axiom 100% Phase H: risk:NaturalLanguageHazardCategory TBox (Hazard-Direct OWL 격상)"},
+            {"/kosha-instances-hazard-direct.ttl",       "TURTLE",  "Axiom 100% Phase H: 13 canonical + 21 NLH alias ABox instances"},
+            {"/kosha-ontology-v4-asymmetric-patch.ttl",  "TURTLE",  "Axiom 100% Phase J: law:modifiesAsymmetric AsymmetricProperty (AC-5 충족)"},
         };
 
         System.out.println("=== KOSHA Fuseki Server ===");

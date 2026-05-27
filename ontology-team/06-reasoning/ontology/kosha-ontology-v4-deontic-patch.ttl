@@ -1,0 +1,78 @@
+# Phase D (Axiom 100% Sprint) — Tier 4 deontic chain TBox.
+#
+# R-19~R-23 정형 prerequisite.
+# Phase A/B pattern 답습.
+#
+# 추가 항목 (Class 1 + ObjectProperty 5):
+#   - bridge:ViolationCandidate  (Class — R-23 head 보정)
+#   - law:groundedBySR           (NormStatement ← SafetyRequirement backward link)
+#   - law:appliesArticle         (SR → Article, R-19 head)
+#   - law:hasArticle             (NormStatement → Article, R-22 head)
+#   - penalty:appliesToNormStatement (PenaltyRule → NS, R-21 body)
+#   - penalty:penalizesNorm      (PenaltyRule → NS, R-21 head)
+#
+# Note: 의사코드 R-19/R-22에서 `sr:basedOnArticle`은 TBox 미정의 → Phase A에서 사용한
+#       sr:appliesToArticle로 대체 (의미 동일, propertyChain derived 가능).
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+
+
+### Class additions
+
+# bridge:ViolationCandidate — R-23 head 보정
+# 의무 NS이며 SR-grounded한 NormStatement를 violation candidate로 mark.
+bridge:ViolationCandidate a owl:Class ;
+    rdfs:label "위반 후보 NormStatement"@ko ;
+    rdfs:comment "R-23 결과: 의무 NS이며 SR-grounded한 NormStatement는 위반 후보로 분류. Phase E의 violation chain prerequisite."@ko ;
+    rdfs:subClassOf law:NormStatement .
+
+
+### ObjectProperty additions
+
+# law:groundedBySR — NS ← SR backward link (R-20/R-22/R-23 body)
+law:groundedBySR a owl:ObjectProperty ;
+    rdfs:label "SR 근거"@ko ;
+    rdfs:comment "NormStatement가 어떤 SafetyRequirement로부터 도출되었는지 (backward link). R-20/R-22/R-23 body."@ko ;
+    rdfs:domain law:NormStatement ;
+    rdfs:range sr:SafetyRequirement .
+
+
+# law:appliesArticle — SR → Article (R-19 head, sr:appliesToArticle의 별칭 link)
+law:appliesArticle a owl:ObjectProperty ;
+    rdfs:label "Article 적용 (강화)"@ko ;
+    rdfs:comment "R-19 결과: sr:appliesToArticle (이미 존재)을 law: namespace에서 강화/명시. Audit trail."@ko ;
+    rdfs:domain sr:SafetyRequirement ;
+    rdfs:range law:Article .
+
+
+# law:hasArticle — NormStatement → Article (R-22 head)
+law:hasArticle a owl:ObjectProperty ;
+    rdfs:label "Article 보유 (NS)"@ko ;
+    rdfs:comment "NormStatement가 특정 Article에 속함 (R-22 결과)."@ko ;
+    rdfs:domain law:NormStatement ;
+    rdfs:range law:Article .
+
+
+# penalty:appliesToNormStatement — R-21 body
+penalty:appliesToNormStatement a owl:ObjectProperty ;
+    rdfs:label "NS 적용 (벌칙)"@ko ;
+    rdfs:comment "PenaltyRule이 특정 NormStatement에 적용 (R-21 body)."@ko ;
+    rdfs:domain penalty:PenaltyRule ;
+    rdfs:range law:NormStatement .
+
+
+# penalty:penalizesNorm — R-21 head
+penalty:penalizesNorm a owl:ObjectProperty ;
+    rdfs:label "NS 제재"@ko ;
+    rdfs:comment "PenaltyRule이 NormStatement를 제재 (R-21 결과)."@ko ;
+    rdfs:domain penalty:PenaltyRule ;
+    rdfs:range law:NormStatement .
