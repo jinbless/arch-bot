@@ -229,6 +229,63 @@ R-14~R-30 정형 검증은 rdflib + RDFS sanity로 확보 (commit `093131c` Spri
 2. **HermiT or ELK reasoner 시도**: 다른 OWL DL implementation, Pellet과 다른 termination 전략.
 3. **SWRL R-14~R-30 일부 부분 활성**: cycle 추가로 가장 작은 SWRL subset 찾기 (예: R-14, R-15만 활성).
 
+---
+
+## Sprint B — Phase H backend 통합 (2026-05-28)
+
+### SPARQL feature flag 추가 (hazard_normalizer.py)
+
+- **`_resolve_via_owl_sparql(name)` helper** 신규 — Fuseki SPARQL endpoint(`FUSEKI_SPARQL_URL`)로 NLH instance label 매칭 후 canonical code fragment 추출.
+- `normalize_hazards_array()` 안에서 `HAZARD_DIRECT_OWL_LOOKUP=on/true/1`이면 SPARQL 우선, fail 시 기존 catalog fallback.
+- urllib + JSON, timeout 3초.
+
+### 단위 테스트 (fuseki Pellet ready 상태)
+
+| name | result |
+|---|---|
+| 추락 | FALL_FROM_HEIGHT ✅ |
+| 낙하물 | FALLING_OBJECT ✅ |
+| 끼임/협착 | ENTANGLEMENT ✅ |
+| 감전 | ELECTRIC_SHOCK ✅ |
+| 화상 | BURN ✅ |
+| 존재하지않는위험 | None (catalog fallback 의도된 동작) ✅ |
+
+### 8 photo eval (HAZARD_DIRECT_OWL_LOOKUP=on, ~$0.40-0.60 cost)
+
+```
+Photos analyzed   : 8/8
+Total hazards     : 27
+Total mapped      : 26 (96.3%)
+Total relations   : 27
+Procedures        : 46
+Penalty paths     : 12
+Moellab overlap   : 20/37
+
+Unmapped: ['온도극단'] (catalog + OWL 둘 다 없음, alias DB 후속 enrichment 후보)
+```
+
+→ **OWL feature flag 동작 확인 + 기존 hazard-direct sprint 결과와 유사 (이전 100% / 본 96.3%, hazard 분포 약간 다름)**.
+
+### Acceptance 일부 확보
+
+- ✅ Phase H backend SPARQL feature flag 동작 확인 (8 photo OpenAI vision call PASS)
+- ⚠️ analysis_pipeline._build_hazard_items() NLH URI audit 추가는 후속 (현재 mapped_codes는 code fragment만)
+- ✅ HAZARD_DIRECT_MODE=parallel + OWL_LOOKUP=on 호환
+
+---
+
+## Sprint D — pyshacl shadow check (부분)
+
+`data-team/05-enrichment/llm-scripts/local_consistency_check.py --skip-instances` 실행:
+
+| Step | 결과 |
+|---|---|
+| rdflib parse (v2.owl + disjoint) | ✅ 5,943 triples |
+| SHACL validation | ✅ **conforms=True** |
+| SPARQL CQ coverage | ⚠️ 0/40 (1 errored) — local script가 본 sprint 신규 ttl 미로드 (script 수정 필요, 본 sprint scope 외) |
+
+→ **AC-6 일부 충족** (pyshacl 정합성 PASS). 2360 synthetic Gate 3 replay + verify_session_docs.py는 별도 후속.
+
 ### 결론
 
 **본 sprint Phase C-J + Sprint A 1차 acceptance**:
