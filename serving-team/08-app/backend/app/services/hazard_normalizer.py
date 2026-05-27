@@ -489,6 +489,68 @@ def normalize_faceted_hazards(
 # GPT hazards[].name (자연어) → canonical (3축) 정규화.
 # hazard_name_seed.json + risk_feature_aliases.json tier1 재사용.
 
+# ===== Sprint B (axiom-100pct Phase H) — Hazard-Direct OWL feature flag ===== #
+# HAZARD_DIRECT_OWL_LOOKUP=on 시 Fuseki SPARQL endpoint로
+# risk:NaturalLanguageHazardCategory 인스턴스 조회.
+# Default off — 기존 _resolve_alias_code() (catalog) 사용.
+
+
+def _resolve_via_owl_sparql(name: str, sparql_url: str | None = None,
+                            timeout_sec: float = 3.0) -> str | None:
+    """Fuseki SPARQL로 NLH instance → canonical code 조회.
+
+    Phase H ABox `kosha-instances-hazard-direct.ttl`에 21 NLH 등재.
+    rdfs:label 매칭 후 risk:mapsToCanonicalCode 값을 fragment로 추출 (예: 'FALL_FROM_HEIGHT').
+    axis 추론은 catalog 검색 (호출자가 _resolve_alias_code fallback).
+
+    Returns: canonical code (e.g. 'FALL_FROM_HEIGHT') or None.
+    """
+    import os
+    import json
+    import urllib.parse
+    import urllib.request
+
+    if not sparql_url:
+        sparql_url = os.environ.get("FUSEKI_SPARQL_URL", "http://localhost:3030/kosha/sparql")
+
+    # SPARQL injection 회피 — name 이스케이프 (simple, label은 enum-like)
+    safe_name = name.replace('"', '\\"').replace("\n", " ").strip()
+    query = (
+        'PREFIX risk: <https://cashtoss.info/ontology/risk#> '
+        'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
+        f'SELECT ?cc WHERE {{ '
+        f'?nlh a risk:NaturalLanguageHazardCategory ; '
+        f'rdfs:label "{safe_name}"@ko ; '
+        f'risk:mapsToCanonicalCode ?cc . '
+        f'}} LIMIT 1'
+    )
+
+    try:
+        data = urllib.parse.urlencode({"query": query}).encode("utf-8")
+        req = urllib.request.Request(
+            sparql_url,
+            data=data,
+            method="POST",
+            headers={
+                "Accept": "application/sparql-results+json",
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=timeout_sec) as resp:
+            payload = json.loads(resp.read())
+        bindings = payload.get("results", {}).get("bindings", [])
+        if not bindings:
+            return None
+        cc_uri = bindings[0].get("cc", {}).get("value", "")
+        if not cc_uri:
+            return None
+        # URI fragment 추출 (https://.../risk#FALL_FROM_HEIGHT → FALL_FROM_HEIGHT)
+        code = cc_uri.rsplit("#", 1)[-1] if "#" in cc_uri else cc_uri.rsplit("/", 1)[-1]
+        return code or None
+    except Exception as e:
+        logger.debug(f"[HazardDirect SPARQL] '{name}' lookup failed: {e}")
+        return None
+
 
 def normalize_hazards_array(
     hazards: list[dict],
@@ -525,6 +587,9 @@ def normalize_hazards_array(
     total = 0
     matched = 0
 
+    import os
+    use_owl_lookup = os.environ.get("HAZARD_DIRECT_OWL_LOOKUP", "").lower() in ("on", "true", "1")
+
     for h in hazards or []:
         name = (h.get("name") or "").strip()
         if not name:
@@ -532,12 +597,28 @@ def normalize_hazards_array(
         total += 1
         matched_axis = None
         matched_code = None
-        for axis in ("accident_type", "hazardous_agent", "work_context"):
-            code = _resolve_alias_code(name, axis)
-            if code:
-                matched_axis = axis
-                matched_code = code
-                break
+
+        # Sprint B (Phase H): OWL SPARQL feature flag — 우선 시도 후 catalog fallback
+        if use_owl_lookup:
+            owl_code = _resolve_via_owl_sparql(name)
+            if owl_code:
+                # axis 추론 — catalog에서 code의 axis 찾기
+                for axis in ("accident_type", "hazardous_agent", "work_context"):
+                    if _resolve_alias_code(owl_code, axis):
+                        matched_axis = axis
+                        matched_code = owl_code
+                        break
+                if matched_code:
+                    logger.debug(f"[HazardDirect OWL] '{name}' → {matched_axis}.{matched_code} (SPARQL)")
+
+        # Catalog fallback (또는 OWL lookup off일 때)
+        if not matched_code:
+            for axis in ("accident_type", "hazardous_agent", "work_context"):
+                code = _resolve_alias_code(name, axis)
+                if code:
+                    matched_axis = axis
+                    matched_code = code
+                    break
         if matched_code:
             matched += 1
             field = axis_field_map[matched_axis]  # type: ignore[index]
