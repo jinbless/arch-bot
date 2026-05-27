@@ -197,24 +197,37 @@ T4 #4에서 `law:modifies`의 AsymmetricProperty annotation을 제거했음 (Ope
 
 → **정형 OWL/SWRL/SHACL 모두 syntax + structural 검증 완료**. ABox 957K + 본 sprint 추가분 모두 정상 로드.
 
-### Sprint A-2 (후속) — Pellet incremental bisection
+### Sprint A-2 — Pellet bisection 완료 (2026-05-28)
 
-본 sprint Sprint A 1차에서는 RDFS sanity로 정형 검증 완료. Pellet inference fire 검증은 다음 sprint에서:
+**4 Cycle bisection 결과**:
 
-**Bisection 전략**:
-1. Phase A/B만 + 기존 → baseline (Phase A 18분 ready 확인)
-2. Phase C + Phase D 추가 → 시도 (bridge + deontic chain)
-3. Phase E + Phase F 추가 → 시도 (violation + penalty)
-4. Phase G Restriction 추가 → 시도 ← 의심 1순위
-5. Phase H ABox 추가 → 시도
-6. Phase J AsymmetricProperty 추가 → 시도 ← 의심 2순위
+| Cycle | 설정 | 결과 |
+|---|---|---|
+| 1 | Phase G restrictions-patch 제외 | ❌ 39분 후 restart (Phase G 단독 culprit 아님) |
+| 2 | Phase C-J 11 ttl 모두 제외 (Phase A/B만) | ✅ 9분 ready (baseline OK, Pellet 자체 정상) |
+| 3 | Phase A/B + G + H + J (axiom-heavy만, SWRL R-14~R-30 모두 제외) | ✅ 9분 ready (axiom-heavy 결합 OK) |
+| Final | Phase A/B + 모든 TBox + G + H + J + R-27 SHACL, **SWRL R-14~R-30 4 ttl 비활성** | ✅ 9분 ready, swrl:Imp 8 rule fire (R-1/3 + R-2/4 + R-10~R-13), R-2 626, R-4 626 |
 
-각 단계 ready 성공 시 → 다음 추가. Fail 시 → 그 phase 자체 undecidable feature 확정.
+**Culprit 확정**: **Phase C/D/E/F SWRL R-14~R-30 (12 rules) 결합**이 Pellet OWL DL undecidable trigger.
+- Phase G/H/J axiom-heavy + Phase A/B SWRL 8 rule + 모든 TBox: Pellet 정상 동작
+- 추가 SWRL 12 rule (bridge/deontic/violation/penalty chain)이 inference space exponential blow up
+- NEXPTIME-complete 영역 추정
 
-또는 별도 mitigation:
-- Pellet → HermiT or ELK reasoner 교체 시도 (다른 OWL DL implementation)
-- SWRL rule을 SHACL CONSTRUCT으로 변환 (Pellet inference space 축소)
-- ABox 일부 제외 후 TBox-only inference
+### 최종 Mitigation 적용 (KoshaFusekiServer.java)
+
+SWRL ttl 4개만 Pellet load에서 제외 (주석 처리). 정형 ttl 파일은 git history에 보존:
+- `kosha-rules-r14-r18-swrl.ttl` (5 rules)
+- `kosha-rules-r19-r23-swrl.ttl` (5 rules)
+- `kosha-rules-r24-r26-swrl.ttl` (3 rules)
+- `kosha-rules-r28-r30-swrl.ttl` (3 rules)
+
+R-14~R-30 정형 검증은 rdflib + RDFS sanity로 확보 (commit `093131c` Sprint A 1차).
+
+### 후속 (별도 sprint)
+
+1. **SWRL → SHACL CONSTRUCT 변환**: R-14~R-30 (12 rules)를 SHACL CONSTRUCT으로 변환. Pellet 외부에서 처리, undecidable 회피.
+2. **HermiT or ELK reasoner 시도**: 다른 OWL DL implementation, Pellet과 다른 termination 전략.
+3. **SWRL R-14~R-30 일부 부분 활성**: cycle 추가로 가장 작은 SWRL subset 찾기 (예: R-14, R-15만 활성).
 
 ### 결론
 
