@@ -274,17 +274,74 @@ Unmapped: ['온도극단'] (catalog + OWL 둘 다 없음, alias DB 후속 enrich
 
 ---
 
-## Sprint D — pyshacl shadow check (부분)
+## Sprint C — F.3.2 batch script (스크립트 OK, per_candidate 호환성 발견)
 
-`data-team/05-enrichment/llm-scripts/local_consistency_check.py --skip-instances` 실행:
+### 스크립트 작성 + dry-run
+
+`data-team/05-enrichment/llm-scripts/promote_f32_auto_batch.py` 신규:
+- KB JSON에서 `level=candidate AND source != self_refine AND confidence >= min-conf` candidate 추출
+- 50개 batch 단위 sequential, `promote_f32_per_candidate.py`를 wrapper로 호출
+
+dry-run (`--min-conf 0.85`):
+- **Eligible candidates: 1,272** (plan B "500-800" 예상 초과 — 0.85+ 분포 평탄)
+- 26 batches (50개 단위)
+- Top conf 0.99: PETROCHEMICAL × DAYCARE/MENTAL_HEALTH, SHIPBUILDING × CAFE/GYM 등 (명확한 incompatible)
+
+### 1 batch 시도 — per_candidate 호환성 발견
+
+`--apply --max-batches 1 --batch-size 50` 실행:
+- elapsed 0.1초, returncode 0 (잠재적 success), but: **`Found 0 F.3.2 candidates (source=f32_axiom_miner, level=candidate)` "Nothing to promote"**.
+
+**원인**:
+- `promote_f32_per_candidate.py`는 `find_f32_candidates()`에서 `source=="f32_axiom_miner"` AND `level=="candidate"` 필터 — 우리 KB의 f32_axiom_miner는 8 vetted만 (candidate 0).
+- 우리 1,272 candidate는 source 미명시 → per_candidate filter mismatch.
+- `--only-index` 인자도 find_f32_candidates 결과 list 내 index 기준 (raw KB index 아님).
+
+**대응**:
+- promote_f32_auto_batch를 **self-contained**로 refactor (per_candidate 호출 없이 KB JSON 직접 mutation + Gate 3 wrap) — 별도 sprint
+- 또는 promote_f32_per_candidate에 `--source-pattern` 옵션 추가 (호환성 enhancement)
+- 본 sprint에서는 스크립트 작성 + 1,272 eligibility 확인까지
+
+### 결론 (Sprint C 부분)
+
+- ✅ 스크립트 작성 OK + dry-run 검증 (1,272 eligible)
+- ⚠️ 실제 promotion 0건 (source filter mismatch 발견 + 후속)
+- ✅ LLM cost $0 (실제 LLM call 없음 — 기존 confidence 활용)
+
+---
+
+## Sprint D — pyshacl shadow check + Gate 3
+
+### Sprint D-1: local_consistency_check (TBox only) — PASS
+
+`data-team/05-enrichment/llm-scripts/local_consistency_check.py --skip-instances`:
 
 | Step | 결과 |
 |---|---|
 | rdflib parse (v2.owl + disjoint) | ✅ 5,943 triples |
 | SHACL validation | ✅ **conforms=True** |
-| SPARQL CQ coverage | ⚠️ 0/40 (1 errored) — local script가 본 sprint 신규 ttl 미로드 (script 수정 필요, 본 sprint scope 외) |
+| SPARQL CQ coverage | ⚠️ 0/40 (script가 신규 ttl 미로드, scope 외) |
 
-→ **AC-6 일부 충족** (pyshacl 정합성 PASS). 2360 synthetic Gate 3 replay + verify_session_docs.py는 별도 후속.
+### Sprint D-2: 종합 pyshacl shadow check (Phase A-J 전체) — PASS
+
+Phase A-J 모든 TBox + SHACL ttl 22개를 rdflib로 load 후 pyshacl validate:
+
+- Data graph: **25,271 triples** (TBox + Phase H ABox)
+- Shapes graph: 209 triples (serving-validation-shapes-v3 + R-27 SHACL)
+- pyshacl elapsed: **1.2초**
+- **conforms: True** ✅
+
+→ Phase A-J 모든 신규 axiom 정합성 PASS.
+
+### Sprint D-3: Gate 3 (2360 synthetic replay + regression_gate)
+
+`serving-team/08-app/backend/scripts/replay_synthetic_observations.py` background 진행 — 별도 알림 대기.
+
+### 결론 (Sprint D 부분)
+
+- ✅ pyshacl shadow check Phase A-J 전체 PASS (정합성 25,271 triples conforms=True)
+- ⏳ Gate 3 backend replay 진행 중
+- ⏳ verify_session_docs.py 스크립트 없음 (별도 작성 필요)
 
 ### 결론
 
