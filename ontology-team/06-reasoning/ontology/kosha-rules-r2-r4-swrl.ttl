@@ -1,0 +1,111 @@
+# Phase A (Axiom 100% Sprint) — R-2 + R-4 SWRL formal serialization.
+#
+# kosha-rules-v2.swrl pseudo-code → OWL/RDF SWRL syntax (Pellet/Openllet native).
+# 패턴: kosha-rules-r1-r3-swrl.ttl (Tier 4 #3, 2026-05-19) 답습.
+#
+# - R-2: 동일 Article 기반 SR 공동 적용 (coApplicable) — head는 core:coApplicable
+#        (owl:SymmetricProperty, 양방향 자동)
+# - R-4: 같은 Hazard + 같은 Article 다루는 SR 간 dependsOn — head는 core:dependsOn
+#        (kosha-ontology-v4-deps-patch.ttl에서 신규 정의)
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
+
+
+### R-2: 동일 Article 기반 SR 공동 적용 (coApplicable)
+# 같은 Article에 근거하는 SR은 공동 적용.
+# Pseudocode (DL-safe pattern, ?sr1=?sr2 self-loop 허용 — semantic 무해, redundant only):
+#   SafetyRequirement(?sr1) ∧ SafetyRequirement(?sr2) ∧
+#   appliesToArticle(?sr1, ?art) ∧ appliesToArticle(?sr2, ?art)
+#     → coApplicable(?sr1, ?sr2)
+#
+# DifferentFrom 회피 이유: Pellet `swrlb:notEqual` builtin은 individual variable에 대해
+# "unsafe variable" 에러 (UNA 없는 OWA에서 undecidable). datavalue 비교는 safe하지만
+# UNA 없는 환경에서 SR identifier 동일성 보장 어려움 → self-loop 허용 채택.
+# 영향: ?sr1=?sr2 self-pair triple만 추가, 응답 처리에서 무시.
+#
+# Note: core:coApplicable은 owl:SymmetricProperty (이미 kosha-ontology-v2.formatted.ttl
+# L71-73 선언) → 양방향 자동.
+
+kr:R2_CoApplicableRule a swrl:Imp ;
+    rdfs:label "R-2: coApplicable 추론 (same article)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr1 ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr2 ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:appliesToArticle ;
+          swrl:argument1 kr:x_sr1 ;
+          swrl:argument2 kr:x_art ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:appliesToArticle ;
+          swrl:argument1 kr:x_sr2 ;
+          swrl:argument2 kr:x_art ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate core:coApplicable ;
+          swrl:argument1 kr:x_sr1 ;
+          swrl:argument2 kr:x_sr2 ]
+    ) .
+
+
+### R-4: SR 간 위험 의존성 (dependsOn)
+# 같은 위험 유형 + 같은 Article을 다루는 SR 간 의존.
+# Pseudocode (R-2와 동일한 DL-safe 패턴, self-loop 허용):
+#   SafetyRequirement(?sr1) ∧ SafetyRequirement(?sr2) ∧
+#   addressesHazard(?sr1, ?haz) ∧ addressesHazard(?sr2, ?haz) ∧
+#   appliesToArticle(?sr1, ?art) ∧ appliesToArticle(?sr2, ?art)
+#     → dependsOn(?sr1, ?sr2)
+
+kr:R4_DependsOnRule a swrl:Imp ;
+    rdfs:label "R-4: dependsOn 추론 (same hazard + same article)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr1 ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate sr:SafetyRequirement ;
+          swrl:argument1 kr:x_sr2 ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:addressesHazard ;
+          swrl:argument1 kr:x_sr1 ;
+          swrl:argument2 kr:x_haz ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:addressesHazard ;
+          swrl:argument1 kr:x_sr2 ;
+          swrl:argument2 kr:x_haz ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:appliesToArticle ;
+          swrl:argument1 kr:x_sr1 ;
+          swrl:argument2 kr:x_art ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate sr:appliesToArticle ;
+          swrl:argument1 kr:x_sr2 ;
+          swrl:argument2 kr:x_art ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate core:dependsOn ;
+          swrl:argument1 kr:x_sr1 ;
+          swrl:argument2 kr:x_sr2 ]
+    ) .
+
+
+### SWRL Variable declarations
+
+kr:x_sr1 a swrl:Variable .
+kr:x_sr2 a swrl:Variable .
+kr:x_art a swrl:Variable .
+kr:x_haz a swrl:Variable .

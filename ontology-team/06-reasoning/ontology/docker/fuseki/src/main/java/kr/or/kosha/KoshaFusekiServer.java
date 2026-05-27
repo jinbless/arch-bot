@@ -50,6 +50,8 @@ public class KoshaFusekiServer {
             {"/kosha-accident22-disjoint.ttl",           "TURTLE",  "KOSHA 22대 사고유형 disjoint"},
             {"/kb-candidates.ttl",                       "TURTLE",  "F.3.2 candidate axioms (SHACL sh:Info)"},
             {"/kosha-rules-r1-r3-swrl.ttl",              "TURTLE",  "T4 #3 SWRL rules R-1/R-3 (OWL serialization)"},
+            {"/kosha-ontology-v4-deps-patch.ttl",        "TURTLE",  "Axiom 100% Phase A: core:dependsOn property"},
+            {"/kosha-rules-r2-r4-swrl.ttl",              "TURTLE",  "Axiom 100% Phase A: SWRL rules R-2 (coApplicable) + R-4 (dependsOn)"},
         };
 
         System.out.println("=== KOSHA Fuseki Server ===");

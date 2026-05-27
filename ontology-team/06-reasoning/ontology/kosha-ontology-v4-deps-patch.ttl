@@ -1,0 +1,23 @@
+# Phase A (Axiom 100% Sprint) — core:dependsOn 신규 ObjectProperty.
+# R-4 SWRL rule head에서 사용.
+#
+# core:dependsOn(?sr1, ?sr2): SR1이 SR2에 의존 (같은 Article + 같은 Hazard 시).
+# Symmetric 아님 — 도메인 관점에서 한쪽 방향만 표현해도 충분 (양방향 매칭은
+# rule 자체가 ?sr1, ?sr2 swap 패턴으로 자동 cover).
+#
+# 정형 SWRL R-4는 `kosha-rules-r2-r4-swrl.ttl` 참조.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+
+
+### core:dependsOn — SR간 위험 의존성
+
+core:dependsOn a owl:ObjectProperty ;
+    rdfs:label "위험 의존"@ko, "depends on"@en ;
+    rdfs:comment "같은 Article 근거 + 같은 Hazard를 다루는 SR 사이의 의존 관계. R-4 SWRL로 자동 추론."@ko ;
+    rdfs:domain sr:SafetyRequirement ;
+    rdfs:range sr:SafetyRequirement .
