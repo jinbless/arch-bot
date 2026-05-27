@@ -1,0 +1,85 @@
+# Phase C (Axiom 100% Sprint) — Tier 3 bridge chain TBox.
+#
+# R-14~R-18 정형 prerequisite. bridge:* namespace 신설.
+# Phase A/B pattern 답습 — kosha-ontology-v4-alethic-patch.ttl 참조.
+#
+# 추가 항목 (Class 1 + ObjectProperty 6):
+#   - bridge:observedIn   (no domain/range — multi-signature: VO→Hazard, SR→Ctx)
+#   - bridge:appliesTo    (no domain/range — multi-signature: SR→Hazard/Equipment/HazardFinding)
+#   - sr:requiresFindingStatus  (SR → FindingStatus, R-18 body)
+#   - sr:appliesToEquipment     (SR → Equipment, R-17 body)
+#   - app:Noncompliance         (Class)
+#   - app:indicatesNoncompliance (Noncompliance → VO, R-24 body)
+#   - core:observedIn           (VO → Ctx, R-16/R-26 body)
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+
+
+### bridge:* namespace — multi-signature audit trail
+
+# bridge:observedIn — R-14 head (VO→Hazard), R-16 head (SR→Ctx)
+# Multi-signature property: domain/range 미설정 — open structural link.
+# 의미: "X는 Y context/hazard에 관찰됨" — audit trail purpose.
+bridge:observedIn a owl:ObjectProperty ;
+    rdfs:label "관찰됨 (브리지)"@ko ;
+    rdfs:comment "R-14 (VisualObservation→Hazard), R-16 (SafetyRequirement→WorkContext) bridge link. domain/range 미설정 — multi-signature audit trail."@ko .
+
+
+# bridge:appliesTo — R-15/R-17/R-18 head (SR→Hazard/Equipment/HazardFinding)
+# Multi-signature property: domain은 SafetyRequirement 고정, range는 union (no constraint).
+bridge:appliesTo a owl:ObjectProperty ;
+    rdfs:label "적용 (브리지)"@ko ;
+    rdfs:comment "R-15 (SR→Hazard), R-17 (SR→Equipment), R-18 (SR→HazardFinding) bridge link. domain SR 고정, range multi-class (no constraint)."@ko ;
+    rdfs:domain sr:SafetyRequirement .
+
+
+### sr:requiresFindingStatus — R-18 body
+sr:requiresFindingStatus a owl:ObjectProperty ;
+    rdfs:label "필요 판정 상태"@ko ;
+    rdfs:comment "SR이 특정 HazardFinding status일 때 적용 (R-18 body)."@ko ;
+    rdfs:domain sr:SafetyRequirement ;
+    rdfs:range app:FindingStatus .
+
+
+### sr:appliesToEquipment — R-17 body (이미 R-12 head의 risk:appliesToEquipment와 별개)
+# R-17 body는 SR→Equipment 직접 매핑 (정적 catalog 또는 manual annotation).
+sr:appliesToEquipment a owl:ObjectProperty ;
+    rdfs:label "장비 적용 (SR)"@ko ;
+    rdfs:comment "SR이 특정 Equipment에 직접 적용 (R-17 body). risk:appliesToEquipment (RiskFeature→Equipment, R-12 head)와 별개."@ko ;
+    rdfs:domain sr:SafetyRequirement ;
+    rdfs:range guide:Equipment .
+
+
+### app:Noncompliance — Class (R-24 body)
+app:Noncompliance a owl:Class ;
+    rdfs:label "비준수"@ko ;
+    rdfs:comment "VisualObservation에서 확인되는 비준수 정황 (R-24 body, R-26 body)."@ko ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+
+### app:indicatesNoncompliance — R-24/R-26 body
+app:indicatesNoncompliance a owl:ObjectProperty ;
+    rdfs:label "비준수 지시"@ko ;
+    rdfs:comment "Noncompliance가 특정 VisualObservation을 비준수로 지시 (R-24/R-26 body)."@ko ;
+    rdfs:domain app:Noncompliance ;
+    rdfs:range app:VisualObservation .
+
+
+### core:observedIn — R-16/R-26 body (VO → Ctx)
+core:observedIn a owl:ObjectProperty ;
+    rdfs:label "관찰 문맥"@ko ;
+    rdfs:comment "VisualObservation이 특정 WorkContext에서 관찰됨 (R-16/R-26 body)."@ko ;
+    rdfs:domain app:VisualObservation ;
+    rdfs:range ctx:WorkContext .

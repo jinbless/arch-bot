@@ -1,0 +1,194 @@
+# Phase H (Axiom 100% Sprint) — Hazard-Direct ABox instances.
+#
+# hazard-direct sprint Phase 2 vetted 21 alias (hazard_name_seed.json) → OWL instance triples.
+# TBox: kosha-ontology-v4-hazard-direct-patch.ttl.
+#
+# 13 canonical RiskFeature instance + 21 NaturalLanguageHazardCategory instance + 21 mapsToCanonicalCode + 21 catalogConfidence.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+
+### Canonical RiskFeature instances (13)
+
+risk:BURN a risk:RiskFeature ;
+    rdfs:label "BURN"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:CHEMICAL_EXPOSURE a risk:RiskFeature ;
+    rdfs:label "CHEMICAL_EXPOSURE"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:CHEMICAL_VAPOR_EXPOSURE a risk:RiskFeature ;
+    rdfs:label "CHEMICAL_VAPOR_EXPOSURE"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:COLLISION a risk:RiskFeature ;
+    rdfs:label "COLLISION"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:CUT a risk:RiskFeature ;
+    rdfs:label "CUT"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:ELECTRIC_SHOCK a risk:RiskFeature ;
+    rdfs:label "ELECTRIC_SHOCK"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:ENTANGLEMENT a risk:RiskFeature ;
+    rdfs:label "ENTANGLEMENT"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:ERGONOMIC a risk:RiskFeature ;
+    rdfs:label "ERGONOMIC"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:FALLING_OBJECT a risk:RiskFeature ;
+    rdfs:label "FALLING_OBJECT"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:FALL_FROM_HEIGHT a risk:RiskFeature ;
+    rdfs:label "FALL_FROM_HEIGHT"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:FALL_ON_GROUND a risk:RiskFeature ;
+    rdfs:label "FALL_ON_GROUND"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:FIRE_AND_EXPLOSION a risk:RiskFeature ;
+    rdfs:label "FIRE_AND_EXPLOSION"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+risk:HEAVY_OBJECT a risk:RiskFeature ;
+    rdfs:label "HEAVY_OBJECT"@en ;
+    rdfs:comment "hazard-direct canonical 3-axis code"@en .
+
+### NaturalLanguageHazardCategory instances (21 vetted alias)
+
+risk:NLH_001 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "낙하물"@ko ;
+    rdfs:comment "axis=accident_type, frequency=4, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:FALLING_OBJECT ;
+    risk:catalogConfidence "0.97"^^xsd:decimal .
+
+risk:NLH_002 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "끼임/협착"@ko ;
+    rdfs:comment "axis=accident_type, frequency=3, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:ENTANGLEMENT ;
+    risk:catalogConfidence "0.95"^^xsd:decimal .
+
+risk:NLH_003 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "감전"@ko ;
+    rdfs:comment "axis=accident_type, frequency=3, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:ELECTRIC_SHOCK ;
+    risk:catalogConfidence "0.97"^^xsd:decimal .
+
+risk:NLH_004 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "추락"@ko ;
+    rdfs:comment "axis=accident_type, frequency=2, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:FALL_FROM_HEIGHT ;
+    risk:catalogConfidence "0.9"^^xsd:decimal .
+
+risk:NLH_005 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "절단"@ko ;
+    rdfs:comment "axis=accident_type, frequency=2, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:CUT ;
+    risk:catalogConfidence "0.92"^^xsd:decimal .
+
+risk:NLH_006 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "중량물 취급"@ko ;
+    rdfs:comment "axis=hazardous_agent, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:HEAVY_OBJECT ;
+    risk:catalogConfidence "0.92"^^xsd:decimal .
+
+risk:NLH_007 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "인간공학적 위험(부적절 자세)"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:ERGONOMIC ;
+    risk:catalogConfidence "0.92"^^xsd:decimal .
+
+risk:NLH_008 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "중량물"@ko ;
+    rdfs:comment "axis=hazardous_agent, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:HEAVY_OBJECT ;
+    risk:catalogConfidence "0.92"^^xsd:decimal .
+
+risk:NLH_009 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "근골격계 부담작업"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:ERGONOMIC ;
+    risk:catalogConfidence "0.92"^^xsd:decimal .
+
+risk:NLH_010 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "화재/폭발"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:FIRE_AND_EXPLOSION ;
+    risk:catalogConfidence "0.95"^^xsd:decimal .
+
+risk:NLH_011 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "화상"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:BURN ;
+    risk:catalogConfidence "0.95"^^xsd:decimal .
+
+risk:NLH_012 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "유해물질(세정제 등 화학물질)"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:CHEMICAL_EXPOSURE ;
+    risk:catalogConfidence "0.87"^^xsd:decimal .
+
+risk:NLH_013 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "인간공학적 위험"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:ERGONOMIC ;
+    risk:catalogConfidence "0.95"^^xsd:decimal .
+
+risk:NLH_014 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "충돌(지게차 등)"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:COLLISION ;
+    risk:catalogConfidence "0.95"^^xsd:decimal .
+
+risk:NLH_015 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "중량물 취급(근골격계)"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:ERGONOMIC ;
+    risk:catalogConfidence "0.92"^^xsd:decimal .
+
+risk:NLH_016 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "인간공학적 위험(불량자세)"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:ERGONOMIC ;
+    risk:catalogConfidence "0.92"^^xsd:decimal .
+
+risk:NLH_017 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "충돌"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:COLLISION ;
+    risk:catalogConfidence "0.97"^^xsd:decimal .
+
+risk:NLH_018 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "절단/베임"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:CUT ;
+    risk:catalogConfidence "0.92"^^xsd:decimal .
+
+risk:NLH_019 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "유해물질(유증기/냉각수/윤활유 노출)"@ko ;
+    rdfs:comment "axis=accident_type, frequency=1, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:CHEMICAL_VAPOR_EXPOSURE ;
+    risk:catalogConfidence "0.88"^^xsd:decimal .
+
+risk:NLH_020 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "전도/미끄럼"@ko ;
+    rdfs:comment "axis=accident_type, frequency=7, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:FALL_ON_GROUND ;
+    risk:catalogConfidence "0.85"^^xsd:decimal .
+
+risk:NLH_021 a risk:NaturalLanguageHazardCategory ;
+    rdfs:label "유해물질"@ko ;
+    rdfs:comment "axis=accident_type, frequency=2, vetted=true"@en ;
+    risk:mapsToCanonicalCode risk:CHEMICAL_EXPOSURE ;
+    risk:catalogConfidence "0.85"^^xsd:decimal .

@@ -1,0 +1,52 @@
+# Phase E (Axiom 100% Sprint) — R-27 SHACL fallback (Negation as Failure).
+#
+# R-27 의사코드:
+#   bridge:violatesObligation(?agent,?ns) ← bridge:violatesObligation(?agent,?ns) ∧
+#     core:hasModality(?ns, core:Obligation) ∧ NormStatement(?exNs) ∧
+#     core:hasModality(?exNs, core:Exemption) ∧ law:modifies(?exNs, ?ns)
+#
+# SWRL은 head ⊆ body (self-referential) + Open World negation 표현 불가 →
+# SHACL `sh:not` constraint로 변환:
+#   "ViolationCandidate인 NS가 Exemption NS에 의해 modifies되면 violation으로 분류하지 않는다"
+#
+# Pattern: sh:NodeShape targetClass bridge:ViolationCandidate, sh:not (∃ modifiedBy x s.t. x.modality=Exemption)
+#
+# Severity sh:Info — 정보성 제약. 실제 violation block은 application logic이 처리 (PG ETL).
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+
+
+### R27_ExemptionExclusionShape
+# Target: ViolationCandidate NS.
+# Constraint: NS는 Exemption NS에 의해 modify되면 안 됨 (otherwise 면제 인정).
+#
+# pyshacl rendering:
+#   - sh:not [ sh:property ... ] — NS의 inverse path (modifies) chain에 Exemption modality이 있으면 violation report
+#   - sh:severity sh:Info — 정보성 (validation 실패 시 application logic이 핸들)
+
+bridge:R27_ExemptionExclusionShape a sh:NodeShape ;
+    rdfs:label "R-27: Exemption NS modify된 ViolationCandidate는 위반 면제"@ko ;
+    rdfs:comment "Plan E R-27 SHACL fallback. ViolationCandidate가 Exemption NS에 의해 modify되면 violation 확정 억제. SWRL negation 불가능 → SHACL sh:not."@ko ;
+    sh:targetClass bridge:ViolationCandidate ;
+    sh:not [
+        sh:property [
+            sh:path [ sh:inversePath law:modifies ] ;
+            sh:qualifiedValueShape [
+                sh:property [
+                    sh:path law:hasModality ;
+                    sh:hasValue core:Exemption ;
+                ] ;
+            ] ;
+            sh:qualifiedMinCount 1 ;
+        ] ;
+    ] ;
+    sh:severity sh:Info ;
+    sh:message "ViolationCandidate가 Exemption NS에 의해 modifies되어 violation 면제 가능 (R-27 SHACL fallback)."@ko .

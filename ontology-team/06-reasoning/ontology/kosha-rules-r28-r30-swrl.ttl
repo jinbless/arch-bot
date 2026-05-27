@@ -1,0 +1,128 @@
+# Phase F (Axiom 100% Sprint) — Tier 6 SWRL penalty chain.
+#
+# kosha-rules-v2.swrl pseudo-code (L171-181) → OWL/RDF SWRL.
+# Phase A~E pattern 답습.
+#
+# 정형 대상 (3개): R-28, R-29, R-30
+#
+# Note: R-29는 swrlb:greaterThanOrEqual datatype builtin 사용 — datatype variable은
+#       DL-safe (Phase A의 swrlb:notEqual individual variable과 달리 OK).
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+
+@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
+
+
+### R-28: 위반된 NS의 PenaltyRule을 Exposure에 적용
+# body: bridge:violatesObligation(?agent,?ns) ∧ PenaltyRule(?pr) ∧
+#       penalizesNorm(?pr,?ns) ∧ PenaltyExposure(?ctx)
+# head: penalty:appliesPenaltyRule(?ctx, ?pr)
+
+kr:R28_AppliesPenaltyRuleRule a swrl:Imp ;
+    rdfs:label "R-28: penalty:appliesPenaltyRule (Ctx ↔ PenaltyRule via violation)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate penalty:PenaltyRule ;
+          swrl:argument1 kr:x_pr ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate app:PenaltyExposure ;
+          swrl:argument1 kr:x_ctx ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate bridge:violatesObligation ;
+          swrl:argument1 kr:x_agent ;
+          swrl:argument2 kr:x_ns ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate penalty:penalizesNorm ;
+          swrl:argument1 kr:x_pr ;
+          swrl:argument2 kr:x_ns ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate penalty:appliesPenaltyRule ;
+          swrl:argument1 kr:x_ctx ;
+          swrl:argument2 kr:x_pr ]
+    ) .
+
+
+### R-29: severityScore ≥ 5 → HighSeverity 라벨
+# body: PenaltyExposure(?ctx) ∧ PenaltyRule(?pr) ∧ appliesToExposure(?pr,?ctx) ∧
+#       severityScore(?pr,?score) ∧ swrlb:greaterThanOrEqual(?score, 5)
+# head: app:hasPenaltyLevel(?ctx, app:HighSeverity)
+
+kr:R29_HighSeverityPenaltyRule a swrl:Imp ;
+    rdfs:label "R-29: app:hasPenaltyLevel (HighSeverity via score ≥ 5)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate app:PenaltyExposure ;
+          swrl:argument1 kr:x_ctx ]
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate penalty:PenaltyRule ;
+          swrl:argument1 kr:x_pr ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate penalty:appliesToExposure ;
+          swrl:argument1 kr:x_pr ;
+          swrl:argument2 kr:x_ctx ]
+        [ a swrl:DatavaluedPropertyAtom ;
+          swrl:propertyPredicate penalty:severityScore ;
+          swrl:argument1 kr:x_pr ;
+          swrl:argument2 kr:x_score ]
+        [ a swrl:BuiltinAtom ;
+          swrl:builtin swrlb:greaterThanOrEqual ;
+          swrl:arguments (
+            kr:x_score
+            "5"^^xsd:decimal
+          ) ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate app:hasPenaltyLevel ;
+          swrl:argument1 kr:x_ctx ;
+          swrl:argument2 app:HighSeverity ]
+    ) .
+
+
+### R-30: PenaltyRule의 결과를 Exposure에 연결
+# body: PenaltyRule(?pr) ∧ resultsIn(?pr,?pres) ∧ appliesPenaltyRule(?ctx,?pr)
+# head: app:hasPenaltyResult(?ctx, ?pres)
+
+kr:R30_HasPenaltyResultRule a swrl:Imp ;
+    rdfs:label "R-30: app:hasPenaltyResult (Ctx ↔ PenaltyResult)"@ko ;
+    swrl:body (
+        [ a swrl:ClassAtom ;
+          swrl:classPredicate penalty:PenaltyRule ;
+          swrl:argument1 kr:x_pr ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate penalty:resultsIn ;
+          swrl:argument1 kr:x_pr ;
+          swrl:argument2 kr:x_pres ]
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate penalty:appliesPenaltyRule ;
+          swrl:argument1 kr:x_ctx ;
+          swrl:argument2 kr:x_pr ]
+    ) ;
+    swrl:head (
+        [ a swrl:IndividualPropertyAtom ;
+          swrl:propertyPredicate app:hasPenaltyResult ;
+          swrl:argument1 kr:x_ctx ;
+          swrl:argument2 kr:x_pres ]
+    ) .
+
+
+### SWRL Variable declarations
+
+kr:x_pr a swrl:Variable .
+kr:x_ctx a swrl:Variable .
+kr:x_ns a swrl:Variable .
+kr:x_agent a swrl:Variable .
+kr:x_score a swrl:Variable .
+kr:x_pres a swrl:Variable .

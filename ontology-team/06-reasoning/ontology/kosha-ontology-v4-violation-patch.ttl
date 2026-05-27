@@ -1,0 +1,45 @@
+# Phase E (Axiom 100% Sprint) — Tier 5 violation chain TBox.
+#
+# R-24~R-26 정형 prerequisite + R-27 SHACL fallback prerequisite.
+# Phase A/B/C/D pattern 답습.
+#
+# 추가 항목 (Class 1 + ObjectProperty 2):
+#   - agent:Worker                 (Class) — R-25 body
+#   - core:hasViolation            (no domain/range — multi-signature: VO→SR, Ctx→NS)
+#   - bridge:violatesObligation    (no domain/range — R-25 head, R-27 SHACL target)
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+@prefix agent: <https://cashtoss.info/ontology/agent#> .
+
+
+### agent:Worker — R-25 body class
+# Note: core:Worker (named individual) exists as a singleton BFO Person instance.
+# agent:Worker is a class enabling SWRL ClassAtom matching.
+agent:Worker a owl:Class ;
+    rdfs:label "근로자"@ko ;
+    rdfs:comment "위반 추론 chain의 agent (R-25 body). core:Worker named individual과 별개의 class."@ko ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+
+### core:hasViolation — R-24 head (VO→SR), R-26 head (WorkContext→NS)
+# Multi-signature property: domain/range 미설정.
+core:hasViolation a owl:ObjectProperty ;
+    rdfs:label "위반 관계"@ko ;
+    rdfs:comment "R-24 (VO→SR), R-26 (WorkContext→NS) violation link. domain/range 미설정 — multi-signature audit trail."@ko .
+
+
+### bridge:violatesObligation — R-25 head, R-27 SHACL target
+# Worker가 Obligation NS를 위반 (R-25). R-27 SHACL에 의해 면제 NS 존재 시 제거.
+bridge:violatesObligation a owl:ObjectProperty ;
+    rdfs:label "의무 위반"@ko ;
+    rdfs:comment "agent:Worker가 Obligation NS를 위반 (R-25 head). R-27 SHACL이 exemption modify 존재 시 fallback."@ko ;
+    rdfs:domain agent:Worker ;
+    rdfs:range law:NormStatement .

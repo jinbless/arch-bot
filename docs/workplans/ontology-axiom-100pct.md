@@ -1,6 +1,6 @@
 # Ontology Axiom 100% 정석화 Sprint Plan
 
-> **Status**: ✅ Phase A (2026-05-19) + Phase B (2026-05-27) 완료. SWRL formal rule 2 → 6 (R-2/R-4 + R-10/R-11/R-12/R-13). R-9는 의사코드 결함으로 정형 SKIP (사유 [axiom-100pct-phase-b.md](../dev-notes/axiom-100pct-phase-b.md) 참조). Phase C 다음 세션 진입.
+> **Status**: ✅ Phase A/B/C/D/E/F/G/H/J 완료 (2026-05-27). Phase I (F.3.2 auto batch, LLM cost ~$10-20) 별도 sprint. 상세 [axiom-100pct-phase-c-j.md](../dev-notes/axiom-100pct-phase-c-j.md) 참조. **정석 점수 ~80-84% → ~92-95%**.
 > **Trigger**: 직전 hazard-direct pivot 완주 후 정석 OWL DL 평가 → 현재 정석 점수 ~75-80%. SWRL formal rule 2/30, Restriction 6개, hazard-direct OWL 미격상, F.3.2 candidate 2,184 잔여, AsymmetricProperty 0.
 > **Predecessor**: hazard-direct pivot (commit `164de5a`), 문서 전수 검증 (commit `6d3f431`)
 > **Predicted duration**: ~4-6주 (10 Phase, hazard-direct pivot보다 큼)

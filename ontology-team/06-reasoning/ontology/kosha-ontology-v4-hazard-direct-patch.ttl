@@ -1,0 +1,46 @@
+# Phase H (Axiom 100% Sprint) — Hazard-Direct OWL 격상.
+#
+# Plan B Phase H: hazard-direct pivot의 Pydantic API model을 OWL 격상.
+# Vision LLM이 자연어로 출력한 hazard.name (예: "추락", "끼임/협착")을 OWL Class로 등재.
+#
+# 추가 항목 (Class 1 + ObjectProperty 1 + DatatypeProperty 1):
+#   - risk:NaturalLanguageHazardCategory  (Class) — subClassOf risk:RiskFeature
+#   - risk:mapsToCanonicalCode            — NaturalLang → RiskFeature (canonical 3-axis)
+#   - risk:catalogConfidence              — DatatypeProperty (mapping confidence)
+#
+# ABox 매핑 — kosha-instances-hazard-direct.ttl (별도 파일):
+#   21 vetted alias를 OWL instance로 등재 (hazard-direct sprint Phase 2 산출).
+#   본 patch는 TBox만 정의. ABox alias instances는 별도 ttl 또는 후속 sprint에서.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+
+
+### risk:NaturalLanguageHazardCategory — Hazard-Direct OWL Class
+# Vision LLM이 자연어로 출력한 hazard.name (예: "추락", "끼임/협착") 카테고리.
+# risk:RiskFeature의 subclass로, 자연어 layer와 canonical 3-axis layer 사이의 매개.
+risk:NaturalLanguageHazardCategory a owl:Class ;
+    rdfs:label "자연어 위험요소 카테고리"@ko ;
+    rdfs:comment "Vision LLM이 자연어로 출력한 hazard.name (예: '추락', '끼임/협착'). hazard-direct pivot에서 Pydantic으로 표현되던 것을 OWL Class로 격상. risk:RiskFeature의 subclass."@ko ;
+    rdfs:subClassOf risk:RiskFeature .
+
+
+### risk:mapsToCanonicalCode — NaturalLang → canonical RiskFeature
+# 자연어 카테고리가 어떤 canonical RiskFeature (3-axis taxonomy)에 매핑되는지.
+risk:mapsToCanonicalCode a owl:ObjectProperty ;
+    rdfs:label "Canonical 코드 매핑"@ko ;
+    rdfs:comment "자연어 hazard.name (NaturalLanguageHazardCategory)이 어떤 canonical RiskFeature 3-axis (accident_type/hazardous_agent/work_context/ppe_state/environmental)로 매핑되는지."@ko ;
+    rdfs:domain risk:NaturalLanguageHazardCategory ;
+    rdfs:range risk:RiskFeature .
+
+
+### risk:catalogConfidence — DatatypeProperty (mapping confidence)
+risk:catalogConfidence a owl:DatatypeProperty ;
+    rdfs:label "카탈로그 매핑 신뢰도"@ko ;
+    rdfs:comment "NaturalLanguageHazardCategory ↔ canonical RiskFeature 매핑의 신뢰도 (0~1). hazard-direct sprint의 vetted alias는 1.0."@ko ;
+    rdfs:domain risk:NaturalLanguageHazardCategory ;
+    rdfs:range xsd:decimal .
