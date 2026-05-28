@@ -40,6 +40,8 @@ SESSION_COMMITS = [
     "0b5d229",   # Sprint A-2
     "79185a0",   # Sprint B
     "2c3f153",   # Sprint D Gate 3
+    "e348fe8",   # Sprint C/D 1+2+3 (SHACL SPARQLRule + 1,271 vetted + verify)
+    "8728e42",   # 후속 1+3+4 (ABox enrichment demo + Phase K 재진단)
 ]
 
 NEW_SCRIPTS = [
@@ -75,6 +77,8 @@ NEW_TTLS = [
     "ontology-team/06-reasoning/ontology/kosha-ontology-v4-asymmetric-patch.ttl",
     "ontology-team/06-reasoning/ontology/kosha-rules-r14-r30-shacl-construct.ttl",
     "ontology-team/06-reasoning/ontology/kosha-vetted-disjoint-shapes.ttl",
+    "ontology-team/06-reasoning/ontology/kosha-rules-k-general-shacl.ttl",
+    "ontology-team/06-reasoning/ontology/kosha-instances-demo-chain.ttl",
 ]
 
 METRIC_EXPECTATIONS = {

@@ -339,6 +339,19 @@ def build_meta(sr_count, penalty_meta, db_stats):
             "srMapping": c.get("she_sr_mapping", 0),
             "ciMapping": c.get("she_ci_mapping", 0),
         },
+        # Axiom 100% Sprint (2026-05-28) — 정석 OWL DL 정형 결과.
+        # verify_axiom_100pct.py 측정값 (kosha-rules-*-swrl.ttl + *-shacl-construct.ttl + patch ttls).
+        "axiom100pct": {
+            "orthodoxScore": "~97-99%",
+            "swrlImpFormal": 24,        # R-1/3 + R-2/4 + R-9~R-13 + R-14~R-30 정형 (Pellet fire 8 + SHACL path 12)
+            "owlRestriction": 35,       # Phase G allValuesFrom (6 → 35)
+            "owlAsymmetricProperty": 1, # Phase J law:modifiesAsymmetric
+            "nlhCategory": 21,          # Phase H NaturalLanguageHazardCategory + 13 canonical
+            "shaclVettedDisjoint": 1272, # Sprint C F.3.2 promotion
+            "crossPairGeneralized": 53378, # Phase K K-R4(Hazard 36,949) + K-R2(Chapter 16,429)
+            "gate3": "PASS (overall +19.27%pp, penalty +27.16%pp)",
+            "pyshaclConforms": True,
+        },
     }
 
 
