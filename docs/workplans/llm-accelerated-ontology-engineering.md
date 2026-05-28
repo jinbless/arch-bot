@@ -4,7 +4,9 @@
 > 임시 plan 파일(`.claude/plans/workplan-...md`)에서 정식 git 추적 문서로 이전됨.
 > 향후 모든 Phase 결정의 기준.
 
-## Status (2026-05-19 갱신 — Phase G + Tier 4 완료 + T4 #1 후속 closed + moellab 비교 완료, origin/main 동기화 `3502eff`)
+## Status (2026-05-28 갱신 — ⭐ axiom-100% Sprint(Phase A~K) + ⭐ guide-accuracy Sprint(P0~P3) 완료, origin/main `4aa3cca`. 이전: Phase G + Tier 4 + Hazard-Direct, `3502eff`)
+
+> 최신 두 스프린트(axiom-100%, guide-accuracy)는 별도 plan/runbook으로 추적: [ontology-axiom-100pct.md](ontology-axiom-100pct.md) + [../dev-notes/axiom-100pct-phase-c-j.md](../dev-notes/axiom-100pct-phase-c-j.md) + [../dev-notes/guide-recommendation-accuracy.md](../dev-notes/guide-recommendation-accuracy.md). 아래 Status 표는 ~2026-05-19 (Phase G/Tier 4) 기준.
 
 | Phase | 상태 | 비고 |
 |---|---|---|

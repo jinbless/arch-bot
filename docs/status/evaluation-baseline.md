@@ -1,12 +1,44 @@
 # Evaluation Baseline
 
-Latest updated: 2026-05-19 — **Phase G PG materialization (penalty_accuracy +27.16%p ⭐) + Tier 4 SWRL Pellet (R-1: 107 + R-3: 3,579 inferred ⭐)**.
+Latest updated: 2026-05-28 — **axiom-100% Sprint (SWRL→SHACL CONSTRUCT, K-general 53,378 pair) + guide-accuracy Sprint (8-photo Guide mapping 80%→100% ⭐) + 문서 doc-sync**. 이전: Phase G PG materialization (penalty_accuracy +27.16%p ⭐) + Tier 4 SWRL Pellet (R-1: 107 + R-3: 3,579 inferred ⭐).
 
 Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
 Previous accepted baseline: `ci_unrelated_action_filter1`
 
 The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are local/external artifacts. Root git tracks `data-team/05-enrichment/eval-data/reports-manifest.json` and this summary instead of adding historical report files to repository history.
+
+## guide-accuracy Sprint — Guide 추천 정확도 (2026-05-28, 8-photo Guide mapping 80%→100% ⭐)
+
+실 서비스에서 CI 추천은 정확하나 Guide가 엉뚱하게 추천되는 문제(boilerplate CI fan-out + CI 개수 단독 랭킹) 근본 해결.
+
+- **P1 CI 변별력**: `checklist_items.guide_frequency` backfill (**3,953 CI, max 130**). `ci_weight = 1/log2(1+gf)`.
+- **P0 Guide 랭킹**: `get_guides_from_srs()` CI 개수 → Σ(ci_weight) 변별력 가중합.
+- **P2 직접 위험 매핑**: `guide_entity_feature_candidates(entity_type='GUIDE', method='guide_hazard_weighted_majority')` **2,115행 / 659 Guide** + 신규 `get_guides_by_hazard_features()` (CI 경유 없음).
+- **P3 온톨로지**: `guide:addressesHazard`/`guideAddressesAgent`/`guideAppliesToContext` + `kosha-instances-guide-hazard.ttl` (659 Guide, 2,115 triple).
+
+8-photo Guide eval:
+
+| 지표 | before | after |
+|---|---|---|
+| mapping rate | 80% | **100% (27/27)** |
+| guide_hazard_direct mapping | — | **85%** |
+| boilerplate Guide 출현 | 발생 | **0** |
+
+Gate 3 regression (replay 2,360, tolerance 0.02): synthetic metric 회귀 없음 (Guide 추천은 synthetic corpus 채점 대상 외 → 8-photo로 측정). she 0.5758 / sr 0.7581 / penalty 0.4551 / overall 0.3258 유지.
+
+Runbook: [../dev-notes/guide-recommendation-accuracy.md](../dev-notes/guide-recommendation-accuracy.md).
+
+## axiom-100% Sprint — Ontology 공리 100% (2026-05-20~27, SWRL→SHACL CONSTRUCT)
+
+SWRL 의사코드 30개를 정형 추론 facts로 전환. Pellet NEXPTIME blowup 회피 위해 R-14~R-30은 SHACL CONSTRUCT.
+
+- v4 TBox 패치 9종 (deps/alethic/bridge/deontic/violation/penalty-extra/restrictions/hazard-direct/asymmetric). **owl:Restriction 35, owl:AsymmetricProperty 1, NaturalLanguageHazardCategory 21, sh:NodeShape 1,964**.
+- R-1/R-3 SWRL native 유지 (Pellet: 107 + 3,579 inferred). R-14~R-30 → `kosha-rules-r14-r30-shacl-construct.ttl` (12 sh:rule CONSTRUCT, Java sources 4 SWRL 주석).
+- K-general SHACL: `core:dependsOn` 36,949 + `core:coApplicable` 16,429 = **53,378 pair**.
+- Gate 3 PASS (ontology-layer 변경, serving replay 회귀 없음). 검증: `scripts/verify_axiom_100pct.py` Overall OK.
+
+Runbook: [../workplans/ontology-axiom-100pct.md](../workplans/ontology-axiom-100pct.md), [../dev-notes/axiom-100pct-phase-c-j.md](../dev-notes/axiom-100pct-phase-c-j.md).
 
 ## Phase G.3 penalty_rule_index PG materialization — 2026-05-19 (penalty_accuracy +27.16%p ⭐)
 

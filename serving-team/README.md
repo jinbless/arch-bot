@@ -26,7 +26,24 @@
 - 백엔드 서비스 구조: `08-app/backend/app/services/` (analysis_pipeline, hazard_normalizer, **hazard_to_guide_service**, she_matcher, sr_lookup_service, guide_recommendation_service, penalty_path_service, shadow_reasoner 등)
 - 프런트 결과 패널: `08-app/frontend/src/components/results/` (RiskOverview / **HazardGuideRelations** / ImmediateActions / GuideProcedure / PenaltyPath / ReasoningTrace)
 
-## 최근 변경 (2026-05-19, origin/main `164de5a`) — Hazard-Direct Architecture Pivot
+## 최근 변경 (2026-05-28, origin/main `4aa3cca`) — guide-accuracy Sprint
+
+CI 추천은 정확하나 Guide가 엉뚱하게 추천되는 문제(boilerplate CI fan-out + CI 개수 단독 랭킹) 근본 해결.
+
+**수정/신규 service** (`app/services/hazard_rule_engine.py`):
+- `get_guides_from_srs()` — CI **개수** 랭킹 → **Σ(ci_weight) 변별력 가중합**. `ci_weight = 1/log2(1+guide_frequency)` (boilerplate 자동 억제). score = 0.55 + 0.30·norm_weighted + industry_adjustment.
+- `get_guides_by_hazard_features()` ⭐ 신규 — `guide_entity_feature_candidates(entity_type='GUIDE')` 직접 조회 (CI 경유 없음). score = 0.60 + 0.20·conf + 0.05·(n_feat−1) + industry.
+- `app/services/hazard_to_guide_service.py:_merge_guide_paths()` — 직접 매핑 우선 + CI 경유 union (교집합 bonus +0.15).
+
+**PG schema**:
+- `checklist_items.guide_frequency` (Integer, 신규 컬럼) — backfill **3,953 CI, max 130**.
+- `guide_entity_feature_candidates(entity_type='GUIDE', method='guide_hazard_weighted_majority')` **2,115행 / 659 Guide**.
+
+**데이터 도출 스크립트** (`data-team/05-enrichment/llm-scripts/`): `compute_ci_guide_frequency.py`, `derive_guide_hazard_features.py`, `export_guide_hazard_to_abox.py`.
+
+**검증**: 8-photo Guide mapping 80%→100%, guide_hazard_direct 85%, boilerplate 0. Gate 3 regression PASS. Runbook: `docs/dev-notes/guide-recommendation-accuracy.md`.
+
+## 이전 변경 (2026-05-19, origin/main `164de5a`) — Hazard-Direct Architecture Pivot
 
 Vision LLM이 `hazards[]`를 자연어로 직접 출력 → catalog code 매핑 → ontology Guide 추천하는 신규 path. SHE matcher chain 우회, 기존 SHE-based path는 fallback 병행 (`HAZARD_DIRECT_MODE=off|parallel|primary`).
 

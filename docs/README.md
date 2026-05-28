@@ -1,6 +1,6 @@
 # arch-bot 문서 색인
 
-최신 갱신일: 2026-05-20 (Hazard-Direct Architecture Pivot 완주 + Phase G PG materialization + Tier 4 SWRL Pellet, main `164de5a`)
+최신 갱신일: 2026-05-28 (⭐ axiom-100% Sprint + ⭐ guide-accuracy Sprint + 문서 doc-sync, origin/main `4aa3cca`). 이전: Hazard-Direct Pivot + Phase G PG materialization + Tier 4 SWRL Pellet (2026-05-19).
 
 이 디렉토리는 `arch-bot` 모노레포의 모든 문서의 단일 진입점이다.
 루트에는 `README.md`(짧은 진입)와 `CLAUDE.md`(Claude Code 자동 로드 메타)만 두고, 모든 콘텐츠는 여기 산하에 둔다.
@@ -31,7 +31,7 @@ docs:
 4. [status/evaluation-baseline.md](status/evaluation-baseline.md) — 현재 baseline 정본
 5. [status/document-inventory.md](status/document-inventory.md) — 문서 현황·최신성 점검
 6. [workplans/llm-accelerated-ontology-engineering.md](workplans/llm-accelerated-ontology-engineering.md) ⭐ — **메인 plan** (Phase 0~Hazard-Direct Pivot 진행 통합)
-7. [workplans/hazard-direct-architecture-pivot.md](workplans/hazard-direct-architecture-pivot.md) — 최신 완료 sprint (Hazard-Direct Architecture Pivot)
+7. [workplans/ontology-axiom-100pct.md](workplans/ontology-axiom-100pct.md) + [dev-notes/guide-recommendation-accuracy.md](dev-notes/guide-recommendation-accuracy.md) — 최신 완료 sprint (axiom-100% Phase A~K + guide-accuracy P0~P3)
 8. [governance/monorepo-transition.md](governance/monorepo-transition.md) — 모노레포 전환 이력
 9. [governance/data-governance.md](governance/data-governance.md) — 데이터 추적/제외 정책
 10. [governance/repositories.md](governance/repositories.md) — 레포 매핑 + 외부 의존

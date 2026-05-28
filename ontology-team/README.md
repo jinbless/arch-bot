@@ -15,7 +15,27 @@
 - 부정확한 매핑/관계를 찾아내고, 6번 완성 시 5번(LLM enrichment)을 자연스럽게 대체
 - 시각화 도구 ([06-reasoning/visualization/](06-reasoning/visualization/)) 운영
 
-## 최근 변경 (2026-05-19, origin/main `448a8d0`)
+## 최근 변경 (2026-05-28, origin/main `4aa3cca`)
+
+**axiom-100% Sprint (Phase A~K) + guide-accuracy Sprint (P0~P3)**.
+
+axiom-100% — v4 TBox 패치 9종 신규:
+- `kosha-ontology-v4-{deps,alethic,bridge,deontic,violation,penalty-extra,restrictions,hazard-direct,asymmetric}-patch.ttl`
+- 핵심: owl:Restriction **35** (allValuesFrom, ABox-safe), `law:modifiesAsymmetric` owl:AsymmetricProperty **1** (inverseOf 충돌 회피 위해 별도 property), `risk:NaturalLanguageHazardCategory` **21**.
+
+SWRL → SHACL CONSTRUCT 전환 ⭐ (Pellet NEXPTIME 회피):
+- R-14~R-30 SWRL 12개 조합이 Pellet 무한 재시작(NEXPTIME) 유발 → `kosha-rules-r14-r30-shacl-construct.ttl` (12 sh:rule CONSTRUCT)로 변환. KoshaFusekiServer.java sources에서 R-14~R-30 SWRL ttl **4개 주석 처리** (R-1/R-3만 native).
+- `kosha-rules-k-general-shacl.ttl`: 같은 Hazard → `core:dependsOn` 36,949 + 같은 Chapter → `core:coApplicable` 16,429 = **53,378 pair** (on-demand materialization, gitignore).
+- 총 sh:NodeShape **1,964** (kb-candidates 2,192 SHACL는 별도 파일, parse 합산 시).
+
+guide-accuracy — Guide 직접 위험 매핑:
+- `kosha-ontology-v4-guide-hazard-patch.ttl`: `guide:addressesHazard` / `guideAddressesAgent` / `guideAppliesToContext` + `ciGuideFrequency` / `isBoilerplate`.
+- `kosha-instances-guide-hazard.ttl`: PG `guide_entity_feature_candidates(entity_type='GUIDE')` → ABox export (**659 Guide, 2,115 triple**).
+- "온톨로지가 사실 보유, 서비스 랭킹은 런타임" 원칙 유지.
+
+검증: `scripts/verify_axiom_100pct.py` (5-step, Overall OK). Runbook: [docs/workplans/ontology-axiom-100pct.md](../docs/workplans/ontology-axiom-100pct.md), [docs/dev-notes/guide-recommendation-accuracy.md](../docs/dev-notes/guide-recommendation-accuracy.md).
+
+## 이전 변경 (2026-05-19, origin/main `448a8d0`)
 
 **Phase G + Tier 4 후속 — ontology TBox 본격 보강 + Pellet/SWRL native 실행 검증**.
 

@@ -2,7 +2,7 @@
 
 가이드 레이어는 사업주에게 제시할 개선 절차를 구성하는 핵심 지식이다. 최신 구조에서는 `guide:KoshaGuide`와 `guide:WorkProcess`를 표준 개선 절차의 중심으로 두고, `guide:ChecklistItem`은 즉시 조치 후보이자 시각 단서/검색 색인/보조 근거로 사용한다.
 
-문서 기준일: 2026-05-15
+문서 기준일: 2026-05-28 (guide-accuracy Sprint 반영). 구조도(Mermaid)는 2026-05-15 기준이며, Guide 직접 위험 매핑 레이어는 아래 별도 절 참고.
 
 중요한 점은 `ChecklistItem` 하나가 곧 최종 조치 본체라는 뜻은 아니라는 것이다. 화면에서는 “즉시 조치”로 먼저 보여줄 수 있지만, KOSHA Guide 문서 전체와 그 안의 작업 절차가 사업주 안내의 본체이고, 체크리스트는 사진 속 단서와 `SR/Guide`를 이어주는 작은 근거 조각이다.
 
@@ -281,7 +281,7 @@ guide:CI-AG1-028 a guide:ChecklistItem ;
 - `guide:referencesGuide`는 `owl:SymmetricProperty`이고 현재 89건의 가이드 상호참조가 있다.
 - `guide:GuideInterLink`, `guide:linkSource`, `guide:linkTarget`, `guide:referenceType`, `guide:referenceText`는 인스턴스 데이터에는 있지만 현재 OWL 스키마 정의가 빠져 있다. 그래서 Mermaid에서는 회색 `data-use/schema 누락`으로 표시했다.
 - `guide:realizesSHE`는 `she:appliesCI`의 inverse 관계로 정의되어 있지만 현재 데이터는 0건이다. 실제 SHE 쪽에서는 `she:relatedChecklistCue`가 28,504건으로 활발히 쓰인다.
-- `she:relatedGuide`는 OWL 스키마에 있지만 현재 데이터는 0건이다. 현재 서비스는 `SHE -> CI -> source_guide -> Guide` 또는 `SR -> CI -> source_guide -> Guide` 경로로 가이드를 찾는다.
+- `she:relatedGuide`는 OWL 스키마에 있지만 현재 데이터는 0건이다. 서비스는 `SR -> CI -> source_guide -> Guide` 경유 경로 외에, guide-accuracy Sprint(2026-05-28) 후 **`guide:addressesHazard` 직접 경로**(CI 경유 없음)를 추가로 사용한다 — 아래 "Guide 직접 위험 매핑 레이어" 절 참고.
 - `app:followsProcess`는 현재 OWL 스키마에 없다. 따라서 “개선조치가 WorkProcess를 직접 따른다”는 관계는 문서에서 실제 관계로 그리지 않았다.
 - `guide:GuideUsageProfile`, `guide:photoMatchability`, `guide:procedureRole`, `guide:primaryWorkProcess`, `guide:classificationReason`은 `serving-policy.ttl`의 검증용 확장이다. 핵심 A-Box인 `kosha-instances.ttl`에 직접 섞지 않고 `serving-snapshot-ci_cross_guide_broad_only_guard1.ttl`로 재생성한다.
 - `serving-validation-report-ci_cross_guide_broad_only_guard1` 기준 GuideUsageProfile은 1,038건이고 hard violation은 0건이다. 2026-05-14에 `kosha-instances.ttl`을 PostgreSQL 기준으로 재생성해 `primary_workprocess_not_in_base_ttl` 1,220건은 0건으로 해소됐고, 2026-05-15에 `guide_usage_profiles` PostgreSQL 테이블도 `ci_broad_sr_guard4` 기준 1,038행으로 동기화했다. 이후 `ci_candidate_review_v1`은 50행 중 17행만 serving `candidate`로 승격하고 33행은 `needs_review`로 유지한다. `ci_cross_guide_broad_only_guard1`은 non-primary Guide의 broad-SR-only 즉시조치를 추가로 차단한 상태를 스냅샷에 반영한다. `classificationReason` 근거가 있는 field-action role override 10건은 의도된 예외로 수용했고, 남은 warning은 0건이다.
@@ -295,13 +295,35 @@ guide:CI-AG1-028 a guide:ChecklistItem ;
 SHE 또는 SR 후보
 → get_checklist_from_srs()
 → ChecklistItem 즉시 조치 후보
-→ get_guides_from_srs()
-→ CI source_guide를 집계해 KOSHA Guide 후보 산출
+→ get_guides_from_srs() (CI source_guide **변별력 가중**(ci_weight) 집계) + get_guides_by_hazard_features() (**Guide 직접 위험 매핑**)
+→ KOSHA Guide 후보 산출 (두 경로 union, 직접 우선 — 아래 "Guide 직접 위험 매핑 레이어" 절 참고)
 → _build_action_recommendations()
 → immediate_action / standard_procedure / legal_basis 그룹으로 응답
 ```
 
 `ChecklistItem`은 사업주 화면에서 즉시 확인할 수 있는 조치 후보로 쓰인다. 하지만 표준 개선 절차를 구성할 때는 `KoshaGuide`와 `WorkProcess`가 더 큰 맥락을 제공한다. 현재 API 응답의 `ActionRecommendation`은 `display_group`과 `urgency` 필드로 즉시 조치와 표준 절차를 구분한다.
+
+## Guide 직접 위험 매핑 레이어 (guide-accuracy Sprint, 2026-05-28)
+
+기존 Guide 추천은 `SR → CI → source_guide` 경유가 유일했다. 의미적으로 동일한 CI가 여러 Guide에 흩어지고(boilerplate, 최대 **130 Guide** 중복), `get_guides_from_srs()`가 CI 개수만으로 랭킹해 엉뚱한 Guide가 상위 노출됐다. 두 축으로 해결:
+
+**(1) CI 변별력 가중** — `checklist_items.guide_frequency`(동일 텍스트 CI의 distinct source_guide 수; backfill **3,953 CI / max 130**). `ci_weight = 1/log2(1+gf)`로 boilerplate(gf=130 → 0.14) 자동 억제. `get_guides_from_srs()`는 CI 개수 → **Σ(ci_weight) 변별력 가중합** + 정규화 + 산업 일치로 교체.
+
+**(2) Guide 직접 위험 매핑** — CI 경유 없이 Guide에 위험을 직접 연결하는 신규 property + ABox:
+
+| property | 방향 | 의미 |
+|---|---|---|
+| `guide:addressesHazard` | Guide → `haz:Hazard` | Guide 직접 대응 사고유형 |
+| `guide:guideAddressesAgent` | Guide → `agent:HazardousAgent` | 직접 대응 유해인자 |
+| `guide:guideAppliesToContext` | Guide → `ctx:WorkContext` | 직접 적용 작업맥락 |
+| `guide:ciGuideFrequency` | CI → xsd:integer | CI 중복 빈도(변별력 신호) |
+| `guide:isBoilerplate` | CI → xsd:boolean | 공통문구 표지 |
+
+- TBox: `kosha-ontology-v4-guide-hazard-patch.ttl`. ABox: `kosha-instances-guide-hazard.ttl` (**659 Guide, 2,115 triple**), PG `guide_entity_feature_candidates(entity_type='GUIDE', method='guide_hazard_weighted_majority')` 2,115행을 CI 변별력 가중 다수결로 도출 후 export.
+- 런타임: `get_guides_by_hazard_features()`(직접 조회) + `hazard_to_guide_service._merge_guide_paths()`(직접 우선 + CI union, 교집합 bonus +0.15).
+- "온톨로지가 사실 보유, 서비스 랭킹은 런타임 Python" 원칙 유지.
+
+8-photo eval: Guide mapping 80% → **100%**, guide_hazard_direct **85%**, boilerplate Guide 출현 **0**. 정본 수치: [../status/evaluation-baseline.md](../status/evaluation-baseline.md). Runbook: [../dev-notes/guide-recommendation-accuracy.md](../dev-notes/guide-recommendation-accuracy.md).
 
 ## 현재 데이터 기준 핵심 숫자
 

@@ -82,12 +82,14 @@
   - Openllet engine
   - `ontology-team/06-reasoning/ontology/docker/` (이미 설정됨, `REASONER_MODE=openllet`)
   - 추론 대상: TBox + ABox + SWRL + SHACL
-- **SWRL rules** (이번 세션 8 → 30개):
-  - `kosha-rules.swrl` (기존 8개)
-  - `kosha-rules-v2.swrl` (신규 22개, alethic 5 + bridge 5 + deontic 5 + violation 4 + penalty 3)
-- **SHACL shapes** (이번 세션 4 → 30개):
-  - `serving-validation-shapes-v3.ttl` (Conforms: True 검증 완료)
-  - 카테고리: alethic 7 / deontic 7 / bridge 6 / cardinality 3 / domain 3
+- **SWRL rules** (axiom-100% Sprint 후 — R-1/R-3만 Pellet native):
+  - `kosha-rules-r1-r3-swrl.ttl` (R-1 exemptedBy **107** + R-3 HighSeverityPenalty **3,579** inferred, Pellet 정상)
+  - R-9~R-13 / R-14~R-30 SWRL ttl은 디스크에 존재하나 **R-14~R-30은 Java sources에서 주석 처리** (12개 SWRL 조합 시 Pellet NEXPTIME blowup) → SHACL CONSTRUCT로 대체
+- **SHACL rules/shapes** (axiom-100% Sprint — SWRL 대체 + 일반화):
+  - `kosha-rules-r14-r30-shacl-construct.ttl` (R-14~R-30 = **12 sh:rule CONSTRUCT**, Pellet 회피)
+  - `kosha-rules-k-general-shacl.ttl` (R-2 `coApplicable` 16,429 + R-4 `dependsOn` 36,949 = **53,378 pair**, on-demand)
+  - `kosha-vetted-disjoint-shapes.ttl` + `kb-candidates.ttl` (2,192 industry shapes) + `serving-validation-shapes-v3.ttl` (24 shapes)
+  - 총 **sh:NodeShape 1,964**
 
 **BFO + LKIF-Core 2-layer** (이번 세션 정형화):
 - **Layer A (alethic)**: Photo, VisualObservation, RiskFeature, Equipment, Worker → `rdfs:subClassOf bfo:*`
@@ -167,10 +169,12 @@
 상세: [llm-dependency-evolution.md](llm-dependency-evolution.md)
 
 ```
-[현재 (2026-05-19, main `164de5a`)]
+[현재 (2026-05-28, origin/main `4aa3cca`)]
     Layer 0-3 + Phase E.2 (Openllet) + Phase 3 + F.1/F.2/F.3 + Tier 1-3.A
     + Phase G (PG materialization 3 table + 1 view) + Tier 4 (SWRL Pellet R-1/R-3 실행기)
     + ⭐ Hazard-Direct Pivot (hazards[] 자연어 직접 출력 → catalog 매핑 → ontology Guide 추천)
+    + ⭐ axiom-100% Sprint (v4 TBox 9패치 + SWRL R-14~R-30 → SHACL CONSTRUCT + K-general 53,378)
+    + ⭐ guide-accuracy Sprint (CI 변별력 guide_frequency + Guide 직접 위험 매핑 레이어)
 [완료] Phase F.1 Normalizer auto-registration + F.3 closed loop + Phase G/7단계 PG materialize
 [후행] SHE matcher broadness-aware refactor (별도 sprint, she-matcher-broadness-refactor.md)
 [Phase J] OBO Foundry 등재 (오픈소스, 국제 표준)

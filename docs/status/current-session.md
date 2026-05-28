@@ -1,6 +1,28 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-19** — **Phase G PG materialization (G.1-4) + Tier 4 SWRL Pellet + T4 #1 후속 + moellab 비교 + ⭐ Hazard-Direct Architecture Pivot 완주 (Phase 1-5 + 8 photo 효과성 검증 PASS)**. 메인 HEAD `d63e25a`, worktree HEAD `5256573` (8 commits ahead).
+최신 갱신일: **2026-05-28** — **⭐ axiom-100% Sprint (Phase A~K) + ⭐ guide-accuracy Sprint (P0~P3) + 문서 전수 정합(doc-sync)**. origin/main HEAD `4aa3cca` (merge), feature commit `1c4746f`. 이전 핵심: Phase G PG materialization + Tier 4 SWRL Pellet + Hazard-Direct Architecture Pivot (2026-05-19).
+
+## ⭐ axiom-100% Sprint — Phase A~K 완주 (2026-05-20~27)
+
+온톨로지 공리 커버리지 100% 목표. SWRL 의사코드 30개를 정형 추론 가능 facts로 전환.
+
+- **v4 TBox 패치 9종** (Phase A~J): `kosha-ontology-v4-{deps,alethic,bridge,deontic,violation,penalty-extra,restrictions,hazard-direct,asymmetric}-patch.ttl`. owl:Restriction **35** (allValuesFrom ABox-safe), owl:AsymmetricProperty **1** (`law:modifiesAsymmetric`, inverseOf 충돌 회피), NaturalLanguageHazardCategory **21**.
+- **SWRL R-14~R-30 → SHACL CONSTRUCT 전환** ⭐ (Phase C~F): Pellet이 12개 SWRL 조합에서 **NEXPTIME blowup**(22분 무한 재시작) → `kosha-rules-r14-r30-shacl-construct.ttl` (12 sh:rule CONSTRUCT). Java sources에서 4개 SWRL ttl 주석 처리. R-1/R-3만 SWRL native 유지 (Pellet 정상: R-1 107 + R-3 3,579 inferred).
+- **K-general SHACL** (Phase K): `kosha-rules-k-general-shacl.ttl` — 같은 Hazard → `core:dependsOn` **36,949** + 같은 Chapter → `core:coApplicable` **16,429** = **53,378 pair** (on-demand materialization, gitignore).
+- **production ABox enrichment**: 8-photo eval → `kosha-instances-production-8photo.ttl` (R-10~R-30 fire 입증). sh:NodeShape 총 **1,964**.
+- 검증: `scripts/verify_axiom_100pct.py` (5-step) Overall OK. Gate 3 regression PASS.
+- Plan/Runbook: [../workplans/ontology-axiom-100pct.md](../workplans/ontology-axiom-100pct.md), [../dev-notes/axiom-100pct-phase-a.md](../dev-notes/axiom-100pct-phase-a.md) / [-b](../dev-notes/axiom-100pct-phase-b.md) / [-c-j](../dev-notes/axiom-100pct-phase-c-j.md).
+
+## ⭐ guide-accuracy Sprint — P0~P3 완주 (2026-05-28)
+
+실 서비스에서 CI 추천은 정확하나 Guide가 엉뚱하게 추천되는 문제 근본 해결 (boilerplate CI fan-out + CI 개수 단독 랭킹).
+
+- **P1 CI 변별력**: `checklist_items.guide_frequency` 컬럼 (동일 텍스트 CI의 distinct source_guide 수) backfill **3,953 CI 갱신, max 130**. `ci_weight = 1/log2(1+gf)` (gf=130 → 0.14).
+- **P0 Guide 랭킹 교체**: `hazard_rule_engine.get_guides_from_srs()` CI **개수** → **Σ(ci_weight) 변별력 가중합** + 정규화 + 산업 일치. boilerplate 자동 억제.
+- **P2 Guide 직접 위험 매핑 레이어** ⭐: `derive_guide_hazard_features.py` → `guide_entity_feature_candidates(entity_type='GUIDE', method='guide_hazard_weighted_majority')` **2,115행 / 659 Guide**. 신규 `get_guides_by_hazard_features()` (CI 경유 없는 직접 조회) + `_merge_guide_paths()` (직접 우선 + CI union, 교집합 bonus +0.15).
+- **P3 온톨로지 정합**: `kosha-ontology-v4-guide-hazard-patch.ttl` (`guide:addressesHazard`/`guideAddressesAgent`/`guideAppliesToContext` + `ciGuideFrequency`/`isBoilerplate`) + `kosha-instances-guide-hazard.ttl` (659 Guide, 2,115 triple).
+- **8-photo guide eval**: mapping rate 80% → **100%** (27/27), guide_hazard_direct mapping **85%**, boilerplate Guide 출현 **0**. Gate 3 regression PASS (synthetic 회귀 없음).
+- Runbook: [../dev-notes/guide-recommendation-accuracy.md](../dev-notes/guide-recommendation-accuracy.md).
 
 ## 🎯 Hazard-Direct Pivot — 단일 세션 완주 (2026-05-19) ⭐
 
@@ -363,7 +385,7 @@ main HEAD: `b237e78` (Tier 3.A merge), 직전 `325ad37` (Tier 2 merge).
 - 제175조 administrative fines (6단계, 5천만원~300만원) 추출. `step1_extract_penalties.py` 확장. 결과 → penalty_rule_index에 sanction_type='AdministrativeFine' rows 추가.
 
 **4순위: SWRL 확장 + 학계 작업**:
-- **R-4~R-30 SWRL OWL 변환** (1-2주): `kosha-rules-v2.swrl` 의사코드 30개 모두 OWL/RDF SWRL serialization으로 변환 (T4 #3 패턴 답습). 각 rule fired triple count 검증.
+- ✅ **완료 (axiom-100% Sprint)**: R-4~R-30은 SWRL serialization 대신 **SHACL CONSTRUCT로 변환** (Pellet NEXPTIME 회피). `kosha-rules-r14-r30-shacl-construct.ttl` (12 rules) + `kosha-rules-k-general-shacl.ttl` (R-2/R-4 일반화, 53,378 pair). R-1/R-3만 SWRL native 유지.
 - **8-photo real-test eval** (`make f1-eval`, ~$0.40 + 8분): Phase G + T4 효과 실제 사진 검증.
 
 **3순위 (Tier 4 중장기, 1-3개월) — 별도 plan**:
