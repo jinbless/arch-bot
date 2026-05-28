@@ -388,7 +388,11 @@ def get_guides_from_srs(
     """SR IDs → ci_sr_mapping → checklist_items.source_guide → kosha_guides 역추적.
 
     Faceted 코드로 찾은 SR에 연결된 KOSHA Guide를 반환.
-    CI 연결 수가 많은 가이드일수록 관련도 높음.
+
+    P0/P1 (Guide 추천 정확도): 기존 "CI 연결 수(count)" 랭킹은 boilerplate CI(시험법
+    공통문구 등, 최대 130 Guide 중복)가 많은 Guide를 과대평가 → 한 SR이 평균 21개·최대
+    218개 Guide로 fan-out. 이를 **CI 변별력 가중합**(ci_weight=1/log2(1+guide_frequency))
+    으로 교체. boilerplate CI는 weight가 낮아(gf=130 → 0.14) noise 자동 억제.
     """
     from app.db.models import PgCiSrMapping, PgChecklistItem, PgKoshaGuide
     from sqlalchemy import func
@@ -398,25 +402,35 @@ def get_guides_from_srs(
     if not sr_ids:
         return []
 
-    # SR→CI→source_guide 그룹핑 (CI 연결 수 = relevance)
-    guide_counts = (
+    # CI 변별력 가중치: 1/log2(1 + guide_frequency). gf=1 → 1.0, gf=130 → 0.14.
+    # PG: log(base, num). guide_frequency<1 방어로 1+gf.
+    ci_weight = 1.0 / func.log(2.0, 1.0 + PgChecklistItem.guide_frequency)
+
+    # SR→CI→source_guide 그룹핑 (변별력 가중합 = relevance, count는 audit용 보존)
+    guide_scores = (
         db.query(
             PgChecklistItem.source_guide,
+            func.sum(ci_weight).label("weighted_ci"),
             func.count(PgChecklistItem.identifier).label("ci_count"),
         )
         .join(PgCiSrMapping, PgCiSrMapping.ci_id == PgChecklistItem.identifier)
         .filter(PgCiSrMapping.sr_id.in_(sr_ids))
         .group_by(PgChecklistItem.source_guide)
-        .order_by(func.count(PgChecklistItem.identifier).desc())
+        .order_by(func.sum(ci_weight).desc())
         .limit(limit)
         .all()
     )
 
-    if not guide_counts:
+    if not guide_scores:
         return []
 
-    guide_codes = [row[0] for row in guide_counts]
-    ci_count_map = {row[0]: row[1] for row in guide_counts}
+    guide_codes = [row[0] for row in guide_scores]
+    weighted_map = {row[0]: float(row[1] or 0.0) for row in guide_scores}
+    ci_count_map = {row[0]: row[2] for row in guide_scores}
+    # 변별력 가중합 정규화 (batch 내 max 기준 0~1)
+    max_weighted = max(weighted_map.values()) if weighted_map else 1.0
+    if max_weighted <= 0:
+        max_weighted = 1.0
 
     guides = (
         db.query(PgKoshaGuide)
@@ -426,8 +440,8 @@ def get_guides_from_srs(
 
     results = []
     for g in guides:
+        weighted = weighted_map.get(g.guide_code, 0.0)
         ci_hits = ci_count_map.get(g.guide_code, 0)
-        # CI 연결 수 기반 점수: 10+ → 0.95, 5+ → 0.90, 1+ → 0.85
         guide_industry = infer_industry_context(
             text=" ".join(filter(None, [g.title, g.sub_category])),
         )
@@ -435,7 +449,9 @@ def get_guides_from_srs(
             guide_industry.active_industries,
             industry_contexts,
         )
-        score = min(0.99, max(0.0, 0.80 + ci_hits * 0.02 + industry_adjustment))
+        # P0 랭킹: 변별력 가중합 정규화 + 산업 일치 (+ P2 guide_hazard_direct_bonus는 호출부에서 가산)
+        norm_weighted = weighted / max_weighted
+        score = min(0.99, max(0.0, 0.55 + 0.30 * norm_weighted + industry_adjustment))
         results.append({
             "guide_code": g.guide_code,
             "title": g.title,
@@ -446,11 +462,85 @@ def get_guides_from_srs(
             "relevance_score": score,
             "mapping_type": "sr_ci_link",
             "ci_hit_count": ci_hits,
+            "weighted_ci": round(weighted, 3),
         })
 
     results.sort(key=lambda x: x["relevance_score"], reverse=True)
-    logger.info(f"[SR→CI→Guide] {len(results)} guides found: {[r['guide_code'] for r in results]}")
+    logger.info(f"[SR→CI→Guide] {len(results)} guides (변별력 가중): {[(r['guide_code'], r['weighted_ci']) for r in results]}")
     return results
+
+
+def get_guides_by_hazard_features(
+    db: Session,
+    accident_types: Optional[list[str]] = None,
+    hazardous_agents: Optional[list[str]] = None,
+    work_contexts: Optional[list[str]] = None,
+    limit: int = 5,
+    industry_contexts: Optional[list[str]] = None,
+) -> list[dict]:
+    """P2 — Guide 직접 위험 매핑 경로 (CI 경유 없음).
+
+    `guide_entity_feature_candidates` (entity_type='GUIDE', method='guide_hazard_weighted_majority')
+    에서 hazard facet(axis+feature_code)에 직접 매칭되는 Guide를 조회. derive_guide_hazard_features.py가
+    CI 변별력 가중 다수결로 적재한 "Guide의 대표 위험"이므로 boilerplate CI fan-out noise가 없음.
+    """
+    from app.db.models import PgGuideEntityFeatureCandidate as GF, PgKoshaGuide
+    from sqlalchemy import func, or_, and_
+
+    industry_contexts = industry_contexts or []
+    pairs = []
+    for axis, codes in (("accident_type", accident_types or []),
+                        ("hazardous_agent", hazardous_agents or []),
+                        ("work_context", work_contexts or [])):
+        for c in codes:
+            pairs.append((axis, c))
+    if not pairs:
+        return []
+
+    conds = [and_(GF.axis == a, GF.feature_code == c) for a, c in pairs]
+    rows = (
+        db.query(
+            GF.guide_code,
+            func.sum(GF.confidence).label("direct_conf"),
+            func.count().label("n_feat"),
+        )
+        .filter(GF.entity_type == "GUIDE", or_(*conds))
+        .group_by(GF.guide_code)
+        .order_by(func.sum(GF.confidence).desc())
+        .limit(limit)
+        .all()
+    )
+    if not rows:
+        return []
+
+    guide_codes = [r[0] for r in rows]
+    conf_map = {r[0]: (float(r[1] or 0.0), r[2]) for r in rows}
+    guides = db.query(PgKoshaGuide).filter(PgKoshaGuide.guide_code.in_(guide_codes)).all()
+
+    out = []
+    for g in guides:
+        direct_conf, n_feat = conf_map.get(g.guide_code, (0.0, 0))
+        guide_industry = infer_industry_context(text=" ".join(filter(None, [g.title, g.sub_category])))
+        industry_adjustment, industry_alignment, _ = score_industry_alignment(
+            guide_industry.active_industries, industry_contexts,
+        )
+        # 직접 매핑 신뢰도 → 점수. n_feat(매칭 facet 수) 다중일수록 가산.
+        score = min(0.99, max(0.0, 0.60 + 0.20 * min(1.0, direct_conf) + 0.05 * (n_feat - 1) + industry_adjustment))
+        out.append({
+            "guide_code": g.guide_code,
+            "title": g.title,
+            "classification": g.domain,
+            "industry_hints": guide_industry.active_industries,
+            "industry_alignment": industry_alignment,
+            "relevant_sections": [],
+            "relevance_score": score,
+            "mapping_type": "guide_hazard_direct",
+            "ci_hit_count": 0,
+            "direct_feature_count": n_feat,
+        })
+    out.sort(key=lambda x: x["relevance_score"], reverse=True)
+    logger.info(f"[Hazard→Guide 직접] {len(out)} guides: {[r['guide_code'] for r in out]}")
+    return out
 
 
 async def enrich_sr_with_sparql(

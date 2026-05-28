@@ -37,6 +37,10 @@ class PgChecklistItem(Base):
     accident_types = Column(JSONB)
     hazardous_agents = Column(JSONB)
     work_contexts = Column(JSONB)
+    # P1 (Guide 추천 정확도): 동일 텍스트 CI가 몇 개 distinct Guide에 중복 등장하는지.
+    # boilerplate CI(시험법 공통문구 등)일수록 높음. Guide 랭킹에서 변별력 가중 down에 사용.
+    # ci_weight = 1/log2(1+guide_frequency). 기본 1 (고유 CI).
+    guide_frequency = Column(Integer, nullable=False, server_default="1")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
