@@ -1,0 +1,116 @@
+# production ABox enrichment — 8 photo eval 결과 → ontology ABox instance.
+#
+# export_8photo_to_abox.py 산출. 실제 사진 분석 (hazard_direct_8photo_eval.json) →
+# VisualObservation/RiskFeature chain. R-14/R-15 (bridge) SHACL fire 입증용.
+#
+# 검증 전용 — production fuseki sources 등록은 운영 정책에 따라 (현재 demo/sample).
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix prod: <https://cashtoss.info/ontology/production#> .
+
+
+### Photo 1: 고소대작업(httpswww.youtube.comwatchv=Up-7KNjVJQM).png
+prod:VO_01_httpswww_youtube_comwatc a app:VisualObservation ;
+    rdfs:label "photo 1: httpswww_youtube_comwatc"@ko .
+
+prod:RF_FALL a risk:RiskFeature ;
+    rdfs:label "FALL (accident_type)"@en ;
+    risk:correspondsToHazard haz:FALL ;
+    haz:hasHazard haz:FALL .
+
+prod:VO_01_httpswww_youtube_comwatc risk:hasRiskFeature prod:RF_FALL .
+
+### Photo 2: 안전대길이(httpswww.youtube.comwatchv=v37Id6TdkC4&list=
+prod:VO_02_httpswww_youtube_comwatc a app:VisualObservation ;
+    rdfs:label "photo 2: httpswww_youtube_comwatc"@ko .
+
+prod:VO_02_httpswww_youtube_comwatc risk:hasRiskFeature prod:RF_FALL .
+prod:RF_FALLING_OBJECT a risk:RiskFeature ;
+    rdfs:label "FALLING_OBJECT (accident_type)"@en ;
+    risk:correspondsToHazard haz:FALLING_OBJECT ;
+    haz:hasHazard haz:FALLING_OBJECT .
+
+prod:VO_02_httpswww_youtube_comwatc risk:hasRiskFeature prod:RF_FALLING_OBJECT .
+prod:RF_FALL_ON_GROUND a risk:RiskFeature ;
+    rdfs:label "FALL_ON_GROUND (accident_type)"@en ;
+    risk:correspondsToHazard haz:FALL_ON_GROUND ;
+    haz:hasHazard haz:FALL_ON_GROUND .
+
+prod:VO_02_httpswww_youtube_comwatc risk:hasRiskFeature prod:RF_FALL_ON_GROUND .
+
+### Photo 3: 영세제조업(httpswww.youtube.comwatchv=FD5R2oIdwcc).png
+prod:VO_03_httpswww_youtube_comwatc a app:VisualObservation ;
+    rdfs:label "photo 3: httpswww_youtube_comwatc"@ko .
+
+prod:RF_ENTANGLEMENT a risk:RiskFeature ;
+    rdfs:label "ENTANGLEMENT (accident_type)"@en ;
+    risk:correspondsToHazard haz:ENTANGLEMENT ;
+    haz:hasHazard haz:ENTANGLEMENT .
+
+prod:VO_03_httpswww_youtube_comwatc risk:hasRiskFeature prod:RF_ENTANGLEMENT .
+prod:VO_03_httpswww_youtube_comwatc risk:hasRiskFeature prod:RF_FALL_ON_GROUND .
+
+### Photo 4: 음식점주방(httpswww.sobangnews.krnewsarticleView.htmlid
+prod:VO_04_httpswww_sobangnews_krne a app:VisualObservation ;
+    rdfs:label "photo 4: httpswww_sobangnews_krne"@ko .
+
+prod:RF_FIRE_AND_EXPLOSION a risk:RiskFeature ;
+    rdfs:label "FIRE_AND_EXPLOSION (accident_type)"@en ;
+    risk:correspondsToHazard haz:FIRE_AND_EXPLOSION ;
+    haz:hasHazard haz:FIRE_AND_EXPLOSION .
+
+prod:VO_04_httpswww_sobangnews_krne risk:hasRiskFeature prod:RF_FIRE_AND_EXPLOSION .
+prod:RF_ELECTRIC_SHOCK a risk:RiskFeature ;
+    rdfs:label "ELECTRIC_SHOCK (accident_type)"@en ;
+    risk:correspondsToHazard haz:ELECTRIC_SHOCK ;
+    haz:hasHazard haz:ELECTRIC_SHOCK .
+
+prod:VO_04_httpswww_sobangnews_krne risk:hasRiskFeature prod:RF_ELECTRIC_SHOCK .
+
+### Photo 5: 지게차(httpswww.youtube.comwatchv=c-rhPC6XRgk).png
+prod:VO_05_httpswww_youtube_comwatchv a app:VisualObservation ;
+    rdfs:label "photo 5: httpswww_youtube_comwatchv"@ko .
+
+prod:RF_COLLISION a risk:RiskFeature ;
+    rdfs:label "COLLISION (accident_type)"@en ;
+    risk:correspondsToHazard haz:COLLISION ;
+    haz:hasHazard haz:COLLISION .
+
+prod:VO_05_httpswww_youtube_comwatchv risk:hasRiskFeature prod:RF_COLLISION .
+prod:VO_05_httpswww_youtube_comwatchv risk:hasRiskFeature prod:RF_ENTANGLEMENT .
+prod:VO_05_httpswww_youtube_comwatchv risk:hasRiskFeature prod:RF_FALL_ON_GROUND .
+
+### Photo 6: 최근대전화재바닥에기름(httpsnews.sbs.co.krnewsendPage.donews_
+prod:VO_06_httpsnews_sbs_co_k a app:VisualObservation ;
+    rdfs:label "photo 6: httpsnews_sbs_co_k"@ko .
+
+prod:VO_06_httpsnews_sbs_co_k risk:hasRiskFeature prod:RF_FALL_ON_GROUND .
+prod:RF_CHEMICAL_EXPOSURE a risk:RiskFeature ;
+    rdfs:label "CHEMICAL_EXPOSURE (accident_type)"@en ;
+    risk:correspondsToHazard haz:CHEMICAL_EXPOSURE ;
+    haz:hasHazard haz:CHEMICAL_EXPOSURE .
+
+prod:VO_06_httpsnews_sbs_co_k risk:hasRiskFeature prod:RF_CHEMICAL_EXPOSURE .
+prod:VO_06_httpsnews_sbs_co_k risk:hasRiskFeature prod:RF_ELECTRIC_SHOCK .
+
+### Photo 7: 포크레인주변작업자(httpswww.youtube.comwatchv=PfKfjDKZg48&l
+prod:VO_07_httpswww_youtube_com a app:VisualObservation ;
+    rdfs:label "photo 7: httpswww_youtube_com"@ko .
+
+prod:VO_07_httpswww_youtube_com risk:hasRiskFeature prod:RF_FALLING_OBJECT .
+prod:VO_07_httpswww_youtube_com risk:hasRiskFeature prod:RF_FALL .
+prod:VO_07_httpswww_youtube_com risk:hasRiskFeature prod:RF_ENTANGLEMENT .
+
+### Photo 8: 프레스(중대재해백서2024).png
+prod:VO_08_2024__png a app:VisualObservation ;
+    rdfs:label "photo 8: 2024__png"@ko .
+
+prod:VO_08_2024__png risk:hasRiskFeature prod:RF_ENTANGLEMENT .
+prod:VO_08_2024__png risk:hasRiskFeature prod:RF_FALL_ON_GROUND .
+prod:VO_08_2024__png risk:hasRiskFeature prod:RF_ELECTRIC_SHOCK .
