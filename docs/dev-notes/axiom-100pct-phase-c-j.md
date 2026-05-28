@@ -533,6 +533,46 @@ conforms=True, inferred 15 triples
 
 → **6/6 AC 충족**. 정석 점수 ~75-80% → **~98-99%**.
 
+---
+
+## production ABox enrichment + cross-pair materialization (2026-05-28)
+
+### production ABox enrichment — 8 photo eval → R-14/R-15 production fire ✅
+
+**ETL**: `export_8photo_to_abox.py` 신규.
+- `hazard_direct_8photo_eval.json` → `kosha-instances-production-8photo.ttl`
+- 각 photo → `app:VisualObservation`, hazards[].mapped_codes (예: `accident_type.FALL`) → `risk:RiskFeature` + `haz:hasHazard haz:{CODE}` (CODE가 기존 ABox haz:Hazard와 일치)
+- 산출: 8 VisualObservation + 8 RiskFeature (FALL, CHEMICAL_EXPOSURE, ELECTRIC_SHOCK, FALLING_OBJECT, COLLISION, ENTANGLEMENT, FALL_ON_GROUND, FIRE_AND_EXPLOSION) + 20 hasRiskFeature links
+
+**fire 검증** (8 photo ABox + SR-addressesHazard subset 755 + SHACL R-14~R-30):
+```
+conforms=True, inferred 239 triples
+R-14 bridge:observedIn (VO→Hazard, production): 7
+R-15 bridge:appliesTo (SR→Hazard, production): 232
+```
+
+→ **실제 8 photo 분석 결과가 기존 626 SR과 연결되어 232 bridge:appliesTo + 7 bridge:observedIn fire**. demo(synthetic)와 달리 **production 실제 데이터로 R-14/R-15 chain fire 입증**. runtime instance가 ontology ABox에 등록되면 production fire 확인.
+
+### cross-pair materialization — K-R2/K-R4 SHACL CONSTRUCT 실행 ✅
+
+**실행** (SR subset: addressesHazard 755 + appliesToArticle 626 + Article-belongsToChapter 1224 + K-general SHACL):
+```
+conforms=True, inferred 51,594 triples (13.2s)
+K-R4 core:dependsOn (Hazard 공유): 35,165
+K-R2 core:coApplicable (Chapter 공유): 16,429
+materialized → kosha-crosspair-materialized.ttl: 51,594 triples
+```
+
+→ **Phase A 원래 R-2/R-4 (Article 1:1) = 0 → K 일반화 materialization 51,594 cross-pair**. SHACL CONSTRUCT (Pellet 외부) 13.2초 — Pellet undecidable 회피하면서 대량 cross-pair 활성화.
+
+**재생성** (on-demand, 결과 ttl은 자동 산출물이라 git 미추적):
+```bash
+# SR subset + kosha-rules-k-general-shacl.ttl + pyshacl validate(advanced=True)
+# → kosha-crosspair-materialized.ttl (51,594 triples)
+```
+
+→ Phase A "ABox 정합성 이슈"의 완전한 해소 path 확보. production ABox enrichment + cross-pair materialization 모두 실제 fire 입증 완료.
+
 ### 결론
 
 **본 sprint Phase C-J + Sprint A 1차 acceptance**:
