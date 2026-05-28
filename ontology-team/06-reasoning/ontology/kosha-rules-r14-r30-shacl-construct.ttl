@@ -1,0 +1,352 @@
+# Sprint A-2 Final / Sprint 마무리 — SWRL R-14~R-30 SHACL SPARQLRule 변환.
+#
+# Pellet OWL DL inference에서 SWRL R-14~R-30 (12 rules) 결합이 undecidable (NEXPTIME-complete).
+# 같은 의미를 SHACL Advanced Features (W3C draft, sh:rule + sh:SPARQLRule)로 변환:
+#   - Pellet OWL DL inference 부담 0 (SHACL은 Pellet에서 raw triple로 취급)
+#   - pyshacl로 별도 trigger (run_shacl_rules.py script)
+#   - 결과 inference는 ontology에 add 또는 PG materialization
+#
+# 각 SHACL shape:
+#   - sh:targetClass — body의 anchor class (instance trigger)
+#   - sh:rule — sh:SPARQLRule with sh:construct
+#   - $this — anchor individual
+#   - sh:prefixes — namespace declaration
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix bridge: <https://cashtoss.info/ontology/bridge#> .
+@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix krs: <https://cashtoss.info/ontology/shacl-rules#> .
+
+
+### Common prefix declaration (재사용)
+
+krs:CommonPrefixes a sh:PrefixDeclaration ;
+    sh:declare [ sh:prefix "risk" ; sh:namespace "https://cashtoss.info/ontology/risk#"^^xsd:anyURI ] ,
+        [ sh:prefix "haz" ; sh:namespace "https://cashtoss.info/ontology/risk/hazard#"^^xsd:anyURI ] ,
+        [ sh:prefix "ctx" ; sh:namespace "https://cashtoss.info/ontology/risk/context#"^^xsd:anyURI ] ,
+        [ sh:prefix "app" ; sh:namespace "https://cashtoss.info/ontology/app#"^^xsd:anyURI ] ,
+        [ sh:prefix "sr" ; sh:namespace "https://cashtoss.info/ontology/sr#"^^xsd:anyURI ] ,
+        [ sh:prefix "penalty" ; sh:namespace "https://cashtoss.info/ontology/penalty#"^^xsd:anyURI ] ,
+        [ sh:prefix "law" ; sh:namespace "https://cashtoss.info/ontology/law#"^^xsd:anyURI ] ,
+        [ sh:prefix "guide" ; sh:namespace "https://cashtoss.info/ontology/guide#"^^xsd:anyURI ] ,
+        [ sh:prefix "core" ; sh:namespace "https://cashtoss.info/ontology#"^^xsd:anyURI ] ,
+        [ sh:prefix "bridge" ; sh:namespace "https://cashtoss.info/ontology/bridge#"^^xsd:anyURI ] ,
+        [ sh:prefix "agent" ; sh:namespace "https://cashtoss.info/ontology/agent#"^^xsd:anyURI ] ,
+        [ sh:prefix "rdf" ; sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ] ,
+        [ sh:prefix "rdfs" ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ] ,
+        [ sh:prefix "xsd" ; sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ] .
+
+
+### R-14: VisualObservation → bridge:observedIn(VO, Hazard)
+krs:R14_BridgeObservedInVOShape a sh:NodeShape ;
+    rdfs:label "R-14 SHACL: VO → bridge:observedIn(Hazard)"@ko ;
+    sh:targetClass app:VisualObservation ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this bridge:observedIn ?hazd }
+            WHERE {
+                $this risk:hasRiskFeature ?rf .
+                ?rf haz:hasHazard ?hazd .
+                ?hazd a haz:Hazard .
+            }
+        """ ;
+    ] .
+
+
+### R-15: SR → bridge:appliesTo(Hazard) via addressesHazard
+krs:R15_BridgeAppliesToHazardShape a sh:NodeShape ;
+    rdfs:label "R-15 SHACL: SR → bridge:appliesTo(Hazard)"@ko ;
+    sh:targetClass sr:SafetyRequirement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this bridge:appliesTo ?hazd }
+            WHERE {
+                ?rf a risk:RiskFeature .
+                ?rf haz:hasHazard ?hazd .
+                ?hazd a haz:Hazard .
+                $this sr:addressesHazard ?hazd .
+            }
+        """ ;
+    ] .
+
+
+### R-16: SR → bridge:observedIn(Ctx) via VO chain
+krs:R16_BridgeObservedInCtxShape a sh:NodeShape ;
+    rdfs:label "R-16 SHACL: SR → bridge:observedIn(Ctx)"@ko ;
+    sh:targetClass sr:SafetyRequirement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this bridge:observedIn ?ctx }
+            WHERE {
+                ?vobs a app:VisualObservation ;
+                      core:observedIn ?ctx ;
+                      risk:hasRiskFeature ?rf .
+                ?rf haz:hasHazard ?hazd .
+                $this sr:addressesHazard ?hazd .
+            }
+        """ ;
+    ] .
+
+
+### R-17: SR → bridge:appliesTo(Equipment) via VO/RF chain + direct mapping
+krs:R17_BridgeAppliesToEquipmentShape a sh:NodeShape ;
+    rdfs:label "R-17 SHACL: SR → bridge:appliesTo(Equipment)"@ko ;
+    sh:targetClass sr:SafetyRequirement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this bridge:appliesTo ?eq }
+            WHERE {
+                ?eq a guide:Equipment .
+                ?vobs a app:VisualObservation ;
+                      risk:hasRiskFeature ?rf .
+                ?rf a risk:RiskFeature ;
+                    risk:appliesToEquipment ?eq .
+                $this sr:appliesToEquipment ?eq .
+            }
+        """ ;
+    ] .
+
+
+### R-18: SR → bridge:appliesTo(HazardFinding) via requiresFindingStatus
+krs:R18_BridgeAppliesToFindingShape a sh:NodeShape ;
+    rdfs:label "R-18 SHACL: SR → bridge:appliesTo(HazardFinding)"@ko ;
+    sh:targetClass sr:SafetyRequirement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this bridge:appliesTo ?hf }
+            WHERE {
+                ?hf a app:HazardFinding ;
+                    app:hasFindingStatus ?st .
+                ?st a app:FindingStatus .
+                $this sr:requiresFindingStatus ?st .
+            }
+        """ ;
+    ] .
+
+
+### R-19: SR → law:appliesArticle (alias of sr:appliesToArticle)
+krs:R19_AppliesArticleShape a sh:NodeShape ;
+    rdfs:label "R-19 SHACL: SR → law:appliesArticle"@ko ;
+    sh:targetClass sr:SafetyRequirement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this law:appliesArticle ?art }
+            WHERE {
+                $this sr:appliesToArticle ?art .
+            }
+        """ ;
+    ] .
+
+
+### R-20: SR-grounded NS → law:hasModality(Obligation)
+krs:R20_ObligationModalityShape a sh:NodeShape ;
+    rdfs:label "R-20 SHACL: SR-grounded NS → Obligation modality"@ko ;
+    sh:targetClass law:NormStatement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this law:hasModality core:Obligation }
+            WHERE {
+                $this law:groundedBySR ?sr .
+                ?sr a sr:SafetyRequirement .
+            }
+        """ ;
+    ] .
+
+
+### R-21: PenaltyRule → penalty:penalizesNorm (alias of appliesToNormStatement)
+krs:R21_PenalizesNormShape a sh:NodeShape ;
+    rdfs:label "R-21 SHACL: PenaltyRule → penalizesNorm"@ko ;
+    sh:targetClass penalty:PenaltyRule ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this penalty:penalizesNorm ?ns }
+            WHERE {
+                $this penalty:appliesToNormStatement ?ns .
+                ?ns a law:NormStatement .
+            }
+        """ ;
+    ] .
+
+
+### R-22: NS → law:hasArticle via SR chain
+krs:R22_NSHasArticleShape a sh:NodeShape ;
+    rdfs:label "R-22 SHACL: NS → law:hasArticle via SR"@ko ;
+    sh:targetClass law:NormStatement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this law:hasArticle ?art }
+            WHERE {
+                $this law:groundedBySR ?sr .
+                ?sr sr:appliesToArticle ?art .
+            }
+        """ ;
+    ] .
+
+
+### R-23: Obligation NS + SR-grounded → ClassAtom bridge:ViolationCandidate
+krs:R23_ViolationCandidateShape a sh:NodeShape ;
+    rdfs:label "R-23 SHACL: Obligation NS + SR-grounded → ViolationCandidate"@ko ;
+    sh:targetClass law:NormStatement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this a bridge:ViolationCandidate }
+            WHERE {
+                $this law:hasModality core:Obligation ;
+                      law:groundedBySR ?sr .
+                ?sr a sr:SafetyRequirement .
+            }
+        """ ;
+    ] .
+
+
+### R-24: VO + Noncompliance + SR-applicable Hazard → core:hasViolation(VO, SR)
+krs:R24_HasViolationVOSRShape a sh:NodeShape ;
+    rdfs:label "R-24 SHACL: VO → core:hasViolation(SR)"@ko ;
+    sh:targetClass app:VisualObservation ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this core:hasViolation ?sr }
+            WHERE {
+                $this risk:hasRiskFeature ?rf .
+                ?rf haz:hasHazard ?hazd .
+                ?sr a sr:SafetyRequirement ;
+                    bridge:appliesTo ?hazd .
+                ?nc a app:Noncompliance ;
+                    app:indicatesNoncompliance $this .
+            }
+        """ ;
+    ] .
+
+
+### R-25: SR-violation → bridge:violatesObligation(Worker, NS)
+krs:R25_ViolatesObligationShape a sh:NodeShape ;
+    rdfs:label "R-25 SHACL: Worker → violatesObligation(NS) via SR-violation"@ko ;
+    sh:targetClass agent:Worker ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this bridge:violatesObligation ?ns }
+            WHERE {
+                ?obs core:hasViolation ?sr .
+                ?ns a law:NormStatement ;
+                    law:groundedBySR ?sr .
+            }
+        """ ;
+    ] .
+
+
+### R-26: VO + Noncompliance + Ctx chain → core:hasViolation(Ctx, NS)
+krs:R26_HasViolationCtxNSShape a sh:NodeShape ;
+    rdfs:label "R-26 SHACL: Ctx → core:hasViolation(NS) via full chain"@ko ;
+    sh:targetClass ctx:WorkContext ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { ?ctx core:hasViolation ?ns }
+            WHERE {
+                ?obs a app:VisualObservation ;
+                     risk:hasRiskFeature ?rf .
+                ?rf haz:hasHazard ?hazd .
+                ?sr a sr:SafetyRequirement ;
+                    sr:addressesHazard ?hazd ;
+                    bridge:observedIn ?ctx .
+                ?ns a law:NormStatement ;
+                    law:groundedBySR ?sr .
+                ?nc a app:Noncompliance ;
+                    app:indicatesNoncompliance ?obs .
+            }
+        """ ;
+    ] .
+
+
+### R-28: violation NS + PenaltyRule → penalty:appliesPenaltyRule(Ctx, PR)
+krs:R28_AppliesPenaltyRuleShape a sh:NodeShape ;
+    rdfs:label "R-28 SHACL: PenaltyExposure → appliesPenaltyRule"@ko ;
+    sh:targetClass app:PenaltyExposure ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this penalty:appliesPenaltyRule ?pr }
+            WHERE {
+                ?agent bridge:violatesObligation ?ns .
+                ?pr a penalty:PenaltyRule ;
+                    penalty:penalizesNorm ?ns .
+            }
+        """ ;
+    ] .
+
+
+### R-29: severityScore ≥ 5 → app:hasPenaltyLevel(Ctx, HighSeverity)
+krs:R29_HighSeverityPenaltyShape a sh:NodeShape ;
+    rdfs:label "R-29 SHACL: PenaltyExposure → HighSeverity via score ≥ 5"@ko ;
+    sh:targetClass app:PenaltyExposure ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this app:hasPenaltyLevel app:HighSeverity }
+            WHERE {
+                ?pr a penalty:PenaltyRule ;
+                    penalty:appliesToExposure $this ;
+                    penalty:severityScore ?score .
+                FILTER(?score >= 5)
+            }
+        """ ;
+    ] .
+
+
+### R-30: PenaltyRule resultsIn → app:hasPenaltyResult(Ctx, Result)
+krs:R30_HasPenaltyResultShape a sh:NodeShape ;
+    rdfs:label "R-30 SHACL: PenaltyExposure → hasPenaltyResult"@ko ;
+    sh:targetClass app:PenaltyExposure ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:CommonPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this app:hasPenaltyResult ?pres }
+            WHERE {
+                $this penalty:appliesPenaltyRule ?pr .
+                ?pr a penalty:PenaltyRule ;
+                    penalty:resultsIn ?pres .
+            }
+        """ ;
+    ] .
