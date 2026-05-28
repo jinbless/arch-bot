@@ -22,8 +22,10 @@ from rdflib import Graph, Namespace, RDF
 BASELINE_ID = "ci_cross_guide_broad_only_guard1"
 
 ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[4]
 ONTOLOGY_DIR = Path(__file__).resolve().parents[1]
-PROFILE_PATH = ROOT / "OHS" / "backend" / "app" / "data" / "guide_domain_profiles.json"
+# monorepo 재구성(2026-05-16) 후 경로: OHS/ → serving-team/08-app/, koshaontology/ → data-team/02-extraction/.
+PROFILE_PATH = REPO_ROOT / "serving-team" / "08-app" / "backend" / "app" / "data" / "guide_domain_profiles.json"
 BASE_TTL_PATH = ONTOLOGY_DIR / "kosha-instances.ttl"
 REPORT_JSON_PATH = ONTOLOGY_DIR / "serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.json"
 REPORT_MD_PATH = ONTOLOGY_DIR / "serving-workprocess-alignment-ci_cross_guide_broad_only_guard1.md"
@@ -61,7 +63,7 @@ def load_source_workprocesses(profile: dict[str, Any]) -> dict[str, dict[str, An
     source_file = profile.get("source_file")
     if not source_file:
         return {}
-    path = ROOT / "koshaontology" / source_file
+    path = REPO_ROOT / "data-team" / "02-extraction" / source_file
     if not path.exists():
         return {}
     data = json.loads(path.read_text(encoding="utf-8"))

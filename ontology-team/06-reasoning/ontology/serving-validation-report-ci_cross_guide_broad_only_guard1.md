@@ -1,7 +1,7 @@
 # Serving Snapshot Validation Report
 
 - baseline: `ci_cross_guide_broad_only_guard1`
-- generated_at: `2026-05-16T04:07:08+00:00`
+- generated_at: `2026-05-28T13:10:33+00:00`
 - result: `PASS`
 - GuideUsageProfile: `1038`
 - evaluation cases: `2360`
@@ -20,3 +20,4 @@
 
 
 ## Sample Issues
+
