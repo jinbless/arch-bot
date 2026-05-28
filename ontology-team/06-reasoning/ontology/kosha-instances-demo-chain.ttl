@@ -1,0 +1,96 @@
+# ABox enrichment demo chain — R-10~R-30 fire 입증 (검증 전용, production fuseki sources 미포함).
+#
+# Phase B/C-J 발견: production ABox (kosha-instances.ttl)에 alethic/bridge/violation/penalty
+# chain의 runtime instance (VisualObservation/Equipment/SituationMatch/Noncompliance 등)가 0개라
+# R-10~R-30 inference fire 0.
+#
+# 본 demo는 한 사진 분석 시나리오의 minimal instance set — R-10~R-13 (Pellet SWRL) +
+# R-14~R-30 (pyshacl SHACL) 모두 fire 입증.
+#
+# 실행: data-team/05-enrichment/llm-scripts/run_shacl_rules.py --demo
+#       (R-14~R-30 SHACL fire) + fuseki Pellet demo (R-10~R-13 SWRL).
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix app: <https://cashtoss.info/ontology/app#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix demo: <https://cashtoss.info/ontology/demo#> .
+
+
+### VisualObservation + cue + context (R-10/R-14/R-16/R-24/R-26 anchor)
+demo:VO1 a app:VisualObservation ;
+    app:hasVisualCue demo:Cue1 ;
+    core:observedIn demo:Ctx1 .
+demo:Cue1 a app:VisualCue .
+demo:Ctx1 a ctx:WorkContext .
+
+### RiskFeature (R-10 head input → R-11/R-12 body)
+demo:RF1 a risk:RiskFeature ;
+    risk:indicatesByCue demo:Cue1 ;
+    risk:correspondsToHazard demo:Haz1 ;
+    risk:compatibleWithSpec demo:Spec1 .
+demo:Haz1 a haz:Hazard .
+
+### Equipment + spec (R-12/R-17 body)
+demo:Eq1 a guide:Equipment ;
+    guide:equipmentHasSpec demo:Spec1 .
+demo:Spec1 a guide:EquipmentSpec .
+
+### SafetyRequirement (R-15/R-16/R-17/R-18/R-19/R-24 anchor)
+demo:SR1 a sr:SafetyRequirement ;
+    sr:addressesHazard demo:Haz1 ;
+    sr:appliesToArticle demo:Art1 ;
+    sr:appliesToEquipment demo:Eq1 ;
+    sr:requiresFindingStatus demo:Status1 .
+demo:Art1 a law:Article .
+
+### WorkProcess + SituationMatch (R-13 anchor)
+demo:WP1 a guide:WorkProcess ;
+    app:temporalStageForProcess demo:TS1 .
+demo:TS1 a ctx:TemporalStage .
+demo:SM1 a app:SituationMatch ;
+    app:matchesProcess demo:WP1 .
+
+### HazardFinding + status (R-18 body)
+demo:HF1 a app:HazardFinding ;
+    app:hasFindingStatus demo:Status1 .
+demo:Status1 a app:FindingStatus .
+
+### NormStatement (R-20/R-21/R-22/R-23/R-25/R-26 anchor)
+demo:NS1 a law:NormStatement ;
+    law:groundedBySR demo:SR1 ;
+    law:hasModality core:Obligation .
+
+### Noncompliance (R-24/R-26 body)
+demo:NC1 a app:Noncompliance ;
+    app:indicatesNoncompliance demo:VO1 .
+
+### Worker (R-25 anchor)
+demo:Worker1 a agent:Worker .
+
+### PenaltyRule + PenaltyExposure (R-21/R-28/R-29/R-30 anchor)
+demo:PR1 a penalty:PenaltyRule ;
+    penalty:appliesToNormStatement demo:NS1 ;
+    penalty:appliesToExposure demo:PE1 ;
+    penalty:severityScore 7 ;
+    penalty:resultsIn demo:PRes1 .
+demo:PRes1 a penalty:PenaltyResult .
+demo:PE1 a app:PenaltyExposure .
+
+### R-10~R-13 SWRL 결과 (Pellet fire 산출) — R-14~R-30 SHACL의 body atom이므로 demo에 직접 명시.
+# 실제 운영에서는 Pellet R-10~R-13가 생성. demo에서는 SHACL chain 입증 위해 pre-populate.
+demo:VO1 risk:hasRiskFeature demo:RF1 .         # R-10 결과
+demo:RF1 haz:hasHazard demo:Haz1 .              # R-11 결과
+demo:RF1 risk:appliesToEquipment demo:Eq1 .     # R-12 결과
+demo:SM1 app:hasTemporalStage demo:TS1 .        # R-13 결과

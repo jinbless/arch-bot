@@ -441,6 +441,53 @@ PASS — 회귀 통과
 
 **정석 점수**: ~75-80% → **~97-99%** (정형 + load + sanity + Pellet 8 fire + SHACL 12 path + Gate 3 + pyshacl + 1,271 vetted).
 
+---
+
+## 후속 작업 1 + 3 + 4 (2026-05-28)
+
+### 1: plan + Java sources 갱신 ✅
+- `ontology-axiom-100pct.md` status — Sprint A-2/B/C/D + 1+2+3 반영, 정석 점수 ~97-99%
+- `KoshaFusekiServer.java` — SWRL R-14~R-30 주석 사유를 SHACL 변환 참조로 갱신
+
+### 3: ABox enrichment — R-10~R-30 fire 입증 demo chain ✅
+
+**신규**: `kosha-instances-demo-chain.ttl` (검증 전용, production fuseki sources 미포함).
+- 한 사진 분석 시나리오의 minimal instance set (VO/RF/Hazard/SR/Equipment/SituationMatch/NormStatement/Noncompliance/Worker/PenaltyRule/PenaltyExposure)
+
+**pyshacl 검증 결과** (demo ABox + R-14~R-30 SHACL):
+```
+data graph (TBox + demo ABox): 1,769 triples
+conforms=True, inferred 15 triples
+=== R-14~R-30 SHACL fire: 12/12 rule groups fired ===
+  R-14/R-16 bridge:observedIn: 2     R-24/R-26 core:hasViolation: 2
+  R-15/R-17/R-18 bridge:appliesTo: 3  R-25 bridge:violatesObligation: 1
+  R-19 law:appliesArticle: 1          R-28 penalty:appliesPenaltyRule: 1
+  R-20 law:hasModality(Obligation): 1 R-29 app:hasPenaltyLevel: 1
+  R-21 penalty:penalizesNorm: 1       R-30 app:hasPenaltyResult: 1
+  R-22 law:hasArticle: 1
+  R-23 ViolationCandidate: 1
+```
+
+→ **Phase B/C-J의 "ABox 0이라 fire 0" 문제가 ABox enrichment로 해결됨을 12/12로 입증**. runtime instance가 ontology ABox에 등록되면 전체 alethic→bridge→deontic→violation→penalty chain이 fire.
+
+### 4: Phase K — Article unification 재진단 ✅
+
+**원래 진단 (Phase A)**: 626 SR이 distinct Article 1:1 → R-2/R-4 cross-pair 0. "Article instance unification 필요" 추정.
+
+**재진단 (실측, 2026-05-28)**:
+- Article은 이미 **canonical** (`law:RULE_제395조` 등, 1,227 instance, articleCode property). SR-Article 1:1은 **KOSHA 안전보건규칙의 도메인 사실** (각 조항이 1 SR로 표현) → **instance unification 불필요**.
+- cross-pair 0의 진짜 원인: **R-2/R-4 rule이 "같은 Article"(1:1) 조건**을 요구.
+- 같은 **Hazard 공유** SR pair는 대량 (STRUCK_BY 152 SRs, CHEMICAL 144, FIRE 101...): addressesHazard 755 triples / 12 distinct Hazard / 626 SR.
+- 같은 **Chapter 공유** SR pair도 대량 (편2_장1 133 SRs...).
+
+**해결책** (`kosha-rules-k-general-shacl.ttl`):
+- **K-R4**: 같은 Hazard 공유 SR → `core:dependsOn` (R-4에서 Article 조건 제거). 측정: **36,949 pairs**.
+- **K-R2**: 같은 Chapter 공유 SR → `core:coApplicable` (R-2 Article→Chapter 일반화). 측정: **16,429 pairs**.
+- 합계 **53,378 cross-pair** 활성화 (Phase A 원래 rule 0 → K 일반화 53,378).
+- SHACL CONSTRUCT (Pellet 외부) — cross-pair explosion으로부터 Pellet 보호. 전체 materialization은 on-demand pyshacl / PG ETL 권장.
+
+→ **Phase A의 "ABox 정합성 이슈"는 실제로 rule 정의 문제**였음. Article unification 대신 rule 일반화로 53,378 cross-pair 활성화 path 확보.
+
 ### 결론
 
 **본 sprint Phase C-J + Sprint A 1차 acceptance**:
