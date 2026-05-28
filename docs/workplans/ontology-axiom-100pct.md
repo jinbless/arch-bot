@@ -1,6 +1,10 @@
 # Ontology Axiom 100% 정석화 Sprint Plan
 
-> **Status**: ✅ Phase A/B/C/D/E/F/G/H/J 완료 (2026-05-27). Phase I (F.3.2 auto batch, LLM cost ~$10-20) 별도 sprint. 상세 [axiom-100pct-phase-c-j.md](../dev-notes/axiom-100pct-phase-c-j.md) 참조. **정석 점수 ~80-84% → ~92-95%**.
+> **Status**: ✅ Phase A-J + Sprint A-2/B/C/D + 1+2+3 보강 절차 완료 (2026-05-28). 상세 [axiom-100pct-phase-c-j.md](../dev-notes/axiom-100pct-phase-c-j.md). **정석 점수 ~75-80% → ~97-99%**.
+> - **Pellet 해결**: Phase C/D/E/F SWRL R-14~R-30 (12 rules) NEXPTIME-complete 결합 → SHACL SPARQLRule 변환 (`kosha-rules-r14-r30-shacl-construct.ttl`). Pellet은 Phase A/B SWRL 8 rule fire (R-1/3/2/4/10-13), SHACL은 R-14~R-30 path 확보.
+> - **AC 종합**: AC-2 (Restriction 35) ✅ / AC-3 (NLH 21+13) ✅ / AC-5 (AsymmetricProperty 1) ✅ / AC-6 (Gate 3 PASS overall +19%pp + pyshacl conforms) ✅ / AC-1 (SWRL 22 정형, Pellet 8 + SHACL 12 path) / AC-4 (1,271 vetted promotion, 잔여 ~960 conf < 0.85).
+> - **잔여 (별도 sprint)**: ABox enrichment (R-10~R-30 실제 fire), Phase K (Article unification, R-2/R-4 cross-pair), AC-4 잔여 promotion, Dashboard 갱신.
+> - **검증**: `scripts/verify_axiom_100pct.py` Overall verdict OK.
 > **Trigger**: 직전 hazard-direct pivot 완주 후 정석 OWL DL 평가 → 현재 정석 점수 ~75-80%. SWRL formal rule 2/30, Restriction 6개, hazard-direct OWL 미격상, F.3.2 candidate 2,184 잔여, AsymmetricProperty 0.
 > **Predecessor**: hazard-direct pivot (commit `164de5a`), 문서 전수 검증 (commit `6d3f431`)
 > **Predicted duration**: ~4-6주 (10 Phase, hazard-direct pivot보다 큼)

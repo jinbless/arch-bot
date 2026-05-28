@@ -1,0 +1,76 @@
+# Phase K — R-2/R-4 일반화 SHACL CONSTRUCT (cross-pair 활성화).
+#
+# Phase A 발견: 626 SR이 626 distinct Article에 1:1 → R-2(같은 Article coApplicable),
+# R-4(같은 Hazard+Article dependsOn) cross-pair = 0.
+#
+# Phase K 재진단 (Sprint 후속, 2026-05-28):
+#   - Article은 이미 canonical (law:RULE_제395조 등, 1,227 instance). SR-Article 1:1은
+#     KOSHA 안전보건규칙의 도메인 사실 (각 조항이 1 SR로 표현) — instance unification 불필요.
+#   - cross-pair 0의 진짜 원인: R-2/R-4 rule이 "같은 Article"(1:1)을 요구.
+#   - 해결: "같은 Hazard" (addressesHazard) 또는 "같은 Chapter" (belongsToChapter) 공유 기반
+#     일반화 rule. 측정: R-4-gen 36,949 dependsOn + R-2-gen 16,429 coApplicable = 53,378 pair.
+#
+# 본 rule은 SHACL CONSTRUCT (pyshacl) — Pellet OWL DL 외부 (cross-pair explosion으로부터 Pellet 보호).
+# 전체 materialization은 53,378 triple — on-demand pyshacl 또는 PG ETL 권장 (운영 시 cardinality 고려).
+#
+# self-loop 회피: FILTER(STR(?s1) < STR(?s2)) — unordered pair, core:coApplicable/dependsOn은
+# SymmetricProperty이므로 한 방향만 생성해도 양방향 entail (Pellet) 또는 응답 처리에서 대칭 확장.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix law: <https://cashtoss.info/ontology/law#> .
+@prefix core: <https://cashtoss.info/ontology#> .
+@prefix krs: <https://cashtoss.info/ontology/shacl-rules#> .
+
+
+krs:KGeneralPrefixes a sh:PrefixDeclaration ;
+    sh:declare [ sh:prefix "sr" ; sh:namespace "https://cashtoss.info/ontology/sr#"^^xsd:anyURI ] ,
+        [ sh:prefix "law" ; sh:namespace "https://cashtoss.info/ontology/law#"^^xsd:anyURI ] ,
+        [ sh:prefix "core" ; sh:namespace "https://cashtoss.info/ontology#"^^xsd:anyURI ] .
+
+
+### K-R4: 같은 Hazard 공유 SR → core:dependsOn (R-4 일반화, Article 조건 제거)
+# Phase A R-4는 같은 Hazard + 같은 Article 요구 → Article 1:1로 0.
+# K-R4는 같은 Hazard만 → 36,949 pair. dependsOn은 같은 위험을 다루는 SR 간 의존.
+krs:KR4_DependsOnHazardShape a sh:NodeShape ;
+    rdfs:label "K-R4: dependsOn (같은 Hazard 공유 SR, Article 1:1 우회)"@ko ;
+    sh:targetClass sr:SafetyRequirement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:KGeneralPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this core:dependsOn ?s2 }
+            WHERE {
+                $this sr:addressesHazard ?h .
+                ?s2 sr:addressesHazard ?h .
+                FILTER(STR($this) < STR(?s2))
+            }
+        """ ;
+    ] .
+
+
+### K-R2: 같은 Chapter 공유 SR → core:coApplicable (R-2 일반화, Article→Chapter)
+# Phase A R-2는 같은 Article 요구 → 1:1로 0.
+# K-R2는 같은 Chapter (belongsToChapter) → 16,429 pair. coApplicable은 같은 장(章)의 SR 공동 적용.
+krs:KR2_CoApplicableChapterShape a sh:NodeShape ;
+    rdfs:label "K-R2: coApplicable (같은 Chapter 공유 SR, Article→Chapter 일반화)"@ko ;
+    sh:targetClass sr:SafetyRequirement ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes krs:KGeneralPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this core:coApplicable ?s2 }
+            WHERE {
+                $this sr:appliesToArticle ?a1 .
+                ?a1 law:belongsToChapter ?ch .
+                ?s2 sr:appliesToArticle ?a2 .
+                ?a2 law:belongsToChapter ?ch .
+                FILTER(STR($this) < STR(?s2))
+            }
+        """ ;
+    ] .
