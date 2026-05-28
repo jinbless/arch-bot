@@ -42,6 +42,33 @@ CQ_PATH = ARTIFACTS_DIR / "sparql_cq_coverage.json"
 
 OUT_REPORT = ARTIFACTS_DIR / "local_consistency_report.json"
 
+# Sprint D 확장: Axiom 100% Phase A-J 추가 ttl 모두 load.
+PHASE_AJ_TTLS = [
+    ONTOLOGY_DIR / "kosha-ontology-v3-subclass-patch.ttl",
+    ONTOLOGY_DIR / "kosha-accident22-disjoint.ttl",
+    ONTOLOGY_DIR / "kb-candidates.ttl",
+    ONTOLOGY_DIR / "kosha-rules-r1-r3-swrl.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-deps-patch.ttl",
+    ONTOLOGY_DIR / "kosha-rules-r2-r4-swrl.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-alethic-patch.ttl",
+    ONTOLOGY_DIR / "kosha-rules-r9-r13-swrl.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-bridge-patch.ttl",
+    ONTOLOGY_DIR / "kosha-rules-r14-r18-swrl.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-deontic-patch.ttl",
+    ONTOLOGY_DIR / "kosha-rules-r19-r23-swrl.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-violation-patch.ttl",
+    ONTOLOGY_DIR / "kosha-rules-r24-r26-swrl.ttl",
+    ONTOLOGY_DIR / "kosha-r27-shacl-exempted.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-penalty-extra-patch.ttl",
+    ONTOLOGY_DIR / "kosha-rules-r28-r30-swrl.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-restrictions-patch.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-hazard-direct-patch.ttl",
+    ONTOLOGY_DIR / "kosha-instances-hazard-direct.ttl",
+    ONTOLOGY_DIR / "kosha-ontology-v4-asymmetric-patch.ttl",
+    ONTOLOGY_DIR / "kosha-rules-r14-r30-shacl-construct.ttl",
+    ONTOLOGY_DIR / "kosha-vetted-disjoint-shapes.ttl",
+]
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -76,6 +103,19 @@ def main() -> int:
         initial = len(g)
     except Exception as exc:
         print(f"  WARN {DISJOINT_TTL.name}: {exc}")
+
+    # Sprint D 확장: Phase A-J 신규 ttl 모두 load
+    for tpath in PHASE_AJ_TTLS:
+        if not tpath.exists():
+            continue
+        try:
+            g.parse(str(tpath), format="turtle")
+            added = len(g) - initial
+            initial = len(g)
+            if added > 0:
+                print(f"  + {tpath.name}: +{added} triples (total {len(g)})")
+        except Exception as exc:
+            print(f"  WARN {tpath.name}: {exc}")
 
     if not args.skip_instances:
         print(f"  Loading {INSTANCES_TTL.name} (1.06M lines, ~30s)...", flush=True)
