@@ -1,0 +1,54 @@
+# P3 (Guide 추천 정확도) — Guide 직접 위험 매핑 TBox.
+#
+# Guide 추천 문제 근본 해결: Guide entity에 위험/작업맥락 직접 매핑 property 신설.
+# 기존엔 Guide가 CI 경유로만 위험 연결 → boilerplate CI fan-out noise.
+# P2(derive_guide_hazard_features.py)가 CI 변별력 가중 다수결로 도출한 Guide 대표 위험을
+# PG guide_entity_feature_candidates(entity_type='GUIDE')에 적재 + 본 property로 ontology 정합.
+#
+# "온톨로지가 사실(triple) 보유, 서비스 랭킹은 런타임 Python" 원칙.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+
+
+### Guide 직접 위험 매핑 (CI 경유 없는 사진→Guide 직접 추론)
+
+guide:addressesHazard a owl:ObjectProperty ;
+    rdfs:label "직접 위험 대응 (Guide)"@ko ;
+    rdfs:comment "KoshaGuide가 직접 대응하는 사고유형(Hazard). CI 변별력 가중 다수결로 도출된 Guide 대표 위험. CI 경유 fan-out noise 회피."@ko ;
+    rdfs:domain guide:KoshaGuide ;
+    rdfs:range haz:Hazard .
+
+guide:guideAddressesAgent a owl:ObjectProperty ;
+    rdfs:label "직접 유해인자 대응 (Guide)"@ko ;
+    rdfs:comment "KoshaGuide가 직접 대응하는 유해인자 (hazardous_agent axis)."@ko ;
+    rdfs:domain guide:KoshaGuide ;
+    rdfs:range agent:HazardousAgent .
+
+guide:guideAppliesToContext a owl:ObjectProperty ;
+    rdfs:label "직접 작업맥락 적용 (Guide)"@ko ;
+    rdfs:comment "KoshaGuide가 직접 적용되는 작업맥락 (work_context axis)."@ko ;
+    rdfs:domain guide:KoshaGuide ;
+    rdfs:range ctx:WorkContext .
+
+
+### CI boilerplate 표지 (변별력 신호)
+
+guide:ciGuideFrequency a owl:DatatypeProperty ;
+    rdfs:label "CI Guide 중복 빈도"@ko ;
+    rdfs:comment "동일 텍스트 CI가 등장하는 distinct Guide 수. 높을수록 boilerplate(변별력 낮음). ci_weight=1/log2(1+freq)."@ko ;
+    rdfs:domain guide:ChecklistItem ;
+    rdfs:range xsd:integer .
+
+guide:isBoilerplate a owl:DatatypeProperty ;
+    rdfs:label "boilerplate 여부"@ko ;
+    rdfs:comment "ciGuideFrequency가 임계 이상(예: ≥10)인 공통 문구 CI. Guide 랭킹에서 가중 down."@ko ;
+    rdfs:domain guide:ChecklistItem ;
+    rdfs:range xsd:boolean .

@@ -18,10 +18,35 @@ from sqlalchemy.orm import Session
 
 from app.services.hazard_rule_engine import (
     get_guides_from_srs,
+    get_guides_by_hazard_features,
     query_sr_for_facets,
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _merge_guide_paths(direct: list[dict], ci: list[dict], limit: int) -> list[dict]:
+    """P2 — Guide 직접 매핑(우선) + CI 경유 union.
+
+    - 직접 매핑(guide_hazard_direct)을 base로. 양쪽에 모두 있으면 직접 점수에 bonus(+0.15)
+      가산하고 mapping_type을 'guide_hazard_direct+ci'로, ci_hit_count 보존.
+    - CI 경유만 있는 Guide는 그대로 보충(직접 매핑이 없으므로 후순위).
+    """
+    by_code: dict[str, dict] = {}
+    for g in direct:
+        by_code[g["guide_code"]] = dict(g)
+    for g in ci:
+        code = g["guide_code"]
+        if code in by_code:
+            cur = by_code[code]
+            cur["relevance_score"] = min(0.99, cur["relevance_score"] + 0.15)
+            cur["mapping_type"] = "guide_hazard_direct+ci"
+            cur["ci_hit_count"] = g.get("ci_hit_count", 0)
+            cur["weighted_ci"] = g.get("weighted_ci", 0.0)
+        else:
+            by_code[code] = dict(g)
+    merged = sorted(by_code.values(), key=lambda x: x["relevance_score"], reverse=True)
+    return merged[:limit]
 
 
 def _axis_field(axis: str) -> str:
@@ -117,12 +142,23 @@ def match_hazards_to_guides(
         sr_ids = [row["identifier"] for row in sr_rows]
         sr_id_set.update(sr_ids)
 
-        guides = get_guides_from_srs(
+        # P2: 두 경로 union — (1) Guide 직접 위험 매핑 (CI 경유 없음, boilerplate noise 0)
+        #     (2) 기존 SR→CI 변별력 가중 경로. 직접 매핑 우선 + 양쪽 교집합은 bonus.
+        guides_direct = get_guides_by_hazard_features(
+            db,
+            accident_types=accident_types,
+            hazardous_agents=hazardous_agents,
+            work_contexts=work_contexts,
+            limit=guides_per_hazard,
+            industry_contexts=industry_contexts,
+        )
+        guides_ci = get_guides_from_srs(
             db,
             sr_ids=sr_ids,
             limit=guides_per_hazard,
             industry_contexts=industry_contexts,
         )
+        guides = _merge_guide_paths(guides_direct, guides_ci, limit=guides_per_hazard)
 
         relations.append({
             "hazard_name": name,
