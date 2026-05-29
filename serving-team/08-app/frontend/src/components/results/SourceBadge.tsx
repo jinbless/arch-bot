@@ -24,7 +24,8 @@ export type SourceType =
   | 'pg_penalty'
   | 'llm_enrich'
   | 'llm_rejected'
-  | 'mixed';
+  | 'mixed'
+  | 'ontology';
 
 const SOURCE_META: Record<SourceType, { label: string; cls: string; title: string }> = {
   gpt:          { label: 'GPT Vision',   cls: 'bg-blue-100 text-blue-700 border-blue-200',       title: 'LLM이 사진/텍스트에서 직접 추출' },
@@ -37,10 +38,11 @@ const SOURCE_META: Record<SourceType, { label: string; cls: string; title: strin
   llm_enrich:   { label: 'LLM 보강',      cls: 'bg-purple-100 text-purple-700 border-purple-200', title: '5번 LLM enrichment (guide_domain_profiles 등 runtime artifact, 임시)' },
   llm_rejected: { label: 'LLM reject',    cls: 'bg-zinc-200 text-zinc-700 border-zinc-300 line-through', title: 'Phase B 도메인 검증이 제외한 candidate (debug 표시)' },
   mixed:        { label: '복합',          cls: 'bg-gray-100 text-gray-700 border-gray-200',       title: '여러 source 결합' },
+  ontology:     { label: '온톨로지',      cls: 'bg-violet-100 text-violet-700 border-violet-200', title: 'hazard-direct → SR → Guide (온톨로지 기반 추론 경로)' },
 };
 
 const SourceBadge: React.FC<{ source: SourceType; extra?: string }> = ({ source, extra }) => {
-  const meta = SOURCE_META[source];
+  const meta = SOURCE_META[source] ?? SOURCE_META.mixed;
   return (
     <span
       title={meta.title}
