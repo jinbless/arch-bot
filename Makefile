@@ -39,7 +39,8 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f2-help f2-patch-v32 f2-patch-v33 f2-enrich-sonnet f2-link-v31 \
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
         f3-drift-check f3-weekly-cycle \
-        phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify
+        phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify \
+        verify-codes
 
 help:
 	@echo "arch-bot dev launcher"
@@ -401,3 +402,15 @@ phase-g-verify:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
 	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/validation-scripts/sample_query_equality.py' --sprint all
+
+
+# ---------------------------------------------------------------------------
+# 코드 어휘 정합성 하드게이트 (Phase 5 재발 방지)
+# catalog ↔ SR ↔ CI ↔ GUIDE ↔ ontology 정합 감사 + KOSHA-22 CamelCase 단일화 강제.
+# CRITICAL(온톨로지 UPPER/dual-URI) 발견 시 exit 1 → CI에서 어휘 드리프트 차단.
+# ---------------------------------------------------------------------------
+
+verify-codes:
+	@echo "[verify-codes] 코드 어휘 정합성 하드게이트 (온톨로지 UPPER/dual-URI 재발 차단)"
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ROOT)/scripts/audit_code_consistency.py' --gate
