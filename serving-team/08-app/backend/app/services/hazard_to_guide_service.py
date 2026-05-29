@@ -44,7 +44,12 @@ def _merge_guide_paths(direct: list[dict], ci: list[dict], limit: int) -> list[d
             cur["ci_hit_count"] = g.get("ci_hit_count", 0)
             cur["weighted_ci"] = g.get("weighted_ci", 0.0)
         else:
-            by_code[code] = dict(g)
+            g2 = dict(g)
+            # 직접 위험 매핑이 CI fan-out보다 신뢰도 높음 → CI-only는 근소 demotion으로
+            # 동점/근소차에서 직접 매핑 아래로. (예: ERGONOMIC에서 '오토바이 배달'(CI 경유)이
+            #  근골격계 예방 직접 guide와 동점이라 위로 가던 문제 제거.)
+            g2["relevance_score"] = max(0.0, float(g2.get("relevance_score", 0.0)) - 0.06)
+            by_code[code] = g2
     merged = sorted(by_code.values(), key=lambda x: x["relevance_score"], reverse=True)
     return merged[:limit]
 

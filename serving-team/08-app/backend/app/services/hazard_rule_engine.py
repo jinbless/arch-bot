@@ -551,7 +551,7 @@ def get_guides_by_hazard_features(
         .filter(GF.entity_type == "GUIDE", or_(*conds))
         .group_by(GF.guide_code)
         .order_by(func.sum(GF.confidence).desc())
-        .limit(limit * 4)  # breadth 재랭킹 위해 후보 더 확보 후 context boost로 정렬
+        .limit(limit * 6)  # breadth 재랭킹 위해 후보 더 확보 후 context boost로 정렬 (fine 일치 guide가 풀에 들도록 넉넉히)
         .all()
     )
     if not rows:
@@ -560,14 +560,33 @@ def get_guides_by_hazard_features(
     guide_codes = [r[0] for r in rows]
     conf_map = {r[0]: (float(r[1] or 0.0), r[2]) for r in rows}
 
-    # breadth 게이팅: 관찰의 work_context(canonical)와도 매칭되는 Guide 부스트.
-    # 예) 충돌(COLLISION)은 47개 Guide에 퍼져 "오토바이 배달"이 top 되던 문제 →
-    #     사진 work_context VEHICLE(지게차)과도 매칭되는 차량 Guide를 위로.
-    ctx_pairs = set()
-    for c in (context_work_contexts or []):
-        a2, c2 = cv.to_canonical("work_context", c)
-        ctx_pairs.add((a2, c2))
-    ctx_match: set[str] = set()
+    # breadth 게이팅 (2-tier): 관찰 work_context로 Guide 부스트하되 fine vs canonical 차등.
+    #  (1) fine 일치 — Guide가 scene의 정확한 fine work_context(예: FORKLIFT_OPERATION)를 보유 → 강한 부스트.
+    #  (2) canonical-only — 같은 canonical(VEHICLE)만 공유 → 약한 부스트.
+    # 지게차(FORKLIFT_OPERATION) scene에서 '오토바이 배달'(generic VEHICLE fine, canonical만 일치)이
+    # '작업장 내 운반차량 운행'(FORKLIFT_OPERATION fine 보유)보다 위로 가던 문제 해결.
+    all_ctx_codes = {c for c in (context_work_contexts or []) if c}
+    # fine 부스트는 '구체(sub) 코드'만 트리거(canonical과 다른 코드, 예: FORKLIFT_OPERATION→VEHICLE).
+    # generic 코드(VEHICLE→VEHICLE)는 제외 — scene이 generic VEHICLE도 함께 가질 때
+    # 오토바이(generic VEHICLE) 같은 guide가 fine 강부스트를 받는 것 방지. canon 약부스트는 전체로 유지.
+    fine_ctx_codes = {c for c in all_ctx_codes if cv.to_canonical("work_context", c)[1] != c}
+    ctx_pairs = {cv.to_canonical("work_context", c) for c in all_ctx_codes}
+    fine_match: set[str] = set()
+    canon_match: set[str] = set()
+    if guide_codes and fine_ctx_codes:
+        # entity_type 무관 — GUIDE 대표행은 거친 canonical(VEHICLE)로 rollup되지만, 하위 행
+        # (CI/WP/DT/ES)은 fine 코드(FORKLIFT_OPERATION)를 보존. 어느 행에든 scene fine 코드가 있으면
+        # 그 Guide는 해당 작업(지게차) 콘텐츠를 다루는 것 → fine 일치로 간주.
+        for (gc,) in (
+            db.query(GF.guide_code)
+            .filter(
+                GF.guide_code.in_(guide_codes),
+                GF.canonical_axis == "work_context",
+                GF.feature_code.in_(fine_ctx_codes),
+            )
+            .distinct()
+        ):
+            fine_match.add(gc)
     if ctx_pairs and guide_codes:
         cconds = [and_(GF.canonical_axis == a, GF.canonical_code == c) for a, c in ctx_pairs]
         for (gc,) in (
@@ -575,7 +594,8 @@ def get_guides_by_hazard_features(
             .filter(GF.entity_type == "GUIDE", GF.guide_code.in_(guide_codes), or_(*cconds))
             .distinct()
         ):
-            ctx_match.add(gc)
+            canon_match.add(gc)
+    ctx_match = fine_match | canon_match  # 로깅/표시용 통합 집합
 
     guides = db.query(PgKoshaGuide).filter(PgKoshaGuide.guide_code.in_(guide_codes)).all()
 
@@ -586,8 +606,14 @@ def get_guides_by_hazard_features(
         industry_adjustment, industry_alignment, _ = score_industry_alignment(
             guide_industry.active_industries, industry_contexts,
         )
-        ctx_boost = 0.15 if g.guide_code in ctx_match else 0.0
-        # 직접 매핑 신뢰도 + facet 다중 + work_context 정합(breadth 억제) + 산업 정합.
+        # fine 일치 강한 부스트(+0.30) > canonical-only 약한 부스트(+0.05).
+        if g.guide_code in fine_match:
+            ctx_boost = 0.30
+        elif g.guide_code in canon_match:
+            ctx_boost = 0.05
+        else:
+            ctx_boost = 0.0
+        # 직접 매핑 신뢰도 + facet 다중 + work_context 정합(fine 우선 breadth 억제) + 산업 정합.
         score = min(0.99, max(0.0, 0.55 + 0.20 * min(1.0, direct_conf) + 0.05 * (n_feat - 1) + ctx_boost + industry_adjustment))
         out.append({
             "guide_code": g.guide_code,
@@ -601,9 +627,10 @@ def get_guides_by_hazard_features(
             "ci_hit_count": 0,
             "direct_feature_count": n_feat,
             "context_match": g.guide_code in ctx_match,
+            "context_fine_match": g.guide_code in fine_match,
         })
     out.sort(key=lambda x: x["relevance_score"], reverse=True)
-    logger.info(f"[Hazard→Guide 직접] {len(out)} guides (ctx_match={len(ctx_match)}): {[r['guide_code'] for r in out[:limit]]}")
+    logger.info(f"[Hazard→Guide 직접] {len(out)} guides (fine={len(fine_match)}/canon={len(canon_match)}): {[r['guide_code'] for r in out[:limit]]}")
     return out[:limit]
 
 
