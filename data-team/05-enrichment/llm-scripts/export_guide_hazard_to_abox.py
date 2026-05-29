@@ -11,8 +11,12 @@ TBox: kosha-ontology-v4-guide-hazard-patch.ttl. "온톨로지가 사실 보유, 
 """
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 import psycopg2
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "serving-team" / "08-app" / "backend"))
+from app.integrations.code_iri_mapper import iri_fragment  # noqa: E402  KOSHA-22 CamelCase 정본
 
 PG = "dbname=kosha user=kosha password=1229 host=localhost"
 OUT = Path(__file__).resolve().parents[3] / "ontology-team/06-reasoning/ontology/kosha-instances-guide-hazard.ttl"
@@ -53,7 +57,10 @@ def main():
         if not prop_ns:
             continue
         prop, ns = prop_ns
-        by_guide.setdefault(guide_code, []).append(f"    {prop} {ns}:{code}")
+        frag = iri_fragment(axis, code)  # UPPER fine → KOSHA-22 CamelCase 정본
+        if not frag:
+            continue
+        by_guide.setdefault(guide_code, []).append(f"    {prop} {ns}:{frag}")
         n += 1
     for guide_code, triples in by_guide.items():
         lines.append(f"guide:{guide_code}")

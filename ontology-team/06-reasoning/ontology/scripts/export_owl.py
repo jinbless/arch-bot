@@ -18,27 +18,19 @@ AGENT = Namespace("https://cashtoss.info/ontology/risk/agent#")
 CTX   = Namespace("https://cashtoss.info/ontology/risk/context#")
 SHE   = Namespace("https://cashtoss.info/ontology/risk/situation#")
 
-# ─── Faceted code → OWL individual URI mappings ───
-ACCIDENT_TYPE_MAP = {
-    "FALL": HAZ.Fall, "SLIP": HAZ.Slip, "COLLISION": HAZ.Collision,
-    "FALLING_OBJECT": HAZ.FallingObject, "CRUSH": HAZ.Crush, "CUT": HAZ.Cut,
-    "COLLAPSE": HAZ.Collapse, "ERGONOMIC": HAZ.Ergonomic,
-    "REPETITIVE": HAZ.Ergonomic, "HEAVY_LIFTING": HAZ.Ergonomic, "POSTURE": HAZ.Ergonomic,
-}
-AGENT_MAP = {
-    "CHEMICAL": AGENT.Chemical, "DUST": AGENT.Dust, "TOXIC": AGENT.Toxic,
-    "CORROSION": AGENT.Corrosion, "RADIATION": AGENT.Radiation, "FIRE": AGENT.Fire,
-    "ELECTRICITY": AGENT.Electricity, "ARC_FLASH": AGENT.ArcFlash,
-    "NOISE": AGENT.Noise, "HEAT_COLD": AGENT.HeatCold, "BIOLOGICAL": AGENT.Biological,
-}
-CONTEXT_MAP = {
-    "SCAFFOLD": CTX.Scaffold, "CONFINED_SPACE": CTX.ConfinedSpace,
-    "EXCAVATION": CTX.Excavation, "MACHINE": CTX.Machine,
-    "VEHICLE": CTX.Vehicle, "CRANE": CTX.Crane, "CONVEYOR": CTX.Conveyor,
-    "ROBOT": CTX.Robot, "CONSTRUCTION_EQUIP": CTX.ConstructionEquip,
-    "RAIL": CTX.Rail, "PRESSURE_VESSEL": CTX.PressureVessel,
-    "STEELWORK": CTX.Steelwork, "MATERIAL_HANDLING": CTX.MaterialHandling,
-}
+# ─── Faceted code → OWL individual URI: SSOT 단일 브리지(code_iri_mapper) ───
+# 하드코딩 8/11/13 맵(구 어휘 Fall/Crush/Cut) 폐지 → KOSHA-22 CamelCase를 결정적으로 emit.
+# fine 코드는 canonical_vocab로 정본화 후 _camel (예: ENTANGLEMENT→CaughtIn). 교차축은 to_prefixed_cross_axis.
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parents[4] / "serving-team" / "08-app" / "backend"))
+from app.integrations.code_iri_mapper import to_iri as _to_iri  # noqa: E402
+
+
+def axis_uri(axis: str, code: str):
+    """(axis, code) → KOSHA-22 CamelCase URIRef (axis 내 정본). 미해결/교차축은 None(per-axis 속성 보호)."""
+    iri = _to_iri(axis, code)
+    return URIRef(iri) if iri else None
 
 DB_PARAMS = dict(dbname="kosha", user="kosha", password="1229", host="localhost")
 
@@ -282,22 +274,22 @@ def main():
         if acc_types:
             a_list = acc_types if isinstance(acc_types, list) else json.loads(acc_types)
             for a in a_list:
-                if a in ACCIDENT_TYPE_MAP:
-                    feature_uri = ACCIDENT_TYPE_MAP[a]
+                feature_uri = axis_uri("accident_type", a)
+                if feature_uri is not None:
                     add(uri, SR.addressesAccidentType, feature_uri)
                     add(uri, SR.addressesFeature, feature_uri)
         if haz_agents:
             ag_list = haz_agents if isinstance(haz_agents, list) else json.loads(haz_agents)
             for ag in ag_list:
-                if ag in AGENT_MAP:
-                    feature_uri = AGENT_MAP[ag]
+                feature_uri = axis_uri("hazardous_agent", ag)
+                if feature_uri is not None:
                     add(uri, SR.addressesAgent, feature_uri)
                     add(uri, SR.addressesFeature, feature_uri)
         if work_ctxs:
             c_list = work_ctxs if isinstance(work_ctxs, list) else json.loads(work_ctxs)
             for c in c_list:
-                if c in CONTEXT_MAP:
-                    feature_uri = CONTEXT_MAP[c]
+                feature_uri = axis_uri("work_context", c)
+                if feature_uri is not None:
                     add(uri, SR.inWorkContext, feature_uri)
                     add(uri, SR.addressesFeature, feature_uri)
 
@@ -351,15 +343,18 @@ def main():
         if ci_acc:
             a_list = ci_acc if isinstance(ci_acc, list) else json.loads(ci_acc)
             for a in a_list:
-                if a in ACCIDENT_TYPE_MAP: add(uri, GUIDE.ciAddressesAccidentType, ACCIDENT_TYPE_MAP[a])
+                fu = axis_uri("accident_type", a)
+                if fu is not None: add(uri, GUIDE.ciAddressesAccidentType, fu)
         if ci_agents:
             ag_list = ci_agents if isinstance(ci_agents, list) else json.loads(ci_agents)
             for ag in ag_list:
-                if ag in AGENT_MAP: add(uri, GUIDE.ciAddressesAgent, AGENT_MAP[ag])
+                fu = axis_uri("hazardous_agent", ag)
+                if fu is not None: add(uri, GUIDE.ciAddressesAgent, fu)
         if ci_ctxs:
             c_list = ci_ctxs if isinstance(ci_ctxs, list) else json.loads(ci_ctxs)
             for c in c_list:
-                if c in CONTEXT_MAP: add(uri, GUIDE.ciInWorkContext, CONTEXT_MAP[c])
+                fu = axis_uri("work_context", c)
+                if fu is not None: add(uri, GUIDE.ciInWorkContext, fu)
 
     # 9. CI-SR Mapping
     print("[8/15] CI-SR Mapping...")

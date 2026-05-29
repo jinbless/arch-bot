@@ -20,7 +20,11 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "serving-team" / "08-app" / "backend"))
+from app.integrations.code_iri_mapper import iri_fragment, _camel  # noqa: E402  KOSHA-22 CamelCase
 
 
 def _find_root() -> Path:
@@ -87,14 +91,15 @@ def main():
                     axis, code = code_str.split(".", 1)
                 else:
                     axis, code = "accident_type", code_str
-                rf_id = f"prod:RF_{code}"
+                frag = iri_fragment(axis, code) or _camel(code)  # UPPER → KOSHA-22 CamelCase 정본
+                rf_id = f"prod:RF_{frag}"
                 if rf_id not in seen_rf:
                     seen_rf.add(rf_id)
                     lines.append(f"{rf_id} a risk:RiskFeature ;")
-                    lines.append(f'    rdfs:label "{code} ({axis})"@en ;')
-                    # R-11 body + 결과 (correspondsToHazard + hasHazard) — code가 기존 haz:Hazard와 일치
-                    lines.append(f"    risk:correspondsToHazard haz:{code} ;")
-                    lines.append(f"    haz:hasHazard haz:{code} .")
+                    lines.append(f'    rdfs:label "{frag} ({axis})"@en ;')
+                    # R-11 body + 결과 (correspondsToHazard + hasHazard) — CamelCase 정본 haz:Hazard와 일치
+                    lines.append(f"    risk:correspondsToHazard haz:{frag} ;")
+                    lines.append(f"    haz:hasHazard haz:{frag} .")
                     lines.append("")
                     rf_count += 1
                 # VisualObservation → hasRiskFeature (R-10 결과)
