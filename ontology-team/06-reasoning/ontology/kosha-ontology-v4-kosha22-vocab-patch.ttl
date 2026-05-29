@@ -1,0 +1,281 @@
+# Phase 4-B Stage 2 — KOSHA-22 정본 어휘 NamedIndividual (SSOT 파생, gen_kosha22_vocab_patch.py)
+# accident 23 + hazardous_agent 10 + work_context 29 = 62. CamelCase IRI = code_iri_mapper._camel.
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# === accident_type (23) ===
+haz:AnimalInjury a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Animal Injury"@en,
+        "동물상해"@ko .
+
+haz:CaughtIn a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Caught In"@en,
+        "끼임"@ko .
+
+haz:ChemicalExposure a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Chemical Exposure"@en,
+        "화학물질누출접촉"@ko .
+
+haz:Collapse a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Collapse"@en,
+        "무너짐"@ko .
+
+haz:Collision a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Collision"@en,
+        "부딪힘"@ko .
+
+haz:CrushedOverturned a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Crushed Overturned"@en,
+        "깔림뒤집힘"@ko .
+
+haz:CutLaceration a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Cut Laceration"@en,
+        "절단베임찔림"@ko .
+
+haz:Drowning a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Drowning"@en,
+        "빠짐익사"@ko .
+
+haz:ElectricShock a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Electric Shock"@en,
+        "감전"@ko .
+
+haz:ErgonomicStrain a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Ergonomic Strain"@en,
+        "불균형및무리한동작"@ko .
+
+haz:Explosion a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Explosion"@en,
+        "폭발파열"@ko .
+
+haz:Fall a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Fall"@en,
+        "떨어짐"@ko .
+
+haz:FireInjury a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Fire Injury"@en,
+        "화재"@ko .
+
+haz:OffSiteTraffic a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Off Site Traffic"@en,
+        "사업장외교통사고"@ko .
+
+haz:OtherAccident a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Other Accident"@en,
+        "기타"@ko .
+
+haz:OxygenDeficiency a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Oxygen Deficiency"@en,
+        "산소결핍"@ko .
+
+haz:SlipTrip a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Slip Trip"@en,
+        "넘어짐"@ko .
+
+haz:SportsEventInjury a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Sports Event Injury"@en,
+        "체육행사"@ko .
+
+haz:StruckBy a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Struck By"@en,
+        "맞음"@ko .
+
+haz:TempExtremeContact a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Temp Extreme Contact"@en,
+        "이상온도물체접촉"@ko .
+
+haz:Unclassified a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Unclassified"@en,
+        "분류불능"@ko .
+
+haz:Violence a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Violence"@en,
+        "폭력행위"@ko .
+
+haz:WorkplaceTraffic a owl:NamedIndividual,
+        haz:AccidentType ;
+    rdfs:label "Workplace Traffic"@en,
+        "사업장내교통사고"@ko .
+
+# === hazardous_agent (10) ===
+agent:Biological a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Biological"@en .
+
+agent:Chemical a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Chemical"@en .
+
+agent:Dust a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Dust"@en .
+
+agent:Electricity a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Electricity"@en .
+
+agent:Fire a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Fire"@en .
+
+agent:HeatCold a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Heat Cold"@en .
+
+agent:Noise a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Noise"@en .
+
+agent:Radiation a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Radiation"@en .
+
+agent:Toxic a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Toxic"@en .
+
+agent:UnknownAgent a owl:NamedIndividual,
+        agent:HazardousAgent ;
+    rdfs:label "Unknown Agent"@en .
+
+# === work_context (29) ===
+ctx:ChemicalWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Chemical Work"@en .
+
+ctx:CollapsePrevention a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Collapse Prevention"@en .
+
+ctx:ConfinedSpace a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Confined Space"@en .
+
+ctx:ConstructionEquip a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Construction Equip"@en .
+
+ctx:Conveyor a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Conveyor"@en .
+
+ctx:Crane a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Crane"@en .
+
+ctx:Demolition a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Demolition"@en .
+
+ctx:DustWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Dust Work"@en .
+
+ctx:ElectricalWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Electrical Work"@en .
+
+ctx:ErgonomicWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Ergonomic Work"@en .
+
+ctx:Excavation a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Excavation"@en .
+
+ctx:FallProtection a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Fall Protection"@en .
+
+ctx:FireExplosionWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Fire Explosion Work"@en .
+
+ctx:HeatColdWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Heat Cold Work"@en .
+
+ctx:Logging a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Logging"@en .
+
+ctx:Machine a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Machine"@en .
+
+ctx:MaterialHandling a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Material Handling"@en .
+
+ctx:NoiseWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Noise Work"@en .
+
+ctx:Passage a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Passage"@en .
+
+ctx:PathogenWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Pathogen Work"@en .
+
+ctx:PressureVessel a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Pressure Vessel"@en .
+
+ctx:RadiationWork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Radiation Work"@en .
+
+ctx:Rail a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Rail"@en .
+
+ctx:Robot a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Robot"@en .
+
+ctx:Scaffold a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Scaffold"@en .
+
+ctx:Steelwork a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Steelwork"@en .
+
+ctx:UnknownContext a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Unknown Context"@en .
+
+ctx:Vehicle a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Vehicle"@en .
+
+ctx:Ventilation a owl:NamedIndividual,
+        ctx:WorkContext ;
+    rdfs:label "Ventilation"@en .

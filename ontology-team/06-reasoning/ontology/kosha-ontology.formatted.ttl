@@ -522,7 +522,7 @@ pen:violatedArticle a owl:ObjectProperty ;
     rdfs:domain pen:PenaltyRule ;
     rdfs:range law:Article .
 
-agent:ArcFlash a owl:NamedIndividual,
+agent:Electricity a owl:NamedIndividual,
         agent:HazardousAgent ;
     rdfs:label "Arc Flash"@en,
         "아크"@ko .
@@ -537,7 +537,7 @@ agent:Chemical a owl:NamedIndividual,
     rdfs:label "Chemical"@en,
         "화학물질"@ko .
 
-agent:Corrosion a owl:NamedIndividual,
+agent:Chemical a owl:NamedIndividual,
         agent:HazardousAgent ;
     rdfs:label "Corrosion"@en,
         "부식성물질"@ko .
@@ -1195,23 +1195,23 @@ ctx:WindyWeather a owl:NamedIndividual,
     rdfs:label "Windy Weather"@en,
         "강풍"@ko .
 
-haz:Burn a owl:NamedIndividual,
+haz:TempExtremeContact a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Burn"@en .
 
-haz:CAUGHT_IN a owl:NamedIndividual,
+haz:CaughtIn a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "끼임"@ko .
 
-haz:CHEMICAL_EXPOSURE a owl:NamedIndividual,
+haz:ChemicalExposure a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "화학물질"@ko .
 
-haz:COLLAPSE a owl:NamedIndividual,
+haz:Collapse a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "붕괴"@ko .
 
-haz:CONFINED_SPACE a owl:NamedIndividual,
+haz:OxygenDeficiency a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "밀폐공간"@ko .
 
@@ -1219,7 +1219,7 @@ haz:ChemicalExposure a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Chemical Exposure"@en .
 
-haz:ColdExposure a owl:NamedIndividual,
+haz:TempExtremeContact a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Cold Exposure"@en .
 
@@ -1233,21 +1233,21 @@ haz:Collision a owl:NamedIndividual,
     rdfs:label "Collision"@en,
         "충돌"@ko .
 
-haz:Crush a owl:NamedIndividual,
+haz:CaughtIn a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Crush"@en,
         "끼임(압착)"@ko .
 
-haz:Cut a owl:NamedIndividual,
+haz:CutLaceration a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Cut"@en,
         "절단"@ko .
 
-haz:ELECTRIC_SHOCK a owl:NamedIndividual,
+haz:ElectricShock a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "감전"@ko .
 
-haz:ERGONOMIC a owl:NamedIndividual,
+haz:ErgonomicStrain a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "근골격계"@ko .
 
@@ -1255,7 +1255,7 @@ haz:ElectricShock a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Electric Shock"@en .
 
-haz:Ergonomic a owl:NamedIndividual,
+haz:ErgonomicStrain a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Ergonomic"@en,
         "근골격계"@ko .
@@ -1264,11 +1264,11 @@ haz:Explosion a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Explosion"@en .
 
-haz:FALL a owl:NamedIndividual,
+haz:Fall a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "추락"@ko .
 
-haz:FIRE_EXPLOSION a owl:NamedIndividual,
+haz:FireInjury a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "화재·폭발"@ko .
 
@@ -1277,32 +1277,32 @@ haz:Fall a owl:NamedIndividual,
     rdfs:label "Fall"@en,
         "추락"@ko .
 
-haz:FallingObject a owl:NamedIndividual,
+haz:StruckBy a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Falling Object"@en,
         "낙하물"@ko .
 
-haz:FoodContamination a owl:NamedIndividual,
+haz:OtherAccident a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Food Contamination"@en .
 
-haz:HEAT_COLD a owl:NamedIndividual,
+haz:TempExtremeContact a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "온도·습도"@ko .
 
-haz:NOISE_VIBRATION a owl:NamedIndividual,
+haz:OtherAccident a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "소음·진동"@ko .
 
-haz:SCAFFOLDING a owl:NamedIndividual,
+haz:Fall a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "비계"@ko .
 
-haz:STRUCK_BY a owl:NamedIndividual,
+haz:StruckBy a owl:NamedIndividual,
         haz:Hazard ;
     rdfs:label "비래·낙하"@ko .
 
-haz:Slip a owl:NamedIndividual,
+haz:SlipTrip a owl:NamedIndividual,
         haz:AccidentType ;
     rdfs:label "Slip"@en,
         "미끄러짐"@ko .

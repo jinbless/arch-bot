@@ -1,99 +1,41 @@
-"""Phase 0.5 — Code → OWL URI Mapping Layer (Critical)
+"""Code → OWL IRI Mapping Layer — SSOT 파생 단일 브리지 (Phase 4-B).
 
-OHS의 Track B faceted 코드 (UPPER_CASE/SNAKE_CASE)와 실제 OWL/TTL의
-NamedIndividual URI (CamelCase) 사이의 결정론적 매핑.
+OHS faceted 코드(UPPER_SNAKE) ↔ OWL NamedIndividual IRI(CamelCase)의 결정론적 변환.
+하드코딩 테이블(구 8/11/13 어휘) 폐지 → 정본 SSOT(shared/reference/canonical-code-vocabulary.json,
+KOSHA-22)에서 파생 + 결정적 _camel() casing.
 
-문제 (Phase 0 baseline에서 발견):
-  OHS code "SCAFFOLD" → SPARQL `context:SCAFFOLD` (잘못)
-  OWL 실제 URI         → `context:Scaffold` (정답)
-  → 매칭 실패 → SR Recall@10 0%의 큰 원인 중 하나
+casing 규약 (canonical-code-vocabulary.json): PG/serving = UPPER_SNAKE, ontology IRI = CamelCase.
+변환: UPPER_SNAKE → CamelCase = ''.join(p.capitalize() for p in code.split('_'))
+  FALL→Fall, CUT_LACERATION→CutLaceration, CAUGHT_IN→CaughtIn, TEMP_EXTREME_CONTACT→TempExtremeContact
 
-해결: 이 mapper를 통해 OHS code → 실제 IRI fragment 변환.
-SHE도 이 mapper로 8 dim 코드 → IRI 변환 (Phase 3 Layer 0).
+axis 처리: fine 코드는 canonical_vocab.to_canonical로 먼저 정본화(교차축 인지) 후 _camel.
+  ENTANGLEMENT → CAUGHT_IN → 'CaughtIn',  FORKLIFT_OPERATION → VEHICLE → 'Vehicle'
 
-검증 출처:
-  - kosha-ontology.owl L146 (hazard:AccidentType, 8개)
-  - kosha-ontology.owl L160 (agent:HazardousAgent, 11개)
-  - kosha-ontology.owl L177 (context:WorkContext, 13개)
+구 온톨로지 어휘(8-type CamelCase: Crush/Cut/FallingObject/Slip/Ergonomic 등)는 LEGACY_FRAGMENT_TO_CODE로
+KOSHA-22 정본에 매핑 — SWRL/restriction/disjoint 마이그레이션(Phase 4-B Stage 3-4)에서 사용.
+
+namespace prefix: sparql_queries.PREFIXES와 일치(hazard:/agent:/context:); TTL은 haz:/ctx: 라벨이나
+URI 동일(https://cashtoss.info/ontology/risk/{hazard|agent|context}#).
 """
 from __future__ import annotations
 
-# ────────────────────────────────────────────────────────────────────────
-# accident_type — hazard:AccidentType (8 NamedIndividuals)
-# ────────────────────────────────────────────────────────────────────────
-ACCIDENT_TYPE_CODE_TO_URI: dict[str, str] = {
-    # OHS code (UPPER_CASE) → OWL fragment (CamelCase)
-    "FALL":           "Fall",
-    "SLIP":           "Slip",            # FALL의 sub
-    "COLLISION":      "Collision",       # legacy STRUCK_BY 일부
-    "FALLING_OBJECT": "FallingObject",   # legacy STRUCK_BY 일부
-    "CRUSH":          "Crush",           # legacy CAUGHT_IN
-    "CUT":            "Cut",             # legacy CAUGHT_IN
-    "COLLAPSE":       "Collapse",
-    "ERGONOMIC":      "Ergonomic",
-    # Legacy fallback (3축 도입 전 1축 hazard:Hazard에 매핑)
-    # 이들은 hazard:AccidentType에 없으므로 hazard:Hazard로 fallback
-    "STRUCK_BY":           None,  # 사용 시 legacy_map (COLLISION 또는 FALLING_OBJECT)
-    "CAUGHT_IN":           None,  # CRUSH 또는 CUT
-    "FIRE_EXPLOSION":      None,  # agent:Fire로 우회
-    "ELECTRIC_SHOCK":      None,  # agent:Electricity로 우회
-    "CHEMICAL_EXPOSURE":   None,  # agent:Chemical로 우회
-    "NOISE_VIBRATION":     None,  # agent:Noise로 우회
-    "CONFINED_SPACE":      None,  # context:ConfinedSpace로 우회
-}
+import sys
+from pathlib import Path
+
+# SSOT 소비자 모듈 로드 (shared/reference)
+_SHARED_REF = Path(__file__).resolve().parents[5] / "shared" / "reference"
+if str(_SHARED_REF) not in sys.path:
+    sys.path.insert(0, str(_SHARED_REF))
+import canonical_vocab as _cv  # noqa: E402
 
 # ────────────────────────────────────────────────────────────────────────
-# hazardous_agent — agent:HazardousAgent (11 NamedIndividuals)
+# Namespace (prefix label은 sparql_queries.PREFIXES와 동일; URI는 TTL haz:/ctx:와 동일)
 # ────────────────────────────────────────────────────────────────────────
-HAZARDOUS_AGENT_CODE_TO_URI: dict[str, str] = {
-    "CHEMICAL":     "Chemical",
-    "DUST":         "Dust",
-    "TOXIC":        "Toxic",
-    "CORROSION":    "Corrosion",
-    "RADIATION":    "Radiation",
-    "FIRE":         "Fire",
-    "ELECTRICITY":  "Electricity",
-    "ARC_FLASH":    "ArcFlash",
-    "NOISE":        "Noise",
-    "HEAT_COLD":    "HeatCold",
-    "BIOLOGICAL":   "Biological",
+_AXIS_PREFIX = {
+    "accident_type": "hazard",
+    "hazardous_agent": "agent",
+    "work_context": "context",
 }
-
-# ────────────────────────────────────────────────────────────────────────
-# work_context — context:WorkContext (13 NamedIndividuals)
-# ────────────────────────────────────────────────────────────────────────
-WORK_CONTEXT_CODE_TO_URI: dict[str, str] = {
-    "SCAFFOLD":           "Scaffold",
-    "CONFINED_SPACE":     "ConfinedSpace",
-    "EXCAVATION":         "Excavation",
-    "MACHINE":            "Machine",
-    "VEHICLE":            "Vehicle",
-    "CRANE":              "Crane",
-    "CONVEYOR":           "Conveyor",
-    "ROBOT":              "Robot",
-    "CONSTRUCTION_EQUIP": "ConstructionEquip",
-    "RAIL":               "Rail",
-    "PRESSURE_VESSEL":    "PressureVessel",
-    "STEELWORK":          "Steelwork",
-    "MATERIAL_HANDLING":  "MaterialHandling",
-    # 추가 코드 (taxonomy v3.0에 있으나 OWL에는 없음 — fallback)
-    "GENERAL_WORKPLACE":  None,           # OWL 미정의 — fallback to legacy
-    "FIRE_EXPLOSION_WORK": None,          # OWL 미정의
-    "FALL_PROTECTION":    None,
-    "COLLAPSE_PREVENTION": None,
-    "ELECTRICAL_WORK":    None,
-    "CHEMICAL_WORK":      None,
-    "DUST_WORK":          None,
-    "NOISE_WORK":         None,
-    "HEAT_COLD_WORK":     None,
-    "ERGONOMIC_WORK":     None,
-    "DEMOLITION":         None,
-    "LOGGING":            None,
-}
-
-# ────────────────────────────────────────────────────────────────────────
-# Namespace prefixes (mirror sparql_queries.PREFIXES)
-# ────────────────────────────────────────────────────────────────────────
 NAMESPACES = {
     "hazard":  "https://cashtoss.info/ontology/risk/hazard#",
     "agent":   "https://cashtoss.info/ontology/risk/agent#",
@@ -101,83 +43,160 @@ NAMESPACES = {
 }
 
 
-def accident_type_to_iri(code: str) -> str | None:
-    """OHS accident_type 코드를 hazard:AccidentType IRI로 변환.
+def _camel(code: str) -> str:
+    """UPPER_SNAKE → CamelCase (결정적). FALL→Fall, CUT_LACERATION→CutLaceration."""
+    return "".join(p.capitalize() for p in str(code).split("_") if p)
 
-    Returns None if no direct mapping (caller should fallback to legacy hazard:Hazard).
+
+# ────────────────────────────────────────────────────────────────────────
+# 구 온톨로지 어휘(8-type CamelCase + agent 변종) → KOSHA-22 정본 UPPER 코드.
+# SWRL/restriction/disjoint 마이그레이션용. work_context는 이미 _camel(SSOT)와 정합 → 매핑 불필요.
+# ────────────────────────────────────────────────────────────────────────
+LEGACY_FRAGMENT_TO_CODE: dict[str, tuple[str, str]] = {
+    # accident_type (구 8-type + 단발 CamelCase 개체)
+    "Fall":            ("accident_type", "FALL"),
+    "Slip":            ("accident_type", "SLIP_TRIP"),
+    "Collision":       ("accident_type", "COLLISION"),
+    "FallingObject":   ("accident_type", "STRUCK_BY"),
+    "Crush":           ("accident_type", "CAUGHT_IN"),       # 구 Crush = legacy CAUGHT_IN
+    "Cut":             ("accident_type", "CUT_LACERATION"),
+    "Collapse":        ("accident_type", "COLLAPSE"),
+    "Ergonomic":       ("accident_type", "ERGONOMIC_STRAIN"),
+    "Explosion":       ("accident_type", "EXPLOSION"),
+    "ElectricShock":   ("accident_type", "ELECTRIC_SHOCK"),
+    "ChemicalExposure":("accident_type", "CHEMICAL_EXPOSURE"),
+    "ColdExposure":    ("accident_type", "TEMP_EXTREME_CONTACT"),
+    "Burn":            ("accident_type", "TEMP_EXTREME_CONTACT"),  # 화상(접촉) → 이상온도접촉
+    "FoodContamination": ("accident_type", "OTHER_ACCIDENT"),     # KOSHA-22 외 → 기타
+    # hazardous_agent (SSOT 외 변종)
+    "Corrosion":       ("hazardous_agent", "CHEMICAL"),
+    "ArcFlash":        ("hazardous_agent", "ELECTRICITY"),
+}
+
+
+def legacy_to_canonical(fragment: str) -> tuple[str, str] | None:
+    """구 IRI fragment(CamelCase, 예: 'Crush') → (정본축, KOSHA-22 UPPER 코드).
+
+    매핑 없으면 None (이미 정본 CamelCase거나 미지). 마이그레이션 스크립트에서
+    'haz:Crush' → 'haz:CaughtIn' 치환에 사용.
     """
-    fragment = ACCIDENT_TYPE_CODE_TO_URI.get(code)
-    return f"{NAMESPACES['hazard']}{fragment}" if fragment else None
+    return LEGACY_FRAGMENT_TO_CODE.get(fragment)
 
 
+def legacy_fragment_to_iri_fragment(fragment: str) -> str | None:
+    """구 fragment → 신 CamelCase fragment (예: 'Crush'→'CaughtIn', 'FallingObject'→'StruckBy')."""
+    m = LEGACY_FRAGMENT_TO_CODE.get(fragment)
+    return _camel(m[1]) if m else None
+
+
+# ────────────────────────────────────────────────────────────────────────
+# 핵심 변환 — (axis, code) → IRI. fine 코드는 canonical_vocab로 정본화(교차축 인지) 후 _camel.
+# ────────────────────────────────────────────────────────────────────────
+def _resolve_same_axis(axis: str, code: str) -> str | None:
+    """code를 axis 내 정본 코드로 환원. 교차축이면 None(per-axis API 계약 보존)."""
+    a2, c2 = _cv.to_canonical(axis, code)
+    return c2 if a2 == axis else None
+
+
+def iri_fragment(axis: str, code: str) -> str | None:
+    """(axis, code) → CamelCase fragment (axis 내 정본). 교차축이면 None."""
+    c = _resolve_same_axis(axis, code)
+    return _camel(c) if c else None
+
+
+def to_prefixed(axis: str, code: str) -> str | None:
+    """(axis, code) → prefixed IRI (예: 'hazard:CaughtIn'). 교차축이면 None."""
+    frag = iri_fragment(axis, code)
+    if not frag:
+        return None
+    return f"{_AXIS_PREFIX[axis]}:{frag}"
+
+
+def to_iri(axis: str, code: str) -> str | None:
+    """(axis, code) → full IRI (예: 'https://.../hazard#CaughtIn'). 교차축이면 None."""
+    frag = iri_fragment(axis, code)
+    if not frag:
+        return None
+    return f"{NAMESPACES[_AXIS_PREFIX[axis]]}{frag}"
+
+
+def to_prefixed_cross_axis(axis: str, code: str) -> str | None:
+    """교차축까지 따라가는 변환(예: agent SHARP_BLADE → 'hazard:CutLaceration').
+
+    ABox export 등 교차축 재배치가 필요한 곳에서 사용. per-axis SPARQL 슬롯에는 to_prefixed 사용.
+    """
+    a2, c2 = _cv.to_canonical(axis, code)
+    if a2 not in _AXIS_PREFIX:
+        return None
+    return f"{_AXIS_PREFIX[a2]}:{_camel(c2)}"
+
+
+# ────────────────────────────────────────────────────────────────────────
+# Backward-compat (sparql_queries.py가 사용) — 이제 KOSHA-22 정본 인지.
+# ────────────────────────────────────────────────────────────────────────
 def accident_type_to_prefixed(code: str) -> str | None:
-    """SPARQL prefixed form (예: 'hazard:Fall')."""
-    fragment = ACCIDENT_TYPE_CODE_TO_URI.get(code)
-    return f"hazard:{fragment}" if fragment else None
+    return to_prefixed("accident_type", code)
 
 
-def hazardous_agent_to_iri(code: str) -> str | None:
-    fragment = HAZARDOUS_AGENT_CODE_TO_URI.get(code)
-    return f"{NAMESPACES['agent']}{fragment}" if fragment else None
+def accident_type_to_iri(code: str) -> str | None:
+    return to_iri("accident_type", code)
 
 
 def hazardous_agent_to_prefixed(code: str) -> str | None:
-    fragment = HAZARDOUS_AGENT_CODE_TO_URI.get(code)
-    return f"agent:{fragment}" if fragment else None
+    return to_prefixed("hazardous_agent", code)
 
 
-def work_context_to_iri(code: str) -> str | None:
-    fragment = WORK_CONTEXT_CODE_TO_URI.get(code)
-    return f"{NAMESPACES['context']}{fragment}" if fragment else None
+def hazardous_agent_to_iri(code: str) -> str | None:
+    return to_iri("hazardous_agent", code)
 
 
 def work_context_to_prefixed(code: str) -> str | None:
-    fragment = WORK_CONTEXT_CODE_TO_URI.get(code)
-    return f"context:{fragment}" if fragment else None
+    return to_prefixed("work_context", code)
+
+
+def work_context_to_iri(code: str) -> str | None:
+    return to_iri("work_context", code)
 
 
 # ────────────────────────────────────────────────────────────────────────
-# Validation helpers (smoke test 용)
+# 검증/내보내기 helper
 # ────────────────────────────────────────────────────────────────────────
-
-def all_mapped_pairs() -> list[tuple[str, str, str]]:
-    """모든 (axis, code, IRI) 매핑 반환 (None 제외).
-
-    smoke test에서 SPARQL ASK로 각 IRI 존재 검증할 때 사용.
-    """
-    pairs = []
-    for code, frag in ACCIDENT_TYPE_CODE_TO_URI.items():
-        if frag:
-            pairs.append(("accident_type", code, f"hazard:{frag}"))
-    for code, frag in HAZARDOUS_AGENT_CODE_TO_URI.items():
-        if frag:
-            pairs.append(("hazardous_agent", code, f"agent:{frag}"))
-    for code, frag in WORK_CONTEXT_CODE_TO_URI.items():
-        if frag:
-            pairs.append(("work_context", code, f"context:{frag}"))
-    return pairs
-
-
-def unmapped_codes() -> dict[str, list[str]]:
-    """OWL 미정의 코드 목록 (fallback 필요)."""
-    return {
-        "accident_type": [k for k, v in ACCIDENT_TYPE_CODE_TO_URI.items() if v is None],
-        "hazardous_agent": [k for k, v in HAZARDOUS_AGENT_CODE_TO_URI.items() if v is None],
-        "work_context": [k for k, v in WORK_CONTEXT_CODE_TO_URI.items() if v is None],
-    }
+def all_canonical_iris() -> list[tuple[str, str, str]]:
+    """모든 정본 (axis, UPPER_code, prefixed_IRI). TBox 생성 + smoke test ASK용."""
+    out: list[tuple[str, str, str]] = []
+    for axis in ("accident_type", "hazardous_agent", "work_context"):
+        for code in sorted(_cv.canonical_set(axis)):
+            out.append((axis, code, f"{_AXIS_PREFIX[axis]}:{_camel(code)}"))
+    return out
 
 
 if __name__ == "__main__":
-    # CLI 검증: 매핑 통계 출력
-    pairs = all_mapped_pairs()
-    print(f"Total mapped pairs: {len(pairs)}")
-    by_axis = {}
-    for axis, code, iri in pairs:
-        by_axis.setdefault(axis, []).append((code, iri))
-    for axis, items in by_axis.items():
-        print(f"\n{axis} ({len(items)}):")
-        for code, iri in items:
-            print(f"  {code:30s} → {iri}")
-    print(f"\nUnmapped codes (fallback needed):")
-    for axis, codes in unmapped_codes().items():
-        print(f"  {axis}: {codes}")
+    # self-test
+    cases = [
+        ("accident_type", "FALL", "hazard:Fall"),
+        ("accident_type", "CUT_LACERATION", "hazard:CutLaceration"),
+        ("accident_type", "CAUGHT_IN", "hazard:CaughtIn"),
+        ("accident_type", "ENTANGLEMENT", "hazard:CaughtIn"),      # fine → canonical
+        ("accident_type", "TEMP_EXTREME_CONTACT", "hazard:TempExtremeContact"),
+        ("hazardous_agent", "HEAT_COLD", "agent:HeatCold"),
+        ("hazardous_agent", "CHEMICAL", "agent:Chemical"),
+        ("work_context", "FORKLIFT_OPERATION", "context:Vehicle"),  # fine → canonical
+        ("work_context", "CONSTRUCTION_EQUIP", "context:ConstructionEquip"),
+    ]
+    ok = True
+    for axis, code, exp in cases:
+        got = to_prefixed(axis, code)
+        flag = "OK" if got == exp else "FAIL"
+        if got != exp:
+            ok = False
+        print(f"  [{flag}] {axis}.{code} -> {got} (expect {exp})")
+    # legacy 매핑
+    legacy_cases = [("Crush", "CaughtIn"), ("FallingObject", "StruckBy"), ("Cut", "CutLaceration"), ("Slip", "SlipTrip")]
+    for frag, exp in legacy_cases:
+        got = legacy_fragment_to_iri_fragment(frag)
+        flag = "OK" if got == exp else "FAIL"
+        if got != exp:
+            ok = False
+        print(f"  [{flag}] legacy {frag} -> {got} (expect {exp})")
+    print(f"\ntotal canonical IRIs: {len(all_canonical_iris())} (expect 23+10+29=62)")
+    print("self-test:", "PASS" if ok else "FAIL")
