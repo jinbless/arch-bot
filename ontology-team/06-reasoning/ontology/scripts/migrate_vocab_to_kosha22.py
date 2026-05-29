@@ -44,6 +44,19 @@ CTX_SUB: dict[str, str] = {}
 
 PREFIX_SUBS = {"haz": HAZ_SUB, "agent": AGENT_SUB, "ctx": CTX_SUB}
 
+# agent:/ctx: UPPER_SNAKE fragment → CamelCase 자동 casing (canonical 코드는 이미 CamelCase가 정본).
+# 예: agent:CHEMICAL→agent:Chemical, ctx:CONFINED_SPACE→ctx:ConfinedSpace, ctx:CHEMICAL_WORK→ctx:ChemicalWork.
+# haz:는 위 HAZ_SUB(의미 매핑)로 처리하므로 제외. 클래스(HazardousAgent 등)는 lowercase 포함이라 미매치.
+UPPER_PAT = re.compile(r"(?<![A-Za-z0-9_])(agent:|ctx:)([A-Z][A-Z0-9_]*)(?![A-Za-z0-9_])")
+
+
+def _camel(code: str) -> str:
+    return "".join(p.capitalize() for p in str(code).split("_") if p)
+
+
+def _case_repl(m):
+    return f"{m.group(1)}{_camel(m.group(2))}"
+
 
 def build_patterns():
     """(compiled_regex, replacement) 리스트. 단어경계: prefix:Frag 뒤에 [A-Za-z0-9_] 없을 때만."""
@@ -79,6 +92,11 @@ def main() -> int:
             if n:
                 per_rule[label] = per_rule.get(label, 0) + n
                 file_changes += n
+        # agent:/ctx: UPPER → CamelCase 자동 casing
+        new_text, n_up = UPPER_PAT.subn(_case_repl, new_text)
+        if n_up:
+            per_rule["agent/ctx UPPER→CamelCase"] = per_rule.get("agent/ctx UPPER→CamelCase", 0) + n_up
+            file_changes += n_up
         if file_changes:
             changed_files += 1
             total_changes += file_changes

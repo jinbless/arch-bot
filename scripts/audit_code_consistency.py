@@ -8,8 +8,10 @@
 """
 from __future__ import annotations
 
+import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
 import psycopg2
@@ -19,6 +21,10 @@ DATA = REPO / "serving-team/08-app/backend/app/data"
 ONT = REPO / "ontology-team/06-reasoning/ontology"
 ART = REPO / "data-team/05-enrichment/runtime-artifacts"
 PG = "dbname=kosha user=kosha password=1229 host=localhost"
+
+# SSOT 정본 어휘 (canonical_vocab) — 게이트 판정용
+sys.path.insert(0, str(REPO / "shared" / "reference"))
+import canonical_vocab as _cv  # noqa: E402
 
 AXES = ["accident_type", "hazardous_agent", "work_context"]
 NS = {"haz": "accident_type", "agent": "hazardous_agent", "ctx": "work_context"}
@@ -129,7 +135,12 @@ def show(title: str, s: set[str], limit: int = 40) -> None:
     print(f"  {title} [{len(items)}]: {', '.join(items[:limit])}{extra}")
 
 
-def main() -> None:
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--gate", action="store_true",
+                    help="하드게이트: 임계 위반(온톨로지 UPPER 코드/dual-URI) 발견 시 exit 1 (CI용)")
+    args = ap.parse_args()
+
     cat = load_catalog()
     seed = load_seed()
     alias = load_aliases()
@@ -168,6 +179,40 @@ def main() -> None:
     for a in AXES:
         show(a, alias[a] - cat[a])
 
+    # ===== 하드게이트 =====
+    # 임계(CRITICAL, exit 1): 온톨로지에 UPPER-snake 코드 fragment 존재
+    #   = KOSHA-22 CamelCase 단일화 위반(dual-URI/미마이그레이션 재발 신호).
+    # 경고(WARN, exit 0): PG fine 코드가 SSOT rollup/canonical에 없음(→ pending UNCLASSIFIED open-class).
+    print("\n" + "=" * 60)
+    print("=== 하드게이트 (재발 방지) ===")
+    critical = 0
+    warn = 0
+    for a in AXES:
+        upper_ont = sorted(c for c in ont[a] if _is_snake(c) and c not in ONT_CLASSES)
+        if upper_ont:
+            critical += len(upper_ont)
+            print(f"  [CRITICAL] {a}: 온톨로지 UPPER 코드 {len(upper_ont)}개 (CamelCase 단일화 위반): "
+                  f"{', '.join(upper_ont[:15])}")
+    # PG orphan: rollup/canonical에 없는 fine 코드 → pending bucket으로 흡수됨(open-class)
+    for a in AXES:
+        pending = _cv.pending_bucket(a)
+        canon = _cv.canonical_set(a)
+        for surface, codes in (("SR", sr[a]), ("CI", ci[a]), ("GUIDE", gf[a])):
+            orphans = sorted(c for c in codes
+                             if c not in canon and _cv.to_canonical(a, c)[1] == pending and c != pending)
+            if orphans:
+                warn += len(orphans)
+                print(f"  [WARN] {surface}.{a}: SSOT 미등록 {len(orphans)}개 → pending({pending}): "
+                      f"{', '.join(orphans[:12])}")
+    if critical == 0:
+        print("  [OK] 온톨로지 UPPER 코드 0 — KOSHA-22 CamelCase 단일화 유지.")
+    print(f"\n  CRITICAL={critical}  WARN={warn}")
+    if args.gate and critical > 0:
+        print(f"\nGATE FAIL — CRITICAL 위반 {critical}건. (exit 1)")
+        return 1
+    print(f"\nGATE {'PASS' if critical == 0 else 'PASS(비-gate 모드)'}")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
