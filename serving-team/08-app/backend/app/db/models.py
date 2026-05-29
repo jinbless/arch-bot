@@ -37,6 +37,10 @@ class PgChecklistItem(Base):
     accident_types = Column(JSONB)
     hazardous_agents = Column(JSONB)
     work_contexts = Column(JSONB)
+    # Phase 2 canonical 정합(KOSHA-22): fine 컬럼 보존 + canonical 병기(additive). 매칭은 canonical, 변별/표시는 fine.
+    accident_types_canonical = Column(JSONB)
+    hazardous_agents_canonical = Column(JSONB)
+    work_contexts_canonical = Column(JSONB)
     # P1 (Guide 추천 정확도): 동일 텍스트 CI가 몇 개 distinct Guide에 중복 등장하는지.
     # boilerplate CI(시험법 공통문구 등)일수록 높음. Guide 랭킹에서 변별력 가중 down에 사용.
     # ci_weight = 1/log2(1+guide_frequency). 기본 1 (고유 CI).
@@ -77,6 +81,10 @@ class PgSafetyRequirement(Base):
     accident_types = Column(JSONB)
     hazardous_agents = Column(JSONB)
     work_contexts = Column(JSONB)
+    # Phase 2 canonical 정합(KOSHA-22): fine 보존 + canonical 병기(additive). SR/Guide 매칭은 canonical 컬럼 사용.
+    accident_types_canonical = Column(JSONB)
+    hazardous_agents_canonical = Column(JSONB)
+    work_contexts_canonical = Column(JSONB)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
@@ -162,6 +170,9 @@ class PgGuideEntityFeatureCandidate(Base):
     guide_code = Column(String(20), nullable=False)
     axis = Column(String(25), nullable=False)
     feature_code = Column(String(50), nullable=False)
+    # Phase 2 canonical 정합: feature_code(fine) 보존 + canonical 병기. canonical_axis는 교차축 재배치 반영.
+    canonical_code = Column(String(50))
+    canonical_axis = Column(String(25))
     confidence = Column(Numeric(5, 4), nullable=False)
     evidence = Column(Text, nullable=False)
     source_fields = Column(JSONB)
