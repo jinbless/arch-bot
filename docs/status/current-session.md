@@ -1,6 +1,42 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-28** — **⭐ axiom-100% Sprint (Phase A~K) + ⭐ guide-accuracy Sprint (P0~P3) + 문서 전수 정합(doc-sync)**. origin/main HEAD `4aa3cca` (merge), feature commit `1c4746f`. 이전 핵심: Phase G PG materialization + Tier 4 SWRL Pellet + Hazard-Direct Architecture Pivot (2026-05-19).
+최신 갱신일: **2026-05-29** — **⭐ Canonicalization + KOSHA-22 온톨로지 마이그레이션 + 재발방지 가드레일 (단일 세션 완주)**. **origin/main HEAD `f4f078a`** — PRIMARY(`C:/project/arch-bot`) fast-forward 동기화 + 코드/데이터 배포 완료, PG canonical 컬럼 live. 이전 핵심: axiom-100% Sprint (A~K) + guide-accuracy (P0~P3) + doc-sync (`4aa3cca`, 2026-05-28).
+
+## ⭐ Canonicalization + KOSHA-22 Sprint — 단일 세션 완주 (2026-05-29) ⭐
+
+지게차 사진 실측에서 정규화(risk_features)는 정확한데 SHE/Guide/즉시조치/표준절차가 엉뚱하게 나온 문제의 **근본 원인 = 단일 정본(canonical) 코드 어휘 미강제(4세대 어휘 공존: catalog 세밀 / PG 거친 / GUIDE seed / 온톨로지 dual-URI)**를 전 surface 정합 + 재발 방지로 해결. 커밋 `bbc9b8c`~`5fdd8a0` (+ merge `f4f078a`), 8커밋 origin/main 반영.
+
+**Phase 1-3 — 정본 SSOT + PG canonical + 서빙 연결** (`bbc9b8c`, `7a465b0`):
+- ⭐ 신규 SSOT: `shared/reference/canonical-code-vocabulary.json` (accident 23=**KOSHA-22 공식** / agent 10 / work_context 29) + 단일 소비자 모듈 `shared/reference/canonical_vocab.py` (`to_canonical(axis,code)`, 교차축 인지, self-test PASS). 빌더 `data-team/05-enrichment/llm-scripts/build_canonical_vocabulary.py`.
+- **Additive 듀얼 태깅**(덮어쓰기 금지 — fine 코드 보존, SHE 1,616 패턴 무변경): SR/CI에 `*_canonical` jsonb + GUIDE에 `canonical_code`/`canonical_axis` 컬럼 신규, populate (SR 626 / CI 54,631 / GUIDE 70,296). schema `serving-team/07-materialization/pg-sync-scripts/schema_canonical_columns.sql` + `apply_canonical_tags.py`.
+- 서빙: `hazard_rule_engine.query_sr_for_facets`/`get_guides_by_hazard_features` canonical 컬럼 조회 → 끼임(CAUGHT_IN)/전도(FALL)/지게차(VEHICLE) SR 커버리지 **0→76**.
+
+**#95 지게차 충돌 잔존 fix** (`64a2a96`): 광범위 COLLISION/ERGONOMIC에서 '오토바이 배달' guide 오매칭 → `get_guides_by_hazard_features` **2-tier ctx_boost**(scene 구체 fine work_context(FORKLIFT_OPERATION) 보유 guide 강부스트 +0.30 [entity_type 무관 하위행 fine 활용], generic VEHICLE만 공유 약부스트 +0.05) + `_merge_guide_paths` CI-only −0.06. **실제 Vision 재실행 bad-hit 0** (오토바이 소멸, '지게차 운전자 교육' 표준절차 등장).
+
+**Phase 4-B — 온톨로지 KOSHA-22 전면 마이그레이션** (`94bcdbb`): 3 공존 어휘 → KOSHA-22 단일 CamelCase **62개**.
+- `serving-team/08-app/backend/app/integrations/code_iri_mapper.py`: 하드코딩 8/11/13 테이블 폐지 → **SSOT 파생 + 결정적 `_camel()`** + 구→KOSHA22 LEGACY 매핑 (sparql_queries 백워드 호환 유지).
+- `ontology-team/06-reasoning/ontology/scripts/migrate_vocab_to_kosha22.py`: 50 TTL 결정적 fragment 치환 **~20,820건** (Crush→CaughtIn, Cut→CutLaceration, FallingObject→StruckBy, agent ArcFlash→Electricity, agent/ctx UPPER→CamelCase 등). `kosha-instances.original.ttl` 백업 제외.
+- `kosha-ontology-v4-kosha22-vocab-patch.ttl` (62 NamedIndividual, `gen_kosha22_vocab_patch.py` 생성) + `kosha-accident22-disjoint.ttl` KOSHA-22 CamelCase 재작성.
+- 검증(`validate_kosha22_migration.py`): 활성 TTL 구어휘 잔여 **0**, rdflib 파싱 OK(ABox 956k triples), disjoint rdf:type 위반 **0**, Gate 3 2,360 PASS.
+
+**Phase 5 — 재발 방지 가드레일** (`c5e3bac`, `012b845`, `5fdd8a0`):
+- ⭐ `scripts/audit_code_consistency.py --gate` — 온톨로지 UPPER/dual-URI 재발 시 **exit 1** (SSOT 인지; PG fine 코드의 pending(UNKNOWN) orphan은 WARN, open-class 허용). **`make verify-codes`** 등록. **게이트가 실제로 Phase 4-B의 agent/ctx UPPER 25종 누락을 적발 → 1,856건 자동 수정 → PASS** (재발방지 메커니즘 작동 입증).
+- exporter 3종(`export_owl`/`export_guide_hazard_to_abox`/`export_8photo_to_abox`) → `code_iri_mapper` SSOT 일원화 (향후 PG 재생성 dual-URI 재발 차단).
+
+**검증 수치** (Gate 3 baseline 대비, 전 단계 회귀 0): overall 0.1331→0.3254, penalty 0.1835→0.4729, sr 0.7636→0.7771, she 0.5581→0.5758.
+
+**⏸️ Deferred 후속 (라이브 영향 없음 — 온톨로지 offline, 서빙은 PG 기반이라 forklift fix 이미 live)**:
+1. **Fuseki Openllet reload** (~30분, 선택적 SPARQL enrichment만 영향): WSL `cd ontology-team/06-reasoning/ontology/docker && docker compose restart fuseki`.
+2. **Phase 5 incremental** (저우선, 게이트가 이미 1차 방어): SHACL shape(codes∈canonical), catalog 죽은코드 deprecated + WRONG_AXIS 18개(INTERLOCK_BYPASS 등) work_context 분리, UNKNOWN→Layer 4.7 정식 continual 태스크 (현재 gate WARN으로 빈도 추적).
+3. **HTTP 서버 기동**: WSL `cd /mnt/c/project/arch-bot && make dev-up` (PRIMARY는 WSL venv 전용 → Git Bash에서 미기동). 기동 시 지게차 분석이 새 로직으로 LIVE.
+4. **LFS**: `kosha-instances.ttl` 58MB(>GitHub 권장 50MB) → git-lfs 후보.
+
+**다음 세션 재현/검증 (WSL, /mnt/c/project/arch-bot)**:
+```bash
+make verify-codes        # 코드 어휘 하드게이트 (드리프트 시 exit 1)
+serving-team/08-app/backend/.venv/bin/python ontology-team/06-reasoning/ontology/scripts/validate_kosha22_migration.py  # disjoint 0 + 구어휘 0
+python shared/reference/canonical_vocab.py   # SSOT self-test
+```
 
 ## ⭐ axiom-100% Sprint — Phase A~K 완주 (2026-05-20~27)
 
@@ -301,7 +337,7 @@ main HEAD: `b237e78` (Tier 3.A merge), 직전 `325ad37` (Tier 2 merge).
 
 ## ⚠️ 다음 세션 시작 시 주의사항
 
-1. **현재 작업 worktree**: `.claude/worktrees/trusting-chandrasekhar-7b2041/` (claude/trusting-chandrasekhar-7b2041 branch). **origin/main 동기화 완료** (`448a8d0`). 정리 시 worktree 제거 가능.
+1. **현재 작업 worktree**: `.claude/worktrees/trusting-chandrasekhar-7b2041/` (claude/trusting-chandrasekhar-7b2041 branch). **origin/main + PRIMARY 동기화 완료** (`f4f078a`, 2026-05-29 canonicalization sprint). PRIMARY(`C:/project/arch-bot`) = origin/main 동일 SHA. 정리 시 worktree 제거 가능 (모든 작업 커밋·푸시·배포됨).
 2. **PG materialization runtime path**: shadow_reasoner (G.1) + guide_domain_profile (G.2) + hazard_rule_engine._load_penalty_index (G.3) 모두 **PG primary + JSON/TTL fallback** 패턴. PG cache 갱신 = backend restart 필요. PG row 변경 시 `_load_*_from_pg()` 캐시 reset 또는 service 재시작.
 3. **Fuseki container 상태**: `kosha-fuseki` 신규 image (`docker-fuseki:latest`, 981,485 triples 로드, kb-candidates.ttl + kosha-rules-r1-r3-swrl.ttl 포함). SWRL R-1: 107 + R-3: 3,579 inferred triples 검증됨. 다음 docker compose 시 동일 image 자동 사용.
 4. **Pellet inferred count log "0"은 정상**: `infModel.size()` lazy materialization quirk. 실제 추론은 SPARQL query 시 on-demand 실행 (검증 완료). 로그 메시지에 안내 포함.
