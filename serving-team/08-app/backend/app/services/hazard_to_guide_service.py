@@ -64,6 +64,7 @@ def match_hazards_to_guides(
     industry_contexts: Optional[list[str]] = None,
     guides_per_hazard: int = 3,
     sr_limit_per_hazard: int = 20,
+    context_work_contexts: Optional[list[str]] = None,
 ) -> tuple[list[dict], list[str]]:
     """⭐ Hazard-Direct Pivot 핵심 — hazard별 Guide 매핑.
 
@@ -93,6 +94,16 @@ def match_hazards_to_guides(
     """
     industry_contexts = industry_contexts or []
     hazard_name_to_codes: dict[str, list[str]] = canonical.get("hazard_name_to_codes", {}) or {}
+
+    # breadth 게이팅용 관찰 work_context: 외부 전달(IMAGE risk_features) + 전체 hazard들의 work_context union.
+    # 충돌(COLLISION)처럼 광범위한 accident 단독 매칭 시, 사진 work_context(VEHICLE=지게차)와도
+    # 매칭되는 Guide를 hazard-direct에서 부스트해 "오토바이 배달" 류 오매칭 억제.
+    global_wc: set[str] = set(context_work_contexts or [])
+    for _h in hazards or []:
+        for _c in hazard_name_to_codes.get((_h.get("name") or "").strip(), []) or []:
+            if _c.startswith("work_context."):
+                global_wc.add(_c.split(".", 1)[1])
+    global_wc_list = sorted(global_wc)
 
     relations: list[dict] = []
     sr_id_set: set[str] = set()
@@ -151,6 +162,7 @@ def match_hazards_to_guides(
             work_contexts=work_contexts,
             limit=guides_per_hazard,
             industry_contexts=industry_contexts,
+            context_work_contexts=global_wc_list,
         )
         guides_ci = get_guides_from_srs(
             db,

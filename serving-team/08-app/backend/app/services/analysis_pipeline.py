@@ -350,6 +350,9 @@ class AnalysisPipeline:
                     hazards=hazards_payload,
                     canonical=hazard_canonical,
                     industry_contexts=industry_context.active_industries,
+                    # breadth 게이팅: IMAGE risk_features의 work_context(예: 지게차→VEHICLE)를
+                    # hazard-direct에 전달 → 광범위 accident(COLLISION) 단독 매칭의 오매칭 억제.
+                    context_work_contexts=canonical.get("work_contexts") or [],
                 )
                 # primary mode: hazard-direct가 SR ids를 우선 (penalty path는 본 sprint 비변경, fallback 보존)
                 if HAZARD_DIRECT_MODE == "primary" and hazard_sr_ids:

@@ -246,6 +246,25 @@ def apply_rules(
     return result
 
 
+_CANONICAL_VOCAB = None
+
+
+def _canonical_vocab():
+    """공유 SSOT 소비자 모듈 lazy load (shared/reference/canonical_vocab.py)."""
+    global _CANONICAL_VOCAB
+    if _CANONICAL_VOCAB is None:
+        import sys
+        from pathlib import Path
+
+        p = Path(__file__).resolve().parents[5] / "shared" / "reference"
+        if str(p) not in sys.path:
+            sys.path.insert(0, str(p))
+        import canonical_vocab as _m
+
+        _CANONICAL_VOCAB = _m
+    return _CANONICAL_VOCAB
+
+
 def query_sr_for_facets(
     db: Session,
     accident_types: list[str],
@@ -264,6 +283,20 @@ def query_sr_for_facets(
     industry_contexts = industry_contexts or []
     query_work_contexts = _expand_work_contexts_for_query(work_contexts)
 
+    # Phase 3 canonical 정합: 들어온 fine 코드를 SSOT로 canonical 환원(교차축 포함) →
+    # *_canonical 컬럼으로도 매칭. fine 매칭은 그대로 유지(additive — 커버리지만 추가, 회귀 최소).
+    cv = _canonical_vocab()
+    canon = {"accident_type": set(), "hazardous_agent": set(), "work_context": set()}
+    for axis, codes in (
+        ("accident_type", accident_types),
+        ("hazardous_agent", hazardous_agents),
+        ("work_context", query_work_contexts),
+    ):
+        for c in codes:
+            a2, c2 = cv.to_canonical(axis, c)
+            if a2 in canon:
+                canon[a2].add(c2)
+
     query = db.query(PgSafetyRequirement)
     conditions = []
 
@@ -279,6 +312,13 @@ def query_sr_for_facets(
         conditions.append(
             PgSafetyRequirement.work_contexts.op("@>")(f'["{code}"]')
         )
+    # canonical 컬럼 매칭 (끼임=ENTANGLEMENT→CAUGHT_IN, FORKLIFT_OPERATION→VEHICLE 등 커버리지 보장)
+    for code in canon["accident_type"]:
+        conditions.append(PgSafetyRequirement.accident_types_canonical.op("@>")(f'["{code}"]'))
+    for code in canon["hazardous_agent"]:
+        conditions.append(PgSafetyRequirement.hazardous_agents_canonical.op("@>")(f'["{code}"]'))
+    for code in canon["work_context"]:
+        conditions.append(PgSafetyRequirement.work_contexts_canonical.op("@>")(f'["{code}"]'))
 
     # 레거시 addresses_hazard도 fallback
     legacy_codes = accident_types + hazardous_agents + query_work_contexts
@@ -303,9 +343,9 @@ def query_sr_for_facets(
         sr_work_contexts = sr.work_contexts or []
         sr_legacy = sr.addresses_hazard or []
 
-        accident_hits = _contains_any(sr_accident_types, accident_types)
-        agent_hits = _contains_any(sr_hazardous_agents, hazardous_agents)
-        context_hits = _contains_any(sr_work_contexts, query_work_contexts)
+        accident_hits = _contains_any(sr_accident_types, accident_types) + _contains_any(sr.accident_types_canonical or [], canon["accident_type"])
+        agent_hits = _contains_any(sr_hazardous_agents, hazardous_agents) + _contains_any(sr.hazardous_agents_canonical or [], canon["hazardous_agent"])
+        context_hits = _contains_any(sr_work_contexts, query_work_contexts) + _contains_any(sr.work_contexts_canonical or [], canon["work_context"])
         legacy_hits = _contains_any(sr_legacy, accident_types + hazardous_agents + query_work_contexts)
         matched_axes = sum(1 for hits in [accident_hits, agent_hits, context_hits] if hits)
         total_hits = len(set(accident_hits + agent_hits + context_hits + legacy_hits))
@@ -477,6 +517,7 @@ def get_guides_by_hazard_features(
     work_contexts: Optional[list[str]] = None,
     limit: int = 5,
     industry_contexts: Optional[list[str]] = None,
+    context_work_contexts: Optional[list[str]] = None,
 ) -> list[dict]:
     """P2 — Guide 직접 위험 매핑 경로 (CI 경유 없음).
 
@@ -488,16 +529,19 @@ def get_guides_by_hazard_features(
     from sqlalchemy import func, or_, and_
 
     industry_contexts = industry_contexts or []
-    pairs = []
+    cv = _canonical_vocab()
+    # 입력 fine 코드 → canonical pair(교차축 포함)로 환원. canonical_axis/canonical_code 컬럼으로 매칭.
+    canon_pairs = set()
     for axis, codes in (("accident_type", accident_types or []),
                         ("hazardous_agent", hazardous_agents or []),
                         ("work_context", work_contexts or [])):
         for c in codes:
-            pairs.append((axis, c))
-    if not pairs:
+            a2, c2 = cv.to_canonical(axis, c)
+            canon_pairs.add((a2, c2))
+    if not canon_pairs:
         return []
 
-    conds = [and_(GF.axis == a, GF.feature_code == c) for a, c in pairs]
+    conds = [and_(GF.canonical_axis == a, GF.canonical_code == c) for a, c in canon_pairs]
     rows = (
         db.query(
             GF.guide_code,
@@ -507,7 +551,7 @@ def get_guides_by_hazard_features(
         .filter(GF.entity_type == "GUIDE", or_(*conds))
         .group_by(GF.guide_code)
         .order_by(func.sum(GF.confidence).desc())
-        .limit(limit)
+        .limit(limit * 4)  # breadth 재랭킹 위해 후보 더 확보 후 context boost로 정렬
         .all()
     )
     if not rows:
@@ -515,6 +559,24 @@ def get_guides_by_hazard_features(
 
     guide_codes = [r[0] for r in rows]
     conf_map = {r[0]: (float(r[1] or 0.0), r[2]) for r in rows}
+
+    # breadth 게이팅: 관찰의 work_context(canonical)와도 매칭되는 Guide 부스트.
+    # 예) 충돌(COLLISION)은 47개 Guide에 퍼져 "오토바이 배달"이 top 되던 문제 →
+    #     사진 work_context VEHICLE(지게차)과도 매칭되는 차량 Guide를 위로.
+    ctx_pairs = set()
+    for c in (context_work_contexts or []):
+        a2, c2 = cv.to_canonical("work_context", c)
+        ctx_pairs.add((a2, c2))
+    ctx_match: set[str] = set()
+    if ctx_pairs and guide_codes:
+        cconds = [and_(GF.canonical_axis == a, GF.canonical_code == c) for a, c in ctx_pairs]
+        for (gc,) in (
+            db.query(GF.guide_code)
+            .filter(GF.entity_type == "GUIDE", GF.guide_code.in_(guide_codes), or_(*cconds))
+            .distinct()
+        ):
+            ctx_match.add(gc)
+
     guides = db.query(PgKoshaGuide).filter(PgKoshaGuide.guide_code.in_(guide_codes)).all()
 
     out = []
@@ -524,8 +586,9 @@ def get_guides_by_hazard_features(
         industry_adjustment, industry_alignment, _ = score_industry_alignment(
             guide_industry.active_industries, industry_contexts,
         )
-        # 직접 매핑 신뢰도 → 점수. n_feat(매칭 facet 수) 다중일수록 가산.
-        score = min(0.99, max(0.0, 0.60 + 0.20 * min(1.0, direct_conf) + 0.05 * (n_feat - 1) + industry_adjustment))
+        ctx_boost = 0.15 if g.guide_code in ctx_match else 0.0
+        # 직접 매핑 신뢰도 + facet 다중 + work_context 정합(breadth 억제) + 산업 정합.
+        score = min(0.99, max(0.0, 0.55 + 0.20 * min(1.0, direct_conf) + 0.05 * (n_feat - 1) + ctx_boost + industry_adjustment))
         out.append({
             "guide_code": g.guide_code,
             "title": g.title,
@@ -537,10 +600,11 @@ def get_guides_by_hazard_features(
             "mapping_type": "guide_hazard_direct",
             "ci_hit_count": 0,
             "direct_feature_count": n_feat,
+            "context_match": g.guide_code in ctx_match,
         })
     out.sort(key=lambda x: x["relevance_score"], reverse=True)
-    logger.info(f"[Hazard→Guide 직접] {len(out)} guides: {[r['guide_code'] for r in out]}")
-    return out
+    logger.info(f"[Hazard→Guide 직접] {len(out)} guides (ctx_match={len(ctx_match)}): {[r['guide_code'] for r in out[:limit]]}")
+    return out[:limit]
 
 
 async def enrich_sr_with_sparql(
