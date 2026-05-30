@@ -18,7 +18,7 @@
 @prefix law: <https://cashtoss.info/ontology/law#> .
 @prefix core: <https://cashtoss.info/ontology#> .
 @prefix bridge: <https://cashtoss.info/ontology/bridge#> .
-@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix actor: <https://cashtoss.info/ontology/actor#> .
 @prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
 
 
@@ -76,7 +76,7 @@ kr:R25_ViolatesObligationRule a swrl:Imp ;
           swrl:classPredicate law:NormStatement ;
           swrl:argument1 kr:x_ns ]
         [ a swrl:ClassAtom ;
-          swrl:classPredicate agent:Worker ;
+          swrl:classPredicate actor:Worker ;
           swrl:argument1 kr:x_agent ]
         [ a swrl:IndividualPropertyAtom ;
           swrl:propertyPredicate core:hasViolation ;

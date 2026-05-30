@@ -4,7 +4,7 @@
 # Phase A/B/C/D pattern 답습.
 #
 # 추가 항목 (Class 1 + ObjectProperty 2):
-#   - agent:Worker                 (Class) — R-25 body
+#   - actor:Worker                 (Class) — R-25 body
 #   - core:hasViolation            (no domain/range — multi-signature: VO→SR, Ctx→NS)
 #   - bridge:violatesObligation    (no domain/range — R-25 head, R-27 SHACL target)
 
@@ -17,13 +17,13 @@
 @prefix sr: <https://cashtoss.info/ontology/sr#> .
 @prefix core: <https://cashtoss.info/ontology#> .
 @prefix bridge: <https://cashtoss.info/ontology/bridge#> .
-@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix actor: <https://cashtoss.info/ontology/actor#> .
 
 
-### agent:Worker — R-25 body class
+### actor:Worker — R-25 body class
 # Note: core:Worker (named individual) exists as a singleton BFO Person instance.
-# agent:Worker is a class enabling SWRL ClassAtom matching.
-agent:Worker a owl:Class ;
+# actor:Worker is a class enabling SWRL ClassAtom matching.
+actor:Worker a owl:Class ;
     rdfs:label "근로자"@ko ;
     rdfs:comment "위반 추론 chain의 agent (R-25 body). core:Worker named individual과 별개의 class."@ko ;
     rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> .
@@ -40,6 +40,6 @@ core:hasViolation a owl:ObjectProperty ;
 # Worker가 Obligation NS를 위반 (R-25). R-27 SHACL에 의해 면제 NS 존재 시 제거.
 bridge:violatesObligation a owl:ObjectProperty ;
     rdfs:label "의무 위반"@ko ;
-    rdfs:comment "agent:Worker가 Obligation NS를 위반 (R-25 head). R-27 SHACL이 exemption modify 존재 시 fallback."@ko ;
-    rdfs:domain agent:Worker ;
+    rdfs:comment "actor:Worker가 Obligation NS를 위반 (R-25 head). R-27 SHACL이 exemption modify 존재 시 fallback."@ko ;
+    rdfs:domain actor:Worker ;
     rdfs:range law:NormStatement .

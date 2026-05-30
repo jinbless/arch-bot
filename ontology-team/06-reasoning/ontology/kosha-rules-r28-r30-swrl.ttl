@@ -15,24 +15,24 @@
 @prefix swrl: <http://www.w3.org/2003/11/swrl#> .
 @prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
 
-@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
 @prefix app: <https://cashtoss.info/ontology/app#> .
 @prefix law: <https://cashtoss.info/ontology/law#> .
 @prefix bridge: <https://cashtoss.info/ontology/bridge#> .
-@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix actor: <https://cashtoss.info/ontology/actor#> .
 @prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
 
 
 ### R-28: 위반된 NS의 PenaltyRule을 Exposure에 적용
 # body: bridge:violatesObligation(?agent,?ns) ∧ PenaltyRule(?pr) ∧
 #       penalizesNorm(?pr,?ns) ∧ PenaltyExposure(?ctx)
-# head: penalty:appliesPenaltyRule(?ctx, ?pr)
+# head: pen:appliesPenaltyRule(?ctx, ?pr)
 
 kr:R28_AppliesPenaltyRuleRule a swrl:Imp ;
-    rdfs:label "R-28: penalty:appliesPenaltyRule (Ctx ↔ PenaltyRule via violation)"@ko ;
+    rdfs:label "R-28: pen:appliesPenaltyRule (Ctx ↔ PenaltyRule via violation)"@ko ;
     swrl:body (
         [ a swrl:ClassAtom ;
-          swrl:classPredicate penalty:PenaltyRule ;
+          swrl:classPredicate pen:PenaltyRule ;
           swrl:argument1 kr:x_pr ]
         [ a swrl:ClassAtom ;
           swrl:classPredicate app:PenaltyExposure ;
@@ -42,13 +42,13 @@ kr:R28_AppliesPenaltyRuleRule a swrl:Imp ;
           swrl:argument1 kr:x_agent ;
           swrl:argument2 kr:x_ns ]
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate penalty:penalizesNorm ;
+          swrl:propertyPredicate pen:penalizesNorm ;
           swrl:argument1 kr:x_pr ;
           swrl:argument2 kr:x_ns ]
     ) ;
     swrl:head (
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate penalty:appliesPenaltyRule ;
+          swrl:propertyPredicate pen:appliesPenaltyRule ;
           swrl:argument1 kr:x_ctx ;
           swrl:argument2 kr:x_pr ]
     ) .
@@ -66,14 +66,14 @@ kr:R29_HighSeverityPenaltyRule a swrl:Imp ;
           swrl:classPredicate app:PenaltyExposure ;
           swrl:argument1 kr:x_ctx ]
         [ a swrl:ClassAtom ;
-          swrl:classPredicate penalty:PenaltyRule ;
+          swrl:classPredicate pen:PenaltyRule ;
           swrl:argument1 kr:x_pr ]
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate penalty:appliesToExposure ;
+          swrl:propertyPredicate pen:appliesToExposure ;
           swrl:argument1 kr:x_pr ;
           swrl:argument2 kr:x_ctx ]
         [ a swrl:DatavaluedPropertyAtom ;
-          swrl:propertyPredicate penalty:severityScore ;
+          swrl:propertyPredicate pen:severityScore ;
           swrl:argument1 kr:x_pr ;
           swrl:argument2 kr:x_score ]
         [ a swrl:BuiltinAtom ;
@@ -99,14 +99,14 @@ kr:R30_HasPenaltyResultRule a swrl:Imp ;
     rdfs:label "R-30: app:hasPenaltyResult (Ctx ↔ PenaltyResult)"@ko ;
     swrl:body (
         [ a swrl:ClassAtom ;
-          swrl:classPredicate penalty:PenaltyRule ;
+          swrl:classPredicate pen:PenaltyRule ;
           swrl:argument1 kr:x_pr ]
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate penalty:resultsIn ;
+          swrl:propertyPredicate pen:resultsIn ;
           swrl:argument1 kr:x_pr ;
           swrl:argument2 kr:x_pres ]
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate penalty:appliesPenaltyRule ;
+          swrl:propertyPredicate pen:appliesPenaltyRule ;
           swrl:argument1 kr:x_ctx ;
           swrl:argument2 kr:x_pr ]
     ) ;

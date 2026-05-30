@@ -20,11 +20,11 @@
 @prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
 @prefix app: <https://cashtoss.info/ontology/app#> .
 @prefix sr: <https://cashtoss.info/ontology/sr#> .
-@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
 @prefix law: <https://cashtoss.info/ontology/law#> .
 @prefix guide: <https://cashtoss.info/ontology/guide#> .
 @prefix core: <https://cashtoss.info/ontology#> .
-@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix actor: <https://cashtoss.info/ontology/actor#> .
 @prefix demo: <https://cashtoss.info/ontology/demo#> .
 
 
@@ -77,15 +77,15 @@ demo:NC1 a app:Noncompliance ;
     app:indicatesNoncompliance demo:VO1 .
 
 ### Worker (R-25 anchor)
-demo:Worker1 a agent:Worker .
+demo:Worker1 a actor:Worker .
 
 ### PenaltyRule + PenaltyExposure (R-21/R-28/R-29/R-30 anchor)
-demo:PR1 a penalty:PenaltyRule ;
-    penalty:appliesToNormStatement demo:NS1 ;
-    penalty:appliesToExposure demo:PE1 ;
-    penalty:severityScore 7 ;
-    penalty:resultsIn demo:PRes1 .
-demo:PRes1 a penalty:PenaltyResult .
+demo:PR1 a pen:PenaltyRule ;
+    pen:appliesToNormStatement demo:NS1 ;
+    pen:appliesToExposure demo:PE1 ;
+    pen:severityScore 7 ;
+    pen:resultsIn demo:PRes1 .
+demo:PRes1 a pen:PenaltyResult .
 demo:PE1 a app:PenaltyExposure .
 
 ### R-10~R-13 SWRL 결과 (Pellet fire 산출) — R-14~R-30 SHACL의 body atom이므로 demo에 직접 명시.

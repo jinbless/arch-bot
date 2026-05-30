@@ -8,8 +8,8 @@
 #   - law:groundedBySR           (NormStatement ← SafetyRequirement backward link)
 #   - law:appliesArticle         (SR → Article, R-19 head)
 #   - law:hasArticle             (NormStatement → Article, R-22 head)
-#   - penalty:appliesToNormStatement (PenaltyRule → NS, R-21 body)
-#   - penalty:penalizesNorm      (PenaltyRule → NS, R-21 head)
+#   - pen:appliesToNormStatement (PenaltyRule → NS, R-21 body)
+#   - pen:penalizesNorm      (PenaltyRule → NS, R-21 head)
 #
 # Note: 의사코드 R-19/R-22에서 `sr:basedOnArticle`은 TBox 미정의 → Phase A에서 사용한
 #       sr:appliesToArticle로 대체 (의미 동일, propertyChain derived 가능).
@@ -21,7 +21,7 @@
 
 @prefix law: <https://cashtoss.info/ontology/law#> .
 @prefix sr: <https://cashtoss.info/ontology/sr#> .
-@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
 @prefix core: <https://cashtoss.info/ontology#> .
 @prefix bridge: <https://cashtoss.info/ontology/bridge#> .
 
@@ -62,17 +62,17 @@ law:hasArticle a owl:ObjectProperty ;
     rdfs:range law:Article .
 
 
-# penalty:appliesToNormStatement — R-21 body
-penalty:appliesToNormStatement a owl:ObjectProperty ;
+# pen:appliesToNormStatement — R-21 body
+pen:appliesToNormStatement a owl:ObjectProperty ;
     rdfs:label "NS 적용 (벌칙)"@ko ;
     rdfs:comment "PenaltyRule이 특정 NormStatement에 적용 (R-21 body)."@ko ;
-    rdfs:domain penalty:PenaltyRule ;
+    rdfs:domain pen:PenaltyRule ;
     rdfs:range law:NormStatement .
 
 
-# penalty:penalizesNorm — R-21 head
-penalty:penalizesNorm a owl:ObjectProperty ;
+# pen:penalizesNorm — R-21 head
+pen:penalizesNorm a owl:ObjectProperty ;
     rdfs:label "NS 제재"@ko ;
     rdfs:comment "PenaltyRule이 NormStatement를 제재 (R-21 결과)."@ko ;
-    rdfs:domain penalty:PenaltyRule ;
+    rdfs:domain pen:PenaltyRule ;
     rdfs:range law:NormStatement .

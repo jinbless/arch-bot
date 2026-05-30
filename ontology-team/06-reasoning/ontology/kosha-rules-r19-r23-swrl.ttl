@@ -17,7 +17,7 @@
 
 @prefix law: <https://cashtoss.info/ontology/law#> .
 @prefix sr: <https://cashtoss.info/ontology/sr#> .
-@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
 @prefix core: <https://cashtoss.info/ontology#> .
 @prefix bridge: <https://cashtoss.info/ontology/bridge#> .
 @prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
@@ -82,22 +82,22 @@ kr:R20_ObligationModalityRule a swrl:Imp ;
 # head: penalizesNorm(?pr, ?ns)
 
 kr:R21_PenalizesNormRule a swrl:Imp ;
-    rdfs:label "R-21: penalty:penalizesNorm (appliesToNormStatement alias)"@ko ;
+    rdfs:label "R-21: pen:penalizesNorm (appliesToNormStatement alias)"@ko ;
     swrl:body (
         [ a swrl:ClassAtom ;
-          swrl:classPredicate penalty:PenaltyRule ;
+          swrl:classPredicate pen:PenaltyRule ;
           swrl:argument1 kr:x_pr ]
         [ a swrl:ClassAtom ;
           swrl:classPredicate law:NormStatement ;
           swrl:argument1 kr:x_ns ]
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate penalty:appliesToNormStatement ;
+          swrl:propertyPredicate pen:appliesToNormStatement ;
           swrl:argument1 kr:x_pr ;
           swrl:argument2 kr:x_ns ]
     ) ;
     swrl:head (
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate penalty:penalizesNorm ;
+          swrl:propertyPredicate pen:penalizesNorm ;
           swrl:argument1 kr:x_pr ;
           swrl:argument2 kr:x_ns ]
     ) .

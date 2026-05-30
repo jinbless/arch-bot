@@ -27,7 +27,7 @@ KOSHA = Namespace("https://cashtoss.info/ontology#")
 LAW = Namespace("https://cashtoss.info/ontology/law#")
 SR = Namespace("https://cashtoss.info/ontology/sr#")
 GUIDE = Namespace("https://cashtoss.info/ontology/guide#")
-HAZ = Namespace("https://cashtoss.info/ontology/hazard#")
+HAZ = Namespace("https://cashtoss.info/ontology/risk/hazard#")
 PEN = Namespace("https://cashtoss.info/ontology/penalty#")
 
 REQTYPE_MAP = {

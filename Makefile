@@ -40,7 +40,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify \
-        verify-codes verify-codes-shape gen-canonical-shape continual-pending
+        verify-codes verify-codes-shape verify-prefixes gen-canonical-shape continual-pending
 
 help:
 	@echo "arch-bot dev launcher"
@@ -421,6 +421,11 @@ verify-codes:
 verify-codes-shape:
 	@echo "[verify-codes-shape] ABox 코드 IRI ∈ canonical SHACL 검증 (pyshacl)"
 	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/validate_canonical_codes.py' --gate
+
+# prefix/namespace 정본 가드레일 — 온톨로지팀 .ttl 전수 @prefix/sh:prefixes 검증. 비정본 시 exit 1.
+verify-prefixes:
+	@echo "[verify-prefixes] 온톨로지 .ttl prefix 정본 표준 검증 (canonical short name + IRI)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/validate_prefixes.py'
 
 # SSOT 변경(canonical-code-vocabulary.json) 시 shape 재생성. 산출물은 git tracked.
 gen-canonical-shape:

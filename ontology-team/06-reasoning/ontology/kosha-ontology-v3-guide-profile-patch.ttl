@@ -13,7 +13,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix guide: <https://cashtoss.info/ontology/guide#> .
-@prefix kosha: <https://cashtoss.info/ontology/kosha#> .
 @prefix industry: <https://cashtoss.info/ontology/industry#> .
 
 
@@ -21,7 +20,7 @@
 
 guide:GuideUsageProfile a owl:Class ;
     rdfs:label "Guide Usage Profile"@en , "Guide 사용 프로필"@ko ;
-    rdfs:comment "1:1 profile annotating a kosha:KoshaGuide with usage context. 어떤 산업/작업/조건에서 해당 Guide가 활용 가능한지를 정형 표현. recommendation scoring 시 mismatch penalty 결정에 사용. PG materialized: guide_usage_profiles (16 cols)."@ko .
+    rdfs:comment "1:1 profile annotating a guide:KoshaGuide with usage context. 어떤 산업/작업/조건에서 해당 Guide가 활용 가능한지를 정형 표현. recommendation scoring 시 mismatch penalty 결정에 사용. PG materialized: guide_usage_profiles (16 cols)."@ko .
 
 
 ### Core identification properties
@@ -29,7 +28,7 @@ guide:GuideUsageProfile a owl:Class ;
 guide:profileOfGuide a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
     rdfs:label "profile of guide"@en ;
     rdfs:domain guide:GuideUsageProfile ;
-    rdfs:range kosha:KoshaGuide ;
+    rdfs:range guide:KoshaGuide ;
     rdfs:comment "1:1 relation. 한 Guide는 정확히 하나의 profile을 갖고, 각 profile은 정확히 하나의 Guide를 설명한다."@ko .
 
 
@@ -141,14 +140,14 @@ guide:GuideUsageProfile rdfs:subClassOf
       owl:cardinality "1"^^xsd:nonNegativeInteger ] .
 
 
-### Inverse: kosha:Guide → guide:GuideUsageProfile
+### Inverse: guide:KoshaGuide → guide:GuideUsageProfile
 
 guide:hasProfile a owl:ObjectProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
     owl:inverseOf guide:profileOfGuide ;
     rdfs:label "has profile"@en ;
-    rdfs:domain kosha:KoshaGuide ;
+    rdfs:domain guide:KoshaGuide ;
     rdfs:range guide:GuideUsageProfile ;
-    rdfs:comment "kosha:KoshaGuide → guide:GuideUsageProfile 역방향 navigation."@ko .
+    rdfs:comment "guide:KoshaGuide → guide:GuideUsageProfile 역방향 navigation."@ko .
 
 
 ### Note

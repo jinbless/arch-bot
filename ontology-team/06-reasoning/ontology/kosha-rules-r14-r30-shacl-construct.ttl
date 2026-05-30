@@ -23,12 +23,12 @@
 @prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
 @prefix app: <https://cashtoss.info/ontology/app#> .
 @prefix sr: <https://cashtoss.info/ontology/sr#> .
-@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
 @prefix law: <https://cashtoss.info/ontology/law#> .
 @prefix guide: <https://cashtoss.info/ontology/guide#> .
 @prefix core: <https://cashtoss.info/ontology#> .
 @prefix bridge: <https://cashtoss.info/ontology/bridge#> .
-@prefix agent: <https://cashtoss.info/ontology/agent#> .
+@prefix actor: <https://cashtoss.info/ontology/actor#> .
 @prefix krs: <https://cashtoss.info/ontology/shacl-rules#> .
 
 
@@ -40,12 +40,12 @@ krs:CommonPrefixes a sh:PrefixDeclaration ;
         [ sh:prefix "ctx" ; sh:namespace "https://cashtoss.info/ontology/risk/context#"^^xsd:anyURI ] ,
         [ sh:prefix "app" ; sh:namespace "https://cashtoss.info/ontology/app#"^^xsd:anyURI ] ,
         [ sh:prefix "sr" ; sh:namespace "https://cashtoss.info/ontology/sr#"^^xsd:anyURI ] ,
-        [ sh:prefix "penalty" ; sh:namespace "https://cashtoss.info/ontology/penalty#"^^xsd:anyURI ] ,
+        [ sh:prefix "pen" ; sh:namespace "https://cashtoss.info/ontology/penalty#"^^xsd:anyURI ] ,
         [ sh:prefix "law" ; sh:namespace "https://cashtoss.info/ontology/law#"^^xsd:anyURI ] ,
         [ sh:prefix "guide" ; sh:namespace "https://cashtoss.info/ontology/guide#"^^xsd:anyURI ] ,
         [ sh:prefix "core" ; sh:namespace "https://cashtoss.info/ontology#"^^xsd:anyURI ] ,
         [ sh:prefix "bridge" ; sh:namespace "https://cashtoss.info/ontology/bridge#"^^xsd:anyURI ] ,
-        [ sh:prefix "agent" ; sh:namespace "https://cashtoss.info/ontology/agent#"^^xsd:anyURI ] ,
+        [ sh:prefix "actor" ; sh:namespace "https://cashtoss.info/ontology/actor#"^^xsd:anyURI ] ,
         [ sh:prefix "rdf" ; sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ] ,
         [ sh:prefix "rdfs" ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ] ,
         [ sh:prefix "xsd" ; sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ] .
@@ -181,17 +181,17 @@ krs:R20_ObligationModalityShape a sh:NodeShape ;
     ] .
 
 
-### R-21: PenaltyRule → penalty:penalizesNorm (alias of appliesToNormStatement)
+### R-21: PenaltyRule → pen:penalizesNorm (alias of appliesToNormStatement)
 krs:R21_PenalizesNormShape a sh:NodeShape ;
     rdfs:label "R-21 SHACL: PenaltyRule → penalizesNorm"@ko ;
-    sh:targetClass penalty:PenaltyRule ;
+    sh:targetClass pen:PenaltyRule ;
     sh:rule [
         a sh:SPARQLRule ;
         sh:prefixes krs:CommonPrefixes ;
         sh:construct """
-            CONSTRUCT { $this penalty:penalizesNorm ?ns }
+            CONSTRUCT { $this pen:penalizesNorm ?ns }
             WHERE {
-                $this penalty:appliesToNormStatement ?ns .
+                $this pen:appliesToNormStatement ?ns .
                 ?ns a law:NormStatement .
             }
         """ ;
@@ -257,7 +257,7 @@ krs:R24_HasViolationVOSRShape a sh:NodeShape ;
 ### R-25: SR-violation → bridge:violatesObligation(Worker, NS)
 krs:R25_ViolatesObligationShape a sh:NodeShape ;
     rdfs:label "R-25 SHACL: Worker → violatesObligation(NS) via SR-violation"@ko ;
-    sh:targetClass agent:Worker ;
+    sh:targetClass actor:Worker ;
     sh:rule [
         a sh:SPARQLRule ;
         sh:prefixes krs:CommonPrefixes ;
@@ -297,7 +297,7 @@ krs:R26_HasViolationCtxNSShape a sh:NodeShape ;
     ] .
 
 
-### R-28: violation NS + PenaltyRule → penalty:appliesPenaltyRule(Ctx, PR)
+### R-28: violation NS + PenaltyRule → pen:appliesPenaltyRule(Ctx, PR)
 krs:R28_AppliesPenaltyRuleShape a sh:NodeShape ;
     rdfs:label "R-28 SHACL: PenaltyExposure → appliesPenaltyRule"@ko ;
     sh:targetClass app:PenaltyExposure ;
@@ -305,11 +305,11 @@ krs:R28_AppliesPenaltyRuleShape a sh:NodeShape ;
         a sh:SPARQLRule ;
         sh:prefixes krs:CommonPrefixes ;
         sh:construct """
-            CONSTRUCT { $this penalty:appliesPenaltyRule ?pr }
+            CONSTRUCT { $this pen:appliesPenaltyRule ?pr }
             WHERE {
                 ?agent bridge:violatesObligation ?ns .
-                ?pr a penalty:PenaltyRule ;
-                    penalty:penalizesNorm ?ns .
+                ?pr a pen:PenaltyRule ;
+                    pen:penalizesNorm ?ns .
             }
         """ ;
     ] .
@@ -325,9 +325,9 @@ krs:R29_HighSeverityPenaltyShape a sh:NodeShape ;
         sh:construct """
             CONSTRUCT { $this app:hasPenaltyLevel app:HighSeverity }
             WHERE {
-                ?pr a penalty:PenaltyRule ;
-                    penalty:appliesToExposure $this ;
-                    penalty:severityScore ?score .
+                ?pr a pen:PenaltyRule ;
+                    pen:appliesToExposure $this ;
+                    pen:severityScore ?score .
                 FILTER(?score >= 5)
             }
         """ ;
@@ -344,9 +344,9 @@ krs:R30_HasPenaltyResultShape a sh:NodeShape ;
         sh:construct """
             CONSTRUCT { $this app:hasPenaltyResult ?pres }
             WHERE {
-                $this penalty:appliesPenaltyRule ?pr .
-                ?pr a penalty:PenaltyRule ;
-                    penalty:resultsIn ?pres .
+                $this pen:appliesPenaltyRule ?pr .
+                ?pr a pen:PenaltyRule ;
+                    pen:resultsIn ?pres .
             }
         """ ;
     ] .

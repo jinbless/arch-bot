@@ -13,7 +13,7 @@
 @prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
 @prefix law: <https://cashtoss.info/ontology/law#> .
 @prefix core: <https://cashtoss.info/ontology#> .
-@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
 @prefix kr: <https://cashtoss.info/ontology/swrl-rules#> .
 
 
@@ -57,10 +57,10 @@ kr:R3_HighSeverityRule a swrl:Imp ;
     rdfs:label "R-3: highSeverityPenalty 분류"@ko ;
     swrl:body (
         [ a swrl:ClassAtom ;
-          swrl:classPredicate penalty:SanctionType ;
+          swrl:classPredicate pen:SanctionType ;
           swrl:argument1 kr:x_san ]
         [ a swrl:DatavaluedPropertyAtom ;
-          swrl:propertyPredicate penalty:severityScore ;
+          swrl:propertyPredicate pen:severityScore ;
           swrl:argument1 kr:x_san ;
           swrl:argument2 kr:x_score ]
         [ a swrl:BuiltinAtom ;
@@ -69,7 +69,7 @@ kr:R3_HighSeverityRule a swrl:Imp ;
     ) ;
     swrl:head (
         [ a swrl:ClassAtom ;
-          swrl:classPredicate penalty:HighSeverityPenalty ;
+          swrl:classPredicate pen:HighSeverityPenalty ;
           swrl:argument1 kr:x_san ]
     ) .
 
@@ -84,7 +84,7 @@ kr:x_score a swrl:Variable .
 
 ### Target class definition (R-3 head)
 
-penalty:HighSeverityPenalty a owl:Class ;
+pen:HighSeverityPenalty a owl:Class ;
     rdfs:label "High Severity Penalty"@en, "고위험 제재"@ko ;
-    rdfs:subClassOf penalty:SanctionType ;
+    rdfs:subClassOf pen:SanctionType ;
     rdfs:comment "severityScore ≥ 5 인 sanction. SWRL R-3 추론으로 자동 분류."@ko .

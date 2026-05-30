@@ -11,7 +11,7 @@
 #
 # 30+ Restriction across 핵심 클래스:
 #   - sr:SafetyRequirement (5)
-#   - penalty:PenaltyRule (4)
+#   - pen:PenaltyRule (4)
 #   - risk:RiskFeature (4)
 #   - she:SituationalHazardPattern (4)
 #   - guide:KoshaGuide (1) + guide:Equipment (1)
@@ -27,11 +27,10 @@
 @prefix risk: <https://cashtoss.info/ontology/risk#> .
 @prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
 @prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
-@prefix sit: <https://cashtoss.info/ontology/risk/situation#> .
 @prefix she: <https://cashtoss.info/ontology/risk/situation#> .
 @prefix app: <https://cashtoss.info/ontology/app#> .
 @prefix sr: <https://cashtoss.info/ontology/sr#> .
-@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
 @prefix guide: <https://cashtoss.info/ontology/guide#> .
 @prefix law: <https://cashtoss.info/ontology/law#> .
 @prefix core: <https://cashtoss.info/ontology#> .
@@ -63,23 +62,23 @@ sr:SafetyRequirement rdfs:subClassOf [
 ] .
 
 
-### penalty:PenaltyRule (4 restrictions)
+### pen:PenaltyRule (4 restrictions)
 
-penalty:PenaltyRule rdfs:subClassOf [
+pen:PenaltyRule rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty penalty:appliesToNormStatement ;
+    owl:onProperty pen:appliesToNormStatement ;
     owl:allValuesFrom law:NormStatement ;
 ] , [
     a owl:Restriction ;
-    owl:onProperty penalty:penalizesNorm ;
+    owl:onProperty pen:penalizesNorm ;
     owl:allValuesFrom law:NormStatement ;
 ] , [
     a owl:Restriction ;
-    owl:onProperty penalty:resultsIn ;
-    owl:allValuesFrom penalty:PenaltyResult ;
+    owl:onProperty pen:resultsIn ;
+    owl:allValuesFrom pen:PenaltyResult ;
 ] , [
     a owl:Restriction ;
-    owl:onProperty penalty:appliesToExposure ;
+    owl:onProperty pen:appliesToExposure ;
     owl:allValuesFrom app:PenaltyExposure ;
 ] .
 
@@ -106,24 +105,24 @@ risk:RiskFeature rdfs:subClassOf [
 
 
 ### she:SituationalHazardPattern (4 restrictions)
-# 기존 sit:hasHazardousAgent, sit:hasTemporalStage, sit:hasPPEState, sit:hasVisualTrigger 활용.
+# 기존 she:hasHazardousAgent, she:hasTemporalStage, she:hasPPEState, she:hasVisualTrigger 활용.
 
 she:SituationalHazardPattern rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty sit:hasHazardousAgent ;
+    owl:onProperty she:hasHazardousAgent ;
     owl:allValuesFrom <https://cashtoss.info/ontology/risk/agent#HazardousAgent> ;
 ] , [
     a owl:Restriction ;
-    owl:onProperty sit:hasTemporalStage ;
+    owl:onProperty she:hasTemporalStage ;
     owl:allValuesFrom ctx:TemporalStage ;
 ] , [
     a owl:Restriction ;
-    owl:onProperty sit:hasPPEState ;
+    owl:onProperty she:hasPPEState ;
     owl:allValuesFrom ctx:PPEState ;
 ] , [
     a owl:Restriction ;
-    owl:onProperty sit:hasVisualTrigger ;
-    owl:allValuesFrom sit:VisualTrigger ;
+    owl:onProperty she:hasVisualTrigger ;
+    owl:allValuesFrom she:VisualTrigger ;
 ] .
 
 
@@ -187,8 +186,8 @@ app:SituationMatch rdfs:subClassOf [
 
 app:PenaltyExposure rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty penalty:appliesPenaltyRule ;
-    owl:allValuesFrom penalty:PenaltyRule ;
+    owl:onProperty pen:appliesPenaltyRule ;
+    owl:allValuesFrom pen:PenaltyRule ;
 ] , [
     a owl:Restriction ;
     owl:onProperty app:hasPenaltyLevel ;
@@ -196,7 +195,7 @@ app:PenaltyExposure rdfs:subClassOf [
 ] , [
     a owl:Restriction ;
     owl:onProperty app:hasPenaltyResult ;
-    owl:allValuesFrom penalty:PenaltyResult ;
+    owl:allValuesFrom pen:PenaltyResult ;
 ] .
 
 

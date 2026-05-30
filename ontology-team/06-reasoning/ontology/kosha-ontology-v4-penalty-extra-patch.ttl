@@ -4,11 +4,11 @@
 # Phase A~E pattern 답습.
 #
 # 추가 항목 (Class 2 + ObjectProperty 5 + NamedIndividual 1):
-#   - penalty:PenaltyResult       (Class) — penalty:resultsIn range
+#   - pen:PenaltyResult       (Class) — pen:resultsIn range
 #   - app:PenaltyLevel            (Class) — app:hasPenaltyLevel range
-#   - penalty:appliesPenaltyRule  (Ctx → PenaltyRule, R-28 head, R-30 body)
-#   - penalty:appliesToExposure   (PenaltyRule → Ctx, R-29 body — appliesPenaltyRule의 inverse-like)
-#   - penalty:resultsIn           (PenaltyRule → PenaltyResult, R-30 body)
+#   - pen:appliesPenaltyRule  (Ctx → PenaltyRule, R-28 head, R-30 body)
+#   - pen:appliesToExposure   (PenaltyRule → Ctx, R-29 body — appliesPenaltyRule의 inverse-like)
+#   - pen:resultsIn           (PenaltyRule → PenaltyResult, R-30 body)
 #   - app:hasPenaltyLevel         (Ctx → PenaltyLevel, R-29 head)
 #   - app:hasPenaltyResult        (Ctx → PenaltyResult, R-30 head)
 #   - app:HighSeverity            (NamedIndividual, app:PenaltyLevel instance)
@@ -18,14 +18,14 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-@prefix penalty: <https://cashtoss.info/ontology/penalty#> .
+@prefix pen: <https://cashtoss.info/ontology/penalty#> .
 @prefix app: <https://cashtoss.info/ontology/app#> .
 
 
 ### Class additions
 
-# penalty:PenaltyResult — penalty:resultsIn range
-penalty:PenaltyResult a owl:Class ;
+# pen:PenaltyResult — pen:resultsIn range
+pen:PenaltyResult a owl:Class ;
     rdfs:label "벌칙 결과"@ko ;
     rdfs:comment "PenaltyRule이 도출한 구체 벌칙 결과 (벌금/구류 등). R-30 head range."@ko ;
     rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> .
@@ -40,30 +40,30 @@ app:PenaltyLevel a owl:Class ;
 
 ### ObjectProperty additions
 
-# penalty:appliesPenaltyRule — Ctx → PenaltyRule (R-28 head, R-30 body)
-penalty:appliesPenaltyRule a owl:ObjectProperty ;
+# pen:appliesPenaltyRule — Ctx → PenaltyRule (R-28 head, R-30 body)
+pen:appliesPenaltyRule a owl:ObjectProperty ;
     rdfs:label "PenaltyRule 적용 (Ctx)"@ko ;
     rdfs:comment "PenaltyExposure context에 적용된 PenaltyRule (R-28 결과)."@ko ;
     rdfs:domain app:PenaltyExposure ;
-    rdfs:range penalty:PenaltyRule .
+    rdfs:range pen:PenaltyRule .
 
 
-# penalty:appliesToExposure — PenaltyRule → Ctx (R-29 body)
+# pen:appliesToExposure — PenaltyRule → Ctx (R-29 body)
 # appliesPenaltyRule의 reverse-direction property — 별도 유지 (audit + SWRL pattern).
-penalty:appliesToExposure a owl:ObjectProperty ;
+pen:appliesToExposure a owl:ObjectProperty ;
     rdfs:label "Exposure 적용"@ko ;
     rdfs:comment "PenaltyRule이 어떤 PenaltyExposure에 적용 (R-29 body). appliesPenaltyRule의 inverse 방향."@ko ;
-    rdfs:domain penalty:PenaltyRule ;
+    rdfs:domain pen:PenaltyRule ;
     rdfs:range app:PenaltyExposure ;
-    owl:inverseOf penalty:appliesPenaltyRule .
+    owl:inverseOf pen:appliesPenaltyRule .
 
 
-# penalty:resultsIn — PenaltyRule → PenaltyResult (R-30 body)
-penalty:resultsIn a owl:ObjectProperty ;
+# pen:resultsIn — PenaltyRule → PenaltyResult (R-30 body)
+pen:resultsIn a owl:ObjectProperty ;
     rdfs:label "벌칙 결과 산출"@ko ;
     rdfs:comment "PenaltyRule이 도출하는 PenaltyResult (R-30 body)."@ko ;
-    rdfs:domain penalty:PenaltyRule ;
-    rdfs:range penalty:PenaltyResult .
+    rdfs:domain pen:PenaltyRule ;
+    rdfs:range pen:PenaltyResult .
 
 
 # app:hasPenaltyLevel — Ctx → PenaltyLevel (R-29 head)
@@ -79,7 +79,7 @@ app:hasPenaltyResult a owl:ObjectProperty ;
     rdfs:label "벌칙 결과"@ko ;
     rdfs:comment "PenaltyExposure에 대응되는 PenaltyResult (R-30 결과)."@ko ;
     rdfs:domain app:PenaltyExposure ;
-    rdfs:range penalty:PenaltyResult .
+    rdfs:range pen:PenaltyResult .
 
 
 ### NamedIndividual
