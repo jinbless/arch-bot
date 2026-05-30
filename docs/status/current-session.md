@@ -1,6 +1,25 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-30** — ⭐ **Three-Worlds CI/Guide 매칭 재설계 S1 (Phase 0/1/3a 완료, working tree 미커밋)** — 온톨로지에서 CI/Guide facet 유도 → PG 물질화. + 이전 같은 날: Phase 5 incremental 가드레일 2건(SHACL codes∈canonical + Layer 4.7 continual). origin/main HEAD `f4f078a`(2026-05-29 Canonicalization + KOSHA-22). 이전 핵심: axiom-100%(A~K) + guide-accuracy(P0~P3).
+최신 갱신일: **2026-05-30 (오후)** — ⭐ **온톨로지 prefix 표준화(`1aa0743`) + manifest 단일정본 재설계 Phase 1(`f751397`) — 둘 다 push됨**. origin/main HEAD `f751397`. 이전 같은 날: Three-Worlds S1(Phase 0/1/3a/4) + Phase 5 가드레일. **다음 궁극 목표: facet class/individual 리모델(재설계 Phase 3)**.
+
+## ⭐ 2026-05-30 (오후) — prefix 표준화 + manifest 단일정본 재설계 Phase 1 (push 완료)
+
+**승인 plan**: `~/.claude/plans/calm-hugging-pond.md`(이제 **온톨로지 체계 재설계** — Phase 1 manifest / Phase 2 구조심화 / Phase 3 facet 리모델). 동기: 버전·패치 난립 + 6 로더 제각각 하드코딩 → "무엇이 온톨로지인가" 단일 정본 부재.
+
+**A. prefix/namespace 표준화** (`1aa0743`): cashtoss.info 네임스페이스마다 정본 짧은이름1+IRI1.
+- `agent:` 의미 과부하 → `agent:Worker`(행위자) **`actor:` 분리**. 별칭 통일(context→ctx/hazard→haz/sit→she/penalty→pen). 화석 `kosha-instances.original.ttl` 삭제(레거시 28k). guide-profile-patch orphan 수정(`kosha:KoshaGuide`→`guide:KoshaGuide`). 생성기 `regenerate_subclass_patch.py` axis casing(accident=UPPER, agent/ctx=Pascal). pipe-A pilot `ontology/hazard#`→`risk/hazard#`.
+- **신규 가드레일**: `validate_prefixes.py`(+`make verify-prefixes`), `compare_graphs.py`(그래프 동치 오라클). 검증: 위반 0 / 레거시 0 / 리즈너 conforms=626.
+- v3 G-patch(incompat/guide-profile/penalty-relations/restructure)는 **Phase G TBox SoT라 유지**(삭제 안 함). ⚠️ restructure-patch는 파싱실패(`<>` 누락 3줄) — Phase 2 수리 대상.
+
+**B. manifest 단일정본** (`f751397`) — 평탄화(merge) 아니라 명명:
+- `assembly/manifest_source.py`(SSOT 59파일·6 profile) → `gen_manifest.py` → `assembly-manifest.json`. `assembly/manifest.py`(소비자 `load_profile`). `validate_manifest.py`+`make verify-manifest`(silent orphan 0+freshness 게이트).
+- **6 소비자 repoint**: Python 5(run_shacl/local_consistency/serve_facets/run_inference/run_guide_hazard) + **Java Fuseki**(번들 `org.apache.jena.atlas.json`, 추가 의존성 0, bind-mount라 이후 파일집합 변경 시 Java 재빌드 불필요).
+- **base v1→v2 정정 = facet 버그 해결**: serve_facets/run_inference가 v1 base 로드+subclass 누락 → v2+subclass/disjoint → **facet-explorer haz 2→137 / agent 1→37 owl:Class** 정상.
+- 검증(no-op): 6 profile==기존 하드코딩(set-equality), run_shacl conforms=626 불변, Fuseki 21파일·base 981,440, local_consistency merged 26 동일. **serving/consistency/shacl 그래프 불변**.
+
+**핵심 발견(Phase 3 동기)**: facet 코드 class/individual 비정합 — haz/agent: fine=class·canonical=individual, **ctx: 전부 individual·subClassOf 0**(107 정의 중 29만 facet 사용, `ctx:ForkliftOperation` 등 78 잠금 → forklift 변별 상실의 근원). 데이터 개체(SR/CI/Guide/관찰)는 individual 유지가 정답.
+
+**다음 (우선순위)**: **Phase 3 facet 리모델**(haz/agent/ctx→일관 owl:Class+subClassOf taxonomy, canonical도 class화, ctx 계층 신설, **punning으로 기존 facet assertion 51,776 보존**, 데이터 개체는 individual 유지 → forklift fine 변별 복원 → PG 재물질화) = **궁극 목표**. / (선택) P1.6b 물리 archive 이동(17파일 archive/) + serving-snapshot 78MB 삭제 / Phase 2 구조심화(layer 디렉토리 + SWRL→SHACL parity-gated + restructure 수리). **serve_facets(3031)는 재시작해야 고쳐진 explorer(haz=137) 반영**.
 
 ## ⭐ 2026-05-30 — Three-Worlds CI/Guide 매칭 재설계 S1 (Phase 0/1/3a, working tree)
 
