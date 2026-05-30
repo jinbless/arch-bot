@@ -1,6 +1,40 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-29** — **⭐ Canonicalization + KOSHA-22 온톨로지 마이그레이션 + 재발방지 가드레일 (단일 세션 완주)**. **origin/main HEAD `f4f078a`** — PRIMARY(`C:/project/arch-bot`) fast-forward 동기화 + 코드/데이터 배포 완료, PG canonical 컬럼 live. 이전 핵심: axiom-100% Sprint (A~K) + guide-accuracy (P0~P3) + doc-sync (`4aa3cca`, 2026-05-28).
+최신 갱신일: **2026-05-30** — ⭐ **Three-Worlds CI/Guide 매칭 재설계 S1 (Phase 0/1/3a 완료, working tree 미커밋)** — 온톨로지에서 CI/Guide facet 유도 → PG 물질화. + 이전 같은 날: Phase 5 incremental 가드레일 2건(SHACL codes∈canonical + Layer 4.7 continual). origin/main HEAD `f4f078a`(2026-05-29 Canonicalization + KOSHA-22). 이전 핵심: axiom-100%(A~K) + guide-accuracy(P0~P3).
+
+## ⭐ 2026-05-30 — Three-Worlds CI/Guide 매칭 재설계 S1 (Phase 0/1/3a, working tree)
+
+**메인 작업.** 사용자 재정의: open-world(사진 hazard) → closed-world(SR/CI/Guide) 매핑, **온톨로지=SoT + 업데이트 메커니즘, PG=특정시점 스냅샷**. 문제: 실사진에서 SR은 매칭되나 **CI/Guide 안 됨**. 근본 원리(사용자 합의): **CI는 고유 control 세계, Guide는 분야별로 control을 묶는 bundle 계층. open-world O는 CI·Guide와 각각 독립 facet 매칭, 구조(Guide-bundles-CI)는 랭킹 corroboration.** boilerplate=canonical CI의 guide-degree(구조). PG-side 인버전(derive_guide_hazard_features+export_guide_hazard_to_abox) 폐기 → 온톨로지 유도 → PG 물질화. 승인 plan: `~/.claude/plans/calm-hugging-pond.md`.
+
+**Phase 0 — Canonical-CI 레이어** ✅: `kosha-ontology-v4-canonical-ci-patch.ttl`(`CanonicalChecklistItem ⊑ ChecklistItem` + `realizesControl`/`bundlesControl`/`controlBundledBy`). `derive_canonical_ci.py`(정규화-텍스트 NFKC 군집): **54,631 instance → 51,263 canonical**(축소 6.2% — 정확-텍스트는 literal boilerplate만; 큰 dedup은 semantic merge=Phase 3b gated), degree=guide_frequency(max 130), boilerplate 71(degree≥10). PG staging: `canonical_checklist_items`/`guide_control_bundle`/`checklist_items.canonical_ci_id`. `export_canonical_ci_abox.py` → `kosha-instances-canonical-ci.ttl`(466k triple, facet/degree/basedOnSR 집계 직접 부여 → inverse 링크 불요).
+
+**Phase 1 — facet 유도(ontology SHACL)** ✅: `kosha-rules-guide-hazard-shacl.ttl`(6 CONSTRUCT: CI-SR 상속 3 + non-boilerplate Guide rollup 3) + `run_guide_hazard_rules.py`(rdflib fast-path, fixpoint) → `kosha-instances-ci-guide-hazard-derived.ttl`. **Guide rollup 10,423**(addressesHazard 2484 / guideAddressesAgent 3227 / guideAppliesToContext 4712, boilerplate 제외). **CI-SR 상속=0**(pipe-B step6가 이미 SR-enrich → CI accident 희소(27%)는 SR로 못 메움, **Phase 2 orphan 재태깅이 유일 lever**).
+
+**Phase 3a — ontology→PG 물질화** ✅: `import_guide_facets_to_pg.py`(IRI→code SSOT 역변환 + wc_meta) → `kosha_guides` facet 컬럼(addresses_hazard **832 guide**>구 인버전 659 / agent 986 / context 979). `make verify-codes-shape` 대상(derived) **conforms=True**.
+
+**검증 데모**(지게차 facets accident=CAUGHT_IN/COLLISION/CRUSHED_OVERTURNED, ctx=VEHICLE, PG 직접쿼리): **O↔CI 독립 매칭 = 좌석안전띠·포크삽입·차량브레이크·통로보호 등 정확 + boilerplate 71 억제 ✅**. O↔Guide = 항만하역 등 관련 + 광범위 VEHICLE 오매칭(오토바이배달) 잔존 → **Phase 4 fusion(corroboration 랭킹)이 sharpen 예정**.
+
+**Phase 4 — 서빙 엔진** ✅ (구현+검증, **wiring ⏳**): `models.py`(PgCanonicalChecklistItem/PgGuideControlBundle + PgKoshaGuide facet 컬럼 + PgChecklistItem.canonical_ci_id), `hazard_rule_engine.query_ci_for_facets`/`query_guide_for_facets`(query_sr_for_facets 미러, CI 특이도=1/log2(2+guide_degree)), `match_fusion_service.fuse_matches`(O↔CI/Guide 독립 + **Guide corroboration boost**: 매칭 CI를 bundle한 Guide 가산). **WSL venv 실검증**(`scripts/verify_fusion_matching.py`): 지게차 → **B-M-11 지게차 안전작업 + A-G-18 항만하역이 corroboration으로 top, 오토바이배달 top-8 탈락** ⭐. O↔CI = 좌석안전띠·포크삽입 등 정확. (화학 시나리오: corroboration 미발화(분석 guide가 안전 CI 미bundle) → CI→guide recall 채널 추가가 후속 튜닝 후보.)
+
+**다음 — Phase 4 wiring**: `analysis_pipeline`이 `get_immediate_checklist_items`/`get_standard_guides`(무순위 junction/CI-count 전이 경로) 대신 `fuse_matches` 호출하도록 교체 → **8-photo eval**(make dev-up + Vision LLM) + Gate 3 회귀로 검증(백엔드 WSL venv 필요, e2e). 이후 Phase 2(orphan 재태깅)/Phase 3b(hard-cut 인버전 삭제 + semantic merge). 재현 파이프라인: `derive_canonical_ci.py --apply` → `export_canonical_ci_abox.py` → `run_guide_hazard_rules.py` → `import_guide_facets_to_pg.py --apply` → (서빙) `verify_fusion_matching.py`.
+
+## 2026-05-30 — Phase 5 incremental 가드레일 (Deferred #2 일부, working tree 미커밋)
+
+2026-05-29 Deferred 후속 #2(Phase 5 incremental) 중 **자기완결·저위험 2건** 구현. 둘 다 SSOT(`canonical-code-vocabulary.json`) 파생 — 하드코딩/ PG re-tag 무영향. 자세히: [../dev-notes/phase5-incremental-guardrails.md](../dev-notes/phase5-incremental-guardrails.md).
+
+**2a — SHACL codes∈canonical 가드레일** (선언적; `make verify-codes` regex 게이트의 보완재):
+- `ontology-team/06-reasoning/ontology/scripts/gen_canonical_code_shape.py` → `kosha-canonical-code-shape.ttl` (자동 생성, NodeShape 4 = 축별 3 + feature union). 각 shape `sh:targetObjectsOf <코드 술어> + sh:in <정본 IRI> + sh:Violation`.
+- 허용 = `canonical_set ∪ meta_set` = accident 23 / agent 10 / **work_context 36(=29+7 wc_meta)** = **69 IRI**. `canonical_vocab.meta_set(axis)` 공개 접근자 신설(additive — wc_meta=SAFETY_MGMT 등 rollup 항등 정당 축값).
+- `validate_canonical_codes.py`(pyshacl) + `make verify-codes-shape` / `make gen-canonical-shape`.
+- 검증: 전체 ABox **958,666 triple → conforms=True** (Phase 4-B "구어휘 잔여 0"을 SHACL allowlist로 독립 재확인). 음성 테스트(`haz:Crush`/`CAUGHT_IN`/`agent:ArcFlash`/`ctx:Forklift`) **4건 적발 + exit 1**, 정본 통과.
+
+**2c — Layer 4.7 Continual pending 승격 추적** (gate WARN → 정식 태스크):
+- `data-team/05-enrichment/llm-scripts/continual_pending_promotion.py` + `make continual-pending`. live PG(SR+CI+GUIDE) 빈도로 pending 코드 랭킹 + tier(PROMOTE≥8 / WATCH≥3 / NOISE). **읽기전용**(mutate 금지), queue 산출(gitignored).
+- 현재 스냅샷: accident/agent 0건. **work_context 7건**(전부 GUIDE) — PROMOTE=`WET_FLOOR_WORK`(11), WATCH=`NIGHT_SOLO_WORK`(6), NOISE 5. 승격 결정은 사용자 몫(→ `build_canonical_vocabulary.py` 룰 보강 후 재생성).
+
+**회귀 0**: `audit --gate` CRITICAL=0/WARN=7 PASS, `canonical_vocab`+`code_iri_mapper`(62) self-test PASS.
+
+**신규**: gen_canonical_code_shape.py, validate_canonical_codes.py, kosha-canonical-code-shape.ttl, continual_pending_promotion.py, phase5-incremental-guardrails.md. **수정**: canonical_vocab.py(+meta_set), Makefile(+3 target), .gitignore. **⚠️ 미커밋 — 다음 세션에서 검토 후 commit.**
 
 ## ⭐ Canonicalization + KOSHA-22 Sprint — 단일 세션 완주 (2026-05-29) ⭐
 
@@ -26,10 +60,12 @@
 **검증 수치** (Gate 3 baseline 대비, 전 단계 회귀 0): overall 0.1331→0.3254, penalty 0.1835→0.4729, sr 0.7636→0.7771, she 0.5581→0.5758.
 
 **⏸️ Deferred 후속 (라이브 영향 없음 — 온톨로지 offline, 서빙은 PG 기반이라 forklift fix 이미 live)**:
-1. **Fuseki Openllet reload** (~30분, 선택적 SPARQL enrichment만 영향): WSL `cd ontology-team/06-reasoning/ontology/docker && docker compose restart fuseki`.
-2. **Phase 5 incremental** (저우선, 게이트가 이미 1차 방어): SHACL shape(codes∈canonical), catalog 죽은코드 deprecated + WRONG_AXIS 18개(INTERLOCK_BYPASS 등) work_context 분리, UNKNOWN→Layer 4.7 정식 continual 태스크 (현재 gate WARN으로 빈도 추적).
+1. **Fuseki Openllet reload** (~30분 warmup, 선택적 SPARQL enrichment만 영향): WSL `cd ontology-team/06-reasoning/ontology/docker && docker compose restart fuseki`. ⚠️ **2026-05-30 발견**: `KoshaFusekiServer.java`의 sources 목록이 in-place 마이그레이션된 `kosha-instances.ttl`(volume-mount, restart로 반영)은 로드하나 `kosha-ontology-v4-kosha22-vocab-patch.ttl`(62 NamedIndividual)은 **미포함** → 단순 restart론 정본 개체 선언이 안 됨. 결정 필요: (a) patch를 sources에 추가 + Java image rebuild, 또는 (b) 서빙층 patch 불요 확인.
+2. **Phase 5 incremental** (저우선, 게이트 1차 방어):
+   - ✅ **2a SHACL codes∈canonical** + ✅ **2c Layer 4.7 continual** — 2026-05-30 완료 (위 §2026-05-30, 미커밋).
+   - ⏳ **catalog 죽은코드 deprecated + WRONG_AXIS work_context 정리** — 사용자 판단 + PG re-tag blast radius. 주의: `INTERLOCK_BYPASS`/`LOTO_NOT_APPLIED`/`SAFETY_DEVICE_BYPASS`는 이미 work_context 소속(→UNKNOWN_CONTEXT, catalog L2007–2034) — "WRONG_AXIS 18" 정확 목록 미보존 + "분리" 의도 불명확(meta-condition 별도 분리? 4/5번째 축에서 이동?). curation 의도 확인 필요. 2c가 pending 빈도 정량화(PROMOTE-tier=`WET_FLOOR_WORK` 1개뿐) → 긴급도 낮음.
 3. **HTTP 서버 기동**: WSL `cd /mnt/c/project/arch-bot && make dev-up` (PRIMARY는 WSL venv 전용 → Git Bash에서 미기동). 기동 시 지게차 분석이 새 로직으로 LIVE.
-4. **LFS**: `kosha-instances.ttl` 58MB(>GitHub 권장 50MB) → git-lfs 후보.
+4. **LFS**: `kosha-instances.ttl` 58MB(>GitHub 권장 50MB) → git-lfs 후보. 계획: [../dev-notes/large-file-management-plan.md](../dev-notes/large-file-management-plan.md). git history 영향 → 사용자 명시 승인 후 진행.
 
 **다음 세션 재현/검증 (WSL, /mnt/c/project/arch-bot)**:
 ```bash

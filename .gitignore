@@ -106,6 +106,14 @@ data-team/05-enrichment/runtime-artifacts/promote_57_approve_log.txt
 #       Modifications는 본 sweep commit에 포함하지 않음 (selective add).
 data-team/05-enrichment/runtime-artifacts/shadow_reasoner_log.jsonl
 
+# Layer 4.7 Continual — pending 승격 후보 queue (continual_pending_promotion.py 재생성 가능, live PG 파생).
+data-team/05-enrichment/runtime-artifacts/continual_pending_promotion.json
+
+# Three-Worlds 재설계 — 재생성 가능 ABox build artifact (PG staging → export → SHACL 유도).
+# 재현: derive_canonical_ci.py --apply → export_canonical_ci_abox.py → run_guide_hazard_rules.py
+ontology-team/06-reasoning/ontology/kosha-instances-canonical-ci.ttl
+ontology-team/06-reasoning/ontology/kosha-instances-ci-guide-hazard-derived.ttl
+
 # Real test photos (CLAUDE.md 절대 금지: raw KOSHA PDF + 외부 사진 commit 금지).
 real-test-photo/
 

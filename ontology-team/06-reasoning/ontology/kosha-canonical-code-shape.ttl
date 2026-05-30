@@ -1,0 +1,87 @@
+# Phase 5 가드레일 — 위험축 코드 IRI ∈ KOSHA-22 정본 어휘 SHACL shape.
+# 자동 생성(SSOT 파생) — 수동 편집 금지. 재생성: scripts/gen_canonical_code_shape.py
+# SSOT: shared/reference/canonical-code-vocabulary.json  (accident 23 / agent 10 / work_context 36 = 69)
+# 검증: scripts/validate_canonical_codes.py --gate  (pyshacl)
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shape: <https://cashtoss.info/ontology/shape#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+
+# === accident_type (23) — sr:addressesHazard, sr:addressesAccidentType, guide:addressesHazard ===
+shape:CanonicalAccidentTypeCode a sh:NodeShape ;
+    sh:targetObjectsOf sr:addressesHazard ;
+    sh:targetObjectsOf sr:addressesAccidentType ;
+    sh:targetObjectsOf guide:addressesHazard ;
+    sh:nodeKind sh:IRI ;
+    sh:in (
+        haz:AnimalInjury haz:CaughtIn haz:ChemicalExposure haz:Collapse
+        haz:Collision haz:CrushedOverturned haz:CutLaceration haz:Drowning
+        haz:ElectricShock haz:ErgonomicStrain haz:Explosion haz:Fall
+        haz:FireInjury haz:OffSiteTraffic haz:OtherAccident haz:OxygenDeficiency
+        haz:SlipTrip haz:SportsEventInjury haz:StruckBy haz:TempExtremeContact
+        haz:Unclassified haz:Violence haz:WorkplaceTraffic
+    ) ;
+    sh:message "사고유형(KOSHA-22) 코드 IRI는 KOSHA-22 정본 23개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
+    sh:severity sh:Violation .
+
+# === hazardous_agent (10) — sr:addressesAgent, guide:guideAddressesAgent ===
+shape:CanonicalHazardousAgentCode a sh:NodeShape ;
+    sh:targetObjectsOf sr:addressesAgent ;
+    sh:targetObjectsOf guide:guideAddressesAgent ;
+    sh:nodeKind sh:IRI ;
+    sh:in (
+        agent:Biological agent:Chemical agent:Dust agent:Electricity
+        agent:Fire agent:HeatCold agent:Noise agent:Radiation
+        agent:Toxic agent:UnknownAgent
+    ) ;
+    sh:message "위험인자 코드 IRI는 KOSHA-22 정본 10개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
+    sh:severity sh:Violation .
+
+# === work_context (36) — sr:inWorkContext, guide:guideAppliesToContext ===
+shape:CanonicalWorkContextCode a sh:NodeShape ;
+    sh:targetObjectsOf sr:inWorkContext ;
+    sh:targetObjectsOf guide:guideAppliesToContext ;
+    sh:nodeKind sh:IRI ;
+    sh:in (
+        ctx:ChemicalWork ctx:CollapsePrevention ctx:ConfinedSpace ctx:ConstructionEquip
+        ctx:Conveyor ctx:Crane ctx:Demolition ctx:DustWork
+        ctx:ElectricalWork ctx:ErgonomicWork ctx:Excavation ctx:FallProtection
+        ctx:FireExplosionWork ctx:GeneralWorkplace ctx:HeatColdWork ctx:Logging
+        ctx:Machine ctx:MaterialHandling ctx:NoiseWork ctx:Other
+        ctx:Passage ctx:PathogenWork ctx:PpeMgmt ctx:PressureVessel
+        ctx:RadiationWork ctx:Rail ctx:Robot ctx:SafetyMgmt
+        ctx:Scaffold ctx:SpecialWorker ctx:Steelwork ctx:UnknownContext
+        ctx:Vehicle ctx:Ventilation ctx:WasteMgmt ctx:Welfare
+    ) ;
+    sh:message "작업맥락 코드 IRI는 KOSHA-22 정본 36개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
+    sh:severity sh:Violation .
+
+# === risk feature (polymorphic, 69 union) — sr:addressesFeature ===
+shape:CanonicalRiskFeatureCode a sh:NodeShape ;
+    sh:targetObjectsOf sr:addressesFeature ;
+    sh:nodeKind sh:IRI ;
+    sh:in (
+        haz:AnimalInjury haz:CaughtIn haz:ChemicalExposure haz:Collapse
+        haz:Collision haz:CrushedOverturned haz:CutLaceration haz:Drowning
+        haz:ElectricShock haz:ErgonomicStrain haz:Explosion haz:Fall
+        haz:FireInjury haz:OffSiteTraffic haz:OtherAccident haz:OxygenDeficiency
+        haz:SlipTrip haz:SportsEventInjury haz:StruckBy haz:TempExtremeContact
+        haz:Unclassified haz:Violence haz:WorkplaceTraffic agent:Biological
+        agent:Chemical agent:Dust agent:Electricity agent:Fire
+        agent:HeatCold agent:Noise agent:Radiation agent:Toxic
+        agent:UnknownAgent ctx:ChemicalWork ctx:CollapsePrevention ctx:ConfinedSpace
+        ctx:ConstructionEquip ctx:Conveyor ctx:Crane ctx:Demolition
+        ctx:DustWork ctx:ElectricalWork ctx:ErgonomicWork ctx:Excavation
+        ctx:FallProtection ctx:FireExplosionWork ctx:GeneralWorkplace ctx:HeatColdWork
+        ctx:Logging ctx:Machine ctx:MaterialHandling ctx:NoiseWork
+        ctx:Other ctx:Passage ctx:PathogenWork ctx:PpeMgmt
+        ctx:PressureVessel ctx:RadiationWork ctx:Rail ctx:Robot
+        ctx:SafetyMgmt ctx:Scaffold ctx:SpecialWorker ctx:Steelwork
+        ctx:UnknownContext ctx:Vehicle ctx:Ventilation ctx:WasteMgmt
+        ctx:Welfare
+    ) ;
+    sh:message "sr:addressesFeature 코드 IRI는 3축 정본 69개(union) 안에만 허용됩니다." ;
+    sh:severity sh:Violation .

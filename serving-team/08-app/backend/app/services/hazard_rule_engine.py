@@ -378,6 +378,133 @@ def query_sr_for_facets(
     ]
 
 
+# ═══ Three-Worlds 독립 facet 매칭 (O↔CI, O↔Guide) ═══
+# 전이 라우팅(hazard→SR→CI→Guide) 폐기. O가 각 표면과 독립 매칭, 구조는 fusion corroboration.
+
+def _facet_canon(accident_types, hazardous_agents, work_contexts) -> dict:
+    """O fine 코드 → 축별 canonical 집합(교차축 인지). 매칭은 canonical 컬럼."""
+    cv = _canonical_vocab()
+    canon = {"accident_type": set(), "hazardous_agent": set(), "work_context": set()}
+    for axis, codes in (
+        ("accident_type", accident_types),
+        ("hazardous_agent", hazardous_agents),
+        ("work_context", work_contexts),
+    ):
+        for c in codes or []:
+            a2, c2 = cv.to_canonical(axis, c)
+            if a2 in canon:
+                canon[a2].add(c2)
+    return canon
+
+
+def _hits(values, codes) -> list:
+    values = values or []
+    return [c for c in codes if c in values]
+
+
+def query_ci_for_facets(
+    db: Session,
+    accident_types: list[str],
+    hazardous_agents: list[str],
+    work_contexts: list[str],
+    limit: int = 12,
+) -> list[dict]:
+    """O facets → canonical_checklist_items 독립 매칭 (boilerplate 제외).
+
+    특이도 = 1/log2(2+guide_degree) (boilerplate=고degree=저특이도). query_sr_for_facets 미러.
+    """
+    import math
+    from app.db.models import PgCanonicalChecklistItem as CCI
+    from sqlalchemy import or_
+
+    canon = _facet_canon(accident_types, hazardous_agents, work_contexts)
+    conditions = []
+    for code in canon["accident_type"]:
+        conditions.append(CCI.accident_types_canonical.op("@>")(f'["{code}"]'))
+        conditions.append(CCI.addresses_hazard_canonical.op("@>")(f'["{code}"]'))
+    for code in canon["hazardous_agent"]:
+        conditions.append(CCI.hazardous_agents_canonical.op("@>")(f'["{code}"]'))
+    for code in canon["work_context"]:
+        conditions.append(CCI.work_contexts_canonical.op("@>")(f'["{code}"]'))
+    if not conditions:
+        return []
+
+    results = (
+        db.query(CCI)
+        .filter(CCI.is_boilerplate.is_(False))
+        .filter(or_(*conditions))
+        .all()
+    )
+    scored = []
+    for ci in results:
+        acc = _hits(ci.accident_types_canonical, canon["accident_type"]) + _hits(ci.addresses_hazard_canonical, canon["accident_type"])
+        agt = _hits(ci.hazardous_agents_canonical, canon["hazardous_agent"])
+        ctxh = _hits(ci.work_contexts_canonical, canon["work_context"])
+        matched_axes = sum(1 for h in (acc, agt, ctxh) if h)
+        total_hits = len(set(acc + agt + ctxh))
+        specificity = 1.0 / math.log2(2 + (ci.guide_degree or 1))
+        score = min(1.0, 0.2 + matched_axes * 0.3 + specificity * 0.3 + total_hits * 0.03)
+        scored.append((score, matched_axes, specificity, ci))
+    scored.sort(key=lambda r: (r[0], r[1], r[2]), reverse=True)
+    return [
+        {
+            "canonical_ci_id": ci.canonical_ci_id,
+            "text": ci.rep_text,
+            "guide_degree": ci.guide_degree,
+            "score": round(s, 3),
+            "matched_axes": ma,
+        }
+        for s, ma, _, ci in scored[:limit]
+    ]
+
+
+def query_guide_for_facets(
+    db: Session,
+    accident_types: list[str],
+    hazardous_agents: list[str],
+    work_contexts: list[str],
+    limit: int = 6,
+    industry_contexts: Optional[list[str]] = None,
+) -> list[dict]:
+    """O facets → kosha_guides 온톨로지 유도 facet 독립 매칭 (corroboration은 fusion에서)."""
+    from app.db.models import PgKoshaGuide
+    from sqlalchemy import or_
+
+    canon = _facet_canon(accident_types, hazardous_agents, work_contexts)
+    conditions = []
+    for code in canon["accident_type"]:
+        conditions.append(PgKoshaGuide.addresses_hazard_canonical.op("@>")(f'["{code}"]'))
+    for code in canon["hazardous_agent"]:
+        conditions.append(PgKoshaGuide.hazardous_agents_canonical.op("@>")(f'["{code}"]'))
+    for code in canon["work_context"]:
+        conditions.append(PgKoshaGuide.work_contexts_canonical.op("@>")(f'["{code}"]'))
+    if not conditions:
+        return []
+
+    results = db.query(PgKoshaGuide).filter(or_(*conditions)).all()
+    industry_contexts = industry_contexts or []
+    scored = []
+    for gd in results:
+        acc = _hits(gd.addresses_hazard_canonical, canon["accident_type"])
+        agt = _hits(gd.hazardous_agents_canonical, canon["hazardous_agent"])
+        ctxh = _hits(gd.work_contexts_canonical, canon["work_context"])
+        matched_axes = sum(1 for h in (acc, agt, ctxh) if h)
+        total_hits = len(set(acc + agt + ctxh))
+        score = min(1.0, 0.2 + matched_axes * 0.3 + total_hits * 0.04)
+        scored.append((score, matched_axes, total_hits, gd))
+    scored.sort(key=lambda r: (r[0], r[1], r[2]), reverse=True)
+    return [
+        {
+            "guide_code": gd.guide_code,
+            "title": gd.title,
+            "domain": gd.domain,
+            "score": round(s, 3),
+            "matched_axes": ma,
+        }
+        for s, ma, _, gd in scored[:limit]
+    ]
+
+
 def get_checklist_from_srs(
     db: Session,
     sr_ids: list[str],

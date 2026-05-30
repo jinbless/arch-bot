@@ -1,0 +1,47 @@
+# Phase 0 — Canonical-CI 레이어 TBox (Three-Worlds 재설계).
+#
+# 근본: per-guide CI instance(54,631)는 추출 부산물. 같은 control이 여러 Guide에 중복
+# (guide_frequency max 130). CI를 "고유 control 세계"로 정규화하고 Guide는 분야에 맞는
+# control을 묶는 상위 계층으로 본다. open-world 관찰은 CI/Guide와 각각 독립 매칭하고,
+# bundle 구조는 랭킹 corroboration. boilerplate = canonical CI의 guide-degree(구조 신호).
+#
+# 설계: CanonicalChecklistItem ⊑ ChecklistItem → 기존 ciAddresses*/basedOnSR/
+#       ciGuideFrequency/isBoilerplate(P3 patch) 재사용(도메인 충돌 회피). degree=ciGuideFrequency.
+# 산출 ABox: export_owl.py (정규화-텍스트 군집은 derive_canonical_ci.py가 PG staging으로).
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+
+
+### 고유 control 계층 (CI world)
+
+guide:CanonicalChecklistItem a owl:Class ;
+    rdfs:subClassOf guide:ChecklistItem ;
+    rdfs:label "고유 점검항목(control)"@ko ;
+    rdfs:comment "per-guide CI instance를 정규화-텍스트로 묶은 재사용 control 단위. Guide는 이를 bundle한다. ChecklistItem 하위라 ciAddresses*/basedOnSR/ciGuideFrequency/isBoilerplate를 그대로 사용."@ko .
+
+
+### instance ↔ canonical control
+
+guide:realizesControl a owl:ObjectProperty ;
+    rdfs:label "control 실현"@ko ;
+    rdfs:comment "per-guide CI instance가 실현하는 고유 control(정규화-텍스트 동일성)."@ko ;
+    rdfs:domain guide:ChecklistItem ;
+    rdfs:range guide:CanonicalChecklistItem .
+
+
+### Guide ↔ control (bundle 계층)
+
+guide:bundlesControl a owl:ObjectProperty ;
+    rdfs:label "control 묶음"@ko ;
+    rdfs:comment "Guide가 분야에 맞게 묶은 고유 control. guide-degree = control별 distinct bundling Guide 수(=ciGuideFrequency). 높을수록 boilerplate(저특이도)."@ko ;
+    rdfs:domain guide:KoshaGuide ;
+    rdfs:range guide:CanonicalChecklistItem ;
+    owl:inverseOf guide:controlBundledBy .
+
+guide:controlBundledBy a owl:ObjectProperty ;
+    rdfs:label "묶은 Guide"@ko ;
+    rdfs:comment "고유 control을 bundle하는 Guide(역관계). in-degree가 boilerplate 신호."@ko ;
+    rdfs:domain guide:CanonicalChecklistItem ;
+    rdfs:range guide:KoshaGuide .

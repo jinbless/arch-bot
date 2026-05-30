@@ -18,6 +18,11 @@ class PgKoshaGuide(Base):
     sub_category = Column(Text)
     total_pages = Column(Integer)
     ci_count = Column(Integer, nullable=False, default=0)
+    # Three-Worlds: 온톨로지 유도 Guide facet (non-boilerplate canonical CI rollup).
+    # import_guide_facets_to_pg.py. O↔Guide 독립 facet 매칭에 사용.
+    addresses_hazard_canonical = Column(JSONB)
+    hazardous_agents_canonical = Column(JSONB)
+    work_contexts_canonical = Column(JSONB)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
@@ -45,7 +50,39 @@ class PgChecklistItem(Base):
     # boilerplate CI(시험법 공통문구 등)일수록 높음. Guide 랭킹에서 변별력 가중 down에 사용.
     # ci_weight = 1/log2(1+guide_frequency). 기본 1 (고유 CI).
     guide_frequency = Column(Integer, nullable=False, server_default="1")
+    # Three-Worlds: 이 instance가 실현하는 고유 control(canonical CI) FK. derive_canonical_ci.py.
+    canonical_ci_id = Column(String(20))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class PgCanonicalChecklistItem(Base):
+    """Three-Worlds: 고유 control(정규화-텍스트 군집). derive_canonical_ci.py 산출.
+
+    O↔CI 독립 facet 매칭 대상. guide_degree = 이 control을 bundle하는 distinct Guide 수
+    (boilerplate 신호; 특이도=1/log2(1+guide_degree)). facet은 instance 집계 + SR 상속.
+    """
+    __tablename__ = "canonical_checklist_items"
+    __table_args__ = {"extend_existing": True}
+
+    canonical_ci_id = Column(String(20), primary_key=True)
+    rep_text = Column(Text, nullable=False)
+    member_count = Column(Integer, nullable=False)
+    guide_degree = Column(Integer, nullable=False)
+    is_boilerplate = Column(Boolean, nullable=False, default=False)
+    accident_types_canonical = Column(JSONB)
+    hazardous_agents_canonical = Column(JSONB)
+    work_contexts_canonical = Column(JSONB)
+    addresses_hazard_canonical = Column(JSONB)
+
+
+class PgGuideControlBundle(Base):
+    """Three-Worlds: Guide ↔ canonical CI bundle(다대다). rank fusion corroboration 신호."""
+    __tablename__ = "guide_control_bundle"
+    __table_args__ = {"extend_existing": True}
+
+    guide_code = Column(String(20), primary_key=True)
+    canonical_ci_id = Column(String(20), primary_key=True)
+    member_count = Column(Integer, nullable=False, default=1)
 
 
 class PgNormStatement(Base):

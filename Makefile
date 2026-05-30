@@ -40,7 +40,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify \
-        verify-codes
+        verify-codes verify-codes-shape gen-canonical-shape continual-pending
 
 help:
 	@echo "arch-bot dev launcher"
@@ -410,7 +410,24 @@ phase-g-verify:
 # CRITICAL(온톨로지 UPPER/dual-URI) 발견 시 exit 1 → CI에서 어휘 드리프트 차단.
 # ---------------------------------------------------------------------------
 
+ONT_SCRIPTS := $(ROOT)/ontology-team/06-reasoning/ontology/scripts
+
 verify-codes:
 	@echo "[verify-codes] 코드 어휘 정합성 하드게이트 (온톨로지 UPPER/dual-URI 재발 차단)"
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ROOT)/scripts/audit_code_consistency.py' --gate
+
+# 선언적 보완재 — ABox 코드 IRI ∈ KOSHA-22 정본 SHACL allowlist (pyshacl). 비정본 IRI 시 exit 1.
+verify-codes-shape:
+	@echo "[verify-codes-shape] ABox 코드 IRI ∈ canonical SHACL 검증 (pyshacl)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/validate_canonical_codes.py' --gate
+
+# SSOT 변경(canonical-code-vocabulary.json) 시 shape 재생성. 산출물은 git tracked.
+gen-canonical-shape:
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/gen_canonical_code_shape.py'
+
+# Layer 4.7 Continual — pending/UNKNOWN open-class 코드 승격 후보 추적 (live PG 빈도, 읽기전용).
+# gate WARN을 빈도 랭킹 + tier(PROMOTE/WATCH/NOISE) queue로 형식화. 자세히: docs/dev-notes/phase5-incremental-guardrails.md
+continual-pending:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(F1_SCRIPTS)/continual_pending_promotion.py' $(ARGS)

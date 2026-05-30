@@ -46,6 +46,15 @@ def pending_bucket(axis: str) -> str:
     return _load()["axes"][axis]["pending_bucket"]
 
 
+def meta_set(axis: str) -> set[str]:
+    """관리/기타 의사코드 (위험축 아님, 예: work_context→SAFETY_MGMT/PPE_MGMT/OTHER).
+
+    canonical은 아니나 rollup 항등(자기 자신)이라 to_canonical이 pending으로 떨어뜨리지
+    않는 정당한 축 값. SR/Guide가 실사용 → 정합 검증(SHACL allowlist)에서 canonical과 함께 허용.
+    """
+    return set(_load()["axes"][axis].get("wc_meta", []))
+
+
 def to_canonical(axis: str, code: str) -> tuple[str, str]:
     """fine/원시 코드 → (정본축, 정본코드). 교차축이면 축이 바뀐다.
 

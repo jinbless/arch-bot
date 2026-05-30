@@ -1,0 +1,95 @@
+# Phase 1 — CI/Guide facet 유도 SHACL CONSTRUCT (Three-Worlds 재설계).
+#
+# 원리: open-world 관찰은 CI/Guide와 각각 독립 facet 매칭. 그러려면 두 표면이 자기 canonical
+# facet을 가져야 한다. authoritative SR↔hazard(accident_type/agent/context)를 구조를 따라 전파:
+#   - CI-SR-*: canonical CI가 basedOnSR한 SR의 facet을 상속 (전이 라우팅 아님 — CI 자기 facet 보강).
+#   - G-roll-*: Guide가 bundle한 non-boilerplate canonical CI의 facet을 rollup (Guide 자기 facet).
+# boilerplate(고 guide-degree) CI는 G-roll에서 제외 → fan-out noise 억제(구조적, 휴리스틱 아님).
+#
+# 실행: run_guide_hazard_rules.py (pyshacl 호환 + rdflib CONSTRUCT fast-path, fixpoint).
+# 각 construct의 WHERE는 self-contained($this 타입 명시) — pyshacl(targetClass)·rdflib 양쪽 실행.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sr: <https://cashtoss.info/ontology/sr#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix krs: <https://cashtoss.info/ontology/shacl-rules#> .
+
+
+krs:GuideHazardPrefixes a sh:PrefixDeclaration ;
+    sh:declare [ sh:prefix "guide" ; sh:namespace "https://cashtoss.info/ontology/guide#"^^xsd:anyURI ] ,
+        [ sh:prefix "sr" ; sh:namespace "https://cashtoss.info/ontology/sr#"^^xsd:anyURI ] ,
+        [ sh:prefix "rdf" ; sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ] .
+
+
+### CI-SR-acc: canonical CI ← basedOnSR → SR addressesAccidentType (자기 facet 보강)
+krs:CISRAccidentShape a sh:NodeShape ;
+    rdfs:label "CI-SR-acc: canonical CI는 basedOnSR한 SR의 accident_type 상속"@ko ;
+    sh:targetClass guide:CanonicalChecklistItem ;
+    sh:rule [ a sh:SPARQLRule ; sh:prefixes krs:GuideHazardPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this guide:ciAddressesAccidentType ?a }
+            WHERE { $this a guide:CanonicalChecklistItem ; guide:basedOnSR ?sr .
+                    ?sr sr:addressesAccidentType ?a . }
+        """ ] .
+
+### CI-SR-agt
+krs:CISRAgentShape a sh:NodeShape ;
+    rdfs:label "CI-SR-agt: canonical CI는 basedOnSR한 SR의 agent 상속"@ko ;
+    sh:targetClass guide:CanonicalChecklistItem ;
+    sh:rule [ a sh:SPARQLRule ; sh:prefixes krs:GuideHazardPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this guide:ciAddressesAgent ?g }
+            WHERE { $this a guide:CanonicalChecklistItem ; guide:basedOnSR ?sr .
+                    ?sr sr:addressesAgent ?g . }
+        """ ] .
+
+### CI-SR-ctx
+krs:CISRContextShape a sh:NodeShape ;
+    rdfs:label "CI-SR-ctx: canonical CI는 basedOnSR한 SR의 work_context 상속"@ko ;
+    sh:targetClass guide:CanonicalChecklistItem ;
+    sh:rule [ a sh:SPARQLRule ; sh:prefixes krs:GuideHazardPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this guide:ciInWorkContext ?c }
+            WHERE { $this a guide:CanonicalChecklistItem ; guide:basedOnSR ?sr .
+                    ?sr sr:inWorkContext ?c . }
+        """ ] .
+
+
+### G-roll-acc: Guide ← bundlesControl → non-boilerplate canonical CI accident_type (자기 facet rollup)
+krs:GuideRollAccidentShape a sh:NodeShape ;
+    rdfs:label "G-roll-acc: Guide는 non-boilerplate bundle CI의 accident_type rollup"@ko ;
+    sh:targetClass guide:KoshaGuide ;
+    sh:rule [ a sh:SPARQLRule ; sh:prefixes krs:GuideHazardPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this guide:addressesHazard ?a }
+            WHERE { $this a guide:KoshaGuide ; guide:bundlesControl ?ci .
+                    ?ci guide:ciAddressesAccidentType ?a .
+                    FILTER NOT EXISTS { ?ci guide:isBoilerplate true } }
+        """ ] .
+
+### G-roll-agt
+krs:GuideRollAgentShape a sh:NodeShape ;
+    rdfs:label "G-roll-agt: Guide는 non-boilerplate bundle CI의 agent rollup"@ko ;
+    sh:targetClass guide:KoshaGuide ;
+    sh:rule [ a sh:SPARQLRule ; sh:prefixes krs:GuideHazardPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this guide:guideAddressesAgent ?g }
+            WHERE { $this a guide:KoshaGuide ; guide:bundlesControl ?ci .
+                    ?ci guide:ciAddressesAgent ?g .
+                    FILTER NOT EXISTS { ?ci guide:isBoilerplate true } }
+        """ ] .
+
+### G-roll-ctx
+krs:GuideRollContextShape a sh:NodeShape ;
+    rdfs:label "G-roll-ctx: Guide는 non-boilerplate bundle CI의 work_context rollup"@ko ;
+    sh:targetClass guide:KoshaGuide ;
+    sh:rule [ a sh:SPARQLRule ; sh:prefixes krs:GuideHazardPrefixes ;
+        sh:construct """
+            CONSTRUCT { $this guide:guideAppliesToContext ?c }
+            WHERE { $this a guide:KoshaGuide ; guide:bundlesControl ?ci .
+                    ?ci guide:ciInWorkContext ?c .
+                    FILTER NOT EXISTS { ?ci guide:isBoilerplate true } }
+        """ ] .
