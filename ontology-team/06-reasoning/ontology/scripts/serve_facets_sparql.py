@@ -8,7 +8,15 @@ PG는 이 온톨로지의 특정시점 스냅샷일 뿐이므로, 진짜 확인�
   python ontology-team/06-reasoning/ontology/scripts/serve_facets_sparql.py
 필요: pip install rdflib-endpoint uvicorn fastapi
 """
+import sys
 from pathlib import Path
+
+# Windows cp949 콘솔에서 em-dash(—) 등 비-cp949 문자 print 시 UnicodeEncodeError 크래시 방지
+# (백그라운드 런치는 stdout 인코딩이 cp949 → reconfigure로 utf-8 강제). validate_prefixes.py와 동일 패턴.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
 
 import uvicorn
 from rdflib import Graph
