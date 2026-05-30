@@ -41,39 +41,27 @@ public class KoshaFusekiServer {
         // Phase 3 (이번 단계) 추가: 22대 사고유형 disjointness (별도 axioms TTL).
         // T2.B (F.3.4) 추가: F.3.2 candidate axiom SHACL shapes (sh:Info severity).
         // SWRL 파일은 의사코드라 제외 (Phase F.3에서 실행 가능 형식 변환 예정).
-        String[][] sources = {
-            {"/kosha-ontology-v2.owl",                   "RDF/XML", "OWL v2 (BFO+LKIF)"},
-            {"/kosha-instances.ttl",                     "TURTLE",  "Instances (ABox)"},
-            {"/kosha-disjoint-axioms.ttl",               "TURTLE",  "Industry disjoint axioms (vetted)"},
-            {"/serving-validation-shapes-v3.ttl",        "TURTLE",  "SHACL shapes v3"},
-            {"/kosha-ontology-v3-subclass-patch.ttl",    "TURTLE",  "Phase 3C subclass hierarchy"},
-            {"/kosha-accident22-disjoint.ttl",           "TURTLE",  "KOSHA 22대 사고유형 disjoint"},
-            {"/kb-candidates.ttl",                       "TURTLE",  "F.3.2 candidate axioms (SHACL sh:Info)"},
-            {"/kosha-rules-r1-r3-swrl.ttl",              "TURTLE",  "T4 #3 SWRL rules R-1/R-3 (OWL serialization)"},
-            {"/kosha-ontology-v4-deps-patch.ttl",        "TURTLE",  "Axiom 100% Phase A: core:dependsOn property"},
-            {"/kosha-rules-r2-r4-swrl.ttl",              "TURTLE",  "Axiom 100% Phase A: SWRL rules R-2 (coApplicable) + R-4 (dependsOn)"},
-            {"/kosha-ontology-v4-alethic-patch.ttl",     "TURTLE",  "Axiom 100% Phase B: alethic chain TBox (guide:Equipment + 10 properties)"},
-            {"/kosha-rules-r9-r13-swrl.ttl",             "TURTLE",  "Axiom 100% Phase B: SWRL rules R-10/R-11/R-12/R-13 (R-9 SKIP, 사유 ttl 참조)"},
-            // Sprint A-2 Final + 1+2+3 보강: Phase C/D/E/F SWRL R-14~R-30 (12 rules) 결합이
-            // Pellet OWL DL undecidable trigger (NEXPTIME-complete). → SHACL SPARQLRule으로 변환 완료:
-            //   kosha-rules-r14-r30-shacl-construct.ttl (12 sh:rule + sh:construct)
-            //   pyshacl validate(advanced=True)로 별도 trigger (run_shacl_rules.py).
-            // 따라서 R-14~R-30 SWRL ttl 4개는 Pellet load에서 제외 (정형 syntax는 git 보존,
-            // SHACL fire는 pyshacl path 확보). TBox patch는 모두 유지.
-            {"/kosha-ontology-v4-bridge-patch.ttl",      "TURTLE",  "Phase C: bridge:* namespace TBox (7 properties + 1 class)"},
-            // {"/kosha-rules-r14-r18-swrl.ttl",         → SHACL: kosha-rules-r14-r30-shacl-construct.ttl R-14~R-18
-            {"/kosha-ontology-v4-deontic-patch.ttl",     "TURTLE",  "Phase D: deontic chain TBox (6 properties + 1 class)"},
-            // {"/kosha-rules-r19-r23-swrl.ttl",         → SHACL: kosha-rules-r14-r30-shacl-construct.ttl R-19~R-23
-            {"/kosha-ontology-v4-violation-patch.ttl",   "TURTLE",  "Phase E: violation chain TBox (2 properties + 1 class)"},
-            // {"/kosha-rules-r24-r26-swrl.ttl",         → SHACL: kosha-rules-r14-r30-shacl-construct.ttl R-24~R-26
-            {"/kosha-r27-shacl-exempted.ttl",            "TURTLE",  "Phase E: R-27 SHACL fallback (Pellet 영향 없음)"},
-            {"/kosha-ontology-v4-penalty-extra-patch.ttl","TURTLE", "Phase F: penalty chain TBox (5 properties + 2 classes + 1 NamedIndividual)"},
-            // {"/kosha-rules-r28-r30-swrl.ttl",         → SHACL: kosha-rules-r14-r30-shacl-construct.ttl R-28~R-30
-            {"/kosha-ontology-v4-restrictions-patch.ttl","TURTLE",  "Phase G: owl:Restriction 33+ (allValuesFrom, ABox safe)"},
-            {"/kosha-ontology-v4-hazard-direct-patch.ttl","TURTLE", "Phase H: risk:NaturalLanguageHazardCategory TBox (Hazard-Direct OWL 격상)"},
-            {"/kosha-instances-hazard-direct.ttl",       "TURTLE",  "Phase H: 13 canonical + 21 NLH alias ABox instances"},
-            {"/kosha-ontology-v4-asymmetric-patch.ttl",  "TURTLE",  "Phase J: law:modifiesAsymmetric AsymmetricProperty (AC-5 충족)"},
-        };
+        // assembly-manifest.json의 'serving' profile에서 로드 (단일 정본). 하드코딩 배열 제거.
+        // bind-mount(/ontology:ro)라 파일집합 변경 시 Java 재빌드 불필요 — JSON만 재생성하면 됨.
+        // R-14~R-30 SWRL은 Pellet NEXPTIME 회피로 serving profile에서 제외(SHACL twin 사용) — manifest note 참조.
+        String manifestPath = ontologyDir + "/assembly-manifest.json";
+        org.apache.jena.atlas.json.JsonArray servingArr;
+        try (java.io.InputStream mfIn = new java.io.FileInputStream(manifestPath)) {
+            org.apache.jena.atlas.json.JsonObject mf = org.apache.jena.atlas.json.JSON.parse(mfIn);
+            servingArr = mf.get("profiles").getAsObject().get("serving").getAsArray();
+        } catch (Exception ex) {
+            System.err.println("FATAL: assembly-manifest.json 로드 실패: " + manifestPath + " — " + ex);
+            return;
+        }
+        String[][] sources = new String[servingArr.size()][3];
+        for (int i = 0; i < servingArr.size(); i++) {
+            org.apache.jena.atlas.json.JsonObject e = servingArr.get(i).getAsObject();
+            String file = e.get("file").getAsString().value();
+            String fmt = e.get("format").getAsString().value();
+            sources[i][0] = "/" + file;
+            sources[i][1] = fmt.equals("xml") ? "RDF/XML" : "TURTLE";
+            sources[i][2] = file;
+        }
 
         System.out.println("=== KOSHA Fuseki Server ===");
         System.out.println("Ontology dir: " + ontologyDir);

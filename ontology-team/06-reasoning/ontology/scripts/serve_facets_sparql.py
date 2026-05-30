@@ -16,29 +16,11 @@ from rdflib_endpoint import SparqlEndpoint
 
 ONT = Path(__file__).resolve().parents[1]
 
-# 로드 대상 — TBox(속성 정의) + ABox(facet). 새 Three-Worlds 파일 포함.
-FILES = [
-    # ── 스키마(TBox): 클래스/속성 정의 전체 ──
-    "kosha-ontology.formatted.ttl",                 # 베이스 TBox(클래스/속성 + 62 facet 개체)
-    "kosha-ontology-v4-kosha22-vocab-patch.ttl",    # facet 값 정의(한글 라벨)
-    "kosha-ontology-v4-guide-hazard-patch.ttl",     # guide:addressesHazard 등
-    "kosha-ontology-v4-canonical-ci-patch.ttl",     # CanonicalChecklistItem/realizesControl/bundlesControl
-    "kosha-ontology-v4-deps-patch.ttl",             # core:dependsOn
-    "kosha-ontology-v4-alethic-patch.ttl",          # guide:Equipment 등
-    "kosha-ontology-v4-bridge-patch.ttl",           # bridge:*
-    "kosha-ontology-v4-deontic-patch.ttl",          # deontic
-    "kosha-ontology-v4-violation-patch.ttl",        # violation
-    "kosha-ontology-v4-penalty-extra-patch.ttl",    # penalty 확장
-    "kosha-ontology-v4-restrictions-patch.ttl",     # owl:Restriction
-    "kosha-ontology-v4-hazard-direct-patch.ttl",    # risk:NaturalLanguageHazardCategory
-    "kosha-ontology-v4-asymmetric-patch.ttl",       # law:modifiesAsymmetric
-    # ── ABox: 데이터 + Three-Worlds + open-world ──
-    "kosha-instances.ttl",                          # SR/CI/Guide/law/penalty 데이터 (대용량)
-    "kosha-instances-canonical-ci.ttl",             # canonical CI facet + 구조 [NEW]
-    "kosha-instances-ci-guide-hazard-derived.ttl",  # Guide 유도 facet [NEW]
-    "kosha-instances-hazard-direct.ttl",            # risk: NLH (open→closed 다리)
-    "kosha-instances-production-8photo.ttl",        # app:VisualObservation (open-world 사진)
-]
+# 로드 대상 = assembly manifest의 facet-explorer profile (단일 정본). 하드코딩 리스트 제거.
+import sys as _sys
+_sys.path.insert(0, str(ONT / "assembly"))
+import manifest as _manifest  # noqa: E402
+FILES = _manifest.load_profile("facet-explorer")  # [{path, file, format, role, id}, ...]
 PREFIXES = {
     # cashtoss.info 정본 — validate_prefixes.py CANONICAL과 동일 (SSOT)
     "core": "https://cashtoss.info/ontology#",
@@ -85,14 +67,14 @@ def main() -> None:
     for p, ns in PREFIXES.items():
         g.bind(p, ns)
     print("=== 온톨로지 TTL 로드 (PG 아님) ===")
-    for f in FILES:
-        path = ONT / f
+    for e in FILES:
+        path = e["path"]
         if not path.exists():
-            print(f"  SKIP(없음): {f}")
+            print(f"  SKIP(없음): {e['file']}")
             continue
         pre = len(g)
-        g.parse(str(path), format="turtle")
-        print(f"  +{len(g) - pre:>8}  {f}", flush=True)
+        g.parse(str(path), format=e["format"])
+        print(f"  +{len(g) - pre:>8}  {e['file']}", flush=True)
     print(f"총 {len(g)} triples — http://localhost:3031 에서 SPARQL 쿼리 (YASGUI)", flush=True)
 
     app = SparqlEndpoint(

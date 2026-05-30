@@ -13,10 +13,13 @@ GUIDE = Namespace("https://cashtoss.info/ontology/guide#")
 import os
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+import sys as _sys
+_sys.path.insert(0, f"{BASE}/assembly")
+import manifest as _manifest  # noqa: E402
 g = Graph()
 print("Loading ontology...")
-g.parse(f"{BASE}/kosha-ontology.owl", format="xml")
-g.parse(f"{BASE}/kosha-instances.ttl", format="turtle")
+for _e in _manifest.load_profile("inference-legacy"):
+    g.parse(str(_e["path"]), format=_e["format"])
 base_count = len(g)
 print(f"  Base triples: {base_count}")
 

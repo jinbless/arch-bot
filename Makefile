@@ -40,7 +40,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify \
-        verify-codes verify-codes-shape verify-prefixes gen-canonical-shape continual-pending
+        verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending
 
 help:
 	@echo "arch-bot dev launcher"
@@ -411,6 +411,7 @@ phase-g-verify:
 # ---------------------------------------------------------------------------
 
 ONT_SCRIPTS := $(ROOT)/ontology-team/06-reasoning/ontology/scripts
+ONT_DIR := $(ROOT)/ontology-team/06-reasoning/ontology
 
 verify-codes:
 	@echo "[verify-codes] 코드 어휘 정합성 하드게이트 (온톨로지 UPPER/dual-URI 재발 차단)"
@@ -426,6 +427,15 @@ verify-codes-shape:
 verify-prefixes:
 	@echo "[verify-prefixes] 온톨로지 .ttl prefix 정본 표준 검증 (canonical short name + IRI)"
 	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/validate_prefixes.py'
+
+# assembly manifest — '무엇이 온톨로지인가' 단일 정본. SSOT(assembly/manifest_source.py) → JSON.
+gen-manifest:
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_DIR)/assembly/gen_manifest.py'
+
+# manifest 정합 가드레일 — dir의 모든 파일이 단일 정본에 등록(silent orphan 0) + freshness. 위반 시 exit 1.
+verify-manifest:
+	@echo "[verify-manifest] assembly manifest 정합 (single source of truth)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/validate_manifest.py'
 
 # SSOT 변경(canonical-code-vocabulary.json) 시 shape 재생성. 산출물은 git tracked.
 gen-canonical-shape:

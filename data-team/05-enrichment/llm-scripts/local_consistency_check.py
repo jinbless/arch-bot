@@ -34,40 +34,23 @@ REPO_ROOT = _find_repo_root()
 ONTOLOGY_DIR = REPO_ROOT / "ontology-team" / "06-reasoning" / "ontology"
 ARTIFACTS_DIR = REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts"
 
-V2_OWL = ONTOLOGY_DIR / "kosha-ontology-v2.owl"
-DISJOINT_TTL = ONTOLOGY_DIR / "kosha-disjoint-axioms.ttl"
-SHAPES_V2 = ONTOLOGY_DIR / "serving-validation-shapes-v3.ttl"  # use fixed v3
-INSTANCES_TTL = ONTOLOGY_DIR / "kosha-instances.ttl"
+# 하드코딩 리스트 제거 → assembly manifest의 consistency profile에서 파생 (단일 정본).
+sys.path.insert(0, str(ONTOLOGY_DIR / "assembly"))
+import manifest as _manifest  # noqa: E402
+_CONS = {e["id"]: e for e in _manifest.load_profile("consistency")}
+V2_OWL = _CONS["base-v2-owl"]["path"]
+DISJOINT_TTL = _CONS["disjoint-axioms"]["path"]
+SHAPES_V2 = _CONS["shapes-serving-v3"]["path"]  # SHACL 검증용(merged graph 아님)
+INSTANCES_TTL = _CONS["abox-instances"]["path"]
 CQ_PATH = ARTIFACTS_DIR / "sparql_cq_coverage.json"
 
 OUT_REPORT = ARTIFACTS_DIR / "local_consistency_report.json"
 
-# Sprint D 확장: Axiom 100% Phase A-J 추가 ttl 모두 load.
-PHASE_AJ_TTLS = [
-    ONTOLOGY_DIR / "kosha-ontology-v3-subclass-patch.ttl",
-    ONTOLOGY_DIR / "kosha-accident22-disjoint.ttl",
-    ONTOLOGY_DIR / "kb-candidates.ttl",
-    ONTOLOGY_DIR / "kosha-rules-r1-r3-swrl.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-deps-patch.ttl",
-    ONTOLOGY_DIR / "kosha-rules-r2-r4-swrl.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-alethic-patch.ttl",
-    ONTOLOGY_DIR / "kosha-rules-r9-r13-swrl.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-bridge-patch.ttl",
-    ONTOLOGY_DIR / "kosha-rules-r14-r18-swrl.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-deontic-patch.ttl",
-    ONTOLOGY_DIR / "kosha-rules-r19-r23-swrl.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-violation-patch.ttl",
-    ONTOLOGY_DIR / "kosha-rules-r24-r26-swrl.ttl",
-    ONTOLOGY_DIR / "kosha-r27-shacl-exempted.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-penalty-extra-patch.ttl",
-    ONTOLOGY_DIR / "kosha-rules-r28-r30-swrl.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-restrictions-patch.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-hazard-direct-patch.ttl",
-    ONTOLOGY_DIR / "kosha-instances-hazard-direct.ttl",
-    ONTOLOGY_DIR / "kosha-ontology-v4-asymmetric-patch.ttl",
-    ONTOLOGY_DIR / "kosha-rules-r14-r30-shacl-construct.ttl",
-    ONTOLOGY_DIR / "kosha-vetted-disjoint-shapes.ttl",
-]
+# Phase A-J merged graph = consistency profile에서 (base/disjoint/shapes/instances 제외) 나머지.
+# SHAPES_V2(serving-v3)는 별도 SHACL 검증용이라 제외, vetted-disjoint-shapes 등은 포함(g 병합).
+_MERGED_SPECIAL = {"base-v2-owl", "disjoint-axioms", "shapes-serving-v3", "abox-instances"}
+PHASE_AJ_TTLS = [e["path"] for e in _manifest.load_profile("consistency")
+                 if e["id"] not in _MERGED_SPECIAL]
 
 
 def main() -> int:

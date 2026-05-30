@@ -32,25 +32,12 @@ def _find_root() -> Path:
 REPO = _find_root()
 ONT = REPO / "ontology-team" / "06-reasoning" / "ontology"
 
-DATA_TTLS = [
-    "kosha-ontology-v2.owl",
-    "kosha-disjoint-axioms.ttl",
-    "kosha-ontology-v3-subclass-patch.ttl",
-    "kosha-accident22-disjoint.ttl",
-    "kosha-ontology-v4-deps-patch.ttl",
-    "kosha-ontology-v4-alethic-patch.ttl",
-    "kosha-ontology-v4-bridge-patch.ttl",
-    "kosha-ontology-v4-deontic-patch.ttl",
-    "kosha-ontology-v4-violation-patch.ttl",
-    "kosha-ontology-v4-penalty-extra-patch.ttl",
-    "kosha-ontology-v4-restrictions-patch.ttl",
-    "kosha-ontology-v4-hazard-direct-patch.ttl",
-    "kosha-instances-hazard-direct.ttl",
-    "kosha-ontology-v4-asymmetric-patch.ttl",
-    # ABox optional — 본 R-14~R-30 fire에 runtime instance 필요 (Phase B 발견대로 모두 0)
-    "kosha-instances.ttl",
-]
-SHACL_RULES_TTL = "kosha-rules-r14-r30-shacl-construct.ttl"
+# 하드코딩 리스트 제거 → assembly manifest의 shacl-materialize profile에서 파생 (단일 정본).
+# data graph = rules-shacl 제외, shapes = rules-shacl. 파일집합은 기존과 동일(set-equality 증명됨).
+sys.path.insert(0, str(ONT / "assembly"))
+import manifest as _manifest  # noqa: E402
+DATA_TTLS = [e["file"] for e in _manifest.paths("shacl-materialize", exclude_roles={"rules-shacl"})]
+SHACL_RULES_TTL = _manifest.paths("shacl-materialize", only_roles={"rules-shacl"})[0]["file"]
 
 
 def main():

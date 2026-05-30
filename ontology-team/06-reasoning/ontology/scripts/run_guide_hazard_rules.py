@@ -17,8 +17,10 @@ from pathlib import Path
 from rdflib import Graph
 
 ONT = Path(__file__).resolve().parents[1]
-DATA = ["kosha-instances.ttl", "kosha-instances-canonical-ci.ttl"]
-RULES = "kosha-rules-guide-hazard-shacl.ttl"
+sys.path.insert(0, str(ONT / "assembly"))
+import manifest as _manifest  # noqa: E402
+DATA = [e["file"] for e in _manifest.paths("guide-hazard-rules", exclude_roles={"rules-shacl"})]
+RULES = _manifest.paths("guide-hazard-rules", only_roles={"rules-shacl"})[0]["file"]
 OUT = ONT / "kosha-instances-ci-guide-hazard-derived.ttl"
 PREFIX = (
     "PREFIX guide: <https://cashtoss.info/ontology/guide#>\n"
