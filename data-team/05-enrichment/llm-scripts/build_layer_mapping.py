@@ -181,8 +181,8 @@ def main() -> int:
     OUT_OWL.parent.mkdir(parents=True, exist_ok=True)
     g.serialize(destination=str(OUT_OWL), format="xml")
     print(f"\nSaved: {OUT_OWL.relative_to(REPO_ROOT)}")
-    g.serialize(destination=str(OUT_TTL), format="turtle")
-    print(f"Saved: {OUT_TTL.relative_to(REPO_ROOT)}")
+    # OUT_TTL(kosha-ontology-v2.formatted.ttl) 직렬화 제거(A): v2.owl과 동치 포맷중복 →
+    # facet-explorer가 v2.owl(xml) 직접 사용. (이 스크립트는 historical Phase E — 입력 kosha-ontology.owl은 archive/로 이동.)
 
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     AUDIT_PATH.write_text(

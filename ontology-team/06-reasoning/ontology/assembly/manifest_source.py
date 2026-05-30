@@ -29,9 +29,8 @@ _CODE = {"SRV": "serving", "CON": "consistency", "MAT": "shacl-materialize",
 _E = [
     # ── BASE TBox ─────────────────────────────────────────────────────────────
     ("base-v2-owl", "kosha-ontology-v2.owl", "tbox-base", "L3-reasoning",
-     {"SRV", "CON", "MAT", "INF"}, "xml", "v2 base (BFO+LKIF, sosa). SRV/CON/MAT + INF(Phase1.5 v1→v2)."),
-    ("base-v2-ttl", "kosha-ontology-v2.formatted.ttl", "tbox-base", "L3-reasoning",
-     {"FAC"}, "turtle", "v2 base Turtle. facet-explorer base (Phase1.5 v1→v2 정정)."),
+     {"SRV", "CON", "MAT", "INF", "FAC"}, "xml",
+     "v2 base (BFO+LKIF, sosa). 전 profile 공통(FAC 포함). 구 v2.formatted.ttl 포맷중복 제거(A) — build_layer_mapping이 같이 생성한 동치(triple diff 0)였음."),
     ("arc-v1-owl", "archive/kosha-ontology.owl", "archive", "-",
      set(), "xml", "v1 raw base(obsolete). INF가 v2로 이전됨 → archive."),
     ("arc-v1-formatted", "archive/kosha-ontology.formatted.ttl", "archive", "-",

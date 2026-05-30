@@ -265,8 +265,8 @@
     ],
     "facet-explorer": [
       {
-        "file": "kosha-ontology-v2.formatted.ttl",
-        "format": "turtle"
+        "file": "kosha-ontology-v2.owl",
+        "format": "xml"
       },
       {
         "file": "kosha-ontology-v4-kosha22-vocab-patch.ttl",
@@ -395,23 +395,13 @@
       "layer": "L3-reasoning",
       "profiles": [
         "consistency",
+        "facet-explorer",
         "inference-legacy",
         "serving",
         "shacl-materialize"
       ],
       "format": "xml",
-      "note": "v2 base (BFO+LKIF, sosa). SRV/CON/MAT + INF(Phase1.5 v1→v2)."
-    },
-    {
-      "id": "base-v2-ttl",
-      "file": "kosha-ontology-v2.formatted.ttl",
-      "role": "tbox-base",
-      "layer": "L3-reasoning",
-      "profiles": [
-        "facet-explorer"
-      ],
-      "format": "turtle",
-      "note": "v2 base Turtle. facet-explorer base (Phase1.5 v1→v2 정정)."
+      "note": "v2 base (BFO+LKIF, sosa). 전 profile 공통(FAC 포함). 구 v2.formatted.ttl 포맷중복 제거(A) — build_layer_mapping이 같이 생성한 동치(triple diff 0)였음."
     },
     {
       "id": "arc-v1-owl",

@@ -55,8 +55,7 @@ STANDARD_PREFIXES = {"rdf", "rdfs", "owl", "xsd", "sh", "prov", "dct", "dc",
 
 # 검사 제외 파일 (구버전 base 스냅샷/읽기용 주석본 — 비활성, 표준화 비대상)
 SKIP_FILES = {
-    "kosha-ontology-v2.formatted.ttl",  # 구버전 base 스냅샷
-    "kosha-ontology.annotated.ttl",     # 읽기용 주석본
+    "kosha-ontology.annotated.ttl",     # 읽기용 주석본(archive/)
 }
 
 # ── 정규식 ───────────────────────────────────────────────────────────────────
