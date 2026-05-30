@@ -33,6 +33,7 @@ from app.models.hazard import (
 )
 from app.services import (
     guide_recommendation_service,
+    match_fusion_service,
     penalty_path_service,
     risk_rule_service,
     situation_frame_service,
@@ -274,50 +275,24 @@ class AnalysisPipeline:
         recommendation_matches = actionable_matches
         recommendation_risk_features = risk_features if observable_violation_signal else []
 
-        preliminary_guide_rows = guide_recommendation_service.get_standard_guides(
-            db,
-            sr_ids,
-            direct_sr_ids=direct_sr_ids,
-            limit=6,
-            industry_contexts=industry_context.active_industries,
-            risk_features=recommendation_risk_features,
-            she_matches=recommendation_matches,
-            visual_cues=visual_cues,
-            context_text=" ".join(filter(None, [declared_industry_text, context_text])),
-            situation_frame=situation_frame,
-            apply_photo_top_gate=False,
-            allow_support_without_observable_cue=observable_violation_signal,
-        )
-        preferred_guide_codes = self._unique(
-            [row.get("guide_code") for row in preliminary_guide_rows if row.get("guide_code")]
-        )
-        checklist_rows = guide_recommendation_service.get_immediate_checklist_items(
-            db,
-            sr_ids,
-            direct_sr_ids=direct_sr_ids,
-            limit=12,
-            risk_features=recommendation_risk_features,
-            she_matches=recommendation_matches,
-            visual_cues=visual_cues,
-            industry_contexts=industry_context.active_industries,
-            context_text=" ".join(filter(None, [declared_industry_text, context_text])),
-            preferred_guide_codes=preferred_guide_codes,
-            situation_frame=situation_frame,
-            allow_contextual_ci_fallback=observable_violation_signal,
-        )
-        guide_rows = guide_recommendation_service.get_standard_guides(
-            db,
-            sr_ids,
-            direct_sr_ids=direct_sr_ids,
-            limit=6,
-            industry_contexts=industry_context.active_industries,
-            risk_features=recommendation_risk_features,
-            she_matches=recommendation_matches,
-            visual_cues=visual_cues,
-            context_text=" ".join(filter(None, [declared_industry_text, context_text])),
-            situation_frame=situation_frame,
-            allow_support_without_observable_cue=observable_violation_signal,
-        )
+        # ⭐ Three-Worlds: O facets로 CI/Guide 독립 facet 매칭 + corroboration fusion.
+        # 전이 라우팅(SR→CI junction, CI-count Guide) 폐기. checklist_rows/guide_rows 계약은
+        # 유지 → 다운스트림 응답 조립(_build_immediate_actions/_build_standard_procedures) 무변경.
+        # SR 쿼리와 동일 게이트(actionable/observable) — negative case false positive 방지.
+        checklist_rows: list[dict] = []
+        guide_rows: list[dict] = []
+        if actionable_matches or observable_violation_signal:
+            _fusion = match_fusion_service.build_recommendation_rows(
+                db,
+                canonical["accident_types"],
+                canonical["hazardous_agents"],
+                canonical["work_contexts"],
+                ci_limit=12,
+                guide_limit=6,
+                industry_contexts=industry_context.active_industries,
+            )
+            checklist_rows = _fusion["checklist_rows"]
+            guide_rows = _fusion["guide_rows"]
         penalty_candidates = penalty_path_service.get_penalty_candidates(
             sr_ids,
             direct_sr_ids=direct_sr_ids,
