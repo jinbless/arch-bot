@@ -384,7 +384,8 @@
     "archive/kosha-instances-guide-hazard.ttl",
     "archive/serving-policy.ttl",
     "archive/serving-validation-shapes.ttl",
-    "archive/serving-validation-shapes-v2.ttl"
+    "archive/serving-validation-shapes-v2.ttl",
+    "archive/kosha-ontology-v3-restructure-patch.ttl"
   ],
   "files": [
     {
@@ -481,15 +482,6 @@
       "profiles": [],
       "format": "turtle",
       "note": "G.3 penalty relation props TBox SoT. orphan-but-keep."
-    },
-    {
-      "id": "v3-restructure",
-      "file": "kosha-ontology-v3-restructure-patch.ttl",
-      "role": "tbox-patch",
-      "layer": "L3-reasoning",
-      "profiles": [],
-      "format": "turtle",
-      "note": "OntoClean 재구조화. ⚠️ 현재 파싱실패(<> 누락). Phase2에서 수리/판정."
     },
     {
       "id": "v4-deps",
@@ -979,6 +971,15 @@
       "profiles": [],
       "format": "turtle",
       "note": "serving shapes v2(superseded by v3)."
+    },
+    {
+      "id": "arc-v3-restructure",
+      "file": "archive/kosha-ontology-v3-restructure-patch.ttl",
+      "role": "archive",
+      "layer": "-",
+      "profiles": [],
+      "format": "turtle",
+      "note": "obsolete: 의도(axis⊑RiskFeature, CriminalSanction⊑SanctionType)가 v2.owl에 이미 구현. patch는 CriminalSanctionType/HazardousAgentFeature 오타·미정의 + <> 파싱실패. 수리 불요 → archive(B2)."
     }
   ]
 }

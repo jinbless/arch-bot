@@ -49,8 +49,7 @@ _E = [
      set(), "turtle", "G.2 guide:GuideUsageProfile 유일 정의. orphan-but-keep."),
     ("v3-penalty-relations", "kosha-ontology-v3-penalty-relations-patch.ttl", "tbox-patch", "L3-reasoning",
      set(), "turtle", "G.3 penalty relation props TBox SoT. orphan-but-keep."),
-    ("v3-restructure", "kosha-ontology-v3-restructure-patch.ttl", "tbox-patch", "L3-reasoning",
-     set(), "turtle", "OntoClean 재구조화. ⚠️ 현재 파싱실패(<> 누락). Phase2에서 수리/판정."),
+    # (v3-restructure는 obsolete → 아래 ARCHIVE 블록 arc-v3-restructure로 이동, B2)
     # ── TBox patches: v4 chain (Axiom-100% Phase A-J) ────────────────────────
     ("v4-deps", "kosha-ontology-v4-deps-patch.ttl", "tbox-patch", "L3-reasoning",
      {"SRV", "CON", "MAT", "FAC"}, "turtle", "Phase A: core:dependsOn."),
@@ -143,6 +142,8 @@ _E = [
      set(), "turtle", "serving shapes v1(superseded by v3)."),
     ("arc-shapes-v2", "archive/serving-validation-shapes-v2.ttl", "archive", "-",
      set(), "turtle", "serving shapes v2(superseded by v3)."),
+    ("arc-v3-restructure", "archive/kosha-ontology-v3-restructure-patch.ttl", "archive", "-",
+     set(), "turtle", "obsolete: 의도(axis⊑RiskFeature, CriminalSanction⊑SanctionType)가 v2.owl에 이미 구현. patch는 CriminalSanctionType/HazardousAgentFeature 오타·미정의 + <> 파싱실패. 수리 불요 → archive(B2)."),
     # serving-snapshot-*.ttl 8개(74MB) — P1.6b에서 git rm 삭제(PG materialize 재생성 가능, 비추적 정책).
 ]
 
