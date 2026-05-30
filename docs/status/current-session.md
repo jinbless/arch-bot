@@ -1,10 +1,10 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-31** — ⭐ **재설계 Phase 3 facet taxonomy 완료(궁극 목표, `8adb79a`) + P1.6b archive 정리(`9b0e51b`) — push됨**. origin/main HEAD `9b0e51b`. vocab rollup 단일 SSOT, ctx 평면6→계층221, forklift⊑vehicle, **Openllet DL 일관성 검증**. **서빙 forklift 변별은 온톨로지와 디커플 → 서빙팀 백로그로 scope 확정**. 다음: B2 restructure-patch(axis→risk:RiskFeature) / B3 SWRL→SHACL parity / C1 catalog sub 검토.
+최신 갱신일: **2026-05-31** — ⭐ **Phase 3 facet taxonomy(궁극목표) + B-트랙 위생(B1/B2/A/B3) 완료 — 전부 push**. origin/main HEAD `1dab81a`. Phase 3(`8adb79a`): vocab rollup 단일 SSOT, ctx 6→221, **Openllet DL 일관성**, forklift⊑vehicle. B-트랙: archive 물리정리(60→51 files + 74MB + stale리포트 48 삭제), restructure-patch 화석/v2.formatted 포맷중복 제거, **SWRL≡SHACL parity 입증 → R-14~R-30 SWRL 4파일 은퇴**(CON 27→23). **남은 것**: B1b(디렉토리 layer화 — 생성기 ~10 출력경로 동반, 보류) / 서빙 백로그(forklift·catalog sub, 서빙팀) / 구 Three-Worlds #10·#11 재평가. 상세: plan `calm-hugging-pond.md` 「## 남은 작업」.
 
 ## ⭐ 2026-05-31 — Phase 3 facet taxonomy(궁극 목표 달성) + P1.6b archive 정리 (push 완료)
 
-origin/main HEAD `9b0e51b`. 재설계 Phase 3(facet 리모델) 온톨로지 레벨 완료 + B1(archive 물리이동). 승인 plan: `~/.claude/plans/calm-hugging-pond.md`.
+origin/main HEAD `1dab81a`. 재설계 Phase 3(facet 리모델) 온톨로지 레벨 완료 + B-트랙 위생(B1 archive / B2 restructure 화석 / A 포맷중복 / B3 SWRL 은퇴) 완료. 승인 plan: `~/.claude/plans/calm-hugging-pond.md`.
 
 **Step 0 — serve_facets cp949 버그픽스** (`5ed927b`): serve_facets_sparql.py가 부팅 마지막 print의 em-dash(—)를 Windows cp949 콘솔이 인코딩 못 해 백그라운드 런치 시 크래시(UnicodeEncodeError). `sys.stdout/stderr.reconfigure(utf-8)` 영구 수정(validate_prefixes 패턴).
 
@@ -19,7 +19,9 @@ origin/main HEAD `9b0e51b`. 재설계 Phase 3(facet 리모델) 온톨로지 레�
 
 **B1 — P1.6b archive 물리이동 + snapshot 삭제** (`9b0e51b`): archive 10 ttl/owl/swrl → `archive/`(git mv, history 보존), serving-snapshot 8개 **74MB git rm**(PG materialize 재생성 가능·비추적 정책). manifest_source archive 경로 `archive/<name>`, snapshot 엔트리 제거(60→52 files), `validate_prefixes` archive/ subtree skip 추가. **verify-manifest GREEN**(dir 52=SSOT 52, silent-orphan 0), verify-prefixes 0위반, active profile 카운트 전부 불변(archive=소비자 0). (full active-layering tbox/rules/abox는 `_dir_files`·Fuseki 경로 변경 필요 = cosmetic·고위험 → B1b 보류.)
 
-**다음 (재편성 task)**: **B2** restructure-patch(3축 top-class→`risk:RiskFeature` rooting을 gen_facet_taxonomy에 흡수 + penalty `<>` 수리, restructure-patch archive) / **B3** SWRL→SHACL parity harness→중복 SWRL 은퇴(R-1~13 유지, parity 미입증 은퇴 금지) / **C1** catalog sub 폐지 검토(serving 미사용 확인 후) / **C3** 본 문서+plan 갱신(=완료) / (선택)B1b full active-layering(보류) / 서빙 forklift 백로그(서빙팀) / 구 Three-Worlds #10·#11 재평가.
+**B-트랙 위생 완료** (2026-05-31): **B2** restructure-patch 화석 archive(의도 이미 v2.owl에 — 3축⊑RiskFeature/CriminalSanction⊑SanctionType, patch는 오타+파싱실패) `17b51c1` / **cleanup** 삭제 snapshot의 stale 리포트 48개(validation-report+workprocess-alignment × json/md/csv) 제거 `6846b76` / **A** v2.formatted.ttl 포맷중복 제거(=v2.owl 동치 triple diff 0, facet-explorer→v2.owl 통합) `e78fe29` / **B3** SWRL-RDF→SPARQL 충실변환 vs pyshacl로 **SWRL≡SHACL parity 입증**(demo-chain 15 triple, 차이 0) → R-14~R-30 SWRL 4파일 은퇴(R-1~13 Pellet+R-27 SHACL-only 유지, CON 27→23, conforms 회귀0) `af6840a`·`1dab81a`. 신규 진단/harness: `diff_facet_sources`/`verify_facet_taxonomy`/`verify_rule_parity`.
+
+**남은 것**: B1b 디렉토리 layer화(생성기 ~10개 출력경로 갱신 동반 = 보류) / 서빙 백로그(forklift fine 변별·catalog sub 마이그레이션 — 둘 다 runtime 의존, 서빙팀) / 구 Three-Worlds #10·#11 재평가. 상세 scope: plan `~/.claude/plans/calm-hugging-pond.md` 「## 남은 작업」.
 
 ## ⭐ 2026-05-30 (오후) — prefix 표준화 + manifest 단일정본 재설계 Phase 1 (push 완료)
 
