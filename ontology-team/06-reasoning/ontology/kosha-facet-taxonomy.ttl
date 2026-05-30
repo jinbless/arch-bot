@@ -1,0 +1,506 @@
+# kosha-facet-taxonomy.ttl — AUTO-GENERATED, 수동편집 금지 (scripts/gen_facet_taxonomy.py)
+# Generated: 2026-05-30T14:49:14.091743+00:00
+# SSOT: shared/reference/canonical-code-vocabulary.json (rollup)
+# 1) canonical owl:Class punning  2) fine ⊑ canonical(same-axis)  3) ctx 계층(rollup 자동)
+# cross-axis 제외(Python canonical_vocab 재라우팅): 21건, identity skip: 7건
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+
+# ════════ 1. canonical owl:Class punning (62) ════════
+# -- accident_type (haz) --
+haz:AnimalInjury a owl:Class .
+haz:CaughtIn a owl:Class .
+haz:ChemicalExposure a owl:Class .
+haz:Collapse a owl:Class .
+haz:Collision a owl:Class .
+haz:CrushedOverturned a owl:Class .
+haz:CutLaceration a owl:Class .
+haz:Drowning a owl:Class .
+haz:ElectricShock a owl:Class .
+haz:ErgonomicStrain a owl:Class .
+haz:Explosion a owl:Class .
+haz:Fall a owl:Class .
+haz:FireInjury a owl:Class .
+haz:OffSiteTraffic a owl:Class .
+haz:OtherAccident a owl:Class .
+haz:OxygenDeficiency a owl:Class .
+haz:SlipTrip a owl:Class .
+haz:SportsEventInjury a owl:Class .
+haz:StruckBy a owl:Class .
+haz:TempExtremeContact a owl:Class .
+haz:Unclassified a owl:Class .
+haz:Violence a owl:Class .
+haz:WorkplaceTraffic a owl:Class .
+
+# -- hazardous_agent (agent) --
+agent:Biological a owl:Class .
+agent:Chemical a owl:Class .
+agent:Dust a owl:Class .
+agent:Electricity a owl:Class .
+agent:Fire a owl:Class .
+agent:HeatCold a owl:Class .
+agent:Noise a owl:Class .
+agent:Radiation a owl:Class .
+agent:Toxic a owl:Class .
+agent:UnknownAgent a owl:Class .
+
+# -- work_context (ctx) --
+ctx:ChemicalWork a owl:Class .
+ctx:CollapsePrevention a owl:Class .
+ctx:ConfinedSpace a owl:Class .
+ctx:ConstructionEquip a owl:Class .
+ctx:Conveyor a owl:Class .
+ctx:Crane a owl:Class .
+ctx:Demolition a owl:Class .
+ctx:DustWork a owl:Class .
+ctx:ElectricalWork a owl:Class .
+ctx:ErgonomicWork a owl:Class .
+ctx:Excavation a owl:Class .
+ctx:FallProtection a owl:Class .
+ctx:FireExplosionWork a owl:Class .
+ctx:HeatColdWork a owl:Class .
+ctx:Logging a owl:Class .
+ctx:Machine a owl:Class .
+ctx:MaterialHandling a owl:Class .
+ctx:NoiseWork a owl:Class .
+ctx:Passage a owl:Class .
+ctx:PathogenWork a owl:Class .
+ctx:PressureVessel a owl:Class .
+ctx:RadiationWork a owl:Class .
+ctx:Rail a owl:Class .
+ctx:Robot a owl:Class .
+ctx:Scaffold a owl:Class .
+ctx:Steelwork a owl:Class .
+ctx:UnknownContext a owl:Class .
+ctx:Vehicle a owl:Class .
+ctx:Ventilation a owl:Class .
+
+# ════════ 2. fine ⊑ canonical (same-axis, 418) ════════
+# -- accident_type (haz): 158 --
+haz:AnimalBite a owl:Class ; rdfs:subClassOf haz:AnimalInjury .
+haz:CaughtInConfinedSpace a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:CompressionInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:Crush a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:DriverEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:Entanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:FootCrushInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:PtoEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:RotatingHookEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:RotatingPartInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn .
+haz:ChemicalAbsorptionThroughSkin a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalAccidentDueToImproperDetergentUse a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalDetergentInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalEyeAndAirwayInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalIngestion a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalResidualInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalSkinIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalVaporExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalVaporInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChemicalVaporInhalationUnconsciousness a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChildChemicalExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChloramineGasInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ChlorineGasInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:CytotoxicExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:DetergentInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:EyeChemicalInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:FertilizerDustInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:FoodContamination a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:FuelLeakVaporInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:GasLeak a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:GasLeakAtNight a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:GasPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:GradualMinorFuelLeakage a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:HighPressureGasLeakage a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:HydrocarbonVaporInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:InhalationOfChemicalDust a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:MercuryPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:NarcoticDermalAbsorption a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:PesticideAbsorptionThroughSkin a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:PesticideEyeContact a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:PesticideInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ResidualCleanerExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:SkinContact a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:SkinEyeContactChemicalInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:SkinIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ToxicGasInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:ToxicGasPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
+haz:LandfillSlopeCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
+haz:LoadCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
+haz:ScaffoldCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
+haz:ShelfCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
+haz:SoilCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
+haz:MachineCollisionInjury a owl:Class ; rdfs:subClassOf haz:Collision .
+haz:TrayContactInjury a owl:Class ; rdfs:subClassOf haz:Collision .
+haz:CartTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
+haz:CrushedByMachineOrObject a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
+haz:HandcartOverturn a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
+haz:HeavyEquipmentOverturn a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
+haz:LockerTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
+haz:TractorTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
+haz:BladeLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:ChildCut a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:ChildStabbing a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:Cut a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:CutDueToGloveFailure a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:CuttingBladeContactWhileOperating a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:ElectricalAccidentDueToPowerInstability a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:FingerAmputation a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:FingerInjury a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:GlassLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:Laceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:PalmLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:PruningShearLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:Puncture a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:Scratch a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:SharpObjectInjury a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:SkinPenetration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:ThresherBladeCut a owl:Class ; rdfs:subClassOf haz:CutLaceration .
+haz:ChildElectricShock a owl:Class ; rdfs:subClassOf haz:ElectricShock .
+haz:ElectricShockDueToInsulationDamage a owl:Class ; rdfs:subClassOf haz:ElectricShock .
+haz:Ergonomic a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
+haz:HeavyLifting a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
+haz:LossOfBalance a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
+haz:Posture a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
+haz:Repetitive a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
+haz:ChemicalExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
+haz:ChemicalReactionExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
+haz:DustExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
+haz:FireAndExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
+haz:FuelGasExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
+haz:FuelIgnitionExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
+haz:HighPressureRelease a owl:Class ; rdfs:subClassOf haz:Explosion .
+haz:PressureVesselExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
+haz:ChairTipoverFall a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:FallDueToStrongWind a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:FallFromAnkerFailure a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:FallFromHeight a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:FallFromLadder a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:FallFromLossOfBalance a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:FallFromRopeFrictionBreakage a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:FallOnGround a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:GondolaOverturnFall a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:HotObjectMultipleFalling a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:PatientFall a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:RopeBreakFall a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:UserFall a owl:Class ; rdfs:subClassOf haz:Fall .
+haz:FireFromOutletOverload a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:FireSpread a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:FuelFire a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:FuelTankFire a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:FuelVaporIgnitionByStaticDischarge a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:IgnitionOfFlammableGas a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:OverloadFire a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:SpontaneousCombustionOfAbsorbentPad a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:TrashBinFire a owl:Class ; rdfs:subClassOf haz:FireInjury .
+haz:ConfinedSpaceAsphyxia a owl:Class ; rdfs:subClassOf haz:OxygenDeficiency .
+haz:ChildSlipAndFall a owl:Class ; rdfs:subClassOf haz:SlipTrip .
+haz:FallFromKnotSlip a owl:Class ; rdfs:subClassOf haz:SlipTrip .
+haz:KnifeSlipCut a owl:Class ; rdfs:subClassOf haz:SlipTrip .
+haz:Slip a owl:Class ; rdfs:subClassOf haz:SlipTrip .
+haz:StairTrip a owl:Class ; rdfs:subClassOf haz:SlipTrip .
+haz:BurnFromFallingHotContents a owl:Class ; rdfs:subClassOf haz:StruckBy .
+haz:FallingChemicalContainer a owl:Class ; rdfs:subClassOf haz:StruckBy .
+haz:FallingFromWires a owl:Class ; rdfs:subClassOf haz:StruckBy .
+haz:FallingObject a owl:Class ; rdfs:subClassOf haz:StruckBy .
+haz:MachineFallingCollisionInjury a owl:Class ; rdfs:subClassOf haz:StruckBy .
+haz:StruckByIceFragment a owl:Class ; rdfs:subClassOf haz:StruckBy .
+haz:StruckBySharpObject a owl:Class ; rdfs:subClassOf haz:StruckBy .
+haz:TvFalling a owl:Class ; rdfs:subClassOf haz:StruckBy .
+haz:ArcBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:Burn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:BurnFromAccidentalCustomerContact a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ChemicalBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ChemicalBurnFromStrongAcid a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ChemicalBurnFromStrongAcidToEye a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ChemicalSkinBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ColdBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ColdExposure a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ExtremeColdBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:HandBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:HighTemperatureBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:HotSteamBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ResidualHeatBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:SkinBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:SteamBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
+haz:ContainerBreakageDuringCollection a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:EyeForeignBody a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:EyeVisionDamage a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:Fracture a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:InfantSafetyAccident a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:Infection a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:LabelMisidentificationAccident a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:LossOfControlPolisher a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:MedicalEmergency a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:OvercrowdingEvacuationDelay a owl:Class ; rdfs:subClassOf haz:Unclassified .
+haz:TrafficAccident a owl:Class ; rdfs:subClassOf haz:WorkplaceTraffic .
+
+# -- hazardous_agent (agent): 74 --
+agent:BloodbornePathogen a owl:Class ; rdfs:subClassOf agent:Biological .
+agent:InfectiousMedicalWaste a owl:Class ; rdfs:subClassOf agent:Biological .
+agent:LackOfVaccination a owl:Class ; rdfs:subClassOf agent:Biological .
+agent:AcrylateResinSkinContact a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:Benzene a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:ChlorineAmmoniaReaction a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:ConcentratedAlkali a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:Corrosion a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:DegradedDeveloperSolution a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:FormaldehydeSkinContact a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:FragranceVapor a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:GlutaraldehydeVapor a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:LeachateHazardousSubstance a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:MercuryAmalgamVapor a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:MislabeledDetergent a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:MixedDetergentGas a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:ResidualPesticide a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:SolventVapor a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:StrongAcidDescaler a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:WaterBasedPaintMist a owl:Class ; rdfs:subClassOf agent:Chemical .
+agent:AsbestosDust a owl:Class ; rdfs:subClassOf agent:Dust .
+agent:ContaminatedFilterParticulateMold a owl:Class ; rdfs:subClassOf agent:Dust .
+agent:HighPressureAirDust a owl:Class ; rdfs:subClassOf agent:Dust .
+agent:LeadPaintDust a owl:Class ; rdfs:subClassOf agent:Dust .
+agent:ArcFlash a owl:Class ; rdfs:subClassOf agent:Electricity .
+agent:CapacitorResidualVoltage a owl:Class ; rdfs:subClassOf agent:Electricity .
+agent:DistributionBoard a owl:Class ; rdfs:subClassOf agent:Electricity .
+agent:ElectricalOverload a owl:Class ; rdfs:subClassOf agent:Electricity .
+agent:ElectricityWaterContact a owl:Class ; rdfs:subClassOf agent:Electricity .
+agent:ExposedOutlet a owl:Class ; rdfs:subClassOf agent:Electricity .
+agent:StaticElectricity a owl:Class ; rdfs:subClassOf agent:Electricity .
+agent:TwistedWire a owl:Class ; rdfs:subClassOf agent:Electricity .
+agent:ColdFloor a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:CryogenicAgent a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:ExtremeColdEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:ExtremeColdSurface a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:HighHeat a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:HighTemperatureEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:HighTemperatureSteam a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:HotEquipment a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:HotParts a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:HotSurface a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:HotTray a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:HotWater a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:ProlongedColdExposure a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:ProlongedExposureToColdEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:RadiantHeat a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:RepeatedExtremeColdExposure a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:UvLampResidualHeat a owl:Class ; rdfs:subClassOf agent:HeatCold .
+agent:EarphoneNoise a owl:Class ; rdfs:subClassOf agent:Noise .
+agent:KaraokeNoise a owl:Class ; rdfs:subClassOf agent:Noise .
+agent:KaraokeRoomNoise a owl:Class ; rdfs:subClassOf agent:Noise .
+agent:Noise105Db a owl:Class ; rdfs:subClassOf agent:Noise .
+agent:DentalXRay a owl:Class ; rdfs:subClassOf agent:Radiation .
+agent:DentalXrayRepeatedExposure a owl:Class ; rdfs:subClassOf agent:Radiation .
+agent:RadiationExposure a owl:Class ; rdfs:subClassOf agent:Radiation .
+agent:RadiationExposureDuringPregnancy a owl:Class ; rdfs:subClassOf agent:Radiation .
+agent:RepeatedRadiationExposure a owl:Class ; rdfs:subClassOf agent:Radiation .
+agent:ScatteredRadiation a owl:Class ; rdfs:subClassOf agent:Radiation .
+agent:UltravioletRadiation a owl:Class ; rdfs:subClassOf agent:Radiation .
+agent:BiogasMethane a owl:Class ; rdfs:subClassOf agent:Toxic .
+agent:ElevatorPitToxicGas a owl:Class ; rdfs:subClassOf agent:Toxic .
+agent:FuelSaturatedAbsorbent a owl:Class ; rdfs:subClassOf agent:Toxic .
+agent:GasolineMicroLeakage a owl:Class ; rdfs:subClassOf agent:Toxic .
+agent:GasolineVapor a owl:Class ; rdfs:subClassOf agent:Toxic .
+agent:ResidualCombustionGas a owl:Class ; rdfs:subClassOf agent:Toxic .
+agent:SmallQuantityGasoline a owl:Class ; rdfs:subClassOf agent:Toxic .
+agent:TobaccoSmoke a owl:Class ; rdfs:subClassOf agent:Toxic .
+agent:AirlessResidualPressure a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
+agent:DefectiveHandle a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
+agent:DefectiveSterilePackaging a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
+agent:FemaleExposureLimitExceeded a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
+agent:ResidualRotation a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
+agent:RopeKink a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
+
+# -- work_context (ctx): 186 --
+ctx:AirlessSprayer a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:ChemicalApplication a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:ChemicalCleaning a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:ChemicalDisinfection a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:ChemicalMixing a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:ChemicalSpotting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:ChemicalWaste a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:DryCleaningSolvent a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:FuelDispensing a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:FuelSpill a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:GasAppliance a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:HairChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:InkSolvent a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:NailChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:OilDrain a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:Painting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:PaintingWoodwork a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:PesticideSpray a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:RestroomChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:SolventHandling a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:SprayPainting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:VaporExposure a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
+ctx:AquacultureTank a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
+ctx:ConfinedCoating a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
+ctx:ConfinedSpaceCleaning a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
+ctx:UndergroundTank a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
+ctx:WetConfinedSpace a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
+ctx:ConveyorBelt a owl:Class ; rdfs:subClassOf ctx:Conveyor .
+ctx:ConveyorWash a owl:Class ; rdfs:subClassOf ctx:Conveyor .
+ctx:ElectricPolishingRoller a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
+ctx:ElectricalHazard a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
+ctx:ElectricalOverload a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
+ctx:LivePowerRepair a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
+ctx:StaticElectricity a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
+ctx:AwkwardPostureWork a owl:Class ; rdfs:subClassOf ctx:ErgonomicWork .
+ctx:ExcessiveMotionRange a owl:Class ; rdfs:subClassOf ctx:ErgonomicWork .
+ctx:FireDetectionFailure a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork .
+ctx:FireDetectorDisabled a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork .
+ctx:FireEvacuation a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork .
+ctx:FireExtinguisherDefective a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork .
+ctx:ColdDisplay a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:ColdRoomAccess a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:ColdRoomMortuary a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:DeepFrying a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:DryerOperation a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:FoodPrep a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:FreezerWork a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:HotBeverage a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:HotTool a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:HotTrayTransport a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:KitchenCooking a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
+ctx:BandSaw a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:BreadSlicer a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:CompressionDeviceRestart a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:DoughMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:FarmMachinery a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:FloorMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:FoldingMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:Grinding a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:GuillotineCutter a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:HighPressureWash a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:HopperBladeWork a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:LaminatingRoller a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:MeatGrinding a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:MeatSlicer a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:NailGun a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:PressMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:PrintingPress a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:RollerMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:Sanding a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:Sawing a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:ScrewGrinder a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:WashingMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:Welding a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:WeldingRepair a owl:Class ; rdfs:subClassOf ctx:Machine .
+ctx:BoxHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:CatHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:ColdStorage a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:FertilizerHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:FlourHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:GarmentSorting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:HeavyFishBox a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:HeavyFurniture a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:HeavyLifting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:HeavyMeatHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:HighShelfWork a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:IceHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:LiftWork a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:LoadingDock a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:MedicationHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:OverloadedHandcart a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:PackageSorting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:ShelfStocking a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:StorageShelf a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
+ctx:NoiseExposure a owl:Class ; rdfs:subClassOf ctx:NoiseWork .
+ctx:AisleObstruction a owl:Class ; rdfs:subClassOf ctx:Passage .
+ctx:WalkwayObstruction a owl:Class ; rdfs:subClassOf ctx:Passage .
+ctx:AcupunctureWork a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
+ctx:AutoclaveSterilization a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
+ctx:BiomedicalWaste a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
+ctx:BodyTransport a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
+ctx:CremationFurnace a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
+ctx:DentalProcedure a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
+ctx:Embalming a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
+ctx:FuneralHallSetup a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
+ctx:ClimbingWall a owl:Class ; rdfs:subClassOf ctx:Scaffold .
+ctx:ExteriorRope a owl:Class ; rdfs:subClassOf ctx:Scaffold .
+ctx:HighRiseWindow a owl:Class ; rdfs:subClassOf ctx:Scaffold .
+ctx:Ladder a owl:Class ; rdfs:subClassOf ctx:Scaffold .
+ctx:LadderInterior a owl:Class ; rdfs:subClassOf ctx:Scaffold .
+ctx:RopeAccess a owl:Class ; rdfs:subClassOf ctx:Scaffold .
+ctx:ScaffoldWork a owl:Class ; rdfs:subClassOf ctx:Scaffold .
+ctx:AcrophobiaWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:AnimalFeeding a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:BracketDefect a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:BystanderWorkerExposure a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:CageCleaning a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:CardioEquipment a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:CashierArea a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:CleaningNight a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:CleaningWet a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:CommunicationFailure a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:CrowdManagement a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:DisplaySetup a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:DogGrooming a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:EvBattery a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:ExerciseClass a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:ExpiredMedicationUse a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:FilterMaintenance a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:FirstAidFailure a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:FishCutting a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:FloralArrangement a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:FreeWeightZone a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:GreenhouseWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:HairWash a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:HandrailDefect a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:HarvestWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:InteriorCleaning a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:InterlockBypass a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:Irrigation a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:KnifeWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:LandfillOperation a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:LooseSafetyCover a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:LotoNotApplied a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:NearbyWorkerProximity a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:NightSolo a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:NightSoloWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:ObstructedViewCarrying a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:OutdoorPlayEquipment a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:OvenOperation a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:OverloadedContainer a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:PetBathing a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:PlateMaking a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:PoolArea a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:PowerRackSafetyPin a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:PowerTool a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:RadiationXray a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:RecyclingSort a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:RescueDelay a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:RopeAnomalyUndetected a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:SafetyDeviceBypass a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:SecurityInadequacy a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:ServingFloor a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:SharpsDisposal a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:ShieldingInadequate a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:SkinDevice a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:SlopeRamp a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:SoloResponse a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:StaffMaintenance a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:StairCarrying a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:SteamIron a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:SurfacePrep a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:TireChange a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:UnauthorizedMedicationAdministration a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:UnstableEdge a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:UnstableSlope a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:UnstableStructure a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:UvCoating a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:WasteCollection a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:WasteCompactor a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:WaxPolishing a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:WetFloorFish a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:WetFloorWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
+ctx:DeliveryRider a owl:Class ; rdfs:subClassOf ctx:Vehicle .
+ctx:ForkliftOperation a owl:Class ; rdfs:subClassOf ctx:Vehicle .
+ctx:VentilationPoor a owl:Class ; rdfs:subClassOf ctx:Ventilation .
+

@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Regenerate kosha-ontology-v3-subclass-patch.ttl from catalog v4's 'sub' field.
+"""[DEPRECATED — P3] facet 계층은 scripts/gen_facet_taxonomy.py(vocab rollup SSOT)로 대체됨.
+
+이 스크립트가 만드는 kosha-ontology-v3-subclass-patch.ttl은 archive(manifest)로 이동했고
+어떤 소비자도 로드하지 않는다. catalog `sub`는 불완전(canonical 미도달 다수·work_context 계층 부재,
+진단: scripts/diff_facet_sources.py)이라 은퇴. 재생성 금지 — 실행 시 archive 파일만 덮어쓴다.
+
+(원래 목적) Regenerate kosha-ontology-v3-subclass-patch.ttl from catalog v4's 'sub' field.
 
 apply_phase3b.py 재실행 시 sub_codes 누락 버그 우회.
 
@@ -65,4 +71,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys as _s
+    _s.exit("[DEPRECATED P3] scripts/gen_facet_taxonomy.py로 대체됨. 이 스크립트는 archive 파일을 "
+            "덮어쓰므로 실행 금지. (강제 실행 필요 시 main() 직접 호출)")

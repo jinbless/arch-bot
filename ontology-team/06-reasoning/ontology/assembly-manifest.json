@@ -7,7 +7,7 @@
         "format": "xml"
       },
       {
-        "file": "kosha-ontology-v3-subclass-patch.ttl",
+        "file": "kosha-facet-taxonomy.ttl",
         "format": "turtle"
       },
       {
@@ -93,7 +93,7 @@
         "format": "xml"
       },
       {
-        "file": "kosha-ontology-v3-subclass-patch.ttl",
+        "file": "kosha-facet-taxonomy.ttl",
         "format": "turtle"
       },
       {
@@ -203,7 +203,7 @@
         "format": "xml"
       },
       {
-        "file": "kosha-ontology-v3-subclass-patch.ttl",
+        "file": "kosha-facet-taxonomy.ttl",
         "format": "turtle"
       },
       {
@@ -273,7 +273,7 @@
         "format": "turtle"
       },
       {
-        "file": "kosha-ontology-v3-subclass-patch.ttl",
+        "file": "kosha-facet-taxonomy.ttl",
         "format": "turtle"
       },
       {
@@ -377,6 +377,7 @@
   "archive": [
     "kosha-ontology.owl",
     "kosha-ontology.formatted.ttl",
+    "kosha-ontology-v3-subclass-patch.ttl",
     "kosha-ontology.annotated.ttl",
     "kosha-rules.swrl",
     "kosha-rules-v2.swrl",
@@ -449,9 +450,9 @@
       "note": "KOSHA-22 accident/agent/context 어휘 라벨."
     },
     {
-      "id": "v3-subclass",
-      "file": "kosha-ontology-v3-subclass-patch.ttl",
-      "role": "tbox-patch",
+      "id": "facet-taxonomy",
+      "file": "kosha-facet-taxonomy.ttl",
+      "role": "tbox-taxonomy",
       "layer": "L3-reasoning",
       "profiles": [
         "consistency",
@@ -460,7 +461,7 @@
         "shacl-materialize"
       ],
       "format": "turtle",
-      "note": "fine→canonical subClassOf(haz/agent). 생성: regenerate_subclass_patch.py."
+      "note": "3축 facet taxonomy: canonical owl:Class punning + fine⊑canonical(vocab rollup SSOT) + ctx 계층(forklift 변별). 생성: scripts/gen_facet_taxonomy.py. 구 v3-subclass-patch 대체(P3)."
     },
     {
       "id": "v3-incompat",
@@ -914,6 +915,15 @@
       "profiles": [],
       "format": "turtle",
       "note": "canonical code IRI SHACL. orphan-but-keep(자체 생성기 gen_canonical_code_shape.py)."
+    },
+    {
+      "id": "arc-v3-subclass",
+      "file": "kosha-ontology-v3-subclass-patch.ttl",
+      "role": "archive",
+      "layer": "-",
+      "profiles": [],
+      "format": "turtle",
+      "note": "구 catalog sub 기반 subclass-patch(haz/agent, casing 단절). facet-taxonomy로 대체 → archive(P3)."
     },
     {
       "id": "arc-v1-annotated",

@@ -40,8 +40,9 @@ _E = [
     ("v4-kosha22-vocab", "kosha-ontology-v4-kosha22-vocab-patch.ttl", "tbox-patch", "L2-normalizer",
      {"FAC"}, "turtle", "KOSHA-22 accident/agent/context 어휘 라벨."),
     # ── TBox patches: v3 ─────────────────────────────────────────────────────
-    ("v3-subclass", "kosha-ontology-v3-subclass-patch.ttl", "tbox-patch", "L3-reasoning",
-     {"SRV", "CON", "MAT", "FAC"}, "turtle", "fine→canonical subClassOf(haz/agent). 생성: regenerate_subclass_patch.py."),
+    ("facet-taxonomy", "kosha-facet-taxonomy.ttl", "tbox-taxonomy", "L3-reasoning",
+     {"SRV", "CON", "MAT", "FAC"}, "turtle",
+     "3축 facet taxonomy: canonical owl:Class punning + fine⊑canonical(vocab rollup SSOT) + ctx 계층(forklift 변별). 생성: scripts/gen_facet_taxonomy.py. 구 v3-subclass-patch 대체(P3)."),
     ("v3-incompat", "kosha-ontology-v3-incompat-patch.ttl", "tbox-patch", "L3-reasoning",
      set(), "turtle", "G.1 core:Incompatibility TBox SoT. orphan-but-keep(PG guide_domain_incompatibilities 원천)."),
     ("v3-guide-profile", "kosha-ontology-v3-guide-profile-patch.ttl", "tbox-patch", "L3-reasoning",
@@ -126,6 +127,8 @@ _E = [
     ("shape-canonical-code", "kosha-canonical-code-shape.ttl", "shapes-canonical", "L3-reasoning",
      set(), "turtle", "canonical code IRI SHACL. orphan-but-keep(자체 생성기 gen_canonical_code_shape.py)."),
     # ── ARCHIVE (어떤 소비자도 안 읽음; silent-orphan 방지 등록, Phase1.6 이동) ──
+    ("arc-v3-subclass", "kosha-ontology-v3-subclass-patch.ttl", "archive", "-",
+     set(), "turtle", "구 catalog sub 기반 subclass-patch(haz/agent, casing 단절). facet-taxonomy로 대체 → archive(P3)."),
     ("arc-v1-annotated", "kosha-ontology.annotated.ttl", "archive", "-",
      set(), "turtle", "v1 annotated snapshot(obsolete)."),
     ("arc-legacy-swrl1", "kosha-rules.swrl", "archive", "-",
