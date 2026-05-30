@@ -89,14 +89,8 @@ _E = [
      {"SRV", "CON"}, "turtle", "R-2/R-4."),
     ("swrl-r9-r13", "kosha-rules-r9-r13-swrl.ttl", "rules-swrl", "L3-reasoning",
      {"SRV", "CON"}, "turtle", "R-10~R-13 (R-9 skip)."),
-    ("swrl-r14-r18", "kosha-rules-r14-r18-swrl.ttl", "rules-swrl", "L3-reasoning",
-     {"CON"}, "turtle", "R-14~R-18. Fuseki 제외(Pellet NEXPTIME)→SHACL twin. rule_ids R14-R18."),
-    ("swrl-r19-r23", "kosha-rules-r19-r23-swrl.ttl", "rules-swrl", "L3-reasoning",
-     {"CON"}, "turtle", "R-19~R-23. SHACL twin 존재. rule_ids R19-R23."),
-    ("swrl-r24-r26", "kosha-rules-r24-r26-swrl.ttl", "rules-swrl", "L3-reasoning",
-     {"CON"}, "turtle", "R-24~R-26. SHACL twin 존재. rule_ids R24-R26."),
-    ("swrl-r28-r30", "kosha-rules-r28-r30-swrl.ttl", "rules-swrl", "L3-reasoning",
-     {"CON"}, "turtle", "R-28~R-30. SHACL twin 존재. rule_ids R28-R30."),
+    # swrl-r14~r30 (R-14~R-30): parity 입증(verify_rule_parity.py — SWRL≡SHACL, demo-chain 15 triple 동치)
+    # → SHACL twin(shacl-r14-r30)이 운영 경로, 어떤 소비자도 SWRL 미실행 → ARCHIVE 블록 arc-swrl-*로 은퇴(B3).
     # ── Rules: SHACL ─────────────────────────────────────────────────────────
     ("shacl-r14-r30", "kosha-rules-r14-r30-shacl-construct.ttl", "rules-shacl", "L3-reasoning",
      {"CON", "MAT"}, "turtle", "R-14~R-30 SHACL SPARQLRule (SWRL twin의 운영 경로). rule_ids R14-R30."),
@@ -143,6 +137,14 @@ _E = [
      set(), "turtle", "serving shapes v2(superseded by v3)."),
     ("arc-v3-restructure", "archive/kosha-ontology-v3-restructure-patch.ttl", "archive", "-",
      set(), "turtle", "obsolete: 의도(axis⊑RiskFeature, CriminalSanction⊑SanctionType)가 v2.owl에 이미 구현. patch는 CriminalSanctionType/HazardousAgentFeature 오타·미정의 + <> 파싱실패. 수리 불요 → archive(B2)."),
+    ("arc-swrl-r14-r18", "archive/kosha-rules-r14-r18-swrl.ttl", "archive", "-",
+     set(), "turtle", "R-14~R-18 SWRL. parity 입증(SWRL≡SHACL, verify_rule_parity) → SHACL twin 운영, 은퇴(B3)."),
+    ("arc-swrl-r19-r23", "archive/kosha-rules-r19-r23-swrl.ttl", "archive", "-",
+     set(), "turtle", "R-19~R-23 SWRL. 은퇴(B3, parity 입증)."),
+    ("arc-swrl-r24-r26", "archive/kosha-rules-r24-r26-swrl.ttl", "archive", "-",
+     set(), "turtle", "R-24~R-26 SWRL. 은퇴(B3, parity 입증)."),
+    ("arc-swrl-r28-r30", "archive/kosha-rules-r28-r30-swrl.ttl", "archive", "-",
+     set(), "turtle", "R-28~R-30 SWRL. 은퇴(B3, parity 입증)."),
     # serving-snapshot-*.ttl 8개(74MB) — P1.6b에서 git rm 삭제(PG materialize 재생성 가능, 비추적 정책).
 ]
 

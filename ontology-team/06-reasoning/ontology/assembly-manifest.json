@@ -161,22 +161,6 @@
         "format": "turtle"
       },
       {
-        "file": "kosha-rules-r14-r18-swrl.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-rules-r19-r23-swrl.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-rules-r24-r26-swrl.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-rules-r28-r30-swrl.ttl",
-        "format": "turtle"
-      },
-      {
         "file": "kosha-rules-r14-r30-shacl-construct.ttl",
         "format": "turtle"
       },
@@ -385,7 +369,11 @@
     "archive/serving-policy.ttl",
     "archive/serving-validation-shapes.ttl",
     "archive/serving-validation-shapes-v2.ttl",
-    "archive/kosha-ontology-v3-restructure-patch.ttl"
+    "archive/kosha-ontology-v3-restructure-patch.ttl",
+    "archive/kosha-rules-r14-r18-swrl.ttl",
+    "archive/kosha-rules-r19-r23-swrl.ttl",
+    "archive/kosha-rules-r24-r26-swrl.ttl",
+    "archive/kosha-rules-r28-r30-swrl.ttl"
   ],
   "files": [
     {
@@ -709,50 +697,6 @@
       "note": "R-10~R-13 (R-9 skip)."
     },
     {
-      "id": "swrl-r14-r18",
-      "file": "kosha-rules-r14-r18-swrl.ttl",
-      "role": "rules-swrl",
-      "layer": "L3-reasoning",
-      "profiles": [
-        "consistency"
-      ],
-      "format": "turtle",
-      "note": "R-14~R-18. Fuseki 제외(Pellet NEXPTIME)→SHACL twin. rule_ids R14-R18."
-    },
-    {
-      "id": "swrl-r19-r23",
-      "file": "kosha-rules-r19-r23-swrl.ttl",
-      "role": "rules-swrl",
-      "layer": "L3-reasoning",
-      "profiles": [
-        "consistency"
-      ],
-      "format": "turtle",
-      "note": "R-19~R-23. SHACL twin 존재. rule_ids R19-R23."
-    },
-    {
-      "id": "swrl-r24-r26",
-      "file": "kosha-rules-r24-r26-swrl.ttl",
-      "role": "rules-swrl",
-      "layer": "L3-reasoning",
-      "profiles": [
-        "consistency"
-      ],
-      "format": "turtle",
-      "note": "R-24~R-26. SHACL twin 존재. rule_ids R24-R26."
-    },
-    {
-      "id": "swrl-r28-r30",
-      "file": "kosha-rules-r28-r30-swrl.ttl",
-      "role": "rules-swrl",
-      "layer": "L3-reasoning",
-      "profiles": [
-        "consistency"
-      ],
-      "format": "turtle",
-      "note": "R-28~R-30. SHACL twin 존재. rule_ids R28-R30."
-    },
-    {
       "id": "shacl-r14-r30",
       "file": "kosha-rules-r14-r30-shacl-construct.ttl",
       "role": "rules-shacl",
@@ -970,6 +914,42 @@
       "profiles": [],
       "format": "turtle",
       "note": "obsolete: 의도(axis⊑RiskFeature, CriminalSanction⊑SanctionType)가 v2.owl에 이미 구현. patch는 CriminalSanctionType/HazardousAgentFeature 오타·미정의 + <> 파싱실패. 수리 불요 → archive(B2)."
+    },
+    {
+      "id": "arc-swrl-r14-r18",
+      "file": "archive/kosha-rules-r14-r18-swrl.ttl",
+      "role": "archive",
+      "layer": "-",
+      "profiles": [],
+      "format": "turtle",
+      "note": "R-14~R-18 SWRL. parity 입증(SWRL≡SHACL, verify_rule_parity) → SHACL twin 운영, 은퇴(B3)."
+    },
+    {
+      "id": "arc-swrl-r19-r23",
+      "file": "archive/kosha-rules-r19-r23-swrl.ttl",
+      "role": "archive",
+      "layer": "-",
+      "profiles": [],
+      "format": "turtle",
+      "note": "R-19~R-23 SWRL. 은퇴(B3, parity 입증)."
+    },
+    {
+      "id": "arc-swrl-r24-r26",
+      "file": "archive/kosha-rules-r24-r26-swrl.ttl",
+      "role": "archive",
+      "layer": "-",
+      "profiles": [],
+      "format": "turtle",
+      "note": "R-24~R-26 SWRL. 은퇴(B3, parity 입증)."
+    },
+    {
+      "id": "arc-swrl-r28-r30",
+      "file": "archive/kosha-rules-r28-r30-swrl.ttl",
+      "role": "archive",
+      "layer": "-",
+      "profiles": [],
+      "format": "turtle",
+      "note": "R-28~R-30 SWRL. 은퇴(B3, parity 입증)."
     }
   ]
 }
