@@ -1,6 +1,25 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-30 (오후)** — ⭐ **온톨로지 prefix 표준화(`1aa0743`) + manifest 단일정본 재설계 Phase 1(`f751397`) — 둘 다 push됨**. origin/main HEAD `f751397`. 이전 같은 날: Three-Worlds S1(Phase 0/1/3a/4) + Phase 5 가드레일. **다음 궁극 목표: facet class/individual 리모델(재설계 Phase 3)**.
+최신 갱신일: **2026-05-31** — ⭐ **재설계 Phase 3 facet taxonomy 완료(궁극 목표, `8adb79a`) + P1.6b archive 정리(`9b0e51b`) — push됨**. origin/main HEAD `9b0e51b`. vocab rollup 단일 SSOT, ctx 평면6→계층221, forklift⊑vehicle, **Openllet DL 일관성 검증**. **서빙 forklift 변별은 온톨로지와 디커플 → 서빙팀 백로그로 scope 확정**. 다음: B2 restructure-patch(axis→risk:RiskFeature) / B3 SWRL→SHACL parity / C1 catalog sub 검토.
+
+## ⭐ 2026-05-31 — Phase 3 facet taxonomy(궁극 목표 달성) + P1.6b archive 정리 (push 완료)
+
+origin/main HEAD `9b0e51b`. 재설계 Phase 3(facet 리모델) 온톨로지 레벨 완료 + B1(archive 물리이동). 승인 plan: `~/.claude/plans/calm-hugging-pond.md`.
+
+**Step 0 — serve_facets cp949 버그픽스** (`5ed927b`): serve_facets_sparql.py가 부팅 마지막 print의 em-dash(—)를 Windows cp949 콘솔이 인코딩 못 해 백그라운드 런치 시 크래시(UnicodeEncodeError). `sys.stdout/stderr.reconfigure(utf-8)` 영구 수정(validate_prefixes 패턴).
+
+**Phase 3 — facet taxonomy (vocab 단일 SSOT)** (`8adb79a`):
+- **진단** `scripts/diff_facet_sources.py`: catalog `sub`(구 생성기 입력)와 vocab `rollup`이 같은 fine→canonical 지식 **중복 보유·구조 상이**. 계산 결과 = **vocab rollup이 완전·정본 상위집합**(catalog는 79/69/186 dangling=canonical 미도달, work_context 계층 통째 부재). ∴ "합집합"=vocab 채택.
+- **신 생성기** `scripts/gen_facet_taxonomy.py`(vocab rollup SSOT): ① canonical owl:Class **punning** 62 ② fine⊑canonical 418(same-axis) ③ ctx 계층(rollup 자동, `ForkliftOperation⊑Vehicle`). **cross-axis 21건 제외**(agent→haz; Python `canonical_vocab.to_canonical`가 서빙/물질화 시점 재라우팅 — 온톨로지 subClassOf 불필요, `to_prefixed`가 None 반환해 자동 제외). 교차검증 게이트(생성 canonical IRI ⊆ 기존 NamedIndividual)로 casing 드리프트 차단.
+- `kosha-facet-taxonomy.ttl`이 구 `kosha-ontology-v3-subclass-patch.ttl` **대체**(manifest swap, profiles SRV/CON/MAT/FAC 동일), 구 patch archive, 구 생성기 `regenerate_subclass_patch.py` deprecate(footgun guard). 검증기 `scripts/verify_facet_taxonomy.py`(explained-delta 게이트) 신규.
+- **검증(단일변수)**: explained-delta `+836/-281`(부모변경 7 = GasolineVapor/RadiationExposure→Toxic/Radiation 의도된 평탄화), verify-manifest green, SHACL conforms, **functional(serve_facets 3031): ctx owl:Class 6→221 / haz 137→183 / agent 37→85, `forklift⊑vehicle`=True, total Δ+555 = patch diff와 정확 일치**(전체 1.44M 그래프 그외 무변경 입증), verify-prefixes 0위반.
+- **A1 Openllet DL 일관성** ✅: Fuseki(REASONER_MODE=openllet, `-Xmx30g`) 재기동 → 981,995 base 분류 **모순 없이 완료**(prepare() 통과→Server Started). 라이브 쿼리: `ctx:ForkliftOperation`의 추론 상위클래스 = {Vehicle(asserted), owl:Thing(**추론**)} → DL 추론 작동 + forklift→Vehicle 인식 확인.
+
+**서빙 forklift 변별 — 조사 결론(중요)**: 3개 read-only 조사 일치. 서빙은 `canonical_vocab.to_canonical`(하드코딩 JSON rollup) + 하드코딩 cross-inference 규칙으로 FORKLIFT_OPERATION→VEHICLE 변환, **Fuseki/온톨로지 계층을 work_context 매칭에 안 씀**(복합축 enrichment에만 선택적). CLAUDE.md "온톨로지≠서빙"과 일치. ∴ **온톨로지 재물질화로는 서빙 forklift 변별이 안 생김** — gap = `kosha_guides`/`canonical_checklist_items`가 canonical-only(SR/CI엔 fine 컬럼+fine 매칭/부스트 이미 존재). → **서빙팀 백로그로 scope 확정**(guide/CI에 fine work_contexts 컬럼 + import 확장 + query_guide_for_facets fine 부스트 + 8-photo eval에 work_context 측정 추가). 8-photo eval은 현재 work_context를 아예 측정 안 함(mapped_codes=accident_type만).
+
+**B1 — P1.6b archive 물리이동 + snapshot 삭제** (`9b0e51b`): archive 10 ttl/owl/swrl → `archive/`(git mv, history 보존), serving-snapshot 8개 **74MB git rm**(PG materialize 재생성 가능·비추적 정책). manifest_source archive 경로 `archive/<name>`, snapshot 엔트리 제거(60→52 files), `validate_prefixes` archive/ subtree skip 추가. **verify-manifest GREEN**(dir 52=SSOT 52, silent-orphan 0), verify-prefixes 0위반, active profile 카운트 전부 불변(archive=소비자 0). (full active-layering tbox/rules/abox는 `_dir_files`·Fuseki 경로 변경 필요 = cosmetic·고위험 → B1b 보류.)
+
+**다음 (재편성 task)**: **B2** restructure-patch(3축 top-class→`risk:RiskFeature` rooting을 gen_facet_taxonomy에 흡수 + penalty `<>` 수리, restructure-patch archive) / **B3** SWRL→SHACL parity harness→중복 SWRL 은퇴(R-1~13 유지, parity 미입증 은퇴 금지) / **C1** catalog sub 폐지 검토(serving 미사용 확인 후) / **C3** 본 문서+plan 갱신(=완료) / (선택)B1b full active-layering(보류) / 서빙 forklift 백로그(서빙팀) / 구 Three-Worlds #10·#11 재평가.
 
 ## ⭐ 2026-05-30 (오후) — prefix 표준화 + manifest 단일정본 재설계 Phase 1 (push 완료)
 
