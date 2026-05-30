@@ -123,6 +123,9 @@ def main() -> int:
         if f.name in SKIP_FILES:
             skipped.append(f.name)
             continue
+        if "archive" in f.relative_to(args.root).parts:  # archive/ = 비활성, 표준화 비대상
+            skipped.append(f.relative_to(args.root).as_posix())
+            continue
         scanned += 1
         viols = scan_file(f)
         if viols:
