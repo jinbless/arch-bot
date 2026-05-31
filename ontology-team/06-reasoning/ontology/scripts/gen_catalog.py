@@ -235,7 +235,8 @@ def main() -> int:
     L.append(f"**(d) 중복 label(같은 한글 라벨, 다른 IRI): {len(dups)}쌍**")
     L.append("")
     for lab in sorted(dups)[:30]:
-        L.append(f"  - \"{lab}\": " + ", ".join(f"`{short(u)}`" for u in dups[lab]))
+        # sorted(): classes|inds set 순회라 그룹 내 IRI 순서가 비결정적 → 정렬해 재생성 안정화(헛 diff 방지)
+        L.append(f"  - \"{lab}\": " + ", ".join(f"`{short(u)}`" for u in sorted(dups[lab], key=short)))
     L.append("")
     # (e) domain/range 없는 property
     nodr = sorted([p for p in (obj_props | dat_props)

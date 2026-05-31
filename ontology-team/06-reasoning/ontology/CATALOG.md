@@ -1,6 +1,6 @@
 # KOSHA 온톨로지 카탈로그
 
-> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T10:54:18+00:00
+> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T11:18:23+00:00
 > 소스: serving TBox+facet+moderate ABox (37 files, 518,950 triples; 대용량 instances 제외)
 > class 627 · objectProperty 133 · dataProperty 68 · individual 234
 
@@ -817,8 +817,8 @@
 
 **(d) 중복 label(같은 한글 라벨, 다른 IRI): 4쌍**
 
-  - "근로자": `core:Worker`, `actor:Worker`
-  - "기타": `ctx:OtherAgentState`, `industry:Industry_OTHER`, `haz:OtherAccident`
+  - "근로자": `actor:Worker`, `core:Worker`
+  - "기타": `ctx:OtherAgentState`, `haz:OtherAccident`, `industry:Industry_OTHER`
   - "비상대응": `ctx:EmergencyResponse`, `sr:EmergencyResponse`
   - "정비": `ctx:Maintenance`, `industry:Industry_MAINTENANCE`
 
