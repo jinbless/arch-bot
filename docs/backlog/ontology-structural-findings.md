@@ -11,29 +11,31 @@
 - ✅ **B1** (F6/F7): ctx 16 + agent:UnknownAgent 한글 라벨 보강. 신규 `shared/reference/facet-ko-labels.json` SSOT + gen_kosha22_vocab_patch.py @ko emit 확장. graph-diff +17 @ko only, 3축 label없음 0.
 - ✅ **B2** (F14/F8): v2.owl에서 **8 haz alias 축-레벨 개체** 제거(Cut/Slip/Crush/Ergonomic/Burn/ColdExposure/FoodContamination/FallingObject — 코퍼스 haz: 참조 0, facet-taxonomy에 fine 클래스로 보존됨) + **core:Relation** owl:Class 선언(dangling 0). 부작용: 8 fine 클래스 개체라벨 상실→무명 fine 집단(fine-label 정책 커버).
 - ⚠️ **B2 정정** (`<commit>`): core:Worker·guide:DocumentRequirement·guide:DomainTerm는 **코퍼스에서 live**(각 55/3435/7726회)인데 B2가 잘못 제거함 — ref-check가 **코퍼스 제외 + IRI형 grep**(prefixed `guide:` 놓침) 이중실수. graph-diff로 3개 복원(+9). **F13/F16은 오탐(live)으로 정정.** 교훈: 제거 전 코퍼스 포함 rdflib 재확인(catalog dead 메트릭에 caveat 추가).
-- ✅ **B3a** (F2): `kosha-facet-axis-disjoint.ttl` 신규 — risk:RiskFeature 10축 owl:AllDisjointClasses. manifest 등록(SRV/CON/MAT/FAC). pre-check 0충돌 → Fuseki Openllet 재적재 healthy(KB 일관성 OK, 비일관시 prepare throw). ABox 충돌 0(facet은 property-linked).
+- ✅ **B3a** (F2): `kosha-facet-axis-disjoint.ttl` 신규 — risk:RiskFeature 축 owl:AllDisjointClasses. manifest 등록(SRV/CON/MAT/FAC). ⚠️ **B3a 정정**(아래) — 최초 10축은 **haz:AccidentType⊥haz:Hazard 비일관**을 유발했고 lazy `prepare()` 거짓양성으로 미검출됨. B4 게이트가 적발 → **9축으로 축소**.
+- ✅ **B4** (F10/F15): guide/core property **25개 domain/range 코퍼스-aware 보강**. 신규 `kosha-ontology-v4-domain-range-patch.ttl`(+36 triple = domain 25 + range 11) + 도출기 `scripts/derive_property_domain_range.py`(956K ABox 포함 full union **1,475,471 triple**에서 주어/목적어 rdf:type 전수집계). manifest 등록(SRV/CON/MAT/FAC). **안전성**: 25개 속성의 주어·목적어가 코퍼스에서 이미 **100% 해당 type(untyped 0)** → domain/range 추론은 기존 type 재확인 **NO-OP**, range 전부 guide:/sr:/law:(facet 축 아님). **단일변수 증명**: ① CON union(코퍼스 포함 998,064) +36 정확·기존중복 0. ② disjoint 충돌 검사를 patch 포함/제외 토글 시 **충돌 7개 동일·B4 술어 기여 0건** → B4 비유발 입증. catalog (e) 누락 59→34. **F17(bridge appliesTo/observedIn)·core:hasViolation·guide:sourceGuide/sourceSection·core:identifier/text/title 8개는 의도적 multi-signature/cross-cutting → 제외(by-design, 오탐).**
+- ⚠️ **B3a 정정** (B4 Openllet 게이트가 적발): owl:Nothing 실쿼리로 **KB 비일관 확인** — `haz:Fall/StruckBy/Collapse/CaughtIn/ChemicalExposure/ErgonomicStrain/ElectricShock` 7 canonical 코드가 **haz:AccidentType이자 haz:Hazard**(같은 코드가 `sr:addressesAccidentType`→AccidentType, `sr:addressesHazard`→haz:Hazard 양쪽 목적어)인데 B3a가 둘을 disjoint 선언. haz:Hazard는 **하위 0의 near-empty 축(F4)**라 독립 축 아님 → `kosha-facet-axis-disjoint.ttl`에서 **haz:Hazard 제외(10→9축)**, 충돌 0·Openllet 일관 복구. 교훈: ① Openllet lazy prepare의 "Server Started"는 일관성 증거 **아님** — 실제 추론 쿼리(owl:Nothing) 필수. ② disjoint pre-check는 type/subClassOf뿐 아니라 **domain/range 주입까지** 포함해야(신규 `scripts/check_disjoint_consistency.py`). **F4(haz:Hazard↔AccidentType 통합)는 B5에서 정식 결정.**
 
 ## findings 목록
 
 | # | 범주 | 이슈 | 심각 | batch |
 |---|---|---|:--:|:--:|
 | F1 | grounding | risk:RiskFeature=BFO:Quality인데 자식 mixed(agent=Object, ctx=Process/Occurrent). BFO 본문 미로드라 리즈너 미검출. 490 facet이 모순 grounding 상속 | 高 | B6 |
-| F2 | disjoint | risk 3축(+sub) 45쌍 중 서로소 선언 **0**. accident≠agent≠ctx 미보장 | 中 | B3 |
+| F2 | disjoint | risk 축 서로소 **0** → **B3a로 9축 disjoint ✅**(haz:AccidentType/agent/ctx6/NLH). ⚠️ haz:Hazard는 AccidentType와 코드공유로 제외(정정·F4) | 中 | ✅(B3a+정정) |
 | F3 | disjoint | agent·ctx canonical 서로소 **0** (haz만 12). 정책 불일치 | 中 | B3 |
-| F4 | 빈 축 | haz:Hazard: Fix B 후 canonical **0=빈 축**, property range로만 ref 9. AccidentType와 통합 or 목적 재정의 | 中 | B5 |
+| F4 | 빈 축 | haz:Hazard: canonical **0=빈 축**, property range로만 ref. **B4 게이트로 haz:AccidentType과 코드공유(=disjoint 불가) 확인** → B3a에서 제외. 통합 or 목적 재정의 정식 결정 | 中 | B5 |
 | F5 | 빈 축 | ctx 6 sub축 중 **5개 비어있음**(AgentState/EnvFactor/PPEState/TemporalStage/WorkActivity). 29 canonical 전부 WorkContext 아래 | 中 | B5 |
 | F6 | label | **ctx canonical 16/29 한글 label 없음** — ctx:ChemicalWork(ref 6160!)·ElectricalWork·Demolition 등 다용 | 中 | B1 |
 | F7 | label | agent:UnknownAgent 무명 | 低 | B1 |
 | F8 | alias | haz:AccidentType 개체 31 vs canonical class 23 → **8 alias**: Cut/Slip/Crush/Ergonomic(중복)+Burn/ColdExposure/FoodContamination(무명)+FallingObject(누락 정식유형?) | 中 | B2 |
 | F9 | 배치 | she:VisualTrigger가 risk 아래 아닌 BFO-only standalone | 低 | B6 |
-| F10 | dom/rng | guide 속성 **25/56 누락**(hasChecklistItem/hasWorkProcess 등 핵심관계 dom·rng 둘다 X) | 中 | B4 |
+| F10 | dom/rng | guide 속성 25 누락 → **B4로 23 보강 ✅**(코퍼스 single-signature). sourceGuide/sourceSection 2는 5 content타입 공유 provenance라 의도적 무제약 | 中 | ✅(B4) |
 | F11 | grounding | guide:ChecklistItem 이중 grounding(Quality+lkif:Norm) | 低 | B6 |
 | F12 | grounding | guide:GuideUsageProfile 무 grounding(⊑ 없음) | 低 | B6 |
 | F13 | ~~dead~~ **오탐** | ~~guide:DocumentRequirement·DomainTerm ref=0~~ → **코퍼스에서 3435/7726회 live**. B2 정정으로 복원. **유효 finding 아님.** | — | ✅정정 |
 | F14 | **broken** | **core:Relation dangling** — core:Incompatibility ⊑ 선언 안 된 core:Relation(triple 0). 프로젝트 유일 dangling | 中 | B2 |
-| F15 | dom/rng | core 속성 6/16 누락 (coApplicable/exemptedBy/hasViolation 등) | 中 | B4 |
+| F15 | dom/rng | core 속성 6 누락 → **B4로 2 보강 ✅**(coApplicable=SR↔SR, exemptedBy=NS↔NS). hasViolation·identifier/text/title 4는 multi-signature/cross-cutting 의도적 무제약 | 中 | ✅(B4) |
 | F16 | ~~dead~~ **오탐** | ~~core:Worker ref=0~~ → **코퍼스에서 55회 live**(audit 코퍼스 제외 탓). B2 정정으로 복원. **유효 finding 아님.** | — | ✅정정 |
-| F17 | dom/rng | bridge 속성 2/3 누락 (appliesTo/observedIn) | 中 | B4 |
+| F17 | ~~dom/rng~~ **오탐** | bridge appliesTo/observedIn은 **의도적 multi-signature**(observedIn: VO→Hazard/SR→Ctx; appliesTo: SR→Hazard/Equip/Finding). range 박으면 B3a 충돌. v4-bridge-patch 주석에 명시. **유효 finding 아님** | — | ✅정정 |
 | F18 | label | industry 7건 — Industry_GENERAL `"general"@ko`(영문 오태깅) + 언더스코어 leak 6(`"자동차_정비소"@ko` 등). 라벨은 **생성물 kosha-disjoint-axioms.ttl**(build_disjoint_axioms.py)에 있고 upstream industry 라벨 소스(Layer 4)에서 옴 → **손수정 불가, upstream 소스 수정 필요(일부 data-team 세션 영역)**. (+명과학 등 의미 오타 수동검토) | 低 | B1→deferred |
 
 별도: **fine 코드 ~330**(haz 150·ctx 109·agent 72) 한글 label 없음 + CI 미참조 = future 어휘 vs prune 정책 결정 필요(B1/B5 연계).
@@ -44,8 +46,8 @@
 |---|---|:--:|:--:|
 | **B1** | label 보강 — F6/F7 ✅완료, F18(industry)/fine 정책 잔여 | 低 | F6·F7 ✅ |
 | **B2** | broken/dead 정리 — F14 dangling·F16/F13 dead·F8 alias | 低~中 | ✅ |
-| **B3** | disjointness — **F2 축간 ✅(B3a)**, F3 agent/ctx 잔여(B3b, 도메인) | 中 | B3a ✅ |
-| **B4** | property domain/range — F10/F15/F17 | 中 | 대기 |
+| **B3** | disjointness — **F2 축간 ✅(B3a, 9축 — haz:Hazard 정정 제외)**, F3 agent/ctx 잔여(B3b) | 中 | B3a ✅ |
+| **B4** | property domain/range — F10/F15 ✅(25 보강), F17 오탐(by-design) | 中 | ✅ |
 | **B5** | 빈 축 결정 — F4 haz:Hazard·F5 ctx 5축 | 中 | 대기 |
 | **B6** | BFO grounding 재설계 — F1/F11/F12/F9 (top, 맨 마지막) | 高 | 대기 |
 
