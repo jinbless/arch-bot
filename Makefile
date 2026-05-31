@@ -40,7 +40,8 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify \
-        verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending
+        verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
+        data-coverage
 
 help:
 	@echo "arch-bot dev launcher"
@@ -446,3 +447,10 @@ gen-canonical-shape:
 continual-pending:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(F1_SCRIPTS)/continual_pending_promotion.py' $(ARGS)
+
+# 데이터 적재 커버리지 진단 — TBox엔 있으나 ABox 데이터(인스턴스/사용) 0인 클래스·property 검출.
+# F5/SHE형 "스키마 있는데 데이터 미적재" 갭을 상시 탐지(우선 triage = app/rule-head/facet-fine 제외).
+# 진단용(게이트 아님, exit 0). 전체 ABox 로드라 수 분 소요.
+data-coverage:
+	@echo "[data-coverage] 스키마-데이터 커버리지 진단 (빈 클래스 / dormant property)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/check_data_coverage.py'
