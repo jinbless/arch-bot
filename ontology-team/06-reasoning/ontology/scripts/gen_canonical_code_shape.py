@@ -34,7 +34,7 @@ OUT = Path(__file__).resolve().parents[1] / "kosha-canonical-code-shape.ttl"
 # 산출하는 정본 술어 집합. 축별 shape의 sh:targetObjectsOf로 사용.
 # (kosha-instances.ttl: sr:*, kosha-instances-guide-hazard.ttl: guide:*)
 AXIS_PREDICATES = {
-    "accident_type": ["sr:addressesHazard", "sr:addressesAccidentType", "guide:addressesHazard"],
+    "accident_type": ["sr:addressesAccidentType", "guide:addressesHazard"],  # F20: sr:addressesHazard 폐지(→addressesAccidentType)
     "hazardous_agent": ["sr:addressesAgent", "guide:guideAddressesAgent"],
     "work_context": ["sr:inWorkContext", "guide:guideAppliesToContext"],
 }

@@ -69,7 +69,7 @@ krs:R14_BridgeObservedInVOShape a sh:NodeShape ;
     ] .
 
 
-### R-15: SR → bridge:appliesTo(Hazard) via addressesHazard
+### R-15: SR → bridge:appliesTo(Hazard) via addressesAccidentType
 krs:R15_BridgeAppliesToHazardShape a sh:NodeShape ;
     rdfs:label "R-15 SHACL: SR → bridge:appliesTo(Hazard)"@ko ;
     sh:targetClass sr:SafetyRequirement ;
@@ -82,7 +82,7 @@ krs:R15_BridgeAppliesToHazardShape a sh:NodeShape ;
                 ?rf a risk:RiskFeature .
                 ?rf haz:hasHazard ?hazd .
                 ?hazd a haz:Hazard .
-                $this sr:addressesHazard ?hazd .
+                $this sr:addressesAccidentType ?hazd .
             }
         """ ;
     ] .
@@ -102,7 +102,7 @@ krs:R16_BridgeObservedInCtxShape a sh:NodeShape ;
                       core:observedIn ?ctx ;
                       risk:hasRiskFeature ?rf .
                 ?rf haz:hasHazard ?hazd .
-                $this sr:addressesHazard ?hazd .
+                $this sr:addressesAccidentType ?hazd .
             }
         """ ;
     ] .
@@ -286,7 +286,7 @@ krs:R26_HasViolationCtxNSShape a sh:NodeShape ;
                      risk:hasRiskFeature ?rf .
                 ?rf haz:hasHazard ?hazd .
                 ?sr a sr:SafetyRequirement ;
-                    sr:addressesHazard ?hazd ;
+                    sr:addressesAccidentType ?hazd ;
                     bridge:observedIn ?ctx .
                 ?ns a law:NormStatement ;
                     law:groundedBySR ?sr .

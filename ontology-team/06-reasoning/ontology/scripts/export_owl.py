@@ -264,11 +264,14 @@ def main():
         if text: add(uri, CORE.text, Literal(text, datatype=XSD.string))
         if req_type and req_type in REQTYPE_MAP: add(uri, SR.hasRequirementType, REQTYPE_MAP[req_type])
         if binding and binding in BINDING_MAP: add(uri, SR.hasBindingForce, BINDING_MAP[binding])
+        # F20(hard merge): addresses_hazard(legacy 컬럼) → sr:addressesAccidentType로 통합 emit.
+        # 구 sr:addressesHazard 폐지. 값은 이미 canonical 사고유형이며 accident_types 컬럼 emit과
+        # graph에서 dedupe union된다.
         if hazards:
             h_list = hazards if isinstance(hazards, list) else json.loads(hazards)
             for h in h_list:
                 feature_uri = HAZ[h]
-                add(uri, SR.addressesHazard, feature_uri)
+                add(uri, SR.addressesAccidentType, feature_uri)
                 add(uri, SR.addressesFeature, feature_uri)
         # Faceted axes
         if acc_types:

@@ -65,7 +65,7 @@ kr:R2_CoApplicableRule a swrl:Imp ;
 # 같은 위험 유형 + 같은 Article을 다루는 SR 간 의존.
 # Pseudocode (R-2와 동일한 DL-safe 패턴, self-loop 허용):
 #   SafetyRequirement(?sr1) ∧ SafetyRequirement(?sr2) ∧
-#   addressesHazard(?sr1, ?haz) ∧ addressesHazard(?sr2, ?haz) ∧
+#   addressesAccidentType(?sr1, ?haz) ∧ addressesAccidentType(?sr2, ?haz) ∧
 #   appliesToArticle(?sr1, ?art) ∧ appliesToArticle(?sr2, ?art)
 #     → dependsOn(?sr1, ?sr2)
 
@@ -79,11 +79,11 @@ kr:R4_DependsOnRule a swrl:Imp ;
           swrl:classPredicate sr:SafetyRequirement ;
           swrl:argument1 kr:x_sr2 ]
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate sr:addressesHazard ;
+          swrl:propertyPredicate sr:addressesAccidentType ;
           swrl:argument1 kr:x_sr1 ;
           swrl:argument2 kr:x_haz ]
         [ a swrl:IndividualPropertyAtom ;
-          swrl:propertyPredicate sr:addressesHazard ;
+          swrl:propertyPredicate sr:addressesAccidentType ;
           swrl:argument1 kr:x_sr2 ;
           swrl:argument2 kr:x_haz ]
         [ a swrl:IndividualPropertyAtom ;

@@ -1,8 +1,8 @@
 # KOSHA 온톨로지 카탈로그
 
-> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T13:00:06+00:00
-> 소스: serving TBox+facet+moderate ABox (38 files, 569,057 triples; 대용량 instances 제외)
-> class 627 · objectProperty 133 · dataProperty 68 · individual 234
+> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T13:52:34+00:00
+> 소스: serving TBox+facet+moderate ABox (38 files, 569,051 triples; 대용량 instances 제외)
+> class 627 · objectProperty 132 · dataProperty 68 · individual 234
 
 ## 1. 모듈 개요 (prefix)
 
@@ -13,7 +13,7 @@
 | `agent:` | 85 | 0 | 0 | 12 | `https://cashtoss.info/ontology/risk/agent#` |
 | `ctx:` | 221 | 0 | 0 | 155 | `https://cashtoss.info/ontology/risk/context#` |
 | `she:` | 2 | 15 | 4 | 0 | `https://cashtoss.info/ontology/risk/situation#` |
-| `sr:` | 2 | 15 | 0 | 8 | `https://cashtoss.info/ontology/sr#` |
+| `sr:` | 2 | 14 | 0 | 8 | `https://cashtoss.info/ontology/sr#` |
 | `pen:` | 8 | 17 | 7 | 3 | `https://cashtoss.info/ontology/penalty#` |
 | `law:` | 9 | 16 | 10 | 5 | `https://cashtoss.info/ontology/law#` |
 | `guide:` | 9 | 25 | 31 | 0 | `https://cashtoss.info/ontology/guide#` |
@@ -397,7 +397,7 @@
       - `ctx:ForkliftOperation` "지게차 작업" [⊒0, ←10]
     - `ctx:Ventilation` "환기작업" [⊒1, ←1769]
       - `ctx:VentilationPoor` "환기 불량 작업" [⊒0, ←10]
-  - `haz:AccidentType` "사고 유형" [⊒23, ←59] ⊑(obo:BFO_0000019)
+  - `haz:AccidentType` "사고 유형" [⊒23, ←58] ⊑(obo:BFO_0000019)
     - `haz:AnimalInjury` "동물상해" [⊒1, ←3]
       - `haz:AnimalBite` "교상"
     - `haz:CaughtIn` "끼임" [⊒9, ←2578]
@@ -584,11 +584,11 @@
   - `she:SituationalHazardPattern` "위험상황 패턴" [⊒0, ←987] ⊑(obo:BFO_0000019, +제약4)
 - `she:VisualTrigger` "시각 트리거" [⊒0, ←1627] ⊑(obo:BFO_0000019)
 - `sr:RequirementType` "요구사항 유형" [⊒0, ←8] ⊑(lkif:Norm)
-- `sr:SafetyRequirement` "안전요구사항" [⊒0, ←47] ⊑(lkif:Obligation, +제약5)
+- `sr:SafetyRequirement` "안전요구사항" [⊒0, ←46] ⊑(lkif:Obligation, +제약5)
 
 ## 3. 속성 (predicate)
 
-### Object Properties (133)
+### Object Properties (132)
 
 | property | label | domain | range |
 |---|---|---|---|
@@ -713,7 +713,6 @@
 | `sr:addressesAccidentType` | 대응 사고유형 | sr:SafetyRequirement | haz:AccidentType |
 | `sr:addressesAgent` | 대응 유해인자 | sr:SafetyRequirement | agent:HazardousAgent |
 | `sr:addressesFeature` | 위험 특징 연결 | sr:SafetyRequirement | risk:RiskFeature |
-| `sr:addressesHazard` | 대응 위험 | sr:SafetyRequirement | haz:AccidentType |
 | `sr:appliesToArticle` | 적용 조문 | sr:SafetyRequirement | law:Article |
 | `sr:appliesToEquipment` | 장비 적용 (SR) | sr:SafetyRequirement | guide:Equipment |
 | `sr:derivedFromNS` | NS에서 파생 | sr:SafetyRequirement | law:NormStatement |

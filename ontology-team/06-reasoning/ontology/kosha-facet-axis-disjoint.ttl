@@ -9,6 +9,8 @@
 #   sr:addressesHazard(→haz:Hazard) 양쪽 목적어로 쓰여 두 클래스 모두에 속함(7개체). haz:Hazard는
 #   하위 0의 빈 축이라 독립 축이 아니었고, B5에서 **클래스 자체를 폐지**(4 property range·3 allValuesFrom·
 #   SWRL을 AccidentType으로 repoint). 따라서 이 disjoint 목록에는 haz:AccidentType만 남는다.
+#   ※ 후속 F20(2026-05-31): sr:addressesHazard 속성 자체도 sr:addressesAccidentType로 hard merge·폐지.
+#     (위 본문의 sr:addressesHazard 언급은 폐지 전 history) — 이제 SR→사고유형은 addressesAccidentType 단일.
 #   ※ 초기 B3a pre-check는 type/subClassOf만 봐 domain/range 주입(addressesHazard range)을 놓쳤고,
 #     Openllet lazy prepare()의 "Server Started"가 일관성 거짓양성을 줬다 → 이후 점검은
 #     scripts/check_disjoint_consistency.py(domain/range+subclass 폐포) + 실제 추론 쿼리(owl:Nothing).

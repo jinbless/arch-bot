@@ -394,13 +394,10 @@
     <rdf:type rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
     <rdfs:label xml:lang="en">Explosion</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#addressesHazard">
-    <rdfs:label xml:lang="ko">대응 위험</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="https://cashtoss.info/ontology/sr#addressesFeature"/>
-    <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
-    <rdfs:range rdf:resource="https://cashtoss.info/ontology/risk/hazard#AccidentType"/>
-  </rdf:Description>
+  <!-- F20(hard merge, 2026-05-31): sr:addressesHazard 폐지 → sr:addressesAccidentType로 통합.
+       두 속성 모두 domain sr:SafetyRequirement, range haz:AccidentType로 동의어였음(F4c 이후).
+       데이터(union)·룰·SHACL·생성기(export_owl) 모두 addressesAccidentType로 이전. -->
+
   <rdf:Description rdf:about="https://cashtoss.info/ontology/sr#addressesAgent">
     <rdfs:label xml:lang="ko">대응 유해인자</rdfs:label>
     <rdfs:domain rdf:resource="https://cashtoss.info/ontology/sr#SafetyRequirement"/>
