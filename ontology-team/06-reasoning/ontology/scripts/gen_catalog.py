@@ -182,6 +182,10 @@ def main() -> int:
     # ── 4. 이상 징후 ──
     L.append("## 4. ⚠️ 자동 이상징후 점검")
     L.append("")
+    L.append("> ⚠️ ref/dead는 **대용량 kosha-instances.ttl(코퍼스) 제외** 집계 — guide/core/app 등 "
+             "코퍼스에 instance가 있는 클래스의 dead/ref는 신뢰 불가(코퍼스에서 live일 수 있음). "
+             "facet(haz/agent/ctx) fine 코드는 canonical-ci 포함이라 정확. 제거 전 반드시 코퍼스 포함 재확인.")
+    L.append("")
     # floating: facet 클래스가 risk:RiskFeature까지 subClassOf로 도달하는가
     def reaches_riskfeature(c):
         RF = URIRef(PREFIXES["risk"] + "RiskFeature")

@@ -9,7 +9,8 @@
 - ✅ **Fix B** (`ac327a8`): haz:Hazard UPPER_SNAKE 레거시 개체 12 제거 (live 참조 0).
 - ✅ 도구: inspect_node(`8670c6a`) · catalog(`d99da77`).
 - ✅ **B1** (F6/F7): ctx 16 + agent:UnknownAgent 한글 라벨 보강. 신규 `shared/reference/facet-ko-labels.json` SSOT + gen_kosha22_vocab_patch.py @ko emit 확장. graph-diff +17 @ko only, 3축 label없음 0.
-- ✅ **B2** (F14/F8/F13/F16): v2.owl에서 11 제거(8 haz alias 축-레벨 개체+core:Worker+guide:DocumentRequirement/DomainTerm, 전부 ref=0) + core:Relation owl:Class 선언(dangling 0). graph-diff −36(11×triple) +2(Relation). **주의**: 8 alias는 facet-taxonomy에 fine 클래스(haz:Cut⊑CutLaceration, haz:FallingObject⊑StruckBy 등)로 보존됨 — 제거된 건 중복 축-레벨 개체뿐. 부작용: 이 8 fine 클래스가 개체 라벨을 잃어 무명 fine 집단 합류(fine-label 정책에서 커버).
+- ✅ **B2** (F14/F8): v2.owl에서 **8 haz alias 축-레벨 개체** 제거(Cut/Slip/Crush/Ergonomic/Burn/ColdExposure/FoodContamination/FallingObject — 코퍼스 haz: 참조 0, facet-taxonomy에 fine 클래스로 보존됨) + **core:Relation** owl:Class 선언(dangling 0). 부작용: 8 fine 클래스 개체라벨 상실→무명 fine 집단(fine-label 정책 커버).
+- ⚠️ **B2 정정** (`<commit>`): core:Worker·guide:DocumentRequirement·guide:DomainTerm는 **코퍼스에서 live**(각 55/3435/7726회)인데 B2가 잘못 제거함 — ref-check가 **코퍼스 제외 + IRI형 grep**(prefixed `guide:` 놓침) 이중실수. graph-diff로 3개 복원(+9). **F13/F16은 오탐(live)으로 정정.** 교훈: 제거 전 코퍼스 포함 rdflib 재확인(catalog dead 메트릭에 caveat 추가).
 - ✅ **B3a** (F2): `kosha-facet-axis-disjoint.ttl` 신규 — risk:RiskFeature 10축 owl:AllDisjointClasses. manifest 등록(SRV/CON/MAT/FAC). pre-check 0충돌 → Fuseki Openllet 재적재 healthy(KB 일관성 OK, 비일관시 prepare throw). ABox 충돌 0(facet은 property-linked).
 
 ## findings 목록
@@ -28,10 +29,10 @@
 | F10 | dom/rng | guide 속성 **25/56 누락**(hasChecklistItem/hasWorkProcess 등 핵심관계 dom·rng 둘다 X) | 中 | B4 |
 | F11 | grounding | guide:ChecklistItem 이중 grounding(Quality+lkif:Norm) | 低 | B6 |
 | F12 | grounding | guide:GuideUsageProfile 무 grounding(⊑ 없음) | 低 | B6 |
-| F13 | dead | guide:DocumentRequirement·DomainTerm ref=0 (미사용 클래스) | 低 | B2 |
+| F13 | ~~dead~~ **오탐** | ~~guide:DocumentRequirement·DomainTerm ref=0~~ → **코퍼스에서 3435/7726회 live**. B2 정정으로 복원. **유효 finding 아님.** | — | ✅정정 |
 | F14 | **broken** | **core:Relation dangling** — core:Incompatibility ⊑ 선언 안 된 core:Relation(triple 0). 프로젝트 유일 dangling | 中 | B2 |
 | F15 | dom/rng | core 속성 6/16 누락 (coApplicable/exemptedBy/hasViolation 등) | 中 | B4 |
-| F16 | dead | core:Worker 개체 **ref=0**(ProtectedPerson placeholder 미사용). actor:Worker(class)와 의도적 분리지만 placeholder는 죽음 | 低 | B2 |
+| F16 | ~~dead~~ **오탐** | ~~core:Worker ref=0~~ → **코퍼스에서 55회 live**(audit 코퍼스 제외 탓). B2 정정으로 복원. **유효 finding 아님.** | — | ✅정정 |
 | F17 | dom/rng | bridge 속성 2/3 누락 (appliesTo/observedIn) | 中 | B4 |
 | F18 | label | industry 7건 — Industry_GENERAL `"general"@ko`(영문 오태깅) + 언더스코어 leak 6(`"자동차_정비소"@ko` 등). 라벨은 **생성물 kosha-disjoint-axioms.ttl**(build_disjoint_axioms.py)에 있고 upstream industry 라벨 소스(Layer 4)에서 옴 → **손수정 불가, upstream 소스 수정 필요(일부 data-team 세션 영역)**. (+명과학 등 의미 오타 수동검토) | 低 | B1→deferred |
 

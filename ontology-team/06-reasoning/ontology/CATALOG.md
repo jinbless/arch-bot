@@ -1,8 +1,8 @@
 # KOSHA 온톨로지 카탈로그
 
-> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T03:02:46+00:00
-> 소스: serving TBox+facet+moderate ABox (35 files, 518,889 triples; 대용량 instances 제외)
-> class 626 · objectProperty 133 · dataProperty 68 · individual 233
+> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T05:11:19+00:00
+> 소스: serving TBox+facet+moderate ABox (36 files, 518,920 triples; 대용량 instances 제외)
+> class 628 · objectProperty 133 · dataProperty 68 · individual 234
 
 ## 1. 모듈 개요 (prefix)
 
@@ -16,8 +16,8 @@
 | `sr:` | 2 | 15 | 0 | 8 | `https://cashtoss.info/ontology/sr#` |
 | `pen:` | 8 | 17 | 7 | 3 | `https://cashtoss.info/ontology/penalty#` |
 | `law:` | 9 | 16 | 10 | 5 | `https://cashtoss.info/ontology/law#` |
-| `guide:` | 7 | 25 | 31 | 0 | `https://cashtoss.info/ontology/guide#` |
-| `core:` | 9 | 8 | 8 | 19 | `https://cashtoss.info/ontology#` |
+| `guide:` | 9 | 25 | 31 | 0 | `https://cashtoss.info/ontology/guide#` |
+| `core:` | 9 | 8 | 8 | 20 | `https://cashtoss.info/ontology#` |
 | `app:` | 15 | 26 | 7 | 8 | `https://cashtoss.info/ontology/app#` |
 | `industry:` | 80 | 0 | 0 | 0 | `https://cashtoss.info/ontology/industry#` |
 | `bridge:` | 1 | 3 | 0 | 0 | `https://cashtoss.info/ontology/bridge#` |
@@ -91,10 +91,12 @@
   - `core:Incompatibility` "산업 간 부적합성 관계" [⊒0, ←7]
 - `core:SubjectRole` "의무 주체" [⊒3, ←5] ⊑(lkif:Role)
   - `core:DutyHolder` "의무이행주체" [⊒0, ←7] ⊑(lkif:Role)
-  - `core:ProtectedPerson` "보호대상" [⊒0, ←4] ⊑(lkif:Role)
+  - `core:ProtectedPerson` "보호대상" [⊒0, ←5] ⊑(lkif:Role)
   - `core:RegulatoryAuthority` "규제기관" [⊒0, ←1] ⊑(lkif:Role)
 - `guide:ChecklistItem` "점검항목" [⊒1, ←13] ⊑(obo:BFO_0000019, lkif:Norm)
   - `guide:CanonicalChecklistItem` "고유 점검항목(control)" [⊒0, ←51269]
+- `guide:DocumentRequirement` "문서 요구사항" ⊑(lkif:Obligation)
+- `guide:DomainTerm` "도메인 용어" ⊑(lkif:NormStatement)
 - `guide:Equipment` "장비" [⊒0, ←7] ⊑(obo:BFO_0000040, +제약1)
 - `guide:EquipmentSpec` "장비 규격" [⊒0, ←5] ⊑(obo:BFO_0000019)
 - `guide:GuideUsageProfile` "Guide 사용 프로필" [⊒0, ←17] ⊑(+제약4)
@@ -119,7 +121,7 @@
   - `pen:CriminalSanction` "형사벌" [⊒0, ←1] ⊑(lkif:Prohibition)
   - `pen:HighSeverityPenalty` "고위험 제재" [⊒0, ←1]
 - `risk:RiskFeature` "위험 특징" [⊒10, ←46] ⊑(obo:BFO_0000019, +제약4)
-  - `agent:HazardousAgent` "유해 인자" [⊒10, ←29] ⊑(obo:BFO_0000030)
+  - `agent:HazardousAgent` "유해 인자" [⊒10, ←30] ⊑(obo:BFO_0000030)
     - `agent:Biological` "생물학적" [⊒3, ←557]
       - `agent:BloodbornePathogen`
       - `agent:InfectiousMedicalWaste`
@@ -204,12 +206,12 @@
       - `agent:FemaleExposureLimitExceeded`
       - `agent:ResidualRotation`
       - `agent:RopeKink`
-  - `ctx:AgentState` "작업자 상태 (agent_state)" [⊒0, ←6] ⊑(obo:BFO_0000019)
-  - `ctx:EnvironmentalFactor` "환경 요인 (environmental)" [⊒0, ←11] ⊑(obo:BFO_0000019)
-  - `ctx:PPEState` "보호구 상태 (ppe_state)" [⊒0, ←19] ⊑(obo:BFO_0000019)
-  - `ctx:TemporalStage` "시간 단계 (temporal_stage)" [⊒0, ←11] ⊑(obo:BFO_0000003)
-  - `ctx:WorkActivity` "작업 활동 (work_activity)" [⊒0, ←12] ⊑(obo:BFO_0000015)
-  - `ctx:WorkContext` "작업 맥락" [⊒29, ←144] ⊑(obo:BFO_0000015)
+  - `ctx:AgentState` "작업자 상태 (agent_state)" [⊒0, ←7] ⊑(obo:BFO_0000019)
+  - `ctx:EnvironmentalFactor` "환경 요인 (environmental)" [⊒0, ←12] ⊑(obo:BFO_0000019)
+  - `ctx:PPEState` "보호구 상태 (ppe_state)" [⊒0, ←20] ⊑(obo:BFO_0000019)
+  - `ctx:TemporalStage` "시간 단계 (temporal_stage)" [⊒0, ←12] ⊑(obo:BFO_0000003)
+  - `ctx:WorkActivity` "작업 활동 (work_activity)" [⊒0, ←13] ⊑(obo:BFO_0000015)
+  - `ctx:WorkContext` "작업 맥락" [⊒29, ←145] ⊑(obo:BFO_0000015)
     - `ctx:ChemicalWork` "화학물질 취급작업" [⊒22, ←6160]
       - `ctx:AirlessSprayer`
       - `ctx:ChemicalApplication` "Chemical Application"
@@ -395,7 +397,7 @@
       - `ctx:ForkliftOperation` "Forklift Operation"
     - `ctx:Ventilation` "환기작업" [⊒1, ←1769]
       - `ctx:VentilationPoor` "Ventilation Poor"
-  - `haz:AccidentType` "사고 유형" [⊒23, ←49] ⊑(obo:BFO_0000019)
+  - `haz:AccidentType` "사고 유형" [⊒23, ←50] ⊑(obo:BFO_0000019)
     - `haz:AnimalInjury` "동물상해" [⊒1, ←3]
       - `haz:AnimalBite`
     - `haz:CaughtIn` "끼임" [⊒9, ←2516]
@@ -577,8 +579,8 @@
     - `haz:Violence` "폭력행위" [⊒0, ←2]
     - `haz:WorkplaceTraffic` "사업장내교통사고" [⊒1, ←3]
       - `haz:TrafficAccident`
-  - `haz:Hazard` "위험 유형" [⊒0, ←9] ⊑(obo:BFO_0000019)
-  - `risk:NaturalLanguageHazardCategory` "자연어 위험요소 카테고리" [⊒0, ←23]
+  - `haz:Hazard` "위험 유형" [⊒0, ←10] ⊑(obo:BFO_0000019)
+  - `risk:NaturalLanguageHazardCategory` "자연어 위험요소 카테고리" [⊒0, ←24]
 - `risk:RiskPattern` "위험 패턴" [⊒1, ←2] ⊑(obo:BFO_0000019)
   - `she:SituationalHazardPattern` "위험상황 패턴" [⊒0, ←22] ⊑(obo:BFO_0000019, +제약4)
 - `she:VisualTrigger` "시각 트리거" [⊒0, ←4] ⊑(obo:BFO_0000019)
@@ -800,6 +802,8 @@
 
 ## 4. ⚠️ 자동 이상징후 점검
 
+> ⚠️ ref/dead는 **대용량 kosha-instances.ttl(코퍼스) 제외** 집계 — guide/core/app 등 코퍼스에 instance가 있는 클래스의 dead/ref는 신뢰 불가(코퍼스에서 live일 수 있음). facet(haz/agent/ctx) fine 코드는 canonical-ci 포함이라 정확. 제거 전 반드시 코퍼스 포함 재확인.
+
 **(a) facet 클래스인데 risk:RiskFeature 미도달(floating): 0**
 
   ✅ 없음 (모든 facet 클래스가 risk:RiskFeature까지 연결).
@@ -808,15 +812,16 @@
 
   `agent:AcrylateResinSkinContact`, `agent:AirlessResidualPressure`, `agent:AsbestosDust`, `agent:Benzene`, `agent:BiogasMethane`, `agent:BloodbornePathogen`, `agent:CapacitorResidualVoltage`, `agent:ChlorineAmmoniaReaction`, `agent:ColdFloor`, `agent:ConcentratedAlkali`, `agent:ContaminatedFilterParticulateMold`, `agent:CryogenicAgent`, `agent:DefectiveHandle`, `agent:DefectiveSterilePackaging`, `agent:DegradedDeveloperSolution`, `agent:DentalXRay`, `agent:DentalXrayRepeatedExposure`, `agent:DistributionBoard`, `agent:EarphoneNoise`, `agent:ElectricalOverload`, `agent:ElectricityWaterContact`, `agent:ElevatorPitToxicGas`, `agent:ExposedOutlet`, `agent:ExtremeColdEnvironment`, `agent:ExtremeColdSurface`, `agent:FemaleExposureLimitExceeded`, `agent:FormaldehydeSkinContact`, `agent:FragranceVapor`, `agent:FuelSaturatedAbsorbent`, `agent:GasolineMicroLeakage`, `agent:GasolineVapor`, `agent:GlutaraldehydeVapor`, `agent:HighHeat`, `agent:HighPressureAirDust`, `agent:HighTemperatureEnvironment`, `agent:HighTemperatureSteam`, `agent:HotEquipment`, `agent:HotParts`, `agent:HotSurface`, `agent:HotTray` …
 
-**(c) dead 후보(하위0·피참조0·개체아님): 345**
+**(c) dead 후보(하위0·피참조0·개체아님): 347**
 
   `agent:AcrylateResinSkinContact`, `agent:AirlessResidualPressure`, `agent:AsbestosDust`, `agent:Benzene`, `agent:BiogasMethane`, `agent:BloodbornePathogen`, `agent:CapacitorResidualVoltage`, `agent:ChlorineAmmoniaReaction`, `agent:ColdFloor`, `agent:ConcentratedAlkali`, `agent:ContaminatedFilterParticulateMold`, `agent:CryogenicAgent`, `agent:DefectiveHandle`, `agent:DefectiveSterilePackaging`, `agent:DegradedDeveloperSolution`, `agent:DentalXRay`, `agent:DentalXrayRepeatedExposure`, `agent:DistributionBoard`, `agent:EarphoneNoise`, `agent:ElectricalOverload`, `agent:ElectricityWaterContact`, `agent:ElevatorPitToxicGas`, `agent:ExposedOutlet`, `agent:ExtremeColdEnvironment`, `agent:ExtremeColdSurface`, `agent:FemaleExposureLimitExceeded`, `agent:FormaldehydeSkinContact`, `agent:FragranceVapor`, `agent:FuelSaturatedAbsorbent`, `agent:GasolineMicroLeakage`, `agent:GasolineVapor`, `agent:GlutaraldehydeVapor`, `agent:HighHeat`, `agent:HighPressureAirDust`, `agent:HighTemperatureEnvironment`, `agent:HighTemperatureSteam`, `agent:HotEquipment`, `agent:HotParts`, `agent:HotSurface`, `agent:HotTray` …
 
-**(d) 중복 label(같은 한글 라벨, 다른 IRI): 3쌍**
+**(d) 중복 label(같은 한글 라벨, 다른 IRI): 4쌍**
 
-  - "기타": `haz:OtherAccident`, `industry:Industry_OTHER`, `ctx:OtherAgentState`
+  - "근로자": `actor:Worker`, `core:Worker`
+  - "기타": `industry:Industry_OTHER`, `haz:OtherAccident`, `ctx:OtherAgentState`
   - "비상대응": `ctx:EmergencyResponse`, `sr:EmergencyResponse`
-  - "정비": `ctx:Maintenance`, `industry:Industry_MAINTENANCE`
+  - "정비": `industry:Industry_MAINTENANCE`, `ctx:Maintenance`
 
 **(e) domain 또는 range 누락 property: 59**
 
