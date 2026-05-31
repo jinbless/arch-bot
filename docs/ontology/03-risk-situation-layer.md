@@ -6,6 +6,8 @@
 
 최신 구조에서는 `risk:`를 위험 지식의 공통 추상 계층으로 둔다. `haz:`, `agent:`, `ctx:`는 `risk:RiskFeature` 아래의 하위 분류 어휘이고, `she:`는 재사용 위험상황 패턴과 시각 트리거에 집중한다.
 
+> **2026-05-31 보강** (정본: [docs/backlog/ontology-structural-findings.md](../backlog/ontology-structural-findings.md)): 아래 다이어그램은 *축*(haz:AccidentType 등)⊑RiskFeature 레벨이다. 그 아래 **canonical 코드(haz:Fall 등)도 축에 subClassOf로 연결**됨(Fix A — 이전엔 480개가 floating). **10축은 상호 disjoint**(B3a). canonical은 owl:Class+NamedIndividual punning. 진단 도구: `ontology-team/06-reasoning/ontology/scripts/inspect_node.py`, `CATALOG.md`.
+
 OHS 서빙에서는 Stage 2와 Stage 3 사이에 `SituationFrame`을 둔다. 이는 core ontology의 새 법적 판단 계층이 아니라, child context와 safe cue를 보존해 Guide/CI 추천을 보조하는 serving/evaluation 표현이다. child context는 의미 판단에 쓰고, parent context는 검색 확장에만 쓴다.
 
 ```text

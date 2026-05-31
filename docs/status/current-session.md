@@ -1,6 +1,23 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-05-31** — ⭐ **Phase 3 facet taxonomy(궁극목표) + B-트랙 위생(B1/B2/A/B3) 완료 — 전부 push**. origin/main HEAD `1dab81a`. Phase 3(`8adb79a`): vocab rollup 단일 SSOT, ctx 6→221, **Openllet DL 일관성**, forklift⊑vehicle. B-트랙: archive 물리정리(60→51 files + 74MB + stale리포트 48 삭제), restructure-patch 화석/v2.formatted 포맷중복 제거, **SWRL≡SHACL parity 입증 → R-14~R-30 SWRL 4파일 은퇴**(CON 27→23). **남은 것**: B1b(디렉토리 layer화 — 생성기 ~10 출력경로 동반, 보류) / 서빙 백로그(forklift·catalog sub, 서빙팀) / 구 Three-Worlds #10·#11 재평가. 상세: plan `calm-hugging-pond.md` 「## 남은 작업」.
+최신 갱신일: **2026-05-31** — ⭐ **facet 구조 top-down audit(18 findings) + 구조 수정 Fix A/B·B1·B2·B3a — 전부 push**. origin/main HEAD `678a7d1`. 신규 도구 inspect_node(노드 카드+출처파일)·gen_catalog/CATALOG.md(자동진단)·findings 문서. **Fix A**(`ba11895`) canonical⊑axis로 **floating 480→0**, **Fix B**(`ac327a8`) haz:Hazard UPPER_SNAKE 레거시 12 제거, **B1**(`1f32a61`) ctx 16+agent 한글라벨(facet-ko-labels.json), **B2+정정**(`b81436a`/`678a7d1`) dead/alias 11 정리 후 오제거 3 복원(core:Worker·guide:DocumentRequirement/DomainTerm는 코퍼스 live), **B3a**(`0a82546`) facet 10축 disjoint. **직전 세션** = Phase 3 facet taxonomy + B-트랙(아래, `1dab81a`). **남은 것**: B3b(축내 disjoint, 저가치)/B4(domain-range)/B5(빈 축)/B6(BFO grounding) — 상세 정본 `docs/backlog/ontology-structural-findings.md`.
+
+## ⭐ 2026-05-31 (이어서) — facet 구조 top-down audit + 구조 수정 (push 완료)
+
+Fuseki(Openllet) 전체 적재 후 class/predicate를 대화형 top-down 점검 → 18 structural findings 수집·정본화 → 고가치 batch 수정. 정본 추적: **`docs/backlog/ontology-structural-findings.md`**.
+
+**신규 진단 도구** (재사용):
+- `scripts/inspect_node.py` (`8670c6a`): 한 IRI의 전체 triple(주어/목적어 양방향) + **출처 파일**(수정 위치) 카드. `--list <prefix>` scope 개요.
+- `scripts/gen_catalog.py`→`CATALOG.md` (`d99da77`,`756f778`): 전체 class 계층 트리 + property + **자동 이상징후**(floating/label/dead/dup/dom-rng/punning). ⚠️ ref/dead는 대용량 코퍼스 제외 집계 → guide/core/app 클래스엔 caveat(코퍼스 포함 재확인 필수).
+
+**구조 수정 (batch)**:
+- **Fix A** (`ba11895`): `gen_facet_taxonomy.py`에 canonical⊑axis emit 추가 — canonical의 기존 rdf:type 축을 데이터로 읽어 rdfs:subClassOf 승격. **floating 480→0**(haz 181+agent 84+ctx 215이 risk:RiskFeature까지 연결). compare_graphs +62, Openllet DL 일관, 라이브 `haz:Fall⊑risk:RiskFeature`=true.
+- **Fix B** (`ac327a8`): haz:Hazard UPPER_SNAKE 레거시 개체 12(haz:FALL 등) 제거 — CamelCase canonical로의 마이그레이션 잔재, live 참조 0. haz:Hazard *클래스*는 property range로 유지. graph_diff −36.
+- **B1** (`1f32a61`): ctx canonical 16 + agent:UnknownAgent 한글 라벨(F6/F7). 신규 `shared/reference/facet-ko-labels.json` SSOT + gen_kosha22_vocab_patch @ko emit. graph-diff +17.
+- **B2** (`b81436a`) + **정정** (`678a7d1`): 8 haz alias 축-레벨 개체 제거(코퍼스 haz: 참조 0=정확, facet fine 클래스로 보존) + core:Relation 선언(dangling 0). ⚠️ **B2가 core:Worker·guide:DocumentRequirement/DomainTerm를 dead 오판 제거→복원**(코퍼스 55/3435/7726회 live; ref-check 코퍼스제외+IRI형grep 이중실수). F13/F16 오탐 정정.
+- **B3a** (`0a82546`): `kosha-facet-axis-disjoint.ttl` 신규 — risk:RiskFeature 10축 owl:AllDisjointClasses(F2). pre-check 0충돌, Openllet healthy.
+
+**남은 batch** (findings 문서 B3b~B6): B3b 축내 disjoint(저가치, facet=property-linked라 ABox 충돌 못잡음) / B4 domain-range(추론 전용·서빙무관·type추론 위험) / B5 빈 축(haz:Hazard·ctx 5 sub축) / B6 BFO grounding(risk:RiskFeature=Quality인데 자식 Object/Process 혼재, top·고위험). **권고: B4~B6은 코퍼스-aware로 새 세션.**
 
 ## ⭐ 2026-05-31 — Phase 3 facet taxonomy(궁극 목표 달성) + P1.6b archive 정리 (push 완료)
 

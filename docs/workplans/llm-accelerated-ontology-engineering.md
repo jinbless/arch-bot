@@ -7,6 +7,8 @@
 ## Status (2026-05-28 갱신 — ⭐ axiom-100% Sprint(Phase A~K) + ⭐ guide-accuracy Sprint(P0~P3) 완료, origin/main `4aa3cca`. 이전: Phase G + Tier 4 + Hazard-Direct, `3502eff`)
 
 > 최신 두 스프린트(axiom-100%, guide-accuracy)는 별도 plan/runbook으로 추적: [ontology-axiom-100pct.md](ontology-axiom-100pct.md) + [../dev-notes/axiom-100pct-phase-c-j.md](../dev-notes/axiom-100pct-phase-c-j.md) + [../dev-notes/guide-recommendation-accuracy.md](../dev-notes/guide-recommendation-accuracy.md). 아래 Status 표는 ~2026-05-19 (Phase G/Tier 4) 기준.
+>
+> **2026-05-31 facet 구조 audit + 수정** (Fix A canonical⊑axis floating 480→0 / B1 라벨 / B2 dead·alias / B3a 축 disjoint, origin/main `678a7d1`)은 별도 정본 [../backlog/ontology-structural-findings.md](../backlog/ontology-structural-findings.md)로 추적. 남은 B3b~B6.
 
 | Phase | 상태 | 비고 |
 |---|---|---|

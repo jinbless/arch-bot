@@ -15,7 +15,24 @@
 - 부정확한 매핑/관계를 찾아내고, 6번 완성 시 5번(LLM enrichment)을 자연스럽게 대체
 - 시각화 도구 ([06-reasoning/visualization/](06-reasoning/visualization/)) 운영
 
-## 최근 변경 (2026-05-28, origin/main `4aa3cca`)
+## 최근 변경 (2026-05-31, origin/main `678a7d1`)
+
+**facet 구조 top-down audit + 구조 수정** (정본: [docs/backlog/ontology-structural-findings.md](../docs/backlog/ontology-structural-findings.md)).
+
+신규 진단 도구(재사용):
+- `scripts/inspect_node.py` — 한 IRI의 전체 triple(주어/목적어 양방향) + **출처 파일** 카드. `--list <prefix>` scope 개요.
+- `scripts/gen_catalog.py` → `06-reasoning/ontology/CATALOG.md` — 전체 class 계층 + property + 자동 이상징후(floating/label/dead/dup/dom-rng/punning). ⚠️ ref/dead는 대용량 코퍼스 제외 → guide/core/app 클래스는 코퍼스 포함 재확인 필수.
+
+구조 수정:
+- **Fix A** `ba11895`: `gen_facet_taxonomy.py`에 canonical⊑axis emit → **floating 480→0**(facet이 risk:RiskFeature까지 연결).
+- **Fix B** `ac327a8`: haz:Hazard UPPER_SNAKE 레거시 개체 12 제거(클래스는 property range로 유지).
+- **B1** `1f32a61`: ctx 16+agent 한글 라벨 — 신규 `shared/reference/facet-ko-labels.json` SSOT.
+- **B2+정정** `b81436a`/`678a7d1`: haz alias 축-레벨 개체 8 제거 + `core:Relation` 선언(dangling 0); 오제거 3 복원(core:Worker·guide:DocumentRequirement/DomainTerm = 코퍼스 live — 제거 전 코퍼스 확인 교훈).
+- **B3a** `0a82546`: `kosha-facet-axis-disjoint.ttl` — risk:RiskFeature 10축 owl:AllDisjointClasses.
+
+남은: B3b(저가치)/B4 domain-range/B5 빈 축/B6 BFO grounding (findings 문서).
+
+## 이전 변경 (2026-05-28, origin/main `4aa3cca`)
 
 **axiom-100% Sprint (Phase A~K) + guide-accuracy Sprint (P0~P3)**.
 
