@@ -1,0 +1,26 @@
+# kosha-facet-axis-disjoint.ttl — facet 축 상호 disjoint (B3a, finding F2)
+#
+# risk:RiskFeature 직속 10축을 owl:AllDisjointClasses로 상호 서로소 선언.
+# 근거: 사고유형(haz) / 유해인자(agent) / 작업맥락(ctx 6) / 자연어카테고리는 서로 다른 종류라
+#       한 코드(또는 개체)가 두 축에 동시에 속할 수 없다. canonical은 각자 한 축에만 ⊑(Fix A).
+# pre-check: 2+축에 type/subClassOf 도달하는 개체·클래스 0건 → 추가 시 비일관 없음(TBox 위생).
+# 주의: risk:RiskFeature children이 바뀌면(B5 빈 축 정리 등) 이 목록도 갱신.
+# (hand-authored — 생성기 없음. 목록은 risk:RiskFeature children 정본.)
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix risk: <https://cashtoss.info/ontology/risk#> .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( haz:AccidentType
+                  haz:Hazard
+                  agent:HazardousAgent
+                  ctx:WorkContext
+                  ctx:WorkActivity
+                  ctx:AgentState
+                  ctx:EnvironmentalFactor
+                  ctx:PPEState
+                  ctx:TemporalStage
+                  risk:NaturalLanguageHazardCategory ) .

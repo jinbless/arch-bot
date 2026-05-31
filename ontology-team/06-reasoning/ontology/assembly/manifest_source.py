@@ -78,6 +78,8 @@ _E = [
      {"SRV", "CON", "MAT", "FAC"}, "turtle", "industry disjoint. 생성: build_disjoint_axioms.py."),
     ("accident22-disjoint", "kosha-accident22-disjoint.ttl", "axioms-disjoint", "L3-reasoning",
      {"SRV", "CON", "MAT", "FAC"}, "turtle", "KOSHA-22 사고유형 disjoint."),
+    ("facet-axis-disjoint", "kosha-facet-axis-disjoint.ttl", "axioms-disjoint", "L3-reasoning",
+     {"SRV", "CON", "MAT", "FAC"}, "turtle", "facet 10축 상호 disjoint (B3a/F2). risk:RiskFeature children."),
     ("vetted-disjoint-shapes", "kosha-vetted-disjoint-shapes.ttl", "shapes-validation", "L3-reasoning",
      {"CON"}, "turtle", "vetted disjoint SHACL(sh:Info)."),
     ("kb-candidates", "kb-candidates.ttl", "candidates", "L4-learning",
