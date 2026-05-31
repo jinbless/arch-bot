@@ -62,12 +62,13 @@ risk:hasRiskFeature a owl:ObjectProperty ;
     rdfs:range risk:RiskFeature .
 
 
-# risk:correspondsToHazard — RiskFeature → Hazard (R-11 body)
+# risk:correspondsToHazard — RiskFeature → AccidentType (R-11 body)
+# (구 range haz:Hazard → AccidentType. haz:Hazard 클래스 폐지, B5/F4-c.)
 risk:correspondsToHazard a owl:ObjectProperty ;
     rdfs:label "위험 유형 대응"@ko ;
-    rdfs:comment "RiskFeature가 특정 Hazard에 정성적으로 대응됨 (R-11 body). haz:hasHazard의 reasoning 근거."@ko ;
+    rdfs:comment "RiskFeature가 특정 AccidentType에 정성적으로 대응됨 (R-11 body). haz:hasHazard의 reasoning 근거."@ko ;
     rdfs:domain risk:RiskFeature ;
-    rdfs:range haz:Hazard .
+    rdfs:range haz:AccidentType .
 
 
 # risk:indicatesByCue — RiskFeature → VisualCue (R-10 body)
@@ -94,16 +95,17 @@ risk:compatibleWithSpec a owl:ObjectProperty ;
     rdfs:range guide:EquipmentSpec .
 
 
-# haz:hasHazard — RiskFeature → Hazard (R-11 head, R-14/R-15/R-16/R-26 body)
+# haz:hasHazard — RiskFeature → AccidentType (R-11 head, R-14/R-15/R-16/R-26 body)
+# (구 range haz:Hazard → AccidentType. haz:Hazard 클래스 폐지, B5/F4-c.)
 # Note: risk:correspondsToHazard와 같은 range이나 의미적 분리:
 #   - risk:correspondsToHazard: 정성적 대응 (mapping, static)
 #   - haz:hasHazard: 추론된 hazard link (R-11 결과, dynamic)
 # 둘 다 유지함으로써 R-11이 inference의 명시적 결과를 추가 (audit trail).
 haz:hasHazard a owl:ObjectProperty ;
     rdfs:label "위험 유형"@ko ;
-    rdfs:comment "RiskFeature가 도출한 Hazard (R-11 결과). 의미적으로 risk:correspondsToHazard의 inference output."@ko ;
+    rdfs:comment "RiskFeature가 도출한 AccidentType (R-11 결과). 의미적으로 risk:correspondsToHazard의 inference output."@ko ;
     rdfs:domain risk:RiskFeature ;
-    rdfs:range haz:Hazard .
+    rdfs:range haz:AccidentType .
 
 
 # app:matchesProcess — SituationMatch → WorkProcess (R-13 body)

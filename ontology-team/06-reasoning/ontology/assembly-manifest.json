@@ -63,10 +63,6 @@
         "format": "turtle"
       },
       {
-        "file": "kosha-hazard-axis-taxonomy.ttl",
-        "format": "turtle"
-      },
-      {
         "file": "kb-candidates.ttl",
         "format": "turtle"
       },
@@ -158,10 +154,6 @@
       },
       {
         "file": "kosha-facet-axis-disjoint.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-hazard-axis-taxonomy.ttl",
         "format": "turtle"
       },
       {
@@ -267,10 +259,6 @@
         "format": "turtle"
       },
       {
-        "file": "kosha-hazard-axis-taxonomy.ttl",
-        "format": "turtle"
-      },
-      {
         "file": "kosha-rules-r14-r30-shacl-construct.ttl",
         "format": "turtle"
       },
@@ -354,10 +342,6 @@
       },
       {
         "file": "kosha-facet-axis-disjoint.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-hazard-axis-taxonomy.ttl",
         "format": "turtle"
       },
       {
@@ -711,21 +695,7 @@
         "shacl-materialize"
       ],
       "format": "turtle",
-      "note": "facet 9축 상호 disjoint (B3a/F2; B3a 정정으로 haz:Hazard 제외). risk:RiskFeature children."
-    },
-    {
-      "id": "hazard-axis-taxonomy",
-      "file": "kosha-hazard-axis-taxonomy.ttl",
-      "role": "axioms-taxonomy",
-      "layer": "L3-reasoning",
-      "profiles": [
-        "consistency",
-        "facet-explorer",
-        "serving",
-        "shacl-materialize"
-      ],
-      "format": "turtle",
-      "note": "B5/F4: haz:AccidentType ⊑ haz:Hazard (haz:Hazard 빈 축 재정의). facet-axis-disjoint 짝."
+      "note": "facet 9축 상호 disjoint (B3a/F2). risk:RiskFeature children (haz:Hazard는 B5/F4-c로 폐지)."
     },
     {
       "id": "vetted-disjoint-shapes",

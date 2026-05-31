@@ -42,7 +42,7 @@
 sr:SafetyRequirement rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty sr:addressesHazard ;
-    owl:allValuesFrom haz:Hazard ;
+    owl:allValuesFrom haz:AccidentType ;
 ] , [
     a owl:Restriction ;
     owl:onProperty sr:appliesToArticle ;
@@ -88,7 +88,7 @@ pen:PenaltyRule rdfs:subClassOf [
 risk:RiskFeature rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty risk:correspondsToHazard ;
-    owl:allValuesFrom haz:Hazard ;
+    owl:allValuesFrom haz:AccidentType ;
 ] , [
     a owl:Restriction ;
     owl:onProperty risk:indicatesByCue ;
@@ -100,7 +100,7 @@ risk:RiskFeature rdfs:subClassOf [
 ] , [
     a owl:Restriction ;
     owl:onProperty haz:hasHazard ;
-    owl:allValuesFrom haz:Hazard ;
+    owl:allValuesFrom haz:AccidentType ;
 ] .
 
 

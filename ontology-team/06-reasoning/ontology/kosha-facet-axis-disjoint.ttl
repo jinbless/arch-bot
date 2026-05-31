@@ -4,12 +4,11 @@
 # 근거: 사고유형(haz:AccidentType) / 유해인자(agent) / 작업맥락(ctx 6) / 자연어카테고리는
 #       서로 다른 종류라 한 개체가 두 축에 동시에 속할 수 없다. canonical은 각자 한 축에만 ⊑(Fix A).
 #
-# ⚠️ haz:Hazard 제외 (2026-05-31, B4 Openllet 게이트가 적발):
-#   haz:Hazard와 haz:AccidentType는 동일 canonical 코드(haz:Fall 등)를 공유한다 — 같은 코드가
-#   sr:addressesAccidentType(→AccidentType)와 sr:addressesHazard(→haz:Hazard) 양쪽 목적어로
-#   쓰여 두 클래스 모두에 속한다(7개체: Fall/StruckBy/Collapse/CaughtIn/ChemicalExposure/
-#   ErgonomicStrain/ElectricShock). 따라서 서로소 선언 불가. haz:Hazard는 하위 0의 near-empty 축
-#   (F4)이라 독립 축이 아니며 AccidentType와 통합 대상(B5). 그때까지 disjoint에서 제외.
+# ⚠️ haz:Hazard 폐지됨 (2026-05-31, B5/F4-c): 최초 B3a 10축은 haz:AccidentType⊥haz:Hazard
+#   비일관을 유발했다 — 같은 canonical 코드(haz:Fall 등)가 sr:addressesAccidentType(→AccidentType)와
+#   sr:addressesHazard(→haz:Hazard) 양쪽 목적어로 쓰여 두 클래스 모두에 속함(7개체). haz:Hazard는
+#   하위 0의 빈 축이라 독립 축이 아니었고, B5에서 **클래스 자체를 폐지**(4 property range·3 allValuesFrom·
+#   SWRL을 AccidentType으로 repoint). 따라서 이 disjoint 목록에는 haz:AccidentType만 남는다.
 #   ※ 초기 B3a pre-check는 type/subClassOf만 봐 domain/range 주입(addressesHazard range)을 놓쳤고,
 #     Openllet lazy prepare()의 "Server Started"가 일관성 거짓양성을 줬다 → 이후 점검은
 #     scripts/check_disjoint_consistency.py(domain/range+subclass 폐포) + 실제 추론 쿼리(owl:Nothing).

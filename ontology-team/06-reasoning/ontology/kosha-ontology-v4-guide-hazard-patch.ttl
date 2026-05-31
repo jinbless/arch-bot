@@ -22,9 +22,9 @@
 
 guide:addressesHazard a owl:ObjectProperty ;
     rdfs:label "직접 위험 대응 (Guide)"@ko ;
-    rdfs:comment "KoshaGuide가 직접 대응하는 사고유형(Hazard). CI 변별력 가중 다수결로 도출된 Guide 대표 위험. CI 경유 fan-out noise 회피."@ko ;
+    rdfs:comment "KoshaGuide가 직접 대응하는 사고유형(AccidentType). CI 변별력 가중 다수결로 도출된 Guide 대표 위험. CI 경유 fan-out noise 회피. (구 range haz:Hazard → AccidentType, B5/F4-c.)"@ko ;
     rdfs:domain guide:KoshaGuide ;
-    rdfs:range haz:Hazard .
+    rdfs:range haz:AccidentType .
 
 guide:guideAddressesAgent a owl:ObjectProperty ;
     rdfs:label "직접 유해인자 대응 (Guide)"@ko ;

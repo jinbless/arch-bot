@@ -73,20 +73,21 @@ kr:R10_HasRiskFeatureRule a swrl:Imp ;
     ) .
 
 
-### R-11: RiskFeature → Hazard (corresponds → hasHazard inference)
-# 위험 특징이 어떤 hazard 유형에 대응되는지를 명시 hazard link로 promote.
+### R-11: RiskFeature → AccidentType (corresponds → hasHazard inference)
+# 위험 특징이 어떤 사고유형에 대응되는지를 명시 link로 promote.
+# (구 Hazard 클래스 폐지 → AccidentType, B5/F4-c.)
 # Pseudocode:
-#   RiskFeature(?rf) ∧ Hazard(?hazd) ∧ correspondsToHazard(?rf, ?hazd)
+#   RiskFeature(?rf) ∧ AccidentType(?hazd) ∧ correspondsToHazard(?rf, ?hazd)
 #     → hasHazard(?rf, ?hazd)
 
 kr:R11_HasHazardRule a swrl:Imp ;
-    rdfs:label "R-11: hasHazard 추론 (RiskFeature → Hazard)"@ko ;
+    rdfs:label "R-11: hasHazard 추론 (RiskFeature → AccidentType)"@ko ;
     swrl:body (
         [ a swrl:ClassAtom ;
           swrl:classPredicate risk:RiskFeature ;
           swrl:argument1 kr:x_rf ]
         [ a swrl:ClassAtom ;
-          swrl:classPredicate haz:Hazard ;
+          swrl:classPredicate haz:AccidentType ;
           swrl:argument1 kr:x_hazd ]
         [ a swrl:IndividualPropertyAtom ;
           swrl:propertyPredicate risk:correspondsToHazard ;
