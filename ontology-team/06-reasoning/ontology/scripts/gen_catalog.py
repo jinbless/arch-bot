@@ -138,7 +138,12 @@ def main() -> int:
             return
         seen = seen | {node}
         kids = sorted(children.get(node, []), key=lambda u: short(u))
-        upper = [short(s) for s in g.objects(node, RDFS.subClassOf) if not is_proj(s)]
+        # 상위 주석: 프로젝트 외 named 상위(BFO/LKIF)만. 익명 제약(blank node)은 +제약N으로 요약(노이즈 제거).
+        upper = [short(s) for s in g.objects(node, RDFS.subClassOf)
+                 if isinstance(s, URIRef) and not is_proj(s)]
+        n_restr = sum(1 for s in g.objects(node, RDFS.subClassOf) if not isinstance(s, URIRef))
+        if n_restr:
+            upper.append(f"+제약{n_restr}")
         up = f" ⊑({', '.join(upper)})" if upper else ""
         lab = ko_label(g, node)
         labs = f' "{lab}"' if lab else ""
