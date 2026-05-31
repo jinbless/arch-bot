@@ -1,7 +1,7 @@
 # KOSHA 온톨로지 카탈로그
 
-> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T02:04:02+00:00
-> 소스: serving TBox+facet+moderate ABox (35 files, 518,908 triples; 대용량 instances 제외)
+> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T02:49:24+00:00
+> 소스: serving TBox+facet+moderate ABox (35 files, 518,925 triples; 대용량 instances 제외)
 > class 627 · objectProperty 133 · dataProperty 68 · individual 242
 
 ## 1. 모듈 개요 (prefix)
@@ -33,16 +33,16 @@
 - `app:CorrectiveAction` "개선 조치" [⊒0, ←7] ⊑(obo:BFO_0000015, lkif:Obligation)
 - `app:CorrectiveActionPlan` "조치 계획" [⊒0, ←1] ⊑(obo:BFO_0000015, lkif:Obligation)
 - `app:FindingStatus` "판정 상태" [⊒0, ←9] ⊑(obo:BFO_0000019, lkif:Norm)
-- `app:HazardFinding` "위험 판단" [⊒0, ←7] ⊑(obo:BFO_0000019, nc190b9484952419b89ecde05c51d2153b22, nc190b9484952419b89ecde05c51d2153b23)
+- `app:HazardFinding` "위험 판단" [⊒0, ←7] ⊑(obo:BFO_0000019, +제약2)
 - `app:InspectionCase` "분석 건" [⊒0, ←2] ⊑(obo:BFO_0000003)
 - `app:Noncompliance` "비준수" [⊒0, ←2] ⊑(obo:BFO_0000019)
-- `app:PenaltyExposure` "벌칙 노출" [⊒0, ←12] ⊑(obo:BFO_0000019, lkif:Penalty, nc190b9484952419b89ecde05c51d2153b27, nc190b9484952419b89ecde05c51d2153b28, nc190b9484952419b89ecde05c51d2153b29)
+- `app:PenaltyExposure` "벌칙 노출" [⊒0, ←12] ⊑(obo:BFO_0000019, lkif:Penalty, +제약3)
 - `app:PenaltyExposureStatus` "벌칙 노출 상태" [⊒0, ←4] ⊑(obo:BFO_0000019, lkif:Penalty)
 - `app:PenaltyLevel` "벌칙 심각도 레벨" [⊒0, ←3] ⊑(obo:BFO_0000019)
-- `app:SituationMatch` "상황 매칭" [⊒0, ←8] ⊑(obo:BFO_0000019, lkif:Norm, nc190b9484952419b89ecde05c51d2153b24, nc190b9484952419b89ecde05c51d2153b25, nc190b9484952419b89ecde05c51d2153b26)
+- `app:SituationMatch` "상황 매칭" [⊒0, ←8] ⊑(obo:BFO_0000019, lkif:Norm, +제약3)
 - `app:UploadedPhoto` "업로드 사진" [⊒0, ←3] ⊑(obo:BFO_0000002)
 - `app:VisualCue` "시각 단서" [⊒0, ←7] ⊑(obo:BFO_0000019)
-- `app:VisualObservation` "관찰 사실" [⊒0, ←19] ⊑(obo:BFO_0000003, nc190b9484952419b89ecde05c51d2153b19, nc190b9484952419b89ecde05c51d2153b20, nc190b9484952419b89ecde05c51d2153b21)
+- `app:VisualObservation` "관찰 사실" [⊒0, ←19] ⊑(obo:BFO_0000003, +제약3)
 - `core:BindingForce` "구속력" [⊒0, ←3] ⊑(lkif:Norm)
 - `core:Industry` "산업 분류" [⊒80, ←80]
   - `industry:Industry_AGRICULTURE_FORESTRY` "농업·임업" [⊒0, ←141]
@@ -95,17 +95,17 @@
   - `guide:CanonicalChecklistItem` "고유 점검항목(control)" [⊒0, ←51269]
 - `guide:DocumentRequirement` "문서 요구사항" ⊑(lkif:Obligation)
 - `guide:DomainTerm` "도메인 용어" ⊑(lkif:NormStatement)
-- `guide:Equipment` "장비" [⊒0, ←7] ⊑(obo:BFO_0000040, nc190b9484952419b89ecde05c51d2153b18)
+- `guide:Equipment` "장비" [⊒0, ←7] ⊑(obo:BFO_0000040, +제약1)
 - `guide:EquipmentSpec` "장비 규격" [⊒0, ←5] ⊑(obo:BFO_0000019)
-- `guide:GuideUsageProfile` "Guide 사용 프로필" [⊒0, ←17] ⊑(nd9993c370e4e445d81f3f0c5456831e9b1, nd9993c370e4e445d81f3f0c5456831e9b2, nd9993c370e4e445d81f3f0c5456831e9b3, nd9993c370e4e445d81f3f0c5456831e9b4)
+- `guide:GuideUsageProfile` "Guide 사용 프로필" [⊒0, ←17] ⊑(+제약4)
 - `guide:KoshaGuide` "KOSHA 가이드" [⊒0, ←17] ⊑(lkif:LegalDocument)
 - `guide:WorkProcess` "작업 프로세스" [⊒0, ←5] ⊑(obo:BFO_0000015)
 - `law:LawType` "법령 유형" [⊒0, ←6] ⊑(lkif:LegalDocument)
 - `law:LegalEntity` "법령 엔티티" [⊒3, ←3] ⊑(lkif:Role)
   - `law:Article` "조문" [⊒0, ←12] ⊑(lkif:Norm)
-  - `law:NormStatement` "규범 진술문" [⊒1, ←30] ⊑(lkif:Norm, nc190b9484952419b89ecde05c51d2153b30, nc190b9484952419b89ecde05c51d2153b31)
-    - `bridge:ViolationCandidate` "위반 후보 NormStatement" [⊒0, ←1] ⊑(nc190b9484952419b89ecde05c51d2153b32, nc190b9484952419b89ecde05c51d2153b33)
-  - `pen:PenaltyRule` "벌칙 적용 규칙" [⊒0, ←23] ⊑(lkif:Norm, nc190b9484952419b89ecde05c51d2153b6, nc190b9484952419b89ecde05c51d2153b7, nc190b9484952419b89ecde05c51d2153b8, nc190b9484952419b89ecde05c51d2153b9)
+  - `law:NormStatement` "규범 진술문" [⊒1, ←30] ⊑(lkif:Norm, +제약2)
+    - `bridge:ViolationCandidate` "위반 후보 NormStatement" [⊒0, ←1] ⊑(+제약2)
+  - `pen:PenaltyRule` "벌칙 적용 규칙" [⊒0, ←23] ⊑(lkif:Norm, +제약4)
 - `law:LegalStructure` "법령 구조" [⊒4, ←4] ⊑(lkif:LegalDocument)
   - `law:Chapter` "장" ⊑(lkif:LegalDocument)
   - `law:Part` "편" ⊑(lkif:LegalDocument)
@@ -118,7 +118,7 @@
   - `pen:AdministrativeFine` "과태료" ⊑(lkif:Prohibition)
   - `pen:CriminalSanction` "형사벌" [⊒0, ←1] ⊑(lkif:Prohibition)
   - `pen:HighSeverityPenalty` "고위험 제재" [⊒0, ←1]
-- `risk:RiskFeature` "위험 특징" [⊒10, ←46] ⊑(obo:BFO_0000019, nc190b9484952419b89ecde05c51d2153b10, nc190b9484952419b89ecde05c51d2153b11, nc190b9484952419b89ecde05c51d2153b12, nc190b9484952419b89ecde05c51d2153b13)
+- `risk:RiskFeature` "위험 특징" [⊒10, ←46] ⊑(obo:BFO_0000019, +제약4)
   - `agent:HazardousAgent` "유해 인자" [⊒10, ←29] ⊑(obo:BFO_0000030)
     - `agent:Biological` "생물학적" [⊒3, ←557]
       - `agent:BloodbornePathogen`
@@ -197,7 +197,7 @@
       - `agent:ResidualCombustionGas`
       - `agent:SmallQuantityGasoline`
       - `agent:TobaccoSmoke`
-    - `agent:UnknownAgent` "Unknown Agent" [⊒6, ←8]
+    - `agent:UnknownAgent` "미상 유해인자" [⊒6, ←8]
       - `agent:AirlessResidualPressure`
       - `agent:DefectiveHandle`
       - `agent:DefectiveSterilePackaging`
@@ -210,7 +210,7 @@
   - `ctx:TemporalStage` "시간 단계 (temporal_stage)" [⊒0, ←11] ⊑(obo:BFO_0000003)
   - `ctx:WorkActivity` "작업 활동 (work_activity)" [⊒0, ←12] ⊑(obo:BFO_0000015)
   - `ctx:WorkContext` "작업 맥락" [⊒29, ←144] ⊑(obo:BFO_0000015)
-    - `ctx:ChemicalWork` "Chemical Work" [⊒22, ←6160]
+    - `ctx:ChemicalWork` "화학물질 취급작업" [⊒22, ←6160]
       - `ctx:AirlessSprayer`
       - `ctx:ChemicalApplication` "Chemical Application"
       - `ctx:ChemicalCleaning`
@@ -233,7 +233,7 @@
       - `ctx:SolventHandling`
       - `ctx:SprayPainting`
       - `ctx:VaporExposure` "Vapor Exposure"
-    - `ctx:CollapsePrevention` "Collapse Prevention" [⊒0, ←1002]
+    - `ctx:CollapsePrevention` "붕괴방지 작업" [⊒0, ←1002]
     - `ctx:ConfinedSpace` "밀폐공간" [⊒5, ←1656]
       - `ctx:AquacultureTank`
       - `ctx:ConfinedCoating`
@@ -245,25 +245,25 @@
       - `ctx:ConveyorBelt` "Conveyor Belt"
       - `ctx:ConveyorWash` "Conveyor Wash"
     - `ctx:Crane` "양중기" [⊒0, ←1644]
-    - `ctx:Demolition` "Demolition" [⊒0, ←1418]
-    - `ctx:DustWork` "Dust Work" [⊒0, ←397]
-    - `ctx:ElectricalWork` "Electrical Work" [⊒5, ←3608]
+    - `ctx:Demolition` "해체작업" [⊒0, ←1418]
+    - `ctx:DustWork` "분진작업" [⊒0, ←397]
+    - `ctx:ElectricalWork` "전기작업" [⊒5, ←3608]
       - `ctx:ElectricPolishingRoller`
       - `ctx:ElectricalHazard`
       - `ctx:ElectricalOverload` "Electrical Overload"
       - `ctx:LivePowerRepair`
       - `ctx:StaticElectricity` "Static Electricity"
-    - `ctx:ErgonomicWork` "Ergonomic Work" [⊒2, ←4]
+    - `ctx:ErgonomicWork` "근골격계부담 작업" [⊒2, ←4]
       - `ctx:AwkwardPostureWork`
       - `ctx:ExcessiveMotionRange`
     - `ctx:Excavation` "굴착" [⊒0, ←1058]
-    - `ctx:FallProtection` "Fall Protection" [⊒0, ←384]
-    - `ctx:FireExplosionWork` "Fire Explosion Work" [⊒4, ←1601]
+    - `ctx:FallProtection` "추락방지 작업" [⊒0, ←384]
+    - `ctx:FireExplosionWork` "화재·폭발 위험작업" [⊒4, ←1601]
       - `ctx:FireDetectionFailure`
       - `ctx:FireDetectorDisabled`
       - `ctx:FireEvacuation` "Fire Evacuation"
       - `ctx:FireExtinguisherDefective`
-    - `ctx:HeatColdWork` "Heat Cold Work" [⊒11, ←340]
+    - `ctx:HeatColdWork` "고온·저온 작업" [⊒11, ←340]
       - `ctx:ColdDisplay` "Cold Display"
       - `ctx:ColdRoomAccess`
       - `ctx:ColdRoomMortuary`
@@ -275,7 +275,7 @@
       - `ctx:HotTool` "Hot Tool"
       - `ctx:HotTrayTransport`
       - `ctx:KitchenCooking` "Kitchen Cooking"
-    - `ctx:Logging` "Logging" [⊒0, ←153]
+    - `ctx:Logging` "벌목작업" [⊒0, ←153]
     - `ctx:Machine` "기계" [⊒24, ←4606]
       - `ctx:BandSaw`
       - `ctx:BreadSlicer`
@@ -321,12 +321,12 @@
       - `ctx:PackageSorting` "Package Sorting"
       - `ctx:ShelfStocking` "Shelf Stocking"
       - `ctx:StorageShelf` "Storage Shelf"
-    - `ctx:NoiseWork` "Noise Work" [⊒1, ←585]
+    - `ctx:NoiseWork` "소음작업" [⊒1, ←585]
       - `ctx:NoiseExposure` "Noise Exposure"
-    - `ctx:Passage` "Passage" [⊒2, ←1113]
+    - `ctx:Passage` "통로" [⊒2, ←1113]
       - `ctx:AisleObstruction`
       - `ctx:WalkwayObstruction`
-    - `ctx:PathogenWork` "Pathogen Work" [⊒8, ←10]
+    - `ctx:PathogenWork` "병원체 취급작업" [⊒8, ←10]
       - `ctx:AcupunctureWork`
       - `ctx:AutoclaveSterilization`
       - `ctx:BiomedicalWaste`
@@ -336,7 +336,7 @@
       - `ctx:Embalming`
       - `ctx:FuneralHallSetup`
     - `ctx:PressureVessel` "압력용기" [⊒0, ←1729]
-    - `ctx:RadiationWork` "Radiation Work" [⊒0, ←12]
+    - `ctx:RadiationWork` "방사선작업" [⊒0, ←12]
     - `ctx:Rail` "철도" [⊒0, ←111]
     - `ctx:Robot` "로봇" [⊒0, ←101]
     - `ctx:Scaffold` "비계" [⊒7, ←460]
@@ -348,7 +348,7 @@
       - `ctx:RopeAccess` "Rope Access"
       - `ctx:ScaffoldWork`
     - `ctx:Steelwork` "철골작업" [⊒0, ←336]
-    - `ctx:UnknownContext` "Unknown Context" [⊒71, ←73]
+    - `ctx:UnknownContext` "미상 작업맥락" [⊒71, ←73]
       - `ctx:AcrophobiaWork`
       - `ctx:AnimalFeeding` "Animal Feeding"
       - `ctx:BracketDefect`
@@ -393,7 +393,7 @@
     - `ctx:Vehicle` "차량" [⊒2, ←1517]
       - `ctx:DeliveryRider` "Delivery Rider"
       - `ctx:ForkliftOperation` "Forklift Operation"
-    - `ctx:Ventilation` "Ventilation" [⊒1, ←1769]
+    - `ctx:Ventilation` "환기작업" [⊒1, ←1769]
       - `ctx:VentilationPoor` "Ventilation Poor"
   - `haz:AccidentType` "사고 유형" [⊒23, ←57] ⊑(obo:BFO_0000019)
     - `haz:AnimalInjury` "동물상해" [⊒1, ←3]
@@ -580,10 +580,10 @@
   - `haz:Hazard` "위험 유형" [⊒0, ←9] ⊑(obo:BFO_0000019)
   - `risk:NaturalLanguageHazardCategory` "자연어 위험요소 카테고리" [⊒0, ←23]
 - `risk:RiskPattern` "위험 패턴" [⊒1, ←2] ⊑(obo:BFO_0000019)
-  - `she:SituationalHazardPattern` "위험상황 패턴" [⊒0, ←22] ⊑(obo:BFO_0000019, nc190b9484952419b89ecde05c51d2153b14, nc190b9484952419b89ecde05c51d2153b15, nc190b9484952419b89ecde05c51d2153b16, nc190b9484952419b89ecde05c51d2153b17)
+  - `she:SituationalHazardPattern` "위험상황 패턴" [⊒0, ←22] ⊑(obo:BFO_0000019, +제약4)
 - `she:VisualTrigger` "시각 트리거" [⊒0, ←4] ⊑(obo:BFO_0000019)
 - `sr:RequirementType` "요구사항 유형" [⊒0, ←8] ⊑(lkif:Norm)
-- `sr:SafetyRequirement` "안전요구사항" [⊒0, ←41] ⊑(lkif:Obligation, nc190b9484952419b89ecde05c51d2153b1, nc190b9484952419b89ecde05c51d2153b2, nc190b9484952419b89ecde05c51d2153b3, nc190b9484952419b89ecde05c51d2153b4, nc190b9484952419b89ecde05c51d2153b5)
+- `sr:SafetyRequirement` "안전요구사항" [⊒0, ←41] ⊑(lkif:Obligation, +제약5)
 
 ## 3. 속성 (predicate)
 
@@ -815,9 +815,9 @@
 **(d) 중복 label(같은 한글 라벨, 다른 IRI): 4쌍**
 
   - "근로자": `core:Worker`, `actor:Worker`
-  - "기타": `haz:OtherAccident`, `industry:Industry_OTHER`, `ctx:OtherAgentState`
+  - "기타": `industry:Industry_OTHER`, `haz:OtherAccident`, `ctx:OtherAgentState`
   - "비상대응": `sr:EmergencyResponse`, `ctx:EmergencyResponse`
-  - "정비": `industry:Industry_MAINTENANCE`, `ctx:Maintenance`
+  - "정비": `ctx:Maintenance`, `industry:Industry_MAINTENANCE`
 
 **(e) domain 또는 range 누락 property: 59**
 

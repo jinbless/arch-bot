@@ -10,6 +10,9 @@ import json
 import sys
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "shared" / "reference"))
 sys.path.insert(0, str(ROOT / "serving-team" / "08-app" / "backend"))
@@ -18,6 +21,7 @@ from app.integrations.code_iri_mapper import _camel, _AXIS_PREFIX
 
 OUT = Path(__file__).resolve().parents[1] / "kosha-ontology-v4-kosha22-vocab-patch.ttl"
 KREF = ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "kosha_reference_parsed.json"
+FACET_KO = ROOT / "shared" / "reference" / "facet-ko-labels.json"  # agent/work_context 한글 라벨 SSOT
 
 AXIS_CLASS = {
     "accident_type": "haz:AccidentType",
@@ -53,6 +57,15 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         print(f"[warn] KOSHA ref 라벨 로드 실패: {e}", file=sys.stderr)
 
+    # agent/work_context 한글 라벨 (vocab JSON은 코드만 보유 → 전용 SSOT facet-ko-labels.json).
+    try:
+        flab = json.loads(FACET_KO.read_text(encoding="utf-8"))
+        for axis_map in (flab.get("axes") or {}).values():
+            for code, ko in axis_map.items():
+                ko_label[code] = ko
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] facet-ko-labels 로드 실패: {e}", file=sys.stderr)
+
     lines = [
         "# Phase 4-B Stage 2 — KOSHA-22 정본 어휘 NamedIndividual (SSOT 파생, gen_kosha22_vocab_patch.py)",
         "# accident 23 + hazardous_agent 10 + work_context 29 = 62. CamelCase IRI = code_iri_mapper._camel.",
@@ -72,7 +85,7 @@ def main() -> int:
             frag = _camel(code)
             en = de_camel(frag)
             label = f'rdfs:label "{esc(en)}"@en'
-            if axis == "accident_type" and code in ko_label:
+            if code in ko_label:  # accident=kref, agent/work_context=facet-ko-labels
                 label += f',\n        "{esc(ko_label[code])}"@ko'
             lines.append(f"{prefix}:{frag} a owl:NamedIndividual,\n        {cls} ;\n    {label} .")
             lines.append("")
