@@ -31,7 +31,7 @@
 | F15 | dom/rng | core 속성 6/16 누락 (coApplicable/exemptedBy/hasViolation 등) | 中 | B4 |
 | F16 | dead | core:Worker 개체 **ref=0**(ProtectedPerson placeholder 미사용). actor:Worker(class)와 의도적 분리지만 placeholder는 죽음 | 低 | B2 |
 | F17 | dom/rng | bridge 속성 2/3 누락 (appliesTo/observedIn) | 中 | B4 |
-| F18 | label | industry 7건 — Industry_GENERAL "general"(영문) + 언더스코어 leak 6(자동차_정비소 등). (+명과학 등 의미 오타는 수동검토) | 低 | B1 |
+| F18 | label | industry 7건 — Industry_GENERAL `"general"@ko`(영문 오태깅) + 언더스코어 leak 6(`"자동차_정비소"@ko` 등). 라벨은 **생성물 kosha-disjoint-axioms.ttl**(build_disjoint_axioms.py)에 있고 upstream industry 라벨 소스(Layer 4)에서 옴 → **손수정 불가, upstream 소스 수정 필요(일부 data-team 세션 영역)**. (+명과학 등 의미 오타 수동검토) | 低 | B1→deferred |
 
 별도: **fine 코드 ~330**(haz 150·ctx 109·agent 72) 한글 label 없음 + CI 미참조 = future 어휘 vs prune 정책 결정 필요(B1/B5 연계).
 
