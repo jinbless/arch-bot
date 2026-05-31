@@ -24,6 +24,15 @@ Fuseki(Openllet) 전체 적재 후 class/predicate를 대화형 top-down 점검 
 - ✅ **SHE ABox 온톨로지 통합** (이 커밋, **F5 해결**): F5의 진짜 원인 = SHE 패턴 ABox(**965패턴×6축 맥락**)가 데이터팀 `she-instances-v1.ttl`에만 있고 온톨로지 미적재 + 2026-04 생성이라 **KOSHA-22 이전 legacy 어휘**. 신규 `scripts/gen_she_abox.py`가 `migrate_vocab_to_kosha22` 결정적 치환으로 **forward 마이그레이션**(롤백 아님 — 데이터 100% 재활용, 코드 155 전수 resolve·gap 0) → `kosha-instances-she.ttl`(49,689 triple) + manifest(SRV/CON/MAT/FAC). ⚠️ Openllet 1차가 **she:triggerText datatype 비일관**(@ko langString vs range xsd:string, 1,623건) 적발 → v2.owl range **xsd:string→rdfs:Literal** 완화 → 재적재 **owl:Nothing 0·일관**, **she:hasPPEState 0→965, SHE 패턴 965, F5 5축 실채움**. orphan-TTL 스윕으로 "또 있는지" 확인 = SHE 외 큰 누락 없음(pipe-A pilot fixture만). ('온톨로지가 정본, data-team 산출물 migrate' 원칙.)
 - ✅ **facet fine 한글 라벨 완결** (이 커밋, F6/F7·nolabel 339→0): facet-taxonomy fine 클래스 418개 라벨 전무 → `gen_facet_taxonomy.py`가 `risk_feature_catalog.json` 한글 label emit(412) + catalog 미보유 6은 `facet-ko-labels.json` 보충 = **418/418 @ko**. 번역 아닌 **데이터팀 catalog 한글 재활용**. compare_graphs -0/+418(전부 라벨), catalog nolabel 339→0. 라벨=annotation이라 reasoner 게이트 불요.
 
+## ⭐ 2026-06-01 — fine granularity 보존+활용 graded matching (WC-C, push 완료)
+
+승인 plan `~/.claude/plans/jiggly-shimmying-starlight.md`. 목표: Vision이 fine 코드 인식해도 fold(fine→canonical)로 변별 손실 → 엉뚱 CI/Guide 추천을 graded matching(fine-first)으로 보정.
+
+- 🔬 **경험 재조정(중요)**: accident_type 파일럿 착수 전 PG 확인 → **엔티티(SR/CI/Guide)에 진짜 fine accident/agent 태그 없음**(CRUSH/CUT/FALLING_OBJECT 등 legacy 별칭만; `FALL_FROM_HEIGHT` 보유 guide=0). graded match는 양쪽(관찰+엔티티) fine 필요 → accident/agent는 **entity fine-tagging enrichment 선행 필요**(별도·큰 작업). **work_context만 GF(`guide_entity_feature_candidates`)에 진짜 fine 51종**(FORKLIFT_OPERATION 48guide·HEAVY_LIFTING 93·WELDING 28…) → 사용자 결정 **work_context로 파일럿 전환**.
+- ✅ **WC-C 서빙 fine-first (기본 경로)**: `query_guide_for_facets`(Three-Worlds=기본 추천)에 GF 기반 fine work_context 매칭 추가 + `match_fusion_service` 정렬 관통. **fine-first 결정적**(관찰 fine wc를 GF 보유 guide가 fold-only 항상 상회). `FINE_GRADED_MATCH` flag(호출시점, default **off=무회귀**). 신규 헬퍼 `_fine_wc_match_guides`(690-744 hazard-direct boost 패턴 일반화) + `scripts/verify_fine_graded_wc.py`.
+- **검증**(forklift, FORKLIFT_OPERATION): OFF/ON **197/197 후보 동일(recall 불변)**·OFF순서=기존, **43 fine guide 결정적 상위**(last fine rank 42 < first non-fine 43). 무회귀+승격 입증.
+- **잔여**: CI fine(canonical_ci↔GF 링크)·WC-A/B(온톨로지 fine wc emit+`kosha_guides` fine 컬럼 물질화="온톨로지 활용")·synthetic_observations full eval·flag ON 결정. accident/agent entity fine-tagging은 후속(findings F22).
+
 ## ⭐ 2026-05-31 (이어서2) — F20 sr 속성 hard merge (push 완료)
 
 - ✅ **F20 `sr:addressesHazard` → `sr:addressesAccidentType` hard merge**: F4c로 둘 다 domain(SR)·range(AccidentType) 동일 동의어가 됐고 데이터가 두 술어로 분산(addressesHazard 738트리플/626행, addressesAccidentType 284행; **both 284·H_only 342·A_only 0**). 객체는 양쪽 모두 canonical 사고유형(fine 0)이나 addressesHazard만 6종(ChemicalExposure/ElectricShock/FireInjury/OtherAccident/OxygenDeficiency/TempExtremeContact) 보유 → "addressesHazard 버리기"는 **342 SR 손실**이라 **union 흡수** 방향.

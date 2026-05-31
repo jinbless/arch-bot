@@ -4,6 +4,7 @@
 점수 기반 확정 + 교차 추론 규칙 적용.
 """
 import logging
+import os
 from collections import defaultdict
 from pathlib import Path
 from typing import Optional
@@ -12,6 +13,13 @@ from sqlalchemy.orm import Session
 from app.services.industry_context import infer_industry_context, score_industry_alignment
 
 logger = logging.getLogger(__name__)
+
+# fine-first graded matching feature flag. default off = 무회귀(flag off면 정렬·결과 기존과 동일).
+# on이면 관찰의 fine work_context(예: FORKLIFT_OPERATION)를 GF에 보유한 guide가 fold-only(canonical만)보다
+# 항상 상회(deterministic fine-first). WHERE는 canonical 유지 → recall 불변.
+# 호출 시점 평가(eval 하니스가 한 프로세스에서 on/off 비교 가능).
+def _fine_graded_enabled() -> bool:
+    return os.environ.get("FINE_GRADED_MATCH", "").strip().lower() in ("1", "true", "on", "yes")
 
 CORE = Namespace("https://cashtoss.info/ontology/core#")
 LAW = Namespace("https://cashtoss.info/ontology/law#")
@@ -458,6 +466,34 @@ def query_ci_for_facets(
     ]
 
 
+def _fine_wc_match_guides(db: Session, guide_codes: list[str], work_contexts: list[str]) -> set:
+    """관찰의 fine work_context(canonical과 다른 sub 코드, 예: FORKLIFT_OPERATION→VEHICLE)를
+    guide_entity_feature_candidates(GF)에 보유한 guide_code 집합.
+
+    get_guides_by_hazard_features(690-716)의 fine 매칭 패턴을 Three-Worlds 기본 경로로 일반화.
+    GF의 하위 행(CI/WP/DT/ES)이 fine 코드를 보존하므로 entity_type 무관(어느 행에든 fine 보유=일치).
+    generic 코드(VEHICLE→VEHICLE)는 to_canonical 항등이라 제외 — fold-only는 fine 부스트 안 받음.
+    """
+    from app.db.models import PgGuideEntityFeatureCandidate as GF
+
+    cv = _canonical_vocab()
+    fine_codes = {c for c in (work_contexts or []) if c and cv.to_canonical("work_context", c)[1] != c}
+    if not (fine_codes and guide_codes):
+        return set()
+    out: set = set()
+    for (gc,) in (
+        db.query(GF.guide_code)
+        .filter(
+            GF.guide_code.in_(guide_codes),
+            GF.canonical_axis == "work_context",
+            GF.feature_code.in_(fine_codes),
+        )
+        .distinct()
+    ):
+        out.add(gc)
+    return out
+
+
 def query_guide_for_facets(
     db: Session,
     accident_types: list[str],
@@ -483,6 +519,11 @@ def query_guide_for_facets(
 
     results = db.query(PgKoshaGuide).filter(or_(*conditions)).all()
     industry_contexts = industry_contexts or []
+    # fine-first graded matching(work_context): WHERE는 canonical 유지(무회귀=recall 불변),
+    # 관찰 fine wc를 GF에 보유한 guide만 fold-only보다 상회. flag off면 fine_guides=∅ → 정렬 동일.
+    fine_guides: set = set()
+    if _fine_graded_enabled() and results:
+        fine_guides = _fine_wc_match_guides(db, [gd.guide_code for gd in results], work_contexts or [])
     scored = []
     for gd in results:
         acc = _hits(gd.addresses_hazard_canonical, canon["accident_type"])
@@ -491,8 +532,10 @@ def query_guide_for_facets(
         matched_axes = sum(1 for h in (acc, agt, ctxh) if h)
         total_hits = len(set(acc + agt + ctxh))
         score = min(1.0, 0.2 + matched_axes * 0.3 + total_hits * 0.04)
-        scored.append((score, matched_axes, total_hits, gd))
-    scored.sort(key=lambda r: (r[0], r[1], r[2]), reverse=True)
+        fine = gd.guide_code in fine_guides
+        scored.append((fine, score, matched_axes, total_hits, gd))
+    # fine-first: fine 일치 boolean이 정렬 선두(fold-only 항상 하위). flag off면 전부 False → score 정렬.
+    scored.sort(key=lambda r: (r[0], r[1], r[2], r[3]), reverse=True)
     return [
         {
             "guide_code": gd.guide_code,
@@ -500,8 +543,9 @@ def query_guide_for_facets(
             "domain": gd.domain,
             "score": round(s, 3),
             "matched_axes": ma,
+            "fine_match": fine,
         }
-        for s, ma, _, gd in scored[:limit]
+        for fine, s, ma, _, gd in scored[:limit]
     ]
 
 

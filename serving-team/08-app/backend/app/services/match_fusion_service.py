@@ -70,7 +70,12 @@ def fuse_matches(
             g["corroborating_ci_count"] = 0
             g["fused_score"] = g["score"]
 
-    guides.sort(key=lambda g: (g["fused_score"], g["corroborating_ci_count"], g["matched_axes"]), reverse=True)
+    # fine-first: work_context fine 일치 guide(query_guide_for_facets가 표시)가 fold-only보다 항상 상회.
+    # flag off면 fine_match 전부 False → 기존 (fused_score, corroborating, matched_axes) 정렬과 동일(무회귀).
+    guides.sort(
+        key=lambda g: (g.get("fine_match", False), g["fused_score"], g["corroborating_ci_count"], g["matched_axes"]),
+        reverse=True,
+    )
     return {
         "checklist_items": ci[:ci_limit],
         "guides": guides[:guide_limit],
