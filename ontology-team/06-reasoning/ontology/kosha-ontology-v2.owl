@@ -1168,7 +1168,8 @@
   <rdf:Description rdf:about="https://cashtoss.info/ontology/risk/situation#triggerText">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:label xml:lang="ko">시각 트리거 문구</rdfs:label>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <!-- range rdfs:Literal (구 xsd:string): triggerText는 한국어 텍스트(@ko langString)라 xsd:string 위반. SHE ABox 편입 시 datatype 비일관 해소 (2026-05-31). -->
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <rdfs:domain rdf:resource="https://cashtoss.info/ontology/risk/situation#VisualTrigger"/>
   </rdf:Description>
   <rdf:Description rdf:about="https://cashtoss.info/ontology/law#LawType_SADA">

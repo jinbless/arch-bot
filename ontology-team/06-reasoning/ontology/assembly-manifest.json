@@ -87,6 +87,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-instances-she.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-instances-hazard-direct.ttl",
         "format": "turtle"
       },
@@ -189,6 +193,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-instances-she.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-instances-hazard-direct.ttl",
         "format": "turtle"
       },
@@ -264,6 +272,10 @@
       },
       {
         "file": "kosha-instances.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-instances-she.ttl",
         "format": "turtle"
       },
       {
@@ -346,6 +358,10 @@
       },
       {
         "file": "kosha-instances.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-instances-she.ttl",
         "format": "turtle"
       },
       {
@@ -815,6 +831,20 @@
       ],
       "format": "turtle",
       "note": "SR/CI/Guide/law/penalty ABox. 생성: export_owl.py(PG)."
+    },
+    {
+      "id": "abox-she",
+      "file": "kosha-instances-she.ttl",
+      "role": "abox-derived",
+      "layer": "L3-reasoning",
+      "profiles": [
+        "consistency",
+        "facet-explorer",
+        "serving",
+        "shacl-materialize"
+      ],
+      "format": "turtle",
+      "note": "SHE 패턴 ABox (965 패턴 × 6축 맥락: she:hasWorkContext/AgentState/EnvironmentalFactor/PPEState/TemporalStage/WorkActivity + accident/agent). 생성: scripts/gen_she_abox.py (data-team she-instances-v1.ttl을 KOSHA-22 canonical 마이그레이션). F5 5축 실채움."
     },
     {
       "id": "abox-canonical-ci",

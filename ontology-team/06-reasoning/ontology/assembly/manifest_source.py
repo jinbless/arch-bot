@@ -108,6 +108,9 @@ _E = [
     # ── ABox: generated / derived / fixture ──────────────────────────────────
     ("abox-instances", "kosha-instances.ttl", "abox-generated", "L3-reasoning",
      {"SRV", "CON", "MAT", "FAC", "INF", "GHR"}, "turtle", "SR/CI/Guide/law/penalty ABox. 생성: export_owl.py(PG)."),
+    ("abox-she", "kosha-instances-she.ttl", "abox-derived", "L3-reasoning",
+     {"SRV", "CON", "MAT", "FAC"}, "turtle",
+     "SHE 패턴 ABox (965 패턴 × 6축 맥락: she:hasWorkContext/AgentState/EnvironmentalFactor/PPEState/TemporalStage/WorkActivity + accident/agent). 생성: scripts/gen_she_abox.py (data-team she-instances-v1.ttl을 KOSHA-22 canonical 마이그레이션). F5 5축 실채움."),
     ("abox-canonical-ci", "kosha-instances-canonical-ci.ttl", "abox-derived", "L3-reasoning",
      {"FAC", "GHR"}, "turtle", "canonical CI facet ABox. 생성: export_canonical_ci_abox.py."),
     ("abox-guide-hazard-derived", "kosha-instances-ci-guide-hazard-derived.ttl", "abox-derived", "L3-reasoning",
