@@ -1,23 +1,23 @@
 # KOSHA 온톨로지 카탈로그
 
-> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T02:49:24+00:00
-> 소스: serving TBox+facet+moderate ABox (35 files, 518,925 triples; 대용량 instances 제외)
-> class 627 · objectProperty 133 · dataProperty 68 · individual 242
+> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T03:02:46+00:00
+> 소스: serving TBox+facet+moderate ABox (35 files, 518,889 triples; 대용량 instances 제외)
+> class 626 · objectProperty 133 · dataProperty 68 · individual 233
 
 ## 1. 모듈 개요 (prefix)
 
 | prefix | class | objProp | dataProp | individual | namespace |
 |---|--:|--:|--:|--:|---|
 | `risk:` | 3 | 7 | 1 | 0 | `https://cashtoss.info/ontology/risk#` |
-| `haz:` | 183 | 1 | 0 | 31 | `https://cashtoss.info/ontology/risk/hazard#` |
+| `haz:` | 183 | 1 | 0 | 23 | `https://cashtoss.info/ontology/risk/hazard#` |
 | `agent:` | 85 | 0 | 0 | 12 | `https://cashtoss.info/ontology/risk/agent#` |
 | `ctx:` | 221 | 0 | 0 | 155 | `https://cashtoss.info/ontology/risk/context#` |
 | `she:` | 2 | 15 | 4 | 0 | `https://cashtoss.info/ontology/risk/situation#` |
 | `sr:` | 2 | 15 | 0 | 8 | `https://cashtoss.info/ontology/sr#` |
 | `pen:` | 8 | 17 | 7 | 3 | `https://cashtoss.info/ontology/penalty#` |
 | `law:` | 9 | 16 | 10 | 5 | `https://cashtoss.info/ontology/law#` |
-| `guide:` | 9 | 25 | 31 | 0 | `https://cashtoss.info/ontology/guide#` |
-| `core:` | 8 | 8 | 8 | 20 | `https://cashtoss.info/ontology#` |
+| `guide:` | 7 | 25 | 31 | 0 | `https://cashtoss.info/ontology/guide#` |
+| `core:` | 9 | 8 | 8 | 19 | `https://cashtoss.info/ontology#` |
 | `app:` | 15 | 26 | 7 | 8 | `https://cashtoss.info/ontology/app#` |
 | `industry:` | 80 | 0 | 0 | 0 | `https://cashtoss.info/ontology/industry#` |
 | `bridge:` | 1 | 3 | 0 | 0 | `https://cashtoss.info/ontology/bridge#` |
@@ -87,14 +87,14 @@
   - `industry:Industry_LANDSCAPING_GREENSPACE` "조경·녹지 관리업" [⊒0, ←164]
   - … (+40 more 하위, inspect_node.py --list 로 확인)
 - `core:Modality` "모달리티" [⊒0, ←6] ⊑(lkif:Norm)
+- `core:Relation` "관계" [⊒1, ←1]
+  - `core:Incompatibility` "산업 간 부적합성 관계" [⊒0, ←7]
 - `core:SubjectRole` "의무 주체" [⊒3, ←5] ⊑(lkif:Role)
   - `core:DutyHolder` "의무이행주체" [⊒0, ←7] ⊑(lkif:Role)
-  - `core:ProtectedPerson` "보호대상" [⊒0, ←5] ⊑(lkif:Role)
+  - `core:ProtectedPerson` "보호대상" [⊒0, ←4] ⊑(lkif:Role)
   - `core:RegulatoryAuthority` "규제기관" [⊒0, ←1] ⊑(lkif:Role)
 - `guide:ChecklistItem` "점검항목" [⊒1, ←13] ⊑(obo:BFO_0000019, lkif:Norm)
   - `guide:CanonicalChecklistItem` "고유 점검항목(control)" [⊒0, ←51269]
-- `guide:DocumentRequirement` "문서 요구사항" ⊑(lkif:Obligation)
-- `guide:DomainTerm` "도메인 용어" ⊑(lkif:NormStatement)
 - `guide:Equipment` "장비" [⊒0, ←7] ⊑(obo:BFO_0000040, +제약1)
 - `guide:EquipmentSpec` "장비 규격" [⊒0, ←5] ⊑(obo:BFO_0000019)
 - `guide:GuideUsageProfile` "Guide 사용 프로필" [⊒0, ←17] ⊑(+제약4)
@@ -395,13 +395,13 @@
       - `ctx:ForkliftOperation` "Forklift Operation"
     - `ctx:Ventilation` "환기작업" [⊒1, ←1769]
       - `ctx:VentilationPoor` "Ventilation Poor"
-  - `haz:AccidentType` "사고 유형" [⊒23, ←57] ⊑(obo:BFO_0000019)
+  - `haz:AccidentType` "사고 유형" [⊒23, ←49] ⊑(obo:BFO_0000019)
     - `haz:AnimalInjury` "동물상해" [⊒1, ←3]
       - `haz:AnimalBite`
     - `haz:CaughtIn` "끼임" [⊒9, ←2516]
       - `haz:CaughtInConfinedSpace`
       - `haz:CompressionInjury`
-      - `haz:Crush` "끼임(압착)"
+      - `haz:Crush`
       - `haz:DriverEntanglement`
       - `haz:Entanglement`
       - `haz:FootCrushInjury`
@@ -428,7 +428,7 @@
       - `haz:DetergentInhalationPoisoning`
       - `haz:EyeChemicalInjury`
       - `haz:FertilizerDustInhalation`
-      - `haz:FoodContamination` "Food Contamination"
+      - `haz:FoodContamination`
       - `haz:FuelLeakVaporInhalation`
       - `haz:GasLeak`
       - `haz:GasLeakAtNight`
@@ -468,7 +468,7 @@
       - `haz:BladeLaceration`
       - `haz:ChildCut`
       - `haz:ChildStabbing`
-      - `haz:Cut` "절단"
+      - `haz:Cut`
       - `haz:CutDueToGloveFailure`
       - `haz:CuttingBladeContactWhileOperating`
       - `haz:ElectricalAccidentDueToPowerInstability`
@@ -488,7 +488,7 @@
       - `haz:ChildElectricShock`
       - `haz:ElectricShockDueToInsulationDamage`
     - `haz:ErgonomicStrain` "불균형및무리한동작" [⊒5, ←688]
-      - `haz:Ergonomic` "근골격계"
+      - `haz:Ergonomic`
       - `haz:HeavyLifting`
       - `haz:LossOfBalance`
       - `haz:Posture`
@@ -534,28 +534,28 @@
       - `haz:ChildSlipAndFall`
       - `haz:FallFromKnotSlip`
       - `haz:KnifeSlipCut`
-      - `haz:Slip` "미끄러짐"
+      - `haz:Slip`
       - `haz:StairTrip`
     - `haz:SportsEventInjury` "체육행사" [⊒0, ←2]
     - `haz:StruckBy` "맞음" [⊒8, ←2110]
       - `haz:BurnFromFallingHotContents`
       - `haz:FallingChemicalContainer`
       - `haz:FallingFromWires`
-      - `haz:FallingObject` "낙하물"
+      - `haz:FallingObject`
       - `haz:MachineFallingCollisionInjury`
       - `haz:StruckByIceFragment`
       - `haz:StruckBySharpObject`
       - `haz:TvFalling`
     - `haz:TempExtremeContact` "이상온도물체접촉" [⊒16, ←19]
       - `haz:ArcBurn`
-      - `haz:Burn` "Burn"
+      - `haz:Burn`
       - `haz:BurnFromAccidentalCustomerContact`
       - `haz:ChemicalBurn`
       - `haz:ChemicalBurnFromStrongAcid`
       - `haz:ChemicalBurnFromStrongAcidToEye`
       - `haz:ChemicalSkinBurn`
       - `haz:ColdBurn`
-      - `haz:ColdExposure` "Cold Exposure"
+      - `haz:ColdExposure`
       - `haz:ExtremeColdBurn`
       - `haz:HandBurn`
       - `haz:HighTemperatureBurn`
@@ -804,26 +804,25 @@
 
   ✅ 없음 (모든 facet 클래스가 risk:RiskFeature까지 연결).
 
-**(b) rdfs:label 없는 클래스: 331**
+**(b) rdfs:label 없는 클래스: 339**
 
   `agent:AcrylateResinSkinContact`, `agent:AirlessResidualPressure`, `agent:AsbestosDust`, `agent:Benzene`, `agent:BiogasMethane`, `agent:BloodbornePathogen`, `agent:CapacitorResidualVoltage`, `agent:ChlorineAmmoniaReaction`, `agent:ColdFloor`, `agent:ConcentratedAlkali`, `agent:ContaminatedFilterParticulateMold`, `agent:CryogenicAgent`, `agent:DefectiveHandle`, `agent:DefectiveSterilePackaging`, `agent:DegradedDeveloperSolution`, `agent:DentalXRay`, `agent:DentalXrayRepeatedExposure`, `agent:DistributionBoard`, `agent:EarphoneNoise`, `agent:ElectricalOverload`, `agent:ElectricityWaterContact`, `agent:ElevatorPitToxicGas`, `agent:ExposedOutlet`, `agent:ExtremeColdEnvironment`, `agent:ExtremeColdSurface`, `agent:FemaleExposureLimitExceeded`, `agent:FormaldehydeSkinContact`, `agent:FragranceVapor`, `agent:FuelSaturatedAbsorbent`, `agent:GasolineMicroLeakage`, `agent:GasolineVapor`, `agent:GlutaraldehydeVapor`, `agent:HighHeat`, `agent:HighPressureAirDust`, `agent:HighTemperatureEnvironment`, `agent:HighTemperatureSteam`, `agent:HotEquipment`, `agent:HotParts`, `agent:HotSurface`, `agent:HotTray` …
 
-**(c) dead 후보(하위0·피참조0·개체아님): 339**
+**(c) dead 후보(하위0·피참조0·개체아님): 345**
 
   `agent:AcrylateResinSkinContact`, `agent:AirlessResidualPressure`, `agent:AsbestosDust`, `agent:Benzene`, `agent:BiogasMethane`, `agent:BloodbornePathogen`, `agent:CapacitorResidualVoltage`, `agent:ChlorineAmmoniaReaction`, `agent:ColdFloor`, `agent:ConcentratedAlkali`, `agent:ContaminatedFilterParticulateMold`, `agent:CryogenicAgent`, `agent:DefectiveHandle`, `agent:DefectiveSterilePackaging`, `agent:DegradedDeveloperSolution`, `agent:DentalXRay`, `agent:DentalXrayRepeatedExposure`, `agent:DistributionBoard`, `agent:EarphoneNoise`, `agent:ElectricalOverload`, `agent:ElectricityWaterContact`, `agent:ElevatorPitToxicGas`, `agent:ExposedOutlet`, `agent:ExtremeColdEnvironment`, `agent:ExtremeColdSurface`, `agent:FemaleExposureLimitExceeded`, `agent:FormaldehydeSkinContact`, `agent:FragranceVapor`, `agent:FuelSaturatedAbsorbent`, `agent:GasolineMicroLeakage`, `agent:GasolineVapor`, `agent:GlutaraldehydeVapor`, `agent:HighHeat`, `agent:HighPressureAirDust`, `agent:HighTemperatureEnvironment`, `agent:HighTemperatureSteam`, `agent:HotEquipment`, `agent:HotParts`, `agent:HotSurface`, `agent:HotTray` …
 
-**(d) 중복 label(같은 한글 라벨, 다른 IRI): 4쌍**
+**(d) 중복 label(같은 한글 라벨, 다른 IRI): 3쌍**
 
-  - "근로자": `core:Worker`, `actor:Worker`
-  - "기타": `industry:Industry_OTHER`, `haz:OtherAccident`, `ctx:OtherAgentState`
-  - "비상대응": `sr:EmergencyResponse`, `ctx:EmergencyResponse`
+  - "기타": `haz:OtherAccident`, `industry:Industry_OTHER`, `ctx:OtherAgentState`
+  - "비상대응": `ctx:EmergencyResponse`, `sr:EmergencyResponse`
   - "정비": `ctx:Maintenance`, `industry:Industry_MAINTENANCE`
 
 **(e) domain 또는 range 누락 property: 59**
 
   `bridge:appliesTo`, `bridge:observedIn`, `core:coApplicable`, `core:exemptedBy`, `core:hasViolation`, `core:identifier`, `core:text`, `core:title`, `guide:additionalDetail`, `guide:definition`, `guide:docForSR`, `guide:documentType`, `guide:domain`, `guide:equipmentName`, `guide:guideCode`, `guide:guideContext`, `guide:hasChecklistItem`, `guide:hasDocumentRequirement`, `guide:hasDomainTerm`, `guide:hasEquipmentSpec`, `guide:hasWorkProcess`, `guide:ppeType`, `guide:processName`, `guide:processOrder`, `guide:relatedSR`, `guide:safetyMeasures`, `guide:shortCode`, `guide:sourceGuide`, `guide:sourceSection`, `guide:specForSR`, `guide:termForSR`, `guide:termName`, `guide:workProcessPhase`, `law:articleCode`, `law:belongsToChapter`, `law:belongsToPart`, `law:belongsToSection`, `law:belongsToSubsection`, `law:conditionText`, `law:conditionType` …
 
-**(f) punned IRI(class+individual 동시, 정상이지만 참고): 149**
+**(f) punned IRI(class+individual 동시, 정상이지만 참고): 141**
 
-  149개 — facet canonical punning 설계(haz:Fall 등). 표본: `agent:ArcFlash`, `agent:Biological`, `agent:Chemical`, `agent:Corrosion`, `agent:Dust`, `agent:Electricity`, `agent:Fire`, `agent:HeatCold`, `agent:Noise`, `agent:Radiation`, `agent:Toxic`, `agent:UnknownAgent` …
+  141개 — facet canonical punning 설계(haz:Fall 등). 표본: `agent:ArcFlash`, `agent:Biological`, `agent:Chemical`, `agent:Corrosion`, `agent:Dust`, `agent:Electricity`, `agent:Fire`, `agent:HeatCold`, `agent:Noise`, `agent:Radiation`, `agent:Toxic`, `agent:UnknownAgent` …
 

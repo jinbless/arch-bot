@@ -9,6 +9,7 @@
 - ✅ **Fix B** (`ac327a8`): haz:Hazard UPPER_SNAKE 레거시 개체 12 제거 (live 참조 0).
 - ✅ 도구: inspect_node(`8670c6a`) · catalog(`d99da77`).
 - ✅ **B1** (F6/F7): ctx 16 + agent:UnknownAgent 한글 라벨 보강. 신규 `shared/reference/facet-ko-labels.json` SSOT + gen_kosha22_vocab_patch.py @ko emit 확장. graph-diff +17 @ko only, 3축 label없음 0.
+- ✅ **B2** (F14/F8/F13/F16): v2.owl에서 11 제거(8 haz alias 축-레벨 개체+core:Worker+guide:DocumentRequirement/DomainTerm, 전부 ref=0) + core:Relation owl:Class 선언(dangling 0). graph-diff −36(11×triple) +2(Relation). **주의**: 8 alias는 facet-taxonomy에 fine 클래스(haz:Cut⊑CutLaceration, haz:FallingObject⊑StruckBy 등)로 보존됨 — 제거된 건 중복 축-레벨 개체뿐. 부작용: 이 8 fine 클래스가 개체 라벨을 잃어 무명 fine 집단 합류(fine-label 정책에서 커버).
 
 ## findings 목록
 
@@ -40,7 +41,7 @@
 | 묶음 | 내용 | 위험 | 상태 |
 |---|---|:--:|:--:|
 | **B1** | label 보강 — F6/F7 ✅완료, F18(industry)/fine 정책 잔여 | 低 | F6·F7 ✅ |
-| **B2** | broken/dead 정리 — F14 dangling·F16/F13 dead·F8 alias | 低~中 | 대기 |
+| **B2** | broken/dead 정리 — F14 dangling·F16/F13 dead·F8 alias | 低~中 | ✅ |
 | **B3** | disjointness — F2 축간·F3 agent/ctx (리즈너로 실제충돌 검출 보너스) | 中 | 대기 |
 | **B4** | property domain/range — F10/F15/F17 | 中 | 대기 |
 | **B5** | 빈 축 결정 — F4 haz:Hazard·F5 ctx 5축 | 中 | 대기 |
