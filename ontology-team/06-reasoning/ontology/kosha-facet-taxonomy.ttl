@@ -1,5 +1,5 @@
 # kosha-facet-taxonomy.ttl — AUTO-GENERATED, 수동편집 금지 (scripts/gen_facet_taxonomy.py)
-# Generated: 2026-05-31T01:44:41.135508+00:00
+# Generated: 2026-05-31T12:58:37.379494+00:00
 # SSOT: shared/reference/canonical-code-vocabulary.json (rollup)
 # 1) canonical owl:Class punning + ⊑ axis(기존 rdf:type 축)  2) fine ⊑ canonical(same-axis)  3) ctx 계층(rollup 자동)
 # cross-axis 제외(Python canonical_vocab 재라우팅): 21건, identity skip: 7건
@@ -82,426 +82,426 @@ ctx:Ventilation a owl:Class ; rdfs:subClassOf ctx:WorkContext .
 
 # ════════ 2. fine ⊑ canonical (same-axis, 418) ════════
 # -- accident_type (haz): 158 --
-haz:AnimalBite a owl:Class ; rdfs:subClassOf haz:AnimalInjury .
-haz:CaughtInConfinedSpace a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:CompressionInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:Crush a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:DriverEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:Entanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:FootCrushInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:PtoEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:RotatingHookEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:RotatingPartInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn .
-haz:ChemicalAbsorptionThroughSkin a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalAccidentDueToImproperDetergentUse a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalDetergentInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalEyeAndAirwayInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalIngestion a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalResidualInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalSkinIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalVaporExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalVaporInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChemicalVaporInhalationUnconsciousness a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChildChemicalExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChloramineGasInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ChlorineGasInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:CytotoxicExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:DetergentInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:EyeChemicalInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:FertilizerDustInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:FoodContamination a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:FuelLeakVaporInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:GasLeak a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:GasLeakAtNight a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:GasPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:GradualMinorFuelLeakage a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:HighPressureGasLeakage a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:HydrocarbonVaporInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:InhalationOfChemicalDust a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:MercuryPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:NarcoticDermalAbsorption a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:PesticideAbsorptionThroughSkin a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:PesticideEyeContact a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:PesticideInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ResidualCleanerExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:SkinContact a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:SkinEyeContactChemicalInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:SkinIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ToxicGasInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:ToxicGasPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure .
-haz:LandfillSlopeCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
-haz:LoadCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
-haz:ScaffoldCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
-haz:ShelfCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
-haz:SoilCollapse a owl:Class ; rdfs:subClassOf haz:Collapse .
-haz:MachineCollisionInjury a owl:Class ; rdfs:subClassOf haz:Collision .
-haz:TrayContactInjury a owl:Class ; rdfs:subClassOf haz:Collision .
-haz:CartTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
-haz:CrushedByMachineOrObject a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
-haz:HandcartOverturn a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
-haz:HeavyEquipmentOverturn a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
-haz:LockerTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
-haz:TractorTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned .
-haz:BladeLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:ChildCut a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:ChildStabbing a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:Cut a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:CutDueToGloveFailure a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:CuttingBladeContactWhileOperating a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:ElectricalAccidentDueToPowerInstability a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:FingerAmputation a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:FingerInjury a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:GlassLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:Laceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:PalmLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:PruningShearLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:Puncture a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:Scratch a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:SharpObjectInjury a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:SkinPenetration a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:ThresherBladeCut a owl:Class ; rdfs:subClassOf haz:CutLaceration .
-haz:ChildElectricShock a owl:Class ; rdfs:subClassOf haz:ElectricShock .
-haz:ElectricShockDueToInsulationDamage a owl:Class ; rdfs:subClassOf haz:ElectricShock .
-haz:Ergonomic a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
-haz:HeavyLifting a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
-haz:LossOfBalance a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
-haz:Posture a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
-haz:Repetitive a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain .
-haz:ChemicalExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
-haz:ChemicalReactionExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
-haz:DustExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
-haz:FireAndExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
-haz:FuelGasExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
-haz:FuelIgnitionExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
-haz:HighPressureRelease a owl:Class ; rdfs:subClassOf haz:Explosion .
-haz:PressureVesselExplosion a owl:Class ; rdfs:subClassOf haz:Explosion .
-haz:ChairTipoverFall a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:FallDueToStrongWind a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:FallFromAnkerFailure a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:FallFromHeight a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:FallFromLadder a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:FallFromLossOfBalance a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:FallFromRopeFrictionBreakage a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:FallOnGround a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:GondolaOverturnFall a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:HotObjectMultipleFalling a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:PatientFall a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:RopeBreakFall a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:UserFall a owl:Class ; rdfs:subClassOf haz:Fall .
-haz:FireFromOutletOverload a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:FireSpread a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:FuelFire a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:FuelTankFire a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:FuelVaporIgnitionByStaticDischarge a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:IgnitionOfFlammableGas a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:OverloadFire a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:SpontaneousCombustionOfAbsorbentPad a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:TrashBinFire a owl:Class ; rdfs:subClassOf haz:FireInjury .
-haz:ConfinedSpaceAsphyxia a owl:Class ; rdfs:subClassOf haz:OxygenDeficiency .
-haz:ChildSlipAndFall a owl:Class ; rdfs:subClassOf haz:SlipTrip .
-haz:FallFromKnotSlip a owl:Class ; rdfs:subClassOf haz:SlipTrip .
-haz:KnifeSlipCut a owl:Class ; rdfs:subClassOf haz:SlipTrip .
-haz:Slip a owl:Class ; rdfs:subClassOf haz:SlipTrip .
-haz:StairTrip a owl:Class ; rdfs:subClassOf haz:SlipTrip .
-haz:BurnFromFallingHotContents a owl:Class ; rdfs:subClassOf haz:StruckBy .
-haz:FallingChemicalContainer a owl:Class ; rdfs:subClassOf haz:StruckBy .
-haz:FallingFromWires a owl:Class ; rdfs:subClassOf haz:StruckBy .
-haz:FallingObject a owl:Class ; rdfs:subClassOf haz:StruckBy .
-haz:MachineFallingCollisionInjury a owl:Class ; rdfs:subClassOf haz:StruckBy .
-haz:StruckByIceFragment a owl:Class ; rdfs:subClassOf haz:StruckBy .
-haz:StruckBySharpObject a owl:Class ; rdfs:subClassOf haz:StruckBy .
-haz:TvFalling a owl:Class ; rdfs:subClassOf haz:StruckBy .
-haz:ArcBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:Burn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:BurnFromAccidentalCustomerContact a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ChemicalBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ChemicalBurnFromStrongAcid a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ChemicalBurnFromStrongAcidToEye a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ChemicalSkinBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ColdBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ColdExposure a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ExtremeColdBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:HandBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:HighTemperatureBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:HotSteamBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ResidualHeatBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:SkinBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:SteamBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact .
-haz:ContainerBreakageDuringCollection a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:EyeForeignBody a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:EyeVisionDamage a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:Fracture a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:InfantSafetyAccident a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:Infection a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:LabelMisidentificationAccident a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:LossOfControlPolisher a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:MedicalEmergency a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:OvercrowdingEvacuationDelay a owl:Class ; rdfs:subClassOf haz:Unclassified .
-haz:TrafficAccident a owl:Class ; rdfs:subClassOf haz:WorkplaceTraffic .
+haz:AnimalBite a owl:Class ; rdfs:subClassOf haz:AnimalInjury ; rdfs:label "교상"@ko .
+haz:CaughtInConfinedSpace a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "밀폐 공간 끼임"@ko .
+haz:CompressionInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "압상"@ko .
+haz:Crush a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "끼임(압착)"@ko .
+haz:DriverEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "드라이버 말림"@ko .
+haz:Entanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "신체 말림"@ko .
+haz:FootCrushInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "발 압상"@ko .
+haz:PtoEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "PTO 회전 말림 사고"@ko .
+haz:RotatingHookEntanglement a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "회전 훅 말림"@ko .
+haz:RotatingPartInjury a owl:Class ; rdfs:subClassOf haz:CaughtIn ; rdfs:label "회전체 부상"@ko .
+haz:ChemicalAbsorptionThroughSkin a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "피부 화학 흡수"@ko .
+haz:ChemicalAccidentDueToImproperDetergentUse a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "잘못된 세제 사용 화학 사고"@ko .
+haz:ChemicalDetergentInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "화학 세제 흡입"@ko .
+haz:ChemicalEyeAndAirwayInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "눈·기도 화학 손상"@ko .
+haz:ChemicalIngestion a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "화학 물질 경구 섭취"@ko .
+haz:ChemicalInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "화학 흡입"@ko .
+haz:ChemicalIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "화학 자극"@ko .
+haz:ChemicalResidualInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "화학 잔류 흡입"@ko .
+haz:ChemicalSkinIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "피부 화학 자극"@ko .
+haz:ChemicalVaporExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "화학 증기 노출"@ko .
+haz:ChemicalVaporInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "화학 증기 흡입"@ko .
+haz:ChemicalVaporInhalationUnconsciousness a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "화학 증기 흡입 의식 불명"@ko .
+haz:ChildChemicalExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "아동 화학 노출"@ko .
+haz:ChloramineGasInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "클로라민 가스 흡입 중독"@ko .
+haz:ChlorineGasInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "염소 가스 흡입 중독"@ko .
+haz:CytotoxicExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "세포독성 노출"@ko .
+haz:DetergentInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "세제 흡입 중독"@ko .
+haz:EyeChemicalInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "눈 화학 손상"@ko .
+haz:FertilizerDustInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "비료 분진 흡입"@ko .
+haz:FoodContamination a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "식품 오염"@ko .
+haz:FuelLeakVaporInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "연료 누출 증기 흡입"@ko .
+haz:GasLeak a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "가스 누출"@ko .
+haz:GasLeakAtNight a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "야간 가스 누출"@ko .
+haz:GasPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "가스 중독"@ko .
+haz:GradualMinorFuelLeakage a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "소량 연료 점진적 누출"@ko .
+haz:HighPressureGasLeakage a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "고압 가스 누출"@ko .
+haz:HydrocarbonVaporInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "탄화수소 증기 흡입 중독"@ko .
+haz:InhalationOfChemicalDust a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "약품 분진 흡입"@ko .
+haz:MercuryPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "수은 중독"@ko .
+haz:NarcoticDermalAbsorption a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "마약 성분 피부 흡수"@ko .
+haz:PesticideAbsorptionThroughSkin a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "잔류 농약 피부 흡수"@ko .
+haz:PesticideEyeContact a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "농약 눈 접촉"@ko .
+haz:PesticideInhalationPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "농약 흡입 중독"@ko .
+haz:ResidualCleanerExposure a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "잔류 세정제 노출"@ko .
+haz:SkinContact a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "피부 접촉"@ko .
+haz:SkinEyeContactChemicalInjury a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "피부·눈 접촉 화학 부상"@ko .
+haz:SkinIrritation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "피부 자극"@ko .
+haz:ToxicGasInhalation a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "독성 가스 흡입"@ko .
+haz:ToxicGasPoisoning a owl:Class ; rdfs:subClassOf haz:ChemicalExposure ; rdfs:label "유해 가스 중독"@ko .
+haz:LandfillSlopeCollapse a owl:Class ; rdfs:subClassOf haz:Collapse ; rdfs:label "매립지 사면 붕괴"@ko .
+haz:LoadCollapse a owl:Class ; rdfs:subClassOf haz:Collapse ; rdfs:label "적재물 붕괴"@ko .
+haz:ScaffoldCollapse a owl:Class ; rdfs:subClassOf haz:Collapse ; rdfs:label "비계 붕괴"@ko .
+haz:ShelfCollapse a owl:Class ; rdfs:subClassOf haz:Collapse ; rdfs:label "선반 붕괴"@ko .
+haz:SoilCollapse a owl:Class ; rdfs:subClassOf haz:Collapse ; rdfs:label "토사 붕괴"@ko .
+haz:MachineCollisionInjury a owl:Class ; rdfs:subClassOf haz:Collision ; rdfs:label "기계 충돌 부상"@ko .
+haz:TrayContactInjury a owl:Class ; rdfs:subClassOf haz:Collision ; rdfs:label "트레이 접촉 부상"@ko .
+haz:CartTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned ; rdfs:label "카트 전복"@ko .
+haz:CrushedByMachineOrObject a owl:Class ; rdfs:subClassOf haz:CrushedOverturned ; rdfs:label "작업자 압사"@ko .
+haz:HandcartOverturn a owl:Class ; rdfs:subClassOf haz:CrushedOverturned ; rdfs:label "리어카 전복"@ko .
+haz:HeavyEquipmentOverturn a owl:Class ; rdfs:subClassOf haz:CrushedOverturned ; rdfs:label "중장비 전복"@ko .
+haz:LockerTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned ; rdfs:label "사물함 전도"@ko .
+haz:TractorTipover a owl:Class ; rdfs:subClassOf haz:CrushedOverturned ; rdfs:label "농기계 전복"@ko .
+haz:BladeLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "칼날 절상"@ko .
+haz:ChildCut a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "아동 절단"@ko .
+haz:ChildStabbing a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "아동 찔림"@ko .
+haz:Cut a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "절단"@ko .
+haz:CutDueToGloveFailure a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "장갑 성능 저하로 인한 절상"@ko .
+haz:CuttingBladeContactWhileOperating a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "가동 중 칼날 절단"@ko .
+haz:ElectricalAccidentDueToPowerInstability a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "전원 불안정으로 인한 전기 사고"@ko .
+haz:FingerAmputation a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "손가락 절단"@ko .
+haz:FingerInjury a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "손가락 부상"@ko .
+haz:GlassLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "유리 절상"@ko .
+haz:Laceration a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "베임"@ko .
+haz:PalmLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "손바닥 열상"@ko .
+haz:PruningShearLaceration a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "전지가위 절상"@ko .
+haz:Puncture a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "찔림"@ko .
+haz:Scratch a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "할큄"@ko .
+haz:SharpObjectInjury a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "예리물 상해"@ko .
+haz:SkinPenetration a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "피부 침투"@ko .
+haz:ThresherBladeCut a owl:Class ; rdfs:subClassOf haz:CutLaceration ; rdfs:label "탈곡 날 절단"@ko .
+haz:ChildElectricShock a owl:Class ; rdfs:subClassOf haz:ElectricShock ; rdfs:label "아동 감전"@ko .
+haz:ElectricShockDueToInsulationDamage a owl:Class ; rdfs:subClassOf haz:ElectricShock ; rdfs:label "피복 손상 감전"@ko .
+haz:Ergonomic a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain ; rdfs:label "근골격계"@ko .
+haz:HeavyLifting a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain ; rdfs:label "중량물 취급"@ko .
+haz:LossOfBalance a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain ; rdfs:label "균형 상실"@ko .
+haz:Posture a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain ; rdfs:label "부적절한 작업자세"@ko .
+haz:Repetitive a owl:Class ; rdfs:subClassOf haz:ErgonomicStrain ; rdfs:label "반복 동작"@ko .
+haz:ChemicalExplosion a owl:Class ; rdfs:subClassOf haz:Explosion ; rdfs:label "화학 폭발"@ko .
+haz:ChemicalReactionExplosion a owl:Class ; rdfs:subClassOf haz:Explosion ; rdfs:label "화학 반응 폭발"@ko .
+haz:DustExplosion a owl:Class ; rdfs:subClassOf haz:Explosion ; rdfs:label "분진 폭발"@ko .
+haz:FireAndExplosion a owl:Class ; rdfs:subClassOf haz:Explosion ; rdfs:label "화재·폭발"@ko .
+haz:FuelGasExplosion a owl:Class ; rdfs:subClassOf haz:Explosion ; rdfs:label "연료 가스 폭발"@ko .
+haz:FuelIgnitionExplosion a owl:Class ; rdfs:subClassOf haz:Explosion ; rdfs:label "연료 점화 폭발"@ko .
+haz:HighPressureRelease a owl:Class ; rdfs:subClassOf haz:Explosion ; rdfs:label "고압 분출"@ko .
+haz:PressureVesselExplosion a owl:Class ; rdfs:subClassOf haz:Explosion ; rdfs:label "압력 용기 폭발"@ko .
+haz:ChairTipoverFall a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "의자 전도 추락"@ko .
+haz:FallDueToStrongWind a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "강풍으로 인한 추락"@ko .
+haz:FallFromAnkerFailure a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "앵커 파손으로 인한 추락"@ko .
+haz:FallFromHeight a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "고소 추락"@ko .
+haz:FallFromLadder a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "사다리 추락"@ko .
+haz:FallFromLossOfBalance a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "균형 상실 추락"@ko .
+haz:FallFromRopeFrictionBreakage a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "로프 마찰 파단 추락"@ko .
+haz:FallOnGround a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "추락 시 지면 충돌"@ko .
+haz:GondolaOverturnFall a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "곤돌라 전복 추락"@ko .
+haz:HotObjectMultipleFalling a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "고온 트레이 다수 낙하"@ko .
+haz:PatientFall a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "환자 낙상"@ko .
+haz:RopeBreakFall a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "로프 파단 추락"@ko .
+haz:UserFall a owl:Class ; rdfs:subClassOf haz:Fall ; rdfs:label "이용자 낙상"@ko .
+haz:FireFromOutletOverload a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "콘센트 과부하 화재"@ko .
+haz:FireSpread a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "화재 확산"@ko .
+haz:FuelFire a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "연료 화재"@ko .
+haz:FuelTankFire a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "연료통 화재"@ko .
+haz:FuelVaporIgnitionByStaticDischarge a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "정전기 방전으로 인한 연료 증기 점화"@ko .
+haz:IgnitionOfFlammableGas a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "인화성 가스 점화"@ko .
+haz:OverloadFire a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "과부하 화재"@ko .
+haz:SpontaneousCombustionOfAbsorbentPad a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "흡착포 자연 발화"@ko .
+haz:TrashBinFire a owl:Class ; rdfs:subClassOf haz:FireInjury ; rdfs:label "쓰레기통 화재"@ko .
+haz:ConfinedSpaceAsphyxia a owl:Class ; rdfs:subClassOf haz:OxygenDeficiency ; rdfs:label "밀폐 공간 질식"@ko .
+haz:ChildSlipAndFall a owl:Class ; rdfs:subClassOf haz:SlipTrip ; rdfs:label "아동 미끄러짐"@ko .
+haz:FallFromKnotSlip a owl:Class ; rdfs:subClassOf haz:SlipTrip ; rdfs:label "매듭 이탈 추락"@ko .
+haz:KnifeSlipCut a owl:Class ; rdfs:subClassOf haz:SlipTrip ; rdfs:label "칼 미끄러짐"@ko .
+haz:Slip a owl:Class ; rdfs:subClassOf haz:SlipTrip ; rdfs:label "미끄러짐"@ko .
+haz:StairTrip a owl:Class ; rdfs:subClassOf haz:SlipTrip ; rdfs:label "계단 전도"@ko .
+haz:BurnFromFallingHotContents a owl:Class ; rdfs:subClassOf haz:StruckBy ; rdfs:label "고온 내용물 낙하 화상"@ko .
+haz:FallingChemicalContainer a owl:Class ; rdfs:subClassOf haz:StruckBy ; rdfs:label "화학 용기 낙하"@ko .
+haz:FallingFromWires a owl:Class ; rdfs:subClassOf haz:StruckBy ; rdfs:label "전선 당김 낙하"@ko .
+haz:FallingObject a owl:Class ; rdfs:subClassOf haz:StruckBy ; rdfs:label "낙하물"@ko .
+haz:MachineFallingCollisionInjury a owl:Class ; rdfs:subClassOf haz:StruckBy ; rdfs:label "기계 낙하 충돌 부상"@ko .
+haz:StruckByIceFragment a owl:Class ; rdfs:subClassOf haz:StruckBy ; rdfs:label "얼음 파편 충격"@ko .
+haz:StruckBySharpObject a owl:Class ; rdfs:subClassOf haz:StruckBy ; rdfs:label "날에 의한 부상"@ko .
+haz:TvFalling a owl:Class ; rdfs:subClassOf haz:StruckBy ; rdfs:label "TV 낙하"@ko .
+haz:ArcBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "아크 화상"@ko .
+haz:Burn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "화상"@ko .
+haz:BurnFromAccidentalCustomerContact a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "고객 우발적 접촉 화상"@ko .
+haz:ChemicalBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "화학 화상"@ko .
+haz:ChemicalBurnFromStrongAcid a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "강산 화학 화상"@ko .
+haz:ChemicalBurnFromStrongAcidToEye a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "강산 눈 화학 화상"@ko .
+haz:ChemicalSkinBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "화학물질 피부 화상"@ko .
+haz:ColdBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "저온 화상"@ko .
+haz:ColdExposure a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "저온 노출"@ko .
+haz:ExtremeColdBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "극저온 화상"@ko .
+haz:HandBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "왼손 맨손 화상"@ko .
+haz:HighTemperatureBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "고온 화상"@ko .
+haz:HotSteamBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "고온 증기 화상"@ko .
+haz:ResidualHeatBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "잔열 화상"@ko .
+haz:SkinBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "피부 화상"@ko .
+haz:SteamBurn a owl:Class ; rdfs:subClassOf haz:TempExtremeContact ; rdfs:label "증기 화상"@ko .
+haz:ContainerBreakageDuringCollection a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "수거 중 컨테이너 파손"@ko .
+haz:EyeForeignBody a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "눈 이물"@ko .
+haz:EyeVisionDamage a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "시력 손상"@ko .
+haz:Fracture a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "골절"@ko .
+haz:InfantSafetyAccident a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "유아 안전사고"@ko .
+haz:Infection a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "감염"@ko .
+haz:LabelMisidentificationAccident a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "라벨 오인 사고"@ko .
+haz:LossOfControlPolisher a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "제어 상실 폴리셔"@ko .
+haz:MedicalEmergency a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "의료 응급"@ko .
+haz:OvercrowdingEvacuationDelay a owl:Class ; rdfs:subClassOf haz:Unclassified ; rdfs:label "과밀로 인한 탈출 지연"@ko .
+haz:TrafficAccident a owl:Class ; rdfs:subClassOf haz:WorkplaceTraffic ; rdfs:label "교통사고"@ko .
 
 # -- hazardous_agent (agent): 74 --
-agent:BloodbornePathogen a owl:Class ; rdfs:subClassOf agent:Biological .
-agent:InfectiousMedicalWaste a owl:Class ; rdfs:subClassOf agent:Biological .
-agent:LackOfVaccination a owl:Class ; rdfs:subClassOf agent:Biological .
-agent:AcrylateResinSkinContact a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:Benzene a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:ChlorineAmmoniaReaction a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:ConcentratedAlkali a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:Corrosion a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:DegradedDeveloperSolution a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:FormaldehydeSkinContact a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:FragranceVapor a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:GlutaraldehydeVapor a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:LeachateHazardousSubstance a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:MercuryAmalgamVapor a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:MislabeledDetergent a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:MixedDetergentGas a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:ResidualPesticide a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:SolventVapor a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:StrongAcidDescaler a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:WaterBasedPaintMist a owl:Class ; rdfs:subClassOf agent:Chemical .
-agent:AsbestosDust a owl:Class ; rdfs:subClassOf agent:Dust .
-agent:ContaminatedFilterParticulateMold a owl:Class ; rdfs:subClassOf agent:Dust .
-agent:HighPressureAirDust a owl:Class ; rdfs:subClassOf agent:Dust .
-agent:LeadPaintDust a owl:Class ; rdfs:subClassOf agent:Dust .
-agent:ArcFlash a owl:Class ; rdfs:subClassOf agent:Electricity .
-agent:CapacitorResidualVoltage a owl:Class ; rdfs:subClassOf agent:Electricity .
-agent:DistributionBoard a owl:Class ; rdfs:subClassOf agent:Electricity .
-agent:ElectricalOverload a owl:Class ; rdfs:subClassOf agent:Electricity .
-agent:ElectricityWaterContact a owl:Class ; rdfs:subClassOf agent:Electricity .
-agent:ExposedOutlet a owl:Class ; rdfs:subClassOf agent:Electricity .
-agent:StaticElectricity a owl:Class ; rdfs:subClassOf agent:Electricity .
-agent:TwistedWire a owl:Class ; rdfs:subClassOf agent:Electricity .
-agent:ColdFloor a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:CryogenicAgent a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:ExtremeColdEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:ExtremeColdSurface a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:HighHeat a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:HighTemperatureEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:HighTemperatureSteam a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:HotEquipment a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:HotParts a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:HotSurface a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:HotTray a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:HotWater a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:ProlongedColdExposure a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:ProlongedExposureToColdEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:RadiantHeat a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:RepeatedExtremeColdExposure a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:UvLampResidualHeat a owl:Class ; rdfs:subClassOf agent:HeatCold .
-agent:EarphoneNoise a owl:Class ; rdfs:subClassOf agent:Noise .
-agent:KaraokeNoise a owl:Class ; rdfs:subClassOf agent:Noise .
-agent:KaraokeRoomNoise a owl:Class ; rdfs:subClassOf agent:Noise .
-agent:Noise105Db a owl:Class ; rdfs:subClassOf agent:Noise .
-agent:DentalXRay a owl:Class ; rdfs:subClassOf agent:Radiation .
-agent:DentalXrayRepeatedExposure a owl:Class ; rdfs:subClassOf agent:Radiation .
-agent:RadiationExposure a owl:Class ; rdfs:subClassOf agent:Radiation .
-agent:RadiationExposureDuringPregnancy a owl:Class ; rdfs:subClassOf agent:Radiation .
-agent:RepeatedRadiationExposure a owl:Class ; rdfs:subClassOf agent:Radiation .
-agent:ScatteredRadiation a owl:Class ; rdfs:subClassOf agent:Radiation .
-agent:UltravioletRadiation a owl:Class ; rdfs:subClassOf agent:Radiation .
-agent:BiogasMethane a owl:Class ; rdfs:subClassOf agent:Toxic .
-agent:ElevatorPitToxicGas a owl:Class ; rdfs:subClassOf agent:Toxic .
-agent:FuelSaturatedAbsorbent a owl:Class ; rdfs:subClassOf agent:Toxic .
-agent:GasolineMicroLeakage a owl:Class ; rdfs:subClassOf agent:Toxic .
-agent:GasolineVapor a owl:Class ; rdfs:subClassOf agent:Toxic .
-agent:ResidualCombustionGas a owl:Class ; rdfs:subClassOf agent:Toxic .
-agent:SmallQuantityGasoline a owl:Class ; rdfs:subClassOf agent:Toxic .
-agent:TobaccoSmoke a owl:Class ; rdfs:subClassOf agent:Toxic .
-agent:AirlessResidualPressure a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
-agent:DefectiveHandle a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
-agent:DefectiveSterilePackaging a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
-agent:FemaleExposureLimitExceeded a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
-agent:ResidualRotation a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
-agent:RopeKink a owl:Class ; rdfs:subClassOf agent:UnknownAgent .
+agent:BloodbornePathogen a owl:Class ; rdfs:subClassOf agent:Biological ; rdfs:label "혈액 매개 감염"@ko .
+agent:InfectiousMedicalWaste a owl:Class ; rdfs:subClassOf agent:Biological ; rdfs:label "감염성 의료 폐기물"@ko .
+agent:LackOfVaccination a owl:Class ; rdfs:subClassOf agent:Biological ; rdfs:label "예방접종 미이행"@ko .
+agent:AcrylateResinSkinContact a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "아크릴레이트 수지 피부 접촉"@ko .
+agent:Benzene a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "벤젠"@ko .
+agent:ChlorineAmmoniaReaction a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "염소+암모니아 반응"@ko .
+agent:ConcentratedAlkali a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "농축된 알칼리"@ko .
+agent:Corrosion a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "부식성 물질"@ko .
+agent:DegradedDeveloperSolution a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "변질된 현상액"@ko .
+agent:FormaldehydeSkinContact a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "포름알데히드 피부 접촉"@ko .
+agent:FragranceVapor a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "방향제 증기"@ko .
+agent:GlutaraldehydeVapor a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "글루타르알데히드 증기"@ko .
+agent:LeachateHazardousSubstance a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "침출수 유해물질"@ko .
+agent:MercuryAmalgamVapor a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "아말감 수은 증기"@ko .
+agent:MislabeledDetergent a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "라벨 불일치 세제"@ko .
+agent:MixedDetergentGas a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "혼합 세제 가스"@ko .
+agent:ResidualPesticide a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "잔류 살충제"@ko .
+agent:SolventVapor a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "용제 증기 누설"@ko .
+agent:StrongAcidDescaler a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "강산성 스케일 제거제 원액"@ko .
+agent:WaterBasedPaintMist a owl:Class ; rdfs:subClassOf agent:Chemical ; rdfs:label "수성 도료 미스트"@ko .
+agent:AsbestosDust a owl:Class ; rdfs:subClassOf agent:Dust ; rdfs:label "석면 분진"@ko .
+agent:ContaminatedFilterParticulateMold a owl:Class ; rdfs:subClassOf agent:Dust ; rdfs:label "오염 필터 미세먼지·곰팡이"@ko .
+agent:HighPressureAirDust a owl:Class ; rdfs:subClassOf agent:Dust ; rdfs:label "고압 에어 비산 먼지"@ko .
+agent:LeadPaintDust a owl:Class ; rdfs:subClassOf agent:Dust ; rdfs:label "납 함유 도료 분진"@ko .
+agent:ArcFlash a owl:Class ; rdfs:subClassOf agent:Electricity ; rdfs:label "아크 섬광"@ko .
+agent:CapacitorResidualVoltage a owl:Class ; rdfs:subClassOf agent:Electricity ; rdfs:label "트레드밀 커패시터 잔류 전압"@ko .
+agent:DistributionBoard a owl:Class ; rdfs:subClassOf agent:Electricity ; rdfs:label "분전반"@ko .
+agent:ElectricalOverload a owl:Class ; rdfs:subClassOf agent:Electricity ; rdfs:label "전기 과부하"@ko .
+agent:ElectricityWaterContact a owl:Class ; rdfs:subClassOf agent:Electricity ; rdfs:label "전기 물 접촉"@ko .
+agent:ExposedOutlet a owl:Class ; rdfs:subClassOf agent:Electricity ; rdfs:label "콘센트 노출"@ko .
+agent:StaticElectricity a owl:Class ; rdfs:subClassOf agent:Electricity ; rdfs:label "정전기"@ko .
+agent:TwistedWire a owl:Class ; rdfs:subClassOf agent:Electricity ; rdfs:label "꼬인 와이어"@ko .
+agent:ColdFloor a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "저온 바닥"@ko .
+agent:CryogenicAgent a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "극저온"@ko .
+agent:ExtremeColdEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "극저온 환경"@ko .
+agent:ExtremeColdSurface a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "극저온 표면"@ko .
+agent:HighHeat a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고열"@ko .
+agent:HighTemperatureEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고온 환경"@ko .
+agent:HighTemperatureSteam a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고온 증기"@ko .
+agent:HotEquipment a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고온 기구"@ko .
+agent:HotParts a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고온 부품"@ko .
+agent:HotSurface a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고열 표면"@ko .
+agent:HotTray a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고온 트레이"@ko .
+agent:HotWater a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고온 온수"@ko .
+agent:ProlongedColdExposure a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "저온 장기 노출"@ko .
+agent:ProlongedExposureToColdEnvironment a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "저온 환경 장기 노출"@ko .
+agent:RadiantHeat a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "고온 복사열"@ko .
+agent:RepeatedExtremeColdExposure a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "극저온 반복 노출"@ko .
+agent:UvLampResidualHeat a owl:Class ; rdfs:subClassOf agent:HeatCold ; rdfs:label "UV 램프 잔열"@ko .
+agent:EarphoneNoise a owl:Class ; rdfs:subClassOf agent:Noise ; rdfs:label "이어폰 소음"@ko .
+agent:KaraokeNoise a owl:Class ; rdfs:subClassOf agent:Noise ; rdfs:label "노래방 소음"@ko .
+agent:KaraokeRoomNoise a owl:Class ; rdfs:subClassOf agent:Noise ; rdfs:label "노래방 고소음"@ko .
+agent:Noise105Db a owl:Class ; rdfs:subClassOf agent:Noise ; rdfs:label "합산 105dB 소음"@ko .
+agent:DentalXRay a owl:Class ; rdfs:subClassOf agent:Radiation ; rdfs:label "치과 방사선"@ko .
+agent:DentalXrayRepeatedExposure a owl:Class ; rdfs:subClassOf agent:Radiation ; rdfs:label "치과 X선 반복 노출"@ko .
+agent:RadiationExposure a owl:Class ; rdfs:subClassOf agent:Radiation ; rdfs:label "방사선 노출"@ko .
+agent:RadiationExposureDuringPregnancy a owl:Class ; rdfs:subClassOf agent:Radiation ; rdfs:label "임신 중 방사선 노출"@ko .
+agent:RepeatedRadiationExposure a owl:Class ; rdfs:subClassOf agent:Radiation ; rdfs:label "방사선 반복 노출"@ko .
+agent:ScatteredRadiation a owl:Class ; rdfs:subClassOf agent:Radiation ; rdfs:label "산란 방사선"@ko .
+agent:UltravioletRadiation a owl:Class ; rdfs:subClassOf agent:Radiation ; rdfs:label "자외선"@ko .
+agent:BiogasMethane a owl:Class ; rdfs:subClassOf agent:Toxic ; rdfs:label "바이오가스(메탄)"@ko .
+agent:ElevatorPitToxicGas a owl:Class ; rdfs:subClassOf agent:Toxic ; rdfs:label "엘리베이터 피트 유해가스"@ko .
+agent:FuelSaturatedAbsorbent a owl:Class ; rdfs:subClassOf agent:Toxic ; rdfs:label "연료 포화 흡착포"@ko .
+agent:GasolineMicroLeakage a owl:Class ; rdfs:subClassOf agent:Toxic ; rdfs:label "휘발유 미세 누출"@ko .
+agent:GasolineVapor a owl:Class ; rdfs:subClassOf agent:Toxic ; rdfs:label "휘발유 증기"@ko .
+agent:ResidualCombustionGas a owl:Class ; rdfs:subClassOf agent:Toxic ; rdfs:label "잔류물 연소 가스"@ko .
+agent:SmallQuantityGasoline a owl:Class ; rdfs:subClassOf agent:Toxic ; rdfs:label "소량 휘발유"@ko .
+agent:TobaccoSmoke a owl:Class ; rdfs:subClassOf agent:Toxic ; rdfs:label "담배 연기"@ko .
+agent:AirlessResidualPressure a owl:Class ; rdfs:subClassOf agent:UnknownAgent ; rdfs:label "에어리스 잔압"@ko .
+agent:DefectiveHandle a owl:Class ; rdfs:subClassOf agent:UnknownAgent ; rdfs:label "불량 손잡이"@ko .
+agent:DefectiveSterilePackaging a owl:Class ; rdfs:subClassOf agent:UnknownAgent ; rdfs:label "포장 불량 기구"@ko .
+agent:FemaleExposureLimitExceeded a owl:Class ; rdfs:subClassOf agent:UnknownAgent ; rdfs:label "여성 기준 초과"@ko .
+agent:ResidualRotation a owl:Class ; rdfs:subClassOf agent:UnknownAgent ; rdfs:label "잔류 회전"@ko .
+agent:RopeKink a owl:Class ; rdfs:subClassOf agent:UnknownAgent ; rdfs:label "로프 킹크"@ko .
 
 # -- work_context (ctx): 186 --
-ctx:AirlessSprayer a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:ChemicalApplication a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:ChemicalCleaning a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:ChemicalDisinfection a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:ChemicalMixing a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:ChemicalSpotting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:ChemicalWaste a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:DryCleaningSolvent a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:FuelDispensing a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:FuelSpill a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:GasAppliance a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:HairChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:InkSolvent a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:NailChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:OilDrain a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:Painting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:PaintingWoodwork a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:PesticideSpray a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:RestroomChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:SolventHandling a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:SprayPainting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:VaporExposure a owl:Class ; rdfs:subClassOf ctx:ChemicalWork .
-ctx:AquacultureTank a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
-ctx:ConfinedCoating a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
-ctx:ConfinedSpaceCleaning a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
-ctx:UndergroundTank a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
-ctx:WetConfinedSpace a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace .
-ctx:ConveyorBelt a owl:Class ; rdfs:subClassOf ctx:Conveyor .
-ctx:ConveyorWash a owl:Class ; rdfs:subClassOf ctx:Conveyor .
-ctx:ElectricPolishingRoller a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
-ctx:ElectricalHazard a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
-ctx:ElectricalOverload a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
-ctx:LivePowerRepair a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
-ctx:StaticElectricity a owl:Class ; rdfs:subClassOf ctx:ElectricalWork .
-ctx:AwkwardPostureWork a owl:Class ; rdfs:subClassOf ctx:ErgonomicWork .
-ctx:ExcessiveMotionRange a owl:Class ; rdfs:subClassOf ctx:ErgonomicWork .
-ctx:FireDetectionFailure a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork .
-ctx:FireDetectorDisabled a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork .
-ctx:FireEvacuation a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork .
-ctx:FireExtinguisherDefective a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork .
-ctx:ColdDisplay a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:ColdRoomAccess a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:ColdRoomMortuary a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:DeepFrying a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:DryerOperation a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:FoodPrep a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:FreezerWork a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:HotBeverage a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:HotTool a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:HotTrayTransport a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:KitchenCooking a owl:Class ; rdfs:subClassOf ctx:HeatColdWork .
-ctx:BandSaw a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:BreadSlicer a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:CompressionDeviceRestart a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:DoughMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:FarmMachinery a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:FloorMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:FoldingMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:Grinding a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:GuillotineCutter a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:HighPressureWash a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:HopperBladeWork a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:LaminatingRoller a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:MeatGrinding a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:MeatSlicer a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:NailGun a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:PressMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:PrintingPress a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:RollerMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:Sanding a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:Sawing a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:ScrewGrinder a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:WashingMachine a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:Welding a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:WeldingRepair a owl:Class ; rdfs:subClassOf ctx:Machine .
-ctx:BoxHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:CatHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:ColdStorage a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:FertilizerHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:FlourHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:GarmentSorting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:HeavyFishBox a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:HeavyFurniture a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:HeavyLifting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:HeavyMeatHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:HighShelfWork a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:IceHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:LiftWork a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:LoadingDock a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:MedicationHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:OverloadedHandcart a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:PackageSorting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:ShelfStocking a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:StorageShelf a owl:Class ; rdfs:subClassOf ctx:MaterialHandling .
-ctx:NoiseExposure a owl:Class ; rdfs:subClassOf ctx:NoiseWork .
-ctx:AisleObstruction a owl:Class ; rdfs:subClassOf ctx:Passage .
-ctx:WalkwayObstruction a owl:Class ; rdfs:subClassOf ctx:Passage .
-ctx:AcupunctureWork a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
-ctx:AutoclaveSterilization a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
-ctx:BiomedicalWaste a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
-ctx:BodyTransport a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
-ctx:CremationFurnace a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
-ctx:DentalProcedure a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
-ctx:Embalming a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
-ctx:FuneralHallSetup a owl:Class ; rdfs:subClassOf ctx:PathogenWork .
-ctx:ClimbingWall a owl:Class ; rdfs:subClassOf ctx:Scaffold .
-ctx:ExteriorRope a owl:Class ; rdfs:subClassOf ctx:Scaffold .
-ctx:HighRiseWindow a owl:Class ; rdfs:subClassOf ctx:Scaffold .
-ctx:Ladder a owl:Class ; rdfs:subClassOf ctx:Scaffold .
-ctx:LadderInterior a owl:Class ; rdfs:subClassOf ctx:Scaffold .
-ctx:RopeAccess a owl:Class ; rdfs:subClassOf ctx:Scaffold .
-ctx:ScaffoldWork a owl:Class ; rdfs:subClassOf ctx:Scaffold .
-ctx:AcrophobiaWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:AnimalFeeding a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:BracketDefect a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:BystanderWorkerExposure a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:CageCleaning a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:CardioEquipment a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:CashierArea a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:CleaningNight a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:CleaningWet a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:CommunicationFailure a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:CrowdManagement a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:DisplaySetup a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:DogGrooming a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:EvBattery a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:ExerciseClass a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:ExpiredMedicationUse a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:FilterMaintenance a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:FirstAidFailure a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:FishCutting a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:FloralArrangement a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:FreeWeightZone a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:GreenhouseWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:HairWash a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:HandrailDefect a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:HarvestWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:InteriorCleaning a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:InterlockBypass a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:Irrigation a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:KnifeWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:LandfillOperation a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:LooseSafetyCover a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:LotoNotApplied a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:NearbyWorkerProximity a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:NightSolo a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:NightSoloWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:ObstructedViewCarrying a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:OutdoorPlayEquipment a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:OvenOperation a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:OverloadedContainer a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:PetBathing a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:PlateMaking a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:PoolArea a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:PowerRackSafetyPin a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:PowerTool a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:RadiationXray a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:RecyclingSort a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:RescueDelay a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:RopeAnomalyUndetected a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:SafetyDeviceBypass a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:SecurityInadequacy a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:ServingFloor a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:SharpsDisposal a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:ShieldingInadequate a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:SkinDevice a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:SlopeRamp a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:SoloResponse a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:StaffMaintenance a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:StairCarrying a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:SteamIron a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:SurfacePrep a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:TireChange a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:UnauthorizedMedicationAdministration a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:UnstableEdge a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:UnstableSlope a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:UnstableStructure a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:UvCoating a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:WasteCollection a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:WasteCompactor a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:WaxPolishing a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:WetFloorFish a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:WetFloorWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext .
-ctx:DeliveryRider a owl:Class ; rdfs:subClassOf ctx:Vehicle .
-ctx:ForkliftOperation a owl:Class ; rdfs:subClassOf ctx:Vehicle .
-ctx:VentilationPoor a owl:Class ; rdfs:subClassOf ctx:Ventilation .
+ctx:AirlessSprayer a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "airless sprayer"@ko .
+ctx:ChemicalApplication a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "세차 화학약품 도포"@ko .
+ctx:ChemicalCleaning a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "chemical cleaning"@ko .
+ctx:ChemicalDisinfection a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "chemical disinfection"@ko .
+ctx:ChemicalMixing a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "chemical mixing"@ko .
+ctx:ChemicalSpotting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "얼룩 제거 화학작업"@ko .
+ctx:ChemicalWaste a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "chemical waste"@ko .
+ctx:DryCleaningSolvent a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "드라이클리닝 용제 작업"@ko .
+ctx:FuelDispensing a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "주유 작업"@ko .
+ctx:FuelSpill a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "연료 유출 작업"@ko .
+ctx:GasAppliance a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "가스기기"@ko .
+ctx:HairChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "미용 화학약품 작업"@ko .
+ctx:InkSolvent a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "ink solvent"@ko .
+ctx:NailChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "네일 화학약품 작업"@ko .
+ctx:OilDrain a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "오일 교환·폐오일 취급"@ko .
+ctx:Painting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "painting"@ko .
+ctx:PaintingWoodwork a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "목공 도장 작업"@ko .
+ctx:PesticideSpray a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "농약 살포"@ko .
+ctx:RestroomChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "restroom chemical"@ko .
+ctx:SolventHandling a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "solvent handling"@ko .
+ctx:SprayPainting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "spray painting"@ko .
+ctx:VaporExposure a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "유증기 노출"@ko .
+ctx:AquacultureTank a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace ; rdfs:label "aquaculture tank"@ko .
+ctx:ConfinedCoating a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace ; rdfs:label "confined coating"@ko .
+ctx:ConfinedSpaceCleaning a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace ; rdfs:label "confined space cleaning"@ko .
+ctx:UndergroundTank a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace ; rdfs:label "지하 탱크 작업"@ko .
+ctx:WetConfinedSpace a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace ; rdfs:label "습윤 밀폐 공간"@ko .
+ctx:ConveyorBelt a owl:Class ; rdfs:subClassOf ctx:Conveyor ; rdfs:label "컨베이어 벨트"@ko .
+ctx:ConveyorWash a owl:Class ; rdfs:subClassOf ctx:Conveyor ; rdfs:label "컨베이어 세차"@ko .
+ctx:ElectricPolishingRoller a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "전기 연마 롤러"@ko .
+ctx:ElectricalHazard a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "electrical hazard"@ko .
+ctx:ElectricalOverload a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "전기 과부하"@ko .
+ctx:LivePowerRepair a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "전원 ON 수리"@ko .
+ctx:StaticElectricity a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "정전기 위험 작업"@ko .
+ctx:AwkwardPostureWork a owl:Class ; rdfs:subClassOf ctx:ErgonomicWork ; rdfs:label "부적절한 작업 자세"@ko .
+ctx:ExcessiveMotionRange a owl:Class ; rdfs:subClassOf ctx:ErgonomicWork ; rdfs:label "과도한 동작 반경"@ko .
+ctx:FireDetectionFailure a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork ; rdfs:label "화재 감지 실패"@ko .
+ctx:FireDetectorDisabled a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork ; rdfs:label "화재 감지기 무력화"@ko .
+ctx:FireEvacuation a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork ; rdfs:label "화재 대피"@ko .
+ctx:FireExtinguisherDefective a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork ; rdfs:label "불량 소화기"@ko .
+ctx:ColdDisplay a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "냉장 진열대 작업"@ko .
+ctx:ColdRoomAccess a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "cold room access"@ko .
+ctx:ColdRoomMortuary a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "cold room mortuary"@ko .
+ctx:DeepFrying a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "튀김 조리"@ko .
+ctx:DryerOperation a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "건조기 작업"@ko .
+ctx:FoodPrep a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "식재료 전처리"@ko .
+ctx:FreezerWork a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "freezer work"@ko .
+ctx:HotBeverage a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "고온 음료"@ko .
+ctx:HotTool a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "고온 미용기구 작업"@ko .
+ctx:HotTrayTransport a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "hot tray transport"@ko .
+ctx:KitchenCooking a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "주방 조리"@ko .
+ctx:BandSaw a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "band saw"@ko .
+ctx:BreadSlicer a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "bread slicer"@ko .
+ctx:CompressionDeviceRestart a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "압축 장치 재작동"@ko .
+ctx:DoughMachine a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "dough machine"@ko .
+ctx:FarmMachinery a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "농기계 작업"@ko .
+ctx:FloorMachine a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "floor machine"@ko .
+ctx:FoldingMachine a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "folding machine"@ko .
+ctx:Grinding a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "grinding"@ko .
+ctx:GuillotineCutter a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "guillotine cutter"@ko .
+ctx:HighPressureWash a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "고압 세척"@ko .
+ctx:HopperBladeWork a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "호퍼 내부 날"@ko .
+ctx:LaminatingRoller a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "접지기 롤러"@ko .
+ctx:MeatGrinding a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "meat grinding"@ko .
+ctx:MeatSlicer a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "meat slicer"@ko .
+ctx:NailGun a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "타카·네일건 작업"@ko .
+ctx:PressMachine a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "프레스 기계 작업"@ko .
+ctx:PrintingPress a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "printing press"@ko .
+ctx:RollerMachine a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "회전 롤러"@ko .
+ctx:Sanding a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "샌딩·연마 작업"@ko .
+ctx:Sawing a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "톱 절단 작업"@ko .
+ctx:ScrewGrinder a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "분쇄기 스크루"@ko .
+ctx:WashingMachine a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "세탁기 작업"@ko .
+ctx:Welding a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "welding"@ko .
+ctx:WeldingRepair a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "차체 용접·수리"@ko .
+ctx:BoxHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "박스 운반·적재"@ko .
+ctx:CatHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "고양이 취급"@ko .
+ctx:ColdStorage a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "냉장·냉동 창고"@ko .
+ctx:FertilizerHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "비료 취급"@ko .
+ctx:FlourHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "flour handling"@ko .
+ctx:GarmentSorting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "세탁물 분류"@ko .
+ctx:HeavyFishBox a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "heavy fish box"@ko .
+ctx:HeavyFurniture a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "heavy furniture"@ko .
+ctx:HeavyLifting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "중량물 취급"@ko .
+ctx:HeavyMeatHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "heavy meat handling"@ko .
+ctx:HighShelfWork a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "높은 선반 작업"@ko .
+ctx:IceHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "ice handling"@ko .
+ctx:LiftWork a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "자동차 리프트 작업"@ko .
+ctx:LoadingDock a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "하역 도크"@ko .
+ctx:MedicationHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "medication handling"@ko .
+ctx:OverloadedHandcart a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "과적 운반도구"@ko .
+ctx:PackageSorting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "택배 분류"@ko .
+ctx:ShelfStocking a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "매장 선반 진열"@ko .
+ctx:StorageShelf a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "선반 적재"@ko .
+ctx:NoiseExposure a owl:Class ; rdfs:subClassOf ctx:NoiseWork ; rdfs:label "소음 노출 작업"@ko .
+ctx:AisleObstruction a owl:Class ; rdfs:subClassOf ctx:Passage ; rdfs:label "통로 장애물"@ko .
+ctx:WalkwayObstruction a owl:Class ; rdfs:subClassOf ctx:Passage ; rdfs:label "통행 경로 장애물"@ko .
+ctx:AcupunctureWork a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "acupuncture work"@ko .
+ctx:AutoclaveSterilization a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "autoclave sterilization"@ko .
+ctx:BiomedicalWaste a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "biomedical waste"@ko .
+ctx:BodyTransport a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "body transport"@ko .
+ctx:CremationFurnace a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "cremation furnace"@ko .
+ctx:DentalProcedure a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "dental procedure"@ko .
+ctx:Embalming a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "embalming"@ko .
+ctx:FuneralHallSetup a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "funeral hall setup"@ko .
+ctx:ClimbingWall a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "climbing wall"@ko .
+ctx:ExteriorRope a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "exterior rope"@ko .
+ctx:HighRiseWindow a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "high rise window"@ko .
+ctx:Ladder a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "ladder"@ko .
+ctx:LadderInterior a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "실내 사다리 작업"@ko .
+ctx:RopeAccess a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "rope access"@ko .
+ctx:ScaffoldWork a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "scaffold work"@ko .
+ctx:AcrophobiaWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "고소 공포"@ko .
+ctx:AnimalFeeding a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "동물 급식"@ko .
+ctx:BracketDefect a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "브래킷 이상"@ko .
+ctx:BystanderWorkerExposure a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "주변 작업자 노출"@ko .
+ctx:CageCleaning a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "케이지 청소"@ko .
+ctx:CardioEquipment a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "cardio equipment"@ko .
+ctx:CashierArea a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "계산대 주변 작업"@ko .
+ctx:CleaningNight a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "야간 청소"@ko .
+ctx:CleaningWet a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "물청소"@ko .
+ctx:CommunicationFailure a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "통신 단절"@ko .
+ctx:CrowdManagement a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "과밀 인원 관리"@ko .
+ctx:DisplaySetup a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "display setup"@ko .
+ctx:DogGrooming a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "강아지 미용"@ko .
+ctx:EvBattery a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "전기차 고전압 배터리 작업"@ko .
+ctx:ExerciseClass a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "exercise class"@ko .
+ctx:ExpiredMedicationUse a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "만료 에피펜 무효"@ko .
+ctx:FilterMaintenance a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "기름때 필터"@ko .
+ctx:FirstAidFailure a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "응급 처치 실패"@ko .
+ctx:FishCutting a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "fish cutting"@ko .
+ctx:FloralArrangement a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "floral arrangement"@ko .
+ctx:FreeWeightZone a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "free weight zone"@ko .
+ctx:GreenhouseWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "온실 작업"@ko .
+ctx:HairWash a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "샴푸·세정 작업"@ko .
+ctx:HandrailDefect a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "난간 불량"@ko .
+ctx:HarvestWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "수확 작업"@ko .
+ctx:InteriorCleaning a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "차량 내부 청소"@ko .
+ctx:InterlockBypass a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "인터록 우회 가능성"@ko .
+ctx:Irrigation a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "관개 작업"@ko .
+ctx:KnifeWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "knife work"@ko .
+ctx:LandfillOperation a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "landfill operation"@ko .
+ctx:LooseSafetyCover a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "헐거운 안전 덮개"@ko .
+ctx:LotoNotApplied a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "LOTO 미적용"@ko .
+ctx:NearbyWorkerProximity a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "주변 작업자 접근"@ko .
+ctx:NightSolo a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "야간 단독 근무"@ko .
+ctx:NightSoloWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "야간 단독 작업"@ko .
+ctx:ObstructedViewCarrying a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "시야 차단 운반"@ko .
+ctx:OutdoorPlayEquipment a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "outdoor play equipment"@ko .
+ctx:OvenOperation a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "oven operation"@ko .
+ctx:OverloadedContainer a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "과적 컨테이너"@ko .
+ctx:PetBathing a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "반려동물 목욕"@ko .
+ctx:PlateMaking a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "plate making"@ko .
+ctx:PoolArea a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "pool area"@ko .
+ctx:PowerRackSafetyPin a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "파워랙 안전핀"@ko .
+ctx:PowerTool a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "전동 공구"@ko .
+ctx:RadiationXray a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "radiation xray"@ko .
+ctx:RecyclingSort a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "recycling sort"@ko .
+ctx:RescueDelay a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "구조 지연"@ko .
+ctx:RopeAnomalyUndetected a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "로프 이상 미감지"@ko .
+ctx:SafetyDeviceBypass a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "안전 장치 무력화"@ko .
+ctx:SecurityInadequacy a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "방범 설비 미비"@ko .
+ctx:ServingFloor a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "홀 서빙 동선"@ko .
+ctx:SharpsDisposal a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "sharps disposal"@ko .
+ctx:ShieldingInadequate a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "불량 차폐"@ko .
+ctx:SkinDevice a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "피부·광선 장비 작업"@ko .
+ctx:SlopeRamp a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "경사로"@ko .
+ctx:SoloResponse a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "단독 대응"@ko .
+ctx:StaffMaintenance a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "staff maintenance"@ko .
+ctx:StairCarrying a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "좁은 계단 운구"@ko .
+ctx:SteamIron a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "스팀 다리미 작업"@ko .
+ctx:SurfacePrep a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "surface prep"@ko .
+ctx:TireChange a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "타이어 교체·공기압 작업"@ko .
+ctx:UnauthorizedMedicationAdministration a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "무허가 투약"@ko .
+ctx:UnstableEdge a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "불안정 가장자리"@ko .
+ctx:UnstableSlope a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "불안정 사면"@ko .
+ctx:UnstableStructure a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "불안정 구조물"@ko .
+ctx:UvCoating a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "uv coating"@ko .
+ctx:WasteCollection a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "waste collection"@ko .
+ctx:WasteCompactor a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "waste compactor"@ko .
+ctx:WaxPolishing a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "왁스/광택 작업"@ko .
+ctx:WetFloorFish a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "wet floor fish"@ko .
+ctx:WetFloorWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "젖은 바닥 작업"@ko .
+ctx:DeliveryRider a owl:Class ; rdfs:subClassOf ctx:Vehicle ; rdfs:label "배달 운행"@ko .
+ctx:ForkliftOperation a owl:Class ; rdfs:subClassOf ctx:Vehicle ; rdfs:label "지게차 작업"@ko .
+ctx:VentilationPoor a owl:Class ; rdfs:subClassOf ctx:Ventilation ; rdfs:label "환기 불량 작업"@ko .
 

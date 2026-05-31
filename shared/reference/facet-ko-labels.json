@@ -1,8 +1,16 @@
 {
-  "description": "facet canonical 한글 라벨 SSOT. canonical-code-vocabulary.json은 코드만 보유하고, accident_type 한글은 kosha_reference_parsed.json에서 오므로, agent/work_context canonical의 한글 라벨은 여기서 관리한다. gen_kosha22_vocab_patch.py가 @ko emit에 사용. KOSHA OSH 표준 용어.",
+  "description": "facet 한글 라벨 SSOT (보충용). canonical-code-vocabulary.json은 코드만 보유하고 accident_type canonical 한글은 kosha_reference_parsed.json에서, 대부분 fine 한글은 risk_feature_catalog.json에서 온다. 여기서는 (1) agent/work_context canonical 라벨(gen_kosha22_vocab_patch가 @ko emit) (2) catalog에 라벨이 없는 fine 코드 보충(gen_facet_taxonomy fallback)을 관리한다. KOSHA OSH 표준 용어.",
   "axes": {
+    "accident_type": {
+      "HEAVY_LIFTING": "중량물 취급",
+      "POSTURE": "부적절한 작업자세",
+      "REPETITIVE": "반복 동작",
+      "SLIP": "미끄러짐"
+    },
     "hazardous_agent": {
-      "UNKNOWN_AGENT": "미상 유해인자"
+      "UNKNOWN_AGENT": "미상 유해인자",
+      "ARC_FLASH": "아크 섬광",
+      "CORROSION": "부식성 물질"
     },
     "work_context": {
       "CHEMICAL_WORK": "화학물질 취급작업",

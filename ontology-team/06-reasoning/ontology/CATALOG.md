@@ -1,7 +1,7 @@
 # KOSHA 온톨로지 카탈로그
 
-> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T12:28:44+00:00
-> 소스: serving TBox+facet+moderate ABox (38 files, 568,639 triples; 대용량 instances 제외)
+> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T13:00:06+00:00
+> 소스: serving TBox+facet+moderate ABox (38 files, 569,057 triples; 대용량 instances 제외)
 > class 627 · objectProperty 133 · dataProperty 68 · individual 234
 
 ## 1. 모듈 개요 (prefix)
@@ -123,89 +123,89 @@
 - `risk:RiskFeature` "위험 특징" [⊒9, ←45] ⊑(obo:BFO_0000019, +제약4)
   - `agent:HazardousAgent` "유해 인자" [⊒10, ←30] ⊑(obo:BFO_0000030)
     - `agent:Biological` "생물학적" [⊒3, ←605]
-      - `agent:BloodbornePathogen`
-      - `agent:InfectiousMedicalWaste`
-      - `agent:LackOfVaccination`
+      - `agent:BloodbornePathogen` "혈액 매개 감염"
+      - `agent:InfectiousMedicalWaste` "감염성 의료 폐기물"
+      - `agent:LackOfVaccination` "예방접종 미이행"
     - `agent:Chemical` "화학물질" [⊒17, ←12919]
-      - `agent:AcrylateResinSkinContact`
-      - `agent:Benzene`
-      - `agent:ChlorineAmmoniaReaction`
-      - `agent:ConcentratedAlkali`
-      - `agent:Corrosion` "부식성물질"
-      - `agent:DegradedDeveloperSolution`
-      - `agent:FormaldehydeSkinContact`
-      - `agent:FragranceVapor`
-      - `agent:GlutaraldehydeVapor`
-      - `agent:LeachateHazardousSubstance`
-      - `agent:MercuryAmalgamVapor`
-      - `agent:MislabeledDetergent`
-      - `agent:MixedDetergentGas`
-      - `agent:ResidualPesticide`
-      - `agent:SolventVapor`
-      - `agent:StrongAcidDescaler`
-      - `agent:WaterBasedPaintMist`
+      - `agent:AcrylateResinSkinContact` "아크릴레이트 수지 피부 접촉"
+      - `agent:Benzene` "벤젠"
+      - `agent:ChlorineAmmoniaReaction` "염소+암모니아 반응"
+      - `agent:ConcentratedAlkali` "농축된 알칼리"
+      - `agent:Corrosion` "부식성 물질"
+      - `agent:DegradedDeveloperSolution` "변질된 현상액"
+      - `agent:FormaldehydeSkinContact` "포름알데히드 피부 접촉"
+      - `agent:FragranceVapor` "방향제 증기"
+      - `agent:GlutaraldehydeVapor` "글루타르알데히드 증기"
+      - `agent:LeachateHazardousSubstance` "침출수 유해물질"
+      - `agent:MercuryAmalgamVapor` "아말감 수은 증기"
+      - `agent:MislabeledDetergent` "라벨 불일치 세제"
+      - `agent:MixedDetergentGas` "혼합 세제 가스"
+      - `agent:ResidualPesticide` "잔류 살충제"
+      - `agent:SolventVapor` "용제 증기 누설"
+      - `agent:StrongAcidDescaler` "강산성 스케일 제거제 원액"
+      - `agent:WaterBasedPaintMist` "수성 도료 미스트"
     - `agent:Dust` "분진" [⊒4, ←1634]
-      - `agent:AsbestosDust`
-      - `agent:ContaminatedFilterParticulateMold`
-      - `agent:HighPressureAirDust`
-      - `agent:LeadPaintDust`
+      - `agent:AsbestosDust` "석면 분진"
+      - `agent:ContaminatedFilterParticulateMold` "오염 필터 미세먼지·곰팡이"
+      - `agent:HighPressureAirDust` "고압 에어 비산 먼지"
+      - `agent:LeadPaintDust` "납 함유 도료 분진"
     - `agent:Electricity` "전기" [⊒8, ←8803]
-      - `agent:ArcFlash` "아크"
-      - `agent:CapacitorResidualVoltage`
-      - `agent:DistributionBoard`
-      - `agent:ElectricalOverload`
-      - `agent:ElectricityWaterContact`
-      - `agent:ExposedOutlet`
-      - `agent:StaticElectricity`
-      - `agent:TwistedWire`
+      - `agent:ArcFlash` "아크 섬광"
+      - `agent:CapacitorResidualVoltage` "트레드밀 커패시터 잔류 전압"
+      - `agent:DistributionBoard` "분전반"
+      - `agent:ElectricalOverload` "전기 과부하"
+      - `agent:ElectricityWaterContact` "전기 물 접촉"
+      - `agent:ExposedOutlet` "콘센트 노출"
+      - `agent:StaticElectricity` "정전기"
+      - `agent:TwistedWire` "꼬인 와이어"
     - `agent:Fire` "화재·폭발" [⊒0, ←9535]
     - `agent:HeatCold` "온도" [⊒17, ←2618]
-      - `agent:ColdFloor`
-      - `agent:CryogenicAgent`
-      - `agent:ExtremeColdEnvironment`
-      - `agent:ExtremeColdSurface`
-      - `agent:HighHeat`
-      - `agent:HighTemperatureEnvironment`
-      - `agent:HighTemperatureSteam`
-      - `agent:HotEquipment`
-      - `agent:HotParts`
-      - `agent:HotSurface`
-      - `agent:HotTray`
-      - `agent:HotWater`
-      - `agent:ProlongedColdExposure`
-      - `agent:ProlongedExposureToColdEnvironment`
-      - `agent:RadiantHeat`
-      - `agent:RepeatedExtremeColdExposure`
-      - `agent:UvLampResidualHeat`
+      - `agent:ColdFloor` "저온 바닥"
+      - `agent:CryogenicAgent` "극저온"
+      - `agent:ExtremeColdEnvironment` "극저온 환경"
+      - `agent:ExtremeColdSurface` "극저온 표면"
+      - `agent:HighHeat` "고열"
+      - `agent:HighTemperatureEnvironment` "고온 환경"
+      - `agent:HighTemperatureSteam` "고온 증기"
+      - `agent:HotEquipment` "고온 기구"
+      - `agent:HotParts` "고온 부품"
+      - `agent:HotSurface` "고열 표면"
+      - `agent:HotTray` "고온 트레이"
+      - `agent:HotWater` "고온 온수"
+      - `agent:ProlongedColdExposure` "저온 장기 노출"
+      - `agent:ProlongedExposureToColdEnvironment` "저온 환경 장기 노출"
+      - `agent:RadiantHeat` "고온 복사열"
+      - `agent:RepeatedExtremeColdExposure` "극저온 반복 노출"
+      - `agent:UvLampResidualHeat` "UV 램프 잔열"
     - `agent:Noise` "소음·진동" [⊒4, ←1276]
-      - `agent:EarphoneNoise`
-      - `agent:KaraokeNoise`
-      - `agent:KaraokeRoomNoise`
-      - `agent:Noise105Db`
+      - `agent:EarphoneNoise` "이어폰 소음"
+      - `agent:KaraokeNoise` "노래방 소음"
+      - `agent:KaraokeRoomNoise` "노래방 고소음"
+      - `agent:Noise105Db` "합산 105dB 소음"
     - `agent:Radiation` "방사선" [⊒7, ←446]
-      - `agent:DentalXRay`
-      - `agent:DentalXrayRepeatedExposure`
-      - `agent:RadiationExposure`
-      - `agent:RadiationExposureDuringPregnancy`
-      - `agent:RepeatedRadiationExposure`
-      - `agent:ScatteredRadiation`
-      - `agent:UltravioletRadiation`
+      - `agent:DentalXRay` "치과 방사선"
+      - `agent:DentalXrayRepeatedExposure` "치과 X선 반복 노출"
+      - `agent:RadiationExposure` "방사선 노출"
+      - `agent:RadiationExposureDuringPregnancy` "임신 중 방사선 노출"
+      - `agent:RepeatedRadiationExposure` "방사선 반복 노출"
+      - `agent:ScatteredRadiation` "산란 방사선"
+      - `agent:UltravioletRadiation` "자외선"
     - `agent:Toxic` "독성물질" [⊒8, ←3100]
-      - `agent:BiogasMethane`
-      - `agent:ElevatorPitToxicGas`
-      - `agent:FuelSaturatedAbsorbent`
-      - `agent:GasolineMicroLeakage`
-      - `agent:GasolineVapor`
-      - `agent:ResidualCombustionGas`
-      - `agent:SmallQuantityGasoline`
-      - `agent:TobaccoSmoke`
+      - `agent:BiogasMethane` "바이오가스(메탄)"
+      - `agent:ElevatorPitToxicGas` "엘리베이터 피트 유해가스"
+      - `agent:FuelSaturatedAbsorbent` "연료 포화 흡착포"
+      - `agent:GasolineMicroLeakage` "휘발유 미세 누출"
+      - `agent:GasolineVapor` "휘발유 증기"
+      - `agent:ResidualCombustionGas` "잔류물 연소 가스"
+      - `agent:SmallQuantityGasoline` "소량 휘발유"
+      - `agent:TobaccoSmoke` "담배 연기"
     - `agent:UnknownAgent` "미상 유해인자" [⊒6, ←8]
-      - `agent:AirlessResidualPressure`
-      - `agent:DefectiveHandle`
-      - `agent:DefectiveSterilePackaging`
-      - `agent:FemaleExposureLimitExceeded`
-      - `agent:ResidualRotation`
-      - `agent:RopeKink`
+      - `agent:AirlessResidualPressure` "에어리스 잔압"
+      - `agent:DefectiveHandle` "불량 손잡이"
+      - `agent:DefectiveSterilePackaging` "포장 불량 기구"
+      - `agent:FemaleExposureLimitExceeded` "여성 기준 초과"
+      - `agent:ResidualRotation` "잔류 회전"
+      - `agent:RopeKink` "로프 킹크"
   - `ctx:AgentState` "작업자 상태 (agent_state)" [⊒0, ←7] ⊑(obo:BFO_0000019)
   - `ctx:EnvironmentalFactor` "환경 요인 (environmental)" [⊒0, ←12] ⊑(obo:BFO_0000019)
   - `ctx:PPEState` "보호구 상태 (ppe_state)" [⊒0, ←20] ⊑(obo:BFO_0000019)
@@ -213,372 +213,372 @@
   - `ctx:WorkActivity` "작업 활동 (work_activity)" [⊒0, ←13] ⊑(obo:BFO_0000015)
   - `ctx:WorkContext` "작업 맥락" [⊒29, ←145] ⊑(obo:BFO_0000015)
     - `ctx:ChemicalWork` "화학물질 취급작업" [⊒22, ←6166]
-      - `ctx:AirlessSprayer`
-      - `ctx:ChemicalApplication` "Chemical Application" [⊒0, ←6]
-      - `ctx:ChemicalCleaning`
-      - `ctx:ChemicalDisinfection`
-      - `ctx:ChemicalMixing`
-      - `ctx:ChemicalSpotting` "Chemical Spotting" [⊒0, ←6]
-      - `ctx:ChemicalWaste`
-      - `ctx:DryCleaningSolvent` "Dry Cleaning Solvent" [⊒0, ←4]
-      - `ctx:FuelDispensing` "Fuel Dispensing" [⊒0, ←6]
-      - `ctx:FuelSpill` "Fuel Spill" [⊒0, ←4]
-      - `ctx:GasAppliance` "Gas Appliance" [⊒0, ←2]
-      - `ctx:HairChemical` "Hair Chemical" [⊒0, ←8]
-      - `ctx:InkSolvent`
-      - `ctx:NailChemical` "Nail Chemical" [⊒0, ←8]
-      - `ctx:OilDrain` "Oil Drain" [⊒0, ←8]
-      - `ctx:Painting` "Painting" [⊒0, ←6]
-      - `ctx:PaintingWoodwork` "Painting Woodwork" [⊒0, ←8]
-      - `ctx:PesticideSpray` "Pesticide Spray" [⊒0, ←10]
-      - `ctx:RestroomChemical`
-      - `ctx:SolventHandling`
-      - `ctx:SprayPainting`
-      - `ctx:VaporExposure` "Vapor Exposure" [⊒0, ←6]
+      - `ctx:AirlessSprayer` "airless sprayer"
+      - `ctx:ChemicalApplication` "세차 화학약품 도포" [⊒0, ←6]
+      - `ctx:ChemicalCleaning` "chemical cleaning"
+      - `ctx:ChemicalDisinfection` "chemical disinfection"
+      - `ctx:ChemicalMixing` "chemical mixing"
+      - `ctx:ChemicalSpotting` "얼룩 제거 화학작업" [⊒0, ←6]
+      - `ctx:ChemicalWaste` "chemical waste"
+      - `ctx:DryCleaningSolvent` "드라이클리닝 용제 작업" [⊒0, ←4]
+      - `ctx:FuelDispensing` "주유 작업" [⊒0, ←6]
+      - `ctx:FuelSpill` "연료 유출 작업" [⊒0, ←4]
+      - `ctx:GasAppliance` "가스기기" [⊒0, ←2]
+      - `ctx:HairChemical` "미용 화학약품 작업" [⊒0, ←8]
+      - `ctx:InkSolvent` "ink solvent"
+      - `ctx:NailChemical` "네일 화학약품 작업" [⊒0, ←8]
+      - `ctx:OilDrain` "오일 교환·폐오일 취급" [⊒0, ←8]
+      - `ctx:Painting` "painting" [⊒0, ←6]
+      - `ctx:PaintingWoodwork` "목공 도장 작업" [⊒0, ←8]
+      - `ctx:PesticideSpray` "농약 살포" [⊒0, ←10]
+      - `ctx:RestroomChemical` "restroom chemical"
+      - `ctx:SolventHandling` "solvent handling"
+      - `ctx:SprayPainting` "spray painting"
+      - `ctx:VaporExposure` "유증기 노출" [⊒0, ←6]
     - `ctx:CollapsePrevention` "붕괴방지 작업" [⊒0, ←1002]
     - `ctx:ConfinedSpace` "밀폐공간" [⊒5, ←1826]
-      - `ctx:AquacultureTank`
-      - `ctx:ConfinedCoating`
-      - `ctx:ConfinedSpaceCleaning`
-      - `ctx:UndergroundTank` "Underground Tank" [⊒0, ←4]
-      - `ctx:WetConfinedSpace`
+      - `ctx:AquacultureTank` "aquaculture tank"
+      - `ctx:ConfinedCoating` "confined coating"
+      - `ctx:ConfinedSpaceCleaning` "confined space cleaning"
+      - `ctx:UndergroundTank` "지하 탱크 작업" [⊒0, ←4]
+      - `ctx:WetConfinedSpace` "습윤 밀폐 공간"
     - `ctx:ConstructionEquip` "건설장비" [⊒0, ←951]
     - `ctx:Conveyor` "컨베이어" [⊒2, ←537]
-      - `ctx:ConveyorBelt` "Conveyor Belt" [⊒0, ←4]
-      - `ctx:ConveyorWash` "Conveyor Wash" [⊒0, ←6]
+      - `ctx:ConveyorBelt` "컨베이어 벨트" [⊒0, ←4]
+      - `ctx:ConveyorWash` "컨베이어 세차" [⊒0, ←6]
     - `ctx:Crane` "양중기" [⊒0, ←1706]
     - `ctx:Demolition` "해체작업" [⊒0, ←1428]
     - `ctx:DustWork` "분진작업" [⊒0, ←397]
     - `ctx:ElectricalWork` "전기작업" [⊒5, ←3622]
-      - `ctx:ElectricPolishingRoller`
-      - `ctx:ElectricalHazard`
-      - `ctx:ElectricalOverload` "Electrical Overload" [⊒0, ←10]
-      - `ctx:LivePowerRepair`
-      - `ctx:StaticElectricity` "Static Electricity" [⊒0, ←2]
+      - `ctx:ElectricPolishingRoller` "전기 연마 롤러"
+      - `ctx:ElectricalHazard` "electrical hazard"
+      - `ctx:ElectricalOverload` "전기 과부하" [⊒0, ←10]
+      - `ctx:LivePowerRepair` "전원 ON 수리"
+      - `ctx:StaticElectricity` "정전기 위험 작업" [⊒0, ←2]
     - `ctx:ErgonomicWork` "근골격계부담 작업" [⊒2, ←4]
-      - `ctx:AwkwardPostureWork`
-      - `ctx:ExcessiveMotionRange`
+      - `ctx:AwkwardPostureWork` "부적절한 작업 자세"
+      - `ctx:ExcessiveMotionRange` "과도한 동작 반경"
     - `ctx:Excavation` "굴착" [⊒0, ←1126]
     - `ctx:FallProtection` "추락방지 작업" [⊒0, ←384]
     - `ctx:FireExplosionWork` "화재·폭발 위험작업" [⊒4, ←1601]
-      - `ctx:FireDetectionFailure`
-      - `ctx:FireDetectorDisabled`
-      - `ctx:FireEvacuation` "Fire Evacuation" [⊒0, ←4]
-      - `ctx:FireExtinguisherDefective`
+      - `ctx:FireDetectionFailure` "화재 감지 실패"
+      - `ctx:FireDetectorDisabled` "화재 감지기 무력화"
+      - `ctx:FireEvacuation` "화재 대피" [⊒0, ←4]
+      - `ctx:FireExtinguisherDefective` "불량 소화기"
     - `ctx:HeatColdWork` "고온·저온 작업" [⊒11, ←340]
-      - `ctx:ColdDisplay` "Cold Display" [⊒0, ←8]
-      - `ctx:ColdRoomAccess`
-      - `ctx:ColdRoomMortuary`
-      - `ctx:DeepFrying` "Deep Frying" [⊒0, ←10]
-      - `ctx:DryerOperation` "Dryer Operation" [⊒0, ←4]
-      - `ctx:FoodPrep` "Food Prep" [⊒0, ←14]
-      - `ctx:FreezerWork`
-      - `ctx:HotBeverage` "Hot Beverage" [⊒0, ←16]
-      - `ctx:HotTool` "Hot Tool" [⊒0, ←8]
-      - `ctx:HotTrayTransport`
-      - `ctx:KitchenCooking` "Kitchen Cooking" [⊒0, ←20]
+      - `ctx:ColdDisplay` "냉장 진열대 작업" [⊒0, ←8]
+      - `ctx:ColdRoomAccess` "cold room access"
+      - `ctx:ColdRoomMortuary` "cold room mortuary"
+      - `ctx:DeepFrying` "튀김 조리" [⊒0, ←10]
+      - `ctx:DryerOperation` "건조기 작업" [⊒0, ←4]
+      - `ctx:FoodPrep` "식재료 전처리" [⊒0, ←14]
+      - `ctx:FreezerWork` "freezer work"
+      - `ctx:HotBeverage` "고온 음료" [⊒0, ←16]
+      - `ctx:HotTool` "고온 미용기구 작업" [⊒0, ←8]
+      - `ctx:HotTrayTransport` "hot tray transport"
+      - `ctx:KitchenCooking` "주방 조리" [⊒0, ←20]
     - `ctx:Logging` "벌목작업" [⊒0, ←153]
     - `ctx:Machine` "기계" [⊒24, ←4758]
-      - `ctx:BandSaw`
-      - `ctx:BreadSlicer`
-      - `ctx:CompressionDeviceRestart`
-      - `ctx:DoughMachine`
-      - `ctx:FarmMachinery` "Farm Machinery" [⊒0, ←8]
-      - `ctx:FloorMachine`
-      - `ctx:FoldingMachine`
-      - `ctx:Grinding` "Grinding" [⊒0, ←6]
-      - `ctx:GuillotineCutter`
-      - `ctx:HighPressureWash` "High Pressure Wash" [⊒0, ←8]
-      - `ctx:HopperBladeWork`
-      - `ctx:LaminatingRoller`
-      - `ctx:MeatGrinding`
-      - `ctx:MeatSlicer`
-      - `ctx:NailGun` "Nail Gun" [⊒0, ←6]
-      - `ctx:PressMachine` "Press Machine" [⊒0, ←10]
-      - `ctx:PrintingPress`
-      - `ctx:RollerMachine`
-      - `ctx:Sanding` "Sanding" [⊒0, ←6]
-      - `ctx:Sawing` "Sawing" [⊒0, ←6]
-      - `ctx:ScrewGrinder`
-      - `ctx:WashingMachine` "Washing Machine" [⊒0, ←4]
-      - `ctx:Welding` "Welding" [⊒0, ←4]
-      - `ctx:WeldingRepair` "Welding Repair" [⊒0, ←6]
+      - `ctx:BandSaw` "band saw"
+      - `ctx:BreadSlicer` "bread slicer"
+      - `ctx:CompressionDeviceRestart` "압축 장치 재작동"
+      - `ctx:DoughMachine` "dough machine"
+      - `ctx:FarmMachinery` "농기계 작업" [⊒0, ←8]
+      - `ctx:FloorMachine` "floor machine"
+      - `ctx:FoldingMachine` "folding machine"
+      - `ctx:Grinding` "grinding" [⊒0, ←6]
+      - `ctx:GuillotineCutter` "guillotine cutter"
+      - `ctx:HighPressureWash` "고압 세척" [⊒0, ←8]
+      - `ctx:HopperBladeWork` "호퍼 내부 날"
+      - `ctx:LaminatingRoller` "접지기 롤러"
+      - `ctx:MeatGrinding` "meat grinding"
+      - `ctx:MeatSlicer` "meat slicer"
+      - `ctx:NailGun` "타카·네일건 작업" [⊒0, ←6]
+      - `ctx:PressMachine` "프레스 기계 작업" [⊒0, ←10]
+      - `ctx:PrintingPress` "printing press"
+      - `ctx:RollerMachine` "회전 롤러"
+      - `ctx:Sanding` "샌딩·연마 작업" [⊒0, ←6]
+      - `ctx:Sawing` "톱 절단 작업" [⊒0, ←6]
+      - `ctx:ScrewGrinder` "분쇄기 스크루"
+      - `ctx:WashingMachine` "세탁기 작업" [⊒0, ←4]
+      - `ctx:Welding` "welding" [⊒0, ←4]
+      - `ctx:WeldingRepair` "차체 용접·수리" [⊒0, ←6]
     - `ctx:MaterialHandling` "하역·운반" [⊒19, ←3433]
-      - `ctx:BoxHandling` "Box Handling" [⊒0, ←4]
-      - `ctx:CatHandling` "Cat Handling" [⊒0, ←8]
-      - `ctx:ColdStorage` "Cold Storage" [⊒0, ←14]
-      - `ctx:FertilizerHandling` "Fertilizer Handling" [⊒0, ←8]
-      - `ctx:FlourHandling`
-      - `ctx:GarmentSorting` "Garment Sorting" [⊒0, ←8]
-      - `ctx:HeavyFishBox`
-      - `ctx:HeavyFurniture`
-      - `ctx:HeavyLifting` "Heavy Lifting" [⊒0, ←6]
-      - `ctx:HeavyMeatHandling`
-      - `ctx:HighShelfWork` "High Shelf Work" [⊒0, ←8]
-      - `ctx:IceHandling`
-      - `ctx:LiftWork` "Lift Work" [⊒0, ←6]
-      - `ctx:LoadingDock` "Loading Dock" [⊒0, ←6]
-      - `ctx:MedicationHandling`
-      - `ctx:OverloadedHandcart`
-      - `ctx:PackageSorting` "Package Sorting" [⊒0, ←8]
-      - `ctx:ShelfStocking` "Shelf Stocking" [⊒0, ←8]
-      - `ctx:StorageShelf` "Storage Shelf" [⊒0, ←26]
+      - `ctx:BoxHandling` "박스 운반·적재" [⊒0, ←4]
+      - `ctx:CatHandling` "고양이 취급" [⊒0, ←8]
+      - `ctx:ColdStorage` "냉장·냉동 창고" [⊒0, ←14]
+      - `ctx:FertilizerHandling` "비료 취급" [⊒0, ←8]
+      - `ctx:FlourHandling` "flour handling"
+      - `ctx:GarmentSorting` "세탁물 분류" [⊒0, ←8]
+      - `ctx:HeavyFishBox` "heavy fish box"
+      - `ctx:HeavyFurniture` "heavy furniture"
+      - `ctx:HeavyLifting` "중량물 취급" [⊒0, ←6]
+      - `ctx:HeavyMeatHandling` "heavy meat handling"
+      - `ctx:HighShelfWork` "높은 선반 작업" [⊒0, ←8]
+      - `ctx:IceHandling` "ice handling"
+      - `ctx:LiftWork` "자동차 리프트 작업" [⊒0, ←6]
+      - `ctx:LoadingDock` "하역 도크" [⊒0, ←6]
+      - `ctx:MedicationHandling` "medication handling"
+      - `ctx:OverloadedHandcart` "과적 운반도구"
+      - `ctx:PackageSorting` "택배 분류" [⊒0, ←8]
+      - `ctx:ShelfStocking` "매장 선반 진열" [⊒0, ←8]
+      - `ctx:StorageShelf` "선반 적재" [⊒0, ←26]
     - `ctx:NoiseWork` "소음작업" [⊒1, ←585]
-      - `ctx:NoiseExposure` "Noise Exposure" [⊒0, ←4]
+      - `ctx:NoiseExposure` "소음 노출 작업" [⊒0, ←4]
     - `ctx:Passage` "통로" [⊒2, ←1113]
-      - `ctx:AisleObstruction`
-      - `ctx:WalkwayObstruction`
+      - `ctx:AisleObstruction` "통로 장애물"
+      - `ctx:WalkwayObstruction` "통행 경로 장애물"
     - `ctx:PathogenWork` "병원체 취급작업" [⊒8, ←10]
-      - `ctx:AcupunctureWork`
-      - `ctx:AutoclaveSterilization`
-      - `ctx:BiomedicalWaste`
-      - `ctx:BodyTransport`
-      - `ctx:CremationFurnace`
-      - `ctx:DentalProcedure`
-      - `ctx:Embalming`
-      - `ctx:FuneralHallSetup`
+      - `ctx:AcupunctureWork` "acupuncture work"
+      - `ctx:AutoclaveSterilization` "autoclave sterilization"
+      - `ctx:BiomedicalWaste` "biomedical waste"
+      - `ctx:BodyTransport` "body transport"
+      - `ctx:CremationFurnace` "cremation furnace"
+      - `ctx:DentalProcedure` "dental procedure"
+      - `ctx:Embalming` "embalming"
+      - `ctx:FuneralHallSetup` "funeral hall setup"
     - `ctx:PressureVessel` "압력용기" [⊒0, ←1825]
     - `ctx:RadiationWork` "방사선작업" [⊒0, ←12]
     - `ctx:Rail` "철도" [⊒0, ←155]
     - `ctx:Robot` "로봇" [⊒0, ←113]
     - `ctx:Scaffold` "비계" [⊒7, ←492]
-      - `ctx:ClimbingWall`
-      - `ctx:ExteriorRope`
-      - `ctx:HighRiseWindow`
-      - `ctx:Ladder` "Ladder" [⊒0, ←6]
-      - `ctx:LadderInterior` "Ladder Interior" [⊒0, ←4]
-      - `ctx:RopeAccess` "Rope Access" [⊒0, ←6]
-      - `ctx:ScaffoldWork`
+      - `ctx:ClimbingWall` "climbing wall"
+      - `ctx:ExteriorRope` "exterior rope"
+      - `ctx:HighRiseWindow` "high rise window"
+      - `ctx:Ladder` "ladder" [⊒0, ←6]
+      - `ctx:LadderInterior` "실내 사다리 작업" [⊒0, ←4]
+      - `ctx:RopeAccess` "rope access" [⊒0, ←6]
+      - `ctx:ScaffoldWork` "scaffold work"
     - `ctx:Steelwork` "철골작업" [⊒0, ←352]
     - `ctx:UnknownContext` "미상 작업맥락" [⊒71, ←73]
-      - `ctx:AcrophobiaWork`
-      - `ctx:AnimalFeeding` "Animal Feeding" [⊒0, ←8]
-      - `ctx:BracketDefect`
-      - `ctx:BystanderWorkerExposure`
-      - `ctx:CageCleaning` "Cage Cleaning" [⊒0, ←6]
-      - `ctx:CardioEquipment`
-      - `ctx:CashierArea` "Cashier Area" [⊒0, ←6]
-      - `ctx:CleaningNight` "Cleaning Night" [⊒0, ←6]
-      - `ctx:CleaningWet` "Cleaning Wet" [⊒0, ←18]
-      - `ctx:CommunicationFailure`
-      - `ctx:CrowdManagement` "Crowd Management" [⊒0, ←8]
-      - `ctx:DisplaySetup`
-      - `ctx:DogGrooming` "Dog Grooming" [⊒0, ←8]
-      - `ctx:EvBattery` "Ev Battery" [⊒0, ←4]
-      - `ctx:ExerciseClass`
-      - `ctx:ExpiredMedicationUse`
-      - `ctx:FilterMaintenance`
-      - `ctx:FirstAidFailure`
-      - `ctx:FishCutting`
-      - `ctx:FloralArrangement`
-      - `ctx:FreeWeightZone`
-      - `ctx:GreenhouseWork` "Greenhouse Work" [⊒0, ←8]
-      - `ctx:HairWash` "Hair Wash" [⊒0, ←4]
-      - `ctx:HandrailDefect`
-      - `ctx:HarvestWork` "Harvest Work" [⊒0, ←6]
-      - `ctx:InteriorCleaning` "Interior Cleaning" [⊒0, ←4]
-      - `ctx:InterlockBypass`
-      - `ctx:Irrigation` "Irrigation" [⊒0, ←8]
-      - `ctx:KnifeWork`
-      - `ctx:LandfillOperation`
-      - `ctx:LooseSafetyCover`
-      - `ctx:LotoNotApplied`
-      - `ctx:NearbyWorkerProximity`
-      - `ctx:NightSolo` "Night Solo" [⊒0, ←6]
-      - `ctx:NightSoloWork` "Night Solo Work" [⊒0, ←10]
-      - `ctx:ObstructedViewCarrying`
-      - `ctx:OutdoorPlayEquipment`
-      - `ctx:OvenOperation`
-      - `ctx:OverloadedContainer`
-      - `ctx:PetBathing` "Pet Bathing" [⊒0, ←10]
+      - `ctx:AcrophobiaWork` "고소 공포"
+      - `ctx:AnimalFeeding` "동물 급식" [⊒0, ←8]
+      - `ctx:BracketDefect` "브래킷 이상"
+      - `ctx:BystanderWorkerExposure` "주변 작업자 노출"
+      - `ctx:CageCleaning` "케이지 청소" [⊒0, ←6]
+      - `ctx:CardioEquipment` "cardio equipment"
+      - `ctx:CashierArea` "계산대 주변 작업" [⊒0, ←6]
+      - `ctx:CleaningNight` "야간 청소" [⊒0, ←6]
+      - `ctx:CleaningWet` "물청소" [⊒0, ←18]
+      - `ctx:CommunicationFailure` "통신 단절"
+      - `ctx:CrowdManagement` "과밀 인원 관리" [⊒0, ←8]
+      - `ctx:DisplaySetup` "display setup"
+      - `ctx:DogGrooming` "강아지 미용" [⊒0, ←8]
+      - `ctx:EvBattery` "전기차 고전압 배터리 작업" [⊒0, ←4]
+      - `ctx:ExerciseClass` "exercise class"
+      - `ctx:ExpiredMedicationUse` "만료 에피펜 무효"
+      - `ctx:FilterMaintenance` "기름때 필터"
+      - `ctx:FirstAidFailure` "응급 처치 실패"
+      - `ctx:FishCutting` "fish cutting"
+      - `ctx:FloralArrangement` "floral arrangement"
+      - `ctx:FreeWeightZone` "free weight zone"
+      - `ctx:GreenhouseWork` "온실 작업" [⊒0, ←8]
+      - `ctx:HairWash` "샴푸·세정 작업" [⊒0, ←4]
+      - `ctx:HandrailDefect` "난간 불량"
+      - `ctx:HarvestWork` "수확 작업" [⊒0, ←6]
+      - `ctx:InteriorCleaning` "차량 내부 청소" [⊒0, ←4]
+      - `ctx:InterlockBypass` "인터록 우회 가능성"
+      - `ctx:Irrigation` "관개 작업" [⊒0, ←8]
+      - `ctx:KnifeWork` "knife work"
+      - `ctx:LandfillOperation` "landfill operation"
+      - `ctx:LooseSafetyCover` "헐거운 안전 덮개"
+      - `ctx:LotoNotApplied` "LOTO 미적용"
+      - `ctx:NearbyWorkerProximity` "주변 작업자 접근"
+      - `ctx:NightSolo` "야간 단독 근무" [⊒0, ←6]
+      - `ctx:NightSoloWork` "야간 단독 작업" [⊒0, ←10]
+      - `ctx:ObstructedViewCarrying` "시야 차단 운반"
+      - `ctx:OutdoorPlayEquipment` "outdoor play equipment"
+      - `ctx:OvenOperation` "oven operation"
+      - `ctx:OverloadedContainer` "과적 컨테이너"
+      - `ctx:PetBathing` "반려동물 목욕" [⊒0, ←10]
       - … (+31 more 하위, inspect_node.py --list 로 확인)
     - `ctx:Vehicle` "차량" [⊒2, ←1569]
-      - `ctx:DeliveryRider` "Delivery Rider" [⊒0, ←18]
-      - `ctx:ForkliftOperation` "Forklift Operation" [⊒0, ←10]
+      - `ctx:DeliveryRider` "배달 운행" [⊒0, ←18]
+      - `ctx:ForkliftOperation` "지게차 작업" [⊒0, ←10]
     - `ctx:Ventilation` "환기작업" [⊒1, ←1769]
-      - `ctx:VentilationPoor` "Ventilation Poor" [⊒0, ←10]
+      - `ctx:VentilationPoor` "환기 불량 작업" [⊒0, ←10]
   - `haz:AccidentType` "사고 유형" [⊒23, ←59] ⊑(obo:BFO_0000019)
     - `haz:AnimalInjury` "동물상해" [⊒1, ←3]
-      - `haz:AnimalBite`
+      - `haz:AnimalBite` "교상"
     - `haz:CaughtIn` "끼임" [⊒9, ←2578]
-      - `haz:CaughtInConfinedSpace`
-      - `haz:CompressionInjury`
-      - `haz:Crush`
-      - `haz:DriverEntanglement`
-      - `haz:Entanglement`
-      - `haz:FootCrushInjury`
-      - `haz:PtoEntanglement`
-      - `haz:RotatingHookEntanglement`
-      - `haz:RotatingPartInjury`
+      - `haz:CaughtInConfinedSpace` "밀폐 공간 끼임"
+      - `haz:CompressionInjury` "압상"
+      - `haz:Crush` "끼임(압착)"
+      - `haz:DriverEntanglement` "드라이버 말림"
+      - `haz:Entanglement` "신체 말림"
+      - `haz:FootCrushInjury` "발 압상"
+      - `haz:PtoEntanglement` "PTO 회전 말림 사고"
+      - `haz:RotatingHookEntanglement` "회전 훅 말림"
+      - `haz:RotatingPartInjury` "회전체 부상"
     - `haz:ChemicalExposure` "화학물질누출접촉" [⊒39, ←44]
-      - `haz:ChemicalAbsorptionThroughSkin`
-      - `haz:ChemicalAccidentDueToImproperDetergentUse`
-      - `haz:ChemicalDetergentInhalation`
-      - `haz:ChemicalEyeAndAirwayInjury`
-      - `haz:ChemicalIngestion`
-      - `haz:ChemicalInhalation`
-      - `haz:ChemicalIrritation`
-      - `haz:ChemicalResidualInhalation`
-      - `haz:ChemicalSkinIrritation`
-      - `haz:ChemicalVaporExposure`
-      - `haz:ChemicalVaporInhalation`
-      - `haz:ChemicalVaporInhalationUnconsciousness`
-      - `haz:ChildChemicalExposure`
-      - `haz:ChloramineGasInhalationPoisoning`
-      - `haz:ChlorineGasInhalationPoisoning`
-      - `haz:CytotoxicExposure`
-      - `haz:DetergentInhalationPoisoning`
-      - `haz:EyeChemicalInjury`
-      - `haz:FertilizerDustInhalation`
-      - `haz:FoodContamination`
-      - `haz:FuelLeakVaporInhalation`
-      - `haz:GasLeak`
-      - `haz:GasLeakAtNight`
-      - `haz:GasPoisoning`
-      - `haz:GradualMinorFuelLeakage`
-      - `haz:HighPressureGasLeakage`
-      - `haz:HydrocarbonVaporInhalationPoisoning`
-      - `haz:InhalationOfChemicalDust`
-      - `haz:MercuryPoisoning`
-      - `haz:NarcoticDermalAbsorption`
-      - `haz:PesticideAbsorptionThroughSkin`
-      - `haz:PesticideEyeContact`
-      - `haz:PesticideInhalationPoisoning`
-      - `haz:ResidualCleanerExposure`
-      - `haz:SkinContact`
-      - `haz:SkinEyeContactChemicalInjury`
-      - `haz:SkinIrritation`
-      - `haz:ToxicGasInhalation`
-      - `haz:ToxicGasPoisoning`
+      - `haz:ChemicalAbsorptionThroughSkin` "피부 화학 흡수"
+      - `haz:ChemicalAccidentDueToImproperDetergentUse` "잘못된 세제 사용 화학 사고"
+      - `haz:ChemicalDetergentInhalation` "화학 세제 흡입"
+      - `haz:ChemicalEyeAndAirwayInjury` "눈·기도 화학 손상"
+      - `haz:ChemicalIngestion` "화학 물질 경구 섭취"
+      - `haz:ChemicalInhalation` "화학 흡입"
+      - `haz:ChemicalIrritation` "화학 자극"
+      - `haz:ChemicalResidualInhalation` "화학 잔류 흡입"
+      - `haz:ChemicalSkinIrritation` "피부 화학 자극"
+      - `haz:ChemicalVaporExposure` "화학 증기 노출"
+      - `haz:ChemicalVaporInhalation` "화학 증기 흡입"
+      - `haz:ChemicalVaporInhalationUnconsciousness` "화학 증기 흡입 의식 불명"
+      - `haz:ChildChemicalExposure` "아동 화학 노출"
+      - `haz:ChloramineGasInhalationPoisoning` "클로라민 가스 흡입 중독"
+      - `haz:ChlorineGasInhalationPoisoning` "염소 가스 흡입 중독"
+      - `haz:CytotoxicExposure` "세포독성 노출"
+      - `haz:DetergentInhalationPoisoning` "세제 흡입 중독"
+      - `haz:EyeChemicalInjury` "눈 화학 손상"
+      - `haz:FertilizerDustInhalation` "비료 분진 흡입"
+      - `haz:FoodContamination` "식품 오염"
+      - `haz:FuelLeakVaporInhalation` "연료 누출 증기 흡입"
+      - `haz:GasLeak` "가스 누출"
+      - `haz:GasLeakAtNight` "야간 가스 누출"
+      - `haz:GasPoisoning` "가스 중독"
+      - `haz:GradualMinorFuelLeakage` "소량 연료 점진적 누출"
+      - `haz:HighPressureGasLeakage` "고압 가스 누출"
+      - `haz:HydrocarbonVaporInhalationPoisoning` "탄화수소 증기 흡입 중독"
+      - `haz:InhalationOfChemicalDust` "약품 분진 흡입"
+      - `haz:MercuryPoisoning` "수은 중독"
+      - `haz:NarcoticDermalAbsorption` "마약 성분 피부 흡수"
+      - `haz:PesticideAbsorptionThroughSkin` "잔류 농약 피부 흡수"
+      - `haz:PesticideEyeContact` "농약 눈 접촉"
+      - `haz:PesticideInhalationPoisoning` "농약 흡입 중독"
+      - `haz:ResidualCleanerExposure` "잔류 세정제 노출"
+      - `haz:SkinContact` "피부 접촉"
+      - `haz:SkinEyeContactChemicalInjury` "피부·눈 접촉 화학 부상"
+      - `haz:SkinIrritation` "피부 자극"
+      - `haz:ToxicGasInhalation` "독성 가스 흡입"
+      - `haz:ToxicGasPoisoning` "유해 가스 중독"
     - `haz:Collapse` "붕괴" [⊒5, ←2516]
-      - `haz:LandfillSlopeCollapse`
-      - `haz:LoadCollapse`
-      - `haz:ScaffoldCollapse`
-      - `haz:ShelfCollapse`
-      - `haz:SoilCollapse`
+      - `haz:LandfillSlopeCollapse` "매립지 사면 붕괴"
+      - `haz:LoadCollapse` "적재물 붕괴"
+      - `haz:ScaffoldCollapse` "비계 붕괴"
+      - `haz:ShelfCollapse` "선반 붕괴"
+      - `haz:SoilCollapse` "토사 붕괴"
     - `haz:Collision` "충돌" [⊒2, ←6350]
-      - `haz:MachineCollisionInjury`
-      - `haz:TrayContactInjury`
+      - `haz:MachineCollisionInjury` "기계 충돌 부상"
+      - `haz:TrayContactInjury` "트레이 접촉 부상"
     - `haz:CrushedOverturned` "깔림뒤집힘" [⊒6, ←8]
-      - `haz:CartTipover`
-      - `haz:CrushedByMachineOrObject`
-      - `haz:HandcartOverturn`
-      - `haz:HeavyEquipmentOverturn`
-      - `haz:LockerTipover`
-      - `haz:TractorTipover`
+      - `haz:CartTipover` "카트 전복"
+      - `haz:CrushedByMachineOrObject` "작업자 압사"
+      - `haz:HandcartOverturn` "리어카 전복"
+      - `haz:HeavyEquipmentOverturn` "중장비 전복"
+      - `haz:LockerTipover` "사물함 전도"
+      - `haz:TractorTipover` "농기계 전복"
     - `haz:CutLaceration` "절단베임찔림" [⊒18, ←2000]
-      - `haz:BladeLaceration`
-      - `haz:ChildCut`
-      - `haz:ChildStabbing`
-      - `haz:Cut`
-      - `haz:CutDueToGloveFailure`
-      - `haz:CuttingBladeContactWhileOperating`
-      - `haz:ElectricalAccidentDueToPowerInstability`
-      - `haz:FingerAmputation`
-      - `haz:FingerInjury`
-      - `haz:GlassLaceration`
-      - `haz:Laceration`
-      - `haz:PalmLaceration`
-      - `haz:PruningShearLaceration`
-      - `haz:Puncture`
-      - `haz:Scratch`
-      - `haz:SharpObjectInjury`
-      - `haz:SkinPenetration`
-      - `haz:ThresherBladeCut`
+      - `haz:BladeLaceration` "칼날 절상"
+      - `haz:ChildCut` "아동 절단"
+      - `haz:ChildStabbing` "아동 찔림"
+      - `haz:Cut` "절단"
+      - `haz:CutDueToGloveFailure` "장갑 성능 저하로 인한 절상"
+      - `haz:CuttingBladeContactWhileOperating` "가동 중 칼날 절단"
+      - `haz:ElectricalAccidentDueToPowerInstability` "전원 불안정으로 인한 전기 사고"
+      - `haz:FingerAmputation` "손가락 절단"
+      - `haz:FingerInjury` "손가락 부상"
+      - `haz:GlassLaceration` "유리 절상"
+      - `haz:Laceration` "베임"
+      - `haz:PalmLaceration` "손바닥 열상"
+      - `haz:PruningShearLaceration` "전지가위 절상"
+      - `haz:Puncture` "찔림"
+      - `haz:Scratch` "할큄"
+      - `haz:SharpObjectInjury` "예리물 상해"
+      - `haz:SkinPenetration` "피부 침투"
+      - `haz:ThresherBladeCut` "탈곡 날 절단"
     - `haz:Drowning` "빠짐익사" [⊒0, ←2]
     - `haz:ElectricShock` "감전" [⊒2, ←8]
-      - `haz:ChildElectricShock`
-      - `haz:ElectricShockDueToInsulationDamage`
+      - `haz:ChildElectricShock` "아동 감전"
+      - `haz:ElectricShockDueToInsulationDamage` "피복 손상 감전"
     - `haz:ErgonomicStrain` "불균형및무리한동작" [⊒5, ←768]
-      - `haz:Ergonomic`
-      - `haz:HeavyLifting`
-      - `haz:LossOfBalance`
-      - `haz:Posture`
-      - `haz:Repetitive`
+      - `haz:Ergonomic` "근골격계"
+      - `haz:HeavyLifting` "중량물 취급"
+      - `haz:LossOfBalance` "균형 상실"
+      - `haz:Posture` "부적절한 작업자세"
+      - `haz:Repetitive` "반복 동작"
     - `haz:Explosion` "폭발파열" [⊒8, ←10]
-      - `haz:ChemicalExplosion`
-      - `haz:ChemicalReactionExplosion`
-      - `haz:DustExplosion`
-      - `haz:FireAndExplosion`
-      - `haz:FuelGasExplosion`
-      - `haz:FuelIgnitionExplosion`
-      - `haz:HighPressureRelease`
-      - `haz:PressureVesselExplosion`
+      - `haz:ChemicalExplosion` "화학 폭발"
+      - `haz:ChemicalReactionExplosion` "화학 반응 폭발"
+      - `haz:DustExplosion` "분진 폭발"
+      - `haz:FireAndExplosion` "화재·폭발"
+      - `haz:FuelGasExplosion` "연료 가스 폭발"
+      - `haz:FuelIgnitionExplosion` "연료 점화 폭발"
+      - `haz:HighPressureRelease` "고압 분출"
+      - `haz:PressureVesselExplosion` "압력 용기 폭발"
     - `haz:Fall` "추락" [⊒13, ←3752]
-      - `haz:ChairTipoverFall`
-      - `haz:FallDueToStrongWind`
-      - `haz:FallFromAnkerFailure`
-      - `haz:FallFromHeight`
-      - `haz:FallFromLadder`
-      - `haz:FallFromLossOfBalance`
-      - `haz:FallFromRopeFrictionBreakage`
-      - `haz:FallOnGround`
-      - `haz:GondolaOverturnFall`
-      - `haz:HotObjectMultipleFalling`
-      - `haz:PatientFall`
-      - `haz:RopeBreakFall`
-      - `haz:UserFall`
+      - `haz:ChairTipoverFall` "의자 전도 추락"
+      - `haz:FallDueToStrongWind` "강풍으로 인한 추락"
+      - `haz:FallFromAnkerFailure` "앵커 파손으로 인한 추락"
+      - `haz:FallFromHeight` "고소 추락"
+      - `haz:FallFromLadder` "사다리 추락"
+      - `haz:FallFromLossOfBalance` "균형 상실 추락"
+      - `haz:FallFromRopeFrictionBreakage` "로프 마찰 파단 추락"
+      - `haz:FallOnGround` "추락 시 지면 충돌"
+      - `haz:GondolaOverturnFall` "곤돌라 전복 추락"
+      - `haz:HotObjectMultipleFalling` "고온 트레이 다수 낙하"
+      - `haz:PatientFall` "환자 낙상"
+      - `haz:RopeBreakFall` "로프 파단 추락"
+      - `haz:UserFall` "이용자 낙상"
     - `haz:FireInjury` "화재" [⊒9, ←14]
-      - `haz:FireFromOutletOverload`
-      - `haz:FireSpread`
-      - `haz:FuelFire`
-      - `haz:FuelTankFire`
-      - `haz:FuelVaporIgnitionByStaticDischarge`
-      - `haz:IgnitionOfFlammableGas`
-      - `haz:OverloadFire`
-      - `haz:SpontaneousCombustionOfAbsorbentPad`
-      - `haz:TrashBinFire`
+      - `haz:FireFromOutletOverload` "콘센트 과부하 화재"
+      - `haz:FireSpread` "화재 확산"
+      - `haz:FuelFire` "연료 화재"
+      - `haz:FuelTankFire` "연료통 화재"
+      - `haz:FuelVaporIgnitionByStaticDischarge` "정전기 방전으로 인한 연료 증기 점화"
+      - `haz:IgnitionOfFlammableGas` "인화성 가스 점화"
+      - `haz:OverloadFire` "과부하 화재"
+      - `haz:SpontaneousCombustionOfAbsorbentPad` "흡착포 자연 발화"
+      - `haz:TrashBinFire` "쓰레기통 화재"
     - `haz:OffSiteTraffic` "사업장외교통사고" [⊒0, ←2]
     - `haz:OtherAccident` "기타" [⊒0, ←6]
     - `haz:OxygenDeficiency` "산소결핍" [⊒1, ←3]
-      - `haz:ConfinedSpaceAsphyxia`
+      - `haz:ConfinedSpaceAsphyxia` "밀폐 공간 질식"
     - `haz:SlipTrip` "넘어짐" [⊒5, ←1192]
-      - `haz:ChildSlipAndFall`
-      - `haz:FallFromKnotSlip`
-      - `haz:KnifeSlipCut`
-      - `haz:Slip`
-      - `haz:StairTrip`
+      - `haz:ChildSlipAndFall` "아동 미끄러짐"
+      - `haz:FallFromKnotSlip` "매듭 이탈 추락"
+      - `haz:KnifeSlipCut` "칼 미끄러짐"
+      - `haz:Slip` "미끄러짐"
+      - `haz:StairTrip` "계단 전도"
     - `haz:SportsEventInjury` "체육행사" [⊒0, ←2]
     - `haz:StruckBy` "맞음" [⊒8, ←2186]
-      - `haz:BurnFromFallingHotContents`
-      - `haz:FallingChemicalContainer`
-      - `haz:FallingFromWires`
-      - `haz:FallingObject`
-      - `haz:MachineFallingCollisionInjury`
-      - `haz:StruckByIceFragment`
-      - `haz:StruckBySharpObject`
-      - `haz:TvFalling`
+      - `haz:BurnFromFallingHotContents` "고온 내용물 낙하 화상"
+      - `haz:FallingChemicalContainer` "화학 용기 낙하"
+      - `haz:FallingFromWires` "전선 당김 낙하"
+      - `haz:FallingObject` "낙하물"
+      - `haz:MachineFallingCollisionInjury` "기계 낙하 충돌 부상"
+      - `haz:StruckByIceFragment` "얼음 파편 충격"
+      - `haz:StruckBySharpObject` "날에 의한 부상"
+      - `haz:TvFalling` "TV 낙하"
     - `haz:TempExtremeContact` "이상온도물체접촉" [⊒16, ←19]
-      - `haz:ArcBurn`
-      - `haz:Burn`
-      - `haz:BurnFromAccidentalCustomerContact`
-      - `haz:ChemicalBurn`
-      - `haz:ChemicalBurnFromStrongAcid`
-      - `haz:ChemicalBurnFromStrongAcidToEye`
-      - `haz:ChemicalSkinBurn`
-      - `haz:ColdBurn`
-      - `haz:ColdExposure`
-      - `haz:ExtremeColdBurn`
-      - `haz:HandBurn`
-      - `haz:HighTemperatureBurn`
-      - `haz:HotSteamBurn`
-      - `haz:ResidualHeatBurn`
-      - `haz:SkinBurn`
-      - `haz:SteamBurn`
+      - `haz:ArcBurn` "아크 화상"
+      - `haz:Burn` "화상"
+      - `haz:BurnFromAccidentalCustomerContact` "고객 우발적 접촉 화상"
+      - `haz:ChemicalBurn` "화학 화상"
+      - `haz:ChemicalBurnFromStrongAcid` "강산 화학 화상"
+      - `haz:ChemicalBurnFromStrongAcidToEye` "강산 눈 화학 화상"
+      - `haz:ChemicalSkinBurn` "화학물질 피부 화상"
+      - `haz:ColdBurn` "저온 화상"
+      - `haz:ColdExposure` "저온 노출"
+      - `haz:ExtremeColdBurn` "극저온 화상"
+      - `haz:HandBurn` "왼손 맨손 화상"
+      - `haz:HighTemperatureBurn` "고온 화상"
+      - `haz:HotSteamBurn` "고온 증기 화상"
+      - `haz:ResidualHeatBurn` "잔열 화상"
+      - `haz:SkinBurn` "피부 화상"
+      - `haz:SteamBurn` "증기 화상"
     - `haz:Unclassified` "분류불능" [⊒10, ←12]
-      - `haz:ContainerBreakageDuringCollection`
-      - `haz:EyeForeignBody`
-      - `haz:EyeVisionDamage`
-      - `haz:Fracture`
-      - `haz:InfantSafetyAccident`
-      - `haz:Infection`
-      - `haz:LabelMisidentificationAccident`
-      - `haz:LossOfControlPolisher`
-      - `haz:MedicalEmergency`
-      - `haz:OvercrowdingEvacuationDelay`
+      - `haz:ContainerBreakageDuringCollection` "수거 중 컨테이너 파손"
+      - `haz:EyeForeignBody` "눈 이물"
+      - `haz:EyeVisionDamage` "시력 손상"
+      - `haz:Fracture` "골절"
+      - `haz:InfantSafetyAccident` "유아 안전사고"
+      - `haz:Infection` "감염"
+      - `haz:LabelMisidentificationAccident` "라벨 오인 사고"
+      - `haz:LossOfControlPolisher` "제어 상실 폴리셔"
+      - `haz:MedicalEmergency` "의료 응급"
+      - `haz:OvercrowdingEvacuationDelay` "과밀로 인한 탈출 지연"
     - `haz:Violence` "폭력행위" [⊒0, ←2]
     - `haz:WorkplaceTraffic` "사업장내교통사고" [⊒1, ←3]
-      - `haz:TrafficAccident`
+      - `haz:TrafficAccident` "교통사고"
   - `risk:NaturalLanguageHazardCategory` "자연어 위험요소 카테고리" [⊒0, ←24]
 - `risk:RiskPattern` "위험 패턴" [⊒1, ←2] ⊑(obo:BFO_0000019)
   - `she:SituationalHazardPattern` "위험상황 패턴" [⊒0, ←987] ⊑(obo:BFO_0000019, +제약4)
@@ -807,20 +807,22 @@
 
   ✅ 없음 (모든 facet 클래스가 risk:RiskFeature까지 연결).
 
-**(b) rdfs:label 없는 클래스: 339**
+**(b) rdfs:label 없는 클래스: 0**
 
-  `agent:AcrylateResinSkinContact`, `agent:AirlessResidualPressure`, `agent:AsbestosDust`, `agent:Benzene`, `agent:BiogasMethane`, `agent:BloodbornePathogen`, `agent:CapacitorResidualVoltage`, `agent:ChlorineAmmoniaReaction`, `agent:ColdFloor`, `agent:ConcentratedAlkali`, `agent:ContaminatedFilterParticulateMold`, `agent:CryogenicAgent`, `agent:DefectiveHandle`, `agent:DefectiveSterilePackaging`, `agent:DegradedDeveloperSolution`, `agent:DentalXRay`, `agent:DentalXrayRepeatedExposure`, `agent:DistributionBoard`, `agent:EarphoneNoise`, `agent:ElectricalOverload`, `agent:ElectricityWaterContact`, `agent:ElevatorPitToxicGas`, `agent:ExposedOutlet`, `agent:ExtremeColdEnvironment`, `agent:ExtremeColdSurface`, `agent:FemaleExposureLimitExceeded`, `agent:FormaldehydeSkinContact`, `agent:FragranceVapor`, `agent:FuelSaturatedAbsorbent`, `agent:GasolineMicroLeakage`, `agent:GasolineVapor`, `agent:GlutaraldehydeVapor`, `agent:HighHeat`, `agent:HighPressureAirDust`, `agent:HighTemperatureEnvironment`, `agent:HighTemperatureSteam`, `agent:HotEquipment`, `agent:HotParts`, `agent:HotSurface`, `agent:HotTray` …
 
 **(c) dead 후보(하위0·피참조0·개체아님): 345**
 
   `agent:AcrylateResinSkinContact`, `agent:AirlessResidualPressure`, `agent:AsbestosDust`, `agent:Benzene`, `agent:BiogasMethane`, `agent:BloodbornePathogen`, `agent:CapacitorResidualVoltage`, `agent:ChlorineAmmoniaReaction`, `agent:ColdFloor`, `agent:ConcentratedAlkali`, `agent:ContaminatedFilterParticulateMold`, `agent:CryogenicAgent`, `agent:DefectiveHandle`, `agent:DefectiveSterilePackaging`, `agent:DegradedDeveloperSolution`, `agent:DentalXRay`, `agent:DentalXrayRepeatedExposure`, `agent:DistributionBoard`, `agent:EarphoneNoise`, `agent:ElectricalOverload`, `agent:ElectricityWaterContact`, `agent:ElevatorPitToxicGas`, `agent:ExposedOutlet`, `agent:ExtremeColdEnvironment`, `agent:ExtremeColdSurface`, `agent:FemaleExposureLimitExceeded`, `agent:FormaldehydeSkinContact`, `agent:FragranceVapor`, `agent:FuelSaturatedAbsorbent`, `agent:GasolineMicroLeakage`, `agent:GasolineVapor`, `agent:GlutaraldehydeVapor`, `agent:HighHeat`, `agent:HighPressureAirDust`, `agent:HighTemperatureEnvironment`, `agent:HighTemperatureSteam`, `agent:HotEquipment`, `agent:HotParts`, `agent:HotSurface`, `agent:HotTray` …
 
-**(d) 중복 label(같은 한글 라벨, 다른 IRI): 4쌍**
+**(d) 중복 label(같은 한글 라벨, 다른 IRI): 7쌍**
 
   - "근로자": `actor:Worker`, `core:Worker`
   - "기타": `ctx:OtherAgentState`, `haz:OtherAccident`, `industry:Industry_OTHER`
   - "비상대응": `ctx:EmergencyResponse`, `sr:EmergencyResponse`
+  - "전기 과부하": `agent:ElectricalOverload`, `ctx:ElectricalOverload`
   - "정비": `ctx:Maintenance`, `industry:Industry_MAINTENANCE`
+  - "중량물 취급": `ctx:HeavyLifting`, `haz:HeavyLifting`
+  - "화재·폭발": `agent:Fire`, `haz:FireAndExplosion`
 
 **(e) domain 또는 range 누락 property: 34**
 

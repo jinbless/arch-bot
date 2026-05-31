@@ -19,6 +19,7 @@
 - ✅ **catalog 결정화** (`2a5e74d`): gen_catalog 중복label IRI 정렬 — 재생성 시 timestamp 외 무변경(헛 diff 제거). top-down 작업 중 CATALOG.md 안정 최신 유지.
 - ✅ **SHE ABox 온톨로지 통합** (F5 근본 해결): F5의 ctx 5축 dormant 진짜 원인 = **SHE 패턴 ABox(965 패턴 × 6축 맥락)가 데이터팀 `she-data/she-instances-v1.ttl`에만 있고 온톨로지 manifest 미등록** + 2026-04 생성이라 **KOSHA-22 이전 legacy 어휘**(haz:Crush/Cut/FallingObject/Slip/Ergonomic/FoodContamination 등). 신규 생성기 `scripts/gen_she_abox.py`가 그 소스를 **migrate_vocab_to_kosha22 결정적 치환으로 forward 마이그레이션**(롤백 아님 — 데이터 100% 재활용, 코드 155개 전수 resolve·gap 0) → `kosha-instances-she.ttl`(49,689 triple) 생성 + manifest 편입(SRV/CON/MAT/FAC). 게이트: verify-manifest(54)/prefixes, check_disjoint **0**. ⚠️ **Openllet 1차 재적재가 datatype 비일관 적발** — `she:triggerText`가 한국어 @ko(langString)인데 range가 xsd:string(1,623건) → v2.owl에서 **range xsd:string→rdfs:Literal 완화**(데이터가 정답, 스키마가 과엄격) 후 재적재 owl:Nothing 일관. **she:hasPPEState/AgentState/… 0→965, F5 5축 실채움.** ('온톨로지가 정본, data-team 산출물은 그에 맞춰 migrate' 원칙.) 교훈: disjoint뿐 아니라 **datatype range도 실추론 게이트가 잡음**(check_disjoint는 클래스 disjoint만 검사).
 - ✅ **데이터 커버리지 detector** (`scripts/check_data_coverage.py`·`make data-coverage`): F5/SHE형 "**스키마는 있는데 ABox 데이터 0**" 갭을 **상시 자동 탐지** — 전체 ABox union 로드해 ① 인스턴스 0 클래스(punned/app runtime 제외) ② used=0 property를 검출, **app(runtime)·rule-head·facet-fine을 분리**해 우선 triage 제시. 베이스라인: 구조적 빈 클래스 87(industry 80 + Incompatibility/GuideUsageProfile 등 PG물질화 스키마) · dormant 52(app/rule-head 제외) · facet fine 339(prune 정책). orphan-TTL 스윕(manifest 밖 cashtoss TTL)과 함께 "데이터팀 미적재" 상시 그물. **원칙: 발견 증상을 그때마다 도구화**(B3a→check_disjoint, F5→이 detector).
+- ✅ **facet fine 코드 한글 라벨 (F6/F7 완결, nolabel 339→0)**: facet-taxonomy의 fine 클래스 418개가 라벨 전무였음 → `gen_facet_taxonomy.py`가 **`risk_feature_catalog.json`의 한글 label을 읽어 `rdfs:label @ko` emit**(412) + catalog 미보유 6(ArcFlash/Corrosion/HeavyLifting/Posture/Repetitive/Slip)은 `facet-ko-labels.json` 보충(B1 SSOT fallback). 번역 아님 — **데이터팀 catalog의 한글 재활용**(코드 origin이 한국어 관찰). compare_graphs **-0/+418 전부 라벨**(다른 변경 0), verify-prefixes OK, **catalog nolabel 339→0**. 라벨=annotation이라 reasoner 게이트 불요. ('fine vocab prune 정책'은 라벨 부여로 keep 방향 — CI 미참조 fine은 별도 prune 검토 여지.)
 
 ## findings 목록
 
@@ -45,7 +46,7 @@
 | F19 | ~~중복 label~~ **비결함** | catalog (d) 4쌍(근로자 actor/core·기타·비상대응·정비)은 **정당한 cross-axis/type homonym** — 각자 다른 namespace·축에서 정확(@en도 동일 = 같은 개념명의 다른 축 적용). 근로자만 B2의 의도적 class/individual 분리. **의미 충돌 아님**. 라벨 변경은 user-facing+생성물(industry upstream)이라 비권장 | — | 조사완료 |
 | F20 | dup property | (F4c 후행) `sr:addressesHazard`("대응 위험")가 `sr:addressesAccidentType`("대응 사고유형")와 **range 동일(AccidentType)**해짐. 단 **둘 다 활성**: addressesHazard=R-2/R-4·R-15/16/24·K-R4(dependsOn 36,949) / addressesAccidentType=CI-SR facet 상속. 서로 다른 룰 서브시스템·독립 populate → 단순 중복 아님. **통합(룰 재작성+migrate+게이트)은 별도 refactor task**. 타 Hazard 속성(guide/risk/haz)은 도메인 달라 무관 | 中 | deferred(refactor) |
 
-별도: **fine 코드 ~330**(haz 150·ctx 109·agent 72) 한글 label 없음 + CI 미참조 = future 어휘 vs prune 정책 결정 필요(B1/B5 연계).
+별도: ~~**fine 코드 ~330** 한글 label 없음~~ → **✅ 라벨 완료**(catalog 재활용, nolabel 339→0). CI 미참조 fine의 prune은 별도 여지(라벨 부여로 keep 방향).
 별도2(F5 후행): **ctx 5 sub축의 she:has* 속성·비-canonical 개체(~49)가 dormant**(used=0) — SHE가 flat WorkContext만 써서. 다축 ctx 모델 prune vs 유지는 **SHE/data 설계 결정**(별도).
 
 ## batch-fix 계획 (additive 먼저, top grounding 마지막)

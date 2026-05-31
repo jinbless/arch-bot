@@ -62,10 +62,29 @@ def _camel(code: str) -> str:
     return "".join(p.capitalize() for p in str(code).split("_") if p)
 
 
+def _ttl_str(s: str) -> str:
+    """TTL 문자열 리터럴 escape."""
+    return '"' + str(s).replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n") + '"'
+
+
 def build() -> tuple[list[str], dict]:
     import json
     from rdflib import Graph as _G, RDF as _RDF, RDFS as _RDFS, URIRef as _U
     data = json.loads((SHARED_REF / "canonical-code-vocabulary.json").read_text(encoding="utf-8"))
+
+    # fine 코드 한글 라벨 SSOT = risk_feature_catalog.json (build_canonical_vocabulary가 rollup을 빌드한 그 catalog).
+    # canonical 라벨은 vocab-patch(punning individual)에 이미 있으므로 여기선 fine 클래스에만 @ko emit
+    # (canonical 라벨 중복/충돌 회피 — KOSHA 공식어휘는 vocab-patch가 정본).
+    cat = json.loads((ROOT / "serving-team/08-app/backend/app/data/risk_feature_catalog.json")
+                     .read_text(encoding="utf-8"))
+    ko_label = {ax: {c: v["label"] for c, v in cat["axes"].get(ax, {}).get("codes", {}).items()
+                     if isinstance(v, dict) and v.get("label")}
+                for ax in AXES}
+    # catalog에 라벨 없는 fine 코드 보충: facet-ko-labels.json (catalog 우선, 없으면 보충)
+    flab = json.loads((SHARED_REF / "facet-ko-labels.json").read_text(encoding="utf-8")).get("axes", {})
+    for ax in AXES:
+        for code, lab in flab.get(ax, {}).items():
+            ko_label[ax].setdefault(code, lab)
 
     # canonical의 기존 축 rdf:type을 데이터에서 읽기 위한 소스:
     #   VOCAB_PATCH = canonical 개체 선언처(예: haz:Fall a owl:NamedIndividual, haz:AccidentType)
@@ -122,7 +141,7 @@ def build() -> tuple[list[str], dict]:
             if child == parent:
                 skipped_identity += 1
                 continue
-            subclass.append((prefix, child, parent))
+            subclass.append((prefix, child, parent, ko_label[axis].get(fine)))
 
     # ── TTL 직렬화 ──
     ts = datetime.now(timezone.utc).isoformat()
@@ -158,8 +177,11 @@ def build() -> tuple[list[str], dict]:
         prefix = AXIS_PREFIX[axis]
         axis_subs = [s for s in subclass if s[0] == prefix]
         L.append(f"# -- {axis} ({prefix}): {len(axis_subs)} --")
-        for p, child, parent in sorted(axis_subs, key=lambda x: (x[2], x[1])):
-            L.append(f"{p}:{child} a owl:Class ; rdfs:subClassOf {p}:{parent} .")
+        for p, child, parent, lab in sorted(axis_subs, key=lambda x: (x[2], x[1])):
+            line = f"{p}:{child} a owl:Class ; rdfs:subClassOf {p}:{parent}"
+            if lab:
+                line += f" ; rdfs:label {_ttl_str(lab)}@ko"
+            L.append(line + " .")
         L.append("")
 
     stats = {
@@ -167,6 +189,8 @@ def build() -> tuple[list[str], dict]:
         "axis_links": axis_links,
         "no_axis": no_axis,
         "subclass": len(subclass),
+        "fine_labeled": sum(1 for s in subclass if s[3]),
+        "fine_unlabeled": sorted(f"{s[0]}:{s[1]}" for s in subclass if not s[3]),
         "skipped_cross": skipped_cross,
         "skipped_identity": skipped_identity,
         "canon_iris": canon_iris,
@@ -192,7 +216,10 @@ def main() -> int:
     print("=== gen_facet_taxonomy ===")
     print(f"  canonical punning : {stats['punning']}")
     print(f"  canonical ⊑ axis  : {stats['axis_links']}  (축 부모 못 찾음: {len(stats['no_axis'])})")
-    print(f"  fine ⊑ canonical  : {stats['subclass']}")
+    print(f"  fine ⊑ canonical  : {stats['subclass']}  (한글라벨 {stats['fine_labeled']} / 미보유 {len(stats['fine_unlabeled'])})")
+    if stats["fine_unlabeled"]:
+        print(f"    [라벨없는 fine(catalog 미보유)]: {stats['fine_unlabeled'][:15]}"
+              + (" …" if len(stats["fine_unlabeled"]) > 15 else ""))
     print(f"  cross-axis 제외    : {len(stats['skipped_cross'])}")
     print(f"  identity skip     : {stats['skipped_identity']}")
     print(f"  [교차검증] 생성 canonical IRI ⊆ 기존 NamedIndividual: {'OK' if ok else 'FAIL'}")
