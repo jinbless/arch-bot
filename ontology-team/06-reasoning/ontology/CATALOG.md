@@ -1,7 +1,7 @@
 # KOSHA 온톨로지 카탈로그
 
-> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T08:14:12+00:00
-> 소스: serving TBox+facet+moderate ABox (37 files, 518,956 triples; 대용량 instances 제외)
+> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T09:47:03+00:00
+> 소스: serving TBox+facet+moderate ABox (38 files, 518,955 triples; 대용량 instances 제외)
 > class 628 · objectProperty 133 · dataProperty 68 · individual 234
 
 ## 1. 모듈 개요 (prefix)
@@ -579,7 +579,189 @@
     - `haz:Violence` "폭력행위" [⊒0, ←2]
     - `haz:WorkplaceTraffic` "사업장내교통사고" [⊒1, ←3]
       - `haz:TrafficAccident`
-  - `haz:Hazard` "위험 유형" [⊒0, ←10] ⊑(obo:BFO_0000019)
+  - `haz:Hazard` "위험 유형" [⊒1, ←10] ⊑(obo:BFO_0000019)
+    - `haz:AccidentType` "사고 유형" [⊒23, ←50] ⊑(obo:BFO_0000019)
+      - `haz:AnimalInjury` "동물상해" [⊒1, ←3]
+        - `haz:AnimalBite`
+      - `haz:CaughtIn` "끼임" [⊒9, ←2516]
+        - `haz:CaughtInConfinedSpace`
+        - `haz:CompressionInjury`
+        - `haz:Crush`
+        - `haz:DriverEntanglement`
+        - `haz:Entanglement`
+        - `haz:FootCrushInjury`
+        - `haz:PtoEntanglement`
+        - `haz:RotatingHookEntanglement`
+        - `haz:RotatingPartInjury`
+      - `haz:ChemicalExposure` "화학물질누출접촉" [⊒39, ←44]
+        - `haz:ChemicalAbsorptionThroughSkin`
+        - `haz:ChemicalAccidentDueToImproperDetergentUse`
+        - `haz:ChemicalDetergentInhalation`
+        - `haz:ChemicalEyeAndAirwayInjury`
+        - `haz:ChemicalIngestion`
+        - `haz:ChemicalInhalation`
+        - `haz:ChemicalIrritation`
+        - `haz:ChemicalResidualInhalation`
+        - `haz:ChemicalSkinIrritation`
+        - `haz:ChemicalVaporExposure`
+        - `haz:ChemicalVaporInhalation`
+        - `haz:ChemicalVaporInhalationUnconsciousness`
+        - `haz:ChildChemicalExposure`
+        - `haz:ChloramineGasInhalationPoisoning`
+        - `haz:ChlorineGasInhalationPoisoning`
+        - `haz:CytotoxicExposure`
+        - `haz:DetergentInhalationPoisoning`
+        - `haz:EyeChemicalInjury`
+        - `haz:FertilizerDustInhalation`
+        - `haz:FoodContamination`
+        - `haz:FuelLeakVaporInhalation`
+        - `haz:GasLeak`
+        - `haz:GasLeakAtNight`
+        - `haz:GasPoisoning`
+        - `haz:GradualMinorFuelLeakage`
+        - `haz:HighPressureGasLeakage`
+        - `haz:HydrocarbonVaporInhalationPoisoning`
+        - `haz:InhalationOfChemicalDust`
+        - `haz:MercuryPoisoning`
+        - `haz:NarcoticDermalAbsorption`
+        - `haz:PesticideAbsorptionThroughSkin`
+        - `haz:PesticideEyeContact`
+        - `haz:PesticideInhalationPoisoning`
+        - `haz:ResidualCleanerExposure`
+        - `haz:SkinContact`
+        - `haz:SkinEyeContactChemicalInjury`
+        - `haz:SkinIrritation`
+        - `haz:ToxicGasInhalation`
+        - `haz:ToxicGasPoisoning`
+      - `haz:Collapse` "붕괴" [⊒5, ←2354]
+        - `haz:LandfillSlopeCollapse`
+        - `haz:LoadCollapse`
+        - `haz:ScaffoldCollapse`
+        - `haz:ShelfCollapse`
+        - `haz:SoilCollapse`
+      - `haz:Collision` "충돌" [⊒2, ←6222]
+        - `haz:MachineCollisionInjury`
+        - `haz:TrayContactInjury`
+      - `haz:CrushedOverturned` "깔림뒤집힘" [⊒6, ←8]
+        - `haz:CartTipover`
+        - `haz:CrushedByMachineOrObject`
+        - `haz:HandcartOverturn`
+        - `haz:HeavyEquipmentOverturn`
+        - `haz:LockerTipover`
+        - `haz:TractorTipover`
+      - `haz:CutLaceration` "절단베임찔림" [⊒18, ←1924]
+        - `haz:BladeLaceration`
+        - `haz:ChildCut`
+        - `haz:ChildStabbing`
+        - `haz:Cut`
+        - `haz:CutDueToGloveFailure`
+        - `haz:CuttingBladeContactWhileOperating`
+        - `haz:ElectricalAccidentDueToPowerInstability`
+        - `haz:FingerAmputation`
+        - `haz:FingerInjury`
+        - `haz:GlassLaceration`
+        - `haz:Laceration`
+        - `haz:PalmLaceration`
+        - `haz:PruningShearLaceration`
+        - `haz:Puncture`
+        - `haz:Scratch`
+        - `haz:SharpObjectInjury`
+        - `haz:SkinPenetration`
+        - `haz:ThresherBladeCut`
+      - `haz:Drowning` "빠짐익사" [⊒0, ←2]
+      - `haz:ElectricShock` "감전" [⊒2, ←8]
+        - `haz:ChildElectricShock`
+        - `haz:ElectricShockDueToInsulationDamage`
+      - `haz:ErgonomicStrain` "불균형및무리한동작" [⊒5, ←688]
+        - `haz:Ergonomic`
+        - `haz:HeavyLifting`
+        - `haz:LossOfBalance`
+        - `haz:Posture`
+        - `haz:Repetitive`
+      - `haz:Explosion` "폭발파열" [⊒8, ←10]
+        - `haz:ChemicalExplosion`
+        - `haz:ChemicalReactionExplosion`
+        - `haz:DustExplosion`
+        - `haz:FireAndExplosion`
+        - `haz:FuelGasExplosion`
+        - `haz:FuelIgnitionExplosion`
+        - `haz:HighPressureRelease`
+        - `haz:PressureVesselExplosion`
+      - `haz:Fall` "추락" [⊒13, ←3552]
+        - `haz:ChairTipoverFall`
+        - `haz:FallDueToStrongWind`
+        - `haz:FallFromAnkerFailure`
+        - `haz:FallFromHeight`
+        - `haz:FallFromLadder`
+        - `haz:FallFromLossOfBalance`
+        - `haz:FallFromRopeFrictionBreakage`
+        - `haz:FallOnGround`
+        - `haz:GondolaOverturnFall`
+        - `haz:HotObjectMultipleFalling`
+        - `haz:PatientFall`
+        - `haz:RopeBreakFall`
+        - `haz:UserFall`
+      - `haz:FireInjury` "화재" [⊒9, ←14]
+        - `haz:FireFromOutletOverload`
+        - `haz:FireSpread`
+        - `haz:FuelFire`
+        - `haz:FuelTankFire`
+        - `haz:FuelVaporIgnitionByStaticDischarge`
+        - `haz:IgnitionOfFlammableGas`
+        - `haz:OverloadFire`
+        - `haz:SpontaneousCombustionOfAbsorbentPad`
+        - `haz:TrashBinFire`
+      - `haz:OffSiteTraffic` "사업장외교통사고" [⊒0, ←2]
+      - `haz:OtherAccident` "기타" [⊒0, ←2]
+      - `haz:OxygenDeficiency` "산소결핍" [⊒1, ←3]
+        - `haz:ConfinedSpaceAsphyxia`
+      - `haz:SlipTrip` "넘어짐" [⊒5, ←1172]
+        - `haz:ChildSlipAndFall`
+        - `haz:FallFromKnotSlip`
+        - `haz:KnifeSlipCut`
+        - `haz:Slip`
+        - `haz:StairTrip`
+      - `haz:SportsEventInjury` "체육행사" [⊒0, ←2]
+      - `haz:StruckBy` "맞음" [⊒8, ←2110]
+        - `haz:BurnFromFallingHotContents`
+        - `haz:FallingChemicalContainer`
+        - `haz:FallingFromWires`
+        - `haz:FallingObject`
+        - `haz:MachineFallingCollisionInjury`
+        - `haz:StruckByIceFragment`
+        - `haz:StruckBySharpObject`
+        - `haz:TvFalling`
+      - `haz:TempExtremeContact` "이상온도물체접촉" [⊒16, ←19]
+        - `haz:ArcBurn`
+        - `haz:Burn`
+        - `haz:BurnFromAccidentalCustomerContact`
+        - `haz:ChemicalBurn`
+        - `haz:ChemicalBurnFromStrongAcid`
+        - `haz:ChemicalBurnFromStrongAcidToEye`
+        - `haz:ChemicalSkinBurn`
+        - `haz:ColdBurn`
+        - `haz:ColdExposure`
+        - `haz:ExtremeColdBurn`
+        - `haz:HandBurn`
+        - `haz:HighTemperatureBurn`
+        - `haz:HotSteamBurn`
+        - `haz:ResidualHeatBurn`
+        - `haz:SkinBurn`
+        - `haz:SteamBurn`
+      - `haz:Unclassified` "분류불능" [⊒10, ←12]
+        - `haz:ContainerBreakageDuringCollection`
+        - `haz:EyeForeignBody`
+        - `haz:EyeVisionDamage`
+        - `haz:Fracture`
+        - `haz:InfantSafetyAccident`
+        - `haz:Infection`
+        - `haz:LabelMisidentificationAccident`
+        - `haz:LossOfControlPolisher`
+        - `haz:MedicalEmergency`
+        - `haz:OvercrowdingEvacuationDelay`
+      - `haz:Violence` "폭력행위" [⊒0, ←2]
+      - `haz:WorkplaceTraffic` "사업장내교통사고" [⊒1, ←3]
+        - `haz:TrafficAccident`
   - `risk:NaturalLanguageHazardCategory` "자연어 위험요소 카테고리" [⊒0, ←24]
 - `risk:RiskPattern` "위험 패턴" [⊒1, ←2] ⊑(obo:BFO_0000019)
   - `she:SituationalHazardPattern` "위험상황 패턴" [⊒0, ←22] ⊑(obo:BFO_0000019, +제약4)
@@ -819,8 +1001,8 @@
 **(d) 중복 label(같은 한글 라벨, 다른 IRI): 4쌍**
 
   - "근로자": `actor:Worker`, `core:Worker`
-  - "기타": `haz:OtherAccident`, `industry:Industry_OTHER`, `ctx:OtherAgentState`
-  - "비상대응": `ctx:EmergencyResponse`, `sr:EmergencyResponse`
+  - "기타": `ctx:OtherAgentState`, `industry:Industry_OTHER`, `haz:OtherAccident`
+  - "비상대응": `sr:EmergencyResponse`, `ctx:EmergencyResponse`
   - "정비": `industry:Industry_MAINTENANCE`, `ctx:Maintenance`
 
 **(e) domain 또는 range 누락 property: 34**

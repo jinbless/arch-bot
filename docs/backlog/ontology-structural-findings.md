@@ -14,6 +14,7 @@
 - ✅ **B3a** (F2): `kosha-facet-axis-disjoint.ttl` 신규 — risk:RiskFeature 축 owl:AllDisjointClasses. manifest 등록(SRV/CON/MAT/FAC). ⚠️ **B3a 정정**(아래) — 최초 10축은 **haz:AccidentType⊥haz:Hazard 비일관**을 유발했고 lazy `prepare()` 거짓양성으로 미검출됨. B4 게이트가 적발 → **9축으로 축소**.
 - ✅ **B4** (F10/F15): guide/core property **25개 domain/range 코퍼스-aware 보강**. 신규 `kosha-ontology-v4-domain-range-patch.ttl`(+36 triple = domain 25 + range 11) + 도출기 `scripts/derive_property_domain_range.py`(956K ABox 포함 full union **1,475,471 triple**에서 주어/목적어 rdf:type 전수집계). manifest 등록(SRV/CON/MAT/FAC). **안전성**: 25개 속성의 주어·목적어가 코퍼스에서 이미 **100% 해당 type(untyped 0)** → domain/range 추론은 기존 type 재확인 **NO-OP**, range 전부 guide:/sr:/law:(facet 축 아님). **단일변수 증명**: ① CON union(코퍼스 포함 998,064) +36 정확·기존중복 0. ② disjoint 충돌 검사를 patch 포함/제외 토글 시 **충돌 7개 동일·B4 술어 기여 0건** → B4 비유발 입증. catalog (e) 누락 59→34. **F17(bridge appliesTo/observedIn)·core:hasViolation·guide:sourceGuide/sourceSection·core:identifier/text/title 8개는 의도적 multi-signature/cross-cutting → 제외(by-design, 오탐).**
 - ⚠️ **B3a 정정** (B4 Openllet 게이트가 적발): owl:Nothing 실쿼리로 **KB 비일관 확인** — `haz:Fall/StruckBy/Collapse/CaughtIn/ChemicalExposure/ErgonomicStrain/ElectricShock` 7 canonical 코드가 **haz:AccidentType이자 haz:Hazard**(같은 코드가 `sr:addressesAccidentType`→AccidentType, `sr:addressesHazard`→haz:Hazard 양쪽 목적어)인데 B3a가 둘을 disjoint 선언. haz:Hazard는 **하위 0의 near-empty 축(F4)**라 독립 축 아님 → `kosha-facet-axis-disjoint.ttl`에서 **haz:Hazard 제외(10→9축)**, 충돌 0·Openllet 일관 복구. 교훈: ① Openllet lazy prepare의 "Server Started"는 일관성 증거 **아님** — 실제 추론 쿼리(owl:Nothing) 필수. ② disjoint pre-check는 type/subClassOf뿐 아니라 **domain/range 주입까지** 포함해야(신규 `scripts/check_disjoint_consistency.py`). **F4(haz:Hazard↔AccidentType 통합)는 B5에서 정식 결정.**
+- ✅ **B5/F4** (haz:Hazard 빈 축 재정의): `haz:AccidentType ⊑ haz:Hazard` (신규 `kosha-hazard-axis-taxonomy.ttl`, 1 triple). 근거: 4 Hazard-range 속성(sr/guide:addressesHazard·risk:correspondsToHazard·haz:hasHazard)의 코퍼스 객체가 **100% haz:AccidentType**(738/2484/8/8건, agent/ctx 0) = 두 클래스 coextensive. Hazard을 빈 축이 아닌 **상위 범주로 재정의** → addressesHazard range 정합. **equivalentClass 대신 subClassOf**(약한 주장, 향후 비-사고 hazard 여지 — 사용자 결정). 단일변수 CON +1·신규, disjoint 충돌 0, **Openllet 재적재 일관(owl:Nothing 0)** + 추론 `haz:Fall⊑haz:Hazard`. **F5(ctx 5 빈 sub축) 잔여.**
 
 ## findings 목록
 
@@ -22,7 +23,7 @@
 | F1 | grounding | risk:RiskFeature=BFO:Quality인데 자식 mixed(agent=Object, ctx=Process/Occurrent). BFO 본문 미로드라 리즈너 미검출. 490 facet이 모순 grounding 상속 | 高 | B6 |
 | F2 | disjoint | risk 축 서로소 **0** → **B3a로 9축 disjoint ✅**(haz:AccidentType/agent/ctx6/NLH). ⚠️ haz:Hazard는 AccidentType와 코드공유로 제외(정정·F4) | 中 | ✅(B3a+정정) |
 | F3 | disjoint | agent·ctx canonical 서로소 **0** (haz만 12). 정책 불일치 | 中 | B3 |
-| F4 | 빈 축 | haz:Hazard: canonical **0=빈 축**, property range로만 ref. **B4 게이트로 haz:AccidentType과 코드공유(=disjoint 불가) 확인** → B3a에서 제외. 통합 or 목적 재정의 정식 결정 | 中 | B5 |
+| F4 | 빈 축 | haz:Hazard 빈 축 → **B5로 `haz:AccidentType ⊑ haz:Hazard` ✅**(상위 범주 재정의; 4 Hazard-range 속성 객체 100% AccidentType=coextensive). disjoint 충돌 0·Openllet 일관 | 中 | ✅(B5) |
 | F5 | 빈 축 | ctx 6 sub축 중 **5개 비어있음**(AgentState/EnvFactor/PPEState/TemporalStage/WorkActivity). 29 canonical 전부 WorkContext 아래 | 中 | B5 |
 | F6 | label | **ctx canonical 16/29 한글 label 없음** — ctx:ChemicalWork(ref 6160!)·ElectricalWork·Demolition 등 다용 | 中 | B1 |
 | F7 | label | agent:UnknownAgent 무명 | 低 | B1 |
@@ -48,7 +49,7 @@
 | **B2** | broken/dead 정리 — F14 dangling·F16/F13 dead·F8 alias | 低~中 | ✅ |
 | **B3** | disjointness — **F2 축간 ✅(B3a, 9축 — haz:Hazard 정정 제외)**, F3 agent/ctx 잔여(B3b) | 中 | B3a ✅ |
 | **B4** | property domain/range — F10/F15 ✅(25 보강), F17 오탐(by-design) | 中 | ✅ |
-| **B5** | 빈 축 결정 — F4 haz:Hazard·F5 ctx 5축 | 中 | 대기 |
+| **B5** | 빈 축 — **F4 haz:Hazard ✅**(AccidentType⊑Hazard), F5 ctx 5 sub축 잔여 | 中 | F4 ✅ |
 | **B6** | BFO grounding 재설계 — F1/F11/F12/F9 (top, 맨 마지막) | 高 | 대기 |
 
 ## 확인된 양호

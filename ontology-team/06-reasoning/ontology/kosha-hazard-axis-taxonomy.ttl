@@ -1,0 +1,25 @@
+# kosha-hazard-axis-taxonomy.ttl — hazard 축 구조 (B5 / finding F4)
+#
+# haz:AccidentType ⊑ haz:Hazard — F4 해소(haz:Hazard "빈 축" 재정의).
+#
+# 근거: haz:Hazard(label "위험 유형")는 하위 0의 빈 클래스였고(F4), property range로만 참조됨
+#   (sr:addressesHazard · guide:addressesHazard · risk:correspondsToHazard · haz:hasHazard).
+#   코퍼스에서 이 4 속성의 객체는 **100% haz:AccidentType**(검증: facet-explorer union 전수집계,
+#   738/2484/8/8건 전부 AccidentType, agent/ctx 0) → 두 클래스는 데이터상 coextensive.
+#   accident type은 hazard의 일종이므로 AccidentType을 Hazard의 하위로 둬, Hazard을 빈 축이 아닌
+#   **상위 범주로 재정의**한다. 이로써 addressesHazard range(haz:Hazard)가 의미상 정합
+#   (객체인 AccidentType 코드는 이제 subsumption으로 Hazard — range 주입이 아닌 분류로 성립).
+#
+# 안전성: haz:Hazard은 facet disjoint 축이 아니다(B3a 정정으로 9축에서 제외, kosha-facet-axis-disjoint.ttl).
+#   따라서 AccidentType⊑Hazard은 어떤 disjoint와도 충돌하지 않는다(check_disjoint_consistency 0).
+#   equivalentClass(완전 등가) 대신 subClassOf 채택 — 'hazard ⊇ accidentType'의 약한 주장으로,
+#   향후 비-사고 hazard 하위를 둘 여지를 남긴다(사용자 결정 2026-05-31).
+#
+# 향후(별도): addressesHazard 계열 ↔ addressesAccidentType 계열 속성 정리(coextensive range)는
+#   온톨로지 위생 과제로 분리(서빙 무관). haz:Hazard의 BFO grounding(Quality)은 B6에서 재검토.
+# (hand-authored — 생성기 없음. kosha-facet-axis-disjoint.ttl의 haz:Hazard 정정과 짝.)
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix haz:  <https://cashtoss.info/ontology/risk/hazard#> .
+
+haz:AccidentType rdfs:subClassOf haz:Hazard .
