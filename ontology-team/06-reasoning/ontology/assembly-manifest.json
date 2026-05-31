@@ -47,6 +47,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-ontology-v4-domain-range-patch.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-disjoint-axioms.ttl",
         "format": "turtle"
       },
@@ -134,6 +138,10 @@
       },
       {
         "file": "kosha-ontology-v4-asymmetric-patch.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-ontology-v4-domain-range-patch.ttl",
         "format": "turtle"
       },
       {
@@ -235,6 +243,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-ontology-v4-domain-range-patch.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-disjoint-axioms.ttl",
         "format": "turtle"
       },
@@ -306,6 +318,10 @@
       },
       {
         "file": "kosha-ontology-v4-asymmetric-patch.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-ontology-v4-domain-range-patch.ttl",
         "format": "turtle"
       },
       {
@@ -602,6 +618,20 @@
       ],
       "format": "turtle",
       "note": "Phase J: law:modifiesAsymmetric."
+    },
+    {
+      "id": "v4-domain-range",
+      "file": "kosha-ontology-v4-domain-range-patch.ttl",
+      "role": "tbox-patch",
+      "layer": "L3-reasoning",
+      "profiles": [
+        "consistency",
+        "facet-explorer",
+        "serving",
+        "shacl-materialize"
+      ],
+      "format": "turtle",
+      "note": "B4(F10/F15): guide/core property domain·range 코퍼스-aware 보강 25개. 근거 scripts/derive_property_domain_range.py. NO-OP 추론(주어/목적어 이미 100% 해당 type)이라 B3a 축 disjoint 충돌 0."
     },
     {
       "id": "v4-guide-hazard",

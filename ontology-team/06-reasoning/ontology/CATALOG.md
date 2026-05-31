@@ -1,7 +1,7 @@
 # KOSHA 온톨로지 카탈로그
 
-> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T05:11:19+00:00
-> 소스: serving TBox+facet+moderate ABox (36 files, 518,920 triples; 대용량 instances 제외)
+> AUTO-GENERATED (scripts/gen_catalog.py) — 수동편집 금지. Generated: 2026-05-31T08:14:12+00:00
+> 소스: serving TBox+facet+moderate ABox (37 files, 518,956 triples; 대용량 instances 제외)
 > class 628 · objectProperty 133 · dataProperty 68 · individual 234
 
 ## 1. 모듈 개요 (prefix)
@@ -93,19 +93,19 @@
   - `core:DutyHolder` "의무이행주체" [⊒0, ←7] ⊑(lkif:Role)
   - `core:ProtectedPerson` "보호대상" [⊒0, ←5] ⊑(lkif:Role)
   - `core:RegulatoryAuthority` "규제기관" [⊒0, ←1] ⊑(lkif:Role)
-- `guide:ChecklistItem` "점검항목" [⊒1, ←13] ⊑(obo:BFO_0000019, lkif:Norm)
+- `guide:ChecklistItem` "점검항목" [⊒1, ←17] ⊑(obo:BFO_0000019, lkif:Norm)
   - `guide:CanonicalChecklistItem` "고유 점검항목(control)" [⊒0, ←51269]
-- `guide:DocumentRequirement` "문서 요구사항" ⊑(lkif:Obligation)
-- `guide:DomainTerm` "도메인 용어" ⊑(lkif:NormStatement)
+- `guide:DocumentRequirement` "문서 요구사항" [⊒0, ←3] ⊑(lkif:Obligation)
+- `guide:DomainTerm` "도메인 용어" [⊒0, ←4] ⊑(lkif:NormStatement)
 - `guide:Equipment` "장비" [⊒0, ←7] ⊑(obo:BFO_0000040, +제약1)
-- `guide:EquipmentSpec` "장비 규격" [⊒0, ←5] ⊑(obo:BFO_0000019)
+- `guide:EquipmentSpec` "장비 규격" [⊒0, ←8] ⊑(obo:BFO_0000019)
 - `guide:GuideUsageProfile` "Guide 사용 프로필" [⊒0, ←17] ⊑(+제약4)
-- `guide:KoshaGuide` "KOSHA 가이드" [⊒0, ←17] ⊑(lkif:LegalDocument)
-- `guide:WorkProcess` "작업 프로세스" [⊒0, ←5] ⊑(obo:BFO_0000015)
+- `guide:KoshaGuide` "KOSHA 가이드" [⊒0, ←25] ⊑(lkif:LegalDocument)
+- `guide:WorkProcess` "작업 프로세스" [⊒0, ←11] ⊑(obo:BFO_0000015)
 - `law:LawType` "법령 유형" [⊒0, ←6] ⊑(lkif:LegalDocument)
 - `law:LegalEntity` "법령 엔티티" [⊒3, ←3] ⊑(lkif:Role)
   - `law:Article` "조문" [⊒0, ←12] ⊑(lkif:Norm)
-  - `law:NormStatement` "규범 진술문" [⊒1, ←30] ⊑(lkif:Norm, +제약2)
+  - `law:NormStatement` "규범 진술문" [⊒1, ←32] ⊑(lkif:Norm, +제약2)
     - `bridge:ViolationCandidate` "위반 후보 NormStatement" [⊒0, ←1] ⊑(+제약2)
   - `pen:PenaltyRule` "벌칙 적용 규칙" [⊒0, ←23] ⊑(lkif:Norm, +제약4)
 - `law:LegalStructure` "법령 구조" [⊒4, ←4] ⊑(lkif:LegalDocument)
@@ -585,7 +585,7 @@
   - `she:SituationalHazardPattern` "위험상황 패턴" [⊒0, ←22] ⊑(obo:BFO_0000019, +제약4)
 - `she:VisualTrigger` "시각 트리거" [⊒0, ←4] ⊑(obo:BFO_0000019)
 - `sr:RequirementType` "요구사항 유형" [⊒0, ←8] ⊑(lkif:Norm)
-- `sr:SafetyRequirement` "안전요구사항" [⊒0, ←41] ⊑(lkif:Obligation, +제약5)
+- `sr:SafetyRequirement` "안전요구사항" [⊒0, ←47] ⊑(lkif:Obligation, +제약5)
 
 ## 3. 속성 (predicate)
 
@@ -623,9 +623,9 @@
 | `bridge:observedIn` | 관찰됨 (브리지) | — | — |
 | `bridge:violatesObligation` | 의무 위반 | actor:Worker | law:NormStatement |
 | `core:broaderAgent` | 상위 유해인자 (custom broader) | agent:HazardousAgent | agent:HazardousAgent |
-| `core:coApplicable` | 공동 적용 | — | — |
+| `core:coApplicable` | 공동 적용 | sr:SafetyRequirement | sr:SafetyRequirement |
 | `core:dependsOn` | 위험 의존 | sr:SafetyRequirement | sr:SafetyRequirement |
-| `core:exemptedBy` | 면제 근거 | — | — |
+| `core:exemptedBy` | 면제 근거 | law:NormStatement | law:NormStatement |
 | `core:hasViolation` | 위반 관계 | — | — |
 | `core:incompatibleDomainA` | 도메인 A | core:Incompatibility | industry:Industry |
 | `core:incompatibleDomainB` | 도메인 B | core:Incompatibility | industry:Industry |
@@ -637,24 +637,24 @@
 | `guide:ciAddressesAgent` | CI 대응 유해인자 | guide:ChecklistItem | agent:HazardousAgent |
 | `guide:ciInWorkContext` | CI 작업맥락 | guide:ChecklistItem | ctx:WorkContext |
 | `guide:controlBundledBy` | 묶은 Guide | guide:CanonicalChecklistItem | guide:KoshaGuide |
-| `guide:docForSR` | SR 관련 문서 | — | — |
+| `guide:docForSR` | SR 관련 문서 | guide:DocumentRequirement | sr:SafetyRequirement |
 | `guide:equipmentHasSpec` | 장비 스펙 보유 | guide:Equipment | guide:EquipmentSpec |
 | `guide:guideAddressesAgent` | 직접 유해인자 대응 (Guide) | guide:KoshaGuide | agent:HazardousAgent |
 | `guide:guideAppliesToContext` | 직접 작업맥락 적용 (Guide) | guide:KoshaGuide | ctx:WorkContext |
-| `guide:hasChecklistItem` | 점검항목 보유 | — | — |
-| `guide:hasDocumentRequirement` | 문서요구사항 보유 | — | — |
-| `guide:hasDomainTerm` | 도메인용어 보유 | — | — |
-| `guide:hasEquipmentSpec` | 장비규격 보유 | — | — |
+| `guide:hasChecklistItem` | 점검항목 보유 | guide:KoshaGuide | guide:ChecklistItem |
+| `guide:hasDocumentRequirement` | 문서요구사항 보유 | guide:KoshaGuide | guide:DocumentRequirement |
+| `guide:hasDomainTerm` | 도메인용어 보유 | guide:KoshaGuide | guide:DomainTerm |
+| `guide:hasEquipmentSpec` | 장비규격 보유 | guide:KoshaGuide | guide:EquipmentSpec |
 | `guide:hasProfile` | has profile | guide:KoshaGuide | guide:GuideUsageProfile |
-| `guide:hasWorkProcess` | 작업프로세스 보유 | — | — |
+| `guide:hasWorkProcess` | 작업프로세스 보유 | guide:KoshaGuide | guide:WorkProcess |
 | `guide:isChecklistItemOf` | 소속 가이드 | guide:ChecklistItem | guide:KoshaGuide |
 | `guide:profileOfGuide` | profile of guide | guide:GuideUsageProfile | guide:KoshaGuide |
 | `guide:realizesControl` | control 실현 | guide:ChecklistItem | guide:CanonicalChecklistItem |
 | `guide:realizesSHE` | 실현하는 상황 | guide:ChecklistItem | she:SituationalHazardPattern |
 | `guide:referencesGuide` | 가이드 상호참조 | guide:KoshaGuide | guide:KoshaGuide |
-| `guide:relatedSR` | 관련 SR | — | — |
-| `guide:specForSR` | SR용 규격 | — | — |
-| `guide:termForSR` | SR 관련 용어 | — | — |
+| `guide:relatedSR` | 관련 SR | guide:WorkProcess | sr:SafetyRequirement |
+| `guide:specForSR` | SR용 규격 | guide:EquipmentSpec | sr:SafetyRequirement |
+| `guide:termForSR` | SR 관련 용어 | guide:DomainTerm | sr:SafetyRequirement |
 | `haz:hasHazard` | 위험 유형 | risk:RiskFeature | haz:Hazard |
 | `law:appliesArticle` | Article 적용 (강화) | sr:SafetyRequirement | law:Article |
 | `law:belongsToChapter` | 소속 장 | — | — |
@@ -746,37 +746,37 @@
 | `core:identifier` | 식별자 | — | http://www.w3.org/2001/XMLSchema#string |
 | `core:text` | 텍스트 | — | http://www.w3.org/2001/XMLSchema#string |
 | `core:title` | 제목 | — | http://www.w3.org/2001/XMLSchema#string |
-| `guide:additionalDetail` | 추가 상세 | — | http://www.w3.org/2001/XMLSchema#string |
+| `guide:additionalDetail` | 추가 상세 | guide:ChecklistItem | http://www.w3.org/2001/XMLSchema#string |
 | `guide:baselineId` | baseline id | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
 | `guide:ciGuideFrequency` | CI Guide 중복 빈도 | guide:ChecklistItem | http://www.w3.org/2001/XMLSchema#integer |
-| `guide:definition` | 정의 | — | http://www.w3.org/2001/XMLSchema#string |
-| `guide:documentType` | 문서 유형 | — | http://www.w3.org/2001/XMLSchema#string |
-| `guide:domain` | 도메인 | — | http://www.w3.org/2001/XMLSchema#string |
+| `guide:definition` | 정의 | guide:DomainTerm | http://www.w3.org/2001/XMLSchema#string |
+| `guide:documentType` | 문서 유형 | guide:DocumentRequirement | http://www.w3.org/2001/XMLSchema#string |
+| `guide:domain` | 도메인 | guide:KoshaGuide | http://www.w3.org/2001/XMLSchema#string |
 | `guide:domainFamily` | 도메인 패밀리 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
-| `guide:equipmentName` | 장비명 | — | http://www.w3.org/2001/XMLSchema#string |
+| `guide:equipmentName` | 장비명 | guide:EquipmentSpec | http://www.w3.org/2001/XMLSchema#string |
 | `guide:followupPolicy` | followup policy | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
-| `guide:guideCode` | 가이드 코드 | — | http://www.w3.org/2001/XMLSchema#string |
-| `guide:guideContext` | 가이드 컨텍스트 | — | http://www.w3.org/2001/XMLSchema#string |
+| `guide:guideCode` | 가이드 코드 | guide:KoshaGuide | http://www.w3.org/2001/XMLSchema#string |
+| `guide:guideContext` | 가이드 컨텍스트 | guide:ChecklistItem | http://www.w3.org/2001/XMLSchema#string |
 | `guide:intendedTasks` | 의도된 작업 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
 | `guide:intendedWorkplaces` | 의도된 작업장 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
 | `guide:isBoilerplate` | boilerplate 여부 | guide:ChecklistItem | http://www.w3.org/2001/XMLSchema#boolean |
 | `guide:negativeBoundaries` | 부정 경계 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
 | `guide:observableRequiredCues` | 관찰 필수 시각단서 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
 | `guide:photoMatchability` | 사진 매칭 가능성 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
-| `guide:ppeType` | 보호구 유형 | — | http://www.w3.org/2001/XMLSchema#string |
+| `guide:ppeType` | 보호구 유형 | guide:WorkProcess | http://www.w3.org/2001/XMLSchema#string |
 | `guide:procedureRole` | 절차 역할 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
-| `guide:processName` | 프로세스명 | — | http://www.w3.org/2001/XMLSchema#string |
-| `guide:processOrder` | 프로세스 순서 | — | http://www.w3.org/2001/XMLSchema#integer |
+| `guide:processName` | 프로세스명 | guide:WorkProcess | http://www.w3.org/2001/XMLSchema#string |
+| `guide:processOrder` | 프로세스 순서 | guide:WorkProcess | http://www.w3.org/2001/XMLSchema#integer |
 | `guide:profileLevel` | 프로필 수준 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
 | `guide:reviewStatus` | 검토 상태 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
-| `guide:safetyMeasures` | 안전조치 | — | http://www.w3.org/2001/XMLSchema#string |
-| `guide:shortCode` | 단축 코드 | — | http://www.w3.org/2001/XMLSchema#string |
+| `guide:safetyMeasures` | 안전조치 | guide:WorkProcess | http://www.w3.org/2001/XMLSchema#string |
+| `guide:shortCode` | 단축 코드 | guide:KoshaGuide | http://www.w3.org/2001/XMLSchema#string |
 | `guide:sourceGuide` | 출처 가이드 | — | http://www.w3.org/2001/XMLSchema#string |
 | `guide:sourceSection` | 출처 섹션 | — | http://www.w3.org/2001/XMLSchema#string |
-| `guide:termName` | 용어 | — | http://www.w3.org/2001/XMLSchema#string |
+| `guide:termName` | 용어 | guide:DomainTerm | http://www.w3.org/2001/XMLSchema#string |
 | `guide:topProcedurePolicy` | top procedure policy | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
 | `guide:usageSummary` | 사용 요약 | guide:GuideUsageProfile | http://www.w3.org/2001/XMLSchema#string |
-| `guide:workProcessPhase` | 작업공정 단계 | — | http://www.w3.org/2001/XMLSchema#string |
+| `guide:workProcessPhase` | 작업공정 단계 | guide:ChecklistItem | http://www.w3.org/2001/XMLSchema#string |
 | `law:articleCode` | 조문 코드 | — | http://www.w3.org/2001/XMLSchema#string |
 | `law:conditionText` | 조건 텍스트 | — | http://www.w3.org/2001/XMLSchema#string |
 | `law:conditionType` | 조건 유형 | — | http://www.w3.org/2001/XMLSchema#string |
@@ -812,20 +812,20 @@
 
   `agent:AcrylateResinSkinContact`, `agent:AirlessResidualPressure`, `agent:AsbestosDust`, `agent:Benzene`, `agent:BiogasMethane`, `agent:BloodbornePathogen`, `agent:CapacitorResidualVoltage`, `agent:ChlorineAmmoniaReaction`, `agent:ColdFloor`, `agent:ConcentratedAlkali`, `agent:ContaminatedFilterParticulateMold`, `agent:CryogenicAgent`, `agent:DefectiveHandle`, `agent:DefectiveSterilePackaging`, `agent:DegradedDeveloperSolution`, `agent:DentalXRay`, `agent:DentalXrayRepeatedExposure`, `agent:DistributionBoard`, `agent:EarphoneNoise`, `agent:ElectricalOverload`, `agent:ElectricityWaterContact`, `agent:ElevatorPitToxicGas`, `agent:ExposedOutlet`, `agent:ExtremeColdEnvironment`, `agent:ExtremeColdSurface`, `agent:FemaleExposureLimitExceeded`, `agent:FormaldehydeSkinContact`, `agent:FragranceVapor`, `agent:FuelSaturatedAbsorbent`, `agent:GasolineMicroLeakage`, `agent:GasolineVapor`, `agent:GlutaraldehydeVapor`, `agent:HighHeat`, `agent:HighPressureAirDust`, `agent:HighTemperatureEnvironment`, `agent:HighTemperatureSteam`, `agent:HotEquipment`, `agent:HotParts`, `agent:HotSurface`, `agent:HotTray` …
 
-**(c) dead 후보(하위0·피참조0·개체아님): 347**
+**(c) dead 후보(하위0·피참조0·개체아님): 345**
 
   `agent:AcrylateResinSkinContact`, `agent:AirlessResidualPressure`, `agent:AsbestosDust`, `agent:Benzene`, `agent:BiogasMethane`, `agent:BloodbornePathogen`, `agent:CapacitorResidualVoltage`, `agent:ChlorineAmmoniaReaction`, `agent:ColdFloor`, `agent:ConcentratedAlkali`, `agent:ContaminatedFilterParticulateMold`, `agent:CryogenicAgent`, `agent:DefectiveHandle`, `agent:DefectiveSterilePackaging`, `agent:DegradedDeveloperSolution`, `agent:DentalXRay`, `agent:DentalXrayRepeatedExposure`, `agent:DistributionBoard`, `agent:EarphoneNoise`, `agent:ElectricalOverload`, `agent:ElectricityWaterContact`, `agent:ElevatorPitToxicGas`, `agent:ExposedOutlet`, `agent:ExtremeColdEnvironment`, `agent:ExtremeColdSurface`, `agent:FemaleExposureLimitExceeded`, `agent:FormaldehydeSkinContact`, `agent:FragranceVapor`, `agent:FuelSaturatedAbsorbent`, `agent:GasolineMicroLeakage`, `agent:GasolineVapor`, `agent:GlutaraldehydeVapor`, `agent:HighHeat`, `agent:HighPressureAirDust`, `agent:HighTemperatureEnvironment`, `agent:HighTemperatureSteam`, `agent:HotEquipment`, `agent:HotParts`, `agent:HotSurface`, `agent:HotTray` …
 
 **(d) 중복 label(같은 한글 라벨, 다른 IRI): 4쌍**
 
   - "근로자": `actor:Worker`, `core:Worker`
-  - "기타": `industry:Industry_OTHER`, `haz:OtherAccident`, `ctx:OtherAgentState`
+  - "기타": `haz:OtherAccident`, `industry:Industry_OTHER`, `ctx:OtherAgentState`
   - "비상대응": `ctx:EmergencyResponse`, `sr:EmergencyResponse`
   - "정비": `industry:Industry_MAINTENANCE`, `ctx:Maintenance`
 
-**(e) domain 또는 range 누락 property: 59**
+**(e) domain 또는 range 누락 property: 34**
 
-  `bridge:appliesTo`, `bridge:observedIn`, `core:coApplicable`, `core:exemptedBy`, `core:hasViolation`, `core:identifier`, `core:text`, `core:title`, `guide:additionalDetail`, `guide:definition`, `guide:docForSR`, `guide:documentType`, `guide:domain`, `guide:equipmentName`, `guide:guideCode`, `guide:guideContext`, `guide:hasChecklistItem`, `guide:hasDocumentRequirement`, `guide:hasDomainTerm`, `guide:hasEquipmentSpec`, `guide:hasWorkProcess`, `guide:ppeType`, `guide:processName`, `guide:processOrder`, `guide:relatedSR`, `guide:safetyMeasures`, `guide:shortCode`, `guide:sourceGuide`, `guide:sourceSection`, `guide:specForSR`, `guide:termForSR`, `guide:termName`, `guide:workProcessPhase`, `law:articleCode`, `law:belongsToChapter`, `law:belongsToPart`, `law:belongsToSection`, `law:belongsToSubsection`, `law:conditionText`, `law:conditionType` …
+  `bridge:appliesTo`, `bridge:observedIn`, `core:hasViolation`, `core:identifier`, `core:text`, `core:title`, `guide:sourceGuide`, `guide:sourceSection`, `law:articleCode`, `law:belongsToChapter`, `law:belongsToPart`, `law:belongsToSection`, `law:belongsToSubsection`, `law:conditionText`, `law:conditionType`, `law:fullText`, `law:hasAction`, `law:hasNormStatement`, `law:hasObject`, `law:hasParentStructure`, `law:isDeleted`, `law:modifiedBy`, `law:paragraphCount`, `law:paragraphRef`, `law:structureLabel`, `pen:delegatedFrom`, `pen:hasPenalty`, `pen:penaltyDescription`, `pen:severityScore`, `she:appliesPenalty`, `sr:hasBindingForce`, `sr:hasChecklistItem`, `sr:hasRequirementType`, `sr:hasSafetyRequirement`
 
 **(f) punned IRI(class+individual 동시, 정상이지만 참고): 141**
 

@@ -68,6 +68,9 @@ _E = [
      {"SRV", "CON", "MAT", "FAC"}, "turtle", "Phase H: NaturalLanguageHazardCategory."),
     ("v4-asymmetric", "kosha-ontology-v4-asymmetric-patch.ttl", "tbox-patch", "L3-reasoning",
      {"SRV", "CON", "MAT", "FAC"}, "turtle", "Phase J: law:modifiesAsymmetric."),
+    ("v4-domain-range", "kosha-ontology-v4-domain-range-patch.ttl", "tbox-patch", "L3-reasoning",
+     {"SRV", "CON", "MAT", "FAC"}, "turtle",
+     "B4(F10/F15): guide/core property domain·range 코퍼스-aware 보강 25개. 근거 scripts/derive_property_domain_range.py. NO-OP 추론(주어/목적어 이미 100% 해당 type)이라 B3a 축 disjoint 충돌 0."),
     # ── TBox patches: Three-Worlds facet (serve_facets 전용) ──────────────────
     ("v4-guide-hazard", "kosha-ontology-v4-guide-hazard-patch.ttl", "tbox-patch", "L3-reasoning",
      {"FAC"}, "turtle", "guide:addressesHazard 등 Three-Worlds TBox."),

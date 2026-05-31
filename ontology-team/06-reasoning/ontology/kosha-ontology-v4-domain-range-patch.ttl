@@ -1,0 +1,84 @@
+# kosha-ontology-v4-domain-range-patch.ttl — property domain/range 보강 (B4 / findings F10·F15)
+#
+# 누락된 guide/core property에 rdfs:domain·range를 **코퍼스-aware로 도출**해 추가한다.
+# 도출 근거: scripts/derive_property_domain_range.py — manifest 비-archive 전체 union
+#   (956K ABox kosha-instances.ttl + canonical-ci + derived 포함, 1,475,471 triples)을 로드해
+#   각 속성의 실제 주어/목적어 rdf:type를 전수 집계. 각 줄 끝 `# used N` = 코퍼스 사용 횟수.
+#
+# B3a 축 disjoint 충돌 0 (안전성 논증):
+#   추가하는 25개 속성의 주어·목적어는 코퍼스에서 이미 100% 해당 타입으로 명시되어 있다
+#   (derive 스크립트에서 ⟨untyped⟩ 0). 따라서 domain/range 추론은 기존 type을 재확인하는
+#   NO-OP이며 새 type을 강제하지 않는다 → facet 10축(haz/agent/ctx/NLH) 상호 disjoint
+#   (kosha-facet-axis-disjoint.ttl)와 충돌할 수 없다. range는 전부 guide:*/sr:*/law:* 로
+#   facet 축이 아니다.
+#
+# 의도적 제외 (catalog (e)가 기계적으로 잡았으나 결함 아님 — by-design):
+#   - bridge:observedIn  : multi-signature (VO→Hazard / SR→Ctx). range를 박으면 ctx:WorkContext
+#                          객체가 haz:Hazard로 추론돼 B3a 충돌. v4-bridge-patch 주석에 명시.
+#   - bridge:appliesTo   : domain은 SR 고정(이미 선언), range는 Hazard/Equipment/HazardFinding
+#                          union이라 의도적 무제약. v4-bridge-patch 주석에 명시. → F17은 오탐.
+#   - core:hasViolation  : multi-signature (VO→SR / WorkContext→NS). v4-violation-patch 주석에 명시.
+#   - guide:sourceGuide, guide:sourceSection : 5개 guide-content 타입(CI/WP/ES/DT/DR) 공유 provenance.
+#   - core:identifier / core:text / core:title : 범용 cross-cutting (각 8/4/4 타입 — dcterms류 공유 어휘).
+#
+# (hand-authored, 생성기 없음. 단일변수 — 본 파일 triple이 graph_diff 전부.
+#  선언부는 v2.owl/패치에 잔류; 여기서는 dom/rng만 보강한다.)
+
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix guide: <https://cashtoss.info/ontology/guide#> .
+@prefix sr:    <https://cashtoss.info/ontology/sr#> .
+@prefix law:   <https://cashtoss.info/ontology/law#> .
+@prefix core:  <https://cashtoss.info/ontology#> .
+
+
+### ── F10 · guide object properties ──────────────────────────────────────────
+# KoshaGuide 구조 관계 — 주어 100% KoshaGuide, 목적어 100% 해당 content 클래스 (single-signature).
+
+guide:hasChecklistItem       rdfs:domain guide:KoshaGuide ; rdfs:range guide:ChecklistItem .        # used 54,631
+guide:hasDocumentRequirement rdfs:domain guide:KoshaGuide ; rdfs:range guide:DocumentRequirement .  # used 3,435
+guide:hasDomainTerm          rdfs:domain guide:KoshaGuide ; rdfs:range guide:DomainTerm .            # used 7,726
+guide:hasEquipmentSpec       rdfs:domain guide:KoshaGuide ; rdfs:range guide:EquipmentSpec .         # used 8,103
+guide:hasWorkProcess         rdfs:domain guide:KoshaGuide ; rdfs:range guide:WorkProcess .           # used 9,316
+
+# {content} → SR provenance ("…ForSR" / relatedSR family). 목적어 100% sr:SafetyRequirement.
+guide:docForSR   rdfs:domain guide:DocumentRequirement ; rdfs:range sr:SafetyRequirement .  # used 447  (DocReq 428 → SR 63)
+guide:relatedSR  rdfs:domain guide:WorkProcess ;         rdfs:range sr:SafetyRequirement .  # used 3,618 (WP 2513 → SR 129)
+guide:specForSR  rdfs:domain guide:EquipmentSpec ;       rdfs:range sr:SafetyRequirement .  # used 1,548 (ES 1464 → SR 93)
+guide:termForSR  rdfs:domain guide:DomainTerm ;          rdfs:range sr:SafetyRequirement .  # used 0 — 구조적 유추(docForSR 자매, DomainTerm→SR export 미발생)
+
+
+### ── F10 · guide datatype properties (domain만 보강; range는 기존 xsd 유지) ───
+# 각 속성 주어 100% 단일 content 클래스.
+
+# on guide:ChecklistItem
+guide:additionalDetail  rdfs:domain guide:ChecklistItem .       # used 9,629
+guide:guideContext      rdfs:domain guide:ChecklistItem .       # used 54,631
+guide:workProcessPhase  rdfs:domain guide:ChecklistItem .       # used 46,352 (CI가 속한 공정단계 표기 — 명칭과 달리 주어는 CI)
+# on guide:DomainTerm
+guide:definition        rdfs:domain guide:DomainTerm .          # used 7,726
+guide:termName          rdfs:domain guide:DomainTerm .          # used 7,726
+# on guide:DocumentRequirement
+guide:documentType      rdfs:domain guide:DocumentRequirement . # used 3,435
+# on guide:KoshaGuide
+guide:domain            rdfs:domain guide:KoshaGuide .          # used 1,038
+guide:guideCode         rdfs:domain guide:KoshaGuide .          # used 1,038
+guide:shortCode         rdfs:domain guide:KoshaGuide .          # used 1,038
+# on guide:EquipmentSpec
+guide:equipmentName     rdfs:domain guide:EquipmentSpec .       # used 8,103
+# on guide:WorkProcess
+guide:processName       rdfs:domain guide:WorkProcess .         # used 9,316
+guide:processOrder      rdfs:domain guide:WorkProcess .         # used 9,316
+guide:safetyMeasures    rdfs:domain guide:WorkProcess .         # used 9,316
+guide:ppeType           rdfs:domain guide:WorkProcess .         # used 7,066 (WP 2,956)
+
+
+### ── F15 · core object properties (rule head signature; on-demand/reason-time 생성) ──
+# 정적 ABox used=0이나 rule이 single-signature로 생성. 주어/목적어는 rule body가 타입 보장 → 형식화.
+
+# R-1 (kosha-rules-r1-r3-swrl): Exemption NS가 Obligation NS를 modifies ⟹ ns1 exemptedBy ns2.
+# body가 ns1·ns2 둘 다 law:NormStatement로 강제. Pellet/Openllet 추론 107건.
+core:exemptedBy   rdfs:domain law:NormStatement ;   rdfs:range law:NormStatement .
+
+# K-R2 (kosha-rules-k-general-shacl): 같은 Chapter SR 공동적용. core:coApplicable은 v2.owl에서
+# owl:SymmetricProperty(domain=range 일치 필요) → SR↔SR. 자매 core:dependsOn(SR→SR)과 정합.
+core:coApplicable rdfs:domain sr:SafetyRequirement ; rdfs:range sr:SafetyRequirement .   # K-R2 16,429 pair (on-demand)
