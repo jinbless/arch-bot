@@ -1,8 +1,9 @@
 # kosha-facet-taxonomy.ttl — AUTO-GENERATED, 수동편집 금지 (scripts/gen_facet_taxonomy.py)
-# Generated: 2026-05-30T14:49:14.091743+00:00
+# Generated: 2026-05-31T01:44:41.135508+00:00
 # SSOT: shared/reference/canonical-code-vocabulary.json (rollup)
-# 1) canonical owl:Class punning  2) fine ⊑ canonical(same-axis)  3) ctx 계층(rollup 자동)
+# 1) canonical owl:Class punning + ⊑ axis(기존 rdf:type 축)  2) fine ⊑ canonical(same-axis)  3) ctx 계층(rollup 자동)
 # cross-axis 제외(Python canonical_vocab 재라우팅): 21건, identity skip: 7건
+# canonical⊑axis 링크: 62건 (축 부모 못 찾음: 0건)
 
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -10,74 +11,74 @@
 @prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
 @prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
 
-# ════════ 1. canonical owl:Class punning (62) ════════
+# ════════ 1. canonical owl:Class punning + ⊑ axis (62 class, 62 link) ════════
 # -- accident_type (haz) --
-haz:AnimalInjury a owl:Class .
-haz:CaughtIn a owl:Class .
-haz:ChemicalExposure a owl:Class .
-haz:Collapse a owl:Class .
-haz:Collision a owl:Class .
-haz:CrushedOverturned a owl:Class .
-haz:CutLaceration a owl:Class .
-haz:Drowning a owl:Class .
-haz:ElectricShock a owl:Class .
-haz:ErgonomicStrain a owl:Class .
-haz:Explosion a owl:Class .
-haz:Fall a owl:Class .
-haz:FireInjury a owl:Class .
-haz:OffSiteTraffic a owl:Class .
-haz:OtherAccident a owl:Class .
-haz:OxygenDeficiency a owl:Class .
-haz:SlipTrip a owl:Class .
-haz:SportsEventInjury a owl:Class .
-haz:StruckBy a owl:Class .
-haz:TempExtremeContact a owl:Class .
-haz:Unclassified a owl:Class .
-haz:Violence a owl:Class .
-haz:WorkplaceTraffic a owl:Class .
+haz:AnimalInjury a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:CaughtIn a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:ChemicalExposure a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:Collapse a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:Collision a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:CrushedOverturned a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:CutLaceration a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:Drowning a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:ElectricShock a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:ErgonomicStrain a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:Explosion a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:Fall a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:FireInjury a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:OffSiteTraffic a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:OtherAccident a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:OxygenDeficiency a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:SlipTrip a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:SportsEventInjury a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:StruckBy a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:TempExtremeContact a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:Unclassified a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:Violence a owl:Class ; rdfs:subClassOf haz:AccidentType .
+haz:WorkplaceTraffic a owl:Class ; rdfs:subClassOf haz:AccidentType .
 
 # -- hazardous_agent (agent) --
-agent:Biological a owl:Class .
-agent:Chemical a owl:Class .
-agent:Dust a owl:Class .
-agent:Electricity a owl:Class .
-agent:Fire a owl:Class .
-agent:HeatCold a owl:Class .
-agent:Noise a owl:Class .
-agent:Radiation a owl:Class .
-agent:Toxic a owl:Class .
-agent:UnknownAgent a owl:Class .
+agent:Biological a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:Chemical a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:Dust a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:Electricity a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:Fire a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:HeatCold a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:Noise a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:Radiation a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:Toxic a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
+agent:UnknownAgent a owl:Class ; rdfs:subClassOf agent:HazardousAgent .
 
 # -- work_context (ctx) --
-ctx:ChemicalWork a owl:Class .
-ctx:CollapsePrevention a owl:Class .
-ctx:ConfinedSpace a owl:Class .
-ctx:ConstructionEquip a owl:Class .
-ctx:Conveyor a owl:Class .
-ctx:Crane a owl:Class .
-ctx:Demolition a owl:Class .
-ctx:DustWork a owl:Class .
-ctx:ElectricalWork a owl:Class .
-ctx:ErgonomicWork a owl:Class .
-ctx:Excavation a owl:Class .
-ctx:FallProtection a owl:Class .
-ctx:FireExplosionWork a owl:Class .
-ctx:HeatColdWork a owl:Class .
-ctx:Logging a owl:Class .
-ctx:Machine a owl:Class .
-ctx:MaterialHandling a owl:Class .
-ctx:NoiseWork a owl:Class .
-ctx:Passage a owl:Class .
-ctx:PathogenWork a owl:Class .
-ctx:PressureVessel a owl:Class .
-ctx:RadiationWork a owl:Class .
-ctx:Rail a owl:Class .
-ctx:Robot a owl:Class .
-ctx:Scaffold a owl:Class .
-ctx:Steelwork a owl:Class .
-ctx:UnknownContext a owl:Class .
-ctx:Vehicle a owl:Class .
-ctx:Ventilation a owl:Class .
+ctx:ChemicalWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:CollapsePrevention a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:ConfinedSpace a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:ConstructionEquip a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Conveyor a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Crane a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Demolition a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:DustWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:ElectricalWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:ErgonomicWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Excavation a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:FallProtection a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:FireExplosionWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:HeatColdWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Logging a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Machine a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:MaterialHandling a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:NoiseWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Passage a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:PathogenWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:PressureVessel a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:RadiationWork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Rail a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Robot a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Scaffold a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Steelwork a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:UnknownContext a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Vehicle a owl:Class ; rdfs:subClassOf ctx:WorkContext .
+ctx:Ventilation a owl:Class ; rdfs:subClassOf ctx:WorkContext .
 
 # ════════ 2. fine ⊑ canonical (same-axis, 418) ════════
 # -- accident_type (haz): 158 --
