@@ -32,7 +32,8 @@ Fuseki(Openllet) 전체 적재 후 class/predicate를 대화형 top-down 점검 
 - ✅ **WC-C 서빙 fine-first (기본 경로)**: `query_guide_for_facets`(Three-Worlds=기본 추천)에 GF 기반 fine work_context 매칭 추가 + `match_fusion_service` 정렬 관통. **fine-first 결정적**(관찰 fine wc를 GF 보유 guide가 fold-only 항상 상회). `FINE_GRADED_MATCH` flag(호출시점, default **off=무회귀**). 신규 헬퍼 `_fine_wc_match_guides`(690-744 hazard-direct boost 패턴 일반화) + `scripts/verify_fine_graded_wc.py`.
 - **검증**(forklift, FORKLIFT_OPERATION): OFF/ON **197/197 후보 동일(recall 불변)**·OFF순서=기존, **43 fine guide 결정적 상위**(last fine rank 42 < first non-fine 43). 무회귀+승격 입증.
 - ✅ **WC-D eval + flag 기본 ON**: `scripts/eval_fine_graded_wc.py`(synthetic 330→204 고유 입력, expected_features 주입·LLM 0). **recall/within-order/fine-first/canonical-control 204/204 무회귀 입증** → `_fine_graded_enabled` **default ON**(env로 비활성). 단 합성셋(제빵/주방)은 GF fine(산업 위주)과 겹침 적어 보정 발동 5/204(forklift 수동 43). 더 큰 효과 = GF fine 태그 확장.
-- **잔여**: CI fine(canonical_ci↔GF 링크)·WC-A/B(온톨로지 fine wc emit+`kosha_guides` fine 컬럼 물질화="온톨로지 활용")·GF fine 태그 커버리지 확장·accident/agent entity fine-tagging(findings F22).
+- 🔧 **COV 커버리지 확장 인프라 준비**(키 대기): WC-D 5/204 발동의 병목=GF fine 태그 부족. **재사용 판정**(SHE/라벨 원칙): 엔티티→fine 매핑은 기존 산출물에 **없어 생성 필수**, 단 입력은 재사용(guide_llm_domains 1038 도메인힌트·synthetic_obs 검증셋·fine 한글어휘·71 UNKNOWN+라벨). 신규(mock plumbing 전부 검증·키 불요): `llm-scripts/llm_client.py`(OpenAI+Anthropic+mock 통일, enum=allowlist 환각차단)·`curate_wc_rollup.py`(rollup 71 UNKNOWN→canonical, wrong_facet 플래그)·`tag_guides_wc_fine.py`(guide→fine wc→GF insert `method=llm_enriched_wc/candidate`). **키 설정 후**: `curate_wc_rollup --run --apply`(rollup 패치) + `tag_guides_wc_fine --run --limit N --apply`(GF) → `eval_fine_graded_wc` 재실행 lift 측정. 모델 하이브리드(curate strong, tag cheap).
+- **잔여**: (키 후) COV 실행·lift 측정 → 전 guide 확장 / CI fine(canonical_ci↔GF 링크)·WC-A/B(온톨로지 fine wc 물질화)·accident/agent entity fine-tagging(findings F22).
 
 ## ⭐ 2026-05-31 (이어서2) — F20 sr 속성 hard merge (push 완료)
 
