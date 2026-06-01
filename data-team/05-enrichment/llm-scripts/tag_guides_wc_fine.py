@@ -157,6 +157,11 @@ def main() -> int:
         from sqlalchemy import text
         db = SessionLocal()
         try:
+            # 멱등: 이번에 처리한 guide의 기존 llm_enriched_wc 행 제거 후 재삽입(중복 방지).
+            processed = sorted({g["guide_code"] for g in guides})
+            db.execute(text("DELETE FROM guide_entity_feature_candidates "
+                            "WHERE method='llm_enriched_wc' AND axis=:ax AND guide_code = ANY(:gids)"),
+                       {"ax": AXIS, "gids": processed})
             nid = (db.execute(text("SELECT COALESCE(MAX(candidate_id),0) FROM guide_entity_feature_candidates")).scalar() or 0)
             ins = text("""INSERT INTO guide_entity_feature_candidates
                 (candidate_id, entity_type, entity_id, guide_code, axis, feature_code, canonical_code,

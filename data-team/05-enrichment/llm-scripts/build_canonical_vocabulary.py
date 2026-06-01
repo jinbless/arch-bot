@@ -186,6 +186,12 @@ def main():
     # pending/open class — 억지 배정 대신 여기로. continual learning이 빈도+클러스터로 승격.
     OTHER = {"accident_type": "UNCLASSIFIED", "hazardous_agent": "UNKNOWN_AGENT", "work_context": "UNKNOWN_CONTEXT"}
 
+    # LLM-curated overrides (regen-safe): rules가 OTHER로 떨어뜨리는 fine 코드의 canonical 배정 보존.
+    # 생성: curate_wc_rollup.py → shared/reference/wc_rollup_overrides.json ({axis:{code:canonical}})
+    _ovp = OUT.parent / "wc_rollup_overrides.json"
+    _ov_raw = json.load(open(_ovp, encoding="utf-8")) if _ovp.exists() else {}
+    OVERRIDES = {a: _ov_raw.get(a, {}) for a in AXES}
+
     def resolve(a, code):
         if code in canonical[a]:
             return code, "identity"
@@ -205,6 +211,10 @@ def main():
         x = _rule_match(code, CROSS[a])
         if x:
             return x, "cross"
+        # 3.5) LLM-curated override (rules 미해결분, regen-safe — curate_wc_rollup 산출)
+        ov = OVERRIDES.get(a, {}).get(code)
+        if ov and ov in canonical[a]:
+            return ov, "override"
         # 4) OTHER 버킷 (저신뢰 — LLM/리뷰 대상)
         return OTHER[a], "other"
 

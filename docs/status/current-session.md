@@ -33,7 +33,9 @@ Fuseki(Openllet) 전체 적재 후 class/predicate를 대화형 top-down 점검 
 - **검증**(forklift, FORKLIFT_OPERATION): OFF/ON **197/197 후보 동일(recall 불변)**·OFF순서=기존, **43 fine guide 결정적 상위**(last fine rank 42 < first non-fine 43). 무회귀+승격 입증.
 - ✅ **WC-D eval + flag 기본 ON**: `scripts/eval_fine_graded_wc.py`(synthetic 330→204 고유 입력, expected_features 주입·LLM 0). **recall/within-order/fine-first/canonical-control 204/204 무회귀 입증** → `_fine_graded_enabled` **default ON**(env로 비활성). 단 합성셋(제빵/주방)은 GF fine(산업 위주)과 겹침 적어 보정 발동 5/204(forklift 수동 43). 더 큰 효과 = GF fine 태그 확장.
 - 🔧 **COV 커버리지 확장 인프라 준비**(키 대기): WC-D 5/204 발동의 병목=GF fine 태그 부족. **재사용 판정**(SHE/라벨 원칙): 엔티티→fine 매핑은 기존 산출물에 **없어 생성 필수**, 단 입력은 재사용(guide_llm_domains 1038 도메인힌트·synthetic_obs 검증셋·fine 한글어휘·71 UNKNOWN+라벨). 신규(mock plumbing 전부 검증·키 불요): `llm-scripts/llm_client.py`(OpenAI+Anthropic+mock 통일, enum=allowlist 환각차단)·`curate_wc_rollup.py`(rollup 71 UNKNOWN→canonical, wrong_facet 플래그)·`tag_guides_wc_fine.py`(guide→fine wc→GF insert `method=llm_enriched_wc/candidate`). **키 설정 후**: `curate_wc_rollup --run --apply`(rollup 패치) + `tag_guides_wc_fine --run --limit N --apply`(GF) → `eval_fine_graded_wc` 재실행 lift 측정. 모델 하이브리드(curate strong, tag cheap).
-- **잔여**: (키 후) COV 실행·lift 측정 → 전 guide 확장 / CI fine(canonical_ci↔GF 링크)·WC-A/B(온톨로지 fine wc 물질화)·accident/agent entity fine-tagging(findings F22).
+- ✅ **COV 실행/적용**(2026-06-01, 키 .env 자동로드 OPENAI+ANTHROPIC): **curate**(Claude sonnet-4-6) 71→51배정, **21건 ≥0.7 rollup 적용**(OVEN_OPERATION→HEAT_COLD_WORK·EV_BATTERY→ELECTRICAL_WORK 등) — `shared/reference/wc_rollup_overrides.json` + `build_canonical_vocabulary` override 병합 wiring으로 **regen-safe**(직접 패치 아님). **tag**(gpt-4.1-mini) 파일럿 30→131 GF행 적재, **루프 검증**(CHEMICAL_MIXING 관찰→23 guide fine_match·top promotion). **전체 1038 guide 태깅 백그라운드 진행** → 완료 후 WC-D lift 측정.
+- ⚠️ **도메인 캐비엇**: WC-D 합성셋=제빵/주방, KOSHA guide=산업/기술 → synthetic lift는 제한적일 수 있음(산업 관찰엔 실효). 더 정밀한 측정은 산업 시나리오 eval 필요.
+- **잔여**: (백그라운드 후) WC-D lift 측정·전 guide GF 반영 / CI fine(canonical_ci↔GF 링크)·WC-A/B(온톨로지 fine wc 물질화)·accident/agent entity fine-tagging(findings F22).
 
 ## ⭐ 2026-05-31 (이어서2) — F20 sr 속성 hard merge (push 완료)
 
