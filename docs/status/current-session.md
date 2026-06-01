@@ -31,7 +31,8 @@ Fuseki(Openllet) 전체 적재 후 class/predicate를 대화형 top-down 점검 
 - 🔬 **경험 재조정(중요)**: accident_type 파일럿 착수 전 PG 확인 → **엔티티(SR/CI/Guide)에 진짜 fine accident/agent 태그 없음**(CRUSH/CUT/FALLING_OBJECT 등 legacy 별칭만; `FALL_FROM_HEIGHT` 보유 guide=0). graded match는 양쪽(관찰+엔티티) fine 필요 → accident/agent는 **entity fine-tagging enrichment 선행 필요**(별도·큰 작업). **work_context만 GF(`guide_entity_feature_candidates`)에 진짜 fine 51종**(FORKLIFT_OPERATION 48guide·HEAVY_LIFTING 93·WELDING 28…) → 사용자 결정 **work_context로 파일럿 전환**.
 - ✅ **WC-C 서빙 fine-first (기본 경로)**: `query_guide_for_facets`(Three-Worlds=기본 추천)에 GF 기반 fine work_context 매칭 추가 + `match_fusion_service` 정렬 관통. **fine-first 결정적**(관찰 fine wc를 GF 보유 guide가 fold-only 항상 상회). `FINE_GRADED_MATCH` flag(호출시점, default **off=무회귀**). 신규 헬퍼 `_fine_wc_match_guides`(690-744 hazard-direct boost 패턴 일반화) + `scripts/verify_fine_graded_wc.py`.
 - **검증**(forklift, FORKLIFT_OPERATION): OFF/ON **197/197 후보 동일(recall 불변)**·OFF순서=기존, **43 fine guide 결정적 상위**(last fine rank 42 < first non-fine 43). 무회귀+승격 입증.
-- **잔여**: CI fine(canonical_ci↔GF 링크)·WC-A/B(온톨로지 fine wc emit+`kosha_guides` fine 컬럼 물질화="온톨로지 활용")·synthetic_observations full eval·flag ON 결정. accident/agent entity fine-tagging은 후속(findings F22).
+- ✅ **WC-D eval + flag 기본 ON**: `scripts/eval_fine_graded_wc.py`(synthetic 330→204 고유 입력, expected_features 주입·LLM 0). **recall/within-order/fine-first/canonical-control 204/204 무회귀 입증** → `_fine_graded_enabled` **default ON**(env로 비활성). 단 합성셋(제빵/주방)은 GF fine(산업 위주)과 겹침 적어 보정 발동 5/204(forklift 수동 43). 더 큰 효과 = GF fine 태그 확장.
+- **잔여**: CI fine(canonical_ci↔GF 링크)·WC-A/B(온톨로지 fine wc emit+`kosha_guides` fine 컬럼 물질화="온톨로지 활용")·GF fine 태그 커버리지 확장·accident/agent entity fine-tagging(findings F22).
 
 ## ⭐ 2026-05-31 (이어서2) — F20 sr 속성 hard merge (push 완료)
 

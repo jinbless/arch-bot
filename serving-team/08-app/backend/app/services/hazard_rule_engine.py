@@ -14,12 +14,14 @@ from app.services.industry_context import infer_industry_context, score_industry
 
 logger = logging.getLogger(__name__)
 
-# fine-first graded matching feature flag. default off = 무회귀(flag off면 정렬·결과 기존과 동일).
-# on이면 관찰의 fine work_context(예: FORKLIFT_OPERATION)를 GF에 보유한 guide가 fold-only(canonical만)보다
-# 항상 상회(deterministic fine-first). WHERE는 canonical 유지 → recall 불변.
+# fine-first graded matching feature flag. **default ON** (WC-D eval 근거): 관찰의 fine
+# work_context(예: FORKLIFT_OPERATION)를 GF에 보유한 guide가 fold-only(canonical만)보다 항상
+# 상회(deterministic fine-first). WHERE는 canonical 유지 → recall 불변.
+# WC-D(synthetic 204 입력): recall/within-order/canonical-control 204/204 무회귀 입증 → ON 안전
+# (신호 없으면 baseline과 동일, 신호 있을 때만 보정). FINE_GRADED_MATCH=0/off/false로 비활성.
 # 호출 시점 평가(eval 하니스가 한 프로세스에서 on/off 비교 가능).
 def _fine_graded_enabled() -> bool:
-    return os.environ.get("FINE_GRADED_MATCH", "").strip().lower() in ("1", "true", "on", "yes")
+    return os.environ.get("FINE_GRADED_MATCH", "on").strip().lower() in ("1", "true", "on", "yes")
 
 CORE = Namespace("https://cashtoss.info/ontology/core#")
 LAW = Namespace("https://cashtoss.info/ontology/law#")
