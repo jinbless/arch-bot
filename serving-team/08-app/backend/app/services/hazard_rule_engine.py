@@ -468,29 +468,32 @@ def query_ci_for_facets(
     ]
 
 
-def _fine_wc_match_guides(db: Session, guide_codes: list[str], work_contexts: list[str]) -> set:
-    """관찰의 fine work_context(canonical과 다른 sub 코드, 예: FORKLIFT_OPERATION→VEHICLE)를
-    guide_entity_feature_candidates(GF)에 보유한 guide_code 집합.
+def _fine_match_guides(db: Session, guide_codes: list[str], accident_types: list[str],
+                       hazardous_agents: list[str], work_contexts: list[str]) -> set:
+    """관찰의 fine 코드(canonical과 다른 sub 코드, 3축 accident/agent/work_context)를
+    guide_entity_feature_candidates(GF)에 보유한 guide_code 집합 → fine-first 부스트 대상.
 
-    get_guides_by_hazard_features(690-716)의 fine 매칭 패턴을 Three-Worlds 기본 경로로 일반화.
-    GF의 하위 행(CI/WP/DT/ES)이 fine 코드를 보존하므로 entity_type 무관(어느 행에든 fine 보유=일치).
-    generic 코드(VEHICLE→VEHICLE)는 to_canonical 항등이라 제외 — fold-only는 fine 부스트 안 받음.
+    get_guides_by_hazard_features(690-716)의 work_context fine 매칭 패턴을 Three-Worlds 기본 경로
+    + 3축으로 일반화. guide가 관찰의 구체 fine 코드를 어느 축에든 보유하면 fold-only(canonical만)보다
+    상회. GF 하위 행(CI/WP/DT/ES)이 fine 보존하므로 entity_type 무관. generic 코드(VEHICLE→VEHICLE)는
+    to_canonical 항등이라 제외(fold-only는 부스트 안 받음).
     """
     from app.db.models import PgGuideEntityFeatureCandidate as GF
+    from sqlalchemy import and_, or_
 
     cv = _canonical_vocab()
-    fine_codes = {c for c in (work_contexts or []) if c and cv.to_canonical("work_context", c)[1] != c}
-    if not (fine_codes and guide_codes):
+    pairs = []
+    for axis, codes in (("accident_type", accident_types), ("hazardous_agent", hazardous_agents),
+                        ("work_context", work_contexts)):
+        for c in (codes or []):
+            if c and cv.to_canonical(axis, c)[1] != c:
+                pairs.append((axis, c))
+    if not (pairs and guide_codes):
         return set()
+    conds = [and_(GF.canonical_axis == a, GF.feature_code == c) for a, c in pairs]
     out: set = set()
     for (gc,) in (
-        db.query(GF.guide_code)
-        .filter(
-            GF.guide_code.in_(guide_codes),
-            GF.canonical_axis == "work_context",
-            GF.feature_code.in_(fine_codes),
-        )
-        .distinct()
+        db.query(GF.guide_code).filter(GF.guide_code.in_(guide_codes), or_(*conds)).distinct()
     ):
         out.add(gc)
     return out
@@ -525,7 +528,8 @@ def query_guide_for_facets(
     # 관찰 fine wc를 GF에 보유한 guide만 fold-only보다 상회. flag off면 fine_guides=∅ → 정렬 동일.
     fine_guides: set = set()
     if _fine_graded_enabled() and results:
-        fine_guides = _fine_wc_match_guides(db, [gd.guide_code for gd in results], work_contexts or [])
+        fine_guides = _fine_match_guides(db, [gd.guide_code for gd in results],
+                                         accident_types or [], hazardous_agents or [], work_contexts or [])
     scored = []
     for gd in results:
         acc = _hits(gd.addresses_hazard_canonical, canon["accident_type"])

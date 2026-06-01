@@ -36,16 +36,20 @@ if hasattr(sys.stdout, "reconfigure"):
 
 CATALOG = ROOT / "serving-team" / "08-app" / "backend" / "app" / "data" / "risk_feature_catalog.json"
 DOMAINS = ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "guide_llm_domains.json"
-OUT = ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "guide_wc_fine_proposals.jsonl"
-AXIS = "work_context"
+ART = ROOT / "data-team" / "05-enrichment" / "runtime-artifacts"
+AXIS = "work_context"  # main에서 --axis로 재설정
+AXIS_KO = {"work_context": "작업맥락", "accident_type": "사고유형", "hazardous_agent": "유해인자"}
+AXIS_SHORT = {"work_context": "wc", "accident_type": "acc", "hazardous_agent": "agt"}
 
-SYSTEM = """당신은 KOSHA 산업안전 가이드 분류 전문가입니다.
-주어진 KOSHA Guide가 다루는 '구체적(fine) 작업맥락'을 catalog 어휘에서 선택합니다.
-원칙:
-1. Guide 제목/도메인에 비추어 **명백히 해당하는** fine work_context만 선택(과대 태깅 금지).
-2. 반드시 제공된 vocabulary 코드만 사용. 해당 없으면 빈 목록.
-3. 1~5개 이내. 가장 핵심적인 작업맥락 위주.
-4. confidence는 전체 선택의 확신도."""
+
+def build_system(axis_ko: str) -> str:
+    return ("당신은 KOSHA 산업안전 가이드 분류 전문가입니다.\n"
+            f"주어진 KOSHA Guide가 다루는 '구체적(fine) {axis_ko}'을 catalog 어휘에서 선택합니다.\n"
+            "원칙:\n"
+            f"1. Guide 제목/도메인에 비추어 **명백히 해당하는** fine {axis_ko}만 선택(과대 태깅 금지).\n"
+            "2. 반드시 제공된 vocabulary 코드만 사용. 해당 없으면 빈 목록.\n"
+            "3. 1~5개 이내. 가장 핵심 위주.\n"
+            "4. confidence는 전체 선택의 확신도.")
 
 
 def load_fine_vocab() -> list[tuple[str, str]]:
@@ -60,15 +64,15 @@ def load_fine_vocab() -> list[tuple[str, str]]:
     return sorted(out)
 
 
-def build_tool(fine_codes: list[str]) -> dict:
+def build_tool(fine_codes: list[str], axis_ko: str) -> dict:
     return {
-        "name": "tag_work_contexts",
-        "description": "Guide가 다루는 fine work_context 코드 선택(vocabulary 내, 0~5개).",
+        "name": "tag_fine_codes",
+        "description": f"Guide가 다루는 fine {axis_ko} 코드 선택(vocabulary 내, 0~5개).",
         "input_schema": {
             "type": "object",
             "properties": {
                 "fine_codes": {"type": "array", "items": {"type": "string", "enum": fine_codes},
-                               "description": "해당 fine work_context 코드들(없으면 빈 배열)"},
+                               "description": f"해당 fine {axis_ko} 코드들(없으면 빈 배열)"},
                 "confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
                 "reason": {"type": "string", "description": "1문장 한국어"},
             },
@@ -106,14 +110,22 @@ def main() -> int:
     ap.add_argument("--provider", default=None)
     ap.add_argument("--tier", default="cheap")
     ap.add_argument("--min-conf", type=float, default=0.7)
+    ap.add_argument("--axis", default="work_context", choices=["work_context", "accident_type", "hazardous_agent"])
     ap.add_argument("--limit", type=int, default=0)
     args = ap.parse_args()
+
+    global AXIS
+    AXIS = args.axis
+    axis_ko = AXIS_KO[AXIS]
+    out_path = ART / f"guide_{AXIS_SHORT[AXIS]}_fine_proposals.jsonl"
+    method = f"llm_enriched_{AXIS_SHORT[AXIS]}"
+    system = build_system(axis_ko)
 
     vocab = load_fine_vocab()
     fine_codes = [c for c, _ in vocab]
     domains = json.loads(DOMAINS.read_text(encoding="utf-8")).get("classifications", {}) if DOMAINS.exists() else {}
     guides = fetch_guides(args.limit)
-    print(f"guides: {len(guides)} | fine wc vocab: {len(fine_codes)} | domain 힌트: {len(domains)}")
+    print(f"[{AXIS}] guides: {len(guides)} | fine vocab: {len(fine_codes)} | domain 힌트: {len(domains)}")
 
     if args.dry_run:
         for g in guides[:5]:
@@ -123,7 +135,7 @@ def main() -> int:
         return 0
 
     client = LLMClient(provider=args.provider, tier=args.tier, mock=args.mock)
-    tool = build_tool(fine_codes)
+    tool = build_tool(fine_codes, axis_ko)
     print(f"LLM: provider={client.provider} model={client.model} mock={client.mock}")
     vocab_block = "\n".join(f"  {c} : {l}" for c, l in vocab)
 
@@ -132,9 +144,9 @@ def main() -> int:
         dh = domains.get(g["guide_code"], {})
         user = (f"Guide: {g['guide_code']}\n제목: {g['title']}\n도메인: {g.get('domain') or ''} / "
                 f"{g.get('sub_category') or ''}\nLLM 추정 도메인: {dh.get('primary_domain','?')} "
-                f"{dh.get('domains','')}\n\nfine work_context vocabulary(코드 : 한글):\n{vocab_block}\n\n"
-                "이 Guide가 명백히 다루는 fine work_context 코드는?(없으면 빈 배열)")
-        out = client.structured(SYSTEM, user, tool, mock_fn=mock_fn(g["title"], vocab))
+                f"{dh.get('domains','')}\n\nfine {axis_ko} vocabulary(코드 : 한글):\n{vocab_block}\n\n"
+                f"이 Guide가 명백히 다루는 fine {axis_ko} 코드는?(없으면 빈 배열)")
+        out = client.structured(system, user, tool, mock_fn=mock_fn(g["title"], vocab))
         codes = [c for c in dict.fromkeys(out.get("fine_codes") or []) if c in set(fine_codes)]  # 가이드 내 중복 제거
         conf = out.get("confidence") or 0.0
         for c in codes:
@@ -144,7 +156,7 @@ def main() -> int:
         if i % 25 == 0:
             print(f"  ...{i}/{len(guides)}")
 
-    OUT.write_text("\n".join(json.dumps(p, ensure_ascii=False) for p in proposals) + "\n", encoding="utf-8")
+    out_path.write_text("\n".join(json.dumps(p, ensure_ascii=False) for p in proposals) + "\n", encoding="utf-8")
     # conf 필터 + (guide,feature) 전역 dedup — GF UNIQUE(entity_id,axis,feature_code,method) 위반 방지.
     kept, _seen = [], set()
     for p in proposals:
@@ -154,7 +166,7 @@ def main() -> int:
             kept.append(p)
     fine_distinct = sorted({p["feature_code"] for p in kept})
     guides_tagged = len({p["guide_code"] for p in kept})
-    print(f"proposal {len(proposals)} (guide-fine 쌍) → {OUT.relative_to(ROOT)}")
+    print(f"proposal {len(proposals)} (guide-fine 쌍) → {out_path.relative_to(ROOT)}")
     print(f"  conf>={args.min_conf}: {len(kept)} 쌍 / guide {guides_tagged}개 / fine 코드 {len(fine_distinct)}종")
     print(f"  fine 코드 샘플: {fine_distinct[:12]}")
 
@@ -163,23 +175,24 @@ def main() -> int:
         from sqlalchemy import text
         db = SessionLocal()
         try:
-            # 멱등: 이번에 처리한 guide의 기존 llm_enriched_wc 행 제거 후 재삽입(중복 방지).
+            # 멱등: 이번에 처리한 guide의 기존 같은-method 행 제거 후 재삽입(중복 방지).
             processed = sorted({g["guide_code"] for g in guides})
             db.execute(text("DELETE FROM guide_entity_feature_candidates "
-                            "WHERE method='llm_enriched_wc' AND axis=:ax AND guide_code = ANY(:gids)"),
-                       {"ax": AXIS, "gids": processed})
+                            "WHERE method=:m AND axis=:ax AND guide_code = ANY(:gids)"),
+                       {"m": method, "ax": AXIS, "gids": processed})
             nid = (db.execute(text("SELECT COALESCE(MAX(candidate_id),0) FROM guide_entity_feature_candidates")).scalar() or 0)
             ins = text("""INSERT INTO guide_entity_feature_candidates
                 (candidate_id, entity_type, entity_id, guide_code, axis, feature_code, canonical_code,
                  canonical_axis, confidence, evidence, method, review_status, non_llm_evidence_count)
-                VALUES (:cid,'GUIDE',:gid,:gc,:axis,:fc,:cc,:ca,:conf,:ev,'llm_enriched_wc','candidate',0)""")
+                VALUES (:cid,'GUIDE',:gid,:gc,:axis,:fc,:cc,:ca,:conf,:ev,:m,'candidate',0)""")
             for p in kept:
                 nid += 1
                 db.execute(ins, {"cid": nid, "gid": p["guide_code"], "gc": p["guide_code"], "axis": AXIS,
                                  "fc": p["feature_code"], "cc": p["canonical_code"], "ca": p["canonical_axis"],
-                                 "conf": round(float(p["confidence"]), 4), "ev": f"LLM wc tag: {p['reason'][:180]}"})
+                                 "conf": round(float(p["confidence"]), 4),
+                                 "ev": f"LLM {AXIS} tag: {p['reason'][:180]}", "m": method})
             db.commit()
-            print(f"  [APPLY] GF insert {len(kept)}행 (method=llm_enriched_wc, candidate). 서빙 즉시 반영 — WC-D 재실행 권장.")
+            print(f"  [APPLY] GF insert {len(kept)}행 (method={method}, candidate). 서빙 즉시 반영 — eval 재실행 권장.")
         finally:
             db.close()
     elif args.apply:
