@@ -51,7 +51,8 @@ def _load_env_files() -> None:
                     continue
                 k, _, v = line.partition("=")
                 k, v = k.strip(), v.strip().strip('"').strip("'")
-                if k and v and k not in os.environ:
+                # 빈 값(예: 셸이 ANTHROPIC_API_KEY= 빈값 export)도 .env로 채움 (unset/empty 모두 보충).
+                if k and v and not os.environ.get(k):
                     os.environ[k] = v
         except Exception:  # noqa: BLE001
             continue
