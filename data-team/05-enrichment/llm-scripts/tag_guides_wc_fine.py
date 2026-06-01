@@ -135,7 +135,7 @@ def main() -> int:
                 f"{dh.get('domains','')}\n\nfine work_context vocabulary(코드 : 한글):\n{vocab_block}\n\n"
                 "이 Guide가 명백히 다루는 fine work_context 코드는?(없으면 빈 배열)")
         out = client.structured(SYSTEM, user, tool, mock_fn=mock_fn(g["title"], vocab))
-        codes = [c for c in (out.get("fine_codes") or []) if c in set(fine_codes)]
+        codes = [c for c in dict.fromkeys(out.get("fine_codes") or []) if c in set(fine_codes)]  # 가이드 내 중복 제거
         conf = out.get("confidence") or 0.0
         for c in codes:
             a2, c2 = cv.to_canonical(AXIS, c)
@@ -145,7 +145,13 @@ def main() -> int:
             print(f"  ...{i}/{len(guides)}")
 
     OUT.write_text("\n".join(json.dumps(p, ensure_ascii=False) for p in proposals) + "\n", encoding="utf-8")
-    kept = [p for p in proposals if p["confidence"] >= args.min_conf]
+    # conf 필터 + (guide,feature) 전역 dedup — GF UNIQUE(entity_id,axis,feature_code,method) 위반 방지.
+    kept, _seen = [], set()
+    for p in proposals:
+        k = (p["guide_code"], p["feature_code"])
+        if p["confidence"] >= args.min_conf and k not in _seen:
+            _seen.add(k)
+            kept.append(p)
     fine_distinct = sorted({p["feature_code"] for p in kept})
     guides_tagged = len({p["guide_code"] for p in kept})
     print(f"proposal {len(proposals)} (guide-fine 쌍) → {OUT.relative_to(ROOT)}")
