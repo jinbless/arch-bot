@@ -11,7 +11,9 @@ hazard_rule_engine.query_sr_for_facets() + get_guides_from_srs() 재사용
 """
 from __future__ import annotations
 
+import json
 import logging
+import os
 from typing import Optional
 
 from sqlalchemy.orm import Session
@@ -23,6 +25,221 @@ from app.services.hazard_rule_engine import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+# ═══ v5 처방 Phase 3 — semantic attach (온톨로지 SSOT·검증·근거 + 파생 임베딩 recall) ═══
+
+def _semantic_attach_enabled() -> bool:
+    """SEMANTIC_ATTACH 활성 여부. env(평가 하니스 A/B 1-프로세스용) 우선, 없으면 config.OHS_ENABLE_HYBRID_SEARCH.
+
+    **기본 off** → semantic 후보 ∅ → SR 집합·Guide 부착이 기존 facet 경로와 동일(무회귀).
+    """
+    env = os.environ.get("SEMANTIC_ATTACH")
+    if env is not None and env.strip() != "":
+        return env.strip().lower() in ("1", "true", "on", "yes")
+    try:
+        from app.config import settings
+        return bool(settings.OHS_ENABLE_HYBRID_SEARCH)
+    except Exception:  # noqa: BLE001
+        return False
+
+
+def _semantic_rerank_enabled() -> bool:
+    """bounded LLM rerank 활성 여부 (env SEMANTIC_ATTACH_RERANK, 기본 off).
+
+    semantic recall은 정확하지만 top-1 절대 적합도에 헤드룸(eval 입증) → 후보 top-K를
+    LLM이 재정렬해 정밀도↑. **기본 off**(결정적·무비용 유지). on일 때만 hazard당 1회 호출.
+    """
+    return os.environ.get("SEMANTIC_ATTACH_RERANK", "").strip().lower() in ("1", "true", "on", "yes")
+
+
+def _rerank_guides_llm(rich_text: str, guides: list[dict], model: str = "gpt-4.1-mini") -> list[dict]:
+    """bounded LLM rerank — hazard 원문 ↔ 후보 guide 적합성을 LLM이 0~10 채점 후 재정렬.
+
+    search_enhancer.rerank_results 패턴의 sync 버전(match_hazards_to_guides가 sync). 후보 enum만
+    평가(bounded). 실패 시 recall 순서 유지(graceful). 0점(무관)은 제거하되 전부 0이면 recall 유지(coverage).
+    """
+    if len(guides) <= 1:
+        return guides
+    try:
+        from openai import OpenAI
+        from app.config import settings
+
+        listing = "\n".join(f"[{i}] {g.get('guide_code')}: {g.get('title', '')}" for i, g in enumerate(guides))
+        prompt = (
+            f"[위험 상황]\n{rich_text[:700]}\n\n[후보 KOSHA 가이드]\n{listing}\n\n"
+            "각 후보가 이 위험의 '표준 개선 절차' 근거로 얼마나 적합한지 0~10으로 평가하세요. "
+            "10=직접 적합, 7~9=관련 위험유형, 4~6=간접, 0~3=무관. "
+            "JSON만: {\"scores\": [{\"i\": 번호, \"s\": 점수}, ...]}"
+        )
+        oai = OpenAI(api_key=settings.OPENAI_API_KEY)
+        resp = oai.chat.completions.create(
+            model=model, temperature=0,
+            response_format={"type": "json_object"},
+            messages=[
+                {"role": "system", "content": "한국 산업안전보건(KOSHA) 전문가. 오직 JSON만 출력."},
+                {"role": "user", "content": prompt},
+            ],
+        )
+        data = json.loads(resp.choices[0].message.content)
+        score_map = {int(x["i"]): float(x["s"]) for x in data.get("scores", []) if "i" in x and "s" in x}
+    except Exception as e:  # noqa: BLE001
+        logger.warning("[SemanticAttach] guide LLM rerank 실패 → recall 순서 유지: %s", e)
+        return guides
+
+    reranked: list[dict] = []
+    for i, g in enumerate(guides):
+        s = score_map.get(i)
+        if s is None or s <= 0:
+            continue  # LLM 미채점/무관(0) → 제거
+        g2 = dict(g)
+        g2["relevance_score"] = round(min(0.99, max(0.0, s / 10.0)), 3)
+        g2["mapping_type"] = "hybrid_semantic_rerank"
+        g2["llm_rerank_score"] = s
+        reranked.append(g2)
+    reranked.sort(key=lambda x: x["relevance_score"], reverse=True)
+    return reranked or guides  # 전부 0이면 recall 유지(coverage 보존)
+
+
+def _hazard_rich_text(h: dict) -> str:
+    """GPT hazard 원문 결합 — name + description + location + preventive_measures.
+
+    normalize는 hazard.name만 코드화(맥락 소실)하지만 부착 recall에는 원문 전체가 필요(v5 처방 핵심).
+    match_hazards_to_guides가 raw hazards를 받으므로 normalizer 변경 없이 여기서 직접 결합.
+    """
+    parts = [
+        (h.get("name") or "").strip(),
+        (h.get("description") or "").strip(),
+        (h.get("location") or "").strip(),
+    ]
+    for m in h.get("preventive_measures") or []:
+        if isinstance(m, str) and m.strip():
+            parts.append(m.strip())
+    return " ".join(p for p in parts if p)
+
+
+def _semantic_sr_candidates(
+    db: Session,
+    rich_text: str,
+    n: int,
+    industry_contexts: Optional[list[str]] = None,
+) -> list[dict]:
+    """rich text → hybrid recall(SR) → 온톨로지 검증. 반환 [{identifier, rrf, title, citable, domain_alignment}].
+
+    온톨로지 역할(v5 — recall은 임베딩, precision·근거는 온톨로지):
+    - **SSOT 존재 검증(hard reject)**: 인덱스에만 있고 PgSafetyRequirement에 없는 stale id 제거.
+    - **근거(citability 주석)**: sr_article_mapping 보유 = 조문/벌칙 인용 가능(부착 정당성).
+    - **도메인 정합(soft 주석)**: applicable_industry vs 장면 산업(industry는 hard rule 아님 — 설계 준수).
+    - hard disjoint/domain reject은 Phase 4(disjoint 공리 PG 물질화) 이후 추가.
+    """
+    if not rich_text or not rich_text.strip():
+        return []
+    try:
+        from app.services.hybrid_search import hybrid_search
+
+        rows = hybrid_search("sr", rich_text, n_results=max(n * 2, 10))
+    except Exception as e:  # noqa: BLE001
+        logger.warning("[SemanticAttach] hybrid_search 실패 → facet fallback: %s", e)
+        return []
+    if not rows:
+        return []
+
+    from app.db.models import PgSafetyRequirement, PgSrArticleMapping
+    from app.services.industry_context import score_industry_alignment
+
+    ids = [r["id"] for r in rows]
+    sr_objs = {
+        s.identifier: s
+        for s in db.query(PgSafetyRequirement)
+        .filter(PgSafetyRequirement.identifier.in_(ids))
+        .all()
+    }
+    citable_ids = {
+        row[0]
+        for row in db.query(PgSrArticleMapping.sr_id)
+        .filter(PgSrArticleMapping.sr_id.in_(ids))
+        .distinct()
+    }
+    industry_contexts = industry_contexts or []
+    out: list[dict] = []
+    rejected_missing = 0
+    for r in rows:
+        sr = sr_objs.get(r["id"])
+        if sr is None:
+            rejected_missing += 1
+            continue  # SSOT 존재 검증 실패 → 거부
+        _adj, alignment, _ = score_industry_alignment(sr.applicable_industry or [], industry_contexts)
+        out.append({
+            "identifier": r["id"],
+            "rrf": r.get("rrf"),
+            "title": sr.title,
+            "citable": r["id"] in citable_ids,
+            "domain_alignment": alignment,
+        })
+        if len(out) >= n:
+            break
+    if rejected_missing:
+        logger.info("[SemanticAttach] SSOT 존재검증으로 %d개 stale SR 거부", rejected_missing)
+    return out
+
+
+def _semantic_guide_candidates(
+    db: Session,
+    rich_text: str,
+    n: int,
+    industry_contexts: Optional[list[str]] = None,
+) -> list[dict]:
+    """rich text → hybrid recall(GUIDE) → 온톨로지 존재 검증. SR→CI→Guide 체인(희소·skew) 우회.
+
+    SR recall이 정확해도(지게차→SR-VEHICLE) SR→CI→Guide 링크가 vehicle SR엔 희소하고
+    전기/철도 SR엔 조밀 → 합산 시 전기 guide가 압도(실측). 따라서 guide는 원문에서 직접 recall.
+
+    반환은 guide dict(_merge_guide_paths 호환). relevance_score는 hybrid **순위** 기반
+    ordinal(0.92−0.04·rank)+산업 정합 — 튜닝 점수 아님(recall 순위 보존).
+    """
+    if not rich_text or not rich_text.strip():
+        return []
+    try:
+        from app.services.hybrid_search import hybrid_search
+
+        rows = hybrid_search("guide", rich_text, n_results=max(n * 2, 8))
+    except Exception as e:  # noqa: BLE001
+        logger.warning("[SemanticAttach] guide hybrid_search 실패 → SR→CI fallback: %s", e)
+        return []
+    if not rows:
+        return []
+
+    from app.db.models import PgKoshaGuide
+    from app.services.industry_context import infer_industry_context, score_industry_alignment
+
+    ids = [r["id"] for r in rows]
+    gmap = {
+        g.guide_code: g
+        for g in db.query(PgKoshaGuide).filter(PgKoshaGuide.guide_code.in_(ids)).all()
+    }
+    industry_contexts = industry_contexts or []
+    out: list[dict] = []
+    for rank, r in enumerate(rows):
+        g = gmap.get(r["id"])
+        if g is None:
+            continue  # SSOT 존재 검증
+        gi = infer_industry_context(text=" ".join(filter(None, [g.title, g.sub_category])))
+        adj, alignment, _ = score_industry_alignment(gi.active_industries, industry_contexts)
+        out.append({
+            "guide_code": g.guide_code,
+            "title": g.title,
+            "classification": g.domain,
+            "industry_hints": gi.active_industries,
+            "industry_alignment": alignment,
+            "relevant_sections": [],
+            "relevance_score": round(min(0.99, max(0.0, 0.92 - 0.04 * rank + adj)), 3),
+            "mapping_type": "hybrid_semantic",
+            "ci_hit_count": 0,
+        })
+    # bounded LLM rerank (flag on) — 후보 enum top-K를 LLM이 재정렬해 절대 정밀도↑.
+    if _semantic_rerank_enabled():
+        out = _rerank_guides_llm(rich_text, out)
+    return out[:n]
 
 
 def _merge_guide_paths(direct: list[dict], ci: list[dict], limit: int) -> list[dict]:
@@ -112,6 +329,7 @@ def match_hazards_to_guides(
 
     relations: list[dict] = []
     sr_id_set: set[str] = set()
+    semantic_on = _semantic_attach_enabled()
 
     for h in hazards or []:
         name = (h.get("name") or "").strip()
@@ -133,8 +351,44 @@ def match_hazards_to_guides(
             elif axis == "work_context":
                 work_contexts.append(code)
 
-        if not (accident_types or hazardous_agents or work_contexts):
-            # 매핑 실패 — guides 없이 hazard만 보여줌
+        has_facets = bool(accident_types or hazardous_agents or work_contexts)
+
+        # ① facet 경로 SR (기존) — broad @> recall. flag off면 이게 부착 SR 집합.
+        facet_sr_ids: list[str] = []
+        if has_facets:
+            sr_rows = query_sr_for_facets(
+                db,
+                accident_types=accident_types,
+                hazardous_agents=hazardous_agents,
+                work_contexts=work_contexts,
+                limit=sr_limit_per_hazard,
+                industry_contexts=industry_contexts,
+            )
+            facet_sr_ids = [row["identifier"] for row in sr_rows]
+
+        # ② semantic 경로 (flag on) — GPT 원문 rich text hybrid recall + 온톨로지 검증.
+        #    broad facet @>의 맥락소실 오매칭(지게차→호스)을 정밀 recall로 교정.
+        rich_text = _hazard_rich_text(h) if semantic_on else ""
+        semantic_sr = (
+            _semantic_sr_candidates(db, rich_text, n=sr_limit_per_hazard, industry_contexts=industry_contexts)
+            if semantic_on
+            else []
+        )
+        semantic_sr_ids = [s["identifier"] for s in semantic_sr]
+
+        # 부착 SR 집합 결정:
+        #  - semantic ∅(flag off 포함) → facet 그대로 (바이트 동일, 무회귀).
+        #  - semantic 有 → semantic이 Guide 유도 1차(broad noise 제거), facet은 보충(union, semantic 우선순).
+        if semantic_sr_ids:
+            sr_for_guides = list(dict.fromkeys(semantic_sr_ids + facet_sr_ids))[:sr_limit_per_hazard]
+            attach_method = "hybrid+facet" if facet_sr_ids else "hybrid"
+        else:
+            sr_for_guides = facet_sr_ids
+            attach_method = "facet"
+        sr_id_set.update(sr_for_guides)
+
+        if not sr_for_guides and not has_facets:
+            # 매핑 실패 — guides 없이 hazard만 보여줌 (기존 동작)
             relations.append({
                 "hazard_name": name,
                 "risk_level": h.get("risk_level", ""),
@@ -144,22 +398,15 @@ def match_hazards_to_guides(
                 "mapped_codes": [],
                 "guides": [],
                 "matched_sr_count": 0,
+                "attach_method": attach_method,
             })
             continue
 
-        sr_rows = query_sr_for_facets(
-            db,
-            accident_types=accident_types,
-            hazardous_agents=hazardous_agents,
-            work_contexts=work_contexts,
-            limit=sr_limit_per_hazard,
-            industry_contexts=industry_contexts,
-        )
-        sr_ids = [row["identifier"] for row in sr_rows]
-        sr_id_set.update(sr_ids)
-
-        # P2: 두 경로 union — (1) Guide 직접 위험 매핑 (CI 경유 없음, boilerplate noise 0)
-        #     (2) 기존 SR→CI 변별력 가중 경로. 직접 매핑 우선 + 양쪽 교집합은 bonus.
+        # Guide 부착:
+        #  - facet 직접 매핑(GF, curated, boilerplate noise 0)은 항상 base.
+        #  - semantic on & guide 회수 성공 → guide 직접 hybrid recall이 1차
+        #    (SR→CI→Guide는 우리 SR엔 희소·noise SR엔 조밀 → 전기 guide 압도 실측 → 미사용).
+        #  - off/회수 실패 → 기존 SR→CI 변별력 가중 경로 (무회귀).
         guides_direct = get_guides_by_hazard_features(
             db,
             accident_types=accident_types,
@@ -169,13 +416,26 @@ def match_hazards_to_guides(
             industry_contexts=industry_contexts,
             context_work_contexts=global_wc_list,
         )
-        guides_ci = get_guides_from_srs(
-            db,
-            sr_ids=sr_ids,
-            limit=guides_per_hazard,
-            industry_contexts=industry_contexts,
-        )
-        guides = _merge_guide_paths(guides_direct, guides_ci, limit=guides_per_hazard)
+        if semantic_on:
+            # semantic recall(+rerank) 1차 + facet 직접(GF, curated) 보충. SR→CI noise 경로 미사용.
+            # rerank가 후보를 전부 무관(0)으로 떨궈 guides_sem ∅이면 facet-direct로 fallback(noise 회피).
+            guides_sem = _semantic_guide_candidates(
+                db, rich_text, n=guides_per_hazard, industry_contexts=industry_contexts
+            )
+            guides = (
+                _merge_guide_paths(guides_sem, guides_direct, limit=guides_per_hazard)
+                if guides_sem
+                else guides_direct[:guides_per_hazard]
+            )
+        else:
+            # legacy(무회귀): facet 직접 + SR→CI 변별력 가중 union.
+            guides_ci = get_guides_from_srs(
+                db,
+                sr_ids=sr_for_guides,
+                limit=guides_per_hazard,
+                industry_contexts=industry_contexts,
+            )
+            guides = _merge_guide_paths(guides_direct, guides_ci, limit=guides_per_hazard)
 
         relations.append({
             "hazard_name": name,
@@ -185,7 +445,9 @@ def match_hazards_to_guides(
             "preventive_measures": list(h.get("preventive_measures") or []),
             "mapped_codes": codes,
             "guides": guides,
-            "matched_sr_count": len(sr_ids),
+            "matched_sr_count": len(sr_for_guides),
+            "attach_method": attach_method,
+            "semantic_sr_ids": semantic_sr_ids,
         })
 
     sr_ids_global = sorted(sr_id_set)
