@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 from typing import Callable, Optional
 
 MODELS = {
@@ -29,6 +30,34 @@ MODELS = {
     "openai": {"cheap": "gpt-4.1-mini", "strong": "gpt-4.1"},
 }
 _KEY = {"anthropic": "ANTHROPIC_API_KEY", "openai": "OPENAI_API_KEY"}
+
+
+def _load_env_files() -> None:
+    """repo .env(들)을 os.environ에 보충(기존 값 미덮어씀). LLM 스크립트가 os.environ를 직접
+    조회하므로, 서빙 .env(ANTHROPIC/OPENAI 키 보유)를 자동 로드해 별도 export 없이 동작.
+    .env는 gitignore(키는 커밋 안 됨). dependency-free 파서."""
+    try:
+        root = next(a for a in Path(__file__).resolve().parents if (a / "shared" / "reference").is_dir())
+    except StopIteration:
+        return
+    for rel in (".env", "serving-team/08-app/backend/.env", ".env.dev", ".env.local"):
+        p = root / rel
+        if not p.exists():
+            continue
+        try:
+            for line in p.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, _, v = line.partition("=")
+                k, v = k.strip(), v.strip().strip('"').strip("'")
+                if k and v and k not in os.environ:
+                    os.environ[k] = v
+        except Exception:  # noqa: BLE001
+            continue
+
+
+_load_env_files()
 
 
 def available_providers() -> list[str]:
