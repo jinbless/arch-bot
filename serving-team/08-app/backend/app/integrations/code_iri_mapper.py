@@ -120,6 +120,21 @@ def to_iri(axis: str, code: str) -> str | None:
     return f"{NAMESPACES[_AXIS_PREFIX[axis]]}{frag}"
 
 
+def fine_iri_fragment(axis: str, code: str) -> str | None:
+    """same-axis fine 코드 → 원본 fine CamelCase fragment(fold 안 함). canonical/교차축/UNKNOWN이면 None.
+
+    iri_fragment(canonical로 fold)과 짝 — fine 보존 ABox emit용. cv.same_axis_fine과 동일 정의
+    (taxonomy fine⊑canonical · allowlist와 정합). 예: FALL_FROM_HEIGHT→'FallFromHeight'(haz:Fall 자식).
+    """
+    return _camel(code) if code in _cv.same_axis_fine(axis) else None
+
+
+def to_fine_prefixed(axis: str, code: str) -> str | None:
+    """(axis, code) → fine prefixed IRI(예: 'hazard:FallFromHeight'). same-axis fine만, else None."""
+    frag = fine_iri_fragment(axis, code)
+    return f"{_AXIS_PREFIX[axis]}:{frag}" if frag else None
+
+
 def to_prefixed_cross_axis(axis: str, code: str) -> str | None:
     """교차축까지 따라가는 변환(예: agent SHARP_BLADE → 'hazard:CutLaceration').
 

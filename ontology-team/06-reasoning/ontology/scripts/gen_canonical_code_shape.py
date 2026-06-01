@@ -53,11 +53,12 @@ SHAPE_NAME = {
 def axis_iris(axis: str) -> list[str]:
     """축의 허용 코드 → prefixed IRI 정렬 리스트.
 
-    허용 집합 = canonical(pending bucket 포함) ∪ meta(work_context의 SAFETY_MGMT 등 관리 의사코드).
-    meta는 canonical은 아니나 rollup 항등이라 to_canonical/exporter가 정당히 산출 → 드리프트 아님.
+    허용 집합 = canonical(pending bucket 포함) ∪ meta ∪ same-axis fine(WC-A/B: LLM-enriched guide fine
+    ABox가 guide:addressesHazard 등 객체로 fine 코드를 쓰므로 허용). fine은 fine⊑canonical(taxonomy)이라
+    canonical의 IS-A — range/축 정합. cross-axis/UNKNOWN fine은 same_axis_fine에서 제외(드리프트 차단).
     """
     pfx = AXIS_PREFIX[axis]
-    allowed = cv.canonical_set(axis) | cv.meta_set(axis)
+    allowed = cv.canonical_set(axis) | cv.meta_set(axis) | cv.same_axis_fine(axis)
     return [f"{pfx}:{_camel(c)}" for c in sorted(allowed)]
 
 

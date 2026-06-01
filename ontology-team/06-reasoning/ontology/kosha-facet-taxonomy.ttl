@@ -1,5 +1,5 @@
 # kosha-facet-taxonomy.ttl — AUTO-GENERATED, 수동편집 금지 (scripts/gen_facet_taxonomy.py)
-# Generated: 2026-05-31T12:58:37.379494+00:00
+# Generated: 2026-06-01T09:11:18.816879+00:00
 # SSOT: shared/reference/canonical-code-vocabulary.json (rollup)
 # 1) canonical owl:Class punning + ⊑ axis(기존 rdf:type 축)  2) fine ⊑ canonical(same-axis)  3) ctx 계층(rollup 자동)
 # cross-axis 제외(Python canonical_vocab 재라우팅): 21건, identity skip: 7건
@@ -339,7 +339,10 @@ ctx:PesticideSpray a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "
 ctx:RestroomChemical a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "restroom chemical"@ko .
 ctx:SolventHandling a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "solvent handling"@ko .
 ctx:SprayPainting a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "spray painting"@ko .
+ctx:UvCoating a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "uv coating"@ko .
 ctx:VaporExposure a owl:Class ; rdfs:subClassOf ctx:ChemicalWork ; rdfs:label "유증기 노출"@ko .
+ctx:UnstableSlope a owl:Class ; rdfs:subClassOf ctx:CollapsePrevention ; rdfs:label "불안정 사면"@ko .
+ctx:UnstableStructure a owl:Class ; rdfs:subClassOf ctx:CollapsePrevention ; rdfs:label "불안정 구조물"@ko .
 ctx:AquacultureTank a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace ; rdfs:label "aquaculture tank"@ko .
 ctx:ConfinedCoating a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace ; rdfs:label "confined coating"@ko .
 ctx:ConfinedSpaceCleaning a owl:Class ; rdfs:subClassOf ctx:ConfinedSpace ; rdfs:label "confined space cleaning"@ko .
@@ -350,14 +353,17 @@ ctx:ConveyorWash a owl:Class ; rdfs:subClassOf ctx:Conveyor ; rdfs:label "컨베
 ctx:ElectricPolishingRoller a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "전기 연마 롤러"@ko .
 ctx:ElectricalHazard a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "electrical hazard"@ko .
 ctx:ElectricalOverload a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "전기 과부하"@ko .
+ctx:EvBattery a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "전기차 고전압 배터리 작업"@ko .
 ctx:LivePowerRepair a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "전원 ON 수리"@ko .
 ctx:StaticElectricity a owl:Class ; rdfs:subClassOf ctx:ElectricalWork ; rdfs:label "정전기 위험 작업"@ko .
 ctx:AwkwardPostureWork a owl:Class ; rdfs:subClassOf ctx:ErgonomicWork ; rdfs:label "부적절한 작업 자세"@ko .
 ctx:ExcessiveMotionRange a owl:Class ; rdfs:subClassOf ctx:ErgonomicWork ; rdfs:label "과도한 동작 반경"@ko .
+ctx:UnstableEdge a owl:Class ; rdfs:subClassOf ctx:FallProtection ; rdfs:label "불안정 가장자리"@ko .
 ctx:FireDetectionFailure a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork ; rdfs:label "화재 감지 실패"@ko .
 ctx:FireDetectorDisabled a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork ; rdfs:label "화재 감지기 무력화"@ko .
 ctx:FireEvacuation a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork ; rdfs:label "화재 대피"@ko .
 ctx:FireExtinguisherDefective a owl:Class ; rdfs:subClassOf ctx:FireExplosionWork ; rdfs:label "불량 소화기"@ko .
+ctx:CashierArea a owl:Class ; rdfs:subClassOf ctx:GeneralWorkplace ; rdfs:label "계산대 주변 작업"@ko .
 ctx:ColdDisplay a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "냉장 진열대 작업"@ko .
 ctx:ColdRoomAccess a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "cold room access"@ko .
 ctx:ColdRoomMortuary a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "cold room mortuary"@ko .
@@ -369,6 +375,8 @@ ctx:HotBeverage a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "고
 ctx:HotTool a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "고온 미용기구 작업"@ko .
 ctx:HotTrayTransport a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "hot tray transport"@ko .
 ctx:KitchenCooking a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "주방 조리"@ko .
+ctx:OvenOperation a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "oven operation"@ko .
+ctx:SteamIron a owl:Class ; rdfs:subClassOf ctx:HeatColdWork ; rdfs:label "스팀 다리미 작업"@ko .
 ctx:BandSaw a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "band saw"@ko .
 ctx:BreadSlicer a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "bread slicer"@ko .
 ctx:CompressionDeviceRestart a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "압축 장치 재작동"@ko .
@@ -384,6 +392,7 @@ ctx:LaminatingRoller a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "접
 ctx:MeatGrinding a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "meat grinding"@ko .
 ctx:MeatSlicer a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "meat slicer"@ko .
 ctx:NailGun a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "타카·네일건 작업"@ko .
+ctx:PowerTool a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "전동 공구"@ko .
 ctx:PressMachine a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "프레스 기계 작업"@ko .
 ctx:PrintingPress a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "printing press"@ko .
 ctx:RollerMachine a owl:Class ; rdfs:subClassOf ctx:Machine ; rdfs:label "회전 롤러"@ko .
@@ -408,12 +417,15 @@ ctx:IceHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label 
 ctx:LiftWork a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "자동차 리프트 작업"@ko .
 ctx:LoadingDock a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "하역 도크"@ko .
 ctx:MedicationHandling a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "medication handling"@ko .
+ctx:ObstructedViewCarrying a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "시야 차단 운반"@ko .
 ctx:OverloadedHandcart a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "과적 운반도구"@ko .
 ctx:PackageSorting a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "택배 분류"@ko .
 ctx:ShelfStocking a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "매장 선반 진열"@ko .
+ctx:StairCarrying a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "좁은 계단 운구"@ko .
 ctx:StorageShelf a owl:Class ; rdfs:subClassOf ctx:MaterialHandling ; rdfs:label "선반 적재"@ko .
 ctx:NoiseExposure a owl:Class ; rdfs:subClassOf ctx:NoiseWork ; rdfs:label "소음 노출 작업"@ko .
 ctx:AisleObstruction a owl:Class ; rdfs:subClassOf ctx:Passage ; rdfs:label "통로 장애물"@ko .
+ctx:SlopeRamp a owl:Class ; rdfs:subClassOf ctx:Passage ; rdfs:label "경사로"@ko .
 ctx:WalkwayObstruction a owl:Class ; rdfs:subClassOf ctx:Passage ; rdfs:label "통행 경로 장애물"@ko .
 ctx:AcupunctureWork a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "acupuncture work"@ko .
 ctx:AutoclaveSterilization a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "autoclave sterilization"@ko .
@@ -423,6 +435,8 @@ ctx:CremationFurnace a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label
 ctx:DentalProcedure a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "dental procedure"@ko .
 ctx:Embalming a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "embalming"@ko .
 ctx:FuneralHallSetup a owl:Class ; rdfs:subClassOf ctx:PathogenWork ; rdfs:label "funeral hall setup"@ko .
+ctx:RadiationXray a owl:Class ; rdfs:subClassOf ctx:RadiationWork ; rdfs:label "radiation xray"@ko .
+ctx:LotoNotApplied a owl:Class ; rdfs:subClassOf ctx:SafetyMgmt ; rdfs:label "LOTO 미적용"@ko .
 ctx:ClimbingWall a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "climbing wall"@ko .
 ctx:ExteriorRope a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "exterior rope"@ko .
 ctx:HighRiseWindow a owl:Class ; rdfs:subClassOf ctx:Scaffold ; rdfs:label "high rise window"@ko .
@@ -436,14 +450,12 @@ ctx:BracketDefect a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label 
 ctx:BystanderWorkerExposure a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "주변 작업자 노출"@ko .
 ctx:CageCleaning a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "케이지 청소"@ko .
 ctx:CardioEquipment a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "cardio equipment"@ko .
-ctx:CashierArea a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "계산대 주변 작업"@ko .
 ctx:CleaningNight a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "야간 청소"@ko .
 ctx:CleaningWet a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "물청소"@ko .
 ctx:CommunicationFailure a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "통신 단절"@ko .
 ctx:CrowdManagement a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "과밀 인원 관리"@ko .
 ctx:DisplaySetup a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "display setup"@ko .
 ctx:DogGrooming a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "강아지 미용"@ko .
-ctx:EvBattery a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "전기차 고전압 배터리 작업"@ko .
 ctx:ExerciseClass a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "exercise class"@ko .
 ctx:ExpiredMedicationUse a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "만료 에피펜 무효"@ko .
 ctx:FilterMaintenance a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "기름때 필터"@ko .
@@ -455,53 +467,41 @@ ctx:GreenhouseWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label
 ctx:HairWash a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "샴푸·세정 작업"@ko .
 ctx:HandrailDefect a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "난간 불량"@ko .
 ctx:HarvestWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "수확 작업"@ko .
-ctx:InteriorCleaning a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "차량 내부 청소"@ko .
 ctx:InterlockBypass a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "인터록 우회 가능성"@ko .
 ctx:Irrigation a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "관개 작업"@ko .
 ctx:KnifeWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "knife work"@ko .
-ctx:LandfillOperation a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "landfill operation"@ko .
 ctx:LooseSafetyCover a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "헐거운 안전 덮개"@ko .
-ctx:LotoNotApplied a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "LOTO 미적용"@ko .
 ctx:NearbyWorkerProximity a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "주변 작업자 접근"@ko .
 ctx:NightSolo a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "야간 단독 근무"@ko .
 ctx:NightSoloWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "야간 단독 작업"@ko .
-ctx:ObstructedViewCarrying a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "시야 차단 운반"@ko .
 ctx:OutdoorPlayEquipment a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "outdoor play equipment"@ko .
-ctx:OvenOperation a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "oven operation"@ko .
 ctx:OverloadedContainer a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "과적 컨테이너"@ko .
 ctx:PetBathing a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "반려동물 목욕"@ko .
 ctx:PlateMaking a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "plate making"@ko .
 ctx:PoolArea a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "pool area"@ko .
 ctx:PowerRackSafetyPin a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "파워랙 안전핀"@ko .
-ctx:PowerTool a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "전동 공구"@ko .
-ctx:RadiationXray a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "radiation xray"@ko .
-ctx:RecyclingSort a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "recycling sort"@ko .
 ctx:RescueDelay a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "구조 지연"@ko .
 ctx:RopeAnomalyUndetected a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "로프 이상 미감지"@ko .
 ctx:SafetyDeviceBypass a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "안전 장치 무력화"@ko .
 ctx:SecurityInadequacy a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "방범 설비 미비"@ko .
 ctx:ServingFloor a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "홀 서빙 동선"@ko .
-ctx:SharpsDisposal a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "sharps disposal"@ko .
 ctx:ShieldingInadequate a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "불량 차폐"@ko .
 ctx:SkinDevice a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "피부·광선 장비 작업"@ko .
-ctx:SlopeRamp a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "경사로"@ko .
 ctx:SoloResponse a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "단독 대응"@ko .
 ctx:StaffMaintenance a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "staff maintenance"@ko .
-ctx:StairCarrying a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "좁은 계단 운구"@ko .
-ctx:SteamIron a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "스팀 다리미 작업"@ko .
 ctx:SurfacePrep a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "surface prep"@ko .
-ctx:TireChange a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "타이어 교체·공기압 작업"@ko .
 ctx:UnauthorizedMedicationAdministration a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "무허가 투약"@ko .
-ctx:UnstableEdge a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "불안정 가장자리"@ko .
-ctx:UnstableSlope a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "불안정 사면"@ko .
-ctx:UnstableStructure a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "불안정 구조물"@ko .
-ctx:UvCoating a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "uv coating"@ko .
-ctx:WasteCollection a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "waste collection"@ko .
-ctx:WasteCompactor a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "waste compactor"@ko .
 ctx:WaxPolishing a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "왁스/광택 작업"@ko .
 ctx:WetFloorFish a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "wet floor fish"@ko .
 ctx:WetFloorWork a owl:Class ; rdfs:subClassOf ctx:UnknownContext ; rdfs:label "젖은 바닥 작업"@ko .
 ctx:DeliveryRider a owl:Class ; rdfs:subClassOf ctx:Vehicle ; rdfs:label "배달 운행"@ko .
 ctx:ForkliftOperation a owl:Class ; rdfs:subClassOf ctx:Vehicle ; rdfs:label "지게차 작업"@ko .
+ctx:InteriorCleaning a owl:Class ; rdfs:subClassOf ctx:Vehicle ; rdfs:label "차량 내부 청소"@ko .
+ctx:TireChange a owl:Class ; rdfs:subClassOf ctx:Vehicle ; rdfs:label "타이어 교체·공기압 작업"@ko .
 ctx:VentilationPoor a owl:Class ; rdfs:subClassOf ctx:Ventilation ; rdfs:label "환기 불량 작업"@ko .
+ctx:LandfillOperation a owl:Class ; rdfs:subClassOf ctx:WasteMgmt ; rdfs:label "landfill operation"@ko .
+ctx:RecyclingSort a owl:Class ; rdfs:subClassOf ctx:WasteMgmt ; rdfs:label "recycling sort"@ko .
+ctx:SharpsDisposal a owl:Class ; rdfs:subClassOf ctx:WasteMgmt ; rdfs:label "sharps disposal"@ko .
+ctx:WasteCollection a owl:Class ; rdfs:subClassOf ctx:WasteMgmt ; rdfs:label "waste collection"@ko .
+ctx:WasteCompactor a owl:Class ; rdfs:subClassOf ctx:WasteMgmt ; rdfs:label "waste compactor"@ko .
 

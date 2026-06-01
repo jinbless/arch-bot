@@ -91,6 +91,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-instances-guide-fine.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-instances-hazard-direct.ttl",
         "format": "turtle"
       },
@@ -197,6 +201,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-instances-guide-fine.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-instances-hazard-direct.ttl",
         "format": "turtle"
       },
@@ -276,6 +284,10 @@
       },
       {
         "file": "kosha-instances-she.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-instances-guide-fine.ttl",
         "format": "turtle"
       },
       {
@@ -362,6 +374,10 @@
       },
       {
         "file": "kosha-instances-she.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-instances-guide-fine.ttl",
         "format": "turtle"
       },
       {
@@ -845,6 +861,20 @@
       ],
       "format": "turtle",
       "note": "SHE 패턴 ABox (965 패턴 × 6축 맥락: she:hasWorkContext/AgentState/EnvironmentalFactor/PPEState/TemporalStage/WorkActivity + accident/agent). 생성: scripts/gen_she_abox.py (data-team she-instances-v1.ttl을 KOSHA-22 canonical 마이그레이션). F5 5축 실채움."
+    },
+    {
+      "id": "abox-guide-fine",
+      "file": "kosha-instances-guide-fine.ttl",
+      "role": "abox-derived",
+      "layer": "L3-reasoning",
+      "profiles": [
+        "consistency",
+        "facet-explorer",
+        "serving",
+        "shacl-materialize"
+      ],
+      "format": "turtle",
+      "note": "WC-A/B: LLM-enriched guide fine 태그 ABox (guide→fine accident/agent/wc, fine⊑canonical로 canonical 추론). 생성: scripts/gen_guide_fine_abox.py(PG GF method=llm_enriched_*). 서빙=PG, 온톨로지 정합용."
     },
     {
       "id": "abox-canonical-ci",

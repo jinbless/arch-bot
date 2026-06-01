@@ -1,6 +1,6 @@
 # Phase 5 가드레일 — 위험축 코드 IRI ∈ KOSHA-22 정본 어휘 SHACL shape.
 # 자동 생성(SSOT 파생) — 수동 편집 금지. 재생성: scripts/gen_canonical_code_shape.py
-# SSOT: shared/reference/canonical-code-vocabulary.json  (accident 23 / agent 10 / work_context 36 = 69)
+# SSOT: shared/reference/canonical-code-vocabulary.json  (accident 181 / agent 84 / work_context 222 = 487)
 # 검증: scripts/validate_canonical_codes.py --gate  (pyshacl)
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix shape: <https://cashtoss.info/ontology/shape#> .
@@ -10,77 +10,286 @@
 @prefix sr: <https://cashtoss.info/ontology/sr#> .
 @prefix guide: <https://cashtoss.info/ontology/guide#> .
 
-# === accident_type (23) — sr:addressesAccidentType, guide:addressesHazard ===
+# === accident_type (181) — sr:addressesAccidentType, guide:addressesHazard ===
 shape:CanonicalAccidentTypeCode a sh:NodeShape ;
     sh:targetObjectsOf sr:addressesAccidentType ;
     sh:targetObjectsOf guide:addressesHazard ;
     sh:nodeKind sh:IRI ;
     sh:in (
-        haz:AnimalInjury haz:CaughtIn haz:ChemicalExposure haz:Collapse
-        haz:Collision haz:CrushedOverturned haz:CutLaceration haz:Drowning
-        haz:ElectricShock haz:ErgonomicStrain haz:Explosion haz:Fall
-        haz:FireInjury haz:OffSiteTraffic haz:OtherAccident haz:OxygenDeficiency
-        haz:SlipTrip haz:SportsEventInjury haz:StruckBy haz:TempExtremeContact
-        haz:Unclassified haz:Violence haz:WorkplaceTraffic
+        haz:AnimalBite haz:AnimalInjury haz:ArcBurn haz:BladeLaceration
+        haz:Burn haz:BurnFromAccidentalCustomerContact haz:BurnFromFallingHotContents haz:CartTipover
+        haz:CaughtIn haz:CaughtInConfinedSpace haz:ChairTipoverFall haz:ChemicalAbsorptionThroughSkin
+        haz:ChemicalAccidentDueToImproperDetergentUse haz:ChemicalBurn haz:ChemicalBurnFromStrongAcid haz:ChemicalBurnFromStrongAcidToEye
+        haz:ChemicalDetergentInhalation haz:ChemicalExplosion haz:ChemicalExposure haz:ChemicalEyeAndAirwayInjury
+        haz:ChemicalIngestion haz:ChemicalInhalation haz:ChemicalIrritation haz:ChemicalReactionExplosion
+        haz:ChemicalResidualInhalation haz:ChemicalSkinBurn haz:ChemicalSkinIrritation haz:ChemicalVaporExposure
+        haz:ChemicalVaporInhalation haz:ChemicalVaporInhalationUnconsciousness haz:ChildChemicalExposure haz:ChildCut
+        haz:ChildElectricShock haz:ChildSlipAndFall haz:ChildStabbing haz:ChloramineGasInhalationPoisoning
+        haz:ChlorineGasInhalationPoisoning haz:ColdBurn haz:ColdExposure haz:Collapse
+        haz:Collision haz:CompressionInjury haz:ConfinedSpaceAsphyxia haz:ContainerBreakageDuringCollection
+        haz:Crush haz:CrushedByMachineOrObject haz:CrushedOverturned haz:Cut
+        haz:CuttingBladeContactWhileOperating haz:CutDueToGloveFailure haz:CutLaceration haz:CytotoxicExposure
+        haz:DetergentInhalationPoisoning haz:DriverEntanglement haz:Drowning haz:DustExplosion
+        haz:ElectricalAccidentDueToPowerInstability haz:ElectricShock haz:ElectricShockDueToInsulationDamage haz:Entanglement
+        haz:Ergonomic haz:ErgonomicStrain haz:Explosion haz:ExtremeColdBurn
+        haz:EyeChemicalInjury haz:EyeForeignBody haz:EyeVisionDamage haz:Fall
+        haz:FallingChemicalContainer haz:FallingFromWires haz:FallingObject haz:FallDueToStrongWind
+        haz:FallFromAnkerFailure haz:FallFromHeight haz:FallFromKnotSlip haz:FallFromLadder
+        haz:FallFromLossOfBalance haz:FallFromRopeFrictionBreakage haz:FallOnGround haz:FertilizerDustInhalation
+        haz:FingerAmputation haz:FingerInjury haz:FireAndExplosion haz:FireFromOutletOverload
+        haz:FireInjury haz:FireSpread haz:FoodContamination haz:FootCrushInjury
+        haz:Fracture haz:FuelFire haz:FuelGasExplosion haz:FuelIgnitionExplosion
+        haz:FuelLeakVaporInhalation haz:FuelTankFire haz:FuelVaporIgnitionByStaticDischarge haz:GasLeak
+        haz:GasLeakAtNight haz:GasPoisoning haz:GlassLaceration haz:GondolaOverturnFall
+        haz:GradualMinorFuelLeakage haz:HandcartOverturn haz:HandBurn haz:HeavyEquipmentOverturn
+        haz:HeavyLifting haz:HighPressureGasLeakage haz:HighPressureRelease haz:HighTemperatureBurn
+        haz:HotObjectMultipleFalling haz:HotSteamBurn haz:HydrocarbonVaporInhalationPoisoning haz:IgnitionOfFlammableGas
+        haz:InfantSafetyAccident haz:Infection haz:InhalationOfChemicalDust haz:KnifeSlipCut
+        haz:LabelMisidentificationAccident haz:Laceration haz:LandfillSlopeCollapse haz:LoadCollapse
+        haz:LockerTipover haz:LossOfBalance haz:LossOfControlPolisher haz:MachineCollisionInjury
+        haz:MachineFallingCollisionInjury haz:MedicalEmergency haz:MercuryPoisoning haz:NarcoticDermalAbsorption
+        haz:OffSiteTraffic haz:OtherAccident haz:OvercrowdingEvacuationDelay haz:OverloadFire
+        haz:OxygenDeficiency haz:PalmLaceration haz:PatientFall haz:PesticideAbsorptionThroughSkin
+        haz:PesticideEyeContact haz:PesticideInhalationPoisoning haz:Posture haz:PressureVesselExplosion
+        haz:PruningShearLaceration haz:PtoEntanglement haz:Puncture haz:Repetitive
+        haz:ResidualCleanerExposure haz:ResidualHeatBurn haz:RopeBreakFall haz:RotatingHookEntanglement
+        haz:RotatingPartInjury haz:ScaffoldCollapse haz:Scratch haz:SharpObjectInjury
+        haz:ShelfCollapse haz:SkinBurn haz:SkinContact haz:SkinEyeContactChemicalInjury
+        haz:SkinIrritation haz:SkinPenetration haz:Slip haz:SlipTrip
+        haz:SoilCollapse haz:SpontaneousCombustionOfAbsorbentPad haz:SportsEventInjury haz:StairTrip
+        haz:SteamBurn haz:StruckBy haz:StruckByIceFragment haz:StruckBySharpObject
+        haz:TempExtremeContact haz:ThresherBladeCut haz:ToxicGasInhalation haz:ToxicGasPoisoning
+        haz:TractorTipover haz:TrafficAccident haz:TrashBinFire haz:TrayContactInjury
+        haz:TvFalling haz:Unclassified haz:UserFall haz:Violence
+        haz:WorkplaceTraffic
     ) ;
-    sh:message "사고유형(KOSHA-22) 코드 IRI는 KOSHA-22 정본 23개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
+    sh:message "사고유형(KOSHA-22) 코드 IRI는 KOSHA-22 정본 181개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
     sh:severity sh:Violation .
 
-# === hazardous_agent (10) — sr:addressesAgent, guide:guideAddressesAgent ===
+# === hazardous_agent (84) — sr:addressesAgent, guide:guideAddressesAgent ===
 shape:CanonicalHazardousAgentCode a sh:NodeShape ;
     sh:targetObjectsOf sr:addressesAgent ;
     sh:targetObjectsOf guide:guideAddressesAgent ;
     sh:nodeKind sh:IRI ;
     sh:in (
-        agent:Biological agent:Chemical agent:Dust agent:Electricity
-        agent:Fire agent:HeatCold agent:Noise agent:Radiation
-        agent:Toxic agent:UnknownAgent
+        agent:AcrylateResinSkinContact agent:AirlessResidualPressure agent:ArcFlash agent:AsbestosDust
+        agent:Benzene agent:BiogasMethane agent:Biological agent:BloodbornePathogen
+        agent:CapacitorResidualVoltage agent:Chemical agent:ChlorineAmmoniaReaction agent:ColdFloor
+        agent:ConcentratedAlkali agent:ContaminatedFilterParticulateMold agent:Corrosion agent:CryogenicAgent
+        agent:DefectiveHandle agent:DefectiveSterilePackaging agent:DegradedDeveloperSolution agent:DentalXrayRepeatedExposure
+        agent:DentalXRay agent:DistributionBoard agent:Dust agent:EarphoneNoise
+        agent:ElectricalOverload agent:Electricity agent:ElectricityWaterContact agent:ElevatorPitToxicGas
+        agent:ExposedOutlet agent:ExtremeColdEnvironment agent:ExtremeColdSurface agent:FemaleExposureLimitExceeded
+        agent:Fire agent:FormaldehydeSkinContact agent:FragranceVapor agent:FuelSaturatedAbsorbent
+        agent:GasolineMicroLeakage agent:GasolineVapor agent:GlutaraldehydeVapor agent:HeatCold
+        agent:HighHeat agent:HighPressureAirDust agent:HighTemperatureEnvironment agent:HighTemperatureSteam
+        agent:HotEquipment agent:HotParts agent:HotSurface agent:HotTray
+        agent:HotWater agent:InfectiousMedicalWaste agent:KaraokeNoise agent:KaraokeRoomNoise
+        agent:LackOfVaccination agent:LeachateHazardousSubstance agent:LeadPaintDust agent:MercuryAmalgamVapor
+        agent:MislabeledDetergent agent:MixedDetergentGas agent:Noise agent:Noise105Db
+        agent:ProlongedColdExposure agent:ProlongedExposureToColdEnvironment agent:RadiantHeat agent:Radiation
+        agent:RadiationExposure agent:RadiationExposureDuringPregnancy agent:RepeatedExtremeColdExposure agent:RepeatedRadiationExposure
+        agent:ResidualCombustionGas agent:ResidualPesticide agent:ResidualRotation agent:RopeKink
+        agent:ScatteredRadiation agent:SmallQuantityGasoline agent:SolventVapor agent:StaticElectricity
+        agent:StrongAcidDescaler agent:TobaccoSmoke agent:Toxic agent:TwistedWire
+        agent:UltravioletRadiation agent:UnknownAgent agent:UvLampResidualHeat agent:WaterBasedPaintMist
     ) ;
-    sh:message "위험인자 코드 IRI는 KOSHA-22 정본 10개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
+    sh:message "위험인자 코드 IRI는 KOSHA-22 정본 84개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
     sh:severity sh:Violation .
 
-# === work_context (36) — sr:inWorkContext, guide:guideAppliesToContext ===
+# === work_context (222) — sr:inWorkContext, guide:guideAppliesToContext ===
 shape:CanonicalWorkContextCode a sh:NodeShape ;
     sh:targetObjectsOf sr:inWorkContext ;
     sh:targetObjectsOf guide:guideAppliesToContext ;
     sh:nodeKind sh:IRI ;
     sh:in (
-        ctx:ChemicalWork ctx:CollapsePrevention ctx:ConfinedSpace ctx:ConstructionEquip
-        ctx:Conveyor ctx:Crane ctx:Demolition ctx:DustWork
-        ctx:ElectricalWork ctx:ErgonomicWork ctx:Excavation ctx:FallProtection
-        ctx:FireExplosionWork ctx:GeneralWorkplace ctx:HeatColdWork ctx:Logging
-        ctx:Machine ctx:MaterialHandling ctx:NoiseWork ctx:Other
-        ctx:Passage ctx:PathogenWork ctx:PpeMgmt ctx:PressureVessel
-        ctx:RadiationWork ctx:Rail ctx:Robot ctx:SafetyMgmt
-        ctx:Scaffold ctx:SpecialWorker ctx:Steelwork ctx:UnknownContext
-        ctx:Vehicle ctx:Ventilation ctx:WasteMgmt ctx:Welfare
+        ctx:AcrophobiaWork ctx:AcupunctureWork ctx:AirlessSprayer ctx:AisleObstruction
+        ctx:AnimalFeeding ctx:AquacultureTank ctx:AutoclaveSterilization ctx:AwkwardPostureWork
+        ctx:BandSaw ctx:BiomedicalWaste ctx:BodyTransport ctx:BoxHandling
+        ctx:BracketDefect ctx:BreadSlicer ctx:BystanderWorkerExposure ctx:CageCleaning
+        ctx:CardioEquipment ctx:CashierArea ctx:CatHandling ctx:ChemicalApplication
+        ctx:ChemicalCleaning ctx:ChemicalDisinfection ctx:ChemicalMixing ctx:ChemicalSpotting
+        ctx:ChemicalWaste ctx:ChemicalWork ctx:CleaningNight ctx:CleaningWet
+        ctx:ClimbingWall ctx:ColdDisplay ctx:ColdRoomAccess ctx:ColdRoomMortuary
+        ctx:ColdStorage ctx:CollapsePrevention ctx:CommunicationFailure ctx:CompressionDeviceRestart
+        ctx:ConfinedCoating ctx:ConfinedSpace ctx:ConfinedSpaceCleaning ctx:ConstructionEquip
+        ctx:Conveyor ctx:ConveyorBelt ctx:ConveyorWash ctx:Crane
+        ctx:CremationFurnace ctx:CrowdManagement ctx:DeepFrying ctx:DeliveryRider
+        ctx:Demolition ctx:DentalProcedure ctx:DisplaySetup ctx:DogGrooming
+        ctx:DoughMachine ctx:DryerOperation ctx:DryCleaningSolvent ctx:DustWork
+        ctx:ElectricalHazard ctx:ElectricalOverload ctx:ElectricalWork ctx:ElectricPolishingRoller
+        ctx:Embalming ctx:ErgonomicWork ctx:EvBattery ctx:Excavation
+        ctx:ExcessiveMotionRange ctx:ExerciseClass ctx:ExpiredMedicationUse ctx:ExteriorRope
+        ctx:FallProtection ctx:FarmMachinery ctx:FertilizerHandling ctx:FilterMaintenance
+        ctx:FireDetectionFailure ctx:FireDetectorDisabled ctx:FireEvacuation ctx:FireExplosionWork
+        ctx:FireExtinguisherDefective ctx:FirstAidFailure ctx:FishCutting ctx:FloorMachine
+        ctx:FloralArrangement ctx:FlourHandling ctx:FoldingMachine ctx:FoodPrep
+        ctx:ForkliftOperation ctx:FreezerWork ctx:FreeWeightZone ctx:FuelDispensing
+        ctx:FuelSpill ctx:FuneralHallSetup ctx:GarmentSorting ctx:GasAppliance
+        ctx:GeneralWorkplace ctx:GreenhouseWork ctx:Grinding ctx:GuillotineCutter
+        ctx:HairChemical ctx:HairWash ctx:HandrailDefect ctx:HarvestWork
+        ctx:HeatColdWork ctx:HeavyFishBox ctx:HeavyFurniture ctx:HeavyLifting
+        ctx:HeavyMeatHandling ctx:HighPressureWash ctx:HighRiseWindow ctx:HighShelfWork
+        ctx:HopperBladeWork ctx:HotBeverage ctx:HotTool ctx:HotTrayTransport
+        ctx:IceHandling ctx:InkSolvent ctx:InteriorCleaning ctx:InterlockBypass
+        ctx:Irrigation ctx:KitchenCooking ctx:KnifeWork ctx:Ladder
+        ctx:LadderInterior ctx:LaminatingRoller ctx:LandfillOperation ctx:LiftWork
+        ctx:LivePowerRepair ctx:LoadingDock ctx:Logging ctx:LooseSafetyCover
+        ctx:LotoNotApplied ctx:Machine ctx:MaterialHandling ctx:MeatGrinding
+        ctx:MeatSlicer ctx:MedicationHandling ctx:NailChemical ctx:NailGun
+        ctx:NearbyWorkerProximity ctx:NightSolo ctx:NightSoloWork ctx:NoiseExposure
+        ctx:NoiseWork ctx:ObstructedViewCarrying ctx:OilDrain ctx:Other
+        ctx:OutdoorPlayEquipment ctx:OvenOperation ctx:OverloadedContainer ctx:OverloadedHandcart
+        ctx:PackageSorting ctx:Painting ctx:PaintingWoodwork ctx:Passage
+        ctx:PathogenWork ctx:PesticideSpray ctx:PetBathing ctx:PlateMaking
+        ctx:PoolArea ctx:PowerRackSafetyPin ctx:PowerTool ctx:PpeMgmt
+        ctx:PressureVessel ctx:PressMachine ctx:PrintingPress ctx:RadiationWork
+        ctx:RadiationXray ctx:Rail ctx:RecyclingSort ctx:RescueDelay
+        ctx:RestroomChemical ctx:Robot ctx:RollerMachine ctx:RopeAccess
+        ctx:RopeAnomalyUndetected ctx:SafetyDeviceBypass ctx:SafetyMgmt ctx:Sanding
+        ctx:Sawing ctx:Scaffold ctx:ScaffoldWork ctx:ScrewGrinder
+        ctx:SecurityInadequacy ctx:ServingFloor ctx:SharpsDisposal ctx:ShelfStocking
+        ctx:ShieldingInadequate ctx:SkinDevice ctx:SlopeRamp ctx:SoloResponse
+        ctx:SolventHandling ctx:SpecialWorker ctx:SprayPainting ctx:StaffMaintenance
+        ctx:StairCarrying ctx:StaticElectricity ctx:SteamIron ctx:Steelwork
+        ctx:StorageShelf ctx:SurfacePrep ctx:TireChange ctx:UnauthorizedMedicationAdministration
+        ctx:UndergroundTank ctx:UnknownContext ctx:UnstableEdge ctx:UnstableSlope
+        ctx:UnstableStructure ctx:UvCoating ctx:VaporExposure ctx:Vehicle
+        ctx:Ventilation ctx:VentilationPoor ctx:WalkwayObstruction ctx:WashingMachine
+        ctx:WasteCollection ctx:WasteCompactor ctx:WasteMgmt ctx:WaxPolishing
+        ctx:Welding ctx:WeldingRepair ctx:Welfare ctx:WetConfinedSpace
+        ctx:WetFloorFish ctx:WetFloorWork
     ) ;
-    sh:message "작업맥락 코드 IRI는 KOSHA-22 정본 36개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
+    sh:message "작업맥락 코드 IRI는 KOSHA-22 정본 222개 안에만 허용됩니다 (legacy/UPPER/오타 fragment = 드리프트)." ;
     sh:severity sh:Violation .
 
-# === risk feature (polymorphic, 69 union) — sr:addressesFeature ===
+# === risk feature (polymorphic, 487 union) — sr:addressesFeature ===
 shape:CanonicalRiskFeatureCode a sh:NodeShape ;
     sh:targetObjectsOf sr:addressesFeature ;
     sh:nodeKind sh:IRI ;
     sh:in (
-        haz:AnimalInjury haz:CaughtIn haz:ChemicalExposure haz:Collapse
-        haz:Collision haz:CrushedOverturned haz:CutLaceration haz:Drowning
-        haz:ElectricShock haz:ErgonomicStrain haz:Explosion haz:Fall
-        haz:FireInjury haz:OffSiteTraffic haz:OtherAccident haz:OxygenDeficiency
-        haz:SlipTrip haz:SportsEventInjury haz:StruckBy haz:TempExtremeContact
-        haz:Unclassified haz:Violence haz:WorkplaceTraffic agent:Biological
-        agent:Chemical agent:Dust agent:Electricity agent:Fire
-        agent:HeatCold agent:Noise agent:Radiation agent:Toxic
-        agent:UnknownAgent ctx:ChemicalWork ctx:CollapsePrevention ctx:ConfinedSpace
-        ctx:ConstructionEquip ctx:Conveyor ctx:Crane ctx:Demolition
-        ctx:DustWork ctx:ElectricalWork ctx:ErgonomicWork ctx:Excavation
-        ctx:FallProtection ctx:FireExplosionWork ctx:GeneralWorkplace ctx:HeatColdWork
-        ctx:Logging ctx:Machine ctx:MaterialHandling ctx:NoiseWork
-        ctx:Other ctx:Passage ctx:PathogenWork ctx:PpeMgmt
-        ctx:PressureVessel ctx:RadiationWork ctx:Rail ctx:Robot
-        ctx:SafetyMgmt ctx:Scaffold ctx:SpecialWorker ctx:Steelwork
-        ctx:UnknownContext ctx:Vehicle ctx:Ventilation ctx:WasteMgmt
-        ctx:Welfare
+        haz:AnimalBite haz:AnimalInjury haz:ArcBurn haz:BladeLaceration
+        haz:Burn haz:BurnFromAccidentalCustomerContact haz:BurnFromFallingHotContents haz:CartTipover
+        haz:CaughtIn haz:CaughtInConfinedSpace haz:ChairTipoverFall haz:ChemicalAbsorptionThroughSkin
+        haz:ChemicalAccidentDueToImproperDetergentUse haz:ChemicalBurn haz:ChemicalBurnFromStrongAcid haz:ChemicalBurnFromStrongAcidToEye
+        haz:ChemicalDetergentInhalation haz:ChemicalExplosion haz:ChemicalExposure haz:ChemicalEyeAndAirwayInjury
+        haz:ChemicalIngestion haz:ChemicalInhalation haz:ChemicalIrritation haz:ChemicalReactionExplosion
+        haz:ChemicalResidualInhalation haz:ChemicalSkinBurn haz:ChemicalSkinIrritation haz:ChemicalVaporExposure
+        haz:ChemicalVaporInhalation haz:ChemicalVaporInhalationUnconsciousness haz:ChildChemicalExposure haz:ChildCut
+        haz:ChildElectricShock haz:ChildSlipAndFall haz:ChildStabbing haz:ChloramineGasInhalationPoisoning
+        haz:ChlorineGasInhalationPoisoning haz:ColdBurn haz:ColdExposure haz:Collapse
+        haz:Collision haz:CompressionInjury haz:ConfinedSpaceAsphyxia haz:ContainerBreakageDuringCollection
+        haz:Crush haz:CrushedByMachineOrObject haz:CrushedOverturned haz:Cut
+        haz:CuttingBladeContactWhileOperating haz:CutDueToGloveFailure haz:CutLaceration haz:CytotoxicExposure
+        haz:DetergentInhalationPoisoning haz:DriverEntanglement haz:Drowning haz:DustExplosion
+        haz:ElectricalAccidentDueToPowerInstability haz:ElectricShock haz:ElectricShockDueToInsulationDamage haz:Entanglement
+        haz:Ergonomic haz:ErgonomicStrain haz:Explosion haz:ExtremeColdBurn
+        haz:EyeChemicalInjury haz:EyeForeignBody haz:EyeVisionDamage haz:Fall
+        haz:FallingChemicalContainer haz:FallingFromWires haz:FallingObject haz:FallDueToStrongWind
+        haz:FallFromAnkerFailure haz:FallFromHeight haz:FallFromKnotSlip haz:FallFromLadder
+        haz:FallFromLossOfBalance haz:FallFromRopeFrictionBreakage haz:FallOnGround haz:FertilizerDustInhalation
+        haz:FingerAmputation haz:FingerInjury haz:FireAndExplosion haz:FireFromOutletOverload
+        haz:FireInjury haz:FireSpread haz:FoodContamination haz:FootCrushInjury
+        haz:Fracture haz:FuelFire haz:FuelGasExplosion haz:FuelIgnitionExplosion
+        haz:FuelLeakVaporInhalation haz:FuelTankFire haz:FuelVaporIgnitionByStaticDischarge haz:GasLeak
+        haz:GasLeakAtNight haz:GasPoisoning haz:GlassLaceration haz:GondolaOverturnFall
+        haz:GradualMinorFuelLeakage haz:HandcartOverturn haz:HandBurn haz:HeavyEquipmentOverturn
+        haz:HeavyLifting haz:HighPressureGasLeakage haz:HighPressureRelease haz:HighTemperatureBurn
+        haz:HotObjectMultipleFalling haz:HotSteamBurn haz:HydrocarbonVaporInhalationPoisoning haz:IgnitionOfFlammableGas
+        haz:InfantSafetyAccident haz:Infection haz:InhalationOfChemicalDust haz:KnifeSlipCut
+        haz:LabelMisidentificationAccident haz:Laceration haz:LandfillSlopeCollapse haz:LoadCollapse
+        haz:LockerTipover haz:LossOfBalance haz:LossOfControlPolisher haz:MachineCollisionInjury
+        haz:MachineFallingCollisionInjury haz:MedicalEmergency haz:MercuryPoisoning haz:NarcoticDermalAbsorption
+        haz:OffSiteTraffic haz:OtherAccident haz:OvercrowdingEvacuationDelay haz:OverloadFire
+        haz:OxygenDeficiency haz:PalmLaceration haz:PatientFall haz:PesticideAbsorptionThroughSkin
+        haz:PesticideEyeContact haz:PesticideInhalationPoisoning haz:Posture haz:PressureVesselExplosion
+        haz:PruningShearLaceration haz:PtoEntanglement haz:Puncture haz:Repetitive
+        haz:ResidualCleanerExposure haz:ResidualHeatBurn haz:RopeBreakFall haz:RotatingHookEntanglement
+        haz:RotatingPartInjury haz:ScaffoldCollapse haz:Scratch haz:SharpObjectInjury
+        haz:ShelfCollapse haz:SkinBurn haz:SkinContact haz:SkinEyeContactChemicalInjury
+        haz:SkinIrritation haz:SkinPenetration haz:Slip haz:SlipTrip
+        haz:SoilCollapse haz:SpontaneousCombustionOfAbsorbentPad haz:SportsEventInjury haz:StairTrip
+        haz:SteamBurn haz:StruckBy haz:StruckByIceFragment haz:StruckBySharpObject
+        haz:TempExtremeContact haz:ThresherBladeCut haz:ToxicGasInhalation haz:ToxicGasPoisoning
+        haz:TractorTipover haz:TrafficAccident haz:TrashBinFire haz:TrayContactInjury
+        haz:TvFalling haz:Unclassified haz:UserFall haz:Violence
+        haz:WorkplaceTraffic agent:AcrylateResinSkinContact agent:AirlessResidualPressure agent:ArcFlash
+        agent:AsbestosDust agent:Benzene agent:BiogasMethane agent:Biological
+        agent:BloodbornePathogen agent:CapacitorResidualVoltage agent:Chemical agent:ChlorineAmmoniaReaction
+        agent:ColdFloor agent:ConcentratedAlkali agent:ContaminatedFilterParticulateMold agent:Corrosion
+        agent:CryogenicAgent agent:DefectiveHandle agent:DefectiveSterilePackaging agent:DegradedDeveloperSolution
+        agent:DentalXrayRepeatedExposure agent:DentalXRay agent:DistributionBoard agent:Dust
+        agent:EarphoneNoise agent:ElectricalOverload agent:Electricity agent:ElectricityWaterContact
+        agent:ElevatorPitToxicGas agent:ExposedOutlet agent:ExtremeColdEnvironment agent:ExtremeColdSurface
+        agent:FemaleExposureLimitExceeded agent:Fire agent:FormaldehydeSkinContact agent:FragranceVapor
+        agent:FuelSaturatedAbsorbent agent:GasolineMicroLeakage agent:GasolineVapor agent:GlutaraldehydeVapor
+        agent:HeatCold agent:HighHeat agent:HighPressureAirDust agent:HighTemperatureEnvironment
+        agent:HighTemperatureSteam agent:HotEquipment agent:HotParts agent:HotSurface
+        agent:HotTray agent:HotWater agent:InfectiousMedicalWaste agent:KaraokeNoise
+        agent:KaraokeRoomNoise agent:LackOfVaccination agent:LeachateHazardousSubstance agent:LeadPaintDust
+        agent:MercuryAmalgamVapor agent:MislabeledDetergent agent:MixedDetergentGas agent:Noise
+        agent:Noise105Db agent:ProlongedColdExposure agent:ProlongedExposureToColdEnvironment agent:RadiantHeat
+        agent:Radiation agent:RadiationExposure agent:RadiationExposureDuringPregnancy agent:RepeatedExtremeColdExposure
+        agent:RepeatedRadiationExposure agent:ResidualCombustionGas agent:ResidualPesticide agent:ResidualRotation
+        agent:RopeKink agent:ScatteredRadiation agent:SmallQuantityGasoline agent:SolventVapor
+        agent:StaticElectricity agent:StrongAcidDescaler agent:TobaccoSmoke agent:Toxic
+        agent:TwistedWire agent:UltravioletRadiation agent:UnknownAgent agent:UvLampResidualHeat
+        agent:WaterBasedPaintMist ctx:AcrophobiaWork ctx:AcupunctureWork ctx:AirlessSprayer
+        ctx:AisleObstruction ctx:AnimalFeeding ctx:AquacultureTank ctx:AutoclaveSterilization
+        ctx:AwkwardPostureWork ctx:BandSaw ctx:BiomedicalWaste ctx:BodyTransport
+        ctx:BoxHandling ctx:BracketDefect ctx:BreadSlicer ctx:BystanderWorkerExposure
+        ctx:CageCleaning ctx:CardioEquipment ctx:CashierArea ctx:CatHandling
+        ctx:ChemicalApplication ctx:ChemicalCleaning ctx:ChemicalDisinfection ctx:ChemicalMixing
+        ctx:ChemicalSpotting ctx:ChemicalWaste ctx:ChemicalWork ctx:CleaningNight
+        ctx:CleaningWet ctx:ClimbingWall ctx:ColdDisplay ctx:ColdRoomAccess
+        ctx:ColdRoomMortuary ctx:ColdStorage ctx:CollapsePrevention ctx:CommunicationFailure
+        ctx:CompressionDeviceRestart ctx:ConfinedCoating ctx:ConfinedSpace ctx:ConfinedSpaceCleaning
+        ctx:ConstructionEquip ctx:Conveyor ctx:ConveyorBelt ctx:ConveyorWash
+        ctx:Crane ctx:CremationFurnace ctx:CrowdManagement ctx:DeepFrying
+        ctx:DeliveryRider ctx:Demolition ctx:DentalProcedure ctx:DisplaySetup
+        ctx:DogGrooming ctx:DoughMachine ctx:DryerOperation ctx:DryCleaningSolvent
+        ctx:DustWork ctx:ElectricalHazard ctx:ElectricalOverload ctx:ElectricalWork
+        ctx:ElectricPolishingRoller ctx:Embalming ctx:ErgonomicWork ctx:EvBattery
+        ctx:Excavation ctx:ExcessiveMotionRange ctx:ExerciseClass ctx:ExpiredMedicationUse
+        ctx:ExteriorRope ctx:FallProtection ctx:FarmMachinery ctx:FertilizerHandling
+        ctx:FilterMaintenance ctx:FireDetectionFailure ctx:FireDetectorDisabled ctx:FireEvacuation
+        ctx:FireExplosionWork ctx:FireExtinguisherDefective ctx:FirstAidFailure ctx:FishCutting
+        ctx:FloorMachine ctx:FloralArrangement ctx:FlourHandling ctx:FoldingMachine
+        ctx:FoodPrep ctx:ForkliftOperation ctx:FreezerWork ctx:FreeWeightZone
+        ctx:FuelDispensing ctx:FuelSpill ctx:FuneralHallSetup ctx:GarmentSorting
+        ctx:GasAppliance ctx:GeneralWorkplace ctx:GreenhouseWork ctx:Grinding
+        ctx:GuillotineCutter ctx:HairChemical ctx:HairWash ctx:HandrailDefect
+        ctx:HarvestWork ctx:HeatColdWork ctx:HeavyFishBox ctx:HeavyFurniture
+        ctx:HeavyLifting ctx:HeavyMeatHandling ctx:HighPressureWash ctx:HighRiseWindow
+        ctx:HighShelfWork ctx:HopperBladeWork ctx:HotBeverage ctx:HotTool
+        ctx:HotTrayTransport ctx:IceHandling ctx:InkSolvent ctx:InteriorCleaning
+        ctx:InterlockBypass ctx:Irrigation ctx:KitchenCooking ctx:KnifeWork
+        ctx:Ladder ctx:LadderInterior ctx:LaminatingRoller ctx:LandfillOperation
+        ctx:LiftWork ctx:LivePowerRepair ctx:LoadingDock ctx:Logging
+        ctx:LooseSafetyCover ctx:LotoNotApplied ctx:Machine ctx:MaterialHandling
+        ctx:MeatGrinding ctx:MeatSlicer ctx:MedicationHandling ctx:NailChemical
+        ctx:NailGun ctx:NearbyWorkerProximity ctx:NightSolo ctx:NightSoloWork
+        ctx:NoiseExposure ctx:NoiseWork ctx:ObstructedViewCarrying ctx:OilDrain
+        ctx:Other ctx:OutdoorPlayEquipment ctx:OvenOperation ctx:OverloadedContainer
+        ctx:OverloadedHandcart ctx:PackageSorting ctx:Painting ctx:PaintingWoodwork
+        ctx:Passage ctx:PathogenWork ctx:PesticideSpray ctx:PetBathing
+        ctx:PlateMaking ctx:PoolArea ctx:PowerRackSafetyPin ctx:PowerTool
+        ctx:PpeMgmt ctx:PressureVessel ctx:PressMachine ctx:PrintingPress
+        ctx:RadiationWork ctx:RadiationXray ctx:Rail ctx:RecyclingSort
+        ctx:RescueDelay ctx:RestroomChemical ctx:Robot ctx:RollerMachine
+        ctx:RopeAccess ctx:RopeAnomalyUndetected ctx:SafetyDeviceBypass ctx:SafetyMgmt
+        ctx:Sanding ctx:Sawing ctx:Scaffold ctx:ScaffoldWork
+        ctx:ScrewGrinder ctx:SecurityInadequacy ctx:ServingFloor ctx:SharpsDisposal
+        ctx:ShelfStocking ctx:ShieldingInadequate ctx:SkinDevice ctx:SlopeRamp
+        ctx:SoloResponse ctx:SolventHandling ctx:SpecialWorker ctx:SprayPainting
+        ctx:StaffMaintenance ctx:StairCarrying ctx:StaticElectricity ctx:SteamIron
+        ctx:Steelwork ctx:StorageShelf ctx:SurfacePrep ctx:TireChange
+        ctx:UnauthorizedMedicationAdministration ctx:UndergroundTank ctx:UnknownContext ctx:UnstableEdge
+        ctx:UnstableSlope ctx:UnstableStructure ctx:UvCoating ctx:VaporExposure
+        ctx:Vehicle ctx:Ventilation ctx:VentilationPoor ctx:WalkwayObstruction
+        ctx:WashingMachine ctx:WasteCollection ctx:WasteCompactor ctx:WasteMgmt
+        ctx:WaxPolishing ctx:Welding ctx:WeldingRepair ctx:Welfare
+        ctx:WetConfinedSpace ctx:WetFloorFish ctx:WetFloorWork
     ) ;
-    sh:message "sr:addressesFeature 코드 IRI는 3축 정본 69개(union) 안에만 허용됩니다." ;
+    sh:message "sr:addressesFeature 코드 IRI는 3축 정본 487개(union) 안에만 허용됩니다." ;
     sh:severity sh:Violation .

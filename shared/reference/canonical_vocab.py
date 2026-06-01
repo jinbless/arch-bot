@@ -95,6 +95,30 @@ def is_canonical(axis: str, code: str) -> bool:
     return code in canonical_set(axis)
 
 
+def _camel(code: str) -> str:
+    return "".join(p.capitalize() for p in str(code).split("_") if p)
+
+
+def same_axis_fine(axis: str) -> set[str]:
+    """축 내 fine 코드 집합 — canonical 아님 + 같은 축 canonical로 rollup + fragment 구별.
+    fine⊑canonical taxonomy(gen_facet_taxonomy) · fine IRI emit(code_iri_mapper.fine_iri_fragment) ·
+    canonical-code allowlist(gen_canonical_code_shape)의 공통 SSOT. cross-axis(예: agent SHARP_BLADE→
+    accident)·UNKNOWN rollup·canonical 자기자신은 제외."""
+    ax = _load()["axes"].get(axis)
+    if ax is None:
+        return set()
+    canon = set(ax["canonical"])
+    out: set[str] = set()
+    for fine in ax.get("rollup", {}):
+        if fine in canon:
+            continue
+        a2, c2 = to_canonical(axis, fine)
+        if a2 != axis or _camel(fine) == _camel(c2):
+            continue
+        out.add(fine)
+    return out
+
+
 if __name__ == "__main__":  # 자체 점검
     tests = [
         ("accident_type", "ENTANGLEMENT", ("accident_type", "CAUGHT_IN")),
