@@ -23,6 +23,7 @@ from app.services.hazard_rule_engine import (
     get_guides_by_hazard_features,
     query_sr_for_facets,
 )
+from app.services import hybrid_attach_store as _attach_store
 
 logger = logging.getLogger(__name__)
 
@@ -242,6 +243,33 @@ def _semantic_guide_candidates(
     return out[:n]
 
 
+def _cached_guides(db: Session, guide_codes: list[str], n: int) -> list[dict]:
+    """Phase 4 — promoted 학습 캐시의 guide_code → guide dict (제목 PG 조회). 결정적, LLM 미호출."""
+    if not guide_codes:
+        return []
+    from app.db.models import PgKoshaGuide
+
+    top = guide_codes[:n]
+    gmap = {g.guide_code: g for g in db.query(PgKoshaGuide).filter(PgKoshaGuide.guide_code.in_(top)).all()}
+    out: list[dict] = []
+    for rank, gc in enumerate(top):
+        g = gmap.get(gc)
+        if g is None:
+            continue  # 캐시에만 있고 PG에 없는 stale → SSOT 존재검증
+        out.append({
+            "guide_code": gc,
+            "title": g.title,
+            "classification": g.domain,
+            "industry_hints": [],
+            "industry_alignment": None,
+            "relevant_sections": [],
+            "relevance_score": round(max(0.0, 0.95 - 0.05 * rank), 3),
+            "mapping_type": "hybrid_cache",
+            "ci_hit_count": 0,
+        })
+    return out
+
+
 def _merge_guide_paths(direct: list[dict], ci: list[dict], limit: int) -> list[dict]:
     """P2 — Guide 직접 매핑(우선) + CI 경유 union.
 
@@ -353,6 +381,33 @@ def match_hazards_to_guides(
 
         has_facets = bool(accident_types or hazardous_agents or work_contexts)
 
+        # Phase 4 — 학습 promoted 캐시 (결정적; recall 임베딩·rerank LLM 우회).
+        # semantic_on & HYBRID_ATTACH_CACHE에서만. flag off면 cache_guides=∅ → 기존 경로 그대로(무회귀).
+        cache_guides: list[dict] = []
+        cache_sr_ids: list[str] = []
+        if semantic_on and _attach_store.cache_enabled():
+            if not has_facets:  # 0-코드 hazard → 학습 alias로 back-fill (normalize 보강)
+                for compound in _attach_store.get_promoted_alias(name) or []:
+                    if "." not in compound:
+                        continue
+                    ax, cd = compound.split(".", 1)
+                    if ax == "accident_type":
+                        accident_types.append(cd)
+                    elif ax == "hazardous_agent":
+                        hazardous_agents.append(cd)
+                    elif ax == "work_context":
+                        work_contexts.append(cd)
+                codes = (
+                    [f"accident_type.{c}" for c in accident_types]
+                    + [f"hazardous_agent.{c}" for c in hazardous_agents]
+                    + [f"work_context.{c}" for c in work_contexts]
+                ) or codes
+                has_facets = bool(accident_types or hazardous_agents or work_contexts)
+            link = _attach_store.get_promoted_link(codes)
+            if link and link.get("guide_codes"):
+                cache_guides = _cached_guides(db, link["guide_codes"], guides_per_hazard)
+                cache_sr_ids = link.get("sr_ids") or []
+
         # ① facet 경로 SR (기존) — broad @> recall. flag off면 이게 부착 SR 집합.
         facet_sr_ids: list[str] = []
         if has_facets:
@@ -366,28 +421,28 @@ def match_hazards_to_guides(
             )
             facet_sr_ids = [row["identifier"] for row in sr_rows]
 
-        # ② semantic 경로 (flag on) — GPT 원문 rich text hybrid recall + 온톨로지 검증.
-        #    broad facet @>의 맥락소실 오매칭(지게차→호스)을 정밀 recall로 교정.
-        rich_text = _hazard_rich_text(h) if semantic_on else ""
-        semantic_sr = (
-            _semantic_sr_candidates(db, rich_text, n=sr_limit_per_hazard, industry_contexts=industry_contexts)
-            if semantic_on
-            else []
-        )
-        semantic_sr_ids = [s["identifier"] for s in semantic_sr]
+        # ② semantic recall — 캐시 hit면 우회(recall 임베딩·rerank LLM 미호출).
+        if cache_guides:
+            rich_text, semantic_sr_ids = "", cache_sr_ids
+        else:
+            rich_text = _hazard_rich_text(h) if semantic_on else ""
+            semantic_sr = (
+                _semantic_sr_candidates(db, rich_text, n=sr_limit_per_hazard, industry_contexts=industry_contexts)
+                if semantic_on
+                else []
+            )
+            semantic_sr_ids = [s["identifier"] for s in semantic_sr]
 
-        # 부착 SR 집합 결정:
-        #  - semantic ∅(flag off 포함) → facet 그대로 (바이트 동일, 무회귀).
-        #  - semantic 有 → semantic이 Guide 유도 1차(broad noise 제거), facet은 보충(union, semantic 우선순).
+        # 부착 SR 집합 결정 (semantic ∅·flag off → facet 그대로, 바이트 동일·무회귀).
         if semantic_sr_ids:
             sr_for_guides = list(dict.fromkeys(semantic_sr_ids + facet_sr_ids))[:sr_limit_per_hazard]
-            attach_method = "hybrid+facet" if facet_sr_ids else "hybrid"
+            attach_method = "hybrid_cache" if cache_guides else ("hybrid+facet" if facet_sr_ids else "hybrid")
         else:
             sr_for_guides = facet_sr_ids
-            attach_method = "facet"
+            attach_method = "hybrid_cache" if cache_guides else "facet"
         sr_id_set.update(sr_for_guides)
 
-        if not sr_for_guides and not has_facets:
+        if not sr_for_guides and not has_facets and not cache_guides:
             # 매핑 실패 — guides 없이 hazard만 보여줌 (기존 동작)
             relations.append({
                 "hazard_name": name,
@@ -402,11 +457,7 @@ def match_hazards_to_guides(
             })
             continue
 
-        # Guide 부착:
-        #  - facet 직접 매핑(GF, curated, boilerplate noise 0)은 항상 base.
-        #  - semantic on & guide 회수 성공 → guide 직접 hybrid recall이 1차
-        #    (SR→CI→Guide는 우리 SR엔 희소·noise SR엔 조밀 → 전기 guide 압도 실측 → 미사용).
-        #  - off/회수 실패 → 기존 SR→CI 변별력 가중 경로 (무회귀).
+        # facet 직접 매핑(GF, curated, deterministic)은 항상 base.
         guides_direct = get_guides_by_hazard_features(
             db,
             accident_types=accident_types,
@@ -416,7 +467,10 @@ def match_hazards_to_guides(
             industry_contexts=industry_contexts,
             context_work_contexts=global_wc_list,
         )
-        if semantic_on:
+        if cache_guides:
+            # 학습 캐시 1차(결정적) + facet 직접 보충. recall/rerank LLM 미호출.
+            guides = _merge_guide_paths(cache_guides, guides_direct, limit=guides_per_hazard)
+        elif semantic_on:
             # semantic recall(+rerank) 1차 + facet 직접(GF, curated) 보충. SR→CI noise 경로 미사용.
             # rerank가 후보를 전부 무관(0)으로 떨궈 guides_sem ∅이면 facet-direct로 fallback(noise 회피).
             guides_sem = _semantic_guide_candidates(
