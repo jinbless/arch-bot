@@ -80,6 +80,18 @@ KINDS = {
         "text": lambda r: (r[1] + "\n" + (r[2] or "") + "\n" + (r[3] or ""))[:4000].strip(),
         "meta": lambda r: {"kind": "guide", "identifier": r[0], "title": (r[1] or "")[:300]},
     },
+    # CI_RAW: raw checklist_items — guide+section 메타 직결(canonical은 dedup돼 섹션 소실).
+    # 「즉시 조치」 v5화: GPT 조치/위험요소 → 이 CI 매칭 → source_guide+source_section 인용.
+    "ci_raw": {
+        "collection": "ohs_ci_raw",
+        "sql": (
+            "SELECT identifier, text, source_guide, COALESCE(source_section,''), COALESCE(binding_force,'') "
+            "FROM checklist_items WHERE text IS NOT NULL AND text <> '' ORDER BY identifier"
+        ),
+        "id": lambda r: r[0],
+        "text": lambda r: r[1],
+        "meta": lambda r: {"kind": "ci_raw", "identifier": r[0], "guide": r[2] or "", "section": r[3] or "", "binding": r[4] or ""},
+    },
 }
 
 

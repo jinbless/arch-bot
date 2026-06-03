@@ -44,7 +44,8 @@ from app.services.hazard_normalizer import (
     normalize_hazards_array,
     normalize_risk_feature_candidates,
 )
-from app.services.hazard_to_guide_service import match_hazards_to_guides
+from app.services.hazard_to_guide_service import match_hazards_to_guides, _semantic_attach_enabled
+from app.services.hazard_to_ci_service import match_hazards_to_ci
 from app.services.industry_context import infer_industry_context
 from app.utils.taxonomy import get_feature_label
 
@@ -314,6 +315,7 @@ class AnalysisPipeline:
         hazards_payload: list[dict] = list(result.get("hazards") or [])
         hazard_canonical: dict = {}
         hazard_guide_relations: list[dict] = []
+        hazard_sr_ids: list[str] = []
         if HAZARD_DIRECT_MODE != "off" and hazards_payload:
             try:
                 hazard_canonical = normalize_hazards_array(
@@ -338,6 +340,47 @@ class AnalysisPipeline:
                 logging.getLogger(__name__).warning(
                     f"[HazardDirect] error in pipeline, fallback to legacy path: {e}"
                 )
+
+        # 「즉시 조치」 v5화 — GPT 조치/설명 → raw CI 벡터매칭 → guide+섹션 인용으로 checklist_rows 대체.
+        # flag off면 match_hazards_to_ci=[] → checklist_rows(legacy) 그대로(무회귀).
+        if hazards_payload:
+            try:
+                sem_ci_rows = match_hazards_to_ci(
+                    db, hazards_payload, industry_contexts=industry_context.active_industries
+                )
+                if sem_ci_rows:
+                    checklist_rows = sem_ci_rows
+            except Exception as e:  # noqa: BLE001
+                logging.getLogger(__name__).warning(f"[HazardToCI] error, keep legacy checklist: {e}")
+
+        # 「표준 개선 절차」 v5화 — 위험요소별(v5) guides를 dedup해 guide_rows로 대체 (flag on).
+        # flag off면 hazard_guide_relations는 facet 기반이므로 건드리지 않음(무회귀).
+        if _semantic_attach_enabled() and hazard_guide_relations:
+            _seen_g: dict = {}
+            for _rel in hazard_guide_relations:
+                for _g in _rel.get("guides") or []:
+                    _gc = _g.get("guide_code")
+                    if not _gc:
+                        continue
+                    _sc = float(_g.get("relevance_score") or 0.0)
+                    if _gc not in _seen_g or _sc > _seen_g[_gc]["relevance_score"]:
+                        _seen_g[_gc] = {"guide_code": _gc, "title": _g.get("title"),
+                                        "relevance_score": _sc, "mapping_type": _g.get("mapping_type")}
+            _sem_guides = sorted(_seen_g.values(), key=lambda x: x["relevance_score"], reverse=True)
+            if _sem_guides:
+                guide_rows = _sem_guides
+
+        # 「벌칙 3경로」 v5 연결 — semantic SR(정밀, 예: SR-VEHICLE→제179조)을 penalty 후보 풀에 보강(flag on).
+        # replay는 hazards[] 미주입 → hazard_sr_ids ∅ → 미발동(무회귀). exposure는 보수적으로 legacy
+        # finding_status 유지(과대 promote 방지) — 정밀 조문만 후보에 추가.
+        if _semantic_attach_enabled() and hazard_sr_ids:
+            sr_ids = self._unique([*hazard_sr_ids, *sr_ids])
+            penalty_candidates = penalty_path_service.get_penalty_candidates(
+                sr_ids, direct_sr_ids=direct_sr_ids
+            )
+            penalty_paths = penalty_path_service.build_penalty_paths(
+                penalty_candidates, finding_status=finding_status
+            )
 
         return AnalysisKnowledgeContext(
             canonical=canonical,

@@ -34,8 +34,15 @@ _CACHE: Optional[dict] = None  # 서빙 읽기용 load-once in-memory
 
 
 def cache_enabled() -> bool:
-    """서빙 읽기 경로 활성 (promoted 캐시 소비)."""
-    return os.environ.get("HYBRID_ATTACH_CACHE", "").strip().lower() in ("1", "true", "on", "yes")
+    """서빙 읽기 경로 활성 (promoted 캐시 소비). env(HYBRID_ATTACH_CACHE) 우선, 없으면 config.OHS_ENABLE_ATTACH_CACHE."""
+    env = os.environ.get("HYBRID_ATTACH_CACHE")
+    if env is not None and env.strip() != "":
+        return env.strip().lower() in ("1", "true", "on", "yes")
+    try:
+        from app.config import settings
+        return bool(settings.OHS_ENABLE_ATTACH_CACHE)
+    except Exception:  # noqa: BLE001
+        return False
 
 
 def learn_enabled() -> bool:

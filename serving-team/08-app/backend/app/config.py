@@ -33,6 +33,9 @@ class Settings(BaseSettings):
     FUSEKI_ENABLED: bool = True
 
     OHS_ENABLE_HYBRID_SEARCH: bool = False
+    # v5 semantic attach 보조 플래그 (.env 제어). env(SEMANTIC_ATTACH_RERANK/HYBRID_ATTACH_CACHE)가 우선.
+    OHS_ENABLE_SEMANTIC_RERANK: bool = False
+    OHS_ENABLE_ATTACH_CACHE: bool = False
 
 
 settings = Settings()

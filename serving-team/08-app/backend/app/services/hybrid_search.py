@@ -151,7 +151,7 @@ class HybridIndex:
 _INDEXES: dict[str, HybridIndex] = {}
 
 # 온톨로지 엔티티 종류 → ChromaDB 컬렉션
-COLLECTIONS = {"sr": "ohs_sr", "ns": "ohs_ns", "ci": "ohs_ci", "guide": "ohs_guide"}
+COLLECTIONS = {"sr": "ohs_sr", "ns": "ohs_ns", "ci": "ohs_ci", "guide": "ohs_guide", "ci_raw": "ohs_ci_raw"}
 
 
 def get_index(collection_name: str) -> HybridIndex:

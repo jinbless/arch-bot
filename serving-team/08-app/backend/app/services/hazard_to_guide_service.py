@@ -46,12 +46,19 @@ def _semantic_attach_enabled() -> bool:
 
 
 def _semantic_rerank_enabled() -> bool:
-    """bounded LLM rerank 활성 여부 (env SEMANTIC_ATTACH_RERANK, 기본 off).
+    """bounded LLM rerank 활성. env(SEMANTIC_ATTACH_RERANK) 우선, 없으면 config.OHS_ENABLE_SEMANTIC_RERANK.
 
     semantic recall은 정확하지만 top-1 절대 적합도에 헤드룸(eval 입증) → 후보 top-K를
-    LLM이 재정렬해 정밀도↑. **기본 off**(결정적·무비용 유지). on일 때만 hazard당 1회 호출.
+    LLM이 재정렬해 정밀도↑. **기본 off**(결정적·무비용). on일 때만 hazard당 1회 호출.
     """
-    return os.environ.get("SEMANTIC_ATTACH_RERANK", "").strip().lower() in ("1", "true", "on", "yes")
+    env = os.environ.get("SEMANTIC_ATTACH_RERANK")
+    if env is not None and env.strip() != "":
+        return env.strip().lower() in ("1", "true", "on", "yes")
+    try:
+        from app.config import settings
+        return bool(settings.OHS_ENABLE_SEMANTIC_RERANK)
+    except Exception:  # noqa: BLE001
+        return False
 
 
 def _rerank_guides_llm(rich_text: str, guides: list[dict], model: str = "gpt-4.1-mini") -> list[dict]:
@@ -299,6 +306,28 @@ def _merge_guide_paths(direct: list[dict], ci: list[dict], limit: int) -> list[d
     return merged[:limit]
 
 
+def _stack_semantic_first(sem: list[dict], direct: list[dict], limit: int) -> list[dict]:
+    """semantic(정밀) 우선 — facet 직접은 semantic 미충족 슬롯만 보충(semantic 최저점 아래로 캡).
+
+    facet GF-direct는 generic accident(FALL_ON_GROUND 등)에 건설/교량 가이드를 score=0.99로
+    내보내 semantic을 압도하는 문제(전도/미끄럼→현수교)가 있음. semantic을 항상 위에 쌓고
+    facet은 semantic 최저점 아래로 capping → 정밀 recall이 generic noise에 안 짐.
+    """
+    out = [dict(g) for g in sem]
+    seen = {g.get("guide_code") for g in out}
+    floor = min((float(g.get("relevance_score") or 0.0) for g in out), default=0.5)
+    for g in direct or []:
+        gc = g.get("guide_code")
+        if not gc or gc in seen:
+            continue
+        g2 = dict(g)
+        g2["relevance_score"] = round(min(float(g2.get("relevance_score") or 0.5), floor - 0.01), 3)
+        out.append(g2)
+        seen.add(gc)
+    out.sort(key=lambda x: float(x.get("relevance_score") or 0.0), reverse=True)
+    return out[:limit]
+
+
 def _axis_field(axis: str) -> str:
     return {
         "accident_type": "accident_types",
@@ -468,16 +497,16 @@ def match_hazards_to_guides(
             context_work_contexts=global_wc_list,
         )
         if cache_guides:
-            # 학습 캐시 1차(결정적) + facet 직접 보충. recall/rerank LLM 미호출.
-            guides = _merge_guide_paths(cache_guides, guides_direct, limit=guides_per_hazard)
+            # 학습 캐시 1차(결정적, semantic-first) + facet 직접은 아래로 캡. recall/rerank LLM 미호출.
+            guides = _stack_semantic_first(cache_guides, guides_direct, guides_per_hazard)
         elif semantic_on:
-            # semantic recall(+rerank) 1차 + facet 직접(GF, curated) 보충. SR→CI noise 경로 미사용.
-            # rerank가 후보를 전부 무관(0)으로 떨궈 guides_sem ∅이면 facet-direct로 fallback(noise 회피).
+            # semantic recall(+rerank) 1차 + facet 직접(GF)은 semantic 아래로 캡(generic FALL noise 차단).
+            # SR→CI noise 경로 미사용. guides_sem ∅이면 facet-direct로 fallback.
             guides_sem = _semantic_guide_candidates(
                 db, rich_text, n=guides_per_hazard, industry_contexts=industry_contexts
             )
             guides = (
-                _merge_guide_paths(guides_sem, guides_direct, limit=guides_per_hazard)
+                _stack_semantic_first(guides_sem, guides_direct, guides_per_hazard)
                 if guides_sem
                 else guides_direct[:guides_per_hazard]
             )
