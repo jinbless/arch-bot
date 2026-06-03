@@ -32,9 +32,10 @@ class Settings(BaseSettings):
     FUSEKI_TIMEOUT: int = 5
     FUSEKI_ENABLED: bool = True
 
-    OHS_ENABLE_HYBRID_SEARCH: bool = False
-    # v5 semantic attach 보조 플래그 (.env 제어). env(SEMANTIC_ATTACH_RERANK/HYBRID_ATTACH_CACHE)가 우선.
-    OHS_ENABLE_SEMANTIC_RERANK: bool = False
+    # v5 semantic attach — 검증 완료, 기본 on. env(SEMANTIC_ATTACH/SEMANTIC_ATTACH_RERANK)가 우선.
+    OHS_ENABLE_HYBRID_SEARCH: bool = True
+    OHS_ENABLE_SEMANTIC_RERANK: bool = True
+    # 학습 캐시는 opt-in — 전 코퍼스 재누적(accumulate_hybrid_attach) 후 활성. 데모 캐시는 stale.
     OHS_ENABLE_ATTACH_CACHE: bool = False
 
 
