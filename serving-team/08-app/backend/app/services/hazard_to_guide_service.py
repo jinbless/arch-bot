@@ -61,6 +61,22 @@ def _semantic_rerank_enabled() -> bool:
         return False
 
 
+def _guide_section_enabled() -> bool:
+    """guide 섹션-청킹 회수(ohs_guide_section) 활성. env(GUIDE_SECTION_RECALL) 우선, 없으면 config.
+
+    on이면 guide 회수가 섹션 passage(ohs_guide_section) → guide robust 집계(상위 K 섹션 합) + §섹션 근거.
+    off면 ohs_guide 1벡터/guide 경로(기존, 무회귀). 1벡터 평균 희석을 해소(ablation +0.44, 22:10 승).
+    """
+    env = os.environ.get("GUIDE_SECTION_RECALL")
+    if env is not None and env.strip() != "":
+        return env.strip().lower() in ("1", "true", "on", "yes")
+    try:
+        from app.config import settings
+        return bool(settings.OHS_ENABLE_GUIDE_SECTION)
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def _rerank_guides_llm(rich_text: str, guides: list[dict], model: str = "gpt-4.1-mini") -> list[dict]:
     """bounded LLM rerank — hazard 원문 ↔ 후보 guide 적합성을 LLM이 0~10 채점 후 재정렬.
 
@@ -191,6 +207,52 @@ def _semantic_sr_candidates(
     return out
 
 
+def _guide_section_recall(
+    rich_text: str,
+    n: int,
+    pool: int = 40,
+    top_k_sections: int = 3,
+) -> list[dict]:
+    """ohs_guide_section(섹션 passage) hybrid recall → guide로 **robust 집계**.
+
+    1벡터/guide(ohs_guide)는 가이드 전체를 한 벡터로 평균해 주제 신호가 희석됨
+    (ablation: 섹션청킹 +0.44, 22:10 우세 — 평균 희석이 진짜 병목). 섹션 단위 회수는
+    정밀 매칭 + 섹션 인용이 공짜. 집계는 **상위 top_k 섹션 점수 합**(max 아님):
+    한 fluky 섹션이 압도하던 greedy 회귀(고소추락→G-116 선박건조)를 억제하고
+    다(多)섹션 주제 일치 guide를 선호. id=`{guide}#{section}`라 meta 없어도(BM25-only) id로 복원.
+
+    반환: [{guide_code, agg, sections:[{section,excerpt,score}]}] (agg 내림차순, SSOT 검증 전).
+    """
+    from app.services.hybrid_search import hybrid_search
+
+    rows = hybrid_search("guide_section", rich_text, n_results=pool)
+    if not rows:
+        return []
+    by_guide: dict[str, dict] = {}
+    for r in rows:
+        rid = r.get("id") or ""
+        meta = r.get("meta") or {}
+        gc = meta.get("guide")
+        sec_label = meta.get("section")
+        if not gc and "#" in rid:  # BM25-only 항목은 meta가 비어 id로 복원
+            gc, sec_label = rid.rsplit("#", 1)
+        if not gc:
+            continue
+        sec = {
+            "section": sec_label or "",
+            "excerpt": (r.get("doc") or "")[:200],
+            "score": float(r.get("rrf") or 0.0),
+        }
+        by_guide.setdefault(gc, {"guide_code": gc, "sections": []})["sections"].append(sec)
+    out: list[dict] = []
+    for gc, g in by_guide.items():
+        secs = sorted(g["sections"], key=lambda s: s["score"], reverse=True)
+        agg = sum(s["score"] for s in secs[:top_k_sections])  # robust: 상위 K 섹션 합
+        out.append({"guide_code": gc, "agg": agg, "sections": secs[:top_k_sections]})
+    out.sort(key=lambda x: x["agg"], reverse=True)
+    return out[: max(n * 2, 8)]
+
+
 def _semantic_guide_candidates(
     db: Session,
     rich_text: str,
@@ -202,46 +264,63 @@ def _semantic_guide_candidates(
     SR recall이 정확해도(지게차→SR-VEHICLE) SR→CI→Guide 링크가 vehicle SR엔 희소하고
     전기/철도 SR엔 조밀 → 합산 시 전기 guide가 압도(실측). 따라서 guide는 원문에서 직접 recall.
 
-    반환은 guide dict(_merge_guide_paths 호환). relevance_score는 hybrid **순위** 기반
-    ordinal(0.92−0.04·rank)+산업 정합 — 튜닝 점수 아님(recall 순위 보존).
+    회수 표현(flag):
+    - section on(`OHS_ENABLE_GUIDE_SECTION`/env `GUIDE_SECTION_RECALL`): ohs_guide_section 섹션
+      passage 회수 → guide robust 집계(상위 K 섹션 합) + 매칭 §섹션을 relevant_sections 근거로 보존.
+    - off: ohs_guide 1벡터/guide(기존, 무회귀).
+
+    반환은 guide dict(_stack_semantic_first 호환). relevance_score는 hybrid **순위** 기반
+    ordinal(0.92−0.04·rank)+산업 정합 — 튜닝 점수 아님(recall 순위 보존, rerank가 절대점수 부여).
     """
     if not rich_text or not rich_text.strip():
         return []
+    use_section = _guide_section_enabled()
     try:
-        from app.services.hybrid_search import hybrid_search
+        if use_section:
+            recalled = _guide_section_recall(rich_text, n)
+            ids = [g["guide_code"] for g in recalled]
+            sections_by_code = {g["guide_code"]: g["sections"] for g in recalled}
+        else:
+            from app.services.hybrid_search import hybrid_search
 
-        rows = hybrid_search("guide", rich_text, n_results=max(n * 2, 8))
+            rows = hybrid_search("guide", rich_text, n_results=max(n * 2, 8))
+            ids = [r["id"] for r in rows]
+            sections_by_code = {}
     except Exception as e:  # noqa: BLE001
-        logger.warning("[SemanticAttach] guide hybrid_search 실패 → SR→CI fallback: %s", e)
+        logger.warning("[SemanticAttach] guide recall 실패 → SR→CI fallback: %s", e)
         return []
-    if not rows:
+    if not ids:
         return []
 
     from app.db.models import PgKoshaGuide
     from app.services.industry_context import infer_industry_context, score_industry_alignment
 
-    ids = [r["id"] for r in rows]
     gmap = {
         g.guide_code: g
         for g in db.query(PgKoshaGuide).filter(PgKoshaGuide.guide_code.in_(ids)).all()
     }
     industry_contexts = industry_contexts or []
     out: list[dict] = []
-    for rank, r in enumerate(rows):
-        g = gmap.get(r["id"])
+    for rank, code in enumerate(ids):
+        g = gmap.get(code)
         if g is None:
             continue  # SSOT 존재 검증
         gi = infer_industry_context(text=" ".join(filter(None, [g.title, g.sub_category])))
         adj, alignment, _ = score_industry_alignment(gi.active_industries, industry_contexts)
+        rel_sections = [
+            {"section_title": s["section"], "excerpt": s["excerpt"], "section_type": "standard"}
+            for s in (sections_by_code.get(code) or [])
+            if s.get("section") and s["section"] != "_"
+        ]
         out.append({
             "guide_code": g.guide_code,
             "title": g.title,
             "classification": g.domain,
             "industry_hints": gi.active_industries,
             "industry_alignment": alignment,
-            "relevant_sections": [],
+            "relevant_sections": rel_sections,
             "relevance_score": round(min(0.99, max(0.0, 0.92 - 0.04 * rank + adj)), 3),
-            "mapping_type": "hybrid_semantic",
+            "mapping_type": "hybrid_semantic_section" if use_section else "hybrid_semantic",
             "ci_hit_count": 0,
         })
     # bounded LLM rerank (flag on) — 후보 enum top-K를 LLM이 재정렬해 절대 정밀도↑.
@@ -326,6 +405,57 @@ def _stack_semantic_first(sem: list[dict], direct: list[dict], limit: int) -> li
         seen.add(gc)
     out.sort(key=lambda x: float(x.get("relevance_score") or 0.0), reverse=True)
     return out[:limit]
+
+
+def _attach_section_evidence(guides: list[dict], rich_text: str, top_k: int = 3) -> list[dict]:
+    """선택된 guide에 best-matching §섹션 인용을 **사후 부착** — 랭킹 불변, 표시 근거만.
+
+    설계 결정(검증 결과): guide 표현을 섹션-청킹으로 바꿔 랭킹하면 production(rerank)에서 정확도
+    개선 없음(−0.17, wash) — rerank가 1벡터 평균-희석을 이미 보정하기 때문. 따라서 랭킹은
+    검증된 1벡터+rerank가 그대로 결정하고, 이 함수는 각 guide의 섹션(ohs_guide_section,
+    where=guide)에서 rich_text와 가장 가까운 top_k 섹션을 골라 §인용만 채운다(정확도 손실 0).
+    이미 relevant_sections가 있으면(섹션청킹 랭킹 ON 경로) 건너뜀. 실패는 graceful(근거 없이 진행).
+    """
+    if not rich_text or not rich_text.strip() or not guides:
+        return guides
+    targets = [g for g in guides if not g.get("relevant_sections")]
+    if not targets:
+        return guides
+    try:
+        from openai import OpenAI
+        from app.config import settings
+        from app.services.hybrid_search import get_index, EMBED_MODEL
+
+        idx = get_index("ohs_guide_section")
+        if idx.count() == 0:
+            return guides
+        emb = OpenAI(api_key=settings.OPENAI_API_KEY).embeddings.create(
+            model=EMBED_MODEL, input=[rich_text]
+        ).data[0].embedding
+    except Exception as e:  # noqa: BLE001
+        logger.warning("[SectionEvidence] 준비 실패 → 근거 생략: %s", e)
+        return guides
+    for g in targets:
+        code = g.get("guide_code")
+        if not code:
+            continue
+        try:
+            res = idx.collection.query(
+                query_embeddings=[emb], n_results=top_k,
+                where={"guide": code}, include=["metadatas", "documents"],
+            )
+            metas = (res.get("metadatas") or [[]])[0]
+            docs = (res.get("documents") or [[]])[0]
+            secs = [
+                {"section_title": sl, "excerpt": (docs[i] or "")[:200], "section_type": "standard"}
+                for i, m in enumerate(metas)
+                if (sl := ((m or {}).get("section") or "")) and sl != "_"
+            ]
+            if secs:
+                g["relevant_sections"] = secs
+        except Exception:  # noqa: BLE001
+            continue
+    return guides
 
 
 def _axis_field(axis: str) -> str:
@@ -519,6 +649,11 @@ def match_hazards_to_guides(
                 industry_contexts=industry_contexts,
             )
             guides = _merge_guide_paths(guides_direct, guides_ci, limit=guides_per_hazard)
+
+        # §섹션 인용 사후 부착 — 랭킹 불변(검증된 1벡터+rerank), 표시 근거만 채움.
+        # rich_text 있을 때만(semantic 경로). 이미 §근거 있는 guide(섹션청킹 랭킹 ON)는 건너뜀.
+        if rich_text:
+            guides = _attach_section_evidence(guides, rich_text)
 
         relations.append({
             "hazard_name": name,

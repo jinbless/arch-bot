@@ -54,6 +54,13 @@ class HazardItem(BaseModel):
     mapped_codes: List[str] = []  # ["accident_type.FALL_FROM_HEIGHT", ...]
 
 
+class GuideSectionRef(BaseModel):
+    """매칭된 guide 섹션 인용 (§근거 — _attach_section_evidence 사후 부착)."""
+    section_title: str
+    excerpt: str = ""
+    section_type: Optional[str] = None
+
+
 class GuideRef(BaseModel):
     """Hazard-Direct Pivot — hazard별 Guide 요약 (HazardGuideRelation 안)."""
     guide_code: str
@@ -64,6 +71,7 @@ class GuideRef(BaseModel):
     ci_hit_count: int = 0
     industry_alignment: Optional[str] = None
     top_procedure_title: Optional[str] = None
+    relevant_sections: List[GuideSectionRef] = []
 
 
 class HazardGuideRelation(BaseModel):

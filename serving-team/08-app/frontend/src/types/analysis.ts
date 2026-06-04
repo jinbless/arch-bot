@@ -114,6 +114,12 @@ export interface HazardItem {
   mapped_codes: string[]; // ["accident_type.FALL_FROM_HEIGHT", ...]
 }
 
+export interface GuideSectionInfo {
+  section_title: string;
+  excerpt?: string;
+  section_type?: string | null;
+}
+
 export interface GuideRef {
   guide_code: string;
   title: string;
@@ -123,6 +129,7 @@ export interface GuideRef {
   ci_hit_count: number;
   industry_alignment?: string | null;
   top_procedure_title?: string | null;
+  relevant_sections?: GuideSectionInfo[];
 }
 
 export interface HazardGuideRelation {

@@ -64,6 +64,14 @@ const HazardGuideRelationsPanel: React.FC<{ analysis: AnalysisResponse }> = ({ a
                           → {g.top_procedure_title}
                         </p>
                       )}
+                      {g.relevant_sections && g.relevant_sections.length > 0 && (
+                        <p
+                          className="text-[11px] text-green-700 mt-0.5 truncate"
+                          title={g.relevant_sections.map((s) => s.section_title).join(', ')}
+                        >
+                          § {g.relevant_sections.map((s) => s.section_title).join(' · ')}
+                        </p>
+                      )}
                     </div>
                     <span className="text-[11px] text-gray-600 whitespace-nowrap">
                       {Math.round(g.relevance_score * 100)}%

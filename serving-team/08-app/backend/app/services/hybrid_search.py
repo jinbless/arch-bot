@@ -151,7 +151,16 @@ class HybridIndex:
 _INDEXES: dict[str, HybridIndex] = {}
 
 # 온톨로지 엔티티 종류 → ChromaDB 컬렉션
-COLLECTIONS = {"sr": "ohs_sr", "ns": "ohs_ns", "ci": "ohs_ci", "guide": "ohs_guide", "ci_raw": "ohs_ci_raw"}
+# guide_section: guide를 (source_section) passage로 청킹(ohs_guide_section, 12,680) — 1벡터/guide
+#   평균 희석 해소(ablation +0.44, 22:10). 섹션 회수 → guide 집계는 hazard_to_guide_service가 담당.
+COLLECTIONS = {
+    "sr": "ohs_sr",
+    "ns": "ohs_ns",
+    "ci": "ohs_ci",
+    "guide": "ohs_guide",
+    "ci_raw": "ohs_ci_raw",
+    "guide_section": "ohs_guide_section",
+}
 
 
 def get_index(collection_name: str) -> HybridIndex:

@@ -16,7 +16,9 @@ from app.services.hazard_to_guide_service import _semantic_attach_enabled, _sema
 
 REPO = Path(__file__).resolve().parents[4]
 photos = json.loads((REPO / "data-team" / "05-enrichment" / "runtime-artifacts" / "claude_vision_8photo_input.json").read_text(encoding="utf-8"))["photos"]
-fk = next(p for p in photos if "지게차" in p["photo"])
+_kw = sys.argv[1] if len(sys.argv) > 1 else "지게차"
+fk = next(p for p in photos if _kw in p["photo"])
+print(f"[photo] {fk['photo'][:40]}")
 
 print(f"flags: semantic_attach={_semantic_attach_enabled()} rerank={_semantic_rerank_enabled()}")
 
@@ -39,7 +41,7 @@ async def main():
 
     print("\n=== ③ 즉시 조치 (immediate_actions) ===")
     for a in (d.get("immediate_actions") or [])[:5]:
-        print(f"  · {(a.get('title') or '')[:55]}")
+        print(f"  · {(a.get('title') or '')[:46]}  [{(a.get('description') or '')[:34]}]")
 
     print("\n=== ④ 벌칙 3경로 (penalty_paths) — 조문 ===")
     for p in d.get("penalty_paths") or []:

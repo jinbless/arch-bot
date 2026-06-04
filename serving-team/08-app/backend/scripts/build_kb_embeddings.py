@@ -92,6 +92,22 @@ KINDS = {
         "text": lambda r: r[1],
         "meta": lambda r: {"kind": "ci_raw", "identifier": r[0], "guide": r[2] or "", "section": r[3] or "", "binding": r[4] or ""},
     },
+    # GUIDE_SECTION: guide를 (source_section) 단위 passage로 청킹 — 1벡터/guide 평균 희석 해소.
+    # 섹션별 CI 텍스트를 묶어 임베딩 → 정밀 매칭 + 섹션 인용 무료. id = guide#section.
+    "guide_section": {
+        "collection": "ohs_guide_section",
+        "sql": (
+            "SELECT ci.source_guide, COALESCE(NULLIF(ci.source_section,''),'_') AS sec, "
+            "       g.title, string_agg(ci.text, ' ' ORDER BY ci.identifier) "
+            "FROM checklist_items ci JOIN kosha_guides g ON g.guide_code = ci.source_guide "
+            "WHERE ci.text IS NOT NULL AND ci.text <> '' "
+            "GROUP BY ci.source_guide, COALESCE(NULLIF(ci.source_section,''),'_'), g.title "
+            "ORDER BY ci.source_guide"
+        ),
+        "id": lambda r: f"{r[0]}#{r[1]}",
+        "text": lambda r: ((r[2] or "") + " [" + str(r[1]) + "절] " + (r[3] or ""))[:3000].strip(),
+        "meta": lambda r: {"kind": "guide_section", "guide": r[0], "section": str(r[1]), "title": (r[2] or "")[:200]},
+    },
 }
 
 

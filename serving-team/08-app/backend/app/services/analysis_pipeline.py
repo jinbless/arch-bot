@@ -364,8 +364,14 @@ class AnalysisPipeline:
                         continue
                     _sc = float(_g.get("relevance_score") or 0.0)
                     if _gc not in _seen_g or _sc > _seen_g[_gc]["relevance_score"]:
+                        # §섹션 근거(_attach_section_evidence 사후 부착) → evidence_summary로
+                        # 표준개선절차 패널에 노출(GuideProcedurePanel이 이미 렌더 — 프론트 변경 불요).
+                        _secs = [s.get("section_title") for s in (_g.get("relevant_sections") or [])
+                                 if s.get("section_title")]
+                        _ev = f"근거 섹션 — {_gc} §{'·'.join(_secs[:3])}" if _secs else None
                         _seen_g[_gc] = {"guide_code": _gc, "title": _g.get("title"),
-                                        "relevance_score": _sc, "mapping_type": _g.get("mapping_type")}
+                                        "relevance_score": _sc, "mapping_type": _g.get("mapping_type"),
+                                        "evidence_summary": _ev}
             _sem_guides = sorted(_seen_g.values(), key=lambda x: x["relevance_score"], reverse=True)
             if _sem_guides:
                 guide_rows = _sem_guides
@@ -568,6 +574,10 @@ class AnalysisPipeline:
                     ci_hit_count=int(g.get("ci_hit_count") or 0),
                     industry_alignment=g.get("industry_alignment"),
                     top_procedure_title=g.get("top_procedure_title"),
+                    # §섹션 근거(_attach_section_evidence 사후 부착) — dict 리스트 → pydantic coerce.
+                    relevant_sections=[
+                        s for s in (g.get("relevant_sections") or []) if s.get("section_title")
+                    ],
                 )
                 for g in guides_raw
                 if g.get("guide_code")
