@@ -1,0 +1,7 @@
+# 이 디렉토리 산출물은 Linux(air-gap 서버)에서 실행/사용 → LF 강제.
+# (CRLF면 bash가 "bad interpreter: ...^M"로 깨지고, compose/.env 파싱도 불안정)
+*.sh        text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.example   text eol=lf
+.gitignore  text eol=lf

@@ -1,0 +1,32 @@
+# Docker build context 제외 — 이미지 비대화/시크릿 유출 방지.
+# (주의: Docker는 .gitignore를 보지 않음 → 이 파일이 없으면 COPY . . 가 .venv·data·.env를 전부 굽는다.)
+
+# 가상환경 (이미지에서 pip install로 재구성)
+.venv/
+env/
+venv/
+
+# 파이썬 캐시
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# 런타임 데이터 — 컨테이너에 volume/bind-mount로 주입(이미지에 굽지 않음).
+#  chromadb(~967MB): bind-mount, hybrid_attach: 학습 캐시(기본 비활성).
+data/
+
+# 시크릿 — 절대 이미지에 굽지 않음. OPENAI_API_KEY는 compose env로 주입.
+.env
+
+# 개발/평가 전용 스크립트 (런타임 불요: uvicorn app.main:app)
+scripts/
+
+# DB/커버리지/IDE/VCS
+*.db
+.coverage
+htmlcov/
+.pytest_cache/
+.idea/
+.vscode/
+.git/
