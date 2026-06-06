@@ -47,6 +47,19 @@ MAX_RATE_KEYS = (
     "false_negative_rate",
 )
 
+# WS-OBS-1: FN-방향 1급 veto의 비대칭 허용폭. 일반 tolerance(0.02)보다 엄격(0.005) —
+# 안전 도메인에서 missed hazard(recall 하락)는 specificity(FP) 개선으로 상쇄될 수 없다.
+FN_VETO_TOLERANCE = 0.005
+
+
+def _nested(d: dict, *keys: str) -> Any:
+    cur: Any = d
+    for k in keys:
+        if not isinstance(cur, dict):
+            return None
+        cur = cur.get(k)
+    return cur
+
 
 def load_summary(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
@@ -85,6 +98,43 @@ def compare(baseline: dict[str, Any], current: dict[str, Any], tolerance: float)
             "delta": delta,
             "vetoed": vetoed,
             "direction": "expect_lower",
+        }
+    # WS-OBS-1: positive-only SHE recall — FN-방향 1급 veto.
+    # 기존 false_negative_rate는 'positive인데 절차·조치 0건'이라는 좁은 정의(절차 전멸만 감지)라
+    # SHE 패턴을 놓쳐도 절차가 1개라도 나오면 miss로 안 센다. per_case_type.positive.she_accuracy는
+    # 절차 유무와 무관한 진짜 recall이므로, 이를 비대칭 tolerance(하락만 엄격)로 veto해 구멍을 막는다.
+    b_psr = _nested(baseline, "per_case_type", "positive", "she_accuracy")
+    c_psr = _nested(current, "per_case_type", "positive", "she_accuracy")
+    if b_psr is not None and c_psr is not None:
+        b_psr = float(b_psr)
+        c_psr = float(c_psr)
+        d_psr = round(c_psr - b_psr, 4)
+        findings["positive_she_recall"] = {
+            "baseline": round(b_psr, 4),
+            "current": round(c_psr, 4),
+            "delta": d_psr,
+            "vetoed": d_psr < -FN_VETO_TOLERANCE,
+            "direction": "expect_higher",
+        }
+        # she_recall_miss = 1 - recall (절차 유무 무관). false_negative_rate와 대비해 진짜 miss를 노출.
+        b_miss = round(1.0 - b_psr, 4)
+        c_miss = round(1.0 - c_psr, 4)
+        findings["she_recall_miss"] = {
+            "baseline": b_miss,
+            "current": c_miss,
+            "delta": round(c_miss - b_miss, 4),
+            "vetoed": (c_miss - b_miss) > FN_VETO_TOLERANCE,
+            "direction": "expect_lower",
+        }
+    else:
+        # baseline이 신 키를 모르면(구 스냅샷) veto 불가 — crash/false-veto 대신 경고만.
+        findings["positive_she_recall"] = {
+            "baseline": float(b_psr or 0.0),
+            "current": float(c_psr or 0.0),
+            "delta": 0.0,
+            "vetoed": False,
+            "direction": "expect_higher",
+            "note": "per_case_type.positive.she_accuracy 부재 — baseline 재캡처 필요",
         }
     return findings
 
@@ -171,6 +221,11 @@ def main() -> int:
         print(f"tolerance: {args.tolerance:.4f}")
         print()
         print(render(findings))
+        print()
+        print(
+            f"  · positive_she_recall / she_recall_miss = WS-OBS-1 FN-방향 1급 veto "
+            f"(비대칭 tolerance {FN_VETO_TOLERANCE}, 일반 {args.tolerance})"
+        )
         print()
         if passed:
             print("PASS — 회귀 통과")
