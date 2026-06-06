@@ -17,6 +17,7 @@ from app.models.analysis import (
     GuideRef,
     HazardGuideRelation,
     HazardItem,
+    UnmappedSafetyTerm,
 )
 from app.models.hazard import (
     CorrectiveAction,
@@ -43,6 +44,10 @@ from app.services import (
 from app.services.hazard_normalizer import (
     normalize_hazards_array,
     normalize_risk_feature_candidates,
+)
+from app.services.she_matcher import (  # WS-SAFETY-5: 불안전 상태 카탈로그(표시용)
+    UNSAFE_ENVIRONMENTAL_STATES,
+    UNSAFE_PPE_STATES,
 )
 from app.services.hazard_to_guide_service import match_hazards_to_guides, _semantic_attach_enabled
 from app.services.hazard_to_ci_service import match_hazards_to_ci
@@ -183,6 +188,10 @@ class AnalysisPipeline:
             ),
             hazard_guide_relations=self._build_hazard_guide_relations(
                 knowledge.hazard_guide_relations,
+            ),
+            unmapped_safety_terms=self._build_unmapped_safety_terms(  # WS-SAFETY-5 (표시전용)
+                run_input.result,
+                knowledge.normalizer_unknown_codes,
             ),
             analyzed_at=analyzed_at,
         )
@@ -633,6 +642,44 @@ class AnalysisPipeline:
                 )
             )
         return procedures
+
+    def _build_unmapped_safety_terms(
+        self,
+        result: dict,
+        normalizer_unknown_codes: list[str],
+    ) -> list[UnmappedSafetyTerm]:
+        """WS-SAFETY-5 (표시전용): GPT가 관찰했으나 폐쇄세계 매칭/스코어링에 쓰이지 못한
+        안전 신호를 가시화. finding_status/penalty/매칭에 영향 없음 — '미탐지 ≠ 안전'.
+        """
+        terms: list[UnmappedSafetyTerm] = []
+        seen: set[str] = set()
+        for cand in result.get("risk_feature_candidates") or []:
+            axis = cand.get("axis")
+            text = (cand.get("text") or "").strip()
+            if not text or text in seen:
+                continue
+            if axis == "ppe_state" and text in UNSAFE_PPE_STATES:
+                seen.add(text)
+                terms.append(UnmappedSafetyTerm(
+                    term=text, category="ppe_missing",
+                    note="GPT가 불안전 PPE 상태를 관찰 (표준 매칭 미반영 — 추가 확인 필요)",
+                ))
+            elif axis == "environmental" and text in UNSAFE_ENVIRONMENTAL_STATES:
+                seen.add(text)
+                terms.append(UnmappedSafetyTerm(
+                    term=text, category="environmental_hazard",
+                    note="GPT가 불안전 환경 상태를 관찰 (표준 매칭 미반영 — 추가 확인 필요)",
+                ))
+        for code in normalizer_unknown_codes or []:
+            key = f"unknown::{code}"
+            if key in seen:
+                continue
+            seen.add(key)
+            terms.append(UnmappedSafetyTerm(
+                term=str(code), category="unmapped_code",
+                note="해석되지 않은 위험 어휘 (분류 불가 — 안전 보장 아님)",
+            ))
+        return terms[:20]
 
     def _build_findings(
         self,

@@ -144,6 +144,12 @@ export interface HazardGuideRelation {
   matched_sr_count: number;
 }
 
+export interface UnmappedSafetyTerm {
+  term: string;
+  category: string; // "ppe_missing" | "environmental_hazard" | "unmapped_code"
+  note?: string;
+}
+
 export interface AnalysisResponse {
   analysis_id: string;
   analysis_type: 'image' | 'text';
@@ -162,6 +168,7 @@ export interface AnalysisResponse {
   // ⭐ Hazard-Direct Pivot 신규 필드 (default = [])
   hazards?: HazardItem[];
   hazard_guide_relations?: HazardGuideRelation[];
+  unmapped_safety_terms?: UnmappedSafetyTerm[]; // WS-SAFETY-5 (표시전용)
   analyzed_at: string;
 }
 

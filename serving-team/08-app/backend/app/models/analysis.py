@@ -86,6 +86,15 @@ class HazardGuideRelation(BaseModel):
     matched_sr_count: int = 0
 
 
+class UnmappedSafetyTerm(BaseModel):
+    """WS-SAFETY-5: GPT가 관찰했으나 폐쇄세계(SHE/SR/penalty) 매칭·스코어링에 사용되지 못한
+    안전 신호. 표시전용(display-only) — finding_status/penalty/매칭에 영향 없음. 매핑 누락된
+    위험이 흔적 없이 사라지지 않도록 '미탐지 ≠ 안전'을 사용자에게 가시화한다."""
+    term: str
+    category: str  # "ppe_missing" | "environmental_hazard" | "unmapped_code"
+    note: str = ""
+
+
 class AnalysisResponse(BaseModel):
     analysis_id: str
     analysis_type: str
@@ -105,6 +114,8 @@ class AnalysisResponse(BaseModel):
     # ⭐ Hazard-Direct Pivot 신규 필드 (호환 default = []) — Phase 4 Day 1
     hazards: List[HazardItem] = []
     hazard_guide_relations: List[HazardGuideRelation] = []
+    # ⭐ WS-SAFETY-5: 관찰됐으나 매핑/스코어링 미반영된 안전 신호(표시전용, 호환 default = [])
+    unmapped_safety_terms: List[UnmappedSafetyTerm] = []
     analyzed_at: datetime
 
     class Config:
