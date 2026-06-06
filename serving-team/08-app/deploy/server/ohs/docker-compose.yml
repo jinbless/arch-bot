@@ -1,0 +1,50 @@
+name: ohs
+# OHS 자급자족 스택 — 전용 PG(kosha) + backend + frontend.
+# frontend만 edge-net에 노출(edge nginx가 라우팅). backend/PG는 internal 사설망(외부 불가).
+services:
+  postgres:
+    image: postgres:15                 # 로컬 소스(PG15)와 동일 → dump 무손실 restore
+    container_name: ohs-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kosha
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1229}
+      POSTGRES_DB: kosha
+    volumes:
+      - ohs-pgdata:/var/lib/postgresql/data
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kosha -d kosha"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  backend:
+    image: ohs-backend:airgap
+    container_name: ohs-backend
+    restart: unless-stopped
+    env_file: [.env]                   # OPENAI_API_KEY (런타임 필수)
+    environment:
+      - DATABASE_URL=postgresql://kosha:${POSTGRES_PASSWORD:-1229}@postgres:5432/kosha
+      - FUSEKI_ENABLED=false           # 서빙 경로는 PG. Fuseki 불요.
+    volumes:
+      - ${CHROMADB_HOST_DIR:?set CHROMADB_HOST_DIR in ohs/.env}:/app/data/chromadb
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [internal]
+
+  frontend:
+    image: ohs-frontend:airgap
+    container_name: ohs-frontend       # ← edge가 이 이름으로 프록시
+    restart: unless-stopped
+    depends_on: [backend]
+    networks: [internal, edge-net]
+
+networks:
+  internal: {}                          # backend↔PG↔frontend 내부 전용
+  edge-net:
+    external: true                      # edge proxy와 공유(최초: docker network create edge-net)
+
+volumes:
+  ohs-pgdata: {}                        # 전용 PG 데이터(영속)

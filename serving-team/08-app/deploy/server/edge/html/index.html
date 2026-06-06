@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 서비스 포털</title>
+<style>
+  :root{
+    --bg1:#0f172a; --card:#ffffff; --ink:#0f172a;
+    --muted:#64748b; --brand:#2563eb;
+    --ok:#16a34a; --okbg:#dcfce7; --soon:#94a3b8; --soonbg:#f1f5f9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: system-ui,-apple-system,'Segoe UI','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+    color:var(--ink);
+    background: radial-gradient(1200px 600px at 50% -10%, #1e3a8a 0%, var(--bg1) 45%, #020617 100%);
+    min-height:100%;
+    display:flex; flex-direction:column; align-items:center;
+    padding: 64px 20px 48px;
+  }
+  header{text-align:center; color:#e2e8f0; margin-bottom:40px}
+  header .logo{
+    font-size:13px; letter-spacing:.18em; text-transform:uppercase;
+    color:#7dd3fc; font-weight:700; margin-bottom:14px;
+  }
+  header h1{
+    font-size:34px; font-weight:800; letter-spacing:-.02em; margin-bottom:12px;
+    background:linear-gradient(90deg,#fff,#93c5fd);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  header p{font-size:15px; color:#94a3b8}
+  .grid{
+    width:100%; max-width:1040px;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px;
+  }
+  .card{
+    position:relative; background:var(--card); border-radius:18px; padding:28px 26px 24px;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 10px 30px -12px rgba(0,0,0,.5);
+    text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:14px;
+    transition:transform .16s ease, box-shadow .16s ease;
+    min-height:200px;
+  }
+  a.card:hover{transform:translateY(-6px); box-shadow:0 22px 44px -16px rgba(2,132,199,.55)}
+  .card.soon{opacity:.62; cursor:not-allowed}
+  .icon{font-size:40px; line-height:1}
+  .badge{
+    position:absolute; top:18px; right:18px; font-size:12px; font-weight:700;
+    padding:5px 11px; border-radius:999px;
+  }
+  .badge.ok{color:var(--ok); background:var(--okbg)}
+  .badge.soon{color:#475569; background:var(--soonbg)}
+  .card h2{font-size:21px; font-weight:800; letter-spacing:-.01em}
+  .card p{font-size:14px; color:var(--muted); line-height:1.55; flex:1}
+  .go{font-size:14px; font-weight:700; color:var(--brand); display:flex; align-items:center; gap:6px}
+  .card.soon .go{color:var(--soon)}
+  footer{margin-top:44px; color:#475569; font-size:13px; text-align:center}
+  @media(max-width:520px){ header h1{font-size:26px} body{padding-top:40px} }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">moellab</div>
+    <h1>AI 서비스 포털</h1>
+    <p>이용할 서비스를 선택하세요</p>
+  </header>
+  <main class="grid" id="grid"></main>
+  <footer>moellab · 사내 AI 서비스</footer>
+
+<script>
+  // ─────────────────────────────────────────────────────────────
+  //  서비스 목록 — 새 서비스 추가는 여기 한 줄.   status: 'ready' | 'soon'
+  //   [노트북 모드]      url = 각 서비스 포트            예: 'http://localhost:3000/'
+  //   [서버 단일 :80 모드] url = 경로(프론트 base=경로 재빌드 필요)  예: '/ohs/'
+  // ─────────────────────────────────────────────────────────────
+  const SERVICES = [
+    { name:'산업안전보건 AI', icon:'🦺', status:'ready',
+      url:'/ohs/',
+      desc:'현장 사진을 올리면 위험요소·표준개선절차·즉시조치·벌칙 3경로를 즉시 분석합니다.' },
+
+    { name:'기초노동질서 AI', icon:'📋', status:'ready',
+      url:'/for-ceo',
+      desc:'근로계약·임금명세·기초노동질서 준수 여부 점검을 지원합니다.' },
+
+    { name:'노동법상담 AI', icon:'⚖️', status:'soon',
+      url:'',
+      desc:'노동관계법령 해석과 상황별 상담을 지원합니다.' },
+  ];
+
+  const grid = document.getElementById('grid');
+  for (const s of SERVICES){
+    const ready = s.status === 'ready' && s.url;
+    const el = document.createElement(ready ? 'a' : 'div');
+    el.className = 'card' + (ready ? '' : ' soon');
+    if (ready) el.href = s.url;
+    el.innerHTML =
+      '<span class="badge ' + (ready ? 'ok' : 'soon') + '">' + (ready ? '운영중' : '준비중') + '</span>' +
+      '<div class="icon">' + s.icon + '</div>' +
+      '<h2>' + s.name + '</h2>' +
+      '<p>' + s.desc + '</p>' +
+      '<div class="go">' + (ready ? '서비스 열기 →' : '준비 중입니다') + '</div>';
+    grid.appendChild(el);
+  }
+</script>
+</body>
+</html>

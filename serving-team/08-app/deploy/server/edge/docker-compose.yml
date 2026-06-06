@@ -1,0 +1,21 @@
+name: moellab
+# 공용 edge 리버스 프록시 — 서버 전체에 1개. :80 소유, 경로로 각 서비스에 라우팅.
+# 새 서비스 추가 = conf.d/에 *.conf 한 개 추가 후 재로드.
+# Docker Desktop 표시: 그룹 moellab > 컨테이너 nginx (=moellab-nginx, 프로젝트 접두어 생략 표시).
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: moellab-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      # - "443:443"        # TLS 쓰면 주석 해제 + conf.d에 ssl 설정 + certs 마운트
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+      - ./html:/usr/share/nginx/html:ro     # 랜딩페이지(localhost/) 정적 파일
+      # - ./certs:/etc/nginx/certs:ro
+    networks: [edge-net]
+
+networks:
+  edge-net:
+    external: true          # 최초 1회: docker network create edge-net
