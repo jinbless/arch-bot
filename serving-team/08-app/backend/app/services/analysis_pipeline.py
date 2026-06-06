@@ -154,6 +154,7 @@ class AnalysisPipeline:
         overall_risk_level = self._overall_risk_level(
             observations,
             knowledge.finding_status,
+            knowledge.hazards_payload,
         )
 
         response = AnalysisResponse(
@@ -628,6 +629,7 @@ class AnalysisPipeline:
                     source_ci_ids=list(row.get("source_ci_ids") or []),
                     evidence_summary=row.get("evidence_summary"),
                     confidence=float(row.get("relevance_score", 0) or 0),
+                    mapping_type=row.get("mapping_type"),  # WS-PROV-3: 부착 출처(표시전용)
                 )
             )
         return procedures
@@ -1103,12 +1105,24 @@ class AnalysisPipeline:
         self,
         observations: list[VisualObservation],
         finding_status: str,
+        hazards_payload: Optional[list[dict]] = None,
     ) -> str:
+        # WS-SAFETY-3: hazards[] OR-in — hazard-direct(개방세계)가 high 위험을 직접 봤으면
+        #   상단 배지를 절대 녹색 'low/unknown'으로 떨어뜨리지 않는다(상단 vs hazards 카드 모순 제거).
+        #   HAZARD_DIRECT_MODE=='off'면 hazards 경로 미사용이므로 존중(무시).
+        hazard_high = HAZARD_DIRECT_MODE != "off" and any(
+            str(h.get("risk_level", "")).lower() == "high" for h in (hazards_payload or [])
+        )
         if finding_status == "confirmed" and any(obs.severity == "HIGH" for obs in observations):
             return "high"
+        if hazard_high:
+            # 폐쇄세계(SHE/SR)가 confirmed까지 못 갔어도 GPT가 본 high hazard는 묻지 않는다.
+            return "high" if finding_status in {"confirmed", "suspected"} else "medium"
         if finding_status in {"confirmed", "suspected"}:
             return "medium"
-        return "low"
+        # WS-SAFETY-1: '평가 못 함/근거 부족'(not_determined/needs_clarification)을 녹색 'low'로
+        #   붕괴시키지 않는다 — '미탐지 ≠ 안전'. assessed_safe(녹색 low) 상태는 D1로 후속(현재 미도입).
+        return "unknown"
 
     def _summary(
         self,
@@ -1119,9 +1133,14 @@ class AnalysisPipeline:
         if findings:
             penalty_text = " 벌칙 안내 경로가 있습니다." if penalty_paths else ""
             return f"{findings[0].summary}{penalty_text}"
+        # WS-SAFETY-1: findings 없음 = 폐쇄세계(SHE/SR)가 위험을 확정 못 함.
+        #   '미탐지 ≠ 안전' — 관찰 유무와 무관하게 '판정 불가'를 명시해 녹색 오신호를 차단한다.
         if observations:
-            return observations[0].text
-        return "사진 또는 설명에서 확정 가능한 위험 단서를 찾지 못했습니다."
+            return (
+                f"{observations[0].text} (관찰은 되었으나 위험 패턴을 확정하지 못했습니다 — "
+                "안전을 보장하지 않으며 추가 현장 확인이 필요합니다.)"
+            )
+        return "이 입력만으로는 위험 유무를 확정할 수 없습니다 (안전 보장 아님 — 추가 현장 확인 필요)."
 
     def _finding_summary(
         self,

@@ -9,6 +9,9 @@ class RiskLevel(str, Enum):
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
+    # WS-SAFETY-1: '평가 못 함/근거 부족' — risk 축(low/medium/high)과 구조적으로 분리된
+    # 명시 채널. 'low'(녹색 안전)로 붕괴시키지 않아 '미탐지 = 안전' 오신호를 차단한다.
+    UNKNOWN = "unknown"
 
 
 class VisualCue(BaseModel):
@@ -84,6 +87,9 @@ class StandardProcedure(BaseModel):
     source_ci_ids: List[str] = []
     evidence_summary: Optional[str] = None
     confidence: float = 0.0
+    # WS-PROV-3: 이 절차가 어떻게 부착됐는지(표시전용, scoring 무관).
+    # hybrid_semantic/hybrid_cache=임베딩 후보(미검증) vs she_sr_wp_guide/sr_ci_link=규칙 기반.
+    mapping_type: Optional[str] = None
 
 
 class PenaltyPath(BaseModel):
