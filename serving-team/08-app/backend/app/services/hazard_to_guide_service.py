@@ -77,11 +77,35 @@ def _guide_section_enabled() -> bool:
         return False
 
 
+def _semantic_cosine_floor() -> float:
+    """WS-GATE-2 — semantic attach 절대 cosine floor. env(OHS_SEMANTIC_COSINE_FLOOR) 우선.
+
+    **기본 0.0 = off → 현행 동작(무회귀)**. >0이면 hybrid recall의 top vscore(cosine)가 floor
+    미만인 guide 후보를 드롭하고, 전부 거부 시 no-match sentinel(빈 결과)을 반환해 spurious
+    표준개선절차 부착을 막는다(judge_semantic_attach: rescue 40%가 on_score=0 오부착이던 문제).
+    RRF는 순위만 쓰고 절대 cosine을 버려, ordinal(0.92−0.04·rank)이 코퍼스에 적합 guide가 없어도
+    top-K를 무조건 부착했다. text-embedding-3-small 보정 시작값 ~0.20-0.25(결정 D4), judge set 상향.
+    vscore 부재(BM25-only, 벡터 top-pool 밖=약한 의미유사)는 0.0 취급 → floor>0 시 드롭(strict).
+    """
+    env = os.environ.get("OHS_SEMANTIC_COSINE_FLOOR")
+    if env is not None and env.strip() != "":
+        try:
+            return max(0.0, float(env.strip()))
+        except ValueError:
+            return 0.0
+    try:
+        from app.config import settings
+        return max(0.0, float(getattr(settings, "OHS_SEMANTIC_COSINE_FLOOR", 0.0) or 0.0))
+    except Exception:  # noqa: BLE001
+        return 0.0
+
+
 def _rerank_guides_llm(rich_text: str, guides: list[dict], model: str = "gpt-4.1-mini") -> list[dict]:
     """bounded LLM rerank — hazard 원문 ↔ 후보 guide 적합성을 LLM이 0~10 채점 후 재정렬.
 
     search_enhancer.rerank_results 패턴의 sync 버전(match_hazards_to_guides가 sync). 후보 enum만
-    평가(bounded). 실패 시 recall 순서 유지(graceful). 0점(무관)은 제거하되 전부 0이면 recall 유지(coverage).
+    평가(bounded). 실패 시 recall 순서 유지(graceful). 0점(무관)은 제거하되, floor off면 전부 0일 때
+    recall 유지(coverage), **floor on(WS-GATE-2)이면 빈 결과(no-match sentinel)**.
     """
     if len(guides) <= 1:
         return guides
@@ -122,7 +146,14 @@ def _rerank_guides_llm(rich_text: str, guides: list[dict], model: str = "gpt-4.1
         g2["llm_rerank_score"] = s
         reranked.append(g2)
     reranked.sort(key=lambda x: x["relevance_score"], reverse=True)
-    return reranked or guides  # 전부 0이면 recall 유지(coverage 보존)
+    # WS-GATE-2: floor off면 전부 0일 때 recall 유지(coverage 보존, 무회귀). floor on이면
+    # 전부 0 = "적합 guide 없음" → no-match sentinel(빈 결과)로 spurious 부착 차단.
+    if reranked:
+        return reranked
+    if _semantic_cosine_floor() > 0.0:
+        logger.info("[SemanticAttach] rerank 전부 0점 + floor on → no-match sentinel(빈 결과)")
+        return []
+    return guides  # floor off: 전부 0이면 recall 유지(coverage 보존)
 
 
 def _hazard_rich_text(h: dict) -> str:
@@ -242,13 +273,17 @@ def _guide_section_recall(
             "section": sec_label or "",
             "excerpt": (r.get("doc") or "")[:200],
             "score": float(r.get("rrf") or 0.0),
+            "vscore": float(r.get("vscore") or 0.0),  # WS-GATE-2: 절대 cosine surface
         }
         by_guide.setdefault(gc, {"guide_code": gc, "sections": []})["sections"].append(sec)
     out: list[dict] = []
     for gc, g in by_guide.items():
         secs = sorted(g["sections"], key=lambda s: s["score"], reverse=True)
         agg = sum(s["score"] for s in secs[:top_k_sections])  # robust: 상위 K 섹션 합
-        out.append({"guide_code": gc, "agg": agg, "sections": secs[:top_k_sections]})
+        # WS-GATE-2: guide의 절대 cosine = 최선 섹션 vscore (floor 판정용).
+        top_v = max((s.get("vscore") or 0.0) for s in g["sections"]) if g["sections"] else 0.0
+        out.append({"guide_code": gc, "agg": agg, "top_vscore": round(top_v, 4),
+                    "sections": secs[:top_k_sections]})
     out.sort(key=lambda x: x["agg"], reverse=True)
     return out[: max(n * 2, 8)]
 
@@ -280,12 +315,14 @@ def _semantic_guide_candidates(
             recalled = _guide_section_recall(rich_text, n)
             ids = [g["guide_code"] for g in recalled]
             sections_by_code = {g["guide_code"]: g["sections"] for g in recalled}
+            vscore_by_code = {g["guide_code"]: float(g.get("top_vscore") or 0.0) for g in recalled}
         else:
             from app.services.hybrid_search import hybrid_search
 
             rows = hybrid_search("guide", rich_text, n_results=max(n * 2, 8))
             ids = [r["id"] for r in rows]
             sections_by_code = {}
+            vscore_by_code = {r["id"]: float(r.get("vscore") or 0.0) for r in rows}
     except Exception as e:  # noqa: BLE001
         logger.warning("[SemanticAttach] guide recall 실패 → SR→CI fallback: %s", e)
         return []
@@ -300,11 +337,17 @@ def _semantic_guide_candidates(
         for g in db.query(PgKoshaGuide).filter(PgKoshaGuide.guide_code.in_(ids)).all()
     }
     industry_contexts = industry_contexts or []
+    floor = _semantic_cosine_floor()  # WS-GATE-2: 0이면 무회귀
+    dropped_below_floor = 0
     out: list[dict] = []
     for rank, code in enumerate(ids):
         g = gmap.get(code)
         if g is None:
             continue  # SSOT 존재 검증
+        top_v = vscore_by_code.get(code, 0.0)
+        if floor > 0.0 and top_v < floor:
+            dropped_below_floor += 1
+            continue  # WS-GATE-2: 절대 cosine floor 미만 → spurious 부착 차단
         gi = infer_industry_context(text=" ".join(filter(None, [g.title, g.sub_category])))
         adj, alignment, _ = score_industry_alignment(gi.active_industries, industry_contexts)
         rel_sections = [
@@ -322,7 +365,11 @@ def _semantic_guide_candidates(
             "relevance_score": round(min(0.99, max(0.0, 0.92 - 0.04 * rank + adj)), 3),
             "mapping_type": "hybrid_semantic_section" if use_section else "hybrid_semantic",
             "ci_hit_count": 0,
+            "top_vscore": round(top_v, 4),  # WS-GATE-2: surfaced 절대 cosine(provenance)
         })
+    if floor > 0.0 and dropped_below_floor and not out:
+        logger.info("[SemanticAttach] cosine floor=%.3f가 후보 %d개 전부 거부 → no-match sentinel",
+                    floor, dropped_below_floor)
     # bounded LLM rerank (flag on) — 후보 enum top-K를 LLM이 재정렬해 절대 정밀도↑.
     if _semantic_rerank_enabled():
         out = _rerank_guides_llm(rich_text, out)
