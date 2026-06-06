@@ -1,7 +1,13 @@
 {
-  "generated_at": "2026-06-06T13:44:31.828890+00:00",
+  "generated_at": "2026-06-06T15:19:51.498180+00:00",
   "tool": "replay_synthetic_observations.py",
-  "note": "WS-EVAL-1 hazards-injected baseline (ON path active). legacy keys == v3 (byte-identical); adds guide_coverage_rate/she_recall_miss_rate.",
+  "note": "WS-EVAL-1/GATE-2 baseline. semantic attach ALIVE (chromadb junction to main) + rerank OFF(deterministic). gated keys==v3; guide_coverage_rate 0.6718; avg_on_guides 2.62(semantic-selective).",
+  "config": {
+    "semantic_recall": "on",
+    "rerank": "off",
+    "section": "off",
+    "cosine_floor": 0.0
+  },
   "summary": {
     "total": 2360,
     "valid": 2360,
@@ -24,23 +30,23 @@
       "재활치료센터": 30
     },
     "she_accuracy": 0.5758,
-    "sr_accuracy": 0.7792,
+    "sr_accuracy": 0.7797,
     "penalty_accuracy": 0.4729,
     "overall_accuracy": 0.3254,
     "false_positive_count": 240,
     "false_positive_rate": 0.8696,
     "false_negative_count": 0,
     "false_negative_rate": 0.0,
-    "avg_procedures": 4.48,
-    "avg_actions": 7.68,
+    "avg_procedures": 3.27,
+    "avg_actions": 5.7,
     "per_case_type": {
       "positive": {
         "count": 1377,
         "she_accuracy": 0.5832,
-        "sr_accuracy": 0.8591,
+        "sr_accuracy": 0.8598,
         "penalty_accuracy": 0.3588,
-        "avg_procedures": 5.2,
-        "avg_actions": 8.56
+        "avg_procedures": 3.7,
+        "avg_actions": 6.4
       },
       "negative": {
         "count": 276,
@@ -54,7 +60,7 @@
     "she_should_count": 1377,
     "she_recall_miss_rate": 0.4168,
     "guide_coverage_rate": 0.6718,
-    "avg_on_guides_positive": 4.12,
+    "avg_on_guides_positive": 2.62,
     "gold_eval_count": 0,
     "guide_recall_at3": 0.0,
     "top1_relevance_rate": 0.0
