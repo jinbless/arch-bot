@@ -39,6 +39,23 @@ echo "▶ Fuseki: $SPARQL_EP"
 echo "▶ Health check..."
 curl -sS -f "http://localhost:3030/\$/ping" && echo " OK" || { echo " FAIL"; exit 1; }
 
+# V0. Consistency (WS-GATE-4): Openllet lazy prepare()를 실제 trigger하는 라이브 ASK.
+#   "Server Started"는 일관성 보장이 아니다 — consistency는 첫 추론 쿼리에서만 검사된다.
+#   owl:Nothing에 귀속된 개체(disjoint 위반 등)가 있으면 비일관 → exit 1.
+echo ""
+echo "═══ V0. Consistency: ASK { ?x a owl:Nothing } (Openllet live, 비일관 시 exit 1) ═══"
+incons=$(curl -sS -G "$SPARQL_EP" \
+  --data-urlencode "query=PREFIX owl: <http://www.w3.org/2002/07/owl#>
+ASK { ?x a owl:Nothing }" \
+  -H "Accept: application/sparql-results+json" \
+  | python -c 'import sys, json; print(str(json.load(sys.stdin).get("boolean", False)).lower())')
+echo "  owl:Nothing 개체 존재? $incons"
+if [ "$incons" = "true" ]; then
+  echo "  ✗ INCONSISTENT — Openllet가 owl:Nothing 귀속 개체 검출. 비일관 온톨로지 → exit 1"
+  exit 1
+fi
+echo "  ✓ CONSISTENT (owl:Nothing 0)"
+
 run_query "V1. Total triple count (base 626K + inferred)" \
 'SELECT (COUNT(*) AS ?cnt) WHERE { ?s ?p ?o }'
 
