@@ -22,10 +22,20 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-# SSOT 소비자 모듈 로드 (shared/reference)
-_SHARED_REF = Path(__file__).resolve().parents[5] / "shared" / "reference"
-if str(_SHARED_REF) not in sys.path:
-    sys.path.insert(0, str(_SHARED_REF))
+# SSOT 소비자 모듈 로드 (shared/reference) — 컨테이너/배포 안전.
+# env(OHS_SHARED_REFERENCE) > __file__ 상위 탐색(repo) > 컨테이너 관례. (구버전 parents[5]는 /app에서 IndexError)
+import os  # noqa: E402
+
+_SHARED_REF = os.environ.get("OHS_SHARED_REFERENCE")
+if not (_SHARED_REF and Path(_SHARED_REF).exists()):
+    _SHARED_REF = next(
+        (str(par / "shared" / "reference")
+         for par in Path(__file__).resolve().parents
+         if (par / "shared" / "reference").exists()),
+        "/app/shared/reference",
+    )
+if _SHARED_REF not in sys.path:
+    sys.path.insert(0, _SHARED_REF)
 import canonical_vocab as _cv  # noqa: E402
 
 # ────────────────────────────────────────────────────────────────────────

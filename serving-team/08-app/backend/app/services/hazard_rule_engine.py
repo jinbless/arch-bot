@@ -259,14 +259,31 @@ def apply_rules(
 _CANONICAL_VOCAB = None
 
 
+def _shared_reference_dir():
+    """shared/reference 위치를 컨테이너/배포 안전하게 해석.
+    env(OHS_SHARED_REFERENCE) > __file__ 상위 탐색(repo) > 컨테이너 관례(/app/shared/reference).
+    (구버전은 parents[5] 하드코딩이라 컨테이너(/app)에서 IndexError로 깨졌음)
+    """
+    import os
+    from pathlib import Path
+
+    env = os.environ.get("OHS_SHARED_REFERENCE")
+    if env and Path(env).exists():
+        return Path(env)
+    for par in Path(__file__).resolve().parents:
+        cand = par / "shared" / "reference"
+        if cand.exists():
+            return cand
+    return Path("/app/shared/reference")
+
+
 def _canonical_vocab():
     """공유 SSOT 소비자 모듈 lazy load (shared/reference/canonical_vocab.py)."""
     global _CANONICAL_VOCAB
     if _CANONICAL_VOCAB is None:
         import sys
-        from pathlib import Path
 
-        p = Path(__file__).resolve().parents[5] / "shared" / "reference"
+        p = _shared_reference_dir()
         if str(p) not in sys.path:
             sys.path.insert(0, str(p))
         import canonical_vocab as _m
@@ -927,12 +944,17 @@ def _condition_label(subject_role: Optional[str], accident_outcome: Optional[str
 
 
 def _ontology_instances_path() -> Path:
-    return (
-        Path(__file__).resolve().parents[4]
-        / "koshaontology"
-        / "ontology"
-        / "kosha-instances.ttl"
-    )
+    # 컨테이너/배포 안전: env > __file__ 상위 탐색 > 컨테이너 관례. (구버전 parents[4]는 /app에서 IndexError)
+    import os
+
+    env = os.environ.get("OHS_ONTOLOGY_DIR")
+    if env:
+        return Path(env) / "kosha-instances.ttl"
+    for par in Path(__file__).resolve().parents:
+        cand = par / "koshaontology" / "ontology" / "kosha-instances.ttl"
+        if cand.exists():
+            return cand
+    return Path("/app/koshaontology/ontology/kosha-instances.ttl")
 
 
 def _penalty_rule_to_dict(graph: Graph, pr_uri: URIRef) -> dict:

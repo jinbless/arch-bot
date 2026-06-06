@@ -17,29 +17,38 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     create_tables()
 
-    try:
-        count = article_service.build_index(force=False)
-        logger.info("Article index ready: %s articles", count)
-    except Exception as exc:
-        logger.warning("Article index startup skipped: %s", exc)
+    # 배포 옵션: startup의 legacy article/guide 인덱스 빌드 생략(uvicorn 기동 지연·OpenAI 비용 방지).
+    # 핵심 사진→4패널 서빙은 ohs_* 컬렉션(hybrid_search) + PG를 쓰므로 이 인덱스 불요.
+    # (article 검색·guide 브라우저 보조 기능만 영향. env OHS_SKIP_STARTUP_INDEX=true로 활성)
+    import os as _os
+    _skip_idx = _os.environ.get("OHS_SKIP_STARTUP_INDEX", "").lower() in ("1", "true", "on", "yes")
 
-    try:
-        db = SessionLocal()
+    if _skip_idx:
+        logger.info("Startup article/guide 인덱스 빌드 생략(OHS_SKIP_STARTUP_INDEX) — 핵심 4패널은 ohs_* 컬렉션 사용.")
+    else:
         try:
-            parse_result = guide_service.parse_and_store_all(db, force=False)
-            if not parse_result.get("skipped"):
-                mappings = guide_service.build_mappings(db)
-                logger.info(
-                    "KOSHA Guide parsed: %s guides, %s mappings",
-                    parse_result.get("total_parsed", 0),
-                    mappings,
-                )
-            indexed = guide_service.build_index(db, force=False)
-            logger.info("KOSHA Guide index ready: %s sections", indexed)
-        finally:
-            db.close()
-    except Exception as exc:
-        logger.warning("KOSHA Guide startup skipped: %s", exc)
+            count = article_service.build_index(force=False)
+            logger.info("Article index ready: %s articles", count)
+        except Exception as exc:
+            logger.warning("Article index startup skipped: %s", exc)
+
+        try:
+            db = SessionLocal()
+            try:
+                parse_result = guide_service.parse_and_store_all(db, force=False)
+                if not parse_result.get("skipped"):
+                    mappings = guide_service.build_mappings(db)
+                    logger.info(
+                        "KOSHA Guide parsed: %s guides, %s mappings",
+                        parse_result.get("total_parsed", 0),
+                        mappings,
+                    )
+                indexed = guide_service.build_index(db, force=False)
+                logger.info("KOSHA Guide index ready: %s sections", indexed)
+            finally:
+                db.close()
+        except Exception as exc:
+            logger.warning("KOSHA Guide startup skipped: %s", exc)
 
     try:
         from app.integrations.sparql_client import sparql_client
