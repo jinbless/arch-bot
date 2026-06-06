@@ -31,7 +31,7 @@ naive ppe/env 배선 → **penalty −0.042 / overall −0.072 VETOED**(vs 정�
 - **OBS**: OBS-3(analysis_log 경량 집계기, OBS-4 후) · OBS-4(per-stage drop attribution) · OBS-5/6(penalty 로더 source 스탬프 + startup active probe) · OBS-7(벡터 recall degrade 가시화).
 - **PROV**: PROV-2(evidence_confidence discount — 라우팅 영향·L·PROV-4 선행) · PROV-4(byte-identity harness) · PROV-1(RiskFeature origin, apply_rules 계측 → DEEP-3와).
 - **DEEP**: DEEP-2(BFO 축 detector+CON-strict, 모델결정 무관 선행 가능) · DEEP-1(dual-path MERGE, **EVAL-1 의존**) · DEEP-3(ReasoningTrace edge graph, PROV-1 후).
-- **recall 상향(EVAL-1 완료로 진입 가능)**: GATE-2(semantic cosine floor)·GATE-3(shadow hard-reject)·DEEP-1(dual-path MERGE) — 모두 `guide_coverage_rate` FN veto 위에서 안전하게 채택. 검증은 `make f1-regression`(v4 baseline, hazards-injected).
+- **recall 상향 블록**(EVAL-1 `guide_coverage_rate` FN veto 위에서 안전): GATE-2 ✅완료(`c72e89a`). **다음 = GATE-3**(shadow_reasoner log-only→opt-in hard reject; `guide_domain_incompatibilities` PG + `shadow_validate`를 기본 served 경로 `analysis_pipeline.py` semantic attach 직전에 호출, `level==vetted` & `confidence≥OHS_DOMAIN_REJECT_CONF`(예 0.9)만 hard drop; 기본 off) **또는 DEEP-1**(dual-path overwrite→corroboration MERGE, facet guide set ⊆ merged 불변식 hard test). **이제 semantic-alive**(chromadb junction)라 둘 다 live 검증 가능. 검증은 `make f1-regression`(v4-alive baseline) + judge eval(precision).
 - **gold 의존(Phase 2)**: EVAL-2(gold 30→100, 사용자 D14 라벨링 결정) → GATE-9·OBS-8·EVAL-3/5 + **EVAL-1의 guide_recall@K/top1 observe→hard 승격**(gold 안정화 + 2주, 결정 D13=B).
 
 ### ⚠️ C묶음 중 발견(별건·무관)
