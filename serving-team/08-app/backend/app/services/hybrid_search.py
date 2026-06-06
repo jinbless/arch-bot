@@ -1,8 +1,14 @@
 """Phase 2 (v5 처방) — BM25 ⊕ 벡터 hybrid recall (RRF) over 온톨로지-파생 임베딩.
 
 온톨로지 원문 임베딩(`ohs_ns`/`ohs_sr`/`ohs_ci`, scripts/build_kb_embeddings.py 산출)에서
-GPT 위험요소 rich text를 질의로 후보 SR/CI/NS를 검색. **후보 생성(recall)만** 담당 —
-부착의 검증·추론·전파는 온톨로지(Phase 3)가 보증. id = 온톨로지 IRI(identifier/canonical_ci_id).
+GPT 위험요소 rich text를 질의로 후보 SR/CI/NS를 검색. **후보 생성(recall)만** 담당.
+id = 온톨로지 IRI(identifier/canonical_ci_id).
+
+⚠️ 이 recall 출력은 기본적으로 닫힌세계(disjoint/도메인) 검증을 거치지 않는다. 부착 경로
+(hazard_to_guide_service)의 실제 검증은 현재 ① PG SSOT 존재확인 ② industry soft 정렬
+③ (기본 on) soft LLM rerank 뿐이며, hard disjoint/domain reject은 미구현(계획: WS-GATE-2
+절대 cosine floor + WS-GATE-3 shadow_reasoner hard-reject). 즉 "온톨로지(Phase 3)가 부착을
+검증·보증"하지 않는다 — over-claim 금지.
 
 순수 mechanism(게이팅 없음). 활성화 결정은 부착 경로(hazard_to_guide_service)에서 플래그로.
 BM25는 컬렉션 문서로 lazy 구축(article_service 패턴), 벡터는 ChromaDB cosine.
@@ -29,7 +35,7 @@ from app.utils.text_utils import tokenize_korean
 logger = logging.getLogger(__name__)
 
 CHROMA_DIR = Path(__file__).resolve().parents[2] / "data" / "chromadb"
-EMBED_MODEL = "text-embedding-3-small"
+from app.embedding_config import EMBEDDING_MODEL as EMBED_MODEL  # WS-DRIFT-5 SSOT
 RRF_K = 60  # Reciprocal Rank Fusion 상수 (관행값)
 
 
@@ -169,9 +175,16 @@ def get_index(collection_name: str) -> HybridIndex:
     return _INDEXES[collection_name]
 
 
-def hybrid_search(kind: str, query: str, n_results: int = 10) -> list[dict]:
-    """kind in {sr,ns,ci} → 해당 컬렉션 hybrid 검색. 컬렉션 없으면 []."""
+def hybrid_search(kind: str, query: str, n_results: int = 10, pool: int = 30) -> list[dict]:
+    """kind in COLLECTIONS → 해당 컬렉션 hybrid 검색. 컬렉션 없으면 [].
+
+    WS-EVAL-4: `pool`(BM25·vector 채널별 RRF 회수 깊이)을 .search로 **forward**.
+    이전에는 이 wrapper가 pool을 전달하지 않아 .search 기본 30으로 고정됐고, n_results만
+    넓혀도 각 채널은 여전히 top-30만 RRF에 기여했다(대형 컬렉션 ohs_ci_raw 54.6K에서
+    0.05% 깊이 = 침묵 recall FN). 큰 컬렉션 호출처는 더 깊은 pool을 전달할 수 있다.
+    기본값 30은 종전 거동과 동일(무회귀).
+    """
     col = COLLECTIONS.get(kind)
     if not col:
         return []
-    return get_index(col).search(query, n_results=n_results)
+    return get_index(col).search(query, n_results=n_results, pool=pool)

@@ -29,8 +29,10 @@ def _find_repo_root() -> Path:
 
 
 REPO_ROOT = _find_repo_root()
+# WS-EVAL-4: 기본 baseline v1 → v3 (phase3-baseline-shift). v1/v2는 구 corpus 스냅샷,
+# v3가 현행 정본(evaluation-baseline.md가 vs replay_baseline_v3.json으로 보고).
 DEFAULT_BASELINE = (
-    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "replay_baseline.json"
+    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "replay_baseline_v3.json"
 )
 
 

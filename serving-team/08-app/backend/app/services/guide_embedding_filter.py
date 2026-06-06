@@ -32,7 +32,7 @@ from typing import Iterable, Optional
 logger = logging.getLogger(__name__)
 
 
-DEFAULT_EMBEDDING_MODEL = os.environ.get("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+from app.embedding_config import EMBEDDING_MODEL as DEFAULT_EMBEDDING_MODEL  # WS-DRIFT-5 SSOT
 DROP_THRESHOLD = 0.25
 GRAY_THRESHOLD = 0.45
 
@@ -176,7 +176,11 @@ class GuideEmbeddingFilter:
         """Embed scene text. Cached by sha256(text)."""
         if not scene_text:
             return None
-        key = hashlib.sha256(scene_text.encode("utf-8")).hexdigest()
+        # WS-DRIFT-5: 캐시 키에 모델명 포함 — 모델 교체 후 옛 임베딩이 hit로 재사용되어
+        # 질의·인덱스 공간이 어긋나는 silent staleness 차단.
+        key = hashlib.sha256(
+            (DEFAULT_EMBEDDING_MODEL + "\x00" + scene_text).encode("utf-8")
+        ).hexdigest()
         cached = self._scene_cache.get(key)
         if cached is not None:
             return cached

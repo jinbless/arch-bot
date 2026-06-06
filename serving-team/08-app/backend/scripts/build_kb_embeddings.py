@@ -37,7 +37,7 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 logger = logging.getLogger("build_kb_embeddings")
 
 CHROMA_DIR = Path(__file__).resolve().parent.parent / "data" / "chromadb"
-EMBED_MODEL = "text-embedding-3-small"
+from app.embedding_config import EMBEDDING_MODEL as EMBED_MODEL  # noqa: E402  # WS-DRIFT-5 SSOT
 BATCH = 50
 
 # kind → (collection, SQL, id_field, text_builder, meta_builder)
