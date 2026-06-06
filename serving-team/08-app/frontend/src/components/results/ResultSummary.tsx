@@ -30,6 +30,12 @@ const ResultSummary: React.FC<ResultSummaryProps> = ({ analysis }) => {
       </div>
 
       <p className="text-gray-700 leading-relaxed mb-2">{analysis.summary}</p>
+      {analysis.overall_risk_level === 'unknown' && (
+        <p className="mb-3 rounded-md bg-slate-100 border border-slate-300 px-3 py-2 text-xs text-slate-700">
+          ⚠️ <strong>판정 불가</strong> — 이 입력만으로는 위험 유무를 확정할 수 없습니다.{' '}
+          <strong>미탐지는 안전을 의미하지 않습니다.</strong> 추가 현장 확인이 필요합니다.
+        </p>
+      )}
       <p className="text-[10px] text-gray-400 mb-4 flex items-center gap-1">
         <SourceBadge source="gpt" />
         <span>위 요약은 LLM이 생성. 아래 통계는 backend가 PG/SHE/정규화 결과 집계.</span>

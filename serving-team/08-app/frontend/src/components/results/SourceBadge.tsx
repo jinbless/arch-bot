@@ -25,7 +25,8 @@ export type SourceType =
   | 'llm_enrich'
   | 'llm_rejected'
   | 'mixed'
-  | 'ontology';
+  | 'ontology'
+  | 'embedding_candidate';
 
 const SOURCE_META: Record<SourceType, { label: string; cls: string; title: string }> = {
   gpt:          { label: 'GPT Vision',   cls: 'bg-blue-100 text-blue-700 border-blue-200',       title: 'LLM이 사진/텍스트에서 직접 추출' },
@@ -39,6 +40,7 @@ const SOURCE_META: Record<SourceType, { label: string; cls: string; title: strin
   llm_rejected: { label: 'LLM reject',    cls: 'bg-zinc-200 text-zinc-700 border-zinc-300 line-through', title: 'Phase B 도메인 검증이 제외한 candidate (debug 표시)' },
   mixed:        { label: '복합',          cls: 'bg-gray-100 text-gray-700 border-gray-200',       title: '여러 source 결합' },
   ontology:     { label: '온톨로지',      cls: 'bg-violet-100 text-violet-700 border-violet-200', title: 'hazard-direct → SR → Guide (온톨로지 기반 추론 경로)' },
+  embedding_candidate: { label: '임베딩 후보(미검증)', cls: 'bg-orange-50 text-orange-700 border-orange-300', title: 'WS-PROV-3: 벡터 임베딩 유사도로 부착된 후보 — 닫힌세계(disjoint/규칙) 검증 미통과. 규칙 기반 부착과 신뢰등급이 다름.' },
 };
 
 const SourceBadge: React.FC<{ source: SourceType; extra?: string }> = ({ source, extra }) => {
@@ -76,4 +78,17 @@ export const inferProcedureSource = (evidenceSummary?: string | null): SourceTyp
   if (evidenceSummary.includes('SHE source guide')) return 'she';
   if (evidenceSummary.includes('GUIDE feature') && evidenceSummary.includes('CI feature')) return 'mixed';
   return 'pg_guide';
+};
+
+/**
+ * WS-PROV-3: StandardProcedure.mapping_type 우선으로 source 판정.
+ * 임베딩 유사도 부착(hybrid_semantic/hybrid_cache)은 '임베딩 후보(미검증)'으로 표시하고,
+ * 그 외는 기존 evidence_summary 추정으로 폴백.
+ */
+export const inferProcedureSourceFromMapping = (
+  mappingType?: string | null,
+  evidenceSummary?: string | null,
+): SourceType => {
+  if (mappingType === 'hybrid_semantic' || mappingType === 'hybrid_cache') return 'embedding_candidate';
+  return inferProcedureSource(evidenceSummary);
 };

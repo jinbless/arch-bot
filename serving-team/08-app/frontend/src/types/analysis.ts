@@ -79,6 +79,7 @@ export interface StandardProcedure {
   source_ci_ids?: string[];
   evidence_summary?: string | null;
   confidence: number;
+  mapping_type?: string | null; // WS-PROV-3: 부착 출처(표시전용)
 }
 
 export interface PenaltyPath {
