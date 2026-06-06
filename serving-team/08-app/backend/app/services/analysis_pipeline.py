@@ -383,6 +383,29 @@ class AnalysisPipeline:
                                         "relevance_score": _sc, "mapping_type": _g.get("mapping_type"),
                                         "evidence_summary": _ev}
             _sem_guides = sorted(_seen_g.values(), key=lambda x: x["relevance_score"], reverse=True)
+            # ── WS-GATE-3: 도메인-부적합 guide hard reject (opt-in, 기본 off=무회귀) ──
+            # shadow_validate가 analysis_log write-only로만 쓰이던 도메인 모순 신호를, 기본 served
+            # 경로의 semantic attach 직전에서 high-confidence(vetted & conf>=임계)만 hard-drop한다.
+            # **semantic(hazard-direct) 후보에만 적용** → facet(CI-corroborated) guide_rows는 무영향
+            # (FN 보수; DEEP-1 merge가 facet을 재보존). 전부 드롭 시 _sem_guides=∅ → 아래 overwrite
+            # 미발동 → facet guide_rows 생존(FN-safe fallback).
+            if _sem_guides:
+                from app.services import shadow_reasoner as _shadow
+                _industry_ko = declared_industry_text or (
+                    industry_context.active_industries[0]
+                    if industry_context.active_industries else ""
+                )
+                _reject = _shadow.domain_reject_codes(
+                    _industry_ko, [g["guide_code"] for g in _sem_guides]
+                )
+                if _reject:
+                    _before = len(_sem_guides)
+                    _sem_guides = [g for g in _sem_guides if g["guide_code"] not in _reject]
+                    logging.getLogger(__name__).info(
+                        "[WS-GATE-3] domain-reject dropped %d/%d semantic guides "
+                        "(industry=%s): %s",
+                        len(_reject), _before, _industry_ko, sorted(_reject),
+                    )
             if _sem_guides:
                 guide_rows = _sem_guides
 

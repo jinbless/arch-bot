@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import threading
 from pathlib import Path
 from typing import Any
@@ -223,3 +224,83 @@ def shadow_validate(
     except Exception as exc:
         logger.warning("shadow_reasoner.shadow_validate failed: %s", exc)
         return []
+
+
+# ═══ WS-GATE-3 — log-only → opt-in hard reject (domain-incompat 게이트) ═══
+#
+# 기존 shadow_validate는 analysis_log.jsonl write-only(F.3.2 mining 입력)이고, 기본 off인
+# LLM_RERANK_MODE(shadow/active) 경로에서만 호출돼 기본 served 경로에 전혀 안 걸린다.
+# domain_reject_codes는 기본 served 경로(analysis_pipeline semantic attach 직전)에서 호출돼
+# **level=='vetted' AND confidence>=임계** 인 high-confidence 도메인 모순만 hard-drop 대상으로 반환한다.
+# confidence-thresholded opt-in이라 FN을 방지(약/candidate incompat은 무시). **기본 off(무회귀)**.
+
+
+def _domain_reject_enabled() -> bool:
+    """WS-GATE-3 — 도메인-부적합 hard reject 활성 여부. env(OHS_ENABLE_DOMAIN_REJECT) 우선.
+
+    **기본 off** → reject ∅ → semantic attach 무변경(byte-identical 무회귀).
+    """
+    env = os.environ.get("OHS_ENABLE_DOMAIN_REJECT")
+    if env is not None and env.strip() != "":
+        return env.strip().lower() in ("1", "true", "on", "yes")
+    try:
+        from app.config import settings
+        return bool(getattr(settings, "OHS_ENABLE_DOMAIN_REJECT", False))
+    except Exception:  # noqa: BLE001
+        return False
+
+
+def _domain_reject_conf() -> float:
+    """WS-GATE-3 — hard reject confidence 임계. env(OHS_DOMAIN_REJECT_CONF) 우선.
+
+    **기본 0.9(매우 높게 = FN 보수)**. vetted라도 임계 미만 confidence면 drop 안 함.
+    """
+    env = os.environ.get("OHS_DOMAIN_REJECT_CONF")
+    if env is not None and env.strip() != "":
+        try:
+            return float(env.strip())
+        except ValueError:
+            return 0.9
+    try:
+        from app.config import settings
+        return float(getattr(settings, "OHS_DOMAIN_REJECT_CONF", 0.9) or 0.9)
+    except Exception:  # noqa: BLE001
+        return 0.9
+
+
+def domain_reject_codes(
+    industry_ko: str,
+    candidate_guide_codes: list[str],
+) -> set[str]:
+    """WS-GATE-3 — opt-in hard reject 대상 guide_code 집합.
+
+    shadow_validate(industry_ko, codes) 결과 중 **level=='vetted' AND
+    confidence >= _domain_reject_conf()** 인 guide_code만 반환(hard-drop 대상).
+    **기본 off → 빈 집합(무회귀)**. Pure read-only, never raises.
+
+    FN 보수: candidate-level incompat 또는 저confidence vetted는 무시 → 부착 유지.
+    facet(CI-corroborated) guide는 호출측에서 semantic 후보에만 적용하므로 영향 없음.
+    """
+    try:
+        if not _domain_reject_enabled():
+            return set()
+        if not industry_ko or not candidate_guide_codes:
+            return set()
+        conf_floor = _domain_reject_conf()
+        rejects = shadow_validate(industry_ko, candidate_guide_codes)
+        out: set[str] = set()
+        for r in rejects:
+            try:
+                if (
+                    r.get("level") == "vetted"
+                    and float(r.get("confidence") or 0.0) >= conf_floor
+                ):
+                    gc = r.get("guide_code")
+                    if gc:
+                        out.add(gc)
+            except Exception:  # noqa: BLE001
+                continue
+        return out
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("shadow_reasoner.domain_reject_codes failed: %s", exc)
+        return set()

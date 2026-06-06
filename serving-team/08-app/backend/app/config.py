@@ -43,6 +43,12 @@ class Settings(BaseSettings):
     OHS_ENABLE_GUIDE_SECTION: bool = False
     # 학습 캐시는 opt-in — 전 코퍼스 재누적(accumulate_hybrid_attach) 후 활성. 데모 캐시는 stale.
     OHS_ENABLE_ATTACH_CACHE: bool = False
+    # WS-GATE-3 — semantic attach 도메인-부적합 guide hard reject. **기본 off(무회귀)**.
+    # on이면 shadow_validate(industry, codes) 중 level=='vetted' AND confidence>=임계인 guide만
+    # semantic 후보에서 hard-drop. facet(CI-corroborated) guide는 영향 없음(DEEP-1 merge가 재보존) →
+    # FN 보수. env(OHS_ENABLE_DOMAIN_REJECT/OHS_DOMAIN_REJECT_CONF) 우선. 임계는 매우 높게(0.9)=FN 보수.
+    OHS_ENABLE_DOMAIN_REJECT: bool = False
+    OHS_DOMAIN_REJECT_CONF: float = 0.9
 
 
 settings = Settings()
