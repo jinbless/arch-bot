@@ -95,6 +95,8 @@ class AnalysisKnowledgeContext:
     hazard_guide_relations: list[dict] = field(default_factory=list)
     hazard_canonical: dict = field(default_factory=dict)  # normalize_hazards_array 결과
     hazard_direct_mode: str = "off"
+    # WS-DEEP-1 — 이중경로 합의/불일치 분류(guides·SR별 she_only/hazard_direct_only/both). 로그/표시용.
+    path_agreement: dict = field(default_factory=dict)
 
 
 class AnalysisPipeline:
@@ -407,7 +409,40 @@ class AnalysisPipeline:
                         len(_reject), _before, _industry_ko, sorted(_reject),
                     )
             if _sem_guides:
-                guide_rows = _sem_guides
+                # ── WS-DEEP-1: overwrite(guide_rows=_sem_guides) → corroboration-보존 MERGE ──
+                # facet(CI-corroborated·work_process_steps grounded) guide를 보존하며 sem을 통합.
+                # 불변식: 결과 guide_code 집합 ⊇ facet 집합 → silent drop(A8) 차단. 단일 지점 교체.
+                guide_rows = self._merge_guide_rows(guide_rows, _sem_guides)
+                # step4: high-severity 단독경로 guide는 점수 깎지 말고 review_required 표식만(표시전용).
+                if high_severity_observation:
+                    for _gr in guide_rows:
+                        if _gr.get("source_path") in ("she_facet", "hazard_direct"):
+                            _gr["review_required"] = True
+
+        # WS-DEEP-1 step3 — 이중경로 합의/불일치 분류(guides·SR) → analysis_log path_agreement.
+        # 두 경로(SHE/facet · hazard-direct)가 같은 guide/SR를 얼마나 합의(both)하는지 정량화.
+        # sr_ids는 아직 hazard union(아래) 전이라 she/facet SR 집합. 표시·마이닝용(scoring 무관).
+        path_agreement: dict = {}
+        if hazards_payload and (hazard_guide_relations or hazard_sr_ids):
+            _g_path = {"she_only": 0, "hazard_direct_only": 0, "both": 0}
+            for _gr in guide_rows:
+                _sp = _gr.get("source_path")
+                if _sp == "she_facet":
+                    _g_path["she_only"] += 1
+                elif _sp == "hazard_direct":
+                    _g_path["hazard_direct_only"] += 1
+                elif _sp == "both":
+                    _g_path["both"] += 1
+            _she_sr = set(sr_ids)
+            _haz_sr = set(hazard_sr_ids)
+            path_agreement = {
+                "guides": _g_path,
+                "sr": {
+                    "she_only": len(_she_sr - _haz_sr),
+                    "hazard_direct_only": len(_haz_sr - _she_sr),
+                    "both": len(_she_sr & _haz_sr),
+                },
+            }
 
         # 「벌칙 3경로」 v5 연결 — semantic SR(정밀, 예: SR-VEHICLE→제179조)을 penalty 후보 풀에 보강(flag on).
         # replay는 hazards[] 미주입 → hazard_sr_ids ∅ → 미발동(무회귀). exposure는 보수적으로 legacy
@@ -442,6 +477,7 @@ class AnalysisPipeline:
             hazard_guide_relations=hazard_guide_relations,
             hazard_canonical=hazard_canonical,
             hazard_direct_mode=HAZARD_DIRECT_MODE,
+            path_agreement=path_agreement,
         )
 
     def _build_observations(self, result: dict) -> list[VisualObservation]:
@@ -629,6 +665,48 @@ class AnalysisPipeline:
             )
         return out
 
+    @staticmethod
+    def _merge_guide_rows(facet_rows: list[dict], sem_rows: list[dict]) -> list[dict]:
+        """WS-DEEP-1 — 이중경로 guide MERGE (overwrite[guide_rows=sem]의 facet silent-drop[A8] 해소).
+
+        - both(두 경로 모두): facet row를 베이스로 구조필드(ci_hit_count·work_process_steps·
+          source_sr_ids 등) **보존**, relevance_score=max(facet,sem), evidence_summary는 sem의
+          §섹션 근거 우선(overwrite가 보여주던 §-citation 비손실), source_path="both".
+        - facet-only: source_path="she_facet" 보존(CI-corroborated guide 절대 drop 금지).
+        - sem-only: source_path="hazard_direct" 보존(sparse row 그대로).
+        점수 내림차순 정렬. **불변식: 결과 guide_code 집합 ⊇ facet 집합**.
+        """
+        by_code: dict[str, dict] = {}
+        for fr in facet_rows or []:
+            gc = fr.get("guide_code")
+            if not gc:
+                continue
+            row = dict(fr)
+            row["source_path"] = "she_facet"
+            by_code[gc] = row
+        for sm in sem_rows or []:
+            gc = sm.get("guide_code")
+            if not gc:
+                continue
+            sem_score = float(sm.get("relevance_score") or 0.0)
+            if gc in by_code:
+                row = by_code[gc]
+                row["source_path"] = "both"
+                if sem_score > float(row.get("relevance_score") or 0.0):
+                    row["relevance_score"] = sem_score
+                sem_ev = sm.get("evidence_summary")
+                if sem_ev:
+                    row["evidence_summary"] = sem_ev
+            else:
+                row = dict(sm)
+                row["source_path"] = "hazard_direct"
+                by_code[gc] = row
+        return sorted(
+            by_code.values(),
+            key=lambda x: float(x.get("relevance_score") or 0.0),
+            reverse=True,
+        )
+
     def _build_standard_procedures(self, guide_rows: list[dict]) -> list[StandardProcedure]:
         procedures = []
         for row in guide_rows:
@@ -662,6 +740,8 @@ class AnalysisPipeline:
                     evidence_summary=row.get("evidence_summary"),
                     confidence=float(row.get("relevance_score", 0) or 0),
                     mapping_type=row.get("mapping_type"),  # WS-PROV-3: 부착 출처(표시전용)
+                    source_path=row.get("source_path"),  # WS-DEEP-1: 이중경로 출처(표시전용)
+                    review_required=bool(row.get("review_required")),  # WS-DEEP-1: 단독경로 high-sev
                 )
             )
         return procedures
@@ -1003,6 +1083,7 @@ class AnalysisPipeline:
                 she_match_count=len(knowledge.she_matches),
                 raw_vision_features=knowledge.raw_vision_features,
                 reasoner_rejects=reasoner_rejects,
+                path_agreement=knowledge.path_agreement,
             )
         except Exception as exc:
             logger.warning("analysis_log append failed: %s", exc)
@@ -1081,6 +1162,7 @@ class AnalysisPipeline:
                 she_match_count=len(knowledge.she_matches),
                 raw_vision_features=knowledge.raw_vision_features,
                 reasoner_rejects=reasoner_rejects,
+                path_agreement=knowledge.path_agreement,
             )
         except Exception as exc:
             logging.getLogger(__name__).warning(
@@ -1102,6 +1184,7 @@ class AnalysisPipeline:
         she_match_count: int = 0,
         raw_vision_features: dict | None = None,
         reasoner_rejects: list[dict] | None = None,
+        path_agreement: dict | None = None,
     ) -> None:
         """Phase C.1 — append per-analysis log for self-refine mining.
 
@@ -1161,6 +1244,9 @@ class AnalysisPipeline:
         # T2.A: write reasoner_rejects only when non-empty list (avoid noise)
         if reasoner_rejects:
             entry["reasoner_rejects"] = list(reasoner_rejects)
+        # WS-DEEP-1: 이중경로 합의/불일치 분류 — non-empty일 때만 기록(reasoner_rejects와 동일 옵셔널).
+        if path_agreement:
+            entry["path_agreement"] = path_agreement
         with log_path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 

@@ -90,6 +90,11 @@ class StandardProcedure(BaseModel):
     # WS-PROV-3: 이 절차가 어떻게 부착됐는지(표시전용, scoring 무관).
     # hybrid_semantic/hybrid_cache=임베딩 후보(미검증) vs she_sr_wp_guide/sr_ci_link=규칙 기반.
     mapping_type: Optional[str] = None
+    # WS-DEEP-1: 이중경로 출처(표시전용, scoring 무관). she_facet=SHE/facet만, hazard_direct=
+    # GPT hazard만, both=두 경로 합의. None=semantic attach off(단일 경로).
+    source_path: Optional[str] = None
+    # WS-DEEP-1: 한 경로에서만 잡힌 high-severity finding — down-weight 금지, '검토 필요' 표식만.
+    review_required: bool = False
 
 
 class PenaltyPath(BaseModel):
