@@ -88,6 +88,56 @@ def load_synthetic_cases(
     return cases
 
 
+def _expected_to_hazards(case: dict[str, Any]) -> list[dict[str, Any]]:
+    """WS-EVAL-1 — synthetic expected_features → 합성 hazard payload(GPT hazards[] 모사).
+
+    근본 원인 해소: build_fake_result가 hazards를 안 만들어 analysis_pipeline의 hazard-direct
+    ON 경로(match_hazards_to_guides / match_hazards_to_ci)가 replay에서 영구 dormant였다.
+    GPT가 사진에서 산출하는 hazards[]를 expected_features로부터 합성해 ON 경로를 실제로 발동시킨다.
+
+    설계(production-faithful + FP 무증가):
+    - **NEGATIVE case는 hazard 0건** — 안전 장면에서 GPT는 빈 hazards[]를 낸다. 합성 hazard로
+      negative에 절차를 만들면 false_positive_rate(이미 0.87)를 악화시키므로 절대 주입 안 함.
+    - accident/agent 축이 모두 비면 합성 안 함(맥락만으론 hazard 단정 금지 — 과대생성 방지).
+    - name=expected_primary_risk(자연어; normalize_hazards_array가 alias 매핑) + description=
+      photo+visual_cues(semantic attach 매칭) → code/semantic 양 경로 발동.
+    - legacy facet 경로(risk_feature_candidates)는 그대로 둬서 그쪽 무회귀.
+    """
+    if (case.get("case_type") or "") == "negative":
+        return []
+    expected = case.get("expected_features") or {}
+    # hazard.name = canonical code. normalize_hazards_array._resolve_alias_code는 코드 직접매칭
+    # (valid codes에 있으면 그대로)이라, expected_features의 정본 코드(FALL 등)를 name으로 쓰면
+    # 매핑된다. 전체 문장(expected_primary_risk)을 name으로 쓰면 alias 미스로 0 guide가 났다.
+    # work_context는 hazard가 아니라 breadth-gating context이므로 제외(legacy candidate 경로가
+    # canonical.work_contexts로 전달 → match_hazards_to_guides context_work_contexts).
+    codes = [t for t in (expected.get("accident_types") or []) if t]
+    codes += [t for t in (expected.get("hazardous_agents") or []) if t]
+    if not codes:
+        return []
+    cues = [c for c in (case.get("visual_cues") or []) if c]
+    description = " ".join(
+        p for p in [case.get("photo_description") or "", " ".join(cues)] if p
+    ).strip()
+    measures = (
+        [case["expected_corrective_direction"]]
+        if case.get("expected_corrective_direction")
+        else []
+    )
+    location = case.get("work_context") or ""
+    # 축 코드별 1 hazard (normalize는 hazard당 첫 매칭 축 1코드만 취함 → 코드별 분리).
+    return [
+        {
+            "name": code,
+            "risk_level": "high",
+            "location": location,
+            "description": description,
+            "preventive_measures": measures,
+        }
+        for code in codes
+    ]
+
+
 def build_fake_result(case: dict[str, Any]) -> dict[str, Any]:
     """Synthetic case → ONTOLOGY_OBSERVATION_SCHEMA 호환 fake result.
 
@@ -135,6 +185,8 @@ def build_fake_result(case: dict[str, Any]) -> dict[str, Any]:
         "visual_observations": fake_visual_observations,
         "visual_cues": fake_visual_cues,
         "risk_feature_candidates": candidates,
+        # WS-EVAL-1: hazards[] 주입 → hazard-direct ON 경로(guide/ci/penalty) 실제 발동.
+        "hazards": _expected_to_hazards(case),
         "overall_assessment": case.get("expected_primary_risk") or "",
         "immediate_actions": (
             [case["expected_corrective_direction"]]
@@ -196,6 +248,34 @@ def evaluate_case(case: dict[str, Any], response: Any) -> dict[str, Any]:
         overall_risk_level.value if hasattr(overall_risk_level, "value") else str(overall_risk_level)
     )
 
+    # WS-EVAL-1 — hazard-direct ON 경로 산출 측정.
+    hgr = getattr(response, "hazard_guide_relations", None) or []
+    on_guide_codes: list[str] = []
+    for rel in hgr:
+        for g in getattr(rel, "guides", None) or []:
+            gc = getattr(g, "guide_code", None)
+            if gc:
+                on_guide_codes.append(gc)
+    _seen: set[str] = set()
+    on_guide_unique = [c for c in on_guide_codes if not (c in _seen or _seen.add(c))]
+    has_on_guide = len(on_guide_unique) > 0
+
+    # 순수 SHE recall miss (절차 유무 무관): positive & should_match_she & NOT matched.
+    # 좁은 false_negative(절차·조치 0건)와 분리해 진짜 miss를 노출.
+    she_recall_miss = case_type == "positive" and she_expected and not she_matched
+    # gold-independent recall proxy: should_match_she positive가 ON guide를 1개라도 받았는가.
+    guide_should = case_type == "positive" and she_expected
+    guide_covered = guide_should and has_on_guide
+
+    # gold(WS-EVAL-2) 있는 case만 guide_recall@3 / top1 산출 (synthetic엔 보통 부재 → None=observe-only).
+    expected_guides = [c for c in (case.get("expected_guide_codes") or []) if c]
+    guide_recall_at3 = None
+    top1_relevant = None
+    if expected_guides:
+        top3 = set(on_guide_unique[:3])
+        guide_recall_at3 = round(len(set(expected_guides) & top3) / len(expected_guides), 4)
+        top1_relevant = bool(on_guide_unique and on_guide_unique[0] in set(expected_guides))
+
     return {
         "case_id": case.get("case_id"),
         "case_type": case_type,
@@ -217,6 +297,15 @@ def evaluate_case(case: dict[str, Any], response: Any) -> dict[str, Any]:
         "false_negative": false_negative,
         "finding_status": finding_status,
         "overall_risk_level": overall_risk_level_str,
+        # WS-EVAL-1
+        "she_recall_miss": she_recall_miss,
+        "on_guide_count": len(on_guide_unique),
+        "has_on_guide": has_on_guide,
+        "guide_should": guide_should,
+        "guide_covered": guide_covered,
+        "has_gold": bool(expected_guides),
+        "guide_recall_at3": guide_recall_at3,
+        "top1_relevant": top1_relevant,
     }
 
 
@@ -288,6 +377,16 @@ def build_summary(per_case: list[dict[str, Any]]) -> dict[str, Any]:
     avg_procedures = _avg([r.get("procedures_count", 0) for r in valid])
     avg_actions = _avg([r.get("actions_count", 0) for r in valid])
 
+    # WS-EVAL-1 — hazard-direct ON 경로 recall 측정.
+    # 분모 = positive & should_match_she (= guide_should). gold 무관, 즉시 enforce 가능.
+    she_should = [r for r in valid if r.get("guide_should")]
+    n_should = len(she_should)
+    she_recall_miss_n = sum(1 for r in she_should if r.get("she_recall_miss"))
+    guide_covered_n = sum(1 for r in she_should if r.get("guide_covered"))
+    # gold(WS-EVAL-2) 있는 case만 — 없으면 observe-only(veto 안 함). gold_eval_count로 투명 보고.
+    gold_rows = [r for r in valid if r.get("has_gold")]
+    avg_on_guides_pos = _avg([r.get("on_guide_count", 0) for r in valid if r.get("case_type") == "positive"])
+
     return {
         "total": total,
         "valid": n,
@@ -305,6 +404,16 @@ def build_summary(per_case: list[dict[str, Any]]) -> dict[str, Any]:
         "avg_procedures": avg_procedures,
         "avg_actions": avg_actions,
         "per_case_type": per_case_type,
+        # WS-EVAL-1 — ON 경로 recall (gold-independent FN 지표 + gold-dependent observe-only)
+        "she_should_count": n_should,
+        "she_recall_miss_rate": _ratio(she_recall_miss_n, n_should),
+        "guide_coverage_rate": _ratio(guide_covered_n, n_should),
+        "avg_on_guides_positive": avg_on_guides_pos,
+        "gold_eval_count": len(gold_rows),
+        "guide_recall_at3": _avg([r["guide_recall_at3"] for r in gold_rows]) if gold_rows else 0.0,
+        "top1_relevance_rate": _ratio(
+            sum(1 for r in gold_rows if r.get("top1_relevant")), len(gold_rows)
+        ),
     }
 
 

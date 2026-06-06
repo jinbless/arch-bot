@@ -29,10 +29,12 @@ def _find_repo_root() -> Path:
 
 
 REPO_ROOT = _find_repo_root()
-# WS-EVAL-4: 기본 baseline v1 → v3 (phase3-baseline-shift). v1/v2는 구 corpus 스냅샷,
-# v3가 현행 정본(evaluation-baseline.md가 vs replay_baseline_v3.json으로 보고).
+# WS-EVAL-4: 기본 baseline v1 → v3 (phase3-baseline-shift).
+# WS-EVAL-1: v3 → v4 (hazards-injected, hazard-direct ON 경로 활성). v4의 legacy 키(she/sr/
+#   penalty/overall/fp/fn)는 v3와 byte-identical(ON 활성이 legacy 무회귀)이고, guide_coverage_rate
+#   /she_recall_miss_rate(FN veto) + guide_recall@3/top1(observe-only)을 추가로 담는다.
 DEFAULT_BASELINE = (
-    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "replay_baseline_v3.json"
+    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "replay_baseline_v4.json"
 )
 
 
@@ -69,10 +71,16 @@ def load_summary(path: Path) -> dict[str, Any]:
     return summary
 
 
-def compare(baseline: dict[str, Any], current: dict[str, Any], tolerance: float) -> dict[str, Any]:
+def compare(
+    baseline: dict[str, Any],
+    current: dict[str, Any],
+    tolerance: float,
+    fn_tolerance: float = FN_VETO_TOLERANCE,
+) -> dict[str, Any]:
     """Return dict of metric → {baseline, current, delta, vetoed}.
 
     vetoed=True 면 그 metric 단독으로 회귀 fail 사유가 된다.
+    fn_tolerance: FN-방향(recall) 키의 비대칭 허용폭(기본 0.005, 일반 tolerance보다 엄격).
     """
     findings: dict[str, dict[str, Any]] = {}
     for key in METRIC_KEYS:
@@ -113,7 +121,7 @@ def compare(baseline: dict[str, Any], current: dict[str, Any], tolerance: float)
             "baseline": round(b_psr, 4),
             "current": round(c_psr, 4),
             "delta": d_psr,
-            "vetoed": d_psr < -FN_VETO_TOLERANCE,
+            "vetoed": d_psr < -fn_tolerance,
             "direction": "expect_higher",
         }
         # she_recall_miss = 1 - recall (절차 유무 무관). false_negative_rate와 대비해 진짜 miss를 노출.
@@ -123,7 +131,7 @@ def compare(baseline: dict[str, Any], current: dict[str, Any], tolerance: float)
             "baseline": b_miss,
             "current": c_miss,
             "delta": round(c_miss - b_miss, 4),
-            "vetoed": (c_miss - b_miss) > FN_VETO_TOLERANCE,
+            "vetoed": (c_miss - b_miss) > fn_tolerance,
             "direction": "expect_lower",
         }
     else:
@@ -136,6 +144,41 @@ def compare(baseline: dict[str, Any], current: dict[str, Any], tolerance: float)
             "direction": "expect_higher",
             "note": "per_case_type.positive.she_accuracy 부재 — baseline 재캡처 필요",
         }
+
+    # WS-EVAL-1: hazard-direct ON 경로 recall — FN-방향 비대칭 veto (gold-independent, 즉시 enforce).
+    #   baseline에 키가 없으면(v3→v4 전환 전) veto 보류 — 0.0 default 대비는 거짓 veto이므로
+    #   (OBS-1의 baseline 재캡처 가드와 동일 철학). v4 채택 후 키가 생기면 실제 enforce.
+    def _fn_finding(key: str, higher: bool) -> None:
+        if key not in current and key not in baseline:
+            return
+        b = float(baseline.get(key, 0.0))
+        c = float(current.get(key, 0.0))
+        d = round(c - b, 4)
+        present = key in baseline
+        vetoed = present and (d < -fn_tolerance if higher else d > fn_tolerance)
+        f: dict[str, Any] = {
+            "baseline": round(b, 4), "current": round(c, 4), "delta": d,
+            "vetoed": vetoed, "direction": "expect_higher" if higher else "expect_lower",
+        }
+        if not present:
+            f["note"] = "baseline에 키 부재 — v4 재캡처 후 enforce"
+        findings[key] = f
+
+    #   guide_coverage_rate(↑): should_match_she positive가 ON guide를 받는 비율 — 하락=recall 회귀.
+    _fn_finding("guide_coverage_rate", higher=True)
+    #   she_recall_miss_rate(↓): 순수 SHE miss(positive&should_match_she&미매칭) — 상승=recall 회귀.
+    _fn_finding("she_recall_miss_rate", higher=False)
+    # WS-EVAL-1: guide_recall@K / top1 — gold(WS-EVAL-2) 의존 → observe-only(WARN, 결정 D13=B).
+    #   gold set 안정화 + 2주 관찰 후 hard veto로 승격. 지금은 보고만(veto 안 함).
+    for key in ("guide_recall_at3", "top1_relevance_rate"):
+        if key in baseline or key in current:
+            b = float(baseline.get(key, 0.0))
+            c = float(current.get(key, 0.0))
+            findings[key] = {
+                "baseline": round(b, 4), "current": round(c, 4), "delta": round(c - b, 4),
+                "vetoed": False, "direction": "expect_higher",
+                "note": "observe-only (gold WS-EVAL-2 안정화 후 hard veto 승격)",
+            }
     return findings
 
 
@@ -145,7 +188,12 @@ def render(findings: dict[str, dict[str, Any]]) -> str:
     lines.append(header)
     lines.append("-" * len(header))
     for key, f in findings.items():
-        verdict = "VETOED" if f["vetoed"] else "ok"
+        if f["vetoed"]:
+            verdict = "VETOED"
+        elif str(f.get("note", "")).startswith("observe"):
+            verdict = "observe"
+        else:
+            verdict = "ok"
         arrow = "↑" if f["direction"] == "expect_higher" else "↓"
         lines.append(
             f"{key:<25s} {f['baseline']:>10.4f} {f['current']:>10.4f} {f['delta']:>+10.4f}  {verdict:<10s} {arrow}"
@@ -173,6 +221,13 @@ def parse_args() -> argparse.Namespace:
         help="허용 하락 폭 (기본 0.02 = 2%%p). 이보다 큰 회귀 발생 시 vetoed.",
     )
     parser.add_argument(
+        "--fn-tolerance",
+        type=float,
+        default=FN_VETO_TOLERANCE,
+        help=f"FN-방향(recall) 키 비대칭 허용폭 (기본 {FN_VETO_TOLERANCE}). 일반보다 엄격 — "
+             "안전 도메인에서 recall 회귀는 specificity 개선으로 상쇄 불가.",
+    )
+    parser.add_argument(
         "--json",
         action="store_true",
         help="결과를 JSON으로 stdout 출력 (CI 통합용)",
@@ -196,7 +251,7 @@ def main() -> int:
     baseline = load_summary(args.baseline)
     current = load_summary(args.current)
 
-    findings = compare(baseline, current, args.tolerance)
+    findings = compare(baseline, current, args.tolerance, args.fn_tolerance)
     vetoed_keys = [k for k, f in findings.items() if f["vetoed"]]
     passed = not vetoed_keys
 
@@ -223,8 +278,12 @@ def main() -> int:
         print(render(findings))
         print()
         print(
-            f"  · positive_she_recall / she_recall_miss = WS-OBS-1 FN-방향 1급 veto "
-            f"(비대칭 tolerance {FN_VETO_TOLERANCE}, 일반 {args.tolerance})"
+            f"  · positive_she_recall / she_recall_miss / guide_coverage_rate / she_recall_miss_rate "
+            f"= FN-방향 비대칭 veto (tolerance {args.fn_tolerance}, 일반 {args.tolerance})"
+        )
+        print(
+            f"  · guide_recall_at3 / top1_relevance_rate = WS-EVAL-1 observe-only "
+            f"(gold WS-EVAL-2 안정화 후 hard veto 승격 — 현재 veto 안 함)"
         )
         print()
         if passed:
