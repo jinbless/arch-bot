@@ -58,6 +58,48 @@ const SourceBadge: React.FC<{ source: SourceType; extra?: string }> = ({ source,
 export default SourceBadge;
 
 /**
+ * WS-DEEP-1: StandardProcedure.source_path(이중경로 출처) 배지.
+ * both=두 경로(SHE/facet · hazard-direct) 합의(corroborated, 가장 grounded) ·
+ * she_facet=SHE/facet 단독(CI-corroborated facet guide) · hazard_direct=위험직결(GPT hazard) 단독.
+ * 표시전용 — scoring 무관. source_path 없으면(semantic off) 렌더 안 함.
+ */
+const PATH_META: Record<string, { label: string; cls: string; title: string }> = {
+  both:          { label: '양경로 합의', cls: 'bg-green-100 text-green-800 border-green-300',     title: 'SHE/facet · hazard-direct 두 경로가 모두 부착 — corroborated(가장 grounded)' },
+  she_facet:     { label: 'SHE/facet',  cls: 'bg-emerald-50 text-emerald-700 border-emerald-200', title: 'SHE/facet 경로만 부착(CI-corroboration·work_process 보유 가능)' },
+  hazard_direct: { label: '위험직결',   cls: 'bg-sky-50 text-sky-700 border-sky-200',             title: 'hazard-direct(GPT hazard→SR→Guide) 경로만 부착' },
+};
+
+export const ProcedurePathBadge: React.FC<{ sourcePath?: string | null }> = ({ sourcePath }) => {
+  if (!sourcePath) return null;
+  const meta = PATH_META[sourcePath];
+  if (!meta) return null;
+  return (
+    <span
+      title={meta.title}
+      className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${meta.cls} whitespace-nowrap`}
+    >
+      {meta.label}
+    </span>
+  );
+};
+
+/**
+ * WS-DEEP-1: review_required(한 경로에서만 잡힌 고위험 항목) 칩.
+ * **점수 하향이 아니라** 교차 검토 환기용 — 두 경로 finding 모두 visible 유지(plan step4).
+ */
+export const ReviewRequiredBadge: React.FC<{ show?: boolean }> = ({ show }) => {
+  if (!show) return null;
+  return (
+    <span
+      title="한 경로에서만 잡힌 고위험 항목 — 점수 하향 아님, 교차 검토 권장(WS-DEEP-1)"
+      className="text-[10px] font-semibold px-1.5 py-0.5 rounded border bg-amber-100 text-amber-800 border-amber-300 whitespace-nowrap"
+    >
+      ⚠ 검토 필요
+    </span>
+  );
+};
+
+/**
  * immediate_action의 description을 보고 source 추정.
  * backend는 description에 "asserted CI-SR" 또는 "SHE related checklist cue"를 명시한다.
  */

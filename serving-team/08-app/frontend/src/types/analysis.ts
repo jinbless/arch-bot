@@ -80,6 +80,8 @@ export interface StandardProcedure {
   evidence_summary?: string | null;
   confidence: number;
   mapping_type?: string | null; // WS-PROV-3: 부착 출처(표시전용)
+  source_path?: string | null; // WS-DEEP-1: 이중경로 출처 she_facet/both/hazard_direct(표시전용)
+  review_required?: boolean; // WS-DEEP-1: 단독경로 high-sev → 검토 필요(표시전용, down-weight 아님)
 }
 
 export interface PenaltyPath {
