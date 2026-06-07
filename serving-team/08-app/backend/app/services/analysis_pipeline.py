@@ -64,6 +64,8 @@ class AnalysisRunInput:
     input_preview: str
     full_description: Optional[str] = None
     declared_industry_text: Optional[str] = None
+    # 분석 사진 thumbnail(data URI) — history에서 사진을 결과와 함께 표시. image_path 컬럼에 저장.
+    thumbnail: Optional[str] = None
 
 
 @dataclass
@@ -192,6 +194,7 @@ class AnalysisPipeline:
             input_preview=run_input.input_preview,
             summary=summary,
             overall_risk_level=overall_risk_level,
+            image_path=run_input.thumbnail,
         )
         return response
 
@@ -686,6 +689,7 @@ class AnalysisPipeline:
         input_preview: str,
         summary: str,
         overall_risk_level: str,
+        image_path: Optional[str] = None,
     ) -> None:
         crud.create_product_analysis_record(
             db=db,
@@ -694,6 +698,7 @@ class AnalysisPipeline:
             overall_risk_level=overall_risk_level,
             summary=summary,
             input_preview=input_preview,
+            image_path=image_path,
             result_json=json.loads(response.model_dump_json()),
             observations=[
                 obs.model_dump(mode="json") for obs in response.observations

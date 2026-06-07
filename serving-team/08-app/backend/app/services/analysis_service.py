@@ -9,6 +9,7 @@ from app.integrations.openai_client import openai_client
 from app.models.analysis import AnalysisResponse
 from app.services.analysis_pipeline import AnalysisRunInput, analysis_pipeline
 from app.utils.exceptions import OpenAIAPIError
+from app.utils.file_handler import file_handler
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +30,8 @@ class AnalysisService:
                 additional_context=additional_context,
             )
         )
+        # 분석 사진 thumbnail(긴 변 480px) — history에서 결과와 함께 표시(best-effort, 실패 시 None).
+        thumbnail = file_handler.make_thumbnail_data_uri(image_base64, max_dim=480)
         return await analysis_pipeline.run(
             db=db,
             run_input=AnalysisRunInput(
@@ -36,6 +39,7 @@ class AnalysisService:
                 analysis_type="image",
                 input_preview=filename,
                 declared_industry_text=workplace_type,
+                thumbnail=thumbnail,
             ),
         )
 

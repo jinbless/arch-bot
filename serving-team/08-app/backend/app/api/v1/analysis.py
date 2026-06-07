@@ -88,7 +88,8 @@ async def get_analysis_history(
             overall_risk_level=r.overall_risk_level,
             summary=r.summary,
             analyzed_at=r.created_at,
-            input_preview=r.input_preview
+            input_preview=r.input_preview,
+            thumbnail=r.image_path,  # 분석 사진 thumbnail(data URI) — history 표시용
         )
         for r in records
     ]

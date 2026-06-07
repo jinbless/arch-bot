@@ -1,9 +1,15 @@
 import base64
-from fastapi import UploadFile
-from PIL import Image
 import io
+import logging
+from typing import Optional
+
+from fastapi import UploadFile
+from PIL import Image, ImageOps
+
 from app.config import settings
 from app.utils.exceptions import FileTooLargeError, UnsupportedFileTypeError, ImageProcessingError
+
+logger = logging.getLogger(__name__)
 
 
 class FileHandler:
@@ -54,6 +60,34 @@ class FileHandler:
             return base64.b64encode(contents).decode('utf-8')
         except Exception as e:
             raise ImageProcessingError(f"이미지 처리 실패: {str(e)}")
+
+    @staticmethod
+    def make_thumbnail_data_uri(
+        image_base64: str, max_dim: int = 480, quality: int = 80
+    ) -> Optional[str]:
+        """분석 원본 이미지 base64 → 긴 변 max_dim(기본 480px)로 축소(비율 유지) → JPEG data URI.
+
+        분석기록(history)에서 사진을 결과와 함께 경량으로 보여주기 위한 thumbnail.
+        축소만 하고 확대는 안 함. 실패 시 None 반환(저장만 생략 — 분석은 정상, 사진은 부가 표시).
+        반환 형식: 'data:image/jpeg;base64,...' (프론트 <img src>에 바로 사용).
+        """
+        try:
+            raw = base64.b64decode(image_base64)
+            image = Image.open(io.BytesIO(raw))
+            try:
+                image = ImageOps.exif_transpose(image)  # 휴대폰 EXIF 회전 보정
+            except Exception:  # noqa: BLE001
+                pass
+            if image.mode != "RGB":
+                image = image.convert("RGB")  # JPEG는 알파 미지원
+            image.thumbnail((max_dim, max_dim), Image.Resampling.LANCZOS)  # 비율 유지, 축소만
+            buffer = io.BytesIO()
+            image.save(buffer, format="JPEG", quality=quality, optimize=True)
+            b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+            return f"data:image/jpeg;base64,{b64}"
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("make_thumbnail_data_uri failed: %s", exc)
+            return None
 
 
 file_handler = FileHandler()

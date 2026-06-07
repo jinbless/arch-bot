@@ -15,6 +15,7 @@ def create_analysis_record(
     gpt_free_hazards: dict = None,
     coded_hazards: dict = None,
     divergence_report: dict = None,
+    image_path: Optional[str] = None,
 ) -> AnalysisRecord:
     db_record = AnalysisRecord(
         id=analysis_id,
@@ -22,6 +23,7 @@ def create_analysis_record(
         overall_risk_level=overall_risk_level,
         summary=summary,
         input_preview=input_preview,
+        image_path=image_path,  # 분석 사진 thumbnail(data URI) — history 표시용
         result_json=result_json,  # JSONB — no json.dumps needed
         gpt_free_hazards=gpt_free_hazards,
         coded_hazards=coded_hazards,
@@ -43,6 +45,7 @@ def create_product_analysis_record(
     result_json: dict,
     observations: list[dict],
     risk_features: list[dict],
+    image_path: Optional[str] = None,
 ) -> AnalysisRecord:
     """Persist the current product response while preserving legacy columns."""
     return create_analysis_record(
@@ -56,6 +59,7 @@ def create_product_analysis_record(
         gpt_free_hazards=observations,
         coded_hazards=risk_features,
         divergence_report=None,
+        image_path=image_path,
     )
 
 

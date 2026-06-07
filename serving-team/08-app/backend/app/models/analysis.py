@@ -118,6 +118,8 @@ class AnalysisHistoryItem(BaseModel):
     summary: str
     analyzed_at: datetime
     input_preview: Optional[str] = None
+    # 분석 사진 thumbnail(data URI) — image_path 컬럼 매핑. history에서 결과와 함께 표시(image 분석만).
+    thumbnail: Optional[str] = None
 
     class Config:
         from_attributes = True

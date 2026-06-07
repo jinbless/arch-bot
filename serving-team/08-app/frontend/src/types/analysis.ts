@@ -171,6 +171,7 @@ export interface AnalysisHistoryItem {
   summary: string;
   analyzed_at: string;
   input_preview?: string;
+  thumbnail?: string | null; // 분석 사진 thumbnail(data URI, image 분석만) — 결과와 함께 표시
 }
 
 export interface AnalysisHistoryResponse {

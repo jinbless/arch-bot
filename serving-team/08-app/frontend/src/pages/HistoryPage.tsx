@@ -76,6 +76,15 @@ const HistoryPage: React.FC = () => {
             <div key={item.analysis_id} className="card hover:shadow-md transition-shadow">
               {/* 모바일: 세로 레이아웃, 데스크톱: 가로 레이아웃 */}
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+                {/* 분석 사진 thumbnail — 결과와 함께 표시(image 분석만, 없으면 미표시) */}
+                {item.thumbnail && (
+                  <img
+                    src={item.thumbnail}
+                    alt="분석 사진"
+                    loading="lazy"
+                    className="w-full md:w-28 h-40 md:h-28 object-cover rounded-lg border border-gray-200 flex-shrink-0"
+                  />
+                )}
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
                     <span className="text-base md:text-lg">
