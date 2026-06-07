@@ -66,6 +66,9 @@ class AnalysisRunInput:
     declared_industry_text: Optional[str] = None
     # 분석 사진 thumbnail(data URI) — history에서 사진을 결과와 함께 표시. image_path 컬럼에 저장.
     thumbnail: Optional[str] = None
+    # 평가 하니스(replay)가 합성분석을 운영/데모 DB(ohs_analysis_records)에 persist하지 않도록 끄는
+    # 스위치. **기본 True(운영 경로 무영향)**. replay만 False → DB 오염 방지.
+    persist: bool = True
 
 
 @dataclass
@@ -188,14 +191,16 @@ class AnalysisPipeline:
             analyzed_at=analyzed_at,
         )
 
-        self._persist_response(
-            db=db,
-            response=response,
-            input_preview=run_input.input_preview,
-            summary=summary,
-            overall_risk_level=overall_risk_level,
-            image_path=run_input.thumbnail,
-        )
+        # persist=False(평가 하니스)면 DB write 자체를 건너뜀 → ohs_analysis_records 오염 방지.
+        if run_input.persist:
+            self._persist_response(
+                db=db,
+                response=response,
+                input_preview=run_input.input_preview,
+                summary=summary,
+                overall_risk_level=overall_risk_level,
+                image_path=run_input.thumbnail,
+            )
         return response
 
     def _build_knowledge_context(
