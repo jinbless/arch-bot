@@ -17030,6 +17030,703 @@
         "anchor_code": "FIRE_FROM_OUTLET_OVERLOAD",
         "anchor_label_ko": "콘센트 과부하 화재"
       }
+    },
+    {
+      "she_id": "SHE-KNIFEWORK-L2T01",
+      "name": "정육 칼작업 베임 위험(방검장갑 미착용)",
+      "name_pattern": "l2tune_knife_work_cut",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "KNIFE_WORK",
+        "hazardous_agent": "OTHER",
+        "accident_type": "CUT",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "정육 칼작업 베임 위험(방검장갑 미착용) — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-MACHINE-010"
+      ],
+      "visual_triggers": [
+        "뼈 발라내기 칼",
+        "맨손 칼날 근접",
+        "방검 앞치마 미착용"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "cut",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-KNIFEWORK-L2T02",
+      "name": "정육 칼작업 열상 위험",
+      "name_pattern": "l2tune_knife_work_laceration",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "KNIFE_WORK",
+        "hazardous_agent": "OTHER",
+        "accident_type": "LACERATION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "정육 칼작업 열상 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-MACHINE-010"
+      ],
+      "visual_triggers": [
+        "칼이 미끄러짐",
+        "비보호 신체 방향",
+        "전기 갈기 연마"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "cut",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-KNIFEWORK-L2T03",
+      "name": "정육 칼작업 찔림 위험",
+      "name_pattern": "l2tune_knife_work_puncture",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "KNIFE_WORK",
+        "hazardous_agent": "OTHER",
+        "accident_type": "PUNCTURE",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "정육 칼작업 찔림 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-MACHINE-010"
+      ],
+      "visual_triggers": [
+        "칼끝 신체 방향",
+        "발골 작업"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "cut",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-FISHCUTTING-L2T04",
+      "name": "생선 손질 칼작업 베임 위험",
+      "name_pattern": "l2tune_fish_cutting_cut",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "FISH_CUTTING",
+        "hazardous_agent": "OTHER",
+        "accident_type": "CUT",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "생선 손질 칼작업 베임 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-MACHINE-010"
+      ],
+      "visual_triggers": [
+        "생선 머리 절단",
+        "미끄러운 생선 고정 미흡",
+        "칼날 방향"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "cut",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-FISHCUTTING-L2T05",
+      "name": "생선 손질 칼작업 열상 위험",
+      "name_pattern": "l2tune_fish_cutting_laceration",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "FISH_CUTTING",
+        "hazardous_agent": "OTHER",
+        "accident_type": "LACERATION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "생선 손질 칼작업 열상 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-MACHINE-010"
+      ],
+      "visual_triggers": [
+        "칼이 미끄러짐",
+        "바닥 칼 방치"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "cut",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-FLORALARR-L2T06",
+      "name": "꽃꽂이 칼·가위 베임 위험",
+      "name_pattern": "l2tune_floral_arrangement_cut",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "FLORAL_ARRANGEMENT",
+        "hazardous_agent": "OTHER",
+        "accident_type": "CUT",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "꽃꽂이 칼·가위 베임 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-MACHINE-010"
+      ],
+      "visual_triggers": [
+        "플로럴 폼 칼 절단",
+        "칼 미끄러짐",
+        "손 베임"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "cut",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-FLORALARR-L2T07",
+      "name": "꽃꽂이 작업 열상 위험",
+      "name_pattern": "l2tune_floral_arrangement_laceration",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "FLORAL_ARRANGEMENT",
+        "hazardous_agent": "OTHER",
+        "accident_type": "LACERATION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "꽃꽂이 작업 열상 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-MACHINE-010"
+      ],
+      "visual_triggers": [
+        "가위 대신 칼",
+        "절화 줄기 절단"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "cut",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-FLORALARR-L2T08",
+      "name": "가시 제거 작업 찔림 위험(내절단장갑 미착용)",
+      "name_pattern": "l2tune_floral_arrangement_puncture",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "FLORAL_ARRANGEMENT",
+        "hazardous_agent": "OTHER",
+        "accident_type": "PUNCTURE",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "가시 제거 작업 찔림 위험(내절단장갑 미착용) — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-MACHINE-010"
+      ],
+      "visual_triggers": [
+        "장미 가시 맨손 제거",
+        "내절단장갑 미착용",
+        "찔림 상처"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "cut",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-SHARPSDISP-L2T09",
+      "name": "주사바늘 처리 중 찔림(자상) 위험",
+      "name_pattern": "l2tune_sharps_disposal_puncture",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "SHARPS_DISPOSAL",
+        "hazardous_agent": "OTHER",
+        "accident_type": "PUNCTURE",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "주사바늘 처리 중 찔림(자상) 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-PATHOGEN-003",
+        "SR-PATHOGEN-007"
+      ],
+      "visual_triggers": [
+        "사용 후 바늘 re-capping",
+        "샤프 컨테이너 과충전",
+        "바늘 돌출"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "bio",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-SHARPSDISP-L2T10",
+      "name": "주사바늘 자상 후 혈액매개 감염 위험",
+      "name_pattern": "l2tune_sharps_disposal_infection",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "SHARPS_DISPOSAL",
+        "hazardous_agent": "OTHER",
+        "accident_type": "INFECTION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "주사바늘 자상 후 혈액매개 감염 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-PATHOGEN-004",
+        "SR-PATHOGEN-007"
+      ],
+      "visual_triggers": [
+        "오염 바늘 찔림",
+        "혈액 노출"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "bio",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-DENTALPROC-L2T11",
+      "name": "치과 진료 중 혈액·에어로졸 감염 위험",
+      "name_pattern": "l2tune_dental_procedure_infection",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "DENTAL_PROCEDURE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "INFECTION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "치과 진료 중 혈액·에어로졸 감염 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-PATHOGEN-003",
+        "SR-PATHOGEN-008"
+      ],
+      "visual_triggers": [
+        "고속 핸드피스 에어로졸",
+        "일반 수술 마스크",
+        "N95 미착용"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "bio",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-DENTALPROC-L2T12",
+      "name": "치과 날카로운 기구 찔림 위험",
+      "name_pattern": "l2tune_dental_procedure_puncture",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "DENTAL_PROCEDURE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "PUNCTURE",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "치과 날카로운 기구 찔림 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-PATHOGEN-003",
+        "SR-PATHOGEN-007"
+      ],
+      "visual_triggers": [
+        "탐침 일반 쓰레기통 폐기",
+        "뚜껑 없는 통"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "bio",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-HIGHRISEWIN-L2T13",
+      "name": "고층 외부 유리창 청소 추락 위험(안전대 미착용)",
+      "name_pattern": "l2tune_high_rise_window_fall_from_height",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "HIGH_RISE_WINDOW",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FALL_FROM_HEIGHT",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "고층 외부 유리창 청소 추락 위험(안전대 미착용) — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003",
+        "SR-FALL-001"
+      ],
+      "visual_triggers": [
+        "창틀에 올라섬",
+        "안전대 없이 상체 내밀기",
+        "15층 외부 유리창"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-HIGHRISEWIN-L2T14",
+      "name": "곤돌라 전도에 의한 추락 위험",
+      "name_pattern": "l2tune_high_rise_window_gondola_overturn_fall",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "HIGH_RISE_WINDOW",
+        "hazardous_agent": "OTHER",
+        "accident_type": "GONDOLA_OVERTURN_FALL",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "곤돌라 전도에 의한 추락 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003",
+        "SR-LIFTING-013"
+      ],
+      "visual_triggers": [
+        "곤돌라 와이어 꼬임",
+        "곤돌라 기울어짐",
+        "안전대 미연결"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-HIGHRISEWIN-L2T15",
+      "name": "앵커 파단에 의한 추락 위험",
+      "name_pattern": "l2tune_high_rise_window_fall_from_anker_failure",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "HIGH_RISE_WINDOW",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FALL_FROM_ANKER_FAILURE",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "앵커 파단에 의한 추락 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003"
+      ],
+      "visual_triggers": [
+        "앵커 고정부 손상",
+        "지지점 파단"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-HIGHRISEWIN-L2T16",
+      "name": "창틀 작업 중 추락 위험",
+      "name_pattern": "l2tune_high_rise_window_fall_on_ground",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "HIGH_RISE_WINDOW",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FALL_ON_GROUND",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "창틀 작업 중 추락 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003",
+        "SR-FALL-001"
+      ],
+      "visual_triggers": [
+        "창밖으로 몸 내밀기",
+        "작업발판 미설치"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-HIGHRISEWIN-L2T17",
+      "name": "강풍 시 외부 창 청소 추락 위험",
+      "name_pattern": "l2tune_high_rise_window_fall_due_to_strong_wind",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "HIGH_RISE_WINDOW",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FALL_DUE_TO_STRONG_WIND",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "강풍 시 외부 창 청소 추락 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003",
+        "SR-MGMT-003"
+      ],
+      "visual_triggers": [
+        "강풍",
+        "외부 창 청소 작업중지 미실시"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-HIGHRISEWIN-L2T18",
+      "name": "외부 창 청소 균형상실 추락 위험",
+      "name_pattern": "l2tune_high_rise_window_loss_of_balance",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "HIGH_RISE_WINDOW",
+        "hazardous_agent": "OTHER",
+        "accident_type": "LOSS_OF_BALANCE",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "외부 창 청소 균형상실 추락 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003"
+      ],
+      "visual_triggers": [
+        "상체 내밀기",
+        "균형 상실"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-EXTROPE-L2T19",
+      "name": "외벽 로프작업 로프 파단 추락 위험",
+      "name_pattern": "l2tune_exterior_rope_rope_break_fall",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "EXTERIOR_ROPE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "ROPE_BREAK_FALL",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "외벽 로프작업 로프 파단 추락 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003",
+        "SR-FALL-006"
+      ],
+      "visual_triggers": [
+        "로프 피복 손상",
+        "날카로운 모서리 마찰",
+        "모서리 보호대 없음"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-EXTROPE-L2T20",
+      "name": "외벽 로프작업 매듭 풀림 추락 위험",
+      "name_pattern": "l2tune_exterior_rope_fall_from_knot_slip",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "EXTERIOR_ROPE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FALL_FROM_KNOT_SLIP",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "외벽 로프작업 매듭 풀림 추락 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003"
+      ],
+      "visual_triggers": [
+        "비전문적 매듭",
+        "로프 끝 풀림",
+        "손으로 직접 고정"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
+    },
+    {
+      "she_id": "SHE-EXTROPE-L2T21",
+      "name": "외벽 로프 마찰 손상 추락 위험",
+      "name_pattern": "l2tune_exterior_rope_fall_from_rope_friction_breakage",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "EXTERIOR_ROPE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FALL_FROM_ROPE_FRICTION_BREAKAGE",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "외벽 로프 마찰 손상 추락 위험 — OWA→CWA 라이브검증 L2 coverage gap 보강(focused, additive). SR 링크 best-effort(사용자 검토 필요).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-l2tune-20260608",
+      "source_sr_ids": [
+        "SR-FALL-003"
+      ],
+      "visual_triggers": [
+        "로프 반복 마찰",
+        "피복 손상"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_l2tune_meta": {
+        "family": "fall",
+        "review_required": true,
+        "industry_hint": ""
+      }
     }
-  ]
+  ],
+  "_l2tune_appended": {
+    "marker": "owacwa-l2tune-20260608",
+    "count": 21,
+    "ts": "2026-06-08"
+  }
 }
