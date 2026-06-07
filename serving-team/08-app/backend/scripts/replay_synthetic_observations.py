@@ -322,6 +322,7 @@ async def run_one(db, case: dict[str, Any]) -> dict[str, Any]:
                 input_preview=f"replay:{case_id}",
                 full_description=case.get("photo_description", ""),
                 declared_industry_text=industry_text,
+                persist=False,  # 합성분석을 운영/데모 DB에 쓰지 않음(오염 방지)
             ),
         )
         return evaluate_case(case, response)
