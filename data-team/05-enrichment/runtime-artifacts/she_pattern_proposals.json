@@ -17722,11 +17722,399 @@
         "review_required": true,
         "industry_hint": ""
       }
+    },
+    {
+      "she_id": "SHE-DEEPFRYING-FG01",
+      "name": "튀김기 고온유 화상 위험",
+      "name_pattern": "foodgas_deep_frying_burn",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "DEEP_FRYING",
+        "hazardous_agent": "OTHER",
+        "accident_type": "BURN",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "튀김기 고온유 화상 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-030",
+        "SR-HEAT-013"
+      ],
+      "visual_triggers": [
+        "고온 튀김유",
+        "기름 폭발적으로 튀김",
+        "방열장갑 미착용"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-DEEPFRYING-FG02",
+      "name": "튀김기 주변 화재·폭발 위험",
+      "name_pattern": "foodgas_deep_frying_fire_and_explosion",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "DEEP_FRYING",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FIRE_AND_EXPLOSION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "튀김기 주변 화재·폭발 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-001",
+        "SR-FIRE_EXPLOSION-015"
+      ],
+      "visual_triggers": [
+        "튀김기 화구 불꽃",
+        "알코올 행주",
+        "기름 인화"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-DEEPFRYING-FG03",
+      "name": "튀김유 수분 접촉 비산·폭발 위험",
+      "name_pattern": "foodgas_deep_frying_explosion",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "DEEP_FRYING",
+        "hazardous_agent": "OTHER",
+        "accident_type": "EXPLOSION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "튀김유 수분 접촉 비산·폭발 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-001"
+      ],
+      "visual_triggers": [
+        "물기 있는 식재료 투입",
+        "폐유 물 접촉"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-GASAPPLIANCE-FG04",
+      "name": "가스기기 화상 위험",
+      "name_pattern": "foodgas_gas_appliance_burn",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "GAS_APPLIANCE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "BURN",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "가스기기 화상 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-030"
+      ],
+      "visual_triggers": [
+        "가스 화구",
+        "화염 노출"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-GASAPPLIANCE-FG05",
+      "name": "가스기기 화재·폭발 위험",
+      "name_pattern": "foodgas_gas_appliance_fire_and_explosion",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "GAS_APPLIANCE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FIRE_AND_EXPLOSION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "가스기기 화재·폭발 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-008",
+        "SR-FIRE_EXPLOSION-015"
+      ],
+      "visual_triggers": [
+        "화구 막힘",
+        "알루미늄 호일",
+        "가스 분출"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-GASAPPLIANCE-FG06",
+      "name": "LPG 용기 실내보관 폭발 위험",
+      "name_pattern": "foodgas_gas_appliance_explosion",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "GAS_APPLIANCE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "EXPLOSION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "LPG 용기 실내보관 폭발 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-008"
+      ],
+      "visual_triggers": [
+        "LPG 용기 실내 보관",
+        "환기 없는 창고"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-GASAPPLIANCE-FG07",
+      "name": "가스 누출 위험",
+      "name_pattern": "foodgas_gas_appliance_gas_leak",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "GAS_APPLIANCE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "GAS_LEAK",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "가스 누출 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-008"
+      ],
+      "visual_triggers": [
+        "가스 배관 균열",
+        "가스 냄새"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-HOTBEVERAGE-FG08",
+      "name": "스팀완드·고온음료 화상 위험",
+      "name_pattern": "foodgas_hot_beverage_burn",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "HOT_BEVERAGE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "BURN",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "스팀완드·고온음료 화상 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-030",
+        "SR-HEAT-013"
+      ],
+      "visual_triggers": [
+        "스팀 완드",
+        "손잡이 없는 유리컵",
+        "뜨거운 음료"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-KITCHENCOOK-FG09",
+      "name": "조리 중 고온물 화상 위험",
+      "name_pattern": "foodgas_kitchen_cooking_burn",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "KITCHEN_COOKING",
+        "hazardous_agent": "OTHER",
+        "accident_type": "BURN",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "조리 중 고온물 화상 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-030"
+      ],
+      "visual_triggers": [
+        "가스레인지 방치",
+        "압력솥 증기",
+        "냄비 가열"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-SERVINGFLOOR-FG10",
+      "name": "테이블 화로·알코올램프 화상 위험",
+      "name_pattern": "foodgas_serving_floor_burn",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "SERVING_FLOOR",
+        "hazardous_agent": "OTHER",
+        "accident_type": "BURN",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "테이블 화로·알코올램프 화상 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-030"
+      ],
+      "visual_triggers": [
+        "알코올 램프 기울어짐",
+        "화로구이"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-SERVINGFLOOR-FG11",
+      "name": "테이블 화기 화재 위험",
+      "name_pattern": "foodgas_serving_floor_fire_and_explosion",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "SERVING_FLOOR",
+        "hazardous_agent": "OTHER",
+        "accident_type": "FIRE_AND_EXPLOSION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "테이블 화기 화재 위험 — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-FIRE_EXPLOSION-015"
+      ],
+      "visual_triggers": [
+        "알코올 램프 점화",
+        "환기 없는 실내 화로"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "burn",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-COLDSTORAGE-FG12",
+      "name": "냉동창고 한랭 노출 위험(broad)",
+      "name_pattern": "foodgas_cold_storage_other",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "COLD_STORAGE",
+        "hazardous_agent": "PROLONGED_COLD_EXPOSURE",
+        "accident_type": "OTHER",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "냉동창고 한랭 노출 위험(broad) — 라이브 추출이 생산하는 canonical 코드(BURN/FIRE_AND_EXPLOSION 등)를 기존 패턴(accident_type=OTHER)이 미커버 → additive 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-foodgas-20260608",
+      "source_sr_ids": [
+        "SR-HEAT-004",
+        "SR-HEAT-013"
+      ],
+      "visual_triggers": [
+        "냉동 창고 -18도",
+        "방한복 없이 장시간",
+        "한랭 노출"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_foodgas_meta": {
+        "family": "cold",
+        "review_required": true
+      }
     }
   ],
   "_l2tune_appended": {
     "marker": "owacwa-l2tune-20260608",
     "count": 21,
+    "ts": "2026-06-08"
+  },
+  "_foodgas_appended": {
+    "marker": "owacwa-foodgas-20260608",
+    "count": 12,
     "ts": "2026-06-08"
   }
 }
