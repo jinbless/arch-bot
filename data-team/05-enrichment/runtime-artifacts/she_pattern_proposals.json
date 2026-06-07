@@ -18105,6 +18105,138 @@
         "family": "cold",
         "review_required": true
       }
+    },
+    {
+      "she_id": "SHE-BIOMEDWASTE-ID01",
+      "name": "의료폐기물 처리 중 주사침 자상 위험",
+      "name_pattern": "ind_biomedical_waste_puncture",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "BIOMEDICAL_WASTE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "PUNCTURE",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "의료폐기물 처리 중 주사침 자상 위험 — 비식음료 산업 L2: 라이브가 산출하는 안정 canonical 코드를 기존 패턴이 미커버. stable+고안전(FN-worst) 한정 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-ind-20260608",
+      "source_sr_ids": [
+        "SR-PATHOGEN-003",
+        "SR-PATHOGEN-007"
+      ],
+      "visual_triggers": [
+        "폐기 주사기 맨손 취급",
+        "샤프 컨테이너 과충전",
+        "바늘 돌출"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_ind_meta": {
+        "family": "bio",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-BIOMEDWASTE-ID02",
+      "name": "의료폐기물 날카로운 기구 베임 위험",
+      "name_pattern": "ind_biomedical_waste_blade_laceration",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "BIOMEDICAL_WASTE",
+        "hazardous_agent": "OTHER",
+        "accident_type": "BLADE_LACERATION",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "의료폐기물 날카로운 기구 베임 위험 — 비식음료 산업 L2: 라이브가 산출하는 안정 canonical 코드를 기존 패턴이 미커버. stable+고안전(FN-worst) 한정 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-ind-20260608",
+      "source_sr_ids": [
+        "SR-PATHOGEN-007",
+        "SR-PATHOGEN-004"
+      ],
+      "visual_triggers": [
+        "날카로운 폐기물",
+        "적색 봉투 손상",
+        "혈액 노출"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_ind_meta": {
+        "family": "bio",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-CONFINEDSPC-ID03",
+      "name": "밀폐공간 산소결핍 질식 위험",
+      "name_pattern": "ind_confined_space_oxygen_deficiency",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "CONFINED_SPACE",
+        "hazardous_agent": "OXYGEN_DEFICIENCY",
+        "accident_type": "OTHER",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "밀폐공간 산소결핍 질식 위험 — 비식음료 산업 L2: 라이브가 산출하는 안정 canonical 코드를 기존 패턴이 미커버. stable+고안전(FN-worst) 한정 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-ind-20260608",
+      "source_sr_ids": [
+        "SR-CONFINED-001",
+        "SR-CONFINED-002"
+      ],
+      "visual_triggers": [
+        "산소농도 측정 없이 진입",
+        "환기 미실시",
+        "감시인 없음"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_ind_meta": {
+        "family": "asphyxia",
+        "review_required": true
+      }
+    },
+    {
+      "she_id": "SHE-ELECWORK-ID04",
+      "name": "전기작업 감전 위험",
+      "name_pattern": "ind_electrical_work_electric_shock",
+      "features": {
+        "work_activity": "OTHER",
+        "work_context": "ELECTRICAL_WORK",
+        "hazardous_agent": "OTHER",
+        "accident_type": "ELECTRIC_SHOCK",
+        "agent_state": "OTHER",
+        "ppe_state": "OTHER",
+        "environmental": "OTHER",
+        "temporal_stage": "DURING_WORK"
+      },
+      "rationale": "전기작업 감전 위험 — 비식음료 산업 L2: 라이브가 산출하는 안정 canonical 코드를 기존 패턴이 미커버. stable+고안전(FN-worst) 한정 보강. SR best-effort(검토).",
+      "source_model": "phase3c/direct-llm-gpt-4.1",
+      "source_prompt_hash": "owacwa-ind-20260608",
+      "source_sr_ids": [
+        "SR-ELECTRIC-001",
+        "SR-ELECTRIC-021"
+      ],
+      "visual_triggers": [
+        "충전부 노출",
+        "절연장갑 미착용",
+        "활선 작업"
+      ],
+      "broadness_score": 0.55,
+      "status": "approved_auto",
+      "_ind_meta": {
+        "family": "shock",
+        "review_required": true
+      }
     }
   ],
   "_l2tune_appended": {
@@ -18115,6 +18247,11 @@
   "_foodgas_appended": {
     "marker": "owacwa-foodgas-20260608",
     "count": 12,
+    "ts": "2026-06-08"
+  },
+  "_ind_appended": {
+    "marker": "owacwa-ind-20260608",
+    "count": 4,
     "ts": "2026-06-08"
   }
 }
