@@ -11,6 +11,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-facet-l2tune-patch.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-ontology-v4-deps-patch.ttl",
         "format": "turtle"
       },
@@ -91,6 +95,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-instances-she-l2tune.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-instances-guide-fine.ttl",
         "format": "turtle"
       },
@@ -110,6 +118,10 @@
       },
       {
         "file": "kosha-facet-taxonomy.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-facet-l2tune-patch.ttl",
         "format": "turtle"
       },
       {
@@ -201,6 +213,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-instances-she-l2tune.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-instances-guide-fine.ttl",
         "format": "turtle"
       },
@@ -220,6 +236,10 @@
       },
       {
         "file": "kosha-facet-taxonomy.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-facet-l2tune-patch.ttl",
         "format": "turtle"
       },
       {
@@ -287,6 +307,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-instances-she-l2tune.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-instances-guide-fine.ttl",
         "format": "turtle"
       },
@@ -306,6 +330,10 @@
       },
       {
         "file": "kosha-facet-taxonomy.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-facet-l2tune-patch.ttl",
         "format": "turtle"
       },
       {
@@ -374,6 +402,10 @@
       },
       {
         "file": "kosha-instances-she.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-instances-she-l2tune.ttl",
         "format": "turtle"
       },
       {
@@ -497,6 +529,20 @@
       ],
       "format": "turtle",
       "note": "3축 facet taxonomy: canonical owl:Class punning + fine⊑canonical(vocab rollup SSOT) + ctx 계층(forklift 변별). 생성: scripts/gen_facet_taxonomy.py. 구 v3-subclass-patch 대체(P3)."
+    },
+    {
+      "id": "facet-l2tune",
+      "file": "kosha-facet-l2tune-patch.ttl",
+      "role": "tbox-patch",
+      "layer": "L3-reasoning",
+      "profiles": [
+        "consistency",
+        "facet-explorer",
+        "serving",
+        "shacl-materialize"
+      ],
+      "format": "turtle",
+      "note": "OWA→CWA L2 보강 TBox: agent:OxygenDeficiency(PG가 hazardous_agent 축으로 쓰는 산소결핍; haz:OxygenDeficiency 사고축과 병존). hand-authored patch."
     },
     {
       "id": "v3-incompat",
@@ -861,6 +907,20 @@
       ],
       "format": "turtle",
       "note": "SHE 패턴 ABox (965 패턴 × 6축 맥락: she:hasWorkContext/AgentState/EnvironmentalFactor/PPEState/TemporalStage/WorkActivity + accident/agent). 생성: scripts/gen_she_abox.py (data-team she-instances-v1.ttl을 KOSHA-22 canonical 마이그레이션). F5 5축 실채움."
+    },
+    {
+      "id": "abox-she-l2tune",
+      "file": "kosha-instances-she-l2tune.ttl",
+      "role": "abox-derived",
+      "layer": "L3-reasoning",
+      "profiles": [
+        "consistency",
+        "facet-explorer",
+        "serving",
+        "shacl-materialize"
+      ],
+      "format": "turtle",
+      "note": "OWA→CWA L2 보강 37 SHE 패턴 ABox (PG she_catalog marker owacwa-*-20260608, SR 보정 반영). 생성: data-team/04-ontology-export/export-scripts/export_she_catalog_to_abox.py."
     },
     {
       "id": "abox-guide-fine",

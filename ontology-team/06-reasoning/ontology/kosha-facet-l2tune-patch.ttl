@@ -1,0 +1,11 @@
+# kosha-facet-l2tune-patch.ttl — OWA→CWA L2 보강 TBox 보강 (hand-authored patch).
+# PG she_catalog가 hazardous_agent 축으로 쓰는 OXYGEN_DEFICIENCY의 agent-축 클래스.
+# haz:OxygenDeficiency(사고축)와 의도적 병존: 산소결핍=유해인자(agent) / 질식=사고(accident).
+# facet 9축 disjoint(kosha-facet-axis-disjoint.ttl) 안전 — agent:HazardousAgent 하위.
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+agent:OxygenDeficiency a owl:Class ;
+    rdfs:subClassOf agent:HazardousAgent ;
+    rdfs:label "산소 결핍"@ko .
