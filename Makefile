@@ -39,7 +39,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f2-help f2-patch-v32 f2-patch-v33 f2-enrich-sonnet f2-link-v31 \
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
         f3-drift-check f3-weekly-cycle \
-        phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify \
+        phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify she-import \
         verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
         data-coverage
 
@@ -393,6 +393,15 @@ phase-g1-import:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
 	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_domain_incompatibilities_to_pg.py' $(ARGS)
+
+# SHE 패턴(phase3c proposals.json) → PG she_catalog UPSERT (ON CONFLICT DO NOTHING).
+# 배포 재현: main pull 후 1회 실행해야 패턴이 실서비스(PG)에 반영. 자세히: docs/deliverables/airgap-deploy-runbook.md
+#   make she-import                                        dry-run
+#   make she-import ARGS='--apply --status approved_auto'  실제 적재
+she-import:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/import_she_phase3c_to_pg.py $(ARGS)
 
 phase-g1-verify:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
