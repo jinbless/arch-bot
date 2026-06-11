@@ -41,7 +41,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify she-import \
         verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
-        verify-she-links \
+        verify-she-links verify-she-collisions \
         data-coverage consistency-gate verify-rules
 
 help:
@@ -425,6 +425,13 @@ verify-she-links:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
 	  '$(VENV_PY)' -u scripts/verify_she_links.py
+
+# CAT-3(F20) — 서빙 3축 시그니처 충돌. 동결 기준선 대비 신규 증가만 exit 1.
+# 기준선 재캡처(의도적 채택 시만): make verify-she-collisions ARGS='--capture'
+verify-she-collisions:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/verify_she_collisions.py $(ARGS)
 
 phase-g1-verify:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
