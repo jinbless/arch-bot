@@ -1,4 +1,4 @@
-# Evaluation Baseline
+﻿# Evaluation Baseline
 
 Latest updated: 2026-05-28 — **axiom-100% Sprint (SWRL→SHACL CONSTRUCT, K-general 53,378 pair) + guide-accuracy Sprint (8-photo Guide mapping 80%→100% ⭐) + 문서 doc-sync**. 이전: Phase G PG materialization (penalty_accuracy +27.16%p ⭐) + Tier 4 SWRL Pellet (R-1: 107 + R-3: 3,579 inferred ⭐).
 
@@ -9,6 +9,27 @@ Previous accepted baseline: `ci_unrelated_action_filter1`
 The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are local/external artifacts. Root git tracks `data-team/05-enrichment/eval-data/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
 > ⚠️ **측정 caveat — 정본 (WS-OBS-2)**: 본 문서의 합성 corpus 지표(SHE recall 54.9%, SR 84.0%, overall 0.3258 등)는 **Layer 1–3 metric**이다 — replay harness(`build_fake_result`)가 `expected_features`를 confidence 0.9로 주입해 **Layer 0(Vision)을 우회**하므로, Vision이 현장 위험을 놓치는 end-to-end false-negative는 이 수치에 **포함되지 않는다**. 또한 합성 corpus는 제빵/주방 위주(KOSHA guide=산업)라 도메인 미스매치 caveat가 있다. Vision 포함 end-to-end recall + scene-correctness는 별도 사람-라벨 gold set(WS-EVAL-2)로만 측정된다.
+
+## Gate Baseline 거버넌스 (MEAS-2, F14) — 기계 검증 anchor
+
+회귀게이트(`make f1-regression`)의 현행 보호선. **baseline 채택 = 4-포인터 원자 갱신**(baseline 파일 생성 → Makefile `F1_BASELINE` → `regression_gate.DEFAULT_BASELINE` → 아래 anchor)을 **단일 커밋**으로 수행하고 `make verify-baseline`으로 종료 확인한다. 아래 블록은 `verify_baseline_governance.py`가 파싱하는 기계 anchor — 수치를 손으로 고치지 말고 채택 절차로만 갱신.
+
+```json
+{
+  "_anchor": "gate-baseline",
+  "file": "replay_baseline_v4.json",
+  "she_accuracy": 0.5758,
+  "sr_accuracy": 0.7797,
+  "penalty_accuracy": 0.4729,
+  "overall_accuracy": 0.3254,
+  "false_positive_rate": 0.8696,
+  "false_negative_rate": 0.0,
+  "she_recall_miss_rate": 0.4168,
+  "guide_coverage_rate": 0.6718
+}
+```
+
+> ⚠️ **v4 오염 caveat (MEAS-1, F19)**: v4의 `false_positive_rate`(0.8696)·`false_negative_rate`(0.0)는 replay가 평가 정답(expected_corrective_direction)을 immediate_actions/preventive_measures로 주입하던 시기의 **구조적 상수**다(fp=ecd 보유 negative 비율, fn=구조적 0). `guide_coverage_rate`도 정답 텍스트의 semantic 쿼리 누수로 부풀려졌을 수 있다. MEAS-1(커밋 `c6e6132`)에서 주입 제거 — **정직한 v5 재캡처(MEAS-3)로 교체 예정**.
 
 ## guide-accuracy Sprint — Guide 추천 정확도 (2026-05-28, 8-photo Guide mapping 80%→100% ⭐)
 

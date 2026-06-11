@@ -147,7 +147,7 @@ origin/main HEAD `1dab81a`. 재설계 Phase 3(facet 리모델) 온톨로지 레�
 - ⭐ `scripts/audit_code_consistency.py --gate` — 온톨로지 UPPER/dual-URI 재발 시 **exit 1** (SSOT 인지; PG fine 코드의 pending(UNKNOWN) orphan은 WARN, open-class 허용). **`make verify-codes`** 등록. **게이트가 실제로 Phase 4-B의 agent/ctx UPPER 25종 누락을 적발 → 1,856건 자동 수정 → PASS** (재발방지 메커니즘 작동 입증).
 - exporter 3종(`export_owl`/`export_guide_hazard_to_abox`/`export_8photo_to_abox`) → `code_iri_mapper` SSOT 일원화 (향후 PG 재생성 dual-URI 재발 차단).
 
-**검증 수치** (Gate 3 baseline 대비, 전 단계 회귀 0): overall 0.1331→0.3254, penalty 0.1835→0.4729, sr 0.7636→0.7771, she 0.5581→0.5758.
+**검증 수치**: 전 단계 회귀 0 — 현행 수치는 정본 [evaluation-baseline.md](evaluation-baseline.md)의 **Gate Baseline 거버넌스 anchor** 참조(직기재 금지, CLAUDE.md 규칙; `make verify-baseline`이 정본↔게이트 일치를 기계 검증).
 
 **⏸️ Deferred 후속 (라이브 영향 없음 — 온톨로지 offline, 서빙은 PG 기반이라 forklift fix 이미 live)**:
 1. **Fuseki Openllet reload** (~30분 warmup, 선택적 SPARQL enrichment만 영향): WSL `cd ontology-team/06-reasoning/ontology/docker && docker compose restart fuseki`. ⚠️ **2026-05-30 발견**: `KoshaFusekiServer.java`의 sources 목록이 in-place 마이그레이션된 `kosha-instances.ttl`(volume-mount, restart로 반영)은 로드하나 `kosha-ontology-v4-kosha22-vocab-patch.ttl`(62 NamedIndividual)은 **미포함** → 단순 restart론 정본 개체 선언이 안 됨. 결정 필요: (a) patch를 sources에 추가 + Java image rebuild, 또는 (b) 서빙층 patch 불요 확인.
