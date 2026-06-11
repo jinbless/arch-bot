@@ -75,15 +75,18 @@ def main():
     # 사람 큐레이션 컬럼(status/reviewed_by/superseded_by/notes/approved_at)은 건드리지
     # 않는다 — orphan 강등(pending_review)·supersede 결정이 재적재로 뒤집히지 않게.
     # (xmax = 0) = PG upsert에서 '실제 INSERT였나' 판별 관용구.
+    # CAT-2 보완: visual_triggers도 적재 — 기존 importer가 이 컬럼을 누락해 proposals의
+    # 시각단서(535/535 보유)가 PG에서 전량 유실됐었다(phase3c 529행 visual_triggers 빈값
+    # → Stage-4 ABox export가 name fallback으로 동작). reconcile 1회로 backfill 가능.
     if args.reconcile:
         upsert_sql = """
             INSERT INTO she_catalog
               (she_id, name, name_pattern, features, rationale, status, broadness_score,
-               source_model, source_prompt_hash, source_sr_ids, created_at)
+               source_model, source_prompt_hash, source_sr_ids, visual_triggers, created_at)
             VALUES
               (:she_id, :name, :name_pattern, CAST(:features AS jsonb), :rationale,
                :status, :broadness, :source_model, :source_prompt_hash,
-               CAST(:source_sr_ids AS jsonb), :created_at)
+               CAST(:source_sr_ids AS jsonb), CAST(:visual_triggers AS jsonb), :created_at)
             ON CONFLICT (she_id) DO UPDATE SET
               name = EXCLUDED.name,
               name_pattern = EXCLUDED.name_pattern,
@@ -92,18 +95,19 @@ def main():
               broadness_score = EXCLUDED.broadness_score,
               source_model = EXCLUDED.source_model,
               source_prompt_hash = EXCLUDED.source_prompt_hash,
-              source_sr_ids = EXCLUDED.source_sr_ids
+              source_sr_ids = EXCLUDED.source_sr_ids,
+              visual_triggers = EXCLUDED.visual_triggers
             RETURNING she_id, (xmax = 0) AS was_insert
         """
     else:
         upsert_sql = """
             INSERT INTO she_catalog
               (she_id, name, name_pattern, features, rationale, status, broadness_score,
-               source_model, source_prompt_hash, source_sr_ids, created_at)
+               source_model, source_prompt_hash, source_sr_ids, visual_triggers, created_at)
             VALUES
               (:she_id, :name, :name_pattern, CAST(:features AS jsonb), :rationale,
                :status, :broadness, :source_model, :source_prompt_hash,
-               CAST(:source_sr_ids AS jsonb), :created_at)
+               CAST(:source_sr_ids AS jsonb), CAST(:visual_triggers AS jsonb), :created_at)
             ON CONFLICT (she_id) DO NOTHING
             RETURNING she_id, TRUE AS was_insert
         """
@@ -125,6 +129,7 @@ def main():
                     "source_model": row.get("source_model", "phase3c/direct-llm"),
                     "source_prompt_hash": row.get("source_prompt_hash", "")[:32],
                     "source_sr_ids": json.dumps(row.get("source_sr_ids") or [], ensure_ascii=False),
+                    "visual_triggers": json.dumps(row.get("visual_triggers") or [], ensure_ascii=False),
                     "created_at": now,
                 })
                 returned = res.first()
