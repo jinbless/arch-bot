@@ -41,6 +41,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify she-import \
         verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
+        verify-she-links \
         data-coverage consistency-gate verify-rules
 
 help:
@@ -418,6 +419,12 @@ she-import:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
 	  '$(VENV_PY)' -u scripts/import_she_phase3c_to_pg.py $(ARGS)
+
+# CAT-1(F17) — 서빙 SHE 중 SR 링크 0건(orphan) 검출. orphan>0 → exit 1.
+verify-she-links:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/verify_she_links.py
 
 phase-g1-verify:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
