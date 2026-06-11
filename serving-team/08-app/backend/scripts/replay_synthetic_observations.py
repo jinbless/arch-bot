@@ -119,11 +119,12 @@ def _expected_to_hazards(case: dict[str, Any]) -> list[dict[str, Any]]:
     description = " ".join(
         p for p in [case.get("photo_description") or "", " ".join(cues)] if p
     ).strip()
-    measures = (
-        [case["expected_corrective_direction"]]
-        if case.get("expected_corrective_direction")
-        else []
-    )
+    # MEAS-1(F19): 평가 정답(expected_corrective_direction)을 preventive_measures로 주입하면
+    # (a) hazard_to_ci_service가 정답 텍스트로 CI를 grounding → immediate_actions 오염,
+    # (b) hazard_to_guide_service가 정답 텍스트를 semantic 검색 쿼리에 결합 → guide_coverage_rate
+    #     (FN-veto 키)가 정답 누수로 부풀려짐.
+    # production에서 GPT는 사진에서 measures를 생성하므로, gold 미주입(빈 리스트)이 보수적·정직.
+    measures: list[str] = []
     location = case.get("work_context") or ""
     # 축 코드별 1 hazard (normalize는 hazard당 첫 매칭 축 1코드만 취함 → 코드별 분리).
     return [
@@ -188,11 +189,13 @@ def build_fake_result(case: dict[str, Any]) -> dict[str, Any]:
         # WS-EVAL-1: hazards[] 주입 → hazard-direct ON 경로(guide/ci/penalty) 실제 발동.
         "hazards": _expected_to_hazards(case),
         "overall_assessment": case.get("expected_primary_risk") or "",
-        "immediate_actions": (
-            [case["expected_corrective_direction"]]
-            if case.get("expected_corrective_direction")
-            else []
-        ),
+        # MEAS-1(F19): 평가 정답(expected_corrective_direction)을 LLM immediate_actions로
+        # 주입하지 않는다. 주입 시 ecd 보유 positive 1,224/1,377(88.9%)는 파이프라인이 절차
+        # 추천을 전멸시켜도 actions_count>=1이라 FN 집계 불능이었고, negative 276 중 ecd 보유
+        # 240건이 자동 FP → fp_rate가 평가셋 분포 상수(0.8696)로 고정됐다.
+        # 빈 리스트 = 파이프라인 산출(CI/guide 유래)만 actions로 집계 → FN/FP 최초 실측화.
+        # NOTE: overall_assessment(expected_primary_risk)는 summary 텍스트 전용(미채점)이라 유지.
+        "immediate_actions": [],
     }
 
 
