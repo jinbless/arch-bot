@@ -35,7 +35,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
 .PHONY: help dev-setup dev-up dev-down dev-restart dev-check dev-status dev-logs \
         dev-pg-up dev-pg-down dev-pg-status \
         f1-mine f1-mine-gate2 f1-mine-log f1-promote f1-status \
-        f1-eval f1-regression f1-recover f1-help baseline-recapture verify-baseline \
+        f1-eval f1-regression f1-recover f1-help baseline-recapture verify-baseline latency-gate \
         f2-help f2-patch-v32 f2-patch-v33 f2-enrich-sonnet f2-link-v31 \
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
         f3-drift-check f3-weekly-cycle \
@@ -263,6 +263,14 @@ baseline-recapture:
 
 verify-baseline:
 	@'$(VENV_PY)' '$(BACKEND_DIR)/scripts/verify_baseline_governance.py'
+
+# PERF-1(S2) — Layer1-3 파이프라인 p50/p95 레이턴시 게이트 (p95 +20% 초과 exit 1).
+# matcher/파이프라인 변경 머지 전제조건. 다른 배치와 동시 실행 금지(CPU 경합 왜곡).
+# 기준선 재캡처(의도적 채택 시만): make latency-gate ARGS='--capture'
+latency-gate:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/latency_gate.py $(ARGS)
 
 f1-recover:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
