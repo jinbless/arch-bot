@@ -1,6 +1,6 @@
 import React from 'react';
 import type { StandardProcedure } from '../../types/analysis';
-import SourceBadge, { inferProcedureSource } from './SourceBadge';
+import SourceBadge, { inferProcedureSourceFromMapping, ProcedurePathBadge, ReviewRequiredBadge } from './SourceBadge';
 
 const GuideProcedurePanel: React.FC<{ procedures: StandardProcedure[] }> = ({ procedures }) => (
   <section className="bg-white rounded-xl border border-green-200 p-4">
@@ -16,14 +16,19 @@ const GuideProcedurePanel: React.FC<{ procedures: StandardProcedure[] }> = ({ pr
     {procedures.length ? (
       <div className="space-y-2">
         {procedures.map((procedure, index) => {
-          const src = inferProcedureSource(procedure.evidence_summary);
+          const src = inferProcedureSourceFromMapping(procedure.mapping_type, procedure.evidence_summary);
           return (
             <div key={procedure.procedure_id} className="rounded-lg bg-green-50 px-3 py-2">
               <div className="flex items-start justify-between gap-2">
                 <div className="text-sm font-medium text-gray-900 flex-1">
                   {index + 1}. {procedure.title}
                 </div>
-                <SourceBadge source={src} />
+                <div className="flex items-center gap-1 flex-wrap justify-end">
+                  {/* WS-DEEP-1: 이중경로 출처 + 단독경로 고위험 검토필요(표시전용) */}
+                  <ProcedurePathBadge sourcePath={procedure.source_path} />
+                  <ReviewRequiredBadge show={procedure.review_required} />
+                  <SourceBadge source={src} />
+                </div>
               </div>
               {procedure.description && (
                 <div className="text-xs text-gray-500 mt-1">{procedure.description}</div>

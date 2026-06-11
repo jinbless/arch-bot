@@ -17,6 +17,7 @@ from app.models.analysis import (
     GuideRef,
     HazardGuideRelation,
     HazardItem,
+    UnmappedSafetyTerm,
 )
 from app.models.hazard import (
     CorrectiveAction,
@@ -44,6 +45,10 @@ from app.services.hazard_normalizer import (
     normalize_hazards_array,
     normalize_risk_feature_candidates,
 )
+from app.services.she_matcher import (  # WS-SAFETY-5: 불안전 상태 카탈로그(표시용)
+    UNSAFE_ENVIRONMENTAL_STATES,
+    UNSAFE_PPE_STATES,
+)
 from app.services.hazard_to_guide_service import match_hazards_to_guides, _semantic_attach_enabled
 from app.services.hazard_to_ci_service import match_hazards_to_ci
 from app.services.industry_context import infer_industry_context
@@ -67,7 +72,7 @@ class AnalysisRunInput:
     # 분석 사진 thumbnail(data URI) — history에서 사진을 결과와 함께 표시. image_path 컬럼에 저장.
     thumbnail: Optional[str] = None
     # 평가 하니스(replay)가 합성분석을 운영/데모 DB(ohs_analysis_records)에 persist하지 않도록 끄는
-    # 스위치. **기본 True(운영 경로 무영향)**. replay만 False → DB 오염 방지.
+    # 스위치. **기본 True(운영 경로 무영향)**. replay만 False → DB 오염 방지(air-gap history 500 재발 차단).
     persist: bool = True
 
 
@@ -95,6 +100,8 @@ class AnalysisKnowledgeContext:
     hazard_guide_relations: list[dict] = field(default_factory=list)
     hazard_canonical: dict = field(default_factory=dict)  # normalize_hazards_array 결과
     hazard_direct_mode: str = "off"
+    # WS-DEEP-1 — 이중경로 합의/불일치 분류(guides·SR별 she_only/hazard_direct_only/both). 로그/표시용.
+    path_agreement: dict = field(default_factory=dict)
 
 
 class AnalysisPipeline:
@@ -159,6 +166,7 @@ class AnalysisPipeline:
         overall_risk_level = self._overall_risk_level(
             observations,
             knowledge.finding_status,
+            knowledge.hazards_payload,
         )
 
         response = AnalysisResponse(
@@ -187,6 +195,10 @@ class AnalysisPipeline:
             ),
             hazard_guide_relations=self._build_hazard_guide_relations(
                 knowledge.hazard_guide_relations,
+            ),
+            unmapped_safety_terms=self._build_unmapped_safety_terms(  # WS-SAFETY-5 (표시전용)
+                run_input.result,
+                knowledge.normalizer_unknown_codes,
             ),
             analyzed_at=analyzed_at,
         )
@@ -381,8 +393,64 @@ class AnalysisPipeline:
                                         "relevance_score": _sc, "mapping_type": _g.get("mapping_type"),
                                         "evidence_summary": _ev}
             _sem_guides = sorted(_seen_g.values(), key=lambda x: x["relevance_score"], reverse=True)
+            # ── WS-GATE-3: 도메인-부적합 guide hard reject (opt-in, 기본 off=무회귀) ──
+            # shadow_validate가 analysis_log write-only로만 쓰이던 도메인 모순 신호를, 기본 served
+            # 경로의 semantic attach 직전에서 high-confidence(vetted & conf>=임계)만 hard-drop한다.
+            # **semantic(hazard-direct) 후보에만 적용** → facet(CI-corroborated) guide_rows는 무영향
+            # (FN 보수; DEEP-1 merge가 facet을 재보존). 전부 드롭 시 _sem_guides=∅ → 아래 overwrite
+            # 미발동 → facet guide_rows 생존(FN-safe fallback).
             if _sem_guides:
-                guide_rows = _sem_guides
+                from app.services import shadow_reasoner as _shadow
+                _industry_ko = declared_industry_text or (
+                    industry_context.active_industries[0]
+                    if industry_context.active_industries else ""
+                )
+                _reject = _shadow.domain_reject_codes(
+                    _industry_ko, [g["guide_code"] for g in _sem_guides]
+                )
+                if _reject:
+                    _before = len(_sem_guides)
+                    _sem_guides = [g for g in _sem_guides if g["guide_code"] not in _reject]
+                    logging.getLogger(__name__).info(
+                        "[WS-GATE-3] domain-reject dropped %d/%d semantic guides "
+                        "(industry=%s): %s",
+                        len(_reject), _before, _industry_ko, sorted(_reject),
+                    )
+            if _sem_guides:
+                # ── WS-DEEP-1: overwrite(guide_rows=_sem_guides) → corroboration-보존 MERGE ──
+                # facet(CI-corroborated·work_process_steps grounded) guide를 보존하며 sem을 통합.
+                # 불변식: 결과 guide_code 집합 ⊇ facet 집합 → silent drop(A8) 차단. 단일 지점 교체.
+                guide_rows = self._merge_guide_rows(guide_rows, _sem_guides)
+                # step4: high-severity 단독경로 guide는 점수 깎지 말고 review_required 표식만(표시전용).
+                if high_severity_observation:
+                    for _gr in guide_rows:
+                        if _gr.get("source_path") in ("she_facet", "hazard_direct"):
+                            _gr["review_required"] = True
+
+        # WS-DEEP-1 step3 — 이중경로 합의/불일치 분류(guides·SR) → analysis_log path_agreement.
+        # 두 경로(SHE/facet · hazard-direct)가 같은 guide/SR를 얼마나 합의(both)하는지 정량화.
+        # sr_ids는 아직 hazard union(아래) 전이라 she/facet SR 집합. 표시·마이닝용(scoring 무관).
+        path_agreement: dict = {}
+        if hazards_payload and (hazard_guide_relations or hazard_sr_ids):
+            _g_path = {"she_only": 0, "hazard_direct_only": 0, "both": 0}
+            for _gr in guide_rows:
+                _sp = _gr.get("source_path")
+                if _sp == "she_facet":
+                    _g_path["she_only"] += 1
+                elif _sp == "hazard_direct":
+                    _g_path["hazard_direct_only"] += 1
+                elif _sp == "both":
+                    _g_path["both"] += 1
+            _she_sr = set(sr_ids)
+            _haz_sr = set(hazard_sr_ids)
+            path_agreement = {
+                "guides": _g_path,
+                "sr": {
+                    "she_only": len(_she_sr - _haz_sr),
+                    "hazard_direct_only": len(_haz_sr - _she_sr),
+                    "both": len(_she_sr & _haz_sr),
+                },
+            }
 
         # 「벌칙 3경로」 v5 연결 — semantic SR(정밀, 예: SR-VEHICLE→제179조)을 penalty 후보 풀에 보강(flag on).
         # replay는 hazards[] 미주입 → hazard_sr_ids ∅ → 미발동(무회귀). exposure는 보수적으로 legacy
@@ -417,6 +485,7 @@ class AnalysisPipeline:
             hazard_guide_relations=hazard_guide_relations,
             hazard_canonical=hazard_canonical,
             hazard_direct_mode=HAZARD_DIRECT_MODE,
+            path_agreement=path_agreement,
         )
 
     def _build_observations(self, result: dict) -> list[VisualObservation]:
@@ -604,6 +673,48 @@ class AnalysisPipeline:
             )
         return out
 
+    @staticmethod
+    def _merge_guide_rows(facet_rows: list[dict], sem_rows: list[dict]) -> list[dict]:
+        """WS-DEEP-1 — 이중경로 guide MERGE (overwrite[guide_rows=sem]의 facet silent-drop[A8] 해소).
+
+        - both(두 경로 모두): facet row를 베이스로 구조필드(ci_hit_count·work_process_steps·
+          source_sr_ids 등) **보존**, relevance_score=max(facet,sem), evidence_summary는 sem의
+          §섹션 근거 우선(overwrite가 보여주던 §-citation 비손실), source_path="both".
+        - facet-only: source_path="she_facet" 보존(CI-corroborated guide 절대 drop 금지).
+        - sem-only: source_path="hazard_direct" 보존(sparse row 그대로).
+        점수 내림차순 정렬. **불변식: 결과 guide_code 집합 ⊇ facet 집합**.
+        """
+        by_code: dict[str, dict] = {}
+        for fr in facet_rows or []:
+            gc = fr.get("guide_code")
+            if not gc:
+                continue
+            row = dict(fr)
+            row["source_path"] = "she_facet"
+            by_code[gc] = row
+        for sm in sem_rows or []:
+            gc = sm.get("guide_code")
+            if not gc:
+                continue
+            sem_score = float(sm.get("relevance_score") or 0.0)
+            if gc in by_code:
+                row = by_code[gc]
+                row["source_path"] = "both"
+                if sem_score > float(row.get("relevance_score") or 0.0):
+                    row["relevance_score"] = sem_score
+                sem_ev = sm.get("evidence_summary")
+                if sem_ev:
+                    row["evidence_summary"] = sem_ev
+            else:
+                row = dict(sm)
+                row["source_path"] = "hazard_direct"
+                by_code[gc] = row
+        return sorted(
+            by_code.values(),
+            key=lambda x: float(x.get("relevance_score") or 0.0),
+            reverse=True,
+        )
+
     def _build_standard_procedures(self, guide_rows: list[dict]) -> list[StandardProcedure]:
         procedures = []
         for row in guide_rows:
@@ -636,9 +747,50 @@ class AnalysisPipeline:
                     source_ci_ids=list(row.get("source_ci_ids") or []),
                     evidence_summary=row.get("evidence_summary"),
                     confidence=float(row.get("relevance_score", 0) or 0),
+                    mapping_type=row.get("mapping_type"),  # WS-PROV-3: 부착 출처(표시전용)
+                    source_path=row.get("source_path"),  # WS-DEEP-1: 이중경로 출처(표시전용)
+                    review_required=bool(row.get("review_required")),  # WS-DEEP-1: 단독경로 high-sev
                 )
             )
         return procedures
+
+    def _build_unmapped_safety_terms(
+        self,
+        result: dict,
+        normalizer_unknown_codes: list[str],
+    ) -> list[UnmappedSafetyTerm]:
+        """WS-SAFETY-5 (표시전용): GPT가 관찰했으나 폐쇄세계 매칭/스코어링에 쓰이지 못한
+        안전 신호를 가시화. finding_status/penalty/매칭에 영향 없음 — '미탐지 ≠ 안전'.
+        """
+        terms: list[UnmappedSafetyTerm] = []
+        seen: set[str] = set()
+        for cand in result.get("risk_feature_candidates") or []:
+            axis = cand.get("axis")
+            text = (cand.get("text") or "").strip()
+            if not text or text in seen:
+                continue
+            if axis == "ppe_state" and text in UNSAFE_PPE_STATES:
+                seen.add(text)
+                terms.append(UnmappedSafetyTerm(
+                    term=text, category="ppe_missing",
+                    note="GPT가 불안전 PPE 상태를 관찰 (표준 매칭 미반영 — 추가 확인 필요)",
+                ))
+            elif axis == "environmental" and text in UNSAFE_ENVIRONMENTAL_STATES:
+                seen.add(text)
+                terms.append(UnmappedSafetyTerm(
+                    term=text, category="environmental_hazard",
+                    note="GPT가 불안전 환경 상태를 관찰 (표준 매칭 미반영 — 추가 확인 필요)",
+                ))
+        for code in normalizer_unknown_codes or []:
+            key = f"unknown::{code}"
+            if key in seen:
+                continue
+            seen.add(key)
+            terms.append(UnmappedSafetyTerm(
+                term=str(code), category="unmapped_code",
+                note="해석되지 않은 위험 어휘 (분류 불가 — 안전 보장 아님)",
+            ))
+        return terms[:20]
 
     def _build_findings(
         self,
@@ -941,6 +1093,7 @@ class AnalysisPipeline:
                 she_match_count=len(knowledge.she_matches),
                 raw_vision_features=knowledge.raw_vision_features,
                 reasoner_rejects=reasoner_rejects,
+                path_agreement=knowledge.path_agreement,
             )
         except Exception as exc:
             logger.warning("analysis_log append failed: %s", exc)
@@ -1019,6 +1172,7 @@ class AnalysisPipeline:
                 she_match_count=len(knowledge.she_matches),
                 raw_vision_features=knowledge.raw_vision_features,
                 reasoner_rejects=reasoner_rejects,
+                path_agreement=knowledge.path_agreement,
             )
         except Exception as exc:
             logging.getLogger(__name__).warning(
@@ -1040,6 +1194,7 @@ class AnalysisPipeline:
         she_match_count: int = 0,
         raw_vision_features: dict | None = None,
         reasoner_rejects: list[dict] | None = None,
+        path_agreement: dict | None = None,
     ) -> None:
         """Phase C.1 — append per-analysis log for self-refine mining.
 
@@ -1099,6 +1254,9 @@ class AnalysisPipeline:
         # T2.A: write reasoner_rejects only when non-empty list (avoid noise)
         if reasoner_rejects:
             entry["reasoner_rejects"] = list(reasoner_rejects)
+        # WS-DEEP-1: 이중경로 합의/불일치 분류 — non-empty일 때만 기록(reasoner_rejects와 동일 옵셔널).
+        if path_agreement:
+            entry["path_agreement"] = path_agreement
         with log_path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
@@ -1113,12 +1271,24 @@ class AnalysisPipeline:
         self,
         observations: list[VisualObservation],
         finding_status: str,
+        hazards_payload: Optional[list[dict]] = None,
     ) -> str:
+        # WS-SAFETY-3: hazards[] OR-in — hazard-direct(개방세계)가 high 위험을 직접 봤으면
+        #   상단 배지를 절대 녹색 'low/unknown'으로 떨어뜨리지 않는다(상단 vs hazards 카드 모순 제거).
+        #   HAZARD_DIRECT_MODE=='off'면 hazards 경로 미사용이므로 존중(무시).
+        hazard_high = HAZARD_DIRECT_MODE != "off" and any(
+            str(h.get("risk_level", "")).lower() == "high" for h in (hazards_payload or [])
+        )
         if finding_status == "confirmed" and any(obs.severity == "HIGH" for obs in observations):
             return "high"
+        if hazard_high:
+            # 폐쇄세계(SHE/SR)가 confirmed까지 못 갔어도 GPT가 본 high hazard는 묻지 않는다.
+            return "high" if finding_status in {"confirmed", "suspected"} else "medium"
         if finding_status in {"confirmed", "suspected"}:
             return "medium"
-        return "low"
+        # WS-SAFETY-1: '평가 못 함/근거 부족'(not_determined/needs_clarification)을 녹색 'low'로
+        #   붕괴시키지 않는다 — '미탐지 ≠ 안전'. assessed_safe(녹색 low) 상태는 D1로 후속(현재 미도입).
+        return "unknown"
 
     def _summary(
         self,
@@ -1129,9 +1299,14 @@ class AnalysisPipeline:
         if findings:
             penalty_text = " 벌칙 안내 경로가 있습니다." if penalty_paths else ""
             return f"{findings[0].summary}{penalty_text}"
+        # WS-SAFETY-1: findings 없음 = 폐쇄세계(SHE/SR)가 위험을 확정 못 함.
+        #   '미탐지 ≠ 안전' — 관찰 유무와 무관하게 '판정 불가'를 명시해 녹색 오신호를 차단한다.
         if observations:
-            return observations[0].text
-        return "사진 또는 설명에서 확정 가능한 위험 단서를 찾지 못했습니다."
+            return (
+                f"{observations[0].text} (관찰은 되었으나 위험 패턴을 확정하지 못했습니다 — "
+                "안전을 보장하지 않으며 추가 현장 확인이 필요합니다.)"
+            )
+        return "이 입력만으로는 위험 유무를 확정할 수 없습니다 (안전 보장 아님 — 추가 현장 확인 필요)."
 
     def _finding_summary(
         self,

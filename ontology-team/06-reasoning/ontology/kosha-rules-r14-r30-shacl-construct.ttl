@@ -51,9 +51,12 @@ krs:CommonPrefixes a sh:PrefixDeclaration ;
         [ sh:prefix "xsd" ; sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ] .
 
 
-### R-14: VisualObservation → bridge:observedIn(VO, Hazard)
+### R-14: VisualObservation → bridge:observedIn(VO, AccidentType)
+# WS-GATE-7: `haz:Hazard`는 B5/F4-c(2026-05-31)에서 클래스째 폐지(kosha-facet-axis-disjoint.ttl:7) →
+#   모든 그래프에서 `?hazd a haz:Hazard` 0건 매칭 = dead clause. `haz:AccidentType`로 repoint
+#   (현행 sr:addressesAccidentType / risk:correspondsToHazard→AccidentType 모델과 일치).
 krs:R14_BridgeObservedInVOShape a sh:NodeShape ;
-    rdfs:label "R-14 SHACL: VO → bridge:observedIn(Hazard)"@ko ;
+    rdfs:label "R-14 SHACL: VO → bridge:observedIn(AccidentType)"@ko ;
     sh:targetClass app:VisualObservation ;
     sh:rule [
         a sh:SPARQLRule ;
@@ -63,15 +66,17 @@ krs:R14_BridgeObservedInVOShape a sh:NodeShape ;
             WHERE {
                 $this risk:hasRiskFeature ?rf .
                 ?rf haz:hasHazard ?hazd .
-                ?hazd a haz:Hazard .
+                ?hazd a haz:AccidentType .
             }
         """ ;
     ] .
 
 
-### R-15: SR → bridge:appliesTo(Hazard) via addressesAccidentType
+### R-15: SR → bridge:appliesTo(AccidentType) via addressesAccidentType
+# WS-GATE-7: `haz:Hazard` 폐지 dead clause → `haz:AccidentType` repoint (R-14과 동일 근거).
+#   R-24(VO → core:hasViolation)는 R-15이 만드는 `bridge:appliesTo`에 의존 → 이 repoint로 cascade revive.
 krs:R15_BridgeAppliesToHazardShape a sh:NodeShape ;
-    rdfs:label "R-15 SHACL: SR → bridge:appliesTo(Hazard)"@ko ;
+    rdfs:label "R-15 SHACL: SR → bridge:appliesTo(AccidentType)"@ko ;
     sh:targetClass sr:SafetyRequirement ;
     sh:rule [
         a sh:SPARQLRule ;
@@ -81,7 +86,7 @@ krs:R15_BridgeAppliesToHazardShape a sh:NodeShape ;
             WHERE {
                 ?rf a risk:RiskFeature .
                 ?rf haz:hasHazard ?hazd .
-                ?hazd a haz:Hazard .
+                ?hazd a haz:AccidentType .
                 $this sr:addressesAccidentType ?hazd .
             }
         """ ;

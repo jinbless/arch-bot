@@ -8,6 +8,8 @@ Previous accepted baseline: `ci_unrelated_action_filter1`
 
 The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are local/external artifacts. Root git tracks `data-team/05-enrichment/eval-data/reports-manifest.json` and this summary instead of adding historical report files to repository history.
 
+> ⚠️ **측정 caveat — 정본 (WS-OBS-2)**: 본 문서의 합성 corpus 지표(SHE recall 54.9%, SR 84.0%, overall 0.3258 등)는 **Layer 1–3 metric**이다 — replay harness(`build_fake_result`)가 `expected_features`를 confidence 0.9로 주입해 **Layer 0(Vision)을 우회**하므로, Vision이 현장 위험을 놓치는 end-to-end false-negative는 이 수치에 **포함되지 않는다**. 또한 합성 corpus는 제빵/주방 위주(KOSHA guide=산업)라 도메인 미스매치 caveat가 있다. Vision 포함 end-to-end recall + scene-correctness는 별도 사람-라벨 gold set(WS-EVAL-2)로만 측정된다.
+
 ## guide-accuracy Sprint — Guide 추천 정확도 (2026-05-28, 8-photo Guide mapping 80%→100% ⭐)
 
 실 서비스에서 CI 추천은 정확하나 Guide가 엉뚱하게 추천되는 문제(boilerplate CI fan-out + CI 개수 단독 랭킹) 근본 해결.
@@ -24,6 +26,8 @@ The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are 
 | mapping rate | 80% | **100% (27/27)** |
 | guide_hazard_direct mapping | — | **85%** |
 | boilerplate Guide 출현 | 발생 | **0** |
+
+> ⚠️ **측정 caveat (WS-OBS-2)**: 위 'mapping rate 100% (27/27)'은 hazard→code **매핑 커버리지**이며 scene-correctness 정확도가 **아니다**(사람-라벨 gold set 부재·n=8 비통계·work_context 미측정). 폐지예정 `standard_procedures` lane은 무관 guide를 高confidence로 내보내는 사례가 있다(`claude_vision_8photo_eval.json`). 안전 품질 주장은 gold set(WS-EVAL-2) 인용 후에만.
 
 Gate 3 regression (replay 2,360, tolerance 0.02): synthetic metric 회귀 없음 (Guide 추천은 synthetic corpus 채점 대상 외 → 8-photo로 측정). she 0.5758 / sr 0.7581 / penalty 0.4551 / overall 0.3258 유지.
 

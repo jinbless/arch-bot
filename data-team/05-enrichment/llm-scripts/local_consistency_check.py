@@ -58,9 +58,17 @@ def main() -> int:
     parser.add_argument("--skip-instances", action="store_true", help="ABox 1M lines skip (빠른 TBox만 검증)")
     parser.add_argument("--skip-shacl", action="store_true")
     parser.add_argument("--skip-sparql", action="store_true")
+    parser.add_argument("--gate", action="store_true",
+                        help="WS-GATE-5: SHACL conforms=false & violations>0 → exit 1 "
+                             "(TBox-only enforce 조합: --skip-instances --skip-sparql --gate)")
     args = parser.parse_args()
 
-    from rdflib import Graph
+    from rdflib import Graph, RDF, Namespace
+
+    # WS-GATE-5: SHACL 결과를 게이트 판정용으로 캡처 (conforms None=미실행, errored=예외).
+    shacl_conforms = None
+    shacl_violations = 0
+    shacl_errored = False
 
     report: dict = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -157,8 +165,12 @@ def main() -> int:
                 debug=False,
             )
             elapsed = time.time() - start
-            n_violations = sum(1 for _ in results_graph.subjects(predicate=None, object=None)) if not conforms else 0
-            print(f"  conforms={conforms}, elapsed {elapsed:.1f}s")
+            _SH = Namespace("http://www.w3.org/ns/shacl#")
+            n_violations = (len(set(results_graph.subjects(RDF.type, _SH.ValidationResult)))
+                            if not conforms else 0)
+            shacl_conforms = bool(conforms)
+            shacl_violations = n_violations
+            print(f"  conforms={conforms}, violations={n_violations}, elapsed {elapsed:.1f}s")
             print(f"  result text (first 800 chars):\n{results_text[:800]}")
             report["steps"].append(
                 {
@@ -172,6 +184,7 @@ def main() -> int:
         except Exception as exc:
             import traceback
 
+            shacl_errored = True
             print(f"  FAIL: {exc}", file=sys.stderr)
             report["steps"].append(
                 {"step": "shacl_validation", "status": "fail", "error": str(exc), "tb": traceback.format_exc(limit=3)}
@@ -182,6 +195,8 @@ def main() -> int:
     # Step 4 — SPARQL CQ coverage
     if not args.skip_sparql and CQ_PATH.exists():
         print("\n=== Step 4: SPARQL CQ coverage (in-memory rdflib) ===")
+        print("  [ADVISORY] in-memory rdflib는 체인 추론(OWL DL/SWRL chaining) 미수행 → CQ coverage는")
+        print("             참고용이며 --gate 판정에서 제외(0%여도 fail 아님).")
         payload = json.loads(CQ_PATH.read_text(encoding="utf-8"))
         queries = payload.get("queries") or []
         print(f"  {len(queries)} queries to run")
@@ -225,8 +240,30 @@ def main() -> int:
         print("\n=== Step 4: SPARQL SKIPPED ===")
 
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    report["gate"] = {
+        "enabled": bool(args.gate),
+        "shacl_conforms": shacl_conforms,
+        "shacl_violations": shacl_violations,
+        "shacl_errored": shacl_errored,
+    }
     OUT_REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\nSaved: {OUT_REPORT.relative_to(REPO_ROOT)}")
+
+    if args.gate:
+        # WS-GATE-5: 기존 버그 — conforms=false(19,879 violations)·CQ 0%여도 항상 return 0.
+        #   이제 SHACL conforms=false & violations>0 → exit 1. CQ coverage는 advisory라 제외.
+        #   fail-closed: SHACL 미실행/에러로 conformance 미확정이면 게이트를 통과시키지 않는다.
+        print("\n=== GATE 판정 (WS-GATE-5) ===")
+        if shacl_errored:
+            print("[GATE FAIL] SHACL 검증 에러 → conformance 미확정 → exit 1 (fail-closed)")
+            return 1
+        if shacl_conforms is None:
+            print("[GATE FAIL] SHACL 미실행(--skip-shacl?/shapes 부재) → 미확정 → exit 1 (fail-closed)")
+            return 1
+        if not shacl_conforms and shacl_violations > 0:
+            print(f"[GATE FAIL] SHACL conforms=false, violations={shacl_violations} → exit 1")
+            return 1
+        print(f"[GATE OK] SHACL conforms=true (violations={shacl_violations}) → exit 0")
     return 0
 
 

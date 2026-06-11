@@ -25,7 +25,8 @@ export type SourceType =
   | 'llm_enrich'
   | 'llm_rejected'
   | 'mixed'
-  | 'ontology';
+  | 'ontology'
+  | 'embedding_candidate';
 
 const SOURCE_META: Record<SourceType, { label: string; cls: string; title: string }> = {
   gpt:          { label: 'GPT Vision',   cls: 'bg-blue-100 text-blue-700 border-blue-200',       title: 'LLM이 사진/텍스트에서 직접 추출' },
@@ -39,6 +40,7 @@ const SOURCE_META: Record<SourceType, { label: string; cls: string; title: strin
   llm_rejected: { label: 'LLM reject',    cls: 'bg-zinc-200 text-zinc-700 border-zinc-300 line-through', title: 'Phase B 도메인 검증이 제외한 candidate (debug 표시)' },
   mixed:        { label: '복합',          cls: 'bg-gray-100 text-gray-700 border-gray-200',       title: '여러 source 결합' },
   ontology:     { label: '온톨로지',      cls: 'bg-violet-100 text-violet-700 border-violet-200', title: 'hazard-direct → SR → Guide (온톨로지 기반 추론 경로)' },
+  embedding_candidate: { label: '임베딩 후보(미검증)', cls: 'bg-orange-50 text-orange-700 border-orange-300', title: 'WS-PROV-3: 벡터 임베딩 유사도로 부착된 후보 — 닫힌세계(disjoint/규칙) 검증 미통과. 규칙 기반 부착과 신뢰등급이 다름.' },
 };
 
 const SourceBadge: React.FC<{ source: SourceType; extra?: string }> = ({ source, extra }) => {
@@ -54,6 +56,48 @@ const SourceBadge: React.FC<{ source: SourceType; extra?: string }> = ({ source,
 };
 
 export default SourceBadge;
+
+/**
+ * WS-DEEP-1: StandardProcedure.source_path(이중경로 출처) 배지.
+ * both=두 경로(SHE/facet · hazard-direct) 합의(corroborated, 가장 grounded) ·
+ * she_facet=SHE/facet 단독(CI-corroborated facet guide) · hazard_direct=위험직결(GPT hazard) 단독.
+ * 표시전용 — scoring 무관. source_path 없으면(semantic off) 렌더 안 함.
+ */
+const PATH_META: Record<string, { label: string; cls: string; title: string }> = {
+  both:          { label: '양경로 합의', cls: 'bg-green-100 text-green-800 border-green-300',     title: 'SHE/facet · hazard-direct 두 경로가 모두 부착 — corroborated(가장 grounded)' },
+  she_facet:     { label: 'SHE/facet',  cls: 'bg-emerald-50 text-emerald-700 border-emerald-200', title: 'SHE/facet 경로만 부착(CI-corroboration·work_process 보유 가능)' },
+  hazard_direct: { label: '위험직결',   cls: 'bg-sky-50 text-sky-700 border-sky-200',             title: 'hazard-direct(GPT hazard→SR→Guide) 경로만 부착' },
+};
+
+export const ProcedurePathBadge: React.FC<{ sourcePath?: string | null }> = ({ sourcePath }) => {
+  if (!sourcePath) return null;
+  const meta = PATH_META[sourcePath];
+  if (!meta) return null;
+  return (
+    <span
+      title={meta.title}
+      className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${meta.cls} whitespace-nowrap`}
+    >
+      {meta.label}
+    </span>
+  );
+};
+
+/**
+ * WS-DEEP-1: review_required(한 경로에서만 잡힌 고위험 항목) 칩.
+ * **점수 하향이 아니라** 교차 검토 환기용 — 두 경로 finding 모두 visible 유지(plan step4).
+ */
+export const ReviewRequiredBadge: React.FC<{ show?: boolean }> = ({ show }) => {
+  if (!show) return null;
+  return (
+    <span
+      title="한 경로에서만 잡힌 고위험 항목 — 점수 하향 아님, 교차 검토 권장(WS-DEEP-1)"
+      className="text-[10px] font-semibold px-1.5 py-0.5 rounded border bg-amber-100 text-amber-800 border-amber-300 whitespace-nowrap"
+    >
+      ⚠ 검토 필요
+    </span>
+  );
+};
 
 /**
  * immediate_action의 description을 보고 source 추정.
@@ -76,4 +120,17 @@ export const inferProcedureSource = (evidenceSummary?: string | null): SourceTyp
   if (evidenceSummary.includes('SHE source guide')) return 'she';
   if (evidenceSummary.includes('GUIDE feature') && evidenceSummary.includes('CI feature')) return 'mixed';
   return 'pg_guide';
+};
+
+/**
+ * WS-PROV-3: StandardProcedure.mapping_type 우선으로 source 판정.
+ * 임베딩 유사도 부착(hybrid_semantic/hybrid_cache)은 '임베딩 후보(미검증)'으로 표시하고,
+ * 그 외는 기존 evidence_summary 추정으로 폴백.
+ */
+export const inferProcedureSourceFromMapping = (
+  mappingType?: string | null,
+  evidenceSummary?: string | null,
+): SourceType => {
+  if (mappingType === 'hybrid_semantic' || mappingType === 'hybrid_cache') return 'embedding_candidate';
+  return inferProcedureSource(evidenceSummary);
 };

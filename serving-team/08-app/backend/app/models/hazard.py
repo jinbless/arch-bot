@@ -9,6 +9,9 @@ class RiskLevel(str, Enum):
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
+    # WS-SAFETY-1: '평가 못 함/근거 부족' — risk 축(low/medium/high)과 구조적으로 분리된
+    # 명시 채널. 'low'(녹색 안전)로 붕괴시키지 않아 '미탐지 = 안전' 오신호를 차단한다.
+    UNKNOWN = "unknown"
 
 
 class VisualCue(BaseModel):
@@ -84,6 +87,14 @@ class StandardProcedure(BaseModel):
     source_ci_ids: List[str] = []
     evidence_summary: Optional[str] = None
     confidence: float = 0.0
+    # WS-PROV-3: 이 절차가 어떻게 부착됐는지(표시전용, scoring 무관).
+    # hybrid_semantic/hybrid_cache=임베딩 후보(미검증) vs she_sr_wp_guide/sr_ci_link=규칙 기반.
+    mapping_type: Optional[str] = None
+    # WS-DEEP-1: 이중경로 출처(표시전용, scoring 무관). she_facet=SHE/facet만, hazard_direct=
+    # GPT hazard만, both=두 경로 합의. None=semantic attach off(단일 경로).
+    source_path: Optional[str] = None
+    # WS-DEEP-1: 한 경로에서만 잡힌 high-severity finding — down-weight 금지, '검토 필요' 표식만.
+    review_required: bool = False
 
 
 class PenaltyPath(BaseModel):

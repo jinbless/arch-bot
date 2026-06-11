@@ -41,7 +41,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify she-import \
         verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
-        data-coverage
+        data-coverage consistency-gate verify-rules
 
 help:
 	@echo "arch-bot dev launcher"
@@ -200,7 +200,7 @@ dev-pg-status:
 
 F1_SCRIPTS := $(ROOT)/data-team/05-enrichment/llm-scripts
 F1_RUNTIME := $(ROOT)/data-team/05-enrichment/runtime-artifacts
-F1_BASELINE := $(F1_RUNTIME)/replay_baseline_v3.json
+F1_BASELINE := $(F1_RUNTIME)/replay_baseline_v4.json
 
 f1-help:
 	@echo "Phase F.1 — Normalizer alias auto-registration"
@@ -389,7 +389,11 @@ phase-g1-schema:
 	    conn = e.raw_connection(); cur = conn.cursor(); cur.execute(ddl); conn.commit(); conn.close(); \
 	    print('Schema applied')"
 
-phase-g1-import:
+# WS-GATE-6: 사용자대면 materialization 타깃은 consistency-gate를 prerequisite로 박는다 —
+#   비일관/비적합 KB가 PG로 흐르기 전에 차단(엔지니어 "sprint 중 기억" 의존 제거). 신설될
+#   phase-g2/g3/g4-import 도 동일하게 `: consistency-gate` 를 붙일 것(G.3 penalty_rules·
+#   G.4 she_patterns 가 사용자대면 blast-radius 우선).
+phase-g1-import: consistency-gate
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
 	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_domain_incompatibilities_to_pg.py' $(ARGS)
@@ -446,6 +450,8 @@ gen-manifest:
 verify-manifest:
 	@echo "[verify-manifest] assembly manifest 정합 (single source of truth)"
 	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/validate_manifest.py'
+	@echo "[verify-manifest] rule TBox-liveness (WS-GATE-8: R-14류 dead clause 정적 적발)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/check_rule_tbox_liveness.py'
 
 # SSOT 변경(canonical-code-vocabulary.json) 시 shape 재생성. 산출물은 git tracked.
 gen-canonical-shape:
@@ -463,3 +469,50 @@ continual-pending:
 data-coverage:
 	@echo "[data-coverage] 스키마-데이터 커버리지 진단 (빈 클래스 / dormant property)"
 	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/check_data_coverage.py'
+
+
+# ---------------------------------------------------------------------------
+# WS-GATE-4/5/6/8 — OWA→CWA 전이점(PG 재물질화) 논리 일관성·dead-rule 하드게이트.
+# OWA(GPT/OWL 열린세계) → 온톨로지 검증 → CWA(PG 닫힌세계) 전이에 자동 게이트가 0개였다.
+# 비일관/비적합/dead-rule KB가 PG로 흐르기 전에 차단. phase-g*-import 의 prerequisite(GATE-6).
+# 자세히: docs/backlog/owa-cwa-remediation-plan.md (WS-GATE 워크스트림)
+# ---------------------------------------------------------------------------
+FUSEKI_SPARQL ?= http://localhost:3030/kosha/sparql
+
+# WS-GATE-4/5 — 논리 일관성 게이트: offline 2종(hard) + Fuseki live ASK(best-effort).
+#   1) check_disjoint_consistency.py: rdflib로 disjoint 충돌 결정적 탐지(Openllet lazy 사각 보완).
+#   2) local_consistency_check --gate: SHACL TBox conformance(conforms=false→exit 1).
+#   3) Fuseki Openllet owl:Nothing live ASK: 가동 시 실추론 trigger, 미가동 시 skip.
+consistency-gate:
+	@echo "[consistency-gate] 1/3 disjoint 충돌 오프라인 탐지 (check_disjoint_consistency.py)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/check_disjoint_consistency.py'
+	@echo "[consistency-gate] 2/3 SHACL TBox conformance (local_consistency_check --gate)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' \
+	  '$(F1_SCRIPTS)/local_consistency_check.py' --skip-instances --skip-sparql --gate
+	@echo "[consistency-gate] 3/3 Fuseki Openllet owl:Nothing live ASK (best-effort)"
+	@if curl -sS -f -m 5 "$(FUSEKI_SPARQL)" --data-urlencode 'query=ASK {}' \
+	      -H "Accept: application/sparql-results+json" >/dev/null 2>&1; then \
+	  incons=$$(curl -sS -m 30 -G "$(FUSEKI_SPARQL)" \
+	    --data-urlencode 'query=PREFIX owl: <http://www.w3.org/2002/07/owl#> ASK { ?x a owl:Nothing }' \
+	    -H "Accept: application/sparql-results+json" 2>/dev/null \
+	    | '$(VENV_PY)' -c 'import sys,json; print(str(json.load(sys.stdin).get("boolean", False)).lower())' 2>/dev/null \
+	    || echo error); \
+	  if [ "$$incons" = "true" ]; then \
+	    echo "  X INCONSISTENT — Openllet owl:Nothing 개체 검출 → exit 1"; exit 1; \
+	  elif [ "$$incons" = "error" ]; then \
+	    echo "  ! live ASK 응답 파싱 실패 — skip (offline 게이트 2종은 통과)"; \
+	  else \
+	    echo "  OK CONSISTENT (owl:Nothing 0, live Openllet)"; \
+	  fi; \
+	else \
+	  echo "  ! Fuseki($(FUSEKI_SPARQL)) 미응답 — live ASK skip ('Server Started'!=일관 주의; offline 2종 통과)"; \
+	fi
+	@echo "[consistency-gate] PASS"
+
+# WS-GATE-8 — SHACL CONSTRUCT 룰 무결성: static dead-class 가드 + dynamic per-rule fire.
+#   R-14류 dead clause(폐지 클래스 type-test → 영구 0-fire)를 정적/동적 양면으로 적발.
+verify-rules:
+	@echo "[verify-rules] 1/2 TBox-liveness 정적 가드 (dead clause 적발)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/check_rule_tbox_liveness.py'
+	@echo "[verify-rules] 2/2 per-rule fire-coverage (demo-chain, 0-fire→exit 1)"
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(F1_SCRIPTS)/run_shacl_rules.py' --per-rule --gate
