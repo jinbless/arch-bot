@@ -5,6 +5,7 @@
 ## 위치 / 브랜치
 - worktree: `C:\project\arch-bot\.claude\worktrees\owa-cwa-remediation` (= `/mnt/c/project/arch-bot/.claude/worktrees/owa-cwa-remediation` under WSL)
 - branch: `worktree-owa-cwa-remediation` (base origin/main `86cdcdc`), **미push**(로컬 워크트리)
+- **✅ 2026-06-11 main 머지 완료(`507b8da`)** — 이후 작업은 main에서 진행. 충돌 1건(analysis_pipeline.py: thumbnail vs persist 주석) 양쪽 보존으로 해소. 이 워크트리는 기록용으로 보존, 신규 커밋 금지.
 
 ## 커밋 (`fd61575` → `2496082`)
 `fd61575` plan · `d775f4b` **P1 C묶음(GATE-4~8)** · `b44aad9` **P1 EVAL-1** · `ba23bac` handoff · `c72e89a` **P1 GATE-2** · `4f491a2` handoff · `cd0ec9f` **P1 GATE-3** · `2496082` **P1 DEEP-1** · (+baseline v4-alive 정정). (중간: f1650d5/5267db6/8f5f281 P0 · 4ee687d OBS-1 · 13ea7b2 SAFETY-5 · a1e1e0e/3813ded/dea6987 baseline·handoff)
