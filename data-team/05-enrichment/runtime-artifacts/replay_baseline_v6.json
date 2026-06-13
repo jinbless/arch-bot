@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-06-13T14:41:41.562026+00:00",
+  "tool": "replay_synthetic_observations.py",
+  "note": "VT backfill — importer 버그로 유실된 phase3c 531패턴 visual_triggers 복구(reconcile). v5 대비 overall +0.0221, penalty +0.0174, she +0.0025, fp/fn 무변화. 측정: semantic-alive, rerank off, errored 0.",
+  "config": {
+    "semantic_recall": "on",
+    "rerank": "off",
+    "section": "off",
+    "cosine_floor": 0.0
+  },
+  "provenance": {
+    "git_sha": "d2aaf1541794",
+    "captured_at": "2026-06-13T14:43:24.157270+00:00",
+    "source_results": "replay_vtbackfill.json",
+    "reason": "VT backfill — importer 버그로 유실된 phase3c 531패턴 visual_triggers 복구(reconcile). v5 대비 overall +0.0221, penalty +0.0174, she +0.0025, fp/fn 무변화. 측정: semantic-alive, rerank off, errored 0."
+  },
+  "summary": {
+    "total": 2360,
+    "valid": 2360,
+    "errored": 0,
+    "case_breakdown": {
+      "positive": 1377,
+      "ambiguous": 707,
+      "negative": 276
+    },
+    "industry_breakdown_top10": {
+      "건설": 111,
+      "소규모_식음료업": 100,
+      "제조": 70,
+      "외식업": 68,
+      "요양원·노인요양시설": 30,
+      "장애인복지시설": 30,
+      "사회복지관": 30,
+      "어린이·청소년복지시설": 30,
+      "정신건강복지센터": 30,
+      "재활치료센터": 30
+    },
+    "she_accuracy": 0.5915,
+    "sr_accuracy": 0.7797,
+    "penalty_accuracy": 0.4903,
+    "overall_accuracy": 0.3479,
+    "false_positive_count": 25,
+    "false_positive_rate": 0.0906,
+    "false_negative_count": 205,
+    "false_negative_rate": 0.1489,
+    "avg_procedures": 6.69,
+    "avg_actions": 5.01,
+    "per_case_type": {
+      "positive": {
+        "count": 1377,
+        "she_accuracy": 0.6006,
+        "sr_accuracy": 0.8598,
+        "penalty_accuracy": 0.3972,
+        "avg_procedures": 7.6,
+        "avg_actions": 5.74
+      },
+      "negative": {
+        "count": 276,
+        "she_accuracy": 0.8225,
+        "sr_accuracy": 0.9094,
+        "penalty_accuracy": 0.9094,
+        "avg_procedures": 0.54,
+        "avg_actions": 0.91
+      }
+    },
+    "she_should_count": 1377,
+    "she_recall_miss_rate": 0.3994,
+    "guide_coverage_rate": 0.6718,
+    "avg_on_guides_positive": 2.68,
+    "gold_eval_count": 0,
+    "guide_recall_at3": 0.0,
+    "top1_relevance_rate": 0.0
+  }
+}

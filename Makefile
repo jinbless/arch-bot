@@ -201,7 +201,7 @@ dev-pg-status:
 
 F1_SCRIPTS := $(ROOT)/data-team/05-enrichment/llm-scripts
 F1_RUNTIME := $(ROOT)/data-team/05-enrichment/runtime-artifacts
-F1_BASELINE := $(F1_RUNTIME)/replay_baseline_v5.json
+F1_BASELINE := $(F1_RUNTIME)/replay_baseline_v6.json
 
 f1-help:
 	@echo "Phase F.1 — Normalizer alias auto-registration"

@@ -32,11 +32,12 @@ REPO_ROOT = _find_repo_root()
 # WS-EVAL-4: 기본 baseline v1 → v3 (phase3-baseline-shift).
 # WS-EVAL-1: v3 → v4 (hazards-injected, hazard-direct ON 경로 활성).
 # MEAS-1/MEAS-3 (F19): v4 → v5. v4의 fp_rate 0.8696/fn_rate 0.0은 평가 정답(ecd) 주입의
-#   구조적 상수였다 — 주입 제거 후 실측 fp 0.0906/fn 0.1489로 교체. she/penalty/overall 등도
-#   재측정(CAT-1 orphan 강등 반영). 거버넌스: docs/status/evaluation-baseline.md anchor +
-#   capture_baseline.py provenance. make verify-baseline이 4-포인터 일치 검증.
+#   구조적 상수였다 — 주입 제거 후 실측 fp 0.0906/fn 0.1489로 교체.
+# VT backfill: v5 → v6. importer 버그로 유실된 phase3c 531패턴 visual_triggers 복구 →
+#   overall +0.0221/penalty +0.0174 개선분 박제(fp/fn 무변화). 거버넌스:
+#   docs/status/evaluation-baseline.md anchor + provenance. make verify-baseline이 일치 검증.
 DEFAULT_BASELINE = (
-    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "replay_baseline_v5.json"
+    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "replay_baseline_v6.json"
 )
 
 

@@ -17,19 +17,21 @@ The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are 
 ```json
 {
   "_anchor": "gate-baseline",
-  "file": "replay_baseline_v5.json",
-  "she_accuracy": 0.589,
+  "file": "replay_baseline_v6.json",
+  "she_accuracy": 0.5915,
   "sr_accuracy": 0.7797,
-  "penalty_accuracy": 0.4729,
-  "overall_accuracy": 0.3258,
+  "penalty_accuracy": 0.4903,
+  "overall_accuracy": 0.3479,
   "false_positive_rate": 0.0906,
   "false_negative_rate": 0.1489,
-  "she_recall_miss_rate": 0.4023,
+  "she_recall_miss_rate": 0.3994,
   "guide_coverage_rate": 0.6718
 }
 ```
 
-> ✅ **v5 정직 baseline (MEAS-1/MEAS-3, F19·F14)**: replay가 평가 정답(expected_corrective_direction)을 immediate_actions/preventive_measures로 주입하던 오염을 제거(커밋 `c6e6132`)한 뒤 재캡처. **`false_positive_rate` 0.8696→0.0906**(ecd 보유 negative 비율이라는 구조적 상수 → 실측 25/276), **`false_negative_rate` 0.0→0.1489**(구조적 불능 → 실측 205/1377 — should-match positive가 절차·조치 0건). 즉 FN-최우선 차단 원칙의 핵심 지표가 처음으로 실측·게이트화됐다. she/penalty/overall도 재측정(CAT-1 orphan 강등으로 서빙 1675 반영). 측정: semantic-alive + rerank off(결정적), errored 0. provenance: `replay_baseline_v5.json`. **다음 재캡처는 WS-EVAL-1 hazards observe키 hard 승격 또는 VT backfill 시(MEAS-2 절차 + `make verify-baseline`).**
+> ✅ **v6 — VT backfill (visual_triggers 복구)**: importer가 INSERT 컬럼에서 visual_triggers를 누락해 phase3c 531패턴의 시각단서가 전량 유실됐던 버그(커밋 `036c379` 수정 + reconcile 복구)를 바로잡은 뒤 재캡처. v5 대비 **overall 0.3258→0.3479(+0.0221)·penalty 0.4729→0.4903(+0.0174)·she 0.589→0.5915**, `false_positive_rate`/`false_negative_rate` 무변화(개선이 FP/FN 비용 없이 달성). visual_score가 제대로 기여해 candidate→confirmed 승격이 정상화된 결과. 측정: semantic-alive + rerank off, errored 0. perf_baseline도 동반 재캡처(VT scoring 증가로 p95 282→327ms, compute 경로).
+>
+> 이전 — **v5 정직 baseline (MEAS-1/MEAS-3, F19·F14)**: 평가 정답(ecd) 주입 오염 제거 후 재캡처. `false_positive_rate` 0.8696→0.0906(ecd 보유 negative 상수 → 실측 25/276), `false_negative_rate` 0.0→0.1489(구조적 불능 → 실측 205/1377). FN-최우선 차단 지표가 처음으로 실측·게이트화. **다음 재캡처는 MEAS-2 절차(4-포인터 원자 갱신 + `make verify-baseline`)로만.**
 
 ## guide-accuracy Sprint — Guide 추천 정확도 (2026-05-28, 8-photo Guide mapping 80%→100% ⭐)
 
