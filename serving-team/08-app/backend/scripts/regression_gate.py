@@ -30,11 +30,13 @@ def _find_repo_root() -> Path:
 
 REPO_ROOT = _find_repo_root()
 # WS-EVAL-4: 기본 baseline v1 → v3 (phase3-baseline-shift).
-# WS-EVAL-1: v3 → v4 (hazards-injected, hazard-direct ON 경로 활성). v4의 legacy 키(she/sr/
-#   penalty/overall/fp/fn)는 v3와 byte-identical(ON 활성이 legacy 무회귀)이고, guide_coverage_rate
-#   /she_recall_miss_rate(FN veto) + guide_recall@3/top1(observe-only)을 추가로 담는다.
+# WS-EVAL-1: v3 → v4 (hazards-injected, hazard-direct ON 경로 활성).
+# MEAS-1/MEAS-3 (F19): v4 → v5. v4의 fp_rate 0.8696/fn_rate 0.0은 평가 정답(ecd) 주입의
+#   구조적 상수였다 — 주입 제거 후 실측 fp 0.0906/fn 0.1489로 교체. she/penalty/overall 등도
+#   재측정(CAT-1 orphan 강등 반영). 거버넌스: docs/status/evaluation-baseline.md anchor +
+#   capture_baseline.py provenance. make verify-baseline이 4-포인터 일치 검증.
 DEFAULT_BASELINE = (
-    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "replay_baseline_v4.json"
+    REPO_ROOT / "data-team" / "05-enrichment" / "runtime-artifacts" / "replay_baseline_v5.json"
 )
 
 

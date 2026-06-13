@@ -17,19 +17,19 @@ The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are 
 ```json
 {
   "_anchor": "gate-baseline",
-  "file": "replay_baseline_v4.json",
-  "she_accuracy": 0.5758,
+  "file": "replay_baseline_v5.json",
+  "she_accuracy": 0.589,
   "sr_accuracy": 0.7797,
   "penalty_accuracy": 0.4729,
-  "overall_accuracy": 0.3254,
-  "false_positive_rate": 0.8696,
-  "false_negative_rate": 0.0,
-  "she_recall_miss_rate": 0.4168,
+  "overall_accuracy": 0.3258,
+  "false_positive_rate": 0.0906,
+  "false_negative_rate": 0.1489,
+  "she_recall_miss_rate": 0.4023,
   "guide_coverage_rate": 0.6718
 }
 ```
 
-> ⚠️ **v4 오염 caveat (MEAS-1, F19)**: v4의 `false_positive_rate`(0.8696)·`false_negative_rate`(0.0)는 replay가 평가 정답(expected_corrective_direction)을 immediate_actions/preventive_measures로 주입하던 시기의 **구조적 상수**다(fp=ecd 보유 negative 비율, fn=구조적 0). `guide_coverage_rate`도 정답 텍스트의 semantic 쿼리 누수로 부풀려졌을 수 있다. MEAS-1(커밋 `c6e6132`)에서 주입 제거 — **정직한 v5 재캡처(MEAS-3)로 교체 예정**.
+> ✅ **v5 정직 baseline (MEAS-1/MEAS-3, F19·F14)**: replay가 평가 정답(expected_corrective_direction)을 immediate_actions/preventive_measures로 주입하던 오염을 제거(커밋 `c6e6132`)한 뒤 재캡처. **`false_positive_rate` 0.8696→0.0906**(ecd 보유 negative 비율이라는 구조적 상수 → 실측 25/276), **`false_negative_rate` 0.0→0.1489**(구조적 불능 → 실측 205/1377 — should-match positive가 절차·조치 0건). 즉 FN-최우선 차단 원칙의 핵심 지표가 처음으로 실측·게이트화됐다. she/penalty/overall도 재측정(CAT-1 orphan 강등으로 서빙 1675 반영). 측정: semantic-alive + rerank off(결정적), errored 0. provenance: `replay_baseline_v5.json`. **다음 재캡처는 WS-EVAL-1 hazards observe키 hard 승격 또는 VT backfill 시(MEAS-2 절차 + `make verify-baseline`).**
 
 ## guide-accuracy Sprint — Guide 추천 정확도 (2026-05-28, 8-photo Guide mapping 80%→100% ⭐)
 
