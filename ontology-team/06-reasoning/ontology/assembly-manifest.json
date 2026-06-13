@@ -95,11 +95,7 @@
         "format": "turtle"
       },
       {
-        "file": "kosha-instances-she.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-instances-she-l2tune.ttl",
+        "file": "kosha-instances-she-full.ttl",
         "format": "turtle"
       },
       {
@@ -217,11 +213,7 @@
         "format": "turtle"
       },
       {
-        "file": "kosha-instances-she.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-instances-she-l2tune.ttl",
+        "file": "kosha-instances-she-full.ttl",
         "format": "turtle"
       },
       {
@@ -315,11 +307,7 @@
         "format": "turtle"
       },
       {
-        "file": "kosha-instances-she.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-instances-she-l2tune.ttl",
+        "file": "kosha-instances-she-full.ttl",
         "format": "turtle"
       },
       {
@@ -417,11 +405,7 @@
         "format": "turtle"
       },
       {
-        "file": "kosha-instances-she.ttl",
-        "format": "turtle"
-      },
-      {
-        "file": "kosha-instances-she-l2tune.ttl",
+        "file": "kosha-instances-she-full.ttl",
         "format": "turtle"
       },
       {
@@ -925,8 +909,8 @@
       "note": "SR/CI/Guide/law/penalty ABox. 생성: export_owl.py(PG)."
     },
     {
-      "id": "abox-she",
-      "file": "kosha-instances-she.ttl",
+      "id": "abox-she-full",
+      "file": "kosha-instances-she-full.ttl",
       "role": "abox-derived",
       "layer": "L3-reasoning",
       "profiles": [
@@ -936,21 +920,25 @@
         "shacl-materialize"
       ],
       "format": "turtle",
-      "note": "SHE 패턴 ABox (965 패턴 × 6축 맥락: she:hasWorkContext/AgentState/EnvironmentalFactor/PPEState/TemporalStage/WorkActivity + accident/agent). 생성: scripts/gen_she_abox.py (data-team she-instances-v1.ttl을 KOSHA-22 canonical 마이그레이션). F5 5축 실채움."
+      "note": "SHE 패턴 ABox — PG she_catalog 서빙 전량(1675, status approved_auto/manual). SSOT=PG (CAT-4). 생성: data-team/04-ontology-export/export-scripts/export_she_catalog_to_abox.py --scope active. legacy 965(abox-she)·l2tune 37을 대체(diff 손실 0, full ⊇ 둘 다). cross-axis 4종/3축 미해석 2종 feature는 비일관 방지로 미발행(카탈로그 정정 대기)."
+    },
+    {
+      "id": "abox-she",
+      "file": "kosha-instances-she.ttl",
+      "role": "abox-derived",
+      "layer": "L3-reasoning",
+      "profiles": [],
+      "format": "turtle",
+      "note": "[퇴역 2026-06-12, abox-she-full로 대체] legacy 965 SHE ABox(frozen she-instances-v1.ttl 유래). full ⊇ legacy(diff 0). orphan-but-keep(history)."
     },
     {
       "id": "abox-she-l2tune",
       "file": "kosha-instances-she-l2tune.ttl",
       "role": "abox-derived",
       "layer": "L3-reasoning",
-      "profiles": [
-        "consistency",
-        "facet-explorer",
-        "serving",
-        "shacl-materialize"
-      ],
+      "profiles": [],
       "format": "turtle",
-      "note": "OWA→CWA L2 보강 37 SHE 패턴 ABox (PG she_catalog marker owacwa-*-20260608, SR 보정 반영). 생성: data-team/04-ontology-export/export-scripts/export_she_catalog_to_abox.py."
+      "note": "[퇴역 2026-06-12, abox-she-full에 포함] OWA→CWA L2 보강 37패턴 surgical export. full ⊇ l2tune. orphan-but-keep(history)."
     },
     {
       "id": "abox-guide-fine",
