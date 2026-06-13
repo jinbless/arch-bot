@@ -33,8 +33,13 @@ BACKEND_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND_DIR))
 sys.path.insert(0, str(BACKEND_DIR / "scripts"))
 
-# 게이트는 결정적이어야 함 — rerank(LLM) off 고정 (import 전에 env 설정).
+# 게이트는 결정적이어야 함 (import 전에 env 설정):
+# - rerank(LLM) off + semantic attach off → 임베딩 네트워크 호출(변동·30s 타임아웃) 배제.
+#   레이턴시 게이트의 목적은 matcher/파이프라인 compute 경로의 회귀 탐지이며, 임베딩
+#   지연은 외부 네트워크 지배라 코드로 회귀시킬 수 없다(우리 코드 변경이 영향 주는
+#   건 PG·matcher 경로). semantic을 켜면 기준선이 네트워크 노이즈로 무의미해진다.
 os.environ.setdefault("SEMANTIC_ATTACH_RERANK", "off")
+os.environ.setdefault("SEMANTIC_ATTACH", "off")
 
 from app.db.database import SessionLocal  # noqa: E402
 from app.services.analysis_pipeline import AnalysisRunInput, analysis_pipeline  # noqa: E402
