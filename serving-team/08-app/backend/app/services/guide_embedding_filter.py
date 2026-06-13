@@ -164,9 +164,9 @@ class GuideEmbeddingFilter:
                 )
                 return None
             try:
-                from openai import OpenAI
+                from app.embedding_config import build_embedding_client
 
-                self._client = OpenAI(api_key=api_key)
+                self._client = build_embedding_client(api_key)  # 타임아웃·재시도 (행 방지)
             except Exception as exc:
                 logger.exception("Failed to init OpenAI client for embeddings: %s", exc)
                 return None

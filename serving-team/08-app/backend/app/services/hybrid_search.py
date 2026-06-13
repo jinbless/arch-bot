@@ -21,7 +21,6 @@ from typing import Optional
 
 import chromadb
 from chromadb.config import Settings as ChromaSettings
-from openai import OpenAI
 
 try:
     from rank_bm25 import BM25Okapi
@@ -36,6 +35,7 @@ logger = logging.getLogger(__name__)
 
 CHROMA_DIR = Path(__file__).resolve().parents[2] / "data" / "chromadb"
 from app.embedding_config import EMBEDDING_MODEL as EMBED_MODEL  # WS-DRIFT-5 SSOT
+from app.embedding_config import build_embedding_client
 RRF_K = 60  # Reciprocal Rank Fusion 상수 (관행값)
 
 
@@ -50,7 +50,7 @@ class HybridIndex:
         self._bm25 = None
         self._bm25_ids: list[str] = []
         self._bm25_docs: list[str] = []
-        self._oai = OpenAI(api_key=settings.OPENAI_API_KEY)
+        self._oai = build_embedding_client(settings.OPENAI_API_KEY)  # 타임아웃·재시도 (행 방지)
 
     @classmethod
     def _get_client(cls):

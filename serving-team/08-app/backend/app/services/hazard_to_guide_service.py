@@ -469,14 +469,14 @@ def _attach_section_evidence(guides: list[dict], rich_text: str, top_k: int = 3)
     if not targets:
         return guides
     try:
-        from openai import OpenAI
         from app.config import settings
+        from app.embedding_config import build_embedding_client
         from app.services.hybrid_search import get_index, EMBED_MODEL
 
         idx = get_index("ohs_guide_section")
         if idx.count() == 0:
             return guides
-        emb = OpenAI(api_key=settings.OPENAI_API_KEY).embeddings.create(
+        emb = build_embedding_client(settings.OPENAI_API_KEY).embeddings.create(
             model=EMBED_MODEL, input=[rich_text]
         ).data[0].embedding
     except Exception as e:  # noqa: BLE001
