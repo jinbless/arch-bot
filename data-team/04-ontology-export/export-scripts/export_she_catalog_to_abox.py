@@ -100,8 +100,10 @@ def snake_to_pascal(code: str) -> str:
 _MAIN_AXES = {"accident_type", "hazardous_agent", "work_context"}
 UNRESOLVED: dict[tuple[str, str], int] = {}
 TBOX_EXCEPTIONS: dict[tuple[str, str], int] = {}
-# main()이 defined_facets()로 채움 — TBox-검증 예외 단계의 allowlist.
+CROSS_AXIS: dict[tuple[str, str], int] = {}  # 비주축 값 Pascal이 work_context와 충돌 → emit 금지
+# main()이 채움 — TBox-검증 예외 allowlist(DEFINED) + work_context Pascal 집합(WC_PASCALS).
 DEFINED: set = set()
+WC_PASCALS: set = set()
 
 
 def feature_iri(dim: str, value):
@@ -112,6 +114,11 @@ def feature_iri(dim: str, value):
             return None
         frag = OTHER_CLASS.get(dim)
         return f"{DIM_AXIS[dim][1]}:{frag}" if frag else None
+    # 비주축 ctx 차원 값이 work_context(⊑WorkContext, 주축)와 같은 Pascal이면 한 IRI가
+    # 두 disjoint 축 멤버 → 비일관. emit 금지 + 리포트(카탈로그 cross-axis 태깅 정정 대상).
+    if dim not in _MAIN_AXES and snake_to_pascal(value) in WC_PASCALS:
+        CROSS_AXIS[(dim, value)] = CROSS_AXIS.get((dim, value), 0) + 1
+        return None
     if dim in _MAIN_AXES:
         frag = CIM.fine_iri_fragment(dim, value) or CIM.iri_fragment(dim, value)
         if frag is None:
@@ -247,6 +254,12 @@ def main() -> int:
     DEFINED.update(defined)
 
     pats = fetch_patterns(args.scope)
+    # work_context Pascal 집합 — feature_iri의 cross-axis 가드용(패턴 처리 전 채움).
+    for p in pats:
+        wc = (p["features"] or {}).get("work_context")
+        if wc and wc != "OTHER":
+            WC_PASCALS.add(snake_to_pascal(wc))
+
     blocks, used = [], set()
     for p in pats:
         block, feats = she_block(p)
@@ -258,6 +271,13 @@ def main() -> int:
     if TBOX_EXCEPTIONS:
         print(f"[NOTE] SSOT 미해석이나 TBox 큐레이션 클래스로 emit {len(TBOX_EXCEPTIONS)}종:",
               ", ".join(f"{d}={c} ×{n}" for (d, c), n in sorted(TBOX_EXCEPTIONS.items())))
+    if CROSS_AXIS:
+        total = sum(CROSS_AXIS.values())
+        print(f"[WARN] cross-axis 충돌 {len(CROSS_AXIS)}종 {total}회 — 비주축 값이 work_context와 "
+              f"같은 ctx Pascal이라 미발행(axis-disjoint 비일관 방지, 카탈로그 정정 대상):",
+              file=sys.stderr)
+        for (dim, code), n in sorted(CROSS_AXIS.items(), key=lambda kv: -kv[1]):
+            print(f"    {dim}={code} ×{n}", file=sys.stderr)
     if UNRESOLVED:
         total = sum(UNRESOLVED.values())
         print(f"[WARN] 3축 SSOT 해석 실패(교차축/미지) {len(UNRESOLVED)}종 {total}회 — "

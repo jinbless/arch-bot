@@ -15,6 +15,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-facet-state-patch.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-ontology-v4-deps-patch.ttl",
         "format": "turtle"
       },
@@ -122,6 +126,10 @@
       },
       {
         "file": "kosha-facet-l2tune-patch.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-facet-state-patch.ttl",
         "format": "turtle"
       },
       {
@@ -243,6 +251,10 @@
         "format": "turtle"
       },
       {
+        "file": "kosha-facet-state-patch.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-ontology-v4-deps-patch.ttl",
         "format": "turtle"
       },
@@ -334,6 +346,10 @@
       },
       {
         "file": "kosha-facet-l2tune-patch.ttl",
+        "format": "turtle"
+      },
+      {
+        "file": "kosha-facet-state-patch.ttl",
         "format": "turtle"
       },
       {
@@ -543,6 +559,20 @@
       ],
       "format": "turtle",
       "note": "OWA→CWA L2 보강 TBox: agent:OxygenDeficiency(PG가 hazardous_agent 축으로 쓰는 산소결핍; haz:OxygenDeficiency 사고축과 병존). hand-authored patch."
+    },
+    {
+      "id": "facet-state",
+      "file": "kosha-facet-state-patch.ttl",
+      "role": "tbox-patch",
+      "layer": "L3-reasoning",
+      "profiles": [
+        "consistency",
+        "facet-explorer",
+        "serving",
+        "shacl-materialize"
+      ],
+      "format": "turtle",
+      "note": "CAT-4 Stage2: 비주축 차원(ppe/env/activity/agent_state) 구체값 39 NamedIndividual(부모 ctx:PPEState 등). 전량 SHE export로 표면화. 생성: data-team/04-ontology-export/export-scripts/gen_facet_state_patch.py."
     },
     {
       "id": "v3-incompat",
