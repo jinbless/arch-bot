@@ -429,6 +429,15 @@ def _avg(values: list[int]) -> float:
     return round(sum(values) / len(values), 2) if values else 0.0
 
 
+def _resolve_out_path(args: argparse.Namespace) -> Path:
+    if args.save_baseline:
+        return ARTIFACTS_DIR / "replay_baseline.json"
+    if args.output:
+        return Path(args.output)
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    return ARTIFACTS_DIR / f"replay_results_{ts}.json"
+
+
 async def main_async(args: argparse.Namespace) -> int:
     cases = load_synthetic_cases(
         limit=args.limit,
@@ -440,18 +449,45 @@ async def main_async(args: argparse.Namespace) -> int:
         return 1
     print(f"Loaded {len(cases)} cases from {EVAL_DIR}")
 
-    db = SessionLocal()
+    # 체크포인트/재개 (절전·중단 내성): 케이스별 결과를 append-only JSONL에 즉시 기록.
+    # --resume 시 완료 case_id를 건너뛰고 이어서 실행 → 2,360-case 장시간 replay가
+    # 노트북 절전으로 죽어도 처음부터 다시 안 돌린다. 기본 동작(미지정)은 불변.
+    out_path = _resolve_out_path(args)
+    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    ckpt_path = out_path.with_suffix(out_path.suffix + ".checkpoint.jsonl")
     per_case: list[dict[str, Any]] = []
+    done_ids: set[str] = set()
+    if args.resume and ckpt_path.exists():
+        for line in ckpt_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue  # 마지막 줄이 절전으로 잘렸을 수 있음 — skip
+            cid = rec.get("case_id")
+            if cid and cid not in done_ids:
+                done_ids.add(cid)
+                per_case.append(rec)
+        print(f"[resume] 체크포인트에서 {len(done_ids)}건 복원 → 나머지만 실행")
+
+    db = SessionLocal()
     try:
-        for idx, case in enumerate(cases):
-            if idx % 50 == 0:
-                print(
-                    f"  [{idx:4d}/{len(cases)}] {case.get('case_id'):<20s} "
-                    f"{case.get('case_type', '?'):<8s} {case.get('industry_context', '')[:30]}",
-                    flush=True,
-                )
-            result = await run_one(db, case)
-            per_case.append(result)
+        with ckpt_path.open("a", encoding="utf-8") as ckpt:
+            for idx, case in enumerate(cases):
+                if idx % 50 == 0:
+                    print(
+                        f"  [{idx:4d}/{len(cases)}] {case.get('case_id'):<20s} "
+                        f"{case.get('case_type', '?'):<8s} {case.get('industry_context', '')[:30]}",
+                        flush=True,
+                    )
+                if case.get("case_id") in done_ids:
+                    continue
+                result = await run_one(db, case)
+                per_case.append(result)
+                ckpt.write(json.dumps(result, ensure_ascii=False) + "\n")
+                ckpt.flush()  # 절전 시 마지막 케이스까지 보존
     finally:
         db.close()
 
@@ -464,19 +500,15 @@ async def main_async(args: argparse.Namespace) -> int:
         "cases": per_case,
     }
 
-    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
-    if args.save_baseline:
-        out_path = ARTIFACTS_DIR / "replay_baseline.json"
-    elif args.output:
-        out_path = Path(args.output)
-    else:
-        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        out_path = ARTIFACTS_DIR / f"replay_results_{ts}.json"
-
     out_path.write_text(
         json.dumps(output_payload, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    # 완주 시 체크포인트 정리(부분 산출물 잔존 방지). 중단 시엔 남아 다음 --resume이 사용.
+    try:
+        ckpt_path.unlink()
+    except OSError:
+        pass
     print(f"\nSaved: {out_path}")
     print("\n=== Summary ===")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
@@ -513,6 +545,12 @@ def parse_args() -> argparse.Namespace:
         type=str,
         default=None,
         help="결과 저장 경로 (지정 시 --save-baseline보다 우선)",
+    )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="<output>.checkpoint.jsonl이 있으면 완료 case_id를 건너뛰고 이어서 실행 "
+             "(절전·중단 내성). 완주 시 체크포인트 자동 삭제.",
     )
     return parser.parse_args()
 
