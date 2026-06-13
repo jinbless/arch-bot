@@ -37,9 +37,11 @@ Vision LLM 추출(Layer 0)은 **열린세계(OWA)**다: 스키마에 minItems가
    이유만으로 기존 매치가 강등되는 분기는 금지 (F3 — OTHER-context 비단조 강등이
    전례; MATCH-1이 교정). 와일드카드(OTHER) 차원은 모든 축에서 일관되게
    "항상 양립"으로 처리한다 (현행: ppe/env는 와일드카드, work_context만 예외였음).
-5. **전 축 미추출은 'extraction_degraded' 신호다 (F24).** 모든 배열이 빈 추출은
-   "안전(low/green)"이 아니라 "판정 불능"으로 라우팅한다 (WS-SAFETY-1 UNKNOWN
-   렌더와 접속). minItems 강제는 금지 — NEGATIVE(무위험) 사진의 빈 배열은 정당.
+5. **전 축 미추출은 "안전(low/green)"이 아니라 "판정 불능"으로 라우팅한다 (F24).**
+   WS-SAFETY-1이 `_overall_risk_level`을 `unknown`으로 교정해 이미 충족. 추가로
+   전-빈-추출을 SHE-무매치와 구분하는 `extraction_degraded` 관측 신호는 WS-OBS-3
+   소관(안전 라우팅엔 영향 없음). minItems 강제는 금지 — NEGATIVE(무위험) 사진의
+   빈 배열은 정당.
 
 ## 4. NAF 사용 지점 인벤토리 (she_matcher.py / analysis_pipeline.py)
 
@@ -49,13 +51,22 @@ Vision LLM 추출(Layer 0)은 **열린세계(OWA)**다: 스키마에 minItems가
 | `rejected_by_normal_cue` ②: `normal_cue and not accident_types and not unsafe_ppe` (she_matcher:656) | 혼합 (observed-negative PPE + 부재) | 동상 | 동상 |
 | wc 강등: `"work_context" not in matched_dims and work_contexts` (she_matcher:637) | 비단조 (§3.4 위반) | **부적합 — MATCH-1이 OTHER 예외 + candidate 상한으로 교정** | F3 |
 | `has_observable_violation_signal` (she_matcher:447) → SR/Guide/penalty 게이트 (analysis_pipeline:254-293) | 부재 반증 (양성 신호 요구) | 조건부 허용 — penalty FP 억제는 법적 load-bearing 설계(docstring 명시). 단 결과 표시는 "무위험"이 아닌 "미판정"이어야(SAFETY-1/4와 접속) | F1 영향 반경 |
-| 빈 추출 → fallthrough `low` (analysis_pipeline:1112-1121) | 부재→안전 변환 | **부적합 — MATCH-2 extraction_degraded(§3.5)가 교정** | F24 |
+| 빈 추출 → overall_risk_level (analysis_pipeline:1289-1291) | 부재→`unknown`(녹색 아님) | **적합 — WS-SAFETY-1이 `low`→`unknown` 교정 완료.** `_summary`(1302-1309)가 "판정 불가·안전 보장 아님" 명시 | F24 (해소) |
 
-## 5. 집행
+## 5. 집행 (현황 2026-06-12)
 
-- MATCH-1(F3): §3.4 — `_classify_match_status`의 OTHER-context 강등 예외 +
-  confirmed 직행 금지 상한.
-- MATCH-2(F1+F24): §3.3 라벨 분리 + §3.5 extraction_degraded 분류.
+- **MATCH-1(F3): §3.4 — 적용·검증 중.** `_classify_match_status:637`의 OTHER-context
+  강등 예외 + candidate 상한(confirmation_required). v5 baseline 대비 회귀 게이트 중.
+  **SAFETY-1이 커버 안 한 유일한 잔존 matcher 결함이었음.**
+- **MATCH-2(F1+F24): 안전 핵심은 WS-SAFETY-1(S0 머지)에 이미 흡수됨.**
+  - F24 green-collapse: `_overall_risk_level`이 not_determined/needs_clarification를
+    `low`가 아닌 `unknown`으로 반환(:1291) → 전-빈-추출도 녹색 아님. **해소.**
+  - F1 NAF: `rejected_by_normal_cue` 두 분기는 positive 안전 증거(safe_normal_visual
+    /normal_cue) 동반 = §3.2 "증거 반증"(허용). finding_status가 unknown으로 처리
+    (confirmed-safe 아님). **안전 방향 해소.**
+  - 잔존(안전 아님): 전-빈-추출 vs SHE-무매치를 구분하는 `extraction_degraded`
+    **관측 신호** — 둘 다 unknown으로 올바르게 가되 로그상 원인 구분만 부재.
+    → **WS-OBS-3(per-stage drop attribution)로 이관**(matcher 진리값 변경 아님).
 - 회귀 가드: 모든 변경은 v5 baseline 대비 `make f1-regression`(FN-방향 비대칭
   veto) + `make latency-gate` 통과 후 머지. 신규 NAF 분기는 코드리뷰에서 이 문서
   §4 등록을 요구한다.
