@@ -635,6 +635,16 @@ def _classify_match_status(
         return "context_only", ["cross_context"]
 
     if "work_context" not in matched_dims and work_contexts:
+        # MATCH-1(F3): feature_context=="OTHER"는 와일드카드(모든 맥락 적용)다. OTHER 패턴은
+        # 입력 work_contexts에 OTHER가 없어 work_context dim이 절대 매치 안 되므로, 이 분기가
+        # "맥락이 추출될수록 generic 패턴을 일괄 강등"하는 비단조 FN을 만든다(정보 증가가 결론을
+        # 제거 — OWA→CWA 진리값 규약 §3.4 위반; ppe/env축은 이미 OTHER를 와일드카드 처리).
+        # 교정: OTHER는 강등 제외하되 FP 안전을 위해 상한 candidate(confirmation_required) —
+        # accident/agent 단서가 있을 때만 후보, 없으면 맥락만.
+        if feature_context == "OTHER":
+            if accident_match or agent_match:
+                return "candidate", ["generic_other_context", "confirmation_required"]
+            return "context_only", ["other_context_no_feature_signal"]
         return "context_only", ["no_work_context_match"]
 
     high_risk_agent_context = (
