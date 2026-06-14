@@ -41,10 +41,10 @@ from app.db.models import PgMaterializationRun, PgSrInferredRelation  # noqa: E4
 
 DEFAULT_INFERRED_TTL = ONT_DIR / "kosha-inferred-relations.ttl"
 DEFAULT_INSTANCES_TTL = ONT_DIR / "kosha-instances.ttl"
-RULE_SET = "reasoning-slice R-1/R-2"
-IMPORTED_RULE_IDS = ("R-1", "R-2")
-# emit_inferred_relations.add_prov_header의 run-level PROV Activity subject — drift 해시에서 제외.
-PROV_ACTIVITY = "https://cashtoss.info/ontology/prov/run/inferred-relations-emit"
+RULE_SET = "reasoning-slice R-1/R-2"  # strict 기본 run 라벨
+# emit_inferred_relations의 run-level PROV Activity는 모두 이 접두사 — drift content-hash에서 제외
+# (모드별 Activity URI가 달라도 일관 적용; verify_inferred_relations.py와 동일해야 함).
+PROV_RUN_PREFIX = "https://cashtoss.info/ontology/prov/run/"
 
 # 서빙 q4_exemption_chain 동치 — exemptedBy(R-1)를 SR 단위로 확장.
 Q_EXEMPTED = """
@@ -86,12 +86,12 @@ def _relations_sha256(path: Path) -> str:
     유발한다. 의미있는 관계(exemptedBy/coApplicable)만 정렬 N-Triples로 직렬화해 해시 →
     timestamp 무관, 관계 변화만 감지. verify_inferred_relations.py와 동일 정의여야 한다.
     """
-    from rdflib import Graph, URIRef
+    from rdflib import Graph
 
     g = Graph()
     g.parse(str(path), format="turtle")
-    act = URIRef(PROV_ACTIVITY)
-    triples = sorted(f"{s.n3()} {p.n3()} {o.n3()}" for s, p, o in g if s != act)
+    triples = sorted(f"{s.n3()} {p.n3()} {o.n3()}" for s, p, o in g
+                     if not str(s).startswith(PROV_RUN_PREFIX))
     return hashlib.sha256("\n".join(triples).encode("utf-8")).hexdigest()
 
 
@@ -108,8 +108,13 @@ def _s(v) -> str | None:
     return str(v) if v is not None else None
 
 
-def build_rows(inferred_ttl: Path, instances_ttl: Path) -> list[dict]:
-    """instances + inferred TTL을 합쳐 서빙 계약 SELECT로 SR-단위 행 생성."""
+def build_rows(inferred_ttl: Path, instances_ttl: Path,
+               exempted_rule_id: str = "R-1", coapplicable_rule_id: str = "R-2") -> list[dict]:
+    """instances + inferred TTL을 합쳐 서빙 계약 SELECT로 SR-단위 행 생성.
+
+    rule_id는 모드별로 다름: strict=(R-1 exemptedBy, R-2 coApplicable),
+    chapter=(coApplicable만, K-R2). TTL에 없는 술어는 0행 → 해당 rule_id 미생성.
+    """
     from rdflib import Graph
 
     print(f"Parsing {instances_ttl.name} ({instances_ttl.stat().st_size / 1024 / 1024:.1f} MB)...", flush=True)
@@ -135,7 +140,7 @@ def build_rows(inferred_ttl: Path, instances_ttl: Path) -> list[dict]:
             attrs["condition"] = _s(r.condition)
         rows.append({
             "sr_id": sr_id, "rel_type": "exemptedBy", "target_id": target,
-            "target_kind": "norm_statement", "rule_id": "R-1",
+            "target_kind": "norm_statement", "rule_id": exempted_rule_id,
             "attrs": attrs or None,
         })
         n_ex += 1
@@ -166,7 +171,7 @@ def build_rows(inferred_ttl: Path, instances_ttl: Path) -> list[dict]:
             co_seen.add((s, t))
             rows.append({
                 "sr_id": s, "rel_type": "coApplicable", "target_id": t,
-                "target_kind": "safety_requirement", "rule_id": "R-2",
+                "target_kind": "safety_requirement", "rule_id": coapplicable_rule_id,
                 "attrs": at or None,
             })
             n_co += 1
@@ -175,11 +180,11 @@ def build_rows(inferred_ttl: Path, instances_ttl: Path) -> list[dict]:
     return rows
 
 
-def open_run(inferred_ttl: Path) -> int:
+def open_run(inferred_ttl: Path, rule_set: str) -> int:
     rel_path = str(inferred_ttl.relative_to(REPO_ROOT)) if inferred_ttl.is_relative_to(REPO_ROOT) else str(inferred_ttl)
     with SessionLocal() as s:
         run = PgMaterializationRun(
-            rule_set=RULE_SET,
+            rule_set=rule_set,
             ontology_commit=_git_sha(),
             source_ttl=rel_path,
             source_ttl_sha256=_relations_sha256(inferred_ttl),
@@ -203,12 +208,12 @@ def finalize_run(run_id: int, status: str, triple_count: int | None) -> None:
         s.commit()
 
 
-def _last_completed_triple_count() -> int | None:
+def _last_completed_triple_count(rule_set: str) -> int | None:
     with SessionLocal() as s:
         row = s.execute(text(
             "SELECT triple_count FROM materialization_runs "
             "WHERE rule_set = :rs AND status = 'completed' ORDER BY run_id DESC LIMIT 1"
-        ), {"rs": RULE_SET}).first()
+        ), {"rs": rule_set}).first()
         return row[0] if row and row[0] is not None else None
 
 
@@ -225,6 +230,8 @@ def upsert_and_reconcile(rows: list[dict], run_id: int) -> dict:
         r["run_id"] = run_id
 
     new_keys = {(r["sr_id"], r["rel_type"], r["target_id"], r["rule_id"]) for r in rows}
+    # reconcile 스코프 = 이번 run이 생성한 rule_id만 → 타 rule(예: K-R2 적재가 R-1 행) 미삭제.
+    scope_rule_ids = sorted({r["rule_id"] for r in rows})
     stats = {"upserted": 0, "deleted_stale": 0}
 
     with engine.begin() as conn:
@@ -248,11 +255,11 @@ def upsert_and_reconcile(rows: list[dict], run_id: int) -> dict:
             conn.execute(stmt)
             stats["upserted"] += len(chunk)
 
-        # reconcile: 이번 run 범위(R-1/R-2)의 기존 행 중 새 집합에 없는 것 삭제.
+        # reconcile: 이번 run이 생성한 rule_id 범위의 기존 행 중 새 집합에 없는 것만 삭제.
         existing = conn.execute(text(
             "SELECT sr_id, rel_type, target_id, rule_id FROM sr_inferred_relations "
             "WHERE rule_id = ANY(:rids)"
-        ), {"rids": list(IMPORTED_RULE_IDS)}).fetchall()
+        ), {"rids": scope_rule_ids}).fetchall()
         stale = [e for e in existing if (e[0], e[1], e[2], e[3]) not in new_keys]
         for e in stale:
             conn.execute(text(
@@ -275,6 +282,10 @@ def main() -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--inferred-ttl", type=Path, default=DEFAULT_INFERRED_TTL)
     ap.add_argument("--instances-ttl", type=Path, default=DEFAULT_INSTANCES_TTL)
+    ap.add_argument("--rule-set", default=RULE_SET, help="materialization_runs.rule_set 라벨")
+    ap.add_argument("--exempted-rule-id", default="R-1")
+    ap.add_argument("--coapplicable-rule-id", default="R-2",
+                    help="coApplicable 행의 rule_id (chapter 모드: K-R2)")
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--allow-empty", action="store_true",
                     help="산출 0행/급감(직전 50%% 미만)이어도 적재 강행 — reconcile wipe 안전바닥 해제")
@@ -288,7 +299,9 @@ def main() -> int:
             return 1
 
     start = time.time()
-    rows = build_rows(args.inferred_ttl, args.instances_ttl)
+    rows = build_rows(args.inferred_ttl, args.instances_ttl,
+                      exempted_rule_id=args.exempted_rule_id,
+                      coapplicable_rule_id=args.coapplicable_rule_id)
     print(f"\nBuilt {len(rows)} SR-relation rows in {time.time() - start:.1f}s")
 
     from collections import Counter
@@ -307,7 +320,7 @@ def main() -> int:
         return 0
 
     # 안전 바닥: 빈/급감 산출이 reconcile로 정상 행을 wipe하는 사고 차단(예: emit 깨짐/리네임).
-    n_prev = _last_completed_triple_count()
+    n_prev = _last_completed_triple_count(args.rule_set)
     if not args.allow_empty:
         if not rows:
             print("REFUSE: 산출 0행 — reconcile가 기존 전량을 삭제하게 됨. 의도면 --allow-empty.",
@@ -318,8 +331,8 @@ def main() -> int:
                   f"비정상 급감. 의도면 --allow-empty.", file=sys.stderr)
             return 1
 
-    run_id = open_run(args.inferred_ttl)
-    print(f"\n--- materialization_run #{run_id} 시작 ({RULE_SET}) ---")
+    run_id = open_run(args.inferred_ttl, args.rule_set)
+    print(f"\n--- materialization_run #{run_id} 시작 ({args.rule_set}) ---")
     try:
         stats = upsert_and_reconcile(rows, run_id)
     except Exception as e:

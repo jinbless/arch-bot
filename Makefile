@@ -41,6 +41,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify she-import \
         reasoning-emit phase-g5-schema phase-g5-import phase-g5-verify \
+        reasoning-emit-chapter phase-g5b-import phase-g5b-verify \
         verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
         verify-she-links verify-she-collisions \
         data-coverage consistency-gate verify-rules
@@ -405,6 +406,11 @@ phase-g-help:
 	@echo "  make phase-g5-import ARGS='--apply'    inferred TTL → PG 물질화 (+ PROV run 기록)"
 	@echo "  make phase-g5-verify                  PG↔emit 동기(sha256/triple_count/FK/PROV) 게이트"
 	@echo ""
+	@echo "Sprint G.5b — K-R2 같은 Chapter coApplicable (R-2 일반화, 16,429쌍):"
+	@echo "  make reasoning-emit-chapter           K-R2 → kosha-coapplicable-chapter.ttl"
+	@echo "  make phase-g5b-import ARGS='--apply'   K-R2 → PG (rule_id=K-R2, R-1 무영향)"
+	@echo "  make phase-g5b-verify                 K-R2 run PG↔emit 동기 게이트"
+	@echo ""
 	@echo "검증 통합:"
 	@echo "  make phase-g-verify                   모든 sprint G.* sample equality"
 	@echo ""
@@ -454,6 +460,28 @@ phase-g5-verify:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
 	  '$(VENV_PY)' -u scripts/verify_inferred_relations.py
+
+# ── Track A ② K-R2 (Sprint G.5b) — 같은 Chapter coApplicable 일반화 ──
+# R-2(같은 Article)는 SR↔Article 1:1로 0건. K-R2는 같은 Chapter(belongsToChapter)로 완화 →
+# 16,429쌍(양방향 32,858행). 같은 sr_inferred_relations 테이블에 rule_id='K-R2'로 적재(R-1 무영향,
+# rel_type='coApplicable'이라 기존 /sparql 엔드포인트가 자동 소비).
+# 파이프라인: make reasoning-emit-chapter → (phase-g5-schema 공유) → phase-g5b-import ARGS='--apply' → phase-g5b-verify
+reasoning-emit-chapter:
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/emit_inferred_relations.py' --mode chapter --write $(ARGS)
+
+phase-g5b-import: consistency-gate
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_sr_inferred_relations_to_pg.py' \
+	    --inferred-ttl '$(ONT_DIR)/kosha-coapplicable-chapter.ttl' \
+	    --rule-set 'reasoning-slice K-R2 chapter-coApplicable' --coapplicable-rule-id K-R2 $(ARGS)
+
+phase-g5b-verify:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/verify_inferred_relations.py \
+	    --rule-set 'reasoning-slice K-R2 chapter-coApplicable' \
+	    --ttl '$(ONT_DIR)/kosha-coapplicable-chapter.ttl'
 
 # SHE 패턴(phase3c proposals.json) → PG she_catalog UPSERT (ON CONFLICT DO NOTHING).
 # 배포 재현: main pull 후 1회 실행해야 패턴이 실서비스(PG)에 반영. 자세히: docs/deliverables/airgap-deploy-runbook.md

@@ -46,10 +46,37 @@ def test_get_exemptions_machine018():
 
 
 def test_get_co_applicable_type():
-    """R-2 coApplicable: 현재 0건이지만 list 계약 유지(서빙 shape 불변)."""
+    """coApplicable: list 계약 유지(서빙 shape 불변)."""
     with SessionLocal() as db:
         co = svc.get_co_applicable(db, "SR-MACHINE-018")
     assert isinstance(co, list)
+
+
+def _has_coapplicable() -> bool:
+    from sqlalchemy import text
+    with SessionLocal() as db:
+        n = db.execute(text("SELECT count(*) FROM sr_inferred_relations WHERE rel_type='coApplicable'")).scalar()
+        return bool(n and n > 0)
+
+
+def test_kr2_coapplicable_target_attrs():
+    """K-R2 적재 시: 양방향 행의 attrs가 각자 TARGET SR을 기술(검토 수정 #4 실데이터 검증).
+
+    같은 Chapter SR 쌍 (A,B)에서 get_co_applicable(A)의 B 항목 title은 B의 제목,
+    get_co_applicable(B)의 A 항목 title은 A의 제목이어야 한다(역방향 오기재 없음).
+    K-R2 미적재(coApplicable 0) 환경에선 SKIP.
+    """
+    if not _has_coapplicable():
+        return  # K-R2 미적재 — skip
+    with SessionLocal() as db:
+        a_co = {x["sr_id"]: x for x in svc.get_co_applicable(db, "SR-CARGO-001")}
+        b_co = {x["sr_id"]: x for x in svc.get_co_applicable(db, "SR-CARGO-002")}
+    assert "SR-CARGO-002" in a_co, "SR-CARGO-001은 같은 Chapter SR-CARGO-002와 coApplicable이어야"
+    assert "SR-CARGO-001" in b_co, "대칭(양방향) 보장"
+    # 역방향 attrs 정확성: 각 항목 title은 그 항목(target)의 제목.
+    assert a_co["SR-CARGO-002"]["article_code"] == "제388조", a_co["SR-CARGO-002"]
+    assert b_co["SR-CARGO-001"]["article_code"] == "제387조", b_co["SR-CARGO-001"]
+    assert a_co["SR-CARGO-002"]["title"] != b_co["SR-CARGO-001"]["title"], "역방향이 같은 제목이면 오기재"
 
 
 def test_article_inferred_graph_carries_exemptedBy():
@@ -87,6 +114,7 @@ def _run():
     tests = [
         test_get_exemptions_machine018,
         test_get_co_applicable_type,
+        test_kr2_coapplicable_target_attrs,
         test_article_inferred_graph_carries_exemptedBy,
         test_enrich_pg_backed_source,
         test_endpoint_exemptions_contract,
