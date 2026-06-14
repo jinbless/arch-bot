@@ -6,10 +6,11 @@
 PG 물질화(sr_inferred_relations)의 입력이며, "추론이 서빙의 하중을 받는다" 수직 슬라이스의
 출발점이다.
 
-두 모드:
+세 모드:
   strict  : R-1 exemptedBy(107) + R-2 coApplicable(0, 같은 Article 1:1) → kosha-inferred-relations.ttl
   chapter : K-R2 coApplicable(16,429, 같은 Chapter 일반화) → kosha-coapplicable-chapter.ttl
-            (kosha-rules-k-general-shacl.ttl의 SHACL K-R2 동치 — Article→Chapter 완화)
+  hazard  : K-R4 dependsOn(35,165, 같은 Hazard 일반화) → kosha-dependson-hazard.ttl
+            (chapter/hazard = kosha-rules-k-general-shacl.ttl의 SHACL K-R2/K-R4 동치)
 
 산출 TTL은 run-level PROV-O Activity 헤더를 담는다(prov/run/ 접두사; 트리플 단위 wasGeneratedBy는
 PG sr_inferred_relations.run_id에서 행 단위로 보존). content 해시는 PROV를 제외하므로 재-emit
@@ -80,6 +81,19 @@ CONSTRUCT { ?sr1 core:coApplicable ?sr2 . } WHERE {
 }
 """
 
+# K-R4: 같은 Hazard(addressesAccidentType) 공유 SR → dependsOn (kosha-rules-k-general-shacl.ttl 동치).
+# core:dependsOn은 TBox상 비대칭(ObjectProperty)이지만 same-hazard 관계는 대칭 → rule은 단방향
+# 산출, PG는 서빙 lookup을 위해 양방향 물질화(import에서 대칭 확장).
+KR4_CONSTRUCT = """
+PREFIX sr: <https://cashtoss.info/ontology/sr#>
+PREFIX core: <https://cashtoss.info/ontology#>
+CONSTRUCT { ?sr1 core:dependsOn ?sr2 . } WHERE {
+  ?sr1 sr:addressesAccidentType ?h .
+  ?sr2 sr:addressesAccidentType ?h .
+  FILTER(STR(?sr1) < STR(?sr2))
+}
+"""
+
 # 생산 경로의 권위 규칙 정의 파일(추론 근거 PROV 기록용).
 MODES = {
     "strict": {
@@ -94,6 +108,13 @@ MODES = {
         "activity": PROV_RUN + "chapter-coapplicable-emit",
         "label": "K-R2 chapter-coApplicable emit",
         "constructs": [("coApplicable", KR2_CONSTRUCT)],
+        "rule_files": ("kosha-rules-k-general-shacl.ttl",),
+    },
+    "hazard": {
+        "out": ONT_DIR / "kosha-dependson-hazard.ttl",
+        "activity": PROV_RUN + "hazard-dependson-emit",
+        "label": "K-R4 hazard-dependsOn emit",
+        "constructs": [("dependsOn", KR4_CONSTRUCT)],
         "rule_files": ("kosha-rules-k-general-shacl.ttl",),
     },
 }

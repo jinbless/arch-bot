@@ -60,22 +60,22 @@ SELECT ?srId ?exemptNsId ?exemptArt ?condition WHERE {
 }
 """
 
-# 서빙 q2_co_applicable_srs 동치(영구화된 core:coApplicable 직접) — R-2를 SR 단위로.
-# 양쪽 SR 메타(?co* + ?s*)를 모두 가져온다 — symmetric 역방향 행이 각자 target SR의
-# title/article을 담도록(역방향에 ?co 메타 재사용하면 오기재).
-Q_COAPPLICABLE = """
+# SR-SR 대칭 관계(coApplicable/dependsOn) SELECT — 양쪽 SR 메타(?co* + ?s*)를 모두 가져와
+# symmetric 역방향 행이 각자 target SR의 title/article을 담도록(역방향에 ?co 메타 재사용하면 오기재).
+def _sr_sr_query(predicate_local: str) -> str:
+    return f"""
 PREFIX sr: <https://cashtoss.info/ontology/sr#>
 PREFIX law: <https://cashtoss.info/ontology/law#>
 PREFIX core: <https://cashtoss.info/ontology#>
-SELECT ?srId ?coSrId ?coTitle ?coArt ?srTitle ?srArt WHERE {
-  ?s core:coApplicable ?co .
+SELECT ?srId ?coSrId ?coTitle ?coArt ?srTitle ?srArt WHERE {{
+  ?s core:{predicate_local} ?co .
   ?s core:identifier ?srId .
   ?co core:identifier ?coSrId .
-  OPTIONAL { ?co core:title ?coTitle . }
-  OPTIONAL { ?co sr:derivedFromNS ?coNs . ?coNs law:hasSourceArticle ?ca . ?ca law:articleCode ?coArt . }
-  OPTIONAL { ?s core:title ?srTitle . }
-  OPTIONAL { ?s sr:derivedFromNS ?sNs . ?sNs law:hasSourceArticle ?sa . ?sa law:articleCode ?srArt . }
-}
+  OPTIONAL {{ ?co core:title ?coTitle . }}
+  OPTIONAL {{ ?co sr:derivedFromNS ?coNs . ?coNs law:hasSourceArticle ?ca . ?ca law:articleCode ?coArt . }}
+  OPTIONAL {{ ?s core:title ?srTitle . }}
+  OPTIONAL {{ ?s sr:derivedFromNS ?sNs . ?sNs law:hasSourceArticle ?sa . ?sa law:articleCode ?srArt . }}
+}}
 """
 
 
@@ -108,12 +108,48 @@ def _s(v) -> str | None:
     return str(v) if v is not None else None
 
 
+def _build_symmetric_rows(g, query: str, rel_type: str, rule_id: str) -> list[dict]:
+    """SR-SR 대칭 관계(coApplicable/dependsOn)를 양방향 행으로. 각 행 attrs는 그 행의 TARGET SR 기술.
+
+    emit이 단방향(STR<STR)만 산출하므로 양방향 보장. dependsOn은 TBox상 비대칭이나 same-hazard
+    관계가 대칭이라 서빙 lookup을 위해 대칭 물질화(rule_id로 출처 명시).
+    """
+    out: list[dict] = []
+    seen: set[tuple[str, str]] = set()
+    for r in g.query(query):
+        a = _s(r.srId)
+        b = _s(r.coSrId)
+        if not a or not b or a == b:
+            continue
+        b_attrs = {}  # target = b
+        if r.coTitle is not None:
+            b_attrs["title"] = _s(r.coTitle)
+        if r.coArt is not None:
+            b_attrs["article_code"] = _s(r.coArt)
+        a_attrs = {}  # target = a
+        if r.srTitle is not None:
+            a_attrs["title"] = _s(r.srTitle)
+        if r.srArt is not None:
+            a_attrs["article_code"] = _s(r.srArt)
+        for (s, t, at) in ((a, b, b_attrs), (b, a, a_attrs)):  # at은 target(t)을 기술
+            if (s, t) in seen:
+                continue
+            seen.add((s, t))
+            out.append({
+                "sr_id": s, "rel_type": rel_type, "target_id": t,
+                "target_kind": "safety_requirement", "rule_id": rule_id,
+                "attrs": at or None,
+            })
+    return out
+
+
 def build_rows(inferred_ttl: Path, instances_ttl: Path,
-               exempted_rule_id: str = "R-1", coapplicable_rule_id: str = "R-2") -> list[dict]:
+               exempted_rule_id: str = "R-1", coapplicable_rule_id: str = "R-2",
+               dependson_rule_id: str = "K-R4") -> list[dict]:
     """instances + inferred TTL을 합쳐 서빙 계약 SELECT로 SR-단위 행 생성.
 
-    rule_id는 모드별로 다름: strict=(R-1 exemptedBy, R-2 coApplicable),
-    chapter=(coApplicable만, K-R2). TTL에 없는 술어는 0행 → 해당 rule_id 미생성.
+    rule_id는 모드별로 다름: strict=(R-1 exemptedBy, R-2 coApplicable), chapter=(coApplicable, K-R2),
+    hazard=(dependsOn, K-R4). TTL에 없는 술어는 0행 → 해당 rule_id 미생성(자동 감지).
     """
     from rdflib import Graph
 
@@ -146,36 +182,14 @@ def build_rows(inferred_ttl: Path, instances_ttl: Path,
         n_ex += 1
     print(f"  R-1 exemptedBy SR-rows: {n_ex}", flush=True)
 
-    # R-2 coApplicable → 양방향(symmetric) SR 쌍. 각 행 attrs는 그 행의 TARGET SR을 기술
-    # (역방향에 ?co 메타를 재사용하면 상대 SR 오기재 — emit이 단방향만 산출하므로 주의).
-    n_co = 0
-    co_seen: set[tuple[str, str]] = set()
-    for r in g.query(Q_COAPPLICABLE):
-        a = _s(r.srId)
-        b = _s(r.coSrId)
-        if not a or not b or a == b:
-            continue
-        b_attrs = {}  # target = b (a→b 행)
-        if r.coTitle is not None:
-            b_attrs["title"] = _s(r.coTitle)
-        if r.coArt is not None:
-            b_attrs["article_code"] = _s(r.coArt)
-        a_attrs = {}  # target = a (b→a 행)
-        if r.srTitle is not None:
-            a_attrs["title"] = _s(r.srTitle)
-        if r.srArt is not None:
-            a_attrs["article_code"] = _s(r.srArt)
-        for (s, t, at) in ((a, b, b_attrs), (b, a, a_attrs)):  # at은 target(t)을 기술
-            if (s, t) in co_seen:
-                continue
-            co_seen.add((s, t))
-            rows.append({
-                "sr_id": s, "rel_type": "coApplicable", "target_id": t,
-                "target_kind": "safety_requirement", "rule_id": coapplicable_rule_id,
-                "attrs": at or None,
-            })
-            n_co += 1
-    print(f"  R-2 coApplicable SR-rows (both directions): {n_co}", flush=True)
+    # SR-SR 대칭 관계 — TTL에 있는 술어만 행 생성(자동 감지).
+    co_rows = _build_symmetric_rows(g, _sr_sr_query("coApplicable"), "coApplicable", coapplicable_rule_id)
+    rows.extend(co_rows)
+    print(f"  coApplicable SR-rows (both directions): {len(co_rows)}", flush=True)
+
+    dep_rows = _build_symmetric_rows(g, _sr_sr_query("dependsOn"), "dependsOn", dependson_rule_id)
+    rows.extend(dep_rows)
+    print(f"  dependsOn SR-rows (both directions): {len(dep_rows)}", flush=True)
 
     return rows
 
@@ -286,6 +300,8 @@ def main() -> int:
     ap.add_argument("--exempted-rule-id", default="R-1")
     ap.add_argument("--coapplicable-rule-id", default="R-2",
                     help="coApplicable 행의 rule_id (chapter 모드: K-R2)")
+    ap.add_argument("--dependson-rule-id", default="K-R4",
+                    help="dependsOn 행의 rule_id (hazard 모드: K-R4)")
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--allow-empty", action="store_true",
                     help="산출 0행/급감(직전 50%% 미만)이어도 적재 강행 — reconcile wipe 안전바닥 해제")
@@ -301,7 +317,8 @@ def main() -> int:
     start = time.time()
     rows = build_rows(args.inferred_ttl, args.instances_ttl,
                       exempted_rule_id=args.exempted_rule_id,
-                      coapplicable_rule_id=args.coapplicable_rule_id)
+                      coapplicable_rule_id=args.coapplicable_rule_id,
+                      dependson_rule_id=args.dependson_rule_id)
     print(f"\nBuilt {len(rows)} SR-relation rows in {time.time() - start:.1f}s")
 
     from collections import Counter

@@ -34,6 +34,13 @@ async def get_sr_exemptions(sr_id: str, db: Session = Depends(get_db)):
     return {"sr_id": sr_id, "exemptions": ex, "count": len(ex)}
 
 
+@router.get("/sr/{sr_id}/depends-on")
+async def get_sr_depends_on(sr_id: str, db: Session = Depends(get_db)):
+    """특정 SR과 같은 Hazard(사고유형)를 다루는 관련 SR (K-R4 dependsOn — PG 물질화, Fuseki 비의존)"""
+    dep = sr_inferred_service.get_depends_on(db, sr_id)
+    return {"sr_id": sr_id, "depends_on": dep, "count": len(dep)}
+
+
 @router.get("/article/{article_code}/inferred-graph")
 async def get_article_inferred_graph(article_code: str, limit: int = 100, db: Session = Depends(get_db)):
     """조문별 추론 그래프 (coApplicable/exemptedBy/derivedFromNS — PG 물질화, Fuseki 비의존)"""

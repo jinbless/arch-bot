@@ -23,9 +23,15 @@ CREATE TABLE IF NOT EXISTS sr_inferred_relations (
     created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT uq_sir_triple UNIQUE (sr_id, rel_type, target_id, rule_id),
-    CONSTRAINT chk_sir_rel_type CHECK (rel_type IN ('exemptedBy', 'coApplicable')),
+    CONSTRAINT chk_sir_rel_type CHECK (rel_type IN ('exemptedBy', 'coApplicable', 'dependsOn')),
     CONSTRAINT chk_sir_target_kind CHECK (target_kind IN ('norm_statement', 'safety_requirement'))
 );
+
+-- 기존 테이블 마이그레이션: rel_type CHECK에 'dependsOn' 추가(K-R4). CREATE TABLE IF NOT EXISTS는
+-- 기존 제약을 갱신하지 않으므로 idempotent DROP+ADD로 반영.
+ALTER TABLE sr_inferred_relations DROP CONSTRAINT IF EXISTS chk_sir_rel_type;
+ALTER TABLE sr_inferred_relations ADD CONSTRAINT chk_sir_rel_type
+    CHECK (rel_type IN ('exemptedBy', 'coApplicable', 'dependsOn'));
 
 CREATE INDEX IF NOT EXISTS idx_sir_sr ON sr_inferred_relations (sr_id);
 CREATE INDEX IF NOT EXISTS idx_sir_rel ON sr_inferred_relations (rel_type);
@@ -34,8 +40,8 @@ CREATE INDEX IF NOT EXISTS idx_sir_run ON sr_inferred_relations (run_id);
 CREATE INDEX IF NOT EXISTS idx_sir_sr_rel ON sr_inferred_relations (sr_id, rel_type);
 
 COMMENT ON TABLE sr_inferred_relations IS 'Track A ② — 리즈너(R-1 exemptedBy / R-2 coApplicable) 산출의 SR-단위 PG 물질화. 서빙 Fuseki 비의존 경로. 출처: kosha-inferred-relations.ttl.';
-COMMENT ON COLUMN sr_inferred_relations.rel_type IS 'exemptedBy(R-1 면제) | coApplicable(R-2 동시적용)';
-COMMENT ON COLUMN sr_inferred_relations.target_id IS 'exemptedBy면 면제 NS id, coApplicable면 상대 SR id';
+COMMENT ON COLUMN sr_inferred_relations.rel_type IS 'exemptedBy(R-1 면제) | coApplicable(R-2/K-R2 동시적용) | dependsOn(K-R4 같은 Hazard 의존)';
+COMMENT ON COLUMN sr_inferred_relations.target_id IS 'exemptedBy면 면제 NS id, coApplicable/dependsOn면 상대 SR id';
 COMMENT ON COLUMN sr_inferred_relations.attrs IS '서빙 렌더 비정규화: exemptedBy={article_code,condition}, coApplicable={title,article_code}';
 COMMENT ON COLUMN sr_inferred_relations.run_id IS 'PROV-O wasGeneratedBy → materialization_runs.run_id';
 

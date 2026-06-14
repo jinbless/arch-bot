@@ -79,6 +79,32 @@ def test_kr2_coapplicable_target_attrs():
     assert a_co["SR-CARGO-002"]["title"] != b_co["SR-CARGO-001"]["title"], "역방향이 같은 제목이면 오기재"
 
 
+def _has_dependson() -> bool:
+    from sqlalchemy import text
+    with SessionLocal() as db:
+        n = db.execute(text("SELECT count(*) FROM sr_inferred_relations WHERE rel_type='dependsOn'")).scalar()
+        return bool(n and n > 0)
+
+
+def test_kr4_dependson_and_endpoint():
+    """K-R4 적재 시: get_depends_on이 같은 Hazard SR 반환 + 전용 엔드포인트 계약.
+
+    K-R4 미적재(dependsOn 0) 환경에선 SKIP. inferred-graph에는 dependsOn이 없어야(노이즈 제외).
+    """
+    if not _has_dependson():
+        return  # K-R4 미적재 — skip
+    from app.api.v1.sparql import get_sr_depends_on
+    with SessionLocal() as db:
+        dep = svc.get_depends_on(db, "SR-CARGO-001")
+        assert len(dep) > 0, "SR-CARGO-001은 같은 Hazard SR과 dependsOn이어야"
+        assert {"sr_id", "title", "article_code"} <= set(dep[0].keys())
+        resp = asyncio.run(get_sr_depends_on("SR-CARGO-001", db))
+        assert resp["count"] == len(dep) and resp["sr_id"] == "SR-CARGO-001"
+        # inferred-graph는 dependsOn 제외(전용 엔드포인트로만 소비)
+        g = svc.get_article_inferred_graph(db, "제103조")
+        assert "dependsOn" not in {e["edge_type"] for e in g["edges"]}
+
+
 def test_article_inferred_graph_carries_exemptedBy():
     """inferred-graph(제103조): article+sr 노드 + exemptedBy 엣지(추론 관계 렌더 보존)."""
     with SessionLocal() as db:
@@ -115,6 +141,7 @@ def _run():
         test_get_exemptions_machine018,
         test_get_co_applicable_type,
         test_kr2_coapplicable_target_attrs,
+        test_kr4_dependson_and_endpoint,
         test_article_inferred_graph_carries_exemptedBy,
         test_enrich_pg_backed_source,
         test_endpoint_exemptions_contract,

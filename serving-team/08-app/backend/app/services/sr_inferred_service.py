@@ -26,6 +26,23 @@ def get_co_applicable(db: Session, sr_id: str) -> list[dict]:
     ]
 
 
+def get_depends_on(db: Session, sr_id: str) -> list[dict]:
+    """K-R4 dependsOn — 같은 Hazard(사고유형)를 다루는 관련 SR. 카디널리티 높음(SR당 중앙값 ~100).
+
+    TBox상 dependsOn은 비대칭이나 same-hazard 관계가 대칭이라 양방향 물질화됨 → sr_id 기준 조회로
+    그 SR과 같은 위험을 다루는 모든 SR을 반환.
+    """
+    rows = db.execute(text(
+        "SELECT target_id, attrs->>'title' AS title, attrs->>'article_code' AS article_code "
+        "FROM sr_inferred_relations "
+        "WHERE sr_id = :sr AND rel_type = 'dependsOn' ORDER BY target_id"
+    ), {"sr": sr_id}).mappings().all()
+    return [
+        {"sr_id": r["target_id"], "title": r["title"] or "", "article_code": r["article_code"] or ""}
+        for r in rows
+    ]
+
+
 def get_exemptions(db: Session, sr_id: str) -> list[dict]:
     """R-1 exemptedBy — SR이 파생된 의무 NS를 면제하는 NS 목록."""
     rows = db.execute(text(
@@ -87,9 +104,11 @@ def get_article_inferred_graph(db: Session, article_code: str, limit: int = 100)
             nodes[f"ns_{ns}"] = {"id": f"ns_{ns}", "label": ns, "group": "norm"}
             edge_set.add((f"sr_{sid}", f"ns_{ns}", "derivedFromNS"))
 
-        # 추론 엣지: exemptedBy(면제 NS) + coApplicable(상대 SR)
+        # 추론 엣지: exemptedBy(면제 NS) + coApplicable(상대 SR). dependsOn은 카디널리티가 높아
+        # 그래프 노이즈가 되므로 제외(전용 /sparql/sr/{id}/depends-on 엔드포인트로 조회).
         ir = db.execute(text(
-            "SELECT sr_id, rel_type, target_id FROM sr_inferred_relations WHERE sr_id = ANY(:ids)"
+            "SELECT sr_id, rel_type, target_id FROM sr_inferred_relations "
+            "WHERE sr_id = ANY(:ids) AND rel_type IN ('exemptedBy', 'coApplicable')"
         ), {"ids": sr_ids}).all()
         for sid, rel, target in ir:
             if rel == "exemptedBy":

@@ -42,6 +42,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify she-import \
         reasoning-emit phase-g5-schema phase-g5-import phase-g5-verify \
         reasoning-emit-chapter phase-g5b-import phase-g5b-verify \
+        reasoning-emit-hazard phase-g5c-import phase-g5c-verify \
         verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
         verify-she-links verify-she-collisions \
         data-coverage consistency-gate verify-rules
@@ -411,6 +412,11 @@ phase-g-help:
 	@echo "  make phase-g5b-import ARGS='--apply'   K-R2 → PG (rule_id=K-R2, R-1 무영향)"
 	@echo "  make phase-g5b-verify                 K-R2 run PG↔emit 동기 게이트"
 	@echo ""
+	@echo "Sprint G.5c — K-R4 같은 Hazard dependsOn (R-4 일반화, 35,165쌍):"
+	@echo "  make reasoning-emit-hazard            K-R4 → kosha-dependson-hazard.ttl"
+	@echo "  make phase-g5c-import ARGS='--apply'   K-R4 → PG (rule_id=K-R4, 전용 depends-on 엔드포인트)"
+	@echo "  make phase-g5c-verify                 K-R4 run PG↔emit 동기 게이트"
+	@echo ""
 	@echo "검증 통합:"
 	@echo "  make phase-g-verify                   모든 sprint G.* sample equality"
 	@echo ""
@@ -482,6 +488,29 @@ phase-g5b-verify:
 	  '$(VENV_PY)' -u scripts/verify_inferred_relations.py \
 	    --rule-set 'reasoning-slice K-R2 chapter-coApplicable' \
 	    --ttl '$(ONT_DIR)/kosha-coapplicable-chapter.ttl'
+
+# ── Track A ② K-R4 (Sprint G.5c) — 같은 Hazard dependsOn 일반화 ──
+# R-4(같은 Article+Hazard)는 0건. K-R4는 같은 Hazard만으로 완화 → 35,165쌍(양방향 70,330행).
+# core:dependsOn은 TBox 비대칭이나 same-hazard 관계가 대칭이라 서빙 lookup용 양방향 물질화.
+# 카디널리티 높음(SR당 중앙값 ~100) → 전용 /sparql/sr/{id}/depends-on 으로 소비(inferred-graph 제외).
+# phase-g5-schema의 CHECK에 'dependsOn' 포함 필요(기 반영). 파이프라인:
+#   make reasoning-emit-hazard → (phase-g5-schema 공유) → phase-g5c-import ARGS='--apply' → phase-g5c-verify
+reasoning-emit-hazard:
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/emit_inferred_relations.py' --mode hazard --write $(ARGS)
+
+phase-g5c-import: consistency-gate
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_sr_inferred_relations_to_pg.py' \
+	    --inferred-ttl '$(ONT_DIR)/kosha-dependson-hazard.ttl' \
+	    --rule-set 'reasoning-slice K-R4 hazard-dependsOn' --dependson-rule-id K-R4 $(ARGS)
+
+phase-g5c-verify:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/verify_inferred_relations.py \
+	    --rule-set 'reasoning-slice K-R4 hazard-dependsOn' \
+	    --ttl '$(ONT_DIR)/kosha-dependson-hazard.ttl'
 
 # SHE 패턴(phase3c proposals.json) → PG she_catalog UPSERT (ON CONFLICT DO NOTHING).
 # 배포 재현: main pull 후 1회 실행해야 패턴이 실서비스(PG)에 반영. 자세히: docs/deliverables/airgap-deploy-runbook.md
