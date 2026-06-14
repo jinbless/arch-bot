@@ -112,6 +112,17 @@ SPARQL 검증 결과:
 
 Tier 4 #3 runbook: [t4-swrl-pellet-integration.md](../dev-notes/t4-swrl-pellet-integration.md).
 
+**Track A ② — PG 물질화 + 서빙 소비 (2026-06-14)**: 위 추론 산출을 서빙이 Fuseki 없이
+소비하도록 물질화. R-1 exemptedBy(107 NS-edge)를 SR 단위로 확장(**107행 / 95 SR**)해
+`sr_inferred_relations` PG 테이블에 적재 → `/api/v1/sparql/sr/{id}/exemptions` 및
+`/article/{}/inferred-graph` 엔드포인트가 PG SELECT로 응답(F7/F8 "추론이 서빙 하중을 받음").
+R-2 coApplicable은 현 ABox에서 **0건**(SR↔Article 1:1로 same-article cross-pair 없음; 의미있는
+co-application은 K-R2 same-Chapter SHACL 16,429쌍 — 별도 프로파일, 미적재). R-3
+HighSeverityPenalty(3,579)는 `penalty_rule_index.severity_score>=5` SQL 동치로 재현(reasoner 불요).
+출처: `kosha-inferred-relations.ttl`(emit_inferred_relations.py). PROV: `materialization_runs`
+(git rev + TTL sha256, 행 단위 run_id). 게이트: `make phase-g5-verify`. 분석 경로 무변경 →
+f1-regression delta 0 · latency 무회귀.
+
 ## T2.D F.3.2 vetted promotion — 2026-05-18 (8/8 candidates 1-by-1 PASS)
 
 T2.D sprint에서 8 F.3.2 candidate를 1-by-1 vetted 승격. 각 promote 직후 full

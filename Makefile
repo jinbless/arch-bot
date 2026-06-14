@@ -40,6 +40,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         f3-help f3-shadow-validator f3-promote-candidates f3-compile-kb \
         f3-drift-check f3-weekly-cycle \
         phase-g-help phase-g1-schema phase-g1-import phase-g1-verify phase-g-verify she-import \
+        reasoning-emit phase-g5-schema phase-g5-import phase-g5-verify \
         verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
         verify-she-links verify-she-collisions \
         data-coverage consistency-gate verify-rules
@@ -397,6 +398,13 @@ phase-g-help:
 	@echo "  make phase-g1-import ARGS='--apply'   실제 적재"
 	@echo "  make phase-g1-verify                  sample query equality + Gate 3"
 	@echo ""
+	@echo ""
+	@echo "Sprint G.5 — sr_inferred_relations (Track A ②, ontology backing: R-1 exemptedBy/R-2 coApplicable):"
+	@echo "  make reasoning-emit                   리즈너 R-1/R-2 → kosha-inferred-relations.ttl"
+	@echo "  make phase-g5-schema                  PG DDL 적용 (materialization_runs + sr_inferred_relations, 1회)"
+	@echo "  make phase-g5-import ARGS='--apply'    inferred TTL → PG 물질화 (+ PROV run 기록)"
+	@echo "  make phase-g5-verify                  PG↔emit 동기(sha256/triple_count/FK/PROV) 게이트"
+	@echo ""
 	@echo "검증 통합:"
 	@echo "  make phase-g-verify                   모든 sprint G.* sample equality"
 	@echo ""
@@ -418,6 +426,34 @@ phase-g1-import: consistency-gate
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
 	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_domain_incompatibilities_to_pg.py' $(ARGS)
+
+# ── Track A ② (Sprint G.5) — 추론 수직 슬라이스: R-1 exemptedBy / R-2 coApplicable ──
+# 리즈너 산출(SWRL/Pellet 동치 CONSTRUCT) → inferred-only TTL → sr_inferred_relations PG
+# 물질화 → 서빙(/sparql/* + sr_inferred_service)이 Fuseki 비의존으로 소비. PROV: run 단위
+# materialization_runs(git rev + ttl sha256).
+# 파이프라인: make reasoning-emit → phase-g5-schema(1회) → phase-g5-import ARGS='--apply' → phase-g5-verify
+reasoning-emit:
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/emit_inferred_relations.py' --write $(ARGS)
+
+phase-g5-schema:
+	@cd '$(BACKEND_DIR)' && DATABASE_URL='$(DATABASE_URL)' \
+	  '$(VENV_PY)' -c "import os; from sqlalchemy import create_engine; \
+	    e = create_engine(os.environ['DATABASE_URL']); base='$(PHASE_G_DIR)/pg-sync-scripts'; \
+	    conn = e.raw_connection(); cur = conn.cursor(); \
+	    [cur.execute(open(base+'/'+f, encoding='utf-8').read()) for f in ['schema_materialization_runs.sql','schema_sr_inferred_relations.sql']]; \
+	    conn.commit(); conn.close(); print('Schema applied (materialization_runs + sr_inferred_relations)')"
+
+# WS-GATE-6: 사용자대면 materialization → consistency-gate 선행.
+phase-g5-import: consistency-gate
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_sr_inferred_relations_to_pg.py' $(ARGS)
+
+# sr_inferred_relations PG가 현재 emit과 동기인지(sha256 + run.triple_count + FK/PROV) 검증.
+phase-g5-verify:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/verify_inferred_relations.py
 
 # SHE 패턴(phase3c proposals.json) → PG she_catalog UPSERT (ON CONFLICT DO NOTHING).
 # 배포 재현: main pull 후 1회 실행해야 패턴이 실서비스(PG)에 반영. 자세히: docs/deliverables/airgap-deploy-runbook.md

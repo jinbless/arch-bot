@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.integrations.sparql_client import sparql_client
 from app.integrations import sparql_queries as sq
+from app.services import sr_inferred_service
 
 logger = logging.getLogger(__name__)
 
@@ -20,83 +21,23 @@ async def sparql_health():
 
 
 @router.get("/sr/{sr_id}/co-applicable")
-async def get_co_applicable_srs(sr_id: str):
-    """특정 SR과 같은 조문 기반 관련 SR 목록 (SPARQL 추론)"""
-    rows = await sparql_client.query(sq.q2_co_applicable_srs(sr_id), cache_ttl=300)
-    return {
-        "sr_id": sr_id,
-        "co_applicable": [
-            {
-                "sr_id": r.get("coSrId"),
-                "title": r.get("coSrTitle", ""),
-                "article_code": r.get("artCode", ""),
-            }
-            for r in rows
-        ],
-        "count": len(rows),
-    }
+async def get_co_applicable_srs(sr_id: str, db: Session = Depends(get_db)):
+    """특정 SR과 같은 조문 기반 관련 SR 목록 (R-2 coApplicable — PG 물질화, Fuseki 비의존)"""
+    co = sr_inferred_service.get_co_applicable(db, sr_id)
+    return {"sr_id": sr_id, "co_applicable": co, "count": len(co)}
 
 
 @router.get("/sr/{sr_id}/exemptions")
-async def get_sr_exemptions(sr_id: str):
-    """특정 SR의 면제 관계 탐색 (SWRL R-1)"""
-    rows = await sparql_client.query(sq.q4_exemption_chain(sr_id), cache_ttl=300)
-    return {
-        "sr_id": sr_id,
-        "exemptions": [
-            {
-                "exempt_ns_id": r.get("exemptNsId"),
-                "article_code": r.get("exemptArtCode"),
-                "condition": r.get("condition"),
-            }
-            for r in rows
-        ],
-        "count": len(rows),
-    }
+async def get_sr_exemptions(sr_id: str, db: Session = Depends(get_db)):
+    """특정 SR의 면제 관계 (R-1 exemptedBy — PG 물질화, Fuseki 비의존)"""
+    ex = sr_inferred_service.get_exemptions(db, sr_id)
+    return {"sr_id": sr_id, "exemptions": ex, "count": len(ex)}
 
 
 @router.get("/article/{article_code}/inferred-graph")
-async def get_article_inferred_graph(article_code: str, limit: int = 100):
-    """조문별 전체 추론 그래프 (coApplicable, 면제, 벌칙 체인)"""
-    rows = await sparql_client.query(
-        sq.q7_article_inferred_graph(article_code, limit=limit),
-        cache_ttl=300,
-    )
-
-    nodes = {}
-    edge_set = set()  # deduplicate edges from Cartesian product of OPTIONALs
-
-    for row in rows:
-        sr_id = row.get("srId")
-        ns_id = row.get("nsId")
-        co_sr_id = row.get("coSrId")
-        exempt_ns_id = row.get("exemptNsId")
-
-        if sr_id:
-            nodes[f"sr_{sr_id}"] = {"id": f"sr_{sr_id}", "label": sr_id, "group": "sr"}
-        if ns_id:
-            nodes[f"ns_{ns_id}"] = {"id": f"ns_{ns_id}", "label": ns_id, "group": "norm"}
-        if sr_id and ns_id:
-            edge_set.add((f"sr_{sr_id}", f"ns_{ns_id}", "derivedFromNS"))
-
-        if co_sr_id and sr_id and co_sr_id != sr_id:
-            nodes[f"sr_{co_sr_id}"] = {"id": f"sr_{co_sr_id}", "label": co_sr_id, "group": "inferred_sr"}
-            edge_set.add((f"sr_{sr_id}", f"sr_{co_sr_id}", "coApplicable"))
-
-        if exempt_ns_id and ns_id:
-            nodes[f"exempt_{exempt_ns_id}"] = {"id": f"exempt_{exempt_ns_id}", "label": exempt_ns_id, "group": "exemption"}
-            edge_set.add((f"exempt_{exempt_ns_id}", f"ns_{ns_id}", "exemptedBy"))
-
-    # Article node
-    nodes[f"art_{article_code}"] = {"id": f"art_{article_code}", "label": article_code, "group": "article"}
-
-    edges = [{"from": f, "to": t, "edge_type": et} for f, t, et in edge_set]
-
-    return {
-        "article_code": article_code,
-        "nodes": list(nodes.values()),
-        "edges": edges,
-    }
+async def get_article_inferred_graph(article_code: str, limit: int = 100, db: Session = Depends(get_db)):
+    """조문별 추론 그래프 (coApplicable/exemptedBy/derivedFromNS — PG 물질화, Fuseki 비의존)"""
+    return sr_inferred_service.get_article_inferred_graph(db, article_code, limit=limit)
 
 
 @router.get("/faceted-query")

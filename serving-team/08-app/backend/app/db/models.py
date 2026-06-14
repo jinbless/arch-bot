@@ -379,6 +379,52 @@ class PgGuideDomainIncompatibility(Base):
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
+class PgMaterializationRun(Base):
+    """WS-DRIFT-1(lite) — 물질화 run 출처(PROV-O wasGeneratedBy).
+
+    추론 산출 → PG 적재 1회 = 1 run. ontology_commit(git rev) + source_ttl_sha256로
+    재현성 박제. sr_inferred_relations.run_id가 이 테이블을 참조(행 단위 출처).
+    DDL: serving-team/07-materialization/pg-sync-scripts/schema_materialization_runs.sql
+    적재: import_sr_inferred_relations_to_pg.py
+    """
+    __tablename__ = "materialization_runs"
+    __table_args__ = {"extend_existing": True}
+
+    run_id = Column(Integer, primary_key=True, autoincrement=True)
+    rule_set = Column(String(80), nullable=False)
+    ontology_commit = Column(String(40))
+    source_ttl = Column(Text)
+    source_ttl_sha256 = Column(String(64))
+    triple_count = Column(Integer)
+    status = Column(String(20), nullable=False, default="running")  # running|completed|failed
+    started_at = Column(DateTime(timezone=True), server_default=func.now())
+    finished_at = Column(DateTime(timezone=True))
+    notes = Column(Text)
+
+
+class PgSrInferredRelation(Base):
+    """Track A ② — 리즈너(R-1 exemptedBy / R-2 coApplicable) 산출의 SR-단위 PG 물질화.
+
+    서빙 Fuseki 비의존 경로. 출처: ontology-team/06-reasoning/ontology/kosha-inferred-relations.ttl
+    DDL: serving-team/07-materialization/pg-sync-scripts/schema_sr_inferred_relations.sql
+    적재: import_sr_inferred_relations_to_pg.py (rdflib parse → SR 확장 → PG UPSERT)
+    Runtime: app/services/sr_inferred_service.py PG SELECT.
+    """
+    __tablename__ = "sr_inferred_relations"
+    __table_args__ = {"extend_existing": True}
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    sr_id = Column(String(30), nullable=False, index=True)
+    rel_type = Column(String(40), nullable=False, index=True)   # exemptedBy | coApplicable
+    target_id = Column(String(60), nullable=False)
+    target_kind = Column(String(20), nullable=False)            # norm_statement | safety_requirement
+    rule_id = Column(String(50), nullable=False)                # R-1 | R-2
+    attrs = Column(JSONB)
+    run_id = Column(Integer, index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
 AnalysisRecord = OhsAnalysisRecord
 KoshaGuide = PgKoshaGuide
 NormStatement = PgNormStatement

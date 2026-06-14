@@ -8,8 +8,13 @@
 #  V3. PA-5 inverseOf: SR → CI (sr:hasChecklistItem from guide:basedOnSR)
 #  V4. PA-7 SymmetricProperty: referencesGuide 양방향
 #  V5. SubjectRole 클래스 계층: Employer → DutyHolder → SubjectRole
-#  V6. coApplicable (예상 0건 — SWRL R-2 없음)
-#  V7. exemptedBy (예상 0건 — SWRL R-1 없음)
+#  V6. coApplicable (현재 0건 — SWRL R-2 실재하나 SR↔Article 1:1로 cross-pair 0)
+#  V7. exemptedBy  (현재 107건 — SWRL R-1; 서빙은 PG sr_inferred_relations로 소비)
+#  V11. HighSeverityPenalty (현재 3,579건 — SWRL R-3; severityScore>=5 동치)
+#
+# 주의: V1-V11은 print-only(미게이트). 서빙 정합 게이트는 make phase-g5-verify
+#       (sr_inferred_relations ↔ kosha-inferred-relations.ttl 동기). 이 스크립트는
+#       라이브 Fuseki+Openllet의 추론 산출을 육안 spot-check 하는 진단 도구다.
 
 set -euo pipefail
 
@@ -86,10 +91,10 @@ run_query "V5. SubjectRole 계층 (Employer rdf:type DutyHolder + SubjectRole)" 
 run_query "V5b. Employer는 SubjectRole이기도 한가? (subClassOf 추론)" \
 'ASK { kosha:Employer a kosha:SubjectRole }'
 
-run_query "V6. coApplicable (SWRL R-2 — 예상: 0건, OWL에 정의 없음)" \
+run_query "V6. coApplicable (SWRL R-2 — 현재 0건: SR↔Article 1:1로 cross-pair 없음)" \
 'SELECT (COUNT(*) AS ?cnt) WHERE { ?s kosha:coApplicable ?o }'
 
-run_query "V7. exemptedBy (SWRL R-1 — 예상: 0건)" \
+run_query "V7. exemptedBy (SWRL R-1 — 현재 107건; PG sr_inferred_relations 물질화)" \
 'SELECT (COUNT(*) AS ?cnt) WHERE { ?s kosha:exemptedBy ?o }'
 
 run_query "V8. modifiedBy (PA-3 inverseOf modifies)" \
@@ -100,6 +105,9 @@ run_query "V9. hasNormStatement (PA-1 inverseOf hasSourceArticle)" \
 
 run_query "V10. hasSafetyRequirement (PA-2 inverseOf derivedFromNS)" \
 'SELECT (COUNT(*) AS ?cnt) WHERE { ?s sr:hasSafetyRequirement ?o }'
+
+run_query "V11. HighSeverityPenalty (SWRL R-3 — 현재 3,579건; severityScore>=5 동치)" \
+'SELECT (COUNT(*) AS ?cnt) WHERE { ?x a pen:HighSeverityPenalty }'
 
 echo ""
 echo "═══ 끝 ═══"

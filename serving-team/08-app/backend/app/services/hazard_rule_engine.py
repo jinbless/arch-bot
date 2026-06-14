@@ -828,89 +828,24 @@ def get_guides_by_hazard_features(
     return out[:limit]
 
 
-async def enrich_sr_with_sparql(
+def enrich_sr_with_pg(
+    db,
     sr_results: list[dict],
-    accident_types: list[str],
-    hazardous_agents: list[str],
-    work_contexts: list[str],
+    min_severity: int = 5,
 ) -> dict:
-    """PG SR 결과를 Fuseki SPARQL로 보강.
+    """PG SR 결과를 추론 관계(R-1 면제 / R-2 동시적용 / R-3 고위험)로 보강 — Fuseki 비의존.
 
-    단일 축이면 PG-only, 복합 축(2+)이면 Fuseki 교차 추론.
-    Fuseki 장애 시 빈 보강 반환 (PG 결과 그대로 유지).
+    구 enrich_sr_with_sparql(Fuseki 직쿼리, 무호출 dead code)의 대체. 리즈너 산출은
+    sr_inferred_relations 로 물질화돼 있으므로 PG SELECT만으로 동일 보강을 얻는다
+    (Fuseki 장애/재분류 무관, ms 응답). app.services.sr_inferred_service 로 위임.
     """
-    from app.integrations.sparql_client import sparql_client
-    from app.integrations import sparql_queries as sq
+    from app.services.sr_inferred_service import enrich_sr_results
 
-    axis_count = sum(1 for a in [accident_types, hazardous_agents, work_contexts] if a)
-
-    enrichment = {
-        "source": "pg_only",
-        "co_applicable_srs": [],
-        "exemptions": [],
-        "high_severity_srs": [],
-        "fuseki_available": sparql_client.is_available(),
-    }
-
-    if axis_count < 2 or not sparql_client.is_available():
-        return enrichment
-
-    enrichment["source"] = "pg+sparql"
-    sr_ids = [sr["identifier"] for sr in sr_results]
-
-    # Q2: coApplicable SR discovery (for first 3 SRs)
-    for sr_id in sr_ids[:3]:
-        co_srs = await sparql_client.query(sq.q2_co_applicable_srs(sr_id), cache_ttl=300)
-        for co in co_srs:
-            if co.get("coSrId") and co["coSrId"] not in sr_ids:
-                enrichment["co_applicable_srs"].append({
-                    "sr_id": co["coSrId"],
-                    "title": co.get("coSrTitle", ""),
-                    "article_code": co.get("artCode", ""),
-                    "discovered_via": sr_id,
-                })
-
-    # Q4: Exemption chain (for first 3 SRs)
-    for sr_id in sr_ids[:3]:
-        exemptions = await sparql_client.query(sq.q4_exemption_chain(sr_id), cache_ttl=300)
-        for ex in exemptions:
-            enrichment["exemptions"].append({
-                "exempt_ns_id": ex.get("exemptNsId", ""),
-                "article_code": ex.get("exemptArtCode", ""),
-                "condition": ex.get("condition"),
-                "applies_to_sr": sr_id,
-            })
-
-    # Q5: High-severity SRs
-    high_srs = await sparql_client.query(sq.q5_high_severity_srs(min_severity=5), cache_ttl=600)
-    matched_high = [
-        {"sr_id": h["srId"], "severity": h.get("severity"), "penalty": h.get("penaltyDesc", "")}
-        for h in high_srs
-        if h.get("srId") in sr_ids
-    ]
-    enrichment["high_severity_srs"] = matched_high
-
-    # Q6: Faceted cross-query for additional SRs (if multi-axis)
-    if axis_count >= 2:
-        sparql_srs = await sparql_client.query(
-            sq.q6_faceted_cross_query(accident_types, hazardous_agents, work_contexts, limit=20),
-            cache_ttl=300,
-        )
-        for s in sparql_srs:
-            sid = s.get("srId")
-            if sid and sid not in sr_ids and sid not in [c["sr_id"] for c in enrichment["co_applicable_srs"]]:
-                enrichment["co_applicable_srs"].append({
-                    "sr_id": sid,
-                    "title": s.get("srTitle", ""),
-                    "article_code": s.get("artCode", ""),
-                    "discovered_via": "faceted_cross_query",
-                })
-
+    enrichment = enrich_sr_results(db, sr_results, min_severity=min_severity)
     logger.info(
-        f"[SPARQL] Enrichment: {len(enrichment['co_applicable_srs'])} co-applicable, "
+        f"[PG-inferred] Enrichment: {len(enrichment['co_applicable_srs'])} co-applicable, "
         f"{len(enrichment['exemptions'])} exemptions, {len(enrichment['high_severity_srs'])} high-severity"
     )
-
     return enrichment
 
 
