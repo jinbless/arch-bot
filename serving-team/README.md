@@ -23,8 +23,28 @@
 ## 운영 가이드
 
 - 서비스 실행/검증: [08-app/README.md](08-app/README.md)
-- 백엔드 서비스 구조: `08-app/backend/app/services/` (analysis_pipeline, hazard_normalizer, **hazard_to_guide_service**, she_matcher, sr_lookup_service, guide_recommendation_service, penalty_path_service, shadow_reasoner 등)
+- 백엔드 서비스 구조: `08-app/backend/app/services/` (analysis_pipeline, hazard_normalizer, **hazard_to_guide_service**, she_matcher, sr_lookup_service, **sr_inferred_service**, guide_recommendation_service, penalty_path_service, shadow_reasoner 등)
 - 프런트 결과 패널: `08-app/frontend/src/components/results/` (RiskOverview / **HazardGuideRelations** / ImmediateActions / GuideProcedure / PenaltyPath / ReasoningTrace)
+
+## 최근 변경 (2026-06-14) — Track A ② 추론 수직 슬라이스
+
+리즈너 도출 관계를 PG로 물질화하고 서빙이 Fuseki 대신 PG를 읽도록 전환 (commit `87d9e63`/`7c50304`/`e6140bb`, main push 완료).
+
+**PG schema (신규 2 table)**:
+- `sr_inferred_relations` — 총 **103,295 row**. rule_id별: R-1 exemptedBy **107** + K-R2 coApplicable **32,858**(16,429 distinct pair × 양방향) + K-R4 dependsOn **70,330**(35,165 distinct pair × 양방향). R-2 strict coApplicable=0(SR↔Article 1:1). R-3 HighSeverityPenalty(3,579)는 본 table에 저장 안 함 — `penalty_rule_index.severity_score>=5` SQL 재현.
+- `materialization_runs` — PROV run-tracking (run_id, rule_set, ontology_commit=git rev, source_ttl_sha256=content-hash, triple_count, status).
+
+**신규/수정 service**:
+- `app/services/sr_inferred_service.py` 신규 — `sr_inferred_relations` PG 조회.
+- `hazard_rule_engine.py`: dead `enrich_sr_with_sparql` → PG 기반 `enrich_sr_with_pg`로 교체.
+
+**`/sparql` endpoint (4)**:
+- `/api/v1/sparql/sr/{id}/exemptions`, `/co-applicable`, `/article/{code}/inferred-graph` — Fuseki→PG SELECT 전환
+- `/api/v1/sparql/sr/{id}/depends-on` — 신규
+
+**신규 스크립트**: `serving-team/07-materialization/pg-sync-scripts/import_sr_inferred_relations_to_pg.py`, `serving-team/08-app/backend/scripts/verify_inferred_relations.py`.
+
+**Gate**: f1-regression all-metric delta **0.0000**(analysis hot-path 불변, 3 slice 전부), latency PASS, verify-baseline PASS, phase-g5/g5b/g5c-verify PASS.
 
 ## 최근 변경 (2026-05-28, origin/main `4aa3cca`) — guide-accuracy Sprint
 
@@ -72,7 +92,7 @@ Vision LLM이 `hazards[]`를 자연어로 직접 출력 → catalog code 매핑 
 
 **Fuseki + Ontology 변경**:
 - Fuseki container 신규 image (kb-candidates.ttl + kosha-rules-r1-r3-swrl.ttl 추가, 총 981,485 triples)
-- SWRL Pellet 실행기 검증: R-1 exemptedBy 107 inferred + R-3 HighSeverityPenalty 3,579 inferred ⭐
+- ~~SWRL Pellet 실행기 검증: R-1 exemptedBy 107 inferred + R-3 HighSeverityPenalty 3,579 inferred ⭐~~ → **2026-06-14 정정**: R-1/R-3는 더 이상 Fuseki Pellet 요청 경로가 아니다. R-1은 `sr_inferred_relations`(107 row) PG-served, R-3는 `penalty_rule_index.severity_score>=5` SQL 재현. (상단 2026-06-14 절 참조)
 
 **PG materialization 현황**:
 
@@ -82,6 +102,8 @@ Vision LLM이 `hazards[]`를 자연어로 직접 출력 → catalog code 매핑 
 | `guide_usage_profiles` | 1,038 (기존) | G.2 (`2f7ef92`) | guide_domain_profile |
 | `penalty_rule_index` | 4,076 | G.3 (`8ddc2c7`) | hazard_rule_engine._load_penalty_index |
 | `she_patterns_reasoner_derived` (view) | 77 | G.4 (`434f35f`) | (Future matcher integration) |
+| `sr_inferred_relations` | 103,295 | G5/G5b/G5c (2026-06-14) | sr_inferred_service (R-1 107 + K-R2 32,858 + K-R4 70,330) |
+| `materialization_runs` | run-tracking | G5 (2026-06-14) | (PROV: git rev + ttl sha256) |
 
 ## 이전 변경 (2026-05-18 저녁, main `b237e78`)
 

@@ -91,6 +91,7 @@ make dev-down       # 정지
 - **Previous accepted baseline**: `ci_unrelated_action_filter1`
 - **KB incompatibility 누적**: 2,232 vetted + 8 F.3.2 candidate = **2,240**
 - **Phase F.3 first batch 완료** — F.3.0 분류 (axiom_missing 36.44%) + F.3.2 (49 verify → 8 accepted) + F.3.3 Gate 3 PASS
+- **Track A ② reasoning vertical slice** — reasoner inferred SR 관계(`exemptedBy`/`coApplicable`/`dependsOn`)를 PG `sr_inferred_relations`(103,295행)로 재물질화, PROV run-tracking(`materialization_runs`) 포함. `/sparql` SR-inference 엔드포인트가 Fuseki→PG 전환. f1-regression delta 0.0000 (analysis hot-path 불변)
 - **메트릭/historical baseline/PG candidate refresh 전체**: [docs/status/evaluation-baseline.md](docs/status/evaluation-baseline.md) 정본 참조
 
 핵심 요약:
@@ -107,3 +108,12 @@ F.3 reasoning catch (Phase 3 누적): 1,902건 LLM 환각/과대추정 자동 �
 ## Next Session
 
 [docs/status/current-session.md](docs/status/current-session.md)부터 읽는다.
+
+## License
+
+이 저장소는 **이중 라이선스**다:
+
+- **소스 코드** (Python, JS/TS, SQL, Makefile, 빌드/서빙 도구) → **Apache License 2.0** ([`LICENSE`](LICENSE))
+- **온톨로지·어휘·지식 데이터** (TBox/ABox/규칙 TTL, SKOS 코드 체계 [`kosha-codes-skos.ttl`](ontology-team/06-reasoning/ontology/kosha-codes-skos.ttl), canonical 코드 어휘, 파싱된 Guide JSON) → **CC BY 4.0** ([`LICENSE-ontology.md`](LICENSE-ontology.md))
+
+인용 정보는 [`CITATION.cff`](CITATION.cff) 참조. 온톨로지 메타데이터(버전·출처·VoID 통계)는 [`ontology-team/06-reasoning/ontology/kosha-ontology-metadata.ttl`](ontology-team/06-reasoning/ontology/kosha-ontology-metadata.ttl)에 선언돼 있다.

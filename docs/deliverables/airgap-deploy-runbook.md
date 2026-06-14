@@ -9,6 +9,7 @@
 |---|---|---|
 | SHE 패턴 37개 | `data-team/05-enrichment/runtime-artifacts/she_pattern_proposals.json` (git) → `kosha-pg.she_catalog` | **`make she-import ARGS='--apply'`** (재물질화) |
 | she_sr_mapping | 위 import이 자동 생성 | 동일 |
+| sr_inferred_relations (103,295행) | 3종 inferred TTL(`kosha-inferred-relations.ttl` / `kosha-coapplicable-chapter.ttl` / `kosha-dependson-hazard.ttl`) (git) → `kosha-pg.sr_inferred_relations` | **`make phase-g5-schema` → `phase-g5/g5b/g5c-import ARGS=--apply`** |
 | 사진 thumbnail 기능 | `serving-team/08-app/backend|frontend` (git) → 이미지 | **이미지 rebuild** |
 
 ## 배포 절차 (반드시 WSL에서)
@@ -19,6 +20,14 @@ git checkout main && git pull
 # 1) PG 재물질화 — ★패턴 반영의 실제 단계★ (dry-run으로 먼저 확인 권장)
 make she-import                                       # dry-run
 make she-import ARGS='--apply --status approved_auto' # 실제 적재 (ON CONFLICT DO NOTHING)
+
+# 1b) SR-inference 재물질화 — ★새/초기화된 PG 볼륨에서만 필수★
+#     (이 단계를 빼면 /sparql SR-inference 엔드포인트가 빈 응답을 준다)
+make phase-g5-schema                  # 일회성 DDL: materialization_runs + sr_inferred_relations
+make phase-g5-import  ARGS=--apply    # R-1 exemptedBy
+make phase-g5b-import ARGS=--apply    # K-R2 coApplicable
+make phase-g5c-import ARGS=--apply    # K-R4 dependsOn (합계 103,295행)
+make phase-g5-verify                  # gate (+ phase-g5b-verify / phase-g5c-verify)
 
 # 2) 서빙 코드/프론트가 바뀐 경우에만 이미지 rebuild (패턴만이면 생략 가능)
 docker build -t ohs-backend:airgap  serving-team/08-app/backend
@@ -33,6 +42,7 @@ docker compose -p ohs -f docker-compose.airgap.yml --env-file .env up -d
 - **Windows/PowerShell에서 `docker compose up` 금지.** `.env`의 `SHARED_REF_HOST_DIR`/`CHROMADB_HOST_DIR`이 `/mnt/c/...` (WSL 경로)라, Windows에서 올리면 Docker VM이 경로를 못 찾아 **빈 디렉토리를 마운트** → `canonical_vocab` ModuleNotFoundError로 모든 분석 500. 반드시 WSL에서 기동.
   - (영구 대안: `.env` 경로를 Windows식 `C:\...` 또는 `//c/...`로 바꾸거나, `shared/reference`+chromadb를 이미지에 COPY로 굽기.)
 - **PG 볼륨이 새로 만들어지면** 패턴이 사라지므로 1단계(import) 재실행 필요.
+- **새/초기화된 PG 볼륨에서 1b단계(phase-g5 import)를 건너뛰면** `/api/v1/sparql/sr/{id}/exemptions` · `/co-applicable` · `/depends-on` · `/article/{code}/inferred-graph` SR-inference 엔드포인트가 모두 **빈 응답**을 반환한다 (서빙이 Fuseki가 아니라 `sr_inferred_relations` PG 테이블을 읽기 때문). `make she-import`만으로는 채워지지 않으므로 phase-g5 schema+import를 반드시 함께 실행.
 
 ## 검증
 ```bash

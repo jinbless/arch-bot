@@ -4,6 +4,13 @@
 > 목적: arch-bot 모노레포의 모든 사람-관리 문서 현황을 한눈에 파악. 각 문서의 역할 + 최신성 상태.
 > 갱신 정책: 대형 sprint 완료 후 또는 문서 구조 변경 시 갱신.
 
+> ⚠️ **재인벤토리 미실시 배너 (2026-06-14, 기준 `e6140bb`)**: 본 인벤토리 스냅샷(2026-05-20/`164de5a`) 이후
+> 다수 sprint가 진행됐고 **아직 전수 재인벤토리되지 않았다** — facet 구조 재설계(Phase 1~3 manifest/facet taxonomy),
+> WC-C/COV fine-graded matching, F20 hard merge, **Track A ② 추론 수직 슬라이스**(PG `sr_inferred_relations` 103,295행),
+> **A4/A5 거버넌스**(dual license·릴리스 2.0.0·VoID·SKOS) 등. 따라서 아래 상태표의 freshness 표기(특히 ✅ 2026-05-19)는
+> 이 sprint들 기준으로는 **stale**일 수 있다. 최신 상태 정본은 항상 [current-session.md](current-session.md) +
+> [evaluation-baseline.md](evaluation-baseline.md)을 직접 참조.
+
 이 문서는 [docs/README.md](../README.md)(문서 색인)와 별개로, **문서 자체의 최신성·정합성 점검** 결과를 담는다.
 
 ---
@@ -89,8 +96,8 @@ arch-bot/
 
 | 문서 | 역할 | 상태 |
 |---|---|---|
-| current-session.md | 다음 세션 진입 지침 | ✅ 2026-05-19 |
-| evaluation-baseline.md | baseline 메트릭 **정본** | ✅ 2026-05-19 |
+| current-session.md | 다음 세션 진입 지침 | 🔄 2026-06-14 갱신(본 인벤토리는 미재점검 — Track A ②/A4/A5 등 반영됨) |
+| evaluation-baseline.md | baseline 메트릭 **정본** | 🔄 2026-06-14 갱신(Track A ② sr_inferred_relations 반영 — 본 인벤토리는 미재점검) |
 | document-inventory.md | 본 문서 | ✅ 신규 |
 | README.md | status 색인 | ⚠️ 7개 스냅샷 색인 누락 |
 | `*-2026-05-*.md` 스냅샷 (11) | 시점별 검증 보고서 | 📌 보존 |
@@ -147,7 +154,7 @@ arch-bot/
 
 ## 5. 검증 OK (수정 불필요)
 
-- `status/current-session.md`, `evaluation-baseline.md` — 2026-05-19 최신
+- ~~`status/current-session.md`, `evaluation-baseline.md` — 2026-05-19 최신~~ → **정정(2026-06-14)**: 둘 다 이후 다수 sprint(facet 재설계·fine-graded matching·Track A ②·A4/A5)로 갱신됨. 본 인벤토리 스냅샷이 미재점검(상단 배너 참조)이므로 "최신"으로 단정 불가 — 두 문서를 직접 참조.
 - `workplans/hazard-direct-architecture-pivot.md`, `llm-accelerated-ontology-engineering.md` — 최신
 - `dev-notes/*` 16개 — append-only runbook, 모두 최신
 - `ontology/00-05` — 온톨로지 namespace 5-Layer 설계. hazard-direct는 service layer 추가이며 OWL TBox 무변경 → 설계 문서 불변

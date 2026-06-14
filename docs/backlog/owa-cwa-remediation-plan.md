@@ -163,7 +163,7 @@
 | `WS-PROV-2` | evidence_confidence on PenaltyPath/Finding + 저신뢰 근거 badge + numeric→needs_clarification discount | 1 | L | medium | A12, A7 | WS-PROV-1 |
 | `WS-PROV-3` | StandardProcedure mapping_type/provenance 전파 + 임베딩 후보(미검증) vs 규칙 검증 badge | 0 | S | medium | B7, A7 | — |
 | `WS-PROV-4` | Display-only 불변성 증명 harness (scoring byte-identity + 위장-금지 smoke) | 1 | M | medium | A7, A12, B7 | WS-PROV-1, WS-PROV-2, WS-PROV-3 |
-| `WS-DRIFT-1` | materialization_runs 출처 테이블 + run_id 스탬프(legal-critical 우선) | 1 | M | high | A7-version | — |
+| `WS-DRIFT-1` | materialization_runs 출처 테이블 + run_id 스탬프(legal-critical 우선) 🟡 **부분완료(2026-06-14, `87d9e63`)** | 1 | M | high | A7-version | — |
 | `WS-DRIFT-2` | ontology_pg_drift_check.py 양방향 symmetric-diff 게이트 + strict 승격 + 주간 CI | 1 | M | high | A4 | — |
 | `WS-DRIFT-3` | penalty import reconcile/prune (TTL-absent PG 행 in-txn 제거) | 1 | M | high | A4 | WS-DRIFT-2 |
 | `WS-DRIFT-4` | 빌드→서빙 PG baseline 결속(Chroma/npz 스탬프 + 첫 로드 비교 + 번들 manifest) | 1 | M | medium | B2, B4 | — |
@@ -847,6 +847,8 @@ WS-PROV-1~3는 모두 "표시만, 점수 무영향"이 채택 조건인데 기�
 ### WS-DRIFT-1 — materialization_runs 출처 테이블 + run_id 스탬프(legal-critical 우선) (A7-version)
 
 **closes**: A7-version (A3-02 일부) · **severity**: high · **phase**: 1 · **effort**: M
+
+> 🟡 **부분완료 (2026-06-14, commit `87d9e63`, Track A ② reasoning slice).** `materialization_runs` 테이블이 생성되어 reasoning slice의 PROV run-tracking에 사용됨 — `run_id`, `ontology_commit`(git rev), `source_ttl_sha256`(content-hash), `triple_count`, `status` 캡처 (runs #1-4). **단, 이 stamp는 `sr_inferred_relations` 물질화에 적용됐고, 원래 본 항목의 spec 타깃인 `penalty_rule_index`에는 아직 `run_id` FK가 스탬프되지 않았다** — 그 부분은 TODO. (스키마 컬럼명은 본문 spec의 `ttl_sha256`/`baseline_id`/`started_at` 대신 reasoning slice가 `source_ttl_sha256`/`rule_set`/`status`를 사용 — penalty 확장 시 정합 필요.)
 
 서빙 답변을 정확한 SoT 리비전으로 역추적할 수 있게, 단일 `materialization_runs` 테이블(`run_id`, `ontology_commit`=git rev, `ttl_sha256`, `baseline_id`, `started_at`)을 도입하고 legal-critical 테이블(`penalty_rule_index` 먼저)에 `run_id` FK를 스탬프한다. 서빙 시 사용 행의 `run_id`/snapshot id를 `AnalysisResponse`에 **display-only**로 surface한다(scoring 미반영 — runtime 규칙 준수).
 

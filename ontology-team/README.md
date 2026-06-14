@@ -15,6 +15,30 @@
 - 부정확한 매핑/관계를 찾아내고, 6번 완성 시 5번(LLM enrichment)을 자연스럽게 대체
 - 시각화 도구 ([06-reasoning/visualization/](06-reasoning/visualization/)) 운영
 
+## 최근 변경 (2026-06-14) — Track A ② 추론 수직 슬라이스 (reasoner→PG)
+
+리즈너 도출 관계를 **Fuseki 요청 경로에서 빼고** emit→TTL→PG로 물질화. R-1/R-3는 더 이상 Fuseki Pellet on-demand가 아니라 PG-served다.
+
+- 신규 emit 스크립트 `scripts/emit_inferred_relations.py` (`--mode strict|chapter|hazard`) → 신규 3 TTL:
+  - `kosha-inferred-relations.ttl` — **R-1 exemptedBy 107** (strict DL, NS→exempt-NS, SR별 서빙; 95 distinct SR)
+  - `kosha-coapplicable-chapter.ttl` — **K-R2 coApplicable** same-Chapter relaxation, **16,429 distinct pair** (양방향 → 32,858 row)
+  - `kosha-dependson-hazard.ttl` — **K-R4 dependsOn** same-Hazard relaxation, **35,165 distinct pair** (양방향 → 70,330 row)
+- **R-2 strict coApplicable = 0** (SR↔Article 1:1). rule_id로 strict R-1 vs relaxed K-R2/K-R4 구분.
+- 서빙은 신규 PG table `sr_inferred_relations` (총 **103,295 row**)을 읽는다. R-3 HighSeverityPenalty(3,579)는 `sr_inferred_relations`에 저장하지 않고 `penalty_rule_index.severity_score>=5` SQL로 재현.
+- PROV run-tracking table `materialization_runs` (run_id, rule_set, ontology_commit=git rev, source_ttl_sha256=content-hash, triple_count, status).
+- 신규 Makefile target: `reasoning-emit{,-chapter,-hazard}`, `phase-g5{,b,c}-schema/import/verify`.
+- Gate: f1-regression all-metric delta **0.0000** (analysis hot-path 불변), latency PASS, verify-baseline PASS, phase-g5/g5b/g5c-verify PASS. (commit `87d9e63`/`7c50304`/`e6140bb`, main push 완료)
+
+⚠️ 아래 2026-05-19 Pellet/SWRL 표(R-1 107 / R-3 3,579)와 2026-05-28 `kosha-rules-k-general-shacl.ttl` 53,378-pair 노트는 **on-demand 시점 수치**다 → 현재 R-1은 PG-served, same-Hazard/same-Chapter는 K-R4 35,165 / K-R2 16,429 pair로 PG 물질화됨 (아래 각 절 정정 노트 참조).
+
+### A4/A5 오픈소스 거버넌스 산출물 (2026-06-14)
+
+오픈소스 공개 목표(본 README 하단)를 뒷받침하는 메타데이터/SKOS 산출물:
+- `kosha-ontology-metadata.ttl` — 릴리스 버전 **2.0.0** (`owl:versionIRI .../ontology/2.0.0`, `owl:versionInfo "2.0.0"`, `kosha-ontology-v2.owl` 계보). VoID (전체 일관성 assembly scope): `void:triples` **1,049,862**, `void:classes` **625** (named owl:Class, facet fine class 포함; core 개념 TBox ~62), `void:properties` **164** (ObjectProperty 119 + DatatypeProperty 45).
+- `kosha-codes-skos.ttl` (`gen_skos_scheme.py`, Makefile `gen-skos`) — 축별 3 SKOS ConceptScheme(accident-type/hazardous-agent/work-context), **504 concept / 2,659 triple**. `skos:broader` 418(same-axis rollup→canonical), `skos:relatedMatch` 21(cross-axis agent→accident-type), `rdfs:seeAlso` 62(canonical→OWL haz:/agent:/ctx: class). punning/위계 오선언 회피 위해 broadMatch/exactMatch 대신 relatedMatch + seeAlso 사용.
+- A4 dual license: `LICENSE` (Apache-2.0, code) + `LICENSE-ontology.md` (CC-BY-4.0, ontology/data) + `CITATION.cff` (CFF 1.2.0, version 2.0.0).
+- Namespace는 여전히 `cashtoss.info`다 (`w3id.org/ohs-kr` 이전은 향후 step A2).
+
 ## 최근 변경 (2026-05-31, origin/main `678a7d1`)
 
 **facet 구조 top-down audit + 구조 수정** (정본: [docs/backlog/ontology-structural-findings.md](../docs/backlog/ontology-structural-findings.md)).
@@ -43,6 +67,7 @@ axiom-100% — v4 TBox 패치 9종 신규:
 SWRL → SHACL CONSTRUCT 전환 ⭐ (Pellet NEXPTIME 회피):
 - R-14~R-30 SWRL 12개 조합이 Pellet 무한 재시작(NEXPTIME) 유발 → `kosha-rules-r14-r30-shacl-construct.ttl` (12 sh:rule CONSTRUCT)로 변환. KoshaFusekiServer.java sources에서 R-14~R-30 SWRL ttl **4개 주석 처리** (R-1/R-3만 native).
 - `kosha-rules-k-general-shacl.ttl`: 같은 Hazard → `core:dependsOn` 36,949 + 같은 Chapter → `core:coApplicable` 16,429 = **53,378 pair** (on-demand materialization, gitignore).
+  - ⚠️ **2026-06-14 정정**: 이 on-demand SHACL 수치는 이후 emit→PG로 물질화되며 갱신됨 — same-Hazard dependsOn은 **K-R4 35,165 pair**(36,949와 다른 별도 집계), same-Chapter coApplicable 16,429는 더 이상 "미적재/gitignore"가 아니라 **K-R2로 PG 물질화**. (위 2026-06-14 절 참조)
 - 총 sh:NodeShape **1,964** (kb-candidates 2,192 SHACL는 별도 파일, parse 합산 시).
 
 guide-accuracy — Guide 직접 위험 매핑:
@@ -78,6 +103,8 @@ Fuseki container 변경:
 | R-3 HighSeverityPenalty | **3,579 inferred triples** | severityScore >= 5 count도 **3,579** (Pellet swrlb:greaterThanOrEqual 100% 정확) |
 
 → Pellet/Openllet OWL DL + SWRL native 추론 입증.
+
+> ⚠️ **2026-06-14 정정**: 위 R-1/R-3는 더 이상 Fuseki Pellet on-demand가 아니라 PG-served다 — R-1은 `sr_inferred_relations`(107 row), R-3는 `penalty_rule_index.severity_score>=5` SQL로 재현. (상단 2026-06-14 절 참조)
 
 운영 가이드:
 - 신규 TTL 추가 시: KoshaFusekiServer.java sources array 수정 → docker rebuild → container recreate (10분)

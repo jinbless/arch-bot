@@ -47,6 +47,8 @@ reasoner 추론 결과를 PG로 적재
   ├─ she_patterns (수백 → 수천)
   ├─ guide_usage_profiles (json → table)
   ├─ guide_domain_incompatibilities (json → table)
+  ├─ sr_inferred_relations (reasoner R-1/R-2/R-4 → PG, Track A ②)
+  ├─ materialization_runs (PROV run-tracking: git rev + ttl sha256)
   ├─ ci_sr_mapping (수동 → 추론 확장)
   └─ penalty_rules + penalty_conditions (자동 도출)
         ↓
@@ -72,15 +74,16 @@ reasoner 추론 결과를 PG로 적재
 | `guide_usage_profiles` ✅ (G.2 완료) | 기존 PG 1,038 rows + ontology 신규 class `guide:GuideUsageProfile` (G.2, `2f7ef92`). guide_domain_profile.py PG primary. |
 | `penalty_rule_index` ✅ (G.3 완료) ⭐ | kosha-instances.ttl → PG 4,076 SR→PenaltyRule mappings (Phase G.3, `8ddc2c7`). hazard_rule_engine._load_penalty_index PG primary. **penalty_accuracy +27.16%p, overall +18.81%p**. |
 | `she_patterns_reasoner_derived` ✅ (G.4 완료) | PG view (77 pending_review SHE 노출, F.2 v3.1 link derived). Read-only. Future matcher integration 별도 sprint. |
+| `sr_inferred_relations` ✅ (Track A ② 완료) ⭐ | reasoner R-1/R-2/R-4 → PG **103,295 rows** (exemptedBy 107 + coApplicable 32,858 + dependsOn 70,330). serving `exemptions`/`co-applicable`/`inferred-graph` **Fuseki→PG SELECT** + 신규 `/depends-on`. `materialization_runs` PROV(git rev + ttl sha256). commits `87d9e63`/`7c50304`/`e6140bb`. |
 | `ci_sr_mapping` | 일부만 → **추론 확장** |
 | `penalty_rules` / `penalty_conditions` | 수동 정의 → **자동 도출** (deontic chain) |
 | `she_visual_triggers` | 일부 → **확장** |
 
 **적재 패턴 (기존 재사용)**:
 - `serving-team/08-app/backend/scripts/import_guide_usage_profiles_to_pg.py` 패턴 확장
-- 신규: `import_domain_incompatibilities_to_pg.py`, `import_reasoner_outputs_to_pg.py`
+- 신규: `import_domain_incompatibilities_to_pg.py`, `import_reasoner_outputs_to_pg.py`, `import_sr_inferred_relations_to_pg.py`
 
-**backend `analysis_pipeline.py`는 변경 없음** — 데이터 source가 풍부해져서 같은 코드가 더 정확한 답을 빠르게 반환.
+**backend `analysis_pipeline.py`는 변경 없음** — 데이터 source가 풍부해져서 같은 코드가 더 정확한 답을 빠르게 반환. (Track A ②에서 `hazard_rule_engine.py`의 dead `enrich_sr_with_sparql` → PG-backed `enrich_sr_with_pg`로 대체됨.)
 
 ## Layer 1 (Normalizer) 진화
 

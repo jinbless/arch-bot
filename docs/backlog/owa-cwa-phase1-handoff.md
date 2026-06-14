@@ -29,8 +29,12 @@
 ## ⛔ SAFETY-2 backed out — 재시도 주의
 naive ppe/env 배선 → **penalty −0.042 / overall −0.072 VETOED**(vs 정직한 baseline). 근본: ppe/env가 `min_matched_dims=2`를 충족 → 약한 primary+ppe만으로 spurious SHE 매치 → 잉여 penalty. **재설계 방향**: ppe/env는 **corroborate/boost만**(min_matched_dims 미충족), 또는 SAFETY-5 display-only로 충분(현재 채택). 편집은 `git checkout`으로 revert됨 — 코드에 없음.
 
+## 2026-06-14 갱신 — DRIFT-1 부분완료(main, 별개 lineage)
+- **DRIFT-1 부분완료**: `materialization_runs` 테이블이 **main의 Track A ② reasoning slice**(commit `87d9e63`, 이 워크트리 브랜치 lineage와 별개)에서 생성됨 — `run_id`/`ontology_commit`(git rev)/`source_ttl_sha256`/`triple_count`/`status` 캡처. **남은 DRIFT-1 follow-up = `penalty_rule_index`에 `run_id` FK 스탬프**(원 spec 타깃, 미적용).
+- 참고: 같은 slice에서 `sr_inferred_relations`(추론 SR↔SR 관계 **103,295 rows**: R-1 107 / K-R2 16,429쌍 / K-R4 35,165쌍)가 main에 ship됨. 상세 정본 [owa-cwa-remediation-plan.md](owa-cwa-remediation-plan.md) WS-DRIFT-1 + [../workplans/llm-accelerated-ontology-engineering.md](../workplans/llm-accelerated-ontology-engineering.md).
+
 ## 다음: Phase 1 잔여 (A·C 완료, 모두 서빙측·측정 항목)
-- **DRIFT**: DRIFT-1(materialization_runs run_id 스탬프, legal-critical) · DRIFT-2(ontology_pg_drift_check 양방향 symmetric-diff 게이트) · DRIFT-3(penalty prune, DRIFT-2 후) · DRIFT-4(빌드→서빙 PG baseline 결속) · DRIFT-6(startup 벡터 health probe, DRIFT-4/5 후).
+- **DRIFT**: ~~DRIFT-1(materialization_runs run_id 스탬프)~~ 🟡 부분완료(2026-06-14, `87d9e63` — 테이블 생성됨, `penalty_rule_index` FK 스탬프만 잔여) · DRIFT-2(ontology_pg_drift_check 양방향 symmetric-diff 게이트) · DRIFT-3(penalty prune, DRIFT-2 후) · DRIFT-4(빌드→서빙 PG baseline 결속) · DRIFT-6(startup 벡터 health probe, DRIFT-4/5 후).
 - **OBS**: OBS-3(analysis_log 경량 집계기, OBS-4 후) · OBS-4(per-stage drop attribution) · OBS-5/6(penalty 로더 source 스탬프 + startup active probe) · OBS-7(벡터 recall degrade 가시화).
 - **PROV**: PROV-2(evidence_confidence discount — 라우팅 영향·L·PROV-4 선행) · PROV-4(byte-identity harness) · PROV-1(RiskFeature origin, apply_rules 계측 → DEEP-3와).
 - **DEEP**: DEEP-2(BFO 축 detector+CON-strict, 모델결정 무관 선행 가능) · ~~DEEP-1~~ ✅완료(`2496082`) · DEEP-3(ReasoningTrace edge graph, PROV-1 후).

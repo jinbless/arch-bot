@@ -3,7 +3,8 @@
 > **Status**: ✅ Phase A-J + Sprint A-2/B/C/D + 1+2+3 보강 절차 완료 (2026-05-28). 상세 [axiom-100pct-phase-c-j.md](../dev-notes/axiom-100pct-phase-c-j.md). **정석 점수 ~75-80% → ~97-99%**.
 > - **Pellet 해결**: Phase C/D/E/F SWRL R-14~R-30 (12 rules) NEXPTIME-complete 결합 → SHACL SPARQLRule 변환 (`kosha-rules-r14-r30-shacl-construct.ttl`). Pellet은 Phase A/B SWRL 8 rule fire (R-1/3/2/4/10-13), SHACL은 R-14~R-30 path 확보.
 > - **AC 종합**: AC-2 (Restriction 35) ✅ / AC-3 (NLH 21+13) ✅ / AC-5 (AsymmetricProperty 1) ✅ / AC-6 (Gate 3 PASS overall +19%pp + pyshacl conforms) ✅ / AC-1 (SWRL 22 정형, Pellet 8 + SHACL 12 path) / AC-4 (1,271 vetted promotion, 잔여 ~960 conf < 0.85).
-> - **잔여 (별도 sprint)**: ABox enrichment (R-10~R-30 실제 fire), Phase K (Article unification, R-2/R-4 cross-pair), AC-4 잔여 promotion, Dashboard 갱신.
+> - **잔여 (별도 sprint)**: ABox enrichment (R-10~R-30 실제 fire), AC-4 잔여 promotion, Dashboard 갱신.
+> - **2026-06-14 Phase K — relaxed-key PG materialization으로 cross-pair gap 해소** (commits `7c50304`/`e6140bb`): R-1 exemptedBy 107 + K-R2 coApplicable 16,429쌍(same-Chapter) + K-R4 dependsOn 35,165쌍(same-Hazard) + R-3 3,579 → `sr_inferred_relations` PG **103,295 rows** materialized. 자세히 [Phase K — relaxed-key PG materialization](#phase-k--relaxed-key-pg-materialization-2026-06-14).
 > - **검증**: `scripts/verify_axiom_100pct.py` Overall verdict OK.
 > **Trigger**: 직전 hazard-direct pivot 완주 후 정석 OWL DL 평가 → 현재 정석 점수 ~75-80%. SWRL formal rule 2/30, Restriction 6개, hazard-direct OWL 미격상, F.3.2 candidate 2,184 잔여, AsymmetricProperty 0.
 > **Predecessor**: hazard-direct pivot (commit `164de5a`), 문서 전수 검증 (commit `6d3f431`)
@@ -151,6 +152,29 @@ Phase K (Article instance unification)와 같은 ABox enrichment sprint 후보.
 - ✅ R-9 정형 SKIP + 사유 명시 (의사코드 결함 인정)
 - ⚠️ Inferred count는 ABox 정합성에 의존 (별도 sprint 트래킹)
 - **결론**: orthodox score SWRL slot 6/30 → 다음 Phase C (R-14~R-18 bridge chain) 진입
+
+---
+
+### Phase K — relaxed-key PG materialization (2026-06-14)
+
+> commits `7c50304` (K-R2 same-Chapter) / `e6140bb` (K-R4 same-Hazard), 선행 `87d9e63` (R-1/R-2 슬라이스 + 서빙 소비). **전부 main push 완료.**
+
+Phase A에서 발견한 **cross-pair inferred = 0** (SR↔Article 1:1 → strict R-2/R-4 매칭 불가) 갭을, **물질화 레이어에서 relaxed key**로 우회 해소했다. strict DL이 self-loop만 내던 자리에, 같은 Chapter / 같은 Hazard를 공유하는 SR 쌍을 실질적 coApplicable/dependsOn 후보로 산출해 PG로 적재한다.
+
+| rule_id | 의미 | key | distinct pairs | PG rows |
+|---|---|---|---:|---:|
+| R-1 exemptedBy | strict DL (NS→exempt-NS) | — | — (95 distinct SR) | 107 |
+| K-R2 coApplicable | relaxed | same-Chapter | 16,429 | 32,858 (양방향) |
+| K-R4 dependsOn | relaxed | same-Hazard | 35,165 | 70,330 (양방향) |
+| **합계** | | | | **103,295** (`sr_inferred_relations`) |
+
+- R-2 strict coApplicable = 0 (SR↔Article 1:1 그대로). `rule_id`가 strict R-1 vs relaxed K-R2/K-R4를 구분.
+- R-3 HighSeverityPenalty (3,579)는 `penalty_rule_index.severity_score>=5` SQL로 재현 (별도 저장 안 함).
+- PROV: `materialization_runs` 테이블 (`run_id`/`rule_set`/`ontology_commit`=git rev/`source_ttl_sha256`/`triple_count`/`status`).
+- 신규 TTL: `kosha-inferred-relations.ttl` / `kosha-coapplicable-chapter.ttl` / `kosha-dependson-hazard.ttl`.
+- 서빙: `/exemptions`·`/co-applicable`·`/article/{code}/inferred-graph` Fuseki→PG SELECT, 신규 `/depends-on`, `enrich_sr_with_pg`. Gates 전부 PASS (f1-regression all-metric delta 0.0000 / latency / phase-g5·g5b·g5c-verify).
+
+**위치 정리**: 이 작업은 **물질화 레이어의 relaxed key (same-Chapter/same-Hazard)** 로 cross-pair gap을 닫은 것으로, 원래 본 plan이 상정했던 **ABox Article instance unification + skolemization** (TBox/ABox 데이터 통합)과는 다른 접근이다. 후자는 여전히 별도 open option으로 남는다 (아래 [Limits / Scope](#limits--scope) 참조). reasoner 산출이 더 이상 Fuseki 요청경로가 아니라 PG로 서빙된다는 점도 본 slice의 핵심.
 
 ---
 
@@ -388,6 +412,7 @@ cd serving-team/08-app/backend
 - **Phase K Article instance unification** (Phase A 발견, ABox 정합성 sprint)
   - 626 SR이 모두 distinct Article에 매핑되어 R-2/R-4 cross-pair inference 무력화
   - 본질적으로 다른 작업 (TBox axiom이 아니라 ABox 데이터 통합 + skolemization)
+  - **갱신 (2026-06-14)**: cross-pair gap 자체는 [Phase K — relaxed-key PG materialization](#phase-k--relaxed-key-pg-materialization-2026-06-14)에서 **물질화 레이어의 relaxed key (same-Chapter/same-Hazard)** 로 해소됨 (commits `7c50304`/`e6140bb`, `sr_inferred_relations` 103,295 rows). 다만 여기 적힌 **ABox Article instance unification + skolemization** 정공법은 여전히 별도 open option으로 남는다 (relaxed key는 물질화 우회, 정공법은 ABox 데이터 통합).
 
 ---
 

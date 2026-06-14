@@ -83,11 +83,11 @@
   - `ontology-team/06-reasoning/ontology/docker/` (이미 설정됨, `REASONER_MODE=openllet`)
   - 추론 대상: TBox + ABox + SWRL + SHACL
 - **SWRL rules** (axiom-100% Sprint 후 — R-1/R-3만 Pellet native):
-  - `kosha-rules-r1-r3-swrl.ttl` (R-1 exemptedBy **107** + R-3 HighSeverityPenalty **3,579** inferred, Pellet 정상)
+  - `kosha-rules-r1-r3-swrl.ttl` (R-1 exemptedBy **107** + R-3 HighSeverityPenalty **3,579** inferred, Pellet 정상). R-1 exemptedBy 107은 이제 **PG-materialized + PG-served** (`sr_inferred_relations`, Track A ②, Layer 3 참조). R-3 3,579는 `penalty_rule_index.severity_score>=5` SQL로 재현 (sr_inferred_relations에는 미저장).
   - R-9~R-13 / R-14~R-30 SWRL ttl은 디스크에 존재하나 **R-14~R-30은 Java sources에서 주석 처리** (12개 SWRL 조합 시 Pellet NEXPTIME blowup) → SHACL CONSTRUCT로 대체
 - **SHACL rules/shapes** (axiom-100% Sprint — SWRL 대체 + 일반화):
   - `kosha-rules-r14-r30-shacl-construct.ttl` (R-14~R-30 = **12 sh:rule CONSTRUCT**, Pellet 회피)
-  - `kosha-rules-k-general-shacl.ttl` (R-2 `coApplicable` 16,429 + R-4 `dependsOn` 36,949 = **53,378 pair**, on-demand)
+  - `kosha-rules-k-general-shacl.ttl` (R-2 `coApplicable` 16,429 + R-4 `dependsOn` 35,165 pair) — TTL/SHACL은 build source로 유지하되, 추론 산출은 이제 **PG로 materialize** (`sr_inferred_relations`, Track A ②, Layer 3 참조). 더 이상 Fuseki request-path 아님. (이전 "K-general dependsOn 36,949"은 on-demand SHACL count였고, materialize된 K-R4 35,165 pair와는 다른 수치다.)
   - `kosha-vetted-disjoint-shapes.ttl` + `kb-candidates.ttl` (2,192 industry shapes) + `serving-validation-shapes-v3.ttl` (24 shapes)
   - 총 **sh:NodeShape 1,964**
 
@@ -114,8 +114,19 @@
 
 모두 **PG primary + JSON/TTL fallback** 패턴. 기존 `kosha_guides`/`safety_requirements`/`ci_sr_mapping`/`penalty_rules` 등은 이미 운영 중.
 
+**Track A ② 완료 (reasoning vertical slice) — reasoner 추론 결과 PG materialize (commits `87d9e63`/`7c50304`/`e6140bb`)**:
+| PG 객체 | 재물질화 내용 | 상태 |
+|---|---|---|
+| `sr_inferred_relations` | reasoner R-1/R-2/R-4 추론 → PG **103,295 rows** (R-1 `exemptedBy` 107 + K-R2 `coApplicable` 32,858 + K-R4 `dependsOn` 70,330) | ✅ rule_id로 strict R-1 vs relaxed K-R2/K-R4 구분 |
+| `materialization_runs` | PROV run-tracking (`run_id`, `rule_set`, `ontology_commit`=git rev, `source_ttl_sha256`=content-hash, `triple_count`, `status`), runs #1-4 | ✅ |
+
+- **rows 산식**: R-1 `exemptedBy` 107 rows (95 distinct SR, strict DL, served per-SR). K-R2 `coApplicable` 16,429 distinct pairs → 32,858 rows (same-Chapter relaxation, 양방향). K-R4 `dependsOn` 35,165 distinct pairs → 70,330 rows (same-Hazard relaxation, 양방향). R-2 strict `coApplicable` = 0 (SR↔Article 1:1).
+- **serving 전환**: `/api/v1/sparql/sr/{id}/exemptions`, `/co-applicable`, `/article/{code}/inferred-graph`가 Fuseki→PG SELECT로 전환 + 신규 `/api/v1/sparql/sr/{id}/depends-on`. `hazard_rule_engine.py`의 dead `enrich_sr_with_sparql` → PG-backed `enrich_sr_with_pg`로 대체. 신규 `app/services/sr_inferred_service.py`.
+- 이들 reasoner 산출은 더 이상 Fuseki request-path가 아니다 — serving은 PG를 읽는다.
+
 **적재 패턴**:
-- import 스크립트: `import_domain_incompatibilities_to_pg.py`, `import_penalty_to_pg.py`
+- import 스크립트: `import_domain_incompatibilities_to_pg.py`, `import_penalty_to_pg.py`, `import_sr_inferred_relations_to_pg.py` (verify: `verify_inferred_relations.py`)
+- emit 스크립트: `ontology-team/06-reasoning/ontology/scripts/emit_inferred_relations.py` (`--mode strict|chapter|hazard`)
 
 ## Layer 4 — Ontology Learning (cross-cutting)
 

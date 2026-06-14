@@ -112,16 +112,26 @@ SPARQL 검증 결과:
 
 Tier 4 #3 runbook: [t4-swrl-pellet-integration.md](../dev-notes/t4-swrl-pellet-integration.md).
 
-**Track A ② — PG 물질화 + 서빙 소비 (2026-06-14)**: 위 추론 산출을 서빙이 Fuseki 없이
-소비하도록 물질화. R-1 exemptedBy(107 NS-edge)를 SR 단위로 확장(**107행 / 95 SR**)해
-`sr_inferred_relations` PG 테이블에 적재 → `/api/v1/sparql/sr/{id}/exemptions` 및
-`/article/{}/inferred-graph` 엔드포인트가 PG SELECT로 응답(F7/F8 "추론이 서빙 하중을 받음").
-R-2 coApplicable은 현 ABox에서 **0건**(SR↔Article 1:1로 same-article cross-pair 없음; 의미있는
-co-application은 K-R2 same-Chapter SHACL 16,429쌍 — 별도 프로파일, 미적재). R-3
-HighSeverityPenalty(3,579)는 `penalty_rule_index.severity_score>=5` SQL 동치로 재현(reasoner 불요).
-출처: `kosha-inferred-relations.ttl`(emit_inferred_relations.py). PROV: `materialization_runs`
-(git rev + TTL sha256, 행 단위 run_id). 게이트: `make phase-g5-verify`. 분석 경로 무변경 →
-f1-regression delta 0 · latency 무회귀.
+**Track A ② — PG 물질화 + 서빙 소비 (2026-06-14, COMMITTED+PUSHED `87d9e63`/`7c50304`/`e6140bb`)**:
+위 추론 산출을 서빙이 Fuseki 없이 소비하도록 물질화. 신규 PG 테이블 `sr_inferred_relations`
+**= 총 103,295행** (`rule_id`로 strict R-1 vs relaxed K-R2/K-R4 구분):
+- **R-1 exemptedBy** (`87d9e63`): 107 NS-edge를 SR 단위로 확장 **107행 / 95 distinct SR** (strict DL) →
+  `/api/v1/sparql/sr/{id}/exemptions`·`/article/{}/inferred-graph` 가 PG SELECT로 응답(F7/F8 "추론이 서빙 하중을 받음").
+- **K-R2 coApplicable** (`7c50304`): same-Chapter relaxation **16,429 distinct pair → 32,858행**(양방향).
+  ⚠️ 이전 본 항목이 표기한 "미적재/별도 프로파일"은 **정정** — 이제 **PG 물질화 완료**.
+- **K-R4 dependsOn** (`e6140bb`): same-Hazard relaxation **35,165 distinct pair → 70,330행**(양방향) →
+  신규 엔드포인트 `/api/v1/sparql/sr/{id}/depends-on`.
+
+R-2 strict coApplicable은 현 ABox에서 **0건**(SR↔Article 1:1로 same-article cross-pair 없음). R-3
+HighSeverityPenalty(3,579)는 `penalty_rule_index.severity_score>=5` SQL 동치로 재현(reasoner 불요,
+`sr_inferred_relations` 미저장). 출처 TTL: `kosha-inferred-relations.ttl`·`kosha-coapplicable-chapter.ttl`·
+`kosha-dependson-hazard.ttl`(emit_inferred_relations.py `--mode strict|chapter|hazard`). PROV:
+`materialization_runs`(git rev + TTL sha256, 행 단위 run_id, runs #1-4). 게이트: `make phase-g5/g5b/g5c-verify`.
+분석 경로 무변경 → f1-regression all-metric delta **0.0000**(3 slice) · latency 무회귀.
+
+> ⚠️ **수치 정합**: 위 axiom-100% Sprint 섹션의 "K-general `core:dependsOn` 36,949"는 **on-demand SHACL count**로,
+> 이제 PG에 물질화된 **K-R4 dependsOn = 35,165 distinct pair**(same-Hazard relaxation 재집계)와는 **다른 수치**다.
+> coApplicable 16,429쌍 역시 같은 섹션에선 on-demand였으나 이제 K-R2로 PG 적재(32,858행). 서빙은 PG를 읽는다(Fuseki 요청경로 아님).
 
 ## T2.D F.3.2 vetted promotion — 2026-05-18 (8/8 candidates 1-by-1 PASS)
 

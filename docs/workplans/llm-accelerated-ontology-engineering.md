@@ -6,6 +6,8 @@
 
 ## Status (2026-05-28 갱신 — ⭐ axiom-100% Sprint(Phase A~K) + ⭐ guide-accuracy Sprint(P0~P3) 완료, origin/main `4aa3cca`. 이전: Phase G + Tier 4 + Hazard-Direct, `3502eff`)
 
+> **2026-06-14 갱신 — ⭐ Track A ② reasoning vertical slice 완료 + main push** (commits `87d9e63`/`7c50304`/`e6140bb`). 6단계 reasoner 산출(R-1/R-3 + relaxed-key K-R2/K-R4)을 PG로 재물질화하고 서빙 경로를 Fuseki→PG로 전환했다. 신규 PG 테이블 `sr_inferred_relations` = **103,295 rows** (R-1 exemptedBy 107 / K-R2 coApplicable 16,429쌍→32,858 / K-R4 dependsOn 35,165쌍→70,330), `materialization_runs` PROV run-tracking 신설. 상세 [신규 산출물 (2026-06-14)](#신규-산출물-2026-06-14--track-a--reasoning-slice) 참조. 미커밋: A4/A5 governance (license 이원화 + ontology version **2.0.0** + VoID + SKOS — 이 문서 업데이트 직후 커밋 예정).
+>
 > 최신 두 스프린트(axiom-100%, guide-accuracy)는 별도 plan/runbook으로 추적: [ontology-axiom-100pct.md](ontology-axiom-100pct.md) + [../dev-notes/axiom-100pct-phase-c-j.md](../dev-notes/axiom-100pct-phase-c-j.md) + [../dev-notes/guide-recommendation-accuracy.md](../dev-notes/guide-recommendation-accuracy.md). 아래 Status 표는 ~2026-05-19 (Phase G/Tier 4) 기준.
 >
 > **2026-05-31 facet 구조 audit + 수정** (Fix A canonical⊑axis floating 480→0 / B1 라벨 / B2 dead·alias / B3a 축 disjoint, origin/main `678a7d1`)은 별도 정본 [../backlog/ontology-structural-findings.md](../backlog/ontology-structural-findings.md)로 추적. 남은 B3b~B6.
@@ -46,6 +48,7 @@
 | **moellab.info/ohs 위험요소 비교 분석** | ✅ 완료 ⭐ | 8 사진 / 37 hazards 합리적, GPT 직접 출력 정확. **architecture pivot 후보 식별**: hazard-direct (Vision LLM → catalog → 우리 Guide → procedure). feat commit `833dcd7`, merge `3502eff` |
 | **hazard-direct architecture pivot** | ✅ **완료 (단일 세션 완주)** ⭐ | [`hazard-direct-architecture-pivot.md`](hazard-direct-architecture-pivot.md) — Phase 1-5 일괄 구현. **Phase 5 8 photo 실호출: 25/25 (100%) catalog 매핑** (AC-2 ≥85% PASS), 25 hazard_guide_relations, 14 penalty paths (Phase G.3 보존), legacy 48 procedures 병행 (호환성 OK). Commits `acd2303` → `5256573` (5 commits). [eval JSON](../../data-team/05-enrichment/runtime-artifacts/hazard_direct_8photo_eval.json) |
 | **SHE matcher broadness-aware refactor** | ⏳ 후행 별도 sprint (사용자 결정) | hazard-direct sprint 종료 후 별도 진행. plan: [`she-matcher-broadness-refactor.md`](she-matcher-broadness-refactor.md) |
+| **Track A ② reasoning vertical slice** (2026-06-14) | ✅ **완료 + main push** ⭐ | `sr_inferred_relations` PG **103,295 rows** (R-1 exemptedBy 107 / K-R2 coApplicable 16,429쌍 same-Chapter / K-R4 dependsOn 35,165쌍 same-Hazard 양방향) + `materialization_runs` PROV. 서빙 Fuseki→PG SELECT 전환 + `/depends-on` 신규 + `enrich_sr_with_pg`. R-3 HighSeverityPenalty 3,579는 `penalty_rule_index.severity_score>=5` SQL 재현. 3 신규 TTL + `emit_inferred_relations.py` + phase-g5* Makefile. **Gates 전부 PASS** (f1-regression all-metric delta 0.0000 / latency / verify-baseline / phase-g5·g5b·g5c-verify). Commits `87d9e63`/`7c50304`/`e6140bb`. 상세 [신규 산출물 (2026-06-14)](#신규-산출물-2026-06-14--track-a--reasoning-slice) |
 | F.4 (CQ Reverse, Module 4.5) | ⏳ 후속 (Tier 4 중장기) | 3-4주, Photo persist ORM 선행 필요 |
 | F.5-F.8 (GraphRAG / Maintenance / fine-tune / OBO) | ⏳ 후속 (Tier 4 중장기) | Phase J OBO 별도 plan 예정 |
 
@@ -220,6 +223,48 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 
 **Manual review 자산**: `data-team/05-enrichment/runtime-artifacts/pending_review_she_for_manual_review.json` (77 SHE 8-axis + visual_triggers, T4 #1 후속용)
 
+### 신규 산출물 (2026-06-14) — Track A ② reasoning slice
+
+> commits `87d9e63` (R-1/R-2 슬라이스 + 서빙 소비) → `7c50304` (K-R2 same-Chapter coApplicable) → `e6140bb` (K-R4 same-Hazard dependsOn). **전부 main push 완료.** 6단계 reasoner 산출을 7단계 PG로 재물질화하고 서빙을 PG SELECT로 전환한 첫 vertical slice.
+
+**신규 PG 테이블 (2개)**:
+- `sr_inferred_relations` = **103,295 rows total**, `rule_id`로 strict/relaxed 구분:
+  - **R-1 exemptedBy**: 107 rows (95 distinct SR) — strict DL (NS→exempt-NS), SR별 served
+  - **K-R2 coApplicable**: 16,429 distinct pairs → 32,858 rows (same-Chapter relaxation, 양방향)
+  - **K-R4 dependsOn**: 35,165 distinct pairs → 70,330 rows (same-Hazard relaxation, 양방향)
+  - R-2 strict coApplicable = 0 (SR↔Article 1:1 — Phase A 발견과 일치). `rule_id`가 strict R-1 vs relaxed K-R2/K-R4를 구분.
+- `materialization_runs` = PROV run-tracking (`run_id`, `rule_set`, `ontology_commit`=git rev, `source_ttl_sha256`=content-hash, `triple_count`, `status`). runs #1-4.
+- **R-3 HighSeverityPenalty (3,579)**는 `sr_inferred_relations`에 저장하지 않고 `penalty_rule_index.severity_score>=5` SQL로 재현.
+
+**신규 TTL (`ontology-team/06-reasoning/ontology/`)**: `kosha-inferred-relations.ttl`, `kosha-coapplicable-chapter.ttl`, `kosha-dependson-hazard.ttl`.
+
+**신규 스크립트**:
+- `ontology-team/06-reasoning/ontology/scripts/emit_inferred_relations.py` (`--mode strict|chapter|hazard`)
+- `serving-team/07-materialization/pg-sync-scripts/import_sr_inferred_relations_to_pg.py`
+- `serving-team/08-app/backend/scripts/verify_inferred_relations.py`
+
+**서빙 (`serving-team/08-app/backend`) — Fuseki→PG 전환**:
+- `/api/v1/sparql/sr/{id}/exemptions`, `/co-applicable`, `/article/{code}/inferred-graph` → Fuseki 대신 PG SELECT
+- **신규** `/api/v1/sparql/sr/{id}/depends-on`
+- 신규 `app/services/sr_inferred_service.py`
+- `hazard_rule_engine.py`의 dead `enrich_sr_with_sparql` → PG-backed `enrich_sr_with_pg`로 교체
+- **이 reasoner 산출들은 더 이상 Fuseki 요청경로가 아니며 서빙은 PG를 읽는다.**
+
+**신규 Makefile 타깃**: `reasoning-emit`, `reasoning-emit-chapter`, `reasoning-emit-hazard`, `phase-g5-schema`, `phase-g5-import`, `phase-g5-verify`, `phase-g5b-import`, `phase-g5b-verify`, `phase-g5c-import`, `phase-g5c-verify`.
+
+**Gates**: f1-regression all-metric delta = **0.0000** (analysis hot-path UNCHANGED, 3 slices 전부) / latency-gate PASS / verify-baseline PASS / phase-g5·g5b·g5c-verify PASS.
+
+**OLD 수치 reconciliation**:
+- 이전 "K-general dependsOn 36,949" (on-demand SHACL count)은 지금 materialize된 **K-R4 = 35,165 pairs**와 다른 값이다.
+- coApplicable 16,429은 이전에 "미적재/on-demand/gitignore"로 표기됐으나 **이제 PG로 materialize**됨.
+
+**A4/A5 governance (DONE, 미커밋 — 이 문서 업데이트 직후 커밋 예정)**:
+- A4 dual license: `LICENSE`(Apache-2.0 code) + `LICENSE-ontology.md`(CC-BY-4.0 ontology/data) + README license section + `CITATION.cff`(CFF 1.2.0) + `kosha-ontology-metadata.ttl`.
+- Ontology RELEASE VERSION = **2.0.0** (`owl:versionIRI .../ontology/2.0.0`, `owl:versionInfo "2.0.0"`, kosha-ontology-v2.owl lineage 정렬; CITATION version 2.0.0). **1.0.0 아님.**
+- VoID (`kosha-ontology-metadata.ttl`, full consistency assembly scope): `void:triples` **1,049,862**, `void:classes` **625** (named owl:Class, facet fine class 포함 — core 개념 TBox는 ~62), `void:properties` **164** (ObjectProperty 119 + DatatypeProperty 45).
+- A5 SKOS: `gen_skos_scheme.py` + `kosha-codes-skos.ttl` = 3 SKOS ConceptSchemes (axis별: accident-type/hazardous-agent/work-context), **504 concepts, 2,659 triples**. `skos:broader` 418 (same-axis rollup→canonical), `skos:relatedMatch` 21 (cross-axis agent→accident-type associative), `rdfs:seeAlso` 62 (canonical→OWL class). `broadMatch/exactMatch`은 punning/hierarchy 오선언 회피로 미사용. Makefile `gen-skos`.
+- **Namespace는 여전히 `cashtoss.info`** (`w3id.org/ohs-kr` migration은 FUTURE step A2 — IRI 변경 없음).
+
 ### Runtime artifacts (`data-team/05-enrichment/runtime-artifacts/`)
 - 모든 산출 JSON (CQ, layer assignment, disjoint, SHACL, OntoClean 등)
 - `analysis_log.jsonl` (2,536+ entries, A 신규 3 필드 포함 + **T2.A `reasoner_rejects` 필드**)
@@ -302,6 +347,7 @@ Layer 4: Ontology Learning (cross-cutting, 학습기)
 | `guide_usage_profiles` ✅ (G.2 완료) | 기존 PG 1,038 rows + `guide:GuideUsageProfile` OWL class 신규 정의 (ontology 가장 큰 갭 해결). guide_domain_profile.py PG primary |
 | `penalty_rule_index` ✅ (G.3 완료) ⭐ | kosha-instances.ttl → PG 4,076 SR→PenaltyRule mappings. hazard_rule_engine PG primary. **penalty_accuracy +27.16%p** |
 | `she_patterns_reasoner_derived` ✅ (G.4 완료) | view (77 pending_review SHE 노출, F.2 v3.1 link derived). Future matcher integration 의사결정 별도 sprint |
+| `sr_inferred_relations` ✅ (Track A ② 완료, 2026-06-14) ⭐ | **추론된 SR↔SR 관계 materialized** — R-1 exemptedBy 107 + K-R2 coApplicable 16,429쌍(same-Chapter) + K-R4 dependsOn 35,165쌍(same-Hazard) = **PG 103,295 rows**. 서빙 Fuseki→PG SELECT 전환 (`/exemptions`·`/co-applicable`·`/depends-on`). `materialization_runs` PROV run-tracking 병행. commits `87d9e63`/`7c50304`/`e6140bb` |
 | `ci_sr_mapping` | reasoner 도출 정식 매핑 |
 | `penalty_rules` / `penalty_conditions` | deontic chain 추론 |
 

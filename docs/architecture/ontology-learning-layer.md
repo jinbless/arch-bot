@@ -128,6 +128,8 @@ asymmetric trust → TBox candidate class 등재
 - 신규: `data-team/05-enrichment/llm-scripts/learn_tbox_classes.py`
 - 재사용: `build_layer_mapping.py`, `ontoclean_validator.py`
 
+**SKOS 공개 (A5)**: 3축 canonical taxonomy를 이제 citable W3C SKOS vocabulary로 발행 — `kosha-codes-skos.ttl` (3 SKOS ConceptScheme: accident-type/hazardous-agent/work-context, **504 concepts**, 2,659 triples; skos:broader 418 / skos:relatedMatch 21 / rdfs:seeAlso 62). 생성: `gen_skos_scheme.py` (`make gen-skos`). skos:relatedMatch + rdfs:seeAlso 사용 (broadMatch/exactMatch는 hierarchy/punning 오선언 위험으로 미사용).
+
 ### Module 4.3 — Relation Mining (Task C) ★ 우리 학계 SOTA
 
 **대상**: Layer 2 incompatibility KB / non-taxonomic relations
@@ -316,6 +318,7 @@ monitor (T2.C f3_drift_check.py)   ←   deploy (Fuseki container restart + SPAR
 | **Phase G.4** | **4.4/4.7** | **she_patterns_reasoner_derived view + Openllet 분석** | ✅ 완료 (2026-05-19, `434f35f`) |
 | **Tier 4 fix** | **4.4** | **AsymmetricProperty 패치 → Openllet SPARQL 추론 정상 검증** | ✅ 완료 (2026-05-19, `5edae0b`) |
 | **Tier 4 #3** | **4.4** | **SWRL Pellet 실행기 통합 (R-1: 107 + R-3: 3,579 inferred ⭐)** | ✅ 완료 (2026-05-19, `448a8d0`) |
+| **Track A ②** | **4.4** | **reasoner R-1/R-2/R-4 → PG `sr_inferred_relations` 103,295 rows (exemptedBy 107 + coApplicable 32,858 + dependsOn 70,330) + serving Fuseki→PG SELECT + `materialization_runs` PROV. R-3 3,579는 `penalty_rule_index` SQL로 재현 ⭐** | ✅ 완료 (`87d9e63`/`7c50304`/`e6140bb`) |
 | F.4 | 4.5 | CQ Reverse + Photo persist + SPARQL coverage 회복 | ⏳ Tier 4 중장기 |
 | F.5 | 4.6 | GraphRAG (Salovsky Dual Memory) | ⏳ Tier 4 중장기 |
 | F.6 | 4.7 | Continual Adaptation 확장 | ⏳ Tier 4 중장기 |

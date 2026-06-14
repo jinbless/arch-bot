@@ -57,6 +57,10 @@ backend/app/services/she_match_models.py
 backend/app/services/sr_lookup_service.py
   SR 후보 조회
 
+backend/app/services/sr_inferred_service.py
+  PG 기반 SR inferred relation 조회 (exemptedBy / coApplicable / dependsOn)
+  /sparql/sr/* + /article/*/inferred-graph 엔드포인트가 Fuseki 대신 이 서비스로 sr_inferred_relations 조회
+
 backend/app/services/guide_recommendation_service.py
   ChecklistItem 즉시 조치와 Guide/WorkProcess 표준 절차 추천
   risk feature, SHE match, visual cue, industry context를 함께 사용
@@ -97,6 +101,15 @@ guide_entity_feature_candidates
 guide_sr_link_candidates
 guide_visual_trigger_candidates
 ```
+
+PostgreSQL의 reasoner inferred relation 테이블 (Stage 7 재물질화 산출):
+
+```text
+sr_inferred_relations    SR exemptedBy / coApplicable / dependsOn 추론 관계 103,295행
+materialization_runs     PROV run-tracking (ontology_commit, source_ttl_sha256, status)
+```
+
+`/api/v1/sparql/sr/{id}/exemptions` · `/co-applicable` · `/depends-on` · `/article/{code}/inferred-graph` 엔드포인트는 이제 Fuseki가 아니라 `sr_inferred_relations` PG 테이블을 읽는다 (`sr_inferred_service.py`). 적재 절차는 [serving-team/07-materialization/README.md](../07-materialization/README.md) 참조.
 
 `guide_domain_profiles.json`은 Pipe-B의 1,038개 manual Guide usage profile export를 OHS serving용으로 복사한 파일이다. 현재 Guide profile 자체는 `ci_broad_sr_guard4` 기준으로 `guide_usage_profiles` PostgreSQL 테이블에도 1,038행 동기화되어 있고, 최신 서빙 기준 `ci_cross_guide_broad_only_guard1`은 그 위에서 review-only CI/SR 후보 50행 중 17행만 serving `candidate`로 승격하고 33행은 `needs_review`로 유지한 뒤, non-primary Guide의 broad-SR-only 즉시조치를 최종 필터링한 상태다. 런타임은 JSON artifact와 PG 후보 테이블을 읽고, PG 동기화본은 감사/ontology export 정합성 확인에 쓴다. `broad_sr_policy.json`은 broad SR이 단독으로 표준절차를 만들지 못하도록 제한하는 serving policy다.
 

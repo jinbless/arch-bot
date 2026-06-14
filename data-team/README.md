@@ -26,12 +26,15 @@ Layer 4 자율 학습 modules 진척:
 | 4.1 Term Extraction (F.1) | ✅ closed loop (5 vetted aliases) | [F.1-auto-register-aliases.md](../docs/dev-notes/F.1-auto-register-aliases.md) |
 | 4.2 Taxonomy Discovery (F.2) | ✅ catalog v3.3 (481 codes × 5 axes) | [F.2-taxonomy-discovery.md](../docs/dev-notes/F.2-taxonomy-discovery.md) |
 | 4.3 Relation Mining | ✅ 운영 중 (2,240 vetted incompatibilities) | (F.3.2 mining) |
-| **4.4 Axiom Discovery (Tier 2 F.3 closing + Phase G + T4)** | ✅ **closed loop + reasoner-derived 입증 (2026-05-19)** | [F.3-axiom-discovery.md](../docs/dev-notes/F.3-axiom-discovery.md) + [phase-g.1~4](../docs/dev-notes/) + [t4-swrl-pellet-integration.md](../docs/dev-notes/t4-swrl-pellet-integration.md) |
+| **4.4 Axiom Discovery (Tier 2 F.3 closing + Phase G + T4 + Track A ②)** | ✅ **물질화·서빙 (2026-06-14)** — reasoner-derived 입증(2026-05-19) → R-1/K-R2/K-R4 emit→PG 물질화 | [F.3-axiom-discovery.md](../docs/dev-notes/F.3-axiom-discovery.md) + [phase-g.1~4](../docs/dev-notes/) + [t4-swrl-pellet-integration.md](../docs/dev-notes/t4-swrl-pellet-integration.md) |
 | 4.5 CQ Reverse | ⏳ Tier 3 후속 (3B) | — |
 | 4.6 GraphRAG | ⏳ Tier 4 | — |
 | 4.7 Continual Adapt | ✅ partial (T2.C drift monitor + T2.A reasoner shadow) | [F.3-axiom-discovery.md](../docs/dev-notes/F.3-axiom-discovery.md) T2.C section |
 
-**최근 sprint** (2026-05-19, origin/main `448a8d0`):
+**최근 sprint** (2026-06-14, Track A ②):
+- reasoner 도출 관계 R-1 exemptedBy / K-R2 coApplicable / K-R4 dependsOn를 `ontology-team/.../scripts/emit_inferred_relations.py`로 emit → PG table `sr_inferred_relations`(103,295 row)로 물질화·서빙. 4.4가 'reasoner-derived 입증' → '물질화·서빙' 단계로 진전. (서빙+온톨로지 팀 owned slice — 상세는 [serving-team/README.md](../serving-team/README.md) / [ontology-team/README.md](../ontology-team/README.md))
+
+**이전 sprint** (2026-05-19, origin/main `448a8d0`):
 - **Phase G.1** (`d6b4589`): `core:Incompatibility` ontology + `guide_domain_incompatibilities` PG (2,016 rows)
 - **Phase G.2** (`2f7ef92`): `guide:GuideUsageProfile` ontology 가장 큰 갭 + `guide_usage_profiles` PG primary
 - **Phase G.3** (`8ddc2c7`) ⭐: `penalty_rule_index` PG (4,076 rules) → **penalty_accuracy +27.16%p**
@@ -51,6 +54,10 @@ Layer 4 자율 학습 modules 진척:
 ```bash
 make f1-help / f2-help / f3-help     # 각 phase 사용법
 make f3-weekly-cycle                  # T2.C cron-able (shadow → compile → replay → drift)
+make reasoning-emit                   # Track A ② R-1 strict emit → kosha-inferred-relations.ttl
+make reasoning-emit-chapter           # K-R2 coApplicable (same-Chapter) emit
+make reasoning-emit-hazard            # K-R4 dependsOn (same-Hazard) emit
+make phase-g5-{schema,import,verify}  # sr_inferred_relations PG 적재·검증 (g5b/g5c도 동일)
 ```
 
 신규 scripts (이전 세션 Tier 1-3.A):
