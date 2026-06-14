@@ -1,0 +1,3180 @@
+# A5 — KOSHA OHS 위험 코드 SKOS ConceptScheme (자동 생성: gen_skos_scheme.py).
+# SoT: shared/reference/canonical-code-vocabulary.json. 수동 편집 금지 — make gen-skos 재실행.
+# canonical=topConcept(+OWL rdfs:seeAlso), rollup=broader, 교차축=relatedMatch. namespace는 A2에서 w3id.
+@prefix agent: <https://cashtoss.info/ontology/risk/agent#> .
+@prefix code-accident-type: <https://cashtoss.info/ontology/code/accident-type#> .
+@prefix code-hazardous-agent: <https://cashtoss.info/ontology/code/hazardous-agent#> .
+@prefix code-work-context: <https://cashtoss.info/ontology/code/work-context#> .
+@prefix ctx: <https://cashtoss.info/ontology/risk/context#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix haz: <https://cashtoss.info/ontology/risk/hazard#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+code-accident-type:ANIMAL_BITE a skos:Concept ;
+    skos:broader code-accident-type:ANIMAL_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ANIMAL_BITE"^^xsd:token ;
+    skos:prefLabel "Animal Bite"@en .
+
+code-accident-type:ARC_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ARC_BURN"^^xsd:token ;
+    skos:prefLabel "Arc Burn"@en .
+
+code-accident-type:BLADE_LACERATION a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "BLADE_LACERATION"^^xsd:token ;
+    skos:prefLabel "Blade Laceration"@en .
+
+code-accident-type:BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "BURN"^^xsd:token ;
+    skos:prefLabel "Burn"@en .
+
+code-accident-type:BURN_FROM_ACCIDENTAL_CUSTOMER_CONTACT a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "BURN_FROM_ACCIDENTAL_CUSTOMER_CONTACT"^^xsd:token ;
+    skos:prefLabel "Burn From Accidental Customer Contact"@en .
+
+code-accident-type:BURN_FROM_FALLING_HOT_CONTENTS a skos:Concept ;
+    skos:broader code-accident-type:STRUCK_BY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "BURN_FROM_FALLING_HOT_CONTENTS"^^xsd:token ;
+    skos:prefLabel "Burn From Falling Hot Contents"@en .
+
+code-accident-type:CART_TIPOVER a skos:Concept ;
+    skos:broader code-accident-type:CRUSHED_OVERTURNED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CART_TIPOVER"^^xsd:token ;
+    skos:prefLabel "Cart Tipover"@en .
+
+code-accident-type:CAUGHT_IN_CONFINED_SPACE a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CAUGHT_IN_CONFINED_SPACE"^^xsd:token ;
+    skos:prefLabel "Caught In Confined Space"@en .
+
+code-accident-type:CHAIR_TIPOVER_FALL a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHAIR_TIPOVER_FALL"^^xsd:token ;
+    skos:prefLabel "Chair Tipover Fall"@en .
+
+code-accident-type:CHEMICAL_ABSORPTION_THROUGH_SKIN a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_ABSORPTION_THROUGH_SKIN"^^xsd:token ;
+    skos:prefLabel "Chemical Absorption Through Skin"@en .
+
+code-accident-type:CHEMICAL_ACCIDENT_DUE_TO_IMPROPER_DETERGENT_USE a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_ACCIDENT_DUE_TO_IMPROPER_DETERGENT_USE"^^xsd:token ;
+    skos:prefLabel "Chemical Accident Due To Improper Detergent Use"@en .
+
+code-accident-type:CHEMICAL_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_BURN"^^xsd:token ;
+    skos:prefLabel "Chemical Burn"@en .
+
+code-accident-type:CHEMICAL_BURN_FROM_STRONG_ACID a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_BURN_FROM_STRONG_ACID"^^xsd:token ;
+    skos:prefLabel "Chemical Burn From Strong Acid"@en .
+
+code-accident-type:CHEMICAL_BURN_FROM_STRONG_ACID_TO_EYE a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_BURN_FROM_STRONG_ACID_TO_EYE"^^xsd:token ;
+    skos:prefLabel "Chemical Burn From Strong Acid To Eye"@en .
+
+code-accident-type:CHEMICAL_DETERGENT_INHALATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_DETERGENT_INHALATION"^^xsd:token ;
+    skos:prefLabel "Chemical Detergent Inhalation"@en .
+
+code-accident-type:CHEMICAL_EXPLOSION a skos:Concept ;
+    skos:broader code-accident-type:EXPLOSION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_EXPLOSION"^^xsd:token ;
+    skos:prefLabel "Chemical Explosion"@en .
+
+code-accident-type:CHEMICAL_EYE_AND_AIRWAY_INJURY a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_EYE_AND_AIRWAY_INJURY"^^xsd:token ;
+    skos:prefLabel "Chemical Eye And Airway Injury"@en .
+
+code-accident-type:CHEMICAL_INGESTION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_INGESTION"^^xsd:token ;
+    skos:prefLabel "Chemical Ingestion"@en .
+
+code-accident-type:CHEMICAL_INHALATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_INHALATION"^^xsd:token ;
+    skos:prefLabel "Chemical Inhalation"@en .
+
+code-accident-type:CHEMICAL_IRRITATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_IRRITATION"^^xsd:token ;
+    skos:prefLabel "Chemical Irritation"@en .
+
+code-accident-type:CHEMICAL_REACTION_EXPLOSION a skos:Concept ;
+    skos:broader code-accident-type:EXPLOSION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_REACTION_EXPLOSION"^^xsd:token ;
+    skos:prefLabel "Chemical Reaction Explosion"@en .
+
+code-accident-type:CHEMICAL_RESIDUAL_INHALATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_RESIDUAL_INHALATION"^^xsd:token ;
+    skos:prefLabel "Chemical Residual Inhalation"@en .
+
+code-accident-type:CHEMICAL_SKIN_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_SKIN_BURN"^^xsd:token ;
+    skos:prefLabel "Chemical Skin Burn"@en .
+
+code-accident-type:CHEMICAL_SKIN_IRRITATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_SKIN_IRRITATION"^^xsd:token ;
+    skos:prefLabel "Chemical Skin Irritation"@en .
+
+code-accident-type:CHEMICAL_VAPOR_EXPOSURE a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_VAPOR_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Chemical Vapor Exposure"@en .
+
+code-accident-type:CHEMICAL_VAPOR_INHALATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_VAPOR_INHALATION"^^xsd:token ;
+    skos:prefLabel "Chemical Vapor Inhalation"@en .
+
+code-accident-type:CHEMICAL_VAPOR_INHALATION_UNCONSCIOUSNESS a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_VAPOR_INHALATION_UNCONSCIOUSNESS"^^xsd:token ;
+    skos:prefLabel "Chemical Vapor Inhalation Unconsciousness"@en .
+
+code-accident-type:CHILD_CHEMICAL_EXPOSURE a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHILD_CHEMICAL_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Child Chemical Exposure"@en .
+
+code-accident-type:CHILD_CUT a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHILD_CUT"^^xsd:token ;
+    skos:prefLabel "Child Cut"@en .
+
+code-accident-type:CHILD_ELECTRIC_SHOCK a skos:Concept ;
+    skos:broader code-accident-type:ELECTRIC_SHOCK ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHILD_ELECTRIC_SHOCK"^^xsd:token ;
+    skos:prefLabel "Child Electric Shock"@en .
+
+code-accident-type:CHILD_SLIP_AND_FALL a skos:Concept ;
+    skos:broader code-accident-type:SLIP_TRIP ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHILD_SLIP_AND_FALL"^^xsd:token ;
+    skos:prefLabel "Child Slip And Fall"@en .
+
+code-accident-type:CHILD_STABBING a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHILD_STABBING"^^xsd:token ;
+    skos:prefLabel "Child Stabbing"@en .
+
+code-accident-type:CHLORAMINE_GAS_INHALATION_POISONING a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHLORAMINE_GAS_INHALATION_POISONING"^^xsd:token ;
+    skos:prefLabel "Chloramine Gas Inhalation Poisoning"@en .
+
+code-accident-type:CHLORINE_GAS_INHALATION_POISONING a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHLORINE_GAS_INHALATION_POISONING"^^xsd:token ;
+    skos:prefLabel "Chlorine Gas Inhalation Poisoning"@en .
+
+code-accident-type:COLD_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "COLD_BURN"^^xsd:token ;
+    skos:prefLabel "Cold Burn"@en .
+
+code-accident-type:COLD_EXPOSURE a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "COLD_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Cold Exposure"@en .
+
+code-accident-type:COMPRESSION_INJURY a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "COMPRESSION_INJURY"^^xsd:token ;
+    skos:prefLabel "Compression Injury"@en .
+
+code-accident-type:CONFINED_SPACE_ASPHYXIA a skos:Concept ;
+    skos:broader code-accident-type:OXYGEN_DEFICIENCY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CONFINED_SPACE_ASPHYXIA"^^xsd:token ;
+    skos:prefLabel "Confined Space Asphyxia"@en .
+
+code-accident-type:CONTAINER_BREAKAGE_DURING_COLLECTION a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CONTAINER_BREAKAGE_DURING_COLLECTION"^^xsd:token ;
+    skos:prefLabel "Container Breakage During Collection"@en .
+
+code-accident-type:CRUSH a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CRUSH"^^xsd:token ;
+    skos:prefLabel "Crush"@en .
+
+code-accident-type:CRUSHED_BY_MACHINE_OR_OBJECT a skos:Concept ;
+    skos:broader code-accident-type:CRUSHED_OVERTURNED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CRUSHED_BY_MACHINE_OR_OBJECT"^^xsd:token ;
+    skos:prefLabel "Crushed By Machine Or Object"@en .
+
+code-accident-type:CUT a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CUT"^^xsd:token ;
+    skos:prefLabel "Cut"@en .
+
+code-accident-type:CUTTING_BLADE_CONTACT_WHILE_OPERATING a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CUTTING_BLADE_CONTACT_WHILE_OPERATING"^^xsd:token ;
+    skos:prefLabel "Cutting Blade Contact While Operating"@en .
+
+code-accident-type:CUT_DUE_TO_GLOVE_FAILURE a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CUT_DUE_TO_GLOVE_FAILURE"^^xsd:token ;
+    skos:prefLabel "Cut Due To Glove Failure"@en .
+
+code-accident-type:CYTOTOXIC_EXPOSURE a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CYTOTOXIC_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Cytotoxic Exposure"@en .
+
+code-accident-type:DETERGENT_INHALATION_POISONING a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "DETERGENT_INHALATION_POISONING"^^xsd:token ;
+    skos:prefLabel "Detergent Inhalation Poisoning"@en .
+
+code-accident-type:DRIVER_ENTANGLEMENT a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "DRIVER_ENTANGLEMENT"^^xsd:token ;
+    skos:prefLabel "Driver Entanglement"@en .
+
+code-accident-type:DUST_EXPLOSION a skos:Concept ;
+    skos:broader code-accident-type:EXPLOSION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "DUST_EXPLOSION"^^xsd:token ;
+    skos:prefLabel "Dust Explosion"@en .
+
+code-accident-type:ELECTRICAL_ACCIDENT_DUE_TO_POWER_INSTABILITY a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ELECTRICAL_ACCIDENT_DUE_TO_POWER_INSTABILITY"^^xsd:token ;
+    skos:prefLabel "Electrical Accident Due To Power Instability"@en .
+
+code-accident-type:ELECTRIC_SHOCK_DUE_TO_INSULATION_DAMAGE a skos:Concept ;
+    skos:broader code-accident-type:ELECTRIC_SHOCK ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ELECTRIC_SHOCK_DUE_TO_INSULATION_DAMAGE"^^xsd:token ;
+    skos:prefLabel "Electric Shock Due To Insulation Damage"@en .
+
+code-accident-type:ENTANGLEMENT a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ENTANGLEMENT"^^xsd:token ;
+    skos:prefLabel "Entanglement"@en .
+
+code-accident-type:ERGONOMIC a skos:Concept ;
+    skos:broader code-accident-type:ERGONOMIC_STRAIN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ERGONOMIC"^^xsd:token ;
+    skos:prefLabel "Ergonomic"@en .
+
+code-accident-type:EXTREME_COLD_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "EXTREME_COLD_BURN"^^xsd:token ;
+    skos:prefLabel "Extreme Cold Burn"@en .
+
+code-accident-type:EYE_CHEMICAL_INJURY a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "EYE_CHEMICAL_INJURY"^^xsd:token ;
+    skos:prefLabel "Eye Chemical Injury"@en .
+
+code-accident-type:EYE_FOREIGN_BODY a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "EYE_FOREIGN_BODY"^^xsd:token ;
+    skos:prefLabel "Eye Foreign Body"@en .
+
+code-accident-type:EYE_VISION_DAMAGE a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "EYE_VISION_DAMAGE"^^xsd:token ;
+    skos:prefLabel "Eye Vision Damage"@en .
+
+code-accident-type:FALLING_CHEMICAL_CONTAINER a skos:Concept ;
+    skos:broader code-accident-type:STRUCK_BY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALLING_CHEMICAL_CONTAINER"^^xsd:token ;
+    skos:prefLabel "Falling Chemical Container"@en .
+
+code-accident-type:FALLING_FROM_WIRES a skos:Concept ;
+    skos:broader code-accident-type:STRUCK_BY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALLING_FROM_WIRES"^^xsd:token ;
+    skos:prefLabel "Falling From Wires"@en .
+
+code-accident-type:FALLING_OBJECT a skos:Concept ;
+    skos:broader code-accident-type:STRUCK_BY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALLING_OBJECT"^^xsd:token ;
+    skos:prefLabel "Falling Object"@en .
+
+code-accident-type:FALL_DUE_TO_STRONG_WIND a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL_DUE_TO_STRONG_WIND"^^xsd:token ;
+    skos:prefLabel "Fall Due To Strong Wind"@en .
+
+code-accident-type:FALL_FROM_ANKER_FAILURE a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL_FROM_ANKER_FAILURE"^^xsd:token ;
+    skos:prefLabel "Fall From Anker Failure"@en .
+
+code-accident-type:FALL_FROM_HEIGHT a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL_FROM_HEIGHT"^^xsd:token ;
+    skos:prefLabel "Fall From Height"@en .
+
+code-accident-type:FALL_FROM_KNOT_SLIP a skos:Concept ;
+    skos:broader code-accident-type:SLIP_TRIP ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL_FROM_KNOT_SLIP"^^xsd:token ;
+    skos:prefLabel "Fall From Knot Slip"@en .
+
+code-accident-type:FALL_FROM_LADDER a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL_FROM_LADDER"^^xsd:token ;
+    skos:prefLabel "Fall From Ladder"@en .
+
+code-accident-type:FALL_FROM_LOSS_OF_BALANCE a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL_FROM_LOSS_OF_BALANCE"^^xsd:token ;
+    skos:prefLabel "Fall From Loss Of Balance"@en .
+
+code-accident-type:FALL_FROM_ROPE_FRICTION_BREAKAGE a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL_FROM_ROPE_FRICTION_BREAKAGE"^^xsd:token ;
+    skos:prefLabel "Fall From Rope Friction Breakage"@en .
+
+code-accident-type:FALL_ON_GROUND a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL_ON_GROUND"^^xsd:token ;
+    skos:prefLabel "Fall On Ground"@en .
+
+code-accident-type:FERTILIZER_DUST_INHALATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FERTILIZER_DUST_INHALATION"^^xsd:token ;
+    skos:prefLabel "Fertilizer Dust Inhalation"@en .
+
+code-accident-type:FINGER_AMPUTATION a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FINGER_AMPUTATION"^^xsd:token ;
+    skos:prefLabel "Finger Amputation"@en .
+
+code-accident-type:FINGER_INJURY a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FINGER_INJURY"^^xsd:token ;
+    skos:prefLabel "Finger Injury"@en .
+
+code-accident-type:FIRE_AND_EXPLOSION a skos:Concept ;
+    skos:broader code-accident-type:EXPLOSION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FIRE_AND_EXPLOSION"^^xsd:token ;
+    skos:prefLabel "Fire And Explosion"@en .
+
+code-accident-type:FIRE_FROM_OUTLET_OVERLOAD a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FIRE_FROM_OUTLET_OVERLOAD"^^xsd:token ;
+    skos:prefLabel "Fire From Outlet Overload"@en .
+
+code-accident-type:FIRE_SPREAD a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FIRE_SPREAD"^^xsd:token ;
+    skos:prefLabel "Fire Spread"@en .
+
+code-accident-type:FOOD_CONTAMINATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FOOD_CONTAMINATION"^^xsd:token ;
+    skos:prefLabel "Food Contamination"@en .
+
+code-accident-type:FOOT_CRUSH_INJURY a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FOOT_CRUSH_INJURY"^^xsd:token ;
+    skos:prefLabel "Foot Crush Injury"@en .
+
+code-accident-type:FRACTURE a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FRACTURE"^^xsd:token ;
+    skos:prefLabel "Fracture"@en .
+
+code-accident-type:FUEL_FIRE a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FUEL_FIRE"^^xsd:token ;
+    skos:prefLabel "Fuel Fire"@en .
+
+code-accident-type:FUEL_GAS_EXPLOSION a skos:Concept ;
+    skos:broader code-accident-type:EXPLOSION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FUEL_GAS_EXPLOSION"^^xsd:token ;
+    skos:prefLabel "Fuel Gas Explosion"@en .
+
+code-accident-type:FUEL_IGNITION_EXPLOSION a skos:Concept ;
+    skos:broader code-accident-type:EXPLOSION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FUEL_IGNITION_EXPLOSION"^^xsd:token ;
+    skos:prefLabel "Fuel Ignition Explosion"@en .
+
+code-accident-type:FUEL_LEAK_VAPOR_INHALATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FUEL_LEAK_VAPOR_INHALATION"^^xsd:token ;
+    skos:prefLabel "Fuel Leak Vapor Inhalation"@en .
+
+code-accident-type:FUEL_TANK_FIRE a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FUEL_TANK_FIRE"^^xsd:token ;
+    skos:prefLabel "Fuel Tank Fire"@en .
+
+code-accident-type:FUEL_VAPOR_IGNITION_BY_STATIC_DISCHARGE a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FUEL_VAPOR_IGNITION_BY_STATIC_DISCHARGE"^^xsd:token ;
+    skos:prefLabel "Fuel Vapor Ignition By Static Discharge"@en .
+
+code-accident-type:GAS_LEAK a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "GAS_LEAK"^^xsd:token ;
+    skos:prefLabel "Gas Leak"@en .
+
+code-accident-type:GAS_LEAK_AT_NIGHT a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "GAS_LEAK_AT_NIGHT"^^xsd:token ;
+    skos:prefLabel "Gas Leak At Night"@en .
+
+code-accident-type:GAS_POISONING a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "GAS_POISONING"^^xsd:token ;
+    skos:prefLabel "Gas Poisoning"@en .
+
+code-accident-type:GLASS_LACERATION a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "GLASS_LACERATION"^^xsd:token ;
+    skos:prefLabel "Glass Laceration"@en .
+
+code-accident-type:GONDOLA_OVERTURN_FALL a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "GONDOLA_OVERTURN_FALL"^^xsd:token ;
+    skos:prefLabel "Gondola Overturn Fall"@en .
+
+code-accident-type:GRADUAL_MINOR_FUEL_LEAKAGE a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "GRADUAL_MINOR_FUEL_LEAKAGE"^^xsd:token ;
+    skos:prefLabel "Gradual Minor Fuel Leakage"@en .
+
+code-accident-type:HANDCART_OVERTURN a skos:Concept ;
+    skos:broader code-accident-type:CRUSHED_OVERTURNED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HANDCART_OVERTURN"^^xsd:token ;
+    skos:prefLabel "Handcart Overturn"@en .
+
+code-accident-type:HAND_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HAND_BURN"^^xsd:token ;
+    skos:prefLabel "Hand Burn"@en .
+
+code-accident-type:HEAVY_EQUIPMENT_OVERTURN a skos:Concept ;
+    skos:broader code-accident-type:CRUSHED_OVERTURNED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HEAVY_EQUIPMENT_OVERTURN"^^xsd:token ;
+    skos:prefLabel "Heavy Equipment Overturn"@en .
+
+code-accident-type:HEAVY_LIFTING a skos:Concept ;
+    skos:broader code-accident-type:ERGONOMIC_STRAIN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HEAVY_LIFTING"^^xsd:token ;
+    skos:prefLabel "Heavy Lifting"@en .
+
+code-accident-type:HIGH_PRESSURE_GAS_LEAKAGE a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HIGH_PRESSURE_GAS_LEAKAGE"^^xsd:token ;
+    skos:prefLabel "High Pressure Gas Leakage"@en .
+
+code-accident-type:HIGH_PRESSURE_RELEASE a skos:Concept ;
+    skos:broader code-accident-type:EXPLOSION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HIGH_PRESSURE_RELEASE"^^xsd:token ;
+    skos:prefLabel "High Pressure Release"@en .
+
+code-accident-type:HIGH_TEMPERATURE_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HIGH_TEMPERATURE_BURN"^^xsd:token ;
+    skos:prefLabel "High Temperature Burn"@en .
+
+code-accident-type:HOT_OBJECT_MULTIPLE_FALLING a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HOT_OBJECT_MULTIPLE_FALLING"^^xsd:token ;
+    skos:prefLabel "Hot Object Multiple Falling"@en .
+
+code-accident-type:HOT_STEAM_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HOT_STEAM_BURN"^^xsd:token ;
+    skos:prefLabel "Hot Steam Burn"@en .
+
+code-accident-type:HYDROCARBON_VAPOR_INHALATION_POISONING a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "HYDROCARBON_VAPOR_INHALATION_POISONING"^^xsd:token ;
+    skos:prefLabel "Hydrocarbon Vapor Inhalation Poisoning"@en .
+
+code-accident-type:IGNITION_OF_FLAMMABLE_GAS a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "IGNITION_OF_FLAMMABLE_GAS"^^xsd:token ;
+    skos:prefLabel "Ignition Of Flammable Gas"@en .
+
+code-accident-type:INFANT_SAFETY_ACCIDENT a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "INFANT_SAFETY_ACCIDENT"^^xsd:token ;
+    skos:prefLabel "Infant Safety Accident"@en .
+
+code-accident-type:INFECTION a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "INFECTION"^^xsd:token ;
+    skos:prefLabel "Infection"@en .
+
+code-accident-type:INHALATION_OF_CHEMICAL_DUST a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "INHALATION_OF_CHEMICAL_DUST"^^xsd:token ;
+    skos:prefLabel "Inhalation Of Chemical Dust"@en .
+
+code-accident-type:KNIFE_SLIP_CUT a skos:Concept ;
+    skos:broader code-accident-type:SLIP_TRIP ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "KNIFE_SLIP_CUT"^^xsd:token ;
+    skos:prefLabel "Knife Slip Cut"@en .
+
+code-accident-type:LABEL_MISIDENTIFICATION_ACCIDENT a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "LABEL_MISIDENTIFICATION_ACCIDENT"^^xsd:token ;
+    skos:prefLabel "Label Misidentification Accident"@en .
+
+code-accident-type:LACERATION a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "LACERATION"^^xsd:token ;
+    skos:prefLabel "Laceration"@en .
+
+code-accident-type:LANDFILL_SLOPE_COLLAPSE a skos:Concept ;
+    skos:broader code-accident-type:COLLAPSE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "LANDFILL_SLOPE_COLLAPSE"^^xsd:token ;
+    skos:prefLabel "Landfill Slope Collapse"@en .
+
+code-accident-type:LOAD_COLLAPSE a skos:Concept ;
+    skos:broader code-accident-type:COLLAPSE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "LOAD_COLLAPSE"^^xsd:token ;
+    skos:prefLabel "Load Collapse"@en .
+
+code-accident-type:LOCKER_TIPOVER a skos:Concept ;
+    skos:broader code-accident-type:CRUSHED_OVERTURNED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "LOCKER_TIPOVER"^^xsd:token ;
+    skos:prefLabel "Locker Tipover"@en .
+
+code-accident-type:LOSS_OF_BALANCE a skos:Concept ;
+    skos:broader code-accident-type:ERGONOMIC_STRAIN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "LOSS_OF_BALANCE"^^xsd:token ;
+    skos:prefLabel "Loss Of Balance"@en .
+
+code-accident-type:LOSS_OF_CONTROL_POLISHER a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "LOSS_OF_CONTROL_POLISHER"^^xsd:token ;
+    skos:prefLabel "Loss Of Control Polisher"@en .
+
+code-accident-type:MACHINE_COLLISION_INJURY a skos:Concept ;
+    skos:broader code-accident-type:COLLISION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "MACHINE_COLLISION_INJURY"^^xsd:token ;
+    skos:prefLabel "Machine Collision Injury"@en .
+
+code-accident-type:MACHINE_FALLING_COLLISION_INJURY a skos:Concept ;
+    skos:broader code-accident-type:STRUCK_BY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "MACHINE_FALLING_COLLISION_INJURY"^^xsd:token ;
+    skos:prefLabel "Machine Falling Collision Injury"@en .
+
+code-accident-type:MEDICAL_EMERGENCY a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "MEDICAL_EMERGENCY"^^xsd:token ;
+    skos:prefLabel "Medical Emergency"@en .
+
+code-accident-type:MERCURY_POISONING a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "MERCURY_POISONING"^^xsd:token ;
+    skos:prefLabel "Mercury Poisoning"@en .
+
+code-accident-type:NARCOTIC_DERMAL_ABSORPTION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "NARCOTIC_DERMAL_ABSORPTION"^^xsd:token ;
+    skos:prefLabel "Narcotic Dermal Absorption"@en .
+
+code-accident-type:OVERCROWDING_EVACUATION_DELAY a skos:Concept ;
+    skos:broader code-accident-type:UNCLASSIFIED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "OVERCROWDING_EVACUATION_DELAY"^^xsd:token ;
+    skos:prefLabel "Overcrowding Evacuation Delay"@en .
+
+code-accident-type:OVERLOAD_FIRE a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "OVERLOAD_FIRE"^^xsd:token ;
+    skos:prefLabel "Overload Fire"@en .
+
+code-accident-type:PALM_LACERATION a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PALM_LACERATION"^^xsd:token ;
+    skos:prefLabel "Palm Laceration"@en .
+
+code-accident-type:PATIENT_FALL a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PATIENT_FALL"^^xsd:token ;
+    skos:prefLabel "Patient Fall"@en .
+
+code-accident-type:PESTICIDE_ABSORPTION_THROUGH_SKIN a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PESTICIDE_ABSORPTION_THROUGH_SKIN"^^xsd:token ;
+    skos:prefLabel "Pesticide Absorption Through Skin"@en .
+
+code-accident-type:PESTICIDE_EYE_CONTACT a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PESTICIDE_EYE_CONTACT"^^xsd:token ;
+    skos:prefLabel "Pesticide Eye Contact"@en .
+
+code-accident-type:PESTICIDE_INHALATION_POISONING a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PESTICIDE_INHALATION_POISONING"^^xsd:token ;
+    skos:prefLabel "Pesticide Inhalation Poisoning"@en .
+
+code-accident-type:POSTURE a skos:Concept ;
+    skos:broader code-accident-type:ERGONOMIC_STRAIN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "POSTURE"^^xsd:token ;
+    skos:prefLabel "Posture"@en .
+
+code-accident-type:PRESSURE_VESSEL_EXPLOSION a skos:Concept ;
+    skos:broader code-accident-type:EXPLOSION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PRESSURE_VESSEL_EXPLOSION"^^xsd:token ;
+    skos:prefLabel "Pressure Vessel Explosion"@en .
+
+code-accident-type:PRUNING_SHEAR_LACERATION a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PRUNING_SHEAR_LACERATION"^^xsd:token ;
+    skos:prefLabel "Pruning Shear Laceration"@en .
+
+code-accident-type:PTO_ENTANGLEMENT a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PTO_ENTANGLEMENT"^^xsd:token ;
+    skos:prefLabel "Pto Entanglement"@en .
+
+code-accident-type:PUNCTURE a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "PUNCTURE"^^xsd:token ;
+    skos:prefLabel "Puncture"@en .
+
+code-accident-type:REPETITIVE a skos:Concept ;
+    skos:broader code-accident-type:ERGONOMIC_STRAIN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "REPETITIVE"^^xsd:token ;
+    skos:prefLabel "Repetitive"@en .
+
+code-accident-type:RESIDUAL_CLEANER_EXPOSURE a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "RESIDUAL_CLEANER_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Residual Cleaner Exposure"@en .
+
+code-accident-type:RESIDUAL_HEAT_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "RESIDUAL_HEAT_BURN"^^xsd:token ;
+    skos:prefLabel "Residual Heat Burn"@en .
+
+code-accident-type:ROPE_BREAK_FALL a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ROPE_BREAK_FALL"^^xsd:token ;
+    skos:prefLabel "Rope Break Fall"@en .
+
+code-accident-type:ROTATING_HOOK_ENTANGLEMENT a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ROTATING_HOOK_ENTANGLEMENT"^^xsd:token ;
+    skos:prefLabel "Rotating Hook Entanglement"@en .
+
+code-accident-type:ROTATING_PART_INJURY a skos:Concept ;
+    skos:broader code-accident-type:CAUGHT_IN ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ROTATING_PART_INJURY"^^xsd:token ;
+    skos:prefLabel "Rotating Part Injury"@en .
+
+code-accident-type:SCAFFOLD_COLLAPSE a skos:Concept ;
+    skos:broader code-accident-type:COLLAPSE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SCAFFOLD_COLLAPSE"^^xsd:token ;
+    skos:prefLabel "Scaffold Collapse"@en .
+
+code-accident-type:SCRATCH a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SCRATCH"^^xsd:token ;
+    skos:prefLabel "Scratch"@en .
+
+code-accident-type:SHARP_OBJECT_INJURY a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SHARP_OBJECT_INJURY"^^xsd:token ;
+    skos:prefLabel "Sharp Object Injury"@en .
+
+code-accident-type:SHELF_COLLAPSE a skos:Concept ;
+    skos:broader code-accident-type:COLLAPSE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SHELF_COLLAPSE"^^xsd:token ;
+    skos:prefLabel "Shelf Collapse"@en .
+
+code-accident-type:SKIN_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SKIN_BURN"^^xsd:token ;
+    skos:prefLabel "Skin Burn"@en .
+
+code-accident-type:SKIN_CONTACT a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SKIN_CONTACT"^^xsd:token ;
+    skos:prefLabel "Skin Contact"@en .
+
+code-accident-type:SKIN_EYE_CONTACT_CHEMICAL_INJURY a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SKIN_EYE_CONTACT_CHEMICAL_INJURY"^^xsd:token ;
+    skos:prefLabel "Skin Eye Contact Chemical Injury"@en .
+
+code-accident-type:SKIN_IRRITATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SKIN_IRRITATION"^^xsd:token ;
+    skos:prefLabel "Skin Irritation"@en .
+
+code-accident-type:SKIN_PENETRATION a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SKIN_PENETRATION"^^xsd:token ;
+    skos:prefLabel "Skin Penetration"@en .
+
+code-accident-type:SLIP a skos:Concept ;
+    skos:broader code-accident-type:SLIP_TRIP ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SLIP"^^xsd:token ;
+    skos:prefLabel "Slip"@en .
+
+code-accident-type:SOIL_COLLAPSE a skos:Concept ;
+    skos:broader code-accident-type:COLLAPSE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SOIL_COLLAPSE"^^xsd:token ;
+    skos:prefLabel "Soil Collapse"@en .
+
+code-accident-type:SPONTANEOUS_COMBUSTION_OF_ABSORBENT_PAD a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SPONTANEOUS_COMBUSTION_OF_ABSORBENT_PAD"^^xsd:token ;
+    skos:prefLabel "Spontaneous Combustion Of Absorbent Pad"@en .
+
+code-accident-type:STAIR_TRIP a skos:Concept ;
+    skos:broader code-accident-type:SLIP_TRIP ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "STAIR_TRIP"^^xsd:token ;
+    skos:prefLabel "Stair Trip"@en .
+
+code-accident-type:STEAM_BURN a skos:Concept ;
+    skos:broader code-accident-type:TEMP_EXTREME_CONTACT ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "STEAM_BURN"^^xsd:token ;
+    skos:prefLabel "Steam Burn"@en .
+
+code-accident-type:STRUCK_BY_ICE_FRAGMENT a skos:Concept ;
+    skos:broader code-accident-type:STRUCK_BY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "STRUCK_BY_ICE_FRAGMENT"^^xsd:token ;
+    skos:prefLabel "Struck By Ice Fragment"@en .
+
+code-accident-type:STRUCK_BY_SHARP_OBJECT a skos:Concept ;
+    skos:broader code-accident-type:STRUCK_BY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "STRUCK_BY_SHARP_OBJECT"^^xsd:token ;
+    skos:prefLabel "Struck By Sharp Object"@en .
+
+code-accident-type:THRESHER_BLADE_CUT a skos:Concept ;
+    skos:broader code-accident-type:CUT_LACERATION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "THRESHER_BLADE_CUT"^^xsd:token ;
+    skos:prefLabel "Thresher Blade Cut"@en .
+
+code-accident-type:TOXIC_GAS_INHALATION a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "TOXIC_GAS_INHALATION"^^xsd:token ;
+    skos:prefLabel "Toxic Gas Inhalation"@en .
+
+code-accident-type:TOXIC_GAS_POISONING a skos:Concept ;
+    skos:broader code-accident-type:CHEMICAL_EXPOSURE ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "TOXIC_GAS_POISONING"^^xsd:token ;
+    skos:prefLabel "Toxic Gas Poisoning"@en .
+
+code-accident-type:TRACTOR_TIPOVER a skos:Concept ;
+    skos:broader code-accident-type:CRUSHED_OVERTURNED ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "TRACTOR_TIPOVER"^^xsd:token ;
+    skos:prefLabel "Tractor Tipover"@en .
+
+code-accident-type:TRAFFIC_ACCIDENT a skos:Concept ;
+    skos:broader code-accident-type:WORKPLACE_TRAFFIC ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "TRAFFIC_ACCIDENT"^^xsd:token ;
+    skos:prefLabel "Traffic Accident"@en .
+
+code-accident-type:TRASH_BIN_FIRE a skos:Concept ;
+    skos:broader code-accident-type:FIRE_INJURY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "TRASH_BIN_FIRE"^^xsd:token ;
+    skos:prefLabel "Trash Bin Fire"@en .
+
+code-accident-type:TRAY_CONTACT_INJURY a skos:Concept ;
+    skos:broader code-accident-type:COLLISION ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "TRAY_CONTACT_INJURY"^^xsd:token ;
+    skos:prefLabel "Tray Contact Injury"@en .
+
+code-accident-type:TV_FALLING a skos:Concept ;
+    skos:broader code-accident-type:STRUCK_BY ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "TV_FALLING"^^xsd:token ;
+    skos:prefLabel "Tv Falling"@en .
+
+code-accident-type:USER_FALL a skos:Concept ;
+    skos:broader code-accident-type:FALL ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "USER_FALL"^^xsd:token ;
+    skos:prefLabel "User Fall"@en .
+
+code-hazardous-agent:ACRYLATE_RESIN_SKIN_CONTACT a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ACRYLATE_RESIN_SKIN_CONTACT"^^xsd:token ;
+    skos:prefLabel "Acrylate Resin Skin Contact"@en .
+
+code-hazardous-agent:AIRLESS_RESIDUAL_PRESSURE a skos:Concept ;
+    skos:broader code-hazardous-agent:UNKNOWN_AGENT ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "AIRLESS_RESIDUAL_PRESSURE"^^xsd:token ;
+    skos:prefLabel "Airless Residual Pressure"@en .
+
+code-hazardous-agent:ARC_FLASH a skos:Concept ;
+    skos:broader code-hazardous-agent:ELECTRICITY ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ARC_FLASH"^^xsd:token ;
+    skos:prefLabel "Arc Flash"@en .
+
+code-hazardous-agent:ASBESTOS_DUST a skos:Concept ;
+    skos:broader code-hazardous-agent:DUST ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ASBESTOS_DUST"^^xsd:token ;
+    skos:prefLabel "Asbestos Dust"@en .
+
+code-hazardous-agent:BENZENE a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "BENZENE"^^xsd:token ;
+    skos:prefLabel "Benzene"@en .
+
+code-hazardous-agent:BIOGAS_METHANE a skos:Concept ;
+    skos:broader code-hazardous-agent:TOXIC ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "BIOGAS_METHANE"^^xsd:token ;
+    skos:prefLabel "Biogas Methane"@en .
+
+code-hazardous-agent:BLOODBORNE_PATHOGEN a skos:Concept ;
+    skos:broader code-hazardous-agent:BIOLOGICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "BLOODBORNE_PATHOGEN"^^xsd:token ;
+    skos:prefLabel "Bloodborne Pathogen"@en .
+
+code-hazardous-agent:BONING_KNIFE a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "BONING_KNIFE"^^xsd:token ;
+    skos:prefLabel "Boning Knife"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:CAPACITOR_RESIDUAL_VOLTAGE a skos:Concept ;
+    skos:broader code-hazardous-agent:ELECTRICITY ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "CAPACITOR_RESIDUAL_VOLTAGE"^^xsd:token ;
+    skos:prefLabel "Capacitor Residual Voltage"@en .
+
+code-hazardous-agent:CHLORINE_AMMONIA_REACTION a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "CHLORINE_AMMONIA_REACTION"^^xsd:token ;
+    skos:prefLabel "Chlorine Ammonia Reaction"@en .
+
+code-hazardous-agent:COLD_FLOOR a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "COLD_FLOOR"^^xsd:token ;
+    skos:prefLabel "Cold Floor"@en .
+
+code-hazardous-agent:COMPRESSED_WASTE_METAL_FRAGMENT a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "COMPRESSED_WASTE_METAL_FRAGMENT"^^xsd:token ;
+    skos:prefLabel "Compressed Waste Metal Fragment"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:CONCENTRATED_ALKALI a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "CONCENTRATED_ALKALI"^^xsd:token ;
+    skos:prefLabel "Concentrated Alkali"@en .
+
+code-hazardous-agent:CONTAMINATED_FILTER_PARTICULATE_MOLD a skos:Concept ;
+    skos:broader code-hazardous-agent:DUST ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "CONTAMINATED_FILTER_PARTICULATE_MOLD"^^xsd:token ;
+    skos:prefLabel "Contaminated Filter Particulate Mold"@en .
+
+code-hazardous-agent:CORROSION a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "CORROSION"^^xsd:token ;
+    skos:prefLabel "Corrosion"@en .
+
+code-hazardous-agent:CRYOGENIC_AGENT a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "CRYOGENIC_AGENT"^^xsd:token ;
+    skos:prefLabel "Cryogenic Agent"@en .
+
+code-hazardous-agent:DEFECTIVE_HANDLE a skos:Concept ;
+    skos:broader code-hazardous-agent:UNKNOWN_AGENT ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "DEFECTIVE_HANDLE"^^xsd:token ;
+    skos:prefLabel "Defective Handle"@en .
+
+code-hazardous-agent:DEFECTIVE_STERILE_PACKAGING a skos:Concept ;
+    skos:broader code-hazardous-agent:UNKNOWN_AGENT ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "DEFECTIVE_STERILE_PACKAGING"^^xsd:token ;
+    skos:prefLabel "Defective Sterile Packaging"@en .
+
+code-hazardous-agent:DEGRADED_DEVELOPER_SOLUTION a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "DEGRADED_DEVELOPER_SOLUTION"^^xsd:token ;
+    skos:prefLabel "Degraded Developer Solution"@en .
+
+code-hazardous-agent:DENTAL_XRAY_REPEATED_EXPOSURE a skos:Concept ;
+    skos:broader code-hazardous-agent:RADIATION ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "DENTAL_XRAY_REPEATED_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Dental Xray Repeated Exposure"@en .
+
+code-hazardous-agent:DENTAL_X_RAY a skos:Concept ;
+    skos:broader code-hazardous-agent:RADIATION ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "DENTAL_X_RAY"^^xsd:token ;
+    skos:prefLabel "Dental X Ray"@en .
+
+code-hazardous-agent:DISTRIBUTION_BOARD a skos:Concept ;
+    skos:broader code-hazardous-agent:ELECTRICITY ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "DISTRIBUTION_BOARD"^^xsd:token ;
+    skos:prefLabel "Distribution Board"@en .
+
+code-hazardous-agent:EARPHONE_NOISE a skos:Concept ;
+    skos:broader code-hazardous-agent:NOISE ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "EARPHONE_NOISE"^^xsd:token ;
+    skos:prefLabel "Earphone Noise"@en .
+
+code-hazardous-agent:ELECTRICAL_OVERLOAD a skos:Concept ;
+    skos:broader code-hazardous-agent:ELECTRICITY ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ELECTRICAL_OVERLOAD"^^xsd:token ;
+    skos:prefLabel "Electrical Overload"@en .
+
+code-hazardous-agent:ELECTRICITY_WATER_CONTACT a skos:Concept ;
+    skos:broader code-hazardous-agent:ELECTRICITY ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ELECTRICITY_WATER_CONTACT"^^xsd:token ;
+    skos:prefLabel "Electricity Water Contact"@en .
+
+code-hazardous-agent:ELEVATOR_PIT_TOXIC_GAS a skos:Concept ;
+    skos:broader code-hazardous-agent:TOXIC ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ELEVATOR_PIT_TOXIC_GAS"^^xsd:token ;
+    skos:prefLabel "Elevator Pit Toxic Gas"@en .
+
+code-hazardous-agent:EXPOSED_OUTLET a skos:Concept ;
+    skos:broader code-hazardous-agent:ELECTRICITY ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "EXPOSED_OUTLET"^^xsd:token ;
+    skos:prefLabel "Exposed Outlet"@en .
+
+code-hazardous-agent:EXTREME_COLD_ENVIRONMENT a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "EXTREME_COLD_ENVIRONMENT"^^xsd:token ;
+    skos:prefLabel "Extreme Cold Environment"@en .
+
+code-hazardous-agent:EXTREME_COLD_SURFACE a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "EXTREME_COLD_SURFACE"^^xsd:token ;
+    skos:prefLabel "Extreme Cold Surface"@en .
+
+code-hazardous-agent:FEMALE_EXPOSURE_LIMIT_EXCEEDED a skos:Concept ;
+    skos:broader code-hazardous-agent:UNKNOWN_AGENT ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "FEMALE_EXPOSURE_LIMIT_EXCEEDED"^^xsd:token ;
+    skos:prefLabel "Female Exposure Limit Exceeded"@en .
+
+code-hazardous-agent:FISH_BONE_FOREIGN_OBJECT a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "FISH_BONE_FOREIGN_OBJECT"^^xsd:token ;
+    skos:prefLabel "Fish Bone Foreign Object"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:FORMALDEHYDE_SKIN_CONTACT a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "FORMALDEHYDE_SKIN_CONTACT"^^xsd:token ;
+    skos:prefLabel "Formaldehyde Skin Contact"@en .
+
+code-hazardous-agent:FRAGRANCE_VAPOR a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "FRAGRANCE_VAPOR"^^xsd:token ;
+    skos:prefLabel "Fragrance Vapor"@en .
+
+code-hazardous-agent:FUEL_SATURATED_ABSORBENT a skos:Concept ;
+    skos:broader code-hazardous-agent:TOXIC ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "FUEL_SATURATED_ABSORBENT"^^xsd:token ;
+    skos:prefLabel "Fuel Saturated Absorbent"@en .
+
+code-hazardous-agent:GASOLINE_MICRO_LEAKAGE a skos:Concept ;
+    skos:broader code-hazardous-agent:TOXIC ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "GASOLINE_MICRO_LEAKAGE"^^xsd:token ;
+    skos:prefLabel "Gasoline Micro Leakage"@en .
+
+code-hazardous-agent:GASOLINE_VAPOR a skos:Concept ;
+    skos:broader code-hazardous-agent:TOXIC ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "GASOLINE_VAPOR"^^xsd:token ;
+    skos:prefLabel "Gasoline Vapor"@en .
+
+code-hazardous-agent:GLASS_FRAGMENT a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "GLASS_FRAGMENT"^^xsd:token ;
+    skos:prefLabel "Glass Fragment"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:GLASS_FRAGMENT_ON_FLOOR a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "GLASS_FRAGMENT_ON_FLOOR"^^xsd:token ;
+    skos:prefLabel "Glass Fragment On Floor"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:GLUTARALDEHYDE_VAPOR a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "GLUTARALDEHYDE_VAPOR"^^xsd:token ;
+    skos:prefLabel "Glutaraldehyde Vapor"@en .
+
+code-hazardous-agent:GRINDER_FRAGMENT a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "GRINDER_FRAGMENT"^^xsd:token ;
+    skos:prefLabel "Grinder Fragment"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:HEAVY_OBJECT a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HEAVY_OBJECT"^^xsd:token ;
+    skos:prefLabel "Heavy Object"@en ;
+    skos:relatedMatch code-accident-type:STRUCK_BY .
+
+code-hazardous-agent:HIGH_HEAT a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HIGH_HEAT"^^xsd:token ;
+    skos:prefLabel "High Heat"@en .
+
+code-hazardous-agent:HIGH_PRESSURE_AIR_DUST a skos:Concept ;
+    skos:broader code-hazardous-agent:DUST ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HIGH_PRESSURE_AIR_DUST"^^xsd:token ;
+    skos:prefLabel "High Pressure Air Dust"@en .
+
+code-hazardous-agent:HIGH_TEMPERATURE_ENVIRONMENT a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HIGH_TEMPERATURE_ENVIRONMENT"^^xsd:token ;
+    skos:prefLabel "High Temperature Environment"@en .
+
+code-hazardous-agent:HIGH_TEMPERATURE_STEAM a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HIGH_TEMPERATURE_STEAM"^^xsd:token ;
+    skos:prefLabel "High Temperature Steam"@en .
+
+code-hazardous-agent:HOT_EQUIPMENT a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HOT_EQUIPMENT"^^xsd:token ;
+    skos:prefLabel "Hot Equipment"@en .
+
+code-hazardous-agent:HOT_PARTS a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HOT_PARTS"^^xsd:token ;
+    skos:prefLabel "Hot Parts"@en .
+
+code-hazardous-agent:HOT_SURFACE a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HOT_SURFACE"^^xsd:token ;
+    skos:prefLabel "Hot Surface"@en .
+
+code-hazardous-agent:HOT_TRAY a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HOT_TRAY"^^xsd:token ;
+    skos:prefLabel "Hot Tray"@en .
+
+code-hazardous-agent:HOT_WATER a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HOT_WATER"^^xsd:token ;
+    skos:prefLabel "Hot Water"@en .
+
+code-hazardous-agent:INFECTIOUS_MEDICAL_WASTE a skos:Concept ;
+    skos:broader code-hazardous-agent:BIOLOGICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "INFECTIOUS_MEDICAL_WASTE"^^xsd:token ;
+    skos:prefLabel "Infectious Medical Waste"@en .
+
+code-hazardous-agent:KARAOKE_NOISE a skos:Concept ;
+    skos:broader code-hazardous-agent:NOISE ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "KARAOKE_NOISE"^^xsd:token ;
+    skos:prefLabel "Karaoke Noise"@en .
+
+code-hazardous-agent:KARAOKE_ROOM_NOISE a skos:Concept ;
+    skos:broader code-hazardous-agent:NOISE ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "KARAOKE_ROOM_NOISE"^^xsd:token ;
+    skos:prefLabel "Karaoke Room Noise"@en .
+
+code-hazardous-agent:LACK_OF_VACCINATION a skos:Concept ;
+    skos:broader code-hazardous-agent:BIOLOGICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "LACK_OF_VACCINATION"^^xsd:token ;
+    skos:prefLabel "Lack Of Vaccination"@en .
+
+code-hazardous-agent:LEACHATE_HAZARDOUS_SUBSTANCE a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "LEACHATE_HAZARDOUS_SUBSTANCE"^^xsd:token ;
+    skos:prefLabel "Leachate Hazardous Substance"@en .
+
+code-hazardous-agent:LEAD_PAINT_DUST a skos:Concept ;
+    skos:broader code-hazardous-agent:DUST ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "LEAD_PAINT_DUST"^^xsd:token ;
+    skos:prefLabel "Lead Paint Dust"@en .
+
+code-hazardous-agent:MERCURY_AMALGAM_VAPOR a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "MERCURY_AMALGAM_VAPOR"^^xsd:token ;
+    skos:prefLabel "Mercury Amalgam Vapor"@en .
+
+code-hazardous-agent:MISLABELED_DETERGENT a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "MISLABELED_DETERGENT"^^xsd:token ;
+    skos:prefLabel "Mislabeled Detergent"@en .
+
+code-hazardous-agent:MIXED_DETERGENT_GAS a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "MIXED_DETERGENT_GAS"^^xsd:token ;
+    skos:prefLabel "Mixed Detergent Gas"@en .
+
+code-hazardous-agent:NOISE_105_DB a skos:Concept ;
+    skos:broader code-hazardous-agent:NOISE ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "NOISE_105_DB"^^xsd:token ;
+    skos:prefLabel "Noise 105 Db"@en .
+
+code-hazardous-agent:OXYGEN_DEFICIENCY a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "OXYGEN_DEFICIENCY"^^xsd:token ;
+    skos:prefLabel "Oxygen Deficiency"@en ;
+    skos:relatedMatch code-accident-type:OXYGEN_DEFICIENCY .
+
+code-hazardous-agent:PROLONGED_COLD_EXPOSURE a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "PROLONGED_COLD_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Prolonged Cold Exposure"@en .
+
+code-hazardous-agent:PROLONGED_EXPOSURE_TO_COLD_ENVIRONMENT a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "PROLONGED_EXPOSURE_TO_COLD_ENVIRONMENT"^^xsd:token ;
+    skos:prefLabel "Prolonged Exposure To Cold Environment"@en .
+
+code-hazardous-agent:RADIANT_HEAT a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "RADIANT_HEAT"^^xsd:token ;
+    skos:prefLabel "Radiant Heat"@en .
+
+code-hazardous-agent:RADIATION_EXPOSURE a skos:Concept ;
+    skos:broader code-hazardous-agent:RADIATION ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "RADIATION_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Radiation Exposure"@en .
+
+code-hazardous-agent:RADIATION_EXPOSURE_DURING_PREGNANCY a skos:Concept ;
+    skos:broader code-hazardous-agent:RADIATION ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "RADIATION_EXPOSURE_DURING_PREGNANCY"^^xsd:token ;
+    skos:prefLabel "Radiation Exposure During Pregnancy"@en .
+
+code-hazardous-agent:REPEATED_EXTREME_COLD_EXPOSURE a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "REPEATED_EXTREME_COLD_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Repeated Extreme Cold Exposure"@en .
+
+code-hazardous-agent:REPEATED_RADIATION_EXPOSURE a skos:Concept ;
+    skos:broader code-hazardous-agent:RADIATION ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "REPEATED_RADIATION_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Repeated Radiation Exposure"@en .
+
+code-hazardous-agent:RESIDUAL_COMBUSTION_GAS a skos:Concept ;
+    skos:broader code-hazardous-agent:TOXIC ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "RESIDUAL_COMBUSTION_GAS"^^xsd:token ;
+    skos:prefLabel "Residual Combustion Gas"@en .
+
+code-hazardous-agent:RESIDUAL_PESTICIDE a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "RESIDUAL_PESTICIDE"^^xsd:token ;
+    skos:prefLabel "Residual Pesticide"@en .
+
+code-hazardous-agent:RESIDUAL_ROTATION a skos:Concept ;
+    skos:broader code-hazardous-agent:UNKNOWN_AGENT ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "RESIDUAL_ROTATION"^^xsd:token ;
+    skos:prefLabel "Residual Rotation"@en .
+
+code-hazardous-agent:ROD_FOREIGN_OBJECT a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ROD_FOREIGN_OBJECT"^^xsd:token ;
+    skos:prefLabel "Rod Foreign Object"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:ROPE_KINK a skos:Concept ;
+    skos:broader code-hazardous-agent:UNKNOWN_AGENT ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ROPE_KINK"^^xsd:token ;
+    skos:prefLabel "Rope Kink"@en .
+
+code-hazardous-agent:SCATTERED_RADIATION a skos:Concept ;
+    skos:broader code-hazardous-agent:RADIATION ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SCATTERED_RADIATION"^^xsd:token ;
+    skos:prefLabel "Scattered Radiation"@en .
+
+code-hazardous-agent:SHARP_BLADE a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SHARP_BLADE"^^xsd:token ;
+    skos:prefLabel "Sharp Blade"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:SHARP_FASTENER a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SHARP_FASTENER"^^xsd:token ;
+    skos:prefLabel "Sharp Fastener"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:SHARP_FOREIGN_OBJECT a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SHARP_FOREIGN_OBJECT"^^xsd:token ;
+    skos:prefLabel "Sharp Foreign Object"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:SHARP_GLASS a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SHARP_GLASS"^^xsd:token ;
+    skos:prefLabel "Sharp Glass"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:SHARP_METAL_PROTRUSION a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SHARP_METAL_PROTRUSION"^^xsd:token ;
+    skos:prefLabel "Sharp Metal Protrusion"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:SHARP_RESIDUAL_IN_ASH a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SHARP_RESIDUAL_IN_ASH"^^xsd:token ;
+    skos:prefLabel "Sharp Residual In Ash"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:SHARP_SHEET_EDGE a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SHARP_SHEET_EDGE"^^xsd:token ;
+    skos:prefLabel "Sharp Sheet Edge"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:SHARP_WASTE a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SHARP_WASTE"^^xsd:token ;
+    skos:prefLabel "Sharp Waste"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:SMALL_QUANTITY_GASOLINE a skos:Concept ;
+    skos:broader code-hazardous-agent:TOXIC ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SMALL_QUANTITY_GASOLINE"^^xsd:token ;
+    skos:prefLabel "Small Quantity Gasoline"@en .
+
+code-hazardous-agent:SOLVENT_VAPOR a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "SOLVENT_VAPOR"^^xsd:token ;
+    skos:prefLabel "Solvent Vapor"@en .
+
+code-hazardous-agent:STATIC_ELECTRICITY a skos:Concept ;
+    skos:broader code-hazardous-agent:ELECTRICITY ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "STATIC_ELECTRICITY"^^xsd:token ;
+    skos:prefLabel "Static Electricity"@en .
+
+code-hazardous-agent:STRONG_ACID_DESCALER a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "STRONG_ACID_DESCALER"^^xsd:token ;
+    skos:prefLabel "Strong Acid Descaler"@en .
+
+code-hazardous-agent:TOBACCO_SMOKE a skos:Concept ;
+    skos:broader code-hazardous-agent:TOXIC ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "TOBACCO_SMOKE"^^xsd:token ;
+    skos:prefLabel "Tobacco Smoke"@en .
+
+code-hazardous-agent:TWISTED_WIRE a skos:Concept ;
+    skos:broader code-hazardous-agent:ELECTRICITY ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "TWISTED_WIRE"^^xsd:token ;
+    skos:prefLabel "Twisted Wire"@en .
+
+code-hazardous-agent:ULTRAVIOLET_RADIATION a skos:Concept ;
+    skos:broader code-hazardous-agent:RADIATION ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ULTRAVIOLET_RADIATION"^^xsd:token ;
+    skos:prefLabel "Ultraviolet Radiation"@en .
+
+code-hazardous-agent:UNGUARDED_BLADE a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "UNGUARDED_BLADE"^^xsd:token ;
+    skos:prefLabel "Unguarded Blade"@en ;
+    skos:relatedMatch code-accident-type:CUT_LACERATION .
+
+code-hazardous-agent:UNSTABLE_DISPLAY_SHELF a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "UNSTABLE_DISPLAY_SHELF"^^xsd:token ;
+    skos:prefLabel "Unstable Display Shelf"@en ;
+    skos:relatedMatch code-accident-type:STRUCK_BY .
+
+code-hazardous-agent:UV_LAMP_RESIDUAL_HEAT a skos:Concept ;
+    skos:broader code-hazardous-agent:HEAT_COLD ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "UV_LAMP_RESIDUAL_HEAT"^^xsd:token ;
+    skos:prefLabel "Uv Lamp Residual Heat"@en .
+
+code-hazardous-agent:VIOLENT_CUSTOMER a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "VIOLENT_CUSTOMER"^^xsd:token ;
+    skos:prefLabel "Violent Customer"@en ;
+    skos:relatedMatch code-accident-type:VIOLENCE .
+
+code-hazardous-agent:WATER_BASED_PAINT_MIST a skos:Concept ;
+    skos:broader code-hazardous-agent:CHEMICAL ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "WATER_BASED_PAINT_MIST"^^xsd:token ;
+    skos:prefLabel "Water Based Paint Mist"@en .
+
+code-hazardous-agent:WET_FLOOR a skos:Concept ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "WET_FLOOR"^^xsd:token ;
+    skos:prefLabel "Wet Floor"@en ;
+    skos:relatedMatch code-accident-type:SLIP_TRIP .
+
+code-work-context:ACROPHOBIA_WORK a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ACROPHOBIA_WORK"^^xsd:token ;
+    skos:prefLabel "Acrophobia Work"@en .
+
+code-work-context:ACUPUNCTURE_WORK a skos:Concept ;
+    skos:broader code-work-context:PATHOGEN_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ACUPUNCTURE_WORK"^^xsd:token ;
+    skos:prefLabel "Acupuncture Work"@en .
+
+code-work-context:AIRLESS_SPRAYER a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "AIRLESS_SPRAYER"^^xsd:token ;
+    skos:prefLabel "Airless Sprayer"@en .
+
+code-work-context:AISLE_OBSTRUCTION a skos:Concept ;
+    skos:broader code-work-context:PASSAGE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "AISLE_OBSTRUCTION"^^xsd:token ;
+    skos:prefLabel "Aisle Obstruction"@en .
+
+code-work-context:ANIMAL_FEEDING a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ANIMAL_FEEDING"^^xsd:token ;
+    skos:prefLabel "Animal Feeding"@en .
+
+code-work-context:AQUACULTURE_TANK a skos:Concept ;
+    skos:broader code-work-context:CONFINED_SPACE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "AQUACULTURE_TANK"^^xsd:token ;
+    skos:prefLabel "Aquaculture Tank"@en .
+
+code-work-context:AUTOCLAVE_STERILIZATION a skos:Concept ;
+    skos:broader code-work-context:PATHOGEN_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "AUTOCLAVE_STERILIZATION"^^xsd:token ;
+    skos:prefLabel "Autoclave Sterilization"@en .
+
+code-work-context:AWKWARD_POSTURE_WORK a skos:Concept ;
+    skos:broader code-work-context:ERGONOMIC_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "AWKWARD_POSTURE_WORK"^^xsd:token ;
+    skos:prefLabel "Awkward Posture Work"@en .
+
+code-work-context:BAND_SAW a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "BAND_SAW"^^xsd:token ;
+    skos:prefLabel "Band Saw"@en .
+
+code-work-context:BIOMEDICAL_WASTE a skos:Concept ;
+    skos:broader code-work-context:PATHOGEN_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "BIOMEDICAL_WASTE"^^xsd:token ;
+    skos:prefLabel "Biomedical Waste"@en .
+
+code-work-context:BODY_TRANSPORT a skos:Concept ;
+    skos:broader code-work-context:PATHOGEN_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "BODY_TRANSPORT"^^xsd:token ;
+    skos:prefLabel "Body Transport"@en .
+
+code-work-context:BOX_HANDLING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "BOX_HANDLING"^^xsd:token ;
+    skos:prefLabel "Box Handling"@en .
+
+code-work-context:BRACKET_DEFECT a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "BRACKET_DEFECT"^^xsd:token ;
+    skos:prefLabel "Bracket Defect"@en .
+
+code-work-context:BREAD_SLICER a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "BREAD_SLICER"^^xsd:token ;
+    skos:prefLabel "Bread Slicer"@en .
+
+code-work-context:BYSTANDER_WORKER_EXPOSURE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "BYSTANDER_WORKER_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Bystander Worker Exposure"@en .
+
+code-work-context:CAGE_CLEANING a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CAGE_CLEANING"^^xsd:token ;
+    skos:prefLabel "Cage Cleaning"@en .
+
+code-work-context:CARDIO_EQUIPMENT a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CARDIO_EQUIPMENT"^^xsd:token ;
+    skos:prefLabel "Cardio Equipment"@en .
+
+code-work-context:CASHIER_AREA a skos:Concept ;
+    skos:broader code-work-context:GENERAL_WORKPLACE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CASHIER_AREA"^^xsd:token ;
+    skos:prefLabel "Cashier Area"@en .
+
+code-work-context:CAT_HANDLING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CAT_HANDLING"^^xsd:token ;
+    skos:prefLabel "Cat Handling"@en .
+
+code-work-context:CHEMICAL_APPLICATION a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CHEMICAL_APPLICATION"^^xsd:token ;
+    skos:prefLabel "Chemical Application"@en .
+
+code-work-context:CHEMICAL_CLEANING a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CHEMICAL_CLEANING"^^xsd:token ;
+    skos:prefLabel "Chemical Cleaning"@en .
+
+code-work-context:CHEMICAL_DISINFECTION a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CHEMICAL_DISINFECTION"^^xsd:token ;
+    skos:prefLabel "Chemical Disinfection"@en .
+
+code-work-context:CHEMICAL_MIXING a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CHEMICAL_MIXING"^^xsd:token ;
+    skos:prefLabel "Chemical Mixing"@en .
+
+code-work-context:CHEMICAL_SPOTTING a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CHEMICAL_SPOTTING"^^xsd:token ;
+    skos:prefLabel "Chemical Spotting"@en .
+
+code-work-context:CHEMICAL_WASTE a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CHEMICAL_WASTE"^^xsd:token ;
+    skos:prefLabel "Chemical Waste"@en .
+
+code-work-context:CLEANING_NIGHT a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CLEANING_NIGHT"^^xsd:token ;
+    skos:prefLabel "Cleaning Night"@en .
+
+code-work-context:CLEANING_WET a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CLEANING_WET"^^xsd:token ;
+    skos:prefLabel "Cleaning Wet"@en .
+
+code-work-context:CLIMBING_WALL a skos:Concept ;
+    skos:broader code-work-context:SCAFFOLD ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CLIMBING_WALL"^^xsd:token ;
+    skos:prefLabel "Climbing Wall"@en .
+
+code-work-context:COLD_DISPLAY a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "COLD_DISPLAY"^^xsd:token ;
+    skos:prefLabel "Cold Display"@en .
+
+code-work-context:COLD_ROOM_ACCESS a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "COLD_ROOM_ACCESS"^^xsd:token ;
+    skos:prefLabel "Cold Room Access"@en .
+
+code-work-context:COLD_ROOM_MORTUARY a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "COLD_ROOM_MORTUARY"^^xsd:token ;
+    skos:prefLabel "Cold Room Mortuary"@en .
+
+code-work-context:COLD_STORAGE a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "COLD_STORAGE"^^xsd:token ;
+    skos:prefLabel "Cold Storage"@en .
+
+code-work-context:COMMUNICATION_FAILURE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "COMMUNICATION_FAILURE"^^xsd:token ;
+    skos:prefLabel "Communication Failure"@en .
+
+code-work-context:COMPRESSION_DEVICE_RESTART a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "COMPRESSION_DEVICE_RESTART"^^xsd:token ;
+    skos:prefLabel "Compression Device Restart"@en .
+
+code-work-context:CONFINED_COATING a skos:Concept ;
+    skos:broader code-work-context:CONFINED_SPACE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CONFINED_COATING"^^xsd:token ;
+    skos:prefLabel "Confined Coating"@en .
+
+code-work-context:CONFINED_SPACE_CLEANING a skos:Concept ;
+    skos:broader code-work-context:CONFINED_SPACE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CONFINED_SPACE_CLEANING"^^xsd:token ;
+    skos:prefLabel "Confined Space Cleaning"@en .
+
+code-work-context:CONVEYOR_BELT a skos:Concept ;
+    skos:broader code-work-context:CONVEYOR ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CONVEYOR_BELT"^^xsd:token ;
+    skos:prefLabel "Conveyor Belt"@en .
+
+code-work-context:CONVEYOR_WASH a skos:Concept ;
+    skos:broader code-work-context:CONVEYOR ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CONVEYOR_WASH"^^xsd:token ;
+    skos:prefLabel "Conveyor Wash"@en .
+
+code-work-context:CREMATION_FURNACE a skos:Concept ;
+    skos:broader code-work-context:PATHOGEN_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CREMATION_FURNACE"^^xsd:token ;
+    skos:prefLabel "Cremation Furnace"@en .
+
+code-work-context:CROWD_MANAGEMENT a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CROWD_MANAGEMENT"^^xsd:token ;
+    skos:prefLabel "Crowd Management"@en .
+
+code-work-context:DEEP_FRYING a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DEEP_FRYING"^^xsd:token ;
+    skos:prefLabel "Deep Frying"@en .
+
+code-work-context:DELIVERY_RIDER a skos:Concept ;
+    skos:broader code-work-context:VEHICLE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DELIVERY_RIDER"^^xsd:token ;
+    skos:prefLabel "Delivery Rider"@en .
+
+code-work-context:DENTAL_PROCEDURE a skos:Concept ;
+    skos:broader code-work-context:PATHOGEN_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DENTAL_PROCEDURE"^^xsd:token ;
+    skos:prefLabel "Dental Procedure"@en .
+
+code-work-context:DISPLAY_SETUP a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DISPLAY_SETUP"^^xsd:token ;
+    skos:prefLabel "Display Setup"@en .
+
+code-work-context:DOG_GROOMING a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DOG_GROOMING"^^xsd:token ;
+    skos:prefLabel "Dog Grooming"@en .
+
+code-work-context:DOUGH_MACHINE a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DOUGH_MACHINE"^^xsd:token ;
+    skos:prefLabel "Dough Machine"@en .
+
+code-work-context:DRYER_OPERATION a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DRYER_OPERATION"^^xsd:token ;
+    skos:prefLabel "Dryer Operation"@en .
+
+code-work-context:DRY_CLEANING_SOLVENT a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DRY_CLEANING_SOLVENT"^^xsd:token ;
+    skos:prefLabel "Dry Cleaning Solvent"@en .
+
+code-work-context:ELECTRICAL_HAZARD a skos:Concept ;
+    skos:broader code-work-context:ELECTRICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ELECTRICAL_HAZARD"^^xsd:token ;
+    skos:prefLabel "Electrical Hazard"@en .
+
+code-work-context:ELECTRICAL_OVERLOAD a skos:Concept ;
+    skos:broader code-work-context:ELECTRICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ELECTRICAL_OVERLOAD"^^xsd:token ;
+    skos:prefLabel "Electrical Overload"@en .
+
+code-work-context:ELECTRIC_POLISHING_ROLLER a skos:Concept ;
+    skos:broader code-work-context:ELECTRICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ELECTRIC_POLISHING_ROLLER"^^xsd:token ;
+    skos:prefLabel "Electric Polishing Roller"@en .
+
+code-work-context:EMBALMING a skos:Concept ;
+    skos:broader code-work-context:PATHOGEN_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "EMBALMING"^^xsd:token ;
+    skos:prefLabel "Embalming"@en .
+
+code-work-context:EV_BATTERY a skos:Concept ;
+    skos:broader code-work-context:ELECTRICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "EV_BATTERY"^^xsd:token ;
+    skos:prefLabel "Ev Battery"@en .
+
+code-work-context:EXCESSIVE_MOTION_RANGE a skos:Concept ;
+    skos:broader code-work-context:ERGONOMIC_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "EXCESSIVE_MOTION_RANGE"^^xsd:token ;
+    skos:prefLabel "Excessive Motion Range"@en .
+
+code-work-context:EXERCISE_CLASS a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "EXERCISE_CLASS"^^xsd:token ;
+    skos:prefLabel "Exercise Class"@en .
+
+code-work-context:EXPIRED_MEDICATION_USE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "EXPIRED_MEDICATION_USE"^^xsd:token ;
+    skos:prefLabel "Expired Medication Use"@en .
+
+code-work-context:EXTERIOR_ROPE a skos:Concept ;
+    skos:broader code-work-context:SCAFFOLD ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "EXTERIOR_ROPE"^^xsd:token ;
+    skos:prefLabel "Exterior Rope"@en .
+
+code-work-context:FARM_MACHINERY a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FARM_MACHINERY"^^xsd:token ;
+    skos:prefLabel "Farm Machinery"@en .
+
+code-work-context:FERTILIZER_HANDLING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FERTILIZER_HANDLING"^^xsd:token ;
+    skos:prefLabel "Fertilizer Handling"@en .
+
+code-work-context:FILTER_MAINTENANCE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FILTER_MAINTENANCE"^^xsd:token ;
+    skos:prefLabel "Filter Maintenance"@en .
+
+code-work-context:FIRE_DETECTION_FAILURE a skos:Concept ;
+    skos:broader code-work-context:FIRE_EXPLOSION_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FIRE_DETECTION_FAILURE"^^xsd:token ;
+    skos:prefLabel "Fire Detection Failure"@en .
+
+code-work-context:FIRE_DETECTOR_DISABLED a skos:Concept ;
+    skos:broader code-work-context:FIRE_EXPLOSION_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FIRE_DETECTOR_DISABLED"^^xsd:token ;
+    skos:prefLabel "Fire Detector Disabled"@en .
+
+code-work-context:FIRE_EVACUATION a skos:Concept ;
+    skos:broader code-work-context:FIRE_EXPLOSION_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FIRE_EVACUATION"^^xsd:token ;
+    skos:prefLabel "Fire Evacuation"@en .
+
+code-work-context:FIRE_EXTINGUISHER_DEFECTIVE a skos:Concept ;
+    skos:broader code-work-context:FIRE_EXPLOSION_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FIRE_EXTINGUISHER_DEFECTIVE"^^xsd:token ;
+    skos:prefLabel "Fire Extinguisher Defective"@en .
+
+code-work-context:FIRST_AID_FAILURE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FIRST_AID_FAILURE"^^xsd:token ;
+    skos:prefLabel "First Aid Failure"@en .
+
+code-work-context:FISH_CUTTING a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FISH_CUTTING"^^xsd:token ;
+    skos:prefLabel "Fish Cutting"@en .
+
+code-work-context:FLOOR_MACHINE a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FLOOR_MACHINE"^^xsd:token ;
+    skos:prefLabel "Floor Machine"@en .
+
+code-work-context:FLORAL_ARRANGEMENT a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FLORAL_ARRANGEMENT"^^xsd:token ;
+    skos:prefLabel "Floral Arrangement"@en .
+
+code-work-context:FLOUR_HANDLING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FLOUR_HANDLING"^^xsd:token ;
+    skos:prefLabel "Flour Handling"@en .
+
+code-work-context:FOLDING_MACHINE a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FOLDING_MACHINE"^^xsd:token ;
+    skos:prefLabel "Folding Machine"@en .
+
+code-work-context:FOOD_PREP a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FOOD_PREP"^^xsd:token ;
+    skos:prefLabel "Food Prep"@en .
+
+code-work-context:FORKLIFT_OPERATION a skos:Concept ;
+    skos:broader code-work-context:VEHICLE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FORKLIFT_OPERATION"^^xsd:token ;
+    skos:prefLabel "Forklift Operation"@en .
+
+code-work-context:FREEZER_WORK a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FREEZER_WORK"^^xsd:token ;
+    skos:prefLabel "Freezer Work"@en .
+
+code-work-context:FREE_WEIGHT_ZONE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FREE_WEIGHT_ZONE"^^xsd:token ;
+    skos:prefLabel "Free Weight Zone"@en .
+
+code-work-context:FUEL_DISPENSING a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FUEL_DISPENSING"^^xsd:token ;
+    skos:prefLabel "Fuel Dispensing"@en .
+
+code-work-context:FUEL_SPILL a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FUEL_SPILL"^^xsd:token ;
+    skos:prefLabel "Fuel Spill"@en .
+
+code-work-context:FUNERAL_HALL_SETUP a skos:Concept ;
+    skos:broader code-work-context:PATHOGEN_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FUNERAL_HALL_SETUP"^^xsd:token ;
+    skos:prefLabel "Funeral Hall Setup"@en .
+
+code-work-context:GARMENT_SORTING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "GARMENT_SORTING"^^xsd:token ;
+    skos:prefLabel "Garment Sorting"@en .
+
+code-work-context:GAS_APPLIANCE a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "GAS_APPLIANCE"^^xsd:token ;
+    skos:prefLabel "Gas Appliance"@en .
+
+code-work-context:GREENHOUSE_WORK a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "GREENHOUSE_WORK"^^xsd:token ;
+    skos:prefLabel "Greenhouse Work"@en .
+
+code-work-context:GRINDING a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "GRINDING"^^xsd:token ;
+    skos:prefLabel "Grinding"@en .
+
+code-work-context:GUILLOTINE_CUTTER a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "GUILLOTINE_CUTTER"^^xsd:token ;
+    skos:prefLabel "Guillotine Cutter"@en .
+
+code-work-context:HAIR_CHEMICAL a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HAIR_CHEMICAL"^^xsd:token ;
+    skos:prefLabel "Hair Chemical"@en .
+
+code-work-context:HAIR_WASH a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HAIR_WASH"^^xsd:token ;
+    skos:prefLabel "Hair Wash"@en .
+
+code-work-context:HANDRAIL_DEFECT a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HANDRAIL_DEFECT"^^xsd:token ;
+    skos:prefLabel "Handrail Defect"@en .
+
+code-work-context:HARVEST_WORK a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HARVEST_WORK"^^xsd:token ;
+    skos:prefLabel "Harvest Work"@en .
+
+code-work-context:HEAVY_FISH_BOX a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HEAVY_FISH_BOX"^^xsd:token ;
+    skos:prefLabel "Heavy Fish Box"@en .
+
+code-work-context:HEAVY_FURNITURE a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HEAVY_FURNITURE"^^xsd:token ;
+    skos:prefLabel "Heavy Furniture"@en .
+
+code-work-context:HEAVY_LIFTING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HEAVY_LIFTING"^^xsd:token ;
+    skos:prefLabel "Heavy Lifting"@en .
+
+code-work-context:HEAVY_MEAT_HANDLING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HEAVY_MEAT_HANDLING"^^xsd:token ;
+    skos:prefLabel "Heavy Meat Handling"@en .
+
+code-work-context:HIGH_PRESSURE_WASH a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HIGH_PRESSURE_WASH"^^xsd:token ;
+    skos:prefLabel "High Pressure Wash"@en .
+
+code-work-context:HIGH_RISE_WINDOW a skos:Concept ;
+    skos:broader code-work-context:SCAFFOLD ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HIGH_RISE_WINDOW"^^xsd:token ;
+    skos:prefLabel "High Rise Window"@en .
+
+code-work-context:HIGH_SHELF_WORK a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HIGH_SHELF_WORK"^^xsd:token ;
+    skos:prefLabel "High Shelf Work"@en .
+
+code-work-context:HOPPER_BLADE_WORK a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HOPPER_BLADE_WORK"^^xsd:token ;
+    skos:prefLabel "Hopper Blade Work"@en .
+
+code-work-context:HOT_BEVERAGE a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HOT_BEVERAGE"^^xsd:token ;
+    skos:prefLabel "Hot Beverage"@en .
+
+code-work-context:HOT_TOOL a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HOT_TOOL"^^xsd:token ;
+    skos:prefLabel "Hot Tool"@en .
+
+code-work-context:HOT_TRAY_TRANSPORT a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HOT_TRAY_TRANSPORT"^^xsd:token ;
+    skos:prefLabel "Hot Tray Transport"@en .
+
+code-work-context:ICE_HANDLING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ICE_HANDLING"^^xsd:token ;
+    skos:prefLabel "Ice Handling"@en .
+
+code-work-context:INK_SOLVENT a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "INK_SOLVENT"^^xsd:token ;
+    skos:prefLabel "Ink Solvent"@en .
+
+code-work-context:INTERIOR_CLEANING a skos:Concept ;
+    skos:broader code-work-context:VEHICLE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "INTERIOR_CLEANING"^^xsd:token ;
+    skos:prefLabel "Interior Cleaning"@en .
+
+code-work-context:INTERLOCK_BYPASS a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "INTERLOCK_BYPASS"^^xsd:token ;
+    skos:prefLabel "Interlock Bypass"@en .
+
+code-work-context:IRRIGATION a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "IRRIGATION"^^xsd:token ;
+    skos:prefLabel "Irrigation"@en .
+
+code-work-context:KITCHEN_COOKING a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "KITCHEN_COOKING"^^xsd:token ;
+    skos:prefLabel "Kitchen Cooking"@en .
+
+code-work-context:KNIFE_WORK a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "KNIFE_WORK"^^xsd:token ;
+    skos:prefLabel "Knife Work"@en .
+
+code-work-context:LADDER a skos:Concept ;
+    skos:broader code-work-context:SCAFFOLD ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LADDER"^^xsd:token ;
+    skos:prefLabel "Ladder"@en .
+
+code-work-context:LADDER_INTERIOR a skos:Concept ;
+    skos:broader code-work-context:SCAFFOLD ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LADDER_INTERIOR"^^xsd:token ;
+    skos:prefLabel "Ladder Interior"@en .
+
+code-work-context:LAMINATING_ROLLER a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LAMINATING_ROLLER"^^xsd:token ;
+    skos:prefLabel "Laminating Roller"@en .
+
+code-work-context:LANDFILL_OPERATION a skos:Concept ;
+    skos:broader code-work-context:WASTE_MGMT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LANDFILL_OPERATION"^^xsd:token ;
+    skos:prefLabel "Landfill Operation"@en .
+
+code-work-context:LIFT_WORK a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LIFT_WORK"^^xsd:token ;
+    skos:prefLabel "Lift Work"@en .
+
+code-work-context:LIVE_POWER_REPAIR a skos:Concept ;
+    skos:broader code-work-context:ELECTRICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LIVE_POWER_REPAIR"^^xsd:token ;
+    skos:prefLabel "Live Power Repair"@en .
+
+code-work-context:LOADING_DOCK a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LOADING_DOCK"^^xsd:token ;
+    skos:prefLabel "Loading Dock"@en .
+
+code-work-context:LOOSE_SAFETY_COVER a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LOOSE_SAFETY_COVER"^^xsd:token ;
+    skos:prefLabel "Loose Safety Cover"@en .
+
+code-work-context:LOTO_NOT_APPLIED a skos:Concept ;
+    skos:broader code-work-context:SAFETY_MGMT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LOTO_NOT_APPLIED"^^xsd:token ;
+    skos:prefLabel "Loto Not Applied"@en .
+
+code-work-context:MEAT_GRINDING a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "MEAT_GRINDING"^^xsd:token ;
+    skos:prefLabel "Meat Grinding"@en .
+
+code-work-context:MEAT_SLICER a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "MEAT_SLICER"^^xsd:token ;
+    skos:prefLabel "Meat Slicer"@en .
+
+code-work-context:MEDICATION_HANDLING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "MEDICATION_HANDLING"^^xsd:token ;
+    skos:prefLabel "Medication Handling"@en .
+
+code-work-context:NAIL_CHEMICAL a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "NAIL_CHEMICAL"^^xsd:token ;
+    skos:prefLabel "Nail Chemical"@en .
+
+code-work-context:NAIL_GUN a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "NAIL_GUN"^^xsd:token ;
+    skos:prefLabel "Nail Gun"@en .
+
+code-work-context:NEARBY_WORKER_PROXIMITY a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "NEARBY_WORKER_PROXIMITY"^^xsd:token ;
+    skos:prefLabel "Nearby Worker Proximity"@en .
+
+code-work-context:NIGHT_SOLO a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "NIGHT_SOLO"^^xsd:token ;
+    skos:prefLabel "Night Solo"@en .
+
+code-work-context:NIGHT_SOLO_WORK a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "NIGHT_SOLO_WORK"^^xsd:token ;
+    skos:prefLabel "Night Solo Work"@en .
+
+code-work-context:NOISE_EXPOSURE a skos:Concept ;
+    skos:broader code-work-context:NOISE_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "NOISE_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Noise Exposure"@en .
+
+code-work-context:OBSTRUCTED_VIEW_CARRYING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "OBSTRUCTED_VIEW_CARRYING"^^xsd:token ;
+    skos:prefLabel "Obstructed View Carrying"@en .
+
+code-work-context:OIL_DRAIN a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "OIL_DRAIN"^^xsd:token ;
+    skos:prefLabel "Oil Drain"@en .
+
+code-work-context:OUTDOOR_PLAY_EQUIPMENT a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "OUTDOOR_PLAY_EQUIPMENT"^^xsd:token ;
+    skos:prefLabel "Outdoor Play Equipment"@en .
+
+code-work-context:OVEN_OPERATION a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "OVEN_OPERATION"^^xsd:token ;
+    skos:prefLabel "Oven Operation"@en .
+
+code-work-context:OVERLOADED_CONTAINER a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "OVERLOADED_CONTAINER"^^xsd:token ;
+    skos:prefLabel "Overloaded Container"@en .
+
+code-work-context:OVERLOADED_HANDCART a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "OVERLOADED_HANDCART"^^xsd:token ;
+    skos:prefLabel "Overloaded Handcart"@en .
+
+code-work-context:PACKAGE_SORTING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PACKAGE_SORTING"^^xsd:token ;
+    skos:prefLabel "Package Sorting"@en .
+
+code-work-context:PAINTING a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PAINTING"^^xsd:token ;
+    skos:prefLabel "Painting"@en .
+
+code-work-context:PAINTING_WOODWORK a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PAINTING_WOODWORK"^^xsd:token ;
+    skos:prefLabel "Painting Woodwork"@en .
+
+code-work-context:PESTICIDE_SPRAY a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PESTICIDE_SPRAY"^^xsd:token ;
+    skos:prefLabel "Pesticide Spray"@en .
+
+code-work-context:PET_BATHING a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PET_BATHING"^^xsd:token ;
+    skos:prefLabel "Pet Bathing"@en .
+
+code-work-context:PLATE_MAKING a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PLATE_MAKING"^^xsd:token ;
+    skos:prefLabel "Plate Making"@en .
+
+code-work-context:POOL_AREA a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "POOL_AREA"^^xsd:token ;
+    skos:prefLabel "Pool Area"@en .
+
+code-work-context:POWER_RACK_SAFETY_PIN a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "POWER_RACK_SAFETY_PIN"^^xsd:token ;
+    skos:prefLabel "Power Rack Safety Pin"@en .
+
+code-work-context:POWER_TOOL a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "POWER_TOOL"^^xsd:token ;
+    skos:prefLabel "Power Tool"@en .
+
+code-work-context:PRESS_MACHINE a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PRESS_MACHINE"^^xsd:token ;
+    skos:prefLabel "Press Machine"@en .
+
+code-work-context:PRINTING_PRESS a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PRINTING_PRESS"^^xsd:token ;
+    skos:prefLabel "Printing Press"@en .
+
+code-work-context:RADIATION_XRAY a skos:Concept ;
+    skos:broader code-work-context:RADIATION_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "RADIATION_XRAY"^^xsd:token ;
+    skos:prefLabel "Radiation Xray"@en .
+
+code-work-context:RECYCLING_SORT a skos:Concept ;
+    skos:broader code-work-context:WASTE_MGMT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "RECYCLING_SORT"^^xsd:token ;
+    skos:prefLabel "Recycling Sort"@en .
+
+code-work-context:RESCUE_DELAY a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "RESCUE_DELAY"^^xsd:token ;
+    skos:prefLabel "Rescue Delay"@en .
+
+code-work-context:RESTROOM_CHEMICAL a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "RESTROOM_CHEMICAL"^^xsd:token ;
+    skos:prefLabel "Restroom Chemical"@en .
+
+code-work-context:ROLLER_MACHINE a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ROLLER_MACHINE"^^xsd:token ;
+    skos:prefLabel "Roller Machine"@en .
+
+code-work-context:ROPE_ACCESS a skos:Concept ;
+    skos:broader code-work-context:SCAFFOLD ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ROPE_ACCESS"^^xsd:token ;
+    skos:prefLabel "Rope Access"@en .
+
+code-work-context:ROPE_ANOMALY_UNDETECTED a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ROPE_ANOMALY_UNDETECTED"^^xsd:token ;
+    skos:prefLabel "Rope Anomaly Undetected"@en .
+
+code-work-context:SAFETY_DEVICE_BYPASS a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SAFETY_DEVICE_BYPASS"^^xsd:token ;
+    skos:prefLabel "Safety Device Bypass"@en .
+
+code-work-context:SANDING a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SANDING"^^xsd:token ;
+    skos:prefLabel "Sanding"@en .
+
+code-work-context:SAWING a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SAWING"^^xsd:token ;
+    skos:prefLabel "Sawing"@en .
+
+code-work-context:SCAFFOLD_WORK a skos:Concept ;
+    skos:broader code-work-context:SCAFFOLD ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SCAFFOLD_WORK"^^xsd:token ;
+    skos:prefLabel "Scaffold Work"@en .
+
+code-work-context:SCREW_GRINDER a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SCREW_GRINDER"^^xsd:token ;
+    skos:prefLabel "Screw Grinder"@en .
+
+code-work-context:SECURITY_INADEQUACY a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SECURITY_INADEQUACY"^^xsd:token ;
+    skos:prefLabel "Security Inadequacy"@en .
+
+code-work-context:SERVING_FLOOR a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SERVING_FLOOR"^^xsd:token ;
+    skos:prefLabel "Serving Floor"@en .
+
+code-work-context:SHARPS_DISPOSAL a skos:Concept ;
+    skos:broader code-work-context:WASTE_MGMT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SHARPS_DISPOSAL"^^xsd:token ;
+    skos:prefLabel "Sharps Disposal"@en .
+
+code-work-context:SHELF_STOCKING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SHELF_STOCKING"^^xsd:token ;
+    skos:prefLabel "Shelf Stocking"@en .
+
+code-work-context:SHIELDING_INADEQUATE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SHIELDING_INADEQUATE"^^xsd:token ;
+    skos:prefLabel "Shielding Inadequate"@en .
+
+code-work-context:SKIN_DEVICE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SKIN_DEVICE"^^xsd:token ;
+    skos:prefLabel "Skin Device"@en .
+
+code-work-context:SLOPE_RAMP a skos:Concept ;
+    skos:broader code-work-context:PASSAGE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SLOPE_RAMP"^^xsd:token ;
+    skos:prefLabel "Slope Ramp"@en .
+
+code-work-context:SOLO_RESPONSE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SOLO_RESPONSE"^^xsd:token ;
+    skos:prefLabel "Solo Response"@en .
+
+code-work-context:SOLVENT_HANDLING a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SOLVENT_HANDLING"^^xsd:token ;
+    skos:prefLabel "Solvent Handling"@en .
+
+code-work-context:SPRAY_PAINTING a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SPRAY_PAINTING"^^xsd:token ;
+    skos:prefLabel "Spray Painting"@en .
+
+code-work-context:STAFF_MAINTENANCE a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "STAFF_MAINTENANCE"^^xsd:token ;
+    skos:prefLabel "Staff Maintenance"@en .
+
+code-work-context:STAIR_CARRYING a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "STAIR_CARRYING"^^xsd:token ;
+    skos:prefLabel "Stair Carrying"@en .
+
+code-work-context:STATIC_ELECTRICITY a skos:Concept ;
+    skos:broader code-work-context:ELECTRICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "STATIC_ELECTRICITY"^^xsd:token ;
+    skos:prefLabel "Static Electricity"@en .
+
+code-work-context:STEAM_IRON a skos:Concept ;
+    skos:broader code-work-context:HEAT_COLD_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "STEAM_IRON"^^xsd:token ;
+    skos:prefLabel "Steam Iron"@en .
+
+code-work-context:STORAGE_SHELF a skos:Concept ;
+    skos:broader code-work-context:MATERIAL_HANDLING ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "STORAGE_SHELF"^^xsd:token ;
+    skos:prefLabel "Storage Shelf"@en .
+
+code-work-context:SURFACE_PREP a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SURFACE_PREP"^^xsd:token ;
+    skos:prefLabel "Surface Prep"@en .
+
+code-work-context:TIRE_CHANGE a skos:Concept ;
+    skos:broader code-work-context:VEHICLE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "TIRE_CHANGE"^^xsd:token ;
+    skos:prefLabel "Tire Change"@en .
+
+code-work-context:UNAUTHORIZED_MEDICATION_ADMINISTRATION a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "UNAUTHORIZED_MEDICATION_ADMINISTRATION"^^xsd:token ;
+    skos:prefLabel "Unauthorized Medication Administration"@en .
+
+code-work-context:UNDERGROUND_TANK a skos:Concept ;
+    skos:broader code-work-context:CONFINED_SPACE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "UNDERGROUND_TANK"^^xsd:token ;
+    skos:prefLabel "Underground Tank"@en .
+
+code-work-context:UNSTABLE_EDGE a skos:Concept ;
+    skos:broader code-work-context:FALL_PROTECTION ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "UNSTABLE_EDGE"^^xsd:token ;
+    skos:prefLabel "Unstable Edge"@en .
+
+code-work-context:UNSTABLE_SLOPE a skos:Concept ;
+    skos:broader code-work-context:COLLAPSE_PREVENTION ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "UNSTABLE_SLOPE"^^xsd:token ;
+    skos:prefLabel "Unstable Slope"@en .
+
+code-work-context:UNSTABLE_STRUCTURE a skos:Concept ;
+    skos:broader code-work-context:COLLAPSE_PREVENTION ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "UNSTABLE_STRUCTURE"^^xsd:token ;
+    skos:prefLabel "Unstable Structure"@en .
+
+code-work-context:UV_COATING a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "UV_COATING"^^xsd:token ;
+    skos:prefLabel "Uv Coating"@en .
+
+code-work-context:VAPOR_EXPOSURE a skos:Concept ;
+    skos:broader code-work-context:CHEMICAL_WORK ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "VAPOR_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Vapor Exposure"@en .
+
+code-work-context:VENTILATION_POOR a skos:Concept ;
+    skos:broader code-work-context:VENTILATION ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "VENTILATION_POOR"^^xsd:token ;
+    skos:prefLabel "Ventilation Poor"@en .
+
+code-work-context:WALKWAY_OBSTRUCTION a skos:Concept ;
+    skos:broader code-work-context:PASSAGE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WALKWAY_OBSTRUCTION"^^xsd:token ;
+    skos:prefLabel "Walkway Obstruction"@en .
+
+code-work-context:WASHING_MACHINE a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WASHING_MACHINE"^^xsd:token ;
+    skos:prefLabel "Washing Machine"@en .
+
+code-work-context:WASTE_COLLECTION a skos:Concept ;
+    skos:broader code-work-context:WASTE_MGMT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WASTE_COLLECTION"^^xsd:token ;
+    skos:prefLabel "Waste Collection"@en .
+
+code-work-context:WASTE_COMPACTOR a skos:Concept ;
+    skos:broader code-work-context:WASTE_MGMT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WASTE_COMPACTOR"^^xsd:token ;
+    skos:prefLabel "Waste Compactor"@en .
+
+code-work-context:WAX_POLISHING a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WAX_POLISHING"^^xsd:token ;
+    skos:prefLabel "Wax Polishing"@en .
+
+code-work-context:WELDING a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WELDING"^^xsd:token ;
+    skos:prefLabel "Welding"@en .
+
+code-work-context:WELDING_REPAIR a skos:Concept ;
+    skos:broader code-work-context:MACHINE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WELDING_REPAIR"^^xsd:token ;
+    skos:prefLabel "Welding Repair"@en .
+
+code-work-context:WET_CONFINED_SPACE a skos:Concept ;
+    skos:broader code-work-context:CONFINED_SPACE ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WET_CONFINED_SPACE"^^xsd:token ;
+    skos:prefLabel "Wet Confined Space"@en .
+
+code-work-context:WET_FLOOR_FISH a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WET_FLOOR_FISH"^^xsd:token ;
+    skos:prefLabel "Wet Floor Fish"@en .
+
+code-work-context:WET_FLOOR_WORK a skos:Concept ;
+    skos:broader code-work-context:UNKNOWN_CONTEXT ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WET_FLOOR_WORK"^^xsd:token ;
+    skos:prefLabel "Wet Floor Work"@en .
+
+code-accident-type:DROWNING a skos:Concept ;
+    rdfs:seeAlso haz:Drowning ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "DROWNING"^^xsd:token ;
+    skos:prefLabel "Drowning"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:OFF_SITE_TRAFFIC a skos:Concept ;
+    rdfs:seeAlso haz:OffSiteTraffic ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "OFF_SITE_TRAFFIC"^^xsd:token ;
+    skos:prefLabel "Off Site Traffic"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:OTHER_ACCIDENT a skos:Concept ;
+    rdfs:seeAlso haz:OtherAccident ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "OTHER_ACCIDENT"^^xsd:token ;
+    skos:prefLabel "Other Accident"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:SPORTS_EVENT_INJURY a skos:Concept ;
+    rdfs:seeAlso haz:SportsEventInjury ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SPORTS_EVENT_INJURY"^^xsd:token ;
+    skos:prefLabel "Sports Event Injury"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-hazardous-agent:FIRE a skos:Concept ;
+    rdfs:seeAlso agent:Fire ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "FIRE"^^xsd:token ;
+    skos:prefLabel "Fire"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-work-context:CONSTRUCTION_EQUIP a skos:Concept ;
+    rdfs:seeAlso ctx:ConstructionEquip ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CONSTRUCTION_EQUIP"^^xsd:token ;
+    skos:prefLabel "Construction Equip"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:CRANE a skos:Concept ;
+    rdfs:seeAlso ctx:Crane ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CRANE"^^xsd:token ;
+    skos:prefLabel "Crane"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:DEMOLITION a skos:Concept ;
+    rdfs:seeAlso ctx:Demolition ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DEMOLITION"^^xsd:token ;
+    skos:prefLabel "Demolition"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:DUST_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:DustWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "DUST_WORK"^^xsd:token ;
+    skos:prefLabel "Dust Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:EXCAVATION a skos:Concept ;
+    rdfs:seeAlso ctx:Excavation ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "EXCAVATION"^^xsd:token ;
+    skos:prefLabel "Excavation"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:LOGGING a skos:Concept ;
+    rdfs:seeAlso ctx:Logging ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "LOGGING"^^xsd:token ;
+    skos:prefLabel "Logging"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:PRESSURE_VESSEL a skos:Concept ;
+    rdfs:seeAlso ctx:PressureVessel ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PRESSURE_VESSEL"^^xsd:token ;
+    skos:prefLabel "Pressure Vessel"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:RAIL a skos:Concept ;
+    rdfs:seeAlso ctx:Rail ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "RAIL"^^xsd:token ;
+    skos:prefLabel "Rail"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:ROBOT a skos:Concept ;
+    rdfs:seeAlso ctx:Robot ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ROBOT"^^xsd:token ;
+    skos:prefLabel "Robot"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:STEELWORK a skos:Concept ;
+    rdfs:seeAlso ctx:Steelwork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "STEELWORK"^^xsd:token ;
+    skos:prefLabel "Steelwork"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-accident-type:ANIMAL_INJURY a skos:Concept ;
+    rdfs:seeAlso haz:AnimalInjury ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ANIMAL_INJURY"^^xsd:token ;
+    skos:prefLabel "Animal Injury"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:VIOLENCE a skos:Concept ;
+    rdfs:seeAlso haz:Violence ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "VIOLENCE"^^xsd:token ;
+    skos:prefLabel "Violence"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:WORKPLACE_TRAFFIC a skos:Concept ;
+    rdfs:seeAlso haz:WorkplaceTraffic ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "WORKPLACE_TRAFFIC"^^xsd:token ;
+    skos:prefLabel "Workplace Traffic"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-work-context:FALL_PROTECTION a skos:Concept ;
+    rdfs:seeAlso ctx:FallProtection ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FALL_PROTECTION"^^xsd:token ;
+    skos:prefLabel "Fall Protection"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:GENERAL_WORKPLACE a skos:Concept ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "GENERAL_WORKPLACE"^^xsd:token ;
+    skos:prefLabel "General Workplace"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:NOISE_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:NoiseWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "NOISE_WORK"^^xsd:token ;
+    skos:prefLabel "Noise Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:RADIATION_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:RadiationWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "RADIATION_WORK"^^xsd:token ;
+    skos:prefLabel "Radiation Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:SAFETY_MGMT a skos:Concept ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SAFETY_MGMT"^^xsd:token ;
+    skos:prefLabel "Safety Mgmt"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:VENTILATION a skos:Concept ;
+    rdfs:seeAlso ctx:Ventilation ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "VENTILATION"^^xsd:token ;
+    skos:prefLabel "Ventilation"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-accident-type:COLLISION a skos:Concept ;
+    rdfs:seeAlso haz:Collision ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "COLLISION"^^xsd:token ;
+    skos:prefLabel "Collision"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:ELECTRIC_SHOCK a skos:Concept ;
+    rdfs:seeAlso haz:ElectricShock ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ELECTRIC_SHOCK"^^xsd:token ;
+    skos:prefLabel "Electric Shock"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:OXYGEN_DEFICIENCY a skos:Concept ;
+    rdfs:seeAlso haz:OxygenDeficiency ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "OXYGEN_DEFICIENCY"^^xsd:token ;
+    skos:prefLabel "Oxygen Deficiency"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-work-context:COLLAPSE_PREVENTION a skos:Concept ;
+    rdfs:seeAlso ctx:CollapsePrevention ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "COLLAPSE_PREVENTION"^^xsd:token ;
+    skos:prefLabel "Collapse Prevention"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:CONVEYOR a skos:Concept ;
+    rdfs:seeAlso ctx:Conveyor ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CONVEYOR"^^xsd:token ;
+    skos:prefLabel "Conveyor"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:ERGONOMIC_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:ErgonomicWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ERGONOMIC_WORK"^^xsd:token ;
+    skos:prefLabel "Ergonomic Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-hazardous-agent:BIOLOGICAL a skos:Concept ;
+    rdfs:seeAlso agent:Biological ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "BIOLOGICAL"^^xsd:token ;
+    skos:prefLabel "Biological"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-work-context:PASSAGE a skos:Concept ;
+    rdfs:seeAlso ctx:Passage ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PASSAGE"^^xsd:token ;
+    skos:prefLabel "Passage"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-hazardous-agent:DUST a skos:Concept ;
+    rdfs:seeAlso agent:Dust ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "DUST"^^xsd:token ;
+    skos:prefLabel "Dust"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-hazardous-agent:NOISE a skos:Concept ;
+    rdfs:seeAlso agent:Noise ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "NOISE"^^xsd:token ;
+    skos:prefLabel "Noise"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-work-context:FIRE_EXPLOSION_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:FireExplosionWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "FIRE_EXPLOSION_WORK"^^xsd:token ;
+    skos:prefLabel "Fire Explosion Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:VEHICLE a skos:Concept ;
+    rdfs:seeAlso ctx:Vehicle ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "VEHICLE"^^xsd:token ;
+    skos:prefLabel "Vehicle"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-accident-type:COLLAPSE a skos:Concept ;
+    rdfs:seeAlso haz:Collapse ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "COLLAPSE"^^xsd:token ;
+    skos:prefLabel "Collapse"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:ERGONOMIC_STRAIN a skos:Concept ;
+    rdfs:seeAlso haz:ErgonomicStrain ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "ERGONOMIC_STRAIN"^^xsd:token ;
+    skos:prefLabel "Ergonomic Strain"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-work-context:CONFINED_SPACE a skos:Concept ;
+    rdfs:seeAlso ctx:ConfinedSpace ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CONFINED_SPACE"^^xsd:token ;
+    skos:prefLabel "Confined Space"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:WASTE_MGMT a skos:Concept ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "WASTE_MGMT"^^xsd:token ;
+    skos:prefLabel "Waste Mgmt"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-accident-type:CRUSHED_OVERTURNED a skos:Concept ;
+    rdfs:seeAlso haz:CrushedOverturned ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CRUSHED_OVERTURNED"^^xsd:token ;
+    skos:prefLabel "Crushed Overturned"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:SLIP_TRIP a skos:Concept ;
+    rdfs:seeAlso haz:SlipTrip ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "SLIP_TRIP"^^xsd:token ;
+    skos:prefLabel "Slip Trip"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-hazardous-agent:UNKNOWN_AGENT a skos:Concept ;
+    rdfs:seeAlso agent:UnknownAgent ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "UNKNOWN_AGENT"^^xsd:token ;
+    skos:prefLabel "Unknown Agent"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-work-context:ELECTRICAL_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:ElectricalWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "ELECTRICAL_WORK"^^xsd:token ;
+    skos:prefLabel "Electrical Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-hazardous-agent:RADIATION a skos:Concept ;
+    rdfs:seeAlso agent:Radiation ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "RADIATION"^^xsd:token ;
+    skos:prefLabel "Radiation"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-work-context:SCAFFOLD a skos:Concept ;
+    rdfs:seeAlso ctx:Scaffold ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "SCAFFOLD"^^xsd:token ;
+    skos:prefLabel "Scaffold"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-accident-type:EXPLOSION a skos:Concept ;
+    rdfs:seeAlso haz:Explosion ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "EXPLOSION"^^xsd:token ;
+    skos:prefLabel "Explosion"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-hazardous-agent:ELECTRICITY a skos:Concept ;
+    rdfs:seeAlso agent:Electricity ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "ELECTRICITY"^^xsd:token ;
+    skos:prefLabel "Electricity"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-hazardous-agent:TOXIC a skos:Concept ;
+    rdfs:seeAlso agent:Toxic ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "TOXIC"^^xsd:token ;
+    skos:prefLabel "Toxic"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-work-context:PATHOGEN_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:PathogenWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "PATHOGEN_WORK"^^xsd:token ;
+    skos:prefLabel "Pathogen Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-accident-type:CAUGHT_IN a skos:Concept ;
+    rdfs:seeAlso haz:CaughtIn ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CAUGHT_IN"^^xsd:token ;
+    skos:prefLabel "Caught In"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:FIRE_INJURY a skos:Concept ;
+    rdfs:seeAlso haz:FireInjury ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FIRE_INJURY"^^xsd:token ;
+    skos:prefLabel "Fire Injury"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:STRUCK_BY a skos:Concept ;
+    rdfs:seeAlso haz:StruckBy ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "STRUCK_BY"^^xsd:token ;
+    skos:prefLabel "Struck By"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:UNCLASSIFIED a skos:Concept ;
+    rdfs:seeAlso haz:Unclassified ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "UNCLASSIFIED"^^xsd:token ;
+    skos:prefLabel "Unclassified"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:FALL a skos:Concept ;
+    rdfs:seeAlso haz:Fall ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "FALL"^^xsd:token ;
+    skos:prefLabel "Fall"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-work-context:HEAT_COLD_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:HeatColdWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "HEAT_COLD_WORK"^^xsd:token ;
+    skos:prefLabel "Heat Cold Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-accident-type:TEMP_EXTREME_CONTACT a skos:Concept ;
+    rdfs:seeAlso haz:TempExtremeContact ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "TEMP_EXTREME_CONTACT"^^xsd:token ;
+    skos:prefLabel "Temp Extreme Contact"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-hazardous-agent:CHEMICAL a skos:Concept ;
+    rdfs:seeAlso agent:Chemical ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "CHEMICAL"^^xsd:token ;
+    skos:prefLabel "Chemical"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-hazardous-agent:HEAT_COLD a skos:Concept ;
+    rdfs:seeAlso agent:HeatCold ;
+    skos:inScheme code-hazardous-agent:scheme ;
+    skos:notation "HEAT_COLD"^^xsd:token ;
+    skos:prefLabel "Heat Cold"@en ;
+    skos:topConceptOf code-hazardous-agent:scheme .
+
+code-work-context:MATERIAL_HANDLING a skos:Concept ;
+    rdfs:seeAlso ctx:MaterialHandling ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "MATERIAL_HANDLING"^^xsd:token ;
+    skos:prefLabel "Material Handling"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:CHEMICAL_WORK a skos:Concept ;
+    rdfs:seeAlso ctx:ChemicalWork ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "CHEMICAL_WORK"^^xsd:token ;
+    skos:prefLabel "Chemical Work"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-work-context:MACHINE a skos:Concept ;
+    rdfs:seeAlso ctx:Machine ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "MACHINE"^^xsd:token ;
+    skos:prefLabel "Machine"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-accident-type:CUT_LACERATION a skos:Concept ;
+    rdfs:seeAlso haz:CutLaceration ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CUT_LACERATION"^^xsd:token ;
+    skos:prefLabel "Cut Laceration"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-accident-type:CHEMICAL_EXPOSURE a skos:Concept ;
+    rdfs:seeAlso haz:ChemicalExposure ;
+    skos:inScheme code-accident-type:scheme ;
+    skos:notation "CHEMICAL_EXPOSURE"^^xsd:token ;
+    skos:prefLabel "Chemical Exposure"@en ;
+    skos:topConceptOf code-accident-type:scheme .
+
+code-work-context:UNKNOWN_CONTEXT a skos:Concept ;
+    rdfs:seeAlso ctx:UnknownContext ;
+    skos:inScheme code-work-context:scheme ;
+    skos:notation "UNKNOWN_CONTEXT"^^xsd:token ;
+    skos:prefLabel "Unknown Context"@en ;
+    skos:topConceptOf code-work-context:scheme .
+
+code-hazardous-agent:scheme a skos:ConceptScheme ;
+    dcterms:source <file:canonical-code-vocabulary.json> ;
+    skos:hasTopConcept code-hazardous-agent:BIOLOGICAL,
+        code-hazardous-agent:CHEMICAL,
+        code-hazardous-agent:DUST,
+        code-hazardous-agent:ELECTRICITY,
+        code-hazardous-agent:FIRE,
+        code-hazardous-agent:HEAT_COLD,
+        code-hazardous-agent:NOISE,
+        code-hazardous-agent:RADIATION,
+        code-hazardous-agent:TOXIC,
+        code-hazardous-agent:UNKNOWN_AGENT ;
+    skos:prefLabel "Hazardous agent code scheme"@en,
+        "위험원 코드 체계"@ko .
+
+code-accident-type:scheme a skos:ConceptScheme ;
+    dcterms:source <file:canonical-code-vocabulary.json> ;
+    skos:hasTopConcept code-accident-type:ANIMAL_INJURY,
+        code-accident-type:CAUGHT_IN,
+        code-accident-type:CHEMICAL_EXPOSURE,
+        code-accident-type:COLLAPSE,
+        code-accident-type:COLLISION,
+        code-accident-type:CRUSHED_OVERTURNED,
+        code-accident-type:CUT_LACERATION,
+        code-accident-type:DROWNING,
+        code-accident-type:ELECTRIC_SHOCK,
+        code-accident-type:ERGONOMIC_STRAIN,
+        code-accident-type:EXPLOSION,
+        code-accident-type:FALL,
+        code-accident-type:FIRE_INJURY,
+        code-accident-type:OFF_SITE_TRAFFIC,
+        code-accident-type:OTHER_ACCIDENT,
+        code-accident-type:OXYGEN_DEFICIENCY,
+        code-accident-type:SLIP_TRIP,
+        code-accident-type:SPORTS_EVENT_INJURY,
+        code-accident-type:STRUCK_BY,
+        code-accident-type:TEMP_EXTREME_CONTACT,
+        code-accident-type:UNCLASSIFIED,
+        code-accident-type:VIOLENCE,
+        code-accident-type:WORKPLACE_TRAFFIC ;
+    skos:prefLabel "Accident type code scheme"@en,
+        "사고유형 코드 체계"@ko .
+
+code-work-context:scheme a skos:ConceptScheme ;
+    dcterms:source <file:canonical-code-vocabulary.json> ;
+    skos:hasTopConcept code-work-context:CHEMICAL_WORK,
+        code-work-context:COLLAPSE_PREVENTION,
+        code-work-context:CONFINED_SPACE,
+        code-work-context:CONSTRUCTION_EQUIP,
+        code-work-context:CONVEYOR,
+        code-work-context:CRANE,
+        code-work-context:DEMOLITION,
+        code-work-context:DUST_WORK,
+        code-work-context:ELECTRICAL_WORK,
+        code-work-context:ERGONOMIC_WORK,
+        code-work-context:EXCAVATION,
+        code-work-context:FALL_PROTECTION,
+        code-work-context:FIRE_EXPLOSION_WORK,
+        code-work-context:GENERAL_WORKPLACE,
+        code-work-context:HEAT_COLD_WORK,
+        code-work-context:LOGGING,
+        code-work-context:MACHINE,
+        code-work-context:MATERIAL_HANDLING,
+        code-work-context:NOISE_WORK,
+        code-work-context:PASSAGE,
+        code-work-context:PATHOGEN_WORK,
+        code-work-context:PRESSURE_VESSEL,
+        code-work-context:RADIATION_WORK,
+        code-work-context:RAIL,
+        code-work-context:ROBOT,
+        code-work-context:SAFETY_MGMT,
+        code-work-context:SCAFFOLD,
+        code-work-context:STEELWORK,
+        code-work-context:UNKNOWN_CONTEXT,
+        code-work-context:VEHICLE,
+        code-work-context:VENTILATION,
+        code-work-context:WASTE_MGMT ;
+    skos:prefLabel "Work context code scheme"@en,
+        "작업맥락 코드 체계"@ko .
+

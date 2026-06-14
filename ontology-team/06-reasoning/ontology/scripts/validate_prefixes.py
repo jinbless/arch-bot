@@ -45,6 +45,10 @@ CANONICAL: dict[str, str] = {
     "krs":      f"{CASHTOSS}/ontology/shacl-rules#",
     "shape":    f"{CASHTOSS}/ontology/shape#",
     "demo":     f"{CASHTOSS}/ontology/demo#",
+    # A5 SKOS 코드 체계 — 축별 namespace (gen_skos_scheme.py). A2에서 w3id로 마이그레이션.
+    "code-accident-type":   f"{CASHTOSS}/ontology/code/accident-type#",
+    "code-hazardous-agent": f"{CASHTOSS}/ontology/code/hazardous-agent#",
+    "code-work-context":    f"{CASHTOSS}/ontology/code/work-context#",
 }
 # IRI → 정본 짧은 이름 (역매핑)
 IRI_TO_PREFIX: dict[str, str] = {v: k for k, v in CANONICAL.items()}

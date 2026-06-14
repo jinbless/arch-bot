@@ -1,0 +1,43 @@
+# KOSHA OHS Ontology — release metadata (owl:Ontology header + dcterms + VoID).
+# A4: 공개 요건(라이선스·버전·출처·인용·통계)을 1급 메타데이터로 선언.
+#
+# NOTE(namespace): 현재 IRI base는 https://cashtoss.info/ — A2(영속 IRI 빅뱅 치환)에서
+#   https://w3id.org/ohs-kr/ 로 전량 마이그레이션 예정. 본 파일도 그때 함께 치환된다.
+# TODO(creator): dcterms:creator / CITATION.cff authors 에 실제 저자명·소속·ORCID 기입.
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix void:    <http://rdfs.org/ns/void#> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix cc:      <http://creativecommons.org/ns#> .
+
+<https://cashtoss.info/ontology> a owl:Ontology ;
+    owl:versionIRI <https://cashtoss.info/ontology/2.0.0> ;
+    owl:versionInfo "2.0.0" ;   # v2 계보(kosha-ontology-v2.owl)와 정렬 — 단일 버전 SSOT
+    dcterms:title "한국 산업안전보건 온톨로지"@ko , "KOSHA OHS Ontology"@en ;
+    dcterms:description "사진 기반 산업안전 위험 진단을 위한 온톨로지 — SHE 위험상황 패턴, 안전요구(SR), 규범명제(NS)·법령, 벌칙 경로, KOSHA Guide, 위험 코드 어휘. Vision LLM(열린세계) 관찰을 OWL/SWRL/SHACL 추론·PG 물질화(닫힌세계)로 잇는 참조 아키텍처."@ko ;
+    dcterms:creator "KOSHA OHS Ontology Project" ;            # TODO: 실제 저자/소속/ORCID
+    dcterms:publisher "KOSHA OHS Ontology Project" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    cc:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:rights "Ontology & data: CC BY 4.0. Source code: Apache-2.0 (별도 LICENSE)."@en ;
+    dcterms:source <https://www.law.go.kr/> ;                 # 산업안전보건기준에 관한 규칙 등 국가법령정보
+    dcterms:issued "2026-06-14"^^xsd:date ;
+    dcterms:modified "2026-06-14"^^xsd:date ;
+    dcterms:language "ko" , "en" ;
+    vann:preferredNamespaceUri "https://cashtoss.info/ontology#" ;
+    vann:preferredNamespacePrefix "core" ;
+    rdfs:seeAlso <https://github.com/jinbless/arch-bot> .
+
+# VoID dataset 통계 — consistency(CON) 전량 어셈블리 실측(TBox+규칙+ABox 병합). 단일 scope로 일관.
+<https://cashtoss.info/ontology#dataset> a void:Dataset ;
+    dcterms:title "KOSHA OHS Ontology dataset"@en ;
+    void:feature <http://www.w3.org/ns/formats/Turtle> ;
+    void:vocabulary <https://cashtoss.info/ontology#> ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    void:classes 625 ;           # named owl:Class (facet fine-code 클래스 포함; core 개념 TBox는 62)
+    void:properties 164 ;        # owl:ObjectProperty 119 + owl:DatatypeProperty 45
+    void:triples 1049862 ;       # CON 전량 병합 (ABox kosha-instances.ttl 956,230 포함)
+    void:exampleResource <https://cashtoss.info/ontology/sr#SR-MACHINE-018> .

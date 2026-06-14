@@ -7,6 +7,10 @@
         "format": "xml"
       },
       {
+        "file": "kosha-ontology-metadata.ttl",
+        "format": "turtle"
+      },
+      {
         "file": "kosha-facet-taxonomy.ttl",
         "format": "turtle"
       },
@@ -115,6 +119,10 @@
       {
         "file": "kosha-ontology-v2.owl",
         "format": "xml"
+      },
+      {
+        "file": "kosha-ontology-metadata.ttl",
+        "format": "turtle"
       },
       {
         "file": "kosha-facet-taxonomy.ttl",
@@ -486,6 +494,54 @@
       ],
       "format": "xml",
       "note": "v2 base (BFO+LKIF, sosa). 전 profile 공통(FAC 포함). 구 v2.formatted.ttl 포맷중복 제거(A) — build_layer_mapping이 같이 생성한 동치(triple diff 0)였음."
+    },
+    {
+      "id": "ontology-metadata",
+      "file": "kosha-ontology-metadata.ttl",
+      "role": "metadata",
+      "layer": "release",
+      "profiles": [
+        "consistency",
+        "serving"
+      ],
+      "format": "turtle",
+      "note": "A4: owl:Ontology 헤더 + owl:versionIRI 1.0.0 + dcterms/VoID 공개 메타데이터. annotation-only(DL 영향 0). namespace는 A2(영속 IRI)에서 w3id로 마이그레이션."
+    },
+    {
+      "id": "inferred-r1-r2",
+      "file": "kosha-inferred-relations.ttl",
+      "role": "generated-inferred",
+      "layer": "materialization",
+      "profiles": [],
+      "format": "turtle",
+      "note": "R-1 exemptedBy/R-2 coApplicable diff. 생성: scripts/emit_inferred_relations.py --mode strict. PG 물질화 입력(import_sr_inferred_relations_to_pg.py)."
+    },
+    {
+      "id": "inferred-kr2",
+      "file": "kosha-coapplicable-chapter.ttl",
+      "role": "generated-inferred",
+      "layer": "materialization",
+      "profiles": [],
+      "format": "turtle",
+      "note": "K-R2 같은 Chapter coApplicable. 생성: emit_inferred_relations.py --mode chapter. PG 물질화 입력."
+    },
+    {
+      "id": "inferred-kr4",
+      "file": "kosha-dependson-hazard.ttl",
+      "role": "generated-inferred",
+      "layer": "materialization",
+      "profiles": [],
+      "format": "turtle",
+      "note": "K-R4 같은 Hazard dependsOn. 생성: emit_inferred_relations.py --mode hazard. PG 물질화 입력."
+    },
+    {
+      "id": "codes-skos",
+      "file": "kosha-codes-skos.ttl",
+      "role": "generated-skos",
+      "layer": "vocabulary",
+      "profiles": [],
+      "format": "turtle",
+      "note": "A5: 위험 코드 SKOS ConceptScheme(공개 발행물). 생성: scripts/gen_skos_scheme.py. reasoning 미편입(skos↔owl punning 회피)."
     },
     {
       "id": "arc-v1-owl",
