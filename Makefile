@@ -43,7 +43,7 @@ VENV_PY := $(BACKEND_DIR)/.venv/bin/python
         reasoning-emit phase-g5-schema phase-g5-import phase-g5-verify \
         reasoning-emit-chapter phase-g5b-import phase-g5b-verify \
         reasoning-emit-hazard phase-g5c-import phase-g5c-verify \
-        verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape continual-pending \
+        verify-codes verify-codes-shape verify-prefixes gen-manifest verify-manifest gen-canonical-shape gen-skos continual-pending \
         verify-she-links verify-she-collisions \
         data-coverage consistency-gate verify-rules
 
@@ -583,6 +583,10 @@ verify-manifest:
 # SSOT 변경(canonical-code-vocabulary.json) 시 shape 재생성. 산출물은 git tracked.
 gen-canonical-shape:
 	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/gen_canonical_code_shape.py'
+
+# A5: canonical-code-vocabulary.json → SKOS ConceptScheme(kosha-codes-skos.ttl). 산출물 git tracked.
+gen-skos:
+	@PYTHONIOENCODING=utf-8 '$(VENV_PY)' '$(ONT_SCRIPTS)/gen_skos_scheme.py' --write
 
 # Layer 4.7 Continual — pending/UNKNOWN open-class 코드 승격 후보 추적 (live PG 빈도, 읽기전용).
 # gate WARN을 빈도 랭킹 + tier(PROMOTE/WATCH/NOISE) queue로 형식화. 자세히: docs/dev-notes/phase5-incremental-guardrails.md
