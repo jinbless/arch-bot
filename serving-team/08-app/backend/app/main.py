@@ -67,7 +67,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="OHS ontology analysis API",
     description="Photo/text observation to risk features, SHE patterns, SR, guide, and penalty paths.",
-    version="3.0.0",
+    version="3.1.0",   # 3.1.0: Track A ② — /sparql SR-inference 엔드포인트(exemptions/co-applicable/depends-on/inferred-graph) PG 전환
     lifespan=lifespan,
 )
 
@@ -84,4 +84,4 @@ app.include_router(api_v1_router, prefix="/api/v1")
 
 @app.get("/")
 async def root():
-    return {"message": "OHS ontology analysis API", "version": "3.0.0"}
+    return {"message": "OHS ontology analysis API", "version": "3.1.0"}
