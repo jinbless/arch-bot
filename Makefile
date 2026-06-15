@@ -512,19 +512,17 @@ phase-g5c-verify:
 	    --rule-set 'reasoning-slice K-R4 hazard-dependsOn' \
 	    --ttl '$(ONT_DIR)/kosha-dependson-hazard.ttl'
 
-# Guide canonical facet 정밀화 — 큐레이션 GF(guide_entity_feature_candidates)로 over-tagged JSONB
-# (kosha_guides.addresses_hazard_canonical 등) 재생성. 근본원인: facet 과태깅(COLLISION이 가이드 65%에
-# 부착, 항만하역=코퍼스 최다 태깅) → query_guide_for_facets가 지게차 사진에 항만하역류 도메인-무관
-# 표준개선절차를 오부착. GF는 weighted-majority+fine proposals로 큐레이션돼 P2(get_guides_by_hazard_features)는
-# 이미 정확 → 본 타깃이 두 표현을 일치시킴. **import_guide_facets_to_pg.py 다음에** 실행해야 영속(그
-# 스크립트가 ontology TTL→PG로 JSONB를 덮어씀). 기본 accident축만(저위험). wc는 golden eval 검증 후.
-#   make refine-guide-facets                                                  dry-run(통계+샘플)
-#   make refine-guide-facets ARGS='--apply'                                   accident 정밀화(백업: kosha_guides_facet_backup)
-#   make refine-guide-facets ARGS='--axes accident_type,work_context --apply' wc 포함(검증 후)
-refine-guide-facets:
+# Guide facet(addresses_hazard 등) 온톨로지→PG 물질화. **accident는 큐레이션 fine ABox**
+# (kosha-instances-guide-fine.ttl, tracked SSOT)에서 fine→canonical fold·override → over-tagged
+# CI-rollup accident를 대체(근본원인: facet 과태깅으로 지게차 사진에 항만하역류 도메인-무관 표준개선절차
+# 부착). agent/context는 CI-rollup 파생 TTL. 파생 TTL 부재 시 graceful(accident만 갱신, agent/context 미손상).
+# --no-fine-curation으로 구 CI-rollup-only 동작 비교 가능. **온톨로지가 PG를 구동**(별도 후처리 불요).
+#   make import-guide-facets                 dry-run(통계)
+#   make import-guide-facets ARGS='--apply'  물질화(accident 큐레이션 반영)
+import-guide-facets:
 	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
-	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/refine_guide_facets_from_gf.py' $(ARGS)
+	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_guide_facets_to_pg.py' $(ARGS)
 
 # SHE 패턴(phase3c proposals.json) → PG she_catalog UPSERT (ON CONFLICT DO NOTHING).
 # 배포 재현: main pull 후 1회 실행해야 패턴이 실서비스(PG)에 반영. 자세히: docs/deliverables/airgap-deploy-runbook.md
