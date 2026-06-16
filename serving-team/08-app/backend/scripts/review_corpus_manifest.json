@@ -1,0 +1,21 @@
+{
+  "_doc": "HITL Phase 0 큐레이션 코퍼스. emit_review_candidates.py가 photos[]를 analyze_image로 분석·영속하고 analysis_id/catalog_git_rev를 기록한다. 목표 ~200장(아래 strata_targets). photo는 repo 루트 기준 상대경로 또는 절대경로. case_type/industry_context/work_context는 수급 시점 사전라벨(음수·모호 포함). 시작 자산은 real-test-photo/ 8장.",
+  "strata_targets": {
+    "total": 200,
+    "by_case_type": {"positive": 150, "negative": 30, "ambiguous": 20},
+    "by_industry_max_share": 0.25,
+    "industries": ["건설", "제조", "식음료", "화학", "전기", "물류", "서비스"],
+    "hazard_families_min_each": {"FALL": 10, "CAUGHT_IN": 10, "FIRE_EXPLOSION": 10, "CHEMICAL": 10, "ELECTRICAL": 10, "ERGONOMIC": 10, "CONFINED_SPACE": 10, "SLIP_TRIP": 10},
+    "note": "음수/모호는 수급 시점에 사전라벨. 출처/동의/사전라벨을 각 photo entry에 기록."
+  },
+  "photos": [
+    {"photo": "real-test-photo/고소대작업(httpswww.youtube.comwatchv=Up-7KNjVJQM).png", "industry_context": "건설", "case_type": "positive", "work_context": "HIGH_PLACE", "pre_label": "고소작업대 추락 위험", "source": "youtube"},
+    {"photo": "real-test-photo/안전대길이(httpswww.youtube.comwatchv=v37Id6TdkC4&list=PL5soSUPnDG3gpHAuIfV2I15yjvDK8VHpe).png", "industry_context": "건설", "case_type": "positive", "work_context": "FALL_PROTECTION", "pre_label": "안전대 길이/체결 부적절", "source": "youtube"},
+    {"photo": "real-test-photo/영세제조업(httpswww.youtube.comwatchv=FD5R2oIdwcc).png", "industry_context": "제조", "case_type": "positive", "work_context": "MACHINE", "pre_label": "소규모 제조 기계 위험", "source": "youtube"},
+    {"photo": "real-test-photo/음식점주방(httpswww.sobangnews.krnewsarticleView.htmlidxno=40327).png", "industry_context": "식음료", "case_type": "positive", "work_context": "KITCHEN_COOKING", "pre_label": "주방 화재/화상/미끄럼", "source": "news"},
+    {"photo": "real-test-photo/지게차(httpswww.youtube.comwatchv=c-rhPC6XRgk).png", "industry_context": "물류", "case_type": "positive", "work_context": "FORKLIFT_OPERATION", "pre_label": "지게차-보행자 충돌", "source": "youtube"},
+    {"photo": "real-test-photo/최근대전화재바닥에기름(httpsnews.sbs.co.krnewsendPage.donews_id=N1008488440).jpg", "industry_context": "제조", "case_type": "positive", "work_context": "FIRE_EXPLOSION_WORK", "pre_label": "바닥 기름+화재", "source": "news"},
+    {"photo": "real-test-photo/포크레인주변작업자(httpswww.youtube.comwatchv=PfKfjDKZg48&list=PL5I9ADeXNk_pMBFwlS3yjO1tmzOG28-vE).png", "industry_context": "건설", "case_type": "positive", "work_context": "CONSTRUCTION_EQUIP", "pre_label": "굴착기 주변 작업자 협착", "source": "youtube"},
+    {"photo": "real-test-photo/프레스(중대재해백서2024).png", "industry_context": "제조", "case_type": "positive", "work_context": "PRESS_MACHINE", "pre_label": "프레스 끼임", "source": "중대재해백서2024"}
+  ]
+}

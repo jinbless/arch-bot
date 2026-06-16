@@ -306,6 +306,33 @@ class OhsHazardCodeGap(Base):
     promoted_at = Column(DateTime(timezone=True))
 
 
+class MappingReviewVerdict(Base):
+    """HITL: GPT 인식 → SR/Guide 매핑에 대한 reviewer 개별 판정(의견 원자료).
+
+    서빙 미반영 — 합의(build_gold_truth_v2.py)·승격(promote_*.py) 게이트 단계에서만 반영.
+    Excel(import_mapping_review_xlsx.py) / online(review_web) 양쪽이 동일 UPSERT로 적재.
+    스키마 SSOT: scripts/schema_mapping_review.sql.
+    """
+    __tablename__ = "mapping_review_verdicts"
+    __table_args__ = {"extend_existing": True}
+
+    verdict_id = Column(BigInteger, primary_key=True, autoincrement=True)
+    analysis_id = Column(String(36), nullable=False)
+    mapping_kind = Column(String(8), nullable=False)   # 'SR' | 'GUIDE'
+    target_id = Column(String(60), nullable=False)     # sr_id | guide_code
+    mapping_key = Column(String(160), nullable=False)  # '{analysis_id}:{kind}:{target_id}'
+    row_kind = Column(String(16), nullable=False, default="candidate")
+    reviewer = Column(String(100), nullable=False)
+    verdict = Column(String(16))                       # approve|reject|partial|uncertain
+    corrected_value = Column(Text)
+    reason_code = Column(String(40))
+    notes = Column(Text)
+    source = Column(String(12), nullable=False, default="excel")  # excel | online
+    source_file = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
 class PgPenaltyRuleIndex(Base):
     """Phase G Sprint G.3 — penalty_rule_index materialized from kosha-instances.ttl.
 

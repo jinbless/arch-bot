@@ -524,6 +524,37 @@ import-guide-facets:
 	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
 	  '$(VENV_PY)' -u '$(PHASE_G_DIR)/pg-sync-scripts/import_guide_facets_to_pg.py' $(ARGS)
 
+# ── HITL Golden-Set Review (GPT 인식 → SR/Guide 매핑 다인 검증) ──
+# 파이프라인: review-schema(1회) → review-emit(코퍼스→분석, OPENAI_API_KEY 필요) → review-export
+#   → (reviewer들이 xlsx 작성) → review-import(UPSERT+합의/κ) → gold-truth-build(→ gold-truth-v2.jsonl)
+# 모든 reviewer 입력은 mapping_review_verdicts(개별 의견)에만; golden/서빙 반영은 합의·게이트 단계에서만.
+review-schema:
+	@cd '$(BACKEND_DIR)' && DATABASE_URL='$(DATABASE_URL)' \
+	  '$(VENV_PY)' -c "import os; from sqlalchemy import create_engine; \
+	    e = create_engine(os.environ['DATABASE_URL']); conn = e.raw_connection(); cur = conn.cursor(); \
+	    cur.execute(open('scripts/schema_mapping_review.sql', encoding='utf-8').read()); \
+	    conn.commit(); conn.close(); print('mapping_review_verdicts schema applied')"
+
+review-emit:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/emit_review_candidates.py $(ARGS)
+
+review-export:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/export_mapping_review_xlsx.py $(ARGS)
+
+review-import:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/import_mapping_review_xlsx.py $(ARGS)
+
+gold-truth-build:
+	@cd '$(BACKEND_DIR)' && set -a && [ -f .env ] && . .env || true; set +a; \
+	  DATABASE_URL='$(DATABASE_URL)' PYTHONIOENCODING=utf-8 \
+	  '$(VENV_PY)' -u scripts/build_gold_truth_v2.py $(ARGS)
+
 # SHE 패턴(phase3c proposals.json) → PG she_catalog UPSERT (ON CONFLICT DO NOTHING).
 # 배포 재현: main pull 후 1회 실행해야 패턴이 실서비스(PG)에 반영. 자세히: docs/deliverables/airgap-deploy-runbook.md
 #   make she-import                                        dry-run
