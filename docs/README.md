@@ -30,6 +30,7 @@ docs:
 3. [status/current-session.md](status/current-session.md) — 다음 세션 시작 지침
 4. [status/evaluation-baseline.md](status/evaluation-baseline.md) — 현재 baseline 정본
 5. [status/document-inventory.md](status/document-inventory.md) — 문서 현황·최신성 점검
+   - [status/consistency-audit-2026-06-20.md](status/consistency-audit-2026-06-20.md) — 전수 일치성 조사(코드↔문서↔PG↔온톨로지) 보고서
 6. [workplans/llm-accelerated-ontology-engineering.md](workplans/llm-accelerated-ontology-engineering.md) ⭐ — **메인 plan** (Phase 0~Hazard-Direct Pivot 진행 통합)
 7. [workplans/ontology-axiom-100pct.md](workplans/ontology-axiom-100pct.md) + [dev-notes/guide-recommendation-accuracy.md](dev-notes/guide-recommendation-accuracy.md) — 최신 완료 sprint (axiom-100% Phase A~K + guide-accuracy P0~P3)
 8. [governance/monorepo-transition.md](governance/monorepo-transition.md) — 모노레포 전환 이력
