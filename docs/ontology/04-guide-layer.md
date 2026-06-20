@@ -319,7 +319,7 @@ SHE 또는 SR 후보
 | `guide:ciGuideFrequency` | CI → xsd:integer | CI 중복 빈도(변별력 신호) |
 | `guide:isBoilerplate` | CI → xsd:boolean | 공통문구 표지 |
 
-- TBox: `kosha-ontology-v4-guide-hazard-patch.ttl`. ABox: `kosha-instances-guide-hazard.ttl` (**659 Guide, 2,115 triple**), PG `guide_entity_feature_candidates(entity_type='GUIDE', method='guide_hazard_weighted_majority')` 2,115행을 CI 변별력 가중 다수결로 도출 후 export.
+- TBox: `kosha-ontology-v4-guide-hazard-patch.ttl`. ABox: `kosha-instances-guide-hazard.ttl` (**659 Guide, 2,115 triple**), PG `guide_entity_feature_candidates(entity_type='GUIDE', method='guide_hazard_weighted_majority')` 2,115행을 CI 변별력 가중 다수결로 도출 후 export. ⚠️ **2026-06-20**: 이 ABox는 `archive/`로 이동(활성 프로파일 없음) → 현행 fine ABox는 `kosha-instances-guide-fine.ttl`(957 guide / 9,415 triple). PG GF의 `guide_hazard_weighted_majority` 2,115행/659 guide는 라이브 그대로.
 - 런타임: `get_guides_by_hazard_features()`(직접 조회) + `hazard_to_guide_service._merge_guide_paths()`(직접 우선 + CI union, 교집합 bonus +0.15).
 - "온톨로지가 사실 보유, 서비스 랭킹은 런타임 Python" 원칙 유지.
 

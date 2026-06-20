@@ -35,7 +35,7 @@
 
 ### P3 — 온톨로지 정합
 - TBox `kosha-ontology-v4-guide-hazard-patch.ttl`: `guide:addressesHazard` / `guideAddressesAgent` / `guideAppliesToContext` / `ciGuideFrequency` / `isBoilerplate`.
-- `export_guide_hazard_to_abox.py` → `kosha-instances-guide-hazard.ttl` (**659 Guide, 2,115 triple**).
+- `export_guide_hazard_to_abox.py` → `kosha-instances-guide-hazard.ttl` (**659 Guide, 2,115 triple**). ⚠️ **2026-06-20**: 이 파일은 이후 `archive/`로 이동, 현행 fine ABox `kosha-instances-guide-fine.ttl`(957 guide / 9,415 triple)이 대체.
 - **참고**: plan의 SHACL CONSTRUCT 대신 PG 가중 다수결 → ABox export 채택. ontology ABox에 Guide→CI→SR→hazard runtime chain이 없어(Phase B/C-J 발견) SHACL CONSTRUCT는 fire 0. PG의 `safety_requirements.accident_types` 집계가 정확한 사실 소스 → "온톨로지 사실 보유 + 런타임 랭킹" 원칙 유지.
 
 ## 검증 (8 photo eval before/after)

@@ -254,7 +254,7 @@ flowchart TB
 
 ## 핵심 TTL 예시
 
-아래 예시는 현재 `data-team/05-enrichment/she-data/she-instances-v1.ttl`에 있는 실제 패턴 중 하나다.
+아래 예시는 `data-team/05-enrichment/she-data/she-instances-v1.ttl`(965 frozen legacy 소스)에 있는 실제 패턴 중 하나다. ⚠️ **2026-06-12 CAT-4**: 현행 온톨로지 활성 SHE ABox는 PG `she_catalog` 전량을 emit한 `kosha-instances-she-full.ttl`(**1,675**)이며, she-instances-v1.ttl은 동결 원본이다.
 
 ```ttl
 she:SHE-PRESSMACHINE-a1470e38ba a she:SituationalHazardPattern ;

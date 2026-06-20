@@ -34,7 +34,7 @@ audit 게이트는 regex 스캔(빠르지만 imperative). 이식 가능한 **선
   - pending bucket(`UNCLASSIFIED`/`UNKNOWN_AGENT`/`UNKNOWN_CONTEXT`)은 canonical 배열에 포함 → 허용.
 
 **검증**: [`scripts/validate_canonical_codes.py`](../../ontology-team/06-reasoning/ontology/scripts/validate_canonical_codes.py) (pyshacl), `make verify-codes-shape`.
-- 전체 ABox(`kosha-instances.ttl` 956,551 + `kosha-instances-guide-hazard.ttl` 2,115 = **958,666 triple**) → **conforms=True** (parse ~26s, pyshacl ~0s; focus node가 정본 IRI ~69개로 bounded).
+- 전체 ABox(`kosha-instances.ttl` 956,551 + `kosha-instances-guide-hazard.ttl` 2,115 = **958,666 triple**) → **conforms=True** (parse ~26s, pyshacl ~0s; focus node가 정본 IRI ~69개로 bounded). ⚠️ **2026-06-20**: `kosha-instances-guide-hazard.ttl`은 이후 `archive/`로 이동(guide-fine.ttl이 대체) — 위 958,666 conforms 수치는 당시 어셈블리 스냅샷.
 - 음성 테스트: `haz:Crush`/`haz:CAUGHT_IN`/`agent:ArcFlash`/`ctx:Forklift` 합성 → **4건 적발 + exit 1**, 정본 `haz:CaughtIn`은 통과.
 - → Phase 4-B 마이그레이션의 "구어휘 잔여 0"을 독립 메커니즘(SHACL allowlist)으로 재확인.
 

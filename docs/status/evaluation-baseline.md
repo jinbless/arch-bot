@@ -40,7 +40,7 @@ The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are 
 - **P1 CI 변별력**: `checklist_items.guide_frequency` backfill (**3,953 CI, max 130**). `ci_weight = 1/log2(1+gf)`.
 - **P0 Guide 랭킹**: `get_guides_from_srs()` CI 개수 → Σ(ci_weight) 변별력 가중합.
 - **P2 직접 위험 매핑**: `guide_entity_feature_candidates(entity_type='GUIDE', method='guide_hazard_weighted_majority')` **2,115행 / 659 Guide** + 신규 `get_guides_by_hazard_features()` (CI 경유 없음).
-- **P3 온톨로지**: `guide:addressesHazard`/`guideAddressesAgent`/`guideAppliesToContext` + `kosha-instances-guide-hazard.ttl` (659 Guide, 2,115 triple).
+- **P3 온톨로지**: `guide:addressesHazard`/`guideAddressesAgent`/`guideAppliesToContext` + `kosha-instances-guide-hazard.ttl` (659 Guide, 2,115 triple). ⚠️ **2026-06-20**: 이 ABox는 이후 `archive/kosha-instances-guide-hazard.ttl`로 이동(manifest `arc-old-inversion`, 활성 프로파일 없음) → fine-tagging 산출 `kosha-instances-guide-fine.ttl`(957 guide / 9,415 triple)이 대체. 위 659/2,115는 PG `guide_entity_feature_candidates(method='guide_hazard_weighted_majority')`로 라이브 보존.
 
 8-photo Guide eval:
 
@@ -60,7 +60,7 @@ Runbook: [../dev-notes/guide-recommendation-accuracy.md](../dev-notes/guide-reco
 
 SWRL 의사코드 30개를 정형 추론 facts로 전환. Pellet NEXPTIME blowup 회피 위해 R-14~R-30은 SHACL CONSTRUCT.
 
-- v4 TBox 패치 9종 (deps/alethic/bridge/deontic/violation/penalty-extra/restrictions/hazard-direct/asymmetric). **owl:Restriction 35, owl:AsymmetricProperty 1, NaturalLanguageHazardCategory 21, sh:NodeShape 1,964**.
+- v4 TBox 패치 9종 (deps/alethic/bridge/deontic/violation/penalty-extra/restrictions/hazard-direct/asymmetric). **owl:Restriction 35, owl:AsymmetricProperty 1, NaturalLanguageHazardCategory 21, sh:NodeShape 1,964**. ⚠️ **2026-06-20 실측**: owl:Restriction는 현재 **37**(v4-restrictions 33 + v3-guide-profile 4; 문서 35는 v4-only 집계). sh:NodeShape **1,964**는 axiom-100% 어셈블리 스코프 — 전체 48 TTL raw grep은 4,407(kb-candidates 2,192 + vetted-disjoint-shapes 2,161 후보 KB 포함, 측정 스코프 밖).
 - R-1/R-3 SWRL native 유지 (Pellet: 107 + 3,579 inferred). R-14~R-30 → `kosha-rules-r14-r30-shacl-construct.ttl` (12 sh:rule CONSTRUCT, Java sources 4 SWRL 주석).
 - K-general SHACL: `core:dependsOn` 36,949 + `core:coApplicable` 16,429 = **53,378 pair**.
 - Gate 3 PASS (ontology-layer 변경, serving replay 회귀 없음). 검증: `scripts/verify_axiom_100pct.py` Overall OK.

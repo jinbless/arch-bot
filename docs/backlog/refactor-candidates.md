@@ -1405,3 +1405,16 @@ usage_profile8~10에서 hazard_normalizer/hazard_rule_engine alias/추론 확장
 actual response 240 status changed 15 및 v10 FN 1이 발생해 폐기했다.
 앞으로 Guide coverage는 risk alias 확장이 아니라 Guide usage_profile, visual_trigger, WorkProcess relevance 보강으로 해결해야 한다.
 ```
+
+## 전수 일치성 조사 — PG orphan/legacy 테이블 정리 후보 (2026-06-20)
+
+코드 ↔ 문서 ↔ PG ↔ 온톨로지 전수 일치성 조사에서 발견한, **서빙이 소비하지 않는데 kosha PG에 남아있는 테이블**. 모두 즉시 위험은 없으나(서빙 hot-path 무관) "이중 테이블" 노이즈라 정리 후보. **drop은 사용자 확인 후**(파괴적·파이프라인 의존 재검증 필요).
+
+| 테이블 | 행 | 출처 | 서빙 소비 | 판정 |
+|---|---|---|---|---|
+| `safety_requirements_v2` | 42 | pipe-A SR-추출 v2 **파일럿**(`data-team/02-extraction/pipe-A/{scripts,db}/pilot/`, 2026-04-26 생성, v1↔v2 비교용 샘플) | 없음(ORM 없음, backend 참조 0) | orphan — 파일럿 산출물. 서빙 PG에 잔존할 이유 없음 |
+| `sr_article_mapping_v2` | 42 | 〃 | 없음 | orphan(동일 파일럿) |
+| `sr_ns_mapping_v2` | 42 | 〃 | 없음 | orphan(동일 파일럿) |
+| `penalty_routes` | 656 | Phase G.3 이전 레거시 penalty 테이블(`law_type=RULE` 전량). ORM `PgPenaltyRoute`(models.py:365, "이미 PG에 존재" 주석) | **쿼리 소비 0** (backend에서 models.py만 참조; 서빙 penalty 경로는 `penalty_rule_index` 4,076행으로 대체) | legacy — 단 `ontology-team/06-reasoning/visualization/build_dashboard_data.py`가 아직 참조 → **drop 전 대시보드 의존 제거 확인 필요** |
+
+**권고**: (1) `_v2` 3종은 pipe-A pilot 정리 시 함께 drop 또는 별도 pilot DB로 격리(서빙 PG에서 제외). (2) `penalty_routes`는 `build_dashboard_data.py` 의존을 `penalty_rule_index`로 전환한 뒤 drop, 또는 명시적 "legacy-kept" 주석. (3) `PgPenaltyRoute` ORM도 dead면 함께 제거. **모두 데이터 일관성에 영향 없음**(서빙은 v1 SR 626 + penalty_rule_index 4,076 사용) — 순수 위생 정리.
