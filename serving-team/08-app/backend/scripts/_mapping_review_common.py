@@ -36,6 +36,7 @@ SR_COLS = [
     ("hazard", "위험(SHE)", 26, False, None),
     ("sr_id", "SR id", 16, False, None),
     ("sr_title", "SR 제목", 40, False, None),
+    ("sr_articles", "산업안전보건규칙 조", 40, False, None),
     ("via_she", "매칭 SHE 패턴", 26, False, None),
     ("she_status", "SHE status", 11, False, None),
     ("she_score", "SHE score", 9, False, None),
@@ -98,6 +99,46 @@ def _sr_titles(db: Session, sr_ids: list[str]) -> dict[str, str]:
     return {r[0]: r[1] for r in rows}
 
 
+def _sr_articles(db: Session, sr_ids: list[str]) -> dict[str, dict]:
+    """sr_id → {law_type, article_code, title, full_text}. SR→조는 1:1(산업안전보건규칙 RULE)이라 1건.
+
+    HITL 컬럼은 code+title만, judge 하니스는 full_text까지 재사용한다.
+    """
+    if not sr_ids:
+        return {}
+    from app.db.models import PgArticle, PgSrArticleMapping
+    rows = (
+        db.query(
+            PgSrArticleMapping.sr_id, PgSrArticleMapping.law_type,
+            PgArticle.article_code, PgArticle.title, PgArticle.full_text,
+        )
+        .join(
+            PgArticle,
+            (PgSrArticleMapping.law_type == PgArticle.law_type)
+            & (PgSrArticleMapping.article_code == PgArticle.article_code),
+        )
+        .filter(PgSrArticleMapping.sr_id.in_(list(set(sr_ids))))
+        .all()
+    )
+    out: dict[str, dict] = {}
+    for sr_id, law_type, code, title, full_text in rows:
+        out.setdefault(sr_id, {
+            "law_type": law_type, "article_code": code,
+            "title": title or "", "full_text": full_text or "",
+        })
+    return out
+
+
+def _fmt_article(a: Optional[dict]) -> str:
+    """조 dict → '제387조: 환기 등' (HITL/Excel 표시용)."""
+    if not a:
+        return ""
+    code, title = a.get("article_code") or "", a.get("title") or ""
+    if code and title:
+        return f"{code}: {title}"
+    return code or title
+
+
 def _she_sr_conf(db: Session, she_ids: list[str]) -> dict[tuple, float]:
     if not she_ids:
         return {}
@@ -147,6 +188,7 @@ def build_rows_for_record(db: Session, analysis_id: str, rj: dict, image_path: O
     sr_candidates = sr_candidates[:max_sr]
 
     sr_titles = _sr_titles(db, sr_candidates)
+    sr_arts = _sr_articles(db, sr_candidates)
     conf_map = _she_sr_conf(db, she_ids)
 
     sr_rows = []
@@ -159,6 +201,7 @@ def build_rows_for_record(db: Session, analysis_id: str, rj: dict, image_path: O
             "scene_summary": scene_summary, "gpt_observation": gpt_obs,
             "hazard": prov.get("via_she", "(facet 검색)" if fallback else ""),
             "sr_id": sid, "sr_title": sr_titles.get(sid, ""),
+            "sr_articles": _fmt_article(sr_arts.get(sid)),
             "via_she": prov.get("via_she", "(facet 검색)" if fallback else ""),
             "she_status": prov.get("she_status", ""), "she_score": prov.get("she_score", ""),
             "matched_features": prov.get("matched_features", ""),
