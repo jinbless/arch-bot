@@ -39,13 +39,38 @@
 수정: `_mapping_review_common.py`(`_sr_articles` + SR_COLS "산업안전보건규칙 조" 컬럼 — HITL export에 조 표면화).
 Workflow 스크립트(`claude-chapter-gold-*.js`)는 `~/.claude/.../workflows/scripts/`에 세션 로컬 보존(재실행 시 `scriptPath`로).
 
-## 다음 단계 (재개 시)
+## ⚠ 2026-06-21 방향 전환 — 계획했던 "자석 prune + 게이팅"은 측정 결과 무가치, 의미 retrieval로 선회
 
-1. **gold 확정** — disagreement 770건 사람 adjudication(또는 3rd 모델 tiebreak) → 정식 WS-EVAL-2 golden set. consensus 722는 이미 고신뢰.
-2. **정확도 개선(실수정)** — 근본원인 대응:
-   - 자석 SR의 `she_sr_mapping` cross-domain 링크 정리(제390 하역이 추락/로프 패턴에 안 붙게).
-   - SHE 매칭 **도메인 게이팅**(2축·저score 차단, work_context 도메인 일치 요구).
-   - fine work_context 변별(거친 facet 충돌 분리).
+아래 "다음 단계"의 2번(자석/게이팅)을 실제로 측정해보니 효과가 미미해 폐기하고, **의미매칭 retrieval**로 전환했다(검증 완료).
+
+**왜 자석/게이팅이 답이 아닌가 (`sim_broad_gating.py`):**
+- 자석 링크 source가 `phase3c` 아님 → `synthetic_bootstrap`(`bootstrap_she_from_synthetic.py:156 or [top1]` fallback)·`inversion`. ∴ `she_sr_exclusions.json`+`--reconcile` 메커니즘으로 못 지움.
+- `query_sr_for_facets`(broad)는 1축만 겹쳐도 SR 50개 반환(`hazard_rule_engine.py:360`). **≥2축 게이팅해도 precision@1 2~6% 천장, recall만 반토막.** facet은 article 변별 불가(동일 비계+추락도 정답 조 6개 제각각, `eval_knn_generalization.py`서 동일facet→gold Jaccard 0.38).
+
+**해법 — 의미 retrieval (검증, text-embedding-3-large):**
+| 방식 | P@1 | 비고 |
+|---|---|---|
+| facet baseline | 1.9% | 현행 |
+| ⒜ 장면↔전체 조문 | 19% | gold 불요 fallback |
+| ⒞ gold-이웃 kNN 재사용 | 57% | redundancy 강건(τ0.70 cap도 52%, 최근접 median 0.69) |
+| **⒞ + LLM rerank** | **76%** | retrieve→rerank 풀 파이프라인 천장(`eval_rerank_ceiling.py`) |
+
+- 파이프라인: **장면 임베딩 → gold 장면 kNN으로 후보 8개 → gpt-5.4가 조문 전문 대조해 yes 선별.**
+- 구현: `build_semantic_article_index.py`(KB 물질화 semantic_kb.npz/json) + `app/services/semantic_article_service.py`(`recommend_articles()`, PG·재임베딩 불요) + `demo_semantic_serving.py`(스모크).
+- **gold = 척도가 아니라 서빙 지식베이스**가 됨 → 확정(A)+확충이 곧 정확도. CLAUDE.md Layer4 GraphRAG/Phase B rerank 자리.
+- **유일 미지수: 합성→실제 사진 전이**(KB·질의 모두 합성; real-test-photo/ spot-check만 가능).
+- ⚠ consensus-core gold는 교집합이라 너무 엄격(인접 정답 제42/44 미크레딧) → 현 측정치는 **하한**, gold 확정 후 상승 예상.
+
+**진행 순서(2026-06-21):** ①rerank 천장측정 ✓ → ②recall 보강(KB 확장+⒜ union 재측정) → ③gold 확정(tiebreak `batch_6a3750093d04819087183c02c38c8664` 비동기 24h: `tiebreak_gold_gpt.py --mode collect` → `adjudicate_gold.py --mode merge`) → KB 재물질화·재측정 → ④실서빙 통합(`analysis_pipeline`/API).
+
+---
+
+## 다음 단계 (구안 — 2번은 위에서 폐기됨, 기록 보존)
+
+1. **gold 확정** — disagreement 770건 사람 adjudication(또는 3rd 모델 tiebreak) → 정식 WS-EVAL-2 golden set. consensus 722는 이미 고신뢰. **(여전히 유효 — 단 의미 retrieval의 KB로서 역할 추가)**
+2. ~~**정확도 개선(자석 prune + 도메인 게이팅)**~~ — 측정 결과 무가치, 위 의미 retrieval로 대체:
+   - ~~자석 SR `she_sr_mapping` cross-domain 링크 정리~~
+   - ~~SHE 매칭 도메인 게이팅~~ / ~~fine work_context 변별~~
 
 ### 재현 명령 (WSL venv, DATABASE_URL=postgresql://kosha:1229@localhost:5432/kosha)
 ```bash
