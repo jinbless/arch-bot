@@ -35,6 +35,37 @@ def split_measures(s):
     return [p.strip(" -·\t") for p in parts if p.strip(" -·\t")]
 
 
+def split_multi_case(rec):
+    """'복합(N건)' 사례집 — [사례 N] 마커로 발생상황/사고원인/예방조치를 사례별 레코드로 분리.
+    단일 사례는 그대로 반환."""
+    blob = rec["발생상황"]
+    marks = list(re.finditer(r"\[사례\s*(\d+)\]", blob))
+    if len(marks) < 2:
+        return [rec]  # 단일
+    segs = {}
+    for i, m in enumerate(marks):
+        n = m.group(1)
+        end = marks[i + 1].start() if i + 1 < len(marks) else len(blob)
+        seg = re.sub(r"\*\*|\[사례\s*\d+\]", "", blob[m.start():end]).strip()
+        segs[n] = seg
+
+    def group(items):
+        g = {}
+        for it in items:
+            mm = re.search(r"\[사례\s*(\d+)\]", it)
+            n = mm.group(1) if mm else (next(iter(segs)) if segs else "1")
+            txt = re.sub(r"\*\*|\[사례\s*\d+\]", "", it).strip()
+            for part in re.split(r"\s*/\s*", txt):
+                p = part.strip(" -·")
+                if p:
+                    g.setdefault(n, []).append(p)
+        return g
+    causes = group(rec["사고원인"])
+    prevent = group(rec["예방조치"])
+    return [{**rec, "id": f"{rec['id']}-사례{n}", "발생상황": segs[n],
+             "사고원인": causes.get(n, []), "예방조치": prevent.get(n, [])} for n in segs]
+
+
 def parse_sif():
     import openpyxl
     p = next(REF.glob("*SIF*xlsx"), None)
@@ -114,7 +145,7 @@ def parse_cases():
                 return lines
 
             situ = section("①")
-            recs.append({
+            rec = {
                 "source": "case", "domain": domain, "id": f"case-{domain}-{num}",
                 "순번": num, "제목": title,
                 "재해유형": field("재해유형"), "재해정도": field("재해정도"),
@@ -122,7 +153,8 @@ def parse_cases():
                 "발생상황": " ".join(situ),
                 "사고원인": section("②"),
                 "예방조치": section("③"),
-            })
+            }
+            recs.extend(split_multi_case(rec))
     with (OUT / "accident_cases.jsonl").open("w", encoding="utf-8") as f:
         for r in recs:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
