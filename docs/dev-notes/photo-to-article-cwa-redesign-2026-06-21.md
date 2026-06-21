@@ -174,3 +174,29 @@ model_sweep_extract.py · model_sweep_score.py · claude_sweep_extract.py. 산�
 1. **Stage2 절-내 변별 강화** ← 진짜 병목. 형제조문 discriminator(제42 작업발판 vs 제43 개구부 vs 제44 안전대 vs 제45 지붕; 제243 소화 vs 제244 방화 vs 제245 화기사용). RANK에 형제 대조 단계 추가.
 2. **라벨 사진 확충 8→30~50** ← 모든 수치의 변동성 병목.
 3. 서빙 통합 / violation_scene 수정(후순위).
+
+---
+
+## ★ A 최적 파이프라인 시도 = NEGATIVE RESULT (2026-06-21)
+
+처방(rich+기인물 추출 + 결여조치↔요구조치 measure-aware RANK)을 구현·측정. **기존 62.5%를 못 넘고 후퇴.**
+
+| 파이프라인 | P@1 | Hit@3 | Hit@5 | R@5 |
+|---|---|---|---|---|
+| **기존: claude_vision 추출 + 기인물앵커 + plain RANK** | **62.5%** | **100%** | 87.5% | 72.9% |
+| 신규 rich+기인물(sonnet) + plain RANK | 37.5% | 62.5% | 75.0% | 42.7% |
+| 신규 rich+기인물(sonnet) + measure-aware RANK | 37.5% | 75.0% | 87.5% | 44.8% |
+| 신규 rich+기인물(gpt-5.4) + measure-aware | 37.5% | 50.0% | 62.5% | 32.3% |
+
+**진단(ablation으로 분리):**
+- plain≈measure-aware(둘 다 37.5%) → **RANK 변경은 중립**. measure-aware는 틀린 기인물 식별을 못 고침(추출이 "사출"이면 절8로 직행).
+- **후퇴 원인 = 추출.** 내 재추출(GPT·Claude, 터스든 rich+기인물이든)이 기존 claude_vision 추출보다 못함. 잃은 2장: 프레스(재추출이 사출성형기로 오인→제121, 기존은 제103 rank1) + 안전대길이(제44 안전대를 1위 못잡음, 기존은 제44 rank1).
+- 프레스↔사출 혼동은 대부분 모델 공통(gpt-5-nano만 예외). 기존 claude_vision 추출은 프레스 정확(파일명 힌트 가능성 or 더 나은 프롬프트).
+
+**결론: 기존 추출 + 기인물 앵커(62.5%/Hit@3 100%)가 검증된 최선.** 재추출·RANK 엔지니어링은 8장에서 이득 없음(오히려 손해). 진짜 레버는 ①라벨 사진 확충(노이즈 탈출) ②추출의 confusable 설비 변별(프레스/사출, 안전대 granularity) — 단 둘 다 더 많은 라벨 데이터로만 검증 가능. **8장에서의 추가 프롬프트 튜닝은 과적합이므로 중단.**
+
+### A 신규 스크립트(미커밋)
+optimal_extract.py (rich+기인물) · optimal_match.py (measure-aware + --plain ablation). 산출 optimal_extractions.json / optimal_match.md.
+
+### 서빙 가능 상태
+검증된 파이프라인 = 기존 Vision 추출 → build_gimulmul_index(절/관=기인물) → RESOLVE(gpt-5.4)→ASSEMBLE(절/관∪횡단)→RANK(gpt-5.4). P@1 62.5%·Hit@3 100%. 서빙은 top-3 제시 형태가 적합(Hit@3 100%).
