@@ -19,7 +19,11 @@ logger = logging.getLogger(__name__)
 
 
 def _client_ip_key(request: Request) -> str:
-    """nginx 프록시 뒤 실제 클라이언트 IP(X-Forwarded-For 우선) — 레이트리밋 키."""
+    """nginx 프록시 뒤 실제 클라이언트 IP — 레이트리밋 키.
+    X-Real-IP($remote_addr, nginx가 덮어써 위조 불가) 우선. XFF 첫값은 클라가 위조 가능하므로 후순위."""
+    real = request.headers.get("x-real-ip")
+    if real:
+        return real.strip()
     xff = request.headers.get("x-forwarded-for")
     if xff:
         return xff.split(",")[0].strip()
