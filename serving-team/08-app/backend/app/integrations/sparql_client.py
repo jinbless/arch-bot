@@ -56,7 +56,8 @@ class SparqlClient:
             logger.info("SPARQL circuit breaker CLOSED — connection restored")
 
     def _cache_key(self, sparql: str) -> str:
-        return hashlib.md5(sparql.encode()).hexdigest()
+        # 보안용도 아님(쿼리→캐시키). usedforsecurity=False로 의도 명시 + FIPS/스캐너 대응(CWE-327 N/A).
+        return hashlib.md5(sparql.encode(), usedforsecurity=False).hexdigest()
 
     def _get_cached(self, key: str) -> Optional[list[dict]]:
         if key in self._cache:
