@@ -11,24 +11,44 @@ from app.utils.exceptions import FileTooLargeError, UnsupportedFileTypeError, Im
 
 logger = logging.getLogger(__name__)
 
+# 디컴프레션 폭탄 방지(CWE-409): 작은 파일이 거대 픽셀로 전개되어 메모리를 고갈시키는 것을 차단.
+# 초과 시 PIL이 DecompressionBombError 발생.
+Image.MAX_IMAGE_PIXELS = 24_000_000  # ~24MP 상한
+
+_ALLOWED_FORMATS = {"JPEG", "PNG", "WEBP"}
+
 
 class FileHandler:
     @staticmethod
     async def validate_image(file: UploadFile) -> None:
-        """이미지 파일 검증"""
-        # 확장자 검증
-        if file.filename:
-            ext = f".{file.filename.split('.')[-1].lower()}"
-            if ext not in settings.ALLOWED_EXTENSIONS:
-                raise UnsupportedFileTypeError(settings.ALLOWED_EXTENSIONS)
+        """이미지 파일 검증 — 확장자·크기(메모리 한도 내)·실제 이미지/폭탄 검증."""
+        # 확장자 검증 (filename 없으면 거부 — 검증 우회 방지, CWE-434)
+        if not file.filename or "." not in file.filename:
+            raise UnsupportedFileTypeError(settings.ALLOWED_EXTENSIONS)
+        ext = f".{file.filename.rsplit('.', 1)[-1].lower()}"
+        if ext not in settings.ALLOWED_EXTENSIONS:
+            raise UnsupportedFileTypeError(settings.ALLOWED_EXTENSIONS)
 
-        # 파일 크기 검증
-        contents = await file.read()
+        # 크기 검증 — 한도+1 바이트까지만 읽어 대용량 업로드 메모리 DoS 방지(CWE-400)
+        max_bytes = settings.MAX_FILE_SIZE_MB * 1024 * 1024
+        contents = await file.read(max_bytes + 1)
         await file.seek(0)
-
-        size_mb = len(contents) / (1024 * 1024)
-        if size_mb > settings.MAX_FILE_SIZE_MB:
+        if len(contents) > max_bytes:
             raise FileTooLargeError(settings.MAX_FILE_SIZE_MB)
+
+        # 실제 이미지 여부 + 포맷/폭탄 검증(CWE-409/434) — 확장자 위조 차단
+        try:
+            with Image.open(io.BytesIO(contents)) as probe:
+                fmt = (probe.format or "").upper()
+                probe.verify()  # 구조 검증(폭탄이면 MAX_IMAGE_PIXELS로 DecompressionBombError)
+        except Image.DecompressionBombError:
+            raise FileTooLargeError(settings.MAX_FILE_SIZE_MB)
+        except (FileTooLargeError, UnsupportedFileTypeError):
+            raise
+        except Exception:
+            raise UnsupportedFileTypeError(settings.ALLOWED_EXTENSIONS)
+        if fmt not in _ALLOWED_FORMATS:
+            raise UnsupportedFileTypeError(settings.ALLOWED_EXTENSIONS)
 
     @staticmethod
     async def image_to_base64(file: UploadFile) -> str:
@@ -58,8 +78,12 @@ class FileHandler:
             contents = buffer.getvalue()
 
             return base64.b64encode(contents).decode('utf-8')
+        except Image.DecompressionBombError:
+            raise ImageProcessingError("이미지 크기가 허용 범위를 초과했습니다.")
         except Exception as e:
-            raise ImageProcessingError(f"이미지 처리 실패: {str(e)}")
+            # 내부 상세는 서버 로그만, 사용자에겐 일반화 메시지(정보노출 방지 CWE-209)
+            logger.warning("image_to_base64 failed: %s", e)
+            raise ImageProcessingError("이미지 처리에 실패했습니다.")
 
     @staticmethod
     def make_thumbnail_data_uri(

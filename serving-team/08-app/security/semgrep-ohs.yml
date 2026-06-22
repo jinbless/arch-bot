@@ -1,0 +1,53 @@
+# OHS 커스텀 semgrep 룰 — registry 룰셋(p/owasp-top-ten 등)이 약한 한국기준/OHS 특화 항목.
+# 사용: security-scan.sh 가 registry 룰셋과 함께 --config 로 로드.
+rules:
+  - id: ohs-hardcoded-db-credential
+    patterns:
+      - pattern-regex: '(postgresql|postgres|mysql|mongodb|redis)://[A-Za-z0-9_]+:[^@"''\s/]+@'
+    message: >
+      하드코딩된 DB 자격증명(비밀번호 포함 접속 URL). 환경변수/시크릿으로 분리하고 기본값은 비워라.
+      행안부: 보안기능(중요정보 하드코딩) / OWASP A07 / CWE-798
+    severity: WARNING
+    languages: [python]
+    metadata: {cwe: "CWE-798", owasp: "A07:2021", standard: "행안부-보안기능"}
+
+  - id: ohs-cors-wildcard-with-credentials
+    patterns:
+      - pattern: $APP.add_middleware(CORSMiddleware, ..., allow_origins=["*"], ..., allow_credentials=True, ...)
+    message: >
+      CORS allow_origins=["*"] + allow_credentials=True 조합은 취약(임의 출처 자격증명 요청 허용).
+      ALLOWED_ORIGINS를 실제 출처로 고정. 행안부: 보안기능 / OWASP A05 / CWE-942
+    severity: ERROR
+    languages: [python]
+    metadata: {cwe: "CWE-942", owasp: "A05:2021", standard: "행안부-보안기능"}
+
+  - id: ohs-pil-image-open-bomb-guard
+    patterns:
+      - pattern: Image.open(...)
+    message: >
+      PIL Image.open — 디컴프레션 폭탄 방지를 확인하라(모듈에 Image.MAX_IMAGE_PIXELS 상한 설정 +
+      DecompressionBombError 처리). 행안부: 입력데이터 검증 / OWASP A05 / CWE-409
+    severity: INFO
+    languages: [python]
+    metadata: {cwe: "CWE-409", owasp: "A05:2021", standard: "행안부-입력검증"}
+
+  - id: ohs-debug-true
+    pattern-either:
+      - pattern: DEBUG = True
+      - pattern: debug=True
+    message: >
+      DEBUG/debug=True 는 프로덕션 금지(스택트레이스·내부정보 노출). 환경별 분리.
+      행안부: 에러처리 / OWASP A05 / CWE-489
+    severity: WARNING
+    languages: [python]
+    metadata: {cwe: "CWE-489", owasp: "A05:2021", standard: "행안부-에러처리"}
+
+  - id: ohs-exception-message-leak
+    patterns:
+      - pattern-regex: '(raise|return|detail=)[^#\n]*f["''][^"'']*\{(str\()?e[\)]?\}'
+    message: >
+      예외 객체(str(e))를 사용자 응답/예외 메시지에 직접 노출 가능 → 내부정보 유출.
+      사용자에겐 일반화 메시지, 상세는 서버로그만. 행안부: 에러처리 / OWASP A05 / CWE-209
+    severity: INFO
+    languages: [python]
+    metadata: {cwe: "CWE-209", owasp: "A05:2021", standard: "행안부-에러처리"}
