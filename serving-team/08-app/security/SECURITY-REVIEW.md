@@ -59,8 +59,17 @@
 - **DAST**: `security/dast-zap.sh` (OWASP ZAP baseline — **스테이징 권장**) + 보안헤더/TLS 체크
 - **CI 게이트**: 배포 번들 빌드 전 semgrep High/Med 0 확인.
 
+## 조치 현황 (2026-06-21)
+- **F2·F3·F6·F7(부분)** ✅ `file_handler.py` — 크기 한도내 read(메모리DoS)·`MAX_IMAGE_PIXELS` 폭탄방지·filename/매직 검증·예외 메시지 일반화.
+- **F1** ✅ `main.py` slowapi 레이트리밋(전역 120/분·1000/일). ※ 다중워커는 redis 공유저장, **이미지 엔드포인트 별도 강화(예: 10/분)** 권장, nginx가 `X-Forwarded-For` 전달해야 IP별 정확.
+- **F5** ✅ `main.py` — ALLOWED_ORIGINS에 `*` 포함 시 `allow_credentials` 자동 비활성 가드.
+- **F7** ✅ `main.py` — 보안헤더(X-Content-Type-Options·X-Frame-Options·Referrer-Policy) 미들웨어 + 미처리 예외 일반화 핸들러. (HSTS/CSP는 nginx 권장.)
+- **F4** ⏸ 코드 변경 보류(로컬 dev 파괴 방지) → **ops**: prod `.env` 강한 비번 + git 이력 비번 회전. semgrep 룰이 지속 플래그.
+- **F8** ⏸ 입력 길이제한·시스템프롬프트 강화 권장(미적용).
+- **배포 주의**: main.py/file_handler는 서빙코드 → 재빌드 시 `requirements.txt`의 slowapi 설치 + 업로드/레이트리밋 동작 테스트 후 번들 배포.
+
 ## 다음
-1. F1~F3(High) 소스 수정 → 회귀
-2. 서버 `security-scan.sh` 실행 → semgrep 결과 triage(이 보고서에 병합)
-3. 스테이징 `dast-zap.sh` 실행
-4. (요청 시) PDF 가이드 기준 47약점 **정밀 매핑표** 작성
+1. **서버 `security-scan.sh` 실행** → semgrep/pip-audit/gitleaks 결과를 이 보고서에 triage 병합 (교차검증)
+2. **스테이징 `dast-zap.sh` 실행** → 런타임 검증
+3. 이미지 엔드포인트 레이트리밋 별도 강화 + nginx X-Forwarded-For 확인
+4. (요청 시) PDF 가이드 기준 행안부 47약점 **정밀 매핑표** 작성
