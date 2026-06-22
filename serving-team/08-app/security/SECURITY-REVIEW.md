@@ -17,7 +17,7 @@
 | F6 | **Med** | 업로드 확장자 검증이 `filename` 없으면 skip + 확장자-only(매직바이트 X) | utils/file_handler.py:20-23 | 입력검증 / A04 / CWE-434 |
 | F7 | **Low** | 예외 메시지에 내부 정보 포함 가능(`f"...{str(e)}"`) + 전역 예외핸들러/보안헤더 미확인 | file_handler.py:62 외 | 에러처리 / A05 / CWE-209 |
 | F8 | **Low** | LLM 프롬프트 인젝션(사용자 text/context → Vision/LLM) — 비에이전트라 영향 제한적 | openai_client.py | API오용 / OWASP LLM01 |
-| F9 | **Med** | frontend 의존성 취약점 12건(high 5: axios·form-data·rollup·vite·picomatch) | frontend/package-lock.json | SCA / A06:2021 / CWE-1395 |
+| F9 | **Med** | frontend 의존성 12건 → `npm audit fix` 후 **2건**(esbuild/vite 빌드툴 잔존, dev-time) | frontend/package-lock.json | SCA / A06:2021 / CWE-1395 |
 | ✓ | — | **SQL 인젝션 없음**(text()/execute() 93곳 전부 파라미터 바인딩, f-string SQL 0) · eval/exec/os.system/pickle 0 · API키 env기반 · MD5는 캐시키(usedforsecurity=False) | — | 양호 |
 
 ## 상세 + 조치
@@ -78,17 +78,19 @@
 - `file_handler.py:41/60/100` Image.open(CWE-409, INFO×3) = MAX_IMAGE_PIXELS + 예외핸들러로 완화(어드바이저리).
 - ✅ `sparql_client.py:59` MD5(CWE-327) = `_cache_key` 캐시키(보안 아님) → `usedforsecurity=False` 적용 후 **해소**.
 
-**npm audit (frontend SCA)** → **F9 신규: 의존성 취약점 12건 (high 5 / moderate 6 / low 1):**
-- 런타임 영향: **axios**(high, NO_PROXY 우회) · **form-data**(high, CRLF 인젝션) · react-router(mod)
-- 빌드툴(주로 개발·빌드 시 위험): vite·rollup·esbuild(SSRF/path traversal)·postcss(XSS)·@babel(파일읽기)
-- 대부분 `npm audit fix`(semver 호환)로 해결 → **프론트 재빌드·동작 테스트 필요**.
+**npm audit (frontend SCA)** → **F9: 의존성 취약점 12건 → `npm audit fix` 후 2건** (빌드 ✅ 성공):
+- ✅ 수정 10건 — 런타임 영향분 포함: **axios·form-data**(high)·rollup·picomatch·react-router·postcss·uuid 등.
+- ⏸ 잔존 2건 — **esbuild/vite**(빌드툴, dev-server SSRF = 개발시 위험, 배포 static 번들엔 무관). 해결엔 vite 5→8 **메이저 업글(breaking)** → 별도 마이그레이션·테스트 필요(후순위).
+
+**백엔드 수정 검증(로컬):** file_handler 단위테스트 6/6 통과(정상통과·과대크기·비이미지·무filename·허용외확장자 거부). slowapi 설치·import OK(py3.14+3.11). main.py AST OK — 전체 런타임은 이미지 재빌드+verify-ohs.sh서 최종확인.
 
 **미실행(미설치)**: pip-audit(Python 의존성 CVE) · gitleaks(시크릿). 설치 후 추가 스캔 권장.
 **실행도구**: `security-scan.sh` (로컬 semgrep 없으면 docker 자동 폴백 + Docker credsStore 우회 내장).
 
 ## 다음
-1. **F9 프론트 의존성**: `cd frontend && npm audit fix` → 재빌드·테스트 (axios/form-data 우선). 미해결분은 메이저 업글 검토.
-2. **pip-audit·gitleaks 설치 후 재스캔** (Python CVE·하드코딩 시크릿)
-3. **스테이징 `dast-zap.sh`** 런타임 검증 (인증우회/IDOR/업로드/레이트리밋)
-4. 이미지 엔드포인트 레이트리밋 별도 강화(10/분) + nginx `X-Forwarded-For` 전달 확인
-5. (요청 시) PDF 가이드 기준 행안부 47약점 **정밀 매핑표** 작성
+1. ✅ F9 `npm audit fix` 완료(12→2, 빌드 OK). 잔존 esbuild/vite는 vite 5→8 **메이저 업글(breaking)** — dev-time 위험이라 후순위·별도 마이그레이션.
+2. **★ 재빌드+배포** — 위 수정(F1/F2/F3/F5/F6/F7/F9/MD5)은 **로컬 소스에만**. 이미지 재빌드(backend slowapi 포함)+프론트 재빌드 → 번들 → `update-ohs.sh` → `verify-ohs.sh`. **프로덕션은 아직 미수정 상태로 서비스 중**(우선).
+3. **pip-audit·gitleaks 설치 후 재스캔** (Python CVE·하드코딩 시크릿)
+4. **스테이징 `dast-zap.sh`** 런타임 검증 (인증우회/IDOR/업로드/레이트리밋)
+5. 이미지 엔드포인트 레이트리밋 별도 강화(10/분) + nginx `X-Forwarded-For` 전달 확인
+6. (요청 시) PDF 가이드 기준 행안부 47약점 **정밀 매핑표** 작성
