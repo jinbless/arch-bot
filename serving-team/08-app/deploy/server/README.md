@@ -30,7 +30,7 @@
 ```bash
 cd serving-team/08-app
 bash deploy/server/build_bundle.sh
-# → deploy/server/dist/ : all-images.tar.gz, ohs-chromadb.tar.gz, ohs-kosha.dump
+# → deploy/server/dist/ : all-images.tar.gz, ohs-chromadb.tar.gz, ohs-shared-reference.tar.gz, ohs-kosha.dump
 ```
 > 로컬 `kosha-pg` 컨테이너가 떠 있으면 dump도 자동. (이미 만들어진 dist/ 산출물이 있으면 재사용)
 
@@ -41,13 +41,13 @@ DEP=/mnt/c/project/arch-bot/serving-team/08-app/deploy/server
 ssh <user>@<server> "mkdir -p /srv/ohs/deploy"
 scp -r "$DEP/dist/." "$DEP/ohs" "$DEP/edge" "$DEP/load_and_up.sh" <user>@<server>:/srv/ohs/deploy/
 ```
-(업로드 후 서버에서 `/srv/ohs/deploy` 안에 `all-images.tar.gz`, `ohs-chromadb.tar.gz`, `ohs-kosha.dump`, `ohs/`, `edge/`, `load_and_up.sh`가 나란히 있어야 함)
+(업로드 후 서버에서 `/srv/ohs/deploy` 안에 `all-images.tar.gz`, `ohs-chromadb.tar.gz`, `ohs-shared-reference.tar.gz`, `ohs-kosha.dump`, `ohs/`, `edge/`, `load_and_up.sh`가 나란히 있어야 함)
 
 ## 3. 서버에서 — .env 작성 + 기동
 ```bash
 cd /srv/ohs/deploy
 cp ohs/.env.example ohs/.env
-nano ohs/.env          # OPENAI_API_KEY(진짜 키), CHROMADB_HOST_DIR(예 /srv/ohs/chromadb), POSTGRES_PASSWORD
+nano ohs/.env          # OPENAI_API_KEY(진짜 키), CHROMADB_HOST_DIR, SHARED_REF_HOST_DIR, POSTGRES_PASSWORD
 sudo bash load_and_up.sh
 ```
 `load_and_up.sh`가: 이미지 load → `edge-net` 생성 → ChromaDB 해제 → 전용 PG 기동+**데이터 restore**(kosha_guides 1038 확인) → backend/frontend → edge.

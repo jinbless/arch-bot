@@ -6,10 +6,11 @@
 env/
 venv/
 
-# 파이썬 캐시
-__pycache__/
-*.py[cod]
-*$py.class
+# 파이썬 캐시 — ★ 중첩(app/__pycache__ 등)까지 제외해야 함(`**/` 없으면 Docker는 루트만 매칭).
+#   stale .pyc 에 옛 자격증명이 굽히는 것 방지.
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
 .Python
 
 # 런타임 데이터 — 컨테이너에 volume/bind-mount로 주입(이미지에 굽지 않음).
@@ -26,7 +27,7 @@ scripts/
 *.db
 .coverage
 htmlcov/
-.pytest_cache/
+**/.pytest_cache/
 .idea/
 .vscode/
 .git/

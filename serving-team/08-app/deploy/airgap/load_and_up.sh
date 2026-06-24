@@ -7,20 +7,28 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 [ -f .env ] || { echo "!! .env 없음 — .env.example을 복사해 작성하세요: cp .env.example .env" >&2; exit 1; }
-# .env에서 CHROMADB_HOST_DIR 로드
+# .env에서 경로 변수 로드
 CHROMADB_HOST_DIR="$(grep -E '^CHROMADB_HOST_DIR=' .env | tail -1 | cut -d= -f2-)"
 : "${CHROMADB_HOST_DIR:?.env에 CHROMADB_HOST_DIR 지정 필요}"
+SHARED_REF_HOST_DIR="$(grep -E '^SHARED_REF_HOST_DIR=' .env | tail -1 | cut -d= -f2-)"
+: "${SHARED_REF_HOST_DIR:?.env에 SHARED_REF_HOST_DIR 지정 필요}"
 
-echo "[1/3] 이미지 load (Docker Hub 접근 불요)..."
+echo "[1/4] 이미지 load (Docker Hub 접근 불요)..."
 docker load -i ohs-images.tar.gz
 
-echo "[2/3] ChromaDB 배치 → ${CHROMADB_HOST_DIR}"
+echo "[2/4] ChromaDB 배치 → ${CHROMADB_HOST_DIR}"
 PARENT="$(dirname "${CHROMADB_HOST_DIR}")"
 mkdir -p "$PARENT"
 tar xzf ohs-chromadb.tar.gz -C "$PARENT"      # 아카이브 내부가 'chromadb/' → $PARENT/chromadb 생성
 test -d "${CHROMADB_HOST_DIR}" || { echo "!! ${CHROMADB_HOST_DIR} 생성 실패 — 경로/아카이브 확인" >&2; exit 1; }
 
-echo "[3/3] 기동..."
+echo "[3/4] shared/reference 배치 → ${SHARED_REF_HOST_DIR}"
+mkdir -p "${SHARED_REF_HOST_DIR}"
+# 아카이브 내부 'reference/'를 strip 하여 SHARED_REF_HOST_DIR 안에 파일이 바로 놓이게(디렉터리명 무관 견고).
+tar xzf ohs-shared-reference.tar.gz -C "${SHARED_REF_HOST_DIR}" --strip-components=1
+test -f "${SHARED_REF_HOST_DIR}/canonical_vocab.py" || { echo "!! ${SHARED_REF_HOST_DIR} 압축해제 실패 — 아카이브 확인" >&2; exit 1; }
+
+echo "[4/4] 기동..."
 docker compose -f docker-compose.airgap.yml up -d
 docker compose -f docker-compose.airgap.yml ps
 echo

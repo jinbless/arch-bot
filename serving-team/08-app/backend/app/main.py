@@ -4,35 +4,17 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
-from slowapi.util import get_remote_address
 
 from app.api.v1.router import router as api_v1_router
 from app.config import settings
 from app.db.database import SessionLocal, create_tables
+from app.rate_limit import limiter  # 전역+엔드포인트별 레이트리밋(F1) — app/rate_limit.py
 from app.services.article_service import article_service
 from app.services.guide_service import guide_service
 
 logger = logging.getLogger(__name__)
-
-
-def _client_ip_key(request: Request) -> str:
-    """nginx 프록시 뒤 실제 클라이언트 IP — 레이트리밋 키.
-    X-Real-IP($remote_addr, nginx가 덮어써 위조 불가) 우선. XFF 첫값은 클라가 위조 가능하므로 후순위."""
-    real = request.headers.get("x-real-ip")
-    if real:
-        return real.strip()
-    xff = request.headers.get("x-forwarded-for")
-    if xff:
-        return xff.split(",")[0].strip()
-    return get_remote_address(request)
-
-
-# 레이트리밋(F1, CWE-770) — 익명 대량요청·OpenAI 비용 남용 방지. 전역 기본한도(엔드포인트별 튜닝 가능).
-# 주의: 기본 in-memory(프로세스별) — 다중 워커/스케일아웃 시 redis 등 공유 저장 권장.
-limiter = Limiter(key_func=_client_ip_key, default_limits=["120/minute", "1000/day"])
 
 
 @asynccontextmanager

@@ -62,10 +62,10 @@
 
 ## 조치 현황 (2026-06-21)
 - **F2·F3·F6·F7(부분)** ✅ `file_handler.py` — 크기 한도내 read(메모리DoS)·`MAX_IMAGE_PIXELS` 폭탄방지·filename/매직 검증·예외 메시지 일반화.
-- **F1** ✅ `main.py` slowapi 레이트리밋(전역 120/분·1000/일). ※ 다중워커는 redis 공유저장, **이미지 엔드포인트 별도 강화(예: 10/분)** 권장, nginx가 `X-Forwarded-For` 전달해야 IP별 정확.
+- **F1** ✅ `main.py` slowapi 레이트리밋(전역 120/분·1000/일) + (2026-06-23) **엔드포인트별 강화**(`/image` 10/분·`/text` 20/분, `app/rate_limit.py`로 분리, env 조정 가능, TestClient 429 차단 검증). ※ 다중워커는 redis 공유저장, nginx가 `X-Real-IP`/`X-Forwarded-For` 전달.
 - **F5** ✅ `main.py` — ALLOWED_ORIGINS에 `*` 포함 시 `allow_credentials` 자동 비활성 가드.
 - **F7** ✅ `main.py` — 보안헤더(X-Content-Type-Options·X-Frame-Options·Referrer-Policy) 미들웨어 + 미처리 예외 일반화 핸들러. (HSTS/CSP는 nginx 권장.)
-- **F4** ⏸ 코드 변경 보류(로컬 dev 파괴 방지) → **ops**: prod `.env` 강한 비번 + git 이력 비번 회전. semgrep 룰이 지속 플래그.
+- **F4** ✅ (2026-06-23) 소스 기본 자격증명 제거(`config.py` `DATABASE_URL=""`) + .env/환경변수 주입 필수화(`database.py` fail-safe, 미설정 시 기동 차단) + 추적 템플릿/문서/compose placeholder화. dev는 `backend/.env`(gitignore)로 주입. **semgrep WARN 해소**. ops 잔여: prod `.env` 강한 비번 확인 + 약한 비번 이력이면 회전.
 - **F8** ⏸ 입력 길이제한·시스템프롬프트 강화 권장(미적용).
 - **배포 주의**: main.py/file_handler는 서빙코드 → 재빌드 시 `requirements.txt`의 slowapi 설치 + 업로드/레이트리밋 동작 테스트 후 번들 배포.
 

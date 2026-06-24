@@ -1,8 +1,9 @@
-from fastapi import APIRouter, UploadFile, File, Form, Depends, Query
+from fastapi import APIRouter, UploadFile, File, Form, Depends, Query, Request
 from sqlalchemy.orm import Session
 from typing import Optional
 import json
 
+from app.rate_limit import limiter, RATE_LIMIT_IMAGE, RATE_LIMIT_TEXT
 from app.db.database import get_db
 from app.db import crud
 from app.models.analysis import (
@@ -19,7 +20,9 @@ router = APIRouter()
 
 
 @router.post("/image", response_model=AnalysisResponse)
+@limiter.limit(RATE_LIMIT_IMAGE)   # 비싼 OpenAI Vision 호출 — 엔드포인트별 강화 한도(item 16/F1)
 async def analyze_image(
+    request: Request,
     image: UploadFile = File(..., description="분석할 이미지 파일"),
     workplace_type: Optional[str] = Form(None, description="작업장 유형"),
     additional_context: Optional[str] = Form(None, description="추가 상황 설명"),
@@ -49,8 +52,10 @@ async def analyze_image(
 
 
 @router.post("/text", response_model=AnalysisResponse)
+@limiter.limit(RATE_LIMIT_TEXT)   # OpenAI LLM 호출 — 엔드포인트별 강화 한도(item 16/F1)
 async def analyze_text(
-    request: TextAnalysisRequest,
+    request: Request,
+    body: TextAnalysisRequest,
     db: Session = Depends(get_db)
 ):
     """
@@ -60,9 +65,9 @@ async def analyze_text(
     """
     result = await analysis_service.analyze_text(
         db=db,
-        description=request.description,
-        workplace_type=request.workplace_type,
-        industry_sector=request.industry_sector
+        description=body.description,
+        workplace_type=body.workplace_type,
+        industry_sector=body.industry_sector
     )
 
     return result

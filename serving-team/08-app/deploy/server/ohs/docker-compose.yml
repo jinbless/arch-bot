@@ -27,8 +27,10 @@ services:
     environment:
       - DATABASE_URL=postgresql://kosha:${POSTGRES_PASSWORD:-1229}@postgres:5432/kosha
       - FUSEKI_ENABLED=false           # 서빙 경로는 PG. Fuseki 불요.
+      - OHS_SHARED_REFERENCE=/app/shared/reference   # canonical_vocab SSOT 위치(아래 mount)
     volumes:
       - ${CHROMADB_HOST_DIR:?set CHROMADB_HOST_DIR in ohs/.env}:/app/data/chromadb
+      - ${SHARED_REF_HOST_DIR:?set SHARED_REF_HOST_DIR in ohs/.env}:/app/shared/reference:ro
     depends_on:
       postgres:
         condition: service_healthy

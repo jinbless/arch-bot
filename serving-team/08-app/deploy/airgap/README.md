@@ -42,6 +42,7 @@ bash deploy/airgap/build_and_save.sh
 |---|---|
 | `ohs-images.tar.gz` | 1단계 산출 (~0.5–1GB) |
 | `ohs-chromadb.tar.gz` | 1단계 산출 (~0.6–0.8GB) |
+| `ohs-shared-reference.tar.gz` | 1단계 산출 (~0.1MB, canonical_vocab+JSON) |
 | `docker-compose.airgap.yml` | `deploy/airgap/` |
 | `load_and_up.sh` | `deploy/airgap/` |
 | `.env.example` | `deploy/airgap/` |
@@ -51,7 +52,7 @@ bash deploy/airgap/build_and_save.sh
 ```bash
 cd /srv/ohs/deploy
 cp .env.example .env
-nano .env          # OPENAI_API_KEY, DATABASE_URL, CHROMADB_HOST_DIR 채우기
+nano .env          # OPENAI_API_KEY, DATABASE_URL, CHROMADB_HOST_DIR, SHARED_REF_HOST_DIR 채우기
 bash load_and_up.sh
 ```
 `load_and_up.sh`가: 이미지 `docker load` → ChromaDB를 `CHROMADB_HOST_DIR`에 풀기 → `docker compose up -d`.
@@ -66,9 +67,9 @@ bash load_and_up.sh
 
 - **(A) PG가 호스트 5432를 publish** (`docker run -p 5432:5432 ...`):
   ```
-  DATABASE_URL=postgresql://kosha:1229@host.docker.internal:5432/kosha
+  DATABASE_URL=postgresql://kosha:<DB_PASSWORD>@host.docker.internal:5432/kosha
   ```
-  (compose의 `extra_hosts: host.docker.internal:host-gateway`로 동작)
+  (compose의 `extra_hosts: host.docker.internal:host-gateway`로 동작. 운영은 강한 비번 사용)
 
 - **(B) PG가 docker 네트워크에만 있음** (포트 미publish): 그 네트워크를 compose에 붙인다.
   ```bash
@@ -76,7 +77,7 @@ bash load_and_up.sh
   ```
   `docker-compose.airgap.yml`에서 `kosha-shared`(또는 실제 이름) 네트워크 + backend의 두번째 네트워크 주석 해제, 그리고:
   ```
-  DATABASE_URL=postgresql://kosha:1229@<pg-컨테이너명>:5432/kosha
+  DATABASE_URL=postgresql://kosha:<DB_PASSWORD>@<pg-컨테이너명>:5432/kosha
   ```
 
 확인: `docker exec ohs-backend python -c "import psycopg2,os;psycopg2.connect(os.environ['DATABASE_URL']);print('PG OK')"`

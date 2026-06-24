@@ -158,7 +158,7 @@ http://127.0.0.1:5173/ohs/
 백엔드 기본값:
 
 ```text
-DATABASE_URL=postgresql://kosha:1229@localhost/kosha
+DATABASE_URL=postgresql://kosha:<DB_PASSWORD>@localhost/kosha   # .env에 설정(소스 기본값 없음, item 19)
 FUSEKI_ENDPOINT=http://localhost:3030/kosha/sparql
 FUSEKI_ENABLED=true
 ```

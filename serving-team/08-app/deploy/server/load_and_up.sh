@@ -8,14 +8,16 @@ cd "$(dirname "$0")"
 # 산출물 위치 자동 인식 (옆 or dist/)
 DIST="."
 if [ -f dist/all-images.tar.gz ]; then DIST="dist"; fi
-for f in all-images.tar.gz ohs-chromadb.tar.gz ohs-kosha.dump; do
+for f in all-images.tar.gz ohs-chromadb.tar.gz ohs-kosha.dump ohs-shared-reference.tar.gz; do
   [ -f "$DIST/$f" ] || { echo "!! $f 를 못 찾음(여기 또는 dist/). 업로드 확인."; exit 1; }
 done
 
 [ -f ohs/.env ] || { echo "!! ohs/.env 없음 — 'cp ohs/.env.example ohs/.env' 후 OPENAI_API_KEY 채우기"; exit 1; }
 CHROMADB_HOST_DIR="$(grep -E '^CHROMADB_HOST_DIR=' ohs/.env | tail -1 | cut -d= -f2-)"
+SHARED_REF_HOST_DIR="$(grep -E '^SHARED_REF_HOST_DIR=' ohs/.env | tail -1 | cut -d= -f2-)"
 PGPW="$(grep -E '^POSTGRES_PASSWORD=' ohs/.env | tail -1 | cut -d= -f2-)"; PGPW="${PGPW:-1229}"
 : "${CHROMADB_HOST_DIR:?ohs/.env에 CHROMADB_HOST_DIR 필요}"
+: "${SHARED_REF_HOST_DIR:?ohs/.env에 SHARED_REF_HOST_DIR 필요}"
 
 echo "[1/6] 이미지 load (레지스트리 불요)..."
 docker load -i "$DIST/all-images.tar.gz"
@@ -23,10 +25,13 @@ docker load -i "$DIST/all-images.tar.gz"
 echo "[2/6] edge-net 생성 (있으면 무시)..."
 docker network create edge-net 2>/dev/null || true
 
-echo "[3/6] ChromaDB 배치 → ${CHROMADB_HOST_DIR}"
+echo "[3/6] ChromaDB + shared/reference 배치"
 mkdir -p "$(dirname "${CHROMADB_HOST_DIR}")"
 tar xzf "$DIST/ohs-chromadb.tar.gz" -C "$(dirname "${CHROMADB_HOST_DIR}")"
 test -d "${CHROMADB_HOST_DIR}" || { echo "!! ${CHROMADB_HOST_DIR} 생성 실패"; exit 1; }
+mkdir -p "${SHARED_REF_HOST_DIR}"
+tar xzf "$DIST/ohs-shared-reference.tar.gz" -C "${SHARED_REF_HOST_DIR}" --strip-components=1   # 'reference/' strip
+test -f "${SHARED_REF_HOST_DIR}/canonical_vocab.py" || { echo "!! ${SHARED_REF_HOST_DIR} 압축해제 실패"; exit 1; }
 
 echo "[4/6] 전용 PG 기동 + 데이터 restore..."
 ( cd ohs && docker compose up -d postgres )

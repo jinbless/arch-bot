@@ -26,7 +26,9 @@ class Settings(BaseSettings):
     MAX_FILE_SIZE_MB: int = 10
     ALLOWED_EXTENSIONS: List[str] = [".jpg", ".jpeg", ".png", ".webp"]
 
-    DATABASE_URL: str = "postgresql://kosha:1229@localhost/kosha"
+    # 보안(item 19, CWE-798): 소스에 자격증명 하드코딩 금지. .env/환경변수로 주입 필수.
+    # 미설정 시 database.py 가 기동을 차단(fail-safe). 예: postgresql://<user>:<password>@<host>/<db>
+    DATABASE_URL: str = ""
 
     FUSEKI_ENDPOINT: str = "http://localhost:3030/kosha/sparql"
     FUSEKI_TIMEOUT: int = 5
