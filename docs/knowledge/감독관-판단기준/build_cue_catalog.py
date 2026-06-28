@@ -74,8 +74,9 @@ for c in cues:
 
 
 def fmt(c):
-    arts = "·".join(c.get("articles", [])[:6]) or "—"
-    flow = "·".join(c.get("flow_articles", [])[:6]) or "—"
+    # 진입·흐름 조문은 커버리지/검증 대상 → 전수 렌더(잘라내지 않음). 키워드·Guide만 illustrative cap.
+    arts = "·".join(c.get("articles", [])) or "—"
+    flow = "·".join(c.get("flow_articles", [])) or "—"
     hz = ",".join(c.get("hazards", [])[:3]) or "—"
     kw = ", ".join(c.get("vision_keywords", [])[:3]) or "—"
     gd = ",".join(c.get("guides", [])[:2]) or "—"
