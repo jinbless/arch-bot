@@ -65,23 +65,27 @@ def seed():
     return cues
 
 
-cues = json.loads(POOL.read_text(encoding="utf-8"))["cues"] if POOL.exists() else seed()
+_obj = json.loads(POOL.read_text(encoding="utf-8")) if POOL.exists() else {"cues": seed()}
+cues = _obj["cues"]
+proc = _obj.get("procedure_articles", [])
+niche = _obj.get("niche_articles", [])
 for c in cues:
-    c["cue_type"] = CUE_TYPE.get(c.get("category", ""), "기인물")
+    c["cue_type"] = c.get("cue_type") or CUE_TYPE.get(c.get("category", ""), "기인물")
 
 
 def fmt(c):
-    arts = "·".join(c.get("articles", [])[:5]) or "—"
+    arts = "·".join(c.get("articles", [])[:6]) or "—"
+    flow = "·".join(c.get("flow_articles", [])[:6]) or "—"
     hz = ",".join(c.get("hazards", [])[:3]) or "—"
-    kw = ", ".join(c.get("vision_keywords", [])[:4]) or "—"
-    gd = ",".join(c.get("guides", [])[:3]) or "—"
-    flag = "기존" if c.get("in_current_ssot") else "**신규**"
-    return f"| {c['canonical']} | {c.get('category','')} | {arts} | {hz} | {kw} | {gd} | {flag} |"
+    kw = ", ".join(c.get("vision_keywords", [])[:3]) or "—"
+    gd = ",".join(c.get("guides", [])[:2]) or "—"
+    flag = "기존" if c.get("in_current_ssot") else "신규"
+    return f"| {c['canonical']} | {arts} | {flow} | {hz} | {kw} | {gd} | {flag} |"
 
 
 def section(title, ctype, desc):
     rows = sorted([c for c in cues if c["cue_type"] == ctype], key=lambda c: (c.get("category", ""), c["canonical"]))
-    head = ("| 단서 | 카테고리 | 핵심 조문 | 재해(H) | Vision 키워드 | Guide | SSOT |\n"
+    head = ("| 단서 | 진입 조문 | 조치 흐름(식별後·점검·표지) | 재해 | Vision 키워드 | Guide | SSOT |\n"
             "|---|---|---|---|---|---|---|\n")
     return f"## {title} — {len(rows)}종\n> {desc}\n\n{head}" + "\n".join(fmt(c) for c in rows) + "\n"
 
@@ -96,11 +100,18 @@ md = f"""# 관찰단서 → 조문 카탈로그 (E00)
 > **[생성물]** `build_cue_catalog.py`가 `cue-pool.json`에서 생성. 수정은 **cue-pool.json 편집 후 재생성**(직접 편집 금지).
 > **입구 = 사진에서 보이는 단서 → 조문.** 기인물만이 아니라 **3종**: ① 기인물(물건·설비) · ② 위험장소·구조 · ③ 환경조건.
 > 단서 총 {len(cues)}종 (기인물 {n_obj} · 위험장소구조 {n_place} · 환경조건 {n_env}) · 현 SSOT 신규 커버 {n_new}종.
+> **진입 조문**=사진에서 보이는 설비·방호상태(채점) · **조치 흐름**=식별 後 감독관에게 보여줄 점검·표지·정비(진입 아님).
 > 실제 조문 제목·[A]/[B] 가시성은 `ssot_explorer.html`의 조문 점검표에서 검증.
 
 {section("① 기인물 (물건·설비)", "기인물", "Vision이 가장 안정적으로 인식 + 법령(편2 장1)이 이 축으로 조직. 고정밀 경로.")}
 {section("② 위험장소·구조", "위험장소·구조", "기인물이 약한 추락·붕괴·질식의 입구. 개구부·계단·지붕·비계·맨홀·굴착면 등.")}
 {section("③ 환경조건", "환경조건", "물건이 아니라 '상태'. 어두운 조명·미끄러운 바닥·소음·고온·환기불량 등 → 조문.")}
+
+## ④ 출력층 (진입 단서 아님 — 식별 後 자문)
+> 사진 진입 단서가 아니라, 기인물·작업 식별 後 감독관에게 제시하는 행정/측정/특수 조문.
+
+- **행정·측정·교육·자격 (PROCEDURE · Track B) {len(proc)}건**: {' · '.join(proc) or '—'}
+- **Niche·특수공정 (업종/공정 게이트) {len(niche)}건**: {' · '.join(niche) or '—'}
 """
 OUT.write_text(md, encoding="utf-8")
 print(f"OK → {OUT.name}")

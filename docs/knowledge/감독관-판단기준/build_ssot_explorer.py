@@ -142,6 +142,7 @@ header h1{margin:0 0 6px;font-size:16px}
 .nav a{padding:2px 7px;border:1px solid var(--line);border-radius:6px;text-decoration:none;color:var(--accent)}
 .sum{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin-top:6px}
 .sum b{color:var(--fg)}
+.arch{font-size:12.5px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:7px 11px;margin-top:7px;color:#1e3a8a;line-height:1.55}
 main{max-width:1100px;margin:0 auto;padding:16px}
 .mod{border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:14px 0;background:var(--bg)}
 .mod h2{font-size:16px;margin:.2em 0 .6em;border-bottom:2px solid var(--accent);padding-bottom:4px}
@@ -174,6 +175,7 @@ td.c{font-weight:600;white-space:nowrap}
 <span>가시 [A/A~] <b>__NA__</b></span><span>비가시 [B] <b>__NB__</b></span>
 <span>삭제참조 <b class="__DELC__">__NDEL__</b></span><span>존재안함 <b class="__ERRC__">__NERR__</b></span></div>
 <div class=sum style="margin-top:3px">배지: <span class="badge a">[A]</span> 가시 · <span class="badge ap">[A·부분]</span> 일부가시 · <span class="badge b">[B]</span> 비가시(절차·측정) · <span class="badge del">삭제</span> · <span class="badge q">?</span> 미상</div>
+<div class="arch"><b>모델: 관찰단서 → 조문 (AI 산업안전감독관).</b> 입구 = 사진에서 보이는 <b>① 기인물</b> · <b>② 위험장소·구조</b> · <b>③ 환경조건</b> → <b>E00 관찰단서 카탈로그</b>. 추론: 단서 식별 → 전형 사고(재해형태 H) → 예방 조치(SR/CI) → 조문·Guide·위반조문·행정절차[B].</div>
 <div class=nav><a href="#reverse">⟲ 조문 역인덱스</a>__NAV__</div></header>
 <main>__MODULES__
 <section class="mod" id="reverse"><h2>조문 역인덱스 <span class=file>조문 → 인용 모듈 · 검색</span></h2>
@@ -182,7 +184,7 @@ td.c{font-weight:600;white-space:nowrap}
 <tbody>__REVROWS__</tbody></table></section></main>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-document.querySelectorAll('.md-src').forEach(el=>{el.innerHTML=marked.parse(el.textContent).replace(/<del>([\\s\\S]*?)<\\/del>/g,'~$1~');el.classList.replace('md-src','md');});
+document.querySelectorAll('.md-src').forEach(el=>{el.innerHTML=marked.parse(el.textContent).replace(/<del>([\\s\\S]*?)<\\/del>/g,'~$1~').replace(/href="([^":/]+?)\\.md"/g,'href="#$1"');el.classList.replace('md-src','md');});
 mermaid.initialize({startOnLoad:false,securityLevel:'loose',theme:'default',flowchart:{useMaxWidth:true}});
 mermaid.run({querySelector:'.mermaid'}).catch(e=>console.error(e));
 const box=document.getElementById('search');
