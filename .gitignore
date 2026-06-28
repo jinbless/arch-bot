@@ -117,6 +117,11 @@ data-team/05-enrichment/runtime-artifacts/continual_pending_promotion.json
 ontology-team/06-reasoning/ontology/kosha-instances-canonical-ci.ttl
 ontology-team/06-reasoning/ontology/kosha-instances-ci-guide-hazard-derived.ttl
 
+# law/SR/CI/Guide/penalty ABox — PG에서 재생성 가능(59MB, GitHub 50MB 경고). 추적 중단(2026-06-28).
+# 재현: ontology-team/06-reasoning/ontology/scripts/export_owl.py (serving .venv: rdflib+psycopg2, clean PG 필요).
+# 주의: fresh clone은 이 파일 없음 → consistency/serving 프로파일 로드 전 export_owl.py 1회 실행 필요.
+ontology-team/06-reasoning/ontology/kosha-instances.ttl
+
 # Real test photos (CLAUDE.md 절대 금지: raw KOSHA PDF + 외부 사진 commit 금지).
 real-test-photo/
 
