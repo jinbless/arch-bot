@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 """SSOT 탐색기 생성: 16개 흐름도(.md) → self-contained HTML 한 장.
 
-- Mermaid 흐름도 전부 렌더(marked.js + mermaid.js CDN)
+- Mermaid 흐름도 전부 렌더(marked.js + mermaid.js). vendor/ 에 라이브러리가 있으면 **인라인**
+  → 완전 오프라인(file:// 더블클릭)·서버 불필요. 없으면 CDN 폴백(인터넷 필요).
 - 모듈별 조문 점검표: 실제 제목(article-texts.json) + [A]/[B](article_signatures.jsonl) + 삭제/존재안함 플래그
 - 조문 역인덱스: 조문 → 이 조문을 인용하는 모듈들 (검색 가능)
 
+오프라인 라이브러리 준비(1회):
+  cd docs/knowledge/감독관-판단기준 && mkdir -p vendor && cd vendor
+  curl -fsSL https://cdn.jsdelivr.net/npm/marked/marked.min.js -o marked.min.js
+  curl -fsSL https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js -o mermaid.min.js
 재생성: python3 docs/knowledge/감독관-판단기준/build_ssot_explorer.py
-출력:   docs/knowledge/감독관-판단기준/ssot_explorer.html (브라우저로 열기 — 인터넷 필요: CDN)
+출력:   docs/knowledge/감독관-판단기준/ssot_explorer.html
 """
 import json, re, html
 from pathlib import Path
@@ -16,6 +21,16 @@ SSOT = ROOT / "docs/knowledge/감독관-판단기준"
 ARTICLES = ROOT / "data-team/02-extraction/pipe-A/data/article-texts.json"
 SIGS = ROOT / "data-team/05-enrichment/runtime-artifacts/article_signatures.jsonl"
 OUT = SSOT / "ssot_explorer.html"
+VENDOR = SSOT / "vendor"
+
+
+def libtag(name, cdn, module_global=None):
+    """vendor/name 이 있으면 인라인 <script>, 없으면 CDN <script src>. 오프라인 우선."""
+    f = VENDOR / name
+    if f.exists():
+        return "<script>\n" + f.read_text(encoding="utf-8") + "\n</script>"
+    return f'<script src="{cdn}"></script>'
+
 
 RULE = json.loads(ARTICLES.read_text(encoding="utf-8"))["laws"]["RULE"]
 obs = {}
@@ -132,7 +147,7 @@ for c in all_codes:
 TEMPLATE = """<!doctype html><html lang=ko><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>SSOT 탐색기 — 감독관 판단기준</title>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+__MARKEDLIB__
 <style>
 :root{--bg:#fff;--fg:#1a1d21;--dim:#6b7280;--line:#e5e7eb;--accent:#2563eb;--card:#f9fafb}
 *{box-sizing:border-box}body{margin:0;font:14px/1.6 -apple-system,Segoe UI,Roboto,'Malgun Gothic',sans-serif;color:var(--fg);background:var(--bg)}
@@ -182,8 +197,8 @@ td.c{font-weight:600;white-space:nowrap}
 <input id=search placeholder="조문/제목/모듈 검색 (예: 제13조, 안전난간, H01)">
 <table id=revtable><thead><tr><th>조문</th><th>실제 제목(DB)</th><th>가시</th><th>#</th><th>인용 모듈</th></tr></thead>
 <tbody>__REVROWS__</tbody></table></section></main>
-<script type="module">
-import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+__MERMAIDLIB__
+<script>
 document.querySelectorAll('.md-src').forEach(el=>{el.innerHTML=marked.parse(el.textContent).replace(/<del>([\\s\\S]*?)<\\/del>/g,'~$1~').replace(/href="([^":/]+?)\\.md"/g,'href="#$1"');el.classList.replace('md-src','md');});
 mermaid.initialize({startOnLoad:false,securityLevel:'loose',theme:'default',flowchart:{useMaxWidth:true}});
 mermaid.run({querySelector:'.mermaid'}).catch(e=>console.error(e));
@@ -192,7 +207,13 @@ box.addEventListener('input',()=>{const q=box.value.trim().toLowerCase();
 document.querySelectorAll('#revtable tbody tr').forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none';});});
 </script></body></html>"""
 
+marked_tag = libtag("marked.min.js", "https://cdn.jsdelivr.net/npm/marked/marked.min.js")
+mermaid_tag = libtag("mermaid.min.js", "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js")
+offline = (VENDOR / "marked.min.js").exists() and (VENDOR / "mermaid.min.js").exists()
+
 out = (TEMPLATE
+       .replace("__MARKEDLIB__", marked_tag)
+       .replace("__MERMAIDLIB__", mermaid_tag)
        .replace("__NMOD__", str(len(modules)))
        .replace("__NCODE__", str(len(all_codes)))
        .replace("__NA__", str(n_a)).replace("__NB__", str(n_b))
@@ -204,3 +225,5 @@ out = (TEMPLATE
 OUT.write_text(out, encoding="utf-8")
 print(f"OK → {OUT}")
 print(f"  modules={len(modules)} codes={len(all_codes)} [A/A~]={n_a} [B]={n_b} 삭제참조={n_del} 존재안함={n_err}")
+mb = OUT.stat().st_size / 1_048_576
+print(f"  렌더: {'오프라인 인라인(file:// 가능)' if offline else 'CDN(인터넷 필요) — vendor/ 없음'} · 파일 {mb:.1f}MB")
