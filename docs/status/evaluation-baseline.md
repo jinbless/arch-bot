@@ -1,6 +1,6 @@
 ﻿# Evaluation Baseline
 
-Latest updated: 2026-05-28 — **axiom-100% Sprint (SWRL→SHACL CONSTRUCT, K-general 53,378 pair) + guide-accuracy Sprint (8-photo Guide mapping 80%→100% ⭐) + 문서 doc-sync**. 이전: Phase G PG materialization (penalty_accuracy +27.16%p ⭐) + Tier 4 SWRL Pellet (R-1: 107 + R-3: 3,579 inferred ⭐).
+Latest updated: 2026-07-13 — **Track A cue-pool 후보천장 A/B (실제 감독관 gold 129장): union cand_any 84.5%→93.0% ⭐, plan P1 게이트(≥0.93) 달성**. 이전: axiom-100% Sprint (SWRL→SHACL CONSTRUCT, K-general 53,378 pair) + guide-accuracy Sprint (8-photo Guide mapping 80%→100% ⭐).
 
 Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
@@ -32,6 +32,24 @@ The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are 
 > ✅ **v6 — VT backfill (visual_triggers 복구)**: importer가 INSERT 컬럼에서 visual_triggers를 누락해 phase3c 531패턴의 시각단서가 전량 유실됐던 버그(커밋 `036c379` 수정 + reconcile 복구)를 바로잡은 뒤 재캡처. v5 대비 **overall 0.3258→0.3479(+0.0221)·penalty 0.4729→0.4903(+0.0174)·she 0.589→0.5915**, `false_positive_rate`/`false_negative_rate` 무변화(개선이 FP/FN 비용 없이 달성). visual_score가 제대로 기여해 candidate→confirmed 승격이 정상화된 결과. 측정: semantic-alive + rerank off, errored 0. perf_baseline도 동반 재캡처(VT scoring 증가로 p95 282→327ms, compute 경로).
 >
 > 이전 — **v5 정직 baseline (MEAS-1/MEAS-3, F19·F14)**: 평가 정답(ecd) 주입 오염 제거 후 재캡처. `false_positive_rate` 0.8696→0.0906(ecd 보유 negative 상수 → 실측 25/276), `false_negative_rate` 0.0→0.1489(구조적 불능 → 실측 205/1377). FN-최우선 차단 지표가 처음으로 실측·게이트화. **다음 재캡처는 MEAS-2 절차(4-포인터 원자 갱신 + `make verify-baseline`)로만.**
+
+## Track A cue-pool 후보천장 A/B — 실제 감독관 gold 129장 (2026-07-13, cand_any 84.5%→93.0% ⭐)
+
+관찰단서(cue-pool 115종, RULE 100% 커버)를 baseline 후보생성(gimulmul 기인물 앵커)에 **additive union**으로 얹었을 때 후보천장(cand_any) 측정. **실제 감독관 gold 129장·y-라벨 162** (합성 아님, `label_curation_gold.csv` match=y). baseline photo_any 0.845가 문서화된 후보천장 84.5%를 **재현**.
+
+| arm | recall | photo_any(천장) | photo_all | 평균후보 |
+|---|---|---|---|---|
+| baseline(gimulmul) | 0.821 | 0.845 | 0.798 | 29.8 |
+| cue_entry | 0.722 | 0.729 | 0.698 | 19.2 |
+| cue_entry+flow | 0.765 | 0.783 | 0.752 | 26.8 |
+| **union(base∪cue)** | **0.914** | **0.930** | **0.915** | 45.3 |
+
+- **union +8.5pt(0.845→0.930)** = plan P1 게이트(cand_any ≥0.93) 달성. cue-pool 단독 < baseline(**상보재**, 대체재 아님). 이득 = 환경조건(분진·조도)·위험장소구조(안전난간·사다리)·기인물 보강(회전축·전기) — 기인물-only 사각 정확히 보완.
+- 남은 7% 갭 = 석면 표지 미부착(제490·492) 지배 = 사진 검출 본질적 불가(도메인 한계).
+- 비용 +15.5 후보/사진(RANK 부담). **⚠️ 천장 ≠ P@1** — 다음 관문 = union RANK로 P@1/Hit@5 A/B.
+- Vision(gpt-4.1) 영구저장 `intake_vision_gold.json`(한글명 키) · 스크립트 `measure_cuepool_gold.py` · raw `cuepool_ab_results.json`.
+
+상세·재현: [../dev-notes/cuepool-candidate-ceiling-ab-2026-07-13.md](../dev-notes/cuepool-candidate-ceiling-ab-2026-07-13.md).
 
 ## guide-accuracy Sprint — Guide 추천 정확도 (2026-05-28, 8-photo Guide mapping 80%→100% ⭐)
 
