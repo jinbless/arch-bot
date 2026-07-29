@@ -1,6 +1,6 @@
 ﻿# Evaluation Baseline
 
-Latest updated: 2026-07-13 — **Track A cue-pool 후보천장 A/B (실제 감독관 gold 129장): union cand_any 84.5%→93.0% ⭐, plan P1 게이트(≥0.93) 달성**. 이전: axiom-100% Sprint (SWRL→SHACL CONSTRUCT, K-general 53,378 pair) + guide-accuracy Sprint (8-photo Guide mapping 80%→100% ⭐).
+Latest updated: 2026-07-29 — **Track A RANK A/B (실제 감독관 gold 129장): cue-pool union 후보확장이 최종 랭킹을 해치지 않음 확정(P@1 Δ+0.006, CI95[-0.039,+0.052], 사전지정 비열등 마진 -0.05 통과). ⚠주의: '정확도 상승'이 아니라 '비열등 + 롱테일 도달범위 확대'.** 이전: Track A cue-pool 후보천장 A/B (union cand_any 84.5%→93.0%) + axiom-100% Sprint + guide-accuracy Sprint.
 
 Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
@@ -32,6 +32,55 @@ The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are 
 > ✅ **v6 — VT backfill (visual_triggers 복구)**: importer가 INSERT 컬럼에서 visual_triggers를 누락해 phase3c 531패턴의 시각단서가 전량 유실됐던 버그(커밋 `036c379` 수정 + reconcile 복구)를 바로잡은 뒤 재캡처. v5 대비 **overall 0.3258→0.3479(+0.0221)·penalty 0.4729→0.4903(+0.0174)·she 0.589→0.5915**, `false_positive_rate`/`false_negative_rate` 무변화(개선이 FP/FN 비용 없이 달성). visual_score가 제대로 기여해 candidate→confirmed 승격이 정상화된 결과. 측정: semantic-alive + rerank off, errored 0. perf_baseline도 동반 재캡처(VT scoring 증가로 p95 282→327ms, compute 경로).
 >
 > 이전 — **v5 정직 baseline (MEAS-1/MEAS-3, F19·F14)**: 평가 정답(ecd) 주입 오염 제거 후 재캡처. `false_positive_rate` 0.8696→0.0906(ecd 보유 negative 상수 → 실측 25/276), `false_negative_rate` 0.0→0.1489(구조적 불능 → 실측 205/1377). FN-최우선 차단 지표가 처음으로 실측·게이트화. **다음 재캡처는 MEAS-2 절차(4-포인터 원자 갱신 + `make verify-baseline`)로만.**
+
+## Track A RANK A/B — cue-pool union 후보확장의 최종 랭킹 영향 (2026-07-29, P@1 비열등 확정 · 정확도 상승 주장 불가)
+
+후보천장 A/B 이후 남은 질문 = **후보 +15.6개(distractor)가 최종 순위를 해치는가**.
+paired 3-arm(같은 사진·Vision·RESOLVE 공유), 실제 감독관 gold **129장 · y-코드 162**, reps 4, RANK=gpt-5.4.
+
+| arm | P@1 | Hit@3 | Hit@5 | Hit@10 | R@5 | MRR | 천장(cand_any) | 평균후보 |
+|---|---|---|---|---|---|---|---|---|
+| A base_plain | 0.432 | 0.609 | 0.680 | 0.725 | 0.611 | 0.531 | 0.837 | 30.5 |
+| **B union_plain** | **0.438** | **0.655** | **0.713** | **0.779** | **0.654** | **0.557** | **0.930** | 46.1 |
+| C union_expert (누출·상한추정, 채택 판단 미사용) | 0.444 | 0.638 | 0.700 | 0.754 | 0.645 | 0.551 | 0.930 | 46.1 |
+
+- **주지표 A→B P@1 Δ+0.006 CI95[-0.039,+0.052] → `non_inferior`**(사전지정 마진 -0.05). 유효성 게이트 전부 PASS
+  (G1 실패 0 / G2 order_sensitivity max 0.0426 ≤0.05 / G3 천장 재현 / G4 상수랭커 0.302 초과).
+- **⚠ 이 결과는 '정확도가 올랐다'의 근거가 아니다.** 이득경로(headroom)가 12장뿐이라 P@1 이론상한 +0.093,
+  실현 gross +0.050 < **MDE80 0.066** → **이득은 원리적으로 검출 불가, 해악만 검출 가능한 설계**.
+  부지표 Hit@3 +0.047 · Hit@5 +0.033 · R@5 +0.043 · MRR +0.026은 전부 양의 방향이나 **95% CI가 0을 포함**
+  (재부트스트랩 B=20000: Hit@3 [-0.002,+0.099]). **CI가 0을 배제한 유일 지표 = Hit@10 Δ+0.054 CI[+0.002,+0.111]**.
+- **이득/손실 완전 분리**: headroom 12장(A후보가 gold를 아예 못 담고 B는 담은 사진)에서
+  P@1 0.000→0.542 · Hit@3 0.000→0.729 · Hit@5 0.000→0.812, 나머지 117장에서 P@1 0.4765→0.4274(**-0.049,
+  CI[-0.079,-0.024]로 0 배제**) · Hit@3 -0.024 · Hit@5 -0.047.
+  P@1 사진승패 = B승 7(전부 headroom) · A승 14(전부 비headroom) · 동률 108(불일치 14쌍이 14-0, 부호검정 p=0.00012).
+- **진짜 층화축은 headroom이 아니라 CROSS16**: headroom 12장은 **12/12 전부 `gold ∩ CROSS16 = ∅`**.
+  gold∩CROSS=∅ 56장 ΔP@1 **+0.080**/ΔHit@3 **+0.134**/ΔHit@5 **+0.143**, gold∩CROSS≠∅ 73장 -0.051/-0.021/-0.051.
+  → 이득은 횡단 일반의무 **밖** 롱테일(제68조·제122조·제87조·제302조 등) 도달, 손실은 이미 잘 맞히던 횡단 사진의 순위 흔들림.
+  (사후 층화 = 탐색적. 다음 측정에서 사전등록 층화변수로 승격할 것.)
+- **다건 제시 환산(129장)**: Hit@3 78.5장→**84.5장(+6.0장)**, Hit@5 87.8→92.0(+4.3장), Hit@10 93.5→100.5(+7.0장).
+  4/4 rep 전원일치 기준 top-3 신규 전환 8장 vs 이탈 0장. 단 +6.0장 = headroom +8.8장 − 비headroom 2.8장의 **순액**.
+- **천장→실현 갭이 오히려 벌어졌다**: 천장 +12.0장(108→120장) 대비 Hit@5 실현 +4.3장(**실현율 35%**, Hit@3 기준 50%).
+  미실현 갭 A 20.2장 → **B 28.0장(21.7%p)**. → **다음 병목은 후보생성이 아니라 랭킹 변별.**
+- **최대 단일 손실원 = 추락 형제조문 변별**: gold 제43조 39장(gold y의 24.1%) P@1 A 0.705 → B 0.635 → C 0.481.
+  gold 제13조 15장(2위 빈도)은 3 arm 모두 top1 정답 **0장**(제13조는 CROSS 상수로 129/129 후보에 이미 포함 —
+  도달성이 아니라 변별 문제).
+- **arm C(감독관 SSOT 프롬프트 힌트)는 상한추정 — 채택 판단 미사용.** gold 129장 노출 후 작성된 규칙
+  (홀드아웃 분할 없음, 커밋 `9c322b4`). 누출을 안고도 순이득 ≈0(headroom P@1 +0.042·Hit@3 +0.062 /
+  비headroom +0.002·**-0.026**). 실제로 힌트가 바꾼 것은 의도한 제13조 분기가 아니라 제43조→제56조 오스왑
+  (gold 제43조 39장 P@1 0.635→0.481) → **프롬프트 힌트 방향 폐기**, SSOT는 후보생성/온톨로지 제약으로만 형식화.
+- **부작용**: 후보-밖 코드(환각) 출력이 A 16건 → **B 24건(+50%)**(각 arm 129×4=516 랭킹, 하네스가 걸러 지표엔 미반영).
+  서빙 배선 시 후보-밖 필터 구현이 **채택 전제조건**.
+- **천장 수치 정합 주의**: 본 하네스 실측 A cand_any **0.837**·recall 0.814 / B **0.930**·recall 0.922.
+  아래 「후보천장 A/B」 절의 0.845/0.821 · 0.930/0.914와 미세 상이(G3 tolerance 내 PASS, A는 Δ0.008로 상한 근접).
+  **두 절 수치를 섞어 인용하지 말 것.**
+- **채택 범위**: 서빙 코드(`serving-team/08-app/backend/app/`)에 cue-pool 참조 **0건**(grep 확인) —
+  이번 채택은 **연구트랙 후보생성 기본값 전환**이지 배포 서빙 정확도 개선이 아니다.
+- raw: `data-team/05-enrichment/runtime-artifacts/rank_ab_results.json` ·
+  하네스 `serving-team/08-app/backend/scripts/rank_ab_gold.py`
+  (Vision `intake_vision_gold.json` / RESOLVE `rank_ab_resolve_cache.json` 재사용).
+
+상세·재현·오독 방지 12항: [../dev-notes/rank-ab-cuepool-union-2026-07-29.md](../dev-notes/rank-ab-cuepool-union-2026-07-29.md).
 
 ## Track A cue-pool 후보천장 A/B — 실제 감독관 gold 129장 (2026-07-13, cand_any 84.5%→93.0% ⭐)
 
