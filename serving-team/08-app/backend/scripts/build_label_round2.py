@@ -139,6 +139,8 @@ th{font-size:11px;color:#666;font-weight:600}
 .rev button{opacity:.85}
 .revmark{font-size:10px;color:#b45309;font-weight:700;margin-left:4px}
 .obs{font-size:10px;padding:1px 5px;border-radius:8px;background:#eef1f4;color:#555}
+.bulk{font-size:12px;padding:3px 10px;margin:2px 0 6px;border:1px solid #dc2626;color:#dc2626;background:#fff;border-radius:6px}
+.bulk:hover{background:#fee2e2}
 </style></head><body>
 <header><h1>2차 검수 — 미판정 y/n + 1차 수정</h1>
 <button class="pri" onclick="ex()">CSV 내보내기</button>
@@ -168,6 +170,7 @@ function set(f,c,v){const k=f+'|'+c;S[k]=(S[k]===v?undefined:v);if(!S[k])delete 
 function setR(f,c,v,orig){const k=f+'|'+c;
  if(R[k]===v||v===orig){delete R[k];}else{R[k]=v;}
  save();paint(`[data-k="${CSS.escape(k)}"].rev`,R);}
+function bulkN(i){const p=DATA[i];p.new.forEach(c=>{const k=p.file+'|'+c.code;if(!S[k])S[k]='n';});save();paint('.b.nw',S);}
 function tog(){onlyTodo=!onlyTodo;document.getElementById('fb').textContent=onlyTodo?'전체 보기':'미검토만 보기';prog();}
 function nx(){const el=[...document.querySelectorAll('.card')].find(e=>!e.classList.contains('done'));
  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
@@ -183,6 +186,7 @@ function esc(s){return s.replace(/'/g,"\\\\'");}
 document.getElementById('root').innerHTML=DATA.map((p,i)=>`
 <div class=card id=c${i}><div><img loading=lazy src="${encodeURI(p.file)}" alt=""></div><div>
 <div class=meta>${p.file}<br>감독건 ${p.pjts}</div>
+<button class=bulk onclick="bulkN(${i})">미판정 전부 n</button>
 <table><tr><th>조문 (신규 판정)</th><th>내용</th><th>판정</th></tr>
 ${p.new.map(c=>`<tr><td class=code>${c.code}<br><span class=obs>${c.obs}</span></td>
 <td>${c.title}<div class=txt>${c.txt.replace(/</g,'&lt;')}</div></td>
