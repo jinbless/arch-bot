@@ -57,11 +57,18 @@ NI_MARGIN = -0.03   # 사전지정 비열등 마진(JPA)
 SIB = {"제13조", "제30조", "제42조", "제43조", "제44조", "제45조", "제56조", "제68조"}
 
 # ── 판정 라벨(y/n) ──
+def _norm_code(c):
+    """gold CSV '조' 누락 오기 정규화(제45→제45조). 2026-07-30 발견."""
+    c = (c or "").strip()
+    m = re.fullmatch(r"제(\d+)(조(의\d+)?)?", c)
+    return f"제{m.group(1)}조" if (m and not m.group(2)) else c
+
+
 jy, jn, pjts = defaultdict(set), defaultdict(set), {}
 with GOLD_CSV.open(encoding="utf-8-sig") as f:
     for r in csv.DictReader(f):
         m = (r.get("match") or "").strip().lower()
-        pf, code = r["photo_file"], r["article_code"].strip()
+        pf, code = r["photo_file"], _norm_code(r["article_code"])
         pjts[pf] = r.get("pjts_id", "")
         if m == "y":
             jy[pf].add(code)

@@ -41,11 +41,18 @@ OUT_RESULTS = ART / "cuepool_ab_results.json"
 RESOLVE_MODEL = "gpt-5.4"
 
 # ── gold ──
+def _norm_code(c):
+    """gold CSV '조' 누락 오기 정규화(제45→제45조). 2026-07-30 발견."""
+    c = (c or "").strip()
+    m = re.fullmatch(r"제(\d+)(조(의\d+)?)?", c)
+    return f"제{m.group(1)}조" if (m and not m.group(2)) else c
+
+
 gold = {}
 with GOLD_CSV.open(encoding="utf-8-sig") as f:
     for r in csv.DictReader(f):
         if (r.get("match") or "").strip().lower() == "y":
-            gold.setdefault(r["photo_file"], set()).add(r["article_code"].strip())
+            gold.setdefault(r["photo_file"], set()).add(_norm_code(r["article_code"]))
 
 # ── indices ──
 idx = json.loads(INDEX.read_text(encoding="utf-8"))

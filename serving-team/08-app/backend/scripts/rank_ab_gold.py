@@ -94,11 +94,18 @@ LEAKAGE_WARN = (
 )
 
 # ── gold ──
+def _norm_code(c):
+    """gold CSV '조' 누락 오기 정규화(제45→제45조). 2026-07-30 발견 — 미정규화 시 해당 gold는 영영 미적중."""
+    c = (c or "").strip()
+    m = re.fullmatch(r"제(\d+)(조(의\d+)?)?", c)
+    return f"제{m.group(1)}조" if (m and not m.group(2)) else c
+
+
 gold = defaultdict(set)
 with GOLD_CSV.open(encoding="utf-8-sig") as f:
     for r in csv.DictReader(f):
         if (r.get("match") or "").strip().lower() == "y":
-            gold[r["photo_file"]].add(r["article_code"].strip())
+            gold[r["photo_file"]].add(_norm_code(r["article_code"]))
 
 # ── indices ──
 idx = json.loads(INDEX.read_text(encoding="utf-8"))

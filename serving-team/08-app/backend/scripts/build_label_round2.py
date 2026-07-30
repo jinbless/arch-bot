@@ -2,14 +2,16 @@
 """2차 라벨 확장 세트 생성 — 미판정 코드를 감독관이 y/n 판정할 수 있게.
 
 측정 문제: arm B top1 129장 중 51장(40%)이 '큐레이터가 판정한 적 없는 코드' → 오답인지 미판정인지 구분 불가.
-해결: 각 사진의 {A/B/C rep0 top3 합집합 ∪ (추락 사진이면 형제 8종)} − 이미 판정된 코드 를 2차 판정 대상으로.
+해결: 각 사진의 {A/B/C rep0 top3 합집합 ∪ (추락 사진이면 형제 10종)} − 이미 판정된 코드 를 2차 판정 대상으로.
 
 산출:
   real-test-photo/label_photo/label_round2.csv          (label_curation_gold.csv와 동일 스키마, match 빈칸)
   real-test-photo/label_photo/curation_viewer_r2.html   (블라인드 뷰어: 사진+후보, y/n/m, CSV 내보내기)
 블라인드 원칙: 모델/arm 출처 비표기, 후보 순서 사진별 고정seed 무작위화, 기판정 코드는 회색 참고표시(재판정 불가).
+재생성 안전: 판정은 localStorage(사진|조문 키)에 저장되므로 HTML 재생성해도 기존 판정 보존.
+2026-07-30: 감독관 검수로 형제 세트에 제23조(가설통로)·제24조(사다리식 통로) 추가 + gold '조' 누락 정규화 + 안정 seed(md5).
 """
-import csv, json, random
+import csv, hashlib, json, random, re
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[4]
@@ -19,7 +21,18 @@ GOLD = LP / "label_curation_gold.csv"
 OUT_CSV = LP / "label_round2.csv"
 OUT_HTML = LP / "curation_viewer_r2.html"
 
-SIB = ["제13조", "제30조", "제42조", "제43조", "제44조", "제45조", "제56조", "제68조"]
+# 추락 형제 세트 — 감독관 검수(2026-07-30)로 사다리식 통로 제24조·가설통로 제23조 포함
+SIB = ["제13조", "제23조", "제24조", "제30조", "제42조", "제43조", "제44조", "제45조", "제56조", "제68조"]
+
+
+def norm_code(c):
+    """gold CSV '조' 누락 오기 정규화(제45→제45조) — 미정규화 시 채점·중복제거에서 영영 미매칭."""
+    c = (c or "").strip()
+    m = re.fullmatch(r"제(\d+)(조(의\d+)?)?", c)
+    if m and not m.group(2):
+        return f"제{m.group(1)}조"
+    return c
+
 
 # 기판정
 judged, pjts, ognl = {}, {}, {}
@@ -27,7 +40,7 @@ with GOLD.open(encoding="utf-8-sig") as f:
     for r in csv.DictReader(f):
         pf = r["photo_file"]
         m = (r.get("match") or "").strip().lower()
-        judged.setdefault(pf, {})[r["article_code"].strip()] = m or "(빈칸)"
+        judged.setdefault(pf, {})[norm_code(r["article_code"])] = m or "(빈칸)"
         pjts[pf] = r.get("pjts_id", "")
         ognl[pf] = r.get("ognl", "")
 
@@ -49,7 +62,8 @@ for pf in sorted(pp):
     new = [c for c in cand if c not in jd]
     if not new:
         continue
-    rnd = random.Random(hash(pf) % 100000)
+    # 안정 seed(md5) — 내장 hash()는 프로세스마다 달라 재생성 시 순서가 바뀜
+    rnd = random.Random(int(hashlib.md5(pf.encode("utf-8")).hexdigest()[:8], 16))
     rnd.shuffle(new)
     for c in new:
         rows.append({"row": len(rows) + 1, "pjts_id": pjts.get(pf, ""), "photo_file": pf,
