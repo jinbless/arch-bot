@@ -1,6 +1,6 @@
 ﻿# Evaluation Baseline
 
-Latest updated: 2026-07-29 — **Track A RANK A/B (실제 감독관 gold 129장): cue-pool union 후보확장이 최종 랭킹을 해치지 않음 확정(P@1 Δ+0.006, CI95[-0.039,+0.052], 사전지정 비열등 마진 -0.05 통과). ⚠주의: '정확도 상승'이 아니라 '비열등 + 롱테일 도달범위 확대'.** 이전: Track A cue-pool 후보천장 A/B (union cand_any 84.5%→93.0%) + axiom-100% Sprint + guide-accuracy Sprint.
+Latest updated: 2026-07-31 — **Track A RANK A/B v2 (라벨 2차검수 완료 후 재실행): cue-pool union이 P@1 +4.6pt·Hit@3 +7.2pt·Hit@5 +9.1pt 유의 개선 확정(전부 CI 0 배제) ⭐. promote-1 하이브리드는 사전등록 기각(union 단독 우세로 불필요).** 이전: RANK A/B v1(비열등만 확정 — 당시 top1의 40%가 미판정이라 과소평가였음이 판명) + 후보천장 A/B(84.5%→93.0%).
 
 Accepted runtime baseline: `ci_cross_guide_broad_only_guard1`
 
@@ -33,7 +33,29 @@ The full report bodies under `data-team/05-enrichment/eval-data/reports/**` are 
 >
 > 이전 — **v5 정직 baseline (MEAS-1/MEAS-3, F19·F14)**: 평가 정답(ecd) 주입 오염 제거 후 재캡처. `false_positive_rate` 0.8696→0.0906(ecd 보유 negative 상수 → 실측 25/276), `false_negative_rate` 0.0→0.1489(구조적 불능 → 실측 205/1377). FN-최우선 차단 지표가 처음으로 실측·게이트화. **다음 재캡처는 MEAS-2 절차(4-포인터 원자 갱신 + `make verify-baseline`)로만.**
 
-## Track A RANK A/B — cue-pool union 후보확장의 최종 랭킹 영향 (2026-07-29, P@1 비열등 확정 · 정확도 상승 주장 불가)
+## Track A RANK A/B **v2** — 라벨 복구 후 재실행: union 유의 개선 확정 (2026-07-31 ⭐)
+
+라벨 2차 검수(사람 1,051쌍 판정 + 1차 수정 15건 → gold v2, top1 판정율 31%→**100%**) 후 사전등록 재실행.
+arm A·B 4-rep 실측(1,032콜) + **arm D promote-1**(B top1이 A후보 밖 신규코드일 때만 채택 — A·B 랭킹에서 결정론 유도).
+게이트 5종 전부 PASS(실패 0 · order max 0.019 · 후보구성 재현 · 상수랭커 초과 · 전체랭킹 저장).
+
+| arm | P@1 | Hit@3 | Hit@5 | R@5 | MRR | (v1-gold P@1) |
+|---|---|---|---|---|---|---|
+| A baseline | 0.475 | 0.663 | 0.723 | 0.625 | 0.577 | 0.419 |
+| **B union** | **0.521** | **0.734** | **0.814** | **0.704** | **0.638** | 0.455 |
+| D promote-1 | 0.523 | 0.723 | 0.783 | 0.680 | 0.630 | 0.459 |
+| (const_제43조) | 0.326 | 0.326 | 0.403 | — | — | — |
+
+- **★A→B: P@1 Δ+0.046 CI[+0.002,+0.095] · Hit@3 Δ+0.072 CI[+0.019,+0.128] · Hit@5 Δ+0.091 CI[+0.039,+0.147] — 전부 CI가 0을 배제.**
+  v1 실행의 "비열등, 이득 검출 불가"는 **top1의 40%가 미판정이라 B의 정답을 오답으로 세던 과소평가**였음이 판명.
+  페어드 비교는 공정(라벨 확장이 A·B 양쪽 top3를 모두 판정). 층화: gold∩CROSS=∅ 50장 Δ+0.150 / CROSS안 79장 Δ-0.019(v1의 -0.051에서 해소).
+- **D promote-1은 사전등록 계층판정에서 기각**: H1 비headroom A→D Δ-0.013 CI[-0.028,-0.002]가 마진 -0.02를 초과 → FAIL
+  (H2 headroom Δ+0.596은 전제 미충족으로 미판정). B→D Hit@5 -0.031 — **union 단독이 우세해 하이브리드 불필요**. 좋은 의미의 기각.
+- 채택 갱신: cue-pool union = 연구트랙 후보생성 기본값(v1 결정 유지) + **이제 근거가 "비열등"이 아니라 "유의 개선"**.
+  잔여 전제: 서빙 배선 전 후보-밖 코드 필터(환각 A 31·B 28/516랭킹) · 오탐 비용 미측정(음성 102장) · v2 gold의 모델-top3 노출 편향(형제 10종 전수로 완화).
+- raw: `rank_ab_results_v2.json/.md`(전체 랭킹 rep별 저장 — 사후 fusion 시뮬 가능) · 하네스 `scripts/rank_ab_v2.py`.
+
+## Track A RANK A/B — cue-pool union 후보확장의 최종 랭킹 영향 (2026-07-29, P@1 비열등 확정 · 정확도 상승 주장 불가 — **v2 재실행으로 갱신됨, 위 절 참조**)
 
 후보천장 A/B 이후 남은 질문 = **후보 +15.6개(distractor)가 최종 순위를 해치는가**.
 paired 3-arm(같은 사진·Vision·RESOLVE 공유), 실제 감독관 gold **129장 · y-코드 162**, reps 4, RANK=gpt-5.4.
