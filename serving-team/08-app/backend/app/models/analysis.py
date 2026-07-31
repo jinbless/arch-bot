@@ -95,6 +95,21 @@ class UnmappedSafetyTerm(BaseModel):
     note: str = ""
 
 
+class ArticleCandidate(BaseModel):
+    """Track A cue-pool union 조문 **후보**(research v2 검증 — evaluation-baseline 최상단).
+
+    trace.articles(PG 결정론 경로)와 분리된 additive 필드. 위반 확정이 아니라 후보 제안 —
+    오탐 스모크에서 랭커에 기권 경로 없음(abstain 0%)이 확인됐으므로 표시 시 '후보' 표기 필수.
+    """
+    article_code: str                 # "제43조"
+    law_type: str = "RULE"
+    title: str = ""
+    applies: str = "unranked"         # yes | maybe | unranked (RANK off)
+    rank: int = 0                     # 1..n (RANK on) / 0 (unranked)
+    source: str = ""                  # 큐레이션 | 기인물 | 단서 | 흐름 | 횡단
+    evidence: str = ""                # 매칭된 관찰단서(cue canonical)
+
+
 class AnalysisResponse(BaseModel):
     analysis_id: str
     analysis_type: str
@@ -116,6 +131,8 @@ class AnalysisResponse(BaseModel):
     hazard_guide_relations: List[HazardGuideRelation] = []
     # ⭐ WS-SAFETY-5: 관찰됐으나 매핑/스코어링 미반영된 안전 신호(표시전용, 호환 default = [])
     unmapped_safety_terms: List[UnmappedSafetyTerm] = []
+    # ⭐ Track A cue-pool union 조문 후보(flag off 시 항상 [] — 기존 경로 무변화, 호환 default = [])
+    article_candidates: List[ArticleCandidate] = []
     analyzed_at: datetime
 
     class Config:

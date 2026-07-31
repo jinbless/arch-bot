@@ -33,6 +33,7 @@ from app.models.hazard import (
     VisualObservation,
 )
 from app.services import (
+    cue_article_service,
     guide_recommendation_service,
     match_fusion_service,
     penalty_path_service,
@@ -141,6 +142,14 @@ class AnalysisPipeline:
 
         situation_matches = self._build_situation_matches(knowledge.she_matches)
         article_ids = sr_lookup_service.article_ids_for_srs(db, knowledge.sr_ids)
+        # ⭐ Track A cue-pool union 조문 후보 (research v2 검증 — evaluation-baseline 최상단).
+        # flag off(기본) → 빈 배열, 기존 경로 무변화. trace.articles(PG 결정론)는 불변침 — 별도 필드.
+        article_candidates = []
+        if cue_article_service.enabled():
+            try:
+                article_candidates = await cue_article_service.recommend(db=db, result=run_input.result)
+            except Exception as exc:  # noqa: BLE001 — 후보 실패가 분석 응답을 막지 않는다
+                logging.getLogger(__name__).warning("[CueArticles] 실패 — 기존 경로 유지: %s", exc)
         findings = self._build_findings(
             status=knowledge.finding_status,
             observations=observations,
@@ -200,6 +209,7 @@ class AnalysisPipeline:
                 run_input.result,
                 knowledge.normalizer_unknown_codes,
             ),
+            article_candidates=article_candidates,  # ⭐ Track A(flag off 시 [])
             analyzed_at=analyzed_at,
         )
 

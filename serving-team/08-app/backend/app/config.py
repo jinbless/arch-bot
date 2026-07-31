@@ -52,5 +52,12 @@ class Settings(BaseSettings):
     OHS_ENABLE_DOMAIN_REJECT: bool = False
     OHS_DOMAIN_REJECT_CONF: float = 0.9
 
+    # Track A cue-pool union 조문 후보 (research v2 검증: P@1 +4.6pt·Hit@5 +9.1pt CI 0 배제 —
+    # docs/status/evaluation-baseline.md 최상단). **기본 off(무회귀)** — off면 응답의
+    # article_candidates가 빈 배열로만 추가되고 기존 경로(trace.articles=PG 결정론)는 무변화.
+    # env(CUE_ARTICLES/CUE_ARTICLE_RANK) 우선. RANK on 시 분석당 LLM +2회(RESOLVE+RANK).
+    OHS_ENABLE_CUE_ARTICLES: bool = False
+    OHS_ENABLE_ARTICLE_RANK: bool = False
+
 
 settings = Settings()
