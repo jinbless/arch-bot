@@ -207,6 +207,6 @@ cd serving-team/08-app/backend && .venv/bin/python scripts/rank_ab_gold.py --rep
 - 결과 `data-team/05-enrichment/runtime-artifacts/rank_ab_results.json` / `.md`
 
 ## 잔여 caveat
-Vision 고정 캐시(gpt-4.1) 하의 결과 · RESOLVE 단일 draw · **음성 전용 사진 102장 제외 → 오탐 비용 미측정** · gold는 감독건 단위 위반인용을 사진에 귀속(사진별 판정 아님) · arm A ≠ 배포 파이프라인(태그·순서 중립화) → **절대값을 배포 성능 주장에 쓰지 말 것**.
+Vision 고정 캐시(gpt-4.1) 하의 결과 · RESOLVE 단일 draw · **오탐 비용 사실상 미측정 — 정정(2026-07-31): "음성 102장"은 과대 집계였다. 231장 = 양성 129 + EXCLUDED 93(큐레이터 제외, 재사용 불가) + 진짜 음성 9장뿐. 9장 스모크는 neg_fp_results.json, 정식 FP 측정은 위반 없는 정상 현장 사진 신규 수집 필요** · gold는 감독건 단위 위반인용을 사진에 귀속(사진별 판정 아님) · arm A ≠ 배포 파이프라인(태그·순서 중립화) → **절대값을 배포 성능 주장에 쓰지 말 것**.
 
 관련: [[cuepool-ab-result]] · [[cue-centric-architecture]] · [photo-to-article-cwa-redesign](photo-to-article-cwa-redesign-2026-06-21.md).
