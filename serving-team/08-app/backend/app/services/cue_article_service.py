@@ -23,7 +23,6 @@ import json
 import logging
 import os
 import re
-from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
@@ -92,8 +91,21 @@ def rank_enabled() -> bool:
 
 
 # ── 데이터 로드(1회) ──
-@lru_cache(maxsize=1)
+# 성공한 결과만 캐시한다. lru_cache면 최초 1회 로드 실패(마운트 지연·부분 배포)가 프로세스 수명 내내
+# 굳어져 조용히 비활성 상태로 남는다 → 실패는 캐시하지 않고 다음 요청에서 재시도.
+_KN_CACHE: dict = {}
+
+
 def _knowledge() -> Optional[dict]:
+    if "v" in _KN_CACHE:
+        return _KN_CACHE["v"]
+    kn = _load_knowledge()
+    if kn is not None:
+        _KN_CACHE["v"] = kn
+    return kn
+
+
+def _load_knowledge() -> Optional[dict]:
     try:
         pool = json.loads((DATA_DIR / "cue-pool.json").read_text(encoding="utf-8"))["cues"]
         sig = {}
@@ -215,7 +227,13 @@ def _get_client():
     if _client is None:
         from openai import AsyncOpenAI
 
-        _client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY or os.environ.get("OPENAI_API_KEY", ""))
+        # 요청 경로에서 도는 부가 기능이므로 반드시 시간 상한을 둔다 — 기본값(600초)이면 한 번 늘어질 때
+        # 분석 요청과 PG 커넥션을 그만큼 붙잡는다. 초과 시 graceful degrade(결정론 후보/미정렬)로 떨어진다.
+        _client = AsyncOpenAI(
+            api_key=settings.OPENAI_API_KEY or os.environ.get("OPENAI_API_KEY", ""),
+            timeout=float(os.environ.get("CUE_LLM_TIMEOUT", "45")),
+            max_retries=1,
+        )
     return _client
 
 
@@ -243,12 +261,19 @@ def _full_texts(db: Session, codes: list[str]) -> dict:
 
 
 def filter_to_candidates(ranked: list[dict], valid: set) -> tuple[list[dict], int]:
-    """후보-밖 코드 필터(채택 차단조건). 환각 코드는 버리고 카운트."""
-    keep, halluc = [], 0
+    """후보-밖 코드 필터(채택 차단조건). 환각 코드는 버리고 카운트.
+
+    같은 코드가 두 번 오면 앞의 것만 남긴다 — 안 그러면 같은 조문이 yes/maybe 두 줄로 동시에 노출된다.
+    """
+    keep, halluc, seen = [], 0, set()
     for x in ranked:
         if x.get("applies") not in ("yes", "maybe"):
             continue
-        if x.get("article_code") in valid:
+        code = x.get("article_code")
+        if code in seen:
+            continue
+        if code in valid:
+            seen.add(code)
             keep.append(x)
         else:
             halluc += 1
@@ -299,7 +324,9 @@ async def recommend(db: Session, result: dict) -> list[ArticleCandidate]:
         rk = await _chat(model, RANK_SYS, "\n".join(lines) + "\n\n적용 조를 확신순 정렬.", RANK_SCHEMA)
         keep, halluc = filter_to_candidates(rk.get("ranked", []), set(codes))
         if halluc:
-            logger.info("[CueArticles] 후보-밖 코드 %d건 필터됨", halluc)
+            # 채택 차단조건이었던 지표라 반드시 보여야 한다 — 기본 로깅 설정의 실효 레벨이 WARNING이라
+            # info로 두면 운영에서 영영 관측되지 않는다(스테이징 실측으로 확인).
+            logger.warning("[CueArticles] 후보-밖 코드 %d건 필터됨", halluc)
         return [ArticleCandidate(article_code=x["article_code"], title=title_of.get(x["article_code"], ""),
                                  applies=x["applies"], rank=i + 1,
                                  source=kind.get(x["article_code"], ""),
@@ -307,5 +334,11 @@ async def recommend(db: Session, result: dict) -> list[ArticleCandidate]:
                 for i, x in enumerate(keep)]
     except Exception as exc:  # noqa: BLE001 — RANK 실패 → 미정렬 후보 반환
         logger.warning("[CueArticles] RANK 실패(%s) — 미정렬 후보 반환", exc)
+        # _full_texts 쿼리에서 터졌으면 세션이 실패 상태로 남는다 → 이후 분석 기록 저장이 통째로 500.
+        # 후보 실패가 분석을 죽이지 않게 하려면 여기서 정리해야 한다(정상 경로엔 영향 없음).
+        try:
+            db.rollback()
+        except Exception:  # noqa: BLE001
+            pass
         return [ArticleCandidate(article_code=c, title=title_of[c], applies="unranked", rank=0,
                                  source=kind[c], evidence=why.get(c, "")) for c in codes]

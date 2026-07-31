@@ -144,8 +144,9 @@ class AnalysisPipeline:
         article_ids = sr_lookup_service.article_ids_for_srs(db, knowledge.sr_ids)
         # ⭐ Track A cue-pool union 조문 후보 (research v2 검증 — evaluation-baseline 최상단).
         # flag off(기본) → 빈 배열, 기존 경로 무변화. trace.articles(PG 결정론)는 불변침 — 별도 필드.
+        # **이미지 분석에만** 적용한다 — 검증(v2)도 프롬프트("사진에서 보이는")도 화면 문구도 전부 사진 전제다.
         article_candidates = []
-        if cue_article_service.enabled():
+        if run_input.analysis_type == "image" and cue_article_service.enabled():
             try:
                 article_candidates = await cue_article_service.recommend(db=db, result=run_input.result)
             except Exception as exc:  # noqa: BLE001 — 후보 실패가 분석 응답을 막지 않는다

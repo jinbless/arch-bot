@@ -86,7 +86,10 @@ const ResultPage: React.FC = () => {
       <PenaltyPathPanel paths={analysis.penalty_paths} />
       {/* ⭐ Track A 조문 후보 — 확정 성격 패널(즉시조치·벌칙) 뒤, 근거·참고 구역에 배치.
           flag off면 backend가 []를 주므로 렌더되지 않는다. */}
-      <ArticleCandidatesPanel candidates={analysis.article_candidates} />
+      <ArticleCandidatesPanel
+        candidates={analysis.article_candidates}
+        findingStatus={analysis.finding_status}
+      />
       <ReasoningTracePanel
         trace={analysis.reasoning_trace}
         matches={analysis.situation_matches.length}

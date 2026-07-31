@@ -12,6 +12,7 @@ from app.models.analysis import (
     AnalysisHistoryItem,
     AnalysisHistoryResponse
 )
+from app.services import cue_article_service
 from app.services.analysis_service import analysis_service
 from app.utils.file_handler import file_handler
 from app.utils.exceptions import AnalysisNotFoundError
@@ -117,6 +118,10 @@ async def get_analysis(
         raise AnalysisNotFoundError(analysis_id)
 
     result_data = record.result_json if isinstance(record.result_json, dict) else json.loads(record.result_json)
+    # 플래그를 kill switch로 만든다 — off로 되돌렸는데 on 기간에 저장된 기록이 계속 조문 후보를
+    # 보여주면 "끄면 안 보인다"가 성립하지 않는다. 저장 데이터는 보존하고 응답에서만 감춘다.
+    if result_data.get("article_candidates") and not cue_article_service.enabled():
+        result_data = {**result_data, "article_candidates": []}
     return AnalysisResponse(**result_data)
 
 
