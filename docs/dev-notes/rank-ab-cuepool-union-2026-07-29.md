@@ -187,6 +187,11 @@ raw: `data-team/05-enrichment/runtime-artifacts/probe_discrimination.json` · �
 - v2 gold는 **모델 top3 기반 확장**이라 모델-노출 편향 있음(top3 밖 진짜 정답은 여전히 미판정 가능. 단 추락권은 형제 10종 전수로 완화).
 - 위 표는 rep0(정순 제시)만 — order_sensitivity(A −0.043) 미상쇄. **정본 수치 갱신은 4-rep 재실행 후에만.**
 
+## 후속 ③ 스테이징 플래그 on 실증 + 프론트 후보 패널 (2026-07-31)
+
+연구에서 검증된 union 구성이 **서빙에서도 실제로 붙는지** 확인 → 사진 3장 전부 후보 생성 성공, 한계비용 +3.5~5.1초(LLM +2회), flag off 무회귀.
+상세: [cue-articles-staging-2026-07-31](cue-articles-staging-2026-07-31.md).
+
 → 이제 유효해진 다음 실험: ① 4-rep 재실행(v2 gold·전체 랭킹 저장) + arm D promote-1 ② 변별 프로브 재실행(형제 JPA 이제 검출력 있음) ③ b-box 적용 재논의.
 
 ## 다음 실험 사전등록 초안

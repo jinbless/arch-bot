@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { analysisApi } from '../api/analysisApi';
 import Loading from '../components/common/Loading';
 import ErrorMessage from '../components/common/ErrorMessage';
+import ArticleCandidatesPanel from '../components/results/ArticleCandidatesPanel';
 import GuideProcedurePanel from '../components/results/GuideProcedurePanel';
 import HazardGuideRelationsPanel from '../components/results/HazardGuideRelationsPanel';
 import ImmediateActionsPanel from '../components/results/ImmediateActionsPanel';
@@ -83,6 +84,9 @@ const ResultPage: React.FC = () => {
       />
       <GuideProcedurePanel procedures={analysis.standard_procedures} />
       <PenaltyPathPanel paths={analysis.penalty_paths} />
+      {/* ⭐ Track A 조문 후보 — 확정 성격 패널(즉시조치·벌칙) 뒤, 근거·참고 구역에 배치.
+          flag off면 backend가 []를 주므로 렌더되지 않는다. */}
+      <ArticleCandidatesPanel candidates={analysis.article_candidates} />
       <ReasoningTracePanel
         trace={analysis.reasoning_trace}
         matches={analysis.situation_matches.length}

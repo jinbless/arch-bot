@@ -152,6 +152,22 @@ export interface UnmappedSafetyTerm {
   note?: string;
 }
 
+/**
+ * Track A cue-pool union 조문 **후보**. trace.articles(PG 결정론 경로)와 별개인 additive 필드로,
+ * 위반 확정이 아니라 "점검관이 볼 만한 조문" 제안이다. 후보 생성기에 기권(abstain) 경로가 없으므로
+ * 화면에서는 반드시 '후보'로 표기한다(backend ArticleCandidate docstring과 동일 정책).
+ * flag off(기본)면 빈 배열 → 패널 자체가 렌더되지 않는다.
+ */
+export interface ArticleCandidate {
+  article_code: string; // "제43조"
+  law_type: string; // "RULE"
+  title: string;
+  applies: 'yes' | 'maybe' | 'unranked' | string;
+  rank: number; // 1..n (RANK on) / 0 (unranked)
+  source: string; // 큐레이션 | 기인물 | 단서 | 흐름 | 횡단
+  evidence: string; // 매칭된 관찰단서(cue canonical)
+}
+
 export interface AnalysisResponse {
   analysis_id: string;
   analysis_type: 'image' | 'text';
@@ -171,6 +187,7 @@ export interface AnalysisResponse {
   hazards?: HazardItem[];
   hazard_guide_relations?: HazardGuideRelation[];
   unmapped_safety_terms?: UnmappedSafetyTerm[]; // WS-SAFETY-5 (표시전용)
+  article_candidates?: ArticleCandidate[]; // ⭐ Track A cue-pool union 조문 후보(표시전용, flag off면 [])
   analyzed_at: string;
 }
 
