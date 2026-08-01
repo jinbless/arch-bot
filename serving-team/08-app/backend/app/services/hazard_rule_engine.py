@@ -272,7 +272,10 @@ def _shared_reference_dir():
         return Path(env)
     for par in Path(__file__).resolve().parents:
         cand = par / "shared" / "reference"
-        if cand.exists():
+        # ★ 디렉토리 존재만 보면 안 된다 — backend/shared/reference 같은 **빈 디렉토리**가
+        #   리포 루트의 진짜 경로를 가로채 ModuleNotFoundError가 난다(로컬 실행에서 실제 발생).
+        #   찾는 모듈이 그 안에 있는지까지 확인한다.
+        if (cand / "canonical_vocab.py").exists():
             return cand
     return Path("/app/shared/reference")
 

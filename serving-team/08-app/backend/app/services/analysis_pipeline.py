@@ -34,6 +34,7 @@ from app.models.hazard import (
 )
 from app.services import (
     cue_article_service,
+    flow_service,
     guide_recommendation_service,
     match_fusion_service,
     penalty_path_service,
@@ -151,6 +152,15 @@ class AnalysisPipeline:
                 article_candidates = await cue_article_service.recommend(db=db, result=run_input.result)
             except Exception as exc:  # noqa: BLE001 — 후보 실패가 분석 응답을 막지 않는다
                 logging.getLogger(__name__).warning("[CueArticles] 실패 — 기존 경로 유지: %s", exc)
+        # ⭐ 기인물 앵커 기준 작업 흐름. flag off(기본) → None, 기존 경로 무변화.
+        # RESOLVE는 cue_article_service와 공유하므로 둘 다 켜도 LLM 호출은 1회다.
+        # 사진 전제 구조이므로 이미지 분석에만 적용한다.
+        work_flow = None
+        if run_input.analysis_type == "image" and flow_service.enabled():
+            try:
+                work_flow = await flow_service.build(run_input.result)
+            except Exception as exc:  # noqa: BLE001 — 흐름 실패가 분석 응답을 막지 않는다
+                logging.getLogger(__name__).warning("[WorkFlow] 실패 — 기존 경로 유지: %s", exc)
         findings = self._build_findings(
             status=knowledge.finding_status,
             observations=observations,
@@ -211,6 +221,7 @@ class AnalysisPipeline:
                 knowledge.normalizer_unknown_codes,
             ),
             article_candidates=article_candidates,  # ⭐ Track A(flag off 시 [])
+            work_flow=work_flow,                    # ⭐ 기인물 앵커 흐름(flag off 시 None)
             analyzed_at=analyzed_at,
         )
 

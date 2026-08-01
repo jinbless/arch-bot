@@ -113,6 +113,50 @@ class ArticleCandidate(BaseModel):
     group: str = "violation"
 
 
+class FlowItem(BaseModel):
+    """작업 흐름 한 단계 안의 항목 하나."""
+    text: str
+    source: str = ""                  # 별표 3 | 조문(전용) | 가이드(권고) | 안전검사(법정) …
+    ref: str = ""                     # 조문번호·별표 출처
+    # 법정 = 안 하면 위법(안전검사·조문) / 권고 = KOSHA 가이드 절차.
+    # 같은 칸에 섞어 보여주면 사업주가 '해야 하는 것'과 '하면 좋은 것'을 구별하지 못한다.
+    tier: str = "법정"                 # 법정 | 권고
+    # 이름 매칭으로 붙은 항목은 좌표 매칭보다 불확실하다(사람 검수 대상).
+    uncertain: bool = False
+
+
+class FlowSlot(BaseModel):
+    """흐름 골격의 한 칸. **번호를 매기지 않는다** — '8단계 중 4단계'는 시간 추론이라 미측정 오류원이다."""
+    key: str                          # PLAN | ASSIGN | PRECHECK | EXEC | POST | PERIODIC
+    label: str                        # 계획·사전조사 …
+    items: List[FlowItem] = []
+    empty_reason: str = ""            # 비었을 때 화면에 띄울 사유(정기 칸의 '안전검사 대상 아님' 등)
+
+
+class FlowAnchor(BaseModel):
+    """사진에서 잡은 기인물 = 흐름 전체가 걸리는 지점."""
+    group_key: str
+    label: str = ""
+    path: str = ""                    # 편 > 장 > 절 > 관
+    is_inspection_target: bool = False
+    machines: List[str] = []
+    periodic_source: str = "없음"      # 안전검사+가이드 | 안전검사 | 가이드만 | 없음
+
+
+class WorkFlow(BaseModel):
+    """기인물 앵커 기준 작업 전체 흐름(flag off 시 None).
+
+    ⚠ 앵커는 이 구조의 **단일 실패점**이다 — 관 단위 정확 일치 0.711(감독관 gold 45장,
+    evaluation-baseline '앵커 인식 정확도'). 4장 중 1장 이상이 통째로 틀리므로
+    `alternates`(사용자 정정 후보)를 반드시 함께 노출한다.
+    ⚠ 각 항목이 그 칸에 맞는지(라벨 정확도)는 **아직 사람 검수 전**이다.
+    """
+    anchor: FlowAnchor
+    alternates: List[FlowAnchor] = []
+    slots: List[FlowSlot] = []
+    reviewed: bool = False            # 라벨 사람 검수 완료 여부 — 화면 경고 문구 제어
+
+
 class AnalysisResponse(BaseModel):
     analysis_id: str
     analysis_type: str
@@ -136,6 +180,8 @@ class AnalysisResponse(BaseModel):
     unmapped_safety_terms: List[UnmappedSafetyTerm] = []
     # ⭐ Track A cue-pool union 조문 후보(flag off 시 항상 [] — 기존 경로 무변화, 호환 default = [])
     article_candidates: List[ArticleCandidate] = []
+    # ⭐ 기인물 앵커 기준 작업 흐름(flag off 시 None — 기존 경로 무변화, 호환 default = None)
+    work_flow: Optional[WorkFlow] = None
     analyzed_at: datetime
 
     class Config:

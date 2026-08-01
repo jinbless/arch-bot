@@ -59,5 +59,11 @@ class Settings(BaseSettings):
     OHS_ENABLE_CUE_ARTICLES: bool = False
     OHS_ENABLE_ARTICLE_RANK: bool = False
 
+    # ⭐ 기인물 앵커 기준 작업 흐름(work_flow). off면 응답에 None — 기존 경로 무변화.
+    # env(CUE_FLOW) 우선. RESOLVE는 cue_article_service와 **공유**하므로 이 플래그만 켜도 LLM +1회다
+    # (CUE_ARTICLES와 같이 켜도 RESOLVE는 여전히 1회).
+    # ⚠ 노출 전 조건: 항목 라벨 사람 검수 완료(flow_service.LABELS_REVIEWED). 앵커 정확도 0.711.
+    OHS_ENABLE_WORK_FLOW: bool = False
+
 
 settings = Settings()

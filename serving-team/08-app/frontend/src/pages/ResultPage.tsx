@@ -11,6 +11,7 @@ import PenaltyPathPanel from '../components/results/PenaltyPathPanel';
 import ReasoningTracePanel from '../components/results/ReasoningTracePanel';
 import ResultSummary from '../components/results/ResultSummary';
 import RiskOverviewPanel from '../components/results/RiskOverviewPanel';
+import WorkFlowPanel from '../components/results/WorkFlowPanel';
 import { useAnalysisStore } from '../store';
 import type { AnalysisResponse } from '../types/analysis';
 
@@ -82,6 +83,10 @@ const ResultPage: React.FC = () => {
         items={analysis.immediate_actions}
         findingStatus={analysis.finding_status}
       />
+      {/* ⭐ 기인물 앵커 기준 작업 흐름 — 즉시조치 다음, 표준절차 앞.
+          "지금 당장" 다음에 "앞뒤로 뭘 해야 하나"가 오는 순서다.
+          flag off면 backend가 null을 주므로 렌더되지 않는다. */}
+      <WorkFlowPanel flow={analysis.work_flow} />
       <GuideProcedurePanel procedures={analysis.standard_procedures} />
       <PenaltyPathPanel paths={analysis.penalty_paths} />
       {/* ⭐ Track A 조문 후보 — 확정 성격 패널(즉시조치·벌칙) 뒤, 근거·참고 구역에 배치.

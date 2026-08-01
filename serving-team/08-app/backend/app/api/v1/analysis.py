@@ -12,7 +12,7 @@ from app.models.analysis import (
     AnalysisHistoryItem,
     AnalysisHistoryResponse
 )
-from app.services import cue_article_service
+from app.services import cue_article_service, flow_service
 from app.services.analysis_service import analysis_service
 from app.utils.file_handler import file_handler
 from app.utils.exceptions import AnalysisNotFoundError
@@ -122,6 +122,8 @@ async def get_analysis(
     # 보여주면 "끄면 안 보인다"가 성립하지 않는다. 저장 데이터는 보존하고 응답에서만 감춘다.
     if result_data.get("article_candidates") and not cue_article_service.enabled():
         result_data = {**result_data, "article_candidates": []}
+    if result_data.get("work_flow") and not flow_service.enabled():
+        result_data = {**result_data, "work_flow": None}
     return AnalysisResponse(**result_data)
 
 

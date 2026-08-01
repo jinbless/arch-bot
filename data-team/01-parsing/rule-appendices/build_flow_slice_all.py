@@ -363,7 +363,9 @@ def main() -> None:
                                    else "안전검사" if n_periodic_law
                                    else "가이드만" if insp["periodic_guide"] else "없음")
 
-        report.append({"no": k, "subject": gg["label"], "path": gg["path"], "name": nm,
+        # src_key = 카탈로그(gimulmul_index)의 원래 그룹키. RESOLVE가 내는 group_key와 조인하려면
+        # 분리 전 키가 있어야 한다(분리된 그룹은 no != src_key).
+        report.append({"no": k, "src_key": gg["src_key"], "subject": gg["label"], "path": gg["path"], "name": nm,
                        "coord": list(gg["coord"]),
                        "guide": gcode, "apx3": [r["no"] for r in a3_rows],
                        "slots": slots, "filled": sum(1 for x, _ in SKELETON if slots[x]),

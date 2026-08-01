@@ -253,12 +253,32 @@ async def _chat(model: str, sysp: str, user: str, schema: dict) -> dict:
     return json.loads(r.choices[0].message.content)
 
 
-async def _resolve(scene: str) -> dict:
+# 같은 장면에 대한 RESOLVE 결과를 공유한다.
+# ★ 조문 후보(이 모듈)와 흐름(flow_service)이 각자 RESOLVE를 부르면 LLM 비용이 2배가 될 뿐 아니라,
+#   두 호출이 다른 기인물을 지목해 **화면에서 앵커와 조문이 어긋나는** 더 나쁜 결과가 난다.
+_RESOLVE_MEMO: dict[str, dict] = {}
+_RESOLVE_MEMO_MAX = 32
+
+
+async def resolve(scene: str) -> dict:
+    """장면 → RESOLVE(기인물 그룹). 같은 장면이면 재호출하지 않는다."""
+    key = scene.strip()
+    if key in _RESOLVE_MEMO:
+        return _RESOLVE_MEMO[key]
     kn = _knowledge()
     model = os.environ.get("CUE_RESOLVE_MODEL", "gpt-5.4")
-    return await _chat(model, RESOLVE_SYS,
-                       f"[장면]\n{scene}\n\n[기인물 그룹 카탈로그]\n{kn['catalog_text']}\n\n주요 기인물의 group_key 선택.",
-                       RESOLVE_SCHEMA)
+    rv = await _chat(model, RESOLVE_SYS,
+                     f"[장면]\n{scene}\n\n[기인물 그룹 카탈로그]\n{kn['catalog_text']}\n\n주요 기인물의 group_key 선택.",
+                     RESOLVE_SCHEMA)
+    if len(_RESOLVE_MEMO) >= _RESOLVE_MEMO_MAX:      # 무한 증가 방지 — 가장 오래된 것부터 버린다
+        _RESOLVE_MEMO.pop(next(iter(_RESOLVE_MEMO)))
+    _RESOLVE_MEMO[key] = rv
+    return rv
+
+
+def scene_text(result: dict) -> str:
+    """flow_service 등 다른 모듈이 같은 장면 문자열을 쓰도록 공개한다(memo 키가 갈리면 공유가 깨진다)."""
+    return _scene_text(result)
 
 
 def _full_texts(db: Session, codes: list[str]) -> dict:
@@ -311,7 +331,7 @@ async def recommend(db: Session, result: dict) -> list[ArticleCandidate]:
 
     kind: dict[str, str] = {}
     try:
-        rv = await _resolve(scene)
+        rv = await resolve(scene)
         kind = _baseline_candidates(rv)
     except Exception as exc:  # noqa: BLE001 — RESOLVE 실패 → 결정론 부분(cue+횡단)만
         logger.warning("[CueArticles] RESOLVE 실패(%s) — cue+횡단 후보만 사용", exc)

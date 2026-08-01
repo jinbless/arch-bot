@@ -190,7 +190,42 @@ export interface AnalysisResponse {
   hazard_guide_relations?: HazardGuideRelation[];
   unmapped_safety_terms?: UnmappedSafetyTerm[]; // WS-SAFETY-5 (표시전용)
   article_candidates?: ArticleCandidate[]; // ⭐ Track A cue-pool union 조문 후보(표시전용, flag off면 [])
+  work_flow?: WorkFlow | null; // ⭐ 기인물 앵커 기준 작업 흐름(표시전용, flag off면 null)
   analyzed_at: string;
+}
+
+/** 작업 흐름 한 단계 안의 항목. tier로 법정/권고를 가른다. */
+export interface FlowItem {
+  text: string;
+  source: string;
+  ref: string;
+  tier: '법정' | '권고';
+  uncertain: boolean; // 이름 매칭으로 붙은 항목(좌표 매칭보다 불확실, 사람 검수 대상)
+}
+
+/** 흐름 골격의 한 칸. **번호를 매기지 않는다** — 시간 추론은 미측정 오류원. */
+export interface FlowSlot {
+  key: 'PLAN' | 'ASSIGN' | 'PRECHECK' | 'EXEC' | 'POST' | 'PERIODIC';
+  label: string;
+  items: FlowItem[];
+  empty_reason: string;
+}
+
+/** 사진에서 잡은 기인물 = 흐름 전체가 걸리는 지점. */
+export interface FlowAnchor {
+  group_key: string;
+  label: string;
+  path: string;
+  is_inspection_target: boolean;
+  machines: string[];
+  periodic_source: string;
+}
+
+export interface WorkFlow {
+  anchor: FlowAnchor;
+  alternates: FlowAnchor[]; // 앵커 정정 후보 — 앵커 정확도 0.711이라 필수
+  slots: FlowSlot[];
+  reviewed: boolean; // 항목 라벨 사람 검수 완료 여부
 }
 
 export interface AnalysisHistoryItem {
