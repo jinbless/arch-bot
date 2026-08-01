@@ -1,0 +1,177 @@
+{
+ "_note": "사후 탐색 — 같은 80장. 유망 정책은 남은 568장에서 사전등록 후 재측정 필요.",
+ "n_neg": 67,
+ "n_pos": 7,
+ "deficiency_signal": {
+  "neg_with_signal": 57,
+  "neg_total": 67,
+  "pos_with_signal": 7,
+  "pos_total": 7
+ },
+ "applies_distribution_on_neg": {
+  "maybe": 510,
+  "no": 1110,
+  "yes": 153
+ },
+ "kind_distribution_on_neg": {
+  "횡단": 922,
+  "단서": 271,
+  "기인물": 440,
+  "큐레이션": 97,
+  "흐름": 43
+ },
+ "top_gimulmul_on_neg": [
+  [
+   "전기설비",
+   2
+  ],
+  [
+   "경사로",
+   2
+  ],
+  [
+   "계단",
+   2
+  ],
+  [
+   "임시 펜스",
+   2
+  ],
+  [
+   "주차장 내 차량",
+   2
+  ],
+  [
+   "유리 출입문",
+   2
+  ],
+  [
+   "얼어 있는 저수지",
+   1
+  ],
+  [
+   "연못 주변의 비탈진 흙길",
+   1
+  ],
+  [
+   "이동형 철제 펜스",
+   1
+  ],
+  [
+   "출입문",
+   1
+  ],
+  [
+   "대형 타이어의 무질서한 적치",
+   1
+  ],
+  [
+   "잡초가 우거진 불량한 지면 상태",
+   1
+  ],
+  [
+   "방치된 드럼통",
+   1
+  ],
+  [
+   "버려진 의자 및 잡동사니 폐기물",
+   1
+  ],
+  [
+   "균열이 큰 아스팔트 바닥",
+   1
+  ]
+ ],
+ "policies": [
+  {
+   "policy": "현행(yes+maybe 전부)",
+   "neg_claim": 0.978,
+   "neg_ci95": [
+    0.948,
+    1.0
+   ],
+   "pos_claim": 1.0,
+   "discrimination": 0.022
+  },
+  {
+   "policy": "yes만 노출",
+   "neg_claim": 0.672,
+   "neg_ci95": [
+    0.567,
+    0.776
+   ],
+   "pos_claim": 0.857,
+   "discrimination": 0.186
+  },
+  {
+   "policy": "CROSS16 제외",
+   "neg_claim": 0.955,
+   "neg_ci95": [
+    0.91,
+    0.993
+   ],
+   "pos_claim": 1.0,
+   "discrimination": 0.045
+  },
+  {
+   "policy": "yes만 + CROSS16 제외",
+   "neg_claim": 0.306,
+   "neg_ci95": [
+    0.209,
+    0.41
+   ],
+   "pos_claim": 0.5,
+   "discrimination": 0.194
+  },
+  {
+   "policy": "횡단 출처 제외(kind)",
+   "neg_claim": 0.955,
+   "neg_ci95": [
+    0.91,
+    0.993
+   ],
+   "pos_claim": 1.0,
+   "discrimination": 0.045
+  },
+  {
+   "policy": "단서/흐름 출처만(cue 직결)",
+   "neg_claim": 0.746,
+   "neg_ci95": [
+    0.649,
+    0.843
+   ],
+   "pos_claim": 0.929,
+   "discrimination": 0.182
+  },
+  {
+   "policy": "결여신호 없으면 전량 억제",
+   "neg_claim": 0.828,
+   "neg_ci95": [
+    0.739,
+    0.91
+   ],
+   "pos_claim": 1.0,
+   "discrimination": 0.172
+  },
+  {
+   "policy": "결여신호 게이트 + yes만",
+   "neg_claim": 0.612,
+   "neg_ci95": [
+    0.5,
+    0.716
+   ],
+   "pos_claim": 0.857,
+   "discrimination": 0.245
+  },
+  {
+   "policy": "결여신호 + yes + CROSS제외",
+   "neg_claim": 0.291,
+   "neg_ci95": [
+    0.194,
+    0.396
+   ],
+   "pos_claim": 0.5,
+   "discrimination": 0.209
+  }
+ ]
+}
