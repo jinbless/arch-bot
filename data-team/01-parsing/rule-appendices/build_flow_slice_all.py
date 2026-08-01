@@ -27,6 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 PARSED = Path(__file__).resolve().parent / "parsed"
 ART = ROOT / "data-team" / "05-enrichment" / "runtime-artifacts"
+SI_DIR = ROOT / "data-team" / "01-parsing" / "safety-inspection" / "parsed"
 
 SKELETON = [("PLAN", "계획"), ("ASSIGN", "인적"), ("PRECHECK", "작업전"),
             ("EXEC", "작업중"), ("POST", "종료"), ("PERIODIC", "정기")]
@@ -83,6 +84,37 @@ def phase_of(text: str) -> str:
     return "EXEC"
 
 
+def load_inspection() -> tuple[dict, dict]:
+    """별표 3 행번호 → 안전검사 대상 기계명, 기계명 → 기계 레코드.
+
+    ★ 이름 매칭은 join_inspection_coverage.py 가 하고 coverage-report.json 에 남긴다.
+      여기서 매칭을 다시 구현하면 두 곳이 조용히 어긋난다. 데이터로만 받는다.
+    """
+    cov, si = SI_DIR / "coverage-report.json", SI_DIR / "safety-inspection.json"
+    if not (cov.exists() and si.exists()):
+        print("⚠ 안전검사 데이터 없음 — 정기 칸을 가이드 절차로만 채운다\n")
+        return {}, {}
+    c = json.loads(cov.read_text(encoding="utf-8"))
+    s = json.loads(si.read_text(encoding="utf-8"))
+    return ({r["no"]: r["machines"] for r in c["periodic_slot"]["rows"]},
+            {m["name"]: m for m in s["machines"]})
+
+
+def cycle_lines(m: dict) -> list[str]:
+    """주기 규정 → 읽을 수 있는 문장. 원문 문구를 이어 붙이기만 한다(해석 추가 금지)."""
+    out, c = [], m.get("cycle") or {}
+    base = " ".join(x for x in (c.get("first"), c.get("then")) if x)
+    if base:
+        out.append(f"{m['name']}: {base}")
+    if c.get("special"):
+        out.append(f"{m['name']}: {c['special']}")
+    for v in m.get("cycle_variants") or []:
+        vb = " ".join(x for x in (v.get("first"), v.get("then")) if x)
+        if vb:
+            out.append(f"{v['subtype']}: {vb}")
+    return out
+
+
 def pg(sql: str) -> list[str]:
     r = subprocess.run(["docker", "exec", "kosha-pg", "sh", "-c",
                         f'psql -U $POSTGRES_USER -d $POSTGRES_DB -tAF"|" -c "{sql}"'],
@@ -91,6 +123,7 @@ def pg(sql: str) -> list[str]:
 
 
 def main() -> None:
+    si_by_row, si_by_name = load_inspection()
     sigs = [json.loads(l) for l in (ART / "article_signatures.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
     a3 = json.loads((PARSED / "appendix-03.json").read_text(encoding="utf-8"))
     a4 = json.loads((PARSED / "appendix-04.json").read_text(encoding="utf-8"))
@@ -158,7 +191,28 @@ def main() -> None:
                     add("ASSIGN", it)
         add("ASSIGN", "제39조 작업지휘자")
 
-        # PERIODIC — 대표 가이드 절차
+        # PERIODIC ① — 안전검사(법 제93조). ★ 정기는 **조건부 칸**이다.
+        #   안전검사 대상은 시행령 제78조의 15종뿐이고 지게차·차량계 건설기계 등은 대상이 아니다.
+        #   그건 데이터 결손이 아니라 법이 그런 것이므로, 빈칸으로 두지 말고 '대상 아님'을 명시한다.
+        machines = [si_by_name[x] for x in si_by_row.get(no, []) if x in si_by_name]
+        # ★ 검사기준은 **별표 파일 기준으로 센다.** 프레스와 전단기는 시행령상 별개 호지만
+        #   검사기준은 별표 1 하나를 공유한다 — 기계 수로 세면 208개가 416개가 된다.
+        by_file = {m.get("inspection_criteria_file", ""): len(m.get("inspection_items") or [])
+                   for m in machines}
+        insp = {"is_target": bool(machines), "machines": [m["name"] for m in machines],
+                "cycle": [ln for m in machines for ln in cycle_lines(m)],
+                "criteria_items": sum(by_file.values()),
+                "criteria_files": sorted(by_file),
+                "criteria_articles": sorted({m.get("criteria_article", "") for m in machines})}
+        for ln in insp["cycle"]:
+            add("PERIODIC", ln)
+        if insp["criteria_items"]:
+            add("PERIODIC", f"안전검사 검사기준 {insp['criteria_items']}개 항목 "
+                            f"(고시 {'·'.join(insp['criteria_articles'])} → {', '.join(insp['criteria_files'])})")
+
+        n_periodic_law = slots["PERIODIC"]      # 여기까지가 법정(안전검사) 분
+
+        # PERIODIC ② — 대표 가이드 절차
         kw = GUIDE_KW.get(no, "")
         gcode = ""
         if kw:
@@ -169,21 +223,41 @@ def main() -> None:
                          f"where source_guide='{gcode}' order by process_order"):
                 add(phase_of(ln), ln[:34])
 
+        # ★ 정기 칸의 근거 강도는 3단계다. 법정 안전검사(주기·검사기준)와 가이드 권고 절차는
+        #   무게가 다르므로 화면에서 같은 칸에 섞어 보여주면 안 된다.
+        insp["periodic_law"] = n_periodic_law
+        insp["periodic_guide"] = slots["PERIODIC"] - n_periodic_law
+        insp["periodic_source"] = ("안전검사+가이드" if n_periodic_law and insp["periodic_guide"]
+                                   else "안전검사" if n_periodic_law
+                                   else "가이드만" if insp["periodic_guide"] else "없음")
+
         filled = sum(1 for k, _ in SKELETON if slots[k])
         report.append({"no": no, "subject": subj[:26], "coord": [jeol, gwan], "guide": gcode,
-                       "slots": slots, "filled": filled, "detail": detail})
+                       "slots": slots, "filled": filled, "detail": detail, "inspection": insp})
 
-    print(f"=== 별표 3 작업종류 {len(report)}종 × 골격 6단계 채움 현황 ===")
-    print(f"{'no':>5} {'작업종류':26} {'가이드':12} " + " ".join(f"{lab:>5}" for _, lab in SKELETON) + "  채움")
+    print(f"=== 별표 3 작업종류 {len(report)}종 × 골격 채움 현황 ===")
+    print(f"{'no':>5} {'작업종류':26} {'가이드':12} " + " ".join(f"{lab:>5}" for _, lab in SKELETON)
+          + "  채움  정기근거     안전검사 대상")
     for x in report:
         cells = " ".join(f"{x['slots'][k]:>5}" for k, _ in SKELETON)
-        print(f"{x['no']:>5} {x['subject'][:24]:26} {x['guide'][:12]:12} {cells}  {x['filled']}/6")
+        i = x["inspection"]
+        print(f"{x['no']:>5} {x['subject'][:24]:26} {x['guide'][:12]:12} {cells}  {x['filled']}/6  "
+              f"{i['periodic_source']:12} {'·'.join(i['machines']) if i['machines'] else '-'}")
 
-    full = sum(1 for x in report if x["filled"] == 6)
+    full = sum(1 for x in report if x["filled"] == len(SKELETON))
     print(f"\n6/6 채움: {full}/{len(report)}종")
     for k, lab in SKELETON:
         empty = [x["no"] for x in report if not x["slots"][k]]
         print(f"  {lab:6} 빈 종류 {len(empty):2d}종 {('· ' + ', '.join(empty)) if empty else ''}")
+
+    # ★ 정기 칸은 근거 강도가 갈린다. 법정 주기와 가이드 권고를 같은 칸에 섞으면
+    #   사업주가 '해도 되는 것'과 '안 하면 위법인 것'을 구별하지 못한다.
+    print("\n=== 정기 칸 근거 강도 ===")
+    for src in ("안전검사+가이드", "안전검사", "가이드만", "없음"):
+        g = [x for x in report if x["inspection"]["periodic_source"] == src]
+        if g:
+            print(f"  {src:12} {len(g):2d}종 · {', '.join(x['subject'][:12] for x in g)}")
+    print("  ('없음'은 데이터 결손이 아니라 안전검사 대상이 아니고 가이드에도 정기 절차가 없는 것)")
 
     out = ART / "flow_slice_all.json"
     out.write_text(json.dumps({"_note": "별표 3 19종 × 골격 채움. 칸이 차는지만 본다(라벨 정확도 별도).",

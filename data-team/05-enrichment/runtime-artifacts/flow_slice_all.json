@@ -15,7 +15,7 @@
     "PRECHECK": 8,
     "EXEC": 50,
     "POST": 2,
-    "PERIODIC": 1
+    "PERIODIC": 4
    },
    "filled": 6,
    "detail": {
@@ -42,8 +42,31 @@
      "금형 해체"
     ],
     "PERIODIC": [
-     "소음 제어 장치 정기 검사 및 유지보수"
+     "프레스: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "전단기: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "안전검사 검사기준 208개 항목 (고시 제4조 → inspection-appendix-01.json)"
     ]
+   },
+   "inspection": {
+    "is_target": true,
+    "machines": [
+     "프레스",
+     "전단기"
+    ],
+    "cycle": [
+     "프레스: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "전단기: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ],
+    "criteria_items": 208,
+    "criteria_files": [
+     "inspection-appendix-01.json"
+    ],
+    "criteria_articles": [
+     "제4조"
+    ],
+    "periodic_law": 3,
+    "periodic_guide": 1,
+    "periodic_source": "안전검사+가이드"
    }
   },
   {
@@ -60,7 +83,7 @@
     "PRECHECK": 4,
     "EXEC": 22,
     "POST": 1,
-    "PERIODIC": 1
+    "PERIODIC": 3
    },
    "filled": 6,
    "detail": {
@@ -84,8 +107,29 @@
      "제93조 방호장치의 해체 금지"
     ],
     "PERIODIC": [
+     "산업용 로봇: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "안전검사 검사기준 205개 항목 (고시 제26조 → inspection-appendix-12.json)",
      "정기 검사 및 보수"
     ]
+   },
+   "inspection": {
+    "is_target": true,
+    "machines": [
+     "산업용 로봇"
+    ],
+    "cycle": [
+     "산업용 로봇: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ],
+    "criteria_items": 205,
+    "criteria_files": [
+     "inspection-appendix-12.json"
+    ],
+    "criteria_articles": [
+     "제26조"
+    ],
+    "periodic_law": 2,
+    "periodic_guide": 1,
+    "periodic_source": "안전검사+가이드"
    }
   },
   {
@@ -126,6 +170,17 @@
      "제93조 방호장치의 해체 금지"
     ],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -142,9 +197,9 @@
     "PRECHECK": 4,
     "EXEC": 28,
     "POST": 3,
-    "PERIODIC": 0
+    "PERIODIC": 4
    },
-   "filled": 5,
+   "filled": 6,
    "detail": {
     "PLAN": [
      "타워크레인의 종류 및 형식",
@@ -171,7 +226,32 @@
      "제93조 방호장치의 해체 금지",
      "제41조 운전위치의 이탈금지"
     ],
-    "PERIODIC": []
+    "PERIODIC": [
+     "크레인: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "크레인: 건설현장에서 사용하는 것은 최초로 설치한 날부터 6개월마다",
+     "이동식 크레인: 「자동차관리법」 제8조에 따른 신규등록 이후 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ]
+   },
+   "inspection": {
+    "is_target": true,
+    "machines": [
+     "크레인"
+    ],
+    "cycle": [
+     "크레인: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "크레인: 건설현장에서 사용하는 것은 최초로 설치한 날부터 6개월마다",
+     "이동식 크레인: 「자동차관리법」 제8조에 따른 신규등록 이후 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ],
+    "criteria_items": 303,
+    "criteria_files": [
+     "inspection-appendix-02.json"
+    ],
+    "criteria_articles": [
+     "제6조"
+    ],
+    "periodic_law": 4,
+    "periodic_guide": 0,
+    "periodic_source": "안전검사"
    }
   },
   {
@@ -188,9 +268,9 @@
     "PRECHECK": 4,
     "EXEC": 19,
     "POST": 3,
-    "PERIODIC": 0
+    "PERIODIC": 4
    },
-   "filled": 5,
+   "filled": 6,
    "detail": {
     "PLAN": [
      "제38조 사전조사·작업계획서"
@@ -215,7 +295,32 @@
      "제41조 운전위치의 이탈금지",
      "작업 종료"
     ],
-    "PERIODIC": []
+    "PERIODIC": [
+     "크레인: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "크레인: 건설현장에서 사용하는 것은 최초로 설치한 날부터 6개월마다",
+     "이동식 크레인: 「자동차관리법」 제8조에 따른 신규등록 이후 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ]
+   },
+   "inspection": {
+    "is_target": true,
+    "machines": [
+     "크레인"
+    ],
+    "cycle": [
+     "크레인: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "크레인: 건설현장에서 사용하는 것은 최초로 설치한 날부터 6개월마다",
+     "이동식 크레인: 「자동차관리법」 제8조에 따른 신규등록 이후 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ],
+    "criteria_items": 303,
+    "criteria_files": [
+     "inspection-appendix-02.json"
+    ],
+    "criteria_articles": [
+     "제6조"
+    ],
+    "periodic_law": 4,
+    "periodic_guide": 0,
+    "periodic_source": "안전검사"
    }
   },
   {
@@ -232,9 +337,9 @@
     "PRECHECK": 3,
     "EXEC": 25,
     "POST": 2,
-    "PERIODIC": 0
+    "PERIODIC": 4
    },
-   "filled": 5,
+   "filled": 6,
    "detail": {
     "PLAN": [
      "제38조 사전조사·작업계획서"
@@ -258,7 +363,32 @@
      "제93조 방호장치의 해체 금지",
      "제41조 운전위치의 이탈금지"
     ],
-    "PERIODIC": []
+    "PERIODIC": [
+     "리프트: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "리프트: 건설현장에서 사용하는 것은 최초로 설치한 날부터 6개월마다",
+     "이삿짐운반용 리프트: 「자동차관리법」 제8조에 따른 신규등록 이후 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ]
+   },
+   "inspection": {
+    "is_target": true,
+    "machines": [
+     "리프트"
+    ],
+    "cycle": [
+     "리프트: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "리프트: 건설현장에서 사용하는 것은 최초로 설치한 날부터 6개월마다",
+     "이삿짐운반용 리프트: 「자동차관리법」 제8조에 따른 신규등록 이후 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ],
+    "criteria_items": 184,
+    "criteria_files": [
+     "inspection-appendix-03.json"
+    ],
+    "criteria_articles": [
+     "제8조"
+    ],
+    "periodic_law": 4,
+    "periodic_guide": 0,
+    "periodic_source": "안전검사"
    }
   },
   {
@@ -275,9 +405,9 @@
     "PRECHECK": 4,
     "EXEC": 16,
     "POST": 3,
-    "PERIODIC": 0
+    "PERIODIC": 3
    },
-   "filled": 5,
+   "filled": 6,
    "detail": {
     "PLAN": [
      "제38조 사전조사·작업계획서"
@@ -302,7 +432,31 @@
      "제41조 운전위치의 이탈금지",
      "작업종료 및 정리"
     ],
-    "PERIODIC": []
+    "PERIODIC": [
+     "곤돌라: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "곤돌라: 건설현장에서 사용하는 것은 최초로 설치한 날부터 6개월마다",
+     "안전검사 검사기준 117개 항목 (고시 제12조 → inspection-appendix-05.json)"
+    ]
+   },
+   "inspection": {
+    "is_target": true,
+    "machines": [
+     "곤돌라"
+    ],
+    "cycle": [
+     "곤돌라: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "곤돌라: 건설현장에서 사용하는 것은 최초로 설치한 날부터 6개월마다"
+    ],
+    "criteria_items": 117,
+    "criteria_files": [
+     "inspection-appendix-05.json"
+    ],
+    "criteria_articles": [
+     "제12조"
+    ],
+    "periodic_law": 3,
+    "periodic_guide": 0,
+    "periodic_source": "안전검사"
    }
   },
   {
@@ -345,6 +499,17 @@
      "제41조 운전위치의 이탈금지"
     ],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -392,6 +557,17 @@
      "정기점검 - 동력전달장치 및 조종장치 점검",
      "정기점검 - 제동장치 점검"
     ]
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 6,
+    "periodic_source": "가이드만"
    }
   },
   {
@@ -433,6 +609,17 @@
      "제99조 운전위치 이탈 시의 조치"
     ],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -449,9 +636,9 @@
     "PRECHECK": 6,
     "EXEC": 17,
     "POST": 3,
-    "PERIODIC": 0
+    "PERIODIC": 2
    },
-   "filled": 5,
+   "filled": 6,
    "detail": {
     "PLAN": [
      "제38조 사전조사·작업계획서"
@@ -474,7 +661,29 @@
      "제99조 운전위치 이탈 시의 조치",
      "작업 종료 후 정리"
     ],
-    "PERIODIC": []
+    "PERIODIC": [
+     "고소작업대: 「자동차관리법」 제8조에 따른 신규등록 이후 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "안전검사 검사기준 148개 항목 (고시 제22조 → inspection-appendix-10.json)"
+    ]
+   },
+   "inspection": {
+    "is_target": true,
+    "machines": [
+     "고소작업대"
+    ],
+    "cycle": [
+     "고소작업대: 「자동차관리법」 제8조에 따른 신규등록 이후 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ],
+    "criteria_items": 148,
+    "criteria_files": [
+     "inspection-appendix-10.json"
+    ],
+    "criteria_articles": [
+     "제22조"
+    ],
+    "periodic_law": 2,
+    "periodic_guide": 0,
+    "periodic_source": "안전검사"
    }
   },
   {
@@ -517,6 +726,17 @@
      "작업 종료 및 주차"
     ],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -533,9 +753,9 @@
     "PRECHECK": 5,
     "EXEC": 41,
     "POST": 2,
-    "PERIODIC": 0
+    "PERIODIC": 2
    },
-   "filled": 5,
+   "filled": 6,
    "detail": {
     "PLAN": [
      "제38조 사전조사·작업계획서"
@@ -557,7 +777,29 @@
      "제191조 이탈 등의 방지",
      "제93조 방호장치의 해체 금지"
     ],
-    "PERIODIC": []
+    "PERIODIC": [
+     "컨베이어: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다",
+     "안전검사 검사기준 159개 항목 (고시 제24조 → inspection-appendix-11.json)"
+    ]
+   },
+   "inspection": {
+    "is_target": true,
+    "machines": [
+     "컨베이어"
+    ],
+    "cycle": [
+     "컨베이어: 사업장에 설치가 끝난 날부터 3년 이내에 최초 안전검사를 실시하되 그 이후부터 2년마다"
+    ],
+    "criteria_items": 159,
+    "criteria_files": [
+     "inspection-appendix-11.json"
+    ],
+    "criteria_articles": [
+     "제24조"
+    ],
+    "periodic_law": 2,
+    "periodic_guide": 0,
+    "periodic_source": "안전검사"
    }
   },
   {
@@ -602,6 +844,17 @@
      "제41조 운전위치의 이탈금지"
     ],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -640,6 +893,17 @@
     ],
     "POST": [],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -677,6 +941,17 @@
     ],
     "POST": [],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -711,6 +986,17 @@
     "EXEC": [],
     "POST": [],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -753,6 +1039,17 @@
      "제41조 운전위치의 이탈금지"
     ],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   },
   {
@@ -795,6 +1092,17 @@
      "제41조 운전위치의 이탈금지"
     ],
     "PERIODIC": []
+   },
+   "inspection": {
+    "is_target": false,
+    "machines": [],
+    "cycle": [],
+    "criteria_items": 0,
+    "criteria_files": [],
+    "criteria_articles": [],
+    "periodic_law": 0,
+    "periodic_guide": 0,
+    "periodic_source": "없음"
    }
   }
  ]
