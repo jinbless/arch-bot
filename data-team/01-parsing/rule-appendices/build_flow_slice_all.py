@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-"""별표 3의 작업종류 19종 전체에 대해 흐름 골격 6단계가 채워지는지 일괄 확인 (LLM 호출 0).
+"""기인물 그룹 113종 × 흐름 골격 6단계 조립 (LLM 호출 0).
 
-수직 슬라이스(build_flow_slice.py)를 지게차 1종으로 검증했으니, 나머지로 확대해
-**어느 칸이 어디서 비는지** 분포를 본다. 빈 칸의 분포가 다음 데이터 작업을 정한다.
+**인덱스는 기인물 그룹이다.** 예전엔 별표 3(작업시작 전 점검)의 작업종류 19행을 인덱스로 썼는데,
+별표 3은 원래 '작업 시작 전 점검' 칸 **하나의 재료**일 뿐이다. 재료 하나가 전체 목록을 결정하니
+앵커가 내는 113종 중 19종만 흐름이 있었고, 정답 기준으로도 사진의 42%가 흐름 없이 비었다.
+앵커(RESOLVE)가 `group_keys`를 내므로 인덱스도 그룹이어야 짝이 맞는다.
 
-각 작업종류의 재료:
-  PLAN     별표 4(작업명 매칭) + 제38조
-  ASSIGN   별표 2(좌표/이름 매칭) + 제39조
-  PRECHECK 별표 3(해당 행) + 제35조
-  EXEC     해당 절/관 조문(전용 + 절 총칙)
-  POST     종료·이탈 성격 조문
-  PERIODIC 가이드 절차(제목 매칭으로 찾은 대표 가이드)
+각 칸의 재료:
+  PLAN     별표 4(이름 매칭) + 제38조
+  ASSIGN   별표 2(좌표/이름) + 제39조
+  PRECHECK 별표 3(좌표 매칭 — 19종만 해당) + 제35조
+  EXEC     그룹 전용 조문 + 절 총칙(관1) + 기계 일반기준 상속
+  POST     이탈·종료 성격 조문(같은 출처)
+  PERIODIC 안전검사(법정) + 가이드 절차(권고)
 
-⚠ '칸이 차는가'만 본다. 항목이 그 단계에 맞는지(라벨 정확도)는 사람 검수 대상.
-⚠ 가이드는 제목 키워드 매칭이라 대표성이 보장되지 않는다 — 미검증 연결로 표시한다.
+⚠ '칸이 차는가'만 본다. 항목이 그 단계에 맞는지(라벨 정확도)는 사람 검수 대상
+  (build_flow_viewer.py → flow_review_viewer.html).
 
 사용: python data-team/01-parsing/rule-appendices/build_flow_slice_all.py
 """
@@ -36,11 +38,12 @@ SKELETON = [("PLAN", "계획"), ("ASSIGN", "인적"), ("PRECHECK", "작업전"),
 #   무조건 상속시키면 프레스에 '차량계 운전위치 이탈 시 조치'가 붙는다(실제로 붙었다).
 #   허용 좌표 (편,장,절)에 해당할 때만 주입한다.
 SCOPED = {
-    # 제41조①: 양중기 / 항타기·항발기 / 양화장치 를 운전하는 경우로 한정
-    "제41조": {(2, 1, 9), (2, 1, 12), (2, 6, 2)},
-    # 제99조①: 차량계 하역운반기계등, 차량계 건설기계 로 한정
-    "제99조": {(2, 1, 10), (2, 1, 12)},
+    "제41조": {(2, 1, 9), (2, 1, 12), (2, 6, 2)},   # 양중기 / 항타기·항발기 / 양화장치
+    "제99조": {(2, 1, 10), (2, 1, 12)},              # 차량계 하역운반기계등 / 건설기계
 }
+
+# 전 기인물 공통 주입 — 총칙 조문
+COMMON = {"제38조": "PLAN", "제39조": "ASSIGN", "제35조": "PRECHECK"}
 
 LEX = {
     "PLAN": r"사전조사|작업계획서|계획을 수립|설계도서",
@@ -50,7 +53,9 @@ LEX = {
     "PERIODIC": r"정기|주기|월 1회|연 1회|자체검사",
 }
 
-# 별표 3 작업종류 → 가이드 검색 키워드(제목 매칭용). 없으면 가이드 없이 채점.
+# 별표 3 작업종류 번호 → 가이드 제목 키워드(사람이 큐레이션한 것). 좌표 조인으로 그룹에 옮겨 붙인다.
+# ⚠ 나머지 그룹에는 가이드를 붙이지 않는다. 제목 키워드 자동 매칭은 오부착 위험이 커서
+#   ('통칙' 같은 이름이 아무 가이드나 잡는다) 권고 계층을 오염시킨다.
 GUIDE_KW = {
     "1": "프레스", "2": "로봇", "3": "공기압축기", "4": "크레인 안전작업", "5": "이동식 크레인",
     "6": "리프트", "7": "곤돌라", "8": "와이어로프", "9": "지게차의 안전작업", "10": "구내운반",
@@ -60,9 +65,15 @@ GUIDE_KW = {
 
 
 def coord_of(section: str) -> tuple:
+    """'편2 안전기준 > 장1 … > 절10 … > 관2 지게차' → (편, 장, 절, 관).
+
+    ★ 항상 4튜플로 다룬다. 규칙에는 '절1'이라는 이름의 절이 20곳 있어
+      (편2장1 기계 일반기준 / 편2장3 전기 / 편3 각 장 통칙 …) 편·장을 버리면 뭉개진다.
+      이 유형의 버그가 네 번 재발했다.
+    """
     p = j = jeol = gwan = None
     for tok in re.split(r"[>\s]+", section or ""):
-        m = re.match(r"(편|장|절|관)(\d+)", tok.strip())
+        m = re.match(r"(편|장|절|관)(\d+)$", tok.strip())
         if not m:
             continue
         lvl, n = m.group(1), int(m.group(2))
@@ -72,9 +83,58 @@ def coord_of(section: str) -> tuple:
             j = n
         elif lvl == "절":
             jeol = n
-        elif lvl == "관":
+        else:
             gwan = n
     return (p, j, jeol, gwan)
+
+
+def packed_coord(s: str) -> tuple:
+    """'제2편제1장제10절제2관'(별표의 section_ref) → (편, 장, 절, 관)."""
+    return coord_of(re.sub(r"제(\d+)(편|장|절|관)", r"\2\1 ", s or ""))
+
+
+def strip_num(s: str) -> str:
+    return re.sub(r"^(편|장|절|관)\d+\s*", "", (s or "").strip())
+
+
+def namekey(s: str) -> str:
+    """이름 매칭용 정규화 — 공백·중점·괄호 제거 후 꼬리 '등' 절단.
+
+    '차량계 건설기계 등' 과 '차량계 건설기계를 사용하는 작업'을 붙이려면 꼬리 '등'을 떼야 한다.
+    """
+    return re.sub(r"등$", "", re.sub(r"[\s·ㆍ()（）]", "", s or ""))
+
+
+# 그룹 이름의 꼬리 상투어 — 떼야 핵심 명사가 남는다('전기작업에 대한 위험 방지' → '전기작업')
+GENERIC_TAIL = re.compile(r"(에\s*대한|에\s*의한|시의|시|등의)?\s*"
+                          r"(위험\s*방지|위험\s*예방|건강장해의\s*예방|예방|조치기준)\s*$")
+
+
+def name_variants(name: str) -> set[str]:
+    """그룹 이름 → 매칭에 쓸 핵심어 집합.
+
+    ★ 앞 4글자만 보면 '그 밖의'·'설비의' 같은 흔한 조각이 걸려 오부착한다
+      (실제로 '그 밖의 유해인자에 의한 건강장해의 예방'에 '궤도와 그 밖의 관련설비의 보수·점검'이,
+       비계의 '조립ㆍ해체 및 점검 등'에 타워크레인 작업계획서가 붙었다).
+    ★ 반대로 이름 전체만 보면 '화학설비ㆍ압력용기 등'이 '화학설비와 그 부속설비 사용작업'을 놓친다.
+    → 꼬리 상투어를 떼고 'ㆍ/및'로 쪼갠 조각까지 후보로 쓰되, 3글자 미만은 버린다.
+    """
+    s = GENERIC_TAIL.sub("", name or "").strip()
+    s = re.sub(r"\s*등$", "", s).strip()
+    parts = [p for p in re.split(r"[ㆍ·,]|\s+및\s+", s) if p.strip()]
+    return {v for v in (namekey(x) for x in [s, *parts]) if len(v) >= 3}
+
+
+def name_hit(name: str, subject: str) -> bool:
+    """그룹 핵심어 ↔ 별표 행 제목의 양방향 포함 매칭.
+
+    ⚠ 이름 매칭은 본질적으로 불확실하다. 좌표 매칭과 구별되도록 출처에 '(이름매칭)'을 표기해
+      사람 검수에서 걸러낼 수 있게 한다. 규칙을 더 조이면 누락이, 풀면 오부착이 늘어난다.
+    """
+    b = namekey(subject)
+    if len(b) < 3:
+        return False
+    return any(v in b or b in v for v in name_variants(name))
 
 
 def phase_of(text: str) -> str:
@@ -82,22 +142,6 @@ def phase_of(text: str) -> str:
         if re.search(LEX[ph], text or ""):
             return ph
     return "EXEC"
-
-
-def load_inspection() -> tuple[dict, dict]:
-    """별표 3 행번호 → 안전검사 대상 기계명, 기계명 → 기계 레코드.
-
-    ★ 이름 매칭은 join_inspection_coverage.py 가 하고 coverage-report.json 에 남긴다.
-      여기서 매칭을 다시 구현하면 두 곳이 조용히 어긋난다. 데이터로만 받는다.
-    """
-    cov, si = SI_DIR / "coverage-report.json", SI_DIR / "safety-inspection.json"
-    if not (cov.exists() and si.exists()):
-        print("⚠ 안전검사 데이터 없음 — 정기 칸을 가이드 절차로만 채운다\n")
-        return {}, {}
-    c = json.loads(cov.read_text(encoding="utf-8"))
-    s = json.loads(si.read_text(encoding="utf-8"))
-    return ({r["no"]: r["machines"] for r in c["periodic_slot"]["rows"]},
-            {m["name"]: m for m in s["machines"]})
 
 
 def cycle_lines(m: dict) -> list[str]:
@@ -115,6 +159,26 @@ def cycle_lines(m: dict) -> list[str]:
     return out
 
 
+def load_inspection() -> tuple[dict, dict]:
+    """기인물 그룹키 → 안전검사 기계 레코드 목록.
+
+    ★ 이름 매칭은 join_inspection_coverage.py 가 하고 coverage-report.json 에 남긴다.
+      여기서 매칭을 다시 구현하면 두 곳이 조용히 어긋난다. 데이터로만 받는다.
+    """
+    cov, si = SI_DIR / "coverage-report.json", SI_DIR / "safety-inspection.json"
+    if not (cov.exists() and si.exists()):
+        print("⚠ 안전검사 데이터 없음 — 정기 칸을 가이드 절차로만 채운다\n")
+        return {}, {}
+    c = json.loads(cov.read_text(encoding="utf-8"))
+    s = json.loads(si.read_text(encoding="utf-8"))
+    by_name = {m["name"]: m for m in s["machines"]}
+    by_group: dict[str, list] = {}
+    for m in c["machines"]:
+        for g in m["gimulmul_groups"]:
+            by_group.setdefault(g["key"], []).append(by_name[m["name"]])
+    return by_group, by_name
+
+
 def pg(sql: str) -> list[str]:
     r = subprocess.run(["docker", "exec", "kosha-pg", "sh", "-c",
                         f'psql -U $POSTGRES_USER -d $POSTGRES_DB -tAF"|" -c "{sql}"'],
@@ -123,20 +187,78 @@ def pg(sql: str) -> list[str]:
 
 
 def main() -> None:
-    si_by_row, si_by_name = load_inspection()
-    sigs = [json.loads(l) for l in (ART / "article_signatures.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+    si_by_group, _ = load_inspection()
+    sigs = {json.loads(l)["article_code"]: json.loads(l)
+            for l in (ART / "article_signatures.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()}
+    gim = json.loads((ART / "gimulmul_index.json").read_text(encoding="utf-8"))["groups"]
     a3 = json.loads((PARSED / "appendix-03.json").read_text(encoding="utf-8"))
     a4 = json.loads((PARSED / "appendix-04.json").read_text(encoding="utf-8"))
     a2 = json.loads((PARSED / "appendix-02.json").read_text(encoding="utf-8"))
 
-    art_coord = [(s, coord_of(s.get("section", ""))) for s in sigs]
-    report = []
+    # ── 그룹 테이블 ────────────────────────────────────────────────────
+    # ★ gimulmul_index 의 그룹키에는 편·장이 없다. 그래서 '절1 통칙' 하나에 편3의 12개 장 통칙이
+    #   통째로 합쳐져 있다(같은 좌표 뭉갬 버그가 카탈로그 자체에 박혀 있다 — 3그룹·37조문, 전부 편3 보건).
+    #   공유 카탈로그를 고치면 서빙(RESOLVE 카탈로그·alias·임베딩)까지 파급되므로 여기서 좌표별로 쪼갠다.
+    split = 0
+    for k in list(gim):
+        g = gim[k]
+        by_c = {}
+        for a in g.get("articles", []):
+            if a["code"] in sigs:
+                by_c.setdefault(coord_of(sigs[a["code"]]["section"]), []).append(a)
+        if len(by_c) <= 1:
+            continue
+        del gim[k]
+        for c, arts in by_c.items():
+            sec = sigs[arts[0]["code"]]["section"]
+            toks = [t.strip() for t in sec.split(">")]
+            gim[f"{k} @편{c[0]}장{c[1]}"] = {
+                "pyeon": next((t for t in toks if t.startswith("편")), ""),
+                "jang": next((t for t in toks if t.startswith("장")), ""),
+                "jeol": next((t for t in toks if t.startswith("절")), ""),
+                "gwan": next((t for t in toks if t.startswith("관")), ""),
+                "gimulmul": g.get("gimulmul", ""), "articles": arts, "_split_from": k}
+            split += 1
+    if split:
+        print(f"⚠ 좌표가 섞인 그룹을 {split}개로 분리했다(카탈로그의 그룹키에 편·장이 없어 생긴 병합)\n")
 
+    G = {}
+    for k, g in gim.items():
+        c = coord_of(" ".join([g.get("pyeon", ""), g.get("jang", ""), g.get("jeol", ""), g.get("gwan", "")]))
+        # 표시명은 가장 가까운 두 층만 쓴다. 장 이름을 앞에 붙이면
+        # '기계ㆍ기구 및 그 밖의 설비에 의한 위험예방 > …'가 반복돼 목록에서 서로 구별되지 않는다.
+        jang, jeol, gwan_ = (strip_num(g.get(x, "")) for x in ("jang", "jeol", "gwan"))
+        label = f"{jeol} > {gwan_}" if gwan_ else (jeol or jang or strip_num(g.get("pyeon", "")) or k)
+        path = " > ".join(strip_num(x) for x in
+                          (g.get("pyeon", ""), g.get("jang", ""), g.get("jeol", ""), g.get("gwan", "")) if x)
+        G[k] = {"key": k, "coord": c, "name": g.get("gimulmul") or strip_num(k),
+                "label": label, "path": path, "src_key": g.get("_split_from", k),
+                "codes": [a["code"] for a in g.get("articles", []) if a["code"] in sigs]}
+
+    # 표시명이 겹치는 그룹(통칙·보호구 등·관리 등 …)은 장 이름을 앞에 붙여 구별한다.
+    # 목록에서 '통칙'이 13개 나란히 뜨면 어느 것인지 고를 수 없다.
+    dup_label = {lb for lb in (v["label"] for v in G.values())
+                 if sum(1 for v in G.values() if v["label"] == lb) > 1}
+    for v in G.values():
+        if v["label"] in dup_label:
+            jang = strip_num(gim[v["key"]].get("jang", ""))
+            if jang:
+                v["label"] = f"{jang} > {v['label']}"
+
+    gwan1 = {v["coord"][:3]: k for k, v in G.items() if v["coord"][3] == 1}      # 절 총칙(관1)
+    machine_base = next((k for k, v in G.items() if v["coord"] == (2, 1, 1, None)), None)  # 기계 등의 일반기준
+
+    # 별표 3 좌표 → 행 (19종만 해당)
+    a3_by_coord = {}
     for r in a3["rows"]:
-        no, subj = r["no"], r["subject"]
-        p, j, jeol, gwan = coord_of(re.sub(r"제(\d+)(편|장|절|관)", r"\2\1 ", r.get("section_ref", "")))
-        slots = {k: 0 for k, _ in SKELETON}
-        items = {k: [] for k, _ in SKELETON}
+        a3_by_coord.setdefault(packed_coord(r.get("section_ref", "")), []).append(r)
+
+    report = []
+    for k, gg in G.items():
+        p, j, jeol, gwan = gg["coord"]
+        here = (p, j, jeol)
+        slots = {x: 0 for x, _ in SKELETON}
+        items = {x: [] for x, _ in SKELETON}
 
         def add(ph, src, txt, ref=""):
             """항목 하나를 단계에 넣는다. **출처를 반드시 같이 남긴다** —
@@ -144,130 +266,153 @@ def main() -> None:
             slots[ph] += 1
             items[ph].append({"source": src, "text": txt, "ref": ref})
 
-        # PRECHECK — 별표 3 본인 행
-        for it in r["items"]:
-            add("PRECHECK", "별표 3", it, f"제35조제2항 · {subj[:20]}")
-        add("PRECHECK", "조문(총칙)", "제35조 관리감독자의 유해ㆍ위험 방지 업무 등", "제35조")
+        # ── 조문: 전용 → 절 총칙(관1) → 기계 일반기준 상속 ────────────
+        own = set(gg["codes"])
+        for c in gg["codes"]:
+            add(phase_of(sigs[c]["title"]), "조문(전용)", sigs[c]["title"], c)
 
-        # EXEC/POST — 해당 절/관 조문 + 절 총칙.
-        # ★ 편·장까지 일치시켜야 한다. 절 번호만 보면 다른 편의 같은 번호 절을 통째로 끌어와
-        #   슬링(제2편제6장제2절)에 140건이 붙는다(join_coverage에서 이미 겪은 버그).
-        arts = [s for s, c in art_coord
-                if jeol is not None and c[0] == p and c[1] == j and c[2] == jeol
-                and (gwan is None or c[3] in (gwan, None))]
-        for s in arts:
-            add(phase_of(s.get("title", "")), "조문(해당 절·관)", s.get("title", ""), s["article_code"])
+        if gwan not in (None, 1) and here in gwan1:
+            for c in G[gwan1[here]]["codes"]:
+                if c not in own:
+                    add(phase_of(sigs[c]["title"]), "조문(절 총칙)", sigs[c]["title"], c)
+                    own.add(c)
 
-        # ★ 상속 계층 — '편2>장1>절1 기계 등의 일반기준'(제86~99)은 기계·설비류 전체의 상위 공통.
-        #   제89조(운전 시작 전)·제93조(방호장치 해체 금지)·제99조(이탈 시 조치)가 여기 있어서,
-        #   상속시키지 않으면 종료 칸이 가이드 절차에만 의존하게 된다(19종 중 10종이 비었던 원인).
-        own_codes = {s["article_code"] for s in arts}
-        here = (p, j, jeol)
-        if (p, j) == (2, 1):
-            for s, c in art_coord:
-                code = s["article_code"]
-                if "절1 기계 등의 일반기준" not in s.get("section", "") or code in own_codes:
+        # ★ '편2>장1>절1 기계 등의 일반기준'(제86~99)은 기계·설비류 전체의 상위 공통.
+        #   제89조(운전 시작 전)·제93조(방호장치 해체 금지)·제99조(이탈 시 조치)가 여기 있다.
+        if machine_base and k != machine_base and (p, j) == (2, 1):
+            for c in G[machine_base]["codes"]:
+                if c in own:
                     continue
-                if code in SCOPED and here not in SCOPED[code]:
+                if c in SCOPED and here not in SCOPED[c]:
                     continue                      # 적용 대상 밖 — 상속시키지 않는다
-                add(phase_of(s.get("title", "")), "조문(기계 일반기준 상속)", s.get("title", ""), code)
-        if here in SCOPED["제41조"]:
-            add("POST", "조문(총칙)", "운전위치의 이탈금지", "제41조")
+                add(phase_of(sigs[c]["title"]), "조문(기계 일반기준 상속)", sigs[c]["title"], c)
+                own.add(c)
+        # 편2장1 밖이어도 적용 대상으로 명시된 좌표에는 넣는다(예: 항만 양화장치의 제41조)
+        for c, ok in SCOPED.items():
+            if c not in own and here in ok and c in sigs:
+                add(phase_of(sigs[c]["title"]), "조문(적용범위 지정)", sigs[c]["title"], c)
+                own.add(c)
 
-        # PLAN — 별표 4 이름 매칭
-        key = re.sub(r"(을|를|이|가)?\s*(사용하여|사용하는|가동할|취급하는).*", "", subj).strip()
+        for c, ph in COMMON.items():
+            if c in sigs and c not in own:
+                add(ph, "조문(총칙)", sigs[c]["title"], c)
+
+        # ── PRECHECK: 별표 3 (좌표 정확 일치 — 19종만) ────────────────
+        a3_rows = a3_by_coord.get(gg["coord"], [])
+        for r in a3_rows:
+            for it in r["items"]:
+                add("PRECHECK", "별표 3", it, f"제35조제2항 · {r['subject'][:20]}")
+
+        # ── PLAN: 별표 4 (이름 매칭) ──────────────────────────────────
+        nm = gg["name"]
         for rr in a4["rows"]:
-            if key and (key[:4] in rr["subject"] or rr["subject"][:6] in subj):
+            if name_hit(nm, rr["subject"]):
                 for it in rr["items"]:
-                    add("PLAN", "별표 4", it, f"제38조제1항 · {rr['subject'][:20]}")
+                    add("PLAN", "별표 4(이름매칭)", it, f"제38조제1항 · {rr['subject'][:20]}")
                 for it in (rr.get("values") or {}).get("사전조사 내용", []) or []:
-                    add("PLAN", "별표 4(사전조사)", it, rr["subject"][:20])
-        add("PLAN", "조문(총칙)", "사전조사 및 작업계획서의 작성 등", "제38조")
+                    add("PLAN", "별표 4(사전조사·이름매칭)", it, rr["subject"][:20])
 
-        # ASSIGN — 별표 2 좌표/이름
+        # ── ASSIGN: 별표 2 (좌표 우선, 없으면 이름) ───────────────────
         for rr in a2["rows"]:
-            cc = coord_of(re.sub(r"제(\d+)(편|장|절|관)", r"\2\1 ", rr.get("section_ref", "")))
-            if (jeol is not None and cc[:3] == (p, j, jeol)) or (key and key[:4] and key[:4] in rr["subject"]):
+            cc = packed_coord(rr.get("section_ref", ""))
+            by_coord = cc == gg["coord"] or (cc[:3] == here and cc[3] is None and jeol is not None)
+            if by_coord or name_hit(nm, rr["subject"]):
+                src = "별표 2" if by_coord else "별표 2(이름매칭)"
                 for it in rr["items"]:
-                    add("ASSIGN", "별표 2", it, f"제35조제1항 · {rr['subject'][:20]}")
-        add("ASSIGN", "조문(총칙)", "작업지휘자의 지정", "제39조")
+                    add("ASSIGN", src, it, f"제35조제1항 · {rr['subject'][:20]}")
 
-        # PERIODIC ① — 안전검사(법 제93조). ★ 정기는 **조건부 칸**이다.
-        #   안전검사 대상은 시행령 제78조의 15종뿐이고 지게차·차량계 건설기계 등은 대상이 아니다.
-        #   그건 데이터 결손이 아니라 법이 그런 것이므로, 빈칸으로 두지 말고 '대상 아님'을 명시한다.
-        machines = [si_by_name[x] for x in si_by_row.get(no, []) if x in si_by_name]
-        # ★ 검사기준은 **별표 파일 기준으로 센다.** 프레스와 전단기는 시행령상 별개 호지만
-        #   검사기준은 별표 1 하나를 공유한다 — 기계 수로 세면 208개가 416개가 된다.
-        by_file = {m.get("inspection_criteria_file", ""): len(m.get("inspection_items") or [])
-                   for m in machines}
+        # ── PERIODIC ① 안전검사(법정) ─────────────────────────────────
+        machines = si_by_group.get(gg["src_key"], [])
+        by_file = {m.get("inspection_criteria_file", ""): len(m.get("inspection_items") or []) for m in machines}
         insp = {"is_target": bool(machines), "machines": [m["name"] for m in machines],
-                "cycle": [ln for m in machines for ln in cycle_lines(m)],
-                "criteria_items": sum(by_file.values()),
-                "criteria_files": sorted(by_file),
+                "criteria_items": sum(by_file.values()), "criteria_files": sorted(by_file),
                 "criteria_articles": sorted({m.get("criteria_article", "") for m in machines})}
-        for ln in insp["cycle"]:
-            add("PERIODIC", "안전검사(법정)", ln, "시행규칙 제126조제1항")
+        for m in machines:
+            for ln in cycle_lines(m):
+                add("PERIODIC", "안전검사(법정)", ln, "시행규칙 제126조제1항")
         if insp["criteria_items"]:
-            add("PERIODIC", "안전검사(법정)",
-                f"안전검사 검사기준 {insp['criteria_items']}개 항목",
+            add("PERIODIC", "안전검사(법정)", f"안전검사 검사기준 {insp['criteria_items']}개 항목",
                 f"고시 {'·'.join(insp['criteria_articles'])} → {', '.join(insp['criteria_files'])}")
+        n_periodic_law = slots["PERIODIC"]
 
-        n_periodic_law = slots["PERIODIC"]      # 여기까지가 법정(안전검사) 분
-
-        # PERIODIC ② — 대표 가이드 절차
-        kw = GUIDE_KW.get(no, "")
-        gcode = ""
-        if kw:
-            g = pg(f"select guide_code from kosha_guides where title like '%{kw}%' order by guide_code limit 1")
-            gcode = g[0] if g else ""
-        if gcode:
+        # ── PERIODIC ② 가이드(권고) — 별표 3 좌표가 붙은 그룹만 ───────
+        # ★ 한 그룹에 별표 3 행이 여럿 붙을 수 있다(양화장치·슬링은 둘 다 편2장6절2).
+        #   첫 행만 보면 나머지 행의 가이드를 잃는다. 전부 시도하고 코드로 dedupe한다.
+        gcodes = []
+        for r in a3_rows:
+            kw = GUIDE_KW.get(r["no"], "")
+            if not kw:
+                continue
+            hit = pg(f"select guide_code from kosha_guides where title like '%{kw}%' order by guide_code limit 1")
+            if hit and hit[0] not in gcodes:
+                gcodes.append(hit[0])
+        for gc in gcodes:
             for ln in pg(f"select process_order, replace(process_name,'|','/') from work_processes "
-                         f"where source_guide='{gcode}' order by process_order"):
+                         f"where source_guide='{gc}' order by process_order"):
                 parts = ln.split("|")
                 if len(parts) < 2:
                     continue
-                add(phase_of(parts[1]), "가이드(권고)", parts[1], f"{gcode} {parts[0]}단계")
+                add(phase_of(parts[1]), "가이드(권고)", parts[1], f"{gc} {parts[0]}단계")
+        gcode = ", ".join(gcodes)
 
-        # ★ 정기 칸의 근거 강도는 3단계다. 법정 안전검사(주기·검사기준)와 가이드 권고 절차는
-        #   무게가 다르므로 화면에서 같은 칸에 섞어 보여주면 안 된다.
+        # ★ 정기 칸의 근거 강도는 3단계다. 법정 안전검사와 가이드 권고는 무게가 다르므로
+        #   화면에서 같은 칸에 섞어 보여주면 '해야 하는 것'과 '하면 좋은 것'이 구별되지 않는다.
         insp["periodic_law"] = n_periodic_law
         insp["periodic_guide"] = slots["PERIODIC"] - n_periodic_law
         insp["periodic_source"] = ("안전검사+가이드" if n_periodic_law and insp["periodic_guide"]
                                    else "안전검사" if n_periodic_law
                                    else "가이드만" if insp["periodic_guide"] else "없음")
 
-        filled = sum(1 for k, _ in SKELETON if slots[k])
-        report.append({"no": no, "subject": subj, "coord": [p, j, jeol, gwan], "guide": gcode,
-                       "slots": slots, "filled": filled, "items": items, "inspection": insp,
-                       "detail": {k: [x["text"] for x in v[:3]] for k, v in items.items()}})
+        report.append({"no": k, "subject": gg["label"], "path": gg["path"], "name": nm,
+                       "coord": list(gg["coord"]),
+                       "guide": gcode, "apx3": [r["no"] for r in a3_rows],
+                       "slots": slots, "filled": sum(1 for x, _ in SKELETON if slots[x]),
+                       "items": items, "inspection": insp,
+                       "detail": {x: [y["text"] for y in v[:3]] for x, v in items.items()}})
 
-    print(f"=== 별표 3 작업종류 {len(report)}종 × 골격 채움 현황 ===")
-    print(f"{'no':>5} {'작업종류':26} {'가이드':12} " + " ".join(f"{lab:>5}" for _, lab in SKELETON)
-          + "  채움  정기근거     안전검사 대상")
-    for x in report:
-        cells = " ".join(f"{x['slots'][k]:>5}" for k, _ in SKELETON)
-        i = x["inspection"]
-        print(f"{x['no']:>5} {x['subject'][:24]:26} {x['guide'][:12]:12} {cells}  {x['filled']}/6  "
-              f"{i['periodic_source']:12} {'·'.join(i['machines']) if i['machines'] else '-'}")
+    # ── 리포트 ────────────────────────────────────────────────────────
+    report.sort(key=lambda r: tuple(9999 if x is None else x for x in r["coord"]))
+    n = len(report)
+    print(f"=== 기인물 그룹 {n}종 × 흐름 골격 6단계 ===\n")
+    dist = {}
+    for r in report:
+        dist[r["filled"]] = dist.get(r["filled"], 0) + 1
+    for f in sorted(dist, reverse=True):
+        print(f"  {f}/6 칸 채움  {dist[f]:>3}종")
+    print(f"\n총 항목 {sum(sum(r['slots'].values()) for r in report)}개")
 
-    full = sum(1 for x in report if x["filled"] == len(SKELETON))
-    print(f"\n6/6 채움: {full}/{len(report)}종")
-    for k, lab in SKELETON:
-        empty = [x["no"] for x in report if not x["slots"][k]]
-        print(f"  {lab:6} 빈 종류 {len(empty):2d}종 {('· ' + ', '.join(empty)) if empty else ''}")
+    # ★ '칸이 찼다'를 그대로 믿으면 안 된다. 계획·인적·작업전은 총칙 조문(제38·39·35조)을
+    #   전 그룹에 1건씩 주입하므로 무조건 찬다. 그걸 뺀 **실질 채움**을 같이 낸다.
+    def real(r, ph):
+        return [y for y in r["items"][ph] if y["source"] != "조문(총칙)"]
 
-    # ★ 정기 칸은 근거 강도가 갈린다. 법정 주기와 가이드 권고를 같은 칸에 섞으면
-    #   사업주가 '해도 되는 것'과 '안 하면 위법인 것'을 구별하지 못한다.
+    print("  (칸 채움 / 총칙 공통주입 제외한 실질)")
+    for x, lab in SKELETON:
+        empty = sum(1 for r in report if not r["slots"][x])
+        sub = sum(1 for r in report if real(r, x))
+        print(f"  {lab:6} 빈 그룹 {empty:>3}종 · 채움 {(n - empty) / n:>4.0%} / 실질 {sub / n:>4.0%}")
+    rdist = {}
+    for r in report:
+        c = sum(1 for x, _ in SKELETON if real(r, x))
+        rdist[c] = rdist.get(c, 0) + 1
+    print("  실질 칸 수 분포: " + " · ".join(f"{f}칸 {rdist[f]}종" for f in sorted(rdist, reverse=True)))
+
+    print(f"\n별표 3 붙은 그룹 {sum(1 for r in report if r['apx3'])}종 · "
+          f"가이드 붙은 그룹 {sum(1 for r in report if r['guide'])}종 · "
+          f"안전검사 대상 {sum(1 for r in report if r['inspection']['is_target'])}종")
     print("\n=== 정기 칸 근거 강도 ===")
     for src in ("안전검사+가이드", "안전검사", "가이드만", "없음"):
-        g = [x for x in report if x["inspection"]["periodic_source"] == src]
-        if g:
-            print(f"  {src:12} {len(g):2d}종 · {', '.join(x['subject'][:12] for x in g)}")
-    print("  ('없음'은 데이터 결손이 아니라 안전검사 대상이 아니고 가이드에도 정기 절차가 없는 것)")
+        g = [r for r in report if r["inspection"]["periodic_source"] == src]
+        print(f"  {src:12} {len(g):>3}종")
+
+    print("\n[칸이 가장 적게 찬 그룹]")
+    for r in sorted(report, key=lambda x: x["filled"])[:8]:
+        cells = " ".join(f"{lab}{r['slots'][x]}" for x, lab in SKELETON)
+        print(f"  {r['filled']}/6  {r['subject'][:38]:40} {cells}")
 
     out = ART / "flow_slice_all.json"
-    out.write_text(json.dumps({"_note": "별표 3 19종 × 골격 채움. 칸이 차는지만 본다(라벨 정확도 별도).",
-                               "rows": report}, ensure_ascii=False, indent=1), encoding="utf-8")
+    out.write_text(json.dumps({"_note": "기인물 그룹 113종 × 골격 6단계. 칸이 차는지만 본다(라벨 정확도는 사람 검수).",
+                               "n_groups": n, "rows": report}, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"\n→ {out.name}")
 
 

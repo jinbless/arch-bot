@@ -116,9 +116,11 @@ function esc(s) { return String(s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<':
 function render() {
   const r = DATA.rows[cur], ins = r.inspection;
   const m = document.querySelector('main');
-  let h = `<h2>${esc(r.subject)}</h2><div class="meta">별표 3 제${r.no}호 &nbsp;·&nbsp;
-    좌표 <b>편${r.coord[0]}·장${r.coord[1]}·절${r.coord[2]}${r.coord[3] ? '·관' + r.coord[3] : ''}</b>
-    &nbsp;·&nbsp; 대표 가이드 <b>${esc(r.guide || '없음')}</b>
+  const c = r.coord, cs = ['편', '장', '절', '관'].map((l, i) => c[i] ? l + c[i] : '').filter(Boolean).join('·');
+  let h = `<h2>${esc(r.subject)}</h2><div class="meta">${esc(r.path || '')}<br>
+    좌표 <b>${cs}</b>
+    ${r.apx3 && r.apx3.length ? ' &nbsp;·&nbsp; 별표 3 제' + r.apx3.join('·') + '호' : ''}
+    &nbsp;·&nbsp; 가이드 <b>${esc(r.guide || '없음')}</b>
     &nbsp;·&nbsp; 정기 근거 <b>${esc(ins.periodic_source)}</b>
     ${ins.machines.length ? ' — 안전검사 대상 <b>' + esc(ins.machines.join('·')) + '</b>' : ''}</div>`;
 
@@ -216,13 +218,17 @@ document.getElementById('rst').onclick = () => {
   if (confirm('판정을 전부 지운다. 되돌릴 수 없다.')) { store = {}; save(); render(); }
 };
 
-document.querySelector('aside').innerHTML = DATA.rows.map((r, i) =>
-  `<div data-i="${i}"><span>${esc(r.subject.slice(0, 20))}</span><span class="n"></span></div>`).join('');
+// 113종 전부를 순서대로 넘기기엔 많다. 재료가 두꺼운 그룹(별표·안전검사가 붙은 곳)을
+// 먼저 보도록 ★를 달아 둔다. 순서 자체는 좌표순을 유지한다 — 임의 정렬은 위치 감각을 뺏는다.
+document.querySelector('aside').innerHTML = DATA.rows.map((r, i) => {
+  const rich = (r.apx3 && r.apx3.length) || r.inspection.is_target || r.guide;
+  return `<div data-i="${i}"><span>${rich ? '★ ' : ''}${esc(r.subject.slice(0, 22))}</span><span class="n"></span></div>`;
+}).join('');
 render(); paintProgress();
 """
 
 HTML = """<!doctype html><html lang="ko"><meta charset="utf-8">
-<title>흐름 라벨 검수 — 별표 3 19종</title><style>__CSS__</style>
+<title>흐름 라벨 검수 — 기인물 그룹별</title><style>__CSS__</style>
 <header>
   <h1>흐름 라벨 검수</h1>
   <span class="bar"><i></i></span><span id="pg" style="font-variant-numeric:tabular-nums"></span>
