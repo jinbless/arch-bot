@@ -136,17 +136,18 @@ def main() -> None:
         no, subj = r["no"], r["subject"]
         p, j, jeol, gwan = coord_of(re.sub(r"제(\d+)(편|장|절|관)", r"\2\1 ", r.get("section_ref", "")))
         slots = {k: 0 for k, _ in SKELETON}
-        detail = {k: [] for k, _ in SKELETON}
+        items = {k: [] for k, _ in SKELETON}
 
-        def add(ph, txt):
+        def add(ph, src, txt, ref=""):
+            """항목 하나를 단계에 넣는다. **출처를 반드시 같이 남긴다** —
+            사람이 '이 항목이 이 칸에 맞나'를 검수하려면 어디서 왔는지 봐야 한다."""
             slots[ph] += 1
-            if len(detail[ph]) < 3:
-                detail[ph].append(txt)
+            items[ph].append({"source": src, "text": txt, "ref": ref})
 
         # PRECHECK — 별표 3 본인 행
         for it in r["items"]:
-            add("PRECHECK", it)
-        add("PRECHECK", "제35조 관리감독자 점검")
+            add("PRECHECK", "별표 3", it, f"제35조제2항 · {subj[:20]}")
+        add("PRECHECK", "조문(총칙)", "제35조 관리감독자의 유해ㆍ위험 방지 업무 등", "제35조")
 
         # EXEC/POST — 해당 절/관 조문 + 절 총칙.
         # ★ 편·장까지 일치시켜야 한다. 절 번호만 보면 다른 편의 같은 번호 절을 통째로 끌어와
@@ -155,7 +156,7 @@ def main() -> None:
                 if jeol is not None and c[0] == p and c[1] == j and c[2] == jeol
                 and (gwan is None or c[3] in (gwan, None))]
         for s in arts:
-            add(phase_of(s.get("title", "")), f"{s['article_code']} {s.get('title','')[:20]}")
+            add(phase_of(s.get("title", "")), "조문(해당 절·관)", s.get("title", ""), s["article_code"])
 
         # ★ 상속 계층 — '편2>장1>절1 기계 등의 일반기준'(제86~99)은 기계·설비류 전체의 상위 공통.
         #   제89조(운전 시작 전)·제93조(방호장치 해체 금지)·제99조(이탈 시 조치)가 여기 있어서,
@@ -169,27 +170,27 @@ def main() -> None:
                     continue
                 if code in SCOPED and here not in SCOPED[code]:
                     continue                      # 적용 대상 밖 — 상속시키지 않는다
-                add(phase_of(s.get("title", "")), f"{code} {s.get('title','')[:20]}")
+                add(phase_of(s.get("title", "")), "조문(기계 일반기준 상속)", s.get("title", ""), code)
         if here in SCOPED["제41조"]:
-            add("POST", "제41조 운전위치의 이탈금지")
+            add("POST", "조문(총칙)", "운전위치의 이탈금지", "제41조")
 
         # PLAN — 별표 4 이름 매칭
         key = re.sub(r"(을|를|이|가)?\s*(사용하여|사용하는|가동할|취급하는).*", "", subj).strip()
         for rr in a4["rows"]:
             if key and (key[:4] in rr["subject"] or rr["subject"][:6] in subj):
                 for it in rr["items"]:
-                    add("PLAN", it)
+                    add("PLAN", "별표 4", it, f"제38조제1항 · {rr['subject'][:20]}")
                 for it in (rr.get("values") or {}).get("사전조사 내용", []) or []:
-                    add("PLAN", it)
-        add("PLAN", "제38조 사전조사·작업계획서")
+                    add("PLAN", "별표 4(사전조사)", it, rr["subject"][:20])
+        add("PLAN", "조문(총칙)", "사전조사 및 작업계획서의 작성 등", "제38조")
 
         # ASSIGN — 별표 2 좌표/이름
         for rr in a2["rows"]:
             cc = coord_of(re.sub(r"제(\d+)(편|장|절|관)", r"\2\1 ", rr.get("section_ref", "")))
             if (jeol is not None and cc[:3] == (p, j, jeol)) or (key and key[:4] and key[:4] in rr["subject"]):
                 for it in rr["items"]:
-                    add("ASSIGN", it)
-        add("ASSIGN", "제39조 작업지휘자")
+                    add("ASSIGN", "별표 2", it, f"제35조제1항 · {rr['subject'][:20]}")
+        add("ASSIGN", "조문(총칙)", "작업지휘자의 지정", "제39조")
 
         # PERIODIC ① — 안전검사(법 제93조). ★ 정기는 **조건부 칸**이다.
         #   안전검사 대상은 시행령 제78조의 15종뿐이고 지게차·차량계 건설기계 등은 대상이 아니다.
@@ -205,10 +206,11 @@ def main() -> None:
                 "criteria_files": sorted(by_file),
                 "criteria_articles": sorted({m.get("criteria_article", "") for m in machines})}
         for ln in insp["cycle"]:
-            add("PERIODIC", ln)
+            add("PERIODIC", "안전검사(법정)", ln, "시행규칙 제126조제1항")
         if insp["criteria_items"]:
-            add("PERIODIC", f"안전검사 검사기준 {insp['criteria_items']}개 항목 "
-                            f"(고시 {'·'.join(insp['criteria_articles'])} → {', '.join(insp['criteria_files'])})")
+            add("PERIODIC", "안전검사(법정)",
+                f"안전검사 검사기준 {insp['criteria_items']}개 항목",
+                f"고시 {'·'.join(insp['criteria_articles'])} → {', '.join(insp['criteria_files'])}")
 
         n_periodic_law = slots["PERIODIC"]      # 여기까지가 법정(안전검사) 분
 
@@ -219,9 +221,12 @@ def main() -> None:
             g = pg(f"select guide_code from kosha_guides where title like '%{kw}%' order by guide_code limit 1")
             gcode = g[0] if g else ""
         if gcode:
-            for ln in pg(f"select replace(process_name,'|','/') from work_processes "
+            for ln in pg(f"select process_order, replace(process_name,'|','/') from work_processes "
                          f"where source_guide='{gcode}' order by process_order"):
-                add(phase_of(ln), ln[:34])
+                parts = ln.split("|")
+                if len(parts) < 2:
+                    continue
+                add(phase_of(parts[1]), "가이드(권고)", parts[1], f"{gcode} {parts[0]}단계")
 
         # ★ 정기 칸의 근거 강도는 3단계다. 법정 안전검사(주기·검사기준)와 가이드 권고 절차는
         #   무게가 다르므로 화면에서 같은 칸에 섞어 보여주면 안 된다.
@@ -232,8 +237,9 @@ def main() -> None:
                                    else "가이드만" if insp["periodic_guide"] else "없음")
 
         filled = sum(1 for k, _ in SKELETON if slots[k])
-        report.append({"no": no, "subject": subj[:26], "coord": [jeol, gwan], "guide": gcode,
-                       "slots": slots, "filled": filled, "detail": detail, "inspection": insp})
+        report.append({"no": no, "subject": subj, "coord": [p, j, jeol, gwan], "guide": gcode,
+                       "slots": slots, "filled": filled, "items": items, "inspection": insp,
+                       "detail": {k: [x["text"] for x in v[:3]] for k, v in items.items()}})
 
     print(f"=== 별표 3 작업종류 {len(report)}종 × 골격 채움 현황 ===")
     print(f"{'no':>5} {'작업종류':26} {'가이드':12} " + " ".join(f"{lab:>5}" for _, lab in SKELETON)
