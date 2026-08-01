@@ -1,0 +1,109 @@
+{
+ "_note": "사후 탐색 — 사전등록 판정(부적합)을 바꾸지 않는다. 새 표본에서 사전등록 후 재측정 필요.",
+ "n_neg": 67,
+ "n_pos": 7,
+ "ubiquitous_on_negatives": [
+  [
+   "제3조",
+   38,
+   0.57
+  ],
+  [
+   "제22조",
+   35,
+   0.52
+  ]
+ ],
+ "top1_distribution_on_negatives": [
+  [
+   "제3조",
+   33
+  ],
+  [
+   "제22조",
+   18
+  ],
+  [
+   "제20조",
+   13
+  ],
+  [
+   "제315조",
+   11
+  ],
+  [
+   "제11조",
+   8
+  ],
+  [
+   "제14조",
+   5
+  ],
+  [
+   "제43조",
+   4
+  ],
+  [
+   "제392조",
+   3
+  ],
+  [
+   "제4조",
+   2
+  ],
+  [
+   "제313조",
+   2
+  ]
+ ],
+ "variants": [
+  {
+   "variant": "전체(사전등록 주지표)",
+   "n_drop": 0,
+   "topk": null,
+   "neg_claim": 0.948,
+   "neg_ci95": [
+    0.903,
+    0.985
+   ],
+   "pos_claim": 1.0,
+   "discrimination": 0.052
+  },
+  {
+   "variant": "CROSS16 제외",
+   "n_drop": 16,
+   "topk": null,
+   "neg_claim": 0.799,
+   "neg_ci95": [
+    0.716,
+    0.881
+   ],
+   "pos_claim": 1.0,
+   "discrimination": 0.201
+  },
+  {
+   "variant": "음성 50%+ 등장 조문 제외(2종)",
+   "n_drop": 2,
+   "topk": null,
+   "neg_claim": 0.91,
+   "neg_ci95": [
+    0.851,
+    0.963
+   ],
+   "pos_claim": 1.0,
+   "discrimination": 0.09
+  },
+  {
+   "variant": "CROSS16 제외 + top1만",
+   "n_drop": 16,
+   "topk": 1,
+   "neg_claim": 0.799,
+   "neg_ci95": [
+    0.716,
+    0.881
+   ],
+   "pos_claim": 1.0,
+   "discrimination": 0.201
+  }
+ ]
+}
