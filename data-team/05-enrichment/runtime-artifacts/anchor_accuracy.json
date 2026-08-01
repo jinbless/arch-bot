@@ -1,24 +1,37 @@
 {
- "_note": "앵커(기인물) 인식 정확도. gold 조문에서 절/관 역산 → RESOLVE group_keys와 대조. 라벨 추가 없음.",
+ "_note": "앵커(기인물) 인식 정확도. gold 조문에서 (편,장,절,관) 역산 → RESOLVE group_keys와 대조. 라벨 추가 없음.",
+ "_coord": "좌표는 (편,장,절,관) 4튜플 전체로 비교한다. legacy_*는 편·장을 버리던 구 방식(부풀림 폭 비교용).",
  "n_scored": 45,
  "n_skipped_no_truth": 84,
  "exact_match": {
+  "point": 0.711,
+  "ci95": [
+   0.578,
+   0.844
+  ]
+ },
+ "jeol_match": {
+  "point": 0.733,
+  "ci95": [
+   0.6,
+   0.844
+  ]
+ },
+ "legacy_exact_match": {
   "point": 0.778,
   "ci95": [
    0.644,
    0.889
-  ]
- },
- "jeol_match": {
-  "point": 0.8,
-  "ci95": [
-   0.689,
-   0.911
-  ]
+  ],
+  "_note": "편·장을 버리고 (절,관)만 비교하던 구 방식. 이 값과 exact_match의 차이가 부풀림 폭이다."
  },
  "empty_prediction": 1,
- "complete_miss": 9,
+ "complete_miss": 12,
  "top_gimulmul_on_miss": [
+  [
+   "지게차",
+   2
+  ],
   [
    "컨베이어",
    1
@@ -28,11 +41,11 @@
    1
   ],
   [
-   "지게차",
+   "지게차 주변 정리되지 않은 자재·물품",
    1
   ],
   [
-   "지게차 주변 정리되지 않은 자재·물품",
+   "지게차 포크 적재물",
    1
   ],
   [
@@ -54,10 +67,6 @@
   [
    "유리 미닫이 출입문에 설치된 임시 차",
    1
-  ],
-  [
-   "팔레트 위에 높게 적재된 흰색 플라스",
-   1
   ]
  ],
  "per_photo": [
@@ -65,20 +74,28 @@
    "photo": "(주)경북환경_우측 후사경 파손.jpg",
    "truth": [
     [
+     2,
+     1,
      12,
      3
     ]
    ],
    "pred": [
     [
+     2,
+     1,
      1,
      null
     ],
     [
+     2,
+     1,
      11,
      null
     ],
     [
+     2,
+     1,
      12,
      3
     ]
@@ -91,23 +108,30 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "(주)경북환경_컨베이어 덮개 해체(1).jpg",
    "truth": [
     [
+     2,
+     1,
      1,
      null
     ]
    ],
    "pred": [
     [
-     11,
+     1,
+     10,
+     null,
      null
     ],
     [
-     null,
+     2,
+     1,
+     11,
      null
     ]
    ],
@@ -117,22 +141,29 @@
    ],
    "exact": false,
    "jeol": false,
+   "legacy_exact": false,
    "n_pred": 2
   },
   {
    "photo": "(주)경북환경_컨베이어 덮개 해체(2).jpg",
    "truth": [
     [
+     2,
+     1,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     1,
      1,
      null
     ],
     [
+     2,
+     1,
      11,
      null
     ]
@@ -145,22 +176,29 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "(주)광신종합건설-아산 신창 광신프로그레스 아파트 신축공사_IMG_3161.jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
+     2,
+     3,
      2,
      null
     ]
@@ -171,24 +209,31 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "(주)광신종합건설-아산 신창 광신프로그레스 아파트 신축공사_IMG_3162.jpg",
    "truth": [
     [
+     2,
+     1,
      1,
      null
     ]
    ],
    "pred": [
     [
+     1,
      10,
-     2
-    ],
-    [
      null,
      null
+    ],
+    [
+     2,
+     1,
+     10,
+     2
     ]
    ],
    "gimulmul": [
@@ -198,12 +243,15 @@
    ],
    "exact": false,
    "jeol": false,
+   "legacy_exact": false,
    "n_pred": 2
   },
   {
    "photo": "(주)광신종합건설-아산 신창 광신프로그레스 아파트 신축공사_IMG_3163.jpg",
    "truth": [
     [
+     2,
+     1,
      1,
      null
     ]
@@ -211,14 +259,20 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
+     2,
+     1,
      10,
      2
     ],
     [
-     null,
+     2,
+     6,
+     1,
      null
     ]
    ],
@@ -227,14 +281,17 @@
     "지게차 포크 적재물",
     "작업장 바닥의 잔재물·오염물"
    ],
-   "exact": true,
-   "jeol": true,
+   "exact": false,
+   "jeol": false,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "(주)대양_1000024850.jpg",
    "truth": [
     [
+     2,
+     2,
      1,
      null
     ]
@@ -242,14 +299,20 @@
    "pred": [
     [
      1,
-     null
-    ],
-    [
-     7,
-     null
-    ],
-    [
+     10,
      null,
+     null
+    ],
+    [
+     2,
+     2,
+     1,
+     null
+    ],
+    [
+     2,
+     2,
+     7,
      null
     ]
    ],
@@ -260,12 +323,15 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "(주)대양_1000024859.jpg",
    "truth": [
     [
+     2,
+     1,
      1,
      null
     ]
@@ -273,14 +339,20 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
      2,
+     1,
+     1,
      null
     ],
     [
-     null,
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -292,18 +364,23 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "(주)선우개발_출입경고표지 및 위험물 표지 미부착 사진 (1).jpg",
    "truth": [
     [
+     3,
+     2,
      6,
      null
     ]
    ],
    "pred": [
     [
+     1,
+     10,
      null,
      null
     ]
@@ -313,18 +390,23 @@
    ],
    "exact": false,
    "jeol": false,
+   "legacy_exact": false,
    "n_pred": 1
   },
   {
    "photo": "(주)선우개발_출입경고표지 및 위험물 표지 미부착 사진 (2).jpg",
    "truth": [
     [
+     3,
+     2,
      6,
      null
     ]
    ],
    "pred": [
     [
+     1,
+     10,
      null,
      null
     ]
@@ -335,12 +417,15 @@
    ],
    "exact": false,
    "jeol": false,
+   "legacy_exact": false,
    "n_pred": 1
   },
   {
    "photo": "(주)선우개발_출입경고표지 및 위험물 표지 미부착사진.jpg",
    "truth": [
     [
+     3,
+     2,
      6,
      null
     ]
@@ -352,24 +437,37 @@
    ],
    "exact": false,
    "jeol": false,
+   "legacy_exact": false,
    "n_pred": 0
   },
   {
    "photo": "(주)제니알테크_지게차 이탈시 키 미분리.jpg",
    "truth": [
     [
+     2,
+     1,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     1,
      1,
      null
     ],
     [
+     2,
+     1,
      10,
      2
+    ],
+    [
+     2,
+     6,
+     1,
+     null
     ]
    ],
    "gimulmul": [
@@ -379,12 +477,15 @@
    ],
    "exact": true,
    "jeol": true,
-   "n_pred": 2
+   "legacy_exact": true,
+   "n_pred": 3
   },
   {
    "photo": "(주)제니알테크_흡연장소 소화기 미비치, 분전함 덮개 미폐쇄.jpg",
    "truth": [
     [
+     2,
+     2,
      2,
      null
     ]
@@ -392,10 +493,14 @@
    "pred": [
     [
      1,
+     9,
+     null,
      null
     ],
     [
-     null,
+     2,
+     6,
+     1,
      null
     ]
    ],
@@ -405,12 +510,15 @@
    ],
    "exact": false,
    "jeol": false,
+   "legacy_exact": false,
    "n_pred": 2
   },
   {
    "photo": "(주)한진-(주)한진강서지점_배전반1.jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
@@ -418,14 +526,20 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
+     2,
+     1,
      11,
      null
     ],
     [
-     null,
+     2,
+     3,
+     1,
      null
     ]
    ],
@@ -436,18 +550,23 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "(주)한진-(주)한진강서지점_배전반2.jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     3,
      1,
      null
     ]
@@ -457,12 +576,15 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 1
   },
   {
    "photo": "(주)흥건-청노화 메타융합관 신축공사(건축,토목,조경,기계)_안전핀 미체결.jpg",
    "truth": [
     [
+     2,
+     1,
      12,
      3
     ]
@@ -470,11 +592,15 @@
    "pred": [
     [
      2,
-     1
-    ],
-    [
+     1,
      12,
      3
+    ],
+    [
+     2,
+     4,
+     2,
+     1
     ]
    ],
    "gimulmul": [
@@ -485,24 +611,31 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "권용주다인면공사_2.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      4
     ]
    ],
    "pred": [
     [
-     3,
-     null
-    ],
-    [
+     2,
+     1,
      10,
      4
+    ],
+    [
+     3,
+     5,
+     3,
+     null
     ]
    ],
    "gimulmul": [
@@ -512,12 +645,15 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "노원을지대학교병원_2025-05-29_09_34_05_IMG_3967.PNG",
    "truth": [
     [
+     3,
+     1,
      2,
      null
     ]
@@ -525,14 +661,26 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
+     2,
+     1,
+     1,
+     null
+    ],
+    [
+     2,
+     1,
      5,
      null
     ],
     [
-     null,
+     2,
+     2,
+     1,
      null
     ]
    ],
@@ -544,16 +692,21 @@
    ],
    "exact": false,
    "jeol": false,
-   "n_pred": 3
+   "legacy_exact": false,
+   "n_pred": 4
   },
   {
    "photo": "대산종합건설주식회사-둔포면 석곡리 2002번지 다가구주택 신축공사_IMG_3080.jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
+     2,
+     3,
      2,
      null
     ]
@@ -561,14 +714,20 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
      2,
+     3,
+     1,
      null
     ],
     [
-     null,
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -579,26 +738,35 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "선우종합건설(주)-보광병원 증축공사_20260407_103222.jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
      2,
+     3,
+     2,
      null
     ],
     [
+     2,
+     3,
      3,
      null
     ]
@@ -610,16 +778,21 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "선우종합건설(주)-보광병원 증축공사_20260407_103255.jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
+     2,
+     3,
      2,
      null
     ]
@@ -627,14 +800,20 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
      2,
+     3,
+     1,
      null
     ],
     [
-     null,
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -646,6 +825,7 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
@@ -653,16 +833,22 @@
    "truth": [
     [
      2,
+     3,
+     2,
      null
     ]
    ],
    "pred": [
     [
-     2,
+     1,
+     10,
+     null,
      null
     ],
     [
-     null,
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -673,27 +859,36 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "재원금속(주)_지게차, 작업자 혼재.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      1
     ]
    ],
    "pred": [
     [
+     2,
      1,
-     null
-    ],
-    [
      10,
      2
     ],
     [
+     2,
+     5,
      null,
+     null
+    ],
+    [
+     2,
+     6,
+     1,
      null
     ]
    ],
@@ -704,27 +899,36 @@
    ],
    "exact": false,
    "jeol": true,
+   "legacy_exact": false,
    "n_pred": 3
   },
   {
    "photo": "재원금속(주)_천장크레인 및 작업자 안전모 미착용.jpg",
    "truth": [
     [
+     2,
+     1,
      9,
      2
     ]
    ],
    "pred": [
     [
+     2,
      1,
-     null
-    ],
-    [
      9,
      2
     ],
     [
+     2,
+     5,
      null,
+     null
+    ],
+    [
+     2,
+     6,
+     1,
      null
     ]
    ],
@@ -735,22 +939,29 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "재원금속(주)_충전부 노출 (1).jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
+     2,
+     3,
      2,
      null
     ]
@@ -761,27 +972,42 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "재원금속(주)_충전부 노출 (2).jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     1,
      1,
      null
     ],
     [
      2,
+     1,
+     11,
      null
     ],
     [
-     11,
+     2,
+     3,
+     1,
+     null
+    ],
+    [
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -793,22 +1019,35 @@
    ],
    "exact": true,
    "jeol": true,
-   "n_pred": 3
+   "legacy_exact": true,
+   "n_pred": 4
   },
   {
    "photo": "재원금속(주)_충전부 노출 (3).jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     1,
+     2,
+     null
+    ],
+    [
+     2,
+     3,
      1,
      null
     ],
     [
+     2,
+     3,
      2,
      null
     ]
@@ -820,12 +1059,15 @@
    ],
    "exact": true,
    "jeol": true,
-   "n_pred": 2
+   "legacy_exact": true,
+   "n_pred": 3
   },
   {
    "photo": "재원금속(주)_충전부 노출 (4).jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
@@ -833,18 +1075,26 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
      2,
-     null
-    ],
-    [
+     2,
      7,
      null
     ],
     [
-     null,
+     2,
+     3,
+     1,
+     null
+    ],
+    [
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -855,12 +1105,15 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 4
   },
   {
    "photo": "재원금속(주)_컨베이어 휠 덮개 미설치.jpg",
    "truth": [
     [
+     2,
+     1,
      1,
      null
     ]
@@ -868,10 +1121,14 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
-     null,
+     2,
+     1,
+     1,
      null
     ]
    ],
@@ -882,27 +1139,36 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "재원금속(주)_핸드 그라인더 덮개 미설치.jpg",
    "truth": [
     [
+     2,
+     1,
      8,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     1,
+     6,
+     null
+    ],
+    [
+     2,
+     3,
      1,
      null
     ],
     [
      2,
-     null
-    ],
-    [
-     6,
+     3,
+     2,
      null
     ]
    ],
@@ -913,28 +1179,37 @@
    ],
    "exact": false,
    "jeol": false,
+   "legacy_exact": false,
    "n_pred": 3
   },
   {
    "photo": "주식회사맥파_사진1.jpg",
    "truth": [
     [
+     2,
+     1,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
      1,
-     null
+     10,
+     2
     ],
     [
+     2,
+     3,
      2,
      null
     ],
     [
-     10,
-     2
+     2,
+     6,
+     1,
+     null
     ]
    ],
    "gimulmul": [
@@ -942,29 +1217,44 @@
     "바닥에 펼쳐진 전선",
     "화물취급/적재 작업공간"
    ],
-   "exact": true,
-   "jeol": true,
+   "exact": false,
+   "jeol": false,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "주식회사시공테크-천안공과대학 산학협력관 강당환경개선공사(건축)_그라인더 덮개 미설치.png",
    "truth": [
     [
+     2,
+     1,
      8,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     1,
      1,
      null
     ],
     [
      2,
+     1,
+     6,
      null
     ],
     [
-     6,
+     2,
+     3,
+     1,
+     null
+    ],
+    [
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -975,26 +1265,35 @@
    ],
    "exact": false,
    "jeol": false,
-   "n_pred": 3
+   "legacy_exact": false,
+   "n_pred": 4
   },
   {
    "photo": "주식회사시공테크-천안공과대학 산학협력관 강당환경개선공사(건축)_분전반 미시건.png",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
      2,
+     3,
+     2,
      null
     ],
     [
+     3,
+     4,
      3,
      null
     ]
@@ -1007,6 +1306,7 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
@@ -1014,15 +1314,21 @@
    "truth": [
     [
      2,
+     3,
+     2,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
+     2,
+     3,
      2,
      null
     ]
@@ -1034,12 +1340,15 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "주식회사아리건설_왕일영 비닐하우스 현장사진3.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      4
     ]
@@ -1047,14 +1356,20 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
+     2,
+     1,
      10,
      4
     ],
     [
-     null,
+     2,
+     2,
+     1,
      null
     ]
    ],
@@ -1065,24 +1380,31 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "주식회사엠지에스종합건설-석곡리348-4번지외1필지(348-1)공장 신축공사_과승상방지장치2.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      4
     ]
    ],
    "pred": [
     [
+     1,
      10,
-     4
-    ],
-    [
      null,
      null
+    ],
+    [
+     2,
+     1,
+     10,
+     4
     ]
    ],
    "gimulmul": [
@@ -1093,12 +1415,15 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "주식회사엠지에스종합건설-석곡리348-4번지외1필지(348-1)공장 신축공사_안전모1.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      4
     ]
@@ -1106,15 +1431,21 @@
    "pred": [
     [
      2,
+     1,
+     10,
+     4
+    ],
+    [
+     2,
+     3,
+     2,
      null
     ],
     [
      3,
+     5,
+     3,
      null
-    ],
-    [
-     10,
-     4
     ]
    ],
    "gimulmul": [
@@ -1124,27 +1455,36 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "주식회사엠지에스종합건설-석곡리348-4번지외1필지(348-1)공장 신축공사_안전모2.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      4
     ]
    ],
    "pred": [
     [
-     2,
+     1,
+     10,
+     null,
      null
     ],
     [
+     2,
+     1,
      10,
      4
     ],
     [
-     null,
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -1155,6 +1495,7 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
@@ -1162,20 +1503,28 @@
    "truth": [
     [
      2,
+     3,
+     2,
      null
     ]
    ],
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
      2,
+     1,
+     1,
      null
     ],
     [
-     null,
+     2,
+     3,
+     2,
      null
     ]
    ],
@@ -1187,28 +1536,37 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "주식회사해성종합건설-김제시 봉황농공단지 오정동 170-12 규담오티에스 공장 증축공사_안전대 미차용 작업사진2.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      4
     ]
    ],
    "pred": [
     [
-     3,
-     null
-    ],
-    [
+     2,
+     1,
      9,
      7
     ],
     [
+     2,
+     1,
      10,
      4
+    ],
+    [
+     2,
+     4,
+     3,
+     null
     ]
    ],
    "gimulmul": [
@@ -1218,24 +1576,31 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "주식회사해성종합건설-김제시 봉황농공단지 오정동 170-12 규담오티에스 공장 증축공사_안전대 미착용 작업사진.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      4
     ]
    ],
    "pred": [
     [
-     3,
-     null
-    ],
-    [
+     2,
+     1,
      10,
      4
+    ],
+    [
+     2,
+     4,
+     3,
+     null
     ]
    ],
    "gimulmul": [
@@ -1245,27 +1610,42 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   },
   {
    "photo": "주식회사해성종합건설-김제시 봉황농공단지 오정동 170-12 규담오티에스 공장 증축공사_안전대 미착용 작업사진3.jpg",
    "truth": [
     [
+     2,
+     1,
      10,
      4
     ]
    ],
    "pred": [
     [
-     3,
-     null
-    ],
-    [
+     2,
+     1,
      10,
      4
     ],
     [
+     2,
+     4,
+     3,
+     null
+    ],
+    [
+     2,
+     5,
      null,
+     null
+    ],
+    [
+     3,
+     4,
+     3,
      null
     ]
    ],
@@ -1277,12 +1657,15 @@
    ],
    "exact": true,
    "jeol": true,
-   "n_pred": 3
+   "legacy_exact": true,
+   "n_pred": 4
   },
   {
    "photo": "한빛종합건설(주)-가장동751주택 신축공사_접지불량.jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ]
@@ -1290,14 +1673,20 @@
    "pred": [
     [
      1,
+     10,
+     null,
      null
     ],
     [
      2,
+     3,
+     2,
      null
     ],
     [
-     null,
+     2,
+     6,
+     1,
      null
     ]
    ],
@@ -1306,32 +1695,43 @@
     "철근 다발",
     "작업대 주변 지면의 잔재물·정리되지 않은 통로"
    ],
-   "exact": true,
-   "jeol": true,
+   "exact": false,
+   "jeol": false,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
    "photo": "한빛종합건설(주)-가장동751주택 신축공사_충전부 외부노출.jpg",
    "truth": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
+     2,
+     3,
      2,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
      2,
+     3,
+     2,
      null
     ],
     [
+     2,
+     3,
      3,
      null
     ]
@@ -1344,6 +1744,7 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 3
   },
   {
@@ -1351,15 +1752,21 @@
    "truth": [
     [
      2,
+     3,
+     2,
      null
     ]
    ],
    "pred": [
     [
+     2,
+     3,
      1,
      null
     ],
     [
+     2,
+     3,
      2,
      null
     ]
@@ -1371,6 +1778,7 @@
    ],
    "exact": true,
    "jeol": true,
+   "legacy_exact": true,
    "n_pred": 2
   }
  ]

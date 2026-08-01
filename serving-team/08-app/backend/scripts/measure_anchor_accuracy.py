@@ -72,13 +72,15 @@ def main() -> None:
     gim = json.loads((ART / "gimulmul_index.json").read_text(encoding="utf-8"))["groups"]
     rcache = json.loads((ART / "rank_ab_resolve_cache.json").read_text(encoding="utf-8"))
 
-    # 그룹키 → 좌표(절,관). 그룹 소속 조문에서 역산(그룹키 자체엔 편·장이 없다)
-    gkey_coord, coord_gkey = {}, {}
+    # 그룹키 → 좌표 **(편,장,절,관) 4튜플**. 그룹 소속 조문의 section에서 역산한다.
+    # ★ 예전에는 [2:]로 (절,관)만 썼다. 그룹키 자체엔 편·장이 없지만 조문 section에는 있다.
+    #   규칙에는 '절1'이라는 이름의 절이 20곳 있다(편2장1 기계 일반기준 / 편2장3 전기 / 편3 각 장 통칙 …).
+    #   앞 두 칸을 버리면 서로 다른 절이 같은 좌표가 되어 오매칭이 난다.
+    gkey_coord, gkey_coord_legacy = {}, {}
     for k, g in gim.items():
-        cs = {coord(sigs[a["code"]]["section"])[2:] for a in g.get("articles", []) if a["code"] in sigs}
+        cs = {coord(sigs[a["code"]]["section"]) for a in g.get("articles", []) if a["code"] in sigs}
         gkey_coord[k] = cs
-        for c in cs:
-            coord_gkey.setdefault(c, set()).add(k)
+        gkey_coord_legacy[k] = {c[2:] for c in cs}     # 구 방식 — 부풀림 폭 비교용
 
     jy = defaultdict(set)
     with GOLD.open(encoding="utf-8-sig") as f:
@@ -98,26 +100,31 @@ def main() -> None:
             p, j, jeol, gwan = coord(sigs[c]["section"])
             if p == 1 or jeol is None:
                 continue
-            truth.add((jeol, gwan))
+            truth.add((p, j, jeol, gwan))
         if not truth:
             skipped.append(pf)
             continue
-        pred = set()
+        pred, pred_legacy = set(), set()
         for gk in rcache[pf].get("group_keys", []):
             pred |= gkey_coord.get(gk, set())
-        # 관 단위가 달라도 같은 절이면 '절 일치'로 따로 센다(상위 흐름은 공유되므로 실무상 유효)
+            pred_legacy |= gkey_coord_legacy.get(gk, set())
+        # 관 단위가 달라도 같은 절이면 '절 일치'로 따로 센다(상위 흐름은 공유되므로 실무상 유효).
+        # 단 '같은 절'도 편·장까지 같아야 같은 절이다.
         hit_exact = bool(truth & pred)
-        hit_jeol = bool({t[0] for t in truth} & {p_[0] for p_ in pred})
+        hit_jeol = bool({t[:3] for t in truth} & {p_[:3] for p_ in pred})
+        hit_legacy = bool({t[2:] for t in truth} & pred_legacy)
+
         def _k(t):
-            return (t[0] if t[0] is not None else 9999, t[1] if t[1] is not None else 9999)
+            return tuple(9999 if x is None else x for x in t)
         rows.append({"photo": pf, "truth": [list(t) for t in sorted(truth, key=_k)],
                      "pred": [list(t) for t in sorted(pred, key=_k)],
                      "gimulmul": rcache[pf].get("gimulmul", []), "exact": hit_exact, "jeol": hit_jeol,
-                     "n_pred": len(pred)})
+                     "legacy_exact": hit_legacy, "n_pred": len(pred)})
 
     n = len(rows)
     ex = boot([1.0 if r["exact"] else 0.0 for r in rows])
     jl = boot([1.0 if r["jeol"] else 0.0 for r in rows])
+    lg = boot([1.0 if r["legacy_exact"] else 0.0 for r in rows])
     miss = [r for r in rows if not r["jeol"]]
     empty_pred = sum(1 for r in rows if not r["pred"])
 
@@ -126,10 +133,13 @@ def main() -> None:
         for g in r["gimulmul"][:2]:
             top_miss[g.split("(")[0].strip()[:20]] += 1
 
-    out = {"_note": "앵커(기인물) 인식 정확도. gold 조문에서 절/관 역산 → RESOLVE group_keys와 대조. 라벨 추가 없음.",
+    out = {"_note": "앵커(기인물) 인식 정확도. gold 조문에서 (편,장,절,관) 역산 → RESOLVE group_keys와 대조. 라벨 추가 없음.",
+           "_coord": "좌표는 (편,장,절,관) 4튜플 전체로 비교한다. legacy_*는 편·장을 버리던 구 방식(부풀림 폭 비교용).",
            "n_scored": n, "n_skipped_no_truth": len(skipped),
            "exact_match": {"point": round(ex[0], 3), "ci95": [round(ex[1], 3), round(ex[2], 3)]},
            "jeol_match": {"point": round(jl[0], 3), "ci95": [round(jl[1], 3), round(jl[2], 3)]},
+           "legacy_exact_match": {"point": round(lg[0], 3), "ci95": [round(lg[1], 3), round(lg[2], 3)],
+                                  "_note": "편·장을 버리고 (절,관)만 비교하던 구 방식. 이 값과 exact_match의 차이가 부풀림 폭이다."},
            "empty_prediction": empty_pred,
            "complete_miss": len(miss),
            "top_gimulmul_on_miss": top_miss.most_common(10),
@@ -139,6 +149,7 @@ def main() -> None:
     print(f"=== 앵커(기인물) 인식 정확도 — 채점 {n}장 (정답 좌표 없어 제외 {len(skipped)}장) ===")
     print(f"  관 단위 정확 일치  {ex[0]:.3f}  CI[{ex[1]:.3f},{ex[2]:.3f}]")
     print(f"  절 단위 일치       {jl[0]:.3f}  CI[{jl[1]:.3f},{jl[2]:.3f}]   ← 상위 흐름 공유 기준")
+    print(f"  (구 방식 편·장 무시 {lg[0]:.3f}  ← 부풀림 {lg[0] - ex[0]:+.3f})")
     print(f"  완전 오인식(절도 불일치) {len(miss)}장 ({len(miss)/max(n,1):.1%}) · 예측 자체가 빈 사진 {empty_pred}장")
     print("\n[오인식 사진에서 RESOLVE가 지목한 기인물 상위]")
     for g, k in top_miss.most_common(8):
