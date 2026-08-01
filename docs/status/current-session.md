@@ -1,6 +1,31 @@
 # 현재 세션 / 다음 세션 시작 지침
 
-최신 갱신일: **2026-06-14** — ⭐ **Track A ② 추론 수직 슬라이스**(신규 PG `sr_inferred_relations` **103,295행** = R-1 exemptedBy 107행/95SR + K-R2 coApplicable 16,429쌍→32,858행 + K-R4 dependsOn 35,165쌍→70,330행; 서빙 Fuseki→PG 전환 + 신규 `/depends-on`; PROV `materialization_runs`; 커밋 `87d9e63`/`7c50304`/`e6140bb`, f1-regression delta 0) **+ A4/A5 거버넌스**(dual license Apache-2.0+CC-BY-4.0, 릴리스 버전 **2.0.0**, VoID triples 1,049,862/classes 625/properties 164, A5 SKOS 3 scheme/504 concept/2,659 triple — DONE·미커밋). 직전 = ⭐ **facet 구조 audit(18 findings) + 구조 수정 Fix A/B·B1·B2·B3a·B4·B5(F4) + B3a 정정**. 신규 도구 inspect_node·gen_catalog/CATALOG.md·**derive_property_domain_range**·**check_disjoint_consistency** + findings 문서. **Fix A**(`ba11895`) floating 480→0, **Fix B**(`ac327a8`) UPPER_SNAKE 12 제거, **B1**(`1f32a61`) ctx/agent 라벨, **B2+정정**(`b81436a`/`678a7d1`) dead/alias 정리+오제거 복원, **B3a**(`0a82546`) facet disjoint, **B4**(`523465a`) guide/core property domain·range **25 코퍼스-aware 보강**(F10/F15), **B3a 정정**(`c5919af`) **haz:Hazard를 disjoint에서 제외(10→9축)로 KB 일관 복구** — ⚠️ B4 Openllet 게이트(owl:Nothing 실쿼리)가 사전-존재 비일관 적발(haz:AccidentType⊥haz:Hazard 7개체; B3a가 lazy `prepare()` 거짓양성 오신뢰), **B5/F4** **haz:Hazard 클래스 폐지**(`bb76d1f` (a)AccidentType⊑Hazard가 축 계층 비대칭 유발해 반려 → (c) 클래스 삭제; 4 range·3 제약·SWRL→AccidentType repoint, v2.owl 선언 삭제. AccidentType RiskFeature 직속 복귀, class 628→627, 잔여참조 0, Openllet 일관). **+ SHE ABox 통합(F5 해결)**: F5 추적으로 데이터팀 `she-instances-v1.ttl`(965 패턴×6축 맥락)이 **온톨로지 미적재 + KOSHA-22 이전 legacy 어휘** 발견 → canonical **forward 마이그레이션**(신규 `gen_she_abox.py`→`kosha-instances-she.ttl` 49,689 triple) + manifest 편입 + `she:triggerText` range xsd:string→rdfs:Literal(datatype 비일관 수정) → **she:has* 0→965, F5 5축 실채움, Openllet 일관**(⚠️ 965는 **2026-06-12 CAT-4 `68cc76b`**에서 `kosha-instances-she-full.ttl` **1,675**로 단일화·퇴역, PG 활성과 정합). **직전 세션** = Phase 3 facet taxonomy + B-트랙(아래, `1dab81a`). **남은 것**: B3b(저가치)/B6(BFO grounding, 高)/**F20 sr속성 hard merge ✅**/(선택)F5 다축 prune·~~**F21**(F4c잔재 r14-r30 haz:Hazard 본문)~~ ✅(WS-GATE-7 repoint 완료). **+ empty-class/dormant-property detector ✅**(`scripts/check_data_coverage.py`·`make data-coverage` — F5/SHE형 미적재 상시 탐지: 빈 클래스/dormant property를 app·rule-head·facet-fine 분리해 triage). — 상세 정본 `docs/backlog/ontology-structural-findings.md`.
+> ⚠️ 이 문서는 2026-06-14 이후 갱신이 끊겼고, 그 뒤 작업은 `docs/dev-notes/`와 메모리에만 있었다.
+> **최신 상태는 아래 '2026-08-01' 절부터** 읽는다.
+
+## ⭐⭐ 2026-08-01 — 기인물 앵커 → 작업 흐름: 데이터 확보부터 서빙까지
+
+**상세 정본: [../dev-notes/anchor-flow-serving-2026-08-01.md](../dev-notes/anchor-flow-serving-2026-08-01.md)** ⭐
+(compact 후 여기부터 읽고 재개. 제품 전제는
+[flow-skeleton-gap-2026-08-01.md](../dev-notes/flow-skeleton-gap-2026-08-01.md))
+
+커밋 7개(`7e3eea7` → `dde9cb6`, main, **push 안 함**). 사진 → 기인물 앵커 → 작업 흐름 6칸 → 화면까지 연결.
+
+- **안전검사 고시 15종 확보**(13종 아님 — 혼합기·파쇄기 신설, 시행 2026.6.26.). 별표 14종·499행·1,906항목
+- **흐름 인덱스를 별표 3 19행 → 기인물 그룹 127종으로 확대**. 커버리지 57.8% → 100%(gold 45장 기준)
+- ⚠️ **앵커 정확도 정정: 0.778 → 0.711**(좌표를 (절,관)으로만 비교하고 편·장을 버린 버그).
+  완전 오인식 20% → **26.7%**. 정본 = [evaluation-baseline.md](evaluation-baseline.md) '앵커 인식 정확도'
+- ⚠️ **'칸이 찼다'를 믿지 말 것** — 총칙 주입 제외한 **실질** 채움은 계획 13%·인적 17%·작업전 20%·
+  작업중 99%·종료 25%·정기 10%. 실질 1칸짜리가 68종
+- **서빙 배선 + 앵커 정정 UI**. `OHS_ENABLE_WORK_FLOW`(env `CUE_FLOW`) **기본 off**, kill switch 실측 완료
+- **라벨 검수 0/1,989** — 화면이 '검수 전' 경고를 띄우는 상태. 다음 세션 1순위
+
+**같은 좌표 뭉갬 버그가 5번 재발했다.** 좌표는 항상 (편,장,절,관) 4튜플로 다룰 것.
+증상이 매번 같다 — 숫자는 좋아 보이는데 내용이 틀린다.
+
+---
+
+최신 갱신일(이하 구 본문): **2026-06-14** — ⭐ **Track A ② 추론 수직 슬라이스**(신규 PG `sr_inferred_relations` **103,295행** = R-1 exemptedBy 107행/95SR + K-R2 coApplicable 16,429쌍→32,858행 + K-R4 dependsOn 35,165쌍→70,330행; 서빙 Fuseki→PG 전환 + 신규 `/depends-on`; PROV `materialization_runs`; 커밋 `87d9e63`/`7c50304`/`e6140bb`, f1-regression delta 0) **+ A4/A5 거버넌스**(dual license Apache-2.0+CC-BY-4.0, 릴리스 버전 **2.0.0**, VoID triples 1,049,862/classes 625/properties 164, A5 SKOS 3 scheme/504 concept/2,659 triple — DONE·미커밋). 직전 = ⭐ **facet 구조 audit(18 findings) + 구조 수정 Fix A/B·B1·B2·B3a·B4·B5(F4) + B3a 정정**. 신규 도구 inspect_node·gen_catalog/CATALOG.md·**derive_property_domain_range**·**check_disjoint_consistency** + findings 문서. **Fix A**(`ba11895`) floating 480→0, **Fix B**(`ac327a8`) UPPER_SNAKE 12 제거, **B1**(`1f32a61`) ctx/agent 라벨, **B2+정정**(`b81436a`/`678a7d1`) dead/alias 정리+오제거 복원, **B3a**(`0a82546`) facet disjoint, **B4**(`523465a`) guide/core property domain·range **25 코퍼스-aware 보강**(F10/F15), **B3a 정정**(`c5919af`) **haz:Hazard를 disjoint에서 제외(10→9축)로 KB 일관 복구** — ⚠️ B4 Openllet 게이트(owl:Nothing 실쿼리)가 사전-존재 비일관 적발(haz:AccidentType⊥haz:Hazard 7개체; B3a가 lazy `prepare()` 거짓양성 오신뢰), **B5/F4** **haz:Hazard 클래스 폐지**(`bb76d1f` (a)AccidentType⊑Hazard가 축 계층 비대칭 유발해 반려 → (c) 클래스 삭제; 4 range·3 제약·SWRL→AccidentType repoint, v2.owl 선언 삭제. AccidentType RiskFeature 직속 복귀, class 628→627, 잔여참조 0, Openllet 일관). **+ SHE ABox 통합(F5 해결)**: F5 추적으로 데이터팀 `she-instances-v1.ttl`(965 패턴×6축 맥락)이 **온톨로지 미적재 + KOSHA-22 이전 legacy 어휘** 발견 → canonical **forward 마이그레이션**(신규 `gen_she_abox.py`→`kosha-instances-she.ttl` 49,689 triple) + manifest 편입 + `she:triggerText` range xsd:string→rdfs:Literal(datatype 비일관 수정) → **she:has* 0→965, F5 5축 실채움, Openllet 일관**(⚠️ 965는 **2026-06-12 CAT-4 `68cc76b`**에서 `kosha-instances-she-full.ttl` **1,675**로 단일화·퇴역, PG 활성과 정합). **직전 세션** = Phase 3 facet taxonomy + B-트랙(아래, `1dab81a`). **남은 것**: B3b(저가치)/B6(BFO grounding, 高)/**F20 sr속성 hard merge ✅**/(선택)F5 다축 prune·~~**F21**(F4c잔재 r14-r30 haz:Hazard 본문)~~ ✅(WS-GATE-7 repoint 완료). **+ empty-class/dormant-property detector ✅**(`scripts/check_data_coverage.py`·`make data-coverage` — F5/SHE형 미적재 상시 탐지: 빈 클래스/dormant property를 app·rule-head·facet-fine 분리해 triage). — 상세 정본 `docs/backlog/ontology-structural-findings.md`.
 
 ## ⭐ 2026-06-20 — SR→조 매핑 검증 (정확도 향상 1단계, compact 전 체크포인트)
 
