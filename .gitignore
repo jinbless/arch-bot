@@ -221,3 +221,23 @@ data-team/05-enrichment/runtime-artifacts/text_semigold_spotcheck.csv
 data-team/05-enrichment/runtime-artifacts/track_a_match.md
 data-team/05-enrichment/runtime-artifacts/intake_vision.json
 data-team/05-enrichment/runtime-artifacts/intake_label_sheet.csv
+
+# ── 2026-08-01 정리 ──────────────────────────────────────────────
+# 재생성 가능한 백업 스냅샷 — 리포에 남길 이유가 없다(원본은 추적 중)
+*.pre-md-backup
+*.pre-regen-backup
+*.pre-fix-smoke
+tmp/
+
+# 임베딩 .npz 미추적 정책(위 184~194행과 동일) — 신규 생성분
+data-team/05-enrichment/runtime-artifacts/semantic_final_emb.npz
+data-team/05-enrichment/runtime-artifacts/semantic_kb_claude_emb.npz
+
+# 외부 원본/대용량 — CLAUDE.md "raw PDF·xlsx 추적 금지".
+# 위반법 zip 2개는 933MB·2,181MB로 GitHub 파일 제한(100MB)을 크게 초과해 push 자체가 실패한다.
+/*.zip
+/보안점검체크리스트.xlsx
+/소프트웨어_개발보안_가이드*.pdf
+
+# 경로 문자열이 파일명으로 뭉개진 사고 산출물(C:Users...) — 삭제 권장
+/C:Users*
