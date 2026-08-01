@@ -56,3 +56,21 @@ KOSHA 참고자료(**SIF 6,032 + 구조화사례 1,177 = 7,209건**, 기인물+�
 
 ## git 정책
 - raw PDF/xlsx: 미추적(정책). `parsed/*.jsonl`: 재생성 가능(미정). 구조화 MD/CSV·MANIFEST·파서: 추적 후보.
+
+---
+
+## 실행 결과 (2026-06-21) — 2-트랙 확정 + turnkey 인테이크
+
+사용자 통찰로 아키텍처 정리:
+- **Track A (사진→조문, 엄격):** 시각 판단가능 조문만. baseline gimulmul_match(P@1 62.5%/Hit@3 100%)가 검증된 최선.
+- **Track B (기인물→사고사례, 자문):** 사진엔 안 보이나 현장 점검할 것(벨트슬링 파단 등). 사고사례 데이터의 제자리.
+
+**Step 1~4 (후보 정밀화) = NEGATIVE:** `track_a_match.py`로 Section B 큐레이션 + 관찰성필터 + 편장컨텍스트 추가 → 8장서 **50%로 후퇴**(baseline 62.5%). 진단: 관찰성필터는 안전(gold 17개 전부 observable, 제거 0)이고 baseline에 이미 포함. 후퇴원인=Section B는 사고-큐레이션이라 사진엔 갭/오도(가스→환기, 지게차 제183 누락) + RANK 재작성이 duty-enumeration 튜닝 상실. **→ Track A는 baseline 유지, Section B는 Track B로.**
+
+**Step 5 (turnkey 인테이크) = 검증 완료:** `intake_photos.py --photos-dir <폴더>` → rich Vision(gpt-4.1) → 후보 라벨시트(`intake_label_sheet.csv`). 8장서 **P@1 62%(=baseline), recall 75%**(넓힌 net, avg 34후보/사진, RANK정렬). 사람 LABEL → `score_label_sheet.py` 측정.
+
+**8장 한계 재확인:** 후보튜닝(Section B·절-관1계층·편장)은 8장서 노이즈/과적합. **30~100장 실사진셋에서 A/B 판정.** 사용자가 사진 준비 중.
+
+**커밋:** parse 복합분리·Section B파싱·alias·track_a(neg)·intake·semigold도구 = e850a29. 참고MD(규칙_편장·사고사례_규칙_매핑) 추적, 산출물 gitignore.
+
+**다음:** (사용자 사진 도착) intake_photos 실행 → 사람 라벨 → 대규모 Track A 측정 → 그 위에서 후보튜닝 A/B + Track B(자문) 구축 + 서빙.
