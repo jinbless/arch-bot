@@ -10,22 +10,32 @@
   `fp_thumbs/`에 굽고 뷰어는 그것만 로드한다(판정에 필요한 해상도는 유지: 긴 변 1600px).
 - 산출물은 전부 `real-test-photo/`(gitignore) 안에 둔다.
 
-사용: python scripts/build_fp_viewer.py
-서빙: .claude/launch.json의 fp-viewer(포트 8919) → http://127.0.0.1:8919/fp_viewer.html
+사용: python scripts/build_fp_viewer.py [--round 2]
+서빙: .claude/launch.json의 fp-viewer(포트 8919) → http://127.0.0.1:8919/fp_viewer[_r2].html
 """
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
 from PIL import Image, ImageOps
 
+ap = argparse.ArgumentParser()
+ap.add_argument("--round", type=int, default=1, choices=(1, 2))
+args = ap.parse_args()
+
 HERE = Path(__file__).resolve()
 REPO = HERE.parents[4]
 POOL = REPO / "real-test-photo" / "no_label_photo"
-THUMBS = POOL / "fp_thumbs"
-SAMPLE = REPO / "data-team" / "05-enrichment" / "runtime-artifacts" / "fp_sample.json"
-OUT_HTML = POOL / "fp_viewer.html"
+ART = REPO / "data-team" / "05-enrichment" / "runtime-artifacts"
+# 라운드별로 표본·썸네일·판정 저장소를 완전히 분리한다 — 섞이면 두 측정이 오염된다
+SUFFIX = "" if args.round == 1 else f"_r{args.round}"
+THUMBS = POOL / f"fp_thumbs{SUFFIX}"
+SAMPLE = ART / f"fp_sample{SUFFIX}.json"
+OUT_HTML = POOL / f"fp_viewer{SUFFIX}.html"
+STORE_KEY = f"fp_binary{SUFFIX}_v1"
+CSV_NAME = f"fp_binary_filled{SUFFIX}.csv"
 MAX_SIDE = 1600
 
 photos = json.loads(SAMPLE.read_text(encoding="utf-8"))["photos"]
@@ -79,7 +89,7 @@ img{width:100%;height:74vh;min-height:340px;object-fit:contain;border-radius:8px
 <div id=root></div>
 <script>
 const DATA=__DATA__;
-const KEY='fp_binary_v1';
+const KEY='__KEY__';
 let S=JSON.parse(localStorage.getItem(KEY)||'{}');
 let onlyTodo=false, cur=0;
 function save(){localStorage.setItem(KEY,JSON.stringify(S));prog();}
@@ -106,12 +116,12 @@ function ex(){const rows=[['photo_file','verdict','memo']];
  DATA.forEach(f=>{const o=S[f]||{};rows.push([f,o.v||'',(o.memo||'').replace(/[\\r\\n",]/g,' ')]);});
  const csv='\\ufeff'+rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\\r\\n');
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
- a.download='fp_binary_filled.csv';a.click();}
+ a.download='__CSV__';a.click();}
 document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;
  const m={'1':'y','2':'n','3':'m'};if(m[e.key]){e.preventDefault();set(cur,m[e.key]);}});
 const root=document.getElementById('root');
 root.innerHTML=DATA.map((f,i)=>`<div class=card id=c${i} onclick="mark(${i})">
- <img loading="${i<3?'eager':'lazy'}" decoding=async src="fp_thumbs/${String(i).padStart(3,'0')}.jpg" alt="">
+ <img loading="${i<3?'eager':'lazy'}" decoding=async src="__THUMBS__/${String(i).padStart(3,'0')}.jpg" alt="">
  <div class=meta>#${i+1} · ${f.replace(/</g,'&lt;')}</div>
  <div class=b>
   <button data-v=y onclick="set(${i},'y')">위반 있음 (1)</button>
@@ -122,6 +132,8 @@ root.innerHTML=DATA.map((f,i)=>`<div class=card id=c${i} onclick="mark(${i})">
 DATA.forEach((f,i)=>paint(i));mark(0);prog();
 </script></body></html>"""
 
-OUT_HTML.write_text(TPL.replace("__DATA__", json.dumps(photos, ensure_ascii=False)), encoding="utf-8")
-print(f"표본 {len(photos)}장 → {OUT_HTML}")
+OUT_HTML.write_text(TPL.replace("__DATA__", json.dumps(photos, ensure_ascii=False))
+                       .replace("__KEY__", STORE_KEY).replace("__CSV__", CSV_NAME)
+                       .replace("__THUMBS__", THUMBS.name), encoding="utf-8")
+print(f"[round {args.round}] 표본 {len(photos)}장 → {OUT_HTML} (저장소 {STORE_KEY} · 내보내기 {CSV_NAME})")
 print("서빙: .claude/launch.json 의 fp-viewer(8919) → http://127.0.0.1:8919/fp_viewer.html")
