@@ -14,6 +14,17 @@ from app.rate_limit import limiter  # 전역+엔드포인트별 레이트리밋(
 from app.services.article_service import article_service
 from app.services.guide_service import guide_service
 
+# 앱 로거 설정. 지금까지 설정이 없어 root 기본값(WARNING)이 적용됐고, 우리 모듈의 logger.info는
+# 전부 조용히 버려졌다 — 안 찍히는 로그를 남겨두면 나중에 "그 데이터는 로그에 있다"고 착각하게 된다.
+# 우리 네임스페이스('app')만 좁게 설정한다(third-party를 INFO로 끌어올리지 않는다).
+_app_logger = logging.getLogger("app")
+if not _app_logger.handlers:
+    _h = logging.StreamHandler()
+    _h.setFormatter(logging.Formatter("%(levelname)s:     %(name)s - %(message)s"))
+    _app_logger.addHandler(_h)
+_app_logger.setLevel(getattr(logging, (settings.OHS_LOG_LEVEL or "INFO").upper(), logging.INFO))
+_app_logger.propagate = False
+
 logger = logging.getLogger(__name__)
 
 

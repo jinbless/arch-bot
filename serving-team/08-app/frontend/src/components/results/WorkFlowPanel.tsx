@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { flowApi, type FlowGroup } from '../../api/flowApi';
 import type { FlowItem, FlowSlot, WorkFlow } from '../../types/analysis';
 
 /**
@@ -110,13 +111,119 @@ const Slot: React.FC<{ slot: FlowSlot }> = ({ slot }) => {
   );
 };
 
-const WorkFlowPanel: React.FC<{
-  flow?: WorkFlow | null;
-  /** 앵커 정정. 미지정이면 대안을 '표시만' 한다(백엔드 재조회 없이). */
-  onPickAnchor?: (groupKey: string) => void;
-}> = ({ flow, onPickAnchor }) => {
-  if (!flow) return null;
-  const { anchor, alternates, slots, reviewed } = flow;
+/** 기인물 선택기 — 대안 칩만으로는 완전 오인식(26.7%)을 고칠 수 없어 전체에서 찾게 한다. */
+const AnchorPicker: React.FC<{ current: string; onPick: (k: string) => void; onClose: () => void }> = ({
+  current,
+  onPick,
+  onClose,
+}) => {
+  const [groups, setGroups] = useState<FlowGroup[] | null>(null);
+  const [q, setQ] = useState('');
+  const [err, setErr] = useState('');
+
+  useEffect(() => {
+    let alive = true;
+    flowApi
+      .listGroups()
+      .then((g) => alive && setGroups(g))
+      .catch(() => alive && setErr('목록을 불러오지 못했습니다.'));
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const hits = useMemo(() => {
+    if (!groups) return [];
+    const k = q.trim();
+    const pool = k ? groups.filter((g) => g.label.includes(k) || g.path.includes(k)) : groups;
+    return pool.slice(0, 40);
+  }, [groups, q]);
+
+  return (
+    <div className="mt-2 rounded-lg border border-slate-300 bg-white p-2.5">
+      <div className="flex items-center gap-2">
+        <input
+          autoFocus
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="기인물 검색 (예: 지게차, 비계, 전기)"
+          className="flex-1 rounded border border-slate-300 px-2 py-1 text-sm outline-none focus:border-slate-500"
+        />
+        <button type="button" onClick={onClose} className="text-xs text-slate-500 underline">
+          닫기
+        </button>
+      </div>
+      {err && <p className="mt-2 text-xs text-red-600">{err}</p>}
+      {!groups && !err && <p className="mt-2 text-xs text-gray-500">불러오는 중…</p>}
+      {groups && (
+        <>
+          <p className="mt-1.5 text-[11px] text-gray-400">
+            전체 {groups.length}종 중 {hits.length}종 표시{q ? '' : ' (검색해서 좁히세요)'}
+          </p>
+          <ul className="mt-1 max-h-64 divide-y divide-slate-100 overflow-auto">
+            {hits.map((g) => (
+              <li key={g.group_key}>
+                <button
+                  type="button"
+                  disabled={g.group_key === current}
+                  onClick={() => onPick(g.group_key)}
+                  className="w-full px-1.5 py-1.5 text-left hover:bg-slate-50 disabled:opacity-40"
+                >
+                  <span className="text-sm text-gray-800">{g.label}</span>
+                  {g.is_inspection_target && (
+                    <span className="ml-1.5 rounded border border-slate-800 px-1 text-[9px] font-semibold text-slate-800">
+                      안전검사
+                    </span>
+                  )}
+                  <span className="ml-1.5 text-[11px] text-gray-400">{g.n_items}건</span>
+                  <span className="block text-[11px] text-gray-400">{g.path}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  );
+};
+
+const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
+  // 원본(모델이 인식한 결과)과 현재 보고 있는 흐름을 나눠 둔다 — 되돌아갈 길을 남긴다.
+  const [current, setCurrent] = useState<WorkFlow | null>(null);
+  const [picking, setPicking] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
+
+  useEffect(() => {
+    setCurrent(null);
+    setPicking(false);
+    setErr('');
+  }, [flow]);
+
+  const shown = current ?? flow;
+  const corrected = current !== null;
+
+  const pick = async (key: string) => {
+    if (!flow) return;
+    setBusy(true);
+    setErr('');
+    try {
+      const keep = [flow.anchor.group_key, ...flow.alternates.map((a) => a.group_key)];
+      const next = await flowApi.byGroupKey(key, {
+        alternates: keep,
+        fromGroupKey: shown?.anchor.group_key,
+      });
+      setCurrent(next);
+      setPicking(false);
+    } catch {
+      setErr('해당 기인물의 흐름을 불러오지 못했습니다.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  if (!flow || !shown) return null;
+  const { anchor, alternates, slots, reviewed } = shown;
   const total = slots.reduce((n, s) => n + s.items.length, 0);
 
   return (
@@ -134,7 +241,9 @@ const WorkFlowPanel: React.FC<{
       {/* ① 앵커 — 흐름 전체가 여기에 걸린다 */}
       <div className="mb-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
         <div className="flex flex-wrap items-baseline gap-2">
-          <span className="text-xs text-gray-500">사진에서 확인된 기인물</span>
+          <span className="text-xs text-gray-500">
+            {corrected ? '직접 고른 기인물' : '사진에서 확인된 기인물'}
+          </span>
           <strong className="text-base text-gray-900">{anchor.label}</strong>
           {anchor.is_inspection_target && (
             <span
@@ -144,30 +253,52 @@ const WorkFlowPanel: React.FC<{
               안전검사 대상
             </span>
           )}
+          {busy && <span className="text-xs text-gray-400">불러오는 중…</span>}
         </div>
         {anchor.path && <p className="mt-0.5 text-[11px] text-gray-400">{anchor.path}</p>}
 
-        {alternates.length > 0 && (
-          <div className="mt-2 border-t border-dashed border-slate-200 pt-2">
-            <p className="text-xs text-gray-600">
-              기인물이 <strong>다르면</strong> 아래 흐름 전체가 맞지 않습니다. 사진에서 함께 확인된 것:
-            </p>
-            <div className="mt-1.5 flex flex-wrap gap-1.5">
-              {alternates.map((a) => (
-                <button
-                  key={a.group_key}
-                  type="button"
-                  onClick={() => onPickAnchor?.(a.group_key)}
-                  title={a.path}
-                  disabled={!onPickAnchor}
-                  className="rounded-full border border-slate-300 bg-white px-2.5 py-1 text-xs text-slate-700 hover:border-slate-500 disabled:cursor-default disabled:opacity-70"
-                >
-                  {a.label}
-                </button>
-              ))}
-            </div>
+        <div className="mt-2 border-t border-dashed border-slate-200 pt-2">
+          <p className="text-xs text-gray-600">
+            기인물이 <strong>다르면</strong> 아래 흐름 전체가 맞지 않습니다.
+            {alternates.length > 0 ? ' 사진에서 함께 확인된 것:' : ' 직접 고를 수 있습니다.'}
+          </p>
+          <div className="mt-1.5 flex flex-wrap gap-1.5">
+            {alternates.map((a) => (
+              <button
+                key={a.group_key}
+                type="button"
+                onClick={() => pick(a.group_key)}
+                title={a.path}
+                disabled={busy}
+                className="rounded-full border border-slate-300 bg-white px-2.5 py-1 text-xs text-slate-700 hover:border-slate-500 disabled:opacity-50"
+              >
+                {a.label}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={() => setPicking((v) => !v)}
+              disabled={busy}
+              className="rounded-full border border-dashed border-slate-400 bg-white px-2.5 py-1 text-xs text-slate-600 hover:border-slate-600 disabled:opacity-50"
+            >
+              {picking ? '검색 닫기' : '＋ 목록에서 직접 찾기'}
+            </button>
+            {corrected && (
+              <button
+                type="button"
+                onClick={() => setCurrent(null)}
+                disabled={busy}
+                className="rounded-full border border-slate-300 bg-white px-2.5 py-1 text-xs text-slate-500 underline hover:text-slate-800 disabled:opacity-50"
+              >
+                처음 인식으로 되돌리기
+              </button>
+            )}
           </div>
-        )}
+          {err && <p className="mt-1.5 text-xs text-red-600">{err}</p>}
+          {picking && (
+            <AnchorPicker current={anchor.group_key} onPick={pick} onClose={() => setPicking(false)} />
+          )}
+        </div>
       </div>
 
       {/* ② 신뢰 고지 — tooltip에 숨기지 않는다(폰 스크린샷 전달이 주 경로) */}
@@ -175,6 +306,7 @@ const WorkFlowPanel: React.FC<{
         <p>
           <strong>기인물을 잘못 잡으면 아래 흐름 전체가 어긋납니다.</strong> 먼저 위의 기인물이 맞는지
           확인하세요.
+          {corrected && ' 지금은 직접 고른 기인물 기준으로 보고 있습니다.'}
         </p>
         {!reviewed && (
           <p>

@@ -136,12 +136,35 @@ async def build(result: dict) -> Optional[WorkFlow]:
                     slots=_slots(rows[0]), reviewed=LABELS_REVIEWED)
 
 
-def by_group_key(group_key: str) -> Optional[WorkFlow]:
-    """사용자가 앵커를 정정했을 때 — LLM 없이 해당 그룹의 흐름만 다시 만든다."""
+def by_group_key(group_key: str, alternates: Optional[list[str]] = None) -> Optional[WorkFlow]:
+    """사용자가 앵커를 정정했을 때 — LLM 없이 해당 그룹의 흐름만 다시 만든다.
+
+    alternates에 원래 후보 키들을 넘기면 그대로 유지한다(되돌아갈 길을 남긴다).
+    """
     fl = _flows()
     if fl is None:
         return None
     row = next((r for r in fl["rows"] if r["no"] == group_key), None)
     if row is None:
         return None
-    return WorkFlow(anchor=_anchor(row), slots=_slots(row), reviewed=LABELS_REVIEWED)
+    alts = [_anchor(r) for k in (alternates or []) if k != group_key
+            for r in fl["rows"] if r["no"] == k]
+    return WorkFlow(anchor=_anchor(row), alternates=alts, slots=_slots(row), reviewed=LABELS_REVIEWED)
+
+
+def list_groups() -> list[dict]:
+    """앵커 선택기용 전체 목록.
+
+    ★ 대안 후보만으로는 정정이 안 된다 — 앵커가 **완전히** 빗나가는 사진이 26.7%다(감독관 gold 45장).
+      그런 사진은 RESOLVE가 제시한 1~4개 안에 정답이 아예 없다. 전체에서 고를 수 있어야 한다.
+    """
+    fl = _flows()
+    if fl is None:
+        return []
+    out = []
+    for r in fl["rows"]:
+        ins = r.get("inspection") or {}
+        out.append({"group_key": r["no"], "label": r.get("subject", ""), "path": r.get("path", ""),
+                    "is_inspection_target": bool(ins.get("is_target")),
+                    "n_items": sum(len(v) for v in (r.get("items") or {}).values())})
+    return out
