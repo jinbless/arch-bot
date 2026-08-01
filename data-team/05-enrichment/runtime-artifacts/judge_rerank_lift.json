@@ -1,0 +1,842 @@
+{
+  "summary": {
+    "all": {
+      "n": 80,
+      "norerank_mean": 0.675,
+      "rerank_mean": 1.475,
+      "delta": 0.8,
+      "rerank_win": 43,
+      "tie": 32,
+      "rerank_loss": 5,
+      "changed_top1": 50,
+      "norerank_adeq>=2": 19,
+      "rerank_adeq>=2": 55
+    },
+    "rescue": {
+      "n": 40,
+      "norerank_mean": 0.8,
+      "rerank_mean": 1.85,
+      "delta": 1.05,
+      "rerank_win": 28,
+      "tie": 10,
+      "rerank_loss": 2,
+      "changed_top1": 32,
+      "norerank_adeq>=2": 11,
+      "rerank_adeq>=2": 35
+    },
+    "both": {
+      "n": 40,
+      "norerank_mean": 0.55,
+      "rerank_mean": 1.1,
+      "delta": 0.55,
+      "rerank_win": 15,
+      "tie": 22,
+      "rerank_loss": 3,
+      "changed_top1": 18,
+      "norerank_adeq>=2": 8,
+      "rerank_adeq>=2": 20
+    }
+  },
+  "rows": [
+    {
+      "case_id": "SYN-V8-0279",
+      "seg": "rescue",
+      "norerank_guide": "C-C-29-2026",
+      "rerank_guide": "K-1-2023",
+      "changed": true,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "가이드 A는 유해화학물질 저장 및 취급 절차에 직접 관련되며, 가이드 B는 경고표지 및 라벨링 관리에 적합함"
+    },
+    {
+      "case_id": "SYN-V7-0069",
+      "seg": "rescue",
+      "norerank_guide": "C-C-25-2026",
+      "rerank_guide": "P-171-2021",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 0,
+      "reason": "가이드 A는 자동버너 제어 관련으로 온도계 오류 및 살균 온도 미달 문제와 직접 관련 없음; 가이드 B는 인적 오류 방지에 관한 규정으로 작업자 확인 및 온도계 교차 확인 절차와 관련 있어 일부 적합"
+    },
+    {
+      "case_id": "SYN-V2-0025",
+      "seg": "rescue",
+      "norerank_guide": "H-122-2013",
+      "rerank_guide": "G-106-2013",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "연삭 작업 중 실리카 분진 발생에 대한 안전보건 지침이 직접 관련됨, 목재 분진 지침은 해당 작업과 무관함"
+    },
+    {
+      "case_id": "SYN-V7-0236",
+      "seg": "rescue",
+      "norerank_guide": "D-C-3-2025",
+      "rerank_guide": "D-C-3-2025",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "두 가이드 모두 철골공사 및 데크플레이트 작업 중 개구부 추락 방호와 안전망 설치, 안전대 착용 등 안전조치에 직접 관련되어 있음"
+    },
+    {
+      "case_id": "SYN-V7-0205",
+      "seg": "rescue",
+      "norerank_guide": "C-53-2012",
+      "rerank_guide": "D-C-15-2026",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 프리캐스트 조립 중심으로 배수 문제 직접 언급 적음. 가이드 B는 콘크리트 슬래브 작업 전반 안전작업 규정으로 배수 및 미끄럼 방지 등 직접 관련됨."
+    },
+    {
+      "case_id": "SYN-V7-0183",
+      "seg": "rescue",
+      "norerank_guide": "A-G-13-2026",
+      "rerank_guide": "C-53-2012",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 거푸집 조립 및 크레인 인양 작업에 직접 관련되어 있어 적합하며, 가이드 B는 슬링 사용 및 점검에 관한 규정으로 관련은 있으나 구체적 작업 상황과는 다소 차이가 있음"
+    },
+    {
+      "case_id": "SYN-V7-0097",
+      "seg": "rescue",
+      "norerank_guide": "P-126-2012",
+      "rerank_guide": "G-82-2018",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "에칭 공정과 부식성 폐액 취급은 실험실 안전보건 지침과 직접 관련되나, 이황화탄소 드럼작업은 해당 위험과 무관함"
+    },
+    {
+      "case_id": "SYN-V7-0059",
+      "seg": "rescue",
+      "norerank_guide": "G-52-2017",
+      "rerank_guide": "B-M-30-2026",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 액상유체 이송과 관련된 안전 지침으로 관련 있으나, 컨테이너 실링 변형 및 누기 검사에 직접적이지 않음. 가이드 B는 탐상검사 방법을 다루어 누기 여부 확인에 직접 적합함."
+    },
+    {
+      "case_id": "SYN-V8-0317",
+      "seg": "rescue",
+      "norerank_guide": "H-191-2021",
+      "rerank_guide": "E-G-19-2026",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 방독 마스크 착용과 호흡보호구 관리에 직접 관련되어 있어 적합하며, 가이드 B는 살처분 작업자 건강관리로 해당 상황과 무관함"
+    },
+    {
+      "case_id": "SYN-V8-0183",
+      "seg": "rescue",
+      "norerank_guide": "D-28-2012",
+      "rerank_guide": "D-28-2012",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "두 가이드 모두 소규모사업장 화재·폭발사고 방지에 관한 지침으로, 기름 화재 시 물 사용 금지 및 적절한 소화기 사용법을 포함하여 위험 상황에 직접 적합함"
+    },
+    {
+      "case_id": "SYN-V7-0044",
+      "seg": "rescue",
+      "norerank_guide": "C-48-2022",
+      "rerank_guide": "P-2-2012",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 저장탱크 과충전 방지에 관한 지침으로, 화학물질 충전 용기 계량계 문제와 직접 관련되어 적합함. 가이드 B는 건설기계 안전보건 지침으로 해당 위험과 무관함."
+    },
+    {
+      "case_id": "SYN-V8-0229",
+      "seg": "rescue",
+      "norerank_guide": "G-106-2013",
+      "rerank_guide": "H-122-2013",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 목재 분진 노출과 관련된 보건관리 지침으로 분진 농도와 방진마스크 착용 권고에 직접 적합함. 가이드 B는 실리카 분진에 관한 지침으로 분진 종류는 다르지만 분진 노출 관리라는 대분류는 일치함."
+    },
+    {
+      "case_id": "SYN-V8-0057",
+      "seg": "rescue",
+      "norerank_guide": "P-27-2012",
+      "rerank_guide": "P-137-2018",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 감지기 설치 및 보수에 관한 지침으로, CO 감지기 배터리 방전 및 미작동 문제에 직접 적합함. 가이드 B는 폐용제 회수작업 관련으로 무관함."
+    },
+    {
+      "case_id": "SYN-V3-0012",
+      "seg": "rescue",
+      "norerank_guide": "G-28-2016",
+      "rerank_guide": "M-14-2012",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 B는 수동용 칼 사용과 관련된 안전 지침으로, 칼 관리 및 세척 시 위험 방지에 직접 적합함. 가이드 A는 요양시설 관련으로 주방 칼 위험과 무관함."
+    },
+    {
+      "case_id": "SYN-V3-0004",
+      "seg": "rescue",
+      "norerank_guide": "G-28-2016",
+      "rerank_guide": "G-11-2017",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 미끄럼 방지 및 넘어짐 방지에 직접 관련되어 있어 적합하며, 가이드 B는 요양시설 안전에 관한 내용으로 주방 미끄럼 위험과 무관함"
+    },
+    {
+      "case_id": "SYN-V7-0050",
+      "seg": "rescue",
+      "norerank_guide": "C-C-31-2026",
+      "rerank_guide": "P-165-2019",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 인화성 물질 저장탱크 작업에 직접 관련되어 있어 표준 개선 절차에 적합하며, 가이드 B는 화학공정 설비 전반에 관한 내용으로 관련성은 있으나 구체적이지 않음"
+    },
+    {
+      "case_id": "SYN-V7-0178",
+      "seg": "rescue",
+      "norerank_guide": "H-172-2015",
+      "rerank_guide": "H-172-2015",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "두 가이드 모두 아스팔트 도로포장 작업자의 보건관리지침으로, 방독마스크 착용과 흄 노출 관리에 직접 관련됨"
+    },
+    {
+      "case_id": "SYN-V7-0193",
+      "seg": "rescue",
+      "norerank_guide": "C-22-2011",
+      "rerank_guide": "D-C-9-2026",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 B는 거푸집 및 동바리 안전작업에 직접 관련되어 있어 적합하며, 가이드 A는 사장교 교량공사에 한정되어 무관함"
+    },
+    {
+      "case_id": "SYN-V8-0142",
+      "seg": "rescue",
+      "norerank_guide": "B-M-11-2025",
+      "rerank_guide": "B-M-11-2025",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "포크 고위치 주행과 천장 구조물 충돌 위험을 직접 다루는 지게차 안전작업 규정임"
+    },
+    {
+      "case_id": "SYN-V8-0241",
+      "seg": "rescue",
+      "norerank_guide": "B-M-5-2025",
+      "rerank_guide": "M-180-2023",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 1,
+      "reason": "가이드 A는 재단기 관련으로 재봉틀과 같은 바늘 작업과는 다르지만, 기계 안전과 관련되어 있어 같은 대분류임. 가이드 B는 분쇄기 관련으로 전혀 무관함."
+    },
+    {
+      "case_id": "SYN-V2-0047",
+      "seg": "rescue",
+      "norerank_guide": "G-67-2011",
+      "rerank_guide": "C-62-2012",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 외벽 청소 관련으로 로프 작업과 관련 있으나 구체적이지 않음, 가이드 B는 곤돌라 작업 안전 지침으로 로프 처짐 조정에 직접적 관련 있음"
+    },
+    {
+      "case_id": "SYN-V8-0199",
+      "seg": "rescue",
+      "norerank_guide": "H-53-2021",
+      "rerank_guide": "P-139-2013",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가스 누출 시 전기 조작 금지 및 비상조치 관련하여 '가스용기의 비상조치방법에 관한 기술지침'이 직접적으로 적합함. 반면, '병원 근로자의 마취가스 노출관리 지침'은 의료 환경과 다른 가스 종류에 관한 내용으로 무관함."
+    },
+    {
+      "case_id": "SYN-V7-0158",
+      "seg": "rescue",
+      "norerank_guide": "C-103-2014",
+      "rerank_guide": "C-103-2014",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "계측 이상값 발생 시 작업 중단 및 보고 절차가 직접 다뤄짐"
+    },
+    {
+      "case_id": "SYN-V8-0290",
+      "seg": "rescue",
+      "norerank_guide": "M-56-2020",
+      "rerank_guide": "M-5-2012",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "제본기는 작업장비에 해당하므로 '작업장비 사용에 관한 기술지침'이 직접 적합하며, 사출성형기는 다른 장비로 관련성은 있으나 직접적이지 않음"
+    },
+    {
+      "case_id": "SYN-V8-0054",
+      "seg": "rescue",
+      "norerank_guide": "H-223-2023",
+      "rerank_guide": "C-C-52-2026",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 권양기 가동 전 점검과 관련되어 검사 유효 기간 초과 시 작업 중단 및 재검사 절차에 직접 적합함. 가이드 B는 건강진단 관련으로 권양기 검사와 무관함."
+    },
+    {
+      "case_id": "SYN-V7-0180",
+      "seg": "rescue",
+      "norerank_guide": "B-M-8-2025",
+      "rerank_guide": "M-49-2023",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 1,
+      "reason": "진동 롤러 작업은 적재 및 하역과 관련 있으나 직접적이지 않고, 이동식 크레인과는 무관함"
+    },
+    {
+      "case_id": "SYN-V8-0084",
+      "seg": "rescue",
+      "norerank_guide": "M-8-2016",
+      "rerank_guide": "B-M-5-2025",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 분쇄기 안전작업에 관한 규정으로 파쇄기 안전 가드 문제에 직접 관련됨. 가이드 B는 열성형기 사용 지침으로 무관함."
+    },
+    {
+      "case_id": "SYN-V8-0228",
+      "seg": "rescue",
+      "norerank_guide": "P-6-2011",
+      "rerank_guide": "E-G-21-2026",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 화재·폭발 예방에 관한 내용으로 집진 덕트 청소 위험과 무관하며, 가이드 B는 산업환기설비 관련으로 집진기 및 덕트 청소 시 안전 절차에 직접 적합함"
+    },
+    {
+      "case_id": "SYN-V7-0239",
+      "seg": "rescue",
+      "norerank_guide": "D-C-3-2025",
+      "rerank_guide": "D-C-3-2025",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "두 가이드 모두 데크플레이트 포함 철골공사의 안전작업 기술지원규정으로, 용접부 외관 검사 및 비파괴 검사 절차에 직접 관련됨"
+    },
+    {
+      "case_id": "SYN-0029",
+      "seg": "rescue",
+      "norerank_guide": "M-61-2017",
+      "rerank_guide": "M-61-2017",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "로봇 용접 셀 안전 펜스와 인터록 표시등 상태 확인은 산업용 로봇 안전기술지침의 핵심 내용으로, 현장 안전 절차 개선에 직접 적합함."
+    },
+    {
+      "case_id": "SYN-V7-0118",
+      "seg": "rescue",
+      "norerank_guide": "E-121-2012",
+      "rerank_guide": "E-179-2020",
+      "changed": true,
+      "norerank_score": 2,
+      "rerank_score": 1,
+      "reason": "가이드 A는 정전기 차폐 백 사용과 관련된 표준 시험 방법을 다루어 직접적 개선 절차에 적합함. 가이드 B는 정전기 오염 방지 일반 지침으로 관련 있으나 구체적이지 않음."
+    },
+    {
+      "case_id": "SYN-V7-0303",
+      "seg": "rescue",
+      "norerank_guide": "H-169-2015",
+      "rerank_guide": "M-171-2013",
+      "changed": true,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "가이드 A는 리프트 작업 안전에 직접 관련되며, 가이드 B는 디젤엔진 배기가스 노출 보건관리 지침으로 배기가스 노출 위험에 적합함"
+    },
+    {
+      "case_id": "SYN-V7-0114",
+      "seg": "rescue",
+      "norerank_guide": "M-193-2020",
+      "rerank_guide": "M-61-2017",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 B는 산업용 로봇 안전에 직접 관련되어 있어 적합하며, 가이드 A는 인쇄기 안전에 관한 내용으로 무관함"
+    },
+    {
+      "case_id": "SYN-V7-0175",
+      "seg": "rescue",
+      "norerank_guide": "M-7-2016",
+      "rerank_guide": "C-29-2017",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 1,
+      "reason": "가이드 A는 보호망 설치와 관련되어 있어 개구부 가드 상태와 일부 연관되나, 경고등 설치 및 야간 무인 상태 관리에는 직접적이지 않음. 가이드 B는 블로우 성형기 사용과 관련되어 위험 상황과 무관함."
+    },
+    {
+      "case_id": "SYN-V7-0299",
+      "seg": "rescue",
+      "norerank_guide": "A-G-14-2026",
+      "rerank_guide": "C-C-49-2026",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 안전작업허가서 관리 절차에 직접 관련되어 있어 적합하며, 가이드 B는 용접·용단 작업에 국한되어 있어 화기 작업 허가서 전반에는 부정확함."
+    },
+    {
+      "case_id": "SYN-V7-0049",
+      "seg": "rescue",
+      "norerank_guide": "P-165-2019",
+      "rerank_guide": "P-2-2012",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 저장탱크 과충전 방지에 직접 관련되어 수위 게이지 문제와 과충전 판단에 적합함. 가이드 B는 인화성물질 저장탱크 안전작업 전반에 관한 내용으로 관련성은 있으나 직접적이지 않음."
+    },
+    {
+      "case_id": "SYN-V8-0014",
+      "seg": "rescue",
+      "norerank_guide": "H-187-2021",
+      "rerank_guide": "H-51-2021",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 B는 피부감작물질 노출과 관련된 보건관리 지침으로, 농약 살포 후 방제복 탈의 및 오염 처리 절차에 직접 적합함. 가이드 A는 응급처치 요령으로 본 위험 상황과 무관함."
+    },
+    {
+      "case_id": "SYN-V7-0054",
+      "seg": "rescue",
+      "norerank_guide": "E-171-2018",
+      "rerank_guide": "A-187-2020",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 실험실 화학물질 취급과 관련된 작업환경 측정 및 분석 지침으로, 흄후드의 적정 가동과 풍속 관리에 직접 관련됨. 가이드 B는 정전기 화재 예방에 관한 내용으로 흄후드 풍속과 무관함."
+    },
+    {
+      "case_id": "SYN-V7-0322",
+      "seg": "rescue",
+      "norerank_guide": "E-179-2020",
+      "rerank_guide": "E-188-2021",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 정전기 재해예방에 직접 관련되어 있어 도장 부스 내 정전기 방지에 적합함. 가이드 B는 오염방지에 초점이 맞춰져 있어 위험 상황과 부적합함."
+    },
+    {
+      "case_id": "SYN-V7-0307",
+      "seg": "rescue",
+      "norerank_guide": "H-42-2021",
+      "rerank_guide": "H-42-2021",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "폐유 처리 및 피부 보호 장갑 착용 관련 지침으로 위험 상황에 직접 적합함"
+    },
+    {
+      "case_id": "SYN-V6-0242",
+      "seg": "both",
+      "norerank_guide": "B-M-13-2025",
+      "rerank_guide": "E-M-4-2025",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 혈액원성 병원체 감염 위험과 샤프 컨테이너 사용 지침을 다루어 치과 탐침 안전 처리에 직접 적합함. 가이드 B는 벌목 작업 관련으로 무관함."
+    },
+    {
+      "case_id": "SYN-V3-0027",
+      "seg": "both",
+      "norerank_guide": "A-G-10-2025",
+      "rerank_guide": "A-G-10-2025",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "튀김기 온도 관리가 급식실 시설 안전과 직결되어 있어 해당 규정이 직접 적합함"
+    },
+    {
+      "case_id": "SYN-0113",
+      "seg": "both",
+      "norerank_guide": "B-M-3-2025",
+      "rerank_guide": "B-M-3-2025",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "파쇄기 방호조치 규정은 금속 부품 이송 작업자의 안전화 착용과 관련이 없음"
+    },
+    {
+      "case_id": "SYN-V9-0174",
+      "seg": "both",
+      "norerank_guide": "B-M-3-2025",
+      "rerank_guide": "A-G-11-2025",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 B는 용접방화포의 성능 및 설치기준을 다루어 강풍 시 방화포 관리와 작업 중단 기준에 직접 적합함. 가이드 A는 파쇄기 방호조치로 무관함."
+    },
+    {
+      "case_id": "SYN-V5-0149",
+      "seg": "both",
+      "norerank_guide": "A-G-18-2026",
+      "rerank_guide": "A-G-18-2026",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "항만하역작업 관련 가이드로, 창고 내 비료 포대 적재 및 선반 내하중과 직접 관련 없음"
+    },
+    {
+      "case_id": "SYN-V6-0097",
+      "seg": "both",
+      "norerank_guide": "A-G-1-2025",
+      "rerank_guide": "D-C-13-2026",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 추락방호망 설치에 관한 규정으로, 도료로 인한 미끄럼 및 안전화 미착용 문제와 직접 관련이 없음. 가이드 B는 외벽 도장 보수공사 안전작업에 관한 규정으로, 도장 작업 중 미끄럼 및 안전화 착용 등 작업 안전에 직접 적합함."
+    },
+    {
+      "case_id": "SYN-V10-0160",
+      "seg": "both",
+      "norerank_guide": "B-M-13-2025",
+      "rerank_guide": "B-M-13-2025",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "위험 상황이 제공되지 않아 가이드 적합성 평가 불가"
+    },
+    {
+      "case_id": "SYN-V4-0064",
+      "seg": "both",
+      "norerank_guide": "B-M-13-2025",
+      "rerank_guide": "B-M-13-2025",
+      "changed": false,
+      "norerank_score": 1,
+      "rerank_score": 1,
+      "reason": "기계톱 관련 규정이나 벌목작업 규정은 원형톱 안전 가드 점검에 일부 관련되나, 직접적인 원형톱 안전 가드 완전 닫힘 확인 절차에 특화되지 않음"
+    },
+    {
+      "case_id": "SYN-V10-0066",
+      "seg": "both",
+      "norerank_guide": "C-21-2011",
+      "rerank_guide": "C-21-2011",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "위험 상황이 제공되지 않아 가이드 적합성 평가 불가"
+    },
+    {
+      "case_id": "SYN-V6-0129",
+      "seg": "both",
+      "norerank_guide": "A-G-9-2025",
+      "rerank_guide": "A-G-9-2025",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "창고 작업 시 안전에 관한 기술지원규정은 무거운 물품 반복 운반과 관련된 안전 조치(손수레 사용, 중량 제한 등)를 다루어 위험 상황에 직접 적합함."
+    },
+    {
+      "case_id": "SYN-V3-0088",
+      "seg": "both",
+      "norerank_guide": "A-G-3-2025",
+      "rerank_guide": "A-G-3-2025",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "두 가이드 모두 오토바이 배달작업 안전 관련으로, 브레이크 패드 마모 상태 점검 및 교체 기준 안내에 직접 적합함"
+    },
+    {
+      "case_id": "SYN-V6-0294",
+      "seg": "both",
+      "norerank_guide": "H-191-2021",
+      "rerank_guide": "B-E-14-2026",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 전기 작업 시 감전 방지와 관련된 규정으로, 전원 차단 및 전기 작업 안전에 직접 적합함. 가이드 B는 살처분 작업자 건강관리와 관련되어 전기 작업과 무관함."
+    },
+    {
+      "case_id": "SYN-V6-0273",
+      "seg": "both",
+      "norerank_guide": "H-186-2016",
+      "rerank_guide": "H-186-2016",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "감염성 시신 처리 시 특수 보호복과 음압 처리실 사용 등 공기매개 감염병 확산 방지 지침이 직접 관련됨"
+    },
+    {
+      "case_id": "SYN-V4-0029",
+      "seg": "both",
+      "norerank_guide": "A-G-10-2025",
+      "rerank_guide": "A-G-10-2025",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "급식실 시설 관련 규정으로 고데기 고온 작업과 무관함"
+    },
+    {
+      "case_id": "SYN-V6-0181",
+      "seg": "both",
+      "norerank_guide": "B-M-13-2025",
+      "rerank_guide": "G-6-2011",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 폐기물 처리 작업과 관련된 안전 절차를 다루어 유리 파편 노출 및 내절단장갑 착용 의무화에 직접 적합함. 가이드 B는 벌목작업 관련으로 무관함."
+    },
+    {
+      "case_id": "SYN-V10-0298",
+      "seg": "both",
+      "norerank_guide": "A-154-2018",
+      "rerank_guide": "A-154-2018",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "위험 상황이 제공되지 않아 가이드 적합성 평가 불가"
+    },
+    {
+      "case_id": "SYN-V9-0122",
+      "seg": "both",
+      "norerank_guide": "B-M-37-2026",
+      "rerank_guide": "C-14-2012",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "하수관로 내부 방수공사는 밀폐공간 작업에 해당하여 가이드 A가 직접 적합하며, 가이드 B는 기계 끼임·절단 예방과 관련되어 무관함"
+    },
+    {
+      "case_id": "SYN-V10-0047",
+      "seg": "both",
+      "norerank_guide": "B-M-3-2025",
+      "rerank_guide": "B-E-10-2026",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 B는 전기작업 및 전원 차단, 절연 공구 사용 등 전기 안전 절차에 직접 관련됨. 가이드 A는 파쇄기 방호조치로 무관함."
+    },
+    {
+      "case_id": "SYN-0118",
+      "seg": "both",
+      "norerank_guide": "B-M-3-2025",
+      "rerank_guide": "B-M-3-2025",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "파쇄기 방호조치 규정은 금속 부품 취급 시 안전화 착용 확인과 무관함"
+    },
+    {
+      "case_id": "SYN-V9-0032",
+      "seg": "both",
+      "norerank_guide": "C-45-2012",
+      "rerank_guide": "E-G-19-2026",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 터널공사 관련으로 공동구와 유사한 밀폐 공간 작업에 일부 적용 가능하나 직접적이지 않음. 가이드 B는 호흡보호구 선정 및 사용에 관한 규정으로 마스크 착용과 환기 문제에 직접 적합함."
+    },
+    {
+      "case_id": "SYN-V2-0044",
+      "seg": "both",
+      "norerank_guide": "B-M-8-2025",
+      "rerank_guide": "C-26-2017",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 크레인 작업에 초점이 있으나 로프 작업과 보행자 통제 관련 직접 지침은 부족함. 가이드 B는 낙하물 방지망 설치에 관한 구체적 지침으로 위험 상황에 직접 적합함."
+    },
+    {
+      "case_id": "SYN-V9-0263",
+      "seg": "both",
+      "norerank_guide": "A-G-18-2026",
+      "rerank_guide": "A-G-18-2026",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "항만하역작업 관련 규정으로 조경 공사 중량 배수관 운반과 직접 관련 없음"
+    },
+    {
+      "case_id": "SYN-V3-0079",
+      "seg": "both",
+      "norerank_guide": "B-M-15-2026",
+      "rerank_guide": "B-M-15-2026",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "고온 염색기 안전 규정은 고객 혼잡도 및 서빙 동선과 무관함"
+    },
+    {
+      "case_id": "SYN-V10-0068",
+      "seg": "both",
+      "norerank_guide": "C-21-2011",
+      "rerank_guide": "C-21-2011",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "위험 상황이 제공되지 않아 가이드 적합성 평가 불가"
+    },
+    {
+      "case_id": "SYN-V2-0056",
+      "seg": "both",
+      "norerank_guide": "D-C-11-2026",
+      "rerank_guide": "D-C-5-2025",
+      "changed": true,
+      "norerank_score": 2,
+      "rerank_score": 1,
+      "reason": "가이드 A는 굴착 및 토공 작업 전반의 안전조치와 지하수 차단·배수 등 위험 대응 절차를 직접 다루어 적합함. 가이드 B는 굴착면 안전기울기 기준에 관한 내용으로 관련 있으나 지하수 용출과 즉각 대피 조치 등 구체적 절차는 부족함."
+    },
+    {
+      "case_id": "SYN-V10-0111",
+      "seg": "both",
+      "norerank_guide": "B-E-10-2026",
+      "rerank_guide": "B-E-10-2026",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "위험 상황이 제공되지 않아 가이드 적합성 평가 불가"
+    },
+    {
+      "case_id": "SYN-V4-0067",
+      "seg": "both",
+      "norerank_guide": "A-G-14-2026",
+      "rerank_guide": "F-2-2011",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 용접·용단 작업에 초점, 전기 그라인더와 분진 폭발 위험에는 직접적이지 않음. 가이드 B는 목재가공시설의 화재폭발 예방에 관한 기준으로 분진 폭발 위험과 밀접함."
+    },
+    {
+      "case_id": "SYN-V3-0056",
+      "seg": "both",
+      "norerank_guide": "A-G-1-2025",
+      "rerank_guide": "A-G-4-2025",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 추락방호망 설치에 관한 내용으로 사다리 사용과 직접 관련 없음. 가이드 B는 이동식 사다리 사용에 관한 규정으로 사다리 안전 사용 절차에 적합함."
+    },
+    {
+      "case_id": "SYN-V5-0137",
+      "seg": "both",
+      "norerank_guide": "C-C-74-2026",
+      "rerank_guide": "C-C-74-2026",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "비상대응계획 관련 가이드로 장시간 쪼그려 작업과 휴식, 보호대 착용 등 작업 자세 개선과 무관함"
+    },
+    {
+      "case_id": "SYN-V6-0308",
+      "seg": "both",
+      "norerank_guide": "B-M-13-2025",
+      "rerank_guide": "B-M-13-2025",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "기계톱 벌목작업 규정은 놀이기구 정비 및 손 찔림 위험과 무관함"
+    },
+    {
+      "case_id": "SYN-V4-0036",
+      "seg": "both",
+      "norerank_guide": "C-C-74-2026",
+      "rerank_guide": "C-C-74-2026",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "비상대응계획 관련 규정으로 레이저 시술 안전 절차와 무관함"
+    },
+    {
+      "case_id": "SYN-V10-0238",
+      "seg": "both",
+      "norerank_guide": "A-154-2018",
+      "rerank_guide": "A-154-2018",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "위험 상황이 제공되지 않아 가이드 적합성 평가 불가"
+    },
+    {
+      "case_id": "SYN-V4-0047",
+      "seg": "both",
+      "norerank_guide": "C-2-2020",
+      "rerank_guide": "C-2-2020",
+      "changed": false,
+      "norerank_score": 0,
+      "rerank_score": 0,
+      "reason": "수상 바지선 관련 건설공사 안전작업 지침으로, 새벽 외부 단독 작업과 무관함"
+    },
+    {
+      "case_id": "SYN-V4-0016",
+      "seg": "both",
+      "norerank_guide": "M-188-2015",
+      "rerank_guide": "H-73-2015",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 B는 용접 작업에 직접 관련된 보건관리 지침으로, 용접 시 필요한 방화포 설치, 소화기 대기, 보호구 착용, 환기 등 표준 개선 절차에 적합함. 가이드 A는 농업용 기계 안전에 관한 지침으로 용접 작업과 무관함."
+    },
+    {
+      "case_id": "SYN-V2-0004",
+      "seg": "both",
+      "norerank_guide": "C-18-2015",
+      "rerank_guide": "D-C-15-2026",
+      "changed": true,
+      "norerank_score": 2,
+      "rerank_score": 1,
+      "reason": "가이드 A는 건설공사 전반의 안전보건 설계 및 비상대피로 확보에 직접 관련되어 있어 적합하며, 가이드 B는 콘크리트 작업 기술지원에 초점이 있어 비상대피로 차단 문제에 간접적 관련만 있음"
+    },
+    {
+      "case_id": "SYN-V9-0051",
+      "seg": "both",
+      "norerank_guide": "A-G-9-2025",
+      "rerank_guide": "A-G-18-2026",
+      "changed": true,
+      "norerank_score": 2,
+      "rerank_score": 1,
+      "reason": "광케이블 드럼 이동은 창고 작업과 유사하며, 창고 작업 가이드가 직접적인 이동 및 협업, 장비 사용 지침을 포함함. 항만하역작업 가이드는 대분류는 맞으나 구체적이지 않음."
+    },
+    {
+      "case_id": "SYN-V3-0032",
+      "seg": "both",
+      "norerank_guide": "B-M-10-2025",
+      "rerank_guide": "D-28-2012",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 화재·폭발 방지에 직접 관련되어 점화 실패 후 가스 누적 위험에 적합함. 가이드 B는 화학설비 설치 규정으로 직접적 관련성은 낮음."
+    },
+    {
+      "case_id": "SYN-V9-0117",
+      "seg": "both",
+      "norerank_guide": "C-05-2016",
+      "rerank_guide": "P-149-2016",
+      "changed": true,
+      "norerank_score": 1,
+      "rerank_score": 2,
+      "reason": "가이드 A는 건설공사 전반에 관한 지침으로 일부 관련 있으나, 가스 봄베 보관 세부사항은 가이드 B가 직접 다룸"
+    },
+    {
+      "case_id": "SYN-V9-0078",
+      "seg": "both",
+      "norerank_guide": "B-M-3-2025",
+      "rerank_guide": "B-M-14-2025",
+      "changed": true,
+      "norerank_score": 0,
+      "rerank_score": 2,
+      "reason": "가이드 A는 연삭기 작업 중 불꽃 비산과 관련된 안전조치(보안경 착용, 방호막 설치 등)를 직접 다루어 적합함. 가이드 B는 파쇄기 방호조치로 연삭기 작업과 무관함."
+    },
+    {
+      "case_id": "SYN-V9-0005",
+      "seg": "both",
+      "norerank_guide": "B-E-10-2026",
+      "rerank_guide": "B-E-10-2026",
+      "changed": false,
+      "norerank_score": 2,
+      "rerank_score": 2,
+      "reason": "두 가이드 모두 정전 작업 및 전기작업 안전 절차에 관한 규정으로, 전주 변압기 인근 작업 시 정전 확인 및 표지 관리에 직접 관련됨"
+    }
+  ]
+}

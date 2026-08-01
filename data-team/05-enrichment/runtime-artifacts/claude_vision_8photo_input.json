@@ -1,0 +1,220 @@
+{
+  "_note": "Claude(=Vision 대역)가 real-test-photo/ 8장을 직접 보고 작성한 관찰. v2: risk_feature_candidates를 risk_feature_catalog.json(v3.3, 161/204/99) 정확 코드로 교정(KOSHA-22 정본 아님). 고소작업대·사출성형 work_context는 카탈로그 부재(갭) → 생략.",
+  "photos": [
+    {
+      "photo": "고소대작업(httpswww.youtube.comwatchv=Up-7KNjVJQM).png",
+      "industry": "건설/설비",
+      "result": {
+        "visual_observations": [
+          {"text": "실내 천장 HVAC 덕트 부근 적색 고소작업대(이동식 리프트) 위 작업자 2명 설비작업", "confidence": 0.95, "severity": "HIGH"},
+          {"text": "작업자가 작업대 난간 밖으로 상체를 숙여 자재를 들어올림 — 무게중심 난간 밖 쏠림", "confidence": 0.85, "severity": "HIGH"}
+        ],
+        "visual_cues": [
+          {"text": "고소작업대(시저 리프트) 위 작업자", "cue_type": "object", "confidence": 0.95},
+          {"text": "백색 안전모 착용", "cue_type": "state", "confidence": 0.9},
+          {"text": "난간 밖 상체 돌출", "cue_type": "activity", "confidence": 0.8}
+        ],
+        "hazards": [
+          {"name": "고소 추락", "risk_level": "high", "location": "고소작업대 난간부", "description": "고소작업대 위 작업자가 난간 밖으로 상체를 숙여 추락 위험", "preventive_measures": ["안전대 체결 확인", "난간 밖 상체 돌출 금지"], "mapped_codes": ["accident_type.FALL_FROM_HEIGHT"]},
+          {"name": "낙하물", "risk_level": "medium", "location": "작업대 하부", "description": "작업대 위 자재·공구 낙하로 하부 인원 피해", "preventive_measures": ["하부 출입통제", "공구 결속"], "mapped_codes": ["accident_type.FALLING_OBJECT"]}
+        ],
+        "risk_feature_candidates": [
+          {"axis": "accident_type", "text": "FALL_FROM_HEIGHT", "evidence": "고소작업대 위 난간 밖 상체 돌출", "confidence": 0.9},
+          {"axis": "accident_type", "text": "FALL", "evidence": "고소작업 추락", "confidence": 0.85},
+          {"axis": "accident_type", "text": "FALLING_OBJECT", "evidence": "작업대 위 자재", "confidence": 0.6},
+          {"axis": "environmental", "text": "HIGH_ELEVATION", "evidence": "고소 작업대", "confidence": 0.8},
+          {"axis": "ppe_state", "text": "HELMET_WORN", "evidence": "백색 안전모", "confidence": 0.85}
+        ],
+        "overall_assessment": "실내 고소작업대 작업 중 추락이 최우선. 안전대 체결·작업자세가 핵심.",
+        "immediate_actions": ["안전대 체결 확인", "난간 밖 상체 돌출 작업 중지"]
+      }
+    },
+    {
+      "photo": "지게차(httpswww.youtube.comwatchv=c-rhPC6XRgk).png",
+      "industry": "물류창고",
+      "result": {
+        "visual_observations": [
+          {"text": "창고 통로에서 카운터밸런스 지게차 주행 중, 보행 작업자가 지게차 진행방향 근처 도보 통행", "confidence": 0.9, "severity": "HIGH"},
+          {"text": "보행자 통로 구획·방호울 없음, 지게차-보행자 동선 혼재", "confidence": 0.8, "severity": "HIGH"}
+        ],
+        "visual_cues": [
+          {"text": "주행 중 지게차", "cue_type": "object", "confidence": 0.95},
+          {"text": "지게차 동선에 근접한 보행 작업자", "cue_type": "activity", "confidence": 0.85},
+          {"text": "보행로/차량동선 분리 부재", "cue_type": "absence", "confidence": 0.8}
+        ],
+        "hazards": [
+          {"name": "지게차 충돌", "risk_level": "high", "location": "창고 통로", "description": "주행 지게차와 보행자 동선 혼재로 충돌·협착", "preventive_measures": ["보행자 통로 분리", "운행구간 출입통제", "유도자 배치"], "mapped_codes": ["accident_type.COLLISION"]},
+          {"name": "협착(압착)", "risk_level": "medium", "location": "지게차-적재물 사이", "description": "지게차와 적재물·구조물 사이 끼임", "preventive_measures": ["이격거리 유지"], "mapped_codes": ["accident_type.CRUSHED_BY_MACHINE_OR_OBJECT"]}
+        ],
+        "risk_feature_candidates": [
+          {"axis": "accident_type", "text": "COLLISION", "evidence": "지게차-보행자 동선 혼재", "confidence": 0.9},
+          {"axis": "accident_type", "text": "CRUSHED_BY_MACHINE_OR_OBJECT", "evidence": "지게차 협착", "confidence": 0.6},
+          {"axis": "work_context", "text": "FORKLIFT_OPERATION", "evidence": "지게차 주행", "confidence": 0.95},
+          {"axis": "work_context", "text": "VEHICLE", "evidence": "차량계 하역운반기계", "confidence": 0.85}
+        ],
+        "overall_assessment": "지게차-보행자 동선 분리 부재가 핵심. 충돌·협착 우선.",
+        "immediate_actions": ["보행자 통로 분리/구획", "지게차 운행 중 보행 출입통제"]
+      }
+    },
+    {
+      "photo": "안전대길이(httpswww.youtube.comwatchv=v37Id6TdkC4&list=PL5soSUPnDG3gpHAuIfV2I15yjvDK8VHpe).png",
+      "industry": "건설(철골)",
+      "result": {
+        "visual_observations": [
+          {"text": "옥외 대형 철골 구조물(깊은 터파기·강재 거더) 위 작업, 개방 단부·고저차 큼", "confidence": 0.9, "severity": "HIGH"},
+          {"text": "주제 '안전대 길이' — 죔줄 길이/걸이 위치 부적절 시 추락 보호 실패", "confidence": 0.75, "severity": "HIGH"}
+        ],
+        "visual_cues": [
+          {"text": "철골 거더·빔 구조물", "cue_type": "object", "confidence": 0.9},
+          {"text": "개방 단부/고소", "cue_type": "environment", "confidence": 0.85}
+        ],
+        "hazards": [
+          {"name": "철골 고소 추락", "risk_level": "high", "location": "철골 개방단부", "description": "철골 구조물 개방 단부 추락, 안전대 죔줄 길이 부적절 시 보호 실패", "preventive_measures": ["죔줄 길이/걸이점 점검", "추락방호망/난간", "수직구명줄"], "mapped_codes": ["accident_type.FALL_FROM_HEIGHT"]}
+        ],
+        "risk_feature_candidates": [
+          {"axis": "accident_type", "text": "FALL_FROM_HEIGHT", "evidence": "철골 개방단부 고소작업", "confidence": 0.9},
+          {"axis": "accident_type", "text": "FALL", "evidence": "추락", "confidence": 0.85},
+          {"axis": "work_context", "text": "STEELWORK", "evidence": "철골 구조물", "confidence": 0.85},
+          {"axis": "environmental", "text": "HIGH_ELEVATION", "evidence": "고소 개방단부", "confidence": 0.8}
+        ],
+        "overall_assessment": "철골 고소작업 추락이 핵심. 안전대 죔줄 길이·체결점이 결정적.",
+        "immediate_actions": ["죔줄 길이/걸이점 점검", "추락방호망·난간 확인"]
+      }
+    },
+    {
+      "photo": "포크레인주변작업자(httpswww.youtube.comwatchv=PfKfjDKZg48&list=PL5I9ADeXNk_pMBFwlS3yjO1tmzOG28-vE).png",
+      "industry": "건설(토목)",
+      "result": {
+        "visual_observations": [
+          {"text": "굴착기(포크레인)가 형틀/패널을 매달아 이동, 작업자가 작업반경·매단 하중 하부에 근접", "confidence": 0.9, "severity": "HIGH"},
+          {"text": "신호수/유도자 미식별, 작업반경 출입통제 부재", "confidence": 0.7, "severity": "HIGH"}
+        ],
+        "visual_cues": [
+          {"text": "굴착기(건설기계) 작업", "cue_type": "object", "confidence": 0.9},
+          {"text": "매단 하중(형틀/패널) 하부 작업자", "cue_type": "activity", "confidence": 0.85},
+          {"text": "작업반경 출입통제/신호수 부재", "cue_type": "absence", "confidence": 0.7}
+        ],
+        "hazards": [
+          {"name": "건설기계 충돌·압사", "risk_level": "high", "location": "굴착기 작업반경", "description": "굴착기 작업반경 내 근접 작업자 충돌·압사", "preventive_measures": ["작업반경 출입통제", "신호수 배치", "선회구간 접근금지"], "mapped_codes": ["accident_type.CRUSHED_BY_MACHINE_OR_OBJECT"]},
+          {"name": "낙하물", "risk_level": "high", "location": "매단 하중 하부", "description": "매단 형틀/패널 낙하 시 하부 작업자 가격", "preventive_measures": ["하중 하부 출입금지", "줄걸이 점검"], "mapped_codes": ["accident_type.FALLING_OBJECT"]}
+        ],
+        "risk_feature_candidates": [
+          {"axis": "accident_type", "text": "CRUSHED_BY_MACHINE_OR_OBJECT", "evidence": "굴착기 작업반경 근접 압사", "confidence": 0.8},
+          {"axis": "accident_type", "text": "COLLISION", "evidence": "건설기계 충돌", "confidence": 0.7},
+          {"axis": "accident_type", "text": "FALLING_OBJECT", "evidence": "매단 하중 하부", "confidence": 0.7},
+          {"axis": "work_context", "text": "EXCAVATION", "evidence": "굴착기 토목작업", "confidence": 0.8},
+          {"axis": "work_context", "text": "CONSTRUCTION_EQUIP", "evidence": "건설기계 운용", "confidence": 0.75}
+        ],
+        "overall_assessment": "굴착기 작업반경 내 근접 작업자 충돌/압사·낙하물이 핵심. 출입통제·신호수가 결정적.",
+        "immediate_actions": ["작업반경 출입통제", "매단 하중 하부 작업자 대피"]
+      }
+    },
+    {
+      "photo": "최근대전화재바닥에기름(httpsnews.sbs.co.krnewsendPage.donews_id=N1008488440).jpg",
+      "industry": "제조(기계가공)",
+      "result": {
+        "visual_observations": [
+          {"text": "철판 바닥에 유류/절삭유로 보이는 검은 기름·흰 거품 흥건, 탱크·호스 누유", "confidence": 0.9, "severity": "HIGH"},
+          {"text": "유류 누출 + 화재 이력(기사 맥락) — 인화성 유증기/바닥 기름으로 화재·미끄러짐 복합", "confidence": 0.75, "severity": "HIGH"}
+        ],
+        "visual_cues": [
+          {"text": "바닥에 고인 기름/유류", "cue_type": "environment", "confidence": 0.9},
+          {"text": "탱크·호스 누유", "cue_type": "object", "confidence": 0.8}
+        ],
+        "hazards": [
+          {"name": "화재·폭발", "risk_level": "high", "location": "유류 누출부", "description": "인화성 유류·유증기 + 점화원 시 화재·폭발", "preventive_measures": ["점화원 제거", "환기", "누유 정비"], "mapped_codes": ["accident_type.FIRE_AND_EXPLOSION"]},
+          {"name": "미끄러짐·넘어짐", "risk_level": "high", "location": "기름 고인 바닥", "description": "유류 오염 바닥 전도", "preventive_measures": ["누유 즉시 제거·흡착", "미끄럼방지"], "mapped_codes": ["accident_type.FALL_ON_GROUND"]}
+        ],
+        "risk_feature_candidates": [
+          {"axis": "accident_type", "text": "FIRE_AND_EXPLOSION", "evidence": "인화성 유류 누출+화재 맥락", "confidence": 0.8},
+          {"axis": "accident_type", "text": "FALL_ON_GROUND", "evidence": "기름 고인 바닥 전도", "confidence": 0.6},
+          {"axis": "work_context", "text": "FUEL_SPILL", "evidence": "연료/유류 유출", "confidence": 0.7},
+          {"axis": "work_context", "text": "WET_FLOOR_WORK", "evidence": "기름 젖은 바닥", "confidence": 0.7},
+          {"axis": "hazardous_agent", "text": "GASOLINE_VAPOR", "evidence": "인화성 유증기", "confidence": 0.6},
+          {"axis": "hazardous_agent", "text": "CHEMICAL", "evidence": "유류/절삭유", "confidence": 0.6}
+        ],
+        "overall_assessment": "유류 누출 바닥의 화재·폭발과 미끄러짐 복합. 누유 제거·점화원 관리가 핵심.",
+        "immediate_actions": ["누유 즉시 제거·흡착", "점화원 차단·환기"]
+      }
+    },
+    {
+      "photo": "영세제조업(httpswww.youtube.comwatchv=FD5R2oIdwcc).png",
+      "industry": "제조(사출성형)",
+      "result": {
+        "visual_observations": [
+          {"text": "소규모 공장 사출성형기 다수 가동, 작업자가 기계 형체부 앞 작업, 바닥 정리 불량", "confidence": 0.9, "severity": "HIGH"},
+          {"text": "사출성형기 형체부(금형 개폐) 끼임 방호 상태 불명확", "confidence": 0.7, "severity": "HIGH"}
+        ],
+        "visual_cues": [
+          {"text": "사출성형기 다수 가동", "cue_type": "object", "confidence": 0.9},
+          {"text": "기계 형체부 근접 작업자", "cue_type": "activity", "confidence": 0.8},
+          {"text": "안전문/방호장치 작동 여부 불명확", "cue_type": "absence", "confidence": 0.6}
+        ],
+        "hazards": [
+          {"name": "끼임(압착)", "risk_level": "high", "location": "사출기 형체부(금형 개폐)", "description": "사출성형기 형체부 금형 개폐 시 신체 끼임", "preventive_measures": ["안전문 인터록 확인", "방호장치 정상화", "정비 시 LOTO"], "mapped_codes": ["accident_type.CRUSH"]}
+        ],
+        "risk_feature_candidates": [
+          {"axis": "accident_type", "text": "CRUSH", "evidence": "사출기 형체부 끼임(압착)", "confidence": 0.9},
+          {"axis": "accident_type", "text": "CRUSHED_BY_MACHINE_OR_OBJECT", "evidence": "기계 압착", "confidence": 0.6},
+          {"axis": "work_context", "text": "MACHINE", "evidence": "사출성형기 작업", "confidence": 0.9}
+        ],
+        "overall_assessment": "사출성형기 형체부 끼임(압착)이 핵심 — 영세 제조 중대재해 단골. 인터록·LOTO가 결정적.",
+        "immediate_actions": ["안전문 인터록 점검", "정비 시 전원차단(LOTO)"]
+      }
+    },
+    {
+      "photo": "음식점주방(httpswww.sobangnews.krnewsarticleView.htmlidxno=40327).png",
+      "industry": "음식점(주방)",
+      "result": {
+        "visual_observations": [
+          {"text": "협소한 음식점 주방, 가스레인지·버너와 환기후드, 매달린 조리도구, 바닥 기름기", "confidence": 0.9, "severity": "MEDIUM"},
+          {"text": "가스 사용 + 기름 + 협소공간 — 화재/화상/미끄러짐 복합", "confidence": 0.75, "severity": "MEDIUM"}
+        ],
+        "visual_cues": [
+          {"text": "가스레인지/버너", "cue_type": "object", "confidence": 0.9},
+          {"text": "환기후드", "cue_type": "object", "confidence": 0.8},
+          {"text": "바닥 기름기/미끄럼", "cue_type": "environment", "confidence": 0.6}
+        ],
+        "hazards": [
+          {"name": "화재·가스폭발", "risk_level": "high", "location": "가스레인지", "description": "가스 누출·점화원으로 화재·폭발", "preventive_measures": ["가스 누출 점검", "후드·환기", "소화기"], "mapped_codes": ["accident_type.FIRE_AND_EXPLOSION"]},
+          {"name": "화상", "risk_level": "medium", "location": "조리기구", "description": "고온 기름·표면 접촉 화상", "preventive_measures": ["고온부 표시", "보호장갑"], "mapped_codes": ["accident_type.BURN"]}
+        ],
+        "risk_feature_candidates": [
+          {"axis": "accident_type", "text": "FIRE_AND_EXPLOSION", "evidence": "가스레인지 화재 위험", "confidence": 0.8},
+          {"axis": "accident_type", "text": "BURN", "evidence": "고온 조리기구 화상", "confidence": 0.7},
+          {"axis": "work_context", "text": "KITCHEN_COOKING", "evidence": "주방 조리", "confidence": 0.85},
+          {"axis": "work_context", "text": "GAS_APPLIANCE", "evidence": "가스레인지", "confidence": 0.7},
+          {"axis": "hazardous_agent", "text": "FIRE", "evidence": "가스 화재원", "confidence": 0.5}
+        ],
+        "overall_assessment": "주방 가스 화재/폭발이 최우선, 화상 병존. 가스 점검·환기가 핵심.",
+        "immediate_actions": ["가스 누출 점검", "후드·환기 가동, 소화기 확인"]
+      }
+    },
+    {
+      "photo": "프레스(중대재해백서2024).png",
+      "industry": "제조(프레스)",
+      "result": {
+        "visual_observations": [
+          {"text": "대형 동력 프레스기, 금형부·제어반·하부 스크랩통 — 금형 사이 끼임 방호(광전자/양수조작) 불명확", "confidence": 0.9, "severity": "HIGH"},
+          {"text": "프레스 금형 사이 신체 진입 시 협착·절단", "confidence": 0.85, "severity": "HIGH"}
+        ],
+        "visual_cues": [
+          {"text": "동력 프레스기", "cue_type": "object", "confidence": 0.95},
+          {"text": "금형 개폐부(슬라이드)", "cue_type": "object", "confidence": 0.85},
+          {"text": "광전자식 방호장치/양수조작 식별 불가", "cue_type": "absence", "confidence": 0.6}
+        ],
+        "hazards": [
+          {"name": "프레스 끼임(압착)", "risk_level": "high", "location": "프레스 금형부", "description": "프레스 슬라이드/금형 사이 신체 끼임·절단", "preventive_measures": ["광전자식 방호장치·양수조작 확인", "수리 시 안전블록·전원차단", "금형교환 절차"], "mapped_codes": ["accident_type.CRUSH"]}
+        ],
+        "risk_feature_candidates": [
+          {"axis": "accident_type", "text": "CRUSH", "evidence": "프레스 금형 사이 끼임(압착)", "confidence": 0.95},
+          {"axis": "accident_type", "text": "CRUSHED_BY_MACHINE_OR_OBJECT", "evidence": "프레스 압착", "confidence": 0.5},
+          {"axis": "work_context", "text": "PRESS_MACHINE", "evidence": "동력 프레스 작업", "confidence": 0.9},
+          {"axis": "work_context", "text": "MACHINE", "evidence": "기계 작업", "confidence": 0.85}
+        ],
+        "overall_assessment": "프레스 금형부 끼임(압착)이 핵심 — 중대재해 단골. 광전자식 방호장치·안전블록·LOTO가 결정적.",
+        "immediate_actions": ["방호장치(광전자/양수조작) 점검", "정비 시 안전블록·전원차단"]
+      }
+    }
+  ]
+}

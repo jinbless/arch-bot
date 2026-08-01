@@ -1,0 +1,1290 @@
+{
+  "results": [
+    {
+      "photo": "고소대작업(httpswww.youtube.comwatchv=Up-7KNjVJQM).png",
+      "industry": "건설/설비",
+      "finding_status": "suspected",
+      "penalty_exposure_status": "conditional",
+      "overall_risk_level": "RiskLevel.HIGH",
+      "risk_features": [
+        {
+          "axis": "accident_type",
+          "code": "FALL_FROM_HEIGHT",
+          "label": "추락"
+        },
+        {
+          "axis": "accident_type",
+          "code": "FALL",
+          "label": "추락"
+        },
+        {
+          "axis": "accident_type",
+          "code": "FALLING_OBJECT",
+          "label": "낙하물"
+        },
+        {
+          "axis": "work_context",
+          "code": "LIFT_WORK",
+          "label": "자동차 리프트 작업"
+        }
+      ],
+      "hazards": [
+        {
+          "name": "고소 추락",
+          "risk_level": "high",
+          "mapped_codes": [
+            "accident_type.FALL"
+          ]
+        },
+        {
+          "name": "낙하물",
+          "risk_level": "medium",
+          "mapped_codes": [
+            "accident_type.FALLING_OBJECT"
+          ]
+        }
+      ],
+      "standard_procedures": [
+        {
+          "guide_code": "A-G-18-2026",
+          "title": "A-G-18-2026: 항만하역작업 안전에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "A-G-16-2026",
+          "title": "A-G-16-2026: 작업장 조명기구의 선정, 설치 및 정비에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "A-G-20-2026",
+          "title": "A-G-20-2026: 그레이팅 설치 등에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-6-2011",
+          "title": "B-6-2011: 부선 안전작업 기술지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "D-C-3-2025",
+          "title": "D-C-3-2025: 철골공사(데크플레이트 포함)의 안전작업에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "A-G-19-2026",
+          "title": "A-G-19-2026: 고시인성(의복·설비·작업환경 등) 표시에 관한 기술지원규정",
+          "confidence": 0.92
+        }
+      ],
+      "penalty_paths": [
+        {
+          "path_type": "death",
+          "notice_level": "external_fact_required"
+        },
+        {
+          "path_type": "serious_accident",
+          "notice_level": "external_fact_required"
+        }
+      ],
+      "situation_matches": [],
+      "hazard_guide_relations": [
+        {
+          "hazard_name": "고소 추락",
+          "guides": [
+            {
+              "guide_code": "C-21-2011",
+              "title": "현수교 교량공사 안전보건 작업지침",
+              "classification": "D",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "C-22-2011",
+              "title": "사장교 교량공사 안전보건 작업지침",
+              "classification": "D",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "C-41-2011",
+              "title": "프리스트레스트 콘크리트(PSC) 교량공사 안전작업 지침",
+              "classification": "D",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            }
+          ]
+        },
+        {
+          "hazard_name": "낙하물",
+          "guides": [
+            {
+              "guide_code": "B-M-7-2026",
+              "title": "양중기 일반 안전에 관한 기술지원규정",
+              "classification": "B",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "unknown",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "C-57-2017",
+              "title": "건축물의 석공사(내외장) 안전보건작업 기술지침",
+              "classification": "D",
+              "relevance_score": 0.96,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "C-94-2013",
+              "title": "교량공사(라멘교) 안전보건작업지침",
+              "classification": "D",
+              "relevance_score": 0.96,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            }
+          ]
+        }
+      ],
+      "summary": "실내 고소작업대 작업 중 추락이 최우선. 안전대 체결·작업자세가 핵심.",
+      "candidates": {
+        "kept": [
+          "accident_type.FALL_FROM_HEIGHT",
+          "accident_type.FALL",
+          "accident_type.FALLING_OBJECT",
+          "environmental.HIGH_ELEVATION",
+          "ppe_state.HELMET_WORN"
+        ],
+        "dropped": []
+      }
+    },
+    {
+      "photo": "지게차(httpswww.youtube.comwatchv=c-rhPC6XRgk).png",
+      "industry": "물류창고",
+      "finding_status": "confirmed",
+      "penalty_exposure_status": "direct",
+      "overall_risk_level": "RiskLevel.HIGH",
+      "risk_features": [
+        {
+          "axis": "accident_type",
+          "code": "COLLISION",
+          "label": "충돌"
+        },
+        {
+          "axis": "accident_type",
+          "code": "CRUSHED_BY_MACHINE_OR_OBJECT",
+          "label": "끼임(압착)"
+        },
+        {
+          "axis": "work_context",
+          "code": "FORKLIFT_OPERATION",
+          "label": "지게차 작업"
+        },
+        {
+          "axis": "work_context",
+          "code": "VEHICLE",
+          "label": "차량"
+        },
+        {
+          "axis": "work_context",
+          "code": "CASHIER_AREA",
+          "label": "계산대 주변 작업"
+        }
+      ],
+      "hazards": [
+        {
+          "name": "지게차 충돌",
+          "risk_level": "high",
+          "mapped_codes": []
+        },
+        {
+          "name": "협착(압착)",
+          "risk_level": "medium",
+          "mapped_codes": []
+        }
+      ],
+      "standard_procedures": [
+        {
+          "guide_code": "A-G-18-2026",
+          "title": "A-G-18-2026: 항만하역작업 안전에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "A-G-19-2026",
+          "title": "A-G-19-2026: 고시인성(의복·설비·작업환경 등) 표시에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-11-2025",
+          "title": "B-M-11-2025: 지게차의 안전작업에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "D-C-4-2025",
+          "title": "D-C-4-2025: 굴착기 안전보건작업 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "G-10-2023",
+          "title": "G-10-2023: 작업장 내 운반차량의 운행에 관한 안전지침",
+          "confidence": 0.96
+        },
+        {
+          "guide_code": "M-5-2012",
+          "title": "M-5-2012: 작업장비 사용에 관한 기술지침",
+          "confidence": 0.96
+        }
+      ],
+      "penalty_paths": [
+        {
+          "path_type": "general_incident",
+          "notice_level": "photo_based"
+        },
+        {
+          "path_type": "serious_accident",
+          "notice_level": "external_fact_required"
+        }
+      ],
+      "situation_matches": [
+        {
+          "pattern_id": "SHE-FORKLIFTOPERATION-0720978144",
+          "status": "confirmed",
+          "applies_sr_ids": [
+            "SR-CARGO-003",
+            "SR-CARGO-015",
+            "SR-CARGO-018"
+          ]
+        },
+        {
+          "pattern_id": "SHE-VEHICLE-113ca1d01c",
+          "status": "confirmed",
+          "applies_sr_ids": [
+            "SR-VEHICLE-009"
+          ]
+        },
+        {
+          "pattern_id": "SHE-FORKLIFTOPERATION-a36e0e9700",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-CARGO-003",
+            "SR-CARGO-015",
+            "SR-CARGO-018"
+          ]
+        },
+        {
+          "pattern_id": "SHE-VEHICLE-fdb7e0bd20",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-VEHICLE-007"
+          ]
+        },
+        {
+          "pattern_id": "SHE-VEHICLE-3f32fb5068",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-VEHICLE-005"
+          ]
+        }
+      ],
+      "hazard_guide_relations": [
+        {
+          "hazard_name": "지게차 충돌",
+          "guides": []
+        },
+        {
+          "hazard_name": "협착(압착)",
+          "guides": []
+        }
+      ],
+      "summary": "지게차-보행자 동선 분리 부재가 핵심. 충돌·협착 우선.",
+      "candidates": {
+        "kept": [
+          "accident_type.COLLISION",
+          "accident_type.CRUSHED_BY_MACHINE_OR_OBJECT",
+          "work_context.FORKLIFT_OPERATION",
+          "work_context.VEHICLE"
+        ],
+        "dropped": []
+      }
+    },
+    {
+      "photo": "안전대길이(httpswww.youtube.comwatchv=v37Id6TdkC4&list=PL5soSUPnDG3gpHAuIfV2I15yjvDK8VHpe).png",
+      "industry": "건설(철골)",
+      "finding_status": "suspected",
+      "penalty_exposure_status": "conditional",
+      "overall_risk_level": "RiskLevel.HIGH",
+      "risk_features": [
+        {
+          "axis": "accident_type",
+          "code": "FALL_FROM_HEIGHT",
+          "label": "추락"
+        },
+        {
+          "axis": "accident_type",
+          "code": "FALL",
+          "label": "추락"
+        },
+        {
+          "axis": "work_context",
+          "code": "STEELWORK",
+          "label": "철골"
+        }
+      ],
+      "hazards": [
+        {
+          "name": "철골 고소 추락",
+          "risk_level": "high",
+          "mapped_codes": []
+        }
+      ],
+      "standard_procedures": [
+        {
+          "guide_code": "C-17-2011",
+          "title": "C-17-2011: 경량철골 천장공사 안전보건작업 지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "C-113-2020",
+          "title": "C-113-2020: 취약시기 건설현장 안전작업지침",
+          "confidence": 0.975
+        },
+        {
+          "guide_code": "C-18-2015",
+          "title": "C-18-2015: 건설공사 안전보건 설계지침",
+          "confidence": 0.975
+        },
+        {
+          "guide_code": "C-59-2022",
+          "title": "C-59-2022: 지붕공사 안전보건작업 기술지침",
+          "confidence": 0.975
+        },
+        {
+          "guide_code": "C-79-2015",
+          "title": "C-79-2015: 초고층 건축물공사(일반사항) 안전보건작업지침",
+          "confidence": 0.975
+        },
+        {
+          "guide_code": "C-85-2013",
+          "title": "C-85-2013: 트럭 탑재형 크레인(Cargo Crane) 안전보건작업지침",
+          "confidence": 0.975
+        }
+      ],
+      "penalty_paths": [
+        {
+          "path_type": "death",
+          "notice_level": "external_fact_required"
+        },
+        {
+          "path_type": "serious_accident",
+          "notice_level": "external_fact_required"
+        }
+      ],
+      "situation_matches": [
+        {
+          "pattern_id": "SHE-STEELWORK-7abf3dfb32",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-STEELWORK-003"
+          ]
+        },
+        {
+          "pattern_id": "SHE-STEELWORK-40e2d9bc08",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-STEELWORK-002"
+          ]
+        },
+        {
+          "pattern_id": "SHE-STEELWORK-c072ea3431",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-STEELWORK-004"
+          ]
+        }
+      ],
+      "hazard_guide_relations": [
+        {
+          "hazard_name": "철골 고소 추락",
+          "guides": []
+        }
+      ],
+      "summary": "철골 고소작업 추락이 핵심. 안전대 죔줄 길이·체결점이 결정적.",
+      "candidates": {
+        "kept": [
+          "accident_type.FALL_FROM_HEIGHT",
+          "accident_type.FALL",
+          "work_context.STEELWORK",
+          "environmental.HIGH_ELEVATION"
+        ],
+        "dropped": []
+      }
+    },
+    {
+      "photo": "포크레인주변작업자(httpswww.youtube.comwatchv=PfKfjDKZg48&list=PL5I9ADeXNk_pMBFwlS3yjO1tmzOG28-vE).png",
+      "industry": "건설(토목)",
+      "finding_status": "confirmed",
+      "penalty_exposure_status": "direct",
+      "overall_risk_level": "RiskLevel.HIGH",
+      "risk_features": [
+        {
+          "axis": "accident_type",
+          "code": "CRUSHED_BY_MACHINE_OR_OBJECT",
+          "label": "끼임(압착)"
+        },
+        {
+          "axis": "accident_type",
+          "code": "COLLISION",
+          "label": "충돌"
+        },
+        {
+          "axis": "accident_type",
+          "code": "FALLING_OBJECT",
+          "label": "낙하물"
+        },
+        {
+          "axis": "accident_type",
+          "code": "COLLAPSE",
+          "label": "붕괴"
+        },
+        {
+          "axis": "work_context",
+          "code": "EXCAVATION",
+          "label": "굴착"
+        },
+        {
+          "axis": "work_context",
+          "code": "CONSTRUCTION_EQUIP",
+          "label": "construction equip"
+        },
+        {
+          "axis": "work_context",
+          "code": "LIFT_WORK",
+          "label": "자동차 리프트 작업"
+        }
+      ],
+      "hazards": [
+        {
+          "name": "건설기계 충돌·압사",
+          "risk_level": "high",
+          "mapped_codes": []
+        },
+        {
+          "name": "낙하물",
+          "risk_level": "high",
+          "mapped_codes": [
+            "accident_type.FALLING_OBJECT"
+          ]
+        }
+      ],
+      "standard_procedures": [
+        {
+          "guide_code": "A-G-18-2026",
+          "title": "A-G-18-2026: 항만하역작업 안전에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-9-2025",
+          "title": "B-M-9-2025: 이동식크레인 양중작업의 안정성 검토 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-11-2025",
+          "title": "B-M-11-2025: 지게차의 안전작업에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-8-2025",
+          "title": "B-M-8-2025: 이동식 크레인 안전보건작업 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "C-82-2020",
+          "title": "C-82-2020: 해상 RCD 현장타설(현수교, 사장교) 안전작업 지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-22-2026",
+          "title": "B-M-22-2026: 생활폐기물 수거차량의 구조 등에 관한 기술지원규정",
+          "confidence": 0.99
+        }
+      ],
+      "penalty_paths": [
+        {
+          "path_type": "general_incident",
+          "notice_level": "photo_based"
+        },
+        {
+          "path_type": "serious_accident",
+          "notice_level": "external_fact_required"
+        }
+      ],
+      "situation_matches": [
+        {
+          "pattern_id": "SHE-CONSTRUCTIONEQUIP-93c74797cd",
+          "status": "confirmed",
+          "applies_sr_ids": [
+            "SR-CONSTRUCTION_EQUIP-004"
+          ]
+        },
+        {
+          "pattern_id": "SHE-LIFTWORK-730db627e7",
+          "status": "confirmed",
+          "applies_sr_ids": [
+            "SR-MGMT-001",
+            "SR-CARGO-003",
+            "SR-CARGO-005",
+            "SR-CARGO-006"
+          ]
+        },
+        {
+          "pattern_id": "SHE-CONSTRUCTIONEQUIP-6654c4c2b1",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-WORKPLACE-012"
+          ]
+        },
+        {
+          "pattern_id": "SHE-CONSTRUCTIONEQUIP-088e33d0bf",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-WORKPLACE-011"
+          ]
+        },
+        {
+          "pattern_id": "SHE-CONSTRUCTIONEQUIP-50531ef05a",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-CONSTRUCTION_EQUIP-001"
+          ]
+        }
+      ],
+      "hazard_guide_relations": [
+        {
+          "hazard_name": "건설기계 충돌·압사",
+          "guides": []
+        },
+        {
+          "hazard_name": "낙하물",
+          "guides": [
+            {
+              "guide_code": "B-M-7-2026",
+              "title": "양중기 일반 안전에 관한 기술지원규정",
+              "classification": "B",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "unknown",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "C-57-2017",
+              "title": "건축물의 석공사(내외장) 안전보건작업 기술지침",
+              "classification": "D",
+              "relevance_score": 0.96,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "C-94-2013",
+              "title": "교량공사(라멘교) 안전보건작업지침",
+              "classification": "D",
+              "relevance_score": 0.96,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            }
+          ]
+        }
+      ],
+      "summary": "굴착기 작업반경 내 근접 작업자 충돌/압사·낙하물이 핵심. 출입통제·신호수가 결정적.",
+      "candidates": {
+        "kept": [
+          "accident_type.CRUSHED_BY_MACHINE_OR_OBJECT",
+          "accident_type.COLLISION",
+          "accident_type.FALLING_OBJECT",
+          "work_context.EXCAVATION",
+          "work_context.CONSTRUCTION_EQUIP"
+        ],
+        "dropped": []
+      }
+    },
+    {
+      "photo": "최근대전화재바닥에기름(httpsnews.sbs.co.krnewsendPage.donews_id=N1008488440).jpg",
+      "industry": "제조(기계가공)",
+      "finding_status": "confirmed",
+      "penalty_exposure_status": "direct",
+      "overall_risk_level": "RiskLevel.HIGH",
+      "risk_features": [
+        {
+          "axis": "accident_type",
+          "code": "FIRE_AND_EXPLOSION",
+          "label": "폭발"
+        },
+        {
+          "axis": "accident_type",
+          "code": "FALL_ON_GROUND",
+          "label": "추락"
+        },
+        {
+          "axis": "hazardous_agent",
+          "code": "GASOLINE_VAPOR",
+          "label": "휘발유 증기"
+        },
+        {
+          "axis": "hazardous_agent",
+          "code": "FIRE",
+          "label": "화재·폭발"
+        },
+        {
+          "axis": "hazardous_agent",
+          "code": "TOXIC",
+          "label": "화학물질"
+        },
+        {
+          "axis": "work_context",
+          "code": "FUEL_SPILL",
+          "label": "연료 유출 작업"
+        },
+        {
+          "axis": "work_context",
+          "code": "WET_FLOOR_WORK",
+          "label": "젖은 바닥 작업"
+        },
+        {
+          "axis": "work_context",
+          "code": "VAPOR_EXPOSURE",
+          "label": "유증기 노출"
+        }
+      ],
+      "hazards": [
+        {
+          "name": "화재·폭발",
+          "risk_level": "high",
+          "mapped_codes": [
+            "accident_type.FIRE_AND_EXPLOSION"
+          ]
+        },
+        {
+          "name": "미끄러짐·넘어짐",
+          "risk_level": "high",
+          "mapped_codes": []
+        }
+      ],
+      "standard_procedures": [
+        {
+          "guide_code": "C-C-32-2026",
+          "title": "C-C-32-2026: 화염방지기 설치 등에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "C-C-4-2025",
+          "title": "C-C-4-2025: 산화에틸렌 등의 취급설비의 안전에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "C-C-82-2026",
+          "title": "C-C-82-2026: 열매유 보일러에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-5-2011",
+          "title": "B-5-2011: 조선업 안전점검 기술지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-18-2026",
+          "title": "B-M-18-2026: 배관 수명관리 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "A-G-14-2026",
+          "title": "A-G-14-2026: 용접·용단 작업 시 화재예방에 관한 기술지원규정",
+          "confidence": 0.99
+        }
+      ],
+      "penalty_paths": [
+        {
+          "path_type": "general_incident",
+          "notice_level": "photo_based"
+        },
+        {
+          "path_type": "serious_accident",
+          "notice_level": "external_fact_required"
+        }
+      ],
+      "situation_matches": [
+        {
+          "pattern_id": "SHE-VAPOREXPOSURE-c7989a3a4a",
+          "status": "confirmed",
+          "applies_sr_ids": [
+            "SR-HAZMAT-024",
+            "SR-HAZMAT-001",
+            "SR-HAZMAT-002"
+          ]
+        },
+        {
+          "pattern_id": "SHE-CHEMICALWORK-4568671c4b",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-ELECTRIC-012",
+            "SR-CHEMICAL-002"
+          ]
+        },
+        {
+          "pattern_id": "SHE-CHEMICALCLEANI-4869609206",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-CHEMICAL-007",
+            "SR-CHEMICAL-009"
+          ]
+        }
+      ],
+      "hazard_guide_relations": [
+        {
+          "hazard_name": "화재·폭발",
+          "guides": [
+            {
+              "guide_code": "B-E-17-2026",
+              "title": "도장 공정에서의 화재·폭발위험방지에 관한 기술지원규정",
+              "classification": "B",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "mismatch",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "C-C-22-2026",
+              "title": "PVC 제조공정의 화재폭발 위험성평가 및 비상조치에 관한 기술지원규정",
+              "classification": "C",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "C-C-78-2026",
+              "title": "정유시설의 안전 운영에 관한 일반적인 위험관리에 대한 기술지원규정",
+              "classification": "C",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "unknown",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            }
+          ]
+        },
+        {
+          "hazard_name": "미끄러짐·넘어짐",
+          "guides": []
+        }
+      ],
+      "summary": "유류 누출 바닥의 화재·폭발과 미끄러짐 복합. 누유 제거·점화원 관리가 핵심.",
+      "candidates": {
+        "kept": [
+          "accident_type.FIRE_AND_EXPLOSION",
+          "accident_type.FALL_ON_GROUND",
+          "work_context.FUEL_SPILL",
+          "work_context.WET_FLOOR_WORK",
+          "hazardous_agent.GASOLINE_VAPOR",
+          "hazardous_agent.CHEMICAL"
+        ],
+        "dropped": []
+      }
+    },
+    {
+      "photo": "영세제조업(httpswww.youtube.comwatchv=FD5R2oIdwcc).png",
+      "industry": "제조(사출성형)",
+      "finding_status": "needs_clarification",
+      "penalty_exposure_status": "conditional",
+      "overall_risk_level": "RiskLevel.MEDIUM",
+      "risk_features": [
+        {
+          "axis": "accident_type",
+          "code": "CRUSH",
+          "label": "끼임(압착)"
+        },
+        {
+          "axis": "accident_type",
+          "code": "CRUSHED_BY_MACHINE_OR_OBJECT",
+          "label": "끼임(압착)"
+        },
+        {
+          "axis": "work_context",
+          "code": "MACHINE",
+          "label": "기계"
+        }
+      ],
+      "hazards": [
+        {
+          "name": "끼임(압착)",
+          "risk_level": "high",
+          "mapped_codes": [
+            "accident_type.CRUSH"
+          ]
+        }
+      ],
+      "standard_procedures": [
+        {
+          "guide_code": "B-M-36-2026",
+          "title": "B-M-36-2026: 프레스 위험방지에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-5-2011",
+          "title": "B-5-2011: 조선업 안전점검 기술지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-16-2026",
+          "title": "B-M-16-2026: 기계식 주차장치의 안전에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-11-2025",
+          "title": "B-M-11-2025: 지게차의 안전작업에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-3-2025",
+          "title": "B-M-3-2025: 파쇄기의 방호조치에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-20-2026",
+          "title": "B-M-20-2026: 배관지지물 설치 및 유지에 관한 기술지원규정",
+          "confidence": 0.92
+        }
+      ],
+      "penalty_paths": [
+        {
+          "path_type": "serious_accident",
+          "notice_level": "external_fact_required"
+        }
+      ],
+      "situation_matches": [
+        {
+          "pattern_id": "SHE-MACHINE-ecf61da52c",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-MACHINE-019"
+          ]
+        },
+        {
+          "pattern_id": "SHE-MACHINE-803a10a1ff",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-MACHINE-038"
+          ]
+        },
+        {
+          "pattern_id": "SHE-MACHINE-9a613e0fe4",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-MACHINE-043"
+          ]
+        }
+      ],
+      "hazard_guide_relations": [
+        {
+          "hazard_name": "끼임(압착)",
+          "guides": [
+            {
+              "guide_code": "B-M-37-2026",
+              "title": "회전기계 등의 끼임·절단재해 예방을 위한 기술지원규정",
+              "classification": "B",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "B-M-36-2026",
+              "title": "프레스 위험방지에 관한 기술지원규정",
+              "classification": "B",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "match",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "M-13-2012",
+              "title": "플라스틱 판재 및 필름 와인딩기 작업에 관한 기술지침",
+              "classification": "B",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "unknown",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            }
+          ]
+        }
+      ],
+      "summary": "사출성형기 형체부 끼임(압착)이 핵심 — 영세 제조 중대재해 단골. 인터록·LOTO가 결정적.",
+      "candidates": {
+        "kept": [
+          "accident_type.CRUSH",
+          "accident_type.CRUSHED_BY_MACHINE_OR_OBJECT",
+          "work_context.MACHINE"
+        ],
+        "dropped": []
+      }
+    },
+    {
+      "photo": "음식점주방(httpswww.sobangnews.krnewsarticleView.htmlidxno=40327).png",
+      "industry": "음식점(주방)",
+      "finding_status": "confirmed",
+      "penalty_exposure_status": "direct",
+      "overall_risk_level": "RiskLevel.HIGH",
+      "risk_features": [
+        {
+          "axis": "accident_type",
+          "code": "FIRE_AND_EXPLOSION",
+          "label": "폭발"
+        },
+        {
+          "axis": "accident_type",
+          "code": "BURN",
+          "label": "화상"
+        },
+        {
+          "axis": "hazardous_agent",
+          "code": "FIRE",
+          "label": "화재·폭발"
+        },
+        {
+          "axis": "work_context",
+          "code": "KITCHEN_COOKING",
+          "label": "주방 조리"
+        },
+        {
+          "axis": "work_context",
+          "code": "GAS_APPLIANCE",
+          "label": "가스기기"
+        }
+      ],
+      "hazards": [
+        {
+          "name": "화재·가스폭발",
+          "risk_level": "high",
+          "mapped_codes": []
+        },
+        {
+          "name": "화상",
+          "risk_level": "medium",
+          "mapped_codes": [
+            "accident_type.BURN"
+          ]
+        }
+      ],
+      "standard_procedures": [
+        {
+          "guide_code": "A-G-14-2026",
+          "title": "A-G-14-2026: 용접·용단 작업 시 화재예방에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "D-3-2012",
+          "title": "D-3-2012: 유지공장의 용제추출공정 안전설계 및 운전에 관한 기술지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "D-5-2012",
+          "title": "D-5-2012: 화학공정의 시스템 디자인 크라이테리어에 관한 기술지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "P-143-2014",
+          "title": "P-143-2014: 용해로의 설치 및 유지보수에 관한 기술지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "P-42-2012",
+          "title": "P-42-2012: 주정 증류공정의 안전에 관한 기술지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "P-35-2012",
+          "title": "P-35-2012: 소규모 사업장의 화기작업 안전에 관한 기술지침",
+          "confidence": 0.99
+        }
+      ],
+      "penalty_paths": [
+        {
+          "path_type": "general_incident",
+          "notice_level": "photo_based"
+        },
+        {
+          "path_type": "serious_accident",
+          "notice_level": "external_fact_required"
+        }
+      ],
+      "situation_matches": [
+        {
+          "pattern_id": "SHE-KITCHENCOOK-FG09",
+          "status": "confirmed",
+          "applies_sr_ids": [
+            "SR-FIRE_EXPLOSION-030"
+          ]
+        },
+        {
+          "pattern_id": "SHE-GASAPPLIANCE-FG04",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-FIRE_EXPLOSION-030"
+          ]
+        },
+        {
+          "pattern_id": "SHE-GASAPPLIANCE-FG05",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-FIRE_EXPLOSION-008",
+            "SR-FIRE_EXPLOSION-015"
+          ]
+        },
+        {
+          "pattern_id": "SHE-ELECTRICALWORK-97d8742a17",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-ELECTRIC-012",
+            "SR-ELECTRIC-011",
+            "SR-ELECTRIC-008"
+          ]
+        },
+        {
+          "pattern_id": "SHE-WELDING-471287a18e",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-FIRE_EXPLOSION-030"
+          ]
+        }
+      ],
+      "hazard_guide_relations": [
+        {
+          "hazard_name": "화재·가스폭발",
+          "guides": []
+        },
+        {
+          "hazard_name": "화상",
+          "guides": [
+            {
+              "guide_code": "A-G-6-2025",
+              "title": "학교 급식실 근로자의 안전보건에 관한 기술지원규정",
+              "classification": "A",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "unknown",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "E-10-2013",
+              "title": "축전지 취급에 관한 기술지침",
+              "classification": "B",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "unknown",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            },
+            {
+              "guide_code": "G-82-2018",
+              "title": "실험실 안전보건에 관한기술지침",
+              "classification": "A",
+              "relevance_score": 0.99,
+              "mapping_type": "guide_hazard_direct",
+              "ci_hit_count": 0,
+              "industry_alignment": "unknown",
+              "top_procedure_title": null,
+              "relevant_sections": []
+            }
+          ]
+        }
+      ],
+      "summary": "주방 가스 화재/폭발이 최우선, 화상 병존. 가스 점검·환기가 핵심.",
+      "candidates": {
+        "kept": [
+          "accident_type.FIRE_AND_EXPLOSION",
+          "accident_type.BURN",
+          "work_context.KITCHEN_COOKING",
+          "work_context.GAS_APPLIANCE",
+          "hazardous_agent.FIRE"
+        ],
+        "dropped": []
+      }
+    },
+    {
+      "photo": "프레스(중대재해백서2024).png",
+      "industry": "제조(프레스)",
+      "finding_status": "confirmed",
+      "penalty_exposure_status": "direct",
+      "overall_risk_level": "RiskLevel.HIGH",
+      "risk_features": [
+        {
+          "axis": "accident_type",
+          "code": "CRUSH",
+          "label": "끼임(압착)"
+        },
+        {
+          "axis": "accident_type",
+          "code": "CRUSHED_BY_MACHINE_OR_OBJECT",
+          "label": "끼임(압착)"
+        },
+        {
+          "axis": "work_context",
+          "code": "PRESS_MACHINE",
+          "label": "프레스 기계 작업"
+        },
+        {
+          "axis": "work_context",
+          "code": "MACHINE",
+          "label": "기계"
+        }
+      ],
+      "hazards": [
+        {
+          "name": "프레스 끼임(압착)",
+          "risk_level": "high",
+          "mapped_codes": []
+        }
+      ],
+      "standard_procedures": [
+        {
+          "guide_code": "B-M-36-2026",
+          "title": "B-M-36-2026: 프레스 위험방지에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-5-2011",
+          "title": "B-5-2011: 조선업 안전점검 기술지침",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-16-2026",
+          "title": "B-M-16-2026: 기계식 주차장치의 안전에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-11-2025",
+          "title": "B-M-11-2025: 지게차의 안전작업에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-3-2025",
+          "title": "B-M-3-2025: 파쇄기의 방호조치에 관한 기술지원규정",
+          "confidence": 0.99
+        },
+        {
+          "guide_code": "B-M-20-2026",
+          "title": "B-M-20-2026: 배관지지물 설치 및 유지에 관한 기술지원규정",
+          "confidence": 0.92
+        }
+      ],
+      "penalty_paths": [
+        {
+          "path_type": "general_incident",
+          "notice_level": "photo_based"
+        },
+        {
+          "path_type": "serious_accident",
+          "notice_level": "external_fact_required"
+        }
+      ],
+      "situation_matches": [
+        {
+          "pattern_id": "SHE-MACHINE-ecf61da52c",
+          "status": "confirmed",
+          "applies_sr_ids": [
+            "SR-MACHINE-019"
+          ]
+        },
+        {
+          "pattern_id": "SHE-PRESSMACHINE-791b52a737",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-MACHINE-001",
+            "SR-MACHINE-002",
+            "SR-MACHINE-004"
+          ]
+        },
+        {
+          "pattern_id": "SHE-PRESSMACHINE-a1470e38ba",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-MACHINE-001",
+            "SR-MACHINE-002",
+            "SR-MACHINE-004"
+          ]
+        },
+        {
+          "pattern_id": "SHE-PRESSMACHINE-c16b3b9f2e",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-MACHINE-001",
+            "SR-MACHINE-002",
+            "SR-MACHINE-004"
+          ]
+        },
+        {
+          "pattern_id": "SHE-MACHINE-9a613e0fe4",
+          "status": "candidate",
+          "applies_sr_ids": [
+            "SR-MACHINE-043"
+          ]
+        }
+      ],
+      "hazard_guide_relations": [
+        {
+          "hazard_name": "프레스 끼임(압착)",
+          "guides": []
+        }
+      ],
+      "summary": "프레스 금형부 끼임(압착)이 핵심 — 중대재해 단골. 광전자식 방호장치·안전블록·LOTO가 결정적.",
+      "candidates": {
+        "kept": [
+          "accident_type.CRUSH",
+          "accident_type.CRUSHED_BY_MACHINE_OR_OBJECT",
+          "work_context.PRESS_MACHINE",
+          "work_context.MACHINE"
+        ],
+        "dropped": []
+      }
+    }
+  ]
+}
