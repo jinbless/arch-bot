@@ -120,7 +120,8 @@ const ArticleCandidatesPanel: React.FC<{
 
   if (!all.length) return null;
 
-  const ranked = items.some((c) => c.rank > 0);
+  // 랭킹 여부는 **분리 전 전체** 기준 — 위반 목록이 비었다고 "순위를 매기지 않았다"고 말하면 거짓말이 된다
+  const ranked = all.some((c) => c.rank > 0);
   const shown = expanded ? items : items.slice(0, PREVIEW_COUNT);
   const rest = items.length - shown.length;
   const hasCross = items.some((c) => c.source === '횡단');
@@ -192,7 +193,7 @@ const ArticleCandidatesPanel: React.FC<{
         <div className="mt-4 pt-3 border-t border-dashed border-slate-200">
           <h3 className="text-sm font-semibold text-gray-700">모든 현장 공통 점검항목</h3>
           <p className="text-xs text-gray-500 mb-2">
-            어느 작업장에나 성립하는 포괄 의무라 <strong>이 사진의 위반이라는 뜻이 아닙니다.</strong>
+            어느 작업장에나 성립하는 포괄 의무라 <strong>이 사진의 위반이라는 뜻이 아닙니다.</strong>{' '}
             위 목록과 분리해 참고용으로만 표시합니다.
           </p>
           <ol className="space-y-2">
