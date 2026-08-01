@@ -129,10 +129,20 @@ def main() -> None:
         # 제171조(전도 등의 방지)가 장면 문구 "유도자가 보이지 않는다" 때문에 ASSIGN으로 오분류됐었다.
         add(phase_of(s.get("title", "")),
             "조문(전용)" if c in own else "조문(절 총칙)", s.get("title", ""), c)
-    for c in ("제38조", "제39조", "제35조"):
+    for c in ("제38조", "제39조", "제35조", "제41조"):
         if c in by_code:
-            add({"제38조": "PLAN", "제39조": "ASSIGN", "제35조": "PRECHECK"}[c],
+            add({"제38조": "PLAN", "제39조": "ASSIGN", "제35조": "PRECHECK",
+                 "제41조": "POST"}[c],
                 "조문(총칙)", by_code[c].get("title", ""), c)
+
+    # ★ 상속 계층 추가 — '편2>장1>절1 기계 등의 일반기준'(제86~99) 14조는 기계·설비류 기인물 전체의
+    #   상위 공통이다. 여기에 제89조(운전 시작 전 조치)·제93조(방호장치 해체 금지)·제99조(이탈 시 조치)가
+    #   있어서, 이 층을 상속시키지 않으면 종료·이탈 칸이 조문 없이 가이드 절차에만 의존하게 된다.
+    #   적용 대상은 편2·장1 소속 기인물(기계·기구 및 그 밖의 설비)로 한정한다.
+    if (p, j) == (2, 1):
+        for s in sigs:
+            if "절1 기계 등의 일반기준" in s.get("section", "") and s["article_code"] not in own + sibling:
+                add(phase_of(s.get("title", "")), "조문(기계 일반기준)", s.get("title", ""), s["article_code"])
 
     # 5) 가이드 절차
     rows = pg(f"select process_order, replace(process_name,'|','/'), coalesce(left(safety_measures,60),'') "

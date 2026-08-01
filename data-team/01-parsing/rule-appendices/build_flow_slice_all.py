@@ -31,6 +31,16 @@ ART = ROOT / "data-team" / "05-enrichment" / "runtime-artifacts"
 SKELETON = [("PLAN", "계획"), ("ASSIGN", "인적"), ("PRECHECK", "작업전"),
             ("EXEC", "작업중"), ("POST", "종료"), ("PERIODIC", "정기")]
 
+# ★ 조문 본문이 **스스로 적용 대상을 한정**하는 조문. 상위 계층(총칙·일반기준)에 있다고
+#   무조건 상속시키면 프레스에 '차량계 운전위치 이탈 시 조치'가 붙는다(실제로 붙었다).
+#   허용 좌표 (편,장,절)에 해당할 때만 주입한다.
+SCOPED = {
+    # 제41조①: 양중기 / 항타기·항발기 / 양화장치 를 운전하는 경우로 한정
+    "제41조": {(2, 1, 9), (2, 1, 12), (2, 6, 2)},
+    # 제99조①: 차량계 하역운반기계등, 차량계 건설기계 로 한정
+    "제99조": {(2, 1, 10), (2, 1, 12)},
+}
+
 LEX = {
     "PLAN": r"사전조사|작업계획서|계획을 수립|설계도서",
     "ASSIGN": r"작업지휘자|지휘자|유도자|신호수|자격|특별교육|선임|배치",
@@ -113,6 +123,22 @@ def main() -> None:
                 and (gwan is None or c[3] in (gwan, None))]
         for s in arts:
             add(phase_of(s.get("title", "")), f"{s['article_code']} {s.get('title','')[:20]}")
+
+        # ★ 상속 계층 — '편2>장1>절1 기계 등의 일반기준'(제86~99)은 기계·설비류 전체의 상위 공통.
+        #   제89조(운전 시작 전)·제93조(방호장치 해체 금지)·제99조(이탈 시 조치)가 여기 있어서,
+        #   상속시키지 않으면 종료 칸이 가이드 절차에만 의존하게 된다(19종 중 10종이 비었던 원인).
+        own_codes = {s["article_code"] for s in arts}
+        here = (p, j, jeol)
+        if (p, j) == (2, 1):
+            for s, c in art_coord:
+                code = s["article_code"]
+                if "절1 기계 등의 일반기준" not in s.get("section", "") or code in own_codes:
+                    continue
+                if code in SCOPED and here not in SCOPED[code]:
+                    continue                      # 적용 대상 밖 — 상속시키지 않는다
+                add(phase_of(s.get("title", "")), f"{code} {s.get('title','')[:20]}")
+        if here in SCOPED["제41조"]:
+            add("POST", "제41조 운전위치의 이탈금지")
 
         # PLAN — 별표 4 이름 매칭
         key = re.sub(r"(을|를|이|가)?\s*(사용하여|사용하는|가동할|취급하는).*", "", subj).strip()
