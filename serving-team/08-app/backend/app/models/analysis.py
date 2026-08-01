@@ -104,10 +104,13 @@ class ArticleCandidate(BaseModel):
     article_code: str                 # "제43조"
     law_type: str = "RULE"
     title: str = ""
-    applies: str = "unranked"         # yes | maybe | unranked (RANK off)
+    applies: str = "unranked"         # yes | maybe | unranked (RANK off). 기본 노출은 yes만(A안)
     rank: int = 0                     # 1..n (RANK on) / 0 (unranked)
     source: str = ""                  # 큐레이션 | 기인물 | 단서 | 흐름 | 횡단
     evidence: str = ""                # 매칭된 관찰단서(cue canonical)
+    # violation = 이 사진의 구체적 위반 후보 / common = 모든 현장 공통 점검(SSOT §6.2 포괄조문).
+    # 정상 현장 사진에서도 제3조가 36% 붙는 실측 → 같은 목록에 두면 목록 전체의 신뢰가 깎인다.
+    group: str = "violation"
 
 
 class AnalysisResponse(BaseModel):

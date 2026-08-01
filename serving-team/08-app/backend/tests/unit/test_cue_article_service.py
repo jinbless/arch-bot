@@ -81,12 +81,32 @@ def _run() -> int:
     if [x["article_code"] for x in keep] != ["제42조"] or halluc != 1:
         fails.append(f"필터 오동작: keep={keep} halluc={halluc}")
 
+    # 5. A안 — 기본 노출은 yes만(maybe 제외). env로 되돌릴 수 있어야 한다.
+    ranked = [{"article_code": "제42조", "applies": "yes"},
+              {"article_code": "제43조", "applies": "maybe"},
+              {"article_code": "제44조", "applies": "no"}]
+    valid = {"제42조", "제43조", "제44조"}
+    only_yes, _ = svc.filter_to_candidates(ranked, valid)
+    if [x["article_code"] for x in only_yes] != ["제42조"]:
+        fails.append(f"기본이 yes-only가 아님: {[x['article_code'] for x in only_yes]}")
+    with_maybe, _ = svc.filter_to_candidates(ranked, valid, with_maybe=True)
+    if [x["article_code"] for x in with_maybe] != ["제42조", "제43조"]:
+        fails.append(f"with_maybe 복원 실패: {[x['article_code'] for x in with_maybe]}")
+    if svc.expose_maybe():
+        fails.append("expose_maybe 기본값이 True")
+
+    # 6. C안 — SSOT §6.2 포괄조문은 common 그룹으로 분리(집합은 SSOT 근거)
+    if svc.GENERIC != {"제3조", "제4조", "제22조"}:
+        fails.append(f"GENERIC 집합이 SSOT §6.2와 다름: {sorted(svc.GENERIC)}")
+    if not svc.GENERIC.isdisjoint({"제43조", "제45조"}):
+        fails.append("구체 위험조(제43·45조)가 common으로 분류됨")
+
     if fails:
         print("FAIL:")
         for f in fails:
             print(" -", f)
         return 1
-    print(f"OK — 4개 검증 통과 (entry {len(entry)}·flow {len(flow)}, 예: {sorted(entry, key=svc._code_num)[:6]})")
+    print(f"OK — 6개 검증 통과 (entry {len(entry)}·flow {len(flow)}, 예: {sorted(entry, key=svc._code_num)[:6]})")
     return 0
 
 

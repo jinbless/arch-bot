@@ -42,6 +42,13 @@ CROSS = ["제3조", "제5조", "제13조", "제14조", "제20조", "제22조", "
          "제32조", "제42조", "제43조", "제44조", "제45조", "제46조",
          "제88조", "제92조", "제93조"]
 
+# 공통 점검항목(C안) — SSOT `docs/knowledge/감독관-판단기준/00-master.md` §6.2 "전역 강등":
+#   "제3조(전도)·제4조(청결)·제22조(통로): 포괄성 높아 거의 모든 현장 성립"
+# 정상 현장 사진 실측도 같은 방향(제3조는 위반 없는 사진의 36%에서 yes) → **위반 후보 목록에서 분리**해
+# '모든 현장 공통 점검'으로 따로 낸다. 버리지는 않는다(정보 손실 없음).
+# ⚠ 집합의 근거는 SSOT다 — 측정 표본(80장)으로 늘리면 그 표본에 과적합된다.
+GENERIC = {"제3조", "제4조", "제22조"}
+
 # RESOLVE — scripts/gimulmul_match.py:49-57 이식
 RESOLVE_SYS = (
     "너는 산업안전보건 현장점검관이다. 작업장 장면 서술과 '기인물 그룹 카탈로그'(산업안전보건규칙의 "
@@ -260,14 +267,28 @@ def _full_texts(db: Session, codes: list[str]) -> dict:
     return {r[0]: (r[1] or "") for r in rows}
 
 
-def filter_to_candidates(ranked: list[dict], valid: set) -> tuple[list[dict], int]:
+def expose_maybe() -> bool:
+    """'아마도(maybe)'까지 노출할지. 기본 **끔**(A안).
+
+    근거: 정식 FP 측정(위반 없는 현장 67장)에서 yes+maybe를 함께 내보내면 주장률 0.978인데
+    yes만 내보내면 0.672로 떨어지고, 위반 사진은 7장 중 6장이 유지됐다. 랭커는 이미 대부분을
+    'no'로 판정하고 있었고(no 1,110 · maybe 510 · yes 153) 파이프라인이 그 구분을 버리고 있었다.
+    되돌리려면 env `CUE_EXPOSE_MAYBE=1`.
+    """
+    return _flag("CUE_EXPOSE_MAYBE", False)
+
+
+def filter_to_candidates(ranked: list[dict], valid: set,
+                         with_maybe: Optional[bool] = None) -> tuple[list[dict], int]:
     """후보-밖 코드 필터(채택 차단조건). 환각 코드는 버리고 카운트.
 
-    같은 코드가 두 번 오면 앞의 것만 남긴다 — 안 그러면 같은 조문이 yes/maybe 두 줄로 동시에 노출된다.
+    같은 코드가 두 번 오면 앞의 것만 남긴다 — 안 그러면 같은 조문이 두 줄로 동시에 노출된다.
+    노출 기준은 기본 `applies == "yes"`만(A안, expose_maybe 참조).
     """
+    accept = ("yes", "maybe") if (expose_maybe() if with_maybe is None else with_maybe) else ("yes",)
     keep, halluc, seen = [], 0, set()
     for x in ranked:
-        if x.get("applies") not in ("yes", "maybe"):
+        if x.get("applies") not in accept:
             continue
         code = x.get("article_code")
         if code in seen:
@@ -309,9 +330,15 @@ async def recommend(db: Session, result: dict) -> list[ArticleCandidate]:
     sig = kn["sig"]
     title_of = {c: sig.get(c, {}).get("title", "") for c in codes}
 
+    def _mk(code: str, applies: str, rank: int) -> ArticleCandidate:
+        return ArticleCandidate(
+            article_code=code, title=title_of.get(code, ""), applies=applies, rank=rank,
+            source=kind.get(code, ""), evidence=why.get(code, ""),
+            # C안: 포괄 조문은 '이 사진의 위반'이 아니라 '모든 현장 공통 점검'으로 분리(SSOT §6.2)
+            group="common" if code in GENERIC else "violation")
+
     if not rank_enabled():
-        return [ArticleCandidate(article_code=c, title=title_of[c], applies="unranked", rank=0,
-                                 source=kind[c], evidence=why.get(c, "")) for c in codes]
+        return [_mk(c, "unranked", 0) for c in codes]
 
     try:
         full = _full_texts(db, codes)
@@ -327,11 +354,7 @@ async def recommend(db: Session, result: dict) -> list[ArticleCandidate]:
             # 채택 차단조건이었던 지표라 반드시 보여야 한다 — 기본 로깅 설정의 실효 레벨이 WARNING이라
             # info로 두면 운영에서 영영 관측되지 않는다(스테이징 실측으로 확인).
             logger.warning("[CueArticles] 후보-밖 코드 %d건 필터됨", halluc)
-        return [ArticleCandidate(article_code=x["article_code"], title=title_of.get(x["article_code"], ""),
-                                 applies=x["applies"], rank=i + 1,
-                                 source=kind.get(x["article_code"], ""),
-                                 evidence=why.get(x["article_code"], ""))
-                for i, x in enumerate(keep)]
+        return [_mk(x["article_code"], x["applies"], i + 1) for i, x in enumerate(keep)]
     except Exception as exc:  # noqa: BLE001 — RANK 실패 → 미정렬 후보 반환
         logger.warning("[CueArticles] RANK 실패(%s) — 미정렬 후보 반환", exc)
         # _full_texts 쿼리에서 터졌으면 세션이 실패 상태로 남는다 → 이후 분석 기록 저장이 통째로 500.
@@ -340,5 +363,4 @@ async def recommend(db: Session, result: dict) -> list[ArticleCandidate]:
             db.rollback()
         except Exception:  # noqa: BLE001
             pass
-        return [ArticleCandidate(article_code=c, title=title_of[c], applies="unranked", rank=0,
-                                 source=kind[c], evidence=why.get(c, "")) for c in codes]
+        return [_mk(c, "unranked", 0) for c in codes]

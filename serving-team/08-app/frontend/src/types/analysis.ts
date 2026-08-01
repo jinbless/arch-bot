@@ -162,10 +162,12 @@ export interface ArticleCandidate {
   article_code: string; // "제43조"
   law_type: string; // "RULE"
   title: string;
-  applies: 'yes' | 'maybe' | 'unranked' | string;
+  applies: 'yes' | 'maybe' | 'unranked' | string; // 기본 노출은 yes만(A안)
   rank: number; // 1..n (RANK on) / 0 (unranked)
   source: string; // 큐레이션 | 기인물 | 단서 | 흐름 | 횡단
   evidence: string; // 매칭된 관찰단서(cue canonical)
+  /** violation = 이 사진의 구체적 위반 후보 / common = 모든 현장 공통 점검(SSOT §6.2 포괄조문). */
+  group?: 'violation' | 'common' | string;
 }
 
 export interface AnalysisResponse {

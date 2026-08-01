@@ -83,7 +83,14 @@ arm A·B 4-rep 실측(1,032콜) + **arm D promote-1**(B top1이 A후보 밖 신�
 - **기인물 등급화는 지렛대 없음(검증됨)**: 음성 67장에 기인물 **186종**·최다 빈출 **2/67장(3%)**·양성과 겹침 1종(4%).
   막을 공통 기인물이 없다. 문제는 식별이 아니라 **"기인물 존재 → 그 조문이 후보"** 매핑이다.
   cue-pool 115종 중 결여 표현을 담은 cue는 **2종(1.7%)** — 입구가 통째로 '존재' 기반이다.
-- raw: `fp_results.json/.md` · `fp_posthoc_variants.json` · `fp_gate_variants.json` · 사전등록·해석 [../dev-notes/fp-measurement-2026-08-01.md](../dev-notes/fp-measurement-2026-08-01.md)
+- **채택(2026-08-01): A안 yes만 노출 + C안 포괄조문 분리.** 노출 기준을 `applies=="yes"`로 좁히고
+  (env `CUE_EXPOSE_MAYBE=1`로 복원), SSOT §6.2 전역강등 대상 **제3·4·22조**를 `group="common"`으로 분리해
+  '위반 후보'가 아니라 '모든 현장 공통 점검'으로 낸다. 시뮬(같은 80장): 정상 0.948→**0.373** / 위반 1.000→0.429.
+  위반 쪽 하락이 실제 손실이 아닌 근거 — 감독관 gold에서 **제3조는 52장 판정 중 실제 위반 1장(2%)**,
+  제22조 14%(5/35). 즉 분리로 잃는 건 탐지가 아니라 오답이다(비교: 제43조 42%·제13조 17%).
+  **조건부 C(SSOT 원문 "특정조문 있을 때만 강등")는 효과 0으로 기각** — 정상 사진은 포괄조문이 단독 yes라 미발동.
+  ⚠ 정책을 고른 그 80장에서 잰 수치 → **남은 568장에서 사전등록 재측정 필요**. 플래그는 계속 off.
+- raw: `fp_results.json/.md` · `fp_posthoc_variants.json` · `fp_gate_variants.json` · `fp_simulate_ac.json` · 사전등록·해석 [../dev-notes/fp-measurement-2026-08-01.md](../dev-notes/fp-measurement-2026-08-01.md)
 
 ## 변별 프로브 **v2** — 형제조문 변별은 병목이 아니었다 (2026-08-01)
 

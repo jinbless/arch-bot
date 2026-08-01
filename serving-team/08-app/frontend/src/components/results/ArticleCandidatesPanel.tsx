@@ -54,13 +54,52 @@ const codeNum = (code: string): number => {
   return m ? Number(m[1]) : 99999;
 };
 
+const Row: React.FC<{ c: ArticleCandidate; muted?: boolean }> = ({ c, muted }) => {
+  const meta = APPLIES_META[c.applies] ?? APPLIES_META.unranked;
+  const src = SOURCE_META[c.source];
+  return (
+    <li className={`rounded-lg border border-gray-100 p-2.5 flex items-start gap-2.5 ${muted ? 'bg-white' : 'bg-gray-50'}`}>
+      <span className="mt-0.5 w-6 shrink-0 text-center text-xs font-bold text-gray-400">
+        {c.rank > 0 && !muted ? c.rank : '·'}
+      </span>
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-sm font-semibold text-gray-900">{c.article_code}</span>
+          <span className="text-sm text-gray-700">{c.title}</span>
+          {!muted && (
+            <span
+              title={meta.title}
+              className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${meta.cls} whitespace-nowrap`}
+            >
+              {meta.label}
+            </span>
+          )}
+          {c.source && !muted && (
+            <span
+              title={src?.title || '후보 생성 경로'}
+              className="text-[10px] px-1.5 py-0.5 rounded border bg-white text-gray-500 border-gray-200 whitespace-nowrap"
+            >
+              {src?.label || c.source}
+            </span>
+          )}
+        </div>
+        {c.evidence && !muted && (
+          <p className="mt-1 text-xs text-gray-500">
+            {c.source === '흐름' ? '판단흐름 진입 단서' : '매칭된 관찰단서'}: {c.evidence}
+          </p>
+        )}
+      </div>
+    </li>
+  );
+};
+
 const ArticleCandidatesPanel: React.FC<{
   candidates?: ArticleCandidate[];
   findingStatus?: string;
 }> = ({ candidates, findingStatus }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const items = useMemo(() => {
+  const all = useMemo(() => {
     const src = candidates ?? [];
     // 같은 조문이 두 번 오면(랭커 중복 출력) 앞의 것만 남긴다 — 상반된 배지가 나란히 뜨는 것 방지
     const seen = new Set<string>();
@@ -74,7 +113,12 @@ const ArticleCandidatesPanel: React.FC<{
     });
   }, [candidates]);
 
-  if (!items.length) return null;
+  // C안: 포괄조문(SSOT §6.2 제3·4·22조)은 '이 사진의 위반'이 아니라 '공통 점검'으로 분리해 아래에 따로 낸다.
+  // 정상 현장 사진의 36%에 제3조가 붙는다는 실측 → 같은 목록에 두면 목록 전체의 신뢰가 깎인다.
+  const items = useMemo(() => all.filter((c) => c.group !== 'common'), [all]);
+  const commons = useMemo(() => all.filter((c) => c.group === 'common'), [all]);
+
+  if (!all.length) return null;
 
   const ranked = items.some((c) => c.rank > 0);
   const shown = expanded ? items : items.slice(0, PREVIEW_COUNT);
@@ -102,8 +146,8 @@ const ArticleCandidatesPanel: React.FC<{
           위반 판정이 아닙니다.
         </p>
         <p>
-          이 목록은 <strong>해당 없음을 반환하지 않습니다</strong> — 실제로 위반이 없는 현장에서도 조문이 표시될 수 있습니다.
-          각 조문의 성립 여부는 현장에서 확인해 판단하세요.
+          <strong>위반이 없는 현장에서도 조문이 표시될 수 있습니다</strong> — 정상 현장 사진으로 측정했을 때
+          상당수에서 목록이 비지 않았습니다. 각 조문의 성립 여부는 현장에서 확인해 판단하세요.
         </p>
         {unconfirmed && (
           <p className="font-medium">
@@ -113,47 +157,20 @@ const ArticleCandidatesPanel: React.FC<{
         )}
       </div>
 
-      <ol className="space-y-2">
-        {shown.map((c) => {
-          const meta = APPLIES_META[c.applies] ?? APPLIES_META.unranked;
-          const src = SOURCE_META[c.source];
-          return (
-            <li
-              key={c.article_code}
-              className="rounded-lg border border-gray-100 bg-gray-50 p-2.5 flex items-start gap-2.5"
-            >
-              <span className="mt-0.5 w-6 shrink-0 text-center text-xs font-bold text-gray-400">
-                {c.rank > 0 ? c.rank : '·'}
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="text-sm font-semibold text-gray-900">{c.article_code}</span>
-                  <span className="text-sm text-gray-700">{c.title}</span>
-                  <span
-                    title={meta.title}
-                    className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${meta.cls} whitespace-nowrap`}
-                  >
-                    {meta.label}
-                  </span>
-                  {c.source && (
-                    <span
-                      title={src?.title || '후보 생성 경로'}
-                      className="text-[10px] px-1.5 py-0.5 rounded border bg-white text-gray-500 border-gray-200 whitespace-nowrap"
-                    >
-                      {src?.label || c.source}
-                    </span>
-                  )}
-                </div>
-                {c.evidence && (
-                  <p className="mt-1 text-xs text-gray-500">
-                    {c.source === '흐름' ? '판단흐름 진입 단서' : '매칭된 관찰단서'}: {c.evidence}
-                  </p>
-                )}
-              </div>
-            </li>
-          );
-        })}
-      </ol>
+      {items.length ? (
+        <ol className="space-y-2">
+          {shown.map((c) => (
+            <Row key={c.article_code} c={c} />
+          ))}
+        </ol>
+      ) : (
+        <div className="rounded-lg bg-gray-50 border border-gray-100 p-3 text-sm text-gray-600">
+          이 사진에서 <strong>구체적으로 지적할 위반은 확인되지 않았습니다.</strong>
+          <span className="block mt-1 text-xs text-gray-500">
+            위반이 없다는 보증은 아닙니다 — 사진에 안 보이는 위반(서류·절차 등)은 판단하지 못합니다.
+          </span>
+        </div>
+      )}
 
       {hasCross && (
         <p className="mt-2 text-[11px] text-gray-500">
@@ -169,6 +186,21 @@ const ArticleCandidatesPanel: React.FC<{
         >
           {expanded ? '접기' : `나머지 후보 ${rest}개 보기 (전체 ${items.length}개)`}
         </button>
+      )}
+
+      {commons.length > 0 && (
+        <div className="mt-4 pt-3 border-t border-dashed border-slate-200">
+          <h3 className="text-sm font-semibold text-gray-700">모든 현장 공통 점검항목</h3>
+          <p className="text-xs text-gray-500 mb-2">
+            어느 작업장에나 성립하는 포괄 의무라 <strong>이 사진의 위반이라는 뜻이 아닙니다.</strong>
+            위 목록과 분리해 참고용으로만 표시합니다.
+          </p>
+          <ol className="space-y-2">
+            {commons.map((c) => (
+              <Row key={c.article_code} c={c} muted />
+            ))}
+          </ol>
+        </div>
       )}
     </section>
   );
