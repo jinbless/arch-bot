@@ -45,16 +45,20 @@ RANK_SYS_BLIND = RANK_SYS.replace("[기인물] 표시 조와 구체 위험조 �
 assert RANK_SYS_BLIND != RANK_SYS and "[기인물]" not in RANK_SYS_BLIND, "RANK_SYS 치환 실패"
 
 ART = REPO / "data-team" / "05-enrichment" / "runtime-artifacts"
-GOLD_CSV = REPO / "real-test-photo" / "label_photo" / "label_curation_gold.csv"
+LABEL_DIR = REPO / "real-test-photo" / "label_photo"
+GOLD = {"v1": LABEL_DIR / "label_curation_gold.csv",       # 1차 검수(판정쌍 299 — 형제 측정 불가)
+        "v2": LABEL_DIR / "label_curation_gold_v2.csv"}    # 2차 검수 병합(판정쌍 1,878 — 형제 검출력 확보)
 SIGS = ART / "article_signatures.jsonl"
 ARTICLES = REPO / "data-team" / "02-extraction" / "pipe-A" / "data" / "article-texts.json"
 IN_VISION = ART / "intake_vision_gold.json"
-OUT = ART / "probe_discrimination.json"
-OUT_MD = ART / "probe_discrimination.md"
 MODEL = "gpt-5.4"
 NI_MARGIN = -0.03   # 사전지정 비열등 마진(JPA)
 
+# 사전선언 형제집합(v1 프로브와 동일 — 비교 가능성 유지). SIB_EXPL은 2차 검수가 전수로 물은
+# 형제 10종(통로 계열 제23·24조 추가)이며 **사후 확장이므로 탐색적 이차지표로만** 보고한다.
 SIB = {"제13조", "제30조", "제42조", "제43조", "제44조", "제45조", "제56조", "제68조"}
+SIB_EXPL = SIB | {"제23조", "제24조"}
+
 
 # ── 판정 라벨(y/n) ──
 def _norm_code(c):
@@ -64,16 +68,18 @@ def _norm_code(c):
     return f"제{m.group(1)}조" if (m and not m.group(2)) else c
 
 
-jy, jn, pjts = defaultdict(set), defaultdict(set), {}
-with GOLD_CSV.open(encoding="utf-8-sig") as f:
-    for r in csv.DictReader(f):
-        m = (r.get("match") or "").strip().lower()
-        pf, code = r["photo_file"], _norm_code(r["article_code"])
-        pjts[pf] = r.get("pjts_id", "")
-        if m == "y":
-            jy[pf].add(code)
-        elif m == "n":
-            jn[pf].add(code)
+def load_gold(path: Path):
+    jy, jn, pjts = defaultdict(set), defaultdict(set), {}
+    with path.open(encoding="utf-8-sig") as f:
+        for r in csv.DictReader(f):
+            m = (r.get("match") or "").strip().lower()
+            pf, code = r["photo_file"], _norm_code(r["article_code"])
+            pjts[pf] = r.get("pjts_id", "")
+            if m == "y":
+                jy[pf].add(code)
+            elif m == "n":
+                jn[pf].add(code)
+    return jy, jn, pjts
 
 sig = {json.loads(l)["article_code"]: json.loads(l) for l in SIGS.read_text(encoding="utf-8").splitlines() if l.strip()}
 RULE_FULL = json.loads(ARTICLES.read_text(encoding="utf-8"))["laws"]["RULE"]
@@ -222,10 +228,17 @@ def main():
     ap.add_argument("--arms", default="P0,P1,P2")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--workers", type=int, default=8)
+    ap.add_argument("--gold", choices=sorted(GOLD), default="v2",
+                    help="판정 라벨 버전(기본 v2 — 2차 검수 병합본). v1은 재현용")
     args = ap.parse_args()
     if args.reps % 2:
         sys.exit("--reps는 짝수(정순/역순 균형)")
     arms = [a.strip() for a in args.arms.split(",") if a.strip()]
+
+    jy, jn, pjts = load_gold(GOLD[args.gold])
+    suffix = "" if args.gold == "v1" else f"_{args.gold}"   # v1 산출물 보존
+    out_json = ART / f"probe_discrimination{suffix}.json"
+    out_md = ART / f"probe_discrimination{suffix}.md"
 
     # 채점 가능한 사진 = y·n 둘 다 있고 Vision 보유
     photos = sorted([p for p in vis if jy.get(p) and jn.get(p)])
@@ -234,7 +247,11 @@ def main():
     tot_pairs = sum(len(jy[p]) * len(jn[p]) for p in photos)
     sib_photos = [p for p in photos if (jy[p] & SIB) and (jn[p] & SIB)]
     sib_pairs = sum(len(jy[p] & SIB) * len(jn[p] & SIB) for p in sib_photos)
-    print(f"채점가능 {len(photos)}장 · 판정쌍 {tot_pairs} · 형제쌍 {sib_pairs}({len(sib_photos)}장) · arms={arms} reps={args.reps}", flush=True)
+    ex_photos = [p for p in photos if (jy[p] & SIB_EXPL) and (jn[p] & SIB_EXPL)]
+    ex_pairs = sum(len(jy[p] & SIB_EXPL) * len(jn[p] & SIB_EXPL) for p in ex_photos)
+    print(f"gold={args.gold} · 채점가능 {len(photos)}장 · 판정쌍 {tot_pairs} · "
+          f"형제쌍 {sib_pairs}({len(sib_photos)}장) · 형제확장쌍 {ex_pairs}({len(ex_photos)}장) · "
+          f"arms={arms} reps={args.reps}", flush=True)
 
     # 후보 = 판정된 코드 전부(조번호순; 홀수 rep 역순)
     def cand_of(pf):
@@ -279,63 +296,86 @@ def main():
                 v, t = jpa_of(o, jy[pf], jn[pf])
                 ws.append((v or 0) * t); ts = t
             per[pf][arm] = {"win": mean(ws), "tot": ts}
-            # 형제 부분집합
-            sy, sn = jy[pf] & SIB, jn[pf] & SIB
-            if sy and sn:
-                sw = []
+            # 형제 부분집합(사전선언 SIB / 탐색적 SIB_EXPL)
+            for key, S in (("_sib", SIB), ("_sibx", SIB_EXPL)):
+                sy, sn = jy[pf] & S, jn[pf] & S
+                if not (sy and sn):
+                    continue
+                sw, st = [], 0
                 for o in ords:
                     v, t = jpa_of(o, sy, sn)
                     sw.append((v or 0) * t); st = t
-                per[pf][arm + "_sib"] = {"win": mean(sw), "tot": st}
+                per[pf][arm + key] = {"win": mean(sw), "tot": st}
 
     scored = [p for p in photos if all(a in per[p] for a in arms)]
-    agg, aggs = {}, {}
+    agg, aggs, aggx = {}, {}, {}
     for arm in arms:
         units = [(per[p][arm]["win"], per[p][arm]["tot"]) for p in scored]
         agg[arm] = cluster_boot(units)
-        su = [(per[p][arm + "_sib"]["win"], per[p][arm + "_sib"]["tot"]) for p in scored if arm + "_sib" in per[p]]
-        aggs[arm] = (cluster_boot(su), len(su), sum(t for _, t in su))
+        for key, store in (("_sib", aggs), ("_sibx", aggx)):
+            su = [(per[p][arm + key]["win"], per[p][arm + key]["tot"]) for p in scored if arm + key in per[p]]
+            store[arm] = (cluster_boot(su), len(su), sum(t for _, t in su))
 
-    comps = {}
+    def _verdict(l, h):
+        return ("gain" if l > 0 else "non_inferior" if l > NI_MARGIN else "harm" if h < 0 else "inconclusive")
+
+    comps, comps_sib = {}, {}
     for lo, hi in [("P0", "P1"), ("P1", "P2"), ("P0", "P2")]:
-        if lo in arms and hi in arms:
-            pr = [(per[p][lo]["win"], per[p][lo]["tot"], per[p][hi]["win"]) for p in scored]
-            d, l, h = paired_boot(pr)
-            comps[f"{lo}->{hi}"] = {"delta": round(d, 4), "ci95": [round(l, 4), round(h, 4)],
-                                    "verdict": ("gain" if l > 0 else "non_inferior" if l > NI_MARGIN
-                                                else "harm" if h < 0 else "inconclusive")}
+        if lo not in arms or hi not in arms:
+            continue
+        pr = [(per[p][lo]["win"], per[p][lo]["tot"], per[p][hi]["win"]) for p in scored]
+        d, l, h = paired_boot(pr)
+        comps[f"{lo}->{hi}"] = {"delta": round(d, 4), "ci95": [round(l, 4), round(h, 4)], "verdict": _verdict(l, h)}
+        # 형제 부분집합에서의 arm 효과 — v1에선 65쌍이라 못 물었던 질문(근거렌더가 형제 변별을 돕는가)
+        prs = [(per[p][lo + "_sib"]["win"], per[p][lo + "_sib"]["tot"], per[p][hi + "_sib"]["win"])
+               for p in scored if lo + "_sib" in per[p] and hi + "_sib" in per[p]]
+        ds, ls, hs = paired_boot(prs)
+        comps_sib[f"{lo}->{hi}"] = {"delta": round(ds, 4), "ci95": [round(ls, 4), round(hs, 4)],
+                                    "verdict": _verdict(ls, hs), "n_photos": len(prs)}
 
-    out = {"n_photos": len(scored), "n_pairs": tot_pairs, "n_sib_pairs": sib_pairs,
+    out = {"gold": args.gold, "n_photos": len(scored), "n_pairs": tot_pairs, "n_sib_pairs": sib_pairs,
+           "n_sib_expl_pairs": ex_pairs,
            "reps": args.reps, "arms": arms, "model": MODEL, "ni_margin": NI_MARGIN,
            "n_fail": len(fails), "failures": fails,
            "jpa": {a: {"point": round(agg[a][0], 4), "ci95": [round(agg[a][1], 4), round(agg[a][2], 4)]} for a in arms},
            "jpa_sibling": {a: {"point": round(aggs[a][0][0], 4),
                                "ci95": [round(aggs[a][0][1], 4), round(aggs[a][0][2], 4)],
                                "n_photos": aggs[a][1], "n_pairs": aggs[a][2]} for a in arms},
-           "paired": comps,
+           "jpa_sibling_expl": {a: {"point": round(aggx[a][0][0], 4),
+                                    "ci95": [round(aggx[a][0][1], 4), round(aggx[a][0][2], 4)],
+                                    "n_photos": aggx[a][1], "n_pairs": aggx[a][2]} for a in arms},
+           "paired": comps, "paired_sibling": comps_sib,
            "per_photo": {p: {"pjts": pjts.get(p, ""), "y": sorted(jy[p]), "n": sorted(jn[p]),
                              **{a: {"jpa": round(per[p][a]["win"] / per[p][a]["tot"], 3) if per[p][a]["tot"] else None,
                                     "order_rep0": res.get((p, a, 0), [])} for a in arms}} for p in scored}}
-    OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    out_json.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
 
     NAME = {"P0": "P0 현행", "P1": "P1 +정보배관", "P2": "P2 +근거렌더"}
-    L = [f"=== 변별 프로브 (판정코드만 제시 · {len(scored)}장 · 판정쌍 {tot_pairs} · reps {args.reps} · {MODEL}) ===",
+    L = [f"=== 변별 프로브 (판정코드만 제시 · gold {args.gold} · {len(scored)}장 · 판정쌍 {tot_pairs} · "
+         f"reps {args.reps} · {MODEL}) ===",
          f"실패 {len(fails)}건", "",
-         f"{'arm':16}{'JPA':>8}{'CI95':>20}   형제JPA(쌍/장)"]
+         f"{'arm':16}{'JPA':>8}{'CI95':>20}   {'형제JPA(쌍/장)':>18}   형제확장JPA(쌍/장)"]
     for a in arms:
-        j, s = out["jpa"][a], out["jpa_sibling"][a]
+        j, s, x = out["jpa"][a], out["jpa_sibling"][a], out["jpa_sibling_expl"][a]
         L.append(f"{NAME[a]:16}{j['point']:>8.3f}  [{j['ci95'][0]:+.3f},{j['ci95'][1]:+.3f}]"
-                 f"   {s['point']:.3f} ({s['n_pairs']}쌍/{s['n_photos']}장)")
-    L.append("")
+                 f"   {s['point']:.3f} ({s['n_pairs']}쌍/{s['n_photos']}장)"
+                 f"   {x['point']:.3f} ({x['n_pairs']}쌍/{x['n_photos']}장)")
+    L += ["", "[전체 판정쌍]"]
     for k, c in comps.items():
-        L.append(f"[{k}] ΔJPA {c['delta']:+.4f} CI[{c['ci95'][0]:+.4f},{c['ci95'][1]:+.4f}] → {c['verdict']}")
+        L.append(f"  [{k}] ΔJPA {c['delta']:+.4f} CI[{c['ci95'][0]:+.4f},{c['ci95'][1]:+.4f}] → {c['verdict']}")
+    L += ["", "[형제 판정쌍만]"]
+    for k, c in comps_sib.items():
+        L.append(f"  [{k}] ΔJPA {c['delta']:+.4f} CI[{c['ci95'][0]:+.4f},{c['ci95'][1]:+.4f}] → {c['verdict']}"
+                 f" ({c['n_photos']}장)")
     L += ["", f"[판정프레임] 주지표 JPA. 비열등 마진 {NI_MARGIN:+.2f}. 우월성 = CI 하한 > 0.",
           "[해석] P0가 이미 높으면 H2(랭킹) 소규모 확정. P1/P2에서 오르면 H1-a(정보배관)/H3'(근거렌더)가 원인.",
-          "[한계] 형제 판정쌍은 표본이 작아 탐색적 관찰 전용(사전 선언). 제13조↔제30조는 판정쌍 0으로 채점 불가."]
+          "[형제집합] 사전선언 SIB 8종(제13·30·42·43·44·45·56·68조). '형제확장'은 2차 검수가 전수로 물은 "
+          "10종(+제23·24조)이며 **사후 확장이라 탐색적 이차지표**다.",
+          "[한계] 이 프로브는 큐레이터가 판정한 코드만 후보로 주므로 후보생성 품질은 재지 않는다 — 순수 변별력만."]
     txt = "\n".join(L)
-    OUT_MD.write_text(txt, encoding="utf-8")
+    out_md.write_text(txt, encoding="utf-8")
     print("\n" + txt)
-    print(f"\n→ {OUT.name} · {OUT_MD.name}")
+    print(f"\n→ {out_json.name} · {out_md.name}")
 
 
 if __name__ == "__main__":
