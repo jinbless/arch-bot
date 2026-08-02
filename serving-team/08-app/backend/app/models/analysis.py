@@ -148,6 +148,11 @@ class FlowAnchor(BaseModel):
     #   시행령 제78조제1항 각 호의 괄호 단서를 그대로 싣는다.
     inspection_scopes: List[str] = []
     periodic_source: str = "없음"      # 안전검사 · 조문 · 가이드의 합성 문자열 | 없음
+    # ★ 앵커 카탈로그 127종은 규칙의 절·관 구조를 그대로 옮긴 것이라 **사진으로 지목할 수 없는 칸**이
+    #   34종 섞여 있다(통칙·보호구·관리·상위 개념). 여기로 떨어지면 흐름이 의미가 없으므로
+    #   화면이 그 사실을 말하고 사용자가 실제 기인물을 고르게 해야 한다.
+    kind: str = ""                    # 기인물 | 장소 | 환경 | 부적격
+    kind_why: str = ""
 
 
 class WorkFlow(BaseModel):

@@ -13,6 +13,8 @@ export interface FlowGroup {
   label: string;
   path: string;
   is_inspection_target: boolean;
+  /** 기인물 | 장소 | 환경 | 부적격. 부적격은 규칙 편제상의 칸이라 사진으로 지목할 수 없다 */
+  kind?: string;
   n_items: number;
 }
 

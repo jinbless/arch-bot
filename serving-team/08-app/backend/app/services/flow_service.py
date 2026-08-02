@@ -84,7 +84,8 @@ def _anchor(row: dict) -> FlowAnchor:
                       is_inspection_target=bool(ins.get("is_target")),
                       machines=list(ins.get("machines") or []),
                       inspection_scopes=[f"{k}: {v}" for k, v in (ins.get("scopes") or {}).items()],
-                      periodic_source=ins.get("periodic_source", "없음"))
+                      periodic_source=ins.get("periodic_source", "없음"),
+                      kind=row.get("anchor_kind", ""), kind_why=row.get("anchor_why", ""))
 
 
 def _empty_reason(key: str, row: dict) -> str:
@@ -178,5 +179,9 @@ def list_groups() -> list[dict]:
         ins = r.get("inspection") or {}
         out.append({"group_key": r["no"], "label": r.get("subject", ""), "path": r.get("path", ""),
                     "is_inspection_target": bool(ins.get("is_target")),
+                    "kind": r.get("anchor_kind", ""),
                     "n_items": sum(len(v) for v in (r.get("items") or {}).values())})
+    # ★ 사진으로 지목할 수 없는 칸(통칙·보호구·관리)을 목록 뒤로 민다. 지우지는 않는다 —
+    #   사용자가 굳이 그 조문 묶음을 보고 싶을 수 있고, 지우면 아예 닿을 수 없게 된다.
+    out.sort(key=lambda g: (g["kind"] == "부적격", 0))
     return out

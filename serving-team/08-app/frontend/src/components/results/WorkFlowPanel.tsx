@@ -178,6 +178,15 @@ const AnchorPicker: React.FC<{ current: string; onPick: (k: string) => void; onC
                   className="w-full px-1.5 py-1.5 text-left hover:bg-slate-50 disabled:opacity-40"
                 >
                   <span className="text-sm text-gray-800">{g.label}</span>
+                  {/* 사진으로 지목할 수 없는 칸은 고르기 전에 알려준다. 목록에서 빼지는 않는다 */}
+                  {g.kind === '부적격' && (
+                    <span
+                      title="규칙의 편제상 분류(통칙·보호구·관리 등)라 작업 흐름이 성립하지 않습니다"
+                      className="ml-1.5 rounded border border-slate-300 px-1 text-[9px] text-slate-500"
+                    >
+                      사진 지목 불가
+                    </span>
+                  )}
                   {g.is_inspection_target && (
                     <span className="ml-1.5 rounded border border-slate-800 px-1 text-[9px] font-semibold text-slate-800">
                       안전검사
@@ -315,6 +324,16 @@ const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
 
       {/* ② 신뢰 고지 — tooltip에 숨기지 않는다(폰 스크린샷 전달이 주 경로) */}
       <div className="mb-3 space-y-1 rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-xs leading-relaxed text-slate-700">
+        {/* ★ 앵커가 규칙 편제상의 칸(통칙·보호구·관리)으로 떨어진 경우. 흐름이 의미가 없으므로
+            빈 칸을 보여주며 넘어가지 말고, 사용자가 실제 기인물을 고르도록 말해준다. */}
+        {anchor.kind === '부적격' && (
+          <p className="rounded border border-slate-400 bg-white p-2">
+            <strong>이 항목은 사진에서 지목할 수 있는 기인물이 아닙니다.</strong> 규칙의 편제상 분류
+            (통칙·보호구·관리 등)라 작업 흐름이 성립하지 않습니다.
+            {anchor.kind_why ? ` ${anchor.kind_why}` : ''} 위의 <strong>‘＋ 목록에서 직접 찾기’</strong>로
+            사진 속 기계·장소를 골라 주세요.
+          </p>
+        )}
         <p>
           <strong>기인물을 잘못 잡으면 아래 흐름 전체가 어긋납니다.</strong> 먼저 위의 기인물이 맞는지
           확인하세요.

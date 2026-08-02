@@ -362,6 +362,11 @@ def pg(sql: str) -> list[str]:
 def main() -> None:
     si_by_group, _ = load_inspection()
     APH, NO_DUTY = load_article_phases()
+    # 사진 앵커로 쓸 수 있는가. 카탈로그 127종은 규칙의 절·관 구조를 그대로 옮긴 것이라
+    # 통칙·보호구·관리처럼 **사진으로 지목할 수 없는 칸**이 섞여 있다.
+    av_p = ART / "anchor_validity.json"
+    ANCHOR = ({g["group_key"]: g for g in json.loads(av_p.read_text(encoding="utf-8"))["groups"]}
+              if av_p.exists() else {})
     sigs = {json.loads(l)["article_code"]: json.loads(l)
             for l in (ART / "article_signatures.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()}
     gim = json.loads((ART / "gimulmul_index.json").read_text(encoding="utf-8"))["groups"]
@@ -612,6 +617,10 @@ def main() -> None:
                        "guide": gcode, "apx3": [r["no"] for r in a3_rows],
                        "slots": slots, "filled": sum(1 for x, _ in SKELETON if slots[x]),
                        "items": items, "inspection": insp, "no_duty_articles": own_skipped,
+                       # 사진 앵커 적격. 부적격이라도 조문이 무의미한 게 아니라
+                       # **사진으로 지목할 수 없다**는 뜻이다(통칙·보호구·관리·상위 개념).
+                       "anchor_kind": (ANCHOR.get(k) or {}).get("kind", ""),
+                       "anchor_why": (ANCHOR.get(k) or {}).get("why", ""),
                        "detail": {x: [y["text"] for y in v[:3]] for x, v in items.items()}})
 
     # ── 리포트 ────────────────────────────────────────────────────────
@@ -639,6 +648,17 @@ def main() -> None:
     if skipped:
         ex = ", ".join(sorted(skipped, key=lambda c: int(re.match(r"제(\d+)", c).group(1)))[:6])
         print(f"\n의무 아닌 조문 {len(skipped)}종을 흐름에서 뺐다(목적·정의·적용 제외) — 예: {ex}")
+
+    if ANCHOR:
+        ak = {}
+        for r in report:
+            ak[r["anchor_kind"] or "미분류"] = ak.get(r["anchor_kind"] or "미분류", 0) + 1
+        print("\n=== 사진 앵커 적격 ===")
+        for kk in ("기인물", "장소", "환경", "부적격", "미분류"):
+            if ak.get(kk):
+                print(f"  {kk:6} {ak[kk]:>3}종")
+        print("  ⚠ 부적격 = 규칙 편제상의 칸(통칙·보호구·관리·상위 개념). 조문이 무의미한 게 아니라"
+              " 사진으로 지목할 수 없다는 뜻이다")
 
     print(f"\n별표 3 붙은 그룹 {sum(1 for r in report if r['apx3'])}종 · "
           f"가이드 붙은 그룹 {sum(1 for r in report if r['guide'])}종 · "

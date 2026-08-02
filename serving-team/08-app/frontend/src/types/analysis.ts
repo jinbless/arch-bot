@@ -221,6 +221,8 @@ export interface FlowAnchor {
   machines: string[];
   inspection_scopes?: string[]; // 시행령 제78조제1항 각 호의 괄호 단서 — 조건 없이 '대상' 배지만 달면 안 된다
   periodic_source: string;
+  kind?: '기인물' | '장소' | '환경' | '부적격'; // 부적격 = 규칙 편제상의 칸이라 사진으로 지목할 수 없다
+  kind_why?: string;
 }
 
 export interface WorkFlow {
