@@ -165,6 +165,30 @@ def by_group_key(group_key: str, alternates: Optional[list[str]] = None) -> Opti
     return WorkFlow(anchor=_anchor(row), alternates=alts, slots=_slots(row), reviewed=LABELS_REVIEWED)
 
 
+_ALWAYS: dict = {}
+
+
+def always_applicable() -> dict:
+    """사진과 무관하게 늘 지켜야 하는 것 — '기본 안전수칙' 카테고리.
+
+    ★ 흐름 6칸은 사진에서 잡은 앵커에 매달린다. 그런데 작업장 시설·통로 구조·보호구 지급처럼
+      **시간축이 없고 현장이 늘 갖춰야 할 상태**인 의무가 있다. 앵커에 안 걸리면
+      사업주가 볼 방법이 아예 없어서 따로 모은다.
+      생성: data-team/01-parsing/rule-appendices/build_always_applicable.py
+    """
+    if "v" in _ALWAYS:
+        return _ALWAYS["v"]
+    try:
+        d = json.loads((DATA_DIR / "always_applicable.json").read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001 — 없으면 조용히 빈 목록(기존 경로 무영향)
+        logger.warning("[WorkFlow] 상시 준수 데이터 로드 실패: %s", exc)
+        return {"topics": [], "n_total": 0, "reviewed": False}
+    v = {"topics": d.get("topics", []), "n_total": d.get("n_total", 0),
+         "reviewed": bool(d.get("reviewed_by_human"))}
+    _ALWAYS["v"] = v
+    return v
+
+
 def list_groups() -> list[dict]:
     """앵커 선택기용 전체 목록.
 

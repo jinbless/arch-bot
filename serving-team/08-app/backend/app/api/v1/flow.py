@@ -33,6 +33,17 @@ async def flow_groups():
     return {"groups": groups, "count": len(groups)}
 
 
+@router.get("/always")
+async def flow_always():
+    """사진과 무관하게 늘 지켜야 하는 것(LLM 호출 없음).
+
+    흐름은 앵커에 매달리므로, 앵커가 될 수 없는 의무(작업장 시설·통로 구조·보호구 지급 등)는
+    여기서만 볼 수 있다. 앵커 정확도와 무관하게 항상 정확한 유일한 화면이다.
+    """
+    _guard()
+    return flow_service.always_applicable()
+
+
 @router.get("", response_model=WorkFlow)
 async def flow_by_group(
     group_key: str = Query(..., description="기인물 그룹 키"),
