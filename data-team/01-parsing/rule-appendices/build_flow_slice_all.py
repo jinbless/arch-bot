@@ -24,6 +24,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -190,6 +191,66 @@ def phase_of(text: str) -> str:
     return "EXEC"
 
 
+def load_law3(G: dict) -> dict[str, list[dict]]:
+    """법·시행령·시행규칙 조문 43건 → 그룹키별 항목 목록.
+
+    흐름의 재료는 원래 산업안전보건기준규칙뿐이었다. 법·시행령·시행규칙 554조를 훑어
+    기인물 단위로 매달 수 있는 의무를 찾았고(`law3_flow_gap_candidates.json`),
+    적용 대상은 `law3_targets.py`의 표가 정한다.
+
+    ★ 대상을 코드가 알아서 정하게 두지 않는다. 조문마다 표에 적고 근거를 남긴다.
+      과부착 버그가 이 프로젝트에서 7번 났다.
+    """
+    cand_p = ART / "law3_flow_gap_candidates.json"
+    if not cand_p.exists():
+        return {}
+    try:
+        from law3_targets import TARGETS, load_list, resolve_machines, nkey  # noqa: PLC0415
+    except ImportError:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from law3_targets import TARGETS, load_list, resolve_machines, nkey  # noqa: PLC0415
+
+    glist = [{"key": k, "name": v["name"], "coord": v["coord"]} for k, v in G.items()]
+    machine_base = {k for k, v in G.items() if (v["coord"][0], v["coord"][1]) == (2, 1)}
+    by_group: dict[str, list[dict]] = {}
+    unmatched, no_target = [], []
+
+    for c in json.loads(cand_p.read_text(encoding="utf-8"))["candidates"]:
+        t = TARGETS.get((c["law"], c["code"], c["phase"]))
+        if t is None:
+            no_target.append(f"{c['law']} {c['code']}/{c['phase']}")
+            continue
+        kind = t["kind"]
+        if kind == "none":
+            continue
+        if kind == "machines":
+            names = load_list(t["list"]) if t.get("list") else t["names"]
+            keys, miss = resolve_machines(names, glist)
+            unmatched += [f"{c['code']}: {m}" for m in miss]
+        elif kind == "coord":
+            keys = {g["key"] for g in glist
+                    if any(tuple(g["coord"][:len(p)]) == p for p in t["prefixes"])}
+        elif kind == "all_machine":
+            keys = set(machine_base)
+        else:                                   # byeolpyo5 — 특별교육은 아래에서 따로 붙인다
+            continue
+        law_short = {"산업안전보건법": "법", "산업안전보건법 시행령": "시행령",
+                     "산업안전보건법 시행규칙": "시행규칙"}[c["law"]]
+        for k in keys:
+            by_group.setdefault(k, []).append({
+                "phase": c["phase"], "text": c["title_원문"], "evidence": c["quote"],
+                "ref": f"{law_short} {c['code']}", "note": t.get("note", "")})
+
+    if unmatched:
+        print(f"⚠ 법령이 대상으로 정했으나 기인물 그룹이 없는 기계 {len(set(unmatched))}건 — "
+              f"{', '.join(sorted(set(unmatched))[:6])} …")
+    if no_target:
+        print(f"⚠ 적용 대상 표에 없는 후보 {len(no_target)}건 — {', '.join(no_target[:5])}")
+    print(f"법·시행령·시행규칙 조문을 {len(by_group)}개 그룹에 "
+          f"{sum(len(v) for v in by_group.values())}건 붙였다\n")
+    return by_group
+
+
 def load_article_phases() -> tuple[dict[str, list[dict]], set[str]]:
     """조문 코드 → [{phase, quote}] — 원문 판독 결과. 그리고 **의무가 아닌 조문** 집합.
 
@@ -330,6 +391,7 @@ def main() -> None:
 
     # 안전검사 주기의 하위 종류('이동식 크레인')에 대응하는 그룹이 있는지 볼 때 쓴다.
     group_names = {v["name"] for v in G.values()}
+    LAW3 = load_law3(G)
     gwan1 = {v["coord"][:3]: k for k, v in G.items() if v["coord"][3] == 1}      # 절 총칙(관1)
     machine_base = next((k for k, v in G.items() if v["coord"] == (2, 1, 1, None)), None)  # 기계 등의 일반기준
 
@@ -400,6 +462,11 @@ def main() -> None:
             if c in sigs and c not in own:
                 ev = next((x["quote"] for x in APH.get(c, []) if x["phase"] == ph), "")
                 add(ph, "조문(총칙)", sigs[c]["title"], c, ev)
+
+        # ── 법·시행령·시행규칙 조문 ────────────────────────────────────
+        # 규칙 조문과 출처를 구분한다. 사람이 검수할 때 '이건 법이고 이건 규칙'이 보여야 한다.
+        for x in LAW3.get(k, []):
+            add(x["phase"], f"법령({x['ref'].split()[0]})", x["text"], x["ref"], x["evidence"])
 
         # ── PRECHECK: 별표 3 (좌표 정확 일치 — 19종만) ────────────────
         a3_rows = a3_by_coord.get(gg["coord"], [])
