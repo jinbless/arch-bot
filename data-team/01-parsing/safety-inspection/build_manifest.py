@@ -86,11 +86,18 @@ def main() -> None:
         "total_rows": total_rows,
         "total_items": total_items,
         "appendices": entries,
+        # 법령 3종은 2026-08-02에 확보됐다 — 밖에서 받아온 게 아니라
+        # `data-team/02-extraction/pipe-A/data/article-texts.json`에 처음부터 들어 있었다.
+        # scope·cycle 글자 단위 대조는 verify_against_law.py가 한다.
+        "law_source": {
+            "file": "data-team/02-extraction/pipe-A/data/article-texts.json",
+            "articles": ["OSHA 제93조", "DECREE 제78조(개정 2024.6.25.)",
+                         "ENFORCE 제124조·제125조·제126조(개정 2024.6.28.)"],
+            "verified_by": "data-team/01-parsing/safety-inspection/verify_against_law.py",
+        },
         "not_obtained": [
-            "산업안전보건법 제93조 원문",
-            "산업안전보건법 시행령 제78조 원문",
-            "산업안전보건법 시행규칙 제124조~제126조 원문",
-            "안전검사대상기계등의 규격 및 형식별 적용범위 관련 고시(혼합기·파쇄기/분쇄기 적용 제외 범위의 출처로 추정, 미확인)",
+            "안전검사대상기계등의 규격 및 형식별 적용범위 관련 고시 — 시행령 제78조제2항이 위임한 별도 고시. "
+            "혼합기·파쇄기/분쇄기의 적용 제외 범위가 여기 있을 것으로 보이나 미확인",
         ],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
