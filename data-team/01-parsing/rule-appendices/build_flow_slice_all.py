@@ -83,8 +83,14 @@ def applies(code: str, coord: tuple) -> bool:
         return False
     return hit(sc["allow"]) if sc.get("allow") else True
 
-# 전 기인물 공통 주입 — 총칙 조문
-COMMON = {"제38조": "PLAN", "제39조": "ASSIGN", "제35조": "PRECHECK"}
+# ★ 예전에 "전 기인물 공통 주입"이라며 제38·39·35조를 126개 그룹에 무조건 넣었다. **틀렸다.**
+#   셋 다 적용 대상이 닫힌 목록이다:
+#     제38조제1항  13개 작업만 열거(별표 4와 1:1) → 실제 대상 10개 그룹, 116개가 오부착이었다
+#     제39조제1항  그중 제2·6·8·10·11호만. 제2항은 항타기·항발기
+#     제35조       별표 2(제1항)·별표 3(제2항)이 정하는 작업
+#   이 주입이 계획·인적·작업전 칸의 '겉보기 100%'를 만들고 있었다.
+#   제39조제1항이 지목하는 별표 4 호 번호. 원문: "제38조제1항제2호ㆍ제6호ㆍ제8호ㆍ제10호 및 제11호"
+A39_HO = {"2", "6", "8", "10", "11"}
 
 LEX = {
     "PLAN": r"사전조사|작업계획서|계획을 수립|설계도서",
@@ -479,13 +485,14 @@ def main() -> None:
                 add_article("조문(적용범위 지정)", c)
                 own.add(c)
 
-        # 총칙 3조문은 **칸을 고정**한다. 제38조=작업계획서, 제39조=작업지휘자, 제35조=관리감독자 점검.
-        # 원문 판독으로는 제35조가 두 칸에 걸치지만, 전 그룹에 주입되는 항목이라
-        # 칸마다 늘어나면 '겉보기 채움'만 부풀고 실질은 그대로다.
-        for c, ph in COMMON.items():
-            if c in sigs and c not in own:
-                ev = next((x["quote"] for x in APH.get(c, []) if x["phase"] == ph), "")
-                add(ph, "조문(총칙)", sigs[c]["title"], c, ev)
+        # ★★ 제35·38·39조는 **닫힌 목록**이다. 전 그룹에 주입하면 안 된다.
+        #   제38조제1항은 13개 작업만 열거한다(별표 4와 1:1). 그런데 126개 그룹에 주입돼
+        #   추락 방지·비계·보호구 그룹에도 '사전조사 및 작업계획서'가 떠 있었다 — 92%가 오부착.
+        #   계획·인적·작업전 칸이 '겉보기 100%'였던 것이 순전히 이 때문이다.
+        #   적용범위 무시 버그의 **8번째** 발현이고 가장 컸다.
+        #   → 아래 별표 4 매칭이 끝난 뒤에 대상을 정한다(add_common 참조).
+        #   제35조는 따로 넣지 않는다 — 별표 2·3 항목이 이미 `제35조제1항/제2항`을 ref로 달고 있어
+        #   조문을 또 넣으면 같은 말이 두 번 뜬다.
 
         # ── 법·시행령·시행규칙 조문 ────────────────────────────────────
         # 규칙 조문과 출처를 구분한다. 사람이 검수할 때 '이건 법이고 이건 규칙'이 보여야 한다.
@@ -500,12 +507,26 @@ def main() -> None:
 
         # ── PLAN: 별표 4 (이름 매칭) ──────────────────────────────────
         nm = gg["name"]
+        a4_hits = set()
         for rr in a4["rows"]:
             if name_hit(nm, rr["subject"]):
+                a4_hits.add(str(rr["no"]))
                 for it in rr["items"]:
                     add("PLAN", "별표 4(이름매칭)", it, f"제38조제1항 · {rr['subject'][:20]}")
                 for it in (rr.get("values") or {}).get("사전조사 내용", []) or []:
                     add("PLAN", "별표 4(사전조사·이름매칭)", it, rr["subject"][:20])
+
+        # ── 제38·39조: 별표 4 대상 작업에만 ───────────────────────────
+        # 제38조제1항 = 별표 4의 13개 작업. 제39조제1항 = 그중 **제2·6·8·10·11호만**
+        # (차량계 하역운반기계등 / 굴착 / 교량 / 해체 / 중량물 취급).
+        # 제39조제2항은 항타기·항발기 조립·해체·변경·이동 — 별표 4에 없는 별개 대상이다.
+        if a4_hits and "제38조" in sigs and "제38조" not in own:
+            ev = next((x["quote"] for x in APH.get("제38조", []) if x["phase"] == "PLAN"), "")
+            add("PLAN", "조문(총칙)", sigs["제38조"]["title"], "제38조", ev)
+        hangta = ("항타기" in nm or "항발기" in nm)
+        if (a4_hits & A39_HO or hangta) and "제39조" in sigs and "제39조" not in own:
+            ev = next((x["quote"] for x in APH.get("제39조", []) if x["phase"] == "ASSIGN"), "")
+            add("ASSIGN", "조문(총칙)", sigs["제39조"]["title"], "제39조", ev)
 
         # ── ASSIGN: 별표 2 (좌표 우선, 없으면 이름) ───────────────────
         for rr in a2["rows"]:
@@ -604,21 +625,16 @@ def main() -> None:
         print(f"  {f}/6 칸 채움  {dist[f]:>3}종")
     print(f"\n총 항목 {sum(sum(r['slots'].values()) for r in report)}개")
 
-    # ★ '칸이 찼다'를 그대로 믿으면 안 된다. 계획·인적·작업전은 총칙 조문(제38·39·35조)을
-    #   전 그룹에 1건씩 주입하므로 무조건 찬다. 그걸 뺀 **실질 채움**을 같이 낸다.
-    def real(r, ph):
-        return [y for y in r["items"][ph] if y["source"] != "조문(총칙)"]
-
-    print("  (칸 채움 / 총칙 공통주입 제외한 실질)")
+    # 예전에는 '겉보기 채움'과 '실질 채움'을 나눠 냈다. 제38·39·35조를 126개 그룹에 무조건
+    # 주입해서 계획·인적·작업전이 100%로 보였기 때문이다. 그 주입을 적용범위대로 좁힌 뒤로는
+    # 둘이 같다 — 이제 채움률을 그대로 믿어도 된다.
     for x, lab in SKELETON:
         empty = sum(1 for r in report if not r["slots"][x])
-        sub = sum(1 for r in report if real(r, x))
-        print(f"  {lab:6} 빈 그룹 {empty:>3}종 · 채움 {(n - empty) / n:>4.0%} / 실질 {sub / n:>4.0%}")
+        print(f"  {lab:6} 빈 그룹 {empty:>3}종 · 채움 {(n - empty) / n:>4.0%}")
     rdist = {}
     for r in report:
-        c = sum(1 for x, _ in SKELETON if real(r, x))
-        rdist[c] = rdist.get(c, 0) + 1
-    print("  실질 칸 수 분포: " + " · ".join(f"{f}칸 {rdist[f]}종" for f in sorted(rdist, reverse=True)))
+        rdist[r["filled"]] = rdist.get(r["filled"], 0) + 1
+    print("  칸 수 분포: " + " · ".join(f"{f}칸 {rdist[f]}종" for f in sorted(rdist, reverse=True)))
 
     if skipped:
         ex = ", ".join(sorted(skipped, key=lambda c: int(re.match(r"제(\d+)", c).group(1)))[:6])
