@@ -37,10 +37,49 @@ SKELETON = [("PLAN", "계획"), ("ASSIGN", "인적"), ("PRECHECK", "작업전"),
 # ★ 조문 본문이 **스스로 적용 대상을 한정**하는 조문. 상위 계층(총칙·일반기준)에 있다고
 #   무조건 상속시키면 프레스에 '차량계 운전위치 이탈 시 조치'가 붙는다(실제로 붙었다).
 #   허용 좌표 (편,장,절)에 해당할 때만 주입한다.
-SCOPED = {
-    "제41조": {(2, 1, 9), (2, 1, 12), (2, 6, 2)},   # 양중기 / 항타기·항발기 / 양화장치
-    "제99조": {(2, 1, 10), (2, 1, 12)},              # 차량계 하역운반기계등 / 건설기계
+#
+#   ⚠ 이 목록은 '기계 등의 일반기준'(제86~99) 14개 조문의 **본문을 전부 읽어** 확정했다.
+#     제87·88·90~97조는 "기계", "동력으로 작동되는 기계"라 진짜 일반이고,
+#     스스로 대상을 한정하는 것은 제86·98·99조 셋뿐이다. 제41조는 절1 밖(편1 총칙)이다.
+#   좌표는 **접두사**로 비교한다. (2,1,9)는 절9 전체, (2,1,9,6)은 관6 하나를 가리킨다.
+#   allow = 여기에만 적용된다 / deny = 여기에는 적용되지 않는다.
+SCOPE = {
+    # ── 기계 등의 일반기준(절1) → 편2장1 전체로 상속되는 것 중 자기한정 조문 ──
+    # 제41조 방호장치 — 양중기 / 항타기·항발기 / 양화장치
+    "제41조": {"allow": {(2, 1, 9), (2, 1, 12), (2, 6, 2)}},
+    # 제86조 탑승의 제한 — ①~⑥ 양중기(크레인·리프트·곤돌라·승강기), ⑦⑧ 차량계 하역운반기계·
+    #   화물자동차, ⑨ 컨베이어, ⑩ 이삿짐운반용 리프트. **차량계 건설기계는 없다** —
+    #   건설기계 탑승금지는 제202조가 따로 규율하므로 절12에서 빼도 구멍이 생기지 않는다.
+    #   (⑪ 이륜자동차는 이 트리에 대응 그룹이 없다 — 편4 특수형태근로종사자 쪽이라 넣지 않는다)
+    "제86조": {"allow": {(2, 1, 9), (2, 1, 10), (2, 1, 11)}},
+    # 제98조 제한속도의 지정 — ① 차량계 하역운반기계·차량계 건설기계,
+    #   ② 궤도작업차량(편2장8절2)·입환기(편2장8절3)
+    "제98조": {"allow": {(2, 1, 10), (2, 1, 12), (2, 8, 2), (2, 8, 3)}},
+    # 제99조 운전위치 이탈 시의 조치 — 차량계 하역운반기계등 / 차량계 건설기계
+    "제99조": {"allow": {(2, 1, 10), (2, 1, 12)}},
+
+    # ── 절 총칙(관1) → 형제 관으로 상속되는 것 중, 본문이 형제 하나를 콕 집어 빼는 조문 ──
+    # 여기는 예전에 적용범위 검사가 아예 없었다. 절 총칙이라고 절 전체에 다 걸리지는 않는다.
+    "제133조": {"deny": {(2, 1, 9, 6)}},    # "양중기(승강기는 제외한다)" — 승강기 관
+    "제178조": {"deny": {(2, 1, 10, 4)}},   # ①지게차 ②구내운반차·화물자동차 — 고소작업대는 없다
 }
+
+
+def applies(code: str, coord: tuple) -> bool:
+    """이 조문을 그 좌표의 그룹에 상속시켜도 되는가.
+
+    ★ 조문 본문이 스스로 적용 대상을 한정하면 상속을 막아야 한다. 안 막으면
+      프레스에 '차량계 운전위치 이탈 시 조치'가, 승강기에 '양중기(승강기 제외) 정격하중 표시'가 붙는다.
+      둘 다 실제로 붙어 있었다.
+    """
+    sc = SCOPE.get(code)
+    if not sc:
+        return True
+    def hit(pres):
+        return any(tuple(coord[:len(x)]) == x for x in pres)
+    if sc.get("deny") and hit(sc["deny"]):
+        return False
+    return hit(sc["allow"]) if sc.get("allow") else True
 
 # 전 기인물 공통 주입 — 총칙 조문
 COMMON = {"제38조": "PLAN", "제39조": "ASSIGN", "제35조": "PRECHECK"}
@@ -273,7 +312,7 @@ def main() -> None:
 
         if gwan not in (None, 1) and here in gwan1:
             for c in G[gwan1[here]]["codes"]:
-                if c not in own:
+                if c not in own and applies(c, gg["coord"]):
                     add(phase_of(sigs[c]["title"]), "조문(절 총칙)", sigs[c]["title"], c)
                     own.add(c)
 
@@ -283,13 +322,13 @@ def main() -> None:
             for c in G[machine_base]["codes"]:
                 if c in own:
                     continue
-                if c in SCOPED and here not in SCOPED[c]:
+                if not applies(c, gg["coord"]):
                     continue                      # 적용 대상 밖 — 상속시키지 않는다
                 add(phase_of(sigs[c]["title"]), "조문(기계 일반기준 상속)", sigs[c]["title"], c)
                 own.add(c)
         # 편2장1 밖이어도 적용 대상으로 명시된 좌표에는 넣는다(예: 항만 양화장치의 제41조)
-        for c, ok in SCOPED.items():
-            if c not in own and here in ok and c in sigs:
+        for c, sc in SCOPE.items():
+            if sc.get("allow") and c not in own and c in sigs and applies(c, gg["coord"]):
                 add(phase_of(sigs[c]["title"]), "조문(적용범위 지정)", sigs[c]["title"], c)
                 own.add(c)
 
