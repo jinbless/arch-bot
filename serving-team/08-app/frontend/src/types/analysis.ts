@@ -219,6 +219,7 @@ export interface FlowAnchor {
   path: string;
   is_inspection_target: boolean;
   machines: string[];
+  inspection_scopes?: string[]; // 시행령 제78조제1항 각 호의 괄호 단서 — 조건 없이 '대상' 배지만 달면 안 된다
   periodic_source: string;
 }
 

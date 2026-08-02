@@ -88,10 +88,16 @@ def main() -> None:
     r_parsed = {}
     for no, t in r_items.items():
         head, _, tail = t.partition(":")
-        # 대상 목록에서도 괄호 단서를 뗀다('크레인(이동식 크레인은 제외한다)')
-        targets = [split_paren(x)[0] for x in re.split(r",|\s및\s", head) if x.strip()]
-        r_parsed[no] = {"targets": [x.strip() for x in targets if x.strip()],
-                        "body": tail.strip(), "raw": t}
+        # ★ 대상 목록의 괄호는 **제외 대상**을 담는다: '크레인(이동식 크레인은 제외한다)'.
+        #   이걸 버리면 이동식 크레인 그룹에 크레인 주기가 붙는다(실제로 붙어 있었다).
+        targets, excludes = [], {}
+        for x in re.split(r",|\s및\s", head):
+            name, paren = split_paren(x.strip())
+            if not name:
+                continue
+            targets.append(name)
+            excludes[name] = re.findall(r"([^,()]+?)\s*(?:은|는)\s*제외한다", paren) if paren else []
+        r_parsed[no] = {"targets": targets, "excludes": excludes, "body": tail.strip(), "raw": t}
 
     print("═══ 시행령 제78조제1항 — 안전검사 대상 ═══")
     for no, (name, scope) in d_parsed.items():
@@ -207,7 +213,11 @@ def main() -> None:
             m["source_ref"] = f"시행령 제78조제1항제{d_no}호"
         for cyc, label in [(m.get("cycle"), m["name"])] + [(v, v.get("subtype")) for v in m.get("cycle_variants") or []]:
             if cyc and label in ho_of:
-                cyc["verbatim"] = r_parsed[ho_of[label]]["raw"]
+                r = r_parsed[ho_of[label]]
+                cyc["verbatim"] = r["raw"]
+                # ★ 이 주기가 **적용되지 않는** 하위 종류. 흐름 조립이 이걸 보고 걸러야
+                #   이동식 크레인 그룹에 크레인 주기가 붙지 않는다.
+                cyc["excludes"] = r["excludes"].get(label, [])
 
     v = si["verification"]
     v["원문_확보"] = [

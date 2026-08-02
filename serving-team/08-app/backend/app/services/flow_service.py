@@ -83,6 +83,7 @@ def _anchor(row: dict) -> FlowAnchor:
     return FlowAnchor(group_key=row["no"], label=row.get("subject", ""), path=row.get("path", ""),
                       is_inspection_target=bool(ins.get("is_target")),
                       machines=list(ins.get("machines") or []),
+                      inspection_scopes=[f"{k}: {v}" for k, v in (ins.get("scopes") or {}).items()],
                       periodic_source=ins.get("periodic_source", "없음"))
 
 

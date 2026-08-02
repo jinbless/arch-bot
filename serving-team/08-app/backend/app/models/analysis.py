@@ -143,7 +143,11 @@ class FlowAnchor(BaseModel):
     path: str = ""                    # 편 > 장 > 절 > 관
     is_inspection_target: bool = False
     machines: List[str] = []
-    periodic_source: str = "없음"      # 안전검사+가이드 | 안전검사 | 가이드만 | 없음
+    # ★ 안전검사 대상에는 **조건**이 붙는다(정격하중 2톤 미만 크레인 제외, 이동식 국소배기장치 제외 …).
+    #   조건 없이 '안전검사 대상' 배지만 달면 대상이 아닌 설비까지 대상으로 읽힌다.
+    #   시행령 제78조제1항 각 호의 괄호 단서를 그대로 싣는다.
+    inspection_scopes: List[str] = []
+    periodic_source: str = "없음"      # 안전검사 · 조문 · 가이드의 합성 문자열 | 없음
 
 
 class WorkFlow(BaseModel):

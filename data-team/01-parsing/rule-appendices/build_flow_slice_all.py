@@ -212,18 +212,32 @@ def load_article_phases() -> tuple[dict[str, list[dict]], set[str]]:
     return aph, {c for c, a in d.items() if a.get("no_duty")}
 
 
-def cycle_lines(m: dict) -> list[str]:
-    """주기 규정 → 읽을 수 있는 문장. 원문 문구를 이어 붙이기만 한다(해석 추가 금지)."""
+def cycle_lines(m: dict, group: str, groups: set[str]) -> list[str]:
+    """주기 규정 → 읽을 수 있는 문장. 원문 문구를 이어 붙이기만 한다(해석 추가 금지).
+
+    ★ 하위 종류마다 주기가 다르고, 법령이 **명시적으로 제외**한다.
+      시행규칙 제126조제1항제1호는 "크레인(**이동식 크레인은 제외한다**), 리프트(이삿짐운반용
+      리프트는 제외한다) 및 곤돌라: 설치 3년 이내 … 건설현장 6개월마다"이고,
+      이동식 크레인은 제2호에서 "신규등록 이후 3년 이내"로 따로 규율한다.
+      이걸 안 걸러서 **이동식 크레인 그룹에 '설치 3년 · 건설현장 6개월'이 붙어 있었다** —
+      적용범위 무시 버그의 7번째 발현이다. 이번엔 조문이 아니라 주기에서 났다.
+    """
     out, c = [], m.get("cycle") or {}
-    base = " ".join(x for x in (c.get("first"), c.get("then")) if x)
-    if base:
-        out.append(f"{m['name']}: {base}")
-    if c.get("special"):
-        out.append(f"{m['name']}: {c['special']}")
+    if group not in (c.get("excludes") or []):
+        base = " ".join(x for x in (c.get("first"), c.get("then")) if x)
+        if base:
+            out.append(f"{m['name']}: {base}")
+        if c.get("special"):
+            out.append(f"{m['name']}: {c['special']}")
     for v in m.get("cycle_variants") or []:
+        sub = v.get("subtype", "")
+        # 그 하위 종류에 해당하는 **기인물 그룹이 따로 있으면** 거기서만 보여준다.
+        # 없으면(이삿짐운반용 리프트) 상위 그룹에 남긴다 — 안 그러면 정보가 사라진다.
+        if sub in groups and sub != group:
+            continue
         vb = " ".join(x for x in (v.get("first"), v.get("then")) if x)
         if vb:
-            out.append(f"{v['subtype']}: {vb}")
+            out.append(f"{sub}: {vb}")
     return out
 
 
@@ -314,6 +328,8 @@ def main() -> None:
             if jang:
                 v["label"] = f"{jang} > {v['label']}"
 
+    # 안전검사 주기의 하위 종류('이동식 크레인')에 대응하는 그룹이 있는지 볼 때 쓴다.
+    group_names = {v["name"] for v in G.values()}
     gwan1 = {v["coord"][:3]: k for k, v in G.items() if v["coord"][3] == 1}      # 절 총칙(관1)
     machine_base = next((k for k, v in G.items() if v["coord"] == (2, 1, 1, None)), None)  # 기계 등의 일반기준
 
@@ -416,12 +432,25 @@ def main() -> None:
         n_periodic_article = slots["PERIODIC"]
         machines = si_by_group.get(gg["src_key"], [])
         by_file = {m.get("inspection_criteria_file", ""): len(m.get("inspection_items") or []) for m in machines}
+        scopes = {m["name"]: m["scope"] for m in machines if m.get("scope")}
         insp = {"is_target": bool(machines), "machines": [m["name"] for m in machines],
+                "scopes": scopes,
                 "criteria_items": sum(by_file.values()), "criteria_files": sorted(by_file),
                 "criteria_articles": sorted({m.get("criteria_article", "") for m in machines})}
         for m in machines:
-            for ln in cycle_lines(m):
+            # ★ 적용 범위를 **주기보다 먼저** 보여준다. 6종에 괄호 단서가 있는데
+            #   (정격하중 2톤 미만 크레인, 이동식 국소배기장치, 밀폐형 롤러기 …) 화면에는
+            #   '안전검사 대상 · 2년마다'만 떠서, 대상이 아닌 설비까지 대상으로 읽혔다.
+            if m.get("scope"):
+                add("PERIODIC", "안전검사(법정)", f"대상 범위 — {m['name']}: {m['scope']}",
+                    m.get("source_ref", "시행령 제78조제1항"))
+            for ln in cycle_lines(m, gg["name"], group_names):
                 add("PERIODIC", "안전검사(법정)", ln, "시행규칙 제126조제1항")
+        if machines:
+            # 면제를 안 적으면 이미 다른 법령 검사를 받은 사업주도 받아야 하는 것으로 읽는다.
+            add("PERIODIC", "안전검사(법정)",
+                "다른 법령에 따른 검사·점검을 이미 받은 경우 안전검사가 면제될 수 있습니다 "
+                "(건설기계관리법·고압가스법·전기안전관리법 등 11가지)", "시행규칙 제125조")
         if insp["criteria_items"]:
             add("PERIODIC", "안전검사(법정)", f"안전검사 검사기준 {insp['criteria_items']}개 항목",
                 f"고시 {'·'.join(insp['criteria_articles'])} → {', '.join(insp['criteria_files'])}")

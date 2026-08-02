@@ -255,10 +255,14 @@ const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
           <strong className="text-base text-gray-900">{anchor.label}</strong>
           {anchor.is_inspection_target && (
             <span
-              title="산업안전보건법 제93조 안전검사 대상"
+              title={
+                anchor.inspection_scopes?.length
+                  ? `산업안전보건법 제93조 안전검사 — 다음 범위에만 해당합니다\n${anchor.inspection_scopes.join('\n')}`
+                  : '산업안전보건법 제93조 안전검사 대상'
+              }
               className="rounded border border-slate-800 bg-slate-800 px-1.5 py-0.5 text-[10px] font-semibold text-white"
             >
-              안전검사 대상
+              안전검사 대상{anchor.inspection_scopes?.length ? ' (조건 있음)' : ''}
             </span>
           )}
           {busy && <span className="text-xs text-gray-400">불러오는 중…</span>}
