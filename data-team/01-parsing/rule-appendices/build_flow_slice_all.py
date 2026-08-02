@@ -215,6 +215,26 @@ def load_law3(G: dict) -> dict[str, list[dict]]:
     by_group: dict[str, list[dict]] = {}
     unmatched, no_target = [], []
 
+    # ── 특별교육(시행규칙 별표 5 제1호 라목) — 작업 39종 → 그룹 ──────────
+    b5_p = ART / "byeolpyo5_job_groups.json"
+    b5_groups: set[str] = set()
+    if b5_p.exists():
+        b5 = json.loads(b5_p.read_text(encoding="utf-8"))
+        for m in b5["mappings"]:
+            for gk in m["group_keys"]:
+                if gk not in G:
+                    continue
+                b5_groups.add(gk)
+                # 작업 자체를 항목으로 넣는다. '이 기인물의 어떤 작업이 특별교육 대상인가'가 핵심이고,
+                # 조문(법 제29조 등)만 넣으면 그게 안 보인다.
+                by_group.setdefault(gk, []).append({
+                    "phase": "ASSIGN", "text": f"특별교육 대상 작업 — {m['작업명'][:80]}",
+                    "evidence": m["작업명"],
+                    "ref": f"시행규칙 별표 5 제1호라목제{m['no']}호", "note": ""})
+        miss = ", ".join(f"제{u['no']}호" for u in b5.get("unmapped") or [])
+        print(f"특별교육 대상작업 {b5['n_mapped']}/{b5['n_jobs']}종을 {len(b5_groups)}개 그룹에 붙였다"
+              + (f" (대응 그룹 없음: {miss})" if miss else ""))
+
     for c in json.loads(cand_p.read_text(encoding="utf-8"))["candidates"]:
         t = TARGETS.get((c["law"], c["code"], c["phase"]))
         if t is None:
@@ -232,7 +252,11 @@ def load_law3(G: dict) -> dict[str, list[dict]]:
                     if any(tuple(g["coord"][:len(p)]) == p for p in t["prefixes"])}
         elif kind == "all_machine":
             keys = set(machine_base)
-        else:                                   # byeolpyo5 — 특별교육은 아래에서 따로 붙인다
+        elif kind == "byeolpyo5":
+            # 특별교육은 **작업 종류**가 대상이라 기계 목록이나 좌표로는 못 잡는다.
+            # 별표 5 제1호 라목의 작업 39종을 그룹에 매핑한 표(byeolpyo5_job_groups.json)를 쓴다.
+            keys = b5_groups
+        else:
             continue
         law_short = {"산업안전보건법": "법", "산업안전보건법 시행령": "시행령",
                      "산업안전보건법 시행규칙": "시행규칙"}[c["law"]]
