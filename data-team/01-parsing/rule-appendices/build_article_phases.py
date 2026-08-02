@@ -136,6 +136,21 @@ def main() -> None:
     if tb_ok or tb_no:
         print(f"  최종판정: 동점 {len(tb_ok) + len(tb_no)}건 중 채택 {len(tb_ok)} · 기각 {len(tb_no)}")
 
+    # ★★ 사람 검수는 **모든 판정을 덮어쓴다.** LLM 3인 다수결도 틀릴 수 있고 실제로 틀렸다 —
+    #   제52조는 조건부 발동 의무(각 호에 해당하는 경우)인데 계획 칸으로 채택됐다.
+    hr_p = src / "human_review.json"
+    if hr_p.exists():
+        hr = json.loads(hr_p.read_text(encoding="utf-8"))
+        for r in hr.get("reviewed") or []:
+            k, v = r["key"], r["verdict"]
+            if v == "기각":
+                refuted[k] = f"사람 검수 기각 — {r['why'][:120]}"
+                tb_ok.discard(k)
+            else:
+                refuted.pop(k, None)
+                tb_ok.add(k)
+        print(f"  사람 검수: {len(hr.get('reviewed') or [])}건 반영(다른 모든 판정보다 우선)")
+
     # ── 병합 + 인용 대조 ───────────────────────────────────────────────
     out, stat = {}, Counter()
     for c in codes:
