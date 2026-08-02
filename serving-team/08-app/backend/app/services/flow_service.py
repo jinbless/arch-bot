@@ -88,20 +88,29 @@ def _anchor(row: dict) -> FlowAnchor:
 
 def _empty_reason(key: str, row: dict) -> str:
     """빈 칸을 그냥 비워두지 않는다 — '정보 없음'과 '해당 없음'은 다른 말이다."""
-    if key != "PERIODIC":
-        return "이 기인물에 대해 규칙·가이드에서 확인된 항목이 없습니다"
-    ins = row.get("inspection") or {}
-    if not ins.get("is_target"):
-        return ("산업안전보건법 제93조 안전검사 대상이 아니며, 관련 KOSHA 가이드에도 정기점검 절차가 없습니다 "
-                "— 자료가 없는 것이지 점검이 불필요하다는 뜻은 아닙니다")
-    return "정기점검 항목이 확인되지 않았습니다"
+    if key == "PERIODIC":
+        ins = row.get("inspection") or {}
+        if not ins.get("is_target"):
+            return ("산업안전보건법 제93조 안전검사 대상이 아니며, 관련 KOSHA 가이드에도 정기점검 절차가 없습니다 "
+                    "— 자료가 없는 것이지 점검이 불필요하다는 뜻은 아닙니다")
+        return "정기점검 항목이 확인되지 않았습니다"
+    # 이 그룹의 조문이 목적·정의·적용범위뿐이면 '할 일'이 원래 없다. 자료 결손이 아니다.
+    nd = row.get("no_duty_articles") or []
+    if key == "EXEC" and nd and not (row.get("items") or {}).get("EXEC"):
+        # 어디에 실제 의무가 있는지는 그룹마다 다르다(형제 관일 수도, 전혀 다른 곳일 수도).
+        # 모르는 것을 아는 것처럼 쓰지 않는다.
+        return (f"이 항목은 규칙의 정의·적용범위 조문({', '.join(nd[:3])}"
+                f"{' 등' if len(nd) > 3 else ''})으로만 이루어져 있어 그 자체로는 할 일이 없습니다 "
+                "— 구체적인 의무는 다른 기인물 항목에 있습니다")
+    return "이 기인물에 대해 규칙·가이드에서 확인된 항목이 없습니다"
 
 
 def _slots(row: dict) -> list[FlowSlot]:
     out = []
     for key, label in SLOTS:
         items = [FlowItem(text=x.get("text", ""), source=x.get("source", ""), ref=x.get("ref", ""),
-                          tier=_tier(x.get("source", "")), uncertain="이름매칭" in x.get("source", ""))
+                          tier=_tier(x.get("source", "")), uncertain="이름매칭" in x.get("source", ""),
+                          evidence=x.get("evidence", ""))
                  for x in (row.get("items") or {}).get(key, [])]
         # 법정 → 권고 순. 근거가 강한 것을 위에 둔다.
         items.sort(key=lambda x: 0 if x.tier == "법정" else 1)

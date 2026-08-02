@@ -201,6 +201,7 @@ export interface FlowItem {
   ref: string;
   tier: '법정' | '권고';
   uncertain: boolean; // 이름 매칭으로 붙은 항목(좌표 매칭보다 불확실, 사람 검수 대상)
+  evidence?: string; // 이 항목을 이 단계에 넣은 근거가 된 조문 원문 문구
 }
 
 /** 흐름 골격의 한 칸. **번호를 매기지 않는다** — 시간 추론은 미측정 오류원. */

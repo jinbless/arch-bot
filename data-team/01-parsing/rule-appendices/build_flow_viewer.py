@@ -66,6 +66,8 @@ section.empty>h3{opacity:.55}
 .item .t{flex:1;min-width:0}
 .item .t p{margin:0}
 .item .src{font-size:11px;color:var(--dim);margin-top:3px}
+/* 이 항목이 왜 이 칸에 있는지 — 조문 원문 문구. 검수자가 원문을 따로 찾아 읽지 않아도 되게 한다. */
+.item .ev{font-size:12px;color:#b8c0d0;margin-top:4px;padding-left:9px;border-left:2px solid #2f3542}
 .tag{display:inline-block;padding:0 6px;border-radius:4px;background:#21262d;border:1px solid var(--line);
      font-size:10.5px;color:var(--dim);margin-right:5px}
 .tag.law{color:var(--law);border-color:#1f6feb55}.tag.rec{color:var(--rec);border-color:#a371f755}
@@ -134,15 +136,20 @@ function render() {
     }
     let grp = null;
     its.forEach((x, i) => {
-      // 정기 칸만 근거 강도로 나눈다. 법정(안 받으면 위법)과 권고를 섞으면 안내가 혼선이 된다.
+      // 정기 칸만 근거 강도로 나눈다. 법정(안 하면 위법)과 권고를 섞으면 안내가 혼선이 된다.
+      // ★ 판정 기준은 **'권고'가 붙었는가**다. 예전엔 '법정'이 붙었는가로 봤는데, 조문이 정기 칸에
+      //   들어오기 시작하자(원문 판독으로 19개 조문) '조문(전용)'이 권고로 떨어졌다.
+      //   규칙이 직접 정한 정기 의무를 KOSHA 권고로 표시하는 것은 반대 방향의 오안내다.
+      const tier = (s) => (s.indexOf('권고') >= 0 ? 'rec' : 'law');
       if (k === 'PERIODIC') {
-        const g = x.source.indexOf('법정') >= 0 ? 'law' : 'rec';
-        if (g !== grp) { grp = g; h += `<div class="grp ${g}">${g === 'law' ? '법정 — 산업안전보건법 제93조 안전검사' : '권고 — KOSHA 가이드 절차'}</div>`; }
+        const g = tier(x.source);
+        if (g !== grp) { grp = g; h += `<div class="grp ${g}">${g === 'law' ? '법정 — 규칙 조문 · 산업안전보건법 제93조 안전검사' : '권고 — KOSHA 가이드 절차'}</div>`; }
       }
       const key = id(r, k, i), v = store[key];
-      const cls = x.source.indexOf('법정') >= 0 ? ' law' : x.source.indexOf('권고') >= 0 ? ' rec' : '';
+      const cls = ' ' + tier(x.source);
       h += `<div class="item" data-k="${key}"${v ? ` data-v="${esc(v.v)}"` : ''}>
         <div class="t"><p>${esc(x.text)}</p>
+          ${x.evidence ? `<div class="ev">“${esc(x.evidence)}”</div>` : ''}
           <div class="src"><span class="tag${cls}">${esc(x.source)}</span>${esc(x.ref)}</div>
           <select data-mv="${key}" style="display:${v && v.v === 'move' ? '' : 'none'}">
             <option value="">→ 맞는 칸 선택</option>

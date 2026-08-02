@@ -45,6 +45,14 @@ const Item: React.FC<{ it: FlowItem }> = ({ it }) => {
         </span>
         <div className="min-w-0 flex-1">
           <p className="text-sm text-gray-800">{it.text}</p>
+          {/* 이 항목이 왜 이 단계에 있는지 — 조문 원문 문구 그대로.
+              같은 조문이 두 단계에 걸치는 경우(제35조 = 인적 배치 + 작업 전 점검)
+              제목만 보면 중복으로 읽힌다. 근거를 보여야 다른 의무임을 안다. */}
+          {it.evidence && (
+            <p className="mt-1 border-l-2 border-slate-200 pl-2 text-[12px] leading-snug text-gray-600">
+              “{it.evidence}”
+            </p>
+          )}
           <p className="mt-0.5 text-[11px] text-gray-400">
             {it.ref}
             {it.ref && it.source ? ' · ' : ''}

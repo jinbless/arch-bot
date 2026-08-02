@@ -45,7 +45,8 @@ SKELETON = [("PLAN", "계획"), ("ASSIGN", "인적"), ("PRECHECK", "작업전"),
 #   allow = 여기에만 적용된다 / deny = 여기에는 적용되지 않는다.
 SCOPE = {
     # ── 기계 등의 일반기준(절1) → 편2장1 전체로 상속되는 것 중 자기한정 조문 ──
-    # 제41조 방호장치 — 양중기 / 항타기·항발기 / 양화장치
+    # 제41조 운전위치의 이탈금지 — ①항 각 호가 대상을 스스로 열거한다:
+    #   1.양중기 2.항타기·항발기(하중 건 상태) 3.양화장치(적재 상태)
     "제41조": {"allow": {(2, 1, 9), (2, 1, 12), (2, 6, 2)}},
     # 제86조 탑승의 제한 — ①~⑥ 양중기(크레인·리프트·곤돌라·승강기), ⑦⑧ 차량계 하역운반기계·
     #   화물자동차, ⑨ 컨베이어, ⑩ 이삿짐운반용 리프트. **차량계 건설기계는 없다** —
@@ -177,10 +178,38 @@ def name_hit(name: str, subject: str) -> bool:
 
 
 def phase_of(text: str) -> str:
+    """제목/문장 한 줄로 시점을 추정 — **가이드 절차명 전용 fallback**이다.
+
+    ⚠ 조문에는 쓰지 마라. 조문은 원문(fullText)을 읽은 `article_phases.json`을 쓴다.
+      제목만 보면 669개 중 642개가 EXEC로 뭉개진다(제89조는 제목이 '운전 시작 전 조치'인데
+      이 정규식의 '시작하기 전'에 안 걸린다). 가이드 절차명은 원문이라 부를 것이 없어 여기 남는다.
+    """
     for ph in ("PLAN", "ASSIGN", "PRECHECK", "POST", "PERIODIC"):
         if re.search(LEX[ph], text or ""):
             return ph
     return "EXEC"
+
+
+def load_article_phases() -> tuple[dict[str, list[dict]], set[str]]:
+    """조문 코드 → [{phase, quote}] — 원문 판독 결과. 그리고 **의무가 아닌 조문** 집합.
+
+    한 조문이 여러 칸에 들어갈 수 있다(제35조는 인적 배치와 작업 전 점검 둘 다).
+    quote는 그 칸에 넣은 **원문 근거**다. 화면에도 검수 뷰어에도 이걸 같이 보여준다 —
+    같은 조문 제목이 두 칸에 뜨면 근거 없이는 중복으로 보인다.
+
+    ★ no_duty = 목적·정의·적용 제외 조문. 사업주가 '할 일'이 아니므로 흐름에서 뺀다.
+      빼기 전에는 제1조 '목적'과 제2조 '정의'가 **'작업 중' 칸에 항목으로 떠 있었다.**
+    """
+    p = ART / "article_phases.json"
+    if not p.exists():
+        print("⚠ article_phases.json 없음 — 조문 시점을 제목 정규식으로 추정한다(96%가 EXEC로 뭉개진다)\n")
+        return {}, set()
+    d = json.loads(p.read_text(encoding="utf-8"))["articles"]
+    # ★ quote가 아니라 evidence를 쓴다. 1차의 EXEC quote는 근거가 아니라 자리표시라서
+    #   그대로 띄우면 한 문장이 두 칸에 중복으로 뜬다(제388조 등 19종에서 실제로 그랬다).
+    aph = {c: [{"phase": x["phase"], "quote": x.get("evidence", x.get("quote", ""))} for x in a["phases"]]
+           for c, a in d.items()}
+    return aph, {c for c, a in d.items() if a.get("no_duty")}
 
 
 def cycle_lines(m: dict) -> list[str]:
@@ -227,6 +256,7 @@ def pg(sql: str) -> list[str]:
 
 def main() -> None:
     si_by_group, _ = load_inspection()
+    APH, NO_DUTY = load_article_phases()
     sigs = {json.loads(l)["article_code"]: json.loads(l)
             for l in (ART / "article_signatures.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()}
     gim = json.loads((ART / "gimulmul_index.json").read_text(encoding="utf-8"))["groups"]
@@ -293,27 +323,42 @@ def main() -> None:
         a3_by_coord.setdefault(packed_coord(r.get("section_ref", "")), []).append(r)
 
     report = []
+    skipped: set[str] = set()      # 흐름에서 뺀 의무 아닌 조문(목적·정의·적용 제외)
     for k, gg in G.items():
         p, j, jeol, gwan = gg["coord"]
         here = (p, j, jeol)
         slots = {x: 0 for x, _ in SKELETON}
         items = {x: [] for x, _ in SKELETON}
 
-        def add(ph, src, txt, ref=""):
+        def add(ph, src, txt, ref="", ev=""):
             """항목 하나를 단계에 넣는다. **출처를 반드시 같이 남긴다** —
-            사람이 '이 항목이 이 칸에 맞나'를 검수하려면 어디서 왔는지 봐야 한다."""
+            사람이 '이 항목이 이 칸에 맞나'를 검수하려면 어디서 왔는지 봐야 한다.
+            ev = 그 칸에 넣은 근거로 삼은 **원문 문구**(조문만 해당)."""
             slots[ph] += 1
-            items[ph].append({"source": src, "text": txt, "ref": ref})
+            items[ph].append({"source": src, "text": txt, "ref": ref, "evidence": ev})
+
+        def add_article(src, c):
+            """조문 하나를 원문 판독 결과에 따라 **여러 칸에** 넣는다.
+
+            제35조는 관리감독자 직무(인적 배치)이면서 작업 시작 전 점검이기도 하다.
+            한 칸에만 넣으면 둘 중 하나가 흐름에서 사라진다.
+
+            ★ 목적·정의·적용 제외 조문은 넣지 않는다. '할 일'이 아니다."""
+            if c in NO_DUTY:
+                skipped.add(c)
+                return
+            for x in APH.get(c) or [{"phase": phase_of(sigs[c]["title"]), "quote": ""}]:
+                add(x["phase"], src, sigs[c]["title"], c, x["quote"])
 
         # ── 조문: 전용 → 절 총칙(관1) → 기계 일반기준 상속 ────────────
         own = set(gg["codes"])
         for c in gg["codes"]:
-            add(phase_of(sigs[c]["title"]), "조문(전용)", sigs[c]["title"], c)
+            add_article("조문(전용)", c)
 
         if gwan not in (None, 1) and here in gwan1:
             for c in G[gwan1[here]]["codes"]:
                 if c not in own and applies(c, gg["coord"]):
-                    add(phase_of(sigs[c]["title"]), "조문(절 총칙)", sigs[c]["title"], c)
+                    add_article("조문(절 총칙)", c)
                     own.add(c)
 
         # ★ '편2>장1>절1 기계 등의 일반기준'(제86~99)은 기계·설비류 전체의 상위 공통.
@@ -324,17 +369,21 @@ def main() -> None:
                     continue
                 if not applies(c, gg["coord"]):
                     continue                      # 적용 대상 밖 — 상속시키지 않는다
-                add(phase_of(sigs[c]["title"]), "조문(기계 일반기준 상속)", sigs[c]["title"], c)
+                add_article("조문(기계 일반기준 상속)", c)
                 own.add(c)
         # 편2장1 밖이어도 적용 대상으로 명시된 좌표에는 넣는다(예: 항만 양화장치의 제41조)
         for c, sc in SCOPE.items():
             if sc.get("allow") and c not in own and c in sigs and applies(c, gg["coord"]):
-                add(phase_of(sigs[c]["title"]), "조문(적용범위 지정)", sigs[c]["title"], c)
+                add_article("조문(적용범위 지정)", c)
                 own.add(c)
 
+        # 총칙 3조문은 **칸을 고정**한다. 제38조=작업계획서, 제39조=작업지휘자, 제35조=관리감독자 점검.
+        # 원문 판독으로는 제35조가 두 칸에 걸치지만, 전 그룹에 주입되는 항목이라
+        # 칸마다 늘어나면 '겉보기 채움'만 부풀고 실질은 그대로다.
         for c, ph in COMMON.items():
             if c in sigs and c not in own:
-                add(ph, "조문(총칙)", sigs[c]["title"], c)
+                ev = next((x["quote"] for x in APH.get(c, []) if x["phase"] == ph), "")
+                add(ph, "조문(총칙)", sigs[c]["title"], c, ev)
 
         # ── PRECHECK: 별표 3 (좌표 정확 일치 — 19종만) ────────────────
         a3_rows = a3_by_coord.get(gg["coord"], [])
@@ -361,6 +410,10 @@ def main() -> None:
                     add("ASSIGN", src, it, f"제35조제1항 · {rr['subject'][:20]}")
 
         # ── PERIODIC ① 안전검사(법정) ─────────────────────────────────
+        # ★ 이 시점의 PERIODIC은 **조문에서 온 정기 의무**다(원문 판독으로 19개 조문이 여기 들어온다).
+        #   예전엔 조문이 정기 칸에 오는 일이 없어(제목 정규식이 하나도 못 잡았다) 이 구분이 필요 없었고,
+        #   그래서 아래 n_periodic_law가 조문분까지 안전검사로 집계해 12종을 29종으로 부풀렸다.
+        n_periodic_article = slots["PERIODIC"]
         machines = si_by_group.get(gg["src_key"], [])
         by_file = {m.get("inspection_criteria_file", ""): len(m.get("inspection_items") or []) for m in machines}
         insp = {"is_target": bool(machines), "machines": [m["name"] for m in machines],
@@ -372,7 +425,7 @@ def main() -> None:
         if insp["criteria_items"]:
             add("PERIODIC", "안전검사(법정)", f"안전검사 검사기준 {insp['criteria_items']}개 항목",
                 f"고시 {'·'.join(insp['criteria_articles'])} → {', '.join(insp['criteria_files'])}")
-        n_periodic_law = slots["PERIODIC"]
+        n_periodic_law = slots["PERIODIC"] - n_periodic_article
 
         # ── PERIODIC ② 가이드(권고) — 별표 3 좌표가 붙은 그룹만 ───────
         # ★ 한 그룹에 별표 3 행이 여럿 붙을 수 있다(양화장치·슬링은 둘 다 편2장6절2).
@@ -394,13 +447,22 @@ def main() -> None:
                 add(phase_of(parts[1]), "가이드(권고)", parts[1], f"{gc} {parts[0]}단계")
         gcode = ", ".join(gcodes)
 
-        # ★ 정기 칸의 근거 강도는 3단계다. 법정 안전검사와 가이드 권고는 무게가 다르므로
-        #   화면에서 같은 칸에 섞어 보여주면 '해야 하는 것'과 '하면 좋은 것'이 구별되지 않는다.
+        # ★ 정기 칸의 근거는 세 갈래이고 무게가 다르다. 화면에서 섞어 보여주면
+        #   '안 하면 위법'과 '하면 좋음'이 구별되지 않는다.
+        #     조문     — 규칙이 직접 정한 정기 의무(법정). 주기가 '상시'처럼 느슨할 수 있다
+        #     안전검사 — 법 제93조. 주기와 검사기준이 고시로 확정돼 있다(법정)
+        #     가이드   — KOSHA 권고
+        insp["periodic_article"] = n_periodic_article
         insp["periodic_law"] = n_periodic_law
-        insp["periodic_guide"] = slots["PERIODIC"] - n_periodic_law
-        insp["periodic_source"] = ("안전검사+가이드" if n_periodic_law and insp["periodic_guide"]
-                                   else "안전검사" if n_periodic_law
-                                   else "가이드만" if insp["periodic_guide"] else "없음")
+        insp["periodic_guide"] = slots["PERIODIC"] - n_periodic_article - n_periodic_law
+        insp["periodic_source"] = "+".join(
+            s for s, v in (("안전검사", n_periodic_law), ("조문", n_periodic_article),
+                           ("가이드", insp["periodic_guide"])) if v) or "없음"
+
+        # 흐름이 통째로 빈 그룹의 사유를 남긴다. '자료가 없다'와 '이 그룹의 조문이 정의·적용범위뿐이라
+        # 할 일이 없다'는 다른 말이고, 후자를 전자로 읽으면 데이터 결손으로 오해한다.
+        own_skipped = sorted(set(gg["codes"]) & NO_DUTY,
+                             key=lambda c: int(re.match(r"제(\d+)", c).group(1)))
 
         # src_key = 카탈로그(gimulmul_index)의 원래 그룹키. RESOLVE가 내는 group_key와 조인하려면
         # 분리 전 키가 있어야 한다(분리된 그룹은 no != src_key).
@@ -408,7 +470,7 @@ def main() -> None:
                        "coord": list(gg["coord"]),
                        "guide": gcode, "apx3": [r["no"] for r in a3_rows],
                        "slots": slots, "filled": sum(1 for x, _ in SKELETON if slots[x]),
-                       "items": items, "inspection": insp,
+                       "items": items, "inspection": insp, "no_duty_articles": own_skipped,
                        "detail": {x: [y["text"] for y in v[:3]] for x, v in items.items()}})
 
     # ── 리포트 ────────────────────────────────────────────────────────
@@ -438,13 +500,20 @@ def main() -> None:
         rdist[c] = rdist.get(c, 0) + 1
     print("  실질 칸 수 분포: " + " · ".join(f"{f}칸 {rdist[f]}종" for f in sorted(rdist, reverse=True)))
 
+    if skipped:
+        ex = ", ".join(sorted(skipped, key=lambda c: int(re.match(r"제(\d+)", c).group(1)))[:6])
+        print(f"\n의무 아닌 조문 {len(skipped)}종을 흐름에서 뺐다(목적·정의·적용 제외) — 예: {ex}")
+
     print(f"\n별표 3 붙은 그룹 {sum(1 for r in report if r['apx3'])}종 · "
           f"가이드 붙은 그룹 {sum(1 for r in report if r['guide'])}종 · "
           f"안전검사 대상 {sum(1 for r in report if r['inspection']['is_target'])}종")
     print("\n=== 정기 칸 근거 강도 ===")
-    for src in ("안전검사+가이드", "안전검사", "가이드만", "없음"):
-        g = [r for r in report if r["inspection"]["periodic_source"] == src]
-        print(f"  {src:12} {len(g):>3}종")
+    psrc = {}
+    for r in report:
+        s = r["inspection"]["periodic_source"]
+        psrc[s] = psrc.get(s, 0) + 1
+    for src, v in sorted(psrc.items(), key=lambda x: (x[0] == "없음", -x[1])):
+        print(f"  {src:18} {v:>3}종")
 
     print("\n[칸이 가장 적게 찬 그룹]")
     for r in sorted(report, key=lambda x: x["filled"])[:8]:

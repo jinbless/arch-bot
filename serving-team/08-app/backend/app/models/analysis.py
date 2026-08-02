@@ -123,6 +123,9 @@ class FlowItem(BaseModel):
     tier: str = "법정"                 # 법정 | 권고
     # 이름 매칭으로 붙은 항목은 좌표 매칭보다 불확실하다(사람 검수 대상).
     uncertain: bool = False
+    # 이 항목이 **왜 이 칸에 있는지**를 말해주는 조문 원문 문구.
+    # 한 조문이 두 칸에 걸치면(제35조 = 인적 배치 + 작업 전 점검) 제목만으로는 중복으로 보인다.
+    evidence: str = ""
 
 
 class FlowSlot(BaseModel):
