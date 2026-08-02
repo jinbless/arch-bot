@@ -260,6 +260,16 @@ _RESOLVE_MEMO: dict[str, dict] = {}
 _RESOLVE_MEMO_MAX = 32
 
 
+def _norm_gk(gk: str) -> str:
+    """RESOLVE가 낸 group_key 정리.
+
+    ★ 카탈로그 한 줄이 `절3 강관비계 및 강관틀비계 ::기인물=… (4조)` 형태라, LLM이 키만 떼지 않고
+      **줄 전체를 복사**하는 일이 있다(실측 129장 중 5장). 그러면 조회가 조용히 실패하고
+      흐름이 안 뜬다 — graceful degrade라 아무도 모른다. 설명부를 떼어낸다.
+    """
+    return (gk or "").split(" ::")[0].strip()
+
+
 async def resolve(scene: str) -> dict:
     """장면 → RESOLVE(기인물 그룹). 같은 장면이면 재호출하지 않는다."""
     key = scene.strip()
@@ -270,6 +280,7 @@ async def resolve(scene: str) -> dict:
     rv = await _chat(model, RESOLVE_SYS,
                      f"[장면]\n{scene}\n\n[기인물 그룹 카탈로그]\n{kn['catalog_text']}\n\n주요 기인물의 group_key 선택.",
                      RESOLVE_SCHEMA)
+    rv["group_keys"] = [_norm_gk(g) for g in (rv.get("group_keys") or [])]
     if len(_RESOLVE_MEMO) >= _RESOLVE_MEMO_MAX:      # 무한 증가 방지 — 가장 오래된 것부터 버린다
         _RESOLVE_MEMO.pop(next(iter(_RESOLVE_MEMO)))
     _RESOLVE_MEMO[key] = rv

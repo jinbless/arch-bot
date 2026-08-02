@@ -70,7 +70,14 @@ def main() -> None:
     sigs = {json.loads(l)["article_code"]: json.loads(l)
             for l in (ART / "article_signatures.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()}
     gim = json.loads((ART / "gimulmul_index.json").read_text(encoding="utf-8"))["groups"]
-    rcache = json.loads((ART / "rank_ab_resolve_cache.json").read_text(encoding="utf-8"))
+    # ★ 카탈로그가 바뀌면 RESOLVE를 다시 돌려야 한다. 옛 캐시는 **그때의 카탈로그**로 만든 것이라
+    #   새로 들어온 그룹을 고를 방법이 아예 없었다(비계 6종이 그랬다).
+    #   v2가 있으면 그걸 쓴다 — 원본은 RANK A/B 실측의 구성 요소라 지우지 않는다.
+    cp = ART / "rank_ab_resolve_cache_v2.json"
+    if not cp.exists():
+        cp = ART / "rank_ab_resolve_cache.json"
+    print(f"[RESOLVE 캐시] {cp.name}")
+    rcache = json.loads(cp.read_text(encoding="utf-8"))
 
     # 그룹키 → 좌표 **(편,장,절,관) 4튜플**. 그룹 소속 조문의 section에서 역산한다.
     # ★ 예전에는 [2:]로 (절,관)만 썼다. 그룹키 자체엔 편·장이 없지만 조문 section에는 있다.
@@ -82,6 +89,19 @@ def main() -> None:
         gkey_coord[k] = cs
         gkey_coord_legacy[k] = {c[2:] for c in cs}     # 구 방식 — 부풀림 폭 비교용
 
+    # ★ 채점 가능한 좌표 = **RESOLVE 카탈로그에 있는 그룹의 좌표**.
+    #   예전에는 `편1이면 제외`로 하드코딩했는데, 그러면 카탈로그가 바뀌어도 측정이 못 따라온다.
+    #   실제로 비계(편1 장7) 6종을 카탈로그에 올린 뒤에도 측정은 비계를 정답으로 인정하지 않았고,
+    #   **정답이 비계뿐인 사진 15장이 통째로 채점에서 빠져 있었다.**
+    #   카탈로그에서 역산하면 앞으로 카탈로그를 바꿀 때마다 측정이 저절로 따라온다.
+    cross = set(json.loads((ART / "gimulmul_index.json").read_text(encoding="utf-8"))["cross_cutting"])
+    OBS_OK = ("yes", "partial")
+    scorable = set()
+    for k, g in gim.items():
+        nobs = sum(1 for a in g.get("articles", []) if a.get("observable") in OBS_OK)
+        if nobs >= 1 and k not in cross:
+            scorable |= gkey_coord[k]
+
     jy = defaultdict(set)
     with GOLD.open(encoding="utf-8-sig") as f:
         for r in csv.DictReader(f):
@@ -92,20 +112,23 @@ def main() -> None:
     for pf, ys in sorted(jy.items()):
         if pf not in rcache:
             continue
-        # 정답 좌표 — 총칙(편1) 제외. 기인물 축이 아니므로 앵커 채점에 못 쓴다
+        # 정답 좌표 — **카탈로그에 있는 그룹의 좌표만** 채점한다.
+        # 카탈로그 밖(작업장·통로·보호구·추락 같은 횡단, 정의뿐인 통칙)은 앵커가 될 수 없으므로
+        # 정답으로 삼으면 절대 못 맞히는 문제를 내는 셈이 된다.
         truth = set()
         for c in ys:
             if c not in sigs:
                 continue
-            p, j, jeol, gwan = coord(sigs[c]["section"])
-            if p == 1 or jeol is None:
+            t = coord(sigs[c]["section"])
+            if t[2] is None or t not in scorable:
                 continue
-            truth.add((p, j, jeol, gwan))
+            truth.add(t)
         if not truth:
             skipped.append(pf)
             continue
         pred, pred_legacy = set(), set()
-        for gk in rcache[pf].get("group_keys", []):
+        # LLM이 카탈로그 줄 전체(`… ::기인물=… (N조)`)를 복사하는 일이 있다. 서빙과 같은 규칙으로 정리한다.
+        for gk in (g.split(" ::")[0].strip() for g in rcache[pf].get("group_keys", [])):
             pred |= gkey_coord.get(gk, set())
             pred_legacy |= gkey_coord_legacy.get(gk, set())
         # 관 단위가 달라도 같은 절이면 '절 일치'로 따로 센다(상위 흐름은 공유되므로 실무상 유효).
