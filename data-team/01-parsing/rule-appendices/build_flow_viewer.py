@@ -71,6 +71,10 @@ section.empty>h3{opacity:.55}
 .tag{display:inline-block;padding:0 6px;border-radius:4px;background:#21262d;border:1px solid var(--line);
      font-size:10.5px;color:var(--dim);margin-right:5px}
 .tag.law{color:var(--law);border-color:#1f6feb55}.tag.rec{color:var(--rec);border-color:#a371f755}
+/* 검수 우선순위 — 틀렸을 가능성이 높은 것부터 눈에 띄게 한다 */
+.tag.rk1{color:#f85149;border-color:#f8514966}.tag.rk2{color:var(--move);border-color:#d2992266}
+.tag.rk3{color:#58a6ff;border-color:#1f6feb44}
+.item.risky{border-left:3px solid var(--move);padding-left:10px}
 .acts{display:flex;gap:4px;flex:none}
 .acts button{padding:2px 8px;font-size:12px;min-width:30px}
 .acts button.a{background:#21262d}
@@ -85,10 +89,26 @@ kbd{background:#21262d;border:1px solid var(--line);border-radius:4px;padding:0 
 """
 
 JS = r"""
-const PH = __PHASES__, DATA = __DATA__;
+const PH = __PHASES__, DATA = __DATA__, CONTESTED = __CONTESTED__;
 const KEY = 'flowReview.v1';
 let store = JSON.parse(localStorage.getItem(KEY) || '{}');
 let cur = 0;
+let onlyRisky = false;
+
+// 검수 우선순위. 2,658건을 순서대로 다 볼 수는 없으니 **틀렸을 가능성이 높은 것부터** 본다.
+//  1 판정이 3인 중 2:1로 갈린 조문   — 사람이 정해야 하는 것
+//  2 이름 매칭으로 붙은 항목          — 좌표 매칭보다 불확실
+//  3 법·시행령·시행규칙에서 새로 붙인 것 — 이번에 처음 들어왔다
+//  4 규칙 조문 / 5 별표·안전검사·가이드 — 좌표 매칭이라 상대적으로 안전
+function RISK(x) {
+  const ref = (x.ref || '').split(' ')[0];
+  if (CONTESTED.includes(ref)) return 1;
+  if (x.source.indexOf('이름매칭') >= 0) return 2;
+  if (x.source.indexOf('법령') === 0) return 3;
+  if (x.source.indexOf('조문') === 0) return 4;
+  return 5;
+}
+const RISK_LABEL = { 1: '판정이 갈림', 2: '이름 매칭', 3: '법령 신규' };
 
 const id = (r, ph, i) => `${r.no}|${ph}|${i}`;
 const total = DATA.rows.reduce((a, r) => a + PH.reduce((b, [k]) => b + r.items[k].length, 0), 0);
@@ -135,7 +155,9 @@ function render() {
         : '비어 있음'}</div>`;
     }
     let grp = null;
+    let hidden = 0;
     its.forEach((x, i) => {
+      if (onlyRisky && RISK(x) > 2 && !store[id(r, k, i)]) { hidden++; return; }
       // 정기 칸만 근거 강도로 나눈다. 법정(안 하면 위법)과 권고를 섞으면 안내가 혼선이 된다.
       // ★ 판정 기준은 **'권고'가 붙었는가**다. 예전엔 '법정'이 붙었는가로 봤는데, 조문이 정기 칸에
       //   들어오기 시작하자(원문 판독으로 19개 조문) '조문(전용)'이 권고로 떨어졌다.
@@ -147,10 +169,11 @@ function render() {
       }
       const key = id(r, k, i), v = store[key];
       const cls = ' ' + tier(x.source);
-      h += `<div class="item" data-k="${key}"${v ? ` data-v="${esc(v.v)}"` : ''}>
+      const rk = RISK(x);
+      h += `<div class="item${rk <= 2 ? ' risky' : ''}" data-k="${key}"${v ? ` data-v="${esc(v.v)}"` : ''}>
         <div class="t"><p>${esc(x.text)}</p>
           ${x.evidence ? `<div class="ev">“${esc(x.evidence)}”</div>` : ''}
-          <div class="src"><span class="tag${cls}">${esc(x.source)}</span>${esc(x.ref)}</div>
+          <div class="src">${rk <= 3 ? `<span class="tag rk${rk}">${RISK_LABEL[rk]}</span>` : ''}<span class="tag${cls}">${esc(x.source)}</span>${esc(x.ref)}</div>
           <select data-mv="${key}" style="display:${v && v.v === 'move' ? '' : 'none'}">
             <option value="">→ 맞는 칸 선택</option>
             ${PH.filter(([p]) => p !== k).map(([p, l]) => `<option value="${p}"${v && v.to === p ? ' selected' : ''}>${l}</option>`).join('')}
@@ -163,6 +186,7 @@ function render() {
           <button data-a="vague" title="모호하다 (4)">?</button>
         </div></div>`;
     });
+    if (hidden) h += `<div class="none">좌표 매칭 ${hidden}건 숨김 — '전체 보기'로 펼칩니다</div>`;
     h += `</section>`;
   }
   h += `<div class="hint"><kbd>↑</kbd><kbd>↓</kbd> 항목 이동 · <kbd>1</kbd>맞음 <kbd>2</kbd>다른 칸
@@ -225,12 +249,21 @@ document.getElementById('rst').onclick = () => {
   if (confirm('판정을 전부 지운다. 되돌릴 수 없다.')) { store = {}; save(); render(); }
 };
 
-// 113종 전부를 순서대로 넘기기엔 많다. 재료가 두꺼운 그룹(별표·안전검사가 붙은 곳)을
-// 먼저 보도록 ★를 달아 둔다. 순서 자체는 좌표순을 유지한다 — 임의 정렬은 위치 감각을 뺏는다.
+// 2,658건을 순서대로 다 볼 수는 없다. **위험한 것부터** 보게 한다.
+// 순서 자체는 좌표순을 유지한다 — 임의 정렬은 위치 감각을 뺏는다. 표시만 바꾼다.
 document.querySelector('aside').innerHTML = DATA.rows.map((r, i) => {
   const rich = (r.apx3 && r.apx3.length) || r.inspection.is_target || r.guide;
-  return `<div data-i="${i}"><span>${rich ? '★ ' : ''}${esc(r.subject.slice(0, 22))}</span><span class="n"></span></div>`;
+  const n = PH.reduce((a, [k]) => a + r.items[k].filter(x => RISK(x) <= 2).length, 0);
+  return `<div data-i="${i}"><span>${n ? '⚑ ' : rich ? '★ ' : ''}${esc(r.subject.slice(0, 22))}</span>` +
+         `<span class="n"></span></div>`;
 }).join('');
+
+// 위험도 필터 — 켜면 ①②만 남는다. 22 + 94건이라 한 시간이면 끝난다.
+document.getElementById('risky').onclick = (e) => {
+  onlyRisky = !onlyRisky;
+  e.target.textContent = onlyRisky ? '전체 보기' : '의심스러운 것만';
+  render();
+};
 render(); paintProgress();
 """
 
@@ -239,19 +272,33 @@ HTML = """<!doctype html><html lang="ko"><meta charset="utf-8">
 <header>
   <h1>흐름 라벨 검수</h1>
   <span class="bar"><i></i></span><span id="pg" style="font-variant-numeric:tabular-nums"></span>
-  <button id="csv">CSV 내보내기</button><button id="rst">초기화</button>
+  <button id="risky">의심스러운 것만</button><button id="csv">CSV 내보내기</button><button id="rst">초기화</button>
 </header>
 <div class="wrap"><aside></aside><main></main></div>
 <script>__JS__</script></html>"""
 
 
+def contested_articles() -> list[str]:
+    """3인 판정이 2:1로 갈린 조문 — 검수 1순위. 사람이 정해야 하는 것들이다."""
+    p = ART / "article_phase_llm" / "tiebreak.json"
+    if not p.exists():
+        return []
+    d = json.loads(p.read_text(encoding="utf-8"))
+    return sorted({k.split("/")[0] for k, v in (d.get("표") or {}).items() if v != "3:0"})
+
+
 def main() -> None:
     data = json.loads(SRC.read_text(encoding="utf-8"))
     n = sum(len(v) for r in data["rows"] for v in r["items"].values())
+    con = contested_articles()
     js = (JS.replace("__PHASES__", json.dumps(PHASES, ensure_ascii=False))
+            .replace("__CONTESTED__", json.dumps(con, ensure_ascii=False))
             .replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/")))
     OUT.write_text(HTML.replace("__CSS__", CSS).replace("__JS__", js), encoding="utf-8")
+    risky = sum(1 for r in data["rows"] for k, _ in PHASES for x in r["items"][k]
+                if x["ref"].split(" ")[0] in con or "이름매칭" in x["source"])
     print(f"작업종류 {len(data['rows'])}종 · 검수 항목 {n}개")
+    print(f"  ⚑ 우선 검수 {risky}건 (판정 갈림 {len(con)}개 조문 · 이름 매칭)")
     print(f"→ {OUT}")
 
 
