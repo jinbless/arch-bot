@@ -365,6 +365,22 @@ def pg(sql: str) -> list[str]:
 def main() -> None:
     si_by_group, _ = load_inspection()
     APH, NO_DUTY = load_article_phases()
+    # Sol 검토 승인분 (사용자 승인 2026-08-03). 생성: gen_sol_overrides.py
+    _ov_p = Path(__file__).resolve().parent / "sol_review_overrides.json"
+    _ov = json.loads(_ov_p.read_text(encoding="utf-8")) if _ov_p.exists() else {}
+
+    def _ov_pk(ref):
+        m = re.match(r"^(법|시행령|시행규칙)?\s*(제\d+조(?:의\d+)?)", (ref or "").strip())
+        return (m.group(1) or "", m.group(2)) if m else None
+
+    OV_REF_DROPS = {_ov_pk(x["ref"]) for x in _ov.get("ref_drops", [])}
+    OV_SLOT_DROPS = {(_ov_pk(x["ref"]), x["slot"]) for x in _ov.get("slot_drops", [])}
+    OV_PAIR_DROPS = {(_ov_pk(x["ref"]), x["group"]) for x in _ov.get("pair_drops", [])}
+    OV_SLOT_ADDS = {(_ov_pk(x["ref"]), x["slot"]): x.get("evidence", "")
+                    for x in _ov.get("slot_adds", [])}
+    if _ov:
+        print(f"[Sol 승인분] ref_drops {len(OV_REF_DROPS)} · slot_drops {len(OV_SLOT_DROPS)} · "
+              f"slot_adds {len(OV_SLOT_ADDS)} · pair_drops {len(OV_PAIR_DROPS)}")
     # 사진 앵커로 쓸 수 있는가. 카탈로그 127종은 규칙의 절·관 구조를 그대로 옮긴 것이라
     # 통칙·보호구·관리처럼 **사진으로 지목할 수 없는 칸**이 섞여 있다.
     av_p = ART / "anchor_validity.json"
@@ -544,6 +560,58 @@ def main() -> None:
                 src = "별표 2" if by_coord else "별표 2(이름매칭)"
                 for it in rr["items"]:
                     add("ASSIGN", src, it, f"제35조제1항 · {rr['subject'][:20]}")
+
+        # ── Sol 검토 승인분 적용 (sol_review_overrides.json) ──────────
+        # 사용자 승인(2026-08-03)을 거친 판정만 들어있다. 근거 전문은 sol-review/.
+        # 여기(별표까지 조립 끝, 안전검사·가이드 전)가 적용 지점인 이유:
+        #   승인분의 ref는 전부 조문이고, 안전검사·가이드 항목의 ref는 조문이 아니라 매칭될 일이 없다.
+        #   그리고 아래 PERIODIC 집계가 slots를 읽기 전에 숫자를 맞춰놔야 한다.
+        def _pk(ref):
+            # 접두사+조번호 프리픽스 매칭 — '시행규칙 제126조제1항'도 제126조로 잡는다.
+            # 별표 항목('제38조제1항 · 지게차')의 오폭은 아래 source 게이트가 막는다.
+            m = re.match(r"^(법|시행령|시행규칙)?\s*(제\d+조(?:의\d+)?)", (ref or "").strip())
+            return (m.group(1) or "", m.group(2)) if m else None
+
+        # ★ 스냅샷을 **드롭 전에** 뜬다. '칸 이동'(drop PRECHECK + add PLAN)에서 조문의 유일한
+        #   칸을 먼저 지우면 복제할 원본이 사라져 이동이 삭제가 된다(실제로 시행규칙 제100조가
+        #   그렇게 증발할 뻔했다).
+        present0 = {}
+        for ph in items:
+            for it in items[ph]:
+                if it["source"].startswith(("조문", "법령")):
+                    ipk = _pk(it["ref"])
+                    if ipk:
+                        present0.setdefault(ipk, it)
+        for ph in list(items):
+            kept = []
+            for it in items[ph]:
+                # 승인분의 대상은 전부 조문·법령 항목이다. 별표·안전검사·가이드는 건드리지 않는다.
+                if not it["source"].startswith(("조문", "법령")):
+                    kept.append(it)
+                    continue
+                ipk = _pk(it["ref"])
+                if ipk is None:
+                    kept.append(it)
+                    continue
+                if ipk in OV_REF_DROPS:
+                    continue
+                if (ipk, ph) in OV_SLOT_DROPS:
+                    continue
+                if (ipk, gg["label"]) in OV_PAIR_DROPS:
+                    continue
+                kept.append(it)
+            items[ph] = kept
+        # slot_adds: 드롭 전 이 그룹에 있던 조문만. ref/pair 드롭된 조문은 되살리지 않는다.
+        for (apk, slot), ev in OV_SLOT_ADDS.items():
+            src_it = present0.get(apk)
+            if (src_it is None or apk in OV_REF_DROPS
+                    or (apk, gg["label"]) in OV_PAIR_DROPS
+                    or any(_pk(it["ref"]) == apk for it in items[slot])):
+                continue
+            items[slot].append({"source": src_it["source"], "text": src_it["text"],
+                                "ref": src_it["ref"], "evidence": ev})
+        for ph in items:
+            slots[ph] = len(items[ph])
 
         # ── PERIODIC ① 안전검사(법정) ─────────────────────────────────
         # ★ 이 시점의 PERIODIC은 **조문에서 온 정기 의무**다(원문 판독으로 19개 조문이 여기 들어온다).

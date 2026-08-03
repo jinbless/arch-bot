@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -90,6 +91,8 @@ kbd{background:#21262d;border:1px solid var(--line);border-radius:4px;padding:0 
 
 JS = r"""
 const PH = __PHASES__, DATA = __DATA__, CONTESTED = __CONTESTED__;
+// Sol 재검증에서 사람 몫으로 남은 (조문, 칸) / (조문, 그룹) 쌍 — 조문 전체가 아니라 그 자리만 표시한다
+const SOLPAIR = new Set(__SOLPAIR__);
 const KEY = 'flowReview.v1';
 let store = JSON.parse(localStorage.getItem(KEY) || '{}');
 let cur = 0;
@@ -100,15 +103,19 @@ let onlyRisky = false;
 //  2 이름 매칭으로 붙은 항목          — 좌표 매칭보다 불확실
 //  3 법·시행령·시행규칙에서 새로 붙인 것 — 이번에 처음 들어왔다
 //  4 규칙 조문 / 5 별표·안전검사·가이드 — 좌표 매칭이라 상대적으로 안전
-function RISK(x) {
-  const ref = (x.ref || '').split(' ')[0];
-  if (CONTESTED.includes(ref)) return 1;
+function RISK(x, k, r) {
+  // 접두사 포함 조문키로 대조한다 — '시행규칙 제98조'를 split(' ')[0]로 자르면 '시행규칙'만 남아
+  // 사람 판정 대상 표시가 조용히 빠진다.
+  const m = (x.ref || '').match(/^(?:법|시행령|시행규칙)?\s*제\d+조(?:의\d+)?/);
+  const key = m ? m[0] : '';
+  if (key && CONTESTED.includes(key)) return 1;
+  if (key && (SOLPAIR.has(key + '|' + k) || SOLPAIR.has(key + '|G|' + (r ? r.subject : '')))) return 1;
   if (x.source.indexOf('이름매칭') >= 0) return 2;
   if (x.source.indexOf('법령') === 0) return 3;
   if (x.source.indexOf('조문') === 0) return 4;
   return 5;
 }
-const RISK_LABEL = { 1: '판정이 갈림', 2: '이름 매칭', 3: '법령 신규' };
+const RISK_LABEL = { 1: '사람 판정 필요', 2: '이름 매칭', 3: '법령 신규' };
 
 const id = (r, ph, i) => `${r.no}|${ph}|${i}`;
 const total = DATA.rows.reduce((a, r) => a + PH.reduce((b, [k]) => b + r.items[k].length, 0), 0);
@@ -157,7 +164,7 @@ function render() {
     let grp = null;
     let hidden = 0;
     its.forEach((x, i) => {
-      if (onlyRisky && RISK(x) > 2 && !store[id(r, k, i)]) { hidden++; return; }
+      if (onlyRisky && RISK(x, k, r) > 2 && !store[id(r, k, i)]) { hidden++; return; }
       // 정기 칸만 근거 강도로 나눈다. 법정(안 하면 위법)과 권고를 섞으면 안내가 혼선이 된다.
       // ★ 판정 기준은 **'권고'가 붙었는가**다. 예전엔 '법정'이 붙었는가로 봤는데, 조문이 정기 칸에
       //   들어오기 시작하자(원문 판독으로 19개 조문) '조문(전용)'이 권고로 떨어졌다.
@@ -169,7 +176,7 @@ function render() {
       }
       const key = id(r, k, i), v = store[key];
       const cls = ' ' + tier(x.source);
-      const rk = RISK(x);
+      const rk = RISK(x, k, r);
       h += `<div class="item${rk <= 2 ? ' risky' : ''}" data-k="${key}"${v ? ` data-v="${esc(v.v)}"` : ''}>
         <div class="t"><p>${esc(x.text)}</p>
           ${x.evidence ? `<div class="ev">“${esc(x.evidence)}”</div>` : ''}
@@ -253,7 +260,7 @@ document.getElementById('rst').onclick = () => {
 // 순서 자체는 좌표순을 유지한다 — 임의 정렬은 위치 감각을 뺏는다. 표시만 바꾼다.
 document.querySelector('aside').innerHTML = DATA.rows.map((r, i) => {
   const rich = (r.apx3 && r.apx3.length) || r.inspection.is_target || r.guide;
-  const n = PH.reduce((a, [k]) => a + r.items[k].filter(x => RISK(x) <= 2).length, 0);
+  const n = PH.reduce((a, [k]) => a + r.items[k].filter(x => RISK(x, k, r) <= 2).length, 0);
   return `<div data-i="${i}"><span>${n ? '⚑ ' : rich ? '★ ' : ''}${esc(r.subject.slice(0, 22))}</span>` +
          `<span class="n"></span></div>`;
 }).join('');
@@ -279,12 +286,36 @@ HTML = """<!doctype html><html lang="ko"><meta charset="utf-8">
 
 
 def contested_articles() -> list[str]:
-    """3인 판정이 2:1로 갈린 조문 — 검수 1순위. 사람이 정해야 하는 것들이다."""
+    """사람이 정해야 하는 조문 = 검수 1순위. 두 원천을 합친다:
+      ① 3인 판정이 2:1로 갈린 조문 (tiebreak)
+      ② Sol 재검증에서 Sol도 Claude도 판정 못 내린 것 (human_decisions 78건, 2026-08-03)
+    """
+    out: set[str] = set()
     p = ART / "article_phase_llm" / "tiebreak.json"
-    if not p.exists():
+    if p.exists():
+        d = json.loads(p.read_text(encoding="utf-8"))
+        out |= {k.split("/")[0] for k, v in (d.get("표") or {}).items() if v != "3:0"}
+    return sorted(out)
+
+
+def sol_human_pairs() -> list[str]:
+    """Sol 재검증의 사람 몫 78건 — (조문, 칸) 또는 (조문, 그룹) 쌍. 조문 전체를 칠하면
+    같은 조문이 그룹마다 중복 표시돼 78건이 400건대로 부푼다. 그 자리만 표시한다."""
+    sr = ART / "sol-review" / "sol_review_final.json"
+    if not sr.exists():
         return []
-    d = json.loads(p.read_text(encoding="utf-8"))
-    return sorted({k.split("/")[0] for k, v in (d.get("표") or {}).items() if v != "3:0"})
+    d = json.loads(sr.read_text(encoding="utf-8"))
+    SLOTS = {k for k, _ in PHASES}
+    out = set()
+    for x in d.get("human_decisions", []):
+        if x["kind"] == "Q2":
+            out.add(f"{x['ref']}|G|{x['item']}")
+        elif x.get("item") in SLOTS:
+            out.add(f"{x['ref']}|{x['item']}")
+        else:
+            for k in SLOTS:
+                out.add(f"{x['ref']}|{k}")
+    return sorted(out)
 
 
 def main() -> None:
@@ -301,12 +332,19 @@ def main() -> None:
     con = contested_articles()
     js = (JS.replace("__PHASES__", json.dumps(PHASES, ensure_ascii=False))
             .replace("__CONTESTED__", json.dumps(con, ensure_ascii=False))
+            .replace("__SOLPAIR__", json.dumps(sol_human_pairs(), ensure_ascii=False))
             .replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/")))
     OUT.write_text(HTML.replace("__CSS__", CSS).replace("__JS__", js), encoding="utf-8")
+    kre = re.compile(r"^(?:법|시행령|시행규칙)?\s*제\d+조(?:의\d+)?")
+    def _key(ref):
+        m = kre.match(ref or "")
+        return m.group(0) if m else ""
+    sp = set(sol_human_pairs())
     risky = sum(1 for r in data["rows"] for k, _ in PHASES for x in r["items"][k]
-                if x["ref"].split(" ")[0] in con or "이름매칭" in x["source"])
+                if _key(x["ref"]) in con or f"{_key(x['ref'])}|{k}" in sp
+                or f"{_key(x['ref'])}|G|{r['subject']}" in sp or "이름매칭" in x["source"])
     print(f"작업종류 {len(data['rows'])}종 · 검수 항목 {n}개")
-    print(f"  ⚑ 우선 검수 {risky}건 (판정 갈림 {len(con)}개 조문 · 이름 매칭)")
+    print(f"  ⚑ 우선 검수 {risky}건 (사람 판정 필요 {len(con)}개 조문 · 이름 매칭)")
     print(f"→ {OUT}")
 
 
