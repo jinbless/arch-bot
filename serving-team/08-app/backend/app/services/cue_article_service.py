@@ -137,14 +137,27 @@ def _load_knowledge() -> Optional[dict]:
         if len(can) >= 2:
             ts.add(can)
         cue_terms.append((c, ts))
+    # ★ 우산 그룹(총칙·통칙·기계 등의 일반기준)은 카탈로그에서 뺀다.
+    #   내용이 전부 하위 기인물에 상속돼 있어서 이걸 앵커로 고르면 **더 적게 보인다** —
+    #   크레인 사진에 '양중기 > 총칙'을 고르면 21건만 나오고 크레인 전용 55건을 통째로 놓친다.
+    #   실측: 감독관 gold 129장 중 10장이 우산을 앵커로 지목했다.
+    #   목록은 흐름 데이터가 **데이터로** 판정해 내려준다(이름으로 고르지 않는다).
+    #   flow_slice_all.json을 못 읽어도 카탈로그는 살린다 — 이 기능 전체를 죽일 일은 아니다.
+    umb: set = set()
+    try:
+        umb = set(json.loads((DATA_DIR / "flow_slice_all.json").read_text(encoding="utf-8"))
+                  .get("umbrella_src_keys") or [])
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("[CueArticles] 우산 그룹 목록 로드 실패(%s) — 카탈로그에 그대로 남긴다", exc)
     catalog = []
     for gk, g in idx["groups"].items():
         nobs = sum(1 for a in g["articles"] if a["observable"] in OBS_OK)
-        if nobs >= 1 and gk not in idx["cross_cutting"]:
+        if nobs >= 1 and gk not in idx["cross_cutting"] and gk not in umb:
             catalog.append(f"{gk} ::기인물={g['gimulmul']} ({nobs}조)")
+    logger.info("[CueArticles] RESOLVE 카탈로그 %d종 (우산 %d종 제외)", len(catalog), len(umb))
     return {"cue_terms": cue_terms, "sig": sig, "idx": idx, "alias": alias, "curated": curated,
             "cross_set": sorted(set(CROSS) & set(idx["observable_codes"])),
-            "catalog_text": "\n".join(sorted(catalog))}
+            "umbrella_src_keys": umb, "catalog_text": "\n".join(sorted(catalog))}
 
 
 # ── 장면 텍스트 (연구 공식 — rank_ab_gold.py scene_text/cue_text. 변경 금지) ──

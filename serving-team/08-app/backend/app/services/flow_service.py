@@ -4,15 +4,18 @@
 **시간 흐름 속에서** 발생하는데, 사진은 그 흐름의 한 시점 스냅샷이다.
 → 스냅샷에서 기인물을 찾고, 그걸 앵커로 시간축 앞뒤로 해야 할 조치를 보여준다.
 
-데이터: app/data/trackA/flow_slice_all.json (기인물 그룹 127종 × 골격 6칸).
+데이터: app/data/trackA/flow_slice_all.json (기인물 그룹 127종 중 우산 16종을 뺀 111종 × 골격 6칸).
   생성: data-team/01-parsing/rule-appendices/build_flow_slice_all.py
   ⚠ 재생성하면 이 파일도 **같이 동기화**해야 한다(runtime-artifacts → app/data/trackA).
+  우산 = 총칙·통칙처럼 **자기만의 의무가 없는** 그룹. 내용이 전부 하위 기인물에 상속돼 있거나
+  (양중기 > 총칙) 조문이 목적·정의뿐이다(편3 각 장 통칙). 앵커로 고르면 오히려 덜 보인다 —
+  크레인 사진에 '양중기 > 총칙'을 잡으면 21건만 뜨고 크레인 전용 55건을 통째로 놓친다.
 
 플래그(기본 off → 이 모듈은 아무 것도 하지 않고 응답에 None):
   OHS_ENABLE_WORK_FLOW (env CUE_FLOW 우선)
 
 ⚠ 노출 전 반드시 알아야 할 두 가지
-  1. **앵커가 단일 실패점** — 관 단위 정확 일치 0.711(감독관 gold 45장). 4장 중 1장 이상이
+  1. **앵커가 단일 실패점** — 관 단위 정확 일치 0.647(감독관 gold 51장). 3장 중 1장 이상이
      통째로 틀린다. 그래서 alternates(사용자 정정 후보)를 항상 함께 낸다.
   2. **라벨 정확도 미검수** — 각 항목이 그 칸에 맞는지는 사람 검수 전이다. 오탐은 사람이 걸러도
      잘못된 선후관계는 못 걸러낸다. `reviewed=False`로 내려보내 화면이 경고를 띄우게 한다.
@@ -65,11 +68,18 @@ def _flows() -> Optional[dict]:
     except Exception as exc:  # noqa: BLE001
         logger.warning("[WorkFlow] 흐름 데이터 로드 실패: %s", exc)
         return None
+    # ★ 우산 그룹(총칙·통칙 등)은 흐름으로 내보내지 않는다. 내용이 전부 하위 기인물에 상속돼 있어서
+    #   '양중기 > 총칙'을 앵커로 잡으면 21건만 보이고 크레인 전용 55건을 통째로 놓친다.
+    #   행 자체는 데이터에 남아 있다(상속의 원본이다) — 서빙에서만 가린다.
+    umb = set(d.get("umbrella_group_keys") or [])
+    rows = [r for r in d.get("rows", []) if r["no"] not in umb]
     # 카탈로그 원래 그룹키(RESOLVE가 내는 값) → 흐름 행. 좌표가 섞여 분리된 그룹은 한 키에 여럿 붙는다.
     by_src: dict[str, list] = {}
-    for r in d.get("rows", []):
+    for r in rows:
         by_src.setdefault(r.get("src_key") or r["no"], []).append(r)
-    v = {"rows": d.get("rows", []), "by_src": by_src}
+    if umb:
+        logger.info("[WorkFlow] 우산 그룹 %d종 제외 — 흐름 %d종", len(umb), len(rows))
+    v = {"rows": rows, "by_src": by_src, "umbrella": umb}
     _CACHE["v"] = v
     return v
 
@@ -142,7 +152,13 @@ async def build(result: dict) -> Optional[WorkFlow]:
             if r not in rows:
                 rows.append(r)
     if not rows:
-        logger.info("[WorkFlow] 앵커에 해당하는 흐름 없음: %s", rv.get("group_keys"))
+        # 우산 그룹만 지목된 경우를 따로 남긴다. 카탈로그에서 뺐으니 나와선 안 되는 일인데,
+        # 나온다면 카탈로그와 흐름 데이터가 어긋난 것이다(동기화 누락). 조용히 넘기면 못 찾는다.
+        picked_umb = [g for g in rv.get("group_keys", []) if g in fl.get("umbrella", ())]
+        if picked_umb:
+            logger.warning("[WorkFlow] RESOLVE가 우산 그룹만 지목했다 — 카탈로그 동기화 확인 필요: %s", picked_umb)
+        else:
+            logger.info("[WorkFlow] 앵커에 해당하는 흐름 없음: %s", rv.get("group_keys"))
         return None
 
     return WorkFlow(anchor=_anchor(rows[0]), alternates=[_anchor(r) for r in rows[1:]],

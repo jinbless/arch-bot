@@ -623,6 +623,36 @@ def main() -> None:
                        "anchor_why": (ANCHOR.get(k) or {}).get("why", ""),
                        "detail": {x: [y["text"] for y in v[:3]] for x, v in items.items()}})
 
+    # ── 우산 그룹 판정 ────────────────────────────────────────────────
+    # 총칙·통칙은 **하위 기인물에 상속되어 운영되는 것**이지 그 자체가 별도의 흐름이 아니다.
+    # 크레인 사진에 '양중기 > 총칙'을 앵커로 잡으면 21건만 보이고 크레인 전용 55건을 못 본다.
+    #
+    # ★ 이름('총칙'·'통칙')으로 고르지 않는다 — 이름은 거짓말을 하고, 반대로 이름이 총칙이 아닌
+    #   우산도 있다(절1 기계 등의 일반기준). 대신 **데이터로** 판정한다:
+    #     "이 그룹의 (조문, 칸) 전부가 다른 적격 그룹에도 있는가"
+    #   전부 있으면 이 그룹을 빼도 사업주가 못 보게 되는 조문이 하나도 없다. 없으면 못 뺀다.
+    #   이 기준은 스스로를 검사한다 — 상속이 나중에 깨지면 고유 항목이 생기고 우산에서 자동 탈락한다.
+    def _pairs(r):
+        return {(x["ref"], s) for s, v in r["items"].items() for x in v}
+
+    covered = set()
+    for r in report:
+        if r["anchor_kind"] != "부적격":
+            covered |= _pairs(r)
+    # 한 문장으로: **앵커 부적격이면서 자기만의 의무가 없는 그룹**이 우산이다. 두 모양이 있다.
+    #   상속형 — 항목이 있는데 전부 다른 적격 그룹에도 있다 (양중기 > 총칙)
+    #   공백형 — 항목이 아예 없다. 조문이 목적·정의·적용범위뿐이다 (편3 각 장의 통칙 9종)
+    # 둘 다 "빼도 사업주가 못 보게 되는 의무가 0건"이라는 같은 말이다.
+    # 적격 그룹은 아무리 겹쳐도 우산으로 보지 않는다 — 지게차와 구내운반차는 서로 많이 겹치지만
+    # 둘 다 사진에 보이는 기인물이다.
+    umbrella = []
+    for r in report:
+        ps = _pairs(r)
+        r["umbrella"] = r["anchor_kind"] == "부적격" and not (ps - covered)
+        r["umbrella_kind"] = ("상속형" if r["umbrella"] and ps else "공백형" if r["umbrella"] else "")
+        if r["umbrella"]:
+            umbrella.append(r)
+
     # ── 리포트 ────────────────────────────────────────────────────────
     report.sort(key=lambda r: tuple(9999 if x is None else x for x in r["coord"]))
     n = len(report)
@@ -660,6 +690,25 @@ def main() -> None:
         print("  ⚠ 부적격 = 규칙 편제상의 칸(통칙·보호구·관리·상위 개념). 조문이 무의미한 게 아니라"
               " 사진으로 지목할 수 없다는 뜻이다")
 
+    if umbrella:
+        n_inh = sum(1 for r in umbrella if r["umbrella_kind"] == "상속형")
+        print(f"\n=== 우산 그룹 {len(umbrella)}종 — 별도 흐름으로 내보내지 않는다 ===")
+        print(f"  (상속형 {n_inh}종 · 공백형 {len(umbrella) - n_inh}종. 앵커 카탈로그·검수·정정 목록에서 제외)")
+        for r in sorted(umbrella, key=lambda x: -sum(x["slots"].values())):
+            c = sum(r["slots"].values())
+            why = "전부 하위 기인물에 있음" if c else "의무 조문 자체가 없음(목적·정의·적용범위뿐)"
+            print(f"  [{r['umbrella_kind']}] {r['subject'][:40]:42} {c:3d}건 → {why}")
+
+    # 부적격인데 우산이 **아닌** 그룹 = 앵커로 못 잡는데 내용이 여기서만 있는 그룹.
+    # 지우면 증발하므로 남겨둔다. 기본 안전수칙(always_applicable)이 다뤄야 할 후보다.
+    orphan = [r for r in report if r["anchor_kind"] == "부적격" and not r["umbrella"]]
+    if orphan:
+        tot = sum(len(_pairs(r) - covered) for r in orphan)
+        print(f"\n  ⚠ 부적격이지만 우산이 아닌 그룹 {len(orphan)}종 — 고유 항목 {tot}건은 여기서만 있다.")
+        print("    빼면 증발한다. 앵커로 못 잡으니 기본 안전수칙 쪽에서 다뤄야 할 후보다:")
+        for r in sorted(orphan, key=lambda x: -len(_pairs(x) - covered))[:8]:
+            print(f"      {r['subject'][:42]:44} 고유 {len(_pairs(r) - covered):3d}건")
+
     print(f"\n별표 3 붙은 그룹 {sum(1 for r in report if r['apx3'])}종 · "
           f"가이드 붙은 그룹 {sum(1 for r in report if r['guide'])}종 · "
           f"안전검사 대상 {sum(1 for r in report if r['inspection']['is_target'])}종")
@@ -676,9 +725,23 @@ def main() -> None:
         cells = " ".join(f"{lab}{r['slots'][x]}" for x, lab in SKELETON)
         print(f"  {r['filled']}/6  {r['subject'][:38]:40} {cells}")
 
+    # RESOLVE 카탈로그에서 뺄 키는 **src_key**다(카탈로그는 gimulmul_index의 원래 그룹키를 쓴다).
+    # ★ 한 src_key에 여러 행이 붙어 있을 수 있다 — '절1 통칙'에는 편3의 12개 장 통칙이 다 뭉쳐 있다.
+    #   그래서 "그 키에 붙은 행이 **전부** 우산이거나 빈 행일 때만" 뺀다. 하나라도 실제 흐름이
+    #   있으면 빼지 않는다. 안 그러면 뭉친 키 하나 때문에 멀쩡한 앵커가 같이 사라진다.
+    by_src: dict[str, list] = {}
+    for r in report:
+        by_src.setdefault(r.get("src_key") or r["no"], []).append(r)
+    umb_src = sorted(k for k, rs in by_src.items() if all(r["umbrella"] for r in rs))
+
     out = ART / "flow_slice_all.json"
     out.write_text(json.dumps({"_note": "기인물 그룹 113종 × 골격 6단계. 칸이 차는지만 본다(라벨 정확도는 사람 검수).",
-                               "n_groups": n, "rows": report}, ensure_ascii=False, indent=1), encoding="utf-8")
+                               "_umbrella": "총칙·통칙 등 내용이 전부 하위에 상속되는 그룹. 앵커·검수·정정 목록에서 뺀다. "
+                                            "행은 남긴다 — 상속의 원본이고, 빠졌는지 대조할 근거이기 때문이다.",
+                               "n_groups": n, "umbrella_group_keys": sorted(r["no"] for r in umbrella),
+                               "umbrella_src_keys": umb_src,
+                               "rows": report}, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"\nRESOLVE 카탈로그에서 뺄 src_key {len(umb_src)}종: {', '.join(umb_src)}")
     print(f"\n→ {out.name}")
 
 

@@ -129,10 +129,16 @@ def curated_lookup(gim):
     return []
 
 
+# ★ 카탈로그는 서빙(cue_article_service._load_knowledge)과 **같은 규칙**이어야 한다.
+#   여기서만 다르면 측정한 조건과 서비스하는 조건이 갈린다.
+#   우산 그룹(총칙·통칙·기계 등의 일반기준) 제외 — 내용이 전부 하위에 상속돼 있어 앵커로 고르면
+#   오히려 덜 보인다. 목록은 흐름 데이터가 데이터로 판정해 내려준다.
+UMBRELLA_SRC = set(json.loads((ART / "flow_slice_all.json").read_text(encoding="utf-8"))
+                   .get("umbrella_src_keys") or [])
 catalog = []
 for gk, g in groups.items():
     nobs = sum(1 for a in g["articles"] if a["observable"] in OBS_OK)
-    if nobs >= 1 and gk not in idx["cross_cutting"]:
+    if nobs >= 1 and gk not in idx["cross_cutting"] and gk not in UMBRELLA_SRC:
         catalog.append(f"{gk} ::기인물={g['gimulmul']} ({nobs}조)")
 catalog_text = "\n".join(sorted(catalog))
 

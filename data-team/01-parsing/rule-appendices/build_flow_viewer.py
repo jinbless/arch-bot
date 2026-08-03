@@ -289,6 +289,14 @@ def contested_articles() -> list[str]:
 
 def main() -> None:
     data = json.loads(SRC.read_text(encoding="utf-8"))
+    # ★ 우산 그룹(총칙·통칙)은 검수 대상에서 뺀다. 항목이 전부 하위 기인물에도 그대로 있어서
+    #   여기서 검수하면 **같은 판정을 두 번** 하게 된다. 게다가 서빙에서 안 보이는 화면을
+    #   검수하는 셈이라 시간만 든다. 판정은 하위 그룹 쪽에서 하면 그대로 반영된다.
+    umb = set(data.get("umbrella_group_keys") or [])
+    if umb:
+        drop = sum(len(v) for r in data["rows"] if r["no"] in umb for v in r["items"].values())
+        data["rows"] = [r for r in data["rows"] if r["no"] not in umb]
+        print(f"우산 그룹 {len(umb)}종 제외 — 중복 검수 {drop}건이 빠졌다(하위 기인물 쪽에서 검수하면 된다)")
     n = sum(len(v) for r in data["rows"] for v in r["items"].values())
     con = contested_articles()
     js = (JS.replace("__PHASES__", json.dumps(PHASES, ensure_ascii=False))

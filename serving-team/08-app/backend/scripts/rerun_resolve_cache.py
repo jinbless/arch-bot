@@ -13,12 +13,20 @@
   구성 요소라 지우면 그 측정이 재현 불가가 된다. 새 파일에 쓰고, 측정 스크립트가
   새 파일이 있으면 그걸 쓴다.
 
+★★ 캐시가 **스스로 낡았는지 안다**. 위 실수를 두 번 했다(비계 6종, 우산 7종). 사람이
+   "카탈로그 바꿨으니 재실행해야지"를 기억하는 것에 의존하면 또 놓친다. 그래서 캐시 파일에
+   **그때 쓴 카탈로그 자체**를 함께 적는다.
+     - 카탈로그가 달라졌으면 옛 캐시를 `.<sha>.json`으로 물러두고 처음부터 다시 부른다
+     - 측정 스크립트는 캐시에 적힌 카탈로그로 채점 범위를 정한다 —
+       재계산하지 않으므로 측정과 캐시가 어긋날 수 없다
+
 사용: .venv/bin/python scripts/rerun_resolve_cache.py [--workers 6] [--limit 0]
 출력: data-team/05-enrichment/runtime-artifacts/rank_ab_resolve_cache_v2.json
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -46,10 +54,25 @@ def main() -> None:
     # 카탈로그는 **지금** 인덱스에서 만든다 — rank_ab_gold 모듈 로드 시점 값을 그대로 쓴다.
     print(f"사진 {len(photos)}장 · 카탈로그 {R.catalog_text.count(chr(10)) + 1}종 · model={R.MODEL}", flush=True)
 
+    keys = sorted(l.split(" ::")[0] for l in R.catalog_text.splitlines() if l.strip())
+    sha = hashlib.sha256("\n".join(keys).encode()).hexdigest()[:12]
+
     cache, fails = {}, []
     if OUT.exists():
-        cache = json.loads(OUT.read_text(encoding="utf-8"))
-        print(f"기존 v2 캐시 {len(cache)}장 재사용 — 새로 부를 것 {len([p for p in photos if p not in cache])}장")
+        old = json.loads(OUT.read_text(encoding="utf-8"))
+        old_sha = old.get("_catalog_sha") if isinstance(old, dict) else None
+        old_photos = old.get("photos") if old_sha else old      # 옛 형식 = 사진 dict 그대로
+        if old_sha == sha:
+            cache = dict(old_photos or {})
+            print(f"기존 캐시 {len(cache)}장 재사용 (카탈로그 동일 {sha})")
+        else:
+            # ★ 카탈로그가 달라졌다 — 옛 답은 **그때의 보기 목록**으로 고른 것이라 재사용하면 안 된다.
+            #   지우지도 않는다. 물러두고 처음부터 다시 부른다.
+            bak = OUT.with_suffix(f".{old_sha or 'legacy'}.json")
+            bak.write_text(OUT.read_text(encoding="utf-8"), encoding="utf-8")
+            n_old = len(old_photos or {})
+            print(f"⚠ 카탈로그가 바뀌었다 ({old_sha or '기록없음'} → {sha}) — 캐시 {n_old}장 전부 재실행")
+            print(f"  옛 캐시는 {bak.name} 로 물러뒀다")
     todo = [p for p in photos if p not in cache]
 
     def _resolve(pf):
@@ -69,7 +92,11 @@ def main() -> None:
                     fails.append({"photo": futs[fu], "err": str(e)[:200]})
                 if i % 20 == 0:
                     print(f"  {i}/{len(todo)}", flush=True)
-        OUT.write_text(json.dumps(cache, ensure_ascii=False, indent=1), encoding="utf-8")
+    # 카탈로그를 함께 적는다. 측정 스크립트는 이 목록으로 채점 범위를 정한다 —
+    # 재계산하지 않으므로 "LLM이 본 보기"와 "채점이 인정하는 정답"이 어긋날 수 없다.
+    OUT.write_text(json.dumps({"_note": "RESOLVE 앵커 캐시. _catalog_keys = 이 답을 낼 때 LLM에게 준 보기 목록.",
+                               "_catalog_sha": sha, "_catalog_keys": keys, "_model": R.MODEL,
+                               "photos": cache}, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print(f"\n완료 {len(cache)}장 · 실패 {len(fails)}장")
     for f in fails[:5]:

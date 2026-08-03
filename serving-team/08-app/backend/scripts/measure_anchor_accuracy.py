@@ -78,6 +78,10 @@ def main() -> None:
         cp = ART / "rank_ab_resolve_cache.json"
     print(f"[RESOLVE 캐시] {cp.name}")
     rcache = json.loads(cp.read_text(encoding="utf-8"))
+    # 새 형식이면 {_catalog_sha, _catalog_keys, photos}. 옛 형식은 사진 dict 그대로.
+    cat_keys = rcache.get("_catalog_keys") if isinstance(rcache, dict) else None
+    if cat_keys is not None:
+        rcache = rcache.get("photos") or {}
 
     # 그룹키 → 좌표 **(편,장,절,관) 4튜플**. 그룹 소속 조문의 section에서 역산한다.
     # ★ 예전에는 [2:]로 (절,관)만 썼다. 그룹키 자체엔 편·장이 없지만 조문 section에는 있다.
@@ -95,12 +99,30 @@ def main() -> None:
     #   **정답이 비계뿐인 사진 15장이 통째로 채점에서 빠져 있었다.**
     #   카탈로그에서 역산하면 앞으로 카탈로그를 바꿀 때마다 측정이 저절로 따라온다.
     cross = set(json.loads((ART / "gimulmul_index.json").read_text(encoding="utf-8"))["cross_cutting"])
+    # ★ 우산 그룹(총칙·통칙)도 카탈로그에서 빠졌으므로 채점 대상에서 뺀다.
+    #   여기서 빼는 게 옳은 이유: gold는 **조문**을 인용하고 우리는 그 조문의 좌표로 정답 앵커를
+    #   역산한다. 그런데 제86~99조처럼 모든 기계에 상속되는 조문은 좌표가 '절1 기계 등의 일반기준'이라
+    #   **어느 기인물인지 식별하지 못한다**. 그런 좌표를 정답으로 삼으면 "컨베이어 사진의 정답은
+    #   기계 일반기준"이라는 틀린 문제를 내는 셈이다.
+    #   대신 그 사진들은 정답 집합이 비어 채점에서 빠진다 — 그 수를 반드시 보고한다.
+    umb_src = set(json.loads((ART / "flow_slice_all.json").read_text(encoding="utf-8"))
+                  .get("umbrella_src_keys") or [])
     OBS_OK = ("yes", "partial")
-    scorable = set()
-    for k, g in gim.items():
-        nobs = sum(1 for a in g.get("articles", []) if a.get("observable") in OBS_OK)
-        if nobs >= 1 and k not in cross:
-            scorable |= gkey_coord[k]
+    if cat_keys is not None:
+        # ★★ 채점 범위를 **캐시에 적힌 카탈로그**에서 뽑는다. 규칙을 여기서 다시 계산하면
+        #     "LLM이 본 보기"와 "채점이 인정하는 정답"이 소리 없이 갈린다 — 비계 15장이 그랬다.
+        scorable = set()
+        for k in cat_keys:
+            scorable |= gkey_coord.get(k, set())
+        print(f"[채점 좌표] {len(scorable)}개 — 캐시에 적힌 카탈로그 {len(cat_keys)}종에서 역산")
+    else:
+        scorable = set()
+        for k, g in gim.items():
+            nobs = sum(1 for a in g.get("articles", []) if a.get("observable") in OBS_OK)
+            if nobs >= 1 and k not in cross and k not in umb_src:
+                scorable |= gkey_coord[k]
+        print(f"[채점 좌표] {len(scorable)}개 (우산 {len(umb_src)}종 제외) "
+              f"⚠ 캐시에 카탈로그 기록이 없다 — 지금 규칙으로 재계산했다. 캐시가 낡았을 수 있다")
 
     jy = defaultdict(set)
     with GOLD.open(encoding="utf-8-sig") as f:
