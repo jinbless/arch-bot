@@ -378,9 +378,14 @@ def main() -> None:
     OV_PAIR_DROPS = {(_ov_pk(x["ref"]), x["group"]) for x in _ov.get("pair_drops", [])}
     OV_SLOT_ADDS = {(_ov_pk(x["ref"]), x["slot"]): x.get("evidence", "")
                     for x in _ov.get("slot_adds", [])}
+    # 사람 검수 CSV — (그룹 no, 칸, ref, text) 정확 일치. 별표·가이드 항목도 대상이라
+    # 조문 파싱을 거치지 않는다. 사람 검수는 모든 판정을 덮어쓴다.
+    OV_HUMAN = {(x["group_no"], x["phase"], x["ref"], x["text"]): x
+                for x in _ov.get("human_item_ops", [])}
     if _ov:
         print(f"[Sol 승인분] ref_drops {len(OV_REF_DROPS)} · slot_drops {len(OV_SLOT_DROPS)} · "
-              f"slot_adds {len(OV_SLOT_ADDS)} · pair_drops {len(OV_PAIR_DROPS)}")
+              f"slot_adds {len(OV_SLOT_ADDS)} · pair_drops {len(OV_PAIR_DROPS)} · "
+              f"사람검수 item_ops {len(OV_HUMAN)}")
     # 사진 앵커로 쓸 수 있는가. 카탈로그 127종은 규칙의 절·관 구조를 그대로 옮긴 것이라
     # 통칙·보호구·관리처럼 **사진으로 지목할 수 없는 칸**이 섞여 있다.
     av_p = ART / "anchor_validity.json"
@@ -493,6 +498,21 @@ def main() -> None:
                     add_article("조문(절 총칙)", c)
                     own.add(c)
 
+        # ── 양중기 와이어로프(관7) → 형제 기계 관으로 상속 ─────────────
+        # 사용자 판단(2026-08-06): "와이어로프는 양중기에서 무게를 지탱하는 부속품이고,
+        # 대형 사고 예방을 위해 별도 관으로 뺐을 뿐 실제 흐름은 양중기 각 내용 안에
+        # 포함되어야 한다." 문언도 이를 지지한다 — 제163조 등이 '양중기의 와이어로프'를
+        # 대상으로 하므로 크레인·리프트를 쓰는 사업주의 의무다.
+        # 관7 자신은 이 상속으로 고유 항목이 사라져 우산 판정에 자동으로 걸린다(별도 흐름 소멸).
+        WIRE_GWAN = (2, 1, 9, 7)
+        if here == (2, 1, 9) and gwan not in (None, 1, 7):
+            wire_key = next((kk for kk, g2 in G.items() if tuple(g2["coord"]) == WIRE_GWAN), None)
+            if wire_key:
+                for c in G[wire_key]["codes"]:
+                    if c not in own and applies(c, gg["coord"]):
+                        add_article("조문(와이어로프 상속)", c)
+                        own.add(c)
+
         # ★ '편2>장1>절1 기계 등의 일반기준'(제86~99)은 기계·설비류 전체의 상위 공통.
         #   제89조(운전 시작 전)·제93조(방호장치 해체 금지)·제99조(이탈 시 조치)가 여기 있다.
         if machine_base and k != machine_base and (p, j) == (2, 1):
@@ -524,7 +544,11 @@ def main() -> None:
             add(x["phase"], f"법령({x['ref'].split()[0]})", x["text"], x["ref"], x["evidence"])
 
         # ── PRECHECK: 별표 3 (좌표 정확 일치 — 19종만) ────────────────
-        a3_rows = a3_by_coord.get(gg["coord"], [])
+        a3_rows = list(a3_by_coord.get(gg["coord"], []))
+        # 와이어로프 통합(위 상속과 같은 사용자 판단): 관7 좌표에 붙는 별표 3 점검
+        # (와이어로프·달기체인·섬유로프)도 양중기 각 기계의 작업 전 점검이다.
+        if here == (2, 1, 9) and gwan not in (None, 1, 7):
+            a3_rows += [r for r in a3_by_coord.get(WIRE_GWAN, []) if r not in a3_rows]
         for r in a3_rows:
             for it in r["items"]:
                 add("PRECHECK", "별표 3", it, f"제35조제2항 · {r['subject'][:20]}")
@@ -610,6 +634,22 @@ def main() -> None:
                 continue
             items[slot].append({"source": src_it["source"], "text": src_it["text"],
                                 "ref": src_it["ref"], "evidence": ev})
+        # ── 사람 검수 CSV 적용 (최후·최우선 — 사람 검수는 모든 판정을 덮어쓴다) ──
+        # off = 그 자리에서 제거. move = correct_phase로 이동(항목 그대로 옮긴다).
+        moves = []
+        for ph in list(items):
+            kept = []
+            for it in items[ph]:
+                h = OV_HUMAN.get((k, ph, it["ref"], it["text"]))
+                if h is None:
+                    kept.append(it)
+                elif h["op"] == "move":
+                    moves.append((h["to"], it))
+                # drop이면 버린다
+            items[ph] = kept
+        for to, it in moves:
+            if not any(x["ref"] == it["ref"] and x["text"] == it["text"] for x in items[to]):
+                items[to].append(it)
         for ph in items:
             slots[ph] = len(items[ph])
 

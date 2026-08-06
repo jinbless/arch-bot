@@ -23,6 +23,32 @@ OUT = Path(__file__).resolve().parent / "sol_review_overrides.json"
 SLOTS = {"PLAN", "ASSIGN", "PRECHECK", "EXEC", "POST", "PERIODIC"}
 
 
+def load_human_csv():
+    """사람 검수 CSV(뷰어 내보내기) → 항목 단위 연산.
+
+    ★ Sol 승인분과 달리 **항목 단위 정확 일치**로 적용한다 — (그룹, 칸, ref, text) 네 값이
+      전부 맞아야 한다. 사람이 클릭한 것은 그 자리의 그 항목이지 조문 일반이 아니고,
+      별표·가이드 항목(조문 ref가 아님)도 판정 대상이었기 때문이다.
+    verdict: ok=기록만 / off=그 자리에서 제거 / move=correct_phase로 이동 / vague=기록만
+    """
+    import csv
+    p = SRC.parent / "flow_review.csv"
+    if not p.exists():
+        return [], 0
+    ops, n_ok = [], 0
+    for r in csv.DictReader(p.open(encoding="utf-8-sig")):
+        v = (r.get("verdict") or "").strip()
+        if v == "off":
+            ops.append({"group_no": r["no"], "phase": r["phase"], "ref": r["ref"],
+                        "text": r["text"], "op": "drop"})
+        elif v == "move" and (r.get("correct_phase") or "").strip() in SLOTS:
+            ops.append({"group_no": r["no"], "phase": r["phase"], "ref": r["ref"],
+                        "text": r["text"], "op": "move", "to": r["correct_phase"].strip()})
+        elif v == "ok":
+            n_ok += 1
+    return ops, n_ok
+
+
 def main() -> None:
     d = json.loads(SRC.read_text(encoding="utf-8"))
     ref_drops, slot_drops, slot_adds, pair_drops = [], [], [], []
@@ -44,18 +70,23 @@ def main() -> None:
     if bad:
         print(f"⚠ 형식이 안 맞아 버린 제안 {len(bad)}건: {[ (b['ref'], b['item']) for b in bad[:5] ]}")
 
+    human_ops, n_ok = load_human_csv()
+
     OUT.write_text(json.dumps({
-        "_note": "Sol 재판정 → Claude 판정 → 사용자 승인(2026-08-03: 정책 2건 뺀다 · 패턴 전부 승인). "
-                 "build_flow_slice_all.py가 조립 마지막에 적용한다. 근거 전문은 sol-review/sol_review_final.json.",
+        "_note": "Sol 재판정 → Claude 판정 → 사용자 승인(2026-08-03: 정책 2건 뺀다 · 패턴 전부 승인) "
+                 "+ 사람 검수 CSV(2026-08-06, 174건 판정). build_flow_slice_all.py가 조립 마지막에 적용한다. "
+                 "근거 전문은 sol-review/. **human_item_ops가 최우선**(사람 검수는 모든 판정을 덮어쓴다).",
         "_upstream_warning": "article_phases.json·law3_targets.py는 이 승인분을 모른다 — 흐름 정본은 "
                              "flow_slice_all.json이고 오버라이드는 여기서만 적용된다. 상류를 다시 만들면 "
                              "이 파일이 계속 얹힌다(멱등).",
-        "approved_by": "사용자 (2026-08-03)",
+        "approved_by": "사용자 (2026-08-03 승인 + 2026-08-06 검수 CSV)",
         "ref_drops": ref_drops, "slot_drops": slot_drops,
         "slot_adds": slot_adds, "pair_drops": pair_drops,
+        "human_item_ops": human_ops, "human_ok_count": n_ok,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"ref_drops {len(ref_drops)} · slot_drops {len(slot_drops)} · "
-          f"slot_adds {len(slot_adds)} · pair_drops {len(pair_drops)}")
+          f"slot_adds {len(slot_adds)} · pair_drops {len(pair_drops)} · "
+          f"human_item_ops {len(human_ops)} (ok 기록 {n_ok})")
     print(f"→ {OUT.relative_to(ROOT)}")
 
 

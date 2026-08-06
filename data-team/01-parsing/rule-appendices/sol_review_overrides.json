@@ -1,7 +1,7 @@
 {
- "_note": "Sol 재판정 → Claude 판정 → 사용자 승인(2026-08-03: 정책 2건 뺀다 · 패턴 전부 승인). build_flow_slice_all.py가 조립 마지막에 적용한다. 근거 전문은 sol-review/sol_review_final.json.",
+ "_note": "Sol 재판정 → Claude 판정 → 사용자 승인(2026-08-03: 정책 2건 뺀다 · 패턴 전부 승인) + 사람 검수 CSV(2026-08-06, 174건 판정). build_flow_slice_all.py가 조립 마지막에 적용한다. 근거 전문은 sol-review/. **human_item_ops가 최우선**(사람 검수는 모든 판정을 덮어쓴다).",
  "_upstream_warning": "article_phases.json·law3_targets.py는 이 승인분을 모른다 — 흐름 정본은 flow_slice_all.json이고 오버라이드는 여기서만 적용된다. 상류를 다시 만들면 이 파일이 계속 얹힌다(멱등).",
- "approved_by": "사용자 (2026-08-03)",
+ "approved_by": "사용자 (2026-08-03 승인 + 2026-08-06 검수 CSV)",
  "ref_drops": [
   {
    "ref": "시행규칙 제107조",
@@ -1456,5 +1456,269 @@
    "group": "양중기 > 양중기의 와이어로프 등",
    "why": "조문이 지목한 것은 기계에 부속된 볼트ㆍ너트이며, 와이어로프 등 그룹에는 해당 대상이 포함되지 않는다."
   }
- ]
+ ],
+ "human_item_ops": [
+  {
+   "group_no": "절2 붕괴 등에 의한 위험 방지",
+   "phase": "EXEC",
+   "ref": "제53조",
+   "text": "계측장치의 설치 등",
+   "op": "move",
+   "to": "PRECHECK"
+  },
+  {
+   "group_no": "절2 공작기계",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절3 프레스 및 전단기",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절4 목재가공용 기계",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절5 원심기 및 분쇄기등",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절6 고속회전체",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절7 보일러 등",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절7 보일러 등",
+   "phase": "EXEC",
+   "ref": "제88조",
+   "text": "기계의 동력차단장치",
+   "op": "drop"
+  },
+  {
+   "group_no": "절8 사출성형기 등",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관3 이동식 크레인",
+   "phase": "EXEC",
+   "ref": "제134조",
+   "text": "방호장치의 조정",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관4 리프트",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관4 리프트",
+   "phase": "EXEC",
+   "ref": "제134조",
+   "text": "방호장치의 조정",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관5 곤돌라",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관5 곤돌라",
+   "phase": "EXEC",
+   "ref": "제134조",
+   "text": "방호장치의 조정",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관6 승강기",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관6 승강기",
+   "phase": "EXEC",
+   "ref": "제134조",
+   "text": "방호장치의 조정",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관7 양중기의 와이어로프 등",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관7 양중기의 와이어로프 등",
+   "phase": "PRECHECK",
+   "ref": "제134조",
+   "text": "방호장치의 조정",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관7 양중기의 와이어로프 등",
+   "phase": "EXEC",
+   "ref": "제134조",
+   "text": "방호장치의 조정",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관7 양중기의 와이어로프 등",
+   "phase": "EXEC",
+   "ref": "제93조",
+   "text": "방호장치의 해체 금지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절9 양중기 > 관7 양중기의 와이어로프 등",
+   "phase": "POST",
+   "ref": "제93조",
+   "text": "방호장치의 해체 금지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절10 차량계 하역운반기계등 > 관3 구내운반차",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절10 차량계 하역운반기계등 > 관4 고소작업대",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절10 차량계 하역운반기계등 > 관5 화물자동차",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절11 컨베이어",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절11 컨베이어",
+   "phase": "EXEC",
+   "ref": "제90조",
+   "text": "날아오는 가공물 등에 의한 위험의 방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절12 건설기계 등 > 관2 항타기 및 항발기",
+   "phase": "EXEC",
+   "ref": "제221조",
+   "text": "가스배관 등의 손상 방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절12 건설기계 등 > 관3 굴착기",
+   "phase": "EXEC",
+   "ref": "제87조",
+   "text": "원동기ㆍ회전축 등의 위험 방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절12 건설기계 등 > 관3 굴착기",
+   "phase": "EXEC",
+   "ref": "제88조",
+   "text": "기계의 동력차단장치",
+   "op": "drop"
+  },
+  {
+   "group_no": "절12 건설기계 등 > 관3 굴착기",
+   "phase": "EXEC",
+   "ref": "제90조",
+   "text": "날아오는 가공물 등에 의한 위험의 방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절13 산업용 로봇",
+   "phase": "ASSIGN",
+   "ref": "법 제140조",
+   "text": "자격 등에 의한 취업 제한 등",
+   "op": "drop"
+  },
+  {
+   "group_no": "절13 산업용 로봇",
+   "phase": "EXEC",
+   "ref": "제90조",
+   "text": "날아오는 가공물 등에 의한 위험의 방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절2 굴착작업 등의 위험 방지 > 관5 채석작업",
+   "phase": "ASSIGN",
+   "ref": "제341조",
+   "text": "매설물 등 파손에 의한 위험방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절2 굴착작업 등의 위험 방지 > 관5 채석작업",
+   "phase": "EXEC",
+   "ref": "제341조",
+   "text": "매설물 등 파손에 의한 위험방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절2 굴착작업 등의 위험 방지 > 관6 잠함 내 작업 등",
+   "phase": "ASSIGN",
+   "ref": "제341조",
+   "text": "매설물 등 파손에 의한 위험방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절2 굴착작업 등의 위험 방지 > 관6 잠함 내 작업 등",
+   "phase": "EXEC",
+   "ref": "제341조",
+   "text": "매설물 등 파손에 의한 위험방지",
+   "op": "drop"
+  },
+  {
+   "group_no": "절2 유해요인 조사 및 개선 등",
+   "phase": "EXEC",
+   "ref": "제658조",
+   "text": "유해요인 조사 방법 등",
+   "op": "move",
+   "to": "PLAN"
+  }
+ ],
+ "human_ok_count": 137
 }
