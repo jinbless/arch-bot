@@ -63,6 +63,15 @@ def _fan(group: str) -> list[str]:
     return GROUP_SPLIT.get(group, [group])
 
 
+# 게이트 감사(Sol, 2026-08-07)가 뒤집은 high 판정 — 통상 사용에서 성립하는 구체 상황이 제시됐다.
+#   프레스·전단기 제95: 로터리 시어·슬리터형 전단기(회전날)가 실재 — 사용자가 제94를 남긴 것과 같은 논리
+#   항타기 제90: PHC 말뚝머리 반복 타격 시 콘크리트 파쇄편 비산은 항타의 통상 위험
+#   차량계 건설기계 제90: 노면파쇄기·로드밀링기는 회전 커터로 포장을 절삭한다 — '캡 차량' 전제 오류
+GATE_REJECTED_HIGH = {("제95조", "프레스 및 전단기"),
+                      ("제90조", "건설기계 등 > 항타기 및 항발기"),
+                      ("제90조", "건설기계 등 > 차량계 건설기계")}
+
+
 def load_practical():
     """실질 무관 후보(implausible_candidates.json) 중 **high만** — 사용자 일괄 승인(2026-08-06).
     medium 25건은 보류(상황에 따라 갈림 — 차량계 건설기계 묶음의 천공기 등)."""
@@ -75,6 +84,8 @@ def load_practical():
         if c.get("confidence") != "high":
             continue
         for g in _fan(c["group"]):
+            if (c["ref"], g) in GATE_REJECTED_HIGH:
+                continue
             out.append({"ref": c["ref"], "group": g, "why": c["why"][:120]})
     # medium 판정(2026-08-07 위임): adopt만 드롭이 된다. keep은 기록으로만 남는다.
     mr = SRC.parent / "medium_resolutions.json"

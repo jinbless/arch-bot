@@ -40,8 +40,11 @@ DATA_DIR = Path(os.getenv("OHS_TRACKA_DATA_DIR", "") or (Path(__file__).resolve(
 SLOTS = [("PLAN", "계획·사전조사"), ("ASSIGN", "인적 배치·자격"), ("PRECHECK", "작업 시작 전 점검"),
          ("EXEC", "작업 중"), ("POST", "종료·이탈"), ("PERIODIC", "정기점검")]
 
-# 라벨 사람 검수 완료 여부. 검수 CSV를 반영하면 True로 바꾼다(화면 경고 문구가 사라진다).
-LABELS_REVIEWED = False
+# 라벨 사람 검수 완료 여부 — True (2026-08-07 전환).
+# 근거: ① Sol 전수 재판정 885건 + Claude 판정 + 재감사(agree 57%·이견은 정책/개별 처리)
+#       ② 사람 검수 CSV 174건 반영  ③ 서빙 전 게이트 감사(agree 40·disagree 32 → 10건 수용 수정)
+# 전 항목 개별 검수는 아니다 — 우선순위 검수 + LLM 전수 재판정 체계로 검증됐다.
+LABELS_REVIEWED = True
 
 
 def _flag(env_name: str, setting_value: bool) -> bool:

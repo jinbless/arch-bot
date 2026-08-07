@@ -65,8 +65,9 @@ class Settings(BaseSettings):
     # ⭐ 기인물 앵커 기준 작업 흐름(work_flow). off면 응답에 None — 기존 경로 무변화.
     # env(CUE_FLOW) 우선. RESOLVE는 cue_article_service와 **공유**하므로 이 플래그만 켜도 LLM +1회다
     # (CUE_ARTICLES와 같이 켜도 RESOLVE는 여전히 1회).
-    # ⚠ 노출 전 조건: 항목 라벨 사람 검수 완료(flow_service.LABELS_REVIEWED). 앵커 정확도 0.711.
-    OHS_ENABLE_WORK_FLOW: bool = False
+    # 2026-08-07 기본 on 전환. 노출 조건 충족: 라벨 검수 체계 완료(flow_service.LABELS_REVIEWED 주석),
+    # 서빙 전 게이트 감사 통과. 앵커 0.647(51장) — 오인식 대비는 정정 UI(대안 칩 + 전체 검색)가 담당.
+    OHS_ENABLE_WORK_FLOW: bool = True
 
 
 settings = Settings()
