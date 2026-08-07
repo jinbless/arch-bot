@@ -49,6 +49,32 @@ def load_human_csv():
     return ops, n_ok
 
 
+# 크레인 4분할(2026-08-06 사용자 승인) 후 옛 그룹명을 참조하는 판정을 서브타입으로 부채질한다.
+# 판정 당시 화면의 '양중기 > 크레인'은 세 서브타입 전체를 뜻했다 — 안 펼치면 판정이 증발한다.
+GROUP_SPLIT = {"양중기 > 크레인": ["양중기 > 타워크레인", "양중기 > 천장·갠트리 등 주행형 크레인",
+                                   "양중기 > 지브 크레인"]}
+
+
+def _fan(group: str) -> list[str]:
+    return GROUP_SPLIT.get(group, [group])
+
+
+def load_practical():
+    """실질 무관 후보(implausible_candidates.json) 중 **high만** — 사용자 일괄 승인(2026-08-06).
+    medium 25건은 보류(상황에 따라 갈림 — 차량계 건설기계 묶음의 천공기 등)."""
+    p = SRC.parent / "implausible_candidates.json"
+    if not p.exists():
+        return []
+    d = json.loads(p.read_text(encoding="utf-8"))
+    out = []
+    for c in d.get("candidates", []):
+        if c.get("confidence") != "high":
+            continue
+        for g in _fan(c["group"]):
+            out.append({"ref": c["ref"], "group": g, "why": c["why"][:120]})
+    return out
+
+
 def main() -> None:
     d = json.loads(SRC.read_text(encoding="utf-8"))
     ref_drops, slot_drops, slot_adds, pair_drops = [], [], [], []
@@ -66,11 +92,13 @@ def main() -> None:
             if p["action"] != "drop":
                 bad.append(p)
                 continue
-            pair_drops.append({"ref": p["ref"], "group": p["item"], "why": p["why"][:120]})
+            for g in _fan(p["item"]):
+                pair_drops.append({"ref": p["ref"], "group": g, "why": p["why"][:120]})
     if bad:
         print(f"⚠ 형식이 안 맞아 버린 제안 {len(bad)}건: {[ (b['ref'], b['item']) for b in bad[:5] ]}")
 
     human_ops, n_ok = load_human_csv()
+    practical = load_practical()
 
     OUT.write_text(json.dumps({
         "_note": "Sol 재판정 → Claude 판정 → 사용자 승인(2026-08-03: 정책 2건 뺀다 · 패턴 전부 승인) "
@@ -82,11 +110,12 @@ def main() -> None:
         "approved_by": "사용자 (2026-08-03 승인 + 2026-08-06 검수 CSV)",
         "ref_drops": ref_drops, "slot_drops": slot_drops,
         "slot_adds": slot_adds, "pair_drops": pair_drops,
+        "practical_pair_drops": practical,
         "human_item_ops": human_ops, "human_ok_count": n_ok,
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"ref_drops {len(ref_drops)} · slot_drops {len(slot_drops)} · "
           f"slot_adds {len(slot_adds)} · pair_drops {len(pair_drops)} · "
-          f"human_item_ops {len(human_ops)} (ok 기록 {n_ok})")
+          f"practical {len(practical)} · human_item_ops {len(human_ops)} (ok 기록 {n_ok})")
     print(f"→ {OUT.relative_to(ROOT)}")
 
 

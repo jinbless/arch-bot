@@ -53,6 +53,24 @@ CROSS_CUTTING_JANG = [
     "장6 추락 또는 붕괴에 의한 위험 방지",
 ]
 
+# ── 크레인 세분류 (사용자 승인 2026-08-06) ──────────────────────────────
+# 관2 '크레인'은 실제로 네 종류가 섞여 있다 — 조문이 스스로 종류를 지목한다:
+#   제142조 "타워크레인의 지지" / 제139·140조 "주행 크레인" / 제144·145조 "주행 크레인 또는
+#   선회 크레인" / 제138조 "지브 크레인". 사진 식별력도 서로 뚜렷하다(수직 마스트 vs 천장
+#   거더 vs 벽부착 지브). 종류를 안 가르면 타워크레인 사진에 천장크레인 통로 조문이 붙는다.
+# 전용에 없는 나머지(제136·137·141·143·146)는 **공통** — 세 서브타입 모두에 들어간다.
+# ⚠ 카탈로그가 바뀌므로 RESOLVE 재실행 + 앵커 재측정 필수(캐시가 sha로 자동 감지).
+# ⚠ gimulmul 라벨에 괄호 설명을 넣으면 안 된다 — 흐름 조립기의 이름 매칭(name_variants)이
+#   이 라벨을 매칭 키로 쓰는데, 괄호는 벗겨져도 내용물이 키에 섞여 별표 4 이름매칭이 조용히
+#   빠진다(실제로 타워크레인 작업계획서가 안 붙었다). ㆍ구분 나열은 조각별로 쪼개져 안전하다.
+CRANE_KEY = "절9 양중기 > 관2 크레인"
+CRANE_SPLIT = [
+    ("타워크레인", "타워크레인", ["제142조"]),
+    ("천장·갠트리 등 주행형 크레인", "천장크레인ㆍ갠트리크레인ㆍ호이스트 등 주행형",
+     ["제139조", "제140조", "제144조", "제145조"]),
+    ("지브 크레인", "지브 크레인ㆍ벽부착 선회형", ["제138조"]),
+]
+
 
 def parse(section: str):
     def g(p):
@@ -98,6 +116,18 @@ def main():
         gk = group_key(p)
         g = groups.setdefault(gk, {"gimulmul": gimulmul_label(p), **p, "articles": []})
         g["articles"].append({"code": code, "title": title, "observable": obs.get(code, "no")})
+
+    if CRANE_KEY in groups:
+        src = groups.pop(CRANE_KEY)
+        specific = {c for _, _, arts in CRANE_SPLIT for c in arts}
+        common = [a for a in src["articles"] if a["code"] not in specific]
+        for name, gim_label, arts in CRANE_SPLIT:
+            own = [a for a in src["articles"] if a["code"] in arts]
+            groups[f"절9 양중기 > 관2 {name}"] = {
+                "gimulmul": gim_label, "pyeon": src["pyeon"], "jang": src["jang"],
+                "jeol": src["jeol"], "gwan": f"관2 {name}",
+                "articles": own + common}
+        print(f"크레인 세분류: {len(CRANE_SPLIT)}종 (전용 {len(specific)}조 배분 · 공통 {len(common)}조 공유)")
 
     def is_cross(gk, g):
         return any(g["jang"].startswith(c) or c in g["jang"] for c in CROSS_CUTTING_JANG) and not g["jeol"] or \

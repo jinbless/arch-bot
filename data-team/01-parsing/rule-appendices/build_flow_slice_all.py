@@ -375,7 +375,10 @@ def main() -> None:
 
     OV_REF_DROPS = {_ov_pk(x["ref"]) for x in _ov.get("ref_drops", [])}
     OV_SLOT_DROPS = {(_ov_pk(x["ref"]), x["slot"]) for x in _ov.get("slot_drops", [])}
-    OV_PAIR_DROPS = {(_ov_pk(x["ref"]), x["group"]) for x in _ov.get("pair_drops", [])}
+    # 문언 기준(Sol 검토)과 실질 기준(사용자 검수 확장, high 32건 일괄 승인 2026-08-06)을
+    # 한 집합으로 적용한다 — 출처는 overrides 파일이 구분해 기록한다.
+    OV_PAIR_DROPS = {(_ov_pk(x["ref"]), x["group"])
+                     for x in _ov.get("pair_drops", []) + _ov.get("practical_pair_drops", [])}
     OV_SLOT_ADDS = {(_ov_pk(x["ref"]), x["slot"]): x.get("evidence", "")
                     for x in _ov.get("slot_adds", [])}
     # 사람 검수 CSV — (그룹 no, 칸, ref, text) 정확 일치. 별표·가이드 항목도 대상이라
