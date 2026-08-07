@@ -348,10 +348,18 @@ def load_inspection() -> tuple[dict, dict]:
     c = json.loads(cov.read_text(encoding="utf-8"))
     s = json.loads(si.read_text(encoding="utf-8"))
     by_name = {m["name"]: m for m in s["machines"]}
+    # 크레인 4분할(2026-08-06) 이전에 만든 coverage-report는 옛 관2 키를 가리킨다.
+    # 분할 전 '크레인' 검사가 관2 전체를 커버했으므로 세 서브타입 모두로 부채질한다(행동 보존).
+    # ⚠ 타워크레인은 건설기계관리법 검사와의 면제 관계(시행규칙 제125조)가 별도 백로그다 —
+    #   그 결정 전까지는 검사 항목을 보여주는 쪽이 안전하다(없다고 하는 것보다).
+    FAN = {"절9 양중기 > 관2 크레인": [
+        "절9 양중기 > 관2 타워크레인", "절9 양중기 > 관2 천장·갠트리 등 주행형 크레인",
+        "절9 양중기 > 관2 지브 크레인"]}
     by_group: dict[str, list] = {}
     for m in c["machines"]:
         for g in m["gimulmul_groups"]:
-            by_group.setdefault(g["key"], []).append(by_name[m["name"]])
+            for key in FAN.get(g["key"], [g["key"]]):
+                by_group.setdefault(key, []).append(by_name[m["name"]])
     return by_group, by_name
 
 
