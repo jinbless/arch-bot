@@ -71,6 +71,17 @@ CRANE_SPLIT = [
     ("지브 크레인", "지브 크레인ㆍ벽부착 선회형", ["제138조"]),
 ]
 
+# ── 천공기 분리 (medium 해소, 사용자 승인 2026-08-07) ─────────────────
+# '차량계 건설기계 등' 묶음은 밀폐 캡 차량(불도저·로더·롤러)과 **회전 로드가 노출되는
+# 천공기류**를 섞고 있다. 그래서 공작기계 조문(제87·94·95)의 실질 무관 판정이 medium에
+# 묶였다 — 묶음을 가르면 캡 차량 쪽은 high로 풀리고 천공기는 그 조문을 유지한다.
+# 크레인과 달리 전용 조문이 없어 조문 배분은 없다(전 조문 공유, 라벨만 다르다).
+DRILL_KEY = "절12 건설기계 등 > 관1 차량계 건설기계 등"
+DRILL_SPLIT = [
+    ("차량계 건설기계", "불도저ㆍ로더ㆍ스크레이퍼ㆍ롤러 등 밀폐 캡 차량형 건설기계", None),
+    ("천공기 등 회전 로드형 건설기계", "천공기ㆍ어스드릴ㆍ어스오거 등 회전 로드 노출형", None),
+]
+
 
 def parse(section: str):
     def g(p):
@@ -128,6 +139,15 @@ def main():
                 "jeol": src["jeol"], "gwan": f"관2 {name}",
                 "articles": own + common}
         print(f"크레인 세분류: {len(CRANE_SPLIT)}종 (전용 {len(specific)}조 배분 · 공통 {len(common)}조 공유)")
+
+    if DRILL_KEY in groups:
+        src = groups.pop(DRILL_KEY)
+        for name, gim_label, _ in DRILL_SPLIT:
+            groups[f"절12 건설기계 등 > 관1 {name}"] = {
+                "gimulmul": gim_label, "pyeon": src["pyeon"], "jang": src["jang"],
+                "jeol": src["jeol"], "gwan": f"관1 {name}",
+                "articles": list(src["articles"])}
+        print(f"천공기 분리: {len(DRILL_SPLIT)}종 (조문 전체 공유 · 라벨로 구분)")
 
     def is_cross(gk, g):
         return any(g["jang"].startswith(c) or c in g["jang"] for c in CROSS_CUTTING_JANG) and not g["jeol"] or \

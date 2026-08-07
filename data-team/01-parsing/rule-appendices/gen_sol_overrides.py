@@ -52,7 +52,11 @@ def load_human_csv():
 # 크레인 4분할(2026-08-06 사용자 승인) 후 옛 그룹명을 참조하는 판정을 서브타입으로 부채질한다.
 # 판정 당시 화면의 '양중기 > 크레인'은 세 서브타입 전체를 뜻했다 — 안 펼치면 판정이 증발한다.
 GROUP_SPLIT = {"양중기 > 크레인": ["양중기 > 타워크레인", "양중기 > 천장·갠트리 등 주행형 크레인",
-                                   "양중기 > 지브 크레인"]}
+                                   "양중기 > 지브 크레인"],
+               # 천공기 분리(2026-08-07): 옛 묶음을 참조하는 판정은 **캡 차량 쪽만** 받는다.
+               # 판정 근거("밀폐 캡 차량")가 천공기에는 성립하지 않기 때문이다 —
+               # 천공기 몫은 medium_resolutions.json이 명시적으로 정한다.
+               "건설기계 등 > 차량계 건설기계 등": ["건설기계 등 > 차량계 건설기계"]}
 
 
 def _fan(group: str) -> list[str]:
@@ -72,6 +76,13 @@ def load_practical():
             continue
         for g in _fan(c["group"]):
             out.append({"ref": c["ref"], "group": g, "why": c["why"][:120]})
+    # medium 판정(2026-08-07 위임): adopt만 드롭이 된다. keep은 기록으로만 남는다.
+    mr = SRC.parent / "medium_resolutions.json"
+    if mr.exists():
+        for r in json.loads(mr.read_text(encoding="utf-8")).get("resolutions", []):
+            if r["verdict"] == "adopt":
+                out.append({"ref": r["ref"], "group": r["group"],
+                            "why": "[medium 채택] " + r["why"][:100]})
     return out
 
 

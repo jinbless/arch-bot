@@ -144,15 +144,18 @@ def _load_knowledge() -> Optional[dict]:
     #   목록은 흐름 데이터가 **데이터로** 판정해 내려준다(이름으로 고르지 않는다).
     #   flow_slice_all.json을 못 읽어도 카탈로그는 살린다 — 이 기능 전체를 죽일 일은 아니다.
     umb: set = set()
+    zero_ok: set = set()
     try:
-        umb = set(json.loads((DATA_DIR / "flow_slice_all.json").read_text(encoding="utf-8"))
-                  .get("umbrella_src_keys") or [])
+        _fl = json.loads((DATA_DIR / "flow_slice_all.json").read_text(encoding="utf-8"))
+        umb = set(_fl.get("umbrella_src_keys") or [])
+        # 관찰조문 0이지만 사진 적격(곤돌라) — 필터의 질문과 앵커의 질문이 어긋나는 예외.
+        zero_ok = set(_fl.get("anchor_eligible_zero_obs_src_keys") or [])
     except Exception as exc:  # noqa: BLE001
         logger.warning("[CueArticles] 우산 그룹 목록 로드 실패(%s) — 카탈로그에 그대로 남긴다", exc)
     catalog = []
     for gk, g in idx["groups"].items():
         nobs = sum(1 for a in g["articles"] if a["observable"] in OBS_OK)
-        if nobs >= 1 and gk not in idx["cross_cutting"] and gk not in umb:
+        if (nobs >= 1 or gk in zero_ok) and gk not in idx["cross_cutting"] and gk not in umb:
             catalog.append(f"{gk} ::기인물={g['gimulmul']} ({nobs}조)")
     logger.info("[CueArticles] RESOLVE 카탈로그 %d종 (우산 %d종 제외)", len(catalog), len(umb))
     return {"cue_terms": cue_terms, "sig": sig, "idx": idx, "alias": alias, "curated": curated,

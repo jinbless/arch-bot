@@ -856,12 +856,28 @@ def main() -> None:
         by_src.setdefault(r.get("src_key") or r["no"], []).append(r)
     umb_src = sorted(k for k, rs in by_src.items() if all(r["umbrella"] for r in rs))
 
+    # ── 관찰조문 0인데 사진 적격인 그룹 (곤돌라) ─────────────────────
+    # 카탈로그 필터 `관찰가능 조문 ≥1`의 질문("조문이 관찰 가능한가")과 앵커의 질문
+    # ("기인물이 사진에 보이는가")이 어긋나는 지점이다. 곤돌라는 전용 조문(제160조)이
+    # 관찰 불가라 필터에 걸리지만, 외벽에 매달린 곤돌라는 사진에서 바로 지목된다.
+    # anchor_validity가 적격(기인물·장소·환경)이라 한 그룹은 nobs=0이어도 카탈로그에 넣는다.
+    OBS_OK_ = ("yes", "partial")
+    gim_idx = json.loads((ART / "gimulmul_index.json").read_text(encoding="utf-8"))
+    eligible_zero = sorted(
+        gk for gk, gg2 in gim_idx["groups"].items()
+        if sum(1 for a in gg2["articles"] if a.get("observable") in OBS_OK_) == 0
+        and gk not in gim_idx["cross_cutting"] and gk not in umb_src
+        and (ANCHOR.get(gk) or {}).get("kind") in ("기인물", "장소", "환경"))
+    if eligible_zero:
+        print(f"관찰조문 0이지만 사진 적격이라 카탈로그에 넣는 그룹: {', '.join(eligible_zero)}")
+
     out = ART / "flow_slice_all.json"
     out.write_text(json.dumps({"_note": "기인물 그룹 113종 × 골격 6단계. 칸이 차는지만 본다(라벨 정확도는 사람 검수).",
                                "_umbrella": "총칙·통칙 등 내용이 전부 하위에 상속되는 그룹. 앵커·검수·정정 목록에서 뺀다. "
                                             "행은 남긴다 — 상속의 원본이고, 빠졌는지 대조할 근거이기 때문이다.",
                                "n_groups": n, "umbrella_group_keys": sorted(r["no"] for r in umbrella),
                                "umbrella_src_keys": umb_src,
+                               "anchor_eligible_zero_obs_src_keys": eligible_zero,
                                "rows": report}, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"\nRESOLVE 카탈로그에서 뺄 src_key {len(umb_src)}종: {', '.join(umb_src)}")
     print(f"\n→ {out.name}")
