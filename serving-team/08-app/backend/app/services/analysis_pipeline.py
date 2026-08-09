@@ -65,6 +65,18 @@ from app.utils.taxonomy import get_feature_label
 HAZARD_DIRECT_MODE = os.environ.get("HAZARD_DIRECT_MODE", "parallel").lower()
 
 
+def _legacy_extras_enabled() -> bool:
+    """화면 3단계 재편(2026-08-09)으로 소비자를 잃은 계산을 되살리는 스위치 — **기본 꺼짐**.
+
+    대상: 조문 후보(article_candidates)·벌칙 3경로(penalty_paths)·표준 개선 절차
+    (standard_procedures)·근거 추적(reasoning_trace). 사용자 결정: "화면 소비자 없는 것들은 제외".
+    이 필드들을 채점하는 평가 하니스만 env OHS_LEGACY_EXTRAS=1로 켠다.
+    ★ 유지되는 것(소비자 있음): hazard_guide_relations(③자료 카드)·checklist_rows(흐름 없을 때
+    즉시조치 CI 폴백)·SHE 매칭(finding_status 입력)·findings(_summary 폴백 입력).
+    """
+    return os.environ.get("OHS_LEGACY_EXTRAS", "").strip().lower() in ("1", "true", "on", "yes")
+
+
 @dataclass
 class AnalysisRunInput:
     result: dict
@@ -143,12 +155,17 @@ class AnalysisPipeline:
         )
 
         situation_matches = self._build_situation_matches(knowledge.she_matches)
-        article_ids = sr_lookup_service.article_ids_for_srs(db, knowledge.sr_ids)
+        # trace 전용 PG 조회 — trace가 꺼져 있으면 조회도 하지 않는다
+        article_ids = (sr_lookup_service.article_ids_for_srs(db, knowledge.sr_ids)
+                       if _legacy_extras_enabled() else [])
         # ⭐ Track A cue-pool union 조문 후보 (research v2 검증 — evaluation-baseline 최상단).
         # flag off(기본) → 빈 배열, 기존 경로 무변화. trace.articles(PG 결정론)는 불변침 — 별도 필드.
         # **이미지 분석에만** 적용한다 — 검증(v2)도 프롬프트("사진에서 보이는")도 화면 문구도 전부 사진 전제다.
         article_candidates = []
-        if run_input.analysis_type == "image" and cue_article_service.enabled():
+        # 조문 후보 패널은 화면에서 내려갔다(2026-08-09) — legacy 스위치를 켠 경우에만 계산.
+        # flow_service.build의 RESOLVE는 여기와 무관하게 돈다(resolve 메모 공유라 중복 호출도 아님).
+        if (run_input.analysis_type == "image" and cue_article_service.enabled()
+                and _legacy_extras_enabled()):
             try:
                 article_candidates = await cue_article_service.recommend(db=db, result=run_input.result)
             except Exception as exc:  # noqa: BLE001 — 후보 실패가 분석 응답을 막지 않는다
@@ -180,6 +197,7 @@ class AnalysisPipeline:
             situation_matches=situation_matches,
             sr_ids=knowledge.sr_ids,
         )
+        # 근거 추적 패널 삭제(2026-08-09) — legacy 스위치에서만 조립.
         reasoning_trace = self._build_reasoning_trace(
             observations=observations,
             risk_features=knowledge.risk_features,
@@ -189,7 +207,7 @@ class AnalysisPipeline:
             guide_rows=knowledge.guide_rows,
             checklist_rows=knowledge.checklist_rows,
             penalty_paths=knowledge.penalty_paths,
-        )
+        ) if _legacy_extras_enabled() else ReasoningTrace()
 
         summary = run_input.result.get("overall_assessment") or self._summary(
             observations=observations,
@@ -222,7 +240,9 @@ class AnalysisPipeline:
                 knowledge.checklist_rows,
                 run_input.result.get("immediate_actions", []),
             ),
-            standard_procedures=self._build_standard_procedures(knowledge.guide_rows),
+            # 표준 개선 절차 패널 삭제(2026-08-09) — legacy 스위치에서만 조립.
+            standard_procedures=(self._build_standard_procedures(knowledge.guide_rows)
+                                 if _legacy_extras_enabled() else []),
             penalty_paths=knowledge.penalty_paths,
             reasoning_trace=reasoning_trace,
             finding_status=knowledge.finding_status,
@@ -357,10 +377,6 @@ class AnalysisPipeline:
             )
             checklist_rows = _fusion["checklist_rows"]
             guide_rows = _fusion["guide_rows"]
-        penalty_candidates = penalty_path_service.get_penalty_candidates(
-            sr_ids,
-            direct_sr_ids=direct_sr_ids,
-        )
         finding_status = self._finding_status(
             actionable_matches=actionable_matches,
             she_matches=she_matches,
@@ -368,10 +384,18 @@ class AnalysisPipeline:
             risk_features=risk_features,
             observable_violation_signal=observable_violation_signal,
         )
-        penalty_paths = penalty_path_service.build_penalty_paths(
-            penalty_candidates,
-            finding_status=finding_status,
-        )
+        # 벌칙 3경로 — 화면 삭제(2026-08-09), legacy 스위치에서만 계산.
+        # finding_status는 penalty와 무관하게 화면(즉시조치 폴백 헤더)이 쓰므로 항상 계산한다.
+        penalty_paths: list[PenaltyPath] = []
+        if _legacy_extras_enabled():
+            penalty_candidates = penalty_path_service.get_penalty_candidates(
+                sr_ids,
+                direct_sr_ids=direct_sr_ids,
+            )
+            penalty_paths = penalty_path_service.build_penalty_paths(
+                penalty_candidates,
+                finding_status=finding_status,
+            )
 
         # ⭐ Hazard-Direct Pivot Phase 3 Day 3 — hazards[] path 병행 실행.
         # mode=off 일 때만 skip. parallel(default)/primary 모두 hazards[] 산출 채움.
@@ -499,13 +523,15 @@ class AnalysisPipeline:
         # replay는 hazards[] 미주입 → hazard_sr_ids ∅ → 미발동(무회귀). exposure는 보수적으로 legacy
         # finding_status 유지(과대 promote 방지) — 정밀 조문만 후보에 추가.
         if _semantic_attach_enabled() and hazard_sr_ids:
+            # ★ sr_ids union은 findings·_summary가 쓰므로 legacy 여부와 무관하게 항상 수행
             sr_ids = self._unique([*hazard_sr_ids, *sr_ids])
-            penalty_candidates = penalty_path_service.get_penalty_candidates(
-                sr_ids, direct_sr_ids=direct_sr_ids
-            )
-            penalty_paths = penalty_path_service.build_penalty_paths(
-                penalty_candidates, finding_status=finding_status
-            )
+            if _legacy_extras_enabled():
+                penalty_candidates = penalty_path_service.get_penalty_candidates(
+                    sr_ids, direct_sr_ids=direct_sr_ids
+                )
+                penalty_paths = penalty_path_service.build_penalty_paths(
+                    penalty_candidates, finding_status=finding_status
+                )
 
         return AnalysisKnowledgeContext(
             canonical=canonical,
