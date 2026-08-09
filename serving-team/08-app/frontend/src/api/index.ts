@@ -11,7 +11,9 @@ const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL || defaultApiBaseUrl();
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 120000, // 2분 (이미지 분석 시간 고려)
+  // 프로덕션 실측(2026-08-09): Vision ~2분 + 파이프라인 + RESOLVE/ALIGN으로 120s를 넘어
+  // 브라우저가 먼저 끊고(499) '서버 오류'로 보였다. nginx proxy_read_timeout(300s)와 짝.
+  timeout: 300000,
   headers: {
     'Content-Type': 'application/json',
   },
