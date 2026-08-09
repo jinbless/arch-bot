@@ -22,12 +22,22 @@ const ImmediateActionsPanel: React.FC<ImmediateActionsPanelProps> = ({ items, fi
               : '사진에서 확인된 위험을 먼저 줄이기 위한 조치입니다.'}
           </p>
         </div>
-        <SourceBadge source="pg_asserted" extra="PG checklist_items" />
+        {items[0]?.source_type === 'rule:Article' ? (
+          <span className="text-[11px] px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-200 whitespace-nowrap">
+            조문 기반 · 검수된 흐름에서 선별
+          </span>
+        ) : (
+          <SourceBadge source="pg_asserted" extra="PG checklist_items" />
+        )}
       </div>
       {items.length ? (
         <div className="space-y-2">
           {items.map((item, index) => {
-            const source = inferActionSource(item.description);
+            const source =
+              item.source_type === 'app:VisualObservation'
+                ? 'gpt'
+                : inferActionSource(item.description);
+            const isStatute = item.source_type === 'rule:Article';
             return (
               <div key={item.action_id} className="rounded-lg bg-orange-50 px-3 py-2">
                 <div className="flex items-start justify-between gap-2">
@@ -35,8 +45,14 @@ const ImmediateActionsPanel: React.FC<ImmediateActionsPanelProps> = ({ items, fi
                     {index + 1}. {item.title}
                   </div>
                   <div className="flex flex-col items-end gap-1">
-                    <SourceBadge source={source} />
-                    {typeof item.confidence === 'number' && (
+                    {isStatute ? (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 whitespace-nowrap">
+                        조문 {item.action_id}
+                      </span>
+                    ) : (
+                      <SourceBadge source={source} />
+                    )}
+                    {!isStatute && typeof item.confidence === 'number' && (
                       <span className="text-[10px] text-gray-500">신뢰도 {Math.round(item.confidence * 100)}%</span>
                     )}
                   </div>

@@ -184,6 +184,78 @@ def by_group_key(group_key: str, alternates: Optional[list[str]] = None) -> Opti
     return WorkFlow(anchor=_anchor(row), alternates=alts, slots=_slots(row), reviewed=LABELS_REVIEWED)
 
 
+def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
+    """앵커 흐름의 조문에서 즉시조치 후보를 만든다 — 가이드 CI 광역 매칭의 대체.
+
+    사용자 판단(2026-08-09): "즉시조치를 확실하지만 간략한 곳에서" — 근거는 이렇다:
+      · 가이드 CI 54,631건을 사고형태로 긁으면 개폐장치·연삭 지침까지 걸린다(실측 잡음)
+      · 규칙 조문이 즉시조치를 이미 담고 있다(제172조 유도자 배치, 제179조 후진경보 등)
+      · 앵커 흐름의 조문은 **검수 완료**(2등급) — 모집단을 여기로 좁히면 잡음이 못 들어온다
+
+    구성: 내용 = 흐름의 작업전·작업중 항목(검수된 조문 인용) ·
+          순위 = SR(sr_article_mapping)의 사고형태 코드 ∩ 사진 사고형태 (SR은 순위에만 쓴다 —
+          내용까지 SR을 쓰면 미검증 추출(3등급)이 화면에 올라온다. 단 SR 제목이 행동형이라
+          제목만 빌려 쓰되 조문 ref를 항상 병기해 역추적 가능하게 한다)
+    """
+    if flow is None:
+        return []
+    import re as _re
+
+    items = []
+    seen = set()
+    for slot in flow.slots:
+        if slot.key not in ("PRECHECK", "EXEC"):
+            continue
+        for it in slot.items:
+            m = _re.fullmatch(r"제\d+조(의\d+)?", (it.ref or "").strip())
+            if not m or it.ref in seen:
+                continue
+            seen.add(it.ref)
+            items.append({"ref": it.ref, "title": it.text, "evidence": it.evidence,
+                          "tier": it.tier, "slot": slot.key})
+    if not items:
+        return []
+
+    # SR 순위 신호 (없어도 동작한다 — DB 조회 실패는 순위 없이 진행)
+    # ★ 어휘 변환 필수: 사진 정규화는 신 카탈로그(COLLISION·FALLING_OBJECT), SR의
+    #   addresses_hazard는 구 enum(STRUCK_BY·CAUGHT_IN)이다. 변환 없이 교집합하면 항상
+    #   공집합이라 순위가 조용히 죽는다 — 기존 facet 경로와 같은 변환(_facet_canon)을 쓴다.
+    try:
+        from app.services.hazard_rule_engine import _facet_canon
+        accident_codes = sorted(_facet_canon(accident_codes, [], [])["accident_type"])
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("[WorkFlow] 사고형태 어휘 변환 실패 — 원코드로 진행: %s", exc)
+    sr_by_article: dict = {}
+    try:
+        from sqlalchemy import text as _sql
+        rows = db.execute(_sql(
+            "select m.article_code, sr.identifier, sr.title, sr.addresses_hazard, sr.requirement_type "
+            "from safety_requirements sr join sr_article_mapping m on m.sr_id = sr.identifier "
+            "where m.article_code = any(:codes)"), {"codes": [x["ref"] for x in items]}).fetchall()
+        for code, sr_id, title, hz, rtype in rows:
+            hits = set(hz or []) & set(accident_codes or [])
+            cur = sr_by_article.get(code)
+            if cur is None or (hits and not cur["hits"]):
+                sr_by_article[code] = {"sr_id": sr_id, "title": title, "hits": hits, "rtype": rtype}
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("[WorkFlow] SR 순위 신호 조회 실패 — 순위 없이 진행: %s", exc)
+
+    # '지금 당장'은 행위형이다. 헤드가드 장착(EQUIPMENT_STANDARD)은 법정 의무지만 구매·설치가
+    # 필요한 것이라 즉시조치로 앞세우면 안내가 어긋난다 — 출입통제·유도자(PROCEDURAL)가 먼저다.
+    ACT_NOW = {"PROCEDURAL", "EMERGENCY_RESPONSE", "PPE_REQUIREMENT"}
+    for x in items:
+        sr = sr_by_article.get(x["ref"])
+        x["hazard_hit"] = bool(sr and sr["hits"])
+        x["actable"] = bool(sr and sr.get("rtype") in ACT_NOW)
+        x["sr_id"] = sr["sr_id"] if sr else None
+        # SR 제목이 행동형('접촉 위험 장소 출입 제한')이라 조문 제목('접촉의 방지')보다 낫다
+        if sr and sr["title"]:
+            x["title"] = sr["title"]
+    items.sort(key=lambda x: (not x["hazard_hit"], not x["actable"],
+                              x["tier"] != "법정", x["slot"] != "PRECHECK"))
+    return items[:6]
+
+
 _ALWAYS: dict = {}
 
 

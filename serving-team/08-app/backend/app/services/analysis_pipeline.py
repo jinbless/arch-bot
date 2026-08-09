@@ -198,7 +198,15 @@ class AnalysisPipeline:
             risk_features=knowledge.risk_features,
             situation_matches=situation_matches,
             findings=findings,
-            immediate_actions=self._build_immediate_actions(
+            # ⭐ 즉시조치 재배선(2026-08-09): 앵커 흐름이 있으면 **검수된 조문**에서 만든다.
+            #   가이드 CI 광역 매칭(54,631건 모집단)은 잡음이 실측됐다(지게차 사진에 개폐장치·연삭 CI).
+            #   앵커가 없으면(흐름 실패·비이미지) 기존 CI 경로로 폴백 — 무회귀.
+            immediate_actions=self._build_statute_actions(
+                db=db,
+                work_flow=work_flow,
+                accident_codes=(knowledge.canonical or {}).get("accident_types", []),
+                llm_actions=run_input.result.get("immediate_actions", []),
+            ) or self._build_immediate_actions(
                 knowledge.checklist_rows,
                 run_input.result.get("immediate_actions", []),
             ),
@@ -589,6 +597,54 @@ class AnalysisPipeline:
             )
             for match in she_matches
         ]
+
+    def _build_statute_actions(
+        self,
+        db: Session,
+        work_flow,
+        accident_codes: list[str],
+        llm_actions: list[str],
+    ) -> list[CorrectiveAction]:
+        """앵커 흐름의 조문 → 즉시조치 (flow_service.statute_actions 참조).
+
+        빈 목록이면 호출부가 기존 CI 경로로 폴백한다. GPT 상황 제안은 뒤에 보조로 붙인다 —
+        표준 목록이 못 담는 '이 사진 특이 상황'(시야 가림 등)이 그쪽에서 온다.
+        """
+        rows = flow_service.statute_actions(work_flow, accident_codes, db)
+        if not rows:
+            return []
+        actions = []
+        seen = set()
+        for r in rows:
+            seen.add(r["title"])
+            desc = f"{r['ref']} 원문: “{r['evidence']}”" if r.get("evidence") else r["ref"]
+            actions.append(
+                CorrectiveAction(
+                    action_id=r["ref"],
+                    title=r["title"],
+                    description=desc,
+                    source_type="rule:Article",
+                    source_id=(r.get("sr_id") or r["ref"]),
+                    # 설비 장착 의무(헤드가드 등)는 법정이라도 '지금 당장'이 아니라 planned다
+                    urgency="immediate" if (r.get("hazard_hit") and r.get("actable")) else "planned",
+                    confidence=1.0 if r["tier"] == "법정" else 0.7,
+                )
+            )
+        for text in llm_actions:
+            if not text or text in seen:
+                continue
+            seen.add(text)
+            actions.append(
+                CorrectiveAction(
+                    action_id=f"LLM-ACTION-{len(actions) + 1:03d}",
+                    title=text,
+                    description="AI가 이 사진의 상황에서 제안 — 법정 근거 아님",
+                    source_type="app:VisualObservation",
+                    urgency="immediate",
+                    confidence=0.5,
+                )
+            )
+        return actions
 
     def _build_immediate_actions(
         self,
