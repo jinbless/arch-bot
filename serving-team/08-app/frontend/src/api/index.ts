@@ -7,7 +7,14 @@ const defaultApiBaseUrl = () => {
   return '/api/v1';
 };
 
-const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL || defaultApiBaseUrl();
+// ★ 빌드 arg는 루트 상대(/…) 또는 절대 URL(http…)만 신뢰한다 — Git Bash(MSYS)에서
+//   docker build --build-arg VITE_API_BASE_URL=/api/v1 이 'C:/Program Files/Git/api/v1'로
+//   경로 변환돼 프로덕션 API가 통째로 죽은 실사고(2026-08-09). 이상값이면 런타임 판별로 폴백.
+const envBase = import.meta.env?.VITE_API_BASE_URL;
+const API_BASE_URL =
+  envBase && (envBase.startsWith('/') || envBase.startsWith('http'))
+    ? envBase
+    : defaultApiBaseUrl();
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
