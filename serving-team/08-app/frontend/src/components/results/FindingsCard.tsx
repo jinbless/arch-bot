@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { AnalysisResponse } from '../../types/analysis';
 import RiskLevelBadge from '../common/RiskLevelBadge';
-import SourceBadge from './SourceBadge';
+import { TrustBadge } from './SourceBadge';
 
 /** 1단계 — 사진에서 본 것.
  *
@@ -27,6 +27,17 @@ const FindingsCard: React.FC<{ analysis: AnalysisResponse }> = ({ analysis }) =>
       </p>
       <RiskLevelBadge level={analysis.overall_risk_level} size="lg" />
     </div>
+
+    {/* B0: 한계 고지는 서술 **위**에, "무엇이 데이터에 없는지"로 구체 서술(PAIR Do/Don't·NN/g —
+        푸터 면책은 안 읽힌다). "판정 아님" 같은 모호한 문구보다 결측 데이터 나열이 강하다. */}
+    <p className="mb-2 flex flex-wrap items-center gap-1.5 rounded-md bg-blue-50/60 border border-blue-100 px-2.5 py-1.5 text-[11px] leading-relaxed text-blue-900">
+      <TrustBadge level="ai" />
+      <span>
+        이 서술은 <strong>사진 1장만</strong> 근거로 합니다 — 기계 이력·작업표준·최근 점검 결과는 반영돼
+        있지 않고, <strong>언급이 없다고 문제가 없는 것이 아닙니다.</strong> 아래 2단계의 검수된 조문과
+        대조하세요.
+      </span>
+    </p>
 
     <p className="text-gray-800 leading-relaxed mb-3">{analysis.summary}</p>
 
@@ -87,10 +98,6 @@ const FindingsCard: React.FC<{ analysis: AnalysisResponse }> = ({ analysis }) =>
       </ul>
     )}
 
-    <p className="text-[10px] text-gray-400 flex items-center gap-1">
-      <SourceBadge source="gpt" />
-      <span>AI가 사진을 서술한 것입니다 — 법령 판단이 아닙니다. 아래 단계들이 판단을 담당합니다.</span>
-    </p>
   </section>
 );
 

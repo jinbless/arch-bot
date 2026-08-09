@@ -43,6 +43,45 @@ const SOURCE_META: Record<SourceType, { label: string; cls: string; title: strin
   embedding_candidate: { label: '임베딩 후보(미검증)', cls: 'bg-orange-50 text-orange-700 border-orange-300', title: 'WS-PROV-3: 벡터 임베딩 유사도로 부착된 후보 — 닫힌세계(disjoint/규칙) 검증 미통과. 규칙 기반 부착과 신뢰등급이 다름.' },
 };
 
+/**
+ * B0(2026-08-09) 신뢰 등급 3종 — 색이 아니라 **모양**으로 구분한다(scite 패턴).
+ * 폰 스크린샷 압축·흑백 인쇄·색각이상에서도 구분돼야 한다(주 유통 경로가 스크린샷).
+ * 항상 라벨 좌측, 같은 자리. 각 등급의 title에 행동 지침을 붙인다
+ * (PAIR 지침: 등급에는 "그래서 뭘 하라"가 따라와야 한다).
+ */
+export type TrustLevel = 'reviewed' | 'ai' | 'unverified';
+
+const TRUST_META: Record<TrustLevel, { mark: string; label: string; cls: string; title: string }> = {
+  reviewed: {
+    mark: '✓', label: '검수됨',
+    cls: 'bg-emerald-50 text-emerald-800 border-emerald-300',
+    title: '사람 검수 체계를 거친 자료 — 조문 번호로 원문을 확인할 수 있습니다',
+  },
+  ai: {
+    mark: '〜', label: 'AI',
+    cls: 'bg-blue-50 text-blue-800 border-blue-300',
+    title: 'AI가 생성한 내용 — 검수된 조문과 직접 대조하세요',
+  },
+  unverified: {
+    mark: '?', label: '검증 전',
+    cls: 'bg-amber-50 text-amber-800 border-amber-300',
+    title: '자동 연결 — 정확도 검증 전이니 원문으로 확인하세요',
+  },
+};
+
+export const TrustBadge: React.FC<{ level: TrustLevel; extra?: string }> = ({ level, extra }) => {
+  const meta = TRUST_META[level];
+  return (
+    <span
+      title={meta.title}
+      className={`inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded border whitespace-nowrap ${meta.cls}`}
+    >
+      <span aria-hidden className="font-bold">{meta.mark}</span>
+      {meta.label}{extra ? ` · ${extra}` : ''}
+    </span>
+  );
+};
+
 const SourceBadge: React.FC<{ source: SourceType; extra?: string }> = ({ source, extra }) => {
   const meta = SOURCE_META[source] ?? SOURCE_META.mixed;
   return (

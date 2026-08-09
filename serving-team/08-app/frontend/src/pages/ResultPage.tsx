@@ -121,6 +121,13 @@ const ResultPage: React.FC = () => {
         </Link>
       </div>
 
+      {/* B0: 진입 게이트(Ada 응급 게이트 패턴) — 면책이 아니라 행동 지시. 이 한 줄이
+          아래 전체를 '여유 있는 컨설팅 모드'로 재맥락화한다. 최상단 고정. */}
+      <p className="rounded-lg bg-gray-900 px-3 py-2 text-[13px] font-medium text-white">
+        ⛔ 지금 이 자리에서 사람이 다칠 수 있는 상태라면 — 이 화면이 아니라{' '}
+        <strong>즉시 작업 중지</strong>가 먼저입니다.
+      </p>
+
       <StageHeading n={1} title="사진에서 본 것" />
       <FindingsCard analysis={analysis} />
 

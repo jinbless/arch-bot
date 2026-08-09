@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { TrustBadge } from './SourceBadge';
 import type { AnalysisResponse, WorkFlow, GuideRef } from '../../types/analysis';
 
 /** 4단계 — 사업주가 직접 확인할 자료.
@@ -32,7 +33,9 @@ const OwnerResourcesCard: React.FC<{ analysis: AnalysisResponse; flow?: WorkFlow
       <div className="space-y-3">
         {guides.length > 0 && (
           <div>
-            <p className="text-sm font-semibold text-gray-800 mb-1">KOSHA 가이드</p>
+            <p className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-gray-800">
+              KOSHA 가이드 <TrustBadge level="unverified" />
+            </p>
             <ul className="space-y-1">
               {guides.map((g) => (
                 <li key={g.guide_code} className="text-sm text-gray-700 pl-3 relative">
@@ -48,7 +51,9 @@ const OwnerResourcesCard: React.FC<{ analysis: AnalysisResponse; flow?: WorkFlow
         )}
 
         <div>
-          <p className="text-sm font-semibold text-gray-800 mb-1">기본 안전수칙</p>
+          <p className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-gray-800">
+            기본 안전수칙 <TrustBadge level="reviewed" />
+          </p>
           <p className="text-sm text-gray-700">
             사진과 관계없이 현장이 늘 갖춰야 하는 것 —{' '}
             <Link to="/basics" className="text-primary-600 hover:text-primary-800 underline">

@@ -1,6 +1,22 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { flowApi, type FlowGroup } from '../../api/flowApi';
+import { TrustBadge } from './SourceBadge';
 import type { AiActionAlignment, CorrectiveAction, FlowItem, FlowSlot, WorkFlow } from '../../types/analysis';
+
+/** B0: 조문 ref → 국가법령정보센터 딥링크(`법령/<법령명>/<제N조>` pretty URL).
+ *  접두사 없으면 산업안전보건기준에 관한 규칙 — 화면 각주의 표기 규약과 동일해야 한다.
+ *  별표·고시·가이드 ref는 조문 패턴이 없어 자연히 링크 제외. */
+const LAW_BY_PREFIX: Array<[RegExp, string]> = [
+  [/^법\s*제/, '산업안전보건법'],
+  [/^시행령\s*제/, '산업안전보건법 시행령'],
+  [/^시행규칙\s*제/, '산업안전보건법 시행규칙'],
+];
+const lawLink = (ref: string): string | null => {
+  const jo = ref?.match(/제\d+조(의\d+)?/)?.[0];
+  if (!jo) return null;
+  const law = LAW_BY_PREFIX.find(([re]) => re.test(ref.trim()))?.[1] ?? '산업안전보건기준에 관한 규칙';
+  return `https://law.go.kr/${encodeURIComponent('법령')}/${encodeURIComponent(law)}/${encodeURIComponent(jo)}`;
+};
 
 /**
  * 기인물 앵커 기준 **작업 전체 흐름** 패널 (표시전용).
@@ -77,7 +93,19 @@ const Item: React.FC<{ it: FlowItem; actNow?: boolean; highlighted?: boolean; hl
             </p>
           )}
           <p className="mt-0.5 text-[11px] text-gray-400">
-            {it.ref}
+            {it.ref && lawLink(it.ref) ? (
+              <a
+                href={lawLink(it.ref)!}
+                target="_blank"
+                rel="noreferrer"
+                title="국가법령정보센터에서 원문 보기"
+                className="underline decoration-dotted underline-offset-2 hover:text-gray-600"
+              >
+                {it.ref}
+              </a>
+            ) : (
+              it.ref
+            )}
             {it.ref && it.source ? ' · ' : ''}
             {it.source}
             {it.uncertain && (
@@ -296,15 +324,36 @@ const WorkFlowPanel: React.FC<{
   const { anchor, alternates, slots, reviewed } = shown;
   const total = slots.reduce((n, s) => n + s.items.length, 0);
 
+  // B0: matched 제안의 근거 발췌를 인라인으로 — 인용 링크는 거의 클릭되지 않는다는 실측(NN/g)
+  // 때문에 점프는 보조이고 발췌가 주력이어야 한다. 스크린샷 유통에서도 발췌만 살아남는다.
+  const evidenceFor = (al: AiActionAlignment): string => {
+    for (const s of slots) {
+      if (al.slot_key && s.key !== al.slot_key) continue;
+      const hit =
+        s.items.find((i) => i.ref === al.matched_ref && (!al.matched_title || i.text === al.matched_title)) ??
+        s.items.find((i) => i.ref === al.matched_ref);
+      if (hit?.evidence) return hit.evidence;
+    }
+    return '';
+  };
+  const nMatched = aiAlignments.filter((a) => a.status === 'matched').length;
+  const nUnmatched = aiAlignments.filter((a) => a.status === 'unmatched').length;
+  const nPending = aiAlignments.length - nMatched - nUnmatched;
+
   return (
     <section className="rounded-xl border border-slate-300 bg-white p-4">
       <div className="mb-3">
-        <h2 className="text-lg font-bold text-gray-900">
-          이 기인물의 작업 흐름 <span className="text-slate-500">(참고 자료)</span>
+        <h2 className="flex flex-wrap items-center gap-2 text-lg font-bold text-gray-900">
+          이 기인물의 작업 흐름 <TrustBadge level="reviewed" />
         </h2>
         <p className="text-sm text-gray-500">
           사진은 작업의 <strong>한 시점</strong>입니다. 사진에서 확인된 기인물을 기준으로 그 앞뒤로 해야 할
           일을 규칙·고시·가이드에서 모으고, 그중 <strong>지금 당장 할 조치</strong>를 먼저 보여줍니다.
+        </p>
+        {/* B0: 검수 사실을 라벨이 아니라 **이력**으로 — 근거는 flow_service.LABELS_REVIEWED 주석과 동일.
+            숫자가 바뀌면 그쪽과 같이 갱신한다(검수 체계가 바뀌는 일 자체가 드묾). */}
+        <p className="mt-1 text-[11px] text-gray-400">
+          검수 이력: Sol 전수 재판정 885건 + 우선순위 사람 검수 + 서빙 전 게이트 감사 (2026-08 기준)
         </p>
       </div>
 
@@ -477,12 +526,18 @@ const WorkFlowPanel: React.FC<{
           unaligned(정렬 실패·구 기록)는 불비로 표기하지 않는다 — 판정과 판정 실패는 다른 상태다. */}
       {!corrected && aiAlignments.length > 0 && (
         <div className="mt-3 rounded-lg border border-violet-200 bg-violet-50/60 p-3">
-          <div className="flex flex-wrap items-baseline gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <h3 className="text-sm font-bold text-violet-900">AI 제안 대조</h3>
-            <span className="text-[11px] text-violet-700">
-              AI가 사진에서 낸 조치 제안을 위 확정 의무와 대조한 결과입니다 (AI 정렬 — 검수 전)
+            <TrustBadge level="ai" extra="정렬 검수 전" />
+            {/* B0: 대조 결과를 한 줄로 — 인용을 클릭해 확인하는 사용자는 드물다(NN/g 실측) */}
+            <span className="text-[11px] font-medium text-violet-800">
+              AI 제안 {aiAlignments.length}건 — 조문 일치 {nMatched} · 대응 없음 {nUnmatched}
+              {nPending > 0 ? ` · 대조 전 ${nPending}` : ''}
             </span>
           </div>
+          <p className="mt-0.5 text-[11px] text-violet-700">
+            AI가 사진에서 낸 조치 제안을 위 확정 의무와 대조한 결과입니다
+          </p>
           <ul className="mt-2 space-y-1.5">
             {aiAlignments.map((al, i) => (
               <li key={i} className="rounded-lg border border-violet-100 bg-white px-3 py-2">
@@ -510,6 +565,12 @@ const WorkFlowPanel: React.FC<{
                     </span>
                   )}
                 </div>
+                {/* B0: 근거 발췌를 인라인으로 — 점프(칩)는 보조 */}
+                {al.status === 'matched' && evidenceFor(al) && (
+                  <p className="mt-1 border-l-2 border-emerald-200 pl-2 text-[12px] leading-snug text-gray-600">
+                    “{evidenceFor(al)}”
+                  </p>
+                )}
               </li>
             ))}
           </ul>
