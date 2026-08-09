@@ -60,7 +60,35 @@ f. ~~moellab 재배포~~ 완료(2026-08-09, 코드 전용 경로: update-ohs-cod
    ⚠ **다음 데이터 버전업 전 필수**: update-ohs.sh는 PG 볼륨 wipe라 prod에 쌓이는 불비 원장
    (ohs_action_statute_gaps)·분석 기록이 소실된다 — 운영 테이블 보존 단계를 먼저 추가할 것
 
-## 5. 검증 방법
+## 5. 운영/참조 데이터 분리 설계 (2026-08-09 설계 확정, 구현 전)
+
+**왜**: prod PG에 성격이 다른 두 데이터가 한 DB에 산다. 참조(로컬 생성→dump 배포, 지워도 복원
+가능)와 운영(프로덕션에서만 생성 — 불비 원장의 occurrence_count는 실사용 시간의 축적이라 재생성
+불가). 데이터 버전업 `update-ohs.sh`가 볼륨 wipe라 운영이 같이 죽는다. 절차(선 dump·후 재주입)로
+막는 건 사람이 지켜야만 안전 — 구조로 보장한다.
+
+**경계 규칙 (테이블 출생지 기준)**:
+- 참조 = `public` 스키마: 로컬 파이프라인 산출(kosha_guides·articles·SR·CI·sr_inferred…)
+- 운영 = `ops` 스키마: 프로덕션 요청 처리 중 생성 — 현재 3종(ohs_analysis_records·
+  ohs_hazard_code_gaps·ohs_action_statute_gaps) + **앞으로 프로덕션에서 태어나는 모든 테이블**
+  (예정: 앵커 정정 로그). `ohs_safety_videos`는 코드 참조 없는 legacy 잔재 — 이사 대상 아님, 정리 후보.
+
+**채택안 = 같은 DB 안 `ops` 스키마** (같은 볼륨·SQLAlchemy 엔진 1개 유지):
+- 기각 ①절차만: 구조 보장 없음 ②별도 DB: 엔진·세션 이중화 — 문제 대비 과함 ③별도 컨테이너: 인프라 복잡성.
+
+**구현 체크리스트** (코드 변경 극소):
+1. backend: 운영 모델 3종에 `__table_args__ = {"schema": "ops"}` + `create_tables()`에서
+   `CREATE SCHEMA IF NOT EXISTS ops` **선행** (스키마 없으면 create_all이 실패한다)
+2. 1회 마이그레이션(로컬+prod): `ALTER TABLE public.ohs_* SET SCHEMA ops` — 메타데이터만, 데이터 무이동
+3. build_bundle.sh: pg_dump에 `--schema=public` 명시 — 없으면 이사 전 옛 dump 형상이 restore 때
+   public에 유령 ohs_* 테이블로 되살아난다
+4. update-ohs.sh: 볼륨 wipe **폐지** → `DROP SCHEMA public CASCADE; CREATE SCHEMA public;` + pg_restore.
+   ops는 손대지 않음 — 원장 생존이 스크립트가 아니라 구조로 보장된다
+5. verify-ohs.sh에 ops 카운트(원장 행수·분석 기록 수) 추가 — 배포 후 생존을 눈으로 확인
+6. 적용 순서: 로컬 적용·검증 → 코드 배포(update-ohs-code.sh) → prod ALTER 1회 → 다음 데이터
+   버전업부터 새 update-ohs.sh 사용
+
+## 6. 검증 방법
 
 - 테스트 사진: `/tmp/forklift.jpg` → `cd /tmp && curl -X POST .../analysis/image -F "image=@forklift.jpg" -H "Expect:"`
 - 검증된 analysis_id: 25864c1e-b719-408a-a360-bd874670ce03 (조문 즉시조치 6 + matched 2·unmatched 2)
