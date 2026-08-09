@@ -124,10 +124,11 @@ def save_gaps_to_db(
             existing.occurrence_count += 1
             existing.last_seen = datetime.utcnow()
             # sample_analysis_ids 업데이트 (최대 5개)
+            # JSONB 리스트를 in-place mutate 후 같은 객체를 재할당하면
+            # 속성 히스토리가 무변경으로 판정돼 UPDATE에서 컬럼이 빠진다 — 새 리스트를 할당한다
             samples = existing.sample_analysis_ids or []
             if analysis_id not in samples and len(samples) < 5:
-                samples.append(analysis_id)
-                existing.sample_analysis_ids = samples
+                existing.sample_analysis_ids = samples + [analysis_id]
         else:
             gap = OhsHazardCodeGap(
                 gap_type=div["gap_type"],
