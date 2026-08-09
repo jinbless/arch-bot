@@ -15,7 +15,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     // 사진과 무관하게 늘 지켜야 하는 것. 분석 앞에 두지 않는다 — 주 경로는 사진 분석이다
     { path: '/basics', label: '기본 안전수칙', icon: '📌' },
     { path: '/history', label: '분석 기록', icon: '📋' },
-    { path: '/ontology', label: '온톨로지', icon: '🔗' },
+    // 온톨로지 시각화 메뉴 삭제(2026-08-09 사용자 결정) — 온톨로지는 데이터 관리 표준이지
+    // 서빙 화면이 아니다(CLAUDE.md 원칙). 페이지·라우트도 함께 내렸다.
   ];
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
