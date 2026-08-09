@@ -256,6 +256,93 @@ def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
     return items[:6]
 
 
+# ── AI 자유 제안 ↔ 흐름 조문 정렬 ──────────────────────────────────────
+# 사용자 정책(2026-08-09): GPT가 사진에서 낸 조치 제안이 흐름 조문에 대응하면 그 조문을 보여주고,
+# 대응이 없으면 폐기가 아니라 '구체 조문 불비 후보'로 적립한다(ohs_action_statute_gaps).
+# ★ 이건 법 적용 판단이 아니다 — 이미 검수로 확정된 의무 목록(닫힌 소집합)에 대한 텍스트 정렬이고
+#   기본값은 무매칭(추측 금지)이다. 폐기했던 광역 매칭(CI 54,631 열린 집합)과는 다른 문제.
+# ★ 후보를 ref 문자열이 아니라 **번호**로 답하게 한다 — RESOLVE에서 LLM이 카탈로그 줄 전체를
+#   복사하는 실측 사례(129장 중 5장)가 있었다. 번호면 그 실패 클래스가 원천 차단된다.
+ALIGN_SYS = (
+    "너는 산업안전보건 규정 검토자다. AI가 현장 사진을 보고 낸 조치 제안 각각에 대해, "
+    "'확정 의무 목록'(검수 체계를 거쳐 확정된 이 작업의 조문 항목) 중 실질적으로 같은 취지의 "
+    "항목이 있으면 그 후보 번호 c를, 없으면 -1을 답하라. 비슷해 보인다고 억지로 맞추지 말라 — "
+    "확실하지 않으면 -1이 정답이다. 각 판단에 한 줄 이유를 붙여라.")
+ALIGN_SCHEMA = {"name": "align", "strict": True, "schema": {
+    "type": "object", "additionalProperties": False,
+    "properties": {"alignments": {"type": "array", "items": {
+        "type": "object", "additionalProperties": False,
+        "properties": {"a": {"type": "integer"}, "c": {"type": "integer"},
+                       "reason": {"type": "string"}},
+        "required": ["a", "c", "reason"]}}},
+    "required": ["alignments"]}}
+
+
+async def align_llm_actions(flow, llm_actions: list[str]) -> list[dict]:
+    """GPT 자유 제안 각각을 흐름 항목(닫힌 집합)에 정렬한다.
+
+    status 3값을 구별한다 — 'unmatched'(모델이 '대응 없음' 판정 = 불비 후보로 적립 대상)와
+    'unaligned'(정렬 자체가 실패/무효 = 적립하면 원장이 오염되므로 표시만)는 다른 상태다.
+    실패해도 제안을 잃지 않는다(전부 unaligned로 반환).
+    """
+    # 중복 제거(순서 보존) — GPT가 같은 제안을 두 번 내면 원장에 같은 항목이 행 2개로 쪼개져
+    # occurrence_count 신호가 분산된다(autoflush=False라 같은 요청 안 SELECT가 pending INSERT를 못 본다).
+    acts = list(dict.fromkeys(t.strip() for t in (llm_actions or []) if t and t.strip()))
+    if len(acts) > 8:
+        logger.info("[WorkFlow] AI 제안 %d건 중 8건만 대조(캡)", len(acts))
+    acts = acts[:8]
+    out = [{"text": t, "status": "unaligned", "matched_ref": "", "matched_title": "",
+            "slot_key": "", "slot_label": "", "reason": ""} for t in acts]
+    if flow is None or not acts:
+        return out
+    cands, seen = [], set()
+    for slot in flow.slots:
+        for it in slot.items:
+            # ★ 후보는 **법정만** — 불비 판단의 기준집합은 법정 조문이다. 권고(가이드)를 넣으면
+            #   '권고에만 있고 조문에 없는' 제안(핵심 불비 후보)이 matched로 빠져나간다(실측:
+            #   적치물 제거 제안이 가이드 13단계에 매칭돼 원장에 안 남았다).
+            if not it.ref or it.tier != "법정" or (it.ref, it.text) in seen:
+                continue
+            seen.add((it.ref, it.text))
+            cands.append({"ref": it.ref, "title": it.text, "slot_key": slot.key,
+                          "slot_label": slot.label, "evidence": (it.evidence or "")[:60]})
+    if len(cands) > 60:
+        logger.info("[WorkFlow] 흐름 법정 후보 %d건 중 60건만 대조에 사용(캡)", len(cands))
+    cands = cands[:60]
+    if not cands:
+        return out
+    a_lines = "\n".join(f"{i}. {t}" for i, t in enumerate(acts))
+    c_lines = "\n".join(
+        f"{i}. [{c['ref']}] ({c['slot_label']}) {c['title']}"
+        + (f" — “{c['evidence']}”" if c["evidence"] else "")
+        for i, c in enumerate(cands))
+    try:
+        model = os.environ.get("FLOW_ALIGN_MODEL", "gpt-5.4")
+        # cue_article_service._chat 재사용 — RESOLVE와 같은 클라이언트·json_schema 규율
+        rv = await cue_article_service._chat(  # noqa: SLF001
+            model, ALIGN_SYS,
+            f"[AI 조치 제안]\n{a_lines}\n\n[확정 의무 목록]\n{c_lines}\n\n"
+            "각 제안 번호 a에 대해 후보 번호 c(대응 없으면 -1)와 이유.", ALIGN_SCHEMA)
+    except Exception as exc:  # noqa: BLE001 — 정렬 실패가 분석 응답을 막지 않는다
+        logger.warning("[WorkFlow] AI 제안 정렬 실패 — 대조 전 상태로 표시: %s", exc)
+        return out
+    for al in rv.get("alignments", []):
+        a, c = al.get("a"), al.get("c")
+        if not isinstance(a, int) or not 0 <= a < len(out):
+            continue
+        reason = str(al.get("reason") or "")[:200]
+        if isinstance(c, int) and 0 <= c < len(cands):
+            cd = cands[c]
+            out[a].update(status="matched", matched_ref=cd["ref"], matched_title=cd["title"],
+                          slot_key=cd["slot_key"], slot_label=cd["slot_label"], reason=reason)
+        elif c == -1:
+            out[a].update(status="unmatched", reason=reason)
+        else:
+            # 목록 밖 번호 지목 = 판정 무효. unmatched로 두면 불비 원장에 잘못 적립된다.
+            out[a].update(status="unaligned", reason="모델이 목록 밖 번호를 지목 — 무효 처리")
+    return out
+
+
 _ALWAYS: dict = {}
 
 

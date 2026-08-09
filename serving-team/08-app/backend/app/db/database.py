@@ -39,5 +39,6 @@ def create_tables():
         tables=[
             models.OhsAnalysisRecord.__table__,
             models.OhsHazardCodeGap.__table__,
+            models.OhsActionStatuteGap.__table__,
         ],
     )

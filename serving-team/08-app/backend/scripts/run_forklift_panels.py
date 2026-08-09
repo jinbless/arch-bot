@@ -25,9 +25,12 @@ print(f"flags: semantic_attach={_semantic_attach_enabled()} rerank={_semantic_re
 
 async def main():
     with SessionLocal() as db:
+        # persist=False — 대조용 스크립트가 canned 입력으로 ohs_analysis_records와
+        # 불비 원장(ohs_action_statute_gaps)의 occurrence_count를 부풀리면 안 된다.
         resp = await analysis_pipeline.run(db=db, run_input=AnalysisRunInput(
             result=fk["result"], analysis_type="image",
-            input_preview=fk["photo"], declared_industry_text=fk.get("industry", "")))
+            input_preview=fk["photo"], declared_industry_text=fk.get("industry", ""),
+            persist=False))
     d = resp.model_dump() if hasattr(resp, "model_dump") else dict(resp)
 
     print("\n=== ① 위험요소별 가이드 (hazard_guide_relations) — v5 경로 ===")

@@ -169,6 +169,22 @@ class WorkFlow(BaseModel):
     reviewed: bool = False            # 라벨 사람 검수 완료 여부 — 화면 경고 문구 제어
 
 
+class AiActionAlignment(BaseModel):
+    """GPT 자유 조치 제안 1건을 흐름 조문(닫힌 집합)에 정렬한 결과.
+
+    사용자 정책(2026-08-09): matched → 해당 조문을 근거로 보여주고, unmatched → 폐기가 아니라
+    '구체 조문 불비 후보'로 적립(ohs_action_statute_gaps). unaligned(정렬 실패·대조 전)는
+    적립하지 않는다 — 무매칭 판정과 판정 실패를 섞으면 불비 원장이 오염된다.
+    """
+    text: str                         # AI 제안 원문
+    status: str = "unaligned"         # matched | unmatched | unaligned
+    matched_ref: str = ""             # 대응 조문/별표 ref (matched일 때만)
+    matched_title: str = ""           # 대응 흐름 항목 제목
+    slot_key: str = ""                # 대응 항목이 있는 흐름 칸
+    slot_label: str = ""
+    reason: str = ""                  # 정렬 LLM의 한 줄 근거
+
+
 class AnalysisResponse(BaseModel):
     analysis_id: str
     analysis_type: str
@@ -194,6 +210,8 @@ class AnalysisResponse(BaseModel):
     article_candidates: List[ArticleCandidate] = []
     # ⭐ 기인물 앵커 기준 작업 흐름(flag off 시 None — 기존 경로 무변화, 호환 default = None)
     work_flow: Optional[WorkFlow] = None
+    # ⭐ AI 자유 제안 ↔ 흐름 조문 정렬(2026-08-09, 흐름 있을 때만 — 호환 default = [])
+    ai_action_alignments: List[AiActionAlignment] = []
     analyzed_at: datetime
 
     class Config:

@@ -3,29 +3,27 @@ import { Link, useParams } from 'react-router-dom';
 import { analysisApi } from '../api/analysisApi';
 import Loading from '../components/common/Loading';
 import ErrorMessage from '../components/common/ErrorMessage';
-import ArticleCandidatesPanel from '../components/results/ArticleCandidatesPanel';
 import FindingsCard from '../components/results/FindingsCard';
-import GuideProcedurePanel from '../components/results/GuideProcedurePanel';
-import HazardGuideRelationsPanel from '../components/results/HazardGuideRelationsPanel';
 import ImmediateActionsPanel from '../components/results/ImmediateActionsPanel';
 import OwnerResourcesCard from '../components/results/OwnerResourcesCard';
-import PenaltyPathPanel from '../components/results/PenaltyPathPanel';
-import ReasoningTracePanel from '../components/results/ReasoningTracePanel';
-import RiskOverviewPanel from '../components/results/RiskOverviewPanel';
 import WorkFlowPanel from '../components/results/WorkFlowPanel';
 import { useAnalysisStore } from '../store';
-import type { AnalysisResponse } from '../types/analysis';
+import type { AiActionAlignment, AnalysisResponse } from '../types/analysis';
 
-/* 결과 화면 = 감독관 컨설팅 서사 5단계 (2026-08 재설계).
+/* 결과 화면 = 감독관 컨설팅 서사 3단계 (2026-08-09 2차 재설계).
  *
- *   1 사진에서 본 것   — AI 서술 (판정 아님)
- *   2 지금 당장        — 즉시 조치
- *   3 원래 이렇게 관리 — 기인물 앵커 흐름 6칸 ★ 검수 완료된 화면의 주인공
- *   4 직접 확인할 자료 — 가이드·기본 안전수칙·안전검사
- *   5 사고가 나면      — 벌칙 3경로
+ *   1 사진에서 본 것          — AI 서술 (판정 아님)
+ *   2 원래 이렇게 관리        — 기인물 앵커 흐름 6칸 ★ 화면의 주인공.
+ *                              '지금 당장'(흐름 조문에서 선별한 즉시조치)과 'AI 제안 대조'를
+ *                              같은 카테고리 안에 통합 — 즉시조치는 흐름 조문의 부분집합이므로
+ *                              별도 패널로 두면 같은 조문이 두 번 나와 출처가 흐려진다.
+ *   3 직접 확인할 자료        — 가이드·기본 안전수칙·안전검사
  *
- * 정확도 미검증 경로(정규화·SHE·표준절차·조문후보)는 '분석 상세'로 접는다 —
- * 지우는 게 아니라 사업주 첫 화면에서 내리는 것이다. 근거 추적은 계속 가능해야 한다.
+ * 삭제(2026-08-09 사용자 결정): '사고가 나면'(벌칙 3경로)과 '분석 상세' 접힘 구역 —
+ * "효과성이 없이 복잡하기만 하다". 백엔드 응답 필드는 유지(다른 소비자·기록 호환),
+ * 화면에서만 내린다. legacy 갈래 계산 자체의 옵션화는 다음 작업.
+ *
+ * 흐름이 없으면(앵커 실패 ~35%) '지금 당장'이 기존 CI 폴백 패널로 독립해 2번 자리에 선다.
  */
 
 const StageHeading: React.FC<{ n: number; title: string; sub?: string }> = ({ n, title, sub }) => (
@@ -87,6 +85,31 @@ const ResultPage: React.FC = () => {
 
   const analysis = currentAnalysis as AnalysisResponse;
 
+  // 조문 기반 즉시조치(rule:Article) → 흐름 패널의 '지금 당장' 스트립으로 들어간다.
+  const statuteActions = analysis.immediate_actions.filter((a) => a.source_type === 'rule:Article');
+  // 구 기록 호환: 정렬 필드가 없으면 즉시조치에 병기됐던 AI 제안을 '대조 전'으로 승계한다.
+  const aiAlignments: AiActionAlignment[] = analysis.ai_action_alignments?.length
+    ? analysis.ai_action_alignments
+    : analysis.immediate_actions
+        .filter((a) => a.source_type === 'app:VisualObservation')
+        .map((a) => ({
+          text: a.title,
+          status: 'unaligned',
+          matched_ref: '',
+          matched_title: '',
+          slot_key: '',
+          slot_label: '',
+          reason: '',
+        }));
+  const hasFlow = !!analysis.work_flow;
+  // 조문 선별이 흐름 스트립으로 들어갈 수 없을 때만 독립 패널을 보여준다(무회귀).
+  // (조문 선별은 흐름에서만 나오지만, 흐름 없는 구 기록을 방어한다 — 즉시조치가 증발하면 안 된다)
+  const showFallbackActions =
+    (statuteActions.length === 0 || !hasFlow) && analysis.immediate_actions.length > 0;
+  const nActions = showFallbackActions ? 2 : 0;
+  const nFlow = hasFlow ? (nActions ? 3 : 2) : 0;
+  const nResources = Math.max(nFlow, nActions, 1) + 1;
+
   return (
     <div className="max-w-5xl mx-auto space-y-4">
       <div className="flex items-center justify-between">
@@ -101,43 +124,33 @@ const ResultPage: React.FC = () => {
       <StageHeading n={1} title="사진에서 본 것" />
       <FindingsCard analysis={analysis} />
 
-      <StageHeading n={2} title="지금 당장" />
-      <ImmediateActionsPanel
-        items={analysis.immediate_actions}
-        findingStatus={analysis.finding_status}
-      />
-
-      {analysis.work_flow && (
+      {showFallbackActions && (
         <>
-          <StageHeading n={3} title="이 기계·작업은 원래 이렇게 관리합니다" sub="사람 검수를 마친 자료" />
-          <WorkFlowPanel flow={analysis.work_flow} />
+          <StageHeading n={nActions} title="지금 당장" />
+          <ImmediateActionsPanel
+            items={analysis.immediate_actions}
+            findingStatus={analysis.finding_status}
+          />
         </>
       )}
 
-      <StageHeading n={analysis.work_flow ? 4 : 3} title="직접 확인할 자료" />
+      {hasFlow && (
+        <>
+          <StageHeading
+            n={nFlow}
+            title="이 기계·작업은 원래 이렇게 관리합니다"
+            sub="검수 체계를 거친 자료 · ‘지금 당장’ 조치 포함"
+          />
+          <WorkFlowPanel
+            flow={analysis.work_flow}
+            actNow={statuteActions}
+            aiAlignments={aiAlignments}
+          />
+        </>
+      )}
+
+      <StageHeading n={nResources} title="직접 확인할 자료" />
       <OwnerResourcesCard analysis={analysis} flow={analysis.work_flow} />
-
-      <StageHeading n={analysis.work_flow ? 5 : 4} title="사고가 나면" sub="위반 상태에서 사고 시 처벌 경로" />
-      <PenaltyPathPanel paths={analysis.penalty_paths} />
-
-      <details className="bg-gray-50 rounded-xl border border-gray-200 p-4">
-        <summary className="cursor-pointer text-sm font-semibold text-gray-600 select-none">
-          분석 상세 · 근거 보기 (정규화 특징, SHE 패턴, 위험요소별 가이드, 표준절차, 조문 후보)
-        </summary>
-        <div className="mt-4 space-y-4">
-          <RiskOverviewPanel analysis={analysis} />
-          <HazardGuideRelationsPanel analysis={analysis} />
-          <GuideProcedurePanel procedures={analysis.standard_procedures} />
-          <ArticleCandidatesPanel
-            candidates={analysis.article_candidates}
-            findingStatus={analysis.finding_status}
-          />
-          <ReasoningTracePanel
-            trace={analysis.reasoning_trace}
-            matches={analysis.situation_matches.length}
-          />
-        </div>
-      </details>
     </div>
   );
 };

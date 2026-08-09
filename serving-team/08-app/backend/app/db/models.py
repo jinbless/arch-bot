@@ -290,6 +290,30 @@ class OhsAnalysisRecord(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
+class OhsActionStatuteGap(Base):
+    """AI 즉시조치 제안이 검수된 흐름 조문 어디에도 정렬되지 않은 것 — '구체 조문 불비 후보' 원장.
+
+    사용자 정책(2026-08-09): 무매칭 제안은 폐기가 아니라 적립한다 — 조문이 모든 경우를 규정할 수
+    없으므로, 반복 등장하는 무매칭 제안은 신규 조문·고시 수요의 신호다(정책적 활용).
+    ⚠ 무매칭 ≠ 법적 불비 확정. 원인이 4종(진짜 구체 조문 불비 / 앵커 오인식 / 규칙 밖 조문에 존재 /
+    AI 일반론)으로 섞이므로, review_status로 배치 검토(Sol 파이프라인)를 거친 것만 정책 자료로 쓴다.
+    """
+    __tablename__ = "ohs_action_statute_gaps"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    action_text = Column(Text, nullable=False)          # AI 제안 원문
+    anchor_group_key = Column(String(120), nullable=False, default="")
+    anchor_label = Column(Text)
+    llm_reason = Column(Text)                           # 정렬 LLM의 무매칭 사유 한 줄
+    occurrence_count = Column(Integer, nullable=False, default=1)
+    first_seen = Column(DateTime(timezone=True), server_default=func.now())
+    last_seen = Column(DateTime(timezone=True), server_default=func.now())
+    sample_analysis_ids = Column(JSONB)
+    # pending → (배치 검토 후) gap_confirmed | covered_elsewhere | anchor_error | generic
+    review_status = Column(String(30), nullable=False, default="pending")
+    review_note = Column(Text)
+
+
 class OhsHazardCodeGap(Base):
     __tablename__ = "ohs_hazard_code_gaps"
 

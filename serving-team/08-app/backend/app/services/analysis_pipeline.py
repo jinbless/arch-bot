@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 
 from app.db import crud
 from app.models.analysis import (
+    AiActionAlignment,
     AnalysisResponse,
     ExcludedCandidate,
     GuideRef,
@@ -161,6 +162,18 @@ class AnalysisPipeline:
                 work_flow = await flow_service.build(run_input.result)
             except Exception as exc:  # noqa: BLE001 — 흐름 실패가 분석 응답을 막지 않는다
                 logging.getLogger(__name__).warning("[WorkFlow] 실패 — 기존 경로 유지: %s", exc)
+        # ⭐ AI 자유 제안 ↔ 흐름 조문 정렬(2026-08-09 사용자 정책): 대응 있으면 조문을 근거로
+        #   보여주고, 무매칭은 '구체 조문 불비 후보'로 적립한다. 흐름이 있을 때만 —
+        #   흐름 폴백(CI 경로)에서는 종전대로 제안이 immediate_actions에 병기된다.
+        ai_action_alignments: list[AiActionAlignment] = []
+        if work_flow is not None:
+            try:
+                ai_action_alignments = [
+                    AiActionAlignment(**r) for r in await flow_service.align_llm_actions(
+                        work_flow, run_input.result.get("immediate_actions", []))
+                ]
+            except Exception as exc:  # noqa: BLE001 — 정렬 실패가 분석 응답을 막지 않는다
+                logging.getLogger(__name__).warning("[WorkFlow] AI 제안 정렬 실패: %s", exc)
         findings = self._build_findings(
             status=knowledge.finding_status,
             observations=observations,
@@ -205,7 +218,6 @@ class AnalysisPipeline:
                 db=db,
                 work_flow=work_flow,
                 accident_codes=(knowledge.canonical or {}).get("accident_types", []),
-                llm_actions=run_input.result.get("immediate_actions", []),
             ) or self._build_immediate_actions(
                 knowledge.checklist_rows,
                 run_input.result.get("immediate_actions", []),
@@ -230,6 +242,7 @@ class AnalysisPipeline:
             ),
             article_candidates=article_candidates,  # ⭐ Track A(flag off 시 [])
             work_flow=work_flow,                    # ⭐ 기인물 앵커 흐름(flag off 시 None)
+            ai_action_alignments=ai_action_alignments,  # ⭐ AI 제안 ↔ 조문 정렬(흐름 있을 때만)
             analyzed_at=analyzed_at,
         )
 
@@ -603,20 +616,17 @@ class AnalysisPipeline:
         db: Session,
         work_flow,
         accident_codes: list[str],
-        llm_actions: list[str],
     ) -> list[CorrectiveAction]:
         """앵커 흐름의 조문 → 즉시조치 (flow_service.statute_actions 참조).
 
-        빈 목록이면 호출부가 기존 CI 경로로 폴백한다. GPT 상황 제안은 뒤에 보조로 붙인다 —
-        표준 목록이 못 담는 '이 사진 특이 상황'(시야 가림 등)이 그쪽에서 온다.
+        빈 목록이면 호출부가 기존 CI 경로로 폴백한다. GPT 상황 제안은 여기 섞지 않는다 —
+        ai_action_alignments로 흐름 조문과 대조해 별도 표시한다(2026-08-09 통합 화면).
         """
         rows = flow_service.statute_actions(work_flow, accident_codes, db)
         if not rows:
             return []
         actions = []
-        seen = set()
         for r in rows:
-            seen.add(r["title"])
             desc = f"{r['ref']} 원문: “{r['evidence']}”" if r.get("evidence") else r["ref"]
             actions.append(
                 CorrectiveAction(
@@ -628,20 +638,6 @@ class AnalysisPipeline:
                     # 설비 장착 의무(헤드가드 등)는 법정이라도 '지금 당장'이 아니라 planned다
                     urgency="immediate" if (r.get("hazard_hit") and r.get("actable")) else "planned",
                     confidence=1.0 if r["tier"] == "법정" else 0.7,
-                )
-            )
-        for text in llm_actions:
-            if not text or text in seen:
-                continue
-            seen.add(text)
-            actions.append(
-                CorrectiveAction(
-                    action_id=f"LLM-ACTION-{len(actions) + 1:03d}",
-                    title=text,
-                    description="AI가 이 사진의 상황에서 제안 — 법정 근거 아님",
-                    source_type="app:VisualObservation",
-                    urgency="immediate",
-                    confidence=0.5,
                 )
             )
         return actions
@@ -942,6 +938,68 @@ class AnalysisPipeline:
                 feature.model_dump(mode="json") for feature in response.risk_features
             ],
         )
+        # ★ 불비 원장 적립은 반드시 이 메서드 안에서 — 평가 하니스 3종이 DB write를
+        #   _persist_response monkeypatch로 무력화하므로, 밖에 두면 하니스가 원장을 오염시킨다.
+        self._persist_action_gaps(
+            db, response.analysis_id, response.work_flow, response.ai_action_alignments
+        )
+
+    def _persist_action_gaps(
+        self,
+        db: Session,
+        analysis_id: str,
+        work_flow,
+        alignments: list[AiActionAlignment],
+    ) -> None:
+        """무매칭 AI 제안을 '구체 조문 불비 후보' 원장에 누적 (divergence_detector 패턴).
+
+        status='unmatched'만 적립한다 — 'unaligned'(정렬 실패·무효)를 적립하면 원장이 오염된다.
+        같은 (제안문, 앵커) 조합은 occurrence_count로 누적 — 반복 등장이 곧 정책 신호다.
+        """
+        # 같은 요청 안 중복 제거 — 세션이 autoflush=False라 루프의 SELECT가 앞선 pending INSERT를
+        # 못 보고, 테이블에 unique 제약도 없어 같은 텍스트가 행 2개로 쪼개진다(신호 분산).
+        gaps, seen_texts = [], set()
+        for al in alignments:
+            if al.status == "unmatched" and al.text not in seen_texts:
+                seen_texts.add(al.text)
+                gaps.append(al)
+        if not gaps:
+            return
+        try:
+            from app.db.models import OhsActionStatuteGap
+
+            anchor = getattr(work_flow, "anchor", None)
+            gk = anchor.group_key if anchor else ""
+            for al in gaps:
+                existing = (
+                    db.query(OhsActionStatuteGap)
+                    .filter(
+                        OhsActionStatuteGap.action_text == al.text,
+                        OhsActionStatuteGap.anchor_group_key == gk,
+                    )
+                    .first()
+                )
+                if existing:
+                    existing.occurrence_count += 1
+                    existing.last_seen = datetime.now(timezone.utc)
+                    samples = existing.sample_analysis_ids or []
+                    if analysis_id not in samples and len(samples) < 5:
+                        existing.sample_analysis_ids = samples + [analysis_id]
+                else:
+                    db.add(
+                        OhsActionStatuteGap(
+                            action_text=al.text,
+                            anchor_group_key=gk,
+                            anchor_label=anchor.label if anchor else "",
+                            llm_reason=al.reason,
+                            occurrence_count=1,
+                            sample_analysis_ids=[analysis_id],
+                        )
+                    )
+            db.commit()
+        except Exception as exc:  # noqa: BLE001 — 적립 실패가 분석 응답을 막지 않는다
+            logging.getLogger(__name__).warning("[ActionGap] 불비 후보 적립 실패: %s", exc)
+            db.rollback()
 
     def _finding_status(
         self,

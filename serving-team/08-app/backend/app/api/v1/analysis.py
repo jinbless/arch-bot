@@ -124,6 +124,10 @@ async def get_analysis(
         result_data = {**result_data, "article_candidates": []}
     if result_data.get("work_flow") and not flow_service.enabled():
         result_data = {**result_data, "work_flow": None}
+    # ai_action_alignments는 흐름 파생 필드('흐름 있을 때만' 계약) — 흐름과 같은 스위치를 따른다.
+    # 빠뜨리면 flag-on 기간 기록이 off 조회에서 work_flow=None + 정렬만 남는 모순 응답이 된다.
+    if result_data.get("ai_action_alignments") and not flow_service.enabled():
+        result_data = {**result_data, "ai_action_alignments": []}
     return AnalysisResponse(**result_data)
 
 

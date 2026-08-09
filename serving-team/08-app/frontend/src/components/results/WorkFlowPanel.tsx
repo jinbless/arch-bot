@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { flowApi, type FlowGroup } from '../../api/flowApi';
-import type { FlowItem, FlowSlot, WorkFlow } from '../../types/analysis';
+import type { AiActionAlignment, CorrectiveAction, FlowItem, FlowSlot, WorkFlow } from '../../types/analysis';
 
 /**
  * 기인물 앵커 기준 **작업 전체 흐름** 패널 (표시전용).
@@ -32,10 +32,25 @@ const TIER_META: Record<string, { label: string; cls: string; title: string }> =
   },
 };
 
-const Item: React.FC<{ it: FlowItem }> = ({ it }) => {
+const Item: React.FC<{ it: FlowItem; actNow?: boolean; highlighted?: boolean; hlN?: number }> = ({
+  it,
+  actNow,
+  highlighted,
+  hlN,
+}) => {
   const tier = TIER_META[it.tier] ?? TIER_META.법정;
+  const el = useRef<HTMLLIElement>(null);
+  // '지금 당장' 스트립·AI 대조에서 눌러 이동해 온 항목 — hlN을 deps에 두어 같은 항목 재클릭도 다시 스크롤한다
+  useEffect(() => {
+    if (highlighted) el.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [highlighted, hlN]);
   return (
-    <li className="rounded-lg border border-gray-100 bg-white p-2.5">
+    <li
+      ref={el}
+      className={`rounded-lg border bg-white p-2.5 ${
+        highlighted ? 'border-orange-400 ring-2 ring-orange-200' : 'border-gray-100'
+      }`}
+    >
       <div className="flex items-start gap-2">
         <span
           title={tier.title}
@@ -43,6 +58,14 @@ const Item: React.FC<{ it: FlowItem }> = ({ it }) => {
         >
           {tier.label}
         </span>
+        {actNow && (
+          <span
+            title="이 사진의 사고형태 기준으로 위 ‘지금 당장’에 선별된 조문입니다"
+            className="mt-0.5 shrink-0 rounded border border-orange-400 bg-orange-50 px-1.5 py-0.5 text-[10px] font-semibold text-orange-700"
+          >
+            지금
+          </span>
+        )}
         <div className="min-w-0 flex-1">
           <p className="text-sm text-gray-800">{it.text}</p>
           {/* 이 항목이 왜 이 단계에 있는지 — 조문 원문 문구 그대로.
@@ -74,10 +97,19 @@ const Item: React.FC<{ it: FlowItem }> = ({ it }) => {
 
 const PREVIEW = 4;
 
-const Slot: React.FC<{ slot: FlowSlot }> = ({ slot }) => {
+const Slot: React.FC<{
+  slot: FlowSlot;
+  actNowRefs?: Set<string>;
+  hlRef?: string;
+  hlN?: number;
+}> = ({ slot, actNowRefs, hlRef, hlN }) => {
   const [open, setOpen] = useState(false);
   const 법정 = useMemo(() => slot.items.filter((i) => i.tier === '법정'), [slot.items]);
   const 권고 = useMemo(() => slot.items.filter((i) => i.tier === '권고'), [slot.items]);
+  // 이동 목적지가 미리보기(4건) 뒤에 접혀 있으면 펼친다 — 안 펼치면 스크롤 목적지가 DOM에 없다
+  useEffect(() => {
+    if (hlRef && slot.items.slice(PREVIEW).some((i) => i.ref === hlRef)) setOpen(true);
+  }, [hlRef, hlN, slot.items]);
   const shown = open ? slot.items : slot.items.slice(0, PREVIEW);
   const rest = slot.items.length - shown.length;
 
@@ -99,7 +131,13 @@ const Slot: React.FC<{ slot: FlowSlot }> = ({ slot }) => {
         <>
           <ol className="space-y-1.5 p-2.5">
             {shown.map((it, i) => (
-              <Item key={`${slot.key}-${i}`} it={it} />
+              <Item
+                key={`${slot.key}-${i}`}
+                it={it}
+                actNow={!!it.ref && actNowRefs?.has(it.ref)}
+                highlighted={!!hlRef && it.ref === hlRef}
+                hlN={hlN}
+              />
             ))}
           </ol>
           {(rest > 0 || open) && (
@@ -204,17 +242,30 @@ const AnchorPicker: React.FC<{ current: string; onPick: (k: string) => void; onC
   );
 };
 
-const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
+const WorkFlowPanel: React.FC<{
+  flow?: WorkFlow | null;
+  /** '지금 당장' — 이 흐름의 조문에서 자동 선별된 즉시조치(source_type=rule:Article) */
+  actNow?: CorrectiveAction[];
+  /** AI 자유 제안 ↔ 흐름 조문 정렬 결과 */
+  aiAlignments?: AiActionAlignment[];
+}> = ({ flow, actNow = [], aiAlignments = [] }) => {
   // 원본(모델이 인식한 결과)과 현재 보고 있는 흐름을 나눠 둔다 — 되돌아갈 길을 남긴다.
   const [current, setCurrent] = useState<WorkFlow | null>(null);
   const [picking, setPicking] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+  // 스트립·AI 대조에서 흐름 항목으로 이동 — n을 올려 같은 항목 재클릭도 다시 스크롤되게 한다.
+  // slot을 함께 들면 같은 조문이 여러 칸에 있을 때(제35조류) 매칭된 칸만 하이라이트한다.
+  const [hl, setHl] = useState<{ ref: string; slot: string; n: number }>({ ref: '', slot: '', n: 0 });
+  const jumpTo = (ref: string, slot = '') => setHl((p) => ({ ref, slot, n: p.n + 1 }));
+  const clearHl = () => setHl({ ref: '', slot: '', n: 0 });
+  const actNowRefs = useMemo(() => new Set(actNow.map((a) => a.action_id)), [actNow]);
 
   useEffect(() => {
     setCurrent(null);
     setPicking(false);
     setErr('');
+    setHl({ ref: '', slot: '', n: 0 });
   }, [flow]);
 
   const shown = current ?? flow;
@@ -232,6 +283,8 @@ const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
       });
       setCurrent(next);
       setPicking(false);
+      // 하이라이트는 원 흐름 기준 값 — 남겨두면 '되돌리기' 순간 stale ref로 자동 스크롤이 튄다
+      clearHl();
     } catch {
       setErr('해당 기인물의 흐름을 불러오지 못했습니다.');
     } finally {
@@ -250,8 +303,8 @@ const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
           이 기인물의 작업 흐름 <span className="text-slate-500">(참고 자료)</span>
         </h2>
         <p className="text-sm text-gray-500">
-          사진은 작업의 <strong>한 시점</strong>입니다. 사진에서 확인된 기인물을 기준으로, 그 앞뒤로 해야 할
-          일을 규칙·고시·가이드에서 모아 보여줍니다.
+          사진은 작업의 <strong>한 시점</strong>입니다. 사진에서 확인된 기인물을 기준으로 그 앞뒤로 해야 할
+          일을 규칙·고시·가이드에서 모으고, 그중 <strong>지금 당장 할 조치</strong>를 먼저 보여줍니다.
         </p>
       </div>
 
@@ -307,7 +360,10 @@ const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
             {corrected && (
               <button
                 type="button"
-                onClick={() => setCurrent(null)}
+                onClick={() => {
+                  setCurrent(null);
+                  clearHl(); // stale 하이라이트가 복귀 순간 자동 스크롤을 일으키지 않도록
+                }}
                 disabled={busy}
                 className="rounded-full border border-slate-300 bg-white px-2.5 py-1 text-xs text-slate-500 underline hover:text-slate-800 disabled:opacity-50"
               >
@@ -321,6 +377,55 @@ const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
           )}
         </div>
       </div>
+
+      {/* ①-1 '지금 당장' 스트립 — 즉시조치는 이 흐름 조문의 부분집합이다(한 카테고리, 두 시점).
+          별도 패널로 두면 같은 조문이 화면에 두 번 나와 출처가 흐려진다(2026-08-09 통합).
+          앵커를 직접 정정한 뒤에는 감춘다 — 선별은 원래 인식된 흐름 기준으로 계산된 값이라
+          정정된 흐름에 그대로 얹으면 근거 없는 조문을 가리키게 된다. */}
+      {!corrected && actNow.length > 0 && (
+        <div className="mb-3 rounded-lg border border-orange-300 bg-orange-50 p-3">
+          <div className="flex flex-wrap items-baseline gap-2">
+            <h3 className="text-sm font-bold text-orange-900">지금 당장</h3>
+            <span className="text-[11px] text-orange-800">
+              아래 흐름의 조문 중 이 사진의 사고형태 기준으로 자동 선별 — 누르면 근거 위치로 이동합니다
+            </span>
+          </div>
+          <ol className="mt-2 space-y-1">
+            {actNow.map((a, i) => (
+              <li key={a.action_id}>
+                <button
+                  type="button"
+                  onClick={() => jumpTo(a.action_id)}
+                  className="flex w-full items-start justify-between gap-2 rounded-lg border border-orange-200 bg-white px-3 py-2 text-left hover:border-orange-400"
+                >
+                  <span className="text-sm font-medium text-gray-900">
+                    {i + 1}. {a.title}
+                  </span>
+                  <span className="flex shrink-0 items-center gap-1.5">
+                    {a.urgency !== 'immediate' && (
+                      <span
+                        title="법정 의무지만 구매·설치 등이 필요해 ‘지금 당장’보다는 계획해서 할 조치입니다"
+                        className="text-[10px] text-gray-400"
+                      >
+                        계획 조치
+                      </span>
+                    )}
+                    <span className="rounded border border-orange-300 bg-orange-50 px-1.5 py-0.5 text-[10px] font-semibold text-orange-700">
+                      {a.action_id}
+                    </span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+      {corrected && (actNow.length > 0 || aiAlignments.length > 0) && (
+        <p className="mb-3 rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-xs text-slate-600">
+          직접 고른 기인물 기준에서는 ‘지금 당장’ 선별과 AI 제안 대조를 다시 계산하지 않습니다 — 아래
+          흐름 항목을 직접 확인하세요.
+        </p>
+      )}
 
       {/* ② 신뢰 고지 — tooltip에 숨기지 않는다(폰 스크린샷 전달이 주 경로) */}
       <div className="mb-3 space-y-1 rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-xs leading-relaxed text-slate-700">
@@ -351,12 +456,69 @@ const WorkFlowPanel: React.FC<{ flow?: WorkFlow | null }> = ({ flow }) => {
         </p>
       </div>
 
-      {/* ③ 타임라인 — 단계에 번호를 매기지 않는다 */}
+      {/* ③ 타임라인 — 단계에 번호를 매기지 않는다.
+          '지금' 배지는 PRECHECK·EXEC에만 준다 — 선별 모집단이 그 두 칸이라, 같은 조문이
+          다른 칸에도 있으면(제35조류) 배지가 엉뚱한 시점에 붙는다. */}
       <div className="space-y-2">
         {slots.map((s) => (
-          <Slot key={s.key} slot={s} />
+          <Slot
+            key={s.key}
+            slot={s}
+            actNowRefs={
+              !corrected && (s.key === 'PRECHECK' || s.key === 'EXEC') ? actNowRefs : undefined
+            }
+            hlRef={corrected || (hl.slot !== '' && hl.slot !== s.key) ? '' : hl.ref}
+            hlN={hl.n}
+          />
         ))}
       </div>
+
+      {/* ④ AI 제안 대조 — matched는 조문으로 점프, unmatched는 '구체 조문 불비 후보'(백엔드 원장 적립).
+          unaligned(정렬 실패·구 기록)는 불비로 표기하지 않는다 — 판정과 판정 실패는 다른 상태다. */}
+      {!corrected && aiAlignments.length > 0 && (
+        <div className="mt-3 rounded-lg border border-violet-200 bg-violet-50/60 p-3">
+          <div className="flex flex-wrap items-baseline gap-2">
+            <h3 className="text-sm font-bold text-violet-900">AI 제안 대조</h3>
+            <span className="text-[11px] text-violet-700">
+              AI가 사진에서 낸 조치 제안을 위 확정 의무와 대조한 결과입니다 (AI 정렬 — 검수 전)
+            </span>
+          </div>
+          <ul className="mt-2 space-y-1.5">
+            {aiAlignments.map((al, i) => (
+              <li key={i} className="rounded-lg border border-violet-100 bg-white px-3 py-2">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <span className="min-w-0 flex-1 text-sm text-gray-800">{al.text}</span>
+                  {al.status === 'matched' ? (
+                    <button
+                      type="button"
+                      onClick={() => jumpTo(al.matched_ref, al.slot_key)}
+                      title={al.reason || al.matched_title}
+                      className="shrink-0 rounded-full border border-emerald-300 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 hover:border-emerald-500"
+                    >
+                      {al.matched_ref}와 같은 취지 →
+                    </button>
+                  ) : al.status === 'unmatched' ? (
+                    <span
+                      title={al.reason || undefined}
+                      className="shrink-0 rounded-full border border-violet-300 bg-violet-50 px-2 py-0.5 text-[11px] font-medium text-violet-700"
+                    >
+                      흐름 조문에 대응 없음 — 구체 조문 불비 후보
+                    </span>
+                  ) : (
+                    <span className="shrink-0 rounded-full border border-gray-300 bg-gray-50 px-2 py-0.5 text-[11px] text-gray-500">
+                      대조 전
+                    </span>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-[11px] leading-relaxed text-violet-800/80">
+            ‘대응 없음’은 위법이 아니라는 뜻이 아닙니다 — 포괄 의무조항(산업안전보건법 제38·39조)이
+            적용될 수 있습니다. 대응 없는 제안은 별도 원장에 적립해 구체 조문 공백 검토 자료로 씁니다.
+          </p>
+        </div>
+      )}
 
       <p className="mt-3 text-[11px] text-gray-400">
         총 {total}건 · 출처: 산업안전보건법·시행령·시행규칙, 산업안전보건기준규칙과 같은 규칙 별표 2·3·4,

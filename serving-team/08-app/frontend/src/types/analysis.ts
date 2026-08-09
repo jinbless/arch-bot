@@ -191,6 +191,7 @@ export interface AnalysisResponse {
   unmapped_safety_terms?: UnmappedSafetyTerm[]; // WS-SAFETY-5 (표시전용)
   article_candidates?: ArticleCandidate[]; // ⭐ Track A cue-pool union 조문 후보(표시전용, flag off면 [])
   work_flow?: WorkFlow | null; // ⭐ 기인물 앵커 기준 작업 흐름(표시전용, flag off면 null)
+  ai_action_alignments?: AiActionAlignment[]; // ⭐ AI 제안 ↔ 흐름 조문 정렬(흐름 있을 때만)
   analyzed_at: string;
 }
 
@@ -230,6 +231,19 @@ export interface WorkFlow {
   alternates: FlowAnchor[]; // 앵커 정정 후보 — 앵커 정확도 0.711이라 필수
   slots: FlowSlot[];
   reviewed: boolean; // 항목 라벨 사람 검수 완료 여부
+}
+
+/** GPT 자유 조치 제안 1건 ↔ 흐름 조문(닫힌 집합) 정렬 결과.
+ *  unmatched = 모델이 '대응 없음' 판정(구체 조문 불비 후보로 백엔드 원장에 적립됨).
+ *  unaligned = 정렬 실패·대조 전 — 무매칭과 다른 상태다(불비로 표시하면 안 된다). */
+export interface AiActionAlignment {
+  text: string;
+  status: 'matched' | 'unmatched' | 'unaligned' | string;
+  matched_ref: string;
+  matched_title: string;
+  slot_key: string;
+  slot_label: string;
+  reason: string;
 }
 
 export interface AnalysisHistoryItem {
