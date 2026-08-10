@@ -130,6 +130,21 @@ def main() -> None:
             if (r.get("match") or "").strip().lower() == "y":
                 jy[r["photo_file"]].add(norm(r["article_code"]))
 
+    # ── 흐름 기준 유효율: 선택 그룹의 **흐름**이 gold 조문을 포함하는가 ──
+    # 앵커의 목적은 흐름 제공이다. 좌표가 어긋나도 상속으로 흐름이 정답 조문을 담으면
+    # 감독관이 지적한 의무가 화면에 뜬다(A0-a 발견: 오류 9건이 비계 공통 절 미상속이었다).
+    # exact(좌표)와 별도 축 — 정의 변경이 아니라 추가 지표다.
+    flow_refs_by_key: dict[str, set] = {}
+    try:
+        for fr in json.loads((ART / "flow_slice_all.json").read_text(encoding="utf-8"))["rows"]:
+            refs = {m.group(0) for its in (fr.get("items") or {}).values() for it in its
+                    if (m := re.match(r"제\d+조(의\d+)?", (it.get("ref") or "").strip()))}
+            for kk in {fr.get("src_key"), fr.get("no")}:
+                if kk:
+                    flow_refs_by_key.setdefault(kk, set()).update(refs)
+    except Exception as exc:  # noqa: BLE001 — 없으면 흐름 지표만 생략
+        print(f"⚠ flow_slice_all 로드 실패 — 흐름 기준 지표 생략: {exc}")
+
     rows, skipped = [], []
     for pf, ys in sorted(jy.items()):
         if pf not in rcache:
@@ -158,18 +173,23 @@ def main() -> None:
         hit_exact = bool(truth & pred)
         hit_jeol = bool({t[:3] for t in truth} & {p_[:3] for p_ in pred})
         hit_legacy = bool({t[2:] for t in truth} & pred_legacy)
+        picked_flow_refs = set()
+        for gk in (g.split(" ::")[0].strip() for g in rcache[pf].get("group_keys", [])):
+            picked_flow_refs |= flow_refs_by_key.get(gk, set())
+        hit_flow = hit_exact or bool(ys & picked_flow_refs)
 
         def _k(t):
             return tuple(9999 if x is None else x for x in t)
         rows.append({"photo": pf, "truth": [list(t) for t in sorted(truth, key=_k)],
                      "pred": [list(t) for t in sorted(pred, key=_k)],
                      "gimulmul": rcache[pf].get("gimulmul", []), "exact": hit_exact, "jeol": hit_jeol,
-                     "legacy_exact": hit_legacy, "n_pred": len(pred)})
+                     "legacy_exact": hit_legacy, "flow_valid": hit_flow, "n_pred": len(pred)})
 
     n = len(rows)
     ex = boot([1.0 if r["exact"] else 0.0 for r in rows])
     jl = boot([1.0 if r["jeol"] else 0.0 for r in rows])
     lg = boot([1.0 if r["legacy_exact"] else 0.0 for r in rows])
+    fv = boot([1.0 if r["flow_valid"] else 0.0 for r in rows])
     miss = [r for r in rows if not r["jeol"]]
     empty_pred = sum(1 for r in rows if not r["pred"])
 
@@ -185,6 +205,8 @@ def main() -> None:
            "jeol_match": {"point": round(jl[0], 3), "ci95": [round(jl[1], 3), round(jl[2], 3)]},
            "legacy_exact_match": {"point": round(lg[0], 3), "ci95": [round(lg[1], 3), round(lg[2], 3)],
                                   "_note": "편·장을 버리고 (절,관)만 비교하던 구 방식. 이 값과 exact_match의 차이가 부풀림 폭이다."},
+           "flow_valid": {"point": round(fv[0], 3), "ci95": [round(fv[1], 3), round(fv[2], 3)],
+                          "_note": "흐름 기준 유효율 = exact ∪ (선택 그룹 흐름이 gold 조문 포함). 상속을 반영하는 실무 지표."},
            "empty_prediction": empty_pred,
            "complete_miss": len(miss),
            "top_gimulmul_on_miss": top_miss.most_common(10),
@@ -193,6 +215,7 @@ def main() -> None:
 
     print(f"=== 앵커(기인물) 인식 정확도 — 채점 {n}장 (정답 좌표 없어 제외 {len(skipped)}장) ===")
     print(f"  관 단위 정확 일치  {ex[0]:.3f}  CI[{ex[1]:.3f},{ex[2]:.3f}]")
+    print(f"  흐름 기준 유효율   {fv[0]:.3f}  CI[{fv[1]:.3f},{fv[2]:.3f}]   ← exact ∪ 선택 흐름의 gold 조문 포함")
     print(f"  절 단위 일치       {jl[0]:.3f}  CI[{jl[1]:.3f},{jl[2]:.3f}]   ← 상위 흐름 공유 기준")
     print(f"  (구 방식 편·장 무시 {lg[0]:.3f}  ← 부풀림 {lg[0] - ex[0]:+.3f})")
     print(f"  완전 오인식(절도 불일치) {len(miss)}장 ({len(miss)/max(n,1):.1%}) · 예측 자체가 빈 사진 {empty_pred}장")
