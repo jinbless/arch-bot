@@ -32,6 +32,7 @@ sys.path.insert(0, str(HERE.parent))
 
 import intake_photos as IP          # noqa: E402 — VIS_SYS(v2)·VIS_SCHEMA·data_url
 import rank_ab_gold as R            # noqa: E402 — RESOLVE 프롬프트·카탈로그·scene_text
+from measure_anchor_accuracy import norm_gk  # noqa: E402 — 서빙과 같은 키 정규화
 
 ART = R.ART
 PHOTO_DIR = R.REPO / "real-test-photo" / "label_photo"
@@ -143,12 +144,13 @@ def main() -> None:
                      encoding="utf-8")
 
     # ── 채점 (measure_anchor_accuracy / vision_v2_ab와 동일 규칙) ──
+    cat_set = {l.split(" ::")[0].strip() for l in R.catalog_text.splitlines() if l.strip()}
     rows = []
     for p in photos:
         run = cache.get(p)
         if not run or "resolve" not in run:
             continue
-        picked = [g.split(" ::")[0].strip() for g in run["resolve"].get("group_keys", [])]
+        picked = [norm_gk(g, cat_set) for g in run["resolve"].get("group_keys", [])]
         pred = set().union(*(gkey_coord.get(k, set()) for k in picked)) if picked else set()
         exact_b = bool(truth[p] & pred)
         frefs = set().union(*(flow_refs_by_key.get(k, set()) for k in picked)) if picked else set()

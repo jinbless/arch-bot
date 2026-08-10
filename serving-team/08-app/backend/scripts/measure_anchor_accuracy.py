@@ -39,6 +39,25 @@ def norm(c: str) -> str:
     return f"제{m.group(1)}조" if (m and not m.group(2)) else c
 
 
+def norm_gk(gk: str, cat_keys: set | None = None) -> str:
+    """RESOLVE가 낸 group_key 정규화 — 서빙(cue_article_service._norm_gk)과 같은 규칙.
+
+    ① 카탈로그 줄 전체 복사(`… ::기인물=…`) → 설명부 제거
+    ② 존재하지 않는 하위 계층 지어붙임(2026-08-10 발견, `절8 사출성형기 등 > 관8?`) →
+       카탈로그 키가 앞부분과 일치(경계 공백/`>`)하면 가장 긴 카탈로그 키로.
+    정규화 대상 카탈로그 = **캐시에 적힌 그때의 카탈로그**(cat_keys) — 지금 규칙으로
+    재계산하면 LLM이 본 보기와 어긋난다.
+    """
+    s = (gk or "").split(" ::")[0].strip()
+    if not cat_keys or s in cat_keys:
+        return s
+    best = ""
+    for k in cat_keys:
+        if len(k) > len(best) and s.startswith(k) and s[len(k):len(k) + 1] in (" ", ">"):
+            best = k
+    return best or s
+
+
 def coord(section: str) -> tuple:
     p = j = jeol = gwan = None
     for tok in re.split(r"[>\s]+", section or ""):
@@ -164,8 +183,9 @@ def main() -> None:
             skipped.append(pf)
             continue
         pred, pred_legacy = set(), set()
-        # LLM이 카탈로그 줄 전체(`… ::기인물=… (N조)`)를 복사하는 일이 있다. 서빙과 같은 규칙으로 정리한다.
-        for gk in (g.split(" ::")[0].strip() for g in rcache[pf].get("group_keys", [])):
+        # 서빙(_norm_gk)과 같은 규칙으로 키를 정규화한다 — 줄 복사 + 지어붙인 하위 계층.
+        cat_set = set(cat_keys or [])
+        for gk in (norm_gk(g, cat_set) for g in rcache[pf].get("group_keys", [])):
             pred |= gkey_coord.get(gk, set())
             pred_legacy |= gkey_coord_legacy.get(gk, set())
         # 관 단위가 달라도 같은 절이면 '절 일치'로 따로 센다(상위 흐름은 공유되므로 실무상 유효).
@@ -174,7 +194,7 @@ def main() -> None:
         hit_jeol = bool({t[:3] for t in truth} & {p_[:3] for p_ in pred})
         hit_legacy = bool({t[2:] for t in truth} & pred_legacy)
         picked_flow_refs = set()
-        for gk in (g.split(" ::")[0].strip() for g in rcache[pf].get("group_keys", [])):
+        for gk in (norm_gk(g, cat_set) for g in rcache[pf].get("group_keys", [])):
             picked_flow_refs |= flow_refs_by_key.get(gk, set())
         hit_flow = hit_exact or bool(ys & picked_flow_refs)
 

@@ -276,14 +276,25 @@ _RESOLVE_MEMO: dict[str, dict] = {}
 _RESOLVE_MEMO_MAX = 32
 
 
-def _norm_gk(gk: str) -> str:
+def _norm_gk(gk: str, cat_keys: set | None = None) -> str:
     """RESOLVE가 낸 group_key 정리.
 
     ★ 카탈로그 한 줄이 `절3 강관비계 및 강관틀비계 ::기인물=… (4조)` 형태라, LLM이 키만 떼지 않고
       **줄 전체를 복사**하는 일이 있다(실측 129장 중 5장). 그러면 조회가 조용히 실패하고
       흐름이 안 뜬다 — graceful degrade라 아무도 모른다. 설명부를 떼어낸다.
+    ★★ 존재하지 않는 하위 계층을 지어붙이는 일도 있다(2026-08-10 terra 실험 부산물 —
+      51장 중 1장 `절8 사출성형기 등 > 관8?`). 카탈로그 키가 키의 앞부분과 일치하고 경계가
+      공백/`>`이면 **가장 긴** 카탈로그 키로 정규화한다. 측정(measure_anchor_accuracy.norm_gk)과
+      같은 규칙 — 여기만 다르면 측정한 조건과 서비스하는 조건이 갈린다.
     """
-    return (gk or "").split(" ::")[0].strip()
+    s = (gk or "").split(" ::")[0].strip()
+    if not cat_keys or s in cat_keys:
+        return s
+    best = ""
+    for k in cat_keys:
+        if len(k) > len(best) and s.startswith(k) and s[len(k):len(k) + 1] in (" ", ">"):
+            best = k
+    return best or s
 
 
 async def resolve(scene: str) -> dict:
@@ -296,7 +307,8 @@ async def resolve(scene: str) -> dict:
     rv = await _chat(model, RESOLVE_SYS,
                      f"[장면]\n{scene}\n\n[기인물 그룹 카탈로그]\n{kn['catalog_text']}\n\n주요 기인물의 group_key 선택.",
                      RESOLVE_SCHEMA)
-    rv["group_keys"] = [_norm_gk(g) for g in (rv.get("group_keys") or [])]
+    cat_keys = {l.split(" ::")[0].strip() for l in kn["catalog_text"].splitlines() if l.strip()}
+    rv["group_keys"] = [_norm_gk(g, cat_keys) for g in (rv.get("group_keys") or [])]
     if len(_RESOLVE_MEMO) >= _RESOLVE_MEMO_MAX:      # 무한 증가 방지 — 가장 오래된 것부터 버린다
         _RESOLVE_MEMO.pop(next(iter(_RESOLVE_MEMO)))
     _RESOLVE_MEMO[key] = rv
