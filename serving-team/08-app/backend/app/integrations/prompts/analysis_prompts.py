@@ -33,6 +33,17 @@ Return only what is visible or strongly implied by visible evidence:
 - name은 위험 발생 양상 자체 (사고형). PPE state 부족이나 환경 자체는 위험요소가 아님
   (예: '안전모 미착용' → '낙하물' 또는 '추락' name; '안전모 미착용'은 description/preventive_measures에 기재)
 
+## 관찰 체크리스트 (v2, 2026-08-10 — gold 51장 A/B: 앵커 exact 0.725→0.784·악화 0)
+
+다음 계통은 위험 판정의 결정적 단서인데 서술에서 자주 누락된다. 사진에 **보이면 반드시**
+visual_observations와 visual_cues에 포함하라 (보이지 않으면 적지 말 것 — 부재 추정 금지):
+- 소방·화기: 소화기·소화전·흡연 표지·재떨이·용접 불꽃 흔적
+- 전기 계통: 분전반·배전반과 그 덮개 상태, 접지선·접지 단자, 누전차단기, 콘센트·멀티탭
+- 밀폐·차단: 출입구를 덮은 비닐·시트 밀폐, 경고표지·출입금지 표지, 임시 차단막
+- 환기·배기: 후드·덕트·국소배기장치
+- 대형 설비의 부위: 크레인 마스트·지브·훅, 곤돌라, 리프트 — 일부만 보여도 부위를 명시
+- 기계 회전부의 방호덮개 상태 (명확히 보이는 경우만)
+
 모든 user-facing 텍스트(observations, cues, hazards, descriptions, preventive_measures)는 반드시 한국어로 작성.
 JSON 필드명과 risk_feature_candidates enum 코드는 영어 유지.
 Do not choose legal articles, penalties, KOSHA guide numbers, or final violations."""

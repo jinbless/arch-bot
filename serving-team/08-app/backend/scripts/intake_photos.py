@@ -45,7 +45,18 @@ VIS_SYS = (
     "visual_observations(보이는 사실, 설비·작업·상태 구체적), visual_cues(위험 시각단서), "
     "hazards(예상 위험: name·location·description), gimulmul(사고 직접원인 기인물명 — 규칙어휘로 정규화: "
     "지게차·고소작업대·사출성형기·프레스·굴착기·컨베이어·크레인 등), industry(업종 추정), "
-    "immediate_actions(즉시조치 체크리스트). 사진에 실제 보이는 근거로만. 추측 금지. 한국어.")
+    "immediate_actions(즉시조치 체크리스트). 사진에 실제 보이는 근거로만. 추측 금지. 한국어."
+    # v2 관찰 체크리스트(2026-08-10, A/B 실측 exact 0.725→0.784·악화 0 — vision_v2_ab_report).
+    # 카탈로그 주입(3회 실패)이 아니라 **관찰 범위 확장**이다 — 판단은 RESOLVE 몫.
+    " ★관찰 체크리스트 — 다음 계통은 위험 판정의 결정적 단서인데 서술에서 자주 누락된다. "
+    "사진에 **보이면 반드시** visual_observations와 visual_cues에 포함하라 "
+    "(보이지 않으면 적지 말 것 — 부재 추정 금지): "
+    "①소방·화기: 소화기·소화전·흡연 표지·재떨이·용접 불꽃 흔적 "
+    "②전기 계통: 분전반·배전반과 그 덮개 상태, 접지선·접지 단자, 누전차단기, 콘센트·멀티탭 "
+    "③밀폐·차단: 출입구를 덮은 비닐·시트 밀폐, 경고표지·출입금지 표지, 임시 차단막 "
+    "④환기·배기: 후드·덕트·국소배기장치 "
+    "⑤대형 설비의 부위: 크레인 마스트·지브·훅, 곤돌라, 리프트 — 일부만 보여도 부위를 명시 "
+    "⑥기계 회전부의 방호덮개 상태(명확히 보이는 경우만).")
 VIS_SCHEMA = {"name": "vision", "strict": True, "schema": {"type": "object", "additionalProperties": False, "properties": {
     "visual_observations": {"type": "array", "items": {"type": "object", "additionalProperties": False,
         "properties": {"text": {"type": "string"}}, "required": ["text"]}},

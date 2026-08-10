@@ -55,9 +55,12 @@ def main() -> None:
     print(f"사진 {len(photos)}장 · 카탈로그 {R.catalog_text.count(chr(10)) + 1}종 · model={R.MODEL}", flush=True)
 
     keys = sorted(l.split(" ::")[0] for l in R.catalog_text.splitlines() if l.strip())
-    # ★ 해시는 **줄 전체**로 — 키만 해시하면 판별 단서(::기인물=…) 서술이 바뀌어도 캐시가
-    #   재사용되어, LLM이 새 보기를 본 적 없는 채로 옛 답을 침묵 보고한다(A0 적대적 검토 3번).
-    sha = hashlib.sha256("\n".join(sorted(R.catalog_text.splitlines())).encode()).hexdigest()[:12]
+    # ★ 해시는 **줄 전체 + Vision 캐시 내용**으로 — 키만 해시하면 판별 단서 서술이 바뀌어도,
+    #   카탈로그만 해시하면 Vision 프롬프트가 바뀌어 장면 서술이 달라져도 캐시가 재사용되어
+    #   LLM이 새 입력을 본 적 없는 채로 옛 답을 침묵 보고한다(A0 적대적 검토 3번 + v2 채택).
+    vis_sha = hashlib.sha256(R.IN_VISION.read_bytes()).hexdigest()[:12]
+    sha = hashlib.sha256(("\n".join(sorted(R.catalog_text.splitlines())) + "|vis:" + vis_sha)
+                         .encode()).hexdigest()[:12]
 
     cache, fails = {}, []
     if OUT.exists():
