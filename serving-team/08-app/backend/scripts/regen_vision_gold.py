@@ -31,6 +31,8 @@ GOLD_CSV = PHOTO_DIR / "label_curation_gold.csv"
 OUT = ART / "intake_vision_gold.json"
 AB_CACHE = ART / "vision_v2_ab_cache.json"
 VISION_MODEL = "gpt-4.1"
+# ★ 프롬프트가 바뀔 때마다 갱신 — 캐시에 이 태그가 박혀 어느 프롬프트의 산물인지 남는다.
+VIS_TAG = "v3-smoke-cues-2026-08-10"
 
 
 def main() -> None:
@@ -46,18 +48,29 @@ def main() -> None:
             photos.add(r["photo_file"])
     photos = sorted(p for p in photos if (PHOTO_DIR / p).exists())
 
+    # A/B 캐시 재사용은 **그 캐시가 지금 프롬프트로 만든 것일 때만**(vis_sys_sha 대조).
+    # v2→v3처럼 프롬프트가 바뀌면 재사용이 곧 침묵 오염이다(rerun_resolve_cache의 교훈).
+    import hashlib
+    cur_sha = hashlib.sha256(IP.VIS_SYS.encode()).hexdigest()[:12]
     reuse = {}
     if AB_CACHE.exists():
-        for name, run in json.loads(AB_CACHE.read_text(encoding="utf-8")).get("runs", {}).items():
-            if "vision" in run:
-                reuse[name] = run["vision"]
+        ab = json.loads(AB_CACHE.read_text(encoding="utf-8"))
+        if (ab.get("_manifest") or {}).get("vis_sys_sha") == cur_sha:
+            for name, run in ab.get("runs", {}).items():
+                if "vision" in run:
+                    reuse[name] = run["vision"]
+        else:
+            print("A/B 캐시는 다른 프롬프트 산물 — 재사용 안 함")
 
     if OUT.exists():
-        bak = OUT.with_suffix(".v1.json")
+        old_tag = json.loads(OUT.read_text(encoding="utf-8")).get("_vis_prompt_tag", "v1")
+        bak = OUT.with_suffix(f".{old_tag.split('-')[0]}.json")
         if not bak.exists():
             bak.write_text(OUT.read_text(encoding="utf-8"), encoding="utf-8")
-            print(f"옛 캐시 백업 → {bak.name}")
+            print(f"옛 캐시({old_tag}) 백업 → {bak.name}")
 
+    from build_article_signatures import _ensure_key
+    _ensure_key()
     from openai import OpenAI
     client = OpenAI()
 
@@ -87,8 +100,8 @@ def main() -> None:
                     print(f"  {i}/{len(todo)}", flush=True)
 
     OUT.write_text(json.dumps(
-        {"_note": "gold Vision 캐시 v2(관찰 체크리스트) — intake_photos.VIS_SYS와 동일 프롬프트",
-         "_vis_prompt_tag": "v2-checklist-2026-08-10", "_model": VISION_MODEL,
+        {"_note": "gold Vision 캐시 — intake_photos.VIS_SYS와 동일 프롬프트",
+         "_vis_prompt_tag": VIS_TAG, "_vis_sys_sha": cur_sha, "_model": VISION_MODEL,
          "photos": [{"photo": n, "result": results[n]} for n in sorted(results)]},
         ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"완료 {len(results)}장 · 실패 {len(fails)} → {OUT.name}")
