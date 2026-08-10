@@ -108,7 +108,8 @@ def main() -> None:
                   for k, g in gim.items()}
 
     lines = [l for l in R.catalog_text.splitlines() if l.strip()]
-    cat_sha = hashlib.sha256("\n".join(sorted(l.split(" ::")[0] for l in lines)).encode()).hexdigest()[:12]
+    # 줄 전체 해시 — 판별 단서 서술 변경도 무효화 대상이다(rerun_resolve_cache와 동일 규칙)
+    cat_sha = hashlib.sha256("\n".join(sorted(lines)).encode()).hexdigest()[:12]
     manifest = {"catalog_sha": cat_sha, "model": R.MODEL,
                 "prompt_sha": hashlib.sha256((R.RESOLVE_SYS + CONF_SYS).encode()).hexdigest()[:12],
                 "schema_sha": hashlib.sha256(json.dumps(
