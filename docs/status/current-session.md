@@ -3,6 +3,23 @@
 > ⚠️ 이 문서는 2026-06-14 이후 갱신이 끊겼고, 그 뒤 작업은 `docs/dev-notes/`와 메모리에만 있었다.
 > **최신 상태는 아래 '2026-08-09~12' 절부터** 읽는다.
 
+## ⭐ 추락·붕괴 카탈로그 편입 완료 (2026-08-13 — exact 0.959/97장, prod 실증)
+
+개구부 사진의 흐름 누락(경북환경 prod 실증: FALL 1.0인데 앵커=잔재물·추락 조문 0건)의 근본
+수리 — 절1 추락·절2 붕괴를 cross_cutting에서 빼 RESOLVE 카탈로그 106종으로(비계 선례).
+정본 = [fall-flow-catalog-2026-08-13.md](../dev-notes/fall-flow-catalog-2026-08-13.md) ·
+지표 정본 = [evaluation-baseline.md](evaluation-baseline.md) 앵커 절(**exact 0.959 · 흐름
+0.990, 97장** — 모수 51→97, per-photo G1으로 연속성 보장).
+
+- 게이트 전건 PASS(사전등록 `measure_fall_catalog_gates.py`): G1 히트→미스 0 · **G-FIRST**(주
+  앵커 절도 — exact가 집합 교집합이라 별도 게이트 필수) 0 · 신규 채점 46장 전부 exact.
+- prod 재분석: 앵커 절1(장소)·'지금 당장' 6건·제43조 개구부 방호 matched 최상단. 배포 완료.
+- basics 45→33건(4주제) — 추락·붕괴 주제 승격 제거. always 재빌드에 B-B evidence 지연분 동반.
+- ⚠ **Track A(judge) 재개 시 선행 의무**: place_gold 개구부 3행 재라벨(place→anchor 절1) —
+  그 전에는 measure_place_routing이 assert로 실패(의도된 알람).
+- 후속 후보: 장3 통로 편입(계단 제26~30) · 장비 앵커 사진의 추락 체인 병기 · SR rtype 재검토
+  (제47 구명장구 immediate 어색함).
+
 ## ✅ 만화 카드 확정 3건 완료 (2026-08-12 사용자 지시 → 같은 날 배포, 커밋 2e80e14)
 
 **전부 prod 배포·검증 완료** — 정본 = [article-cartoon-cards-2026-08-12.md](../dev-notes/article-cartoon-cards-2026-08-12.md):
