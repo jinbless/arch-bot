@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { flowApi, type FlowGroup } from '../../api/flowApi';
 import { TrustBadge } from './SourceBadge';
 import type { AiActionAlignment, CorrectiveAction, FlowItem, FlowSlot, WorkFlow } from '../../types/analysis';
@@ -346,6 +347,75 @@ const WorkFlowPanel: React.FC<{
   if (!flow || !shown) return null;
   const { anchor, alternates, slots, reviewed } = shown;
   const total = slots.reduce((n, s) => n + s.items.length, 0);
+
+  // ── 장소성 라우팅(Track A): 위험이 장소 자체에서 와서 앵커 흐름이 성립하지 않는 사진 ──
+  // 기인물 없음 설명 + 기본 안전수칙 주제 카드. 정정 UI(대안 칩·직접 찾기)는 유지한다 —
+  // judge 오판 시 사용자가 실제 기인물을 골라 정상 흐름으로 복구하는 길(pick → corrected 렌더).
+  if (anchor.kind === '기인물없음') {
+    return (
+      <section className="rounded-xl border border-slate-300 bg-white p-4">
+        <h2 className="text-lg font-bold text-gray-900">이 현장이 늘 갖춰야 하는 것</h2>
+        <div className="mt-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-gray-700">
+          <p>
+            이 {inputNoun}의 위험은 특정 기계·설비·물질(기인물)이 아니라{' '}
+            <strong>장소·통행 환경</strong>에서 옵니다.
+            {anchor.kind_why ? ` ${anchor.kind_why}.` : ''} 그래서 특정 기인물의 작업 흐름 대신, 어느
+            현장이든 늘 지켜야 하는 기본 안전수칙에서 관련 주제를 보여드립니다.
+          </p>
+        </div>
+        <ul className="mt-3 space-y-2">
+          {(shown.basics_topics ?? []).map((t) => (
+            <li key={t.name}>
+              <Link
+                to="/basics"
+                className="flex items-baseline justify-between gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 hover:border-slate-500"
+              >
+                <span>
+                  <strong className="text-sm text-gray-900">{t.name}</strong>
+                  <span className="ml-2 text-xs text-gray-500">{t.desc}</span>
+                </span>
+                <span className="shrink-0 text-xs text-primary-700">{t.n}건 보기 →</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-3 border-t border-dashed border-slate-200 pt-2">
+          <p className="text-xs text-gray-600">
+            {inputNoun}에 실제 기인물(기계·설비·물질)이 있다고 보시면 직접 골라 주세요 — 그 기인물의
+            작업 흐름으로 전환됩니다.
+            {alternates.length > 0 ? ` 함께 확인된 후보:` : ''}
+          </p>
+          <div className="mt-1.5 flex flex-wrap gap-1.5">
+            {alternates.map((a) => (
+              <button
+                key={a.group_key}
+                type="button"
+                onClick={() => pick(a.group_key)}
+                title={a.path}
+                disabled={busy}
+                className="rounded-full border border-slate-300 bg-white px-2.5 py-1 text-xs text-slate-700 hover:border-slate-500 disabled:opacity-50"
+              >
+                {a.label}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={() => setPicking((v) => !v)}
+              disabled={busy}
+              className="rounded-full border border-dashed border-slate-400 bg-white px-2.5 py-1 text-xs text-slate-600 hover:border-slate-600 disabled:opacity-50"
+            >
+              {picking ? '검색 닫기' : '＋ 목록에서 직접 찾기'}
+            </button>
+            {busy && <span className="text-xs text-gray-400">불러오는 중…</span>}
+          </div>
+          {err && <p className="mt-1.5 text-xs text-red-600">{err}</p>}
+          {picking && (
+            <AnchorPicker current="" busy={busy} onPick={pick} onClose={() => setPicking(false)} />
+          )}
+        </div>
+      </section>
+    );
+  }
 
   // 스트립 점프의 목적 칸 — 선별 모집단(PRECHECK/EXEC)에서 백엔드와 같은 순서로 첫 칸을 찾는다
   // (flow_service.statute_actions의 seen-dedup과 동일 규칙). slot 없이 점프하면 같은 조문이

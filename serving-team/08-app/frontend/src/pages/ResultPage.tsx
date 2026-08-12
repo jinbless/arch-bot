@@ -162,8 +162,16 @@ const ResultPage: React.FC = () => {
         <>
           <StageHeading
             n={nFlow}
-            title="이 기계·작업은 원래 이렇게 관리합니다"
-            sub="검수 체계를 거친 자료 · ‘지금 당장’ 조치 포함"
+            title={
+              analysis.work_flow?.anchor.kind === '기인물없음'
+                ? '이 현장이 늘 갖춰야 하는 것'
+                : '이 기계·작업은 원래 이렇게 관리합니다'
+            }
+            sub={
+              analysis.work_flow?.anchor.kind === '기인물없음'
+                ? '위험이 장소·통행 환경에서 오는 경우 — 기본 안전수칙에서 관련 주제'
+                : '검수 체계를 거친 자료 · ‘지금 당장’ 조치 포함'
+            }
           />
           <WorkFlowPanel
             flow={analysis.work_flow}

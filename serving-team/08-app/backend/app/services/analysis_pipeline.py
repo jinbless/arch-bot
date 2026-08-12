@@ -180,14 +180,17 @@ class AnalysisPipeline:
         work_flow = None
         if flow_service.enabled():
             try:
-                work_flow = await flow_service.build(run_input.result)
+                # canonical은 장소성 라우팅(Track A)의 결정론 신호 — judge 플래그 off면 무영향
+                work_flow = await flow_service.build(run_input.result, canonical=knowledge.canonical)
             except Exception as exc:  # noqa: BLE001 — 흐름 실패가 분석 응답을 막지 않는다
                 logging.getLogger(__name__).warning("[WorkFlow] 실패 — 기존 경로 유지: %s", exc)
         # ⭐ AI 자유 제안 ↔ 흐름 조문 정렬(2026-08-09 사용자 정책): 대응 있으면 조문을 근거로
-        #   보여주고, 무매칭은 '구체 조문 불비 후보'로 적립한다. 흐름이 있을 때만 —
-        #   흐름 폴백(CI 경로)에서는 종전대로 제안이 immediate_actions에 병기된다.
+        #   보여주고, 무매칭은 '구체 조문 불비 후보'로 적립한다. 흐름이 **조문을 가질 때만** —
+        #   흐름 폴백(CI 경로)에서는 종전대로 제안이 immediate_actions에 병기되고,
+        #   장소성 라우팅(slots 빈 WorkFlow)에서는 대조할 확정 의무가 없어 건너뛴다
+        #   (건너뛰지 않으면 all-unaligned 잔해가 화면에 '대조 전' 잡음으로 남는다).
         ai_action_alignments: list[AiActionAlignment] = []
-        if work_flow is not None:
+        if work_flow is not None and work_flow.slots:
             try:
                 ai_action_alignments = [
                     AiActionAlignment(**r) for r in await flow_service.align_llm_actions(

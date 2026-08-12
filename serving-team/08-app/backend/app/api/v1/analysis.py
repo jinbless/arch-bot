@@ -124,6 +124,12 @@ async def get_analysis(
         result_data = {**result_data, "article_candidates": []}
     if result_data.get("work_flow") and not flow_service.enabled():
         result_data = {**result_data, "work_flow": None}
+    # 장소성 라우팅 기록(kind=기인물없음)은 judge 스위치를 따른다 — off로 되돌렸는데 on 기간
+    # 기록이 '기인물 없음' 화면을 계속 보여주면 "끄면 안 보인다"가 성립하지 않는다(kill switch 대칭).
+    wf = result_data.get("work_flow")
+    if (wf and isinstance(wf, dict) and (wf.get("anchor") or {}).get("kind") == "기인물없음"
+            and not flow_service.judge_enabled()):
+        result_data = {**result_data, "work_flow": None}
     # ai_action_alignments는 흐름 파생 필드('흐름 있을 때만' 계약) — 흐름과 같은 스위치를 따른다.
     # 빠뜨리면 flag-on 기간 기록이 off 조회에서 work_flow=None + 정렬만 남는 모순 응답이 된다.
     if result_data.get("ai_action_alignments") and not flow_service.enabled():

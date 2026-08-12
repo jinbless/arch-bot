@@ -155,6 +155,15 @@ class FlowAnchor(BaseModel):
     kind_why: str = ""
 
 
+class BasicsTopicRef(BaseModel):
+    """기본 안전수칙(/basics) 주제 참조 — 장소성 라우팅 화면의 주제 카드용 (2026-08-12 Track A).
+
+    items는 싣지 않는다 — 카드+/basics 링크면 충분하고 저장 기록이 비대해진다."""
+    name: str
+    desc: str = ""
+    n: int = 0
+
+
 class WorkFlow(BaseModel):
     """기인물 앵커 기준 작업 전체 흐름(flag off 시 None).
 
@@ -162,11 +171,14 @@ class WorkFlow(BaseModel):
     evaluation-baseline '앵커 인식 정확도'). 4장 중 1장 이상이 통째로 틀리므로
     `alternates`(사용자 정정 후보)를 반드시 함께 노출한다.
     ⚠ 각 항목이 그 칸에 맞는지(라벨 정확도)는 **아직 사람 검수 전**이다.
+    anchor.kind='기인물없음'(장소성 라우팅, Track A)이면 slots는 비고 basics_topics가 찬다.
     """
     anchor: FlowAnchor
     alternates: List[FlowAnchor] = []
     slots: List[FlowSlot] = []
     reviewed: bool = False            # 라벨 사람 검수 완료 여부 — 화면 경고 문구 제어
+    # 장소성 사진일 때 결과 화면에 배치할 기본 안전수칙 주제(그 외에는 빈 배열 — 구 기록 호환)
+    basics_topics: List[BasicsTopicRef] = []
 
 
 class WorkFlowWithActions(WorkFlow):

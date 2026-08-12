@@ -69,5 +69,9 @@ class Settings(BaseSettings):
     # 서빙 전 게이트 감사 통과. 앵커 0.647(51장) — 오인식 대비는 정정 UI(대안 칩 + 전체 검색)가 담당.
     OHS_ENABLE_WORK_FLOW: bool = True
 
+    # 앵커 적합성 judge + 장소성 basics 라우팅 (Track A, 2026-08-12 — env CUE_ANCHOR_JUDGE 우선).
+    # **기본 off** — measure_place_routing 게이트(기존 gold51 악화 0 + 미니 gold) 통과 후 켠다.
+    OHS_ENABLE_ANCHOR_JUDGE: bool = False
+
 
 settings = Settings()

@@ -29,7 +29,7 @@ from pathlib import Path
 from typing import Optional
 
 from app.config import settings
-from app.models.analysis import FlowAnchor, FlowItem, FlowSlot, WorkFlow
+from app.models.analysis import BasicsTopicRef, FlowAnchor, FlowItem, FlowSlot, WorkFlow
 from app.models.hazard import CorrectiveAction
 from app.services import cue_article_service
 
@@ -57,6 +57,47 @@ def _flag(env_name: str, setting_value: bool) -> bool:
 
 def enabled() -> bool:
     return _flag("CUE_FLOW", getattr(settings, "OHS_ENABLE_WORK_FLOW", False))
+
+
+def judge_enabled() -> bool:
+    """앵커 적합성 judge + 장소성 basics 라우팅 (Track A, 2026-08-12). 기본 off.
+
+    judge와 라우팅을 **한 스위치**로 묶는다 — 라우팅 화면 상태(기인물없음)와 judge 판정이
+    한 몸이라 따로 끄면 모순 응답이 생긴다. 켜는 건 measure_place_routing 게이트 통과 후.
+    """
+    return _flag("CUE_ANCHOR_JUDGE", getattr(settings, "OHS_ENABLE_ANCHOR_JUDGE", False))
+
+
+# ── 장소성 신호 (결정론, LLM 0) ────────────────────────────────────────
+# canonical 위험특징 코드 → 기본 안전수칙 주제. prod 실측(2026-08-12): 계단·보행로·바닥 사진은
+# 기인물 카탈로그에 정답이 없어(해당 의무는 cross_cutting → /basics 전용) RESOLVE가 보건편
+# 포괄 그룹으로 뭉갰다. 이 표의 코드들은 risk_feature_catalog.json 실재 코드다(추측 아님).
+# 주제명은 always_applicable.json topics의 name과 문자열 일치해야 한다(measure 러너가 assert).
+PLACE_TOPIC_BY_CODE = {
+    # 통로·계단
+    "STAIR_TRIP": "통로·계단", "STAIR_CARRYING": "통로·계단",
+    "WALKWAY_OBSTRUCTION": "통로·계단", "AISLE_OBSTRUCTION": "통로·계단",
+    "HANDRAIL_DEFECT": "통로·계단",
+    # 작업장 시설 — 바닥·조명·정리정돈
+    "FALL_ON_GROUND": "작업장 시설", "WET_FLOOR": "작업장 시설", "WET_FLOOR_WORK": "작업장 시설",
+    "COLD_FLOOR": "작업장 시설", "CLUTTERED": "작업장 시설",
+    "POOR_LIGHTING": "작업장 시설", "LOW_LIGHT": "작업장 시설",
+    # 추락·붕괴 방지 — 개구부·단부
+    "UNSTABLE_EDGE": "추락·붕괴 방지",
+}
+# 장소성 판정인데 코드가 주제를 못 고를 때의 기본 노출(3주제) — 보호구·특고는 장소성과 무관
+PLACE_DEFAULT_TOPICS = ["작업장 시설", "통로·계단", "추락·붕괴 방지"]
+
+
+def place_signals(canonical: Optional[dict]) -> list:
+    """canonical 위험특징에서 장소성 주제를 결정론으로 뽑는다(중복 제거·표 순서 무관 입력 순)."""
+    topics = []
+    for field in ("accident_types", "hazardous_agents", "work_contexts", "environmental"):
+        for c in (canonical or {}).get(field) or []:
+            t = PLACE_TOPIC_BY_CODE.get(c)
+            if t and t not in topics:
+                topics.append(t)
+    return topics
 
 
 # 성공한 결과만 캐시한다(cue_article_service와 같은 이유 — 최초 로드 실패가 프로세스 수명 내내 굳으면
@@ -137,25 +178,124 @@ def _slots(row: dict) -> list[FlowSlot]:
     return out
 
 
-async def build(result: dict) -> Optional[WorkFlow]:
-    """장면 → 앵커 → 흐름. 실패 시 None(기존 경로 무영향)."""
+# ── 앵커 적합성 judge (Track A-3, 2026-08-12) ─────────────────────────
+# 후보는 **번호로** 답하게 한다(ALIGN 선례 — 줄 복사 실패 차단). 확실하지 않으면 0(현행 유지).
+# ⚠ 1차 문안("핵심 위험을 일으키는 후보 / 위험이 장소에서 오면 -1")은 gold51에서 **49장 FP** —
+#   감독 사진 대부분이 추락 계열이라 judge가 '위험 종류=추락=장소'로 빠져 비계·사다리 같은
+#   정답 기인물을 통째로 강등했다. 그래서 질문을 위험 종류가 아니라 **실재·주제성**으로 재프레임:
+#   후보가 장면에 실재하고 주제인가. (기각 이력의 "존재 검증 무효"는 오답 앵커 교정 목적에 대한
+#   판정이었다 — 여기서는 anchor/place 분기 목적이라 실재성이 정확히 분리 신호다.)
+JUDGE_SYS = (
+    "너는 산업안전보건 현장점검관이다. 작업장 장면 서술과, 다른 판독기가 이 장면에서 고른 기인물 "
+    "후보 목록, 그리고 '장소 일반 수칙 주제' 목록을 받는다. 위험의 종류(추락·전도 등)는 판정 "
+    "기준이 아니다 — 물어야 할 것은 하나다: 각 후보(기계·설비·물질·구조물·작업)가 장면 서술에 "
+    "**실제로 등장하는가**. "
+    "① 장면에 실재하는 후보가 하나라도 있으면 그중 장면의 주제(가장 중심인 것)의 번호를 primary로 "
+    "답하라. 비계·사다리·작업발판·거푸집·동바리·개구부 덮개 같은 가설 구조물이 보이면 그것이 "
+    "기인물이다 — 장소성이 아니다. "
+    "② 이름이 포괄적인 설비 기준 류 후보는 그 설비·물질 취급 공정이 장면에 실제로 보일 때만 "
+    "실재로 인정하라. "
+    "③ 어떤 후보도 장면에 실재하지 않고, 장면이 맨 통로·계단·바닥·개구부 등 장소 상태만 보여줄 때 "
+    "**그때만** primary를 -1로 하고 해당하는 주제 번호들을 topics로 답하라. "
+    "④ 판단이 애매하면 반드시 primary를 0으로 하라. 목록에 없는 번호는 금지.")
+JUDGE_SCHEMA = {"name": "anchor_judge", "strict": True, "schema": {
+    "type": "object", "additionalProperties": False,
+    "properties": {"primary": {"type": "integer"},
+                   "topics": {"type": "array", "items": {"type": "integer"}},
+                   "reason": {"type": "string"}},
+    "required": ["primary", "topics", "reason"]}}
+
+
+async def judge_anchor(scene: str, rows: list) -> Optional[dict]:
+    """rows(RESOLVE 후보의 흐름 행)에 대한 주/종·장소성 판정 1콜. 실패 시 None(폴백=현행)."""
+    cands = "\n".join(f"{i}. {r.get('subject', '')} — {r.get('path', '')}" for i, r in enumerate(rows))
+    tops = "\n".join(f"{i}. {t}" for i, t in enumerate(PLACE_DEFAULT_TOPICS))
+    model = os.environ.get("FLOW_JUDGE_MODEL", "gpt-5.4")
+    try:
+        return await cue_article_service._chat(  # noqa: SLF001 — ALIGN과 같은 클라이언트 규율
+            model, JUDGE_SYS,
+            f"[장면]\n{scene}\n\n[기인물 후보]\n{cands}\n\n[장소 일반 수칙 주제]\n{tops}\n\n"
+            "primary(후보 번호 · 장소성이면 -1 · 불확실하면 0)와 topics(장소성일 때만)를 답하라.",
+            JUDGE_SCHEMA)
+    except Exception as exc:  # noqa: BLE001 — judge 실패가 흐름을 막지 않는다
+        logger.warning("[WorkFlow] 앵커 judge 실패 — 현행 rows[0] 유지: %s", exc)
+        return None
+
+
+def route_decision(n_rows: int, place_topics: list, judge_out: Optional[dict]) -> dict:
+    """판정 조합 → 라우팅 결정. **순수 함수** — measure_place_routing이 서빙과 같은 규칙로 채점한다.
+
+    반환 {"route": "anchor"|"place"|"none", "primary": int, "topics": list, "why": str}
+    """
+    if n_rows == 0:
+        if place_topics:
+            return {"route": "place", "primary": -1, "topics": list(place_topics),
+                    "why": "장면의 위험특징이 장소·통행 계열이고 해당하는 기인물이 없습니다"}
+        return {"route": "none", "primary": -1, "topics": [], "why": ""}
+    j = judge_out or {}
+    p = j.get("primary")
+    if p == -1:
+        # judge 주제(번호)를 이름으로 — 무효 번호는 버리고, 결정론 신호와 합집합. 다 비면 기본 3주제.
+        named = [PLACE_DEFAULT_TOPICS[i] for i in (j.get("topics") or [])
+                 if isinstance(i, int) and 0 <= i < len(PLACE_DEFAULT_TOPICS)]
+        topics = list(dict.fromkeys(named + list(place_topics))) or list(PLACE_DEFAULT_TOPICS)
+        return {"route": "place", "primary": -1, "topics": topics,
+                "why": str(j.get("reason") or "")[:160] or "판정: 위험이 장소 자체에서 옵니다"}
+    if isinstance(p, int) and 0 <= p < n_rows:
+        return {"route": "anchor", "primary": p, "topics": [], "why": ""}
+    if judge_out is not None:
+        logger.warning("[WorkFlow] judge가 무효 번호를 냈다(primary=%r) — rows[0] 폴백", p)
+    return {"route": "anchor", "primary": 0, "topics": [], "why": ""}
+
+
+def _place_workflow(topics: list, alternates: list, why: str) -> WorkFlow:
+    """장소성 라우팅 응답 — 앵커 자리에 '기인물없음' + basics 주제 카드 참조.
+
+    alternates에 RESOLVE 후보를 보존한다(judge 오판 시 사용자가 칩으로 복구 — 정정 UI가 공짜로 유지).
+    """
+    at = always_applicable()
+    sel = [BasicsTopicRef(name=t.get("name", ""), desc=t.get("desc", ""), n=t.get("n", 0))
+           for t in (at.get("topics") or []) if t.get("name") in topics]
+    return WorkFlow(
+        anchor=FlowAnchor(group_key="", label="기인물 없음", path="", kind="기인물없음", kind_why=why),
+        alternates=alternates, slots=[], reviewed=LABELS_REVIEWED, basics_topics=sel)
+
+
+async def build(result: dict, canonical: Optional[dict] = None) -> Optional[WorkFlow]:
+    """장면 → 앵커 → 흐름. 실패 시 None(기존 경로 무영향).
+
+    canonical(위험특징)은 장소성 라우팅의 결정론 신호(place_signals) 입력 — judge 플래그 off면 미사용.
+    """
     fl = _flows()
     if fl is None:
         return None
+    scene = cue_article_service.scene_text(result)
     try:
-        rv = await cue_article_service.resolve(cue_article_service.scene_text(result))
+        rv = await cue_article_service.resolve(scene)
     except Exception as exc:  # noqa: BLE001 — RESOLVE 실패는 흐름 없음으로 떨어진다
         logger.warning("[WorkFlow] RESOLVE 실패 — 흐름 생략: %s", exc)
         return None
 
-    # ★ RESOLVE가 주는 순서를 그대로 쓴다. '가장 두꺼운 흐름을 고른다' 같은 규칙은 그럴듯하지만
-    #   측정된 바 없다. 주 기인물 선별은 별도 과제이고, 그 전까지는 사용자 정정(alternates)에 맡긴다.
+    # ★ 기본값은 RESOLVE가 주는 순서 그대로(rows[0]=주 앵커). '가장 두꺼운 흐름' 같은 규칙은
+    #   측정된 바 없다. judge 플래그 on이면 아래에서 주/종·장소성 판정이 이 순서를 재배열한다.
     rows: list[dict] = []
     for gk in rv.get("group_keys", []):
         for r in fl["by_src"].get(gk, []):
             if r not in rows:
                 rows.append(r)
-    if not rows:
+
+    place_topics = place_signals(canonical) if judge_enabled() else []
+    judge_out = None
+    if judge_enabled() and rows:
+        judge_out = await judge_anchor(scene, rows)
+    decision = route_decision(len(rows), place_topics, judge_out) if judge_enabled() else (
+        {"route": "anchor", "primary": 0, "topics": [], "why": ""} if rows
+        else {"route": "none", "primary": -1, "topics": [], "why": ""})
+
+    if decision["route"] == "place":
+        logger.info("[WorkFlow] 장소성 라우팅: topics=%s (rows=%d)", decision["topics"], len(rows))
+        return _place_workflow(decision["topics"], [_anchor(r) for r in rows], decision["why"])
+    if decision["route"] == "none" or not rows:
         # 우산 그룹만 지목된 경우를 따로 남긴다. 카탈로그에서 뺐으니 나와선 안 되는 일인데,
         # 나온다면 카탈로그와 흐름 데이터가 어긋난 것이다(동기화 누락). 조용히 넘기면 못 찾는다.
         picked_umb = [g for g in rv.get("group_keys", []) if g in fl.get("umbrella", ())]
@@ -165,6 +305,10 @@ async def build(result: dict) -> Optional[WorkFlow]:
             logger.info("[WorkFlow] 앵커에 해당하는 흐름 없음: %s", rv.get("group_keys"))
         return None
 
+    k = decision["primary"]
+    if k:
+        logger.info("[WorkFlow] judge 주 기인물 재배열: rows[%d] '%s' 선두로", k, rows[k].get("subject", ""))
+        rows = [rows[k]] + rows[:k] + rows[k + 1:]
     return WorkFlow(anchor=_anchor(rows[0]), alternates=[_anchor(r) for r in rows[1:]],
                     slots=_slots(rows[0]), reviewed=LABELS_REVIEWED)
 

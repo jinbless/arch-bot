@@ -225,8 +225,16 @@ export interface FlowAnchor {
   machines: string[];
   inspection_scopes?: string[]; // 시행령 제78조제1항 각 호의 괄호 단서 — 조건 없이 '대상' 배지만 달면 안 된다
   periodic_source: string;
-  kind?: '기인물' | '장소' | '환경' | '부적격'; // 부적격 = 규칙 편제상의 칸이라 사진으로 지목할 수 없다
+  /** 부적격 = 규칙 편제상의 칸이라 사진으로 지목할 수 없다.
+   *  기인물없음 = 장소성 라우팅(Track A) — 위험이 장소 자체에서 와서 앵커 흐름이 성립하지 않는다 */
+  kind?: '기인물' | '장소' | '환경' | '부적격' | '기인물없음';
   kind_why?: string;
+}
+
+export interface BasicsTopicRef {
+  name: string;
+  desc: string;
+  n: number;
 }
 
 export interface WorkFlow {
@@ -237,6 +245,8 @@ export interface WorkFlow {
   /** 앵커 정정 API(GET /flow) 응답에만 실린다 — 그 기인물의 조문에서 다시 선별한 '지금 당장'.
    *  분석 응답의 work_flow에는 없다(그쪽 정본은 immediate_actions). */
   statute_actions?: CorrectiveAction[];
+  /** 장소성 라우팅(anchor.kind='기인물없음')일 때 배치할 기본 안전수칙 주제 카드 */
+  basics_topics?: BasicsTopicRef[];
 }
 
 /** GPT 자유 조치 제안 1건 ↔ 흐름 조문(닫힌 집합) 정렬 결과.
