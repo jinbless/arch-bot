@@ -13,6 +13,18 @@ GET /flow가 재선별을 싣고(accident_code 승계), 대안 칩·직접 검�
 받는다(LLM 0). SR 히트는 canonical∪레거시 두 컬럼 합집합 — canonical 단독은 ELECTRIC_SHOCK류 회귀
 (리뷰 적발). ⚠ FIRE_EXPLOSION 계열은 SR canonical 데이터 미이관으로 여전히 순위 미적용(데이터 과제).
 
+**+2026-08-12 추가 2: prod 실사용 개선 2트랙** (사용자 발견: 앵커 뭉개짐 + 소화기 미부각):
+- **Track B(소화기 부각) 완료·배포**: 화재 어휘 정합(사진 hazard 합류+SR legacy 별칭
+  FIRE_EXPLOSION→{EXPLOSION,FIRE_INJURY}) + align matched 순위 부스트((ref,text) 쌍 —
+  별표 항목 ref 공유 함정) + 별표3 항목 모집단 구제 + ref 안정 식별자·evidence quote fallback
+  (966건 채움). prod 화면 실증: "소화기 비치" 제안 → 제243조 matched·immediate·원문 인용.
+  정본 [fire-actnow-visibility] = recalc 노트와 같은 흐름, 커밋 402096d·92f6f24.
+- **Track A(장소성 라우팅)**: A-1 판별단서 4종 완료·배포(함정 4호: '허가대상 유해물질' ㆍ분리 →
+  별표2 오부착, 공백 융합 우회) · A-2 프롬프트 개입 기각(재추첨 변동과 구분 불가 — 선우개발
+  경계 사례) · A-3 judge+basics 라우팅 코드 완성(**플래그 CUE_ANCHOR_JUDGE off**, 게이트 미통과:
+  진짜 FP 2장·미니 6/8) — 정본 [place-routing-judge-2026-08-12.md](../dev-notes/place-routing-judge-2026-08-12.md).
+  **다음 = 미니 gold 라벨 사용자 검수 → 재계측 → 통과 시 A-4 on.**
+
 **현재 수치(감독관 gold 51장)**: 앵커 exact **0.784** [0.667,0.882] · **흐름 유효율 0.961** [0.902,1.000] ·
 예측 빈 0장. 경로: 0.647 → 비계 상속(A안) → 판별단서 → Vision v2 → 키 정규화 0.784/0.941 → miss11 레버 0.961.
 
