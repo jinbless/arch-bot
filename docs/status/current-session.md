@@ -1,7 +1,36 @@
 # 현재 세션 / 다음 세션 시작 지침
 
 > ⚠️ 이 문서는 2026-06-14 이후 갱신이 끊겼고, 그 뒤 작업은 `docs/dev-notes/`와 메모리에만 있었다.
-> **최신 상태는 아래 '2026-08-02' 절부터** 읽는다.
+> **최신 상태는 아래 '2026-08-09~12' 절부터** 읽는다.
+
+## ⭐⭐ 2026-08-09~12 — 앵커 0.647→0.961(흐름) + 3단계 UI + 텍스트 트랙 개통 (전부 push·prod 배포)
+
+**HEAD `1c54e4f`, 전부 push + moellab.info 배포 완료.** 지표 정본 = [evaluation-baseline.md](evaluation-baseline.md) 앵커 절.
+
+**현재 수치(감독관 gold 51장)**: 앵커 exact **0.784** [0.667,0.882] · **흐름 유효율 0.961** [0.902,1.000] ·
+예측 빈 0장. 경로: 0.647 → 비계 상속(A안) → 판별단서 → Vision v2 → 키 정규화 0.784/0.941 → miss11 레버 0.961.
+
+**단계별 정본(dev-notes)**:
+- [ui-consulting-redesign-2026-08-09.md](../dev-notes/ui-consulting-redesign-2026-08-09.md) — 3단계 컨설팅 UI·ALIGN·불비 원장
+- [anchor-a0-metrics-2026-08-09.md](../dev-notes/anchor-a0-metrics-2026-08-09.md) — A0 계측(오류 절반=데이터 구조)
+- [terra-opus-experiment-2026-08-10.md](../dev-notes/terra-opus-experiment-2026-08-10.md) — gpt-5.6-terra 전환 **비권고**·Claude Opus 5 검수자 유효(판가름 3/3)
+- [miss11-decompose-2026-08-10.md](../dev-notes/miss11-decompose-2026-08-10.md) — 완전 오인식 11장 분해: **8장=지표 정의 잔여물**(흐름은 정답 포함), 진짜 결함 3장
+- [text-track-flow-2026-08-12.md](../dev-notes/text-track-flow-2026-08-12.md) — **텍스트 분석 트랙도 앵커→흐름 개통**(image 게이트 해제 + 문구 분기). ⚠ 텍스트 gold 계측 없음
+
+**이번 구간에 실측된 함정(재발 주의)**:
+- **이름 매칭 함정 3번째**: 라벨 토큰 '국소배기장치'가 law3 제42조 부착을 절3에서 빼앗음(`resolve_machines` 최구체 1개 선택) → '배기 후드'로 우회. **라벨 변경 시 gimulmul diff + flow diff 0 검사 필수**
+- **gold Vision 재생성 = 전 사진 재추첨**: 한 장 고치려 129장 재판독하면 경계 사진이 뒤집힘(한솔2: v2 '이동식 비계'→v3 '고소 작업대'). `regen_vision_gold.py`는 태그 백업·프롬프트 sha 게이트 내장
+- gpt-4.1은 소형 흡연 물체(재떨이 깡통·라이터)를 프롬프트를 줘도 미서술(**지각 한계**, Opus/Fable은 봄) — 텍스트 트랙이 이 클래스의 우회로
+- 텍스트 분석 엔드포인트는 **JSON 본문**(멀티파트 422) · rows[0] 주 기인물 선별 변동은 prod E2E에서도 재현
+- RESOLVE가 카탈로그에 없는 변형 키를 내면 조용히 버려짐 → **prefix 정규화**가 측정(`measure_anchor_accuracy.norm_gk`)·서빙(`cue_article_service._norm_gk`) 동일 적용됨
+
+**다음 후보(미착수, 사용자 결정)**:
+1. 잔여 진짜 결함 3장: 제니알테크(4.1 지각 한계 — Vision 모델 실험 또는 수용) · 한솔2(rows[0]·형태 서술) · IMG_3166(라벨 재검토)
+2. 제43조(개구부) 감독건 인용 사진들 라벨 재검토 세션 · 텍스트 트랙 gold 구축 여부
+3. 주 기인물 선별(rows[0], 첫 키 변동 29.4%) · B1 confidence 확인 유도 · A0-d ALIGN gold(사용자 검수 시간)
+4. ops 스키마 구현(설계 완료, prod ALTER 포함 — 지시 대기) · 즉시성 태그 빌드타임 승격 · 불비 원장 배치 검토(prod에 실사용 원장 쌓이는 중 — records 90·gaps 11, **update-ohs.sh는 볼륨 wipe라 원장 소실 주의**)
+
+배포 절차·함정은 메모리 `deploy_moellab_droplet` 참조(코드 배포=update-ohs-code.sh, frontend 빌드 Git Bash 금지, 번들 'Program Files' 검사).
 
 ## ⭐⭐ 2026-08-02 — 조문 시점을 제목이 아니라 원문으로 판정
 
