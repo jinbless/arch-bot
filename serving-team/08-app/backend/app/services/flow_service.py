@@ -149,13 +149,16 @@ def _anchor(row: dict) -> FlowAnchor:
 
 def _empty_reason(key: str, row: dict) -> str:
     """빈 칸을 그냥 비워두지 않는다 — '정보 없음'과 '해당 없음'은 다른 말이다."""
+    # 장소 그룹(절1 추락·절2 붕괴, 2026-08-13 카탈로그 편입)은 '기인물' 명사가 부자연 —
+    # anchor_kind는 anchor_validity 판정값이라 데이터가 이미 구분해 준다.
+    noun = "위험 장소" if row.get("anchor_kind") == "장소" else "기인물"
     if key == "PERIODIC":
         ins = row.get("inspection") or {}
         if not ins.get("is_target"):
             # 정기 칸의 근거는 세 갈래다(규칙 조문 · 안전검사 · 가이드). 안전검사만 언급하면
             # 나머지 둘을 확인했다는 사실이 전달되지 않는다.
             return ("산업안전보건법 제93조 안전검사 대상이 아니고, 산업안전보건기준규칙과 관련 KOSHA 가이드에도 "
-                    "이 기인물의 정기점검 주기가 없습니다 — 자료가 없는 것이지 점검이 불필요하다는 뜻은 아닙니다")
+                    f"이 {noun}의 정기점검 주기가 없습니다 — 자료가 없는 것이지 점검이 불필요하다는 뜻은 아닙니다")
         return "정기점검 항목이 확인되지 않았습니다"
     # 이 그룹의 조문이 목적·정의·적용범위뿐이면 '할 일'이 원래 없다. 자료 결손이 아니다.
     nd = row.get("no_duty_articles") or []
@@ -165,7 +168,7 @@ def _empty_reason(key: str, row: dict) -> str:
         return (f"이 항목은 규칙의 정의·적용범위 조문({', '.join(nd[:3])}"
                 f"{' 등' if len(nd) > 3 else ''})으로만 이루어져 있어 그 자체로는 할 일이 없습니다 "
                 "— 구체적인 의무는 다른 기인물 항목에 있습니다")
-    return "이 기인물에 대해 규칙·가이드에서 확인된 항목이 없습니다"
+    return f"이 {noun}에 대해 규칙·가이드에서 확인된 항목이 없습니다"
 
 
 def _slots(row: dict) -> list[FlowSlot]:

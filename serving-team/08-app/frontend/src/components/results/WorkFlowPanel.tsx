@@ -452,8 +452,12 @@ const WorkFlowPanel: React.FC<{
       {/* ① 앵커 — 흐름 전체가 여기에 걸린다 */}
       <div className="mb-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
         <div className="flex flex-wrap items-baseline gap-2">
+          {/* 장소 그룹(절1 추락·절2 붕괴 등, 2026-08-13 카탈로그 편입)은 '기인물' 명사가 부자연 —
+              anchor.kind는 anchor_validity 판정값이라 데이터가 이미 구분해 준다 */}
           <span className="text-xs text-gray-500">
-            {corrected ? '직접 고른 기인물' : `${inputNoun}에서 확인된 기인물`}
+            {corrected
+              ? `직접 고른 ${anchor.kind === '장소' ? '위험 장소' : '기인물'}`
+              : `${inputNoun}에서 확인된 ${anchor.kind === '장소' ? '위험 장소' : '기인물'}`}
           </span>
           <strong className="text-base text-gray-900">{anchor.label}</strong>
           {anchor.is_inspection_target && (
