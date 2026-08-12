@@ -185,7 +185,18 @@ def by_group_key(group_key: str, alternates: Optional[list[str]] = None) -> Opti
     return WorkFlow(anchor=_anchor(row), alternates=alts, slots=_slots(row), reviewed=LABELS_REVIEWED)
 
 
-def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
+# legacy addresses_hazard → canonical accident 축 별칭 (2026-08-12 Track B).
+# FIRE_EXPLOSION은 SR canonical 컬럼에도 vocab rollup에도 없어(rollup은 UNCLASSIFIED로 보냄)
+# 이 별칭 없이는 화재 사진의 순위 신호가 **영구 공집합**이다 — prod 5222 실측(6건 전부 '계획 조치').
+# 1:2 대응이라 rollup(1:1 dict)으로 표현 불가 → 국소 dict가 의미를 보존하는 유일한 자리다
+# (canonical_vocab 수정은 태거·export·SHACL 전체 파급이라 기각). 근본 해소는 SR canonical
+# 데이터 이관(백로그 Phase B-D) — 완료 후에도 벨트-앤-서스펜더로 유지한다.
+# CONFINED_SPACE→OXYGEN_DEFICIENCY 등 같은 클래스 후보는 사진 시나리오 계측이 생기면 추가(선반영 금지).
+SR_LEGACY_ACCIDENT_ALIASES: dict = {"FIRE_EXPLOSION": {"EXPLOSION", "FIRE_INJURY"}}
+
+
+def statute_actions(flow, accident_codes: list[str], db,
+                    matched_refs: Optional[set] = None) -> list[dict]:
     """앵커 흐름의 조문에서 즉시조치 후보를 만든다 — 가이드 CI 광역 매칭의 대체.
 
     사용자 판단(2026-08-09): "즉시조치를 확실하지만 간략한 곳에서" — 근거는 이렇다:
@@ -197,6 +208,8 @@ def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
           순위 = SR(sr_article_mapping)의 사고형태 코드 ∩ 사진 사고형태 (SR은 순위에만 쓴다 —
           내용까지 SR을 쓰면 미검증 추출(3등급)이 화면에 올라온다. 단 SR 제목이 행동형이라
           제목만 빌려 쓰되 조문 ref를 항상 병기해 역추적 가능하게 한다)
+    matched_refs = AI 제안 대조(align)가 '같은 취지'로 판정한 항목 ref 집합 — **순위 신호로만** 쓴다.
+          내용은 여전히 검수 조문 그대로이고 urgency에도 관여하지 않는다(아래 정렬 주석 참조).
     """
     if flow is None:
         return []
@@ -208,12 +221,26 @@ def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
         if slot.key not in ("PRECHECK", "EXEC"):
             continue
         for it in slot.items:
-            m = _re.fullmatch(r"제\d+조(의\d+)?", (it.ref or "").strip())
-            if not m or it.ref in seen:
-                continue
-            seen.add(it.ref)
-            items.append({"ref": it.ref, "title": it.text, "evidence": it.evidence,
-                          "tier": it.tier, "slot": slot.key})
+            ref = (it.ref or "").strip()
+            if _re.fullmatch(r"제\d+조(의\d+)?", ref):
+                if ref in seen:
+                    continue
+                seen.add(ref)
+                items.append({"ref": it.ref, "title": it.text, "evidence": it.evidence,
+                              "tier": it.tier, "slot": slot.key, "appendix": False})
+            elif it.tier == "법정" and _re.match(r"제\d+조(의\d+)?제\d+항", ref):
+                # 별표 항목 클래스(2026-08-12 Track B): 별표 3(작업 시작 전 점검) 류는 ref가
+                # 표시용 문자열('제35조제2항 · <subject 절단>')이라 fullmatch 모집단에 못 들어온다 —
+                # 화기 그룹의 유일한 '소화기구' 문구가 정확히 이 클래스였다.
+                # · dedup 키 = (ref, text): 여러 항목이 같은 조문 ref를 공유한다(화기 5건 실측).
+                # · SR join·제목 대체는 적용하지 않는다 — 제35조 SR(SR-MGMT-001)로 join하면
+                #   화재와 무관한 가짜 hazard_hit(FALL)과 제목 덮어쓰기가 생긴다(실측 함정).
+                #   노출은 matched 부스트 + PRECHECK 정렬로만.
+                if (ref, it.text) in seen:
+                    continue
+                seen.add((ref, it.text))
+                items.append({"ref": it.ref, "title": it.text, "evidence": it.evidence,
+                              "tier": it.tier, "slot": slot.key, "appendix": True})
     if not items:
         return []
 
@@ -241,19 +268,47 @@ def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
             "select m.article_code, sr.identifier, sr.title, sr.accident_types_canonical, "
             "sr.addresses_hazard, sr.requirement_type "
             "from safety_requirements sr join sr_article_mapping m on m.sr_id = sr.identifier "
-            "where m.article_code = any(:codes)"), {"codes": [x["ref"] for x in items]}).fetchall()
+            "where m.article_code = any(:codes)"),
+            {"codes": [x["ref"] for x in items if not x["appendix"]]}).fetchall()
         for code, sr_id, title, hz_canon, hz_legacy, rtype in rows:
-            hits = (set(hz_canon or []) | set(hz_legacy or [])) & set(accident_codes or [])
+            legacy = set(hz_legacy or [])
+            aliased = {a for c in legacy for a in SR_LEGACY_ACCIDENT_ALIASES.get(c, ())}
+            hits = (set(hz_canon or []) | legacy | aliased) & set(accident_codes or [])
             cur = sr_by_article.get(code)
             if cur is None or (hits and not cur["hits"]):
                 sr_by_article[code] = {"sr_id": sr_id, "title": title, "hits": hits, "rtype": rtype}
     except Exception as exc:  # noqa: BLE001
         logger.warning("[WorkFlow] SR 순위 신호 조회 실패 — 순위 없이 진행: %s", exc)
 
+    # matched = align이 "GPT가 이 분석에서 낸 제안과 같은 취지"로 판정한 항목. 축 수준 교집합
+    # (hazard_hit)보다 강한 상황 특이 신호라 최우선으로 둔다. ★ urgency에는 절대 관여하지 않는다 —
+    # immediate 게이트는 hazard_hit×actable 결정론 유지(LLM이 급박도를 정하면 정책 위반).
+    # matched_refs 원소 = (ref, text) 쌍. ref 단독 비교는 안 된다 — 별표 항목들은 같은 조문 ref
+    # 문자열을 공유해서(빌드 스크립트의 subject 절단) ref만 보면 5건이 한꺼번에 부스트된다(스모크 실측).
+    # 조문 항목은 ref가 유일키라 ref만 비교(제목은 이후 SR 행동형으로 대체되므로 text 비교 불가).
+    m_pairs = set()
+    for m in (matched_refs or ()):
+        r, t = (m if isinstance(m, tuple) else (m, ""))
+        r = (r or "").strip()
+        if r:
+            m_pairs.add((r, (t or "").strip()))
+    m_ref_only = {r for r, _ in m_pairs}
+
     # '지금 당장'은 행위형이다. 헤드가드 장착(EQUIPMENT_STANDARD)은 법정 의무지만 구매·설치가
     # 필요한 것이라 즉시조치로 앞세우면 안내가 어긋난다 — 출입통제·유도자(PROCEDURAL)가 먼저다.
     ACT_NOW = {"PROCEDURAL", "EMERGENCY_RESPONSE", "PPE_REQUIREMENT"}
     for x in items:
+        ref_s = (x["ref"] or "").strip()
+        x["matched"] = ((ref_s, (x["title"] or "").strip()) in m_pairs
+                        if x["appendix"] else ref_s in m_ref_only)
+        if x["appendix"]:
+            # 별표 항목은 SR 신호 없음 — hazard_hit/actable 모두 False 고정.
+            # actable=True를 주면 무히트 장면에서 별표 점검 5건이 행위형 금지 조문(제239조류)을
+            # 통째로 밀어내는 과잉이 생긴다(설계 검토에서 기각) — 노출은 matched 부스트로만.
+            x["hazard_hit"] = False
+            x["actable"] = False
+            x["sr_id"] = None
+            continue
         sr = sr_by_article.get(x["ref"])
         x["hazard_hit"] = bool(sr and sr["hits"])
         x["actable"] = bool(sr and sr.get("rtype") in ACT_NOW)
@@ -261,19 +316,22 @@ def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
         # SR 제목이 행동형('접촉 위험 장소 출입 제한')이라 조문 제목('접촉의 방지')보다 낫다
         if sr and sr["title"]:
             x["title"] = sr["title"]
-    items.sort(key=lambda x: (not x["hazard_hit"], not x["actable"],
+    items.sort(key=lambda x: (not x["matched"], not x["hazard_hit"], not x["actable"],
                               x["tier"] != "법정", x["slot"] != "PRECHECK"))
     return items[:6]
 
 
-def statute_actions_corrective(flow, accident_codes: list[str], db) -> list[CorrectiveAction]:
+def statute_actions_corrective(flow, accident_codes: list[str], db,
+                               matched_refs: Optional[set] = None) -> list[CorrectiveAction]:
     """statute_actions 행 → 화면 계약(CorrectiveAction) 매핑.
 
     분석 응답(immediate_actions)과 앵커 정정 API(GET /flow)가 **같은 매핑**을 써야 한다 —
     urgency/confidence 규칙이 두 곳으로 갈라지면 같은 조문이 화면마다 다른 급박도로 보인다
     (2026-08-12 정정 API에 '지금 당장' 재선별을 붙이면서 여기로 통합).
+    matched_refs(원소 = (ref, text) 쌍)는 분석 경로만 전달한다 — 정정 API에서는 원 분석의 align이
+    원 앵커의 흐름 후보 기준이라 재사용하지 않는다(정정 시 화면의 AI 대조 자체가 숨는 것과 대칭).
     """
-    rows = statute_actions(flow, accident_codes, db)
+    rows = statute_actions(flow, accident_codes, db, matched_refs=matched_refs)
     actions = []
     for r in rows:
         desc = f"{r['ref']} 원문: “{r['evidence']}”" if r.get("evidence") else r["ref"]
@@ -287,6 +345,7 @@ def statute_actions_corrective(flow, accident_codes: list[str], db) -> list[Corr
                 # 설비 장착 의무(헤드가드 등)는 법정이라도 '지금 당장'이 아니라 planned다
                 urgency="immediate" if (r.get("hazard_hit") and r.get("actable")) else "planned",
                 confidence=1.0 if r["tier"] == "법정" else 0.7,
+                matched=bool(r.get("matched")),
             )
         )
     return actions

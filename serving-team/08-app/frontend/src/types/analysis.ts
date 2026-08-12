@@ -57,6 +57,9 @@ export interface CorrectiveAction {
   source_id?: string | null;
   urgency: 'immediate' | 'planned' | 'reference' | string;
   confidence: number;
+  /** AI 제안 대조(align)가 같은 취지로 판정 — 순위 부스트의 근거 표시(2026-08-12).
+   *  프론트에서 (ref,제목) 대조로 재현 불가: 조문 제목은 SR 행동형으로 대체되고 별표 ref는 공유됨 */
+  matched?: boolean;
 }
 
 export interface ProcedureStep {

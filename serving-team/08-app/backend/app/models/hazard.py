@@ -65,6 +65,10 @@ class CorrectiveAction(BaseModel):
     source_id: Optional[str] = None
     urgency: str = "reference"
     confidence: float = 0.0
+    # AI 제안 대조(align)가 이 항목과 '같은 취지'로 판정했는가 — 순위 부스트의 근거 표시용
+    # (2026-08-12 Track B). 프론트가 (ref,제목)을 스스로 대조할 수 없다: 조문 항목의 제목은
+    # 선별 과정에서 SR 행동형으로 대체되고, 별표 항목들은 ref 문자열을 공유하기 때문.
+    matched: bool = False
 
 
 class ProcedureStep(BaseModel):

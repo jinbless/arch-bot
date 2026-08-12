@@ -106,10 +106,19 @@ const ResultPage: React.FC = () => {
   const isText = analysis.analysis_type === 'text';
   const inputNoun = isText ? '서술' : '사진';
   // 앵커 정정 시 '지금 당장' 재선별의 순위 신호 — 분석 시점과 같은 사고형태 코드를 승계한다.
-  // (백엔드 선별도 이 canonical 코드를 썼다 — analysis_pipeline._build_statute_actions)
-  const accidentCodes = analysis.risk_features
-    .filter((f) => f.axis === 'accident_type')
-    .map((f) => f.code);
+  // canonical 경로 ∪ hazard-직결 경로: 화재처럼 hazard 쪽에만 잡히는 축이 실측됐다(prod 5222 —
+  // risk_features는 FALL뿐, hazards.mapped_codes에 FIRE_AND_EXPLOSION). 백엔드 선별과 같은 union
+  // (analysis_pipeline._build_statute_actions 호출부 참조).
+  const accidentCodes = Array.from(
+    new Set([
+      ...analysis.risk_features.filter((f) => f.axis === 'accident_type').map((f) => f.code),
+      ...(analysis.hazards ?? []).flatMap((h) =>
+        (h.mapped_codes ?? [])
+          .filter((c) => c.startsWith('accident_type.'))
+          .map((c) => c.slice('accident_type.'.length))
+      ),
+    ])
+  );
   // 조문 선별이 흐름 스트립으로 들어갈 수 없을 때만 독립 패널을 보여준다(무회귀).
   // (조문 선별은 흐름에서만 나오지만, 흐름 없는 구 기록을 방어한다 — 즉시조치가 증발하면 안 된다)
   const showFallbackActions =

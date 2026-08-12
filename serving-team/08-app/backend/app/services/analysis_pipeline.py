@@ -239,7 +239,17 @@ class AnalysisPipeline:
             immediate_actions=self._build_statute_actions(
                 db=db,
                 work_flow=work_flow,
-                accident_codes=(knowledge.canonical or {}).get("accident_types", []),
+                # ⭐ 사고형태 = canonical 경로 ∪ hazard-직결 경로 (2026-08-12 Track B).
+                #   화재처럼 hazard 경로에만 잡히는 축이 실측됐다(prod 5222: canonical=FALL뿐,
+                #   hazards.mapped_codes에 FIRE_AND_EXPLOSION). 이 union은 즉시조치 **순위에만**
+                #   흐르고 knowledge.canonical 자체는 불변이다 — SHE/SR 조회·fusion 파급 차단.
+                accident_codes=sorted(
+                    set((knowledge.canonical or {}).get("accident_types", []))
+                    | set((knowledge.hazard_canonical or {}).get("accident_types", []))),
+                # align matched는 순위 부스트 신호로만(내용·urgency 불관여 — flow_service 주석 참조).
+                # (ref, 제목) 쌍 — ref 단독이면 같은 조문 ref를 공유하는 별표 항목들이 통째로 부스트된다.
+                matched_refs={(a.matched_ref, a.matched_title or "") for a in ai_action_alignments
+                              if a.status == "matched" and a.matched_ref},
             ) or self._build_immediate_actions(
                 knowledge.checklist_rows,
                 run_input.result.get("immediate_actions", []),
@@ -646,14 +656,17 @@ class AnalysisPipeline:
         db: Session,
         work_flow,
         accident_codes: list[str],
+        matched_refs: Optional[set] = None,
     ) -> list[CorrectiveAction]:
         """앵커 흐름의 조문 → 즉시조치 (flow_service.statute_actions 참조).
 
         빈 목록이면 호출부가 기존 CI 경로로 폴백한다. GPT 상황 제안은 여기 섞지 않는다 —
         ai_action_alignments로 흐름 조문과 대조해 별도 표시한다(2026-08-09 통합 화면).
+        matched_refs는 그 대조 결과를 **순위 신호**로 되먹이는 것뿐, 내용은 검수 조문 그대로다.
         매핑은 앵커 정정 API와 공용(flow_service.statute_actions_corrective) — 규칙 드리프트 방지.
         """
-        return flow_service.statute_actions_corrective(work_flow, accident_codes, db)
+        return flow_service.statute_actions_corrective(
+            work_flow, accident_codes, db, matched_refs=matched_refs)
 
     def _build_immediate_actions(
         self,

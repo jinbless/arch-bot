@@ -474,8 +474,9 @@ const WorkFlowPanel: React.FC<{
             </span>
           </div>
           <ol className="mt-2 space-y-1">
+            {/* key에 i를 섞는다 — 별표 항목들은 action_id(조문 ref 문자열)를 공유한다(B-B 전까지) */}
             {actNowShown.map((a, i) => (
-              <li key={a.action_id}>
+              <li key={`${a.action_id}#${i}`}>
                 <button
                   type="button"
                   onClick={() => jumpTo(a.action_id, slotForAction(a.action_id))}
@@ -485,6 +486,16 @@ const WorkFlowPanel: React.FC<{
                     {i + 1}. {a.title}
                   </span>
                   <span className="flex shrink-0 items-center gap-1.5">
+                    {/* 백엔드가 이 신호로 순위를 부스트하므로 근거를 표시한다(2026-08-12 Track B).
+                        정정 모드 재선별에는 matched가 안 들어가므로(원 앵커 기준 대조) 자연히 안 뜬다. */}
+                    {a.matched && (
+                      <span
+                        title="AI가 이 분석에서 낸 조치 제안이 이 조문과 같은 취지로 대조되었습니다 — 아래 ‘AI 제안 대조’ 참조"
+                        className="rounded border border-violet-300 bg-violet-50 px-1 py-0.5 text-[10px] font-medium text-violet-700"
+                      >
+                        AI 제안 일치
+                      </span>
+                    )}
                     {a.urgency !== 'immediate' && (
                       <span
                         title="법정 의무지만 구매·설치 등이 필요해 ‘지금 당장’보다는 계획해서 할 조치입니다"
