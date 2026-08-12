@@ -190,14 +190,17 @@ JUDGE_SYS = (
     "후보 목록, 그리고 '장소 일반 수칙 주제' 목록을 받는다. 위험의 종류(추락·전도 등)는 판정 "
     "기준이 아니다 — 물어야 할 것은 하나다: 각 후보(기계·설비·물질·구조물·작업)가 장면 서술에 "
     "**실제로 등장하는가**. "
-    "① 장면에 실재하는 후보가 하나라도 있으면 그중 장면의 주제(가장 중심인 것)의 번호를 primary로 "
-    "답하라. 비계·사다리·작업발판·거푸집·동바리·개구부 덮개 같은 가설 구조물이 보이면 그것이 "
-    "기인물이다 — 장소성이 아니다. "
-    "② 이름이 포괄적인 설비 기준 류 후보는 그 설비·물질 취급 공정이 장면에 실제로 보일 때만 "
-    "실재로 인정하라. "
-    "③ 어떤 후보도 장면에 실재하지 않고, 장면이 맨 통로·계단·바닥·개구부 등 장소 상태만 보여줄 때 "
-    "**그때만** primary를 -1로 하고 해당하는 주제 번호들을 topics로 답하라. "
-    "④ 판단이 애매하면 반드시 primary를 0으로 하라. 목록에 없는 번호는 금지.")
+    "① 장면에 실재하는 후보 중 **장면의 물리적 주제**(이 장면이 무엇을 찍었나)인 것이 있으면 그 "
+    "번호를 primary로 답하라. 비계·사다리·작업발판·거푸집·동바리·개구부 덮개 같은 가설 구조물이 "
+    "주제로 보이면 그것이 기인물이다 — 장소성이 아니다. "
+    "② 각 후보 옆의 '기인물=' 서술은 그 그룹의 실제 대상·현장 단서 나열이다 — 실재·주제 판단에 "
+    "사용하라. 그 단서(예: 출입구 비닐 밀폐, 경고표지)가 장면의 주제와 겹치면 물질·작업 자체가 직접 "
+    "보이지 않아도 주제로 인정하라. 단 이름이 포괄적인 설비 기준 류 후보는 그 설비·물질 취급 공정이 "
+    "장면에 실제로 보일 때만 인정하라. "
+    "③ 실재하는 후보가 **배경이나 주변부일 뿐**이고(예: 마당 장면 구석의 전신주, 부지 안의 컨테이너 "
+    "사무동), 장면의 주제가 통로·계단·바닥·개구부·마당 같은 장소 상태라면 primary를 -1로 하고 "
+    "해당하는 주제 번호들을 topics로 답하라. "
+    "④ 주제 판단이 애매하면 반드시 primary를 0으로 하라. 목록에 없는 번호는 금지.")
 JUDGE_SCHEMA = {"name": "anchor_judge", "strict": True, "schema": {
     "type": "object", "additionalProperties": False,
     "properties": {"primary": {"type": "integer"},
@@ -206,9 +209,27 @@ JUDGE_SCHEMA = {"name": "anchor_judge", "strict": True, "schema": {
     "required": ["primary", "topics", "reason"]}}
 
 
+def _gimulmul_labels() -> dict:
+    """src_key → 판별단서 라벨(gimulmul). judge 입력용 — 검수된 카탈로그 데이터의 제공이지
+    자유텍스트 힌트가 아니다(arm C 기각과 다른 클래스). 실측 근거: 석면 해체 그룹의 라벨
+    ('출입구 비닐 밀폐ㆍ경고표지')이 없으면 judge가 위험물 창고 장면에서 실재를 인정 못 해
+    정답 앵커 2장을 장소로 강등했다(선우개발 FP)."""
+    kn = cue_article_service._load_knowledge()  # noqa: SLF001
+    out = {}
+    for line in (kn or {}).get("catalog_text", "").splitlines():
+        if " ::기인물=" in line:
+            gk, rest = line.split(" ::기인물=", 1)
+            out[gk.strip()] = rest.rsplit(" (", 1)[0].strip()
+    return out
+
+
 async def judge_anchor(scene: str, rows: list) -> Optional[dict]:
-    """rows(RESOLVE 후보의 흐름 행)에 대한 주/종·장소성 판정 1콜. 실패 시 None(폴백=현행)."""
-    cands = "\n".join(f"{i}. {r.get('subject', '')} — {r.get('path', '')}" for i, r in enumerate(rows))
+    """rows(RESOLVE 후보의 흐름 행)에 대한 실재·주제성/장소성 판정 1콜. 실패 시 None(폴백=현행)."""
+    labels = _gimulmul_labels()
+    cands = "\n".join(
+        f"{i}. {r.get('subject', '')} — {r.get('path', '')}"
+        + (f" · 기인물={labels[k]}" if (k := (r.get('src_key') or r.get('no', ''))) in labels else "")
+        for i, r in enumerate(rows))
     tops = "\n".join(f"{i}. {t}" for i, t in enumerate(PLACE_DEFAULT_TOPICS))
     model = os.environ.get("FLOW_JUDGE_MODEL", "gpt-5.4")
     try:
@@ -241,8 +262,14 @@ def route_decision(n_rows: int, place_topics: list, judge_out: Optional[dict]) -
         topics = list(dict.fromkeys(named + list(place_topics))) or list(PLACE_DEFAULT_TOPICS)
         return {"route": "place", "primary": -1, "topics": topics,
                 "why": str(j.get("reason") or "")[:160] or "판정: 위험이 장소 자체에서 옵니다"}
-    if isinstance(p, int) and 0 <= p < n_rows:
-        return {"route": "anchor", "primary": p, "topics": [], "why": ""}
+    if isinstance(p, int) and 0 < p < n_rows:
+        # ⚠ 주 기인물 재배열(primary>0)은 **수용하지 않는다** — 미니 gold 실측(2026-08-12)에서
+        # 재배열 4건 전부 이득 0·해악 2(5222 화기→휴게시설, 승원02 통로→휴게시설). judge의
+        # 검증된 가치는 장소성(-1) 판정뿐이다. RESOLVE 1순위(rows[0])를 유지하고 선호만 기록한다.
+        logger.info("[WorkFlow] judge가 rows[%d] 선호 — 재배열 비활성 정책으로 rows[0] 유지", p)
+        return {"route": "anchor", "primary": 0, "topics": [], "why": ""}
+    if p == 0:
+        return {"route": "anchor", "primary": 0, "topics": [], "why": ""}
     if judge_out is not None:
         logger.warning("[WorkFlow] judge가 무효 번호를 냈다(primary=%r) — rows[0] 폴백", p)
     return {"route": "anchor", "primary": 0, "topics": [], "why": ""}

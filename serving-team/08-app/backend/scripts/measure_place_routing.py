@@ -63,15 +63,15 @@ def _sha(s: str) -> str:
 
 
 def _manifest(kn: dict) -> dict:
-    return {
-        "vis_sys": _sha(intake_photos.VIS_SYS),
-        "catalog": _sha(kn["catalog_text"]),
-        "resolve_sys": _sha(cue_article_service.RESOLVE_SYS),
-        "judge_sys": _sha(flow_service.JUDGE_SYS + json.dumps(flow_service.JUDGE_SCHEMA, sort_keys=True)),
-        "mapping": _sha(json.dumps(flow_service.PLACE_TOPIC_BY_CODE, sort_keys=True, ensure_ascii=False)
-                        + "|".join(flow_service.PLACE_DEFAULT_TOPICS)),
-        "vision_model": VISION_MODEL,
-    }
+    """스테이지별 manifest — **한 스테이지의 입력 변경이 다른 스테이지의 고정 표본을 재추첨시키지
+    않는다.** 단일 manifest의 실측 사고(2026-08-12): judge 프롬프트만 바꿨는데 vision·RESOLVE까지
+    무효화돼 5220·5221의 후보가 새 표본으로 뒤집혔다(재추첨 함정의 러너 내 재현).
+    매핑표(PLACE_TOPIC_BY_CODE)는 LLM 입력이 아니므로 어디에도 안 넣는다(결정론 재계산)."""
+    vis = _sha(intake_photos.VIS_SYS + "|" + VISION_MODEL)
+    res = _sha(vis + "|" + kn["catalog_text"] + "|" + cue_article_service.RESOLVE_SYS)
+    jud = _sha(res + "|" + flow_service.JUDGE_SYS
+               + json.dumps(flow_service.JUDGE_SCHEMA, sort_keys=True) + "|fmt:labels-v2")
+    return {"vision": vis, "resolve": res, "judge": jud}
 
 
 def _vision_new(path: Path) -> dict:
@@ -142,12 +142,23 @@ async def main() -> None:
     cache = {}
     if OUT_CACHE.exists():
         old = json.loads(OUT_CACHE.read_text(encoding="utf-8"))
-        if old.get("_manifest") == man:
-            cache = old.get("data", {})
-        else:
-            bak = OUT_CACHE.with_suffix(f".{_sha(json.dumps(old.get('_manifest', {}), sort_keys=True))}.json")
-            bak.write_text(json.dumps(old, ensure_ascii=False), encoding="utf-8")
-            print(f"manifest 불일치 — 기존 캐시를 {bak.name}으로 물러둠")
+        old_man = old.get("_manifest") or {}
+        data = old.get("data", {})
+        # 스테이지별 부분 재사용 — 그 스테이지의 manifest가 같을 때만 해당 접두 항목을 이어받는다
+        stage_of = {"vision": "vision", "resolve": "resolve", "judge": "judge"}
+        kept, dropped = 0, 0
+        for k, v in data.items():
+            stage = k.split("::", 1)[0]
+            if old_man.get(stage_of.get(stage, "")) == man.get(stage_of.get(stage, "")):
+                cache[k] = v
+                kept += 1
+            else:
+                dropped += 1
+        if dropped:
+            bak = OUT_CACHE.with_suffix(f".{_sha(json.dumps(old_man, sort_keys=True))}.json")
+            if not bak.exists():
+                bak.write_text(json.dumps(old, ensure_ascii=False), encoding="utf-8")
+            print(f"스테이지 manifest 불일치 — {dropped}건 무효화(백업 {bak.name}), {kept}건 재사용")
 
     rows_csv = list(csv.DictReader(GOLD_CSV.open(encoding="utf-8")))
     vis_gold = {r["photo"]: r["result"]
@@ -178,25 +189,39 @@ async def main() -> None:
             gks = list(cache[rkey].get("group_keys", []))
         d = await _route_photo(name, res, gks, fl, db, cache)
         expect_topics = [t for t in (row.get("expect_topics") or "").split(";") if t]
+        # 복수 정답 허용(검수 재라벨 2026-08-12): 한 장면에 방어 가능한 앵커가 여럿일 수 있다 — ';' 구분
+        expect_groups = [g for g in (row.get("expect_group_key") or "").split(";") if g]
         ok = None
         if row["expect"] == "place":
             ok = d["route"] == "place" and bool(set(expect_topics) & set(d["topics"]))
         elif row["expect"] == "anchor":
-            ok = d["route"] == "anchor" and d["pred_anchor"] == row.get("expect_group_key", "")
+            ok = d["route"] == "anchor" and d["pred_anchor"] in expect_groups
         results.append({"photo": name, "expect": row["expect"], "expect_topics": expect_topics,
                         "expect_group_key": row.get("expect_group_key", ""), "source": row.get("source"),
                         **d, "ok": ok})
         OUT_CACHE.write_text(json.dumps({"_manifest": man, "data": cache}, ensure_ascii=False), encoding="utf-8")
 
-    # gold51 전체 — 장소성 재라우팅 오탐(FP) 검사. Vision·RESOLVE는 고정 표본, judge만 신규.
-    fp = []
+    # gold51 — 장소성 재라우팅 검사. Vision·RESOLVE는 고정 표본, judge만 신규.
+    # ★ FP의 정의 = **정답을 잃는** 재라우팅(게이트 등록 취지: 기존 gold51에서 정답→오답 전환 0).
+    #   anchor_accuracy per_photo와 조인해 exact/flow 히트였던 사진의 place 전환만 FP로 센다.
+    #   채점 대상 밖 사진(truth가 카탈로그 밖 — 개구부·통로·지붕류)이나 완전 오인식 사진의 place
+    #   전환은 손실이 아니므로 별도 필드로 투명 보고만 한다.
+    acc = json.loads((ART / "anchor_accuracy.json").read_text(encoding="utf-8"))
+    per = {p["photo"]: p for p in acc.get("per_photo", [])}
+    fp, place_on_miss, place_on_unscored = [], [], []
     for name, pv in sorted(rc_photos.items()):
         if name.startswith("_") or name not in vis_gold:
             continue
         gks = [cue_article_service._norm_gk(g, cat_keys) for g in pv.get("group_keys", [])]  # noqa: SLF001
         d = await _route_photo(f"g51::{name}", vis_gold[name], gks, fl, db, cache)
         if d["route"] == "place":
-            fp.append({"photo": name, **d})
+            p = per.get(name)
+            if p is None:
+                place_on_unscored.append({"photo": name, **d})
+            elif p.get("exact") or p.get("flow_valid"):
+                fp.append({"photo": name, **d})
+            else:
+                place_on_miss.append({"photo": name, **d})
         OUT_CACHE.write_text(json.dumps({"_manifest": man, "data": cache}, ensure_ascii=False), encoding="utf-8")
 
     place_rows = [r for r in results if r["expect"] == "place"]
@@ -211,14 +236,16 @@ async def main() -> None:
         "G-MINI-ANCHOR": {"value": (sum(1 for r in anchor_rows if r["ok"]) / len(anchor_rows)) if anchor_rows else None,
                           "pass": bool(anchor_rows) and all(r["ok"] for r in anchor_rows)},
     }
-    report = {"manifest": man, "gates": gates, "results": results, "gold51_place_fp": fp}
+    report = {"manifest": man, "gates": gates, "results": results, "gold51_place_fp": fp,
+              "place_on_miss": place_on_miss, "place_on_unscored": place_on_unscored}
     OUT_REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
 
     for r in results:
         mark = {True: "OK  ", False: "FAIL", None: "diag"}[r["ok"]]
         print(f"{mark} [{r['expect']:<6}] {r['photo'][:44]:<46} -> {r['route']:<6} "
               f"{(r['pred_anchor'] or ','.join(r['topics']))[:40]}")
-    print(f"\ngold51 장소성 FP: {len(fp)}")
+    print(f"\ngold51 장소성: 정답상실 FP {len(fp)} · 완전오인식→장소 {len(place_on_miss)} · "
+          f"채점외→장소 {len(place_on_unscored)}")
     for f in fp[:5]:
         print("  FP:", f["photo"][:50])
     print("\n게이트:")

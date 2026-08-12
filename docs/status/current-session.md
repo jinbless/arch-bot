@@ -21,9 +21,11 @@ GET /flow가 재선별을 싣고(accident_code 승계), 대안 칩·직접 검�
   정본 [fire-actnow-visibility] = recalc 노트와 같은 흐름, 커밋 402096d·92f6f24.
 - **Track A(장소성 라우팅)**: A-1 판별단서 4종 완료·배포(함정 4호: '허가대상 유해물질' ㆍ분리 →
   별표2 오부착, 공백 융합 우회) · A-2 프롬프트 개입 기각(재추첨 변동과 구분 불가 — 선우개발
-  경계 사례) · A-3 judge+basics 라우팅 코드 완성(**플래그 CUE_ANCHOR_JUDGE off**, 게이트 미통과:
-  진짜 FP 2장·미니 6/8) — 정본 [place-routing-judge-2026-08-12.md](../dev-notes/place-routing-judge-2026-08-12.md).
-  **다음 = 미니 gold 라벨 사용자 검수 → 재계측 → 통과 시 A-4 on.**
+  경계 사례) · A-3 judge+basics 라우팅 코드 완성(**플래그 CUE_ANCHOR_JUDGE off**) —
+  정본 [place-routing-judge-2026-08-12.md](../dev-notes/place-routing-judge-2026-08-12.md).
+  라벨 검수 반영 재계측(2차)까지 완료: 재배열 비활성(이득 0·해악 2)·판별단서 라벨 입력(선우개발
+  FP 해소)·러너 스테이지별 캐시(재추첨 격리). **v3(FP 0·place 4/7) vs v4(FP 1·place 6/7)
+  트레이드오프 실측 고정 — 사용자 결정 보류 중.** 재개=러너 1회(캐시 재사용, LLM 0).
 
 **현재 수치(감독관 gold 51장)**: 앵커 exact **0.784** [0.667,0.882] · **흐름 유효율 0.961** [0.902,1.000] ·
 예측 빈 0장. 경로: 0.647 → 비계 상속(A안) → 판별단서 → Vision v2 → 키 정규화 0.784/0.941 → miss11 레버 0.961.
