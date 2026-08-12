@@ -55,7 +55,7 @@ const OwnerResourcesCard: React.FC<{ analysis: AnalysisResponse; flow?: WorkFlow
             기본 안전수칙 <TrustBadge level="reviewed" />
           </p>
           <p className="text-sm text-gray-700">
-            사진과 관계없이 현장이 늘 갖춰야 하는 것 —{' '}
+            이번 분석과 관계없이 현장이 늘 갖춰야 하는 것 —{' '}
             <Link to="/basics" className="text-primary-600 hover:text-primary-800 underline">
               작업장·통로·보호구 등 45건 보기
             </Link>

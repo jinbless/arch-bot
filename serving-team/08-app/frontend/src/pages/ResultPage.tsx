@@ -102,6 +102,9 @@ const ResultPage: React.FC = () => {
           reason: '',
         }));
   const hasFlow = !!analysis.work_flow;
+  // 텍스트 트랙 개통(2026-08-10): 텍스트 분석도 앵커→흐름을 타므로 사진 전제 문구를 분기한다
+  const isText = analysis.analysis_type === 'text';
+  const inputNoun = isText ? '서술' : '사진';
   // 조문 선별이 흐름 스트립으로 들어갈 수 없을 때만 독립 패널을 보여준다(무회귀).
   // (조문 선별은 흐름에서만 나오지만, 흐름 없는 구 기록을 방어한다 — 즉시조치가 증발하면 안 된다)
   const showFallbackActions =
@@ -128,7 +131,7 @@ const ResultPage: React.FC = () => {
         <strong>즉시 작업 중지</strong>가 먼저입니다.
       </p>
 
-      <StageHeading n={1} title="사진에서 본 것" />
+      <StageHeading n={1} title={isText ? '서술에서 파악한 것' : '사진에서 본 것'} />
       <FindingsCard analysis={analysis} />
 
       {showFallbackActions && (
@@ -152,6 +155,7 @@ const ResultPage: React.FC = () => {
             flow={analysis.work_flow}
             actNow={statuteActions}
             aiAlignments={aiAlignments}
+            inputNoun={inputNoun}
           />
         </>
       )}

@@ -18,8 +18,8 @@ const ImmediateActionsPanel: React.FC<ImmediateActionsPanelProps> = ({ items, fi
           </h2>
           <p className="text-sm text-gray-500">
             {needsClarification
-              ? '사진 단서만으로 확정하지 않고 현장에서 먼저 확인할 조치 후보입니다.'
-              : '사진에서 확인된 위험을 먼저 줄이기 위한 조치입니다.'}
+              ? '분석 단서만으로 확정하지 않고 현장에서 먼저 확인할 조치 후보입니다.'
+              : '분석에서 확인된 위험을 먼저 줄이기 위한 조치입니다.'}
           </p>
         </div>
         {items[0]?.source_type === 'rule:Article' ? (

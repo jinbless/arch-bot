@@ -76,7 +76,7 @@ const Item: React.FC<{ it: FlowItem; actNow?: boolean; highlighted?: boolean; hl
         </span>
         {actNow && (
           <span
-            title="이 사진의 사고형태 기준으로 위 ‘지금 당장’에 선별된 조문입니다"
+            title="이 분석의 사고형태 기준으로 위 ‘지금 당장’에 선별된 조문입니다"
             className="mt-0.5 shrink-0 rounded border border-orange-400 bg-orange-50 px-1.5 py-0.5 text-[10px] font-semibold text-orange-700"
           >
             지금
@@ -244,13 +244,13 @@ const AnchorPicker: React.FC<{ current: string; onPick: (k: string) => void; onC
                   className="w-full px-1.5 py-1.5 text-left hover:bg-slate-50 disabled:opacity-40"
                 >
                   <span className="text-sm text-gray-800">{g.label}</span>
-                  {/* 사진으로 지목할 수 없는 칸은 고르기 전에 알려준다. 목록에서 빼지는 않는다 */}
+                  {/* 장면으로 지목할 수 없는 칸은 고르기 전에 알려준다. 목록에서 빼지는 않는다 */}
                   {g.kind === '부적격' && (
                     <span
                       title="규칙의 편제상 분류(통칙·보호구·관리 등)라 작업 흐름이 성립하지 않습니다"
                       className="ml-1.5 rounded border border-slate-300 px-1 text-[9px] text-slate-500"
                     >
-                      사진 지목 불가
+                      기인물 아님
                     </span>
                   )}
                   {g.is_inspection_target && (
@@ -276,7 +276,9 @@ const WorkFlowPanel: React.FC<{
   actNow?: CorrectiveAction[];
   /** AI 자유 제안 ↔ 흐름 조문 정렬 결과 */
   aiAlignments?: AiActionAlignment[];
-}> = ({ flow, actNow = [], aiAlignments = [] }) => {
+  /** 입력 매체 명사 — 이미지 분석 '사진', 텍스트 분석 '서술' (2026-08-10 텍스트 트랙 개통) */
+  inputNoun?: string;
+}> = ({ flow, actNow = [], aiAlignments = [], inputNoun = '사진' }) => {
   // 원본(모델이 인식한 결과)과 현재 보고 있는 흐름을 나눠 둔다 — 되돌아갈 길을 남긴다.
   const [current, setCurrent] = useState<WorkFlow | null>(null);
   const [picking, setPicking] = useState(false);
@@ -347,8 +349,9 @@ const WorkFlowPanel: React.FC<{
           이 기인물의 작업 흐름 <TrustBadge level="reviewed" />
         </h2>
         <p className="text-sm text-gray-500">
-          사진은 작업의 <strong>한 시점</strong>입니다. 사진에서 확인된 기인물을 기준으로 그 앞뒤로 해야 할
-          일을 규칙·고시·가이드에서 모으고, 그중 <strong>지금 당장 할 조치</strong>를 먼저 보여줍니다.
+          {inputNoun}은 작업의 <strong>한 시점</strong>입니다. {inputNoun}에서 확인된 기인물을 기준으로 그
+          앞뒤로 해야 할 일을 규칙·고시·가이드에서 모으고, 그중 <strong>지금 당장 할 조치</strong>를 먼저
+          보여줍니다.
         </p>
         {/* B0: 검수 사실을 라벨이 아니라 **이력**으로 — 근거는 flow_service.LABELS_REVIEWED 주석과 동일.
             숫자가 바뀌면 그쪽과 같이 갱신한다(검수 체계가 바뀌는 일 자체가 드묾). */}
@@ -361,7 +364,7 @@ const WorkFlowPanel: React.FC<{
       <div className="mb-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
         <div className="flex flex-wrap items-baseline gap-2">
           <span className="text-xs text-gray-500">
-            {corrected ? '직접 고른 기인물' : '사진에서 확인된 기인물'}
+            {corrected ? '직접 고른 기인물' : `${inputNoun}에서 확인된 기인물`}
           </span>
           <strong className="text-base text-gray-900">{anchor.label}</strong>
           {anchor.is_inspection_target && (
@@ -383,7 +386,7 @@ const WorkFlowPanel: React.FC<{
         <div className="mt-2 border-t border-dashed border-slate-200 pt-2">
           <p className="text-xs text-gray-600">
             기인물이 <strong>다르면</strong> 아래 흐름 전체가 맞지 않습니다.
-            {alternates.length > 0 ? ' 사진에서 함께 확인된 것:' : ' 직접 고를 수 있습니다.'}
+            {alternates.length > 0 ? ` ${inputNoun}에서 함께 확인된 것:` : ' 직접 고를 수 있습니다.'}
           </p>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {alternates.map((a) => (
@@ -436,7 +439,8 @@ const WorkFlowPanel: React.FC<{
           <div className="flex flex-wrap items-baseline gap-2">
             <h3 className="text-sm font-bold text-orange-900">지금 당장</h3>
             <span className="text-[11px] text-orange-800">
-              아래 흐름의 조문 중 이 사진의 사고형태 기준으로 자동 선별 — 누르면 근거 위치로 이동합니다
+              아래 흐름의 조문 중 이 {inputNoun}의 사고형태 기준으로 자동 선별 — 누르면 근거 위치로
+              이동합니다
             </span>
           </div>
           <ol className="mt-2 space-y-1">
@@ -482,10 +486,10 @@ const WorkFlowPanel: React.FC<{
             빈 칸을 보여주며 넘어가지 말고, 사용자가 실제 기인물을 고르도록 말해준다. */}
         {anchor.kind === '부적격' && (
           <p className="rounded border border-slate-400 bg-white p-2">
-            <strong>이 항목은 사진에서 지목할 수 있는 기인물이 아닙니다.</strong> 규칙의 편제상 분류
+            <strong>이 항목은 {inputNoun}에서 지목할 수 있는 기인물이 아닙니다.</strong> 규칙의 편제상 분류
             (통칙·보호구·관리 등)라 작업 흐름이 성립하지 않습니다.
             {anchor.kind_why ? ` ${anchor.kind_why}` : ''} 위의 <strong>‘＋ 목록에서 직접 찾기’</strong>로
-            사진 속 기계·장소를 골라 주세요.
+            {inputNoun} 속 기계·장소를 골라 주세요.
           </p>
         )}
         <p>
@@ -500,8 +504,8 @@ const WorkFlowPanel: React.FC<{
           </p>
         )}
         <p>
-          사진에 안 보이는 것(작업계획서·자격·정기검사 이력 등)은 <strong>확인한 것이 아니라</strong> 해당
-          기인물에 일반적으로 요구되는 항목을 모아 놓은 것입니다.
+          {inputNoun}에 안 보이는 것(작업계획서·자격·정기검사 이력 등)은 <strong>확인한 것이 아니라</strong>{' '}
+          해당 기인물에 일반적으로 요구되는 항목을 모아 놓은 것입니다.
         </p>
       </div>
 
@@ -536,7 +540,7 @@ const WorkFlowPanel: React.FC<{
             </span>
           </div>
           <p className="mt-0.5 text-[11px] text-violet-700">
-            AI가 사진에서 낸 조치 제안을 위 확정 의무와 대조한 결과입니다
+            AI가 {inputNoun}에서 낸 조치 제안을 위 확정 의무와 대조한 결과입니다
           </p>
           <ul className="mt-2 space-y-1.5">
             {aiAlignments.map((al, i) => (

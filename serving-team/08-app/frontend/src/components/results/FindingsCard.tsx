@@ -33,9 +33,10 @@ const FindingsCard: React.FC<{ analysis: AnalysisResponse }> = ({ analysis }) =>
     <p className="mb-2 flex flex-wrap items-center gap-1.5 rounded-md bg-blue-50/60 border border-blue-100 px-2.5 py-1.5 text-[11px] leading-relaxed text-blue-900">
       <TrustBadge level="ai" />
       <span>
-        이 서술은 <strong>사진 1장만</strong> 근거로 합니다 — 기계 이력·작업표준·최근 점검 결과는 반영돼
-        있지 않고, <strong>언급이 없다고 문제가 없는 것이 아닙니다.</strong> 아래 2단계의 검수된 조문과
-        대조하세요.
+        이 서술은{' '}
+        <strong>{analysis.analysis_type === 'text' ? '입력하신 설명만' : '사진 1장만'}</strong> 근거로
+        합니다 — 기계 이력·작업표준·최근 점검 결과는 반영돼 있지 않고,{' '}
+        <strong>언급이 없다고 문제가 없는 것이 아닙니다.</strong> 아래 2단계의 검수된 조문과 대조하세요.
       </span>
     </p>
 

@@ -172,9 +172,13 @@ class AnalysisPipeline:
                 logging.getLogger(__name__).warning("[CueArticles] 실패 — 기존 경로 유지: %s", exc)
         # ⭐ 기인물 앵커 기준 작업 흐름. flag off(기본) → None, 기존 경로 무변화.
         # RESOLVE는 cue_article_service와 공유하므로 둘 다 켜도 LLM 호출은 1회다.
-        # 사진 전제 구조이므로 이미지 분석에만 적용한다.
+        # 2026-08-10 텍스트 트랙 개통(사용자 결정): 원래 "사진 전제 구조"로 이미지에만 걸었으나,
+        # 그 결과 텍스트 분석은 구 아키텍처(CI 광역 매칭·흐름 없음)에 남아 있었다.
+        # analyze_text 결과도 같은 형태(visual_observations·cues·hazards)라 scene_text→RESOLVE→
+        # 흐름이 그대로 작동한다(텍스트 서술 스모크로 확인). 단 텍스트 트랙은 gold 계측이 없다 —
+        # 앵커 정확도 수치(0.784/0.961)는 사진 51장 기준이며 텍스트에 그대로 이전되지 않는다.
         work_flow = None
-        if run_input.analysis_type == "image" and flow_service.enabled():
+        if flow_service.enabled():
             try:
                 work_flow = await flow_service.build(run_input.result)
             except Exception as exc:  # noqa: BLE001 — 흐름 실패가 분석 응답을 막지 않는다
