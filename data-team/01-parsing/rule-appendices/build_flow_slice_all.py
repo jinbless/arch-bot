@@ -306,8 +306,21 @@ def load_article_phases() -> tuple[dict[str, list[dict]], set[str]]:
     d = json.loads(p.read_text(encoding="utf-8"))["articles"]
     # ★ quote가 아니라 evidence를 쓴다. 1차의 EXEC quote는 근거가 아니라 자리표시라서
     #   그대로 띄우면 한 문장이 두 칸에 중복으로 뜬다(제388조 등 19종에서 실제로 그랬다).
-    aph = {c: [{"phase": x["phase"], "quote": x.get("evidence", x.get("quote", ""))} for x in a["phases"]]
-           for c, a in d.items()}
+    # ★ 가드된 fallback(2026-08-12 Track B): evidence **키만 있고 값이 빈** 칸은 인용구가
+    #   0줄이 된다(화기 EXEC 8조문 실측 — 제243조 소화설비의 원문 "…소화설비를 설치하여야
+    #   한다"가 데이터에 있는데도 화면에 안 떴다). 그 칸에 한해 quote로 채우되, 같은 조문의
+    #   다른 칸이 이미 같은 문구를 쓰면 채우지 않는다 — 위 중복 회귀의 재발 방지.
+    aph = {}
+    for c, a in d.items():
+        rows = [{"phase": x["phase"], "quote": (x.get("evidence") or "").strip(),
+                 "_raw": (x.get("quote") or "").strip()} for x in a["phases"]]
+        used = {r["quote"] for r in rows if r["quote"]}
+        for r in rows:
+            if not r["quote"] and r["_raw"] and r["_raw"] not in used:
+                r["quote"] = r["_raw"]
+                used.add(r["_raw"])
+            del r["_raw"]
+        aph[c] = rows
     return aph, {c for c, a in d.items() if a.get("no_duty")}
 
 
@@ -612,7 +625,11 @@ def main() -> None:
             a3_rows += [r for r in a3_by_coord.get(WIRE_GWAN, []) if r not in a3_rows]
         for r in a3_rows:
             for it in r["items"]:
-                add("PRECHECK", "별표 3", it, f"제35조제2항 · {r['subject'][:20]}")
+                # ref = 안정 식별자(2026-08-12 Track B): 종전 subject[:20] 절단은 잘린 원문처럼
+                # 보였고('… 화재위험작업을 '), 같은 행 항목들이 문자열까지 공유해 화면 pill·매칭이
+                # 흐려졌다. 호 번호는 별표 개정 전까지 안정적이고 원문 대조도 쉽다.
+                # (같은 호의 항목들은 여전히 ref를 공유한다 — 서빙의 dedup·matched는 (ref,text) 쌍)
+                add("PRECHECK", "별표 3", it, f"제35조제2항 · 별표 3 제{r['no']}호")
 
         # ── PLAN: 별표 4 (이름 매칭) ──────────────────────────────────
         nm = gg["name"]
