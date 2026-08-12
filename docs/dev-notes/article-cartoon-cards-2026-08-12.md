@@ -12,12 +12,10 @@
 - **매핑**: `articleCartoon.tsx`의 `cartoonFor(ref)` — **선두 `/^제\d+조(의\d+)?/` 앵커**라
   법/시행령/시행규칙/고시/가이드코드/작업명 ref는 자연 탈락(다른 법 조번호 오염 차단).
   흐름 ref 66.9% 커버, basics 100%. lawLink도 이 모듈로 이관.
-- **방식1(기본)**: 행 유지 + '그림으로 보기' 버튼 → 확대 모달(portal z-60, ESC/backdrop,
-  출처 문구+법령 링크, hover 프리로드). **방식2**: 행 본문을 인라인 카드로 교체(lazy +
-  manifest w/h aspect-ratio 예약 → CLS 0), 클릭 확대. 슬롯/목록 단위 **dedup**(제35조 카드가
-  43항목에 반복되는 함정 — 첫 등장만 카드, 이후는 텍스트+버튼).
-- **토글**: 우하단 고정(조문 표시: 글+그림보기/그림 카드), localStorage `ohs.cartoon_mode_v1`,
-  기본 modal. **비교 실험 스캐폴딩 — 사용자 선택 후 탈락 방식+토글 철거 예정.**
+- **방식1(확정)**: 행 유지 + '그림으로 보기' 버튼 → 확대 모달(portal z-60, ESC/backdrop,
+  법령 링크+QR 오버레이+'연관 콘텐츠' 링크, hover 프리로드).
+- ~~방식2(인라인 카드)·토글~~: 비교 배포 후 **2026-08-12 방식1 확정으로 철거**(아래 '사용자 결정').
+  localStorage `ohs.cartoon_mode_v1` 잔존값은 무해.
 - **적용 지점**: 흐름 타임라인 Item·'지금 당장' 스트립(버튼만)·AI 대조 matched(버튼만)·
   BasicsPage·ImmediateActionsPanel(rule:Article만). PenaltyPathPanel 제외(legacy off).
 - **서빙**: dev=vite public/, prod=frontend nginx `location /ohs/cartoons`(immutable 1y,
@@ -34,7 +32,20 @@
 - 확인: `/ohs/cartoons/*.webp` 200+immutable(에지 경유), 모달(제3조 카드+법령 링크),
   인라인(카드 44/45·lazy), 흐름 패널(인라인 4+버튼 11), 출처 표기, 이미지 ID 대조.
 
-## 사용자 결정 (2026-08-12, compact 직전 — **다음 세션 실행 큐**)
+## 사용자 결정 (2026-08-12) — ✅ **3건 전부 구현·배포 완료 (커밋 2e80e14)**
+
+구현 결과: ① 인라인/토글 철거 완료(잔존 = CartoonButton·CartoonLightbox·cartoonFor·lawLink,
+localStorage 키 `ohs.cartoon_mode_v1` 잔존은 무해) ② 출처 표기 3곳 삭제(manifest `_source`는 유지)
+③ QR **914링크/559장** 복원(후보 1,436 중 실패 37 — 31장은 일부 실패, 링크 없는 카드 108장은
+카드에 QR이 안 보이는 게 실제 상태). 모달 QR 영역 클릭 오버레이 + 하단 '연관 콘텐츠' 링크.
+- ⚠ **페이지 밖 rect 함정(신규 실측)**: 원본을 조문별로 분할하며 이웃 조문 이미지가 콘텐츠
+  스트림에 남아 CropBox 밖에 배치됨(제13조 y=-0.218) — `get_image_rects()`가 그것도 반환한다.
+  교차 60% 필터+페이지 클램프로 해결. 필터 전 2,918링크는 잔재 포함 수치였음.
+- 검증: manifest 좌표로 렌더 WebP를 크롭해 재디코딩 → 표본 15장 23/23 URL 일치(정렬 증명) +
+  prod 모달 DOM에서 오버레이·링크·출처부재 확인.
+- WebP 667장 해시 불변(재사용 667) → cartoons tar 재업로드 없이 manifest+프론트 이미지만 배포.
+
+## (기록) 원 실행 큐 — 위로 대체됨
 
 1. **방식1(글+그림보기) 확정** — 철거 대상: `articleCartoon.tsx`의 CartoonInlineCard·
    CartoonModeToggle·useCartoonMode/setCartoonMode, WorkFlowPanel(Item inlineCard 분기·Slot
