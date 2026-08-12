@@ -651,26 +651,9 @@ class AnalysisPipeline:
 
         빈 목록이면 호출부가 기존 CI 경로로 폴백한다. GPT 상황 제안은 여기 섞지 않는다 —
         ai_action_alignments로 흐름 조문과 대조해 별도 표시한다(2026-08-09 통합 화면).
+        매핑은 앵커 정정 API와 공용(flow_service.statute_actions_corrective) — 규칙 드리프트 방지.
         """
-        rows = flow_service.statute_actions(work_flow, accident_codes, db)
-        if not rows:
-            return []
-        actions = []
-        for r in rows:
-            desc = f"{r['ref']} 원문: “{r['evidence']}”" if r.get("evidence") else r["ref"]
-            actions.append(
-                CorrectiveAction(
-                    action_id=r["ref"],
-                    title=r["title"],
-                    description=desc,
-                    source_type="rule:Article",
-                    source_id=(r.get("sr_id") or r["ref"]),
-                    # 설비 장착 의무(헤드가드 등)는 법정이라도 '지금 당장'이 아니라 planned다
-                    urgency="immediate" if (r.get("hazard_hit") and r.get("actable")) else "planned",
-                    confidence=1.0 if r["tier"] == "법정" else 0.7,
-                )
-            )
-        return actions
+        return flow_service.statute_actions_corrective(work_flow, accident_codes, db)
 
     def _build_immediate_actions(
         self,

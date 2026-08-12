@@ -11,9 +11,11 @@ from __future__ import annotations
 import logging
 from typing import Optional
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
 
-from app.models.analysis import WorkFlow
+from app.db.database import get_db
+from app.models.analysis import WorkFlowWithActions
 from app.services import flow_service
 
 logger = logging.getLogger(__name__)
@@ -44,13 +46,21 @@ async def flow_always():
     return flow_service.always_applicable()
 
 
-@router.get("", response_model=WorkFlow)
+@router.get("", response_model=WorkFlowWithActions)
 async def flow_by_group(
     group_key: str = Query(..., description="기인물 그룹 키"),
     alternate: Optional[list[str]] = Query(None, description="유지할 대안 후보 키(되돌아갈 길)"),
     from_group_key: Optional[str] = Query(None, description="정정 전 앵커 — 정정 빈도 관측용"),
+    accident_code: Optional[list[str]] = Query(
+        None, description="'지금 당장' 순위용 사고형태 코드 — 원래 분석의 신호를 그대로 잇는다"),
+    db: Session = Depends(get_db),
 ):
-    """지정한 기인물의 흐름(LLM 호출 없음)."""
+    """지정한 기인물의 흐름 + '지금 당장' 재선별(LLM 호출 없음).
+
+    기인물을 바꾸면 즉시조치 선별의 모집단(그 기인물의 검수 조문)도 바뀌므로 여기서 다시
+    계산한다(2026-08-12). 분석 시점과 같은 규칙(flow_service.statute_actions) · 같은 사고형태
+    신호(accident_code로 승계). 재료가 전부 로컬 파일 + PG 조회라 GPT 없이 즉시 응답한다.
+    """
     _guard()
     wf = flow_service.by_group_key(group_key, alternate)
     if wf is None:
@@ -59,4 +69,9 @@ async def flow_by_group(
         # 사용자가 앵커를 바꿨다는 사실 자체가 앵커 정확도의 현장 신호다.
         # 개인정보 없이 그룹키만 남긴다 — 나중에 오인식률을 실사용에서 재는 재료가 된다.
         logger.info("[WorkFlow] 앵커 정정: %s → %s", from_group_key, group_key)
-    return wf
+    try:
+        actions = flow_service.statute_actions_corrective(wf, list(accident_code or []), db)
+    except Exception as exc:  # noqa: BLE001 — 선별 실패가 흐름 정정 자체를 막으면 안 된다
+        logger.warning("[WorkFlow] '지금 당장' 재선별 실패 — 흐름만 반환: %s", exc)
+        actions = []
+    return WorkFlowWithActions(**wf.model_dump(), statute_actions=actions)

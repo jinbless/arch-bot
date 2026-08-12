@@ -231,6 +231,9 @@ export interface WorkFlow {
   alternates: FlowAnchor[]; // 앵커 정정 후보 — 앵커 정확도 0.711이라 필수
   slots: FlowSlot[];
   reviewed: boolean; // 항목 라벨 사람 검수 완료 여부
+  /** 앵커 정정 API(GET /flow) 응답에만 실린다 — 그 기인물의 조문에서 다시 선별한 '지금 당장'.
+   *  분석 응답의 work_flow에는 없다(그쪽 정본은 immediate_actions). */
+  statute_actions?: CorrectiveAction[];
 }
 
 /** GPT 자유 조치 제안 1건 ↔ 흐름 조문(닫힌 집합) 정렬 결과.

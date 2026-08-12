@@ -50,10 +50,11 @@ export const flowApi = {
     return res.data.groups ?? [];
   },
 
-  /** 지정한 기인물의 흐름. alternates를 넘기면 되돌아갈 후보를 유지한다. */
+  /** 지정한 기인물의 흐름 + '지금 당장' 재선별. alternates를 넘기면 되돌아갈 후보를 유지한다.
+   *  accidentCodes(원래 분석의 사고형태)를 넘기면 재선별 순위가 분석 시점과 같은 신호를 쓴다. */
   byGroupKey: async (
     groupKey: string,
-    opts?: { alternates?: string[]; fromGroupKey?: string }
+    opts?: { alternates?: string[]; fromGroupKey?: string; accidentCodes?: string[] }
   ): Promise<WorkFlow> => {
     // 쿼리를 직접 만든다. axios 기본 직렬화는 배열을 `alternate[]=`로 내보내 FastAPI가 못 읽고,
     // 콤마로 이어붙이면 그룹키 자체에 콤마가 있는 경우('관리감독자의 직무, 사용의 제한 등')가 깨진다.
@@ -61,6 +62,7 @@ export const flowApi = {
     qs.append('group_key', groupKey);
     (opts?.alternates ?? []).forEach((a) => qs.append('alternate', a));
     if (opts?.fromGroupKey) qs.append('from_group_key', opts.fromGroupKey);
+    (opts?.accidentCodes ?? []).forEach((c) => qs.append('accident_code', c));
     const res = await apiClient.get<WorkFlow>(`/flow?${qs.toString()}`);
     return res.data;
   },

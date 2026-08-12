@@ -105,6 +105,11 @@ const ResultPage: React.FC = () => {
   // 텍스트 트랙 개통(2026-08-10): 텍스트 분석도 앵커→흐름을 타므로 사진 전제 문구를 분기한다
   const isText = analysis.analysis_type === 'text';
   const inputNoun = isText ? '서술' : '사진';
+  // 앵커 정정 시 '지금 당장' 재선별의 순위 신호 — 분석 시점과 같은 사고형태 코드를 승계한다.
+  // (백엔드 선별도 이 canonical 코드를 썼다 — analysis_pipeline._build_statute_actions)
+  const accidentCodes = analysis.risk_features
+    .filter((f) => f.axis === 'accident_type')
+    .map((f) => f.code);
   // 조문 선별이 흐름 스트립으로 들어갈 수 없을 때만 독립 패널을 보여준다(무회귀).
   // (조문 선별은 흐름에서만 나오지만, 흐름 없는 구 기록을 방어한다 — 즉시조치가 증발하면 안 된다)
   const showFallbackActions =
@@ -156,6 +161,7 @@ const ResultPage: React.FC = () => {
             actNow={statuteActions}
             aiAlignments={aiAlignments}
             inputNoun={inputNoun}
+            accidentCodes={accidentCodes}
           />
         </>
       )}

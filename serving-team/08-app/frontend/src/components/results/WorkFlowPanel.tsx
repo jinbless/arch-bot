@@ -186,8 +186,15 @@ const Slot: React.FC<{
 };
 
 /** 기인물 선택기 — 대안 칩만으로는 완전 오인식(26.7%)을 고칠 수 없어 전체에서 찾게 한다. */
-const AnchorPicker: React.FC<{ current: string; onPick: (k: string) => void; onClose: () => void }> = ({
+const AnchorPicker: React.FC<{
+  current: string;
+  /** 정정 요청 진행 중 — 대안 칩과 같은 규칙으로 잠근다(연타 시 마지막 응답이 이기는 레이스 방지) */
+  busy?: boolean;
+  onPick: (k: string) => void;
+  onClose: () => void;
+}> = ({
   current,
+  busy = false,
   onPick,
   onClose,
 }) => {
@@ -239,7 +246,7 @@ const AnchorPicker: React.FC<{ current: string; onPick: (k: string) => void; onC
               <li key={g.group_key}>
                 <button
                   type="button"
-                  disabled={g.group_key === current}
+                  disabled={busy || g.group_key === current}
                   onClick={() => onPick(g.group_key)}
                   className="w-full px-1.5 py-1.5 text-left hover:bg-slate-50 disabled:opacity-40"
                 >
@@ -278,9 +285,14 @@ const WorkFlowPanel: React.FC<{
   aiAlignments?: AiActionAlignment[];
   /** 입력 매체 명사 — 이미지 분석 '사진', 텍스트 분석 '서술' (2026-08-10 텍스트 트랙 개통) */
   inputNoun?: string;
-}> = ({ flow, actNow = [], aiAlignments = [], inputNoun = '사진' }) => {
+  /** 원래 분석의 사고형태 코드 — 앵커 정정 시 '지금 당장' 재선별의 순위 신호로 승계한다 */
+  accidentCodes?: string[];
+}> = ({ flow, actNow = [], aiAlignments = [], inputNoun = '사진', accidentCodes = [] }) => {
   // 원본(모델이 인식한 결과)과 현재 보고 있는 흐름을 나눠 둔다 — 되돌아갈 길을 남긴다.
   const [current, setCurrent] = useState<WorkFlow | null>(null);
+  // 정정된 기인물의 '지금 당장' 재선별(2026-08-12) — 원본 선별(actNow)은 원본 흐름 기준이라
+  // 정정된 흐름에 얹으면 근거 없는 조문을 가리킨다. 흐름과 함께 받아 흐름과 같이 갈아 끼운다.
+  const [currentActions, setCurrentActions] = useState<CorrectiveAction[]>([]);
   const [picking, setPicking] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
@@ -289,10 +301,10 @@ const WorkFlowPanel: React.FC<{
   const [hl, setHl] = useState<{ ref: string; slot: string; n: number }>({ ref: '', slot: '', n: 0 });
   const jumpTo = (ref: string, slot = '') => setHl((p) => ({ ref, slot, n: p.n + 1 }));
   const clearHl = () => setHl({ ref: '', slot: '', n: 0 });
-  const actNowRefs = useMemo(() => new Set(actNow.map((a) => a.action_id)), [actNow]);
 
   useEffect(() => {
     setCurrent(null);
+    setCurrentActions([]);
     setPicking(false);
     setErr('');
     setHl({ ref: '', slot: '', n: 0 });
@@ -300,9 +312,15 @@ const WorkFlowPanel: React.FC<{
 
   const shown = current ?? flow;
   const corrected = current !== null;
+  // 화면의 '지금 당장'은 항상 **보고 있는 흐름**의 선별이어야 한다 — 원본이면 분석 응답 값,
+  // 정정했으면 정정 API의 재선별 값. 섞이면 스트립과 타임라인 배지가 서로 다른 흐름을 가리킨다.
+  const actNowShown = corrected ? currentActions : actNow;
+  const actNowRefs = useMemo(() => new Set(actNowShown.map((a) => a.action_id)), [actNowShown]);
 
   const pick = async (key: string) => {
-    if (!flow) return;
+    // busy 가드: 연타로 요청 2개가 겹치면 마지막 '응답'이 이겨 마지막 '클릭'과 다른 흐름에
+    // 안착할 수 있다(리뷰 확인). 버튼 disabled와 이중 방어.
+    if (!flow || busy) return;
     setBusy(true);
     setErr('');
     try {
@@ -310,8 +328,11 @@ const WorkFlowPanel: React.FC<{
       const next = await flowApi.byGroupKey(key, {
         alternates: keep,
         fromGroupKey: shown?.anchor.group_key,
+        accidentCodes,
       });
       setCurrent(next);
+      // 구 백엔드(필드 없음)에서는 빈 배열 — 스트립이 숨고 안내문이 대신 뜬다(무회귀)
+      setCurrentActions(next.statute_actions ?? []);
       setPicking(false);
       // 하이라이트는 원 흐름 기준 값 — 남겨두면 '되돌리기' 순간 stale ref로 자동 스크롤이 튄다
       clearHl();
@@ -325,6 +346,13 @@ const WorkFlowPanel: React.FC<{
   if (!flow || !shown) return null;
   const { anchor, alternates, slots, reviewed } = shown;
   const total = slots.reduce((n, s) => n + s.items.length, 0);
+
+  // 스트립 점프의 목적 칸 — 선별 모집단(PRECHECK/EXEC)에서 백엔드와 같은 순서로 첫 칸을 찾는다
+  // (flow_service.statute_actions의 seen-dedup과 동일 규칙). slot 없이 점프하면 같은 조문이
+  // 다른 칸에도 있을 때(제35조류) 모든 칸이 하이라이트되고 스크롤이 경합한다(리뷰 확인).
+  const slotForAction = (ref: string) =>
+    slots.find((s) => (s.key === 'PRECHECK' || s.key === 'EXEC') && s.items.some((i) => i.ref === ref))
+      ?.key ?? '';
 
   // B0: matched 제안의 근거 발췌를 인라인으로 — 인용 링크는 거의 클릭되지 않는다는 실측(NN/g)
   // 때문에 점프는 보조이고 발췌가 주력이어야 한다. 스크린샷 유통에서도 발췌만 살아남는다.
@@ -414,6 +442,7 @@ const WorkFlowPanel: React.FC<{
                 type="button"
                 onClick={() => {
                   setCurrent(null);
+                  setCurrentActions([]); // 재선별도 흐름과 함께 원본으로
                   clearHl(); // stale 하이라이트가 복귀 순간 자동 스크롤을 일으키지 않도록
                 }}
                 disabled={busy}
@@ -425,30 +454,31 @@ const WorkFlowPanel: React.FC<{
           </div>
           {err && <p className="mt-1.5 text-xs text-red-600">{err}</p>}
           {picking && (
-            <AnchorPicker current={anchor.group_key} onPick={pick} onClose={() => setPicking(false)} />
+            <AnchorPicker current={anchor.group_key} busy={busy} onPick={pick} onClose={() => setPicking(false)} />
           )}
         </div>
       </div>
 
       {/* ①-1 '지금 당장' 스트립 — 즉시조치는 이 흐름 조문의 부분집합이다(한 카테고리, 두 시점).
           별도 패널로 두면 같은 조문이 화면에 두 번 나와 출처가 흐려진다(2026-08-09 통합).
-          앵커를 직접 정정한 뒤에는 감춘다 — 선별은 원래 인식된 흐름 기준으로 계산된 값이라
-          정정된 흐름에 그대로 얹으면 근거 없는 조문을 가리키게 된다. */}
-      {!corrected && actNow.length > 0 && (
+          앵커를 정정하면 그 기인물의 검수 조문에서 **다시 선별한 값**을 보여준다(2026-08-12) —
+          원본 선별을 다른 흐름에 얹으면 근거 없는 조문을 가리키게 되므로 흐름과 한 몸으로 갈아 끼운다. */}
+      {actNowShown.length > 0 && (
         <div className="mb-3 rounded-lg border border-orange-300 bg-orange-50 p-3">
           <div className="flex flex-wrap items-baseline gap-2">
             <h3 className="text-sm font-bold text-orange-900">지금 당장</h3>
             <span className="text-[11px] text-orange-800">
-              아래 흐름의 조문 중 이 {inputNoun}의 사고형태 기준으로 자동 선별 — 누르면 근거 위치로
-              이동합니다
+              {corrected
+                ? `직접 고른 기인물의 조문에서 이 ${inputNoun}의 사고형태 기준으로 다시 선별했습니다 — 누르면 근거 위치로 이동합니다`
+                : `아래 흐름의 조문 중 이 ${inputNoun}의 사고형태 기준으로 자동 선별 — 누르면 근거 위치로 이동합니다`}
             </span>
           </div>
           <ol className="mt-2 space-y-1">
-            {actNow.map((a, i) => (
+            {actNowShown.map((a, i) => (
               <li key={a.action_id}>
                 <button
                   type="button"
-                  onClick={() => jumpTo(a.action_id)}
+                  onClick={() => jumpTo(a.action_id, slotForAction(a.action_id))}
                   className="flex w-full items-start justify-between gap-2 rounded-lg border border-orange-200 bg-white px-3 py-2 text-left hover:border-orange-400"
                 >
                   <span className="text-sm font-medium text-gray-900">
@@ -473,10 +503,18 @@ const WorkFlowPanel: React.FC<{
           </ol>
         </div>
       )}
-      {corrected && (actNow.length > 0 || aiAlignments.length > 0) && (
+      {corrected && (aiAlignments.length > 0 || (actNowShown.length === 0 && actNow.length > 0)) && (
         <p className="mb-3 rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-xs text-slate-600">
-          직접 고른 기인물 기준에서는 ‘지금 당장’ 선별과 AI 제안 대조를 다시 계산하지 않습니다 — 아래
-          흐름 항목을 직접 확인하세요.
+          {/* '지금 당장'은 이제 정정 시 재선별된다(2026-08-12). 여기서 설명할 것은 두 가지뿐 —
+              재선별이 비었을 때(이 기인물의 작업전·작업중 칸에 조문이 없음)와, AI 제안 대조는
+              여전히 처음 인식 기준이라는 것(재대조는 LLM 호출이 필요해 정정마다 돌리지 않는다). */}
+          {actNowShown.length === 0 && actNow.length > 0 && (
+            <>이 기인물의 검수 조문에서는 ‘지금 당장’ 선별이 나오지 않았습니다 — 아래 흐름 항목을 직접
+            확인하세요. </>
+          )}
+          {aiAlignments.length > 0 && (
+            <>AI 제안 대조는 처음 인식된 기인물 기준이라 다시 계산하지 않습니다.</>
+          )}
         </p>
       )}
 
@@ -513,14 +551,15 @@ const WorkFlowPanel: React.FC<{
           '지금' 배지는 PRECHECK·EXEC에만 준다 — 선별 모집단이 그 두 칸이라, 같은 조문이
           다른 칸에도 있으면(제35조류) 배지가 엉뚱한 시점에 붙는다. */}
       <div className="space-y-2">
+        {/* actNowRefs는 actNowShown에서 나온다 — 정정 시 재선별 값이라 배지가 보고 있는 흐름과 일치.
+            하이라이트도 정정 모드에서 살린다(2026-08-12): 점프원인 스트립이 이제 정정 흐름의 조문을
+            가리키고, 원본 기준인 AI 대조는 정정 시 통째로 숨어 stale 점프가 생길 수 없다. */}
         {slots.map((s) => (
           <Slot
             key={s.key}
             slot={s}
-            actNowRefs={
-              !corrected && (s.key === 'PRECHECK' || s.key === 'EXEC') ? actNowRefs : undefined
-            }
-            hlRef={corrected || (hl.slot !== '' && hl.slot !== s.key) ? '' : hl.ref}
+            actNowRefs={s.key === 'PRECHECK' || s.key === 'EXEC' ? actNowRefs : undefined}
+            hlRef={hl.slot !== '' && hl.slot !== s.key ? '' : hl.ref}
             hlN={hl.n}
           />
         ))}

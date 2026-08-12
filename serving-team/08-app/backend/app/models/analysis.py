@@ -169,6 +169,16 @@ class WorkFlow(BaseModel):
     reviewed: bool = False            # 라벨 사람 검수 완료 여부 — 화면 경고 문구 제어
 
 
+class WorkFlowWithActions(WorkFlow):
+    """정정 API(GET /flow) 전용 — 흐름에 '지금 당장' 재선별을 얹은 응답.
+
+    분석 응답의 work_flow에는 붙이지 않는다(그쪽 즉시조치는 immediate_actions가 정본).
+    기인물을 바꾸면 '지금 당장'도 그 기인물의 검수 조문에서 다시 선별해야 하는데(2026-08-12),
+    선별 결과는 흐름과 한 몸이라 별도 응답으로 쪼개면 앵커-조치 불일치가 생길 수 있다.
+    """
+    statute_actions: List[CorrectiveAction] = []
+
+
 class AiActionAlignment(BaseModel):
     """GPT 자유 조치 제안 1건을 흐름 조문(닫힌 집합)에 정렬한 결과.
 

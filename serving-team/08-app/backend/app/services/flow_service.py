@@ -30,6 +30,7 @@ from typing import Optional
 
 from app.config import settings
 from app.models.analysis import FlowAnchor, FlowItem, FlowSlot, WorkFlow
+from app.models.hazard import CorrectiveAction
 from app.services import cue_article_service
 
 logger = logging.getLogger(__name__)
@@ -217,23 +218,32 @@ def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
         return []
 
     # SR 순위 신호 (없어도 동작한다 — DB 조회 실패는 순위 없이 진행)
-    # ★ 어휘 변환 필수: 사진 정규화는 신 카탈로그(COLLISION·FALLING_OBJECT), SR의
-    #   addresses_hazard는 구 enum(STRUCK_BY·CAUGHT_IN)이다. 변환 없이 교집합하면 항상
-    #   공집합이라 순위가 조용히 죽는다 — 기존 facet 경로와 같은 변환(_facet_canon)을 쓴다.
+    # ★ 어휘 변환은 **canonical 기준**이어야 한다: 사진 코드는 _facet_canon으로 신 카탈로그
+    #   canonical화한다(_facet_canon은 원래 *_canonical 컬럼 매칭용 — query_ci_for_facets 참조).
+    #   ⚠ 2026-08-12 실측: 이전 코드는 SR의 구 enum 원컬럼(addresses_hazard=STRUCK_BY·CAUGHT_IN)**만**
+    #   읽어 canonical화된 사진 코드(COLLISION)와 교집합이 이름 우연 일치(ELECTRIC_SHOCK 등) 빼고는
+    #   공집합 — 순위 신호가 2026-08-09 통합 이후 사실상 죽어 있었다(urgency 전부 planned).
+    #   SR은 **두 컬럼 합집합**으로 히트를 잡는다: accident_types_canonical은 626행 중 284행·7종
+    #   (COLLISION·CAUGHT_IN·FALL…)만 채워져 있고, FIRE_EXPLOSION·ELECTRIC_SHOCK·CHEMICAL_EXPOSURE
+    #   계열은 레거시 addresses_hazard에만 있다(그중 canonical과 이름이 같은 ELECTRIC_SHOCK·
+    #   CHEMICAL_EXPOSURE는 레거시 컬럼으로 히트 가능 — canonical 단독으로 좁히면 그 클래스가 회귀).
+    #   UNCLASSIFIED는 미지 코드의 변환 잔여라 히트에서 뺀다(양쪽에 있으면 가짜 히트가 된다).
     try:
         from app.services.hazard_rule_engine import _facet_canon
-        accident_codes = sorted(_facet_canon(accident_codes, [], [])["accident_type"])
+        accident_codes = sorted(
+            c for c in _facet_canon(accident_codes, [], [])["accident_type"] if c != "UNCLASSIFIED")
     except Exception as exc:  # noqa: BLE001
         logger.warning("[WorkFlow] 사고형태 어휘 변환 실패 — 원코드로 진행: %s", exc)
     sr_by_article: dict = {}
     try:
         from sqlalchemy import text as _sql
         rows = db.execute(_sql(
-            "select m.article_code, sr.identifier, sr.title, sr.addresses_hazard, sr.requirement_type "
+            "select m.article_code, sr.identifier, sr.title, sr.accident_types_canonical, "
+            "sr.addresses_hazard, sr.requirement_type "
             "from safety_requirements sr join sr_article_mapping m on m.sr_id = sr.identifier "
             "where m.article_code = any(:codes)"), {"codes": [x["ref"] for x in items]}).fetchall()
-        for code, sr_id, title, hz, rtype in rows:
-            hits = set(hz or []) & set(accident_codes or [])
+        for code, sr_id, title, hz_canon, hz_legacy, rtype in rows:
+            hits = (set(hz_canon or []) | set(hz_legacy or [])) & set(accident_codes or [])
             cur = sr_by_article.get(code)
             if cur is None or (hits and not cur["hits"]):
                 sr_by_article[code] = {"sr_id": sr_id, "title": title, "hits": hits, "rtype": rtype}
@@ -254,6 +264,32 @@ def statute_actions(flow, accident_codes: list[str], db) -> list[dict]:
     items.sort(key=lambda x: (not x["hazard_hit"], not x["actable"],
                               x["tier"] != "법정", x["slot"] != "PRECHECK"))
     return items[:6]
+
+
+def statute_actions_corrective(flow, accident_codes: list[str], db) -> list[CorrectiveAction]:
+    """statute_actions 행 → 화면 계약(CorrectiveAction) 매핑.
+
+    분석 응답(immediate_actions)과 앵커 정정 API(GET /flow)가 **같은 매핑**을 써야 한다 —
+    urgency/confidence 규칙이 두 곳으로 갈라지면 같은 조문이 화면마다 다른 급박도로 보인다
+    (2026-08-12 정정 API에 '지금 당장' 재선별을 붙이면서 여기로 통합).
+    """
+    rows = statute_actions(flow, accident_codes, db)
+    actions = []
+    for r in rows:
+        desc = f"{r['ref']} 원문: “{r['evidence']}”" if r.get("evidence") else r["ref"]
+        actions.append(
+            CorrectiveAction(
+                action_id=r["ref"],
+                title=r["title"],
+                description=desc,
+                source_type="rule:Article",
+                source_id=(r.get("sr_id") or r["ref"]),
+                # 설비 장착 의무(헤드가드 등)는 법정이라도 '지금 당장'이 아니라 planned다
+                urgency="immediate" if (r.get("hazard_hit") and r.get("actable")) else "planned",
+                confidence=1.0 if r["tier"] == "법정" else 0.7,
+            )
+        )
+    return actions
 
 
 # ── AI 자유 제안 ↔ 흐름 조문 정렬 ──────────────────────────────────────
