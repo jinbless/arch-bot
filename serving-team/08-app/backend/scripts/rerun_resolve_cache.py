@@ -59,7 +59,11 @@ def main() -> None:
     #   카탈로그만 해시하면 Vision 프롬프트가 바뀌어 장면 서술이 달라져도 캐시가 재사용되어
     #   LLM이 새 입력을 본 적 없는 채로 옛 답을 침묵 보고한다(A0 적대적 검토 3번 + v2 채택).
     vis_sha = hashlib.sha256(R.IN_VISION.read_bytes()).hexdigest()[:12]
-    sha = hashlib.sha256(("\n".join(sorted(R.catalog_text.splitlines())) + "|vis:" + vis_sha)
+    # RESOLVE 프롬프트도 무효화 입력에 — 프롬프트 개정(A-2 이탈구도 등)이 캐시 재사용으로
+    # 침묵되면 측정이 옛 프롬프트를 채점한다(카탈로그·Vision과 같은 클래스의 누락이었음).
+    sys_sha = hashlib.sha256(R.RESOLVE_SYS.encode()).hexdigest()[:12]
+    sha = hashlib.sha256(("\n".join(sorted(R.catalog_text.splitlines())) + "|vis:" + vis_sha
+                          + "|sys:" + sys_sha)
                          .encode()).hexdigest()[:12]
 
     cache, fails = {}, []
