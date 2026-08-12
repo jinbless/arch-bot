@@ -35,6 +35,14 @@ data-team/01-parsing/safety-inspection/*
 !data-team/01-parsing/safety-inspection/manifest/**
 !data-team/01-parsing/safety-inspection/*.py
 
+# 조문별 만화 카드(고용노동부·KOSHA 「만화로 보는 산업안전보건기준에 관한 규칙」) —
+# raw PDF 474MB는 외부 자료라 미추적(kosha-guides와 동일 정책), 목록 CSV만 추적.
+# 변환 산출물 WebP(~77MB)도 미추적 — backend/scripts/build_cartoon_assets.py로 재생성,
+# 프론트가 쓰는 manifest JSON(src/data/cartoons.manifest.json)만 추적.
+data-team/06-조문별만화/*
+!data-team/06-조문별만화/_목록.csv
+serving-team/08-app/frontend/public/cartoons/
+
 # Local/user Pipe-B scratch files.
 data-team/02-extraction/pipe-B/data/tmp-*.json
 data-team/02-extraction/pipe-B/data/vlm-parse-log.jsonl
