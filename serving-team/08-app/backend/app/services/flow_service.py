@@ -82,11 +82,15 @@ PLACE_TOPIC_BY_CODE = {
     "FALL_ON_GROUND": "작업장 시설", "WET_FLOOR": "작업장 시설", "WET_FLOOR_WORK": "작업장 시설",
     "COLD_FLOOR": "작업장 시설", "CLUTTERED": "작업장 시설",
     "POOR_LIGHTING": "작업장 시설", "LOW_LIGHT": "작업장 시설",
-    # 추락·붕괴 방지 — 개구부·단부
-    "UNSTABLE_EDGE": "추락·붕괴 방지",
+    # ⚠ 'UNSTABLE_EDGE → 추락·붕괴 방지'는 2026-08-13 제거 — 절1·절2가 앵커 카탈로그로
+    #   승격되면서 basics에서 그 주제가 사라졌다(개구부·단부는 이제 RESOLVE가 직접 앵커한다).
+    #   사라진 주제명을 남기면 _place_workflow가 빈 카드를 내고 measure 러너 assert가 깨진다.
+    #   ★ Track A(judge) 재개 시 place_gold 개구부 3행의 expect를 place→anchor(절1)로
+    #   재라벨하는 것이 선행 의무다 — dev-notes/fall-flow-catalog-2026-08-13.md 참조.
 }
-# 장소성 판정인데 코드가 주제를 못 고를 때의 기본 노출(3주제) — 보호구·특고는 장소성과 무관
-PLACE_DEFAULT_TOPICS = ["작업장 시설", "통로·계단", "추락·붕괴 방지"]
+# 장소성 판정인데 코드가 주제를 못 고를 때의 기본 노출 — 보호구·특고는 장소성과 무관.
+# '추락·붕괴 방지'는 카탈로그 승격으로 basics에서 제거됨(위 주석).
+PLACE_DEFAULT_TOPICS = ["작업장 시설", "통로·계단"]
 
 
 def place_signals(canonical: Optional[dict]) -> list:
