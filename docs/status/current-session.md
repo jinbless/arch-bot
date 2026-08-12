@@ -5,7 +5,13 @@
 
 ## ⭐⭐ 2026-08-09~12 — 앵커 0.647→0.961(흐름) + 3단계 UI + 텍스트 트랙 개통 (전부 push·prod 배포)
 
-**HEAD `1c54e4f`, 전부 push + moellab.info 배포 완료.** 지표 정본 = [evaluation-baseline.md](evaluation-baseline.md) 앵커 절.
+**HEAD `6fbdec3`, 전부 push + moellab.info 배포 완료.** 지표 정본 = [evaluation-baseline.md](evaluation-baseline.md) 앵커 절.
+
+**+2026-08-12 추가: 앵커 정정 시 '지금 당장' 재선별 + SR 순위 신호 부활(버그 9호)** —
+정본 [recalc-actnow-on-correction-2026-08-12.md](../dev-notes/recalc-actnow-on-correction-2026-08-12.md).
+GET /flow가 재선별을 싣고(accident_code 승계), 대안 칩·직접 검색 정정 모두 그 기인물의 '지금 당장'을
+받는다(LLM 0). SR 히트는 canonical∪레거시 두 컬럼 합집합 — canonical 단독은 ELECTRIC_SHOCK류 회귀
+(리뷰 적발). ⚠ FIRE_EXPLOSION 계열은 SR canonical 데이터 미이관으로 여전히 순위 미적용(데이터 과제).
 
 **현재 수치(감독관 gold 51장)**: 앵커 exact **0.784** [0.667,0.882] · **흐름 유효율 0.961** [0.902,1.000] ·
 예측 빈 0장. 경로: 0.647 → 비계 상속(A안) → 판별단서 → Vision v2 → 키 정규화 0.784/0.941 → miss11 레버 0.961.
