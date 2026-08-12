@@ -3,6 +3,19 @@
 > ⚠️ 이 문서는 2026-06-14 이후 갱신이 끊겼고, 그 뒤 작업은 `docs/dev-notes/`와 메모리에만 있었다.
 > **최신 상태는 아래 '2026-08-09~12' 절부터** 읽는다.
 
+## ⭐⭐⭐ 다음 세션 1순위 (2026-08-12 사용자 지시, compact 재진입 큐)
+
+**조문 만화 카드 확정 작업 3건** — 정본·구현 스펙 = [article-cartoon-cards-2026-08-12.md](../dev-notes/article-cartoon-cards-2026-08-12.md)의 '사용자 결정' 절:
+1. **글+그림보기(방식1) 확정** — 인라인 방식·토글 철거(철거 대상 목록은 dev-note에 명시)
+2. **출처 문구 화면 표기 삭제**(모달·WorkFlowPanel 푸터·BasicsPage 푸터 3곳)
+3. **QR 링크 복원** — 실현 확인 완료(opencv 디코딩, 제13조 → naver 단축링크 3건).
+   manifest에 QR url+정규화 좌표 추가 → 모달에 클릭 오버레이+'연관 콘텐츠' 링크.
+   WebP 불변이라 **cartoons tar 재업로드 불필요**, manifest 커밋+프론트 재배포만.
+
+현재 상태: 두 방식 모두 prod 배포·검증 완료(커밋 5b045da), 자산 667장(36.5MB)이
+드롭릿 `/home/moeldev/srv/ohs/cartoons`에 마운트됨. 배포 함정: 드롭릿 compose는 리포와
+다름(제자리 패치, 백업 `docker-compose.yml.bak-cartoon`) · ssh heredoc에 `${...:?}` 금지(파일 scp).
+
 ## ⭐⭐ 2026-08-09~12 — 앵커 0.647→0.961(흐름) + 3단계 UI + 텍스트 트랙 개통 (전부 push·prod 배포)
 
 **HEAD `6fbdec3`, 전부 push + moellab.info 배포 완료.** 지표 정본 = [evaluation-baseline.md](evaluation-baseline.md) 앵커 절.

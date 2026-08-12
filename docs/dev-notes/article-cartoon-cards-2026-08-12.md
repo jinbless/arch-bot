@@ -34,9 +34,27 @@
 - 확인: `/ohs/cartoons/*.webp` 200+immutable(에지 경유), 모달(제3조 카드+법령 링크),
   인라인(카드 44/45·lazy), 흐름 패널(인라인 4+버튼 11), 출처 표기, 이미지 ID 대조.
 
-## 남은 것
+## 사용자 결정 (2026-08-12, compact 직전 — **다음 세션 실행 큐**)
 
-- **사용자 비교 → 최종 선택** → 탈락 방식 코드+토글 철거.
+1. **방식1(글+그림보기) 확정** — 철거 대상: `articleCartoon.tsx`의 CartoonInlineCard·
+   CartoonModeToggle·useCartoonMode/setCartoonMode, WorkFlowPanel(Item inlineCard 분기·Slot
+   cartoonFirstIdx dedup·cartoonMode props)·BasicsPage(inline 분기·cartoonFirst·토글 마운트)·
+   ImmediateActionsPanel(inline 분기·seenJo)·ResultPage(토글 마운트). CartoonButton·
+   CartoonLightbox·cartoonFor·lawLink만 남긴다. localStorage 키 잔존은 무해.
+2. **출처 문구 삭제**(사용자 지시): CARTOON_SOURCE 화면 표기 3곳 — 모달 푸터·WorkFlowPanel
+   푸터("만화 카드: …" 줄)·BasicsPage 푸터. manifest의 _source 메타는 유지(화면 미표기).
+3. **QR 링크 복원**: ✅ 실현 확인됨 — PDF에 링크 annotation은 없고(0건), QR 이미지(158±40px
+   임베드) 디코딩은 **opencv-python-headless(backend venv에 설치됨, 서빙 requirements에는
+   넣지 말 것 — 빌드타임 전용)** + 3x 업스케일로 성공. 제13조 → naver 단축링크 3건
+   (https://m.site.naver.com/1UMjc 등). 구현:
+   - `build_cartoon_assets.py` 확장: QR 후보(크기 필터) 디코딩 + `page.get_image_rects()`로
+     페이지 좌표 → 렌더 픽셀 좌표 정규화(0~1) → manifest `cards[jo].q = [{u,x,y,w,h}]`.
+     디코딩 실패 카드는 카운트·목록 출력(그 카드만 링크 없음 — 현행 유지).
+   - 모달 이미지 위 절대배치 `<a>` 오버레이(QR 영역 클릭) + 하단 '연관 콘텐츠' 링크 버튼 병기.
+   - **WebP는 불변**(렌더 파라미터 동일 → 해시 동일) — cartoons tar 재업로드 불필요,
+     manifest 커밋 + 프론트 이미지 재배포만.
+
+## 그 외 남은 것
+
 - edge conf의 죽은 /articles-pdf/ 제거(별도, edge 재시작 리스크 분리).
 - 미보유 카드 2종(제227조·제4조의2)은 조용히 텍스트 유지 — 원본 수급 시 스크립트 재실행이면 끝.
-- 인라인 모드는 evidence 인용을 숨긴다(카드에 원문 포함) — 비교 관찰 포인트.
