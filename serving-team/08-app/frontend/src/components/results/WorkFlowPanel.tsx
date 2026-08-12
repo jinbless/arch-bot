@@ -3,14 +3,7 @@ import { Link } from 'react-router-dom';
 import { flowApi, type FlowGroup } from '../../api/flowApi';
 import { TrustBadge } from './SourceBadge';
 // lawLink는 articleCartoon으로 이관(모달 캡션에서 병기 필요) — 규칙이 한 곳에 모인다
-import {
-  CARTOON_SOURCE,
-  CartoonButton,
-  CartoonInlineCard,
-  cartoonFor,
-  lawLink,
-  useCartoonMode,
-} from './articleCartoon';
+import { CartoonButton, lawLink } from './articleCartoon';
 import type { AiActionAlignment, CorrectiveAction, FlowItem, FlowSlot, WorkFlow } from '../../types/analysis';
 
 /**
@@ -48,18 +41,13 @@ const Item: React.FC<{
   actNow?: boolean;
   highlighted?: boolean;
   hlN?: number;
-  /** 만화 표시 모드 — 'inline'+cartoonFirst일 때만 본문을 카드 이미지로 교체(비교 실험) */
-  cartoonMode?: 'modal' | 'inline';
-  /** 이 조문 카드의 슬롯 내 첫 등장인가 — 제35조 카드가 43항목에 반복되는 함정 차단(dedup) */
-  cartoonFirst?: boolean;
-}> = ({ it, actNow, highlighted, hlN, cartoonMode = 'modal', cartoonFirst = false }) => {
+}> = ({ it, actNow, highlighted, hlN }) => {
   const tier = TIER_META[it.tier] ?? TIER_META.법정;
   const el = useRef<HTMLLIElement>(null);
   // '지금 당장' 스트립·AI 대조에서 눌러 이동해 온 항목 — hlN을 deps에 두어 같은 항목 재클릭도 다시 스크롤한다
   useEffect(() => {
     if (highlighted) el.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, [highlighted, hlN]);
-  const inlineCard = cartoonMode === 'inline' && cartoonFirst && !!cartoonFor(it.ref || '');
   return (
     <li
       ref={el}
@@ -83,22 +71,14 @@ const Item: React.FC<{
           </span>
         )}
         <div className="min-w-0 flex-1">
-          {inlineCard ? (
-            /* 방식2: 본문(제목+근거 인용)을 카드로 교체 — 카드에 조문 원문이 통째로 들어 있어
-               evidence 인용은 의도적으로 숨긴다(비교 관찰 포인트). ref 각주·배지는 유지. */
-            <CartoonInlineCard refText={it.ref} fallbackText={it.text} />
-          ) : (
-            <>
-              <p className="text-sm text-gray-800">{it.text}</p>
-              {/* 이 항목이 왜 이 단계에 있는지 — 조문 원문 문구 그대로.
-                  같은 조문이 두 단계에 걸치는 경우(제35조 = 인적 배치 + 작업 전 점검)
-                  제목만 보면 중복으로 읽힌다. 근거를 보여야 다른 의무임을 안다. */}
-              {it.evidence && (
-                <p className="mt-1 border-l-2 border-slate-200 pl-2 text-[12px] leading-snug text-gray-600">
-                  “{it.evidence}”
-                </p>
-              )}
-            </>
+          <p className="text-sm text-gray-800">{it.text}</p>
+          {/* 이 항목이 왜 이 단계에 있는지 — 조문 원문 문구 그대로.
+              같은 조문이 두 단계에 걸치는 경우(제35조 = 인적 배치 + 작업 전 점검)
+              제목만 보면 중복으로 읽힌다. 근거를 보여야 다른 의무임을 안다. */}
+          {it.evidence && (
+            <p className="mt-1 border-l-2 border-slate-200 pl-2 text-[12px] leading-snug text-gray-600">
+              “{it.evidence}”
+            </p>
           )}
           <p className="mt-0.5 text-[11px] text-gray-400">
             {it.ref && lawLink(it.ref) ? (
@@ -124,12 +104,10 @@ const Item: React.FC<{
                 (연결 확인 필요)
               </span>
             )}
-            {/* 방식1(및 인라인 모드의 dedup 후속 등장): 만화 카드가 있는 규칙 조문에만 버튼 렌더 */}
-            {!inlineCard && (
-              <span className="ml-1.5">
-                <CartoonButton refText={it.ref} />
-              </span>
-            )}
+            {/* 만화 카드가 있는 규칙 조문에만 버튼 렌더(cartoonFor가 null이면 버튼 자체가 안 뜬다) */}
+            <span className="ml-1.5">
+              <CartoonButton refText={it.ref} />
+            </span>
           </p>
         </div>
       </div>
@@ -144,8 +122,7 @@ const Slot: React.FC<{
   actNowRefs?: Set<string>;
   hlRef?: string;
   hlN?: number;
-  cartoonMode?: 'modal' | 'inline';
-}> = ({ slot, actNowRefs, hlRef, hlN, cartoonMode = 'modal' }) => {
+}> = ({ slot, actNowRefs, hlRef, hlN }) => {
   const [open, setOpen] = useState(false);
   const 법정 = useMemo(() => slot.items.filter((i) => i.tier === '법정'), [slot.items]);
   const 권고 = useMemo(() => slot.items.filter((i) => i.tier === '권고'), [slot.items]);
@@ -155,20 +132,6 @@ const Slot: React.FC<{
   }, [hlRef, hlN, slot.items]);
   const shown = open ? slot.items : slot.items.slice(0, PREVIEW);
   const rest = slot.items.length - shown.length;
-  // 인라인 모드 dedup: 화면에 보이는 목록(shown) 기준으로 조문 카드의 첫 등장 인덱스만 카드로.
-  // '제35조제N항 · <작업>' 43종·별표 항목들이 같은 조 카드를 공유한다 — 반복 렌더 차단.
-  const cartoonFirstIdx = useMemo(() => {
-    const seen = new Set<string>();
-    const first = new Set<number>();
-    shown.forEach((it, i) => {
-      const jo = cartoonFor(it.ref || '')?.jo;
-      if (jo && !seen.has(jo)) {
-        seen.add(jo);
-        first.add(i);
-      }
-    });
-    return first;
-  }, [shown]);
 
   return (
     <section className="rounded-xl border border-slate-200">
@@ -194,8 +157,6 @@ const Slot: React.FC<{
                 actNow={!!it.ref && actNowRefs?.has(it.ref)}
                 highlighted={!!hlRef && it.ref === hlRef}
                 hlN={hlN}
-                cartoonMode={cartoonMode}
-                cartoonFirst={cartoonFirstIdx.has(i)}
               />
             ))}
           </ol>
@@ -347,8 +308,6 @@ const WorkFlowPanel: React.FC<{
   // 정정했으면 정정 API의 재선별 값. 섞이면 스트립과 타임라인 배지가 서로 다른 흐름을 가리킨다.
   const actNowShown = corrected ? currentActions : actNow;
   const actNowRefs = useMemo(() => new Set(actNowShown.map((a) => a.action_id)), [actNowShown]);
-  // 만화 카드 표시 모드(비교 실험) — 토글은 ResultPage/BasicsPage가 마운트
-  const cartoonMode = useCartoonMode();
 
   const pick = async (key: string) => {
     // busy 가드: 연타로 요청 2개가 겹치면 마지막 '응답'이 이겨 마지막 '클릭'과 다른 흐름에
@@ -676,7 +635,6 @@ const WorkFlowPanel: React.FC<{
             actNowRefs={s.key === 'PRECHECK' || s.key === 'EXEC' ? actNowRefs : undefined}
             hlRef={hl.slot !== '' && hl.slot !== s.key ? '' : hl.ref}
             hlN={hl.n}
-            cartoonMode={cartoonMode}
           />
         ))}
       </div>
@@ -750,8 +708,6 @@ const WorkFlowPanel: React.FC<{
         {/* 조문 번호만 보면 '제99조'(규칙)와 '시행규칙 제99조'가 같은 것처럼 읽힌다.
             법령에서 온 항목은 ref 앞에 법 이름을 붙여 구별한다. */}
         조문 번호 앞에 법 이름이 없으면 산업안전보건기준에 관한 규칙입니다.
-        <br />
-        만화 카드: {CARTOON_SOURCE}
       </p>
     </section>
   );

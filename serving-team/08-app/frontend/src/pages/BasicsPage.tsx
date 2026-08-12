@@ -1,13 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { flowApi, type AlwaysTopic } from '../api/flowApi';
-import {
-  CARTOON_SOURCE,
-  CartoonButton,
-  CartoonInlineCard,
-  CartoonModeToggle,
-  cartoonFor,
-  useCartoonMode,
-} from '../components/results/articleCartoon';
+import { CartoonButton } from '../components/results/articleCartoon';
 
 /**
  * 기본 안전수칙 — **사진과 무관하게 늘 지켜야 하는 것**.
@@ -25,22 +18,6 @@ const BasicsPage: React.FC = () => {
   const [total, setTotal] = useState(0);
   const [reviewed, setReviewed] = useState(false);
   const [err, setErr] = useState('');
-  const cartoonMode = useCartoonMode();
-  // 인라인 모드 dedup(주제 단위) — basics ref 45건은 전부 순수 제N조라 만화 100% 커버
-  const cartoonFirst = useMemo(() => {
-    const first = new Set<string>();
-    for (const t of topics ?? []) {
-      const seen = new Set<string>();
-      t.items.forEach((it, i) => {
-        const jo = cartoonFor(it.ref || '')?.jo;
-        if (jo && !seen.has(jo)) {
-          seen.add(jo);
-          first.add(`${t.name}-${i}`);
-        }
-      });
-    }
-    return first;
-  }, [topics]);
 
   useEffect(() => {
     let alive = true;
@@ -113,28 +90,19 @@ const BasicsPage: React.FC = () => {
                           {it.tier}
                         </span>
                         <div className="min-w-0 flex-1">
-                          {cartoonMode === 'inline' && cartoonFirst.has(`${t.name}-${i}`) ? (
-                            /* 방식2: 본문을 카드로 교체(카드에 조문 원문 포함 — evidence 인용 생략) */
-                            <CartoonInlineCard refText={it.ref} fallbackText={it.text} />
-                          ) : (
-                            <>
-                              <p className="text-sm text-gray-800">{it.text}</p>
-                              {it.evidence && (
-                                <p className="mt-1 border-l-2 border-slate-200 pl-2 text-[12px] leading-snug text-gray-600">
-                                  “{it.evidence}”
-                                </p>
-                              )}
-                            </>
+                          <p className="text-sm text-gray-800">{it.text}</p>
+                          {it.evidence && (
+                            <p className="mt-1 border-l-2 border-slate-200 pl-2 text-[12px] leading-snug text-gray-600">
+                              “{it.evidence}”
+                            </p>
                           )}
                           <p className="mt-0.5 text-[11px] text-gray-400">
                             {it.ref}
                             {it.ref && it.group ? ' · ' : ''}
                             {it.group}
-                            {!(cartoonMode === 'inline' && cartoonFirst.has(`${t.name}-${i}`)) && (
-                              <span className="ml-1.5">
-                                <CartoonButton refText={it.ref} />
-                              </span>
-                            )}
+                            <span className="ml-1.5">
+                              <CartoonButton refText={it.ref} />
+                            </span>
                           </p>
                         </div>
                       </div>
@@ -150,12 +118,9 @@ const BasicsPage: React.FC = () => {
             <br />
             특정 기계·설비의 작업 흐름은 사진을 올리면 볼 수 있습니다. 조문 번호 앞에 법 이름이 없으면
             산업안전보건기준에 관한 규칙입니다.
-            <br />
-            만화 카드: {CARTOON_SOURCE}
           </p>
         </>
       )}
-      <CartoonModeToggle />
     </div>
   );
 };

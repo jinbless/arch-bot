@@ -7,7 +7,6 @@ import FindingsCard from '../components/results/FindingsCard';
 import ImmediateActionsPanel from '../components/results/ImmediateActionsPanel';
 import OwnerResourcesCard from '../components/results/OwnerResourcesCard';
 import WorkFlowPanel from '../components/results/WorkFlowPanel';
-import { CartoonModeToggle } from '../components/results/articleCartoon';
 import { useAnalysisStore } from '../store';
 import type { AiActionAlignment, AnalysisResponse } from '../types/analysis';
 
@@ -186,8 +185,6 @@ const ResultPage: React.FC = () => {
 
       <StageHeading n={nResources} title="직접 확인할 자료" />
       <OwnerResourcesCard analysis={analysis} flow={analysis.work_flow} />
-      {/* 만화 카드 표시 모드 토글(비교 실험 — 최종 선택 후 철거) */}
-      <CartoonModeToggle />
     </div>
   );
 };

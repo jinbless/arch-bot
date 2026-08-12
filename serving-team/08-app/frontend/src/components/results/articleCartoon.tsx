@@ -1,15 +1,14 @@
 /**
- * 조문별 만화 카드 (2026-08-12) — 고용노동부·KOSHA 「만화로 보는 산업안전보건기준에 관한 규칙」.
- *
- * ⚠ **비교 실험 스캐폴딩**: 방식1(텍스트 행 유지 + '그림으로 보기' 모달)과 방식2(행 본문을
- * 카드 이미지로 교체)를 토글로 함께 배포하고 사용자가 화면에서 직접 비교해 최종 선택한다.
- * 선택이 확정되면 탈락 방식과 토글을 제거할 것.
+ * 조문별 만화 카드 (2026-08-12) — 텍스트 행 유지 + '그림으로 보기' 확대 모달.
+ * (방식1/방식2 토글 비교 후 방식1 확정 — 인라인 카드·토글은 철거됨, 2026-08-12 사용자 결정)
  *
  * 자산: frontend/public/cartoons/NNN.<해시8>.webp (git 미추적 — dev는 vite public, prod는
  * nginx bind-mount, 같은 URL `${BASE_URL}cartoons/…`). 매핑은 커밋된 manifest가 정본이며
  * backend/scripts/build_cartoon_assets.py 가 생성한다(수동 편집 금지).
+ * 카드에 인쇄된 QR은 manifest의 q(URL+0~1 정규화 좌표)로 실현 — 모달에서 QR 영역 클릭
+ * 오버레이 + 하단 '연관 콘텐츠' 링크.
  */
-import React, { useEffect, useState, useSyncExternalStore } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import manifest from '../../data/cartoons.manifest.json';
 
@@ -28,7 +27,14 @@ export const lawLink = (ref: string): string | null => {
   return `https://law.go.kr/${encodeURIComponent('법령')}/${encodeURIComponent(law)}/${encodeURIComponent(jo)}`;
 };
 
-export const CARTOON_SOURCE = '고용노동부·KOSHA 「만화로 보는 산업안전보건기준에 관한 규칙」';
+/** 카드에 인쇄된 QR 1개 — 디코딩된 URL + 카드 안 위치(0~1 정규화, build 스크립트가 생성) */
+interface QrLink {
+  u: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
 
 interface CartoonCard {
   jo: string;
@@ -36,10 +42,14 @@ interface CartoonCard {
   w: number;
   h: number;
   title: string;
+  q: QrLink[];
 }
 
-const cards = (manifest as { cards: Record<string, { f: string; w: number; h: number; t: string }> })
-  .cards;
+const cards = (
+  manifest as {
+    cards: Record<string, { f: string; w: number; h: number; t: string; q?: QrLink[] }>;
+  }
+).cards;
 
 /** ref → 만화 카드. **선두 앵커**가 핵심: '법 제38조'·'시행규칙 제99조'·가이드코드(B-E-21…)·
  *  '고시 제16조…'·작업명 평문은 선두가 `제N조`가 아니라 자연 탈락한다 — 만화는 규칙 조문만
@@ -50,55 +60,14 @@ export const cartoonFor = (ref: string): CartoonCard | null => {
   if (!m) return null;
   const e = cards[m[0]];
   if (!e) return null; // 미보유(제227조·제4조의2 등)는 조용히 텍스트 유지
-  return { jo: m[0], url: `${import.meta.env.BASE_URL}cartoons/${e.f}`, w: e.w, h: e.h, title: e.t };
-};
-
-// ── 표시 모드 (localStorage, 크로스탭 동기) ────────────────────────────
-export type CartoonMode = 'modal' | 'inline';
-const MODE_KEY = 'ohs.cartoon_mode_v1';
-const listeners = new Set<() => void>();
-const readMode = (): CartoonMode =>
-  (localStorage.getItem(MODE_KEY) === 'inline' ? 'inline' : 'modal');
-export const setCartoonMode = (m: CartoonMode) => {
-  localStorage.setItem(MODE_KEY, m);
-  listeners.forEach((l) => l());
-};
-const subscribe = (cb: () => void) => {
-  listeners.add(cb);
-  const onStorage = (e: StorageEvent) => e.key === MODE_KEY && cb();
-  window.addEventListener('storage', onStorage);
-  return () => {
-    listeners.delete(cb);
-    window.removeEventListener('storage', onStorage);
+  return {
+    jo: m[0],
+    url: `${import.meta.env.BASE_URL}cartoons/${e.f}`,
+    w: e.w,
+    h: e.h,
+    title: e.t,
+    q: e.q ?? [],
   };
-};
-export const useCartoonMode = (): CartoonMode => useSyncExternalStore(subscribe, readMode);
-
-/** 화면 우하단 고정 토글 — ResultPage·BasicsPage에서만 마운트. 비교 실험용(선택 후 철거). */
-export const CartoonModeToggle: React.FC = () => {
-  const mode = useCartoonMode();
-  return (
-    <div className="fixed bottom-4 right-4 z-40 flex items-center gap-1 rounded-full border border-slate-300 bg-white/95 px-2 py-1 text-xs shadow-lg">
-      <span className="px-1 text-gray-500">조문 표시</span>
-      {(
-        [
-          ['modal', '글+그림보기'],
-          ['inline', '그림 카드'],
-        ] as const
-      ).map(([m, label]) => (
-        <button
-          key={m}
-          type="button"
-          onClick={() => setCartoonMode(m)}
-          className={`rounded-full px-2 py-0.5 ${
-            mode === m ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          {label}
-        </button>
-      ))}
-    </div>
-  );
 };
 
 // ── 확대 모달 ──────────────────────────────────────────────────────────
@@ -119,6 +88,7 @@ const CartoonLightbox: React.FC<{ card: CartoonCard; refText: string; onClose: (
   }, [onClose]);
 
   const link = lawLink(refText);
+  const qrUrls = Array.from(new Set(card.q.map((q) => q.u))); // 카드당 1~3개, 중복 rect 방지
   return createPortal(
     // z-[60]: sticky 헤더(z-50)보다 위. createPortal(body) — 조상 transform/stacking 사고 회피.
     <div
@@ -146,16 +116,50 @@ const CartoonLightbox: React.FC<{ card: CartoonCard; refText: string; onClose: (
           </button>
         </div>
         <div className="overflow-auto">
-          <img
-            src={card.url}
-            alt={`${card.jo} ${card.title} — 조문 원문과 만화 카드`}
-            className="max-h-[78vh] max-w-[92vw] object-contain"
-            style={{ aspectRatio: `${card.w}/${card.h}` }}
-          />
+          {/* relative 래퍼가 img를 shrink-wrap — %-좌표 오버레이가 표시 크기와 무관하게 정렬된다
+              (aspect-ratio + max 제약은 비율을 보존하므로 래퍼 박스 = 보이는 이미지) */}
+          <div className="relative inline-block align-top">
+            <img
+              src={card.url}
+              alt={`${card.jo} ${card.title} — 조문 원문과 만화 카드`}
+              className="max-h-[78vh] max-w-[92vw] object-contain"
+              style={{ aspectRatio: `${card.w}/${card.h}` }}
+            />
+            {/* 카드에 인쇄된 QR 영역 클릭 → 실제 링크(빌드타임 디코딩). 폰에서 QR을 찍을 수 없는
+                화면 속 QR의 대체 경로 — 하단 '연관 콘텐츠' 링크와 같은 목적지 */}
+            {card.q.map((q, i) => (
+              <a
+                key={`${q.u}#${i}`}
+                href={q.u}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`연관 콘텐츠 열기: ${q.u}`}
+                title={`연관 콘텐츠 열기: ${q.u}`}
+                className="absolute rounded ring-sky-400 hover:bg-sky-400/10 hover:ring-2"
+                style={{
+                  left: `${q.x * 100}%`,
+                  top: `${q.y * 100}%`,
+                  width: `${q.w * 100}%`,
+                  height: `${q.h * 100}%`,
+                }}
+              />
+            ))}
+          </div>
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 px-3 py-1.5 text-[11px] text-gray-500">
-          <span>{CARTOON_SOURCE}</span>
-          <span className="flex gap-3">
+        <div className="flex flex-wrap items-center justify-end gap-2 border-t border-slate-200 px-3 py-1.5 text-[11px] text-gray-500">
+          <span className="flex flex-wrap gap-3">
+            {qrUrls.map((u, i) => (
+              <a
+                key={u}
+                href={u}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-sky-700 underline hover:text-sky-900"
+                title={u}
+              >
+                연관 콘텐츠{qrUrls.length > 1 ? ` ${i + 1}` : ''}
+              </a>
+            ))}
             {/* 핀치/휠 줌 대신 브라우저 네이티브 줌에 위임 — v1 단순화 */}
             <a href={card.url} target="_blank" rel="noreferrer" className="underline hover:text-gray-800">
               원본 크기로 보기
@@ -173,7 +177,7 @@ const CartoonLightbox: React.FC<{ card: CartoonCard; refText: string; onClose: (
   );
 };
 
-/** 방식1: '그림으로 보기' 버튼 — 만화가 없는 ref(법/시행령/가이드 등)면 아예 렌더 안 함. */
+/** '그림으로 보기' 버튼 — 만화가 없는 ref(법/시행령/가이드 등)면 아예 렌더 안 함. */
 export const CartoonButton: React.FC<{ refText: string; className?: string }> = ({
   refText,
   className,
@@ -202,35 +206,6 @@ export const CartoonButton: React.FC<{ refText: string; className?: string }> = 
       >
         그림으로 보기
       </button>
-      {open && <CartoonLightbox card={card} refText={refText} onClose={() => setOpen(false)} />}
-    </>
-  );
-};
-
-/** 방식2: 인라인 카드 — 행 본문(텍스트+근거 인용)을 이미지로 교체. manifest w/h로 aspect-ratio를
- *  예약해 lazy 로드에도 CLS 0 → 기존 scrollIntoView 하이라이트와 간섭 없음. 로드 실패(자산
- *  미배치 환경)는 텍스트로 조용히 강등. 클릭 시 확대 모달. */
-export const CartoonInlineCard: React.FC<{ refText: string; fallbackText: string }> = ({
-  refText,
-  fallbackText,
-}) => {
-  const [open, setOpen] = useState(false);
-  const [failed, setFailed] = useState(false);
-  const card = cartoonFor(refText);
-  if (!card || failed) return <p className="text-sm text-gray-800">{fallbackText}</p>;
-  return (
-    <>
-      <img
-        src={card.url}
-        alt={`${card.jo} ${card.title} — 조문 원문과 만화 카드`}
-        loading="lazy"
-        decoding="async"
-        onError={() => setFailed(true)}
-        onClick={() => setOpen(true)}
-        title="클릭하면 크게 봅니다"
-        className="w-full max-w-md cursor-zoom-in rounded border border-slate-200 bg-white"
-        style={{ aspectRatio: `${card.w}/${card.h}` }}
-      />
       {open && <CartoonLightbox card={card} refText={refText} onClose={() => setOpen(false)} />}
     </>
   );
