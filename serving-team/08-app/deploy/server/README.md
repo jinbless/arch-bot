@@ -1,7 +1,7 @@
-# OHS 서버 배포 (air-gap, 자급자족 스택)
+# OHS 서버 배포 (air-gap, , 자급자족 스택)
 
-깨끗한 Docker 서버(레지스트리/GitHub 불가, 수동 업로드)에 OHS를 **자급자족 스택**으로 올린다.
-서버엔 **Docker만** 있으면 되고, OHS는 자기 PG·데이터·앱을 모두 포함한다. moellab 등 기존 인프라와 격리.
+깨끗한 Docker 서버(레지스트리/GitHub 불가, , 수동 업로드)에 OHS를 **자급자족 스택**으로 올린다.
+서버엔 **Docker만** 있으면 되고, , OHS는 자기 PG·데이터·앱을 모두 포함한다. moellab 등 기존 인프라와 격리.
 
 ```
 [이 PC: 인터넷 O]  build_bundle.sh                         [수동 업로드]        [서버: Docker만]
@@ -15,8 +15,8 @@
 ## 구성 (서버에서 뜨는 컨테이너)
 | 컨테이너 | 이미지 | 역할 | 네트워크 |
 |---|---|---|---|
-| `edge-proxy` | nginx:alpine | :80, `/ohs`·`/api` 라우팅 (공용 edge, 1개) | edge-net |
-| `ohs-frontend` | ohs-frontend:airgap | React SPA + 내부 nginx | internal, edge-net |
+| `edge-proxy` | nginx:alpine | :80, , `/ohs`·`/api` 라우팅 (공용 edge, 1개) | edge-net |
+| `ohs-frontend` | ohs-frontend:airgap | React SPA + 내부 nginx | internal, , edge-net |
 | `ohs-backend` | ohs-backend:airgap | FastAPI | internal |
 | `ohs-postgres` | postgres:15 | 전용 kosha DB | internal |
 
@@ -30,7 +30,7 @@
 ```bash
 cd serving-team/08-app
 bash deploy/server/build_bundle.sh
-# → deploy/server/dist/ : all-images.tar.gz, ohs-chromadb.tar.gz, ohs-shared-reference.tar.gz, ohs-kosha.dump
+# → deploy/server/dist/ : all-images.tar.gz, ohs-chromadb.tar.gz, ohs-shared-reference.tar.gz, ohs-cartoons.tar.gz, ohs-kosha.dump
 ```
 > 로컬 `kosha-pg` 컨테이너가 떠 있으면 dump도 자동. (이미 만들어진 dist/ 산출물이 있으면 재사용)
 
@@ -41,13 +41,13 @@ DEP=/mnt/c/project/arch-bot/serving-team/08-app/deploy/server
 ssh <user>@<server> "mkdir -p /srv/ohs/deploy"
 scp -r "$DEP/dist/." "$DEP/ohs" "$DEP/edge" "$DEP/load_and_up.sh" <user>@<server>:/srv/ohs/deploy/
 ```
-(업로드 후 서버에서 `/srv/ohs/deploy` 안에 `all-images.tar.gz`, `ohs-chromadb.tar.gz`, `ohs-shared-reference.tar.gz`, `ohs-kosha.dump`, `ohs/`, `edge/`, `load_and_up.sh`가 나란히 있어야 함)
+(업로드 후 서버에서 `/srv/ohs/deploy` 안에 `all-images.tar.gz`, `ohs-chromadb.tar.gz`, `ohs-shared-reference.tar.gz`, `ohs-cartoons.tar.gz`, `ohs-kosha.dump`, `ohs/`, `edge/`, `load_and_up.sh`가 나란히 있어야 함)
 
 ## 3. 서버에서 — .env 작성 + 기동
 ```bash
 cd /srv/ohs/deploy
 cp ohs/.env.example ohs/.env
-nano ohs/.env          # OPENAI_API_KEY(진짜 키), CHROMADB_HOST_DIR, SHARED_REF_HOST_DIR, POSTGRES_PASSWORD
+nano ohs/.env          # OPENAI_API_KEY(진짜 키), , CHROMADB_HOST_DIR, SHARED_REF_HOST_DIR, POSTGRES_PASSWORD
 sudo bash load_and_up.sh
 ```
 `load_and_up.sh`가: 이미지 load → `edge-net` 생성 → ChromaDB 해제 → 전용 PG 기동+**데이터 restore**(kosha_guides 1038 확인) → backend/frontend → edge.

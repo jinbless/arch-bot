@@ -8,16 +8,18 @@ cd "$(dirname "$0")"
 # 산출물 위치 자동 인식 (옆 or dist/)
 DIST="."
 if [ -f dist/all-images.tar.gz ]; then DIST="dist"; fi
-for f in all-images.tar.gz ohs-chromadb.tar.gz ohs-kosha.dump ohs-shared-reference.tar.gz; do
+for f in all-images.tar.gz ohs-chromadb.tar.gz ohs-kosha.dump ohs-shared-reference.tar.gz ohs-cartoons.tar.gz; do
   [ -f "$DIST/$f" ] || { echo "!! $f 를 못 찾음(여기 또는 dist/). 업로드 확인."; exit 1; }
 done
 
 [ -f ohs/.env ] || { echo "!! ohs/.env 없음 — 'cp ohs/.env.example ohs/.env' 후 OPENAI_API_KEY 채우기"; exit 1; }
 CHROMADB_HOST_DIR="$(grep -E '^CHROMADB_HOST_DIR=' ohs/.env | tail -1 | cut -d= -f2-)"
 SHARED_REF_HOST_DIR="$(grep -E '^SHARED_REF_HOST_DIR=' ohs/.env | tail -1 | cut -d= -f2-)"
+CARTOONS_HOST_DIR="$(grep -E '^CARTOONS_HOST_DIR=' ohs/.env | tail -1 | cut -d= -f2-)"
 PGPW="$(grep -E '^POSTGRES_PASSWORD=' ohs/.env | tail -1 | cut -d= -f2-)"; PGPW="${PGPW:-1229}"
 : "${CHROMADB_HOST_DIR:?ohs/.env에 CHROMADB_HOST_DIR 필요}"
 : "${SHARED_REF_HOST_DIR:?ohs/.env에 SHARED_REF_HOST_DIR 필요}"
+: "${CARTOONS_HOST_DIR:?ohs/.env에 CARTOONS_HOST_DIR 필요}"
 
 echo "[1/6] 이미지 load (레지스트리 불요)..."
 docker load -i "$DIST/all-images.tar.gz"
@@ -32,6 +34,10 @@ test -d "${CHROMADB_HOST_DIR}" || { echo "!! ${CHROMADB_HOST_DIR} 생성 실패"
 mkdir -p "${SHARED_REF_HOST_DIR}"
 tar xzf "$DIST/ohs-shared-reference.tar.gz" -C "${SHARED_REF_HOST_DIR}" --strip-components=1   # 'reference/' strip
 test -f "${SHARED_REF_HOST_DIR}/canonical_vocab.py" || { echo "!! ${SHARED_REF_HOST_DIR} 압축해제 실패"; exit 1; }
+# 조문 만화 카드(667장 WebP) — frontend nginx가 /ohs/cartoons로 서빙(ro bind-mount)
+mkdir -p "$(dirname "${CARTOONS_HOST_DIR}")"
+tar xzf "$DIST/ohs-cartoons.tar.gz" -C "$(dirname "${CARTOONS_HOST_DIR}")"   # 'cartoons/' 포함
+test -n "$(ls "${CARTOONS_HOST_DIR}"/*.webp 2>/dev/null | head -1)" || { echo "!! ${CARTOONS_HOST_DIR} 압축해제 실패"; exit 1; }
 
 echo "[4/6] 전용 PG 기동 + 데이터 restore..."
 ( cd ohs && docker compose up -d postgres )

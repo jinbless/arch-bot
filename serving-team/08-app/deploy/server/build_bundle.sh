@@ -9,32 +9,39 @@ APP="$(cd "$HERE/../.." && pwd)"          # serving-team/08-app
 REPO="$(cd "$APP/../.." && pwd)"          # arch-bot 루트(shared/reference 위치)
 OUT="$HERE/dist"; mkdir -p "$OUT"
 
-echo "[1/6] OHS 이미지 빌드 (backend, frontend)..."
+echo "[1/7] OHS 이미지 빌드 (backend, frontend)..."
 docker build -t ohs-backend:airgap "$APP/backend"
 docker build -t ohs-frontend:airgap --build-arg VITE_API_BASE_URL=/api/v1 "$APP/frontend"
 
-echo "[2/6] 베이스 이미지 확보 (postgres:15, nginx:alpine)..."
+echo "[2/7] 베이스 이미지 확보 (postgres:15, nginx:alpine)..."
 docker pull postgres:15
 docker pull nginx:alpine
 
-echo "[3/6] 전체 이미지 save → all-images.tar.gz (backend+frontend+postgres+nginx)..."
+echo "[3/7] 전체 이미지 save → all-images.tar.gz (backend+frontend+postgres+nginx)..."
 docker save ohs-backend:airgap ohs-frontend:airgap postgres:15 nginx:alpine | gzip > "$OUT/all-images.tar.gz"
 
-echo "[4/6] ChromaDB tar..."
+echo "[4/7] ChromaDB tar..."
 if [ -d "$APP/backend/data/chromadb" ]; then
   tar czf "$OUT/ohs-chromadb.tar.gz" -C "$APP/backend/data" chromadb
 else
   echo "  !! $APP/backend/data/chromadb 없음 — 컬렉션 먼저 확보" >&2; exit 1
 fi
 
-echo "[5/6] shared/reference tar (canonical_vocab+JSON, 런타임 SSOT — 이미지에 안 굽힘)..."
+echo "[5/7] shared/reference tar (canonical_vocab+JSON, 런타임 SSOT — 이미지에 안 굽힘)..."
 if [ -d "$REPO/shared/reference" ]; then
   tar czf "$OUT/ohs-shared-reference.tar.gz" --exclude='__pycache__' -C "$REPO/shared" reference
 else
   echo "  !! $REPO/shared/reference 없음" >&2; exit 1
 fi
 
-echo "[6/6] kosha 데이터 dump (로컬 kosha-pg 컨테이너 필요)..."
+echo "[6/7] cartoons tar (조문 만화 카드 667장 — 이미지에 안 굽고 bind-mount)..."
+if [ -d "$APP/frontend/public/cartoons" ]; then
+  tar czf "$OUT/ohs-cartoons.tar.gz" -C "$APP/frontend/public" cartoons
+else
+  echo "  !! $APP/frontend/public/cartoons 없음 — backend/scripts/build_cartoon_assets.py 먼저 실행" >&2; exit 1
+fi
+
+echo "[7/7] kosha 데이터 dump (로컬 kosha-pg 컨테이너 필요)..."
 if docker ps --format '{{.Names}}' | grep -qx 'kosha-pg'; then
   # 컨테이너 stdout → 호스트 파일(리다이렉트). -f /tmp 경로 미사용(Git Bash MSYS 경로변환·컨테이너 권한 회피).
   docker exec -e PGPASSWORD=1229 kosha-pg pg_dump -U kosha -d kosha -Fc -Z6 > "$OUT/ohs-kosha.dump"

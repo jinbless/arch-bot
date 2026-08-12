@@ -40,6 +40,10 @@ services:
     image: ohs-frontend:airgap
     container_name: ohs-frontend       # ← edge가 이 이름으로 프록시
     restart: unless-stopped
+    volumes:
+      # 조문 만화 카드 WebP(667장 ~37MB) — 이미지에 굽지 않는다(chromadb·shared/reference 패턴).
+      # 산출물 ohs-cartoons.tar.gz를 압축해제한 경로(예: /home/moeldev/srv/ohs/cartoons)를 지정.
+      - ${CARTOONS_HOST_DIR:?set CARTOONS_HOST_DIR in ohs/.env}:/usr/share/nginx/html/cartoons:ro
     depends_on: [backend]
     networks: [internal, edge-net]
 

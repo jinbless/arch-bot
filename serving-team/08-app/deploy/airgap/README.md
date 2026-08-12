@@ -43,6 +43,7 @@ bash deploy/airgap/build_and_save.sh
 | `ohs-images.tar.gz` | 1단계 산출 (~0.5–1GB) |
 | `ohs-chromadb.tar.gz` | 1단계 산출 (~0.6–0.8GB) |
 | `ohs-shared-reference.tar.gz` | 1단계 산출 (~0.1MB, canonical_vocab+JSON) |
+| `ohs-cartoons.tar.gz` | 조문 만화 카드 667장 WebP (~37MB, build_cartoon_assets.py 산출 — frontend nginx bind-mount) |
 | `docker-compose.airgap.yml` | `deploy/airgap/` |
 | `load_and_up.sh` | `deploy/airgap/` |
 | `.env.example` | `deploy/airgap/` |

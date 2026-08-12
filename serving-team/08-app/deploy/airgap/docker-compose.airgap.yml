@@ -32,6 +32,11 @@ services:
     restart: unless-stopped
     ports:
       - "0.0.0.0:3000:80"              # 개인서버 외부 접근. 리버스프록시 뒤면 127.0.0.1:3000 권장.
+    volumes:
+      # 조문 만화 카드 WebP(667장 ~37MB) — 이미지에 굽지 않는다(chromadb·shared/reference 패턴).
+      # 생성: backend/scripts/build_cartoon_assets.py → frontend/public/cartoons.
+      # 로컬 스택은 .env에 CARTOONS_HOST_DIR=<repo>/serving-team/08-app/frontend/public/cartoons
+      - ${CARTOONS_HOST_DIR:?set CARTOONS_HOST_DIR in .env}:/usr/share/nginx/html/cartoons:ro
     depends_on: [backend]
     networks: [ohs-network, edge-net]    # edge-net: 공용 edge nginx(랜딩 :80)가 /ohs/를 이 프론트로 프록시
 
