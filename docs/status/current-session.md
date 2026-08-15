@@ -3,6 +3,30 @@
 > ⚠️ 이 문서는 2026-06-14 이후 갱신이 끊겼고, 그 뒤 작업은 `docs/dev-notes/`와 메모리에만 있었다.
 > **최신 상태는 아래 '2026-08-09~12' 절부터** 읽는다.
 
+## ⭐⭐⭐ 서빙 분리 — 새 프로젝트 `C:\project\ohsdev` 착수 (2026-08-15, Phase −1·0 완료)
+
+사용자 결정: 온톨로지로 비대해진 arch-bot에서 **실제 서비스 기능만** 식별 이관해 별도 프로젝트로.
+Next.js 16(프론트+관리자, BFF) / FastAPI 이관본 / **PG 단일 원천(kosha·ref·ops 3스키마)** —
+chromadb·임베딩·rerank·SHE·배지·KOSHA 가이드 자동 매칭·CI 폴백·4축 어휘 **제거**, 기인물 =
+group_key 정본 + 진입 어휘 합집합, unknown 4종 저장 + 관리자 화면. **정본 = ohsdev 리포
+[docs/00_INDEX.md](../../../ohsdev/docs/00_INDEX.md)(계획서 §1~13)·`docs/decisions/ADR-0001~0006`·
+`docs/05_이관_로그.md`.** 이후 서빙 설계 논의는 ohsdev 문서에서 한다.
+
+- **Phase −1 hotfix(arch-bot, 커밋 9ce0c69, 배포 완료)**: 히스토리 "입력: 파일명"(기업명 노출)
+  제거 + image input_preview 저장 중단 + prod 85행 NULL · 홈 3→2타일("표준 절차와 벌칙 안내" 삭제) ·
+  "45건" 문구 제거.
+- **Phase 0(ohsdev 커밋 1b6a346)**: compose 3컨테이너(postgres 5440·backend 8020·frontend 3020,
+  기존 스택과 포트 분리)·backend 골격(security·rate_limit XFF 규칙·health·Alembic 0001·dead-import
+  린트 게이트, pytest 9 passed)·Next 골격(BFF·HMAC 관리자 로그인)·docs·deploy(별도 prod 스택)·CI.
+  로컬 실증: /health 200(db ok)·홈 200·BFF 200·admin 게이트 401/307·격리 `next build` 성공.
+  ⚠ 캡처 13장은 기업명·현장 사진 포함 → ohsdev에서 PNG 미추적(로컬 전용). GitHub 원격은 사용자
+  확인 대기(Q12).
+- **arch-bot의 역할 변화**: 데이터 생산 스크립트(build_gimulmul_index·build_flow_slice_all·
+  build_always_applicable·build_cartoon_assets)·gold·측정 하니스는 **여기 잔류**, ohsdev는 산출물을
+  적재만. 앵커 변경은 계속 여기서 gold 계측 후 ohsdev 적재.
+- **다음 = Phase 1**(PG 스키마 0002~0005 + kosha 5테이블 복사 + ref JSON 적재 + 동치 diff 0) →
+  2 백엔드 이관 → 3 Next 사용자 화면 → 4 unknown+관리자 → 5 병행 배포·전환(구 스택은 그때까지 유지).
+
 ## ⭐ 추락·붕괴 카탈로그 편입 완료 (2026-08-13 — exact 0.959/97장, prod 실증)
 
 개구부 사진의 흐름 누락(경북환경 prod 실증: FALL 1.0인데 앵커=잔재물·추락 조문 0건)의 근본
