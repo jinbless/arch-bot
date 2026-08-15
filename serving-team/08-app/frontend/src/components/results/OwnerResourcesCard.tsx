@@ -56,8 +56,9 @@ const OwnerResourcesCard: React.FC<{ analysis: AnalysisResponse; flow?: WorkFlow
           </p>
           <p className="text-sm text-gray-700">
             이번 분석과 관계없이 현장이 늘 갖춰야 하는 것 —{' '}
+            {/* 건수는 하드코딩하지 않는다 — 45→33(추락·붕괴 승격, 2026-08-13)처럼 데이터가 바뀌면 문구가 stale해진다 */}
             <Link to="/basics" className="text-primary-600 hover:text-primary-800 underline">
-              작업장·통로·보호구 등 45건 보기
+              작업장·통로·보호구 목록 보기
             </Link>
           </p>
         </div>

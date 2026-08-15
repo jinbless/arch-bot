@@ -32,12 +32,16 @@ class AnalysisService:
         )
         # 분석 사진 thumbnail(긴 변 480px) — history에서 결과와 함께 표시(best-effort, 실패 시 None).
         thumbnail = file_handler.make_thumbnail_data_uri(image_base64, max_dim=480)
+        # ⚠ 업로드 파일명(filename)은 저장하지 않는다(2026-08-15 사용자 결정) — 감독 사진 파일명에
+        #   실제 기업명·현장명이 들어가 히스토리 화면에 그대로 노출됐다. 화면 표시도 제거됨(HistoryPage).
+        #   filename 인자는 API 계약 유지를 위해 받기만 하고 쓰지 않는다.
+        _ = filename
         return await analysis_pipeline.run(
             db=db,
             run_input=AnalysisRunInput(
                 result=result,
                 analysis_type="image",
-                input_preview=filename,
+                input_preview="",
                 declared_industry_text=workplace_type,
                 thumbnail=thumbnail,
             ),

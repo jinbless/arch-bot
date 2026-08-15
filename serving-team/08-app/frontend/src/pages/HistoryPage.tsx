@@ -96,11 +96,8 @@ const HistoryPage: React.FC = () => {
                     </span>
                   </div>
                   <p className="text-sm md:text-base text-gray-700 line-clamp-2">{item.summary}</p>
-                  {item.input_preview && (
-                    <p className="text-xs md:text-sm text-gray-400 mt-2 truncate">
-                      입력: {item.input_preview}
-                    </p>
-                  )}
+                  {/* "입력: 파일명" 표시 제거(2026-08-15 사용자 결정) — 업로드 파일명에 실제 기업명이 들어가
+                      공개 화면에 노출됐다. 백엔드도 image 분석의 input_preview를 더 이상 저장하지 않는다. */}
                 </div>
 
                 {/* 버튼 영역 */}

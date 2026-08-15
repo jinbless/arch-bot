@@ -57,26 +57,21 @@ const HomePage: React.FC = () => {
         <h3 className="font-bold text-blue-900 mb-3 text-sm md:text-base">
           분석 결과에 포함되는 내용
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* "표준 절차와 벌칙 안내" 타일 삭제(2026-08-15 사용자 결정) — standard_procedures·penalty_paths는
+            legacy off로 현행 화면에 표시되지 않아 문구가 실제와 어긋났다. 실제 결과 화면 구성(3단계)에 맞춰 2타일. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-start gap-3">
             <span className="text-xl md:text-2xl">⚠️</span>
             <div>
               <h4 className="font-medium text-gray-900 text-sm md:text-base">위험 요약</h4>
-              <p className="text-xs md:text-sm text-gray-600">관찰 사실과 정규화된 위험 특징</p>
+              <p className="text-xs md:text-sm text-gray-600">사진에서 본 관찰 사실과 위험 요소</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-xl md:text-2xl">✅</span>
             <div>
-              <h4 className="font-medium text-gray-900 text-sm md:text-base">즉시 조치</h4>
-              <p className="text-xs md:text-sm text-gray-600">먼저 줄여야 할 위험과 체크포인트</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <span className="text-xl md:text-2xl">📚</span>
-            <div>
-              <h4 className="font-medium text-gray-900 text-sm md:text-base">표준 절차와 벌칙 안내</h4>
-              <p className="text-xs md:text-sm text-gray-600">KOSHA Guide와 조건별 벌칙 경로</p>
+              <h4 className="font-medium text-gray-900 text-sm md:text-base">즉시 조치와 작업 흐름</h4>
+              <p className="text-xs md:text-sm text-gray-600">기인물 기준으로 지금 당장 할 조치와 앞뒤 단계의 검수된 조문</p>
             </div>
           </div>
         </div>
